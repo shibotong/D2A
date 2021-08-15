@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class ItemViewModel: ObservableObject {
-    @Published var itemImage = UIImage(named: "item_icon")!
+    @Published var itemImage = UIImage(named: "empty_item")!
     
     private var item: Item?
     

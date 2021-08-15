@@ -59,4 +59,18 @@ class OpenDotaController {
             onCompletion(data)
         }
     }
+    
+    static func loadHeroPortrait(url: String, onCompletion: @escaping (Data) -> ()) {
+        // /apps/dota2/images/heroes/dark_seer_icon.png
+        let parse = url.replacingOccurrences(of: "/apps/dota2/images/heroes/", with: "")
+        let parse2 = parse.replacingOccurrences(of: "_icon.png", with: "")
+        let url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/\(parse2).png"
+        print("loading hero portrait \(url)")
+        AF.request(url).responseData { response in
+            guard let data = response.data else {
+                return
+            }
+            onCompletion(data)
+        }
+    }
 }

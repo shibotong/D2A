@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MatchView: View {
     @ObservedObject var vm: MatchViewModel
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
         if vm.loading {
             ProgressView()
@@ -16,18 +17,44 @@ struct MatchView: View {
                     vm.loadMatch()
                 }
         } else {
-            
-            VStack(spacing: 0) {
-                ScoreboardView(match: vm.match).padding()
-                Divider()
-                ScrollView {
-                    GraphView(match: vm.match)
-                        .background(Color(.systemBackground))
-                }.background(Color(.secondarySystemBackground))
+            if horizontalSizeClass == .compact {
+                VStack(spacing: 0) {
+                    ScoreboardView(match: vm.match).padding()
+                    Divider()
+                    ScrollView {
+                        AllTeamPlayerView(match: vm.match).background(Color(.systemBackground))
+                        DifferenceGraphView(goldDiff: vm.match.goldDiff, xpDiff: vm.match.xpDiff, mins: Double(vm.match.goldDiff.count - 1))
+                            .frame(height: 300)
+                            .background(Color(.systemBackground))
+                            .animation(.linear(duration: 0.3))
+                    }
+                }
+                .navigationTitle("ID: \(vm.match.id.description)")
+                .navigationBarTitleDisplayMode(.inline)
+                .background(Color(.secondarySystemBackground))
+            } else {
+                GeometryReader { proxy in
+                    let width = proxy.size.width * 3 / 5
+                    HStack {
+                        VStack {
+                            ScoreboardView(match: vm.match).padding()
+                            DifferenceGraphView(goldDiff: vm.match.goldDiff, xpDiff: vm.match.xpDiff, mins: Double(vm.match.goldDiff.count - 1))
+                                .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(.systemBackground)))
+                                .padding()
+                                .animation(.linear(duration: 0.3))
+                            
+                        }
+                        .frame(width: width)
+                        .padding()
+                        ScrollView {
+                            AllTeamPlayerView(match: vm.match).background(Color(.systemBackground))
+                        }
+                    }
+                    .background(Color(.secondarySystemBackground))
+                    .navigationTitle("ID: \(vm.match.id.description)")
+                    .navigationBarTitleDisplayMode(.inline)
+                }
             }
-            
-            .navigationTitle("ID: \(vm.match.id.description)")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -38,30 +65,14 @@ struct MatchView_Previews: PreviewProvider {
     }
 }
 
-struct GraphView: View {
+struct AllTeamPlayerView: View {
     var match: Match
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State var selectedPlayer: Player?
     var body: some View {
-        if horizontalSizeClass == .compact {
-//            TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, selectedPlayer: $selectedPlayer)
-            if selectedPlayer == nil {
-                DifferenceGraphView(goldDiff: match.goldDiff, xpDiff: match.xpDiff, mins: Double(match.goldDiff.count - 1))
-                    .frame(height: 300)
-            } else {
-                PlayerDetailView(player: selectedPlayer!)
-            }
-//            TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, selectedPlayer: $selectedPlayer)
-        } else {
-            HStack {
-                TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, selectedPlayer: $selectedPlayer)
-                if selectedPlayer == nil {
-                    DifferenceGraphView(goldDiff: match.goldDiff, xpDiff: match.xpDiff, mins: Double(match.goldDiff.count - 1))
-                } else {
-                    PlayerDetailView(player: selectedPlayer!)
-                }
-                TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, selectedPlayer: $selectedPlayer)
-            }
+        VStack(alignment: .leading) {
+            Text("Overview").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
+            TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, selectedPlayer: $selectedPlayer)
+            TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, selectedPlayer: $selectedPlayer)
         }
     }
 }
@@ -87,54 +98,31 @@ struct PlayerRowView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
-        if horizontalSizeClass == .compact {
-            VStack(spacing: 0) {
-                HeroIconImageView(heroID: player.heroID)//.equatable()
-                    .frame(width: 32, height: 32)
-                HStack(spacing: 1) {
-                    Circle().frame(width: 10, height: 10).foregroundColor(Color(.systemYellow))
-                    Text("\(player.netWorth)")
+        VStack(spacing: 0){
+            HStack {
+                HeroIconImageView(heroID: player.heroID).equatable().frame(width: 35, height: 35)
+                VStack(alignment: .leading) {
+                    Text("\(player.personaname ?? "Anolymous")").font(.custom(fontString, size: 15)).bold()
+                    Text("LVL \(player.level) \(HeroDatabase.shared.fetchHeroWithID(id: player.heroID)?.localizedName.uppercased() ?? "")").font(.custom(fontString, size: 10)).foregroundColor(Color(.secondaryLabel))
                 }
-                Text("\(player.kills)/\(player.deaths)/\(player.assists)")
-            }
-            .padding(5)
-            .font(.custom(fontString, size: 13))
-            .frame(maxWidth: .infinity)
-            .background(RoundedRectangle(cornerRadius: 20).stroke(Color(isRadiant ? .systemGreen : .systemRed), lineWidth: player.heroID == selectedPlayer?.heroID ? 3 : 1))
-            .onTapGesture {
-                onClickFunction()
-            }
-        } else {
-            HStack(spacing: 5) {
-                Image("hero_icon")
-                VStack(spacing: 1) {
-                    HStack(spacing: 1) {
-                        Circle().frame(width: 10, height: 10).foregroundColor(Color(.systemYellow))
-                        Text("\(player.netWorth)")
+                Spacer()
+                VStack (alignment: .trailing, spacing: 0) {
+                    HStack(spacing: 0) {
+                        Text("\(player.kills)")
+                        Text("/\(player.deaths)/\(player.assists)").foregroundColor(Color(.systemGray))
                     }
-                    Text("\(player.kills)/\(player.deaths)/\(player.assists)")
-                }
+                    HStack(spacing: 3) {
+                        Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
+                        Text("\(player.netWorth)").foregroundColor(Color(.systemOrange))
+                    }
+                }.font(.custom(fontString, size: 12))
+            }.frame(height: 50)
+            if player.heroID == selectedPlayer?.heroID {
+                PlayerDetailView(player: player).transition(.opacity)
             }
-            .padding(5)
-            .font(.custom(fontString, size: 13))
-            .frame(maxHeight: .infinity)
-            .background(RoundedRectangle(cornerRadius: 15).stroke(Color(isRadiant ? .systemGreen : .systemRed), lineWidth: player.heroID == selectedPlayer?.heroID ? 3 : 1))
-            .onTapGesture {
-                onClickFunction()
-            }
         }
-    }
-    
-    private func onClickFunction() {
-        guard let selected = selectedPlayer else {
-            selectedPlayer = player
-            return
-        }
-        if selected.heroID == player.heroID {
-            selectedPlayer = nil
-        } else {
-            selectedPlayer = player
-        }
+        .animation(.linear(duration: 0.2))
+        
     }
 }
 
@@ -162,10 +150,10 @@ struct TeamHeaderView: View {
             Rectangle().frame(height: 1).foregroundColor(Color(isRadiant ? .systemGreen : .systemRed))
             HStack {
                 Text("\(isRadiant ? "Radiant" : "Dire")")
-                    .font(.custom(fontString, size: 18))
+                    .font(.custom(fontString, size: 10))
                     .bold()
                     .padding(5)
-                    .frame(width: 80)
+                    .frame(width: 50)
                     .foregroundColor(Color(.systemBackground))
                     .background(Color(isRadiant ? .systemGreen : .systemRed))
                 Spacer()
@@ -182,18 +170,29 @@ struct TeamView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
-        if horizontalSizeClass == .compact {
-            HStack {
+        VStack(spacing: 0) {
+                TeamHeaderView(isRadiant: isRadiant)
                 ForEach(players, id: \.heroID) { player in
                     PlayerRowView(player: player, isRadiant: isRadiant, selectedPlayer: $selectedPlayer)
+                        .padding(.horizontal)
+                        .background(Rectangle().stroke(Color(.systemGray6)))
+                        .onTapGesture {
+                            onClickFunction(player: player)
+                        }
+                    
                 }
-            }.padding(5)
+            }
+    }
+    
+    private func onClickFunction(player: Player) {
+        guard let selected = selectedPlayer else {
+            selectedPlayer = player
+            return
+        }
+        if selected.heroID == player.heroID {
+            selectedPlayer = nil
         } else {
-            VStack {
-                ForEach(players, id: \.heroID) { player in
-                    PlayerRowView(player: player, isRadiant: isRadiant, selectedPlayer: $selectedPlayer)
-                }
-            }.padding(5)
+            selectedPlayer = player
         }
     }
 }

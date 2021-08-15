@@ -13,7 +13,7 @@ struct DifferenceGraphView: View {
     @State var mins: Double
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("Difference In Gold/XP Earned").font(.custom(fontString, size: 20)).bold().padding()
+            Text("Difference In Gold/XP Earned").font(.custom(fontString, size: 20)).bold().padding(20)
             HStack {
                 VStack(alignment: .leading, spacing: 3) {
                     Text("\(Int(mins)):00").font(.custom(fontString, size: 10)).bold().foregroundColor(Color(.secondaryLabel))
@@ -28,8 +28,9 @@ struct DifferenceGraphView: View {
                 }
                 Spacer()
             }
-            .padding(.leading)
+            .padding(.leading, 20)
             .padding(.bottom, -30)
+            Spacer()
             ZStack {
                 BackgroundLine(max: fetchLargestABS())
                 DrawDiffLines(data: xpDiff, max: fetchLargestABS(), selectedTime: goldDiff.count - 1).foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
@@ -42,19 +43,20 @@ struct DifferenceGraphView: View {
                             .foregroundColor(Color(.secondaryLabel).opacity(0.1))
                             .frame(width: 1)
                             .offset(x: CGFloat(proxy.size.width) * CGFloat(mins) / CGFloat(goldDiff.count - 1), y: 0)
-                            .animation(.linear(duration: 0.1))
                 }
                 CurrentPoint(data: xpDiff, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.blue)
                 CurrentPoint(data: goldDiff, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.yellow)
                 
-            }
+            }.frame(maxHeight: 300)
             HStack {
                 Text("0:00").font(.custom(fontString, size: 15)).foregroundColor(Color(.secondaryLabel))
                 Slider(value: $mins, in: 0...Double(goldDiff.count - 1), step: 1)
                     .accentColor(.secondaryDota)
                 Text("\(Int(goldDiff.count - 1)):00").font(.custom(fontString, size: 15)).foregroundColor(Color(.secondaryLabel))
             }.padding()
+            Spacer()
         }
+        
     }
     
     private func fetchLargestABS() -> Int{
@@ -93,7 +95,6 @@ struct CurrentPoint: View {
                 .overlay(Circle().stroke(Color.white, lineWidth: 2))
                 .shadow(radius: 1)
                 .offset(x: CGFloat(proxy.size.width) * CGFloat(selectedTime) / CGFloat(data.count - 1) - 5, y: proxy.size.height * CGFloat(CGFloat(max - data[selectedTime]) / CGFloat(max * 2)) - 5)
-                .animation(.linear(duration: 0.1))
                 
 //                .offset(x: CGFloat(proxy.size.width) * CGFloat(selectedTime) / CGFloat(data.count - 1), y: CGFloat(max - data[selectedTime]) * proxy.size.height)
         }
@@ -131,7 +132,6 @@ struct DrawDiffLines: View {
                 }
             }
             .stroke(lineWidth: 3)
-            .animation(.linear)
         }
         
     }

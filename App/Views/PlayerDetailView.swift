@@ -14,27 +14,14 @@ struct PlayerDetailView: View {
             ZStack {
                 HStack {
                     Spacer()
-                    VStack(spacing: 0) {
-                        Image("hero-portrate")
-                            .resizable()
-                            .scaledToFit()
-                            .padding(.trailing, -30)
-                            .opacity(0.5)
-                        VStack(spacing: 0) {
-                            HStack {
-                                Circle().frame(width: 10, height: 10).foregroundColor(Color(.systemYellow))
-                                Text("\(player.netWorth)").foregroundColor(Color(.systemOrange))
-                            }
-                            HStack(spacing: 0) {
-                                Text("\(player.kills)").bold()
-                                Text("/\(player.deaths)/\(player.assists)").foregroundColor(Color(.systemGray))
-                            }
-                        }
-                    }.font(.custom(fontString, size: 15))
+                    HeroImgImageView(heroID: player.heroID)
+                        .frame(height: 200)
+                        .padding(.trailing, -30)
                 }
                 PlayerDetailStatView(player: player)
+                
             }
-        }.frame(height: 250).padding(.horizontal, 10)
+        }.frame(height: 200).padding(.horizontal, 10)
     }
 }
 
@@ -84,18 +71,6 @@ struct PlayerDetailStatView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                HStack {
-                    Image("profile")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50, height: 50)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                    VStack(alignment: .leading) {
-                        Text("\(player.personaname ?? "Anolymous")").font(.custom(fontString, size: 20)).bold()
-                        Text("LVL \(player.level) \(HeroDatabase.shared.fetchHeroWithID(id: player.heroID)?.localizedName.uppercased() ?? "ANTI")")
-                            .font(.custom(fontString, size: 15))
-                    }
-                }
                 ItemBackPackView(player: player)
                 HStack(spacing: 20) {
                     HStack {
@@ -120,7 +95,7 @@ struct PlayerDetailStatView: View {
                             Text("\(player.assists)")
                         }
                     }
-                }.font(.custom(fontString, size: 16))
+                }.font(.custom(fontString, size: 15))
             }
             Spacer()
         }
