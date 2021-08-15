@@ -12,7 +12,9 @@ struct MatchListView: View {
     var body: some View {
             List {
                 ForEach(vm.recentMatches) { match in
-                    NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
+                    NavigationLink(destination:
+                                    MatchView(vm: MatchViewModel(matchid: "\(match.id)"))
+                    ) {
                         MatchListRowView(vm: MatchListRowViewModel(match: match))
                     }
                 }
@@ -36,7 +38,7 @@ struct MatchListRowView: View {
     @ObservedObject var vm: MatchListRowViewModel
     var body: some View {
             HStack(spacing: 10) {
-                HeroIconImageView(heroID: vm.match.heroID).equatable()
+                HeroIconImageView(heroID: vm.match.heroID)//.equatable()
                     .frame(width: 32, height: 32)
                     .padding(10)
                     .background(RoundedRectangle(cornerRadius: 15).stroke(Color(vm.match.win ? .systemGreen : .secondaryLabel), lineWidth: 2))

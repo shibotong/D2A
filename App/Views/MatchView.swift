@@ -16,13 +16,17 @@ struct MatchView: View {
                     vm.loadMatch()
                 }
         } else {
+            
             VStack(spacing: 0) {
                 ScoreboardView(match: vm.match).padding()
                 Divider()
                 ScrollView {
                     GraphView(match: vm.match)
-                }
+                        .background(Color(.systemBackground))
+                        .padding()
+                }.background(Color(.secondarySystemBackground))
             }
+            
             .navigationTitle("ID: \(vm.match.id.description)")
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -41,18 +45,19 @@ struct GraphView: View {
     @State var selectedPlayer: Player?
     var body: some View {
         if horizontalSizeClass == .compact {
-            TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, selectedPlayer: $selectedPlayer)
+//            TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, selectedPlayer: $selectedPlayer)
             if selectedPlayer == nil {
-                DifferenceGraphView(goldDiff: match.goldDiff, xpDiff: match.xpDiff)
+                DifferenceGraphView(goldDiff: match.goldDiff, xpDiff: match.xpDiff, mins: Double(match.goldDiff.count - 1))
+                    .frame(height: 300)
             } else {
                 PlayerDetailView(player: selectedPlayer!)
             }
-            TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, selectedPlayer: $selectedPlayer)
+//            TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, selectedPlayer: $selectedPlayer)
         } else {
             HStack {
                 TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, selectedPlayer: $selectedPlayer)
                 if selectedPlayer == nil {
-                    DifferenceGraphView(goldDiff: match.goldDiff, xpDiff: match.xpDiff)
+                    DifferenceGraphView(goldDiff: match.goldDiff, xpDiff: match.xpDiff, mins: Double(match.goldDiff.count - 1))
                 } else {
                     PlayerDetailView(player: selectedPlayer!)
                 }
@@ -85,7 +90,7 @@ struct PlayerRowView: View {
     var body: some View {
         if horizontalSizeClass == .compact {
             VStack(spacing: 0) {
-                HeroIconImageView(heroID: player.heroID).equatable()
+                HeroIconImageView(heroID: player.heroID)//.equatable()
                     .frame(width: 32, height: 32)
                 HStack(spacing: 1) {
                     Circle().frame(width: 10, height: 10).foregroundColor(Color(.systemYellow))

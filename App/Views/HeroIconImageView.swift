@@ -8,7 +8,7 @@
 import SwiftUI
 import UIKit
 
-struct HeroIconImageView: View, Equatable {
+struct HeroIconImageView: View {
     @ObservedObject var vm: HeroIconImageViewModel
     
     init(heroID: Int) {
@@ -21,9 +21,9 @@ struct HeroIconImageView: View, Equatable {
             .scaledToFit()
     }
     
-    static func == (lhs: HeroIconImageView, rhs: HeroIconImageView) -> Bool {
-        lhs.vm.id == rhs.vm.id
-    }
+//    static func == (lhs: HeroIconImageView, rhs: HeroIconImageView) -> Bool {
+//        lhs.vm.id == rhs.vm.id
+//    }
 }
 
 struct HeroIconImageView_Previews: PreviewProvider {

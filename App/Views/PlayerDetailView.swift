@@ -92,7 +92,7 @@ struct PlayerDetailStatView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                     VStack(alignment: .leading) {
                         Text("\(player.personaname ?? "Anolymous")").font(.custom(fontString, size: 20)).bold()
-                        Text("LVL \(player.level) \(HeroDatabase.shared.fetchHeroWithID(id: player.heroID)!.localizedName.uppercased())")
+                        Text("LVL \(player.level) \(HeroDatabase.shared.fetchHeroWithID(id: player.heroID)?.localizedName.uppercased() ?? "ANTI")")
                             .font(.custom(fontString, size: 15))
                     }
                 }
