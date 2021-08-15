@@ -85,7 +85,8 @@ struct PlayerRowView: View {
     var body: some View {
         if horizontalSizeClass == .compact {
             VStack(spacing: 0) {
-                HeroIconImageView(heroID: player.heroID).frame(width: 32, height: 32)
+                HeroIconImageView(heroID: player.heroID).equatable()
+                    .frame(width: 32, height: 32)
                 HStack(spacing: 1) {
                     Circle().frame(width: 10, height: 10).foregroundColor(Color(.systemYellow))
                     Text("\(player.netWorth)")

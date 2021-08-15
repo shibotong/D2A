@@ -36,16 +36,16 @@ struct MatchListRowView: View {
     @ObservedObject var vm: MatchListRowViewModel
     var body: some View {
             HStack(spacing: 10) {
-                HeroIconImageView(heroID: vm.match.heroID)
+                HeroIconImageView(heroID: vm.match.heroID).equatable()
                     .frame(width: 32, height: 32)
                     .padding(10)
-                    .background(RoundedRectangle(cornerRadius: 15).stroke(Color(vm.match.win ? .systemGreen : .systemGray), lineWidth: 2))
+                    .background(RoundedRectangle(cornerRadius: 15).stroke(Color(vm.match.win ? .systemGreen : .secondaryLabel), lineWidth: 2))
                     
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
                         Text("\(vm.hero?.localizedName ?? "")").font(.custom(fontString, size: 17, relativeTo: .headline)).bold()
                         Spacer()
-                        Text("\(vm.match.startTime.convertToTime())").bold().foregroundColor(Color(.systemGray)).font(.caption2)
+                        Text("\(vm.match.startTime.convertToTime())").bold().foregroundColor(Color(.secondaryLabel)).font(.caption2)
                     }
                     HStack {
                         HStack {
@@ -57,7 +57,6 @@ struct MatchListRowView: View {
                             }
                             Spacer()
                         }
-//                        .frame(width: 100)
                         Spacer()
                         HStack {
                             KDAView(match: vm.match)
@@ -68,7 +67,7 @@ struct MatchListRowView: View {
                         HStack {
                             Spacer()
                             VStack(alignment: .trailing) {
-                                Text("Duration").font(.custom(fontString, size: 10, relativeTo: .caption2)).foregroundColor(Color(.systemGray))
+                                Text("Duration").font(.custom(fontString, size: 10, relativeTo: .caption2)).foregroundColor(Color(.secondaryLabel))
                                 Text("\(vm.match.duration.convertToDuration())")
                                     .font(.custom(fontString, size: 13, relativeTo: .footnote))
                                     .bold()
@@ -95,7 +94,7 @@ struct KDAView: View {
     var match: RecentMatch
     var body: some View {
         VStack(alignment: .leading) {
-            Text("K/D/A").bold().foregroundColor(Color(.systemGray)).font(.custom(fontString, size: 10))
+            Text("K/D/A").bold().foregroundColor(Color(.secondaryLabel)).font(.custom(fontString, size: 10))
             Text("\(match.kills)/\(match.deaths)/\(match.assists)").font(.custom(fontString, size: 13, relativeTo: .footnote))
         }
     }

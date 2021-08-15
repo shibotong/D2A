@@ -45,31 +45,12 @@ class MatchListViewModel: ObservableObject {
 
 class MatchListRowViewModel: ObservableObject {
     @Published var heroName: String = ""
-//    @Published var heroIcon: UIImage = UIImage(systemName: "person.fill")!
     @Published var match: RecentMatch
-    
     @Published var hero: Hero?
     
     init(match: RecentMatch) {
         self.match = match
         
         self.hero = HeroDatabase.shared.fetchHeroWithID(id: match.heroID)
-//        self.loadHeroIcon()
     }
-//
-//    private func loadHeroIcon() {
-//        guard let hero = self.hero else {
-//            return
-//        }
-//        OpenDotaController.loadItemImg(url: hero.icon) { data in
-//            DispatchQueue.main.async {
-//                guard let image = UIImage(data: data) else {
-//                    return
-//                }
-//                self.heroIcon = image
-//            }
-//        }
-//    }
-    
-    
 }
