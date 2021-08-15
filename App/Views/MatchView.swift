@@ -23,7 +23,6 @@ struct MatchView: View {
                 ScrollView {
                     GraphView(match: vm.match)
                         .background(Color(.systemBackground))
-                        .padding()
                 }.background(Color(.secondarySystemBackground))
             }
             

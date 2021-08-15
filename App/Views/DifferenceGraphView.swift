@@ -12,46 +12,48 @@ struct DifferenceGraphView: View {
     var xpDiff: [Int]
     @State var mins: Double
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 0) {
+            Text("Difference In Gold/XP Earned").font(.custom(fontString, size: 20)).bold().padding()
             HStack {
-                Text("\(Int(mins)):00").font(.custom(fontString, size: 15))
-                Divider()
-                VStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("\(Int(mins)):00").font(.custom(fontString, size: 10)).bold().foregroundColor(Color(.secondaryLabel))
                     HStack {
                         Circle().frame(width: 10, height: 10).foregroundColor(.yellow)
-                        Text("Gold").font(.custom(fontString, size: 15))
+                        Text("\(abs(goldDiff[Int(mins)]))").foregroundColor(Color(goldDiff[Int(mins)] >= 0 ? .systemGreen : .systemRed)).font(.custom(fontString, size: 15)).bold()
                     }
                     HStack {
                         Circle().frame(width: 10, height: 10).foregroundColor(.blue)
-                        Text("XP").font(.custom(fontString, size: 15))
+                        Text("\(abs(xpDiff[Int(mins)]))").foregroundColor(Color(xpDiff[Int(mins)] >= 0 ? .systemGreen : .systemRed)).font(.custom(fontString, size: 15)).bold()
                     }
                 }
-            }.padding()
+                Spacer()
+            }
+            .padding(.leading)
+            .padding(.bottom, -30)
             ZStack {
                 BackgroundLine(max: fetchLargestABS())
-                DrawDiffLines(data: goldDiff, max: fetchLargestABS(), selectedTime: goldDiff.count - 1).foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
                 DrawDiffLines(data: xpDiff, max: fetchLargestABS(), selectedTime: goldDiff.count - 1).foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
-                DrawDiffLines(data: goldDiff, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.yellow).clipped()
-                DrawDiffLines(data: xpDiff, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.blue).clipped()
+                DrawDiffLines(data: goldDiff, max: fetchLargestABS(), selectedTime: goldDiff.count - 1).foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
+                DrawDiffLines(data: xpDiff, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.blue).clipped().shadow(radius: 1)
+                DrawDiffLines(data: goldDiff, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.yellow).clipped().shadow(radius: 1)
+                
                 GeometryReader { proxy in
-                    VStack {
                         Rectangle()
                             .foregroundColor(Color(.secondaryLabel).opacity(0.1))
                             .frame(width: 1)
                             .offset(x: CGFloat(proxy.size.width) * CGFloat(mins) / CGFloat(goldDiff.count - 1), y: 0)
-                    }
+                            .animation(.linear(duration: 0.1))
                 }
+                CurrentPoint(data: xpDiff, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.blue)
+                CurrentPoint(data: goldDiff, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.yellow)
                 
             }
-//            VStack(alignment: .leading) {
-//                Text("+\((fetchLargestABS() / 1000).description)k").foregroundColor(Color(.systemGreen))
-//                Spacer()
-//                Text("0")
-//                Spacer()
-//                Text("+\((fetchLargestABS() / 1000).description)k").foregroundColor(Color(.systemRed))
-//            }.font(.caption2)
-            Slider(value: $mins, in: 0...Double(goldDiff.count - 1), step: 1).padding()
-            Text("min \(mins)")
+            HStack {
+                Text("0:00").font(.custom(fontString, size: 15)).foregroundColor(Color(.secondaryLabel))
+                Slider(value: $mins, in: 0...Double(goldDiff.count - 1), step: 1)
+                    .accentColor(.secondaryDota)
+                Text("\(Int(goldDiff.count - 1)):00").font(.custom(fontString, size: 15)).foregroundColor(Color(.secondaryLabel))
+            }.padding()
         }
     }
     
@@ -77,6 +79,24 @@ struct DifferenceGraphView: View {
 struct DifferenceGraphView_Previews: PreviewProvider {
     static var previews: some View {
         DifferenceGraphView(goldDiff: Match.sample.goldDiff, xpDiff: Match.sample.xpDiff, mins: 0.0)
+    }
+}
+
+struct CurrentPoint: View {
+    var data: [Int]
+    var max: Int
+    var selectedTime: Int
+    var body: some View {
+        GeometryReader{ proxy in
+            Circle()
+                .frame(width: 10, height: 10)
+                .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                .shadow(radius: 1)
+                .offset(x: CGFloat(proxy.size.width) * CGFloat(selectedTime) / CGFloat(data.count - 1) - 5, y: proxy.size.height * CGFloat(CGFloat(max - data[selectedTime]) / CGFloat(max * 2)) - 5)
+                .animation(.linear(duration: 0.1))
+                
+//                .offset(x: CGFloat(proxy.size.width) * CGFloat(selectedTime) / CGFloat(data.count - 1), y: CGFloat(max - data[selectedTime]) * proxy.size.height)
+        }
     }
 }
 
@@ -109,7 +129,9 @@ struct DrawDiffLines: View {
                         path.addQuadCurve(to: CGPoint(x: x, y: y), control: CGPoint(x: CGFloat(proxy.size.width * CGFloat(index) / CGFloat(data.count - 1)), y: CGFloat(CGFloat(max - item) / CGFloat(max * 2)) * CGFloat(proxy.size.height)))
                     }
                 }
-            }.stroke(lineWidth: 3)
+            }
+            .stroke(lineWidth: 3)
+            .animation(.linear)
         }
         
     }
