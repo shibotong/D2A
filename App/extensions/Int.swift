@@ -42,7 +42,7 @@ extension Int {
             return "Yesterday"
         } else {
             let formatter = DateFormatter()
-            formatter.dateFormat = "dd/MM/yy"
+            formatter.dateFormat = "yyyy. MM. dd"
             return formatter.string(from: date)
         }
     }

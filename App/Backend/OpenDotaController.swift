@@ -31,8 +31,10 @@ class OpenDotaController {
             guard let data = response.data else {
                 return
             }
+//            print(response)
             let decoder = JSONDecoder()
             let match = try? decoder.decode(Match.self, from: data)
+//            print(match?.players)
             onComplete(match)
         }
     }

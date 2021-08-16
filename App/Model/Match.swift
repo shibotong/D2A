@@ -133,8 +133,8 @@ struct Match: Codable {
     var radiantTowers: Int
     var skill: Int?
     
-    var goldDiff: [Int]
-    var xpDiff: [Int]
+    var goldDiff: [Int]?
+    var xpDiff: [Int]?
     
     var players: [Player]
     
@@ -204,10 +204,10 @@ struct Player: Codable, Identifiable {
     var denies: Int
 
     var gpm: Int
-    var gold_t: [Int]
-    var netWorth: Int
+    var gold_t: [Int]?
+    var netWorth: Int?
     var xpm: Int
-    var xp_t: [Int]
+    var xp_t: [Int]?
 
     var heroDamage: Int
     var heroHealing: Int

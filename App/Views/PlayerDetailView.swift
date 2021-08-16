@@ -14,7 +14,8 @@ struct PlayerDetailView: View {
             ZStack {
                 HStack {
                     Spacer()
-                    HeroImgImageView(heroID: player.heroID)
+//                    HeroImgImageView(heroID: player.heroID)
+                    Image("hero-portrate").resizable().scaledToFit()
                         .frame(height: 200)
                         .padding(.trailing, -30)
                 }
@@ -62,7 +63,7 @@ struct ItemBackPackView: View {
 struct ItemView: View {
     @ObservedObject var vm: ItemViewModel
     var body: some View {
-        Image(uiImage: vm.itemImage).resizable().scaledToFit().frame(width: 40)
+        Image(uiImage: vm.itemImage).resizable().frame(width: 40, height: 30)
     }
 }
 
@@ -72,30 +73,6 @@ struct PlayerDetailStatView: View {
         HStack {
             VStack(alignment: .leading) {
                 ItemBackPackView(player: player)
-                HStack(spacing: 20) {
-                    HStack {
-                        VStack(alignment: .leading) {
-                                Text("GPM: ")
-                                Text("XPM: ")
-                        }
-                        VStack(alignment: .leading) {
-                            Text("\(player.gpm)")
-                            Text("\(player.xpm)")
-                        }
-                    }
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("KILLS: ")
-                            Text("DEATHS: ")
-                            Text("ASSISTS: ")
-                        }
-                        VStack (alignment: .leading) {
-                            Text("\(player.kills)")
-                            Text("\(player.deaths)")
-                            Text("\(player.assists)")
-                        }
-                    }
-                }.font(.custom(fontString, size: 15))
             }
             Spacer()
         }
