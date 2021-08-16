@@ -16,7 +16,7 @@ struct MatchView: View {
                 let width = proxy.size.width * 3 / 5
                 HStack {
                     VStack {
-                        DifferenceGraphView(goldDiff: vm.match.goldDiff!, xpDiff: vm.match.xpDiff!, mins: Double(vm.match.goldDiff!.count - 1))
+                        DifferenceGraphView(goldDiff: vm.match.goldDiff!, xpDiff: vm.match.xpDiff!)
                             .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(.systemBackground)))
                             .padding()
                             .animation(.linear(duration: 0.3))
@@ -43,12 +43,19 @@ struct MatchView: View {
                         }
                 } else {
                     ScrollView {
-                        AllTeamPlayerView(match: vm.match).background(Color(.systemBackground))
-                        DifferenceGraphView(goldDiff: vm.match.goldDiff!, xpDiff: vm.match.xpDiff!, mins: Double(vm.match.goldDiff!.count - 1))
-                            .frame(height: 300)
+                        AllTeamPlayerView(match: vm.match)
+                            .background(Color(.systemBackground))
+
+                        AnalysisView(players: vm.match.players)
                             .background(Color(.systemBackground))
                             .animation(.linear(duration: 0.3))
-                    }.background(Color(.secondarySystemBackground))
+                                                DifferenceGraphView(goldDiff: vm.match.goldDiff, xpDiff: vm.match.xpDiff)
+                                                    .frame(height: 300)
+                                                    .background(Color(.systemBackground))
+                                                    .animation(.linear(duration: 0.3))
+                        
+                    }
+                    .background(Color(.secondarySystemBackground))
                 }
             }
             .navigationBarHidden(true)
@@ -59,9 +66,10 @@ struct MatchView: View {
 
 struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+
             MatchView(vm: MatchViewModel(previewMatch: Match.sample))
-        }
+                .previewLayout(.fixed(width: 350, height: 2000))
+        
     }
 }
 
@@ -104,16 +112,27 @@ struct PlayerRowView: View {
                 Image("hero_icon")
                     .frame(width: 35, height: 35)
                 VStack(alignment: .leading) {
-                    Text("\(player.personaname ?? "Anolymous")").font(.custom(fontString, size: 15)).bold()
+                    Text("\(player.personaname ?? "Anolymous")").font(.custom(fontString, size: 15)).bold().lineLimit(1)
                     Text("LVL \(player.level) \(HeroDatabase.shared.fetchHeroWithID(id: player.heroID)?.localizedName.uppercased() ?? "")").font(.custom(fontString, size: 10)).foregroundColor(Color(.secondaryLabel))
                 }
                 Spacer()
                 VStack (alignment: .trailing, spacing: 0) {
-                    HStack(spacing: 0) {
-                        Text("\(player.kills)")
-                        Text("/\(player.deaths)/\(player.assists)").foregroundColor(Color(.systemGray))
+                    HStack(spacing: 1) {
+                        ItemView(vm: ItemViewModel(id: player.item0))
+                        ItemView(vm: ItemViewModel(id: player.item1))
+                        ItemView(vm: ItemViewModel(id: player.item2))
+                        ItemView(vm: ItemViewModel(id: player.item3))
+                        ItemView(vm: ItemViewModel(id: player.item4))
+                        ItemView(vm: ItemViewModel(id: player.item5))
+                        ItemView(vm: ItemViewModel(id: player.itemNeutral)).clipShape(Circle())
                     }
-                    HStack {
+                    HStack(spacing: 6) {
+                        HStack(spacing: 0) {
+                            
+                            Text("\(player.kills)")
+                            Text("/\(player.deaths)/\(player.assists)").foregroundColor(Color(.systemGray)).lineLimit(1)
+                            
+                        }
                         HStack(spacing: 3) {
                             Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
                             Text("\(player.gpm)").foregroundColor(Color(.systemOrange))
@@ -125,12 +144,16 @@ struct PlayerRowView: View {
                     }
                 }.font(.custom(fontString, size: 12))
             }.frame(height: 50)
-            if player.heroID == selectedPlayer?.heroID {
-                PlayerDetailView(player: player).transition(.opacity)
-            }
         }
         .animation(.linear(duration: 0.2))
         
+    }
+}
+
+struct ItemView: View {
+    @ObservedObject var vm: ItemViewModel
+    var body: some View {
+        Image(uiImage: vm.itemImage).resizable().frame(width: 20, height: 15)
     }
 }
 

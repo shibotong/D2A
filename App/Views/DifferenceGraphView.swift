@@ -11,12 +11,32 @@ struct DifferenceGraphView: View {
     var goldDiff: [Int]?
     var xpDiff: [Int]?
     @State var mins: Double
-    var body: some View {
-        if goldDiff == nil {
-            Text("Gold/XP difference is not available.")
+    init(goldDiff: [Int]?, xpDiff: [Int]?) {
+        self.goldDiff = goldDiff
+        self.xpDiff = xpDiff
+        if goldDiff != nil {
+            self.mins = Double(goldDiff!.count - 1)
         } else {
-            VStack(alignment: .leading, spacing: 0) {
+            self.mins = 0
+        }
+    }
+    
+    var body: some View {
+        
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
                 Text("Difference In Gold/XP Earned").font(.custom(fontString, size: 20)).bold().padding(20)
+                Spacer()
+            }
+            if goldDiff == nil {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Text("Gold/XP difference is not available.").foregroundColor(Color(.tertiaryLabel)).font(.custom(fontString, size: 15))
+                    Spacer()
+                }
+                Spacer()
+            } else {
                 HStack {
                     VStack(alignment: .leading, spacing: 3) {
                         Text("\(Int(mins)):00").font(.custom(fontString, size: 10)).bold().foregroundColor(Color(.secondaryLabel))
@@ -42,10 +62,10 @@ struct DifferenceGraphView: View {
                     DrawDiffLines(data: goldDiff!, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.yellow).clipped().shadow(radius: 1)
                     
                     GeometryReader { proxy in
-                            Rectangle()
-                                .foregroundColor(Color(.secondaryLabel).opacity(0.1))
-                                .frame(width: 1)
-                                .offset(x: CGFloat(proxy.size.width) * CGFloat(mins) / CGFloat(goldDiff!.count - 1), y: 0)
+                        Rectangle()
+                            .foregroundColor(Color(.secondaryLabel).opacity(0.1))
+                            .frame(width: 1)
+                            .offset(x: CGFloat(proxy.size.width) * CGFloat(mins) / CGFloat(goldDiff!.count - 1), y: 0)
                     }
                     CurrentPoint(data: xpDiff!, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.blue)
                     CurrentPoint(data: goldDiff!, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.yellow)
@@ -84,7 +104,8 @@ struct DifferenceGraphView: View {
 
 struct DifferenceGraphView_Previews: PreviewProvider {
     static var previews: some View {
-        DifferenceGraphView(goldDiff: Match.sample.goldDiff, xpDiff: Match.sample.xpDiff, mins: 0.0)
+        DifferenceGraphView(goldDiff: nil, xpDiff: nil).previewLayout(.fixed(width: 375, height: 300))
+        DifferenceGraphView(goldDiff: Match.sample.goldDiff, xpDiff: Match.sample.xpDiff).previewLayout(.fixed(width: 375, height: 300))
     }
 }
 
@@ -99,8 +120,8 @@ struct CurrentPoint: View {
                 .overlay(Circle().stroke(Color.white, lineWidth: 2))
                 .shadow(radius: 1)
                 .offset(x: CGFloat(proxy.size.width) * CGFloat(selectedTime) / CGFloat(data.count - 1) - 5, y: proxy.size.height * CGFloat(CGFloat(max - data[selectedTime]) / CGFloat(max * 2)) - 5)
-                
-//                .offset(x: CGFloat(proxy.size.width) * CGFloat(selectedTime) / CGFloat(data.count - 1), y: CGFloat(max - data[selectedTime]) * proxy.size.height)
+            
+            //                .offset(x: CGFloat(proxy.size.width) * CGFloat(selectedTime) / CGFloat(data.count - 1), y: CGFloat(max - data[selectedTime]) * proxy.size.height)
         }
     }
 }
@@ -145,14 +166,14 @@ struct BackgroundLine: View {
     var max: Int
     var body: some View {
         VStack {
-//            Rectangle()
-//                .frame(height: 1)
-//                .foregroundColor(Color(.systemGreen).opacity(0.2))
+            //            Rectangle()
+            //                .frame(height: 1)
+            //                .foregroundColor(Color(.systemGreen).opacity(0.2))
             Spacer()
             Rectangle().frame(height: 1).foregroundColor(Color(.secondaryLabel).opacity(0.2))
             Spacer()
-//            Rectangle().frame(height: 1)
-//                .foregroundColor(Color(.systemRed).opacity(0.2))
+            //            Rectangle().frame(height: 1)
+            //                .foregroundColor(Color(.systemRed).opacity(0.2))
         }
     }
     

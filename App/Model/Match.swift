@@ -217,7 +217,7 @@ struct Player: Codable, Identifiable {
 
     var permanentBuffs: [PermanentBuff]?
 
-    var teamFightParticipation: Double
+    var teamFightParticipation: Double?
     var towerDamage: Int
 
     var personaname: String?
