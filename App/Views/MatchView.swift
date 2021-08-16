@@ -10,6 +10,7 @@ import SwiftUI
 struct MatchView: View {
     @ObservedObject var vm: MatchViewModel
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     var body: some View {
         if horizontalSizeClass == .regular {
             GeometryReader { proxy in
@@ -58,7 +59,16 @@ struct MatchView: View {
                     .background(Color(.secondarySystemBackground))
                 }
             }
+            
+            
             .navigationBarHidden(true)
+//            .navigationBarItems(leading: Button(action : {
+//                // action
+//
+//            }){
+//                Text("\(Image(systemName: "chevron.left"))")
+//                    .foregroundColor(Color(.white))
+//            })
         }
         
     }
@@ -66,9 +76,9 @@ struct MatchView: View {
 
 struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
-
+        NavigationView {
             MatchView(vm: MatchViewModel(previewMatch: Match.sample))
-                .previewLayout(.fixed(width: 350, height: 2000))
+        }.previewLayout(.fixed(width: 300, height: 1000))
         
     }
 }
@@ -82,6 +92,7 @@ struct AllTeamPlayerView: View {
             TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.radiantKill, selectedPlayer: $selectedPlayer)
             TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.direKill, selectedPlayer: $selectedPlayer)
         }
+        .frame(minWidth: 300)
     }
 }
 
@@ -106,7 +117,6 @@ struct PlayerRowView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
-        VStack(spacing: 0){
             HStack {
 //                HeroIconImageView(heroID: player.heroID).equatable()
                 Image("hero_icon")
@@ -114,7 +124,8 @@ struct PlayerRowView: View {
                 VStack(alignment: .leading) {
                     Text("\(player.personaname ?? "Anolymous")").font(.custom(fontString, size: 15)).bold().lineLimit(1)
                     Text("LVL \(player.level) \(HeroDatabase.shared.fetchHeroWithID(id: player.heroID)?.localizedName.uppercased() ?? "")").font(.custom(fontString, size: 10)).foregroundColor(Color(.secondaryLabel))
-                }
+                        .lineLimit(1)
+                }.frame(minWidth: 0)
                 Spacer()
                 VStack (alignment: .trailing, spacing: 0) {
                     HStack(spacing: 1) {
@@ -128,24 +139,21 @@ struct PlayerRowView: View {
                     }
                     HStack(spacing: 6) {
                         HStack(spacing: 0) {
-                            
                             Text("\(player.kills)")
                             Text("/\(player.deaths)/\(player.assists)").foregroundColor(Color(.systemGray)).lineLimit(1)
                             
-                        }
+                        }.frame(minWidth:45)
                         HStack(spacing: 3) {
                             Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
                             Text("\(player.gpm)").foregroundColor(Color(.systemOrange))
-                        }
+                        }.frame(width: 35)
                         HStack(spacing: 3) {
                             Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
                             Text("\(player.xpm)").foregroundColor(Color(.systemBlue))
-                        }
+                        }.frame(width: 35)
                     }
                 }.font(.custom(fontString, size: 12))
             }.frame(height: 50)
-        }
-        .animation(.linear(duration: 0.2))
         
     }
 }
@@ -153,7 +161,7 @@ struct PlayerRowView: View {
 struct ItemView: View {
     @ObservedObject var vm: ItemViewModel
     var body: some View {
-        Image(uiImage: vm.itemImage).resizable().frame(width: 20, height: 15)
+        Image(uiImage: vm.itemImage).resizable().frame(width: 24, height: 18)
     }
 }
 
@@ -175,9 +183,9 @@ struct ScoreboardView: View {
                 Spacer()
             }
             HStack {
-                Text("\(match.radiantWin ? "Radiant" : "Dire") Victory").font(.custom(fontString, size: 25)).bold()
+                Text("\(match.radiantWin ? "Radiant" : "Dire") Win").font(.custom(fontString, size: 25)).bold()
                 Spacer()
-                Text("All Pick | 18:00 | 24:56").font(.custom(fontString, size: 12))
+                Text("\(match.fetchMode().fetchModeName()) | \(match.startTime.convertToTime()) | \(match.duration.convertToDuration())").font(.custom(fontString, size: 13))
             }.foregroundColor(Color(.white))
         }
         .padding(.horizontal)

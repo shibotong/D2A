@@ -72,7 +72,7 @@ struct AnalysisView: View {
 
 enum AnalysisType: String {
     case kills = "Kills"
-    case golds = "Golds"
+    case golds = "Net Worth"
     case heroDamage = "Hero Damage"
     case towerDamage = "Tower Damage"
     
