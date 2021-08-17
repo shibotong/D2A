@@ -32,9 +32,25 @@ class DotaEnvironment: ObservableObject {
     }
     
     func loadUser(id: String) {
-        OpenDotaController.loadUserData(userid: id) { profile in
-            DispatchQueue.main.async {
-                self.selectedUserProfile = profile
+        guard let currentProfile = self.selectedUserProfile else {
+            OpenDotaController.loadUserData(userid: id) { profile in
+                DispatchQueue.main.async {
+                    self.selectedUserProfile = profile
+                    
+                }
+            }
+            return
+        }
+        if currentProfile.profile.id == Int(id) {
+            // same user do nothing
+        } else {
+            self.selectedUserProfile = nil
+            self.selectedRecentMatches = []
+            OpenDotaController.loadUserData(userid: id) { profile in
+                DispatchQueue.main.async {
+                    self.selectedUserProfile = profile
+                    
+                }
             }
         }
     }
