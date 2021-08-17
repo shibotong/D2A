@@ -91,7 +91,8 @@ struct PlayerAnalysisRowView: View {
     
     var body: some View {
         HStack {
-            Image("hero_icon")
+            HeroIconImageView(heroID: player.heroID).frame(width: 35, height: 35)
+//            Image("hero_icon")
             VStack (alignment: .leading, spacing: 0) {
                 ProgressView("\(detailNumber())", value: percentage, total: 1)
                     .accentColor(Color(player.slot <= 127 ? .systemGreen : .systemRed).opacity(0.8))

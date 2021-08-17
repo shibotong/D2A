@@ -27,11 +27,12 @@ class MatchViewModel: ObservableObject {
     func loadMatch() {
         print(matchid)
         OpenDotaController.loadMatchData(matchid: matchid) { match in
-            self.match = match!
+            
             DispatchQueue.main.async {
+                self.match = match!
                 self.loading = false
             }
         }
-        self.match = Match.sample
+        
     }
 }

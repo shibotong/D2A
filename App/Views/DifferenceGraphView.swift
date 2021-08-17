@@ -8,27 +8,16 @@
 import SwiftUI
 
 struct DifferenceGraphView: View {
-    var goldDiff: [Int]?
-    var xpDiff: [Int]?
-    @State var mins: Double
-    init(goldDiff: [Int]?, xpDiff: [Int]?) {
-        self.goldDiff = goldDiff
-        self.xpDiff = xpDiff
-        if goldDiff != nil {
-            self.mins = Double(goldDiff!.count - 1)
-        } else {
-            self.mins = 0
-        }
-    }
+    
+    @ObservedObject var vm: DifferenceGraphViewModel
     
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Text("Difference In Gold/XP Earned").font(.custom(fontString, size: 20)).bold().padding(20)
                 Spacer()
             }
-            if goldDiff == nil {
+            if vm.goldDiff == nil {
                 Spacer()
                 HStack {
                     Spacer()
@@ -39,14 +28,14 @@ struct DifferenceGraphView: View {
             } else {
                 HStack {
                     VStack(alignment: .leading, spacing: 3) {
-                        Text("\(Int(mins)):00").font(.custom(fontString, size: 10)).bold().foregroundColor(Color(.secondaryLabel))
+                        Text("\(Int(vm.mins)):00").font(.custom(fontString, size: 10)).bold().foregroundColor(Color(.secondaryLabel))
                         HStack {
                             Circle().frame(width: 10, height: 10).foregroundColor(.yellow)
-                            Text("\(abs(goldDiff![Int(mins)]))").foregroundColor(Color(goldDiff![Int(mins)] >= 0 ? .systemGreen : .systemRed)).font(.custom(fontString, size: 15)).bold()
+                            Text("\(abs(vm.goldDiff![Int(vm.mins)]))").foregroundColor(Color(vm.goldDiff![Int(vm.mins)] >= 0 ? .systemGreen : .systemRed)).font(.custom(fontString, size: 15)).bold()
                         }
                         HStack {
                             Circle().frame(width: 10, height: 10).foregroundColor(.blue)
-                            Text("\(abs(xpDiff![Int(mins)]))").foregroundColor(Color(xpDiff![Int(mins)] >= 0 ? .systemGreen : .systemRed)).font(.custom(fontString, size: 15)).bold()
+                            Text("\(abs(vm.xpDiff![Int(vm.mins)]))").foregroundColor(Color(vm.xpDiff![Int(vm.mins)] >= 0 ? .systemGreen : .systemRed)).font(.custom(fontString, size: 15)).bold()
                         }
                     }
                     Spacer()
@@ -56,26 +45,26 @@ struct DifferenceGraphView: View {
                 Spacer()
                 ZStack {
                     BackgroundLine(max: fetchLargestABS())
-                    DrawDiffLines(data: xpDiff!, max: fetchLargestABS(), selectedTime: goldDiff!.count - 1).foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
-                    DrawDiffLines(data: goldDiff!, max: fetchLargestABS(), selectedTime: goldDiff!.count - 1).foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
-                    DrawDiffLines(data: xpDiff!, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.blue).clipped().shadow(radius: 1)
-                    DrawDiffLines(data: goldDiff!, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.yellow).clipped().shadow(radius: 1)
+                    DrawDiffLines(data: vm.xpDiff!, max: fetchLargestABS(), selectedTime: vm.goldDiff!.count - 1).foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
+                    DrawDiffLines(data: vm.goldDiff!, max: fetchLargestABS(), selectedTime: vm.goldDiff!.count - 1).foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
+                    DrawDiffLines(data: vm.xpDiff!, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.blue).clipped().shadow(radius: 1)
+                    DrawDiffLines(data: vm.goldDiff!, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.yellow).clipped().shadow(radius: 1)
                     
                     GeometryReader { proxy in
                         Rectangle()
                             .foregroundColor(Color(.secondaryLabel).opacity(0.1))
                             .frame(width: 1)
-                            .offset(x: CGFloat(proxy.size.width) * CGFloat(mins) / CGFloat(goldDiff!.count - 1), y: 0)
+                            .offset(x: CGFloat(proxy.size.width) * CGFloat(vm.mins) / CGFloat(vm.goldDiff!.count - 1), y: 0)
                     }
-                    CurrentPoint(data: xpDiff!, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.blue)
-                    CurrentPoint(data: goldDiff!, max: fetchLargestABS(), selectedTime: Int(mins)).foregroundColor(.yellow)
+                    CurrentPoint(data: vm.xpDiff!, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.blue)
+                    CurrentPoint(data: vm.goldDiff!, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.yellow)
                     
                 }.frame(maxHeight: 300)
                 HStack {
                     Text("0:00").font(.custom(fontString, size: 15)).foregroundColor(Color(.secondaryLabel))
-                    Slider(value: $mins, in: 0...Double(goldDiff!.count - 1), step: 1)
+                    Slider(value: $vm.mins, in: 0...Double(vm.goldDiff!.count - 1), step: 1)
                         .accentColor(.secondaryDota)
-                    Text("\(Int(goldDiff!.count - 1)):00").font(.custom(fontString, size: 15)).foregroundColor(Color(.secondaryLabel))
+                    Text("\(Int(vm.goldDiff!.count - 1)):00").font(.custom(fontString, size: 15)).foregroundColor(Color(.secondaryLabel))
                 }.padding()
                 Spacer()
             }
@@ -84,8 +73,8 @@ struct DifferenceGraphView: View {
     }
     
     private func fetchLargestABS() -> Int{
-        var proxyGold = goldDiff!
-        var proxyXP = xpDiff!
+        var proxyGold = vm.goldDiff!
+        var proxyXP = vm.xpDiff!
         for i in 0..<proxyGold.count {
             if proxyGold[i] < 0 {
                 proxyGold[i] = -proxyGold[i]
@@ -104,8 +93,8 @@ struct DifferenceGraphView: View {
 
 struct DifferenceGraphView_Previews: PreviewProvider {
     static var previews: some View {
-        DifferenceGraphView(goldDiff: nil, xpDiff: nil).previewLayout(.fixed(width: 375, height: 300))
-        DifferenceGraphView(goldDiff: Match.sample.goldDiff, xpDiff: Match.sample.xpDiff).previewLayout(.fixed(width: 375, height: 300))
+        DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: nil, xpDiff: nil)).previewLayout(.fixed(width: 375, height: 300))
+        DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: Match.sample.goldDiff, xpDiff: Match.sample.xpDiff)).previewLayout(.fixed(width: 375, height: 300))
     }
 }
 
