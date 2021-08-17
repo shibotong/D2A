@@ -11,6 +11,7 @@ import UIKit
 class MatchListViewModel: ObservableObject {
     @Published var recentMatches: [RecentMatch] = []
 //    @Published var loading = false
+    @Published var selection: RecentMatch?
     
     private var loading = false
     private var userid = ""
@@ -21,7 +22,7 @@ class MatchListViewModel: ObservableObject {
     
     init (userid: String) {
         self.userid = userid
-//        self.fetchMoreData()
+        self.fetchMoreData()
     }
     
     func fetchMoreData() {

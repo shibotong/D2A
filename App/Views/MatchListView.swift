@@ -10,28 +10,36 @@ import SwiftUI
 struct MatchListView: View {
     @ObservedObject var vm: MatchListViewModel
     var body: some View {
-            List {
-                ForEach(vm.recentMatches) { match in
-                    NavigationLink(destination:
-                                    MatchView(vm: MatchViewModel(match: match))
-                                                .navigationTitle("\(match.radiantWin ? "Radiant" : "Dire") Win")
-                    ) {
-                        MatchListRowView(vm: MatchListRowViewModel(match: match))
+        NavigationView {
+            if vm.recentMatches.isEmpty {
+                ProgressView()
+            } else {
+                List {
+                    ForEach(vm.recentMatches) { match in
+                        NavigationLink(destination:
+                                        MatchView(vm: MatchViewModel(match: match))
+                                                    .navigationTitle("\(match.radiantWin ? "Radiant" : "Dire") Win")
+                        ) {
+                            MatchListRowView(vm: MatchListRowViewModel(match: match))
+                        }
+                    }
+                    HStack (spacing: 10) {
+                        ProgressView()
+                        Text("Loading more").foregroundColor(Color(.systemGray))
+                    }.onAppear {
+                        vm.fetchMoreData()
                     }
                 }
-                HStack (spacing: 10) {
-                    ProgressView()
-                    Text("Loading more").foregroundColor(Color(.systemGray))
-                }.onAppear {
-                    vm.fetchMoreData()
-                }
+                .listStyle(InsetListStyle())
+                // add refreshable in iOS 15
+                .navigationTitle("Matches")
+                .navigationBarItems(trailing: Button(action: { vm.refresh() }) {
+                    Image(systemName: "arrow.clockwise")
+                })
+                MatchView(vm: MatchViewModel(match: vm.recentMatches.first!))
+                    .navigationTitle("\(vm.recentMatches.first!.radiantWin ? "Radiant" : "Dire") Win")
             }
-            .listStyle(InsetListStyle())
-            // add refreshable in iOS 15
-            .navigationTitle("Recent Matches")
-            .navigationBarItems(trailing: Button(action: { vm.refresh() }) {
-                Image(systemName: "arrow.clockwise")
-            })
+        }
     }
 }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RecentMatch: Codable, Identifiable {
+struct RecentMatch: Codable, Identifiable, Hashable {
     //{"match_id":6129087851,"player_slot":129,"radiant_win":false,"duration":1750,"game_mode":22,"lobby_type":7,"hero_id":67,"start_time":1628605045,"version":21,"kills":4,"deaths":0,"assists":11,"skill":1,"leaver_status":0,"party_size":2}
     var id: Int
     var duration: Int

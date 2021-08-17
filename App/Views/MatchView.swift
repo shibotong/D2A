@@ -13,8 +13,11 @@ struct MatchView: View {
     
     var body: some View {
         if horizontalSizeClass == .regular {
-            VStack(spacing: 0) {
+            VStack(spacing: 3) {
                 ScoreboardView(match: vm.recentMatch)
+                    .frame(height: 80)
+                    .offset(y: -50)
+                    .padding(.bottom, -50)
                 if vm.loading {
                     ProgressView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -23,42 +26,43 @@ struct MatchView: View {
                         }
                 } else {
                     HStack(spacing: 0) {
-                        ScrollView {
+                        ScrollView(showsIndicators: false) {
                             DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match.goldDiff, xpDiff: vm.match.xpDiff))
                                 .frame(height: 300)
                                 .background(Color(.systemBackground))
                                 .animation(.linear(duration: 0.3))
+                                .padding(.horizontal)
+                            Divider().padding(.horizontal, 80)
                             AnalysisView(players: vm.match.players)
                                 .background(Color(.systemBackground))
                                 .animation(.linear(duration: 0.3))
-                            
+                                .padding(.horizontal)
                         }
-                        ScrollView {
+                        Divider().padding(.vertical, 80)
+                        ScrollView(showsIndicators: false) {
                             AllTeamPlayerView(match: vm.match)
                                 .background(Color(.systemBackground))
-                        }
+                                .padding(.horizontal)
+                        }.frame(width: 350)
                     }
                 }
             }
-//            .background(Color(.secondarySystemBackground))
-            
         } else {
-//            VStack(spacing: 0) {
-//                ScoreboardView(match: vm.recentMatch)
-                if vm.loading {
-                    ProgressView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .onAppear {
-                            vm.loadMatch()
-                        }
-                } else {
-                    ScrollView {
-                        ScoreboardView(match: vm.recentMatch)
-                            .offset(y: -150)
-                            .padding(.bottom, -150)
+            ScrollView {
+                ScoreboardView(match: vm.recentMatch)
+                    .frame(height: 180)
+                    .offset(y: -150)
+                    .padding(.bottom, -150)
+                VStack(spacing: 10) {
+                    if vm.loading {
+                        ProgressView()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .onAppear {
+                                vm.loadMatch()
+                            }
+                    } else {
                         AllTeamPlayerView(match: vm.match)
                             .background(Color(.systemBackground))
-                        
                         AnalysisView(players: vm.match.players)
                             .background(Color(.systemBackground))
                             .animation(.linear(duration: 0.3))
@@ -66,9 +70,8 @@ struct MatchView: View {
                             .frame(height: 300)
                             .background(Color(.systemBackground))
                             .animation(.linear(duration: 0.3))
-//                        
                     }
-
+                }.background(Color(.secondarySystemBackground))
             }
         }
         
@@ -78,6 +81,7 @@ struct MatchView: View {
 struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
+            MatchView(vm: MatchViewModel(previewMatch: Match.sample))
             MatchView(vm: MatchViewModel(previewMatch: Match.sample))
         }
         
@@ -89,9 +93,9 @@ struct AllTeamPlayerView: View {
     @State var selectedPlayer: Player?
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("Overview").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
-            TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.radiantKill, selectedPlayer: $selectedPlayer)
-            TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.direKill, selectedPlayer: $selectedPlayer)
+            Text("Players").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
+            TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.radiantKill)
+            TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.direKill)
         }
         .frame(minWidth: 300)
     }
@@ -114,7 +118,6 @@ struct DifferenceView: View {
 struct PlayerRowView: View {
     var player: Player
     var isRadiant: Bool
-    @Binding var selectedPlayer: Player?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
@@ -180,7 +183,6 @@ struct ScoreboardView: View {
             }
             .padding(.horizontal)
             .padding(.vertical, 5)
-            .frame(height: 150)
             .background(Color(match.radiantWin ? .systemGreen : .systemRed).opacity(0.4).ignoresSafeArea())
     }
 }
@@ -206,7 +208,7 @@ struct TeamHeaderView: View {
             }
             .padding(.horizontal)
             .padding(.vertical, 5)
-            .background(isRadiant ? Color.green.opacity(0.2) : Color.red.opacity(0.2))
+//            .background(isRadiant ? Color.green.opacity(0.2) : Color.red.opacity(0.2))
         
         
     }
@@ -216,33 +218,17 @@ struct TeamView: View {
     var players: [Player]
     var isRadiant: Bool
     var score: Int
-    @Binding var selectedPlayer: Player?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         VStack(spacing: 0) {
             TeamHeaderView(isRadiant: isRadiant, score: score)
                 ForEach(players, id: \.heroID) { player in
-                    PlayerRowView(player: player, isRadiant: isRadiant, selectedPlayer: $selectedPlayer)
+                    PlayerRowView(player: player, isRadiant: isRadiant)
                         .padding(.horizontal)
-                        .background(Rectangle().stroke(Color(.systemGray6)))
-                        .onTapGesture {
-                            onClickFunction(player: player)
-                        }
+
                     
                 }
             }
-    }
-    
-    private func onClickFunction(player: Player) {
-        guard let selected = selectedPlayer else {
-            selectedPlayer = player
-            return
-        }
-        if selected.heroID == player.heroID {
-            selectedPlayer = nil
-        } else {
-            selectedPlayer = player
-        }
     }
 }
