@@ -11,31 +11,35 @@ struct MatchListView: View {
     @EnvironmentObject var env: DotaEnvironment
     
     var body: some View {
-        if env.selectedUserProfile == nil {
+        if env.loadingProfile {
             ProgressView()
         } else {
-            List {
-                ForEach(env.selectedRecentMatches) { match in
-                    NavigationLink(
-                        destination: MatchView()){
-                            MatchListRowView(vm: MatchListRowViewModel(match: match))
-                        }
+            if env.selectedUserProfile == nil {
+                Text("Some thing error when loading")
+            } else {
+                List {
+                    ForEach(env.selectedRecentMatches) { match in
+                        NavigationLink(
+                            destination: MatchView()){
+                                MatchListRowView(vm: MatchListRowViewModel(match: match))
+                            }
 
+                    }
+                    HStack (spacing: 10) {
+                        ProgressView()
+                        Text("Loading more").foregroundColor(Color(.systemGray))
+                    }
+                    .onAppear {
+                        env.fetchMoreData()
+                    }
                 }
-                HStack (spacing: 10) {
-                    ProgressView()
-                    Text("Loading more").foregroundColor(Color(.systemGray))
-                }
-                .onAppear {
-                    env.fetchMoreData()
-                }
+                .listStyle(InsetListStyle())
+                // add refreshable in iOS 15
+                .navigationTitle("\(env.selectedUserProfile!.profile.personaname)")
+                .navigationBarItems(trailing: Button(action: {  }) {
+                    Image(systemName: "arrow.clockwise")
+                })
             }
-            .listStyle(InsetListStyle())
-            // add refreshable in iOS 15
-            .navigationTitle("\(env.selectedUserProfile!.profile.personaname)")
-            .navigationBarItems(trailing: Button(action: {  }) {
-                Image(systemName: "arrow.clockwise")
-            })
         }
     }
 //    static func == (lhs: MatchListView, rhs: MatchListView) -> Bool {

@@ -46,7 +46,11 @@ class OpenDotaController {
             }
             let decoder = JSONDecoder()
             let matches = try? decoder.decode([RecentMatch].self, from: data)
-            onComplete(matches!)
+            guard let guardMatches = matches else {
+                onComplete([])
+                return
+            }
+            onComplete(guardMatches)
         }
     }
     

@@ -14,6 +14,7 @@
 		3252859C26CB87060030F15B /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3252859B26CB87060030F15B /* SDWebImageSwiftUI */; };
 		3252859E26CB9FDC0030F15B /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859D26CB9FDC0030F15B /* Sidebar.swift */; };
 		325285A026CBB67C0030F15B /* SidebarRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859F26CBB67C0030F15B /* SidebarRowViewModel.swift */; };
+		325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
 		32897B0426C4DC07008D3CC8 /* sampleMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 32897B0326C4DC07008D3CC8 /* sampleMatch.json */; };
 		32897B0626C4E0B2008D3CC8 /* permanant_buffs.json in Resources */ = {isa = PBXBuildFile; fileRef = 32897B0526C4E0B2008D3CC8 /* permanant_buffs.json */; };
 		32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0726C4EFF1008D3CC8 /* Int.swift */; };
@@ -39,13 +40,11 @@
 		32B36F3C26C38860002D427D /* sampleProfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F3526C38860002D427D /* sampleProfile.json */; };
 		32B36F3F26C388AD002D427D /* MatchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F3E26C388AD002D427D /* MatchListView.swift */; };
 		32B36F4226C38972002D427D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 32B36F4126C38972002D427D /* Alamofire */; };
-		32B36F4526C389CC002D427D /* MatchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4426C389CC002D427D /* MatchListViewModel.swift */; };
 		32B36F4726C38DA5002D427D /* dota_game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F4626C38DA5002D427D /* dota_game_mode.json */; };
 		32B36F4A26C39242002D427D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4926C39242002D427D /* String.swift */; };
 		32B36F4C26C39C5D002D427D /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4B26C39C5D002D427D /* Environment.swift */; };
 		32B36F4E26C39C8F002D427D /* HeroDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4D26C39C8F002D427D /* HeroDatabase.swift */; };
 		32F6A1B026C499E3009C00E1 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F6A1AF26C499E3009C00E1 /* MatchView.swift */; };
-		32F6A1B226C499F1009C00E1 /* MatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F6A1B126C499F1009C00E1 /* MatchViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +54,7 @@
 		3252859626CB81480030F15B /* DifferenceGraphViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferenceGraphViewModel.swift; sourceTree = "<group>"; };
 		3252859D26CB9FDC0030F15B /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		3252859F26CBB67C0030F15B /* SidebarRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRowViewModel.swift; sourceTree = "<group>"; };
+		325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchListRowViewModel.swift; sourceTree = "<group>"; };
 		32897B0326C4DC07008D3CC8 /* sampleMatch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleMatch.json; sourceTree = "<group>"; };
 		32897B0526C4E0B2008D3CC8 /* permanant_buffs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = permanant_buffs.json; sourceTree = "<group>"; };
 		32897B0726C4EFF1008D3CC8 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
@@ -81,13 +81,11 @@
 		32B36F3426C38860002D427D /* sampleMatches.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleMatches.json; sourceTree = "<group>"; };
 		32B36F3526C38860002D427D /* sampleProfile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleProfile.json; sourceTree = "<group>"; };
 		32B36F3E26C388AD002D427D /* MatchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchListView.swift; sourceTree = "<group>"; };
-		32B36F4426C389CC002D427D /* MatchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchListViewModel.swift; sourceTree = "<group>"; };
 		32B36F4626C38DA5002D427D /* dota_game_mode.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dota_game_mode.json; sourceTree = "<group>"; };
 		32B36F4926C39242002D427D /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		32B36F4B26C39C5D002D427D /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		32B36F4D26C39C8F002D427D /* HeroDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDatabase.swift; sourceTree = "<group>"; };
 		32F6A1AF26C499E3009C00E1 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
-		32F6A1B126C499F1009C00E1 /* MatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,8 +209,7 @@
 		32B36F4326C389C3002D427D /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				32B36F4426C389CC002D427D /* MatchListViewModel.swift */,
-				32F6A1B126C499F1009C00E1 /* MatchViewModel.swift */,
+				325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */,
 				32897B0D26C7A703008D3CC8 /* ItemViewModel.swift */,
 				3252859626CB81480030F15B /* DifferenceGraphViewModel.swift */,
 				3252859F26CBB67C0030F15B /* SidebarRowViewModel.swift */,
@@ -325,9 +322,8 @@
 				32B36F2826C38852002D427D /* UserProfile.swift in Sources */,
 				32897B1026C7B9F1008D3CC8 /* HeroIconImageView.swift in Sources */,
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
-				32B36F4526C389CC002D427D /* MatchListViewModel.swift in Sources */,
+				325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */,
 				32B36F3F26C388AD002D427D /* MatchListView.swift in Sources */,
-				32F6A1B226C499F1009C00E1 /* MatchViewModel.swift in Sources */,
 				32B36F2A26C38852002D427D /* Item.swift in Sources */,
 				325285A026CBB67C0030F15B /* SidebarRowViewModel.swift in Sources */,
 				3252859726CB81480030F15B /* DifferenceGraphViewModel.swift in Sources */,

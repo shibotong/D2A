@@ -22,6 +22,9 @@ class DotaEnvironment: ObservableObject {
     
     @Published var loadingMatches = false
     
+    @Published var loadingProfile = false
+    @Published var loadingGame = false
+    
     init() {
         self.userIDs = UserDefaults.standard.object(forKey: "dotaArmory.userID") as? [String] ?? ["153041957", "116232078"]
         if userIDs.isEmpty {
@@ -33,10 +36,11 @@ class DotaEnvironment: ObservableObject {
     
     func loadUser(id: String) {
         guard let currentProfile = self.selectedUserProfile else {
+            self.loadingProfile = true
             OpenDotaController.loadUserData(userid: id) { profile in
                 DispatchQueue.main.async {
                     self.selectedUserProfile = profile
-                    
+                    self.loadingProfile = false
                 }
             }
             return
