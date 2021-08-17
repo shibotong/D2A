@@ -14,7 +14,7 @@ struct ContentView: View {
         if heroData.loading {
             ProgressView()
         } else {
-            MatchListView(vm: MatchListViewModel(userid: environment.userID))
+            MatchListView(vm: MatchListViewModel(userid: environment.userIDs.first!))
         }
     }
 }

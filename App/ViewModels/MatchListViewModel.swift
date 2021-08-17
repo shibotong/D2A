@@ -12,9 +12,12 @@ class MatchListViewModel: ObservableObject {
     @Published var recentMatches: [RecentMatch] = []
 //    @Published var loading = false
     @Published var selection: RecentMatch?
+    @Published var userProfile: SteamProfile?
     
     private var loading = false
     private var userid = ""
+    
+    private var loadingMatch = false
     
     init(matches: [RecentMatch]) {
         recentMatches = matches
@@ -22,16 +25,27 @@ class MatchListViewModel: ObservableObject {
     
     init (userid: String) {
         self.userid = userid
-        self.fetchMoreData()
+        self.fetchUserProfile()
+    }
+    
+    func fetchUserProfile() {
+        self.loading = true
+        OpenDotaController.loadUserData(userid: userid) { profile in
+            DispatchQueue.main.async {
+                self.userProfile = profile
+                self.loading = false
+            }
+            self.fetchMoreData()
+        }
     }
     
     func fetchMoreData() {
-        if !self.loading {
-            self.loading = true
+        if !self.loadingMatch {
+            self.loadingMatch = true
             OpenDotaController.loadRecentMatch(userid: userid, offSet: recentMatches.count, limit: 10) { recentMatches in
                 self.recentMatches.append(contentsOf: recentMatches)
                 DispatchQueue.main.async {
-                    self.loading = false
+                    self.loadingMatch = false
                 }
             }
         }

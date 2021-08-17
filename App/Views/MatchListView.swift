@@ -32,7 +32,7 @@ struct MatchListView: View {
                 }
                 .listStyle(InsetListStyle())
                 // add refreshable in iOS 15
-                .navigationTitle("Matches")
+                .navigationTitle("\(vm.userProfile!.profile.personaname)")
                 .navigationBarItems(trailing: Button(action: { vm.refresh() }) {
                     Image(systemName: "arrow.clockwise")
                 })
