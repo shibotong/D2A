@@ -10,12 +10,38 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var environment: DotaEnvironment
     @EnvironmentObject var heroData: HeroDatabase
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     var body: some View {
-        if heroData.loading {
-            ProgressView()
-        } else {
-            MatchListView(vm: MatchListViewModel(userid: environment.userIDs.first!))
-        }
+//        if horizontalSizeClass == .compact {
+            NavigationView {
+                Sidebar()
+                if environment.selectedUserProfile == nil {
+                    ProgressView()
+                } else {
+                    MatchListView()
+                }
+                if environment.selectedGame == nil {
+                    Text("Select a match")
+                } else {
+                    MatchView()
+                }
+            }//.navigationViewStyle(StackNavigationViewStyle())
+//        } else {
+//            NavigationView {
+//                Sidebar()
+//                if environment.selectedUser == nil {
+//                    ProgressView()
+//                } else {
+//                    MatchListView(vm: MatchListViewModel(userid: environment.selectedUser!)).equatable()
+//                }
+//                if environment.selectedGame == nil {
+//                    Text("Select a match")
+//                } else {
+//                    MatchView(vm: MatchViewModel(match: environment.selectedGame!))
+//                }
+//            }.navigationViewStyle(DoubleColumnNavigationViewStyle())
+//        }
     }
 }
 

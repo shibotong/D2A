@@ -33,8 +33,8 @@ struct UserProfile: Codable {
     var id: Int
     
     var avatarfull: String
-    var lastLogin: String
-    var countryCode: String
+    var lastLogin: String?
+    var countryCode: String?
     var personaname: String
     var isPlus: Bool
     var profileurl: String

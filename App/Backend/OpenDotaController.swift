@@ -19,6 +19,7 @@ class OpenDotaController {
                 return
             }
             let decoder = JSONDecoder()
+            print(data)
             let user = try? decoder.decode(SteamProfile.self, from: data)
             onCompletion(user)
         }
@@ -26,21 +27,18 @@ class OpenDotaController {
     
     static func loadMatchData(matchid: String, onComplete:@escaping (Match?) -> ()) {
         let url = "\(baseURL)/api/matches/\(matchid)"
-        print(url)
         AF.request(url).responseJSON { response in
             guard let data = response.data else {
                 return
             }
-//            print(response)
+            print(data)
             let decoder = JSONDecoder()
             let match = try? decoder.decode(Match.self, from: data)
-//            print(match?.players)
             onComplete(match)
         }
     }
     
     static func loadRecentMatch(userid: String, offSet: Int, limit: Int, onComplete: @escaping ([RecentMatch]) -> ()) {
-//        let url = "\(baseURL)/api/players/\(userid)/recentMatches"
         let url = "\(baseURL)/api/players/\(userid)/matches/?limit=\(limit)&offset=\(offSet)"
         AF.request(url).responseJSON { response in
             guard let data = response.data else {

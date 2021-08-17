@@ -8,81 +8,87 @@
 import SwiftUI
 
 struct MatchView: View {
-    @ObservedObject var vm: MatchViewModel
+    @EnvironmentObject var env: DotaEnvironment
+//    @ObservedObject var vm: MatchViewModel
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
-        if horizontalSizeClass == .regular {
-            VStack(spacing: 3) {
-                ScoreboardView(match: vm.recentMatch)
-                    .frame(height: 80)
-                    .offset(y: -50)
-                    .padding(.bottom, -50)
-                if vm.loading {
-                    ProgressView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .onAppear {
-                            vm.loadMatch()
+        if env.selectedGame != nil {
+            if horizontalSizeClass == .regular {
+                VStack(spacing: 3) {
+//                    ScoreboardView(match: env.selectedGame!)
+//                        .frame(height: 80)
+//                        .offset(y: -50)
+//                        .padding(.bottom, -50)
+//                    if vm.loading {
+//                        ProgressView()
+//                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                            .onAppear {
+//                                vm.loadMatch()
+//                            }
+//                    } else {
+                        HStack(spacing: 0) {
+                            ScrollView(showsIndicators: false) {
+                                DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: env.selectedGame!.goldDiff, xpDiff: env.selectedGame!.xpDiff))
+                                    .frame(height: 300)
+                                    .background(Color(.systemBackground))
+                                    .animation(.linear(duration: 0.3))
+                                    .padding(.horizontal)
+                                Divider().padding(.horizontal, 80)
+                                AnalysisView(players: env.selectedGame!.players)
+                                    .background(Color(.systemBackground))
+                                    .animation(.linear(duration: 0.3))
+                                    .padding(.horizontal)
+                            }
+                            Divider().padding(.vertical, 80)
+                            ScrollView(showsIndicators: false) {
+                                AllTeamPlayerView(match: env.selectedGame!)
+                                    .background(Color(.systemBackground))
+                                    .padding(.horizontal)
+                            }.frame(width: 350)
                         }
-                } else {
-                    HStack(spacing: 0) {
-                        ScrollView(showsIndicators: false) {
-                            DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match.goldDiff, xpDiff: vm.match.xpDiff))
+//                    }
+                }.navigationTitle("\(env.selectedGame!.radiantWin ? "Radiant" : "Dire") Win")
+            } else {
+                ScrollView {
+//                    ScoreboardView(match: vm.recentMatch)
+//                        .frame(height: 180)
+//                        .offset(y: -150)
+//                        .padding(.bottom, -150)
+                    VStack(spacing: 10) {
+//                        if vm.loading {
+//                            ProgressView()
+//                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                                .onAppear {
+//                                    vm.loadMatch()
+//                                }
+//                        } else {
+                            AllTeamPlayerView(match: env.selectedGame!)
+                                .background(Color(.systemBackground))
+                            AnalysisView(players: env.selectedGame!.players)
+                                .background(Color(.systemBackground))
+                                .animation(.linear(duration: 0.3))
+                            DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: env.selectedGame!.goldDiff, xpDiff: env.selectedGame!.xpDiff))
                                 .frame(height: 300)
                                 .background(Color(.systemBackground))
                                 .animation(.linear(duration: 0.3))
-                                .padding(.horizontal)
-                            Divider().padding(.horizontal, 80)
-                            AnalysisView(players: vm.match.players)
-                                .background(Color(.systemBackground))
-                                .animation(.linear(duration: 0.3))
-                                .padding(.horizontal)
-                        }
-                        Divider().padding(.vertical, 80)
-                        ScrollView(showsIndicators: false) {
-                            AllTeamPlayerView(match: vm.match)
-                                .background(Color(.systemBackground))
-                                .padding(.horizontal)
-                        }.frame(width: 350)
-                    }
-                }
-            }
-        } else {
-            ScrollView {
-                ScoreboardView(match: vm.recentMatch)
-                    .frame(height: 180)
-                    .offset(y: -150)
-                    .padding(.bottom, -150)
-                VStack(spacing: 10) {
-                    if vm.loading {
-                        ProgressView()
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .onAppear {
-                                vm.loadMatch()
-                            }
-                    } else {
-                        AllTeamPlayerView(match: vm.match)
-                            .background(Color(.systemBackground))
-                        AnalysisView(players: vm.match.players)
-                            .background(Color(.systemBackground))
-                            .animation(.linear(duration: 0.3))
-                        DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match.goldDiff, xpDiff: vm.match.xpDiff))
-                            .frame(height: 300)
-                            .background(Color(.systemBackground))
-                            .animation(.linear(duration: 0.3))
-                    }
-                }.background(Color(.secondarySystemBackground))
+//                        }
+                    }.background(Color(.secondarySystemBackground))
+                }.navigationTitle("\(env.selectedGame!.radiantWin ? "Radiant" : "Dire") Win")
             }
         }
         
     }
+//    static func == (lhs: MatchView, rhs: MatchView) -> Bool {
+//        return lhs.vm.matchid == rhs.vm.matchid
+//    }
 }
 
 struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MatchView(vm: MatchViewModel(previewMatch: Match.sample))
-            MatchView(vm: MatchViewModel(previewMatch: Match.sample))
+            MatchView()
+            MatchView()
         }
         
     }

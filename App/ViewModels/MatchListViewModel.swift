@@ -15,7 +15,7 @@ class MatchListViewModel: ObservableObject {
     @Published var userProfile: SteamProfile?
     
     private var loading = false
-    private var userid = ""
+    var userid = ""
     
     private var loadingMatch = false
     

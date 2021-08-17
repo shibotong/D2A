@@ -12,6 +12,8 @@
 		3252859526CA535F0030F15B /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859426CA535F0030F15B /* View.swift */; };
 		3252859726CB81480030F15B /* DifferenceGraphViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859626CB81480030F15B /* DifferenceGraphViewModel.swift */; };
 		3252859C26CB87060030F15B /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3252859B26CB87060030F15B /* SDWebImageSwiftUI */; };
+		3252859E26CB9FDC0030F15B /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859D26CB9FDC0030F15B /* Sidebar.swift */; };
+		325285A026CBB67C0030F15B /* SidebarRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859F26CBB67C0030F15B /* SidebarRowViewModel.swift */; };
 		32897B0426C4DC07008D3CC8 /* sampleMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 32897B0326C4DC07008D3CC8 /* sampleMatch.json */; };
 		32897B0626C4E0B2008D3CC8 /* permanant_buffs.json in Resources */ = {isa = PBXBuildFile; fileRef = 32897B0526C4E0B2008D3CC8 /* permanant_buffs.json */; };
 		32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0726C4EFF1008D3CC8 /* Int.swift */; };
@@ -51,6 +53,8 @@
 		3252859026C9E8040030F15B /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
 		3252859426CA535F0030F15B /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		3252859626CB81480030F15B /* DifferenceGraphViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferenceGraphViewModel.swift; sourceTree = "<group>"; };
+		3252859D26CB9FDC0030F15B /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
+		3252859F26CBB67C0030F15B /* SidebarRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRowViewModel.swift; sourceTree = "<group>"; };
 		32897B0326C4DC07008D3CC8 /* sampleMatch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleMatch.json; sourceTree = "<group>"; };
 		32897B0526C4E0B2008D3CC8 /* permanant_buffs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = permanant_buffs.json; sourceTree = "<group>"; };
 		32897B0726C4EFF1008D3CC8 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 				32F6A1AF26C499E3009C00E1 /* MatchView.swift */,
 				32897B0926C79222008D3CC8 /* DifferenceGraphView.swift */,
 				3252859026C9E8040030F15B /* AnalysisView.swift */,
+				3252859D26CB9FDC0030F15B /* Sidebar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -210,6 +215,7 @@
 				32F6A1B126C499F1009C00E1 /* MatchViewModel.swift */,
 				32897B0D26C7A703008D3CC8 /* ItemViewModel.swift */,
 				3252859626CB81480030F15B /* DifferenceGraphViewModel.swift */,
+				3252859F26CBB67C0030F15B /* SidebarRowViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -323,6 +329,7 @@
 				32B36F3F26C388AD002D427D /* MatchListView.swift in Sources */,
 				32F6A1B226C499F1009C00E1 /* MatchViewModel.swift in Sources */,
 				32B36F2A26C38852002D427D /* Item.swift in Sources */,
+				325285A026CBB67C0030F15B /* SidebarRowViewModel.swift in Sources */,
 				3252859726CB81480030F15B /* DifferenceGraphViewModel.swift in Sources */,
 				32B36F2026C38849002D427D /* OpenDotaController.swift in Sources */,
 				32B36F2126C38849002D427D /* ItemController.swift in Sources */,
@@ -331,6 +338,7 @@
 				32897B0E26C7A703008D3CC8 /* ItemViewModel.swift in Sources */,
 				32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */,
 				32B36F4E26C39C8F002D427D /* HeroDatabase.swift in Sources */,
+				3252859E26CB9FDC0030F15B /* Sidebar.swift in Sources */,
 				32B36F2D26C3885A002D427D /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

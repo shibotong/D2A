@@ -11,7 +11,7 @@ import SwiftUI
 struct AppApp: App {
     @StateObject var environment: DotaEnvironment = DotaEnvironment()
     @StateObject var heroDatabase: HeroDatabase = HeroDatabase.shared
-    
+    @State private var selectedUser: String = ""
     var body: some Scene {
         WindowGroup {
             ContentView()
