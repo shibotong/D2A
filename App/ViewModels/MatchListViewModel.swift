@@ -15,35 +15,31 @@ class MatchListViewModel: ObservableObject {
     
     init(userid: String) {
         self.userid = userid
-        self.loadmatch(userid: userid)
+        self.loadmatch()
     }
     
-    private func loadmatch(userid: String) {
-        let managedObject = CoreDataController.shared.container.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RecentMatch")
-        request.sortDescriptors = [NSSortDescriptor(key: "startTime", ascending: false)]
-        request.predicate = NSPredicate(format: "playerId == %d", Int64(userid)!)
-        do {
-            let matches = try managedObject.fetch(request) as! [RecentMatch]
-            if matches.isEmpty {
-                OpenDotaController.loadRecentMatch(userid: userid, offSet: 0, limit: 5) { recentmatches in
-                    self.matches = recentmatches
-                }
-            } else {
-                self.matches = matches
-            }
-        } catch {
-            fatalError("Failed to fetch employees: \(error)")
-        }
+    private func loadmatch() {
+        self.matches = CoreDataController.shared.fetchUserRecentMatch(userid: userid)
     }
     
     func fetchMoreData() {
         if !self.isLoading {
             self.isLoading = true
-            OpenDotaController.loadRecentMatch(userid: userid, offSet: matches.count, limit: 5) { recentmatches in
-                self.matches.append(contentsOf: recentmatches)
-                self.isLoading = false
+            OpenDotaController.loadRecentMatch(userid: userid, offSet: matches.count, limit: 5) { result in
+                self.loadmatch()
             }
+        }
+    }
+    
+    func refreshData() {
+        let firstMatch = CoreDataController.shared.fetchUserRecentMatch(userid: userid).first!
+        let today = Date()
+        let days = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(timeIntervalSince1970: TimeInterval(firstMatch.startTime)), to: today)
+        
+        let dayCount = Double(days.day!) + (Double(days.hour!) / 24.0) + (Double(days.minute!) / 60.0 / 24.0)
+        print(dayCount)
+        OpenDotaController.loadRecentMatch(userid: userid, days: dayCount) { bool in
+            self.loadmatch()
         }
     }
 }

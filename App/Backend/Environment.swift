@@ -115,11 +115,12 @@ class DotaEnvironment: ObservableObject {
                 return
             }
             OpenDotaController.loadRecentMatch(userid: "\(profile.id)", offSet: selectedRecentMatches.count, limit: 50) { recentMatches in
-                self.selectedRecentMatches.append(contentsOf: recentMatches)
-                if self.selectedGame == nil && !recentMatches.isEmpty {
-                    self.loadMatch(match: recentMatches.first!)
-                }
+//                self.selectedRecentMatches.append(contentsOf: recentMatches)
+//                if self.selectedGame == nil && !recentMatches.isEmpty {
+//                    self.loadMatch(match: recentMatches.first!)
+//                }
                 DispatchQueue.main.async {
+                    
                     self.loadingMatches = false
                 }
             }

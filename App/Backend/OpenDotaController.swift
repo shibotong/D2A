@@ -53,8 +53,13 @@ class OpenDotaController {
         }
     }
     
-    static func loadRecentMatch(userid: String, offSet: Int, limit: Int, onComplete: @escaping ([RecentMatch]) -> ()) {
-        let url = "\(baseURL)/api/players/\(userid)/matches/?limit=\(limit)&offset=\(offSet)"
+    static func loadRecentMatch(userid: String, offSet: Int = 0, limit: Int = 0, days: Double? = nil, onComplete: @escaping (Bool) -> ()) {
+        var url = ""
+        if days != nil {
+            url = "\(baseURL)/api/players/\(userid)/matches/?date=\(days!)"
+        } else {
+            url = "\(baseURL)/api/players/\(userid)/matches/?limit=\(limit)&offset=\(offSet)"
+        }
         AF.request(url).responseJSON { response in
             print("load matches data")
             guard let data = response.data else {
@@ -69,17 +74,12 @@ class OpenDotaController {
             let decoder = JSONDecoder()
             decoder.userInfo[CodingUserInfoKey.managedObjectContext] = CoreDataController.shared.container.viewContext
             let matches = try? decoder.decode([RecentMatch].self, from: data)
-            print(matches)
+            
             matches?.forEach({ match in
                 match.playerId = Int64(userid)!
             })
-            
             CoreDataController.shared.saveContext()
-            guard let guardMatches = matches else {
-                onComplete([])
-                return
-            }
-            onComplete(guardMatches)
+            onComplete(true)
         }
     }
     

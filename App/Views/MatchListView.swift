@@ -19,7 +19,10 @@ struct MatchListView: View {
                 .onAppear {
                     vm.fetchMoreData()
                 }
-        }
+        }.navigationBarItems(trailing: Button(action: { vm.refreshData() }) {
+            Image(systemName: "arrow.clockwise")
+        })
+        .animation(.linear)
 //        if env.loadingProfile {
 //            ProgressView()
 //        } else {

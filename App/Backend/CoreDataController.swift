@@ -31,4 +31,19 @@ class CoreDataController {
             print("Error: \(error), \(error.userInfo)")
         }
     }
+    
+    func fetchUserRecentMatch(userid: String) -> [RecentMatch] {
+        let managedObject = CoreDataController.shared.container.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RecentMatch")
+        request.sortDescriptors = [NSSortDescriptor(key: "startTime", ascending: false)]
+        request.predicate = NSPredicate(format: "playerId == %d", Int64(userid)!)
+        do {
+            let matches = try managedObject.fetch(request) as! [RecentMatch]
+            print(matches.count)
+             return matches
+            
+        } catch {
+            fatalError("Failed to fetch employees: \(error)")
+        }
+    }
 }
