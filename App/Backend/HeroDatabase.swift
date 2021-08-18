@@ -11,6 +11,7 @@ import Alamofire
 class HeroDatabase: ObservableObject {
     @Published var loading = false
     
+    
     var heroes = [Hero]()
     
     var gameModes = [String: GameMode]()
@@ -35,9 +36,18 @@ class HeroDatabase: ObservableObject {
             guard let data = response.data else {
                 return
             }
+            guard let statusCode = response.response?.statusCode else {
+                return
+            }
+            if statusCode > 400 {
+                DotaEnvironment.shared.exceedLimit = true
+            }
             let decoder = JSONDecoder()
             let heroes = try? decoder.decode([Hero].self, from: data)
-            self.heroes = heroes!
+            guard let fetchedHeroes = heroes else {
+                return
+            }
+            self.heroes = fetchedHeroes
             DispatchQueue.main.async {
                 self.loading = false
             }

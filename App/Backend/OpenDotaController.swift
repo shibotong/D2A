@@ -15,12 +15,21 @@ class OpenDotaController {
     static func loadUserData(userid: String, onCompletion: @escaping (SteamProfile?) -> ()) {
         let url = "\(baseURL)/api/players/\(userid)"
         AF.request(url).responseJSON { response in
+            print("load user data")
+            debugPrint(response)
             guard let data = response.data else {
                 return
             }
+            guard let statusCode = response.response?.statusCode else {
+                return
+            }
+            if statusCode > 400 {
+                DotaEnvironment.shared.exceedLimit = true
+            }
             let decoder = JSONDecoder()
-            print(data)
+            decoder.userInfo[CodingUserInfoKey.managedObjectContext] = CoreDataController.shared.container.viewContext
             let user = try? decoder.decode(SteamProfile.self, from: data)
+            CoreDataController.shared.saveContext()
             onCompletion(user)
         }
     }
@@ -28,10 +37,16 @@ class OpenDotaController {
     static func loadMatchData(matchid: String, onComplete:@escaping (Match?) -> ()) {
         let url = "\(baseURL)/api/matches/\(matchid)"
         AF.request(url).responseJSON { response in
+            print("load match data")
             guard let data = response.data else {
                 return
             }
-            print(data)
+            guard let statusCode = response.response?.statusCode else {
+                return
+            }
+            if statusCode > 400 {
+                DotaEnvironment.shared.exceedLimit = true
+            }
             let decoder = JSONDecoder()
             let match = try? decoder.decode(Match.self, from: data)
             onComplete(match)
@@ -41,11 +56,25 @@ class OpenDotaController {
     static func loadRecentMatch(userid: String, offSet: Int, limit: Int, onComplete: @escaping ([RecentMatch]) -> ()) {
         let url = "\(baseURL)/api/players/\(userid)/matches/?limit=\(limit)&offset=\(offSet)"
         AF.request(url).responseJSON { response in
+            print("load matches data")
             guard let data = response.data else {
                 return
             }
+            guard let statusCode = response.response?.statusCode else {
+                return
+            }
+            if statusCode > 400 {
+                DotaEnvironment.shared.exceedLimit = true
+            }
             let decoder = JSONDecoder()
+            decoder.userInfo[CodingUserInfoKey.managedObjectContext] = CoreDataController.shared.container.viewContext
             let matches = try? decoder.decode([RecentMatch].self, from: data)
+            print(matches)
+            matches?.forEach({ match in
+                match.playerId = Int64(userid)!
+            })
+            
+            CoreDataController.shared.saveContext()
             guard let guardMatches = matches else {
                 onComplete([])
                 return
@@ -57,8 +86,15 @@ class OpenDotaController {
     static func loadItemImg(url: String, onCompletion: @escaping (Data) -> ()) {
         let url = "\(baseURL)\(url)"
         AF.request(url).responseData { response in
+            print("load item img data")
             guard let data = response.data else {
                 return
+            }
+            guard let statusCode = response.response?.statusCode else {
+                return
+            }
+            if statusCode > 400 {
+                DotaEnvironment.shared.exceedLimit = true
             }
             onCompletion(data)
         }

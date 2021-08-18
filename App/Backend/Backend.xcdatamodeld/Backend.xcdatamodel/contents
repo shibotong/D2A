@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G80" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="RecentMatch" representedClassName="RecentMatch" syncable="YES">
+        <attribute name="assists" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="deaths" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="heroID" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="kills" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lobbyType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="mode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="playerId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="radiantWin" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="slot" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="SteamProfile" representedClassName="SteamProfile" syncable="YES">
+        <attribute name="rank" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserProfile" inverseName="steamProfile" inverseEntity="UserProfile"/>
+    </entity>
+    <entity name="UserProfile" representedClassName="UserProfile" syncable="YES">
+        <attribute name="avatarfull" attributeType="String"/>
+        <attribute name="countryCode" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="isPlus" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastLogin" optional="YES" attributeType="String"/>
+        <attribute name="personaname" attributeType="String"/>
+        <attribute name="profileurl" optional="YES" attributeType="String"/>
+        <relationship name="steamProfile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SteamProfile" inverseName="profile" inverseEntity="SteamProfile"/>
+    </entity>
+    <elements>
+        <element name="UserProfile" positionX="-63" positionY="-18" width="220.421875" height="163"/>
+        <element name="SteamProfile" positionX="-9" positionY="45" width="128" height="59"/>
+        <element name="RecentMatch" positionX="9" positionY="81" width="128" height="209"/>
+    </elements>
+</model>

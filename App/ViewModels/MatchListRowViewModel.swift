@@ -16,6 +16,6 @@ class MatchListRowViewModel: ObservableObject {
     init(match: RecentMatch) {
         self.match = match
         
-        self.hero = HeroDatabase.shared.fetchHeroWithID(id: match.heroID)
+        self.hero = HeroDatabase.shared.fetchHeroWithID(id: Int(match.heroID))
     }
 }

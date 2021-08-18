@@ -7,53 +7,6 @@
 
 import Foundation
 
-struct RecentMatch: Codable, Identifiable, Hashable {
-    //{"match_id":6129087851,"player_slot":129,"radiant_win":false,"duration":1750,"game_mode":22,"lobby_type":7,"hero_id":67,"start_time":1628605045,"version":21,"kills":4,"deaths":0,"assists":11,"skill":1,"leaver_status":0,"party_size":2}
-    var id: Int
-    var duration: Int
-    var mode: Int
-    var radiantWin: Bool
-    var slot: Int // Which slot the player is in. 0-127 are Radiant, 128-255 are Dire
-    var heroID: Int
-    var kills: Int
-    var deaths: Int
-    var assists: Int
-    var lobbyType: Int
-    var startTime: Int
-    
-    var skill: Int?
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "match_id"
-        case duration
-        case mode = "game_mode"
-        case radiantWin = "radiant_win"
-        case slot = "player_slot"
-        case heroID = "hero_id"
-        case kills
-        case deaths
-        case assists
-        case lobbyType = "lobby_type"
-        case startTime = "start_time"
-        case skill
-    }
-    
-    var win: Bool {
-        return (slot <= 127 && radiantWin) || (slot >= 128 && !radiantWin)
-    }
-    
-    
-    
-    func fetchMode() -> GameMode {
-        let mode = HeroDatabase.shared.fetchGameMode(id: self.mode)
-        return mode
-    }
-    
-    static var sample = loadRecentMatches()!
-    
-    
-}
-
 struct GameMode: Codable {
     //"0": {"id": 0,"name": "game_mode_unknown","balanced": true},
     var id: Int

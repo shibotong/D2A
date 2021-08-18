@@ -13,32 +13,38 @@ struct ContentView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
+        NavigationView {
+            Sidebar()
+        }
 //        if horizontalSizeClass == .compact {
-            NavigationView {
-                Sidebar()
-                if environment.selectedUserProfile == nil {
-                    ProgressView()
-                } else {
-                    MatchListView()
-                }
-                if environment.selectedGame == nil {
-                    Text("Select a match")
-                } else {
-                    MatchView()
-                }
-            }//.navigationViewStyle(StackNavigationViewStyle())
+//            NavigationView {
+//                Sidebar()
+//                if environment.selectedUserProfile == nil {
+//                    ProgressView()
+//                } else {
+//                    MatchListView()
+//                }
+////                if environment.selectedGame == nil {
+////                    Text("Select a match")
+////                } else {
+////                    MatchView()
+////                }
+//            }//.navigationViewStyle(StackNavigationViewStyle())
+//            .sheet(isPresented: $environment.exceedLimit) {
+//                Text("exceedLimit")
+//            }
 //        } else {
 //            NavigationView {
 //                Sidebar()
-//                if environment.selectedUser == nil {
+//                if environment.selectedUserProfile == nil {
 //                    ProgressView()
 //                } else {
-//                    MatchListView(vm: MatchListViewModel(userid: environment.selectedUser!)).equatable()
+//                    MatchListView()
 //                }
 //                if environment.selectedGame == nil {
 //                    Text("Select a match")
 //                } else {
-//                    MatchView(vm: MatchViewModel(match: environment.selectedGame!))
+//                    MatchView(id: 0)
 //                }
 //            }.navigationViewStyle(DoubleColumnNavigationViewStyle())
 //        }

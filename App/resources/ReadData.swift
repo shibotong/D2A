@@ -52,7 +52,6 @@ func loadProfile() -> SteamProfile? {
         print("Cannot parse json data")
         return nil
     }
-    
 }
 
 func loadHeroes() -> [PlayerHero]? {

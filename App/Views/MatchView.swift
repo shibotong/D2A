@@ -6,14 +6,18 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct MatchView: View {
     @EnvironmentObject var env: DotaEnvironment
 //    @ObservedObject var vm: MatchViewModel
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
+    var id: Int
     var body: some View {
-        if env.selectedGame != nil {
+        if env.loadingGame {
+            ProgressView()
+        } else {
+            if env.selectedGame != nil {
             if horizontalSizeClass == .regular {
                 VStack(spacing: 3) {
 //                    ScoreboardView(match: env.selectedGame!)
@@ -76,6 +80,9 @@ struct MatchView: View {
                     }.background(Color(.secondarySystemBackground))
                 }.navigationTitle("\(env.selectedGame!.radiantWin ? "Radiant" : "Dire") Win")
             }
+            } else {
+                Text("something went error loading match")
+            }
         }
         
     }
@@ -87,8 +94,8 @@ struct MatchView: View {
 struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MatchView()
-            MatchView()
+            MatchView(id: 0)
+//            MatchView()
         }
         
     }
@@ -139,13 +146,13 @@ struct PlayerRowView: View {
                 Spacer()
                 VStack (alignment: .trailing, spacing: 0) {
                     HStack(spacing: 1) {
-                        ItemView(vm: ItemViewModel(id: player.item0))
-                        ItemView(vm: ItemViewModel(id: player.item1))
-                        ItemView(vm: ItemViewModel(id: player.item2))
-                        ItemView(vm: ItemViewModel(id: player.item3))
-                        ItemView(vm: ItemViewModel(id: player.item4))
-                        ItemView(vm: ItemViewModel(id: player.item5))
-                        ItemView(vm: ItemViewModel(id: player.itemNeutral)).clipShape(Circle())
+                        ItemView(id: player.item0)
+                        ItemView(id: player.item1)
+                        ItemView(id: player.item2)
+                        ItemView(id: player.item3)
+                        ItemView(id: player.item4)
+                        ItemView(id: player.item5)
+                        ItemView(id: player.itemNeutral).clipShape(Circle())
                     }
                     HStack(spacing: 6) {
                         HStack(spacing: 0) {
@@ -169,9 +176,26 @@ struct PlayerRowView: View {
 }
 
 struct ItemView: View {
-    @ObservedObject var vm: ItemViewModel
+    var id: Int
     var body: some View {
-        Image(uiImage: vm.itemImage).resizable().frame(width: 24, height: 18)
+        WebImage(url: computeURL())
+            .resizable()
+            .renderingMode(.original)
+            .indicator(.init(content: { _, _ in
+                Image("empty_item")
+                    .resizable()
+                    .frame(width: 24, height: 18)
+            }))
+            .transition(.fade)
+            .frame(width: 24, height: 18)
+    }
+    
+    private func computeURL() -> URL? {
+        guard let item = HeroDatabase.shared.fetchItem(id: id) else {
+            return nil
+        }
+        let url = URL(string: "https://api.opendota.com\(item.img)")
+        return url
     }
 }
 
@@ -184,7 +208,7 @@ struct ScoreboardView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Text("\(match.fetchMode().fetchModeName()) | \(match.startTime.convertToTime()) | \(match.duration.convertToDuration())").font(.custom(fontString, size: 13))
+                    Text("\(match.fetchMode().fetchModeName()) | \(Int(match.startTime).convertToTime()) | \(Int(match.duration).convertToDuration())").font(.custom(fontString, size: 13))
                 }.foregroundColor(Color(.secondaryLabel))
             }
             .padding(.horizontal)
