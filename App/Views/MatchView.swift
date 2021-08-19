@@ -17,17 +17,27 @@ struct MatchView: View {
             if horizontalSizeClass == .regular {
                 VStack(spacing: 3) {
                     HStack(spacing: 0) {
-                        ScrollView(showsIndicators: false) {
+                        VStack {
+                            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 160, maximum: .infinity), spacing: 20), count: 2), spacing: 20, content: {
+                                MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
+                                MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
+                                    .colorInvert()
+                                MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
+                                    .colorInvert()
+                                MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
+                            }).padding()
+                            
                             DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
                                 .frame(height: 300)
-                                .background(Color(.systemBackground))
                                 .animation(.linear(duration: 0.3))
                                 .padding(.horizontal)
                             Divider().padding(.horizontal, 80)
-                            AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
-                                .background(Color(.systemBackground))
-                                .animation(.linear(duration: 0.3))
-                                .padding(.horizontal)
+                            ScrollView {
+                                AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
+                                    .background(Color(.systemBackground))
+                                    .animation(.linear(duration: 0.3))
+                                    .padding(.horizontal)
+                            }
                         }
                         Divider().padding(.vertical, 80)
                         ScrollView(showsIndicators: false) {
@@ -52,17 +62,17 @@ struct MatchView: View {
                             }
                         }.padding([.top, .horizontal])
                         AllTeamPlayerView(match: vm.match!)
-//                            .background(Color(.systemBackground))
+                        //                            .background(Color(.systemBackground))
                         AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
-//                            .background(Color(.systemBackground))
-                            
+                        //                            .background(Color(.systemBackground))
+                        
                         DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
                             .frame(height: 300)
-//                            .background(Color(.systemBackground))
+                        //                            .background(Color(.systemBackground))
                     }
                 }
                 .animation(.linear(duration: 0.3))
-//                .background(Color(.secondarySystemBackground).ignoresSafeArea())
+                //                .background(Color(.secondarySystemBackground).ignoresSafeArea())
                 .navigationTitle("\(vm.match!.radiantWin ? "Radiant" : "Dire") Win")
                 .navigationBarItems(trailing: Button(action: {
                     vm.refresh()
@@ -90,8 +100,8 @@ struct MatchStatCardView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 5) {
                     Image(systemName: icon).font(.largeTitle)
-                    Text(title).font(.custom(fontString, size: 15)).foregroundColor(Color(.secondaryLabel))
-                    Text(label).font(.custom(fontString, size: 20)).bold().lineLimit(1)
+                    Text(title).font(.custom(fontString, size: 13)).foregroundColor(Color(.secondaryLabel))
+                    Text(label).font(.custom(fontString, size: 18)).bold().lineLimit(0)
                 }
                 Spacer()
             }.padding(18)
@@ -141,34 +151,19 @@ struct PlayerRowView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
-        HStack {
-            HeroIconImageView(heroID: player.heroID)
-                //                Image("hero_icon")
-                .frame(width: 35, height: 35)
-            VStack(alignment: .leading) {
-                Text("\(player.personaname ?? "Anolymous")").font(.custom(fontString, size: 15)).bold().lineLimit(1)
-                Text("LVL \(player.level) \(HeroDatabase.shared.fetchHeroWithID(id: player.heroID)?.localizedName.uppercased() ?? "")").font(.custom(fontString, size: 10)).foregroundColor(Color(.secondaryLabel))
-                    .lineLimit(1)
-            }.frame(minWidth: 0)
-            Spacer()
-            VStack (alignment: .trailing, spacing: 0) {
-                HStack(spacing: 1) {
-                    ItemView(id: player.item0)
-                    ItemView(id: player.item1)
-                    ItemView(id: player.item2)
-                    ItemView(id: player.item3)
-                    ItemView(id: player.item4)
-                    ItemView(id: player.item5)
-                    if player.itemNeutral != nil {
-                        ItemView(id: player.itemNeutral!).clipShape(Circle())
-                    }
-                }
-                HStack(spacing: 6) {
-                    HStack(spacing: 0) {
-                        Text("\(player.kills)")
-                        Text("/\(player.deaths)/\(player.assists)").foregroundColor(Color(.systemGray)).lineLimit(1)
-                        
-                    }.frame(minWidth:45)
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                HeroIconImageView(heroID: player.heroID)
+                    //                Image("hero_icon")
+                    .frame(width: 35, height: 35)
+                VStack(alignment: .leading) {
+                    Text("\(player.personaname ?? "Anolymous")").font(.custom(fontString, size: 15)).bold().lineLimit(1)
+                    Text("LVL \(player.level) \(HeroDatabase.shared.fetchHeroWithID(id: player.heroID)?.localizedName.uppercased() ?? "")").font(.custom(fontString, size: 10)).foregroundColor(Color(.secondaryLabel))
+                        .lineLimit(1)
+                }.frame(minWidth: 0)
+                Spacer()
+                
+                VStack(spacing: 0) {
                     HStack(spacing: 3) {
                         Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
                         Text("\(player.gpm)").foregroundColor(Color(.systemOrange))
@@ -177,9 +172,27 @@ struct PlayerRowView: View {
                         Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
                         Text("\(player.xpm)").foregroundColor(Color(.systemBlue))
                     }.frame(width: 35)
+                    
+                }.font(.custom(fontString, size: 12))
+            }.frame(height: 50)
+            HStack {
+                ItemView(id: player.item0)
+                ItemView(id: player.item1)
+                ItemView(id: player.item2)
+                ItemView(id: player.item3)
+                ItemView(id: player.item4)
+                ItemView(id: player.item5)
+                if player.itemNeutral != nil {
+                    ItemView(id: player.itemNeutral!).clipShape(Circle())
                 }
-            }.font(.custom(fontString, size: 12))
-        }.frame(height: 50)
+                Spacer()
+                HStack(spacing: 0) {
+                    Text("\(player.kills)").bold()
+                    Text("/\(player.deaths)/\(player.assists)").foregroundColor(Color(.systemGray)).lineLimit(1)
+                    
+                }.frame(minWidth:45).font(.custom(fontString, size: 15))
+            }
+        }.padding(.vertical)
         
     }
 }
