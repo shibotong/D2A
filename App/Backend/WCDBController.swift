@@ -8,7 +8,7 @@
 import Foundation
 import WCDBSwift
 
-class WCDBController: ObservableObject {
+class WCDBController {
     static let shared = WCDBController()
     var database: Database
     
@@ -57,6 +57,14 @@ class WCDBController: ObservableObject {
             return match
         } catch {
             fatalError("fetch match error")
+        }
+    }
+    
+    func deleteMatch(matchid: String) {
+        do {
+            try database.delete(fromTable: "Match", where: Match.Properties.id == Int(matchid)!)
+        } catch {
+            fatalError("cannot delete match")
         }
     }
 }

@@ -13,11 +13,17 @@ struct MatchListView: View {
     var body: some View {
         List {
             if vm.isLoading {
-                ProgressView().frame(height: 50)
-            }
-            ForEach(vm.matches, id: \.id) { match in
-                NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
-                    MatchListRowView(vm: MatchListRowViewModel(match: match))
+                ForEach(0..<20, id:\.self) { item in
+                    MatchListRowEmptyView()
+                }
+            } else {
+                if vm.refreshing {
+                    LoadingView()
+                }
+                ForEach(vm.matches, id: \.id) { match in
+                    NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
+                        MatchListRowView(vm: MatchListRowViewModel(match: match))
+                    }
                 }
             }
         }
@@ -26,9 +32,36 @@ struct MatchListView: View {
             Button(action: {
                 vm.refreshData()
             }, label: {
-                Image(systemName: "person.fill")
+                Image(systemName: "arrow.counterclockwise")
             })
         )
+    }
+}
+
+struct MatchListRowEmptyView: View {
+    @State var loading = false
+    var body: some View {
+        HStack(spacing: 10) {
+            RoundedRectangle(cornerRadius: 15).frame(width: 52, height: 52)
+            VStack(alignment: .leading, spacing: 5) {
+                HStack {
+                    RoundedRectangle(cornerRadius: 5).frame(width: 200, height: 17)
+                    Spacer()
+                }
+                HStack {
+                    RoundedRectangle(cornerRadius: 5).frame(width: 60, height: 28)
+                    Spacer()
+                    RoundedRectangle(cornerRadius: 5).frame(width: 60, height: 28)
+                    Spacer()
+                    RoundedRectangle(cornerRadius: 5).frame(width: 60, height: 28)
+                }
+            }
+        }
+        .foregroundColor(loading ? Color(.systemGray6) : Color(.systemGray5))
+        .onAppear {
+            self.loading = true
+        }
+        .animation(Animation.default.repeatForever())
     }
 }
 
@@ -84,7 +117,7 @@ struct MatchListRowView: View {
 
 struct MatchListView_Previews: PreviewProvider {
     static var previews: some View {
-        MatchListView(vm: MatchListViewModel(userid: "153041957"))
+        MatchListRowEmptyView()
         
     }
 }

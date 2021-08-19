@@ -49,10 +49,12 @@ class OpenDotaController {
                 DotaEnvironment.shared.exceedLimit = true
             }
             let decoder = JSONDecoder()
-            let match = try? decoder.decode(Match.self, from: data)
-            print("loaded match \(match)")
-            guard let match = match else {
+            guard let match = try? decoder.decode(Match.self, from: data) else {
                 return
+            }
+            if let _ = WCDBController.shared.fetchMatch(matchid: matchid) {
+                // if match exist delete it
+                WCDBController.shared.deleteMatch(matchid: matchid)
             }
             try? WCDBController.shared.database.insert(objects: [match], intoTable: "Match")
             onComplete(true)
@@ -78,8 +80,7 @@ class OpenDotaController {
                 DotaEnvironment.shared.exceedLimit = true
             }
             let decoder = JSONDecoder()
-            let matches = try? decoder.decode([RecentMatch].self, from: data)
-            guard let matches = matches else {
+            guard let matches = try? decoder.decode([RecentMatch].self, from: data) else {
                 return
             }
             matches.forEach({$0.playerId = Int(userid)})

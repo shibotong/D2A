@@ -9,7 +9,6 @@ import Foundation
 import WCDBSwift
 
 struct GameMode: Codable {
-    //"0": {"id": 0,"name": "game_mode_unknown","balanced": true},
     var id: Int
     var name: String
     
@@ -114,9 +113,11 @@ struct Match: TableCodable {
         case xpDiff = "radiant_xp_adv"
     }
     
+    static var sample = loadMatch()!
+    
     func fetchDuration() -> String {
-        let mins = self.duration / 60
-        let sec = self.duration - (mins * 60)
+        let mins = Int(self.duration / 60)
+        let sec = Int(self.duration - (mins * 60))
         return "\(mins):\(sec)"
     }
     
@@ -148,11 +149,11 @@ struct Match: TableCodable {
                 return self.direKill!
             } else {
                 let players = self.fetchPlayers(isRadiant: isRadiant)
-                var kills = 0
+                var countKills = 0
                 players.forEach { player in
-                    kills += player.kills
+                    countKills += player.kills
                 }
-                return kills
+                return countKills
             }
         }
     }

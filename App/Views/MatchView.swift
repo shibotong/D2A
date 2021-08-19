@@ -24,7 +24,7 @@ struct MatchView: View {
                                 .animation(.linear(duration: 0.3))
                                 .padding(.horizontal)
                             Divider().padding(.horizontal, 80)
-                            AnalysisView(players: vm.match!.players)
+                            AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
                                 .background(Color(.systemBackground))
                                 .animation(.linear(duration: 0.3))
                                 .padding(.horizontal)
@@ -39,19 +39,36 @@ struct MatchView: View {
                 }.navigationTitle("\(vm.match!.radiantWin ? "Radiant" : "Dire") Win")
             } else {
                 ScrollView {
+                    if vm.loading {
+                        LoadingView()
+                            .frame(height: 50)
+                            .transition(.flipFromTop)
+                    }
                     VStack(spacing: 10) {
+                        VStack(spacing: 30) {
+                            HStack(spacing: 15) {
+                                MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
+                                MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())").colorInvert()//.frame(width: proxy.size.width / 2)
+                            }
+                        }.padding([.top, .horizontal])
                         AllTeamPlayerView(match: vm.match!)
-                            .background(Color(.systemBackground))
-                        AnalysisView(players: vm.match!.players)
-                            .background(Color(.systemBackground))
-                            .animation(.linear(duration: 0.3))
+//                            .background(Color(.systemBackground))
+                        AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
+//                            .background(Color(.systemBackground))
+                            
                         DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
                             .frame(height: 300)
-                            .background(Color(.systemBackground))
-                            .animation(.linear(duration: 0.3))
-                        //                        }
-                    }.background(Color(.secondarySystemBackground))
-                }.navigationTitle("\(vm.match!.radiantWin ? "Radiant" : "Dire") Win")
+//                            .background(Color(.systemBackground))
+                    }
+                }
+                .animation(.linear(duration: 0.3))
+//                .background(Color(.secondarySystemBackground).ignoresSafeArea())
+                .navigationTitle("\(vm.match!.radiantWin ? "Radiant" : "Dire") Win")
+                .navigationBarItems(trailing: Button(action: {
+                    vm.refresh()
+                }, label: {
+                    Image(systemName: "arrow.clockwise")
+                }))
             }
         } else {
             Text("something went error loading match")
@@ -62,20 +79,34 @@ struct MatchView: View {
     }
     
 }
-//    static func == (lhs: MatchView, rhs: MatchView) -> Bool {
-//        return lhs.vm.matchid == rhs.vm.matchid
-//    }
 
+struct MatchStatCardView: View {
+    var icon: String
+    var title: String
+    var label: String
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15.0).foregroundColor(Color(.secondarySystemBackground))
+            HStack {
+                VStack(alignment: .leading, spacing: 5) {
+                    Image(systemName: icon).font(.largeTitle)
+                    Text(title).font(.custom(fontString, size: 15)).foregroundColor(Color(.secondaryLabel))
+                    Text(label).font(.custom(fontString, size: 20)).bold().lineLimit(1)
+                }
+                Spacer()
+            }.padding(18)
+        }
+    }
+}
 
-//struct MatchView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-////            MatchView(id: 0)
-//            //            MatchView()
-//        }
-//        
-//    }
-//}
+struct MatchView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            MatchView(vm: MatchViewModel())
+        }
+        
+    }
+}
 
 struct AllTeamPlayerView: View {
     var match: Match

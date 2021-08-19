@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
+import Combine
 
 struct AnalysisView: View {
-    var players: [Player]
-    @State private var selection: AnalysisType = .kills
+    @ObservedObject var vm: AnalysisViewModel
     var body: some View {
         VStack {
             HStack {
@@ -17,66 +17,28 @@ struct AnalysisView: View {
                 Spacer()
                 HStack {
                     Menu {
-                        Picker("picker", selection: $selection) {
+                        Picker("picker", selection: $vm.selection) {
                             Text("Tower Damage").tag(AnalysisType.towerDamage)
                             Text("Hero Damage").tag(AnalysisType.heroDamage)
                             Text("Net Worth").tag(AnalysisType.golds)
                             Text("Kills").tag(AnalysisType.kills)
                         }
                     } label: {
-                        Label("\(selection.rawValue)", systemImage: "chevron.down")
+                        Label("\(vm.selection.rawValue)", systemImage: "chevron.down")
                     }
                 }.font(.custom(fontString, size: 15)).foregroundColor(Color(.secondaryLabel))
                 .padding(.horizontal)
                 .padding(.vertical, 10)
                 .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.secondarySystemBackground)))
             }
-            if sortBy(analysisType: selection) != nil {
-                ForEach(sortBy(analysisType: selection)!, id: \.heroID) { player in
-                    PlayerAnalysisRowView(player: player, percentage:calculatePercentage(currentPlayer: player, firstPlayer: sortBy(analysisType: selection)!.first!), selection: $selection)
-                }
+            if vm.players == nil {
+                Text("\(vm.selection.rawValue) is not available").font(.custom(fontString, size: 15)).frame(height: 300).foregroundColor(Color(.tertiaryLabel))
             } else {
-                Text("Can not show")
+                ForEach(vm.players!, id:\.heroID) { player in
+                    PlayerAnalysisRowView(player: player, value: vm.fetchPlayerValue(player: player), percentage: vm.calculatePercentage(player: player))
+                }
             }
         }.padding(20)
-    }
-    
-    private func calculatePercentage(currentPlayer: Player, firstPlayer: Player) -> Double {
-        switch selection {
-        case .golds:
-            return Double(currentPlayer.netWorth!) / Double(firstPlayer.netWorth!)
-        case .heroDamage:
-            return Double(currentPlayer.heroDamage!) / Double(firstPlayer.heroDamage!)
-        case .kills:
-            return Double(currentPlayer.kills) / Double(firstPlayer.kills)
-        case .towerDamage:
-            return Double(currentPlayer.towerDamage!) / Double(firstPlayer.towerDamage!)
-        }
-    }
-    
-    private func sortBy(analysisType: AnalysisType) -> [Player]? {
-        switch analysisType {
-        case .golds:
-            if players.allSatisfy({ $0.netWorth != nil }) {
-                return players.sorted(by: { $0.netWorth! >= $1.netWorth! })
-            } else {
-                return nil
-            }
-        case .heroDamage:
-            if players.allSatisfy({ $0.heroDamage != nil }) {
-                return players.sorted(by: { $0.heroDamage! >= $1.heroDamage! })
-            } else {
-                return nil
-            }
-        case .kills:
-            return players.sorted(by: { $0.kills >= $1.kills })
-        case .towerDamage:
-            if players.allSatisfy({ $0.towerDamage != nil }) {
-                return players.sorted(by: { $0.towerDamage! >= $1.towerDamage! })
-            } else {
-                return nil
-            }
-        }
     }
 }
 
@@ -88,41 +50,20 @@ enum AnalysisType: String {
     
 }
 
-//struct AnalysisView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AnalysisView(players: Match.sample.players)
-//    }
-//}
-
 struct PlayerAnalysisRowView: View {
     var player: Player
+    var value: Int
     var percentage: Double
-    @Binding var selection: AnalysisType
     
     var body: some View {
         HStack {
             HeroIconImageView(heroID: player.heroID).frame(width: 35, height: 35)
-//            Image("hero_icon")
             VStack (alignment: .leading, spacing: 0) {
-                ProgressView("\(detailNumber())", value: percentage, total: 1)
+                ProgressView("\(Int(value).description)", value: percentage > 1 ? 1 : percentage, total: 1)
                     .accentColor(Color(player.slot <= 127 ? .systemGreen : .systemRed).opacity(0.8))
                     .progressViewStyle(LinearProgressViewStyle())
                     
             }
         }
     }
-    
-    private func detailNumber() -> Int {
-        switch selection {
-        case .golds:
-            return player.netWorth!
-        case .heroDamage:
-            return player.heroDamage!
-        case .kills:
-            return player.kills
-        case .towerDamage:
-            return player.towerDamage!
-        }
-    }
-    
 }

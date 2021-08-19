@@ -11,6 +11,7 @@ import CoreData
 class MatchListViewModel: ObservableObject {
     @Published var matches: [RecentMatch] = []
     @Published var isLoading = false
+    @Published var refreshing = false
     private var userid: String
     
     init(userid: String) {
@@ -22,35 +23,38 @@ class MatchListViewModel: ObservableObject {
     private func loadmatch() {
         let matches = WCDBController.shared.fetchRecentMatches(userid: userid)
         if matches.isEmpty {
-            self.fetchMoreData()
+            self.fetchAllData()
         } else {
             self.matches = matches
         }
         
     }
     
-    func fetchMoreData() {
+    func fetchAllData() {
         if !self.isLoading {
             self.isLoading = true
             OpenDotaController.loadRecentMatch(userid: userid) { result in
-                self.loadmatch()
-                self.isLoading = false
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.loadmatch()
+                }
             }
         }
     }
     
     func refreshData() {
-        if !self.isLoading {
-            self.isLoading = true
+        if !self.refreshing && !self.isLoading {
+            self.refreshing = true
             let firstMatch = self.matches.first!
             let today = Date()
             let days = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(timeIntervalSince1970: TimeInterval(firstMatch.startTime)), to: today)
 
             let dayCount = Double(days.day!) + (Double(days.hour!) / 24.0) + (Double(days.minute!) / 60.0 / 24.0)
-            print(dayCount)
             OpenDotaController.loadRecentMatch(userid: userid, days: dayCount) { bool in
-                self.loadmatch()
-                self.isLoading = false
+                DispatchQueue.main.async {
+                    self.loadmatch()
+                    self.refreshing = false
+                }
             }
         }
     }

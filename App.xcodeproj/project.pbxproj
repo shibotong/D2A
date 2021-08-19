@@ -15,6 +15,11 @@
 		322B893826CD44FE00DF67F9 /* SteamProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893726CD44FE00DF67F9 /* SteamProfile.swift */; };
 		322B893A26CD456400DF67F9 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893926CD456400DF67F9 /* RecentMatch.swift */; };
 		322B893C26CD560100DF67F9 /* MatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893B26CD560100DF67F9 /* MatchViewModel.swift */; };
+		322B893E26CE66F800DF67F9 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893D26CE66F800DF67F9 /* LoadingView.swift */; };
+		322B894026CE696C00DF67F9 /* DifferenceGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893F26CE696C00DF67F9 /* DifferenceGraphView.swift */; };
+		322B89B926CE6B5A00DF67F9 /* HeroDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89B826CE6B5A00DF67F9 /* HeroDatabase.swift */; };
+		322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */; };
+		322B89BF26CE788900DF67F9 /* AnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89BE26CE788900DF67F9 /* AnalysisViewModel.swift */; };
 		3252858F26C949940030F15B /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252858E26C949940030F15B /* Animation.swift */; };
 		3252859126C9E8040030F15B /* AnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859026C9E8040030F15B /* AnalysisView.swift */; };
 		3252859526CA535F0030F15B /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859426CA535F0030F15B /* View.swift */; };
@@ -26,14 +31,12 @@
 		32897B0426C4DC07008D3CC8 /* sampleMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 32897B0326C4DC07008D3CC8 /* sampleMatch.json */; };
 		32897B0626C4E0B2008D3CC8 /* permanant_buffs.json in Resources */ = {isa = PBXBuildFile; fileRef = 32897B0526C4E0B2008D3CC8 /* permanant_buffs.json */; };
 		32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0726C4EFF1008D3CC8 /* Int.swift */; };
-		32897B0A26C79222008D3CC8 /* DifferenceGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0926C79222008D3CC8 /* DifferenceGraphView.swift */; };
 		32897B0E26C7A703008D3CC8 /* ItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0D26C7A703008D3CC8 /* ItemViewModel.swift */; };
 		32897B1026C7B9F1008D3CC8 /* HeroIconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0F26C7B9F1008D3CC8 /* HeroIconImageView.swift */; };
 		32B36F0F26C38821002D427D /* AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F0E26C38821002D427D /* AppApp.swift */; };
 		32B36F1126C38821002D427D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F1026C38821002D427D /* ContentView.swift */; };
 		32B36F1326C38822002D427D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1226C38822002D427D /* Assets.xcassets */; };
 		32B36F1626C38822002D427D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1526C38822002D427D /* Preview Assets.xcassets */; };
-		32B36F2026C38849002D427D /* OpenDotaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F1E26C38849002D427D /* OpenDotaController.swift */; };
 		32B36F2126C38849002D427D /* ItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F1F26C38849002D427D /* ItemController.swift */; };
 		32B36F2726C38852002D427D /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2326C38852002D427D /* Hero.swift */; };
 		32B36F2926C38852002D427D /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2526C38852002D427D /* Match.swift */; };
@@ -50,7 +53,6 @@
 		32B36F4726C38DA5002D427D /* dota_game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F4626C38DA5002D427D /* dota_game_mode.json */; };
 		32B36F4A26C39242002D427D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4926C39242002D427D /* String.swift */; };
 		32B36F4C26C39C5D002D427D /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4B26C39C5D002D427D /* Environment.swift */; };
-		32B36F4E26C39C8F002D427D /* HeroDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4D26C39C8F002D427D /* HeroDatabase.swift */; };
 		32F6A1B026C499E3009C00E1 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F6A1AF26C499E3009C00E1 /* MatchView.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +64,11 @@
 		322B893726CD44FE00DF67F9 /* SteamProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteamProfile.swift; sourceTree = "<group>"; };
 		322B893926CD456400DF67F9 /* RecentMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMatch.swift; sourceTree = "<group>"; };
 		322B893B26CD560100DF67F9 /* MatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewModel.swift; sourceTree = "<group>"; };
+		322B893D26CE66F800DF67F9 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		322B893F26CE696C00DF67F9 /* DifferenceGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DifferenceGraphView.swift; sourceTree = "<group>"; };
+		322B89B826CE6B5A00DF67F9 /* HeroDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroDatabase.swift; sourceTree = "<group>"; };
+		322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenDotaController.swift; sourceTree = "<group>"; };
+		322B89BE26CE788900DF67F9 /* AnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewModel.swift; sourceTree = "<group>"; };
 		3237E66D9A4EE03E8E0C222C /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		3252858E26C949940030F15B /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		3252859026C9E8040030F15B /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
@@ -73,7 +80,6 @@
 		32897B0326C4DC07008D3CC8 /* sampleMatch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleMatch.json; sourceTree = "<group>"; };
 		32897B0526C4E0B2008D3CC8 /* permanant_buffs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = permanant_buffs.json; sourceTree = "<group>"; };
 		32897B0726C4EFF1008D3CC8 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
-		32897B0926C79222008D3CC8 /* DifferenceGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferenceGraphView.swift; sourceTree = "<group>"; };
 		32897B0D26C7A703008D3CC8 /* ItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewModel.swift; sourceTree = "<group>"; };
 		32897B0F26C7B9F1008D3CC8 /* HeroIconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroIconImageView.swift; sourceTree = "<group>"; };
 		32B36F0B26C38821002D427D /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,7 +88,6 @@
 		32B36F1226C38822002D427D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32B36F1526C38822002D427D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		32B36F1726C38822002D427D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		32B36F1E26C38849002D427D /* OpenDotaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenDotaController.swift; sourceTree = "<group>"; };
 		32B36F1F26C38849002D427D /* ItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemController.swift; sourceTree = "<group>"; };
 		32B36F2326C38852002D427D /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 		32B36F2526C38852002D427D /* Match.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
@@ -166,8 +171,9 @@
 		32B36F1D26C38834002D427D /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				322B89B826CE6B5A00DF67F9 /* HeroDatabase.swift */,
 				32B36F1F26C38849002D427D /* ItemController.swift */,
-				32B36F1E26C38849002D427D /* OpenDotaController.swift */,
+				322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */,
 				32B36F4B26C39C5D002D427D /* Environment.swift */,
 				32B36F4D26C39C8F002D427D /* HeroDatabase.swift */,
 				322B893326CD425300DF67F9 /* WCDBController.swift */,
@@ -222,9 +228,10 @@
 				32B36F3E26C388AD002D427D /* MatchListView.swift */,
 				32897B0F26C7B9F1008D3CC8 /* HeroIconImageView.swift */,
 				32F6A1AF26C499E3009C00E1 /* MatchView.swift */,
-				32897B0926C79222008D3CC8 /* DifferenceGraphView.swift */,
 				3252859026C9E8040030F15B /* AnalysisView.swift */,
+				322B893F26CE696C00DF67F9 /* DifferenceGraphView.swift */,
 				3252859D26CB9FDC0030F15B /* Sidebar.swift */,
+				322B893D26CE66F800DF67F9 /* LoadingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -238,6 +245,7 @@
 				322B88FF26CCD2EA00DF67F9 /* MatchListViewModel.swift */,
 				3252859F26CBB67C0030F15B /* SidebarRowViewModel.swift */,
 				322B893B26CD560100DF67F9 /* MatchViewModel.swift */,
+				322B89BE26CE788900DF67F9 /* AnalysisViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -396,9 +404,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32897B0A26C79222008D3CC8 /* DifferenceGraphView.swift in Sources */,
 				322B890026CCD2EA00DF67F9 /* MatchListViewModel.swift in Sources */,
 				32B36F2726C38852002D427D /* Hero.swift in Sources */,
+				322B89B926CE6B5A00DF67F9 /* HeroDatabase.swift in Sources */,
 				32B36F4A26C39242002D427D /* String.swift in Sources */,
 				32F6A1B026C499E3009C00E1 /* MatchView.swift in Sources */,
 				3252859126C9E8040030F15B /* AnalysisView.swift in Sources */,
@@ -408,24 +416,26 @@
 				32B36F1126C38821002D427D /* ContentView.swift in Sources */,
 				32B36F4C26C39C5D002D427D /* Environment.swift in Sources */,
 				3252859526CA535F0030F15B /* View.swift in Sources */,
+				322B894026CE696C00DF67F9 /* DifferenceGraphView.swift in Sources */,
 				32897B1026C7B9F1008D3CC8 /* HeroIconImageView.swift in Sources */,
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
+				322B893E26CE66F800DF67F9 /* LoadingView.swift in Sources */,
 				325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */,
 				32B36F3F26C388AD002D427D /* MatchListView.swift in Sources */,
 				32B36F2A26C38852002D427D /* Item.swift in Sources */,
 				322B893826CD44FE00DF67F9 /* SteamProfile.swift in Sources */,
 				325285A026CBB67C0030F15B /* SidebarRowViewModel.swift in Sources */,
 				322B893626CD438700DF67F9 /* UserProfile.swift in Sources */,
+				322B89BF26CE788900DF67F9 /* AnalysisViewModel.swift in Sources */,
 				3252859726CB81480030F15B /* DifferenceGraphViewModel.swift in Sources */,
 				322B893A26CD456400DF67F9 /* RecentMatch.swift in Sources */,
-				32B36F2026C38849002D427D /* OpenDotaController.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
 				32B36F2126C38849002D427D /* ItemController.swift in Sources */,
 				32B36F0F26C38821002D427D /* AppApp.swift in Sources */,
+				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
 				32B36F2926C38852002D427D /* Match.swift in Sources */,
 				32897B0E26C7A703008D3CC8 /* ItemViewModel.swift in Sources */,
 				32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */,
-				32B36F4E26C39C8F002D427D /* HeroDatabase.swift in Sources */,
 				3252859E26CB9FDC0030F15B /* Sidebar.swift in Sources */,
 				32B36F2D26C3885A002D427D /* Color.swift in Sources */,
 			);
@@ -569,6 +579,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibotong.App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -593,6 +604,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibotong.App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Osize";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

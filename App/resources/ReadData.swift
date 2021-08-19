@@ -20,62 +20,62 @@ func loadFile(filename: String) -> Data? {
         return nil
     }
 }
-
-func loadRecentMatches() -> [RecentMatch]? {
-    guard let data = loadFile(filename: "sampleMatches") else {
-        return nil
-    }
-    do {
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode([RecentMatch].self, from: data)
-        return jsonData
-    } catch {
-        // handle error
-        print("Cannot parse json data")
-        return nil
-    }
-    
-}
-
-func loadProfile() -> SteamProfile? {
-    guard let data = loadFile(filename: "sampleProfile") else {
-        return nil
-    }
-    
-    do {
-        
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode(SteamProfile.self, from: data)
-        return jsonData
-    } catch {
-        // handle error
-        print("Cannot parse json data")
-        return nil
-    }
-}
-
-func loadHeroes() -> [PlayerHero]? {
-    guard let data = loadFile(filename: "sampleHeroes") else {
-        return nil
-    }
-    
-    do {
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode([PlayerHero].self, from: data)
-        return jsonData
-    } catch {
-        // handle error
-        print("Cannot parse json data")
-        return nil
-    }
-    
-}
-
+//
+//func loadRecentMatches() -> [RecentMatch]? {
+//    guard let data = loadFile(filename: "sampleMatches") else {
+//        return nil
+//    }
+//    do {
+//        let decoder = JSONDecoder()
+//        let jsonData = try decoder.decode([RecentMatch].self, from: data)
+//        return jsonData
+//    } catch {
+//        // handle error
+//        print("Cannot parse json data")
+//        return nil
+//    }
+//
+//}
+//
+//func loadProfile() -> SteamProfile? {
+//    guard let data = loadFile(filename: "sampleProfile") else {
+//        return nil
+//    }
+//
+//    do {
+//
+//        let decoder = JSONDecoder()
+//        let jsonData = try decoder.decode(SteamProfile.self, from: data)
+//        return jsonData
+//    } catch {
+//        // handle error
+//        print("Cannot parse json data")
+//        return nil
+//    }
+//}
+//
+//func loadHeroes() -> [PlayerHero]? {
+//    guard let data = loadFile(filename: "sampleHeroes") else {
+//        return nil
+//    }
+//
+//    do {
+//        let decoder = JSONDecoder()
+//        let jsonData = try decoder.decode([PlayerHero].self, from: data)
+//        return jsonData
+//    } catch {
+//        // handle error
+//        print("Cannot parse json data")
+//        return nil
+//    }
+//
+//}
+//
 func loadMatch() -> Match? {
     guard let data = loadFile(filename: "sampleMatch") else {
         return nil
     }
-    
+
     do {
         let decoder = JSONDecoder()
         let jsonData = try decoder.decode(Match.self, from: data)
@@ -84,23 +84,23 @@ func loadMatch() -> Match? {
         print("Cannot parse json data")
         return nil
     }
-    
-}
 
+}
+//
 func loadItemIDs() -> [String: String]? {
     guard let data = loadFile(filename: "itemID") else {
         return nil
     }
-    
+
     do {
         return try (JSONSerialization.jsonObject(with: data, options: []) as? [String : String])
     } catch {
         print("Cannot parse json data")
         return nil
     }
-    
-}
 
+}
+//
 func loadItems() -> [String: Item]? {
     guard let data = loadFile(filename: "items") else {
         return nil
@@ -114,7 +114,7 @@ func loadItems() -> [String: Item]? {
         return nil
     }
 }
-
+//
 func loadGameModes() -> [String: GameMode]? {
     guard let data = loadFile(filename: "dota_game_mode") else {
         fatalError("no game mode file")
