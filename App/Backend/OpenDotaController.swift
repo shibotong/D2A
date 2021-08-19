@@ -27,14 +27,14 @@ class OpenDotaController {
                 DotaEnvironment.shared.exceedLimit = true
             }
             let decoder = JSONDecoder()
-            decoder.userInfo[CodingUserInfoKey.managedObjectContext] = CoreDataController.shared.container.viewContext
+            
             let user = try? decoder.decode(SteamProfile.self, from: data)
-            CoreDataController.shared.saveContext()
+            try? WCDBController.shared.database.insert(objects: [user!.profile], intoTable: "UserProfile")
             onCompletion(user)
         }
     }
     
-    static func loadMatchData(matchid: String, onComplete:@escaping (Match?) -> ()) {
+    static func loadMatchData(matchid: String, onComplete:@escaping (Bool) -> ()) {
         let url = "\(baseURL)/api/matches/\(matchid)"
         AF.request(url).responseJSON { response in
             print("load match data")
@@ -49,16 +49,20 @@ class OpenDotaController {
             }
             let decoder = JSONDecoder()
             let match = try? decoder.decode(Match.self, from: data)
-            onComplete(match)
+            guard let match = match else {
+                return
+            }
+            try? WCDBController.shared.database.insert(objects: [match], intoTable: "Match")
+            onComplete(true)
         }
     }
     
-    static func loadRecentMatch(userid: String, offSet: Int = 0, limit: Int = 0, days: Double? = nil, onComplete: @escaping (Bool) -> ()) {
+    static func loadRecentMatch(userid: String, days: Double? = nil, onComplete: @escaping (Bool) -> ()) {
         var url = ""
         if days != nil {
             url = "\(baseURL)/api/players/\(userid)/matches/?date=\(days!)"
         } else {
-            url = "\(baseURL)/api/players/\(userid)/matches/?limit=\(limit)&offset=\(offSet)"
+            url = "\(baseURL)/api/players/\(userid)/matches"
         }
         AF.request(url).responseJSON { response in
             print("load matches data")
@@ -72,13 +76,13 @@ class OpenDotaController {
                 DotaEnvironment.shared.exceedLimit = true
             }
             let decoder = JSONDecoder()
-            decoder.userInfo[CodingUserInfoKey.managedObjectContext] = CoreDataController.shared.container.viewContext
             let matches = try? decoder.decode([RecentMatch].self, from: data)
-            
-            matches?.forEach({ match in
-                match.playerId = Int64(userid)!
-            })
-            CoreDataController.shared.saveContext()
+            guard let matches = matches else {
+                return
+            }
+            matches.forEach({$0.playerId = Int(userid)})
+            print(matches.count)
+            try? WCDBController.shared.database.insert(objects: matches, intoTable: "RecentMatch")
             onComplete(true)
         }
     }

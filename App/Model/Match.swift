@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import WCDBSwift
 
 struct GameMode: Codable {
     //"0": {"id": 0,"name": "game_mode_unknown","balanced": true},
@@ -71,7 +72,7 @@ struct GameMode: Codable {
     
 }
 
-struct Match: Codable {
+struct Match: TableCodable {
     var id: Int
     var direKill: Int
     var duration: Int
@@ -91,9 +92,9 @@ struct Match: Codable {
     
     var players: [Player]
     
-    static let sample = loadMatch()!
-    
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingTableKey {
+        typealias Root = Match
+        static let objectRelationalMapping = TableBinding(CodingKeys.self)
         case id = "match_id"
         case direKill = "dire_score"
         case duration
@@ -131,7 +132,7 @@ struct Match: Codable {
     }
 }
 
-struct Player: Codable, Identifiable {
+struct Player: Codable, TableCodable {
     var id: Int?
     var slot: Int
     var abilityUpgrade: [Int] //An array describing how abilities were upgraded
@@ -175,7 +176,9 @@ struct Player: Codable, Identifiable {
 
     var personaname: String?
     
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingTableKey {
+        typealias Root = Player
+        static let objectRelationalMapping = TableBinding(CodingKeys.self)
         case id = "account_id"
         case slot = "player_slot"
         case abilityUpgrade = "ability_upgrades_arr"
@@ -218,11 +221,13 @@ struct Player: Codable, Identifiable {
     }
 }
 
-struct PermanentBuff: Codable {
+struct PermanentBuff: TableCodable {
     var buffID: Int
     var stack: Int
     
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingTableKey {
+        typealias Root = PermanentBuff
+        static let objectRelationalMapping = TableBinding(CodingKeys.self)
         case buffID = "permanent_buff"
         case stack = "stack_count"
     }

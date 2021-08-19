@@ -18,23 +18,12 @@ class SidebarRowViewModel: ObservableObject {
     }
     
     private func loadProfile() {
-        
-        let managedObject = CoreDataController.shared.container.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserProfile")
-        let userid = userid
-        request.predicate = NSPredicate(format: "id == %d", Int64(userid)!)
-        do {
-            let fetchedUser = try managedObject.fetch(request) as! [UserProfile]
-            if fetchedUser.isEmpty {
-                OpenDotaController.loadUserData(userid: userid) { profile in
-                    self.profile = profile?.profile
-                }
-            } else {
-                self.profile = fetchedUser.first!
+        guard let profile = WCDBController.shared.fetchUserProfile(userid: userid) else {
+            OpenDotaController.loadUserData(userid: userid) { steamProfile in
+                self.loadProfile()
             }
-        } catch {
-            fatalError("Failed to fetch employees: \(error)")
+            return
         }
-        
+        self.profile = profile
     }
 }

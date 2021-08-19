@@ -15,15 +15,10 @@ struct Sidebar: View {
             ForEach(env.userIDs, id: \.self) { id in
                 NavigationLink(
                     destination: MatchListView(vm: MatchListViewModel(userid: id)),
-                    tag: id,
-                    selection: $env.selectedUserID,
                     label: {
                         SidebarRowView(vm: SidebarRowViewModel(userid: id)).equatable()
                     })
-//                    .simultaneousGesture(TapGesture().onEnded{
-//                        print("switch user")
-//                        env.loadUser(id: id)
-//                    })
+
             }
         }
         .navigationTitle("Follow")
@@ -33,14 +28,12 @@ struct Sidebar: View {
 
 struct SidebarRowView: View, Equatable {
     @ObservedObject var vm: SidebarRowViewModel
-//    @Environment(\.managedObjectContext) private var viewContext
-//    @FetchRequest(entity: UserProfile.entity(), sortDescriptors: [NSSortDescriptor(key: "id", ascending: true)], predicate: NSPredicate(format: "id == %@", 153041957)) private var userprofile: FetchedResults<UserProfile>
     var body: some View {
         if vm.profile != nil {
             Label {
-                Text("\(vm.profile!.personaname!)")
+                Text("\(vm.profile!.personaname)")
             } icon: {
-                WebImage(url: URL(string: vm.profile!.avatarfull!))
+                WebImage(url: URL(string: vm.profile!.avatarfull))
                     .resizable()
                     .renderingMode(.original)
                     .indicator(.activity)

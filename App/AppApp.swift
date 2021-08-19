@@ -11,8 +11,7 @@ import SwiftUI
 struct AppApp: App {
     @StateObject var environment: DotaEnvironment = DotaEnvironment.shared
     @StateObject var heroDatabase: HeroDatabase = HeroDatabase.shared
-    
-    let coreDataController = CoreDataController.shared
+    @StateObject var wcdbDatabase: WCDBController = WCDBController.shared
     
     @State private var selectedUser: String = ""
     var body: some Scene {
@@ -20,7 +19,7 @@ struct AppApp: App {
             ContentView()
                 .environmentObject(environment)
                 .environmentObject(heroDatabase)
-                .environment(\.managedObjectContext, coreDataController.container.viewContext)
+                .environmentObject(wcdbDatabase)
 //            PlayerDetailView(player: Match.sample.players.first!)
         }
     }

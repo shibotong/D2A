@@ -12,56 +12,21 @@ struct MatchListView: View {
     @ObservedObject var vm: MatchListViewModel
     var body: some View {
         List {
-            ForEach(vm.matches) { match in
-                MatchListRowView(vm: MatchListRowViewModel(match: match))
-            }
-            Text("Load more")
-                .onAppear {
-                    vm.fetchMoreData()
+            ForEach(vm.matches, id: \.id) { match in
+                NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
+                    MatchListRowView(vm: MatchListRowViewModel(match: match))
                 }
-        }.navigationBarItems(trailing: Button(action: { vm.refreshData() }) {
-            Image(systemName: "arrow.clockwise")
-        })
-        .animation(.linear)
-//        if env.loadingProfile {
-//            ProgressView()
-//        } else {
-//            if env.selectedUserProfile == nil {
-//                Text("Some thing error when loading")
-//            } else {
-//                List {
-//                    ForEach(matches) { match in
-//                        NavigationLink(
-//                            destination: MatchView(id: Int(match.id))){
-//                                MatchListRowView(vm: MatchListRowViewModel(match: match))
-//                            }.simultaneousGesture(TapGesture().onEnded{
-//                                print("switch match")
-//                                env.loadMatch(match: match)
-//                            })
-//
-//                    }
-//                    HStack (spacing: 10) {
-//                        ProgressView()
-//                        Text("Loading more").foregroundColor(Color(.systemGray))
-//                    }
-//                    .onAppear {
-//                        env.fetchMoreData()
-//                    }
-//                }
-//                .listStyle(InsetListStyle())
-//                // add refreshable in iOS 15
-//                .navigationTitle("\(env.selectedUserProfile!.profile!.personaname!)")
-//                .navigationBarItems(trailing: Button(action: {  }) {
-//                    Image(systemName: "arrow.clockwise")
-//                })
-//            }
-//        }
+            }
+        }
+        .animation(.easeIn)
+        .navigationBarItems(trailing:
+            Button(action: {
+                vm.refreshData()
+            }, label: {
+                Image(systemName: "person.fill")
+            })
+        )
     }
-//    static func == (lhs: MatchListView, rhs: MatchListView) -> Bool {
-//        return lhs.vm.userid == rhs.vm.userid
-//    }
-    
-    
 }
 
 struct MatchListRowView: View {
@@ -69,7 +34,6 @@ struct MatchListRowView: View {
     var body: some View {
         HStack(spacing: 10) {
             HeroIconImageView(heroID: Int(vm.match.heroID))
-                //                Image("hero_icon")
                 .frame(width: 32, height: 32)
                 .padding(10)
                 .background(RoundedRectangle(cornerRadius: 15).stroke(Color(vm.match.isPlayerWin() ? .systemGreen : .secondaryLabel), lineWidth: 2))

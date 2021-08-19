@@ -78,11 +78,11 @@ enum AnalysisType: String {
     
 }
 
-struct AnalysisView_Previews: PreviewProvider {
-    static var previews: some View {
-        AnalysisView(players: Match.sample.players)
-    }
-}
+//struct AnalysisView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AnalysisView(players: Match.sample.players)
+//    }
+//}
 
 struct PlayerAnalysisRowView: View {
     var player: Player

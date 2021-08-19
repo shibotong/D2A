@@ -94,7 +94,6 @@ struct DifferenceGraphView: View {
 struct DifferenceGraphView_Previews: PreviewProvider {
     static var previews: some View {
         DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: nil, xpDiff: nil)).previewLayout(.fixed(width: 375, height: 300))
-        DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: Match.sample.goldDiff, xpDiff: Match.sample.xpDiff)).previewLayout(.fixed(width: 375, height: 300))
     }
 }
 

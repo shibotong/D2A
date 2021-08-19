@@ -43,15 +43,6 @@ class DotaEnvironment: ObservableObject {
         guard (selectedUserProfile?.profile) != nil else {
             return
         }
-//        OpenDotaController.loadRecentMatch(userid: "\(profile.id)", offSet: selectedRecentMatches.count, limit: 50) { recentMatches in
-////            self.selectedRecentMatches.append(contentsOf: recentMatches)
-////            if self.selectedGame == nil && !recentMatches.isEmpty {
-//                self.loadMatch(match: recentMatches.first!)
-////            }
-////            DispatchQueue.main.async {
-////                self.loadingMatches = false
-////            }
-//        }
     }
     
 //    func loadUser(id: String) {
@@ -80,50 +71,50 @@ class DotaEnvironment: ObservableObject {
 //        }
 //    }
     
-    func loadMatch(match: RecentMatch) {
-        self.selectedGameID = Int(match.id)
-        print(selectedGameID)
-        guard let currentMatch = self.selectedGame else {
-            self.loadingGame = true
-            OpenDotaController.loadMatchData(matchid: "\(match.id)") { match in
-                DispatchQueue.main.async {
-                    self.loadingGame = false
-                    self.selectedGame = match
-                }
-                
-            }
-            return
-        }
-        if currentMatch.id == match.id {
-            // same match
-        } else {
-            self.loadingGame = true
-            OpenDotaController.loadMatchData(matchid: "\(match.id)") { match in
-                DispatchQueue.main.async {
-                    self.loadingGame = false
-                    self.selectedGame = match
-                }
-                
-            }
-        }
-    }
-    
-    func fetchMoreData() {
-        if !self.loadingMatches {
-            self.loadingMatches = true
-            guard let profile = selectedUserProfile?.profile else {
-                return
-            }
-            OpenDotaController.loadRecentMatch(userid: "\(profile.id)", offSet: selectedRecentMatches.count, limit: 50) { recentMatches in
-//                self.selectedRecentMatches.append(contentsOf: recentMatches)
-//                if self.selectedGame == nil && !recentMatches.isEmpty {
-//                    self.loadMatch(match: recentMatches.first!)
+//    func loadMatch(match: RecentMatch) {
+//        self.selectedGameID = Int(match.id)
+//        print(selectedGameID)
+//        guard let currentMatch = self.selectedGame else {
+//            self.loadingGame = true
+//            OpenDotaController.loadMatchData(matchid: "\(match.id)") { match in
+//                DispatchQueue.main.async {
+//                    self.loadingGame = false
+//                    self.selectedGame = match
 //                }
-                DispatchQueue.main.async {
-                    
-                    self.loadingMatches = false
-                }
-            }
-        }
-    }
+//                
+//            }
+//            return
+//        }
+//        if currentMatch.id == match.id {
+//            // same match
+//        } else {
+//            self.loadingGame = true
+//            OpenDotaController.loadMatchData(matchid: "\(match.id)") { match in
+//                DispatchQueue.main.async {
+//                    self.loadingGame = false
+//                    self.selectedGame = match
+//                }
+//                
+//            }
+//        }
+//    }
+    
+//    func fetchMoreData() {
+//        if !self.loadingMatches {
+//            self.loadingMatches = true
+//            guard let profile = selectedUserProfile?.profile else {
+//                return
+//            }
+//            OpenDotaController.loadRecentMatch(userid: "\(profile.id)", offSet: selectedRecentMatches.count, limit: 50) { recentMatches in
+////                self.selectedRecentMatches.append(contentsOf: recentMatches)
+////                if self.selectedGame == nil && !recentMatches.isEmpty {
+////                    self.loadMatch(match: recentMatches.first!)
+////                }
+//                DispatchQueue.main.async {
+//                    
+//                    self.loadingMatches = false
+//                }
+//            }
+//        }
+//    }
 }

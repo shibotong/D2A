@@ -16,26 +16,30 @@ class MatchListViewModel: ObservableObject {
     init(userid: String) {
         self.userid = userid
         self.loadmatch()
+        
     }
     
     private func loadmatch() {
-        self.matches = CoreDataController.shared.fetchUserRecentMatch(userid: userid)
+        let matches = WCDBController.shared.fetchRecentMatches(userid: userid)
+        if matches.isEmpty {
+            self.fetchMoreData()
+        } else {
+            self.matches = matches
+        }
+        
     }
     
     func fetchMoreData() {
-        if !self.isLoading {
-            self.isLoading = true
-            OpenDotaController.loadRecentMatch(userid: userid, offSet: matches.count, limit: 5) { result in
-                self.loadmatch()
-            }
+        OpenDotaController.loadRecentMatch(userid: userid) { result in
+            self.loadmatch()
         }
     }
     
     func refreshData() {
-        let firstMatch = CoreDataController.shared.fetchUserRecentMatch(userid: userid).first!
+        let firstMatch = self.matches.first!
         let today = Date()
         let days = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(timeIntervalSince1970: TimeInterval(firstMatch.startTime)), to: today)
-        
+
         let dayCount = Double(days.day!) + (Double(days.hour!) / 24.0) + (Double(days.minute!) / 60.0 / 24.0)
         print(dayCount)
         OpenDotaController.loadRecentMatch(userid: userid, days: dayCount) { bool in
