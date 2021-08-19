@@ -66,8 +66,12 @@ class HeroDatabase: ObservableObject {
         if id == 0 {
             return nil
         } else {
-            let itemString = itemIDTable["\(id)"]!
-            let item = items[itemString]!
+            guard let itemString = itemIDTable["\(id)"] else {
+                return nil
+            }
+            guard let item = items[itemString] else {
+                return nil
+            }
             return item
         }
     }

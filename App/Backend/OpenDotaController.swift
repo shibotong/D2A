@@ -38,6 +38,7 @@ class OpenDotaController {
         let url = "\(baseURL)/api/matches/\(matchid)"
         AF.request(url).responseJSON { response in
             print("load match data")
+            print(url)
             guard let data = response.data else {
                 return
             }
@@ -49,6 +50,7 @@ class OpenDotaController {
             }
             let decoder = JSONDecoder()
             let match = try? decoder.decode(Match.self, from: data)
+            print("loaded match \(match)")
             guard let match = match else {
                 return
             }

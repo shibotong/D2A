@@ -10,7 +10,7 @@ import CoreData
 
 class MatchListViewModel: ObservableObject {
     @Published var matches: [RecentMatch] = []
-    private var isLoading = false
+    @Published var isLoading = false
     private var userid: String
     
     init(userid: String) {
@@ -30,20 +30,28 @@ class MatchListViewModel: ObservableObject {
     }
     
     func fetchMoreData() {
-        OpenDotaController.loadRecentMatch(userid: userid) { result in
-            self.loadmatch()
+        if !self.isLoading {
+            self.isLoading = true
+            OpenDotaController.loadRecentMatch(userid: userid) { result in
+                self.loadmatch()
+                self.isLoading = false
+            }
         }
     }
     
     func refreshData() {
-        let firstMatch = self.matches.first!
-        let today = Date()
-        let days = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(timeIntervalSince1970: TimeInterval(firstMatch.startTime)), to: today)
+        if !self.isLoading {
+            self.isLoading = true
+            let firstMatch = self.matches.first!
+            let today = Date()
+            let days = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(timeIntervalSince1970: TimeInterval(firstMatch.startTime)), to: today)
 
-        let dayCount = Double(days.day!) + (Double(days.hour!) / 24.0) + (Double(days.minute!) / 60.0 / 24.0)
-        print(dayCount)
-        OpenDotaController.loadRecentMatch(userid: userid, days: dayCount) { bool in
-            self.loadmatch()
+            let dayCount = Double(days.day!) + (Double(days.hour!) / 24.0) + (Double(days.minute!) / 60.0 / 24.0)
+            print(dayCount)
+            OpenDotaController.loadRecentMatch(userid: userid, days: dayCount) { bool in
+                self.loadmatch()
+                self.isLoading = false
+            }
         }
     }
 }

@@ -12,6 +12,9 @@ struct MatchListView: View {
     @ObservedObject var vm: MatchListViewModel
     var body: some View {
         List {
+            if vm.isLoading {
+                ProgressView().frame(height: 50)
+            }
             ForEach(vm.matches, id: \.id) { match in
                 NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
                     MatchListRowView(vm: MatchListRowViewModel(match: match))

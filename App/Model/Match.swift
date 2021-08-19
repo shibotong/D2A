@@ -74,11 +74,11 @@ struct GameMode: Codable {
 
 struct Match: TableCodable {
     var id: Int
-    var direKill: Int
+    var direKill: Int?
     var duration: Int
     var mode: Int
     var lobbyType: Int
-    var radiantKill: Int
+    var radiantKill: Int?
     var radiantWin: Bool
     var startTime: Int
     var direBarracks: Int
@@ -130,17 +130,43 @@ struct Match: TableCodable {
     func fetchPlayers(isRadiant: Bool) -> [Player] {
         return players.filter({ isRadiant ? $0.slot <= 127 :  $0.slot > 127 })
     }
+    
+    func fetchKill(isRadiant: Bool) -> Int {
+        if isRadiant {
+            if self.radiantKill != nil {
+                return self.radiantKill!
+            } else {
+                let players = self.fetchPlayers(isRadiant: isRadiant)
+                var kills = 0
+                players.forEach { player in
+                    kills += player.kills
+                }
+                return kills
+            }
+        } else {
+            if self.direKill != nil {
+                return self.direKill!
+            } else {
+                let players = self.fetchPlayers(isRadiant: isRadiant)
+                var kills = 0
+                players.forEach { player in
+                    kills += player.kills
+                }
+                return kills
+            }
+        }
+    }
 }
 
 struct Player: Codable, TableCodable {
     var id: Int?
     var slot: Int
-    var abilityUpgrade: [Int] //An array describing how abilities were upgraded
+    var abilityUpgrade: [Int]? //An array describing how abilities were upgraded
     
     // backpack
-    var backpack0: Int
-    var backpack1: Int
-    var backpack2: Int
+    var backpack0: Int?
+    var backpack1: Int?
+    var backpack2: Int?
     // item
     var item0:Int
     var item1: Int
@@ -148,7 +174,7 @@ struct Player: Codable, TableCodable {
     var item3: Int
     var item4: Int
     var item5: Int
-    var itemNeutral: Int
+    var itemNeutral: Int?
     
 //     K/D/A lasthit/deny
     var kills: Int
@@ -163,8 +189,8 @@ struct Player: Codable, TableCodable {
     var xpm: Int
     var xp_t: [Int]?
 
-    var heroDamage: Int
-    var heroHealing: Int
+    var heroDamage: Int?
+    var heroHealing: Int?
 
     var heroID: Int
     var level: Int
@@ -172,7 +198,7 @@ struct Player: Codable, TableCodable {
     var permanentBuffs: [PermanentBuff]?
 
     var teamFightParticipation: Double?
-    var towerDamage: Int
+    var towerDamage: Int?
 
     var personaname: String?
     
@@ -219,6 +245,8 @@ struct Player: Codable, TableCodable {
 
         case personaname
     }
+    
+    
 }
 
 struct PermanentBuff: TableCodable {

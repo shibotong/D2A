@@ -39,7 +39,6 @@ struct MatchView: View {
                 }.navigationTitle("\(vm.match!.radiantWin ? "Radiant" : "Dire") Win")
             } else {
                 ScrollView {
-                    
                     VStack(spacing: 10) {
                         AllTeamPlayerView(match: vm.match!)
                             .background(Color(.systemBackground))
@@ -56,6 +55,9 @@ struct MatchView: View {
             }
         } else {
             Text("something went error loading match")
+                .onAppear {
+                    vm.loadMatch()
+                }
         }
     }
     
@@ -81,8 +83,8 @@ struct AllTeamPlayerView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Players").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
-            TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.radiantKill)
-            TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.direKill)
+            TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.fetchKill(isRadiant: true))
+            TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.fetchKill(isRadiant: false))
         }
         .frame(minWidth: 300)
     }
@@ -126,7 +128,9 @@ struct PlayerRowView: View {
                     ItemView(id: player.item3)
                     ItemView(id: player.item4)
                     ItemView(id: player.item5)
-                    ItemView(id: player.itemNeutral).clipShape(Circle())
+                    if player.itemNeutral != nil {
+                        ItemView(id: player.itemNeutral!).clipShape(Circle())
+                    }
                 }
                 HStack(spacing: 6) {
                     HStack(spacing: 0) {

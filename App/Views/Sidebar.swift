@@ -13,11 +13,8 @@ struct Sidebar: View {
     var body: some View {
         List {
             ForEach(env.userIDs, id: \.self) { id in
-                NavigationLink(
-                    destination: MatchListView(vm: MatchListViewModel(userid: id)),
-                    label: {
-                        SidebarRowView(vm: SidebarRowViewModel(userid: id)).equatable()
-                    })
+                        SidebarRowView(vm: SidebarRowViewModel(userid: id))
+            
 
             }
         }
@@ -26,30 +23,29 @@ struct Sidebar: View {
     }
 }
 
-struct SidebarRowView: View, Equatable {
+struct SidebarRowView: View {
     @ObservedObject var vm: SidebarRowViewModel
     var body: some View {
         if vm.profile != nil {
-            Label {
-                Text("\(vm.profile!.personaname)")
-            } icon: {
-                WebImage(url: URL(string: vm.profile!.avatarfull))
-                    .resizable()
-                    .renderingMode(.original)
-                    .indicator(.activity)
-                    .transition(.fade)
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 30, height: 30)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            NavigationLink(destination: MatchListView(vm: MatchListViewModel(userid: vm.userid)).navigationTitle("\(vm.profile!.personaname)")) {
+                Label {
+                    Text("\(vm.profile!.personaname)")
+                } icon: {
+                    WebImage(url: URL(string: vm.profile!.avatarfull))
+                        .resizable()
+                        .renderingMode(.original)
+                        .indicator(.activity)
+                        .transition(.fade)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
             }
         } else {
             ProgressView()
         }
     }
     
-    static func == (lhs: SidebarRowView, rhs: SidebarRowView) -> Bool {
-        return lhs.vm.userid == rhs.vm.userid
-    }
 }
 
 struct Sidebar_Previews: PreviewProvider {

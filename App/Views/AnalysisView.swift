@@ -35,6 +35,8 @@ struct AnalysisView: View {
                 ForEach(sortBy(analysisType: selection)!, id: \.heroID) { player in
                     PlayerAnalysisRowView(player: player, percentage:calculatePercentage(currentPlayer: player, firstPlayer: sortBy(analysisType: selection)!.first!), selection: $selection)
                 }
+            } else {
+                Text("Can not show")
             }
         }.padding(20)
     }
@@ -44,11 +46,11 @@ struct AnalysisView: View {
         case .golds:
             return Double(currentPlayer.netWorth!) / Double(firstPlayer.netWorth!)
         case .heroDamage:
-            return Double(currentPlayer.heroDamage) / Double(firstPlayer.heroDamage)
+            return Double(currentPlayer.heroDamage!) / Double(firstPlayer.heroDamage!)
         case .kills:
             return Double(currentPlayer.kills) / Double(firstPlayer.kills)
         case .towerDamage:
-            return Double(currentPlayer.towerDamage) / Double(firstPlayer.towerDamage)
+            return Double(currentPlayer.towerDamage!) / Double(firstPlayer.towerDamage!)
         }
     }
     
@@ -61,11 +63,19 @@ struct AnalysisView: View {
                 return nil
             }
         case .heroDamage:
-            return players.sorted(by: { $0.heroDamage >= $1.heroDamage })
+            if players.allSatisfy({ $0.heroDamage != nil }) {
+                return players.sorted(by: { $0.heroDamage! >= $1.heroDamage! })
+            } else {
+                return nil
+            }
         case .kills:
             return players.sorted(by: { $0.kills >= $1.kills })
         case .towerDamage:
-            return players.sorted(by: { $0.towerDamage >= $1.towerDamage })
+            if players.allSatisfy({ $0.towerDamage != nil }) {
+                return players.sorted(by: { $0.towerDamage! >= $1.towerDamage! })
+            } else {
+                return nil
+            }
         }
     }
 }
@@ -107,11 +117,11 @@ struct PlayerAnalysisRowView: View {
         case .golds:
             return player.netWorth!
         case .heroDamage:
-            return player.heroDamage
+            return player.heroDamage!
         case .kills:
             return player.kills
         case .towerDamage:
-            return player.towerDamage
+            return player.towerDamage!
         }
     }
     

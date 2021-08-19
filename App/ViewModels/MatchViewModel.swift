@@ -13,7 +13,6 @@ class MatchViewModel: ObservableObject {
     
     init(matchid: String) {
         self.id = matchid
-        self.loadMatch()
     }
     
     func loadMatch() {
