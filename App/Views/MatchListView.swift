@@ -10,31 +10,63 @@ import SwiftUI
 struct MatchListView: View {
     @EnvironmentObject var env: DotaEnvironment
     @ObservedObject var vm: MatchListViewModel
+    @AppStorage("selectedMatch") var selectedMatch: String?
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
-        List {
-            if vm.isLoading {
-                ForEach(0..<20, id:\.self) { item in
-                    MatchListRowEmptyView()
-                }
-            } else {
+        if vm.userid == nil {
+            Text("select a user")
+        } else {
+            VStack {
                 if vm.refreshing {
-                    LoadingView()
+                    LoadingView().frame(height: 30)
                 }
-                ForEach(vm.matches, id: \.id) { match in
-                    NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
-                        MatchListRowView(vm: MatchListRowViewModel(match: match))
+                List {
+                    if vm.matches.isEmpty {
+                        ForEach(0..<20, id:\.self) { item in
+                            MatchListRowEmptyView()
+                        }
+                        .onAppear {
+                            vm.fetchAllData()
+                        }
+                    } else {
+                        
+                        ForEach(vm.matches, id: \.id) { match in
+                            if horizontalSizeClass == .compact {
+                                NavigationLink(
+                                    destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)")),
+                                    tag: "\(match.id)",
+                                    selection: $selectedMatch
+                                ) {
+                                    MatchListRowView(vm: MatchListRowViewModel(match: match))
+                                }
+                            } else {
+                                Button(action: {
+                                    self.selectedMatch = "\(match.id)"
+                                }) {
+                                    MatchListRowView(vm: MatchListRowViewModel(match: match))
+                                }
+                            }
+                        }
+                        Text("Load More...")
+                            .onAppear {
+                                withAnimation(.default) {
+                                    vm.fetchMoreData()
+                                }
+                            }
                     }
                 }
+                
             }
+            .navigationBarItems(trailing:
+                                    Button(action: {
+                                        withAnimation(.default) {
+                                            vm.refreshData()
+                                        }
+                                    }, label: {
+                                        Image(systemName: "arrow.counterclockwise")
+                                    })
+            )
         }
-        .animation(.easeIn)
-        .navigationBarItems(trailing:
-            Button(action: {
-                vm.refreshData()
-            }, label: {
-                Image(systemName: "arrow.counterclockwise")
-            })
-        )
     }
 }
 

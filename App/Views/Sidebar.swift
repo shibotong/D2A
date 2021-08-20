@@ -10,12 +10,18 @@ import SDWebImageSwiftUI
 
 struct Sidebar: View {
     @EnvironmentObject var env: DotaEnvironment
+    @AppStorage("selectedUser") var selectedUser: String?
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
         List {
             ForEach(env.userIDs, id: \.self) { id in
+                    NavigationLink(
+                        destination: MatchListView(vm: MatchListViewModel(userid: id)),
+                        tag: id,
+                        selection: $selectedUser
+                    ) {
                         SidebarRowView(vm: SidebarRowViewModel(userid: id))
-            
-
+                    }.isDetailLink(true)
             }
         }
         .navigationTitle("Follow")
@@ -27,7 +33,6 @@ struct SidebarRowView: View {
     @ObservedObject var vm: SidebarRowViewModel
     var body: some View {
         if vm.profile != nil {
-            NavigationLink(destination: MatchListView(vm: MatchListViewModel(userid: vm.userid)).navigationTitle("\(vm.profile!.personaname)")) {
                 Label {
                     Text("\(vm.profile!.personaname)")
                 } icon: {
@@ -40,7 +45,7 @@ struct SidebarRowView: View {
                         .frame(width: 30, height: 30)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
-            }
+            
         } else {
             ProgressView()
         }

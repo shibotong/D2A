@@ -129,5 +129,19 @@ func loadGameModes() -> [String: GameMode]? {
     }
 }
 
+func loadRegion() -> [String: String]? {
+    guard let data = loadFile(filename: "region") else {
+        fatalError("no region file")
+    }
+    do {
+        let decoder = JSONDecoder()
+        let regions = try decoder.decode([String: String].self, from: data)
+        return regions
+    } catch {
+        print("cannot parse mode file")
+        return nil
+    }
+}
+
 
 

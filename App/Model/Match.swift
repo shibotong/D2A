@@ -85,6 +85,7 @@ struct Match: TableCodable {
     var direTowers: Int
     var radiantTowers: Int
     var skill: Int?
+    var region: Int
     
     var goldDiff: [Int]?
     var xpDiff: [Int]?
@@ -108,6 +109,7 @@ struct Match: TableCodable {
         case direTowers = "tower_status_dire"
         case radiantTowers = "tower_status_radiant"
         case skill
+        case region
         
         case goldDiff = "radiant_gold_adv"
         case xpDiff = "radiant_xp_adv"

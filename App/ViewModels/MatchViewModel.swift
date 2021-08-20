@@ -10,10 +10,11 @@ import Foundation
 class MatchViewModel: ObservableObject {
     @Published var match: Match?
     @Published var loading = false
-    private var id: String
+    @Published var id: String?
     
-    init(matchid: String) {
+    init(matchid: String?) {
         self.id = matchid
+        self.loadMatch()
     }
     
     init() {
@@ -22,20 +23,37 @@ class MatchViewModel: ObservableObject {
     }
     
     func loadMatch() {
+        guard let id = self.id else {
+            return
+        }
         guard let match = WCDBController.shared.fetchMatch(matchid: id) else {
             print("no match found in DB")
-            OpenDotaController.loadMatchData(matchid: id) { result in
-                self.loadMatch()
-            }
             return
         }
         self.match = match
+
+    }
+    
+    func loadNewMatch() {
+        print("load new match")
+        if self.match == nil {
+            guard let match = WCDBController.shared.fetchMatch(matchid: id!) else {
+                print("no match found in DB")
+                OpenDotaController.loadMatchData(matchid: id!) { result in
+                    self.loadNewMatch()
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self.match = match
+            }
+        }
     }
     
     func refresh() {
         if !self.loading {
             self.loading = true
-            OpenDotaController.loadMatchData(matchid: id) { result in
+            OpenDotaController.loadMatchData(matchid: id!) { result in
                 self.loadMatch()
                 self.loading = false
             }

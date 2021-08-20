@@ -55,9 +55,10 @@ struct DifferenceGraphView: View {
                             .foregroundColor(Color(.secondaryLabel).opacity(0.1))
                             .frame(width: 1)
                             .offset(x: CGFloat(proxy.size.width) * CGFloat(vm.mins) / CGFloat(vm.goldDiff!.count - 1), y: 0)
+                            .animation(.linear(duration: 0.1))
                     }
-                    CurrentPoint(data: vm.xpDiff!, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.blue)
-                    CurrentPoint(data: vm.goldDiff!, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.yellow)
+                    CurrentPoint(data: vm.xpDiff!, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.blue).animation(.linear(duration: 0.1))
+                    CurrentPoint(data: vm.goldDiff!, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.yellow).animation(.linear(duration: 0.1))
                     
                 }.frame(maxHeight: 300)
                 HStack {
@@ -108,8 +109,7 @@ struct CurrentPoint: View {
                 .overlay(Circle().stroke(Color.white, lineWidth: 2))
                 .shadow(radius: 1)
                 .offset(x: CGFloat(proxy.size.width) * CGFloat(selectedTime) / CGFloat(data.count - 1) - 5, y: proxy.size.height * CGFloat(CGFloat(max - data[selectedTime]) / CGFloat(max * 2)) - 5)
-            
-            //                .offset(x: CGFloat(proxy.size.width) * CGFloat(selectedTime) / CGFloat(data.count - 1), y: CGFloat(max - data[selectedTime]) * proxy.size.height)
+                
         }
     }
 }

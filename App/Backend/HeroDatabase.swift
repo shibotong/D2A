@@ -16,6 +16,8 @@ class HeroDatabase: ObservableObject {
     
     var gameModes = [String: GameMode]()
     
+    var regions = [String: String]()
+    
     var items = [String: Item]()
     var itemIDTable = [String: String]()
     
@@ -29,6 +31,7 @@ class HeroDatabase: ObservableObject {
         self.loadHeroes()
         self.itemIDTable = loadItemIDs()!
         self.items = loadItems()!
+        self.regions = loadRegion()!
     }
     
     private func loadHeroes() {
@@ -74,6 +77,13 @@ class HeroDatabase: ObservableObject {
             }
             return item
         }
+    }
+    
+    func fetchRegion(id: String) -> String {
+        guard let region = self.regions[id] else {
+            return "Unknown"
+        }
+        return region
     }
     
 }

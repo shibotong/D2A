@@ -11,33 +11,45 @@ import SDWebImageSwiftUI
 struct MatchView: View {
     @EnvironmentObject var env: DotaEnvironment
     @ObservedObject var vm: MatchViewModel
+    @EnvironmentObject var data: HeroDatabase
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
-        if vm.match != nil {
-            if horizontalSizeClass == .regular {
-                VStack(spacing: 3) {
+        if vm.id == nil {
+            Text("select a match")
+        } else {
+            if vm.match == nil {
+                Text("something went error loading match")
+                    .onAppear {
+                        vm.loadNewMatch()
+                    }
+            } else {
+                if horizontalSizeClass == .regular {
+                    VStack {
+                        if vm.loading {
+                            LoadingView()
+                                .frame(height: 50)
+                                .transition(.flipFromTop)
+                        }
                     HStack(spacing: 0) {
-                        VStack {
+                        ScrollView(showsIndicators: false) {
                             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 160, maximum: .infinity), spacing: 20), count: 2), spacing: 20, content: {
                                 MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
-                                MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
+                                MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())")
                                     .colorInvert()
-                                MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
+                                MatchStatCardView(icon: "rosette", title: "Game Mode", label: "\(data.fetchGameMode(id: vm.match!.mode).fetchModeName())")
                                     .colorInvert()
-                                MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
+                                MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: "\(data.fetchRegion(id: "\(vm.match!.region)"))")
                             }).padding()
-                            
                             DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
                                 .frame(height: 300)
                                 .animation(.linear(duration: 0.3))
                                 .padding(.horizontal)
                             Divider().padding(.horizontal, 80)
-                            ScrollView {
-                                AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
-                                    .background(Color(.systemBackground))
-                                    .animation(.linear(duration: 0.3))
-                                    .padding(.horizontal)
-                            }
+                            AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
+                                .background(Color(.systemBackground))
+                                .animation(.linear(duration: 0.3))
+                                .padding(.horizontal)
+                            
                         }
                         Divider().padding(.vertical, 80)
                         ScrollView(showsIndicators: false) {
@@ -46,45 +58,40 @@ struct MatchView: View {
                                 .padding(.horizontal)
                         }.frame(width: 350)
                     }
-                }.navigationTitle("\(vm.match!.radiantWin ? "Radiant" : "Dire") Win")
-            } else {
-                ScrollView {
-                    if vm.loading {
-                        LoadingView()
-                            .frame(height: 50)
-                            .transition(.flipFromTop)
                     }
-                    VStack(spacing: 10) {
-                        VStack(spacing: 30) {
-                            HStack(spacing: 15) {
-                                MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
-                                MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())").colorInvert()//.frame(width: proxy.size.width / 2)
-                            }
-                        }.padding([.top, .horizontal])
-                        AllTeamPlayerView(match: vm.match!)
-                        //                            .background(Color(.systemBackground))
-                        AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
-                        //                            .background(Color(.systemBackground))
-                        
-                        DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
-                            .frame(height: 300)
-                        //                            .background(Color(.systemBackground))
+                    .navigationTitle("\(vm.match!.radiantWin ? "Radiant" : "Dire") Win")
+                    .navigationBarTitleDisplayMode(.inline)
+                } else {
+                    ScrollView {
+                        if vm.loading {
+                            LoadingView()
+                                .frame(height: 50)
+                                .transition(.flipFromTop)
+                        }
+                        VStack(spacing: 10) {
+                            VStack(spacing: 30) {
+                                HStack(spacing: 15) {
+                                    MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
+                                    MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())").colorInvert()
+                                }
+                            }.padding([.top, .horizontal])
+                            AllTeamPlayerView(match: vm.match!)
+                            AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
+                            DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
+                                .frame(height: 300)
+                        }
                     }
+                    .navigationTitle("\(vm.match!.radiantWin ? "Radiant" : "Dire") Win")
+                    .navigationBarTitleDisplayMode(.large)
+                    .navigationBarItems(trailing: Button(action: {
+                        withAnimation(.linear) {
+                            vm.refresh()
+                        }
+                    }, label: {
+                        Image(systemName: "arrow.clockwise")
+                    }))
                 }
-                .animation(.linear(duration: 0.3))
-                //                .background(Color(.secondarySystemBackground).ignoresSafeArea())
-                .navigationTitle("\(vm.match!.radiantWin ? "Radiant" : "Dire") Win")
-                .navigationBarItems(trailing: Button(action: {
-                    vm.refresh()
-                }, label: {
-                    Image(systemName: "arrow.clockwise")
-                }))
             }
-        } else {
-            Text("something went error loading match")
-                .onAppear {
-                    vm.loadMatch()
-                }
         }
     }
     
@@ -112,8 +119,10 @@ struct MatchStatCardView: View {
 struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
+            EmptyView()
             MatchView(vm: MatchViewModel())
         }
+        .environmentObject(HeroDatabase.shared)
         
     }
 }
@@ -198,6 +207,7 @@ struct PlayerRowView: View {
 }
 
 struct ItemView: View {
+    @EnvironmentObject var heroData: HeroDatabase
     var id: Int
     var body: some View {
         if computeURL() == nil {
@@ -217,7 +227,7 @@ struct ItemView: View {
     }
     
     private func computeURL() -> URL? {
-        guard let item = HeroDatabase.shared.fetchItem(id: id) else {
+        guard let item = heroData.fetchItem(id: id) else {
             return nil
         }
         let url = URL(string: "https://api.opendota.com\(item.img)")

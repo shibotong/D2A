@@ -9,6 +9,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct HeroIconImageView: View {
+    @EnvironmentObject var heroData: HeroDatabase
     let heroID: Int
     
     var body: some View {
@@ -22,7 +23,7 @@ struct HeroIconImageView: View {
     }
     
     private func computeURL() -> URL? {
-        guard let hero = HeroDatabase.shared.fetchHeroWithID(id: heroID) else {
+        guard let hero = heroData.fetchHeroWithID(id: heroID) else {
             return nil
         }
         let url = URL(string: "https://api.opendota.com\(hero.icon)")

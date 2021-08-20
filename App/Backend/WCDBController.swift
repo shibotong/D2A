@@ -16,7 +16,6 @@ class WCDBController {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("WCDB.db")
         
         database = Database(withFileURL: path)
-        print(database.canOpen)
         self.createTables()
         
     }
@@ -31,13 +30,15 @@ class WCDBController {
         }
     }
     
-    func fetchRecentMatches(userid: String) -> [RecentMatch] {
+    func fetchRecentMatches(userid: String, offSet: Int = 0) -> [RecentMatch] {
         do {
-            let matches: [RecentMatch] = try database.getObjects(fromTable: "RecentMatch", where: RecentMatch.Properties.playerId == Int(userid)!, orderBy: [RecentMatch.Properties.startTime.asOrder(by: .descending)])
-            print(matches.count)
+            let matches: [RecentMatch] = try database.getObjects(fromTable: "RecentMatch",
+                                                                 where: RecentMatch.Properties.playerId == Int(userid)!,
+                                                                 orderBy: [RecentMatch.Properties.startTime.asOrder(by: .descending)],
+                                                                 limit: 100,
+                                                                 offset: offSet)
             return matches
         } catch {
-            print("no match")
             return []
         }
     }
