@@ -59,7 +59,7 @@ struct PlayerAnalysisRowView: View {
         HStack {
             HeroIconImageView(heroID: player.heroID).frame(width: 35, height: 35)
             VStack (alignment: .leading, spacing: 0) {
-                ProgressView("\(Int(value).description)", value: percentage > 1 ? 1 : percentage, total: 1)
+                ProgressView("\(Int(value))", value: percentage > 1 ? 1 : percentage, total: 1)
                     .accentColor(Color(player.slot <= 127 ? .systemGreen : .systemRed).opacity(0.8))
                     .progressViewStyle(LinearProgressViewStyle())
                     

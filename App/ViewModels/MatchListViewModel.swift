@@ -13,10 +13,16 @@ class MatchListViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var refreshing = false
     @Published var userid: String?
+    @Published var userProfile: UserProfile?
     
     init(userid: String?) {
         self.userid = userid
         self.fetchMoreData()
+        guard let userid = userid else {
+            return
+        }
+        let profile = WCDBController.shared.fetchUserProfile(userid: userid)
+        self.userProfile = profile
     }
     
     func fetchMoreData() {

@@ -16,10 +16,7 @@ struct MatchListView: View {
         if vm.userid == nil {
             Text("select a user")
         } else {
-            VStack {
-                if vm.refreshing {
-                    LoadingView().frame(height: 30)
-                }
+                
                 List {
                     if vm.matches.isEmpty {
                         ForEach(0..<20, id:\.self) { item in
@@ -29,23 +26,19 @@ struct MatchListView: View {
                             vm.fetchAllData()
                         }
                     } else {
-                        
+                        if vm.refreshing {
+                            LoadingView().frame(height: 30)
+                        }
                         ForEach(vm.matches, id: \.id) { match in
-                            if horizontalSizeClass == .compact {
                                 NavigationLink(
                                     destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)")),
                                     tag: "\(match.id)",
                                     selection: $selectedMatch
                                 ) {
-                                    MatchListRowView(vm: MatchListRowViewModel(match: match))
+                                        MatchListRowView(vm: MatchListRowViewModel(match: match))
+                                    
                                 }
-                            } else {
-                                Button(action: {
-                                    self.selectedMatch = "\(match.id)"
-                                }) {
-                                    MatchListRowView(vm: MatchListRowViewModel(match: match))
-                                }
-                            }
+
                         }
                         Text("Load More...")
                             .onAppear {
@@ -55,15 +48,15 @@ struct MatchListView: View {
                             }
                     }
                 }
-                
-            }
+            
+            .navigationTitle("\(vm.userProfile?.personaname ?? "")")
             .navigationBarItems(trailing:
                                     Button(action: {
-                                        withAnimation(.default) {
+                                        withAnimation(.default.repeatForever(autoreverses: false)) {
                                             vm.refreshData()
                                         }
                                     }, label: {
-                                        Image(systemName: "arrow.counterclockwise")
+                                        Image(systemName: "arrow.clockwise")
                                     })
             )
         }
@@ -127,7 +120,7 @@ struct MatchListRowView: View {
                         KDAView(match: vm.match)
                         Spacer()
                     }
-                    .frame(width: 65 )
+                    .frame(width: 65)
                     Spacer()
                     HStack {
                         Spacer()
@@ -143,6 +136,7 @@ struct MatchListRowView: View {
             }
         }
         .padding(.vertical, 5)
+        .padding(.horizontal)
     }
     
 }

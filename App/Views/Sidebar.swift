@@ -23,8 +23,15 @@ struct Sidebar: View {
                         SidebarRowView(vm: SidebarRowViewModel(userid: id))
                     }.isDetailLink(true)
             }
+            .onMove(perform: { indices, newOffset in
+                env.move(from: indices, to: newOffset)
+            })
+            .onDelete(perform: { indexSet in
+                env.delete(from: indexSet)
+            })
         }
         .navigationTitle("Follow")
+        .navigationBarItems(trailing: EditButton())
         .listStyle(SidebarListStyle())
     }
 }
@@ -34,7 +41,7 @@ struct SidebarRowView: View {
     var body: some View {
         if vm.profile != nil {
                 Label {
-                    Text("\(vm.profile!.personaname)")
+                    Text("\(vm.profile!.personaname)").lineLimit(1)
                 } icon: {
                     WebImage(url: URL(string: vm.profile!.avatarfull))
                         .resizable()

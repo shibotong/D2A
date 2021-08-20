@@ -61,6 +61,13 @@ struct MatchView: View {
                     }
                     .navigationTitle("\(vm.match!.radiantWin ? "Radiant" : "Dire") Win")
                     .navigationBarTitleDisplayMode(.inline)
+                    .navigationBarItems(trailing: Button(action: {
+                        withAnimation(.linear) {
+                            vm.refresh()
+                        }
+                    }, label: {
+                        Image(systemName: "arrow.clockwise")
+                    }))
                 } else {
                     ScrollView {
                         if vm.loading {

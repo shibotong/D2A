@@ -26,4 +26,11 @@ class DotaEnvironment: ObservableObject {
 //            self.loadUser(id: userIDs.first!)
         }
     }
+    
+    func move(from source: IndexSet, to destination: Int) {
+            userIDs.move(fromOffsets: source, toOffset: destination)
+        }
+    func delete(from indexSet: IndexSet) {
+        userIDs.remove(atOffsets: indexSet)
+    }
 }
