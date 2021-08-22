@@ -15,13 +15,13 @@ struct Sidebar: View {
     var body: some View {
         List {
             ForEach(env.userIDs, id: \.self) { id in
-                    NavigationLink(
-                        destination: MatchListView(vm: MatchListViewModel(userid: id)),
-                        tag: id,
-                        selection: $selectedUser
-                    ) {
-                        SidebarRowView(vm: SidebarRowViewModel(userid: id))
-                    }.isDetailLink(true)
+                NavigationLink(
+                    destination: MatchListView(vm: MatchListViewModel(userid: id)),
+                    tag: id,
+                    selection: $selectedUser
+                ) {
+                    SidebarRowView(vm: SidebarRowViewModel(userid: id))
+                }.isDetailLink(true)
             }
             .onMove(perform: { indices, newOffset in
                 env.move(from: indices, to: newOffset)
@@ -31,8 +31,17 @@ struct Sidebar: View {
             })
         }
         .navigationTitle("Follow")
-        .navigationBarItems(trailing: EditButton())
+        .navigationBarItems(leading: Button("+ Add") {
+            env.addNewAccount.toggle()
+        }, trailing: EditButton())
         .listStyle(SidebarListStyle())
+        //            .toolbar {
+        //                ToolbarItem(placement: .bottomBar) {
+        //                    Button("+ Add") {
+        //                        env.addNewAccount.toggle()
+        //                    }
+        //                }
+        //            }
     }
 }
 
@@ -63,5 +72,6 @@ struct SidebarRowView: View {
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
         Sidebar()
+            .environmentObject(DotaEnvironment.shared)
     }
 }

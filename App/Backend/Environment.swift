@@ -18,8 +18,11 @@ class DotaEnvironment: ObservableObject {
     }
     @Published var exceedLimit = false
     
+    @Published var addNewAccount = false
+    
+    
     init() {
-        self.userIDs = UserDefaults.standard.object(forKey: "dotaArmory.userID") as? [String] ?? ["116232078", "153041957"]
+        self.userIDs = UserDefaults.standard.object(forKey: "dotaArmory.userID") as? [String] ?? []
         if userIDs.isEmpty {
             print("no user")
         } else {
@@ -32,5 +35,13 @@ class DotaEnvironment: ObservableObject {
         }
     func delete(from indexSet: IndexSet) {
         userIDs.remove(atOffsets: indexSet)
+    }
+    
+    func addUser(userid: String) {
+        if self.userIDs.contains(userid) {
+            self.userIDs.remove(at: self.userIDs.firstIndex(of: userid)!)
+        } else {
+            self.userIDs.append(userid)
+        }
     }
 }

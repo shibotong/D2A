@@ -7,7 +7,7 @@
 
 import Foundation
 
-func loadFile(filename: String) -> Data? {
+fileprivate func loadFile(filename: String) -> Data? {
     if let path = Bundle.main.url(forResource: filename, withExtension: "json") {
         do {
             let data = try Data(contentsOf: path)
@@ -37,22 +37,22 @@ func loadFile(filename: String) -> Data? {
 //
 //}
 //
-//func loadProfile() -> SteamProfile? {
-//    guard let data = loadFile(filename: "sampleProfile") else {
-//        return nil
-//    }
-//
-//    do {
-//
-//        let decoder = JSONDecoder()
-//        let jsonData = try decoder.decode(SteamProfile.self, from: data)
-//        return jsonData
-//    } catch {
-//        // handle error
-//        print("Cannot parse json data")
-//        return nil
-//    }
-//}
+func loadProfile() -> SteamProfile? {
+    guard let data = loadFile(filename: "sampleProfile") else {
+        return nil
+    }
+
+    do {
+
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode(SteamProfile.self, from: data)
+        return jsonData
+    } catch {
+        // handle error
+        print("Cannot parse json data")
+        return nil
+    }
+}
 //
 //func loadHeroes() -> [PlayerHero]? {
 //    guard let data = loadFile(filename: "sampleHeroes") else {

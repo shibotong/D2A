@@ -12,11 +12,13 @@ struct UserProfile: TableCodable {
 
     var id: Int
     var avatarfull: String
+    
     var lastLogin: String?
     var countryCode: String?
     var personaname: String
     var isPlus: Bool
     var profileurl: String
+    var rank: Int?
 
     enum CodingKeys: String, CodingTableKey {
         typealias Root = UserProfile
@@ -29,4 +31,6 @@ struct UserProfile: TableCodable {
         case isPlus = "plus"
         case profileurl
     }
+    
+    static let sample = loadProfile()!
 }

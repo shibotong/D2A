@@ -8,22 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var heroData: HeroDatabase
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @AppStorage("selectedUser") var selectedUser: String?
-    @AppStorage("selectedMatch") var selectedMatch: String?
+    @EnvironmentObject var env: DotaEnvironment
     var body: some View {
-        if horizontalSizeClass == .compact {
-            NavigationView {
-                Sidebar()
-            }
-        } else {
-            NavigationView {
-                Sidebar()
-                MatchListView(vm: MatchListViewModel(userid: selectedUser))
-                MatchView(vm: MatchViewModel(matchid: selectedMatch))
-            }.navigationViewStyle(DoubleColumnNavigationViewStyle())
-        }
+        NavigationHostView()
+            .sheet(isPresented: $env.addNewAccount, content: {
+                AddAccountView()
+                    .equatable()
+                    .environmentObject(env)
+            })
     }
 }
 
@@ -31,6 +23,32 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(HeroDatabase())
+            .environmentObject(DotaEnvironment.shared)
+    }
+}
+
+
+struct NavigationHostView: View {
+    @EnvironmentObject var env: DotaEnvironment
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @AppStorage("selectedUser") var selectedUser: String?
+    @AppStorage("selectedMatch") var selectedMatch: String?
+    var body: some View {
+        if env.userIDs.isEmpty {
+            EmptyUserView()
+        } else {
+            if horizontalSizeClass == .compact {
+                NavigationView {
+                    Sidebar()
+                }
+            } else {
+                NavigationView {
+                    Sidebar()
+                    MatchListView(vm: MatchListViewModel(userid: selectedUser))
+                    MatchView(vm: MatchViewModel(matchid: selectedMatch))
+                }
+                .navigationViewStyle(DoubleColumnNavigationViewStyle())
+            }
+        }
     }
 }

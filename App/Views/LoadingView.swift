@@ -14,9 +14,10 @@ struct LoadingView: View {
             .trim(from: 0, to: 0.8)
             .stroke(Color.primaryDota, lineWidth: 5)
             .rotationEffect(Angle(degrees: isLoading ? 360 : 0))
-            .animation(Animation.default.repeatForever(autoreverses: false))
             .onAppear {
-                self.isLoading.toggle()
+                withAnimation(.default.repeatForever(autoreverses: false)) {
+                    self.isLoading.toggle()
+                }
             }
     }
 }

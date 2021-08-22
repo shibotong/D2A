@@ -18,7 +18,7 @@ struct MatchView: View {
             Text("select a match")
         } else {
             if vm.match == nil {
-                Text("something went error loading match")
+                ProgressView()
                     .onAppear {
                         vm.loadNewMatch()
                     }
@@ -165,12 +165,11 @@ struct PlayerRowView: View {
     var player: Player
     var isRadiant: Bool
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
+    @State var showPlayer = false
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 HeroIconImageView(heroID: player.heroID)
-                    //                Image("hero_icon")
                     .frame(width: 35, height: 35)
                 VStack(alignment: .leading) {
                     Text("\(player.personaname ?? "Anolymous")").font(.custom(fontString, size: 15)).bold().lineLimit(1)
@@ -178,7 +177,6 @@ struct PlayerRowView: View {
                         .lineLimit(1)
                 }.frame(minWidth: 0)
                 Spacer()
-                
                 VStack(spacing: 0) {
                     HStack(spacing: 3) {
                         Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
@@ -208,7 +206,17 @@ struct PlayerRowView: View {
                     
                 }.frame(minWidth:45).font(.custom(fontString, size: 15))
             }
-        }.padding(.vertical)
+        }
+        .padding(.vertical)
+        .onTapGesture {
+            if player.id != nil {
+                showPlayer.toggle()
+            }
+        }
+        .sheet(isPresented: $showPlayer) {
+            ProfileView(vm: ProfileViewModel(id: "\(player.id!)"))
+        }
+        
         
     }
 }
@@ -281,7 +289,7 @@ struct TeamHeaderView: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 5)
-        //            .background(isRadiant ? Color.green.opacity(0.2) : Color.red.opacity(0.2))
+        .background(isRadiant ? LinearGradient(gradient: Gradient(colors: [.clear, .green.opacity(0.2), .clear]), startPoint: .leading, endPoint: .trailing) : LinearGradient(gradient: Gradient(colors: [.clear, .red.opacity(0.2), .clear]), startPoint: .leading, endPoint: .trailing))
         
         
     }
@@ -303,5 +311,6 @@ struct TeamView: View {
                 
             }
         }
+        
     }
 }

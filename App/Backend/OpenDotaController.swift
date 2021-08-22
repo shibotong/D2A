@@ -25,11 +25,14 @@ class OpenDotaController {
             }
             if statusCode > 400 {
                 DotaEnvironment.shared.exceedLimit = true
+                return
             }
             let decoder = JSONDecoder()
             
             let user = try? decoder.decode(SteamProfile.self, from: data)
-            try? WCDBController.shared.database.insert(objects: [user!.profile], intoTable: "UserProfile")
+            var userProfile = user?.profile
+            userProfile?.rank = user?.rank
+            try? WCDBController.shared.database.insert(objects: [userProfile!], intoTable: "UserProfile")
             onCompletion(user)
         }
     }

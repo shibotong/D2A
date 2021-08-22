@@ -61,7 +61,7 @@ class MatchListViewModel: ObservableObject {
             let dayCount = Double(days.day!) + (Double(days.hour!) / 24.0) + (Double(days.minute!) / 60.0 / 24.0)
             OpenDotaController.loadRecentMatch(userid: userid, days: dayCount) { bool in
                 DispatchQueue.main.async {
-                    self.fetchMoreData()
+                    self.matches = WCDBController.shared.fetchRecentMatches(userid: userid)
                     self.refreshing = false
                 }
             }

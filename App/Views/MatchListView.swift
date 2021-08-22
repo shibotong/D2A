@@ -35,8 +35,7 @@ struct MatchListView: View {
                                     tag: "\(match.id)",
                                     selection: $selectedMatch
                                 ) {
-                                        MatchListRowView(vm: MatchListRowViewModel(match: match))
-                                    
+                                    MatchListRowView(vm: MatchListRowViewModel(match: match))
                                 }
 
                         }
@@ -48,6 +47,7 @@ struct MatchListView: View {
                             }
                     }
                 }
+                .listStyle(PlainListStyle())
             
             .navigationTitle("\(vm.userProfile?.personaname ?? "")")
             .navigationBarItems(trailing:
@@ -136,7 +136,6 @@ struct MatchListRowView: View {
             }
         }
         .padding(.vertical, 5)
-        .padding(.horizontal)
     }
     
 }
