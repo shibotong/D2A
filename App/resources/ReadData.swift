@@ -37,22 +37,22 @@ fileprivate func loadFile(filename: String) -> Data? {
 //
 //}
 //
-func loadProfile() -> SteamProfile? {
-    guard let data = loadFile(filename: "sampleProfile") else {
-        return nil
-    }
-
-    do {
-
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode(SteamProfile.self, from: data)
-        return jsonData
-    } catch {
-        // handle error
-        print("Cannot parse json data")
-        return nil
-    }
-}
+//func loadProfile() -> SteamProfile? {
+//    guard let data = loadFile(filename: "sampleProfile") else {
+//        return nil
+//    }
+//
+//    do {
+//
+//        let decoder = JSONDecoder()
+//        let jsonData = try decoder.decode(SteamProfile.self, from: data)
+//        return jsonData
+//    } catch {
+//        // handle error
+//        print("Cannot parse json data")
+//        return nil
+//    }
+//}
 //
 //func loadHeroes() -> [PlayerHero]? {
 //    guard let data = loadFile(filename: "sampleHeroes") else {
@@ -71,24 +71,24 @@ func loadProfile() -> SteamProfile? {
 //
 //}
 //
-func loadMatch() -> Match? {
-    guard let data = loadFile(filename: "sampleMatch") else {
-        return nil
-    }
-
-    do {
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode(Match.self, from: data)
-        return jsonData
-    } catch {
-        print("Cannot parse json data")
-        return nil
-    }
-
-}
+//func loadMatch() -> Match? {
+//    guard let data = loadFile(filename: "sampleMatch") else {
+//        return nil
+//    }
+//
+//    do {
+//        let decoder = JSONDecoder()
+//        let jsonData = try decoder.decode(Match.self, from: data)
+//        return jsonData
+//    } catch {
+//        print("Cannot parse json data")
+//        return nil
+//    }
+//
+//}
 //
 func loadItemIDs() -> [String: String]? {
-    guard let data = loadFile(filename: "itemID") else {
+    guard let data = loadFile(filename: "item_ids") else {
         return nil
     }
 
@@ -116,7 +116,7 @@ func loadItems() -> [String: Item]? {
 }
 //
 func loadGameModes() -> [String: GameMode]? {
-    guard let data = loadFile(filename: "dota_game_mode") else {
+    guard let data = loadFile(filename: "game_mode") else {
         fatalError("no game mode file")
     }
     do {

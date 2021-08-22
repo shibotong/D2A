@@ -115,7 +115,7 @@ struct Match: TableCodable {
         case xpDiff = "radiant_xp_adv"
     }
     
-    static var sample = loadMatch()!
+//    static var sample = loadMatch()!
     
     func fetchDuration() -> String {
         let mins = Int(self.duration / 60)

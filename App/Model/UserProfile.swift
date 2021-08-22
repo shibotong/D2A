@@ -32,5 +32,5 @@ struct UserProfile: TableCodable {
         case profileurl
     }
     
-    static let sample = loadProfile()!
+//    static let sample = loadProfile()!
 }
