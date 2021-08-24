@@ -72,9 +72,8 @@ struct MatchView: View {
                 } else {
                     ScrollView {
                         if vm.loading {
-                            LoadingView()
-                                .frame(height: 50)
-                                .transition(.flipFromTop)
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .primaryDota))
                         }
                         VStack(spacing: 10) {
                             VStack(spacing: 30) {

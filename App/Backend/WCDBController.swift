@@ -43,6 +43,19 @@ class WCDBController {
         }
     }
     
+    func searchMatchOnDate(_ date: Date) -> [RecentMatch] {
+        let start = date.startOfDay
+        let end = date.endOfDay
+        do {
+            let matches: [RecentMatch] = try database.getObjects(fromTable: "RecentMatch",
+                                                                 where: RecentMatch.Properties.startTime >= start.timeIntervalSince1970 && RecentMatch.Properties.startTime <= end.timeIntervalSince1970,
+                                                                 orderBy: [RecentMatch.Properties.startTime.asOrder(by: .descending)])
+            return matches
+        } catch {
+            return []
+        }
+    }
+    
     func fetchUserProfile(userid: String) -> UserProfile? {
         do {
             let profile: UserProfile? = try database.getObject(fromTable: "UserProfile", where: UserProfile.Properties.id == Int(userid)!)

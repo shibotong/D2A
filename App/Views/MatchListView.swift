@@ -34,7 +34,7 @@ struct MatchListView: View {
                             }
                         }
                         
-                        Section(header: header) {
+              
                             ForEach(vm.matches, id: \.id) { match in
                                     NavigationLink(
                                         destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)")),
@@ -51,7 +51,7 @@ struct MatchListView: View {
                                         vm.fetchMoreData()
                                     }
                                 }
-                        }
+                        
                     }
                 }
                 .listStyle(PlainListStyle())
@@ -69,10 +69,7 @@ struct MatchListView: View {
             )
         }
     }
-    
-    private var header: some View {
-        Text("123")
-    }
+
 }
 
 struct MatchListRowEmptyView: View {
