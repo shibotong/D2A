@@ -19,6 +19,8 @@ struct AddAccountView: View, Equatable {
                     HStack {
                         Image(systemName: "magnifyingglass")
                         TextField("Please Enter Dota2 ID", text: $vm.userid)
+                            .keyboardType(.numberPad)
+                            
                     }
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 15).stroke(Color.primaryDota))
@@ -57,10 +59,9 @@ struct AddAccountView_Previews: PreviewProvider {
 }
 
 struct ProfileView: View, Equatable {
-    
-    
     @EnvironmentObject var env: DotaEnvironment
     @ObservedObject var vm: ProfileViewModel
+    @AppStorage("selectedUser") var selectedUser: String?
     
     var body: some View {
         if vm.isloading {
@@ -91,7 +92,9 @@ struct ProfileView: View, Equatable {
                     Text(vm.steamProfile!.profile.countryCode ?? "Unknown Country").font(.custom(fontString, size: 20))
                     HStack {
                         Button(action: {
-                            // TODO: open user profile page
+                            if let url = URL(string: vm.steamProfile!.profile.profileurl) {
+                                UIApplication.shared.open(url)
+                            }
                         }) {
                             HStack {
                                 Spacer()
@@ -103,6 +106,9 @@ struct ProfileView: View, Equatable {
                             
                         }
                         Button(action: {
+                            if selectedUser == nil {
+                                selectedUser = "\(vm.steamProfile!.profile.id)"
+                            }
                             env.addUser(userid: "\(vm.steamProfile!.profile.id)")
                         }) {
                             HStack {

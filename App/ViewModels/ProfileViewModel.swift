@@ -25,15 +25,27 @@ class ProfileViewModel: ObservableObject {
             print("search user data")
             debugPrint(response)
             guard let data = response.data else {
+                DispatchQueue.main.async {
+                    self.isloading = false
+                }
                 return
             }
             guard let statusCode = response.response?.statusCode else {
+                DispatchQueue.main.async {
+                    self.isloading = false
+                }
                 return
             }
-            if statusCode > 400 {
-                DotaEnvironment.shared.exceedLimit = true
+            if statusCode == 500 {
+                DispatchQueue.main.async {
+                    self.isloading = false
+                }
                 return
             }
+//            if statusCode > 400 {
+//                DotaEnvironment.shared.exceedLimit = true
+//                return
+//            }
             let decoder = JSONDecoder()
             
             let user = try? decoder.decode(SteamProfile.self, from: data)

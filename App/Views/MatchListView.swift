@@ -16,7 +16,6 @@ struct MatchListView: View {
         if vm.userid == nil {
             Text("select a user")
         } else {
-                
                 List {
                     if vm.matches.isEmpty {
                         ForEach(0..<20, id:\.self) { item in
@@ -92,16 +91,18 @@ struct MatchListRowEmptyView: View {
 
 struct MatchListRowView: View {
     @ObservedObject var vm: MatchListRowViewModel
+    @EnvironmentObject var database: HeroDatabase
     var body: some View {
         HStack(spacing: 10) {
             HeroIconImageView(heroID: Int(vm.match.heroID))
                 .frame(width: 32, height: 32)
                 .padding(10)
-                .background(RoundedRectangle(cornerRadius: 15).stroke(Color(vm.match.isPlayerWin() ? .systemGreen : .secondaryLabel), lineWidth: 2))
+//                .clipShape(RoundedRectangle(cornerRadius: 15))
+                .background(RoundedRectangle(cornerRadius: 15).stroke(Color(vm.match.isPlayerWin() ? .systemGreen : .secondaryLabel), lineWidth: 5))
             
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
-                    Text("\(vm.hero?.localizedName ?? "")").font(.custom(fontString, size: 17, relativeTo: .headline)).bold()
+                    Text("\(database.fetchHeroWithID(id: vm.match.heroID)?.localizedName ?? "")").font(.custom(fontString, size: 17, relativeTo: .headline)).bold()
                     Spacer()
                     Text("\(Int(vm.match.startTime).convertToTime())").bold().foregroundColor(Color(.secondaryLabel)).font(.caption2)
                 }

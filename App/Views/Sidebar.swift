@@ -31,17 +31,25 @@ struct Sidebar: View {
             })
         }
         .navigationTitle("Follow")
-        .navigationBarItems(leading: Button("+ Add") {
-            env.addNewAccount.toggle()
+        .navigationBarItems(leading: Button(action: {}) {
+            Image(systemName: "info.circle")
+                .foregroundColor(.primaryDota)
         }, trailing: EditButton())
         .listStyle(SidebarListStyle())
-        //            .toolbar {
-        //                ToolbarItem(placement: .bottomBar) {
-        //                    Button("+ Add") {
-        //                        env.addNewAccount.toggle()
-        //                    }
-        //                }
-        //            }
+        .overlay(VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button(action: {env.addNewAccount.toggle()}) {
+                    Image(systemName: "plus")
+                        .font(.largeTitle)
+                        .foregroundColor(Color.white)
+                        .frame(width: 15, height: 15)
+                        .padding(25)
+                        .background(RoundedRectangle(cornerRadius: 20).foregroundColor(.primaryDota).shadow(radius: 5))
+                }
+            }
+        }.padding())
     }
 }
 
@@ -49,18 +57,18 @@ struct SidebarRowView: View {
     @ObservedObject var vm: SidebarRowViewModel
     var body: some View {
         if vm.profile != nil {
-                Label {
-                    Text("\(vm.profile!.personaname)").lineLimit(1)
-                } icon: {
-                    WebImage(url: URL(string: vm.profile!.avatarfull))
-                        .resizable()
-                        .renderingMode(.original)
-                        .indicator(.activity)
-                        .transition(.fade)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                }
+            Label {
+                Text("\(vm.profile!.personaname)").lineLimit(1)
+            } icon: {
+                WebImage(url: URL(string: vm.profile!.avatarfull))
+                    .resizable()
+                    .renderingMode(.original)
+                    .indicator(.activity)
+                    .transition(.fade)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 30, height: 30)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
             
         } else {
             ProgressView()
@@ -71,7 +79,9 @@ struct SidebarRowView: View {
 
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
-        Sidebar()
-            .environmentObject(DotaEnvironment.shared)
+        NavigationView {
+            Sidebar()
+                .environmentObject(DotaEnvironment.shared)
+        }
     }
 }

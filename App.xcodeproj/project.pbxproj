@@ -31,6 +31,8 @@
 		321D589B26D22FF60059526B /* permanent_buffs.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D588F26D22FF60059526B /* permanent_buffs.json */; };
 		321D589C26D22FF60059526B /* item_colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D589026D22FF60059526B /* item_colors.json */; };
 		321D589E26D22FF60059526B /* player_colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D589226D22FF60059526B /* player_colors.json */; };
+		321D58A026D234A90059526B /* AboutUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D589F26D234A90059526B /* AboutUsView.swift */; };
+		321D58A226D235C80059526B /* AboutUsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D58A126D235C80059526B /* AboutUsViewModel.swift */; };
 		322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B88ED26CCBA1800DF67F9 /* CodingKey.swift */; };
 		322B890026CCD2EA00DF67F9 /* MatchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B88FF26CCD2EA00DF67F9 /* MatchListViewModel.swift */; };
 		322B893026CD41A200DF67F9 /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468D4E9B7B6A24548F09ED45 /* Pods_App.framework */; };
@@ -100,6 +102,8 @@
 		321D588F26D22FF60059526B /* permanent_buffs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = permanent_buffs.json; sourceTree = "<group>"; };
 		321D589026D22FF60059526B /* item_colors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = item_colors.json; sourceTree = "<group>"; };
 		321D589226D22FF60059526B /* player_colors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = player_colors.json; sourceTree = "<group>"; };
+		321D589F26D234A90059526B /* AboutUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsView.swift; sourceTree = "<group>"; };
+		321D58A126D235C80059526B /* AboutUsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewModel.swift; sourceTree = "<group>"; };
 		322B88ED26CCBA1800DF67F9 /* CodingKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingKey.swift; sourceTree = "<group>"; };
 		322B88FF26CCD2EA00DF67F9 /* MatchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchListViewModel.swift; sourceTree = "<group>"; };
 		322B893326CD425300DF67F9 /* WCDBController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCDBController.swift; sourceTree = "<group>"; };
@@ -303,6 +307,7 @@
 				322B893D26CE66F800DF67F9 /* LoadingView.swift */,
 				322B89C426CFAC1000DF67F9 /* AddAccountView.swift */,
 				322B89CA26D1015E00DF67F9 /* EmptyUserView.swift */,
+				321D589F26D234A90059526B /* AboutUsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -319,6 +324,7 @@
 				322B89BE26CE788900DF67F9 /* AnalysisViewModel.swift */,
 				322B89C626CFD2DE00DF67F9 /* AddAccountViewModel.swift */,
 				322B89C826D0F61900DF67F9 /* ProfileViewModel.swift */,
+				321D58A126D235C80059526B /* AboutUsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -497,6 +503,7 @@
 				32B36F2726C38852002D427D /* Hero.swift in Sources */,
 				322B89B926CE6B5A00DF67F9 /* HeroDatabase.swift in Sources */,
 				32B36F4A26C39242002D427D /* String.swift in Sources */,
+				321D58A226D235C80059526B /* AboutUsViewModel.swift in Sources */,
 				32F6A1B026C499E3009C00E1 /* MatchView.swift in Sources */,
 				322B89C726CFD2DE00DF67F9 /* AddAccountViewModel.swift in Sources */,
 				3252859126C9E8040030F15B /* AnalysisView.swift in Sources */,
@@ -525,6 +532,7 @@
 				32B36F0F26C38821002D427D /* AppApp.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
 				322B89C926D0F61900DF67F9 /* ProfileViewModel.swift in Sources */,
+				321D58A026D234A90059526B /* AboutUsView.swift in Sources */,
 				32B36F2926C38852002D427D /* Match.swift in Sources */,
 				32897B0E26C7A703008D3CC8 /* ItemViewModel.swift in Sources */,
 				32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */,

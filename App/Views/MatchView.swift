@@ -140,8 +140,8 @@ struct AllTeamPlayerView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Players").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
-            TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.fetchKill(isRadiant: true))
-            TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.fetchKill(isRadiant: false))
+            TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.fetchKill(isRadiant: true), win: match.radiantWin)
+            TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.fetchKill(isRadiant: false), win: !match.radiantWin)
         }
         .frame(minWidth: 300)
     }
@@ -271,9 +271,10 @@ struct ScoreboardView: View {
 struct TeamHeaderView: View {
     var isRadiant: Bool
     var score: Int
+    var win: Bool
     var body: some View {
         HStack {
-            Text("\(isRadiant ? "Radiant" : "Dire")")
+            Text("\(isRadiant ? "Radiant" : "Dire") \(win ? "🏆" : "")")
                 .font(.custom(fontString, size: 15))
                 .bold()
                 .foregroundColor(Color(isRadiant ? .systemGreen : .systemRed))
@@ -299,11 +300,12 @@ struct TeamView: View {
     var players: [Player]
     var isRadiant: Bool
     var score: Int
+    var win: Bool
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         VStack(spacing: 0) {
-            TeamHeaderView(isRadiant: isRadiant, score: score)
+            TeamHeaderView(isRadiant: isRadiant, score: score, win: win)
             ForEach(players, id: \.heroID) { player in
                 PlayerRowView(player: player, isRadiant: isRadiant)
                     .padding(.horizontal)
