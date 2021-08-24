@@ -34,11 +34,36 @@ struct AnalysisView: View {
             if vm.players == nil {
                 Text("\(vm.selection.rawValue) is not available").font(.custom(fontString, size: 15)).frame(height: 300).foregroundColor(Color(.tertiaryLabel))
             } else {
-                ForEach(vm.players!, id:\.heroID) { player in
-                    PlayerAnalysisRowView(player: player, value: vm.fetchPlayerValue(player: player), percentage: vm.calculatePercentage(player: player))
-                }
+                GeometryReader { proxy in
+                    if proxy.size.width > 400 {
+                        HStack {
+                            VStack {
+                                ForEach(vm.players!.filter {$0.slot < 128}, id:\.heroID) { player in
+                                    PlayerAnalysisRowView(player: player, value: vm.fetchPlayerValue(player: player), percentage: vm.calculatePercentage(player: player))
+                                }
+                            }
+                            VStack {
+                                ForEach(vm.players!.filter {$0.slot >= 128}, id:\.heroID) { player in
+                                    PlayerAnalysisRowView(player: player, value: vm.fetchPlayerValue(player: player), percentage: vm.calculatePercentage(player: player))
+                                }
+                            }
+                        }
+                    } else {
+                        VStack(spacing: 0) {
+                            ForEach(vm.players!, id:\.heroID) { player in
+                                PlayerAnalysisRowView(player: player, value: vm.fetchPlayerValue(player: player), percentage: vm.calculatePercentage(player: player))
+                            }
+                        }
+                    }
+                }.frame(height: 500)
             }
         }.padding(20)
+    }
+}
+
+struct AnalysisView_Preview: PreviewProvider {
+    static var previews: some View {
+        AnalysisView(vm: AnalysisViewModel(player: []))
     }
 }
 
@@ -64,6 +89,6 @@ struct PlayerAnalysisRowView: View {
                     .progressViewStyle(LinearProgressViewStyle())
                     
             }
-        }
+        }.frame(height: 50)
     }
 }

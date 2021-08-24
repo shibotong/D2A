@@ -15,15 +15,19 @@ struct LoadingView: View {
             .stroke(Color.primaryDota, lineWidth: 5)
             .rotationEffect(Angle(degrees: isLoading ? 360 : 0))
             .onAppear {
-                withAnimation(.default.repeatForever(autoreverses: false)) {
+                withAnimation(.linear(duration: 1).repeatForever(autoreverses: false)) {
                     self.isLoading.toggle()
                 }
             }
+            
     }
 }
 
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingView()
+        NavigationView {
+            EmptyView()
+            LoadingView()
+        }
     }
 }

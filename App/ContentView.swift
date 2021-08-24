@@ -45,6 +45,7 @@ struct NavigationHostView: View {
                 NavigationView {
                     Sidebar()
                     MatchListView(vm: MatchListViewModel(userid: selectedUser))
+                        .frame(minWidth: 320)
                     MatchView(vm: MatchViewModel(matchid: selectedMatch))
                 }
                 .navigationViewStyle(DoubleColumnNavigationViewStyle())

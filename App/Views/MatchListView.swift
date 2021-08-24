@@ -26,24 +26,32 @@ struct MatchListView: View {
                         }
                     } else {
                         if vm.refreshing {
-                            LoadingView().frame(height: 30)
-                        }
-                        ForEach(vm.matches, id: \.id) { match in
-                                NavigationLink(
-                                    destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)")),
-                                    tag: "\(match.id)",
-                                    selection: $selectedMatch
-                                ) {
-                                    MatchListRowView(vm: MatchListRowViewModel(match: match))
-                                }
-
-                        }
-                        Text("Load More...")
-                            .onAppear {
-                                withAnimation(.default) {
-                                    vm.fetchMoreData()
-                                }
+                            HStack {
+                                Spacer()
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .primaryDota))
+                                Spacer()
                             }
+                        }
+                        
+                        Section(header: header) {
+                            ForEach(vm.matches, id: \.id) { match in
+                                    NavigationLink(
+                                        destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)")),
+                                        tag: "\(match.id)",
+                                        selection: $selectedMatch
+                                    ) {
+                                        MatchListRowView(vm: MatchListRowViewModel(match: match))
+                                    }
+
+                            }
+                            Text("Load More...")
+                                .onAppear {
+                                    withAnimation(.default) {
+                                        vm.fetchMoreData()
+                                    }
+                                }
+                        }
                     }
                 }
                 .listStyle(PlainListStyle())
@@ -57,8 +65,13 @@ struct MatchListView: View {
                                     }, label: {
                                         Image(systemName: "arrow.clockwise")
                                     })
+                                    .keyboardShortcut("r", modifiers: .command)
             )
         }
+    }
+    
+    private var header: some View {
+        Text("123")
     }
 }
 

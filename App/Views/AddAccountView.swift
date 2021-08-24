@@ -30,6 +30,7 @@ struct AddAccountView: View, Equatable {
                     }) {
                         Text("Search").foregroundColor(.white).bold()
                     }
+                    .keyboardShortcut(.defaultAction)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 15).foregroundColor(Color.primaryDota))
                 }

@@ -19,6 +19,7 @@ struct MatchView: View {
         } else {
             if vm.match == nil {
                 ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .primaryDota))
                     .onAppear {
                         vm.loadNewMatch()
                     }
@@ -26,38 +27,38 @@ struct MatchView: View {
                 if horizontalSizeClass == .regular {
                     VStack {
                         if vm.loading {
-                            LoadingView()
-                                .frame(height: 50)
-                                .transition(.flipFromTop)
-                        }
-                    HStack(spacing: 0) {
-                        ScrollView(showsIndicators: false) {
-                            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 160, maximum: .infinity), spacing: 20), count: 2), spacing: 20, content: {
-                                MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
-                                MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())")
-                                    .colorInvert()
-                                MatchStatCardView(icon: "rosette", title: "Game Mode", label: "\(data.fetchGameMode(id: vm.match!.mode).fetchModeName())")
-                                    .colorInvert()
-                                MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: "\(data.fetchRegion(id: "\(vm.match!.region)"))")
-                            }).padding()
-                            DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
-                                .frame(height: 300)
-                                .animation(.linear(duration: 0.3))
-                                .padding(.horizontal)
-                            Divider().padding(.horizontal, 80)
-                            AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
-                                .background(Color(.systemBackground))
-                                .animation(.linear(duration: 0.3))
-                                .padding(.horizontal)
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .primaryDota))
                             
                         }
-                        Divider().padding(.vertical, 80)
-                        ScrollView(showsIndicators: false) {
-                            AllTeamPlayerView(match: vm.match!)
-                                .background(Color(.systemBackground))
-                                .padding(.horizontal)
-                        }.frame(width: 350)
-                    }
+                        HStack(spacing: 0) {
+                            ScrollView(showsIndicators: false) {
+                                LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 160, maximum: .infinity), spacing: 20), count: 2), spacing: 20, content: {
+                                    MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
+                                    MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())")
+                                        .colorInvert()
+                                    MatchStatCardView(icon: "rosette", title: "Game Mode", label: "\(data.fetchGameMode(id: vm.match!.mode).fetchModeName())")
+                                        .colorInvert()
+                                    MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: "\(data.fetchRegion(id: "\(vm.match!.region)"))")
+                                }).padding()
+                                DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
+                                    .frame(height: 300)
+                                    .animation(.linear(duration: 0.3))
+                                    .padding(.horizontal)
+                                Divider().padding(.horizontal, 80)
+                                AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
+                                    .background(Color(.systemBackground))
+                                    .animation(.linear(duration: 0.3))
+                                    .padding(.horizontal)
+
+                            }
+                            Divider().padding(.vertical, 80)
+                            ScrollView(showsIndicators: false) {
+                                AllTeamPlayerView(match: vm.match!)
+                                    .background(Color(.systemBackground))
+                                    .padding(.horizontal)
+                            }.frame(minWidth: 350, maxWidth: 400)
+                        }
                     }
                     .navigationTitle("\(vm.match!.radiantWin ? "Radiant" : "Dire") Win")
                     .navigationBarTitleDisplayMode(.inline)

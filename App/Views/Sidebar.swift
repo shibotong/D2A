@@ -48,6 +48,7 @@ struct Sidebar: View {
                         .padding(25)
                         .background(RoundedRectangle(cornerRadius: 20).foregroundColor(.primaryDota).shadow(radius: 5))
                 }
+                .keyboardShortcut("n", modifiers: .command)
             }
         }.padding())
     }
