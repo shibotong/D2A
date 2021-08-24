@@ -31,7 +31,9 @@ struct Sidebar: View {
             })
         }
         .navigationTitle("Follow")
-        .navigationBarItems(leading: Button(action: {}) {
+        .navigationBarItems(leading: Button(action: {
+            env.aboutUs.toggle()
+        }) {
             Image(systemName: "info.circle")
                 .foregroundColor(.primaryDota)
         }, trailing: EditButton())

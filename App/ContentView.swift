@@ -16,6 +16,10 @@ struct ContentView: View {
                     .equatable()
                     .environmentObject(env)
             })
+            .sheet(isPresented: $env.aboutUs, content: {
+                AboutUsView()
+                    .environmentObject(env)
+            })
     }
 }
 

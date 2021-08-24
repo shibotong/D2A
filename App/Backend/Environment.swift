@@ -19,7 +19,7 @@ class DotaEnvironment: ObservableObject {
     @Published var exceedLimit = false
     
     @Published var addNewAccount = false
-    
+    @Published var aboutUs = false
     
     init() {
         self.userIDs = UserDefaults.standard.object(forKey: "dotaArmory.userID") as? [String] ?? []

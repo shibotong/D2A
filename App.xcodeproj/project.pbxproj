@@ -32,7 +32,6 @@
 		321D589C26D22FF60059526B /* item_colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D589026D22FF60059526B /* item_colors.json */; };
 		321D589E26D22FF60059526B /* player_colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D589226D22FF60059526B /* player_colors.json */; };
 		321D58A026D234A90059526B /* AboutUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D589F26D234A90059526B /* AboutUsView.swift */; };
-		321D58A226D235C80059526B /* AboutUsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D58A126D235C80059526B /* AboutUsViewModel.swift */; };
 		322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B88ED26CCBA1800DF67F9 /* CodingKey.swift */; };
 		322B890026CCD2EA00DF67F9 /* MatchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B88FF26CCD2EA00DF67F9 /* MatchListViewModel.swift */; };
 		322B893026CD41A200DF67F9 /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468D4E9B7B6A24548F09ED45 /* Pods_App.framework */; };
@@ -103,7 +102,6 @@
 		321D589026D22FF60059526B /* item_colors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = item_colors.json; sourceTree = "<group>"; };
 		321D589226D22FF60059526B /* player_colors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = player_colors.json; sourceTree = "<group>"; };
 		321D589F26D234A90059526B /* AboutUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsView.swift; sourceTree = "<group>"; };
-		321D58A126D235C80059526B /* AboutUsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewModel.swift; sourceTree = "<group>"; };
 		322B88ED26CCBA1800DF67F9 /* CodingKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingKey.swift; sourceTree = "<group>"; };
 		322B88FF26CCD2EA00DF67F9 /* MatchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchListViewModel.swift; sourceTree = "<group>"; };
 		322B893326CD425300DF67F9 /* WCDBController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCDBController.swift; sourceTree = "<group>"; };
@@ -224,6 +222,8 @@
 		32B36F0D26C38821002D427D /* App */ = {
 			isa = PBXGroup;
 			children = (
+				32B36F0E26C38821002D427D /* AppApp.swift */,
+				32B36F1026C38821002D427D /* ContentView.swift */,
 				32B36F4826C39238002D427D /* Utility */,
 				32B36F4326C389C3002D427D /* ViewModels */,
 				32B36F3D26C38894002D427D /* Views */,
@@ -231,8 +231,6 @@
 				32B36F2B26C3885A002D427D /* extensions */,
 				32B36F2226C38852002D427D /* Model */,
 				32B36F1D26C38834002D427D /* Backend */,
-				32B36F0E26C38821002D427D /* AppApp.swift */,
-				32B36F1026C38821002D427D /* ContentView.swift */,
 				32B36F1226C38822002D427D /* Assets.xcassets */,
 				32B36F1726C38822002D427D /* Info.plist */,
 				32B36F1426C38822002D427D /* Preview Content */,
@@ -324,7 +322,6 @@
 				322B89BE26CE788900DF67F9 /* AnalysisViewModel.swift */,
 				322B89C626CFD2DE00DF67F9 /* AddAccountViewModel.swift */,
 				322B89C826D0F61900DF67F9 /* ProfileViewModel.swift */,
-				321D58A126D235C80059526B /* AboutUsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -503,7 +500,6 @@
 				32B36F2726C38852002D427D /* Hero.swift in Sources */,
 				322B89B926CE6B5A00DF67F9 /* HeroDatabase.swift in Sources */,
 				32B36F4A26C39242002D427D /* String.swift in Sources */,
-				321D58A226D235C80059526B /* AboutUsViewModel.swift in Sources */,
 				32F6A1B026C499E3009C00E1 /* MatchView.swift in Sources */,
 				322B89C726CFD2DE00DF67F9 /* AddAccountViewModel.swift in Sources */,
 				3252859126C9E8040030F15B /* AnalysisView.swift in Sources */,
@@ -668,6 +664,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				ENABLE_PREVIEWS = YES;
@@ -692,6 +689,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				ENABLE_PREVIEWS = YES;
