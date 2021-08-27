@@ -21,7 +21,7 @@ struct AboutUsView: View {
                 makeRow(image: "lock", text: "Privacy Policy", link: URL(string: ""))
                 makeRow(image: "person", text: "Term of Use", link: URL(string: ""))
                 makeDetailRow(image: "app.badge", text: "App Version", detail: versionNumber)
-                makeDetailRow(image: "gamecontroller", text: "Game Patch", detail: "1.0.0")
+                makeDetailRow(image: "gamecontroller", text: "Game Patch", detail: gameVersion)
                 }
                 Section(header: Text("Thanks To").font(.custom(fontString, size: 15))) {
                     makeRow(image: "heart.fill", text: "OpenDotaAPI", link: URL(string: "https://www.opendota.com"))

@@ -32,6 +32,7 @@
 		321D589C26D22FF60059526B /* item_colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D589026D22FF60059526B /* item_colors.json */; };
 		321D589E26D22FF60059526B /* player_colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D589226D22FF60059526B /* player_colors.json */; };
 		321D58A026D234A90059526B /* AboutUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D589F26D234A90059526B /* AboutUsView.swift */; };
+		321D58A726D717900059526B /* sampleMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D58A626D717900059526B /* sampleMatch.json */; };
 		322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B88ED26CCBA1800DF67F9 /* CodingKey.swift */; };
 		322B890026CCD2EA00DF67F9 /* MatchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B88FF26CCD2EA00DF67F9 /* MatchListViewModel.swift */; };
 		322B893026CD41A200DF67F9 /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468D4E9B7B6A24548F09ED45 /* Pods_App.framework */; };
@@ -102,6 +103,7 @@
 		321D589026D22FF60059526B /* item_colors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = item_colors.json; sourceTree = "<group>"; };
 		321D589226D22FF60059526B /* player_colors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = player_colors.json; sourceTree = "<group>"; };
 		321D589F26D234A90059526B /* AboutUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsView.swift; sourceTree = "<group>"; };
+		321D58A626D717900059526B /* sampleMatch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleMatch.json; sourceTree = "<group>"; };
 		322B88ED26CCBA1800DF67F9 /* CodingKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingKey.swift; sourceTree = "<group>"; };
 		322B88FF26CCD2EA00DF67F9 /* MatchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchListViewModel.swift; sourceTree = "<group>"; };
 		322B893326CD425300DF67F9 /* WCDBController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCDBController.swift; sourceTree = "<group>"; };
@@ -201,6 +203,14 @@
 			path = json;
 			sourceTree = "<group>";
 		};
+		321D58A526D717780059526B /* sample */ = {
+			isa = PBXGroup;
+			children = (
+				321D58A626D717900059526B /* sampleMatch.json */,
+			);
+			path = sample;
+			sourceTree = "<group>";
+		};
 		32B36F0226C38821002D427D = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				32B36F2F26C38860002D427D /* ReadData.swift */,
+				321D58A526D717780059526B /* sample */,
 				321D588626D22FF60059526B /* json */,
 				321D585326D22FE90059526B /* build */,
 			);
@@ -423,6 +434,7 @@
 				321D587B26D22FE90059526B /* countries.json in Resources */,
 				321D589926D22FF60059526B /* ancients.json in Resources */,
 				321D587426D22FE90059526B /* items.json in Resources */,
+				321D58A726D717900059526B /* sampleMatch.json in Resources */,
 				321D589826D22FF60059526B /* neutral_abilities.json in Resources */,
 				321D589726D22FF60059526B /* skillshots.json in Resources */,
 				321D588526D22FE90059526B /* chat_wheel.json in Resources */,
@@ -669,7 +681,7 @@
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = App/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -694,7 +706,7 @@
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = App/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

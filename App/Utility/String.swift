@@ -8,3 +8,4 @@
 import Foundation
 
 let fontString = "Avenir"
+let gameVersion = "7.30"

@@ -126,7 +126,6 @@ struct MatchStatCardView: View {
 struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            EmptyView()
             MatchView(vm: MatchViewModel())
         }
         .environmentObject(HeroDatabase.shared)
@@ -140,10 +139,19 @@ struct AllTeamPlayerView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Players").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
-            TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.fetchKill(isRadiant: true), win: match.radiantWin)
-            TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.fetchKill(isRadiant: false), win: !match.radiantWin)
+            TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.fetchKill(isRadiant: true), win: match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
+            TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.fetchKill(isRadiant: false), win: !match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
         }
         .frame(minWidth: 300)
+    }
+    
+    func fetchMaxDamage(players: [Player]) -> Int {
+        if players.first!.heroDamage != nil {
+            let sortedPlayers = players.sorted(by: { $0.heroDamage! > $1.heroDamage! })
+            return sortedPlayers.first!.heroDamage!
+        } else {
+            return 0
+        }
     }
 }
 
@@ -166,17 +174,40 @@ struct PlayerRowView: View {
     var isRadiant: Bool
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State var showPlayer = false
+    var maxDamage: Int
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 HeroIconImageView(heroID: player.heroID)
                     .frame(width: 35, height: 35)
+                    .overlay(HStack {
+                        Spacer()
+                        VStack {
+                            Spacer()
+                            Circle()
+                                .frame(width: 15, height: 15)
+                                .overlay(Text("\(player.level)")
+                                            .foregroundColor(.white)
+                                            .font(.custom(fontString, size: 8)).bold())
+                        }
+                    })
                 VStack(alignment: .leading) {
-                    Text("\(player.personaname ?? "Anolymous")").font(.custom(fontString, size: 15)).bold().lineLimit(1)
-                    Text("LVL \(player.level) \(HeroDatabase.shared.fetchHeroWithID(id: player.heroID)?.localizedName.uppercased() ?? "")").font(.custom(fontString, size: 10)).foregroundColor(Color(.secondaryLabel))
-                        .lineLimit(1)
+                    Text("\(player.personaname ?? "Anonymous")").font(.custom(fontString, size: 15)).bold().lineLimit(1)
+                    KDAView(kills: player.kills, deaths: player.deaths, assists: player.assists)
                 }.frame(minWidth: 0)
                 Spacer()
+                VStack(spacing: 1) {
+                    HStack(spacing: 1) {
+                        ItemView(id: player.item0).frame(width: 24, height: 18)
+                        ItemView(id: player.item1).frame(width: 24, height: 18)
+                        ItemView(id: player.item2).frame(width: 24, height: 18)
+                    }
+                    HStack(spacing: 1) {
+                        ItemView(id: player.item3).frame(width: 24, height: 18)
+                        ItemView(id: player.item4).frame(width: 24, height: 18)
+                        ItemView(id: player.item5).frame(width: 24, height: 18)
+                    }
+                }
                 VStack(spacing: 0) {
                     HStack(spacing: 3) {
                         Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
@@ -186,28 +217,11 @@ struct PlayerRowView: View {
                         Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
                         Text("\(player.xpm)").foregroundColor(Color(.systemBlue))
                     }.frame(width: 35)
-                    
-                }.font(.custom(fontString, size: 12))
+                    DamageView(maxDamage: maxDamage, playerDamage: player.heroDamage ?? 0)
+                }.font(.custom(fontString, size: 10))
             }.frame(height: 50)
-            HStack {
-                ItemView(id: player.item0)
-                ItemView(id: player.item1)
-                ItemView(id: player.item2)
-                ItemView(id: player.item3)
-                ItemView(id: player.item4)
-                ItemView(id: player.item5)
-                if player.itemNeutral != nil {
-                    ItemView(id: player.itemNeutral!).clipShape(Circle())
-                }
-                Spacer()
-                HStack(spacing: 0) {
-                    Text("\(player.kills)").bold()
-                    Text("/\(player.deaths)/\(player.assists)").foregroundColor(Color(.systemGray)).lineLimit(1)
-                    
-                }.frame(minWidth:45).font(.custom(fontString, size: 15))
-            }
         }
-        .padding(.vertical)
+//        .padding(.vertical)
         .onTapGesture {
             if player.id != nil {
                 showPlayer.toggle()
@@ -216,8 +230,6 @@ struct PlayerRowView: View {
         .sheet(isPresented: $showPlayer) {
             ProfileView(vm: ProfileViewModel(id: "\(player.id!)"))
         }
-        
-        
     }
 }
 
@@ -226,7 +238,7 @@ struct ItemView: View {
     var id: Int
     var body: some View {
         if computeURL() == nil {
-            Image("empty_item").resizable().frame(width: 24, height: 18)
+            Image("empty_item").resizable()//.frame(width: 28, height: 21)
         } else {
             WebImage(url: computeURL())
                 .resizable()
@@ -234,10 +246,10 @@ struct ItemView: View {
                 .indicator(.init(content: { _, _ in
                     Image("empty_item")
                         .resizable()
-                        .frame(width: 24, height: 18)
+//                        .frame(width: 28, height: 21)
                 }))
                 .transition(.fade)
-                .frame(width: 24, height: 18)
+//                .frame(width: 28, height: 21)
         }
     }
     
@@ -290,7 +302,7 @@ struct TeamHeaderView: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 5)
-        .background(isRadiant ? LinearGradient(gradient: Gradient(colors: [.clear, .green.opacity(0.2), .clear]), startPoint: .leading, endPoint: .trailing) : LinearGradient(gradient: Gradient(colors: [.clear, .red.opacity(0.2), .clear]), startPoint: .leading, endPoint: .trailing))
+        .background(Color(isRadiant ? .systemGreen : .systemRed).opacity(0.2))
         
         
     }
@@ -301,18 +313,61 @@ struct TeamView: View {
     var isRadiant: Bool
     var score: Int
     var win: Bool
+    var maxDamage: Int
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         VStack(spacing: 0) {
             TeamHeaderView(isRadiant: isRadiant, score: score, win: win)
             ForEach(players, id: \.heroID) { player in
-                PlayerRowView(player: player, isRadiant: isRadiant)
+                PlayerRowView(player: player, isRadiant: isRadiant, maxDamage: maxDamage)
                     .padding(.horizontal)
-                
-                
             }
         }
         
+    }
+}
+
+struct KDAView: View {
+    var kills: Int
+    var deaths: Int
+    var assists: Int
+    var body: some View {
+        HStack(spacing: 0) {
+            Text("\(kills)").bold()
+            Text("/\(deaths)/\(assists)").lineLimit(1)
+            Text(" (\(calculateKDA().rounded(toPlaces: 1).description))").bold().foregroundColor(Color(.systemGray))
+        }.frame(minWidth:45).font(.custom(fontString, size: 13))
+    }
+    
+    private func calculateKDA() -> Double {
+        if deaths == 0 {
+            return Double(kills + assists)
+        } else {
+            return Double(kills + assists) / Double(deaths)
+        }
+    }
+}
+
+struct DamageView: View {
+    var maxDamage: Int
+    var playerDamage: Int
+    var body: some View {
+        ZStack {
+            ZStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: 3).frame(width: 40, height: 10)
+                    .foregroundColor(Color(.secondarySystemBackground))
+                RoundedRectangle(cornerRadius: 3).frame(width: calculateRectangleWidth(), height: 10).foregroundColor(.red.opacity(0.4))
+            }
+            Text("\(playerDamage)").font(.custom(fontString, size: 10))
+        }
+    }
+    
+    private func calculateRectangleWidth() -> CGFloat {
+        if maxDamage == 0 {
+            return 40.0
+        } else {
+            return 40.0 * CGFloat(Double(playerDamage) / Double(maxDamage))
+        }
     }
 }

@@ -128,7 +128,7 @@ struct MatchListRowView: View {
                     }
                     Spacer()
                     HStack {
-                        KDAView(match: vm.match)
+                        KDAView(kills: vm.match.kills, deaths: vm.match.deaths, assists: vm.match.assists)
                         Spacer()
                     }
                     .frame(width: 65)
@@ -155,15 +155,5 @@ struct MatchListView_Previews: PreviewProvider {
     static var previews: some View {
         MatchListRowEmptyView()
         
-    }
-}
-
-struct KDAView: View {
-    var match: RecentMatch
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text("K/D/A").bold().foregroundColor(Color(.secondaryLabel)).font(.custom(fontString, size: 10))
-            Text("\(match.kills)/\(match.deaths)/\(match.assists)").font(.custom(fontString, size: 13, relativeTo: .footnote))
-        }
     }
 }

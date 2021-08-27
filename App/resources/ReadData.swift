@@ -71,21 +71,21 @@ fileprivate func loadFile(filename: String) -> Data? {
 //
 //}
 //
-//func loadMatch() -> Match? {
-//    guard let data = loadFile(filename: "sampleMatch") else {
-//        return nil
-//    }
-//
-//    do {
-//        let decoder = JSONDecoder()
-//        let jsonData = try decoder.decode(Match.self, from: data)
-//        return jsonData
-//    } catch {
-//        print("Cannot parse json data")
-//        return nil
-//    }
-//
-//}
+func loadMatch() -> Match? {
+    guard let data = loadFile(filename: "sampleMatch") else {
+        return nil
+    }
+
+    do {
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode(Match.self, from: data)
+        return jsonData
+    } catch {
+        print("Cannot parse json data")
+        return nil
+    }
+
+}
 //
 func loadItemIDs() -> [String: String]? {
     guard let data = loadFile(filename: "item_ids") else {

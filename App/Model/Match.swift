@@ -92,6 +92,8 @@ struct Match: TableCodable {
     
     var players: [Player]
     
+    static let sample = loadMatch()!
+    
     enum CodingKeys: String, CodingTableKey {
         typealias Root = Match
         static let objectRelationalMapping = TableBinding(CodingKeys.self)

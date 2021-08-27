@@ -19,7 +19,7 @@ class MatchViewModel: ObservableObject {
     
     init() {
         self.id = "0"
-//        self.match = Match.sample
+        self.match = Match.sample
     }
     
     func loadMatch() {
