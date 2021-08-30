@@ -15,8 +15,10 @@ struct LoadingView: View {
             .stroke(Color.primaryDota, lineWidth: 5)
             .rotationEffect(Angle(degrees: isLoading ? 360 : 0))
             .onAppear {
-                withAnimation(.linear(duration: 1).repeatForever(autoreverses: false)) {
-                    self.isLoading.toggle()
+                DispatchQueue.main.async {
+                    withAnimation(.linear(duration: 1).repeatForever(autoreverses: false)) {
+                        self.isLoading.toggle()
+                    }
                 }
             }
             

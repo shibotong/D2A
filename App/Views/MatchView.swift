@@ -10,16 +10,17 @@ import SDWebImageSwiftUI
 
 struct MatchView: View {
     @EnvironmentObject var env: DotaEnvironment
-    @ObservedObject var vm: MatchViewModel
     @EnvironmentObject var data: HeroDatabase
+    @ObservedObject var vm: MatchViewModel
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
         if vm.id == nil {
             Text("select a match")
         } else {
             if vm.match == nil {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .primaryDota))
+                LoadingView()
+                    .frame(width: 32, height: 32)
+//                    .progressViewStyle(CircularProgressViewStyle(tint: .primaryDota))
                     .onAppear {
                         vm.loadNewMatch()
                     }
@@ -27,9 +28,8 @@ struct MatchView: View {
                 if horizontalSizeClass == .regular {
                     VStack {
                         if vm.loading {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .primaryDota))
-                            
+                            LoadingView()
+                                .frame(width: 32, height: 32)
                         }
                         HStack(spacing: 0) {
                             ScrollView(showsIndicators: false) {
@@ -37,9 +37,9 @@ struct MatchView: View {
                                     MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
                                     MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())")
                                         .colorInvert()
-                                    MatchStatCardView(icon: "rosette", title: "Game Mode", label: "\(data.fetchGameMode(id: vm.match!.mode).fetchModeName())")
+                                    MatchStatCardView(icon: "rosette", title: "Game Mode", label: "\(vm.fetchGameMode(id: vm.match!.mode).fetchModeName())")
                                         .colorInvert()
-                                    MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: "\(data.fetchRegion(id: "\(vm.match!.region)"))")
+                                    MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: "\(vm.fetchGameRegion(id: "\(vm.match!.region)"))")
                                 }).padding()
                                 DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
                                     .frame(height: 300)
@@ -72,16 +72,25 @@ struct MatchView: View {
                 } else {
                     ScrollView {
                         if vm.loading {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .primaryDota))
+                            LoadingView()
+                                .frame(width: 32, height: 32)
                         }
                         VStack(spacing: 10) {
                             VStack(spacing: 30) {
-                                HStack(spacing: 15) {
-                                    MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
-                                    MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())").colorInvert()
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 15) {
+                                        MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
+                                            .frame(width: 160)
+                                        MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())").colorInvert()
+                                            .frame(width: 160)
+                                        MatchStatCardView(icon: "rosette", title: "Game Mode", label: "\(data.fetchGameMode(id: vm.match!.mode).fetchModeName())")
+            
+                                            .frame(width: 160)
+                                        MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: "\(data.fetchRegion(id: "\(vm.match!.region)"))")
+                                            .frame(width: 160)
+                                    }.padding(.horizontal)
                                 }
-                            }.padding([.top, .horizontal])
+                            }.padding([.top])
                             AllTeamPlayerView(match: vm.match!)
                             AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
                             DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
@@ -125,9 +134,9 @@ struct MatchStatCardView: View {
 
 struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+//        NavigationView {
             MatchView(vm: MatchViewModel())
-        }
+//        }
         .environmentObject(HeroDatabase.shared)
         
     }
@@ -193,7 +202,7 @@ struct PlayerRowView: View {
                     })
                 VStack(alignment: .leading) {
                     Text("\(player.personaname ?? "Anonymous")").font(.custom(fontString, size: 15)).bold().lineLimit(1)
-                    KDAView(kills: player.kills, deaths: player.deaths, assists: player.assists)
+                    KDAView(kills: player.kills, deaths: player.deaths, assists: player.assists, size: 13)
                 }.frame(minWidth: 0)
                 Spacer()
                 VStack(spacing: 1) {
@@ -332,12 +341,14 @@ struct KDAView: View {
     var kills: Int
     var deaths: Int
     var assists: Int
+    var size: Int
     var body: some View {
         HStack(spacing: 0) {
             Text("\(kills)").bold()
-            Text("/\(deaths)/\(assists)").lineLimit(1)
+            Text("/\(deaths)").lineLimit(1).foregroundColor(Color(.systemRed))
+            Text("/\(assists)").lineLimit(1)
             Text(" (\(calculateKDA().rounded(toPlaces: 1).description))").bold().foregroundColor(Color(.systemGray))
-        }.frame(minWidth:45).font(.custom(fontString, size: 13))
+        }.frame(minWidth:45).font(.custom(fontString, size: CGFloat(size)))
     }
     
     private func calculateKDA() -> Double {

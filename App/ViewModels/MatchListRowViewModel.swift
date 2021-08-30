@@ -18,4 +18,8 @@ class MatchListRowViewModel: ObservableObject {
         
         self.hero = HeroDatabase.shared.fetchHeroWithID(id: Int(match.heroID))
     }
+    
+    init() {
+        self.match = RecentMatch.sample.last!
+    }
 }

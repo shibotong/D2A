@@ -59,4 +59,12 @@ class MatchViewModel: ObservableObject {
             }
         }
     }
+    
+    func fetchGameMode(id: Int) -> GameMode {
+        return HeroDatabase.shared.fetchGameMode(id: id)
+    }
+    
+    func fetchGameRegion(id: String) -> String {
+        return HeroDatabase.shared.fetchRegion(id: id)
+    }
 }

@@ -10,14 +10,10 @@ import Alamofire
 
 class HeroDatabase: ObservableObject {
     @Published var loading = false
-    
-    
-    var heroes = [Hero]()
-    
+    var heroes = [String: Hero]()
     var gameModes = [String: GameMode]()
-    
+    var lobbyTypes = [String: LobbyType]()
     var regions = [String: String]()
-    
     var items = [String: Item]()
     var itemIDTable = [String: String]()
     
@@ -28,37 +24,39 @@ class HeroDatabase: ObservableObject {
     init() {
         self.loading = true
         self.gameModes = loadGameModes()!
-        self.loadHeroes()
+        self.heroes = loadHeroes()!
         self.itemIDTable = loadItemIDs()!
         self.items = loadItems()!
         self.regions = loadRegion()!
+        self.lobbyTypes = loadLobby()!
     }
     
-    private func loadHeroes() {
-        AF.request(url).responseJSON { response in
-            guard let data = response.data else {
-                return
-            }
-            guard let statusCode = response.response?.statusCode else {
-                return
-            }
-            if statusCode > 400 {
-                DotaEnvironment.shared.exceedLimit = true
-            }
-            let decoder = JSONDecoder()
-            let heroes = try? decoder.decode([Hero].self, from: data)
-            guard let fetchedHeroes = heroes else {
-                return
-            }
-            self.heroes = fetchedHeroes
-            DispatchQueue.main.async {
-                self.loading = false
-            }
-        }
-    }
+//    private func loadHeroes() {
+//        AF.request(url).responseJSON { response in
+//            guard let data = response.data else {
+//                return
+//            }
+//            guard let statusCode = response.response?.statusCode else {
+//                return
+//            }
+//            if statusCode > 400 {
+//                DotaEnvironment.shared.exceedLimit = true
+//            }
+//            let decoder = JSONDecoder()
+//            let heroes = try? decoder.decode([Hero].self, from: data)
+//            guard let fetchedHeroes = heroes else {
+//                return
+//            }
+//            self.heroes = fetchedHeroes
+//            DispatchQueue.main.async {
+//                self.loading = false
+//            }
+//        }
+//    }
     
     func fetchHeroWithID(id: Int) -> Hero? {
-        return heroes.first(where: { $0.id == id })
+        return heroes["\(id)"]
+//        return heroes.first(where: { $0.id == id })
     }
     
     func fetchGameMode(id: Int) -> GameMode {
@@ -84,6 +82,10 @@ class HeroDatabase: ObservableObject {
             return "Unknown"
         }
         return region
+    }
+    
+    func fetchLobby(id: Int) -> LobbyType {
+        return lobbyTypes["\(id)"]!
     }
     
 }

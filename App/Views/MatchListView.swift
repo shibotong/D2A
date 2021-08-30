@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MatchListView: View {
+struct MatchListView: View, Equatable {
     @EnvironmentObject var env: DotaEnvironment
     @ObservedObject var vm: MatchListViewModel
     @AppStorage("selectedMatch") var selectedMatch: String?
@@ -16,50 +16,48 @@ struct MatchListView: View {
         if vm.userid == nil {
             Text("select a user")
         } else {
-                List {
-                    if vm.matches.isEmpty {
-                        ForEach(0..<20, id:\.self) { item in
-                            MatchListRowEmptyView()
+            List {
+                if vm.matches.isEmpty {
+                    ForEach(0..<20, id:\.self) { item in
+                        MatchListRowEmptyView()
+                    }
+                    .onAppear {
+                        vm.fetchAllData()
+                    }
+                } else {
+                if vm.refreshing {
+                        HStack {
+                            Spacer()
+                            LoadingView()
+                                .frame(width: 32, height: 32)
+                            Spacer()
                         }
-                        .onAppear {
-                            vm.fetchAllData()
-                        }
-                    } else {
-                        if vm.refreshing {
-                            HStack {
-                                Spacer()
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: .primaryDota))
-                                Spacer()
-                            }
-                        }
-                        
-              
-                            ForEach(vm.matches, id: \.id) { match in
-                                    NavigationLink(
-                                        destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)")),
-                                        tag: "\(match.id)",
-                                        selection: $selectedMatch
-                                    ) {
-                                        MatchListRowView(vm: MatchListRowViewModel(match: match))
-                                    }
-
-                            }
-                            Text("Load More...")
-                                .onAppear {
-                                    withAnimation(.default) {
-                                        vm.fetchMoreData()
-                                    }
-                                }
+                    }
+                    ForEach(vm.matches, id: \.id) { match in
+                        NavigationLink(
+                            destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)")),
+                            tag: "\(match.id)",
+                            selection: $selectedMatch
+                        ) {
+                            MatchListRowViewV2(vm: MatchListRowViewModel(match: match))
+                                
+                        }.listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
                         
                     }
+                    Text("Load More...")
+                        .onAppear {
+                            withAnimation(.linear) {
+                                vm.fetchMoreData()
+                            }
+                        }
+                    
                 }
-                .listStyle(PlainListStyle())
-            
+            }
+//            .listStyle(PlainListStyle())
             .navigationTitle("\(vm.userProfile?.personaname ?? "")")
             .navigationBarItems(trailing:
                                     Button(action: {
-                                        withAnimation(.default.repeatForever(autoreverses: false)) {
+                                        withAnimation(.linear) {
                                             vm.refreshData()
                                         }
                                     }, label: {
@@ -69,7 +67,11 @@ struct MatchListView: View {
             )
         }
     }
-
+    
+    static func ==(lhs: MatchListView, rhs: MatchListView) -> Bool {
+        return lhs.vm.userid == rhs.vm.userid
+    }
+    
 }
 
 struct MatchListRowEmptyView: View {
@@ -107,7 +109,6 @@ struct MatchListRowView: View {
             HeroIconImageView(heroID: Int(vm.match.heroID))
                 .frame(width: 32, height: 32)
                 .padding(10)
-//                .clipShape(RoundedRectangle(cornerRadius: 15))
                 .background(RoundedRectangle(cornerRadius: 15).stroke(Color(vm.match.isPlayerWin() ? .systemGreen : .secondaryLabel), lineWidth: 5))
             
             VStack(alignment: .leading, spacing: 0) {
@@ -128,7 +129,7 @@ struct MatchListRowView: View {
                     }
                     Spacer()
                     HStack {
-                        KDAView(kills: vm.match.kills, deaths: vm.match.deaths, assists: vm.match.assists)
+                        KDAView(kills: vm.match.kills, deaths: vm.match.deaths, assists: vm.match.assists, size: 13)
                         Spacer()
                     }
                     .frame(width: 65)
@@ -153,7 +154,9 @@ struct MatchListRowView: View {
 
 struct MatchListView_Previews: PreviewProvider {
     static var previews: some View {
-        MatchListRowEmptyView()
+        MatchListView(vm: MatchListViewModel())
+            .environmentObject(DotaEnvironment.shared)
+            .environmentObject(HeroDatabase.shared)
         
     }
 }

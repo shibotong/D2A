@@ -21,21 +21,49 @@ fileprivate func loadFile(filename: String) -> Data? {
     }
 }
 //
-//func loadRecentMatches() -> [RecentMatch]? {
-//    guard let data = loadFile(filename: "sampleMatches") else {
-//        return nil
-//    }
-//    do {
-//        let decoder = JSONDecoder()
-//        let jsonData = try decoder.decode([RecentMatch].self, from: data)
-//        return jsonData
-//    } catch {
-//        // handle error
-//        print("Cannot parse json data")
-//        return nil
-//    }
-//
-//}
+func loadRecentMatches() -> [RecentMatch]? {
+    guard let data = loadFile(filename: "sampleRecentMatch") else {
+        return nil
+    }
+    do {
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode([RecentMatch].self, from: data)
+        return jsonData
+    } catch {
+        // handle error
+        print("Cannot parse json data")
+        return nil
+    }
+
+}
+
+func loadLobby() -> [String: LobbyType]? {
+    guard let data = loadFile(filename: "lobby_type") else {
+        return nil
+    }
+    do {
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode([String: LobbyType].self, from: data)
+        return jsonData
+    } catch {
+        print("Cannot parse Lobby data")
+        return nil
+    }
+}
+
+func loadHeroes() -> [String: Hero]? {
+    guard let data = loadFile(filename: "heroes") else {
+        return nil
+    }
+    do {
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode([String: Hero].self, from: data)
+        return jsonData
+    } catch {
+        print("Cannot parse Lobby data")
+        return nil
+    }
+}
 //
 //func loadProfile() -> SteamProfile? {
 //    guard let data = loadFile(filename: "sampleProfile") else {

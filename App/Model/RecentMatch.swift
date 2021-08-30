@@ -22,7 +22,7 @@ class RecentMatch: TableCodable {
     var startTime: Int
     
     var playerId: Int?
-    
+    static let sample = loadRecentMatches()!
     enum CodingKeys: String, CodingTableKey {
         typealias Root = RecentMatch
         static let objectRelationalMapping = TableBinding(CodingKeys.self)
@@ -50,5 +50,9 @@ class RecentMatch: TableCodable {
     
     func fetchMode() -> GameMode {
         HeroDatabase.shared.fetchGameMode(id: mode)
+    }
+    
+    func fetchLobby() -> LobbyType {
+        HeroDatabase.shared.fetchLobby(id: lobbyType)
     }
 }

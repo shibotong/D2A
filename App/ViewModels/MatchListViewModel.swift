@@ -25,6 +25,11 @@ class MatchListViewModel: ObservableObject {
         self.userProfile = profile
     }
     
+    init() {
+        self.matches = RecentMatch.sample
+        self.userid = "0"
+    }
+    
     func fetchMoreData() {
         guard let userid = userid else {
             return

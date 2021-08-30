@@ -10,13 +10,14 @@ import SDWebImageSwiftUI
 
 struct Sidebar: View {
     @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var data: HeroDatabase
     @AppStorage("selectedUser") var selectedUser: String?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
         List {
             ForEach(env.userIDs, id: \.self) { id in
                 NavigationLink(
-                    destination: MatchListView(vm: MatchListViewModel(userid: id)),
+                    destination: MatchListView(vm: MatchListViewModel(userid: id)).equatable(),
                     tag: id,
                     selection: $selectedUser
                 ) {
@@ -53,6 +54,9 @@ struct Sidebar: View {
                 .keyboardShortcut("n", modifiers: .command)
             }
         }.padding())
+        .onAppear {
+            print(data.gameModes)
+        }
     }
 }
 

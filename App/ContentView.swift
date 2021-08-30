@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var data: HeroDatabase
     var body: some View {
         NavigationHostView()
             .sheet(isPresented: $env.addNewAccount, content: {
@@ -20,6 +21,7 @@ struct ContentView: View {
                 AboutUsView()
                     .environmentObject(env)
             })
+            
     }
 }
 
@@ -34,6 +36,7 @@ struct ContentView_Previews: PreviewProvider {
 
 struct NavigationHostView: View {
     @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var data: HeroDatabase
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @AppStorage("selectedUser") var selectedUser: String?
     @AppStorage("selectedMatch") var selectedMatch: String?
@@ -48,11 +51,12 @@ struct NavigationHostView: View {
             } else {
                 NavigationView {
                     Sidebar()
-                    MatchListView(vm: MatchListViewModel(userid: selectedUser))
+                    MatchListView(vm: MatchListViewModel(userid: selectedUser)).equatable()
                         .frame(minWidth: 320)
                     MatchView(vm: MatchViewModel(matchid: selectedMatch))
                 }
                 .navigationViewStyle(DoubleColumnNavigationViewStyle())
+                
             }
         }
     }
