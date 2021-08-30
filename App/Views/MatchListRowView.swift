@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MatchListRowViewV2: View {
+struct MatchListRowView: View {
     @ObservedObject var vm: MatchListRowViewModel
     @EnvironmentObject var database: HeroDatabase
     var body: some View {
@@ -37,7 +37,37 @@ struct MatchListRowViewV2: View {
 
 struct MatchListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        MatchListRowViewV2(vm: MatchListRowViewModel()).previewLayout(.fixed(width: 375, height: 80))
+        MatchListRowView(vm: MatchListRowViewModel()).previewLayout(.fixed(width: 375, height: 80))
             .environmentObject(HeroDatabase.shared)
+        MatchListRowEmptyView().previewLayout(.fixed(width: 375, height: 80))
+    }
+}
+
+struct MatchListRowEmptyView: View {
+    @State var loading = false
+    var body: some View {
+        HStack {
+            Rectangle().frame(width: 20).padding(.vertical, 1)
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 25, height: 25)
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 100, height: 25)
+                }
+                RoundedRectangle(cornerRadius: 5)
+                    .frame(width: 50, height: 20)
+                RoundedRectangle(cornerRadius: 5)
+                    .frame(width: 80, height: 20)
+            }.padding(.vertical, 5)
+            Spacer()
+        }
+        .foregroundColor(loading ? Color(.systemGray6) : Color(.systemGray5))
+        .onAppear {
+            DispatchQueue.main.async {
+                self.loading = true
+            }
+        }
+        .animation(Animation.default.repeatForever())
     }
 }
