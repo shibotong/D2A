@@ -19,7 +19,7 @@ struct MatchListView: View, Equatable {
             List {
                 if vm.matches.isEmpty {
                     ForEach(0..<20, id:\.self) { item in
-                        MatchListRowEmptyView()
+                        MatchListRowEmptyView().listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
                     }
                     .onAppear {
                         vm.fetchAllData()
@@ -42,7 +42,6 @@ struct MatchListView: View, Equatable {
                             MatchListRowView(vm: MatchListRowViewModel(match: match))
                                 
                         }.listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
-                        
                     }
                     Text("Load More...")
                         .onAppear {

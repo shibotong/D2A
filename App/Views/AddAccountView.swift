@@ -34,6 +34,12 @@ struct AddAccountView: View, Equatable {
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 15).foregroundColor(Color.primaryDota))
                 }
+                HStack {
+                    Spacer()
+                    NavigationLink(destination: Text("Still Building....")) {
+                        Text("How to find my Dota2 ID?")
+                    }
+                }
                 if vm.searched {
                     ProfileView(vm: ProfileViewModel(id: vm.searchUserId)).equatable()
                 } else {
