@@ -64,24 +64,24 @@ func loadHeroes() -> [String: Hero]? {
         return nil
     }
 }
-//
-//func loadProfile() -> SteamProfile? {
-//    guard let data = loadFile(filename: "sampleProfile") else {
-//        return nil
-//    }
-//
-//    do {
-//
-//        let decoder = JSONDecoder()
-//        let jsonData = try decoder.decode(SteamProfile.self, from: data)
-//        return jsonData
-//    } catch {
-//        // handle error
-//        print("Cannot parse json data")
-//        return nil
-//    }
-//}
-//
+
+func loadProfile() -> SteamProfile? {
+    guard let data = loadFile(filename: "sampleProfile") else {
+        return nil
+    }
+
+    do {
+
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode(SteamProfile.self, from: data)
+        return jsonData
+    } catch {
+        // handle error
+        print("Cannot parse json data")
+        return nil
+    }
+}
+
 //func loadHeroes() -> [PlayerHero]? {
 //    guard let data = loadFile(filename: "sampleHeroes") else {
 //        return nil

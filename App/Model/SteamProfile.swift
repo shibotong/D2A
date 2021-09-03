@@ -18,4 +18,6 @@ struct SteamProfile: TableCodable {
         case profile
         case rank = "rank_tier"
     }
+    
+    static let sample = loadProfile()!
 }

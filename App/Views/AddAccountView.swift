@@ -41,7 +41,10 @@ struct AddAccountView: View, Equatable {
                     }
                 }
                 if vm.searched {
-                    ProfileView(vm: ProfileViewModel(id: vm.searchUserId)).equatable()
+                    VStack {
+                        ProfileView(vm: ProfileViewModel(id: vm.searchUserId)).equatable()
+                        Spacer()
+                    }
                 } else {
                     Spacer()
                 }
@@ -65,74 +68,4 @@ struct AddAccountView_Previews: PreviewProvider {
     }
 }
 
-struct ProfileView: View, Equatable {
-    @EnvironmentObject var env: DotaEnvironment
-    @ObservedObject var vm: ProfileViewModel
-    @AppStorage("selectedUser") var selectedUser: String?
-    
-    var body: some View {
-        if vm.isloading {
-            VStack {
-                Spacer()
-                ProgressView()
-                Spacer()
-            }
-        } else {
-            if vm.steamProfile == nil {
-                VStack {
-                    Spacer()
-                    Text("Cannot find user profile.")
-                    Spacer()
-                }
-            }
-            else {
-                VStack {
-                    Spacer()
-                    WebImage(url: URL(string: vm.steamProfile!.profile.avatarfull))
-                        .resizable()
-                        .renderingMode(.original)
-                        .indicator(.activity)
-                        .scaledToFit()
-                        .frame(width: 80, height: 80)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                    Text("\(vm.steamProfile!.profile.personaname)").font(.custom(fontString, size: 30)).bold()
-                    Text(vm.steamProfile!.profile.countryCode ?? "Unknown Country").font(.custom(fontString, size: 20))
-                    HStack {
-                        Button(action: {
-                            if let url = URL(string: vm.steamProfile!.profile.profileurl) {
-                                UIApplication.shared.open(url)
-                            }
-                        }) {
-                            HStack {
-                                Spacer()
-                                Text("Profile").font(.custom(fontString, size: 15)).bold().foregroundColor(.primaryDota)
-                                Spacer()
-                            }
-                            .padding()
-                            .background(RoundedRectangle(cornerRadius: 15).stroke().foregroundColor(.primaryDota))
-                            
-                        }
-                        Button(action: {
-                            if selectedUser == nil {
-                                selectedUser = "\(vm.steamProfile!.profile.id)"
-                            }
-                            env.addUser(userid: "\(vm.steamProfile!.profile.id)")
-                        }) {
-                            HStack {
-                                Spacer()
-                                Text(env.userIDs.contains("\(vm.steamProfile!.profile.id)") ? "Followed" : "Follow").font(.custom(fontString, size: 15)).bold().foregroundColor(.white)
-                                Spacer()
-                            }
-                            .padding()
-                            .background(RoundedRectangle(cornerRadius: 15).foregroundColor(env.userIDs.contains("\(vm.steamProfile!.profile.id)") ? .secondaryDota : .primaryDota))
-                        }
-                    }
-                    Spacer()
-                }.padding()
-            }
-        }
-    }
-    static func == (lhs: ProfileView, rhs: ProfileView) -> Bool {
-        return lhs.vm.userid == rhs.vm.userid
-    }
-}
+

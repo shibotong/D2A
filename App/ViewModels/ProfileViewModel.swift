@@ -18,6 +18,11 @@ class ProfileViewModel: ObservableObject {
         self.searchUser()
     }
     
+    init() {
+        self.steamProfile = SteamProfile.sample
+        self.userid = "123"
+    }
+    
     func searchUser() {
         isloading = true
         let url = "\(baseURL)/api/players/\(userid)"
