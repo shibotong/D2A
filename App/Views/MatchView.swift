@@ -84,9 +84,9 @@ struct MatchView: View {
                                         MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())").colorInvert()
                                             .frame(width: 160)
                                         MatchStatCardView(icon: "rosette", title: "Game Mode", label: "\(data.fetchGameMode(id: vm.match!.mode).fetchModeName())")
-            
                                             .frame(width: 160)
                                         MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: "\(data.fetchRegion(id: "\(vm.match!.region)"))")
+                                            .colorInvert()
                                             .frame(width: 160)
                                     }.padding(.horizontal)
                                 }
@@ -196,7 +196,7 @@ struct PlayerRowView: View {
                             Circle()
                                 .frame(width: 15, height: 15)
                                 .overlay(Text("\(player.level)")
-                                            .foregroundColor(.white)
+                                            .foregroundColor(Color(.systemBackground))
                                             .font(.custom(fontString, size: 8)).bold())
                         }
                     })

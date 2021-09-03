@@ -27,7 +27,6 @@ class MatchViewModel: ObservableObject {
             return
         }
         guard let match = WCDBController.shared.fetchMatch(matchid: id) else {
-            print("no match found in DB")
             return
         }
         self.match = match
@@ -38,7 +37,6 @@ class MatchViewModel: ObservableObject {
         print("load new match")
         if self.match == nil {
             guard let match = WCDBController.shared.fetchMatch(matchid: id!) else {
-                print("no match found in DB")
                 OpenDotaController.loadMatchData(matchid: id!) { result in
                     self.loadNewMatch()
                 }
