@@ -66,5 +66,23 @@ struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView(vm: ProfileViewModel())
             .environmentObject(DotaEnvironment.shared)
+        ProfileEmptyView()
+    }
+}
+struct ProfileEmptyView: View {
+    var body: some View {
+        HStack {
+            Image("profile")
+                .resizable()
+                .renderingMode(.original)
+                .scaledToFit()
+                .frame(width: 50, height: 50)
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+            VStack(alignment: .leading) {
+                Text("Anonymous").font(.custom(fontString, size: 20)).bold()
+                Text("Unknown Country").font(.custom(fontString, size: 13))
+            }
+            Spacer()
+        }
     }
 }

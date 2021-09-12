@@ -54,9 +54,6 @@ struct Sidebar: View {
                 .keyboardShortcut("n", modifiers: .command)
             }
         }.padding())
-        .onAppear {
-            print(data.gameModes)
-        }
     }
 }
 

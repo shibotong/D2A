@@ -16,7 +16,7 @@ struct MatchListRowView: View {
                 .padding(.vertical, 1)
             VStack(alignment: .leading, spacing: 1) {
                 HStack {
-                    HeroIconImageView(heroID: vm.match.heroID)
+                    HeroImageView(heroID: vm.match.heroID, type: .icon)
                         .frame(width: 25, height: 25)
                     Text("\(database.fetchHeroWithID(id: vm.match.heroID)?.localizedName ?? "")").font(.custom(fontString, size: 20, relativeTo: .headline)).bold().lineLimit(1)
                 }

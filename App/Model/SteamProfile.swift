@@ -20,4 +20,7 @@ struct SteamProfile: TableCodable {
     }
     
     static let sample = loadProfile()!
+    
+    static let anonymous = SteamProfile(rank: 0, profile: UserProfile(id: 0, avatarfull: "", lastLogin: "", countryCode: "", personaname: "Anonymous", isPlus: false, profileurl: "", rank: 0))
 }
+      

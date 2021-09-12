@@ -187,7 +187,7 @@ struct PlayerRowView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                HeroIconImageView(heroID: player.heroID)
+                HeroImageView(heroID: player.heroID, type: .icon)
                     .frame(width: 35, height: 35)
                     .overlay(HStack {
                         Spacer()
@@ -232,12 +232,12 @@ struct PlayerRowView: View {
         }
 //        .padding(.vertical)
         .onTapGesture {
-            if player.id != nil {
+//            if player.id != nil {
                 showPlayer.toggle()
-            }
+//            }
         }
         .sheet(isPresented: $showPlayer) {
-            ProfileView(vm: ProfileViewModel(id: "\(player.id!)"))
+            PlayerDetailView(player: player)
         }
     }
 }
@@ -247,7 +247,7 @@ struct ItemView: View {
     var id: Int
     var body: some View {
         if computeURL() == nil {
-            Image("empty_item").resizable()//.frame(width: 28, height: 21)
+            Image("empty_item").resizable()
         } else {
             WebImage(url: computeURL())
                 .resizable()
@@ -255,10 +255,8 @@ struct ItemView: View {
                 .indicator(.init(content: { _, _ in
                     Image("empty_item")
                         .resizable()
-//                        .frame(width: 28, height: 21)
                 }))
                 .transition(.fade)
-//                .frame(width: 28, height: 21)
         }
     }
     

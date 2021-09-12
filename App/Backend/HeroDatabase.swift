@@ -16,6 +16,8 @@ class HeroDatabase: ObservableObject {
     var regions = [String: String]()
     var items = [String: Item]()
     var itemIDTable = [String: String]()
+    var abilityIDTable = [String: String]()
+    var abilities = [String: Ability]()
     
     static var shared = HeroDatabase()
     
@@ -29,34 +31,12 @@ class HeroDatabase: ObservableObject {
         self.items = loadItems()!
         self.regions = loadRegion()!
         self.lobbyTypes = loadLobby()!
+        self.abilityIDTable = loadAbilityID()
+        self.abilities = loadAbilities()
     }
-    
-//    private func loadHeroes() {
-//        AF.request(url).responseJSON { response in
-//            guard let data = response.data else {
-//                return
-//            }
-//            guard let statusCode = response.response?.statusCode else {
-//                return
-//            }
-//            if statusCode > 400 {
-//                DotaEnvironment.shared.exceedLimit = true
-//            }
-//            let decoder = JSONDecoder()
-//            let heroes = try? decoder.decode([Hero].self, from: data)
-//            guard let fetchedHeroes = heroes else {
-//                return
-//            }
-//            self.heroes = fetchedHeroes
-//            DispatchQueue.main.async {
-//                self.loading = false
-//            }
-//        }
-//    }
     
     func fetchHeroWithID(id: Int) -> Hero? {
         return heroes["\(id)"]
-//        return heroes.first(where: { $0.id == id })
     }
     
     func fetchGameMode(id: Int) -> GameMode {
@@ -88,4 +68,10 @@ class HeroDatabase: ObservableObject {
         return lobbyTypes["\(id)"]!
     }
     
+    func fetchAbility(id: Int) -> Ability? {
+        guard let abilityName = self.abilityIDTable["\(id)"] else {
+            return nil
+        }
+        return abilities[abilityName]
+    }
 }

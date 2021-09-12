@@ -82,23 +82,36 @@ func loadProfile() -> SteamProfile? {
     }
 }
 
-//func loadHeroes() -> [PlayerHero]? {
-//    guard let data = loadFile(filename: "sampleHeroes") else {
-//        return nil
-//    }
-//
-//    do {
-//        let decoder = JSONDecoder()
-//        let jsonData = try decoder.decode([PlayerHero].self, from: data)
-//        return jsonData
-//    } catch {
-//        // handle error
-//        print("Cannot parse json data")
-//        return nil
-//    }
-//
-//}
-//
+func loadAbilityID() -> [String: String] {
+    let filename = "ability_ids"
+    guard let data = loadFile(filename: filename) else {
+        return [:]
+    }
+    do {
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode([String: String].self, from: data)
+        return jsonData
+    } catch {
+        print("JSON ERROR: cannot load \(filename)")
+        return [:]
+    }
+}
+
+func loadAbilities() -> [String: Ability] {
+    let filename = "abilities"
+    guard let data = loadFile(filename: filename) else {
+        return [:]
+    }
+    do {
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode([String: Ability].self, from: data)
+        return jsonData
+    } catch {
+        print("JSON ERROR: cannot load \(filename)")
+        return [:]
+    }
+}
+
 func loadMatch() -> Match? {
     guard let data = loadFile(filename: "sampleMatch") else {
         return nil

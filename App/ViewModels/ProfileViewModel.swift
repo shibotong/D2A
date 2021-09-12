@@ -27,8 +27,6 @@ class ProfileViewModel: ObservableObject {
         isloading = true
         let url = "\(baseURL)/api/players/\(userid)"
         AF.request(url).responseJSON { response in
-            print("search user data")
-            debugPrint(response)
             guard let data = response.data else {
                 DispatchQueue.main.async {
                     self.isloading = false

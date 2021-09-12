@@ -144,6 +144,8 @@ struct Player: Codable, TableCodable {
 
     var personaname: String?
     
+    var multiKills: [String: Int]
+    
     enum CodingKeys: String, CodingTableKey {
         typealias Root = Player
         static let objectRelationalMapping = TableBinding(CodingKeys.self)
@@ -186,6 +188,7 @@ struct Player: Codable, TableCodable {
         case towerDamage = "tower_damage"
 
         case personaname
+        case multiKills = "multi_kills"
     }
     
     

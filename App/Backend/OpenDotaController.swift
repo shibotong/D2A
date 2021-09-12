@@ -40,8 +40,6 @@ class OpenDotaController {
     static func loadMatchData(matchid: String, onComplete:@escaping (Bool) -> ()) {
         let url = "\(baseURL)/api/matches/\(matchid)"
         AF.request(url).responseJSON { response in
-            print("load match data")
-            print(url)
             guard let data = response.data else {
                 return
             }
@@ -72,7 +70,6 @@ class OpenDotaController {
             url = "\(baseURL)/api/players/\(userid)/matches"
         }
         AF.request(url).responseJSON { response in
-            print("load matches data")
             guard let data = response.data else {
                 return
             }
@@ -96,7 +93,6 @@ class OpenDotaController {
     static func loadItemImg(url: String, onCompletion: @escaping (Data) -> ()) {
         let url = "\(baseURL)\(url)"
         AF.request(url).responseData { response in
-            print("load item img data")
             guard let data = response.data else {
                 return
             }
@@ -111,7 +107,6 @@ class OpenDotaController {
     }
     
     static func loadHeroPortrait(url: String, onCompletion: @escaping (Data) -> ()) {
-        // /apps/dota2/images/heroes/dark_seer_icon.png
         let parse = url.replacingOccurrences(of: "/apps/dota2/images/heroes/", with: "")
         let parse2 = parse.replacingOccurrences(of: "_icon.png", with: "")
         let url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/\(parse2).png"
