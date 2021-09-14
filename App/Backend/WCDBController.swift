@@ -61,7 +61,8 @@ class WCDBController {
             let profile: UserProfile? = try database.getObject(fromTable: "UserProfile", where: UserProfile.Properties.id == Int(userid)!)
             return profile
         } catch {
-            fatalError("fetch user profile error")
+            print("fetch User profile error")
+            return nil
         }
     }
     
@@ -79,7 +80,7 @@ class WCDBController {
         do {
             try database.delete(fromTable: "Match", where: Match.Properties.id == Int(matchid)!)
         } catch {
-            fatalError("cannot delete match")
+            print("cannot delete match")
         }
     }
 }
