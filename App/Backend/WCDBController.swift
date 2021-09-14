@@ -70,7 +70,8 @@ class WCDBController {
             let match: Match? = try database.getObject(fromTable: "Match", where: Match.Properties.id == Int(matchid)!)
             return match
         } catch {
-            fatalError("fetch match error")
+            print("fetch match error")
+            return nil
         }
     }
     

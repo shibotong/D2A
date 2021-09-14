@@ -80,7 +80,7 @@ struct ProfileEmptyView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 15))
             VStack(alignment: .leading) {
                 Text("Anonymous").font(.custom(fontString, size: 20)).bold()
-                Text("Unknown Country").font(.custom(fontString, size: 13))
+                Text(" ").font(.custom(fontString, size: 13))
             }
             Spacer()
         }

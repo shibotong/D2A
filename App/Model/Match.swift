@@ -27,7 +27,7 @@ struct Match: TableCodable {
     var goldDiff: [Int]?
     var xpDiff: [Int]?
     
-    var players: [Player]
+    var players: [Player] = []
     
     static let sample = loadMatch()!
     
@@ -101,7 +101,7 @@ struct Match: TableCodable {
 }
 
 struct Player: Codable, TableCodable {
-    var id: Int?
+    var accountId: Int?
     var slot: Int
     var abilityUpgrade: [Int]? //An array describing how abilities were upgraded
     
@@ -149,7 +149,7 @@ struct Player: Codable, TableCodable {
     enum CodingKeys: String, CodingTableKey {
         typealias Root = Player
         static let objectRelationalMapping = TableBinding(CodingKeys.self)
-        case id = "account_id"
+        case accountId = "account_id"
         case slot = "player_slot"
         case abilityUpgrade = "ability_upgrades_arr"
        
