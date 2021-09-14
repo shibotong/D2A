@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3214C0D226F0E1AF00C377EF /* PrivacyPolicy.md in Resources */ = {isa = PBXBuildFile; fileRef = 3214C0D126F0E1AF00C377EF /* PrivacyPolicy.md */; };
+		3214C0D226F0E1AF00C377EF /* privacy-policy.md in Resources */ = {isa = PBXBuildFile; fileRef = 3214C0D126F0E1AF00C377EF /* privacy-policy.md */; };
 		321D587426D22FE90059526B /* items.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D585B26D22FE90059526B /* items.json */; };
 		321D587526D22FE90059526B /* heroes.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D585C26D22FE90059526B /* heroes.json */; };
 		321D587726D22FE90059526B /* patchnotes.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D585E26D22FE90059526B /* patchnotes.json */; };
@@ -87,7 +87,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3214C0D126F0E1AF00C377EF /* PrivacyPolicy.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PrivacyPolicy.md; sourceTree = "<group>"; };
+		3214C0D126F0E1AF00C377EF /* privacy-policy.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "privacy-policy.md"; sourceTree = "<group>"; };
 		321D585B26D22FE90059526B /* items.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = items.json; sourceTree = "<group>"; };
 		321D585C26D22FE90059526B /* heroes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heroes.json; sourceTree = "<group>"; };
 		321D585E26D22FE90059526B /* patchnotes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = patchnotes.json; sourceTree = "<group>"; };
@@ -185,7 +185,7 @@
 		3214C0D026F0E19A00C377EF /* documents */ = {
 			isa = PBXGroup;
 			children = (
-				3214C0D126F0E1AF00C377EF /* PrivacyPolicy.md */,
+				3214C0D126F0E1AF00C377EF /* privacy-policy.md */,
 			);
 			path = documents;
 			sourceTree = "<group>";
@@ -489,7 +489,7 @@
 				321D589326D22FF60059526B /* hero_lore.json in Resources */,
 				321D588026D22FE90059526B /* cluster.json in Resources */,
 				321D587B26D22FE90059526B /* countries.json in Resources */,
-				3214C0D226F0E1AF00C377EF /* PrivacyPolicy.md in Resources */,
+				3214C0D226F0E1AF00C377EF /* privacy-policy.md in Resources */,
 				321D589926D22FF60059526B /* ancients.json in Resources */,
 				321D587426D22FE90059526B /* items.json in Resources */,
 				321D58A726D717900059526B /* sampleMatch.json in Resources */,
