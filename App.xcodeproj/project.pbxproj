@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3214C0D226F0E1AF00C377EF /* privacy-policy.md in Resources */ = {isa = PBXBuildFile; fileRef = 3214C0D126F0E1AF00C377EF /* privacy-policy.md */; };
+		3214C0D426F0E44500C377EF /* terms-of-use.md in Resources */ = {isa = PBXBuildFile; fileRef = 3214C0D326F0E44500C377EF /* terms-of-use.md */; };
 		321D587426D22FE90059526B /* items.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D585B26D22FE90059526B /* items.json */; };
 		321D587526D22FE90059526B /* heroes.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D585C26D22FE90059526B /* heroes.json */; };
 		321D587726D22FE90059526B /* patchnotes.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D585E26D22FE90059526B /* patchnotes.json */; };
@@ -88,6 +89,7 @@
 
 /* Begin PBXFileReference section */
 		3214C0D126F0E1AF00C377EF /* privacy-policy.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "privacy-policy.md"; sourceTree = "<group>"; };
+		3214C0D326F0E44500C377EF /* terms-of-use.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "terms-of-use.md"; sourceTree = "<group>"; };
 		321D585B26D22FE90059526B /* items.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = items.json; sourceTree = "<group>"; };
 		321D585C26D22FE90059526B /* heroes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heroes.json; sourceTree = "<group>"; };
 		321D585E26D22FE90059526B /* patchnotes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = patchnotes.json; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				3214C0D126F0E1AF00C377EF /* privacy-policy.md */,
+				3214C0D326F0E44500C377EF /* terms-of-use.md */,
 			);
 			path = documents;
 			sourceTree = "<group>";
@@ -504,6 +507,7 @@
 				321D589A26D22FF60059526B /* game_mode.json in Resources */,
 				321D587926D22FE90059526B /* hero_abilities.json in Resources */,
 				32B36F1626C38822002D427D /* Preview Assets.xcassets in Resources */,
+				3214C0D426F0E44500C377EF /* terms-of-use.md in Resources */,
 				32B36F1326C38822002D427D /* Assets.xcassets in Resources */,
 				321D589626D22FF60059526B /* xp_level.json in Resources */,
 				321D587726D22FE90059526B /* patchnotes.json in Resources */,
