@@ -23,6 +23,7 @@ class MatchListViewModel: ObservableObject {
         }
         let profile = WCDBController.shared.fetchUserProfile(userid: userid)
         self.userProfile = profile
+        self.refreshData()
     }
     
     init() {
@@ -45,9 +46,13 @@ class MatchListViewModel: ObservableObject {
         if !self.isLoading {
             self.isLoading = true
             OpenDotaController.loadRecentMatch(userid: userid) { result in
-                DispatchQueue.main.async {
+                if result {
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+                        self.fetchMoreData()
+                    }
+                } else {
                     self.isLoading = false
-                    self.fetchMoreData()
                 }
             }
         }
@@ -59,16 +64,23 @@ class MatchListViewModel: ObservableObject {
         }
         if !self.refreshing && !self.isLoading {
             self.refreshing = true
-            let firstMatch = self.matches.first!
-            let today = Date()
-            let days = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(timeIntervalSince1970: TimeInterval(firstMatch.startTime)), to: today)
+            if let firstMatch = self.matches.first {
+                let today = Date()
+                let days = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(timeIntervalSince1970: TimeInterval(firstMatch.startTime)), to: today)
 
-            let dayCount = Double(days.day!) + (Double(days.hour!) / 24.0) + (Double(days.minute!) / 60.0 / 24.0)
-            OpenDotaController.loadRecentMatch(userid: userid, days: dayCount) { bool in
-                DispatchQueue.main.async {
-                    self.matches = WCDBController.shared.fetchRecentMatches(userid: userid)
-                    self.refreshing = false
+                let dayCount = Double(days.day!) + (Double(days.hour!) / 24.0) + (Double(days.minute!) / 60.0 / 24.0)
+                OpenDotaController.loadRecentMatch(userid: userid, days: dayCount) { result in
+                    if result {
+                        DispatchQueue.main.async {
+                            self.matches = WCDBController.shared.fetchRecentMatches(userid: userid)
+                            self.refreshing = false
+                        }
+                    } else {
+                        self.refreshing = false
+                    }
                 }
+            } else {
+                self.refreshing = false
             }
         }
     }

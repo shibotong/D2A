@@ -31,6 +31,8 @@ struct Match: TableCodable {
     
     static let sample = loadMatch()!
     
+    static let emptyMatch = Match(id: 0, duration: 0, mode: 0, lobbyType: 0, radiantWin: false, startTime: 0, direBarracks: 0, radiantBarracks: 0, direTowers: 0, radiantTowers: 0, region: 0)
+    
     enum CodingKeys: String, CodingTableKey {
         typealias Root = Match
         static let objectRelationalMapping = TableBinding(CodingKeys.self)
@@ -144,7 +146,7 @@ struct Player: Codable, TableCodable {
 
     var personaname: String?
     
-    var multiKills: [String: Int]
+    var multiKills: [String: Int]?
     
     enum CodingKeys: String, CodingTableKey {
         typealias Root = Player

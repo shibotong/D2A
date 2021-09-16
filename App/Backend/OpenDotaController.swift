@@ -40,6 +40,7 @@ class OpenDotaController {
     static func loadMatchData(matchid: String, onComplete:@escaping (Bool) -> ()) {
         let url = "\(baseURL)/api/matches/\(matchid)"
         AF.request(url).responseJSON { response in
+            debugPrint(response)
             guard let data = response.data else {
                 return
             }
@@ -51,6 +52,9 @@ class OpenDotaController {
             }
             let decoder = JSONDecoder()
             guard let match = try? decoder.decode(Match.self, from: data) else {
+                print("cannot decode match")
+                print(data.description)
+                onComplete(false)
                 return
             }
             if let _ = WCDBController.shared.fetchMatch(matchid: matchid) {
@@ -78,14 +82,17 @@ class OpenDotaController {
             }
             if statusCode > 400 {
                 DotaEnvironment.shared.exceedLimit = true
+                onComplete(false)
             }
             let decoder = JSONDecoder()
             guard let matches = try? decoder.decode([RecentMatch].self, from: data) else {
                 return
             }
             matches.forEach({$0.playerId = Int(userid)})
-            print(matches.count)
-            try? WCDBController.shared.database.insert(objects: matches, intoTable: "RecentMatch")
+            print("fetched new matches", matches.count)
+            if matches.count > 0 {
+                try? WCDBController.shared.database.insert(objects: matches, intoTable: "RecentMatch")
+            }
             onComplete(true)
         }
     }
