@@ -12,6 +12,7 @@ struct AddAccountView: View, Equatable {
     @EnvironmentObject var env: DotaEnvironment
     @ObservedObject var vm: AddAccountViewModel = AddAccountViewModel()
     @State private var showError = false
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         NavigationView {
             VStack {
@@ -42,7 +43,7 @@ struct AddAccountView: View, Equatable {
                 }
                 if vm.searched {
                     VStack {
-                        ProfileView(vm: ProfileViewModel(id: vm.searchUserId)).equatable()
+                        ProfileView(vm: ProfileViewModel(id: vm.searchUserId), presentState: presentationMode).equatable()
                         Spacer()
                     }
                 } else {

@@ -184,6 +184,7 @@ struct DifferenceView: View {
 struct PlayerRowView: View {
     var player: Player
     var isRadiant: Bool
+    @EnvironmentObject var env: DotaEnvironment
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State var showPlayer = false
     var maxDamage: Int
@@ -233,14 +234,12 @@ struct PlayerRowView: View {
                 }.font(.custom(fontString, size: 10))
             }.frame(height: 50)
         }
-//        .padding(.vertical)
         .onTapGesture {
-//            if player.id != nil {
-                showPlayer.toggle()
-//            }
+            showPlayer.toggle()
         }
         .sheet(isPresented: $showPlayer) {
             PlayerDetailView(player: player)
+                .environmentObject(env)
         }
     }
 }

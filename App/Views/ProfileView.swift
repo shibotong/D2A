@@ -13,6 +13,8 @@ struct ProfileView: View, Equatable {
     @ObservedObject var vm: ProfileViewModel
     @AppStorage("selectedUser") var selectedUser: String?
     
+    @Binding var presentState: PresentationMode
+    
     var body: some View {
         if vm.isloading {
             VStack {
@@ -46,7 +48,15 @@ struct ProfileView: View, Equatable {
                         if selectedUser == nil {
                             selectedUser = "\(vm.steamProfile!.profile.id)"
                         }
-                        env.addUser(userid: "\(vm.steamProfile!.profile.id)")
+                        if env.userIDs.count < 1 || env.subscriptionStatus {
+                            env.addUser(userid: "\(vm.steamProfile!.profile.id)")
+                        } else {
+                            self.presentState.dismiss()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                                // show subscription after 0.5s
+                                self.env.subscription = true
+                            })
+                        }
                     }) {
                         Image(systemName: env.userIDs.contains("\(vm.steamProfile!.profile.id)") ? "star.fill" :"star")
                             .foregroundColor(.white)
@@ -62,13 +72,14 @@ struct ProfileView: View, Equatable {
     }
 }
 
-struct ProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileView(vm: ProfileViewModel())
-            .environmentObject(DotaEnvironment.shared)
-        ProfileEmptyView()
-    }
-}
+//struct ProfileView_Previews: PreviewProvider {
+//    @Binding var present: PresentationMode  = .constant(false)
+//    static var previews: some View {
+//        ProfileView(vm: ProfileViewModel(), presentState: present)
+//            .environmentObject(DotaEnvironment.shared)
+//        ProfileEmptyView()
+//    }
+//}
 struct ProfileEmptyView: View {
     var body: some View {
         HStack {

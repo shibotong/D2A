@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct ContentView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var data: HeroDatabase
+    @EnvironmentObject var store: StoreManager
     var body: some View {
         NavigationHostView()
             .sheet(isPresented: $env.addNewAccount, content: {
@@ -21,7 +23,11 @@ struct ContentView: View {
                 AboutUsView()
                     .environmentObject(env)
             })
-            
+            .fullScreenCover(isPresented: $env.subscription, content: {
+                StoreView()
+                    .environmentObject(env)
+                    .environmentObject(store)
+            })
     }
 }
 

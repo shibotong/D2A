@@ -12,6 +12,7 @@ struct PlayerDetailView: View {
     var player: Player
     @EnvironmentObject var heroData: HeroDatabase
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.presentationMode) var present
     private let itemHeight:CGFloat = 30
     var body: some View {
         if horizontalSizeClass == .compact {
@@ -165,7 +166,7 @@ struct PlayerDetailView: View {
         if player.accountId == nil {
             ProfileEmptyView()
         } else {
-            ProfileView(vm: ProfileViewModel(id: "\(playerID!)"))
+            ProfileView(vm: ProfileViewModel(id: "\(playerID!)"), presentState: present)
         }
     }
 }
