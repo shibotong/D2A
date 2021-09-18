@@ -111,6 +111,7 @@ struct SubscriptionView_Previews: PreviewProvider {
     static var previews: some View {
         StoreView()
             .environmentObject(DotaEnvironment.shared)
+            .environmentObject(StoreManager.shared)
     }
 }
 

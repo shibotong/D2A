@@ -52,7 +52,7 @@ class StoreManager: NSObject, ObservableObject {
     func parsePurchaseInfo(info: Purchases.PurchaserInfo) {
         if let active = info.entitlements["D2APlus"]?.isActive {
             print("subscription status \(active)")
-            print("expire time \(info.entitlements["D2APlus"]?.expirationDate)")
+            print("expire time \(String(describing: info.entitlements["D2APlus"]?.expirationDate))")
             DotaEnvironment.shared.subscriptionStatus = active
         } else {
             DotaEnvironment.shared.subscriptionStatus = false
