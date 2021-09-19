@@ -9,12 +9,14 @@ target 'App' do
   target 'AppWidgetExtension' do
     use_frameworks!
     pod 'WCDB.swift'
+    
+    target 'AppWidgetIntentHandler' do
+      use_frameworks!
+      pod 'WCDB.swift'
+    end
   end
   
-  target 'AppWidgetIntentHandler' do
-    use_frameworks!
-    pod 'WCDB.swift'
-  end
+  
 
 end
 

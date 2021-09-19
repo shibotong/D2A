@@ -12,3 +12,4 @@ let gameVersion = "7.30"
 let productIDs = ["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnually"]
 let subscriptionIdentifier = "D2APlusSubscription"
 let purchasesAPIKey = "jIuFaPQvgnVKprZdvHLWgHxfaTjQZzIj"
+let groupName = "group.D2A"

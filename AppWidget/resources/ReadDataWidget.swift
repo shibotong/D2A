@@ -37,6 +37,22 @@ func loadRecentMatches() -> [RecentMatch]? {
 
 }
 
+func loadMatch() -> Match? {
+    guard let data = loadFile(filename: "sampleMatch") else {
+        return nil
+    }
+
+    do {
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode(Match.self, from: data)
+        return jsonData
+    } catch {
+        print("Cannot parse json data")
+        return nil
+    }
+
+}
+
 func loadLobby() -> [String: LobbyType]? {
     guard let data = loadFile(filename: "lobby_type") else {
         return nil

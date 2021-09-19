@@ -13,9 +13,10 @@ class WCDBController {
     var database: Database
     
     init() {
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("WCDB.db")
-        
-        database = Database(withFileURL: path)
+        let groupPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupName)?.appendingPathComponent("WCDB.db")
+//        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("WCDB.db")
+//        print(groupPath, path)
+        database = Database(withFileURL: groupPath!)
         self.createTables()
         
     }

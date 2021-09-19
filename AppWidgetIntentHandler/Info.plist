@@ -30,7 +30,7 @@
 			<array/>
 			<key>IntentsSupported</key>
 			<array>
-				<string>UserSelectionIntent</string>
+				<string>DynamicUserSelectionIntent</string>
 			</array>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>

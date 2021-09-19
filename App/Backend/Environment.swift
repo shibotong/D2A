@@ -13,7 +13,7 @@ class DotaEnvironment: ObservableObject {
     
     @Published var userIDs: [String] {
         didSet {
-            UserDefaults.standard.set(userIDs, forKey: "dotaArmory.userID")
+            UserDefaults(suiteName: groupName)!.set(userIDs, forKey: "dotaArmory.userID")
         }
     }
     @Published var exceedLimit = false
@@ -26,7 +26,7 @@ class DotaEnvironment: ObservableObject {
     @Published var isSubscribed: Bool = false
     
     init() {
-        self.userIDs = UserDefaults.standard.object(forKey: "dotaArmory.userID") as? [String] ?? []
+        self.userIDs = UserDefaults(suiteName: groupName)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
         if userIDs.isEmpty {
             print("no user")
         } else {

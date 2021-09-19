@@ -7,23 +7,43 @@
 
 import WidgetKit
 import SwiftUI
+import Intents
 
-struct Provider: TimelineProvider {
+struct Provider: IntentTimelineProvider {
+    
+    typealias Intent = DynamicUserSelectionIntent
+    
+    public typealias Entry = SimpleEntry
+    
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: SteamProfile.sample)
+        SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: SteamProfile.sample.profile)
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: SteamProfile.sample)
+    func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+        let entry = SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: SteamProfile.sample.profile)
         completion(entry)
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
+    func getTimeline(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
         
-        OpenDotaController.loadRecentMatch { matches, profile in
-            let entry = SimpleEntry(date: Date(), matches: matches, user: profile)
+        let selectedProfile = user(for: configuration)
+        
+        OpenDotaController.loadRecentMatch(id: "\(selectedProfile.id)") { matches in
+            let entry = SimpleEntry(date: Date(), matches: matches, user: selectedProfile)
             let timeline = Timeline(entries: [entry], policy: .atEnd)
             completion(timeline)
+        }
+    }
+    
+    func user(for configuration: DynamicUserSelectionIntent) -> UserProfile {
+        if let id = configuration.profile?.identifier {
+            if let profile = WCDBController.shared.fetchUserProfile(userid: id) {
+                return profile
+            } else {
+                return SteamProfile.sample.profile
+            }
+        } else {
+            return SteamProfile.sample.profile
         }
     }
 }
@@ -31,7 +51,7 @@ struct Provider: TimelineProvider {
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let matches: [RecentMatch]
-    let user: SteamProfile
+    let user: UserProfile
 }
 
 struct AppWidgetEntryView : View {
@@ -60,8 +80,8 @@ struct AppWidgetEntryView : View {
             GeometryReader { geo in
                 HStack(spacing: 0) {
                     VStack {
-                        NetworkImage(urlString: entry.user.profile.avatarfull).frame(width: 80, height: 80).clipShape(Circle())
-                        Text("\(entry.user.profile.personaname)").font(.custom(fontString, size: 13))
+                        NetworkImage(urlString: entry.user.avatarfull).frame(width: 80, height: 80).clipShape(Circle())
+                        Text("\(entry.user.personaname)").font(.custom(fontString, size: 13))
                     }.frame(width: geo.size.width / 2)
                     VStack(spacing: 10) {
                         ForEach(entry.matches, id:\.id) { match in
@@ -75,11 +95,11 @@ struct AppWidgetEntryView : View {
     
     @ViewBuilder private func smallView() -> some View {
         ZStack {
-            NetworkImage(urlString: entry.user.profile.avatarfull).blur(radius: 25)
+            NetworkImage(urlString: entry.user.avatarfull).blur(radius: 25)
             VStack {
                 VStack {
-                    NetworkImage(urlString: entry.user.profile.avatarfull).frame(width: 40, height: 40).clipShape(Circle())
-                    Text("\(entry.user.profile.personaname)").font(.custom(fontString, size: 13))
+                    NetworkImage(urlString: entry.user.avatarfull).frame(width: 40, height: 40).clipShape(Circle())
+                    Text("\(entry.user.personaname)").font(.custom(fontString, size: 13))
                 }
                 HStack {
                     ForEach(entry.matches, id:\.id) { match in
@@ -128,7 +148,7 @@ struct AppWidget: Widget {
     let kind: String = "AppWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        IntentConfiguration(kind: kind, intent: DynamicUserSelectionIntent.self, provider: Provider()) { entry in
             AppWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Recent Matches")
@@ -141,9 +161,9 @@ struct AppWidget: Widget {
 struct AppWidget_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            AppWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: SteamProfile.sample))
+            AppWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: SteamProfile.sample.profile))
                 .previewContext(WidgetPreviewContext(family: .systemSmall))
-            AppWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: SteamProfile.sample))
+            AppWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: SteamProfile.sample.profile))
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
         }
     }

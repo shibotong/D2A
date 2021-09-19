@@ -12,9 +12,18 @@ class DotaEnvironment {
     
     static var shared = DotaEnvironment()
     
-    @AppStorage("dotaArmory.userID") var userIDs: [String]
+    var userIDs: [String] {
+        didSet {
+            UserDefaults(suiteName: groupName)!.set(userIDs, forKey: "dotaArmory.userID")
+        }
+    }
     
     init() {
-        
+        self.userIDs = UserDefaults(suiteName: groupName)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
+        if userIDs.isEmpty {
+            print("no user")
+        } else {
+            
+        }
     }
 }

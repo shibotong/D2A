@@ -7,11 +7,13 @@
 
 import Intents
 
-class IntentHandler: INExtension, SelectUserIntentHandling {
-    func providePlayerOptionsCollection(for intent: SelectUserIntent, with completion: @escaping (INObjectCollection<UserProfile>?, Error?) -> Void) {
-        let profiles: [UserProfile] = DotaEnvironment.shared.userIDs.map { id in
-            let profile = WCDBController.shared.fetchUserProfile(userid: id)!
-            return profile
+class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
+    
+    func provideProfileOptionsCollection(for intent: DynamicUserSelectionIntent, with completion: @escaping (INObjectCollection<Profile>?, Error?) -> Void) {
+        print("configuring profile")
+        let profiles: [Profile] = DotaEnvironment.shared.userIDs.map { id in
+            let profile = WCDBController.shared.fetchUserProfile(userid: id)
+            return Profile(identifier: id, display: "\(profile?.personaname ?? "UnknownName")")
         }
         let collection = INObjectCollection(items: profiles)
         completion(collection, nil)
