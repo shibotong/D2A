@@ -66,7 +66,7 @@ class OpenDotaController {
         }
     }
     
-    static func loadRecentMatch(userid: String, days: Double? = nil, onComplete: @escaping (Bool) -> ()) {
+    static func loadRecentMatch(userid: String, days: Double? = nil, allmatches: Bool = false, onComplete: @escaping (Bool) -> ()) {
         var url = ""
         if days != nil {
             url = "\(baseURL)/api/players/\(userid)/matches/?date=\(days!)"
@@ -91,13 +91,17 @@ class OpenDotaController {
             matches.forEach({$0.playerId = Int(userid)})
             print("fetched new matches", matches.count)
             if matches.count > 0 {
-                matches.forEach { match in
-                    if let _ = WCDBController.shared.fetchRecentMatch(userid: userid, matchid: match.id) {
-                        WCDBController.shared.deleteRecentMatch(matchid: match.id, userid: Int(userid)!)
+                if allmatches {
+                    try? WCDBController.shared.database.insert(objects: matches, intoTable: "RecentMatch")
+                } else {
+                    matches.forEach { match in
+                        print("checking match \(match.id)")
+                        if let _ = WCDBController.shared.fetchRecentMatch(userid: userid, matchid: match.id) {
+                            WCDBController.shared.deleteRecentMatch(matchid: match.id, userid: Int(userid)!)
+                        }
+                        try? WCDBController.shared.database.insert(objects: [match], intoTable: "RecentMatch")
                     }
-                    try? WCDBController.shared.database.insert(objects: [match], intoTable: "RecentMatch")
                 }
-                
             }
             onComplete(true)
         }

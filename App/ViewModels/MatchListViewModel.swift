@@ -45,7 +45,7 @@ class MatchListViewModel: ObservableObject {
         }
         if !self.isLoading {
             self.isLoading = true
-            OpenDotaController.loadRecentMatch(userid: userid) { result in
+            OpenDotaController.loadRecentMatch(userid: userid, allmatches: true) { result in
                 if result {
                     DispatchQueue.main.async {
                         self.isLoading = false

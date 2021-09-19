@@ -17,19 +17,20 @@ struct AboutUsView: View {
         NavigationView {
             List {
                 Section(header: Text("Our App").font(.custom(fontString, size: 15))) {
-                makeRow(image: "chevron.left.slash.chevron.right", text: "Source Code / Report an Issue", link: URL(string: "https://github.com/shibotong/Dota2Armory"))
-                makeRow(image: "star", text: "Rate the app on App Store", link: URL(string: ""))
-                makeRow(image: "lock", text: "Privacy Policy", link: URL(string: "https://github.com/shibotong/Dota2Armory/blob/main/documents/privacy-policy.md"))
-                makeRow(image: "person", text: "Terms of Use", link: URL(string: "https://github.com/shibotong/Dota2Armory/blob/main/documents/terms-of-use.md"))
-                    makeButton(image: "person", text: "D2A Plus") {
+                    makeButton(image: "cart", text: "Unlock All Features") {
                         self.presentState.wrappedValue.dismiss()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                             // show subscription after 0.5s
                             self.env.subscriptionSheet = true
                         })
                     }
-                makeDetailRow(image: "app.badge", text: "App Version", detail: versionNumber)
-                makeDetailRow(image: "gamecontroller", text: "Game Patch", detail: gameVersion)
+                    makeRow(image: "chevron.left.slash.chevron.right", text: "Source Code / Report an Issue", link: URL(string: "https://github.com/shibotong/Dota2Armory"))
+                    makeRow(image: "star", text: "Rate the app on App Store", link: URL(string: ""))
+                    makeRow(image: "lock", text: "Privacy Policy", link: URL(string: "https://github.com/shibotong/Dota2Armory/blob/main/documents/privacy-policy.md"))
+                    makeRow(image: "person", text: "Terms of Use", link: URL(string: "https://github.com/shibotong/Dota2Armory/blob/main/documents/terms-of-use.md"))
+                    
+                    makeDetailRow(image: "app.badge", text: "App Version", detail: versionNumber)
+                    makeDetailRow(image: "gamecontroller", text: "Game Patch", detail: gameVersion)
                 }
                 Section(header: Text("Thanks To").font(.custom(fontString, size: 15))) {
                     makeRow(image: "heart.fill", text: "OpenDotaAPI", link: URL(string: "https://www.opendota.com"))
@@ -93,6 +94,7 @@ struct AboutUsView: View {
                     .frame(width: 30)
                 Text(text)
                     .font(.custom(fontString, size: 18))
+                    .foregroundColor(Color(.label))
                 Spacer()
             }
         }

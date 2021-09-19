@@ -15,8 +15,8 @@ struct StoreView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Spacer()
                 buildCloseButton()
+                Spacer()
             }
             .padding()
             Divider()
@@ -71,7 +71,7 @@ struct StoreView: View {
         Button(action: {
             env.subscriptionSheet = false
         }) {
-            Image(systemName: "xmark").foregroundColor(Color(.label))
+            Image(systemName: "xmark.circle.fill").foregroundColor(.primaryDota)
         }
     }
     
