@@ -1,4 +1,5 @@
 # Dota 2 Armory SwiftUI application!
+![Image](images/promo_image.PNG)
 # Important notes:
 There might be some issue or bugs in the app. You can submit issues on Github. I will try my best to fix it.
 
