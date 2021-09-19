@@ -23,7 +23,7 @@ struct ContentView: View {
                 AboutUsView()
                     .environmentObject(env)
             })
-            .fullScreenCover(isPresented: $env.subscriptionSheet, content: {
+            .sheet(isPresented: $env.subscriptionSheet, content: {
                 StoreView()
                     .environmentObject(env)
                     .environmentObject(store)

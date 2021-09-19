@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AboutUsView: View {
     @EnvironmentObject var env: DotaEnvironment
+    @Environment(\.presentationMode) var presentState
     private var versionNumber: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("Error", comment: "")
     }
@@ -20,6 +21,13 @@ struct AboutUsView: View {
                 makeRow(image: "star", text: "Rate the app on App Store", link: URL(string: ""))
                 makeRow(image: "lock", text: "Privacy Policy", link: URL(string: "https://github.com/shibotong/Dota2Armory/blob/main/documents/privacy-policy.md"))
                 makeRow(image: "person", text: "Terms of Use", link: URL(string: "https://github.com/shibotong/Dota2Armory/blob/main/documents/terms-of-use.md"))
+                    makeButton(image: "person", text: "D2A Plus") {
+                        self.presentState.wrappedValue.dismiss()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                            // show subscription after 0.5s
+                            self.env.subscriptionSheet = true
+                        })
+                    }
                 makeDetailRow(image: "app.badge", text: "App Version", detail: versionNumber)
                 makeDetailRow(image: "gamecontroller", text: "Game Patch", detail: gameVersion)
                 }
@@ -73,6 +81,20 @@ struct AboutUsView: View {
             Text(detail)
                 .foregroundColor(.gray)
                 .font(.callout)
+        }
+    }
+    
+    private func makeButton(image: String, text: LocalizedStringKey, action: @escaping () -> ()) -> some View {
+        Button(action: action) {
+            HStack {
+                Image(systemName: image)
+                    .imageScale(.medium)
+                    .foregroundColor(.primaryDota)
+                    .frame(width: 30)
+                Text(text)
+                    .font(.custom(fontString, size: 18))
+                Spacer()
+            }
         }
     }
 }

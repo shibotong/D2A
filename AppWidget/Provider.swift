@@ -38,19 +38,31 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getTimeline(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
-        
-        let selectedProfile = user(for: configuration)
-        
-        if selectedProfile.id != 0 {
-            OpenDotaController.loadRecentMatch(id: "\(selectedProfile.id)") { matches in
-                let entry = SimpleEntry(date: Date(), matches: matches, user: selectedProfile)
+        if DotaEnvironment.shared.subscriptionStatus {
+            let selectedProfile = user(for: configuration)
+            if selectedProfile.id != 0 {
+                OpenDotaController.loadRecentMatch(id: "\(selectedProfile.id)") { matches in
+                    var entries: [SimpleEntry] = []
+                    for i in 0...4 {
+                        let entry = SimpleEntry(date: Date().addingTimeInterval(TimeInterval(3600 * i)), matches: matches, user: selectedProfile)
+                        entries.append(entry)
+                    }
+                    let timeline = Timeline(entries: entries, policy: .atEnd)
+                    completion(timeline)
+                }
+            } else {
+                let entry = SimpleEntry(date: Date(), matches: [], user: selectedProfile)
                 let timeline = Timeline(entries: [entry], policy: .atEnd)
                 completion(timeline)
             }
         } else {
-            let entry = SimpleEntry(date: Date(), matches: [], user: selectedProfile)
-            let timeline = Timeline(entries: [entry], policy: .atEnd)
-            completion(timeline)
+            var entries: [SimpleEntry] = []
+            for i in 0...10 {
+                let entry = SimpleEntry(date: Date().addingTimeInterval(TimeInterval(300 * i)), matches: [], user: UserProfile.empty)
+                entries.append(entry)
+                let timeline = Timeline(entries: entries, policy: .atEnd)
+                completion(timeline)
+            }
         }
     }
     
@@ -68,7 +80,7 @@ struct Provider: IntentTimelineProvider {
 }
 
 struct AppActiveWidgetEntryView : View {
-    var entry: ActiveProvider.Entry
+    var entry: Provider.Entry
     @Environment(\.widgetFamily) var family
     
     @ViewBuilder
@@ -89,7 +101,10 @@ struct AppActiveWidgetEntryView : View {
                 }
             }
         } else {
-            Text("Subscribe D2APlus to unlock Widget")
+            VStack {
+                Text("Subscribe D2APlus to unlock Widget").font(.custom(fontString, size: 15)).bold()
+                Text("If you just subscribe D2APlus, please wait for a while to refresh.").font(.custom(fontString, size: 10))
+            }
         }
     }
     

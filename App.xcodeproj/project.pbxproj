@@ -176,6 +176,7 @@
 		32F70B2D26F6E4C6006E9B05 /* WCDBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2B26F6E3EB006E9B05 /* WCDBController.swift */; };
 		32F70B3026F714FD006E9B05 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2F26F714FD006E9B05 /* Provider.swift */; };
 		32F70B3126F714FD006E9B05 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2F26F714FD006E9B05 /* Provider.swift */; };
+		32F70B3626F72D74006E9B05 /* ProductSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B3526F72D74006E9B05 /* ProductSubView.swift */; };
 		684D5603CDE765CC7F320F76 /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7409A108AB37D993378C1D4B /* Pods_App.framework */; };
 		863B6BD5AFE63DB728031A95 /* Pods_App_AppWidgetExtension_AppWidgetIntentHandler.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97AEEE9F0FBF3F50D1E29764 /* Pods_App_AppWidgetExtension_AppWidgetIntentHandler.framework */; };
 /* End PBXBuildFile section */
@@ -318,6 +319,7 @@
 		32F70B2926F62B77006E9B05 /* AppWidgetIntentHandlerDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppWidgetIntentHandlerDebug.entitlements; sourceTree = "<group>"; };
 		32F70B2B26F6E3EB006E9B05 /* WCDBController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCDBController.swift; sourceTree = "<group>"; };
 		32F70B2F26F714FD006E9B05 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
+		32F70B3526F72D74006E9B05 /* ProductSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSubView.swift; sourceTree = "<group>"; };
 		4CC1AABD31D8FA64802BA284 /* Pods-App-AppWidgetExtension-AppWidgetIntentHandler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppWidgetExtension-AppWidgetIntentHandler.debug.xcconfig"; path = "Target Support Files/Pods-App-AppWidgetExtension-AppWidgetIntentHandler/Pods-App-AppWidgetExtension-AppWidgetIntentHandler.debug.xcconfig"; sourceTree = "<group>"; };
 		561B928902588C8B116D52D1 /* Pods-App-AppWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-App-AppWidgetExtension/Pods-App-AppWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
 		694542C8AC5D574203E57D64 /* Pods-AppWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-AppWidgetExtension/Pods-AppWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
@@ -603,6 +605,7 @@
 			isa = PBXGroup;
 			children = (
 				32D1605926F304DC00657449 /* StoreView.swift */,
+				32F70B3526F72D74006E9B05 /* ProductSubView.swift */,
 			);
 			path = StoreView;
 			sourceTree = "<group>";
@@ -1010,6 +1013,7 @@
 				329849F426DCAEAE00A1032C /* HeroDatabase.swift in Sources */,
 				322B89C526CFAC1000DF67F9 /* AddAccountView.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
+				32F70B3626F72D74006E9B05 /* ProductSubView.swift in Sources */,
 				32B36F2126C38849002D427D /* ItemController.swift in Sources */,
 				32B36F0F26C38821002D427D /* AppApp.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,

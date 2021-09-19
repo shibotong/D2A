@@ -18,7 +18,7 @@ class StoreManager: NSObject, ObservableObject {
     @Published var quarterlySubscription: Purchases.Package? = nil
     @Published var annuallySubscription: Purchases.Package? = nil
     
-    @Published var selectedProduct: Purchases.Package? = nil
+    @Published var selectedProduct: SKProduct? = nil
     
     @Published var transactionState: SKPaymentTransactionState? = nil
     
@@ -27,6 +27,7 @@ class StoreManager: NSObject, ObservableObject {
         Purchases.configure(withAPIKey: purchasesAPIKey)
         Purchases.shared.offerings { offering, error in
             self.monthlySubscription = offering?.current?.monthly
+            self.selectedProduct = offering?.current?.monthly?.product
             self.quarterlySubscription = offering?.current?.threeMonth
             self.annuallySubscription = offering?.current?.annual
         }
@@ -63,7 +64,7 @@ class StoreManager: NSObject, ObservableObject {
     
     func purchase() {
         if let product = self.selectedProduct {
-            Purchases.shared.purchasePackage(product) { transaction, purchaserInfo, error, userCancelled in
+            Purchases.shared.purchaseProduct(product) { transaction, purchaserInfo, error, userCancelled in
                 if let info = purchaserInfo {
                     self.parsePurchaseInfo(info: info)
                 }

@@ -16,75 +16,62 @@ struct StoreView: View {
         VStack(spacing: 0) {
             HStack {
                 Spacer()
-                Button(action: {
-                    env.subscriptionSheet = false
-                }) {
-                    Image(systemName: "xmark").foregroundColor(Color(.label))
-                }
-            }.padding()
+                buildCloseButton()
+            }
+            .padding()
             Divider()
-            Button(action: {storeManager.restorePurchase()}) {
-                Text("restore")
-            }
-            ZStack {
-                ScrollView(.vertical, showsIndicators: false) {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 25) {
-                            VStack(alignment: .leading) {
-                                Text("Upgrade to D2A Plus").font(.custom(fontString, size: 20)).bold()
-                                Text("and get access to all features").font(.custom(fontString, size: 20)).bold()
-                            }
-                            VStack(alignment: .leading, spacing: 10) {
-                                buildFeature("Unlimit Following Users")
-                                buildFeature("Unlock Widgets")
-                            }
-                            VStack(alignment: .leading) {
-                                Text("Select your subscription").bold().font(.custom(fontString, size: 20))
-//                                VStack {
-//                                    ForEach(storeManager.products, id: \.self) { product in
-//                                        ProductSubView(product: product)
-//                                            .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color.primaryDota, lineWidth: storeManager.selectedProduct == product ? 1 : 0))
-//                                            .onTapGesture {
-//                                                self.storeManager.selectedProduct = product
-//                                            }
-//                                    }
-//                                }
-                                if storeManager.monthlySubscription != nil {
-                                    ProductSubView(product: storeManager.monthlySubscription!.product)
-                                        .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color.primaryDota, lineWidth: storeManager.selectedProduct == storeManager.monthlySubscription ? 1 : 0))
-                                        .onTapGesture {
-                                            self.storeManager.selectedProduct = storeManager.monthlySubscription
-                                        }
-                                }
-                                if storeManager.quarterlySubscription != nil {
-                                    ProductSubView(product: storeManager.quarterlySubscription!.product)
-                                        .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color.primaryDota, lineWidth: storeManager.selectedProduct == storeManager.quarterlySubscription ? 1 : 0))
-                                        .onTapGesture {
-                                            self.storeManager.selectedProduct = storeManager.quarterlySubscription
-                                        }
-                                }
-                                if storeManager.annuallySubscription != nil {
-                                    ProductSubView(product: storeManager.annuallySubscription!.product)
-                                        .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color.primaryDota, lineWidth: storeManager.selectedProduct == storeManager.annuallySubscription ? 1 : 0))
-                                        .onTapGesture {
-                                            self.storeManager.selectedProduct = storeManager.annuallySubscription
-                                        }
-                                }
-                            }
-                            Spacer()
-                        }.padding()
-                        Spacer()
+            ScrollView(.vertical, showsIndicators: false) {
+                
+                VStack(alignment: .leading, spacing: 25) {
+                    Text("Upgrade to D2A Plus to unlock all features")
+                        .font(.custom(fontString, size: 30))
+                        .bold()
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text("Subscribe D2A Plus to unlock all features and support us to build a better app.")
+                    .font(.custom(fontString, size: 15))
+                    .foregroundColor(Color(.systemGray))
+                        .fixedSize(horizontal: false, vertical: true)
+                    VStack(alignment: .leading, spacing: 10) {
+                        buildFeature("Unlimit Following Users")
+                        buildFeature("Unlock Widgets")
                     }
-                }
-                VStack {
-                    Spacer()
-                    Button(action: {
-                        storeManager.purchase()
-                    }) {
-                        buildSubscribeButton()
-                }.padding(.horizontal)
-                }
+                    VStack(alignment: .leading) {
+                        Text("Select your subscription").bold().font(.custom(fontString, size: 20))
+                        HStack(spacing: 20) {
+                            if storeManager.monthlySubscription != nil {
+                                ProductSubView(product: storeManager.monthlySubscription!.product, monthlyProduct: storeManager.monthlySubscription!.product, selectedProduct: $storeManager.selectedProduct)
+                            }
+                            if storeManager.quarterlySubscription != nil {
+                                ProductSubView(product: storeManager.quarterlySubscription!.product, monthlyProduct: storeManager.monthlySubscription!.product, selectedProduct: $storeManager.selectedProduct)
+                            }
+                            if storeManager.annuallySubscription != nil {
+                                ProductSubView(product: storeManager.annuallySubscription!.product, monthlyProduct: storeManager.monthlySubscription!.product, selectedProduct: $storeManager.selectedProduct)
+                            }
+                        }
+                    }
+                    buildSubscribeButton()
+                    
+                    buildQuestion(question: "When will I be billed?", answer: "Your iTunes Account will be billed on confirmation of your subscription.")
+                    buildQuestion(question: "Does My subscription Auto Renew?", answer: "Yes. Subscriptions will automatically renew unless canceled within 24-hours before the end of the current period.")
+                    buildQuestion(question: "How to cancel my subscription?", answer: "You can cancel anytime with your iTunes account settings.")
+                    
+                }.padding()
             }
+        }
+    }
+    
+    @ViewBuilder private func buildQuestion(question: String, answer: String) -> some View {
+        VStack(alignment: .leading) {
+            Text(question).font(.custom(fontString, size: 18)).bold().foregroundColor(Color(.secondaryLabel))
+            Text(answer).font(.custom(fontString, size: 12)).fixedSize(horizontal: false, vertical: true).foregroundColor(Color(.tertiaryLabel))
+        }
+    }
+    
+    @ViewBuilder private func buildCloseButton() -> some View {
+        Button(action: {
+            env.subscriptionSheet = false
+        }) {
+            Image(systemName: "xmark").foregroundColor(Color(.label))
         }
     }
     
@@ -96,16 +83,52 @@ struct StoreView: View {
     }
     
     @ViewBuilder private func buildSubscribeButton() -> some View {
-        ZStack {
-            Capsule().foregroundColor(.primaryDota.opacity(0.8))
-            Text("\(env.subscriptionStatus ? "Subscribed" : "Subscribe Now")").font(.custom(fontString, size: 17)).bold().foregroundColor(.white)
-            HStack {
-                Spacer()
-                Circle().frame(width: 60, height: 50).foregroundColor(env.subscriptionStatus ? .secondaryDota : .primaryDota).overlay(Image(systemName: "checkmark").font(.system(size: 15, weight: .bold, design: .rounded)).foregroundColor(.white))
+        VStack(spacing: 15) {
+            Button(action: {
+                storeManager.purchase()
+            }) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15).foregroundColor(env.subscriptionStatus ? .secondaryDota : .primaryDota)
+                    Text("\(buildSubscribeString())").font(.custom(fontString, size: 17)).bold().foregroundColor(.white)
+                }.frame(height: 60)
             }
-        }.frame(height: 60)
+            .disabled(env.subscriptionStatus)
+            VStack {
+                Button(action: {
+                    storeManager.restorePurchase()
+                }) {
+                    Text("Restore Purchase").font(.custom(fontString, size: 15)).bold()
+                }
+                HStack {
+                    Button(action: {
+                        
+                    }) {
+                        Text("Terms of Use").font(.custom(fontString, size: 15)).bold()
+                    }
+                    Text("and").font(.custom(fontString, size: 15))
+                    Button(action: {
+                        
+                    }) {
+                        Text("Privacy Policy").font(.custom(fontString, size: 15)).bold()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func buildSubscribeString() -> String {
+        if env.subscriptionStatus {
+            return "Subscribed"
+        } else {
+            if let selectedProduct = storeManager.selectedProduct {
+                return "Get \(selectedProduct.getNumberOfUnit()) Month\(selectedProduct.getNumberOfUnit() > 1 ? "s" : "") / \(selectedProduct.localizedPrice ?? "")"
+            } else {
+                return "Loading..."
+            }
+        }
     }
 }
+
 
 struct SubscriptionView_Previews: PreviewProvider {
     static var previews: some View {
@@ -117,55 +140,4 @@ struct SubscriptionView_Previews: PreviewProvider {
 
 
 
-struct ProductSubView: View {
-    var product: SKProduct
-    @Environment(\.colorScheme) var color
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 30).foregroundColor(color == .light ? Color(.systemBackground) : Color(.secondarySystemBackground)).shadow(color: Color(.systemGray5), radius: color == .light ? 10 : 0)
-            HStack {
-                badge()
-                VStack(alignment: .leading) {
-                    Text("\(product.subscriptionPeriod!.numberOfUnits) \(getUnit())\(product.subscriptionPeriod!.numberOfUnits > 1 ? "s" : "")").bold().font(.custom(fontString, size: 20))
-                    Text("\(product.monthlyCost ?? "") per month").font(.custom(fontString, size: 12)).foregroundColor(Color(.systemGray))
-                }
-                Spacer()
-                Text("\(product.localizedPrice ?? "Free")").bold().foregroundColor(.primaryDota)
-            }.padding()
-        }.frame(height: 100)
-    }
-    
-    @ViewBuilder private func badge() -> some View {
-        ZStack {
-            Circle().frame(width: 60, height: 60).foregroundColor(self.getColor())
-            Image("battle_icon").renderingMode(.template).resizable().scaledToFit().frame(width: 30, height: 30).foregroundColor(.white.opacity(0.5))
-        }
-    }
-    
-    private func getColor() -> Color {
-        if product.subscriptionPeriod!.unit == .year {
-            return .primaryDota
-        } else {
-            if product.subscriptionPeriod!.numberOfUnits > 1 {
-                return Color(.systemBlue)
-            } else {
-                return Color(.systemGreen)
-            }
-        }
-    }
-    
-    private func getUnit() -> String {
-        switch product.subscriptionPeriod!.unit {
-        case .day:
-            return "day"
-        case .month:
-            return "month"
-        case .week:
-            return "week"
-        case .year:
-            return "year"
-        @unknown default:
-            return ""
-        }
-    }
-}
+

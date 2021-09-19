@@ -44,5 +44,26 @@ extension SKProduct {
         
         return formatter.string(from: monthlyCost)
     }
+    
+    var monthlyPrice: Double {
+        let cost = price.doubleValue
+        var months = subscriptionPeriod!.numberOfUnits
+        if subscriptionPeriod!.unit == .year {
+            months = months * 12
+        }
+        let monthlyCost = cost / Double(months)
+        return monthlyCost
+    }
 
+    func getNumberOfUnit() -> Int {
+        let number = self.subscriptionPeriod!.numberOfUnits
+        switch self.subscriptionPeriod!.unit {
+        case .month:
+            return number
+        case .year:
+            return number * 12
+        default:
+            return 0
+        }
+    }
 }
