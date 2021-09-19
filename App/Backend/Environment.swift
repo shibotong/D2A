@@ -20,13 +20,17 @@ class DotaEnvironment: ObservableObject {
     
     @Published var addNewAccount = false
     @Published var aboutUs = false
-    @Published var subscription = false
-    @Published var subscriptionStatus: Bool = false
+    @Published var subscriptionSheet = false
     
-    @Published var isSubscribed: Bool = false
+    @Published var subscriptionStatus: Bool {
+        didSet {
+            UserDefaults(suiteName: groupName)!.set(subscriptionStatus, forKey: "dotaArmory.subscription")
+        }
+    }
     
     init() {
         self.userIDs = UserDefaults(suiteName: groupName)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
+        self.subscriptionStatus = UserDefaults(suiteName: groupName)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         if userIDs.isEmpty {
             print("no user")
         } else {

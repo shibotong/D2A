@@ -44,6 +44,16 @@ class WCDBController {
         }
     }
     
+    func fetchRecentMatch(userid: String, matchid: Int) -> RecentMatch? {
+        do {
+            let match: RecentMatch? = try database.getObject(fromTable: "RecentMatch",
+                                                                 where: RecentMatch.Properties.playerId == Int(userid)! && RecentMatch.Properties.id == matchid)
+            return match
+        } catch {
+            return nil
+        }
+    }
+    
     func searchMatchOnDate(_ date: Date) -> [RecentMatch] {
         let start = date.startOfDay
         let end = date.endOfDay
@@ -80,6 +90,14 @@ class WCDBController {
     func deleteMatch(matchid: String) {
         do {
             try database.delete(fromTable: "Match", where: Match.Properties.id == Int(matchid)!)
+        } catch {
+            print("cannot delete match")
+        }
+    }
+    
+    func deleteRecentMatch(matchid: Int, userid: Int) {
+        do {
+            try database.delete(fromTable: "RecentMatch", where: RecentMatch.Properties.id == matchid && RecentMatch.Properties.playerId == userid)
         } catch {
             print("cannot delete match")
         }

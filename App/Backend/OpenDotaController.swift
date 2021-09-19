@@ -57,11 +57,11 @@ class OpenDotaController {
                 onComplete(false)
                 return
             }
-            if let _ = WCDBController.shared.fetchMatch(matchid: matchid) {
-                // if match exist delete it
-                WCDBController.shared.deleteMatch(matchid: matchid)
-            }
-            try? WCDBController.shared.database.insert(objects: [match], intoTable: "Match")
+//            if let _ = WCDBController.shared.fetchMatch(matchid: matchid) {
+//                // if match exist delete it
+//                WCDBController.shared.deleteMatch(matchid: matchid)
+//            }
+            try? WCDBController.shared.database.insertOrReplace(objects: [match], intoTable: "Match")
             onComplete(true)
         }
     }
@@ -91,7 +91,13 @@ class OpenDotaController {
             matches.forEach({$0.playerId = Int(userid)})
             print("fetched new matches", matches.count)
             if matches.count > 0 {
-                try? WCDBController.shared.database.insert(objects: matches, intoTable: "RecentMatch")
+                matches.forEach { match in
+                    if let _ = WCDBController.shared.fetchRecentMatch(userid: userid, matchid: match.id) {
+                        WCDBController.shared.deleteRecentMatch(matchid: match.id, userid: Int(userid)!)
+                    }
+                    try? WCDBController.shared.database.insert(objects: [match], intoTable: "RecentMatch")
+                }
+                
             }
             onComplete(true)
         }

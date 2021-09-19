@@ -54,7 +54,7 @@ struct ProfileView: View, Equatable {
                             self.presentState.dismiss()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                                 // show subscription after 0.5s
-                                self.env.subscription = true
+                                self.env.subscriptionSheet = true
                             })
                         }
                     }) {

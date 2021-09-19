@@ -17,7 +17,7 @@ struct StoreView: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    env.subscription = false
+                    env.subscriptionSheet = false
                 }) {
                     Image(systemName: "xmark").foregroundColor(Color(.label))
                 }
