@@ -20,13 +20,14 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+        let user = user(for: configuration)
         guard let firstUser = DotaEnvironment.shared.userIDs.first else {
-            let entry = SimpleEntry(date: Date(), matches: [], user: UserProfile.empty)
+            let entry = SimpleEntry(date: Date(), matches: [], user: user)
             completion(entry)
             return
         }
         guard let profile = WCDBController.shared.fetchUserProfile(userid: firstUser) else {
-            let entry = SimpleEntry(date: Date(), matches: [], user: UserProfile.empty)
+            let entry = SimpleEntry(date: Date(), matches: [], user: user)
             completion(entry)
             return
         }
@@ -38,31 +39,28 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getTimeline(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
+        let currentDate = Date()
         if DotaEnvironment.shared.subscriptionStatus {
             let selectedProfile = user(for: configuration)
             if selectedProfile.id != 0 {
                 OpenDotaController.loadRecentMatch(id: "\(selectedProfile.id)") { matches in
-                    var entries: [SimpleEntry] = []
-                    for i in 0...4 {
-                        let entry = SimpleEntry(date: Date().addingTimeInterval(TimeInterval(3600 * i)), matches: matches, user: selectedProfile)
-                        entries.append(entry)
-                    }
-                    let timeline = Timeline(entries: entries, policy: .atEnd)
+                    let entry = SimpleEntry(date: Date(), matches: matches, user: selectedProfile)
+                    let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
+                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
                     completion(timeline)
                 }
             } else {
-                let entry = SimpleEntry(date: Date(), matches: [], user: selectedProfile)
-                let timeline = Timeline(entries: [entry], policy: .atEnd)
+                
+                let entry = SimpleEntry(date: currentDate, matches: [], user: selectedProfile)
+                let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
+                let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
                 completion(timeline)
             }
         } else {
-            var entries: [SimpleEntry] = []
-            for i in 0...10 {
-                let entry = SimpleEntry(date: Date().addingTimeInterval(TimeInterval(300 * i)), matches: [], user: UserProfile.empty)
-                entries.append(entry)
-                let timeline = Timeline(entries: entries, policy: .atEnd)
-                completion(timeline)
-            }
+            let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
+            let entry = SimpleEntry(date: Date(), matches: [], user: UserProfile.empty)
+            let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+            completion(timeline)
         }
     }
     

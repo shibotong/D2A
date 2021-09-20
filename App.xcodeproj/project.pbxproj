@@ -216,6 +216,8 @@
 /* Begin PBXFileReference section */
 		25A6EBA8BA4720224C60E300 /* Pods-AppWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-AppWidgetExtension/Pods-AppWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		299809630145C1C980670C92 /* Pods-App-AppWidgetIntentHandler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppWidgetIntentHandler.debug.xcconfig"; path = "Target Support Files/Pods-App-AppWidgetIntentHandler/Pods-App-AppWidgetIntentHandler.debug.xcconfig"; sourceTree = "<group>"; };
+		3201BC3D26F81EEE00A67505 /* AppWidgetExtensionRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppWidgetExtensionRelease.entitlements; sourceTree = "<group>"; };
+		3201BC3E26F81EEE00A67505 /* AppWidgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppWidgetExtensionDebug.entitlements; sourceTree = "<group>"; };
 		3214C0D126F0E1AF00C377EF /* privacy-policy.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "privacy-policy.md"; sourceTree = "<group>"; };
 		3214C0D326F0E44500C377EF /* terms-of-use.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "terms-of-use.md"; sourceTree = "<group>"; };
 		321D585B26D22FE90059526B /* items.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = items.json; sourceTree = "<group>"; };
@@ -315,11 +317,12 @@
 		32F70AEC26F61836006E9B05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32F70AF526F61A92006E9B05 /* DotaEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotaEnvironment.swift; sourceTree = "<group>"; };
 		32F70B2726F62B09006E9B05 /* AppDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppDebug.entitlements; sourceTree = "<group>"; };
-		32F70B2826F62B71006E9B05 /* AppWidgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppWidgetExtensionDebug.entitlements; sourceTree = "<group>"; };
 		32F70B2926F62B77006E9B05 /* AppWidgetIntentHandlerDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppWidgetIntentHandlerDebug.entitlements; sourceTree = "<group>"; };
 		32F70B2B26F6E3EB006E9B05 /* WCDBController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCDBController.swift; sourceTree = "<group>"; };
 		32F70B2F26F714FD006E9B05 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		32F70B3526F72D74006E9B05 /* ProductSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSubView.swift; sourceTree = "<group>"; };
+		32F70B3726F80AD3006E9B05 /* AppRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppRelease.entitlements; sourceTree = "<group>"; };
+		32F70B3926F80AE4006E9B05 /* AppWidgetIntentHandlerRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppWidgetIntentHandlerRelease.entitlements; sourceTree = "<group>"; };
 		4CC1AABD31D8FA64802BA284 /* Pods-App-AppWidgetExtension-AppWidgetIntentHandler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppWidgetExtension-AppWidgetIntentHandler.debug.xcconfig"; path = "Target Support Files/Pods-App-AppWidgetExtension-AppWidgetIntentHandler/Pods-App-AppWidgetExtension-AppWidgetIntentHandler.debug.xcconfig"; sourceTree = "<group>"; };
 		561B928902588C8B116D52D1 /* Pods-App-AppWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-App-AppWidgetExtension/Pods-App-AppWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
 		694542C8AC5D574203E57D64 /* Pods-AppWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-AppWidgetExtension/Pods-AppWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
@@ -462,7 +465,8 @@
 		32B36F0226C38821002D427D = {
 			isa = PBXGroup;
 			children = (
-				32F70B2826F62B71006E9B05 /* AppWidgetExtensionDebug.entitlements */,
+				3201BC3E26F81EEE00A67505 /* AppWidgetExtensionDebug.entitlements */,
+				3201BC3D26F81EEE00A67505 /* AppWidgetExtensionRelease.entitlements */,
 				3214C0D026F0E19A00C377EF /* documents */,
 				32B36F0D26C38821002D427D /* App */,
 				32F70AA026F57F7E006E9B05 /* AppWidget */,
@@ -486,6 +490,7 @@
 		32B36F0D26C38821002D427D /* App */ = {
 			isa = PBXGroup;
 			children = (
+				32F70B3726F80AD3006E9B05 /* AppRelease.entitlements */,
 				32F70B2726F62B09006E9B05 /* AppDebug.entitlements */,
 				32D1605B26F30B5F00657449 /* Subscription */,
 				32B36F0E26C38821002D427D /* AppApp.swift */,
@@ -646,6 +651,7 @@
 		32F70AE926F61836006E9B05 /* AppWidgetIntentHandler */ = {
 			isa = PBXGroup;
 			children = (
+				32F70B3926F80AE4006E9B05 /* AppWidgetIntentHandlerRelease.entitlements */,
 				32F70B2926F62B77006E9B05 /* AppWidgetIntentHandlerDebug.entitlements */,
 				32F70AEA26F61836006E9B05 /* IntentHandler.swift */,
 				32F70B2B26F6E3EB006E9B05 /* WCDBController.swift */,
@@ -1233,7 +1239,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/AppDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				ENABLE_PREVIEWS = YES;
@@ -1258,8 +1264,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = App/AppRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				ENABLE_PREVIEWS = YES;
@@ -1286,10 +1293,10 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = AppWidgetExtensionDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1309,11 +1316,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = AppWidgetExtensionRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1333,10 +1341,10 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AppWidgetIntentHandler/AppWidgetIntentHandlerDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidgetIntentHandler/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1354,11 +1362,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C7A0359D32DE19C917D0E240 /* Pods-App-AppWidgetExtension-AppWidgetIntentHandler.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AppWidgetIntentHandler/AppWidgetIntentHandlerRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidgetIntentHandler/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
