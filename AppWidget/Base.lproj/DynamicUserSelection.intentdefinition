@@ -19,6 +19,8 @@
 		<dict>
 			<key>INIntentCategory</key>
 			<string>information</string>
+			<key>INIntentDescription</key>
+			<string>Select Player</string>
 			<key>INIntentDescriptionID</key>
 			<string>40TXe6</string>
 			<key>INIntentEligibleForWidgets</key>
@@ -60,26 +62,6 @@
 							<key>INIntentParameterPromptDialogType</key>
 							<string>Primary</string>
 						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>There are ${count} options matching ‘${profile}’.</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>PZ6yih</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationIntroduction</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Just to confirm, you wanted ‘${profile}’?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>42gJJQ</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Confirmation</string>
-						</dict>
 					</array>
 					<key>INIntentParameterSupportsDynamicEnumeration</key>
 					<true/>
@@ -106,7 +88,7 @@
 				</array>
 			</dict>
 			<key>INIntentTitle</key>
-			<string>Select Player</string>
+			<string>Dynamic User Selection</string>
 			<key>INIntentTitleID</key>
 			<string>NOT3WF</string>
 			<key>INIntentType</key>

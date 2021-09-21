@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0459A6210771175202DB698F /* Pods_App_AppWidgetExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A13276CBCF144A9E34E6E9 /* Pods_App_AppWidgetExtension.framework */; };
+		3201BC3F26F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 3201BC4326F89ECD00A67505 /* DynamicUserSelection.intentdefinition */; };
+		3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 3201BC4326F89ECD00A67505 /* DynamicUserSelection.intentdefinition */; };
+		3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 3201BC4326F89ECD00A67505 /* DynamicUserSelection.intentdefinition */; };
 		3214C0D226F0E1AF00C377EF /* privacy-policy.md in Resources */ = {isa = PBXBuildFile; fileRef = 3214C0D126F0E1AF00C377EF /* privacy-policy.md */; };
 		3214C0D426F0E44500C377EF /* terms-of-use.md in Resources */ = {isa = PBXBuildFile; fileRef = 3214C0D326F0E44500C377EF /* terms-of-use.md */; };
 		321D587426D22FE90059526B /* items.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D585B26D22FE90059526B /* items.json */; };
@@ -135,13 +138,11 @@
 		32F70ADD26F60B8D006E9B05 /* SteamProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893726CD44FE00DF67F9 /* SteamProfile.swift */; };
 		32F70ADE26F60B95006E9B05 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893526CD438700DF67F9 /* UserProfile.swift */; };
 		32F70ADF26F60BDA006E9B05 /* sampleProfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 3294463926E1A5A5006E0D06 /* sampleProfile.json */; };
-		32F70AE126F6160A006E9B05 /* DynamicUserSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AE026F6160A006E9B05 /* DynamicUserSelection.intentdefinition */; };
 		32F70AE826F61836006E9B05 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F70AE726F61836006E9B05 /* Intents.framework */; };
 		32F70AEB26F61836006E9B05 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AEA26F61836006E9B05 /* IntentHandler.swift */; };
 		32F70AEF26F61836006E9B05 /* AppWidgetIntentHandler.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32F70AE626F61836006E9B05 /* AppWidgetIntentHandler.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		32F70AF626F61A92006E9B05 /* DotaEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AF526F61A92006E9B05 /* DotaEnvironment.swift */; };
 		32F70AFC26F61E52006E9B05 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893526CD438700DF67F9 /* UserProfile.swift */; };
-		32F70B0026F62148006E9B05 /* DynamicUserSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AE026F6160A006E9B05 /* DynamicUserSelection.intentdefinition */; };
 		32F70B0226F621ED006E9B05 /* AppWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AA126F57F7E006E9B05 /* AppWidget.swift */; };
 		32F70B0326F62268006E9B05 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893926CD456400DF67F9 /* RecentMatch.swift */; };
 		32F70B0426F6226D006E9B05 /* SteamProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893726CD44FE00DF67F9 /* SteamProfile.swift */; };
@@ -171,7 +172,6 @@
 		32F70B2426F6296C006E9B05 /* sampleMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D58A626D717900059526B /* sampleMatch.json */; };
 		32F70B2526F6296F006E9B05 /* sampleProfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 3294463926E1A5A5006E0D06 /* sampleProfile.json */; };
 		32F70B2626F62971006E9B05 /* sampleRecentMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 327772AC26D8BD47000A0A97 /* sampleRecentMatch.json */; };
-		32F70B2A26F6E0FD006E9B05 /* DynamicUserSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AE026F6160A006E9B05 /* DynamicUserSelection.intentdefinition */; };
 		32F70B2C26F6E3EB006E9B05 /* WCDBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2B26F6E3EB006E9B05 /* WCDBController.swift */; };
 		32F70B2D26F6E4C6006E9B05 /* WCDBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2B26F6E3EB006E9B05 /* WCDBController.swift */; };
 		32F70B3026F714FD006E9B05 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2F26F714FD006E9B05 /* Provider.swift */; };
@@ -218,6 +218,8 @@
 		299809630145C1C980670C92 /* Pods-App-AppWidgetIntentHandler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppWidgetIntentHandler.debug.xcconfig"; path = "Target Support Files/Pods-App-AppWidgetIntentHandler/Pods-App-AppWidgetIntentHandler.debug.xcconfig"; sourceTree = "<group>"; };
 		3201BC3D26F81EEE00A67505 /* AppWidgetExtensionRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppWidgetExtensionRelease.entitlements; sourceTree = "<group>"; };
 		3201BC3E26F81EEE00A67505 /* AppWidgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppWidgetExtensionDebug.entitlements; sourceTree = "<group>"; };
+		3201BC4226F89ECD00A67505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/DynamicUserSelection.intentdefinition; sourceTree = "<group>"; };
+		3201BC4526F89ED100A67505 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DynamicUserSelection.strings; sourceTree = "<group>"; };
 		3214C0D126F0E1AF00C377EF /* privacy-policy.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "privacy-policy.md"; sourceTree = "<group>"; };
 		3214C0D326F0E44500C377EF /* terms-of-use.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "terms-of-use.md"; sourceTree = "<group>"; };
 		321D585B26D22FE90059526B /* items.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = items.json; sourceTree = "<group>"; };
@@ -310,7 +312,6 @@
 		32F70AB726F5816A006E9B05 /* HeroDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDatabase.swift; sourceTree = "<group>"; };
 		32F70AD626F60512006E9B05 /* OpenDotaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaController.swift; sourceTree = "<group>"; };
 		32F70ADA26F6090A006E9B05 /* NetworkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImage.swift; sourceTree = "<group>"; };
-		32F70AE026F6160A006E9B05 /* DynamicUserSelection.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = DynamicUserSelection.intentdefinition; sourceTree = "<group>"; };
 		32F70AE626F61836006E9B05 /* AppWidgetIntentHandler.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AppWidgetIntentHandler.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		32F70AE726F61836006E9B05 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		32F70AEA26F61836006E9B05 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
@@ -629,7 +630,7 @@
 				32F70B2F26F714FD006E9B05 /* Provider.swift */,
 				32F70AB626F58154006E9B05 /* resources */,
 				32F70AA126F57F7E006E9B05 /* AppWidget.swift */,
-				32F70AE026F6160A006E9B05 /* DynamicUserSelection.intentdefinition */,
+				3201BC4326F89ECD00A67505 /* DynamicUserSelection.intentdefinition */,
 				32F70AA326F57F7E006E9B05 /* Assets.xcassets */,
 				32F70AA526F57F7E006E9B05 /* Info.plist */,
 			);
@@ -1027,7 +1028,7 @@
 				321D58A026D234A90059526B /* AboutUsView.swift in Sources */,
 				32B36F2926C38852002D427D /* Match.swift in Sources */,
 				32D1605A26F304DC00657449 /* StoreView.swift in Sources */,
-				32F70B0026F62148006E9B05 /* DynamicUserSelection.intentdefinition in Sources */,
+				3201BC3F26F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				32897B0E26C7A703008D3CC8 /* ItemViewModel.swift in Sources */,
 				32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */,
 				3252859E26CB9FDC0030F15B /* Sidebar.swift in Sources */,
@@ -1059,7 +1060,7 @@
 				32F70AB926F5818B006E9B05 /* HeroDatabase.swift in Sources */,
 				32F70AD726F60512006E9B05 /* OpenDotaController.swift in Sources */,
 				32F70B2D26F6E4C6006E9B05 /* WCDBController.swift in Sources */,
-				32F70AE126F6160A006E9B05 /* DynamicUserSelection.intentdefinition in Sources */,
+				3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				32F70B3026F714FD006E9B05 /* Provider.swift in Sources */,
 				32F70AA226F57F7E006E9B05 /* AppWidget.swift in Sources */,
 				32F70AF626F61A92006E9B05 /* DotaEnvironment.swift in Sources */,
@@ -1088,7 +1089,7 @@
 				32F70B1F26F6295C006E9B05 /* Color.swift in Sources */,
 				32F70B0326F62268006E9B05 /* RecentMatch.swift in Sources */,
 				32F70AFC26F61E52006E9B05 /* UserProfile.swift in Sources */,
-				32F70B2A26F6E0FD006E9B05 /* DynamicUserSelection.intentdefinition in Sources */,
+				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				32F70B3126F714FD006E9B05 /* Provider.swift in Sources */,
 				32F70B0926F62296006E9B05 /* DotaEnvironment.swift in Sources */,
 				32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */,
@@ -1111,6 +1112,18 @@
 			targetProxy = 32F70AED26F61836006E9B05 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3201BC4326F89ECD00A67505 /* DynamicUserSelection.intentdefinition */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3201BC4226F89ECD00A67505 /* Base */,
+				3201BC4526F89ED100A67505 /* en */,
+			);
+			name = DynamicUserSelection.intentdefinition;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		32B36F1826C38822002D427D /* Debug */ = {
@@ -1239,7 +1252,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/AppDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				ENABLE_PREVIEWS = YES;
@@ -1266,7 +1280,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/AppRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				ENABLE_PREVIEWS = YES;
@@ -1293,7 +1308,8 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = AppWidgetExtensionDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -1318,7 +1334,8 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = AppWidgetExtensionRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 10;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -1341,7 +1358,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AppWidgetIntentHandler/AppWidgetIntentHandlerDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidgetIntentHandler/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -1364,7 +1381,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AppWidgetIntentHandler/AppWidgetIntentHandlerRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidgetIntentHandler/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
