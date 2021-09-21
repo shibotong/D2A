@@ -19,7 +19,7 @@ struct AddAccountView: View, Equatable {
                 HStack {
                     HStack {
                         Image(systemName: "magnifyingglass")
-                        TextField("Please Enter Dota2 ID", text: $vm.userid)
+                        TextField("Dota2 ID", text: $vm.userid)
                             .keyboardType(.numberPad)
                             
                     }
@@ -66,6 +66,7 @@ struct AddAccountView_Previews: PreviewProvider {
     static var previews: some View {
         AddAccountView()
             .environmentObject(DotaEnvironment.shared)
+            .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }
 

@@ -51,16 +51,16 @@ struct StoreView: View {
                     }
                     buildSubscribeButton()
                     
-                    buildQuestion(question: "When will I be billed?", answer: "Your iTunes Account will be billed on confirmation of your subscription.")
-                    buildQuestion(question: "Does My subscription Auto Renew?", answer: "Yes. Subscriptions will automatically renew unless canceled within 24-hours before the end of the current period.")
-                    buildQuestion(question: "How to cancel my subscription?", answer: "You can cancel anytime with your iTunes account settings.")
+                    buildQuestion(question: "BillQuestion", answer: "BillAnswer")
+                    buildQuestion(question: "RenewQuestion", answer: "RenewAnswer")
+                    buildQuestion(question: "CancelQuestion", answer: "CancelAnswer")
                     
                 }.padding()
             }
         }
     }
     
-    @ViewBuilder private func buildQuestion(question: String, answer: String) -> some View {
+    @ViewBuilder private func buildQuestion(question: LocalizedStringKey, answer: LocalizedStringKey) -> some View {
         VStack(alignment: .leading) {
             Text(question).font(.custom(fontString, size: 18)).bold().foregroundColor(Color(.secondaryLabel))
             Text(answer).font(.custom(fontString, size: 12)).fixedSize(horizontal: false, vertical: true).foregroundColor(Color(.tertiaryLabel))
@@ -75,7 +75,7 @@ struct StoreView: View {
         }
     }
     
-    @ViewBuilder private func buildFeature(_ text: String) -> some View {
+    @ViewBuilder private func buildFeature(_ text: LocalizedStringKey) -> some View {
         HStack {
             Image(systemName: "checkmark.circle.fill").foregroundColor(Color(.systemGreen))
             Text(text).font(.custom(fontString, size: 15))
@@ -89,7 +89,7 @@ struct StoreView: View {
             }) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 15).foregroundColor(env.subscriptionStatus ? .secondaryDota : .primaryDota)
-                    Text("\(buildSubscribeString())").font(.custom(fontString, size: 17)).bold().foregroundColor(.white)
+                    Text(buildSubscribeString()).font(.custom(fontString, size: 17)).bold().foregroundColor(.white)
                 }.frame(height: 60)
             }
             .disabled(env.subscriptionStatus)
@@ -112,12 +112,12 @@ struct StoreView: View {
         }
     }
     
-    private func buildSubscribeString() -> String {
+    private func buildSubscribeString() -> LocalizedStringKey {
         if env.subscriptionStatus {
             return "Subscribed"
         } else {
             if let selectedProduct = storeManager.selectedProduct {
-                return "Get \(selectedProduct.getNumberOfUnit()) Month\(selectedProduct.getNumberOfUnit() > 1 ? "s" : "") / \(selectedProduct.localizedPrice ?? "")"
+                return "SubscriptionButtonDescription \(selectedProduct.getNumberOfUnit()) \(selectedProduct.localizedPrice ?? "")"
             } else {
                 return "Loading..."
             }
@@ -131,6 +131,7 @@ struct SubscriptionView_Previews: PreviewProvider {
         StoreView()
             .environmentObject(DotaEnvironment.shared)
             .environmentObject(StoreManager.shared)
+            .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }
 

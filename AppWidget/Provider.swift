@@ -94,6 +94,8 @@ struct AppActiveWidgetEntryView : View {
                     mediumView()
                 case .systemLarge:
                     Text("Not provide large Widget")
+                case .systemExtraLarge:
+                    Text("Not provide extra large Widget")
                 @unknown default:
                     Text("Cannot identify which size of widget")
                 }
@@ -161,7 +163,9 @@ struct AppActiveWidgetEntryView : View {
                 Spacer()
             }
         case .systemLarge:
-            Text("123")
+            Text("Unknown size large")
+        case .systemExtraLarge:
+            Text("Unknown size extra large")
         @unknown default:
             Text("123")
         }

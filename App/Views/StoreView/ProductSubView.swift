@@ -42,13 +42,17 @@ struct ProductSubView: View {
         } else {
             ZStack {
                 Capsule().foregroundColor(.primaryDota)
-                Text("SAVE \(calculateSave())%").font(.custom(fontString, size: 10)).bold().foregroundColor(.white)
+                Text("SAVE \(buildSaveString())").font(.custom(fontString, size: 10)).bold().foregroundColor(.white)
             }.frame(height: 20)
         }
     }
     
     private func calculateSave() -> Int {
         return Int(Double(1.0 - (product.monthlyPrice / monthlyProduct.price.doubleValue)) * 100)
+    }
+    
+    private func buildSaveString() -> String {
+        return "\(calculateSave())%"
     }
     
     private func getColor() -> Color {

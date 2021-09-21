@@ -103,6 +103,7 @@ struct AboutUsView: View {
 
 struct AboutUsView_Previews: PreviewProvider {
     static var previews: some View {
-            AboutUsView()
+        AboutUsView()
+            .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }

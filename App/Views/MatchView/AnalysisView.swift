@@ -24,7 +24,7 @@ struct AnalysisView: View {
                             Text("Kills").tag(AnalysisType.kills)
                         }
                     } label: {
-                        Label("\(vm.selection.rawValue)", systemImage: "chevron.down")
+                        Label(vm.selection.rawValue, systemImage: "chevron.down")
                     }
                 }.font(.custom(fontString, size: 15)).foregroundColor(Color(.secondaryLabel))
                 .padding(.horizontal)
@@ -32,7 +32,7 @@ struct AnalysisView: View {
                 .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.secondarySystemBackground)))
             }
             if vm.players == nil {
-                Text("\(vm.selection.rawValue) is not available").font(.custom(fontString, size: 15)).frame(height: 300).foregroundColor(Color(.tertiaryLabel))
+                Text("\(vm.selection.localized) is not available").font(.custom(fontString, size: 15)).frame(height: 300).foregroundColor(Color(.tertiaryLabel))
             } else {
                 GeometryReader { proxy in
                     if proxy.size.width > 400 {
@@ -64,14 +64,28 @@ struct AnalysisView: View {
 struct AnalysisView_Preview: PreviewProvider {
     static var previews: some View {
         AnalysisView(vm: AnalysisViewModel(player: []))
+            .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }
 
-enum AnalysisType: String {
+enum AnalysisType: LocalizedStringKey {
     case kills = "Kills"
     case golds = "Net Worth"
     case heroDamage = "Hero Damage"
     case towerDamage = "Tower Damage"
+    
+    var localized: String {
+        switch self {
+        case .kills:
+            return LocalizableStrings.kills
+        case .golds:
+            return LocalizableStrings.gold
+        case .heroDamage:
+            return LocalizableStrings.heroDamage
+        case .towerDamage:
+            return LocalizableStrings.towerDamage
+        }
+    }
     
 }
 

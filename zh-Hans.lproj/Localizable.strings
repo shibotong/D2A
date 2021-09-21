@@ -1,0 +1,72 @@
+/* 
+  Localizable.strings
+  App
+
+  Created by Shibo Tong on 21/9/21.
+  
+*/
+// Sidebarview
+"Follow" = "关注";
+"Edit" = "编辑";
+
+// about us view
+"About" = "关于";
+"Our App" = "应用";
+"Unlock All Features" = "解锁所有功能";
+"Source Code / Report an Issue" = "源代码/报告问题";
+"Rate the app on App Store" = "在App Store上评价";
+"Privacy Policy" = "隐私政策";
+"Terms of Use" = "使用条款";
+"App Version" = "应用程序版本";
+"Game Patch" = "游戏版本";
+"Thanks To" = "感谢";
+
+// Add account view
+"Search Dota2 Profile" = "搜索Dota2个人资料";
+"Search" = "搜索";
+
+// Store View
+"Upgrade to D2A Plus to unlock all features" = "升级D2A Plus解锁所有功能";
+"Subscribe D2A Plus to unlock all features and support us to build a better app." = "订阅D2A Plus解锁所有功能并支持我们做出一个更好的应用！";
+"Unlimit Following Users" = "解锁关注用户数量限制";
+"Unlock Widgets" = "解锁桌面小组件";
+"Select your subscription" = "选择你的订阅方式";
+"Loading..." = "加载中";
+"Subscribed" = "已订阅";
+"SubscriptionButtonDescription %lld %@" = "%lld个月 / %@";
+"Restore Purchase" = "恢复购买";
+"and" = "和";
+"BillQuestion" = "我什么时候会被收取费用？";
+"BillAnswer" = "您的iTunes账户会在您确认订阅之后收取费用。";
+"RenewQuestion" = "我的订阅是自动续订的吗？";
+"RenewAnswer" = "是的。订阅将会自动续订，除非您在下一个订阅周期开始24小时之前取消订阅。";
+"CancelQuestion" = "我要怎样取消订阅？";
+"CancelAnswer" = "您可以在您的iTunes账号设置里面取消订阅。";
+
+// Product Sub View
+"month%@" = "个月";
+"%@ / mo" = "%@ / 月";
+"SAVE %@" = "节省 %@";
+
+// Match View
+"Dire Win" = "夜魇胜利";
+"Radiant Win" = "天辉胜利";
+"Start Time" = "开始时间";
+"Duration" = "持续时间";
+"Game Mode" = "模式";
+"Region" = "地区";
+
+"Players" = "玩家";
+"Radiant" = "天辉";
+"Dire" = "夜魇";
+"Anonymous" = "匿名玩家";
+
+// Analysis View
+"Analysis" = "分析";
+"Tower Damage" = "建筑伤害";
+"Hero Damage" = "英雄伤害";
+"Kills" = "击杀";
+"Net Worth" = "财产总和";
+
+// Difference Graph View
+"Difference In Gold/XP Earned" = "经济/经验差";

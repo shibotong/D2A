@@ -118,8 +118,8 @@ struct MatchView: View {
 
 struct MatchStatCardView: View {
     var icon: String
-    var title: String
-    var label: String
+    var title: LocalizedStringKey
+    var label: LocalizedStringKey
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15.0).foregroundColor(Color(.secondarySystemBackground))
@@ -141,6 +141,7 @@ struct MatchView_Previews: PreviewProvider {
             MatchView(vm: MatchViewModel())
 //        }
         .environmentObject(HeroDatabase.shared)
+        .environment(\.locale, .init(identifier: "zh-Hans"))
         
     }
 }
@@ -205,7 +206,11 @@ struct PlayerRowView: View {
                         }
                     })
                 VStack(alignment: .leading) {
-                    Text("\(player.personaname ?? "Anonymous")").font(.custom(fontString, size: 15)).bold().lineLimit(1)
+                    if player.personaname != nil {
+                        Text(player.personaname!).font(.custom(fontString, size: 15)).bold().lineLimit(1)
+                    } else {
+                        Text("Anonymous").font(.custom(fontString, size: 15)).bold().lineLimit(1)
+                    }
                     KDAView(kills: player.kills, deaths: player.deaths, assists: player.assists, size: 13)
                 }.frame(minWidth: 0)
                 Spacer()
@@ -295,11 +300,13 @@ struct TeamHeaderView: View {
     var win: Bool
     var body: some View {
         HStack {
-            Text("\(isRadiant ? "Radiant" : "Dire") \(win ? "🏆" : "")")
-                .font(.custom(fontString, size: 15))
-                .bold()
-                .foregroundColor(Color(isRadiant ? .systemGreen : .systemRed))
-            
+            HStack {
+                Text(buildTeamString())
+                    .font(.custom(fontString, size: 15))
+                    .bold()
+                    .foregroundColor(Color(isRadiant ? .systemGreen : .systemRed))
+                Text("\(win ? "🏆" : "")")
+            }
             Spacer()
             Image("battle_icon")
                 .renderingMode(.template)
@@ -312,8 +319,14 @@ struct TeamHeaderView: View {
         .padding(.horizontal)
         .padding(.vertical, 5)
         .background(Color(isRadiant ? .systemGreen : .systemRed).opacity(0.2))
-        
-        
+    }
+    
+    private func buildTeamString() -> LocalizedStringKey {
+        if isRadiant {
+            return "Radiant"
+        } else {
+            return "Dire"
+        }
     }
 }
 

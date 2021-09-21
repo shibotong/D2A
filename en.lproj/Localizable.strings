@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  App
+
+  Created by Shibo Tong on 21/9/21.
+  
+*/
+"Follow" = "Follows";
+"Edit" = "Edit";
+"Our App" = "Our App";
+
+"SubscriptionButtonDescription %lld %@" = "Get %lld Month for %@";
+"BillQuestion" = "When will I be billed?";
+"BillAnswer" = "Your iTunes Account will be billed on confirmation of your subscription.";
+"RenewQuestion" = "Does My subscription Auto Renew?";
+"RenewAnswer" = "Yes. Subscriptions will automatically renew unless canceled within 24-hours before the end of the current period.";
+"CancelQuestion" = "How to cancel my subscription?";
+"CancelAnswer" = "You can cancel anytime with your iTunes account settings.";
+"SAVE %@" = "SAVE %@";
