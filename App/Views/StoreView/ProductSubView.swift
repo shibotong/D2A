@@ -30,8 +30,8 @@ struct ProductSubView: View {
     }
     @ViewBuilder private func buildMainView() -> some View {
         VStack {
-            Text("\(product.getNumberOfUnit())").font(.custom(fontString, size: 25)).bold()
-            Text("month\(product.getNumberOfUnit() > 1 ? "s" : "")").font(.custom(fontString, size: 15))
+            Text("\(product.getNumberOfUnit()) month\(product.getNumberOfUnit() > 1 ? "s" : "")").font(.custom(fontString, size: 15))
+            Text(product.localizedPrice ?? "").font(.custom(fontString, size: 15)).bold()
             Text("\(product.monthlyCost!) / mo").font(.custom(fontString, size: 12)).bold()
         }
     }
