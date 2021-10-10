@@ -92,12 +92,8 @@ struct AppActiveWidgetEntryView : View {
                     smallView()
                 case .systemMedium:
                     mediumView()
-                case .systemLarge:
-                    Text("Not provide large Widget")
-                case .systemExtraLarge:
-                    Text("Not provide extra large Widget")
-                @unknown default:
-                    Text("Cannot identify which size of widget")
+                default:
+                    Text("Not this type of view")
                 }
             }
         } else {
@@ -162,12 +158,8 @@ struct AppActiveWidgetEntryView : View {
                 Text("\(self.gethero(match: match).localizedName)").font(.custom(fontString, size: 13))
                 Spacer()
             }
-        case .systemLarge:
-            Text("Unknown size large")
-        case .systemExtraLarge:
-            Text("Unknown size extra large")
-        @unknown default:
-            Text("123")
+        default:
+            Text("No this size")
         }
         
     }
