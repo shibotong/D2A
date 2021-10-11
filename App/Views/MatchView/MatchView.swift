@@ -62,7 +62,7 @@ struct MatchView: View {
                                 }.frame(minWidth: 350, maxWidth: 400)
                             }
                         }
-                        .navigationTitle("\(vm.match!.radiantWin ? "Radiant" : "Dire") Win")
+                        .navigationTitle(vm.match!.radiantWin ? LocalizedStringKey("Radiant Win") : LocalizedStringKey("Dire Win"))
                         .navigationBarTitleDisplayMode(.inline)
                         .navigationBarItems(trailing: Button(action: {
                             withAnimation(.linear) {
