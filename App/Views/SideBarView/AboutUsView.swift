@@ -25,7 +25,7 @@ struct AboutUsView: View {
                         })
                     }
                     makeRow(image: "chevron.left.slash.chevron.right", text: "Source Code / Report an Issue", link: URL(string: "https://github.com/shibotong/Dota2Armory"))
-                    makeRow(image: "star", text: "Rate the app on App Store", link: URL(string: ""))
+                    makeRow(image: "star", text: "Rate the app on App Store", link: URL(string: "https://apps.apple.com/au/app/dota2armory/id1582344852"))
                     makeRow(image: "lock", text: "Privacy Policy", link: URL(string: "https://github.com/shibotong/Dota2Armory/blob/main/documents/privacy-policy.md"))
                     makeRow(image: "person", text: "Terms of Use", link: URL(string: "https://github.com/shibotong/Dota2Armory/blob/main/documents/terms-of-use.md"))
                     

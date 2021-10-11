@@ -21,14 +21,15 @@ struct ProfileView: View, Equatable {
                 Spacer()
                 ProgressView()
                 Spacer()
-            }
+            }.frame(height: 60)
         } else {
             if vm.steamProfile == nil {
                 VStack {
                     Spacer()
                     Text("Cannot find user profile.")
+                        .foregroundColor(Color(.systemGray4))
                     Spacer()
-                }
+                }.frame(height: 60)
             }
             else {
                 HStack {
@@ -64,6 +65,7 @@ struct ProfileView: View, Equatable {
                             .background(RoundedRectangle(cornerRadius: 15).foregroundColor(env.userIDs.contains("\(vm.steamProfile!.profile.id)") ? .secondaryDota : .primaryDota))
                     }
                 }
+                .frame(height: 60)
             }
         }
     }
@@ -95,5 +97,6 @@ struct ProfileEmptyView: View {
             }
             Spacer()
         }
+        .frame(height: 60)
     }
 }

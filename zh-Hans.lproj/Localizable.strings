@@ -24,6 +24,7 @@
 // Add account view
 "Search Dota2 Profile" = "搜索Dota2个人资料";
 "Search" = "搜索";
+"Cannot find user profile." = "找不到用户";
 
 // Store View
 "Upgrade to D2A Plus to unlock all features" = "升级D2A Plus解锁所有功能";
@@ -61,6 +62,12 @@
 "Dire" = "夜魇";
 "Anonymous" = "匿名玩家";
 
+"MINUTESCALCULATE %lld" = "%lld分钟前";
+"HOURSCALCULATE %lld" = "%lld小时前";
+"DAYSCALCULATE %lld" = "%lld天前";
+"MONTHSCALCULATE %lld" = "%lld个月前";
+"YEARSCALCULATE %lld" = "%lld年前";
+
 // Analysis View
 "Analysis" = "分析";
 "Tower Damage" = "建筑伤害";
@@ -70,3 +77,197 @@
 
 // Difference Graph View
 "Difference In Gold/XP Earned" = "经济/经验差";
+"Gold/XP difference is not available." = "经济/经验差目前不可用";
+
+// Player Detail View
+"Damage" = "英雄伤害";
+"LH: %@  DN: %@" = "正补: %@  反补: %@";
+"Items" = "物品";
+"Ability Upgrade" = "技能升级";
+
+// Region
+"US WEST" = "美国西部";
+"US EAST" = "美国东部";
+"EUROPE" = "欧洲";
+"SINGAPORE" = "新加坡";
+"DUBAI" = "迪拜";
+"AUSTRALIA" = "澳大利亚";
+"STOCKHOLM" = "斯德哥尔摩";
+"AUSTRIA" = "奥地利";
+"BRAZIL" = "巴西";
+"SOUTHAFRICA" = "南非";
+"PW TELECOM SHANGHAI" = "完美世界（电信）上海";
+"PW UNICOM" = "完美世界（联通）";
+"CHILE" = "智利";
+"PERU" = "秘鲁";
+"INDIA" = "印度";
+"PW TELECOM GUANGDONG" = "完美世界（电信）广东";
+"PW TELECOM ZHEJIANG" = "完美世界（电信）浙江";
+"JAPAN" = "日本";
+"PW TELECOM WUHAN" = "完美世界（电信）武汉";
+"PW UNICOM TIANJIN" = "完美世界（联通）天津";
+"TAIWAN" = "台湾";
+"ARGENTINA" = "阿根廷";
+
+// Game Mode
+// TODO: add modes translate
+"Unknown" = "未知";
+"All Pick" = "全阵营选择";
+"Captains Mode" = "队长模式";
+"Random Draft" = "随机征召";
+"Single Draft" = "Single Draft";
+"All Random" = "全阵营随机";
+"Intro" = "Intro";
+"Diretide" = "夜魇暗潮";
+"Reverse Captains Mode" = "反向队长模式";
+"Greeviling" = "Greeviling";
+"Tutorial" = "教程";
+"Mid Only" = "Mid Only";
+"Least Played" = "Least Played";
+"Limited Heroes" = "Limited Heroes";
+"Compendium Matchmaking" = "Compendium Matchmaking";
+"Custom Mode" = "自定义";
+"Captains Draft" = "队长模式";
+"Balanced Draft" = "Balanced Draft";
+"Ability Draft" = "技能征召";
+"Event" = "活动比赛";
+"Death Match" = "死亡比赛";
+"1v1 Mid" = "1v1 Mid";
+"All Draft" = "全阵营选择";
+"Turbo" = "Turbo";
+"Mutation" = "Mutation";
+"Unknown Mode" = "Unknown Mode";
+
+// Lobby Type
+"Normal" = "普通匹配";
+"Practice" = "练习赛";
+"Tournament" = "职业比赛";
+"Tutorial" = "教程";
+"Bots" = "人机比赛";
+"Ranked" = "天梯比赛";
+"1v1 mid" = "中路对抗";
+"Battle Cup" = "Battle Cup";
+
+// Hero Name
+"Anti-Mage" = "敌法师";
+"Axe" = "斧王";
+"Bane" = "祸乱之源";
+"Bloodseeker" = "血魔";
+"Crystal Maiden" = "水晶室女";
+"Drow Ranger" = "卓尔游侠";
+"Earthshaker" = "撼地者";
+"Juggernaut" = "主宰";
+"Mirana" = "米拉娜";
+"Morphling" = "变体精灵";
+"Shadow Fiend" = "影魔";
+"Phantom Lancer" = "幻影长矛手";
+"Puck" = "帕克";
+"Pudge" = "帕吉";
+"Razor" = "剃刀";
+"Sand King" = "沙王";
+"Storm Spirit" = "风暴之灵";
+"Sven" = "斯温";
+"Tiny" = "小小";
+"Vengeful Spirit" = "复仇之魂";
+"Windranger" = "风行者";
+"Zeus" = "宙斯";
+"Kunkka" = "昆卡";
+"Lina" = "莉娜";
+"Lion" = "莱恩";
+"Shadow Shaman" = "暗影萨满";
+"Slardar" = "斯拉达";
+"Tidehunter" = "潮汐猎人";
+"Witch Doctor" = "巫医";
+"Lich" = "巫妖";
+"Riki" = "力丸";
+"Enigma" = "谜团";
+"Tinker" = "修补匠";
+"Sniper" = "狙击手";
+"Necrophos" = "瘟疫法师";
+"Warlock" = "术士";
+"Beastmaster" = "兽王";
+"Queen of Pain" = "痛苦女王";
+"Venomancer" = "剧毒术士";
+"Faceless Void" = "虚空假面";
+"Wraith King" = "冥魂大帝";
+"Death Prophet" = "死亡先知";
+"Phantom Assassin" = "幻影刺客";
+"Pugna" = "帕格纳";
+"Templar Assassin" = "圣堂刺客";
+"Viper" = "冥界亚龙";
+"Luna" = "露娜";
+"Dragon Knight" = "龙骑士";
+"Dazzle" = "戴泽";
+"Clockwerk" = "发条技师";
+"Leshrac" = "拉席克";
+"Nature's Prophet" = "先知";
+"Lifestealer" = "噬魂鬼";
+"Dark Seer" = "黑暗贤者";
+"Clinkz" = "克林克兹";
+"Omniknight" = "全能骑士";
+"Enchantress" = "魅惑魔女";
+"Huskar" = "哈斯卡";
+"Night Stalker" = "暗夜魔王";
+"Broodmother" = "育母蜘蛛";
+"Bountry Hunter" = "赏金猎人";
+"Weaver" = "编织者";
+"Jakiro" = "杰奇洛";
+"Batrider" = "蝙蝠骑士";
+"Chen" = "陈";
+"Spectre" = "幽鬼";
+"Ancient Apparition" = "远古冰魄";
+"Doom" = "末日使者";
+"Ursa" = "熊战士";
+"Spirit Breaker" = "裂魂人";
+"Gyrocopter" = "矮人直升机";
+"Alchemist" = "炼金术士";
+"Invoker" = "祈求者";
+"Silencer" = "沉默术士";
+"Outworld Devourer" = "殁境神蚀者";
+"Lycan" = "狼人";
+"Brewmaster" = "酒仙";
+"Shadow Demon" = "暗影恶魔";
+"Lone Druid" = "德鲁伊";
+"Chaos Knight" = "混沌骑士";
+"Meepo" = "米波";
+"Treant Protector" = "树精卫士";
+"Ogre Magi" = "食人魔魔法师";
+"Undying" = "不朽尸王";
+"Rubick" = "拉比克";
+"Disruptor" = "干扰者";
+"Nyx Assassin" = "司夜刺客";
+"Naga Siren" = "娜迦海妖";
+"Keeper of the Light" = "光之守卫";
+"Io" = "艾欧";
+"Visage" = "维萨吉";
+"Slark" = "斯拉克";
+"Medusa" = "美杜莎";
+"Troll Warlord" = "巨魔战将";
+"Centaur Warrunner" = "半人马战行者";
+"Magnus" = "马格纳斯";
+"Timbersaw" = "伐木机";
+"Bristleback" = "钢背兽";
+"Tusk" = "巨牙海民";
+"Skywrath Mage" = "天怒法师";
+"Abaddon" = "亚巴顿";
+"Elder Titan" = "上古巨神";
+"Legion Commander" = "军团指挥官";
+"Techies" = "工程师";
+"Ember Spirit" = "灰烬之灵";
+"Earth Spirit" = "大地之灵";
+"Underlord" = "孽主";
+"Terrorblade" = "恐怖利刃";
+"Phoenix" = "凤凰";
+"Oracle" = "神谕者";
+"Winter Wyvern" = "寒冬飞龙";
+"Arc Warden" = "天穹守望者";
+"Monkey King" = "齐天大圣";
+"Dark Willow" = "邪影芳灵";
+"Pangolier" = "石鳞剑士";
+"Grimstroke" = "天涯墨客";
+"Hoodwink" = "森海飞霞";
+"Void Spirit" = "虚无之灵";
+"Snapfire" = "电炎绝手";
+"Mars" = "马尔斯";
+"Dawnbreaker" = "破晓晨星";
+

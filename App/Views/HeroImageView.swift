@@ -18,12 +18,26 @@ struct HeroImageView: View {
     let type: HeroImageType
     
     var body: some View {
-        WebImage(url: computeURL())
-            .resizable()
-            .renderingMode(.original)
-            .indicator(.activity)
-            .transition(.fade)
-            .aspectRatio(contentMode: .fit)
+        if #available(iOS 15, *) {
+            AsyncImage(url: computeURL()) { phase in
+                if let image = phase.image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)// Displays the loaded image.
+                } else if phase.error != nil {
+                    ActivityIndicator(.constant(true)) // Indicates an error.
+                } else {
+                    ActivityIndicator(.constant(true)) // Acts as a placeholder.
+                }
+            }
+        } else {
+            WebImage(url: computeURL())
+                .resizable()
+                .renderingMode(.original)
+                .indicator(.activity)
+                .transition(.fade)
+                .aspectRatio(contentMode: .fit)
+        }
     }
     
     private func computeURL() -> URL? {

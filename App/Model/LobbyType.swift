@@ -30,7 +30,7 @@ struct LobbyType: Codable {
         case 9:
             return "Battle Cup"
         default:
-            return "Unknown"
+            return "Unknown Lobby"
         }
     }
 }

@@ -12,7 +12,7 @@ struct LoadingView: View {
     var body: some View {
         Circle()
             .trim(from: 0, to: 0.8)
-            .stroke(Color.primaryDota, lineWidth: 5)
+            .stroke(Color.primaryDota, lineWidth: 2)
             .rotationEffect(Angle(degrees: isLoading ? 360 : 0))
             .onAppear {
                 DispatchQueue.main.async {

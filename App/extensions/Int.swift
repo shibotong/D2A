@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension Int {
     func convertToDuration() -> String {
@@ -32,19 +33,43 @@ extension Int {
         }
     }
     
-    func convertToTime() -> String {
-        let date = Date(timeIntervalSince1970: TimeInterval(self))
-        if Calendar.current.isDateInToday(date) {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "HH:mm"
-            return formatter.string(from: date)
-        } else if Calendar.current.isDateInYesterday(date){
-            return "Yesterday"
+    func convertToTime() -> LocalizedStringKey {
+        let date = TimeInterval(self)
+//        if Calendar.current.isDateInToday(date) {
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "HH:mm"
+//            return formatter.string(from: date)
+//        } else if Calendar.current.isDateInYesterday(date){
+//            return "Yesterday"
+//        } else {
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "yyyy. MM. dd"
+//            return formatter.string(from: date)
+//        }
+        let today = Date().timeIntervalSince1970
+        let oneHour = 3600.0
+        let oneDay = 86400.0
+        let oneMonth = 2592000.0
+        let oneYear = 31536000.0
+        let diff = today - date
+        if diff < oneHour {
+            // within one hour return minues
+            return "MINUTESCALCULATE \(getNumberOfUnit(diff, 60.0))"
+        } else if diff < oneDay {
+            // within one day return hours
+            return "HOURSCALCULATE \(getNumberOfUnit(diff, oneHour))"
+        } else if diff < oneMonth {
+            // within one month return days
+            return "DAYSCALCULATE \(getNumberOfUnit(diff, oneDay))"
+        } else if diff < oneYear {
+            return "MONTHSCALCULATE \(getNumberOfUnit(diff, oneMonth))"
         } else {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy. MM. dd"
-            return formatter.string(from: date)
+            return "YEARSCALCULATE \(getNumberOfUnit(diff, oneYear))"
         }
+    }
+    
+    private func getNumberOfUnit(_ diff: TimeInterval, _ interval: Double) -> Int {
+        return Int(diff/interval)
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class MatchViewModel: ObservableObject {
     @Published var match: Match?
@@ -65,7 +66,7 @@ class MatchViewModel: ObservableObject {
         return HeroDatabase.shared.fetchGameMode(id: id)
     }
     
-    func fetchGameRegion(id: String) -> String {
-        return HeroDatabase.shared.fetchRegion(id: id)
+    func fetchGameRegion(id: String) -> LocalizedStringKey {
+        return LocalizedStringKey(HeroDatabase.shared.fetchRegion(id: id))
     }
 }

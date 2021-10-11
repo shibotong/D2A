@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import SwiftUI
 
 class HeroDatabase: ObservableObject {
     @Published var loading = false

@@ -52,7 +52,7 @@ struct MatchListView: View, Equatable {
                     
                 }
             }
-//            .listStyle(PlainListStyle())
+            .listStyle(PlainListStyle())
             .navigationTitle("\(vm.userProfile?.personaname ?? "")")
             .navigationBarItems(trailing:
                                     Button(action: {
@@ -63,6 +63,7 @@ struct MatchListView: View, Equatable {
                                         Image(systemName: "arrow.clockwise")
                                     })
                                     .keyboardShortcut("r", modifiers: .command)
+                                
             )
         }
     }

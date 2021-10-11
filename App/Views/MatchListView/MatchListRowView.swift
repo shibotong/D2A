@@ -18,7 +18,7 @@ struct MatchListRowView: View {
                 HStack {
                     HeroImageView(heroID: vm.match.heroID, type: .icon)
                         .frame(width: 25, height: 25)
-                    Text("\(database.fetchHeroWithID(id: vm.match.heroID)?.localizedName ?? "")").font(.custom(fontString, size: 20, relativeTo: .headline)).bold().lineLimit(1)
+                    Text(LocalizedStringKey(database.fetchHeroWithID(id: vm.match.heroID)?.localizedName ?? "")).font(.custom(fontString, size: 20, relativeTo: .headline)).bold().lineLimit(1)
                 }
                 Text("\(vm.match.duration.convertToDuration())").font(.custom(fontString, size: 15))//.bold()
                 KDAView(kills: vm.match.kills, deaths: vm.match.deaths, assists: vm.match.assists, size: 15)
@@ -26,8 +26,9 @@ struct MatchListRowView: View {
             Spacer()
             VStack(alignment: .trailing) {
                 Text(vm.match.startTime.convertToTime()).bold()
-                Text("\(vm.match.fetchMode().fetchModeName())")
-                Text("\(vm.match.fetchLobby().fetchLobbyName())")
+                Text(LocalizedStringKey(vm.match.fetchMode().fetchModeName()))
+                Text(LocalizedStringKey(vm.match.fetchLobby().fetchLobbyName()))
+                    .foregroundColor(vm.match.fetchLobby().fetchLobbyName() == "Ranked" ? Color(.systemYellow) : Color(.systemGray3))
                 Spacer()
                 
             }.font(.custom(fontString, size: 13)).foregroundColor(Color(.systemGray3)).padding(.vertical, 5)

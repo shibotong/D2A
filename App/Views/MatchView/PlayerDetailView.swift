@@ -125,7 +125,15 @@ struct PlayerDetailView: View {
                 Spacer()
                 //buildMultiKill
             }.padding(.horizontal).font(.custom(fontString, size: 15))
-            Text("LH: \(player.lastHits)  DN: \(player.denies)").font(.custom(fontString, size: 15)).padding(.horizontal)
+            Text("LH: \(getPlayerHits(last: true))  DN: \(getPlayerHits(last: false))").font(.custom(fontString, size: 15)).padding(.horizontal)
+        }
+    }
+    
+    private func getPlayerHits(last: Bool) -> String {
+        if last {
+            return "\(player.lastHits)"
+        } else {
+            return "\(player.denies)"
         }
     }
     
@@ -149,14 +157,19 @@ struct PlayerDetailView: View {
                     .indicator(.activity)
                     .transition(.fade)
                     .aspectRatio(contentMode: .fit)
-//                    .frame(width: side, height: side)
             } else {
-                GeometryReader { geo in
-                    ZStack {
-                        Rectangle().stroke()
-                        Text(ability.dname ?? "Unknown").font(.custom(fontString, size: 8)).padding(0.5)
-                    }.frame(height: geo.size.width)
-                }
+                Image("ability_slot")
+                    .resizable()
+                    .renderingMode(.template)
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(Color(.systemBackground))
+                    .overlay(
+                        ZStack {
+                            Rectangle().stroke()
+                            Text(ability.dname ?? "Unknown").font(.custom(fontString, size: 8)).padding(0.5)
+                        }
+                    )
+                
             }
         }else {
             Text("cannot find")

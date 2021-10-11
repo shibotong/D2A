@@ -17,3 +17,9 @@
 "CancelQuestion" = "How to cancel my subscription?";
 "CancelAnswer" = "You can cancel anytime with your iTunes account settings.";
 "SAVE %@" = "SAVE %@";
+
+"MINUTESCALCULATE %lld" = "%lld minutes ago";
+"HOURSCALCULATE %lld" = "%lld hours ago";
+"DAYSCALCULATE %lld" = "%lld days ago";
+"MONTHSCALCULATE %lld" = "%lld months ago";
+"YEARSCALCULATE %lld" = "%lld years ago";

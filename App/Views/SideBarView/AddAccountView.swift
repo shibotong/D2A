@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct AddAccountView: View, Equatable {
     @EnvironmentObject var env: DotaEnvironment

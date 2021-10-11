@@ -36,12 +36,12 @@ struct MatchView: View {
                             HStack(spacing: 0) {
                                 ScrollView(showsIndicators: false) {
                                     LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 160, maximum: .infinity), spacing: 20), count: 2), spacing: 20, content: {
-                                        MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
+                                        MatchStatCardView(icon: "calendar", title: "Start Time", label: vm.match!.startTime.convertToTime())
                                         MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())")
                                             .colorInvert()
                                         MatchStatCardView(icon: "rosette", title: "Game Mode", label: "\(vm.fetchGameMode(id: vm.match!.mode).fetchModeName())")
                                             .colorInvert()
-                                        MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: "\(vm.fetchGameRegion(id: "\(vm.match!.region)"))")
+                                        MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: vm.fetchGameRegion(id: "\(vm.match!.region)"))
                                     }).padding()
                                     DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
                                         .frame(height: 300)
@@ -81,15 +81,15 @@ struct MatchView: View {
                                 VStack(spacing: 30) {
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         HStack(spacing: 15) {
-                                            MatchStatCardView(icon: "calendar", title: "Start Time", label: "\(vm.match!.startTime.convertToTime())")
-                                                .frame(width: 160)
+                                            MatchStatCardView(icon: "calendar", title: "Start Time", label: vm.match!.startTime.convertToTime())
+                                                .frame(width: 140)
                                             MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())").colorInvert()
+                                                .frame(width: 140)
+                                            MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(data.fetchGameMode(id: vm.match!.mode).fetchModeName()))
                                                 .frame(width: 160)
-                                            MatchStatCardView(icon: "rosette", title: "Game Mode", label: "\(data.fetchGameMode(id: vm.match!.mode).fetchModeName())")
-                                                .frame(width: 160)
-                                            MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: "\(data.fetchRegion(id: "\(vm.match!.region)"))")
+                                            MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: vm.fetchGameRegion(id: "\(vm.match!.region)"))
                                                 .colorInvert()
-                                                .frame(width: 160)
+                                                .frame(width: 140)
                                         }.padding(.horizontal)
                                     }
                                 }.padding([.top])
@@ -125,9 +125,10 @@ struct MatchStatCardView: View {
             RoundedRectangle(cornerRadius: 15.0).foregroundColor(Color(.secondarySystemBackground))
             HStack {
                 VStack(alignment: .leading, spacing: 5) {
-                    Image(systemName: icon).font(.largeTitle)
-                    Text(title).font(.custom(fontString, size: 13)).foregroundColor(Color(.secondaryLabel))
-                    Text(label).font(.custom(fontString, size: 18)).bold().lineLimit(0)
+                    Image(systemName: icon).font(.title)
+                    Spacer()
+                    Text(title).font(.custom(fontString, size: 10)).foregroundColor(Color(.secondaryLabel))
+                    Text(label).font(.custom(fontString, size: 15)).bold().lineLimit(2)
                 }
                 Spacer()
             }.padding(18)
@@ -276,6 +277,7 @@ struct ItemView: View {
     }
 }
 
+/*
 struct ScoreboardView: View {
     var match: RecentMatch
     @Environment(\.presentationMode) var presentationMode
@@ -293,6 +295,7 @@ struct ScoreboardView: View {
         .background(Color(match.radiantWin ? .systemGreen : .systemRed).opacity(0.4).ignoresSafeArea())
     }
 }
+ */
 
 struct TeamHeaderView: View {
     var isRadiant: Bool
