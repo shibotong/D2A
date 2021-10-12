@@ -55,10 +55,10 @@ struct DifferenceGraphView: View {
                             .foregroundColor(Color(.secondaryLabel).opacity(0.1))
                             .frame(width: 1)
                             .offset(x: CGFloat(proxy.size.width) * CGFloat(vm.mins) / CGFloat(vm.goldDiff!.count - 1), y: 0)
-                            .animation(.linear(duration: 0.1))
+                            .animation(.linear(duration: 0.1), value: vm.mins)
                     }
-                    CurrentPoint(data: vm.xpDiff!, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.blue).animation(.linear(duration: 0.1))
-                    CurrentPoint(data: vm.goldDiff!, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.yellow).animation(.linear(duration: 0.1))
+                    CurrentPoint(data: vm.xpDiff!, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.blue).animation(.linear(duration: 0.1), value: vm.mins)
+                    CurrentPoint(data: vm.goldDiff!, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.yellow).animation(.linear(duration: 0.1), value: vm.mins)
                     
                 }.frame(maxHeight: 300)
                 HStack {

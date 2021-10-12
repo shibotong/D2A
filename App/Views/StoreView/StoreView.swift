@@ -21,34 +21,33 @@ struct StoreView: View {
             .padding()
             Divider()
             ScrollView(.vertical, showsIndicators: false) {
-                
                 VStack(alignment: .leading, spacing: 25) {
-                    Text("Upgrade to D2A Plus to unlock all features")
+                    Text("Upgrade to D2A Pro")
                         .font(.custom(fontString, size: 30))
                         .bold()
                         .fixedSize(horizontal: false, vertical: true)
-                    Text("Subscribe D2A Plus to unlock all features and support us to build a better app.")
-                    .font(.custom(fontString, size: 15))
-                    .foregroundColor(Color(.systemGray))
+                    Text("Purchase D2A Pro to unlock all features and support us to build a better app.")
+                        .font(.custom(fontString, size: 15))
+                        .foregroundColor(Color(.systemGray))
                         .fixedSize(horizontal: false, vertical: true)
                     VStack(alignment: .leading, spacing: 10) {
                         buildFeature("Unlimit Following Users")
                         buildFeature("Unlock Widgets")
                     }
-                    VStack(alignment: .leading) {
-                        Text("Select your subscription").bold().font(.custom(fontString, size: 20))
-                        HStack(spacing: 20) {
-                            if storeManager.monthlySubscription != nil {
-                                ProductSubView(product: storeManager.monthlySubscription!.product, monthlyProduct: storeManager.monthlySubscription!.product, selectedProduct: $storeManager.selectedProduct)
-                            }
-                            if storeManager.quarterlySubscription != nil {
-                                ProductSubView(product: storeManager.quarterlySubscription!.product, monthlyProduct: storeManager.monthlySubscription!.product, selectedProduct: $storeManager.selectedProduct)
-                            }
-                            if storeManager.annuallySubscription != nil {
-                                ProductSubView(product: storeManager.annuallySubscription!.product, monthlyProduct: storeManager.monthlySubscription!.product, selectedProduct: $storeManager.selectedProduct)
-                            }
-                        }
-                    }
+//                    VStack(alignment: .leading) {
+//                        Text("Select your subscription").bold().font(.custom(fontString, size: 20))
+//                        HStack(spacing: 20) {
+//                            if storeManager.monthlySubscription != nil {
+//                                ProductSubView(product: storeManager.monthlySubscription!.product, monthlyProduct: storeManager.monthlySubscription!.product, selectedProduct: $storeManager.selectedProduct)
+//                            }
+//                            if storeManager.quarterlySubscription != nil {
+//                                ProductSubView(product: storeManager.quarterlySubscription!.product, monthlyProduct: storeManager.monthlySubscription!.product, selectedProduct: $storeManager.selectedProduct)
+//                            }
+//                            if storeManager.annuallySubscription != nil {
+//                                ProductSubView(product: storeManager.annuallySubscription!.product, monthlyProduct: storeManager.monthlySubscription!.product, selectedProduct: $storeManager.selectedProduct)
+//                            }
+//                        }
+//                    }
                     buildSubscribeButton()
                     
                     buildQuestion(question: "BillQuestion", answer: "BillAnswer")
@@ -85,7 +84,9 @@ struct StoreView: View {
     @ViewBuilder private func buildSubscribeButton() -> some View {
         VStack(spacing: 15) {
             Button(action: {
-                storeManager.purchase()
+                Task {
+                 try await storeManager.purchase()
+                }
             }) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 15).foregroundColor(env.subscriptionStatus ? .secondaryDota : .primaryDota)
@@ -114,10 +115,10 @@ struct StoreView: View {
     
     private func buildSubscribeString() -> LocalizedStringKey {
         if env.subscriptionStatus {
-            return "Subscribed"
+            return "Unlocked"
         } else {
-            if let selectedProduct = storeManager.selectedProduct {
-                return "SubscriptionButtonDescription \(selectedProduct.getNumberOfUnit()) \(selectedProduct.localizedPrice ?? "")"
+            if let selectedProduct = storeManager.products.first {
+                return "SubscriptionButtonDescription  \(selectedProduct.displayPrice)"
             } else {
                 return "Loading..."
             }
@@ -131,7 +132,7 @@ struct SubscriptionView_Previews: PreviewProvider {
         StoreView()
             .environmentObject(DotaEnvironment.shared)
             .environmentObject(StoreManager.shared)
-            .environment(\.locale, .init(identifier: "zh-Hans"))
+        //            .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }
 

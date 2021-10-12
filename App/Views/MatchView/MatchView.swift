@@ -45,12 +45,10 @@ struct MatchView: View {
                                     }).padding()
                                     DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
                                         .frame(height: 300)
-                                        .animation(.linear(duration: 0.3))
                                         .padding(.horizontal)
                                     Divider().padding(.horizontal, 80)
                                     AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
                                         .background(Color(.systemBackground))
-                                        .animation(.linear(duration: 0.3))
                                         .padding(.horizontal)
                                     
                                 }

@@ -65,10 +65,8 @@ struct MatchListRowEmptyView: View {
         }
         .foregroundColor(loading ? Color(.systemGray6) : Color(.systemGray5))
         .onAppear {
-            DispatchQueue.main.async {
-                self.loading = true
-            }
+            self.loading = true
         }
-        .animation(Animation.default.repeatForever())
+        .animation(Animation.default.repeatForever(), value: loading)
     }
 }
