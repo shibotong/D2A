@@ -28,10 +28,10 @@ struct MatchListRowView: View {
                 Text(vm.match.startTime.convertToTime()).bold()
                 Text(LocalizedStringKey(vm.match.fetchMode().fetchModeName()))
                 Text(LocalizedStringKey(vm.match.fetchLobby().fetchLobbyName()))
-                    .foregroundColor(vm.match.fetchLobby().fetchLobbyName() == "Ranked" ? Color(.systemYellow) : Color(.systemGray3))
+                    .foregroundColor(vm.match.fetchLobby().fetchLobbyName() == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
                 Spacer()
                 
-            }.font(.custom(fontString, size: 13)).foregroundColor(Color(.systemGray3)).padding(.vertical, 5)
+            }.font(.custom(fontString, size: 13)).foregroundColor(Color(.secondaryLabel)).padding(.vertical, 5)
         }
     }
 }

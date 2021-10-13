@@ -18,7 +18,11 @@ struct HeroImageView: View {
     let type: HeroImageType
     
     var body: some View {
-        if #available(iOS 15, *) {
+        if type == .icon {
+            Image(searchHeroImage())
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        } else {
             AsyncImage(url: computeURL()) { phase in
                 if let image = phase.image {
                     image
@@ -30,13 +34,20 @@ struct HeroImageView: View {
                     ActivityIndicator(.constant(true)) // Acts as a placeholder.
                 }
             }
-        } else {
-            WebImage(url: computeURL())
-                .resizable()
-                .renderingMode(.original)
-                .indicator(.activity)
-                .transition(.fade)
-                .aspectRatio(contentMode: .fit)
+        }
+    }
+    
+    private func searchHeroImage() -> String {
+        guard let hero = heroData.fetchHeroWithID(id: heroID) else {
+            return ""
+        }
+        switch self.type {
+        case .icon:
+            let filename = "\(hero.localizedName)_icon"
+            return filename
+        case .portrait:
+            let filename = "\(hero.localizedName)_portrait"
+            return filename
         }
     }
     

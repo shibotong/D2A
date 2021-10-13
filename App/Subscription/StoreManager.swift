@@ -42,6 +42,11 @@ class StoreManager: NSObject, ObservableObject {
     }
     
     func restorePurchase() {
+        Task {
+            //This call displays a system prompt that asks users to authenticate with their App Store credentials.
+            //Call this function only in response to an explicit user action, such as tapping a button.
+            try? await AppStore.sync()
+        }
 //        Purchases.shared.restoreTransactions { purchaserInfo, error in
 //            if let info = purchaserInfo {
 //                self.parsePurchaseInfo(info: info)
@@ -59,13 +64,18 @@ class StoreManager: NSObject, ObservableObject {
 //        } else {
 //            DotaEnvironment.shared.subscriptionStatus = false
 //        }
-        DotaEnvironment.shared.subscriptionStatus = true
+        DispatchQueue.main.async {
+            DotaEnvironment.shared.subscriptionStatus = true
+        }
+        
         print("D2A Pro Purchased")
     }
     
     func purchase() async throws -> Transaction? {
         //Begin a purchase.
-        let product = self.products.first!
+        guard let product = self.products.first else {
+            return nil
+        }
         let result = try await product.purchase()
 
         switch result {

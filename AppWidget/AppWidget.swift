@@ -19,7 +19,7 @@ struct AppWidget: Widget {
         }
         .configurationDisplayName("Recent Matches")
         .description("Your recent matches.")
-        .supportedFamilies([.systemSmall, .systemMedium])
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
         
     }
 }

@@ -9,7 +9,7 @@
 "Edit" = "Edit";
 "Our App" = "Our App";
 
-"SubscriptionButtonDescription %lld %@" = "Get %lld Month for %@";
+"SubscriptionButtonDescription %@" = "Unlock D2A Pro for %@";
 "BillQuestion" = "When will I be billed?";
 "BillAnswer" = "Your iTunes Account will be billed on confirmation of your subscription.";
 "RenewQuestion" = "Does My subscription Auto Renew?";
@@ -18,8 +18,8 @@
 "CancelAnswer" = "You can cancel anytime with your iTunes account settings.";
 "SAVE %@" = "SAVE %@";
 
-"MINUTESCALCULATE %lld" = "%lld minutes ago";
-"HOURSCALCULATE %lld" = "%lld hours ago";
-"DAYSCALCULATE %lld" = "%lld days ago";
-"MONTHSCALCULATE %lld" = "%lld months ago";
-"YEARSCALCULATE %lld" = "%lld years ago";
+"MINUTESCALCULATE %lld" = "%lld minutes";
+"HOURSCALCULATE %lld" = "%lld hours";
+"DAYSCALCULATE %lld" = "%lld days";
+"MONTHSCALCULATE %lld" = "%lld months";
+"YEARSCALCULATE %lld" = "%lld years";

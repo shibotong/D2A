@@ -36,7 +36,7 @@
 "Select your subscription" = "选择你的订阅方式";
 "Loading..." = "加载中";
 "Subscribed" = "已订阅";
-"SubscriptionButtonDescription %lld %@" = "%lld个月 / %@";
+"SubscriptionButtonDescription %@" = "解锁D2A Pro %@";
 "Restore Purchase" = "恢复购买";
 "and" = "和";
 "BillQuestion" = "我什么时候会被收取费用？";
@@ -211,7 +211,7 @@
 "Huskar" = "哈斯卡";
 "Night Stalker" = "暗夜魔王";
 "Broodmother" = "育母蜘蛛";
-"Bountry Hunter" = "赏金猎人";
+"Bounty Hunter" = "赏金猎人";
 "Weaver" = "编织者";
 "Jakiro" = "杰奇洛";
 "Batrider" = "蝙蝠骑士";

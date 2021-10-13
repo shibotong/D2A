@@ -20,7 +20,7 @@ struct StoreView: View {
             }
             .padding()
             Divider()
-            ScrollView(.vertical, showsIndicators: false) {
+//            ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 25) {
                     Text("Upgrade to D2A Pro")
                         .font(.custom(fontString, size: 30))
@@ -28,7 +28,7 @@ struct StoreView: View {
                         .fixedSize(horizontal: false, vertical: true)
                     Text("Purchase D2A Pro to unlock all features and support us to build a better app.")
                         .font(.custom(fontString, size: 15))
-                        .foregroundColor(Color(.systemGray))
+                        .foregroundColor(Color(.secondaryLabel))
                         .fixedSize(horizontal: false, vertical: true)
                     VStack(alignment: .leading, spacing: 10) {
                         buildFeature("Unlimit Following Users")
@@ -48,14 +48,15 @@ struct StoreView: View {
 //                            }
 //                        }
 //                    }
+                    Spacer()
                     buildSubscribeButton()
                     
-                    buildQuestion(question: "BillQuestion", answer: "BillAnswer")
-                    buildQuestion(question: "RenewQuestion", answer: "RenewAnswer")
-                    buildQuestion(question: "CancelQuestion", answer: "CancelAnswer")
+//                    buildQuestion(question: "BillQuestion", answer: "BillAnswer")
+//                    buildQuestion(question: "RenewQuestion", answer: "RenewAnswer")
+//                    buildQuestion(question: "CancelQuestion", answer: "CancelAnswer")
                     
                 }.padding()
-            }
+//            }
         }
     }
     
@@ -118,7 +119,7 @@ struct StoreView: View {
             return "Unlocked"
         } else {
             if let selectedProduct = storeManager.products.first {
-                return "SubscriptionButtonDescription  \(selectedProduct.displayPrice)"
+                return "SubscriptionButtonDescription \(selectedProduct.displayPrice)"
             } else {
                 return "Loading..."
             }

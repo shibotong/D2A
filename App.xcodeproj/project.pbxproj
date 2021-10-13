@@ -69,6 +69,13 @@
 		327772B326D9D735000A0A97 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772B226D9D735000A0A97 /* GameMode.swift */; };
 		327A7B802714EE46001F964D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3251C8F126F97C9500C826BD /* Localizable.strings */; };
 		327A7B812714EE46001F964D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3251C8F126F97C9500C826BD /* Localizable.strings */; };
+		327A7B8227152387001F964D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1226C38822002D427D /* Assets.xcassets */; };
+		327A7B8327152388001F964D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1226C38822002D427D /* Assets.xcassets */; };
+		327C033C2716A8F400DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
+		327C033D2716A90400DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
+		327C033E2716A92500DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
+		327C03412716ABEE00DAEC42 /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033F2716AB6E00DAEC42 /* HeroImageView.swift */; };
+		327C03422716ABEF00DAEC42 /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033F2716AB6E00DAEC42 /* HeroImageView.swift */; };
 		32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0726C4EFF1008D3CC8 /* Int.swift */; };
 		32897B0E26C7A703008D3CC8 /* ItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0D26C7A703008D3CC8 /* ItemViewModel.swift */; };
 		32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */; };
@@ -281,6 +288,8 @@
 		327772AE26D8BE63000A0A97 /* MatchListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchListRowView.swift; sourceTree = "<group>"; };
 		327772B026D9D71F000A0A97 /* LobbyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyType.swift; sourceTree = "<group>"; };
 		327772B226D9D735000A0A97 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
+		327C033B2716A8F400DAEC42 /* KDAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDAView.swift; sourceTree = "<group>"; };
+		327C033F2716AB6E00DAEC42 /* HeroImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageView.swift; sourceTree = "<group>"; };
 		32897B0726C4EFF1008D3CC8 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		32897B0D26C7A703008D3CC8 /* ItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewModel.swift; sourceTree = "<group>"; };
 		32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageView.swift; sourceTree = "<group>"; };
@@ -447,6 +456,7 @@
 				3252859026C9E8040030F15B /* AnalysisView.swift */,
 				322B893F26CE696C00DF67F9 /* DifferenceGraphView.swift */,
 				3294463E26E1BC8F006E0D06 /* PlayerDetailView.swift */,
+				327C033B2716A8F400DAEC42 /* KDAView.swift */,
 			);
 			path = MatchView;
 			sourceTree = "<group>";
@@ -655,6 +665,7 @@
 				32F70AD626F60512006E9B05 /* OpenDotaController.swift */,
 				32F70ADA26F6090A006E9B05 /* NetworkImage.swift */,
 				32F70AF526F61A92006E9B05 /* DotaEnvironment.swift */,
+				327C033F2716AB6E00DAEC42 /* HeroImageView.swift */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -869,6 +880,7 @@
 				32F70AC426F58210006E9B05 /* skillshots.json in Resources */,
 				32F70AC826F58214006E9B05 /* region.json in Resources */,
 				32F70AD126F58214006E9B05 /* item_ids.json in Resources */,
+				327A7B8227152387001F964D /* Assets.xcassets in Resources */,
 				32F70AC626F58214006E9B05 /* items.json in Resources */,
 				32F70ABC26F58210006E9B05 /* ancients.json in Resources */,
 				32F70ACE26F58214006E9B05 /* hero_abilities.json in Resources */,
@@ -905,6 +917,7 @@
 				327A7B812714EE46001F964D /* Localizable.strings in Resources */,
 				32F70B2426F6296C006E9B05 /* sampleMatch.json in Resources */,
 				32F70B2526F6296F006E9B05 /* sampleProfile.json in Resources */,
+				327A7B8327152388001F964D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1008,6 +1021,7 @@
 				322B89C726CFD2DE00DF67F9 /* AddAccountViewModel.swift in Sources */,
 				3252859126C9E8040030F15B /* AnalysisView.swift in Sources */,
 				322B893426CD425300DF67F9 /* WCDBController.swift in Sources */,
+				327C033C2716A8F400DAEC42 /* KDAView.swift in Sources */,
 				3252858F26C949940030F15B /* Date.swift in Sources */,
 				322B893C26CD560100DF67F9 /* MatchViewModel.swift in Sources */,
 				32B36F1126C38821002D427D /* ContentView.swift in Sources */,
@@ -1060,10 +1074,12 @@
 			files = (
 				32F70AB426F58125006E9B05 /* GameMode.swift in Sources */,
 				32F70AAC26F58006006E9B05 /* RecentMatch.swift in Sources */,
+				327C03412716ABEE00DAEC42 /* HeroImageView.swift in Sources */,
 				32F70B1B26F6295B006E9B05 /* Int.swift in Sources */,
 				32F70ADC26F60B30006E9B05 /* String.swift in Sources */,
 				32F70B1726F6294D006E9B05 /* Match.swift in Sources */,
 				32F70ADD26F60B8D006E9B05 /* SteamProfile.swift in Sources */,
+				327C033D2716A90400DAEC42 /* KDAView.swift in Sources */,
 				32F70B1926F6295B006E9B05 /* Date.swift in Sources */,
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
 				32F70ADB26F6090A006E9B05 /* NetworkImage.swift in Sources */,
@@ -1091,6 +1107,7 @@
 				32F70B0E26F622AE006E9B05 /* String.swift in Sources */,
 				32F70B0D26F62296006E9B05 /* OpenDotaController.swift in Sources */,
 				32F70B2226F6295C006E9B05 /* CodingKey.swift in Sources */,
+				327C03422716ABEF00DAEC42 /* HeroImageView.swift in Sources */,
 				32F70B1126F622C5006E9B05 /* Hero.swift in Sources */,
 				32F70B0A26F62296006E9B05 /* ReadDataWidget.swift in Sources */,
 				32F70B0F26F622C0006E9B05 /* LobbyType.swift in Sources */,
@@ -1106,6 +1123,7 @@
 				32F70AFC26F61E52006E9B05 /* UserProfile.swift in Sources */,
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				32F70B3126F714FD006E9B05 /* Provider.swift in Sources */,
+				327C033E2716A92500DAEC42 /* KDAView.swift in Sources */,
 				32F70B0926F62296006E9B05 /* DotaEnvironment.swift in Sources */,
 				32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */,
 				32F70B2126F6295C006E9B05 /* SKProduct.swift in Sources */,
@@ -1341,7 +1359,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1368,7 +1386,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1392,7 +1410,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidgetIntentHandler/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1416,7 +1434,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidgetIntentHandler/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
