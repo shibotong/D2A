@@ -51,11 +51,26 @@ struct Provider: IntentTimelineProvider {
                     completion(timeline)
                 }
             } else {
-                
-                let entry = SimpleEntry(date: currentDate, matches: [], user: selectedProfile)
-                let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
-                let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-                completion(timeline)
+                guard let firstUser = DotaEnvironment.shared.userIDs.first else {
+                    let entry = SimpleEntry(date: Date(), matches: [], user: selectedProfile)
+                    let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
+                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+                    completion(timeline)
+                    return
+                }
+                guard let profile = WCDBController.shared.fetchUserProfile(userid: firstUser) else {
+                    let entry = SimpleEntry(date: Date(), matches: [], user: selectedProfile)
+                    let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
+                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+                    completion(timeline)
+                    return
+                }
+                OpenDotaController.loadRecentMatch(id: "\(profile.id)") { matches in
+                    let entry = SimpleEntry(date: Date(), matches: matches, user: profile)
+                    let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
+                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+                    completion(timeline)
+                }
             }
         } else {
             let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
@@ -84,7 +99,7 @@ struct AppActiveWidgetEntryView : View {
     
     @ViewBuilder
     var body: some View {
-//        if DotaEnvironment.shared.subscriptionStatus {
+        if DotaEnvironment.shared.subscriptionStatus {
             if entry.user.id == 0 {
                 Text("Select a player").font(.custom(fontString, size: 15))
             } else {
@@ -99,12 +114,12 @@ struct AppActiveWidgetEntryView : View {
                     Text("Not this type of view")
                 }
             }
-//        } else {
-//            VStack {
-//                Text("Purchase D2APro to unlock Widget").font(.custom(fontString, size: 15)).bold()
-//                Text("If you just purchased D2APro, please wait for a while to refresh.").font(.custom(fontString, size: 10))
-//            }
-//        }
+        } else {
+            VStack {
+                Text("Purchase D2APro to unlock Widget").font(.custom(fontString, size: 15)).bold()
+                Text("If you just purchased D2APro, please wait for a while to refresh.").font(.custom(fontString, size: 10))
+            }
+        }
     }
     
     private func gethero(match: RecentMatch) -> Hero {
@@ -148,19 +163,6 @@ struct AppActiveWidgetEntryView : View {
     }
     
     @ViewBuilder private func mediumView() -> some View {
-//            GeometryReader { geo in
-//                HStack(spacing: 0) {
-//                    VStack {
-//                        NetworkImage(urlString: entry.user.avatarfull).frame(width: 80, height: 80).clipShape(Circle())
-//                        Text("\(entry.user.personaname)").font(.custom(fontString, size: 13))
-//                    }.frame(width: geo.size.width / 2)
-//                    VStack(spacing: 10) {
-//                        ForEach(entry.matches, id:\.id) { match in
-//                            buildMatch(match: match)
-//                        }
-//                    }.frame(width: geo.size.width / 2)
-//                }.padding()
-//            }
         VStack(spacing: 5) {
             Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)")!) {
                 HStack {
