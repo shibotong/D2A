@@ -91,7 +91,12 @@ struct MatchView: View {
                                         }.padding(.horizontal)
                                     }
                                 }.padding([.top])
-                                HStack(alignment: .top) {
+                                if horizontalSizeClass == .regular {
+                                    HStack(alignment: .top) {
+                                        AllTeamPlayerView(match: vm.match!)
+                                        AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
+                                    }
+                                } else {
                                     AllTeamPlayerView(match: vm.match!)
                                     AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
                                 }
