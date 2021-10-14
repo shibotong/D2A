@@ -21,6 +21,6 @@ This application is fully written in SwiftUI.
 * MacOS app
 * Localization
 * Try to build a TvOS app
-You can use this application to learn SwiftUI. It uses only standard MVVM architecture.
+* You can use this application to learn SwiftUI. It uses only standard MVVM architecture.
 ## Credits
 API is based on [OpenDotaAPI](https://www.opendota.com), thank you!
