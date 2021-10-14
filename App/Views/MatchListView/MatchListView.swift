@@ -25,23 +25,15 @@ struct MatchListView: View, Equatable {
                         vm.fetchAllData()
                     }
                 } else {
-                if vm.refreshing {
-                        HStack {
-                            Spacer()
-                            LoadingView()
-                                .frame(width: 32, height: 32)
-                            Spacer()
-                        }
-                    }
                     ForEach(vm.matches, id: \.id) { match in
-                        NavigationLink(
-                            destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)")),
-                            tag: "\(match.id)",
-                            selection: $selectedMatch
-                        ) {
-                            MatchListRowView(vm: MatchListRowViewModel(match: match))
+                            NavigationLink(
+                                destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)")),
+                                tag: "\(match.id)",
+                                selection: $selectedMatch
+                            ) {
+                                MatchListRowView(vm: MatchListRowViewModel(match: match))
                                 
-                        }.listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
+                            }.listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
                     }
                     Text("Load More...")
                         .onAppear {
@@ -54,17 +46,9 @@ struct MatchListView: View, Equatable {
             }
             .listStyle(PlainListStyle())
             .navigationTitle("\(vm.userProfile?.personaname ?? "")")
-            .navigationBarItems(trailing:
-                                    Button(action: {
-                                        withAnimation(.linear) {
-                                            vm.refreshData()
-                                        }
-                                    }, label: {
-                                        Image(systemName: "arrow.clockwise")
-                                    })
-                                    .keyboardShortcut("r", modifiers: .command)
-                                
-            )
+            .refreshable {
+                vm.refreshData()
+            }
         }
     }
     

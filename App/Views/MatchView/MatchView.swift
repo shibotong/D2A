@@ -27,49 +27,49 @@ struct MatchView: View {
                 if self.vm.match!.id == 0 {
                     Text("An error occured when finding match.")
                 } else {
-                    if horizontalSizeClass == .regular {
-                        VStack {
-                            if vm.loading {
-                                LoadingView()
-                                    .frame(width: 32, height: 32)
-                            }
-                            HStack(spacing: 0) {
-                                ScrollView(showsIndicators: false) {
-                                    LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 160, maximum: .infinity), spacing: 20), count: 2), spacing: 20, content: {
-                                        MatchStatCardView(icon: "calendar", title: "Start Time", label: vm.match!.startTime.convertToTime())
-                                        MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())")
-                                            .colorInvert()
-                                        MatchStatCardView(icon: "rosette", title: "Game Mode", label: "\(vm.fetchGameMode(id: vm.match!.mode).fetchModeName())")
-                                            .colorInvert()
-                                        MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: vm.fetchGameRegion(id: "\(vm.match!.region)"))
-                                    }).padding()
-                                    DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
-                                        .frame(height: 300)
-                                        .padding(.horizontal)
-                                    Divider().padding(.horizontal, 80)
-                                    AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
-                                        .background(Color(.systemBackground))
-                                        .padding(.horizontal)
-                                    
-                                }
-                                Divider().padding(.vertical, 80)
-                                ScrollView(showsIndicators: false) {
-                                    AllTeamPlayerView(match: vm.match!)
-                                        .background(Color(.systemBackground))
-                                        .padding(.horizontal)
-                                }.frame(minWidth: 350, maxWidth: 400)
-                            }
-                        }
-                        .navigationTitle(vm.match!.radiantWin ? LocalizedStringKey("Radiant Win") : LocalizedStringKey("Dire Win"))
-                        .navigationBarTitleDisplayMode(.inline)
-                        .navigationBarItems(trailing: Button(action: {
-                            withAnimation(.linear) {
-                                vm.refresh()
-                            }
-                        }, label: {
-                            Image(systemName: "arrow.clockwise")
-                        }))
-                    } else {
+//                    if horizontalSizeClass == .regular {
+//                        VStack {
+//                            if vm.loading {
+//                                LoadingView()
+//                                    .frame(width: 32, height: 32)
+//                            }
+//                            HStack(spacing: 0) {
+//                                ScrollView(showsIndicators: false) {
+//                                    LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 160, maximum: .infinity), spacing: 20), count: 2), spacing: 20, content: {
+//                                        MatchStatCardView(icon: "calendar", title: "Start Time", label: vm.match!.startTime.convertToTime())
+//                                        MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())")
+//                                            .colorInvert()
+//                                        MatchStatCardView(icon: "rosette", title: "Game Mode", label: "\(vm.fetchGameMode(id: vm.match!.mode).fetchModeName())")
+//                                            .colorInvert()
+//                                        MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: vm.fetchGameRegion(id: "\(vm.match!.region)"))
+//                                    }).padding()
+//                                    DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
+//                                        .frame(height: 300)
+//                                        .padding(.horizontal)
+//                                    Divider().padding(.horizontal, 80)
+//                                    AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
+//                                        .background(Color(.systemBackground))
+//                                        .padding(.horizontal)
+//
+//                                }
+//                                Divider().padding(.vertical, 80)
+//                                ScrollView(showsIndicators: false) {
+//                                    AllTeamPlayerView(match: vm.match!)
+//                                        .background(Color(.systemBackground))
+//                                        .padding(.horizontal)
+//                                }.frame(minWidth: 350, maxWidth: 400)
+//                            }
+//                        }
+//                        .navigationTitle(vm.match!.radiantWin ? LocalizedStringKey("Radiant Win") : LocalizedStringKey("Dire Win"))
+//                        .navigationBarTitleDisplayMode(.inline)
+//                        .navigationBarItems(trailing: Button(action: {
+//                            withAnimation(.linear) {
+//                                vm.refresh()
+//                            }
+//                        }, label: {
+//                            Image(systemName: "arrow.clockwise")
+//                        }))
+//                    } else {
                         ScrollView {
                             if vm.loading {
                                 LoadingView()
@@ -91,22 +91,27 @@ struct MatchView: View {
                                         }.padding(.horizontal)
                                     }
                                 }.padding([.top])
-                                AllTeamPlayerView(match: vm.match!)
-                                AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
+                                HStack(alignment: .top) {
+                                    AllTeamPlayerView(match: vm.match!)
+                                    AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
+                                }
                                 DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
                                     .frame(height: 300)
                             }
                         }
                         .navigationTitle("\(vm.match!.radiantWin ? "Radiant" : "Dire") Win")
                         .navigationBarTitleDisplayMode(.large)
+//                        .refreshable {
+//                            vm.refresh()
+//                        }
                         .navigationBarItems(trailing: Button(action: {
-                            withAnimation(.linear) {
+//                            withAnimation(.linear) {
                                 vm.refresh()
-                            }
+//                            }
                         }, label: {
                             Image(systemName: "arrow.clockwise")
                         }))
-                    }
+//                    }
                 }
             }
         }
@@ -267,7 +272,7 @@ struct ItemView: View {
     }
     
     private func computeURL() -> URL? {
-        guard let item = heroData.fetchItem(id: id) else {
+        guard let item = HeroDatabase.shared.fetchItem(id: id) else {
             return nil
         }
         let url = URL(string: "https://api.opendota.com\(item.img)")

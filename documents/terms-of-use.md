@@ -1,10 +1,8 @@
 # Dota2Armory Terms of Use
 
-## Subscriptions
-Some features of the App require you to purchase a subscription.
-Payment will be charged to your iTunes Account at the confirmation of purchase. Your subscription automatically renews, unless canceled within 24-hours before the end of the current period.
-You can manage and cancel your subscription by going to your account settings on the App Store after purchase.
-Subscription payments are non-refundable.
+## In-App Purchase
+Some features of the App require you to purchase a D2A Pro.
+Payments are non-refundable.
 ## Termination
 We may, in our sole discretion, terminate or suspend your access to all or part of the App at any time, with or without notice, for any reason, including, without limitation, breach of these terms.
 ## Disclaimer

@@ -38,7 +38,7 @@ struct HeroImageView: View {
     }
     
     private func searchHeroImage() -> String {
-        guard let hero = heroData.fetchHeroWithID(id: heroID) else {
+        guard let hero = HeroDatabase.shared.fetchHeroWithID(id: heroID) else {
             return ""
         }
         switch self.type {

@@ -4,12 +4,11 @@
 There might be some issue or bugs in the app. You can submit issues on Github. I will try my best to fix it.
 
 # Info
-Support Version: 
-iOS 14.1+
-iPadOS 14.1+
+* Support Version: 
+iOS 15.0+
+iPadOS 15.0+
 
-Xcode Version:
-12.5.1
+* Xcode Version: 13
 
 # Features
 This application is fully written in SwiftUI.

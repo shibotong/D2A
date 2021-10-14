@@ -34,28 +34,28 @@ struct AnalysisView: View {
             if vm.players == nil {
                 Text("\(vm.selection.localized) is not available").font(.custom(fontString, size: 15)).frame(height: 300).foregroundColor(Color(.tertiaryLabel))
             } else {
-                GeometryReader { proxy in
-                    if proxy.size.width > 400 {
-                        HStack {
-                            VStack {
-                                ForEach(vm.players!.filter {$0.slot < 128}, id:\.heroID) { player in
-                                    PlayerAnalysisRowView(player: player, value: vm.fetchPlayerValue(player: player), percentage: vm.calculatePercentage(player: player))
-                                }
-                            }
-                            VStack {
-                                ForEach(vm.players!.filter {$0.slot >= 128}, id:\.heroID) { player in
-                                    PlayerAnalysisRowView(player: player, value: vm.fetchPlayerValue(player: player), percentage: vm.calculatePercentage(player: player))
-                                }
-                            }
-                        }
-                    } else {
+//                GeometryReader { proxy in
+//                    if proxy.size.width > 400 {
+//                        HStack {
+//                            VStack {
+//                                ForEach(vm.players!.filter {$0.slot < 128}, id:\.heroID) { player in
+//                                    PlayerAnalysisRowView(player: player, value: vm.fetchPlayerValue(player: player), percentage: vm.calculatePercentage(player: player))
+//                                }
+//                            }
+//                            VStack {
+//                                ForEach(vm.players!.filter {$0.slot >= 128}, id:\.heroID) { player in
+//                                    PlayerAnalysisRowView(player: player, value: vm.fetchPlayerValue(player: player), percentage: vm.calculatePercentage(player: player))
+//                                }
+//                            }
+//                        }
+//                    } else {
                         VStack(spacing: 0) {
                             ForEach(vm.players!, id:\.heroID) { player in
                                 PlayerAnalysisRowView(player: player, value: vm.fetchPlayerValue(player: player), percentage: vm.calculatePercentage(player: player))
                             }
                         }
-                    }
-                }.frame(height: 500)
+//                    }
+//                }.frame(height: 500)
             }
         }.padding(20)
     }

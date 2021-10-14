@@ -9,6 +9,7 @@ import Foundation
 import Alamofire
 
 let baseURL = "https://api.opendota.com"
+fileprivate var loading = false
 
 class OpenDotaController {
     
@@ -91,9 +92,9 @@ class OpenDotaController {
             matches.forEach({$0.playerId = Int(userid)})
             print("fetched new matches", matches.count)
             if matches.count > 0 {
-                if allmatches {
-                    try? WCDBController.shared.database.insert(objects: matches, intoTable: "RecentMatch")
-                } else {
+//                if allmatches {
+//                    try? WCDBController.shared.database.insert(objects: matches, intoTable: "RecentMatch")
+//                } else {
                     matches.forEach { match in
                         print("checking match \(match.id)")
                         if let _ = WCDBController.shared.fetchRecentMatch(userid: userid, matchid: match.id) {
@@ -101,7 +102,7 @@ class OpenDotaController {
                         }
                         try? WCDBController.shared.database.insert(objects: [match], intoTable: "RecentMatch")
                     }
-                }
+//                }
             }
             onComplete(true)
         }
