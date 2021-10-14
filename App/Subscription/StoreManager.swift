@@ -7,6 +7,7 @@
 
 import Foundation
 import StoreKit
+import WidgetKit
 
 public enum StoreError: Error {
     case failedVerification
@@ -22,11 +23,11 @@ class StoreManager: NSObject, ObservableObject {
     override init() {
         super.init()
         products = []
+        updateListenerTask = listenForTransactions()
         Task {
             // initializing store
             await self.requestProducts()
         }
-//        self.getPurchaserInfo()
     }
     
     func requestProducts() async {
@@ -47,27 +48,14 @@ class StoreManager: NSObject, ObservableObject {
             //Call this function only in response to an explicit user action, such as tapping a button.
             try? await AppStore.sync()
         }
-//        Purchases.shared.restoreTransactions { purchaserInfo, error in
-//            if let info = purchaserInfo {
-//                self.parsePurchaseInfo(info: info)
-//            }
-//        }
     }
     
     func parsePurchaseInfo(info: Transaction) {
-//        if let active = info.entitlements["D2APlus"]?.isActive {
-//            print("subscription status \(active)")
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "yy-MM-dd hh:mm:ss"
-//            print("expire time \(String(describing: formatter.string(for: info.entitlements["D2APlus"]?.expirationDate)))")
-//            DotaEnvironment.shared.subscriptionStatus = active
-//        } else {
-//            DotaEnvironment.shared.subscriptionStatus = false
-//        }
         DispatchQueue.main.async {
             DotaEnvironment.shared.subscriptionStatus = true
+            WidgetCenter.shared.reloadAllTimelines()
+            print("subscription status \(DotaEnvironment.shared.subscriptionStatus)")
         }
-        
         print("D2A Pro Purchased")
     }
     
