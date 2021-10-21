@@ -104,19 +104,13 @@ struct MatchView: View {
                                     .frame(height: 300)
                             }
                         }
-                        .navigationTitle("\(vm.match!.radiantWin ? "Radiant" : "Dire") Win")
+                        .navigationTitle(vm.match!.radiantWin ? LocalizedStringKey("Radiant Win") : LocalizedStringKey("Dire Win"))
                         .navigationBarTitleDisplayMode(.large)
-//                        .refreshable {
-//                            vm.refresh()
-//                        }
                         .navigationBarItems(trailing: Button(action: {
-//                            withAnimation(.linear) {
-                                vm.refresh()
-//                            }
+                            vm.refresh()
                         }, label: {
                             Image(systemName: "arrow.clockwise")
                         }))
-//                    }
                 }
             }
         }
