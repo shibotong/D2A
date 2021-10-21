@@ -58,16 +58,12 @@ class OpenDotaController {
                 onComplete(false)
                 return
             }
-//            if let _ = WCDBController.shared.fetchMatch(matchid: matchid) {
-//                // if match exist delete it
-//                WCDBController.shared.deleteMatch(matchid: matchid)
-//            }
             try? WCDBController.shared.database.insertOrReplace(objects: [match], intoTable: "Match")
             onComplete(true)
         }
     }
     
-    static func loadRecentMatch(userid: String, days: Double? = nil, allmatches: Bool = false, onComplete: @escaping (Bool) -> ()) {
+    static func loadRecentMatch(userid: String, days: Double? = nil, allmatches: Bool = false, onComplete: @escaping (Double) -> ()) {
         var url = ""
         if days != nil {
             url = "\(baseURL)/api/players/\(userid)/matches/?date=\(days!)"
@@ -83,28 +79,35 @@ class OpenDotaController {
             }
             if statusCode > 400 {
                 DotaEnvironment.shared.exceedLimit = true
-                onComplete(false)
+                onComplete(0.0)
             }
             let decoder = JSONDecoder()
             guard let matches = try? decoder.decode([RecentMatch].self, from: data) else {
                 return
             }
             matches.forEach({$0.playerId = Int(userid)})
-            print("fetched new matches", matches.count)
-            if matches.count > 0 {
-//                if allmatches {
-//                    try? WCDBController.shared.database.insert(objects: matches, intoTable: "RecentMatch")
-//                } else {
-                    matches.forEach { match in
-                        print("checking match \(match.id)")
-                        if let _ = WCDBController.shared.fetchRecentMatch(userid: userid, matchid: match.id) {
-                            WCDBController.shared.deleteRecentMatch(matchid: match.id, userid: Int(userid)!)
+            print("fetched new matches for player \(userid)", matches.count)
+            let queue = DispatchQueue(label: "com.d2a.calculate")
+            queue.async {
+                if matches.count > 0 {
+                    let total = matches.count
+    //                if allmatches {
+    //                    try? WCDBController.shared.database.insert(objects: matches, intoTable: "RecentMatch")
+    //                } else {
+                    var finished = 0
+                        matches.forEach { match in
+    //                        print("checking match \(match.id)")
+                            if let _ = WCDBController.shared.fetchRecentMatch(userid: userid, matchid: match.id) {
+                                WCDBController.shared.deleteRecentMatch(matchid: match.id, userid: Int(userid)!)
+                            }
+                            try? WCDBController.shared.database.insert(objects: [match], intoTable: "RecentMatch")
+                            finished += 1
+                            onComplete(Double(finished) / Double(total))
                         }
-                        try? WCDBController.shared.database.insert(objects: [match], intoTable: "RecentMatch")
-                    }
-//                }
+    //                }
+                }
             }
-            onComplete(true)
+//            onComplete(true)
         }
     }
     

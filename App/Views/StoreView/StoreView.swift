@@ -20,43 +20,22 @@ struct StoreView: View {
             }
             .padding()
             Divider()
-//            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 25) {
-                    Text("Upgrade to D2A Pro")
-                        .font(.custom(fontString, size: 30))
-                        .bold()
-                        .fixedSize(horizontal: false, vertical: true)
-                    Text("Purchase D2A Pro to unlock all features and support us to build a better app.")
-                        .font(.custom(fontString, size: 15))
-                        .foregroundColor(Color(.secondaryLabel))
-                        .fixedSize(horizontal: false, vertical: true)
-                    VStack(alignment: .leading, spacing: 10) {
-                        buildFeature("Unlimit Following Users")
-                        buildFeature("Unlock Widgets")
-                    }
-//                    VStack(alignment: .leading) {
-//                        Text("Select your subscription").bold().font(.custom(fontString, size: 20))
-//                        HStack(spacing: 20) {
-//                            if storeManager.monthlySubscription != nil {
-//                                ProductSubView(product: storeManager.monthlySubscription!.product, monthlyProduct: storeManager.monthlySubscription!.product, selectedProduct: $storeManager.selectedProduct)
-//                            }
-//                            if storeManager.quarterlySubscription != nil {
-//                                ProductSubView(product: storeManager.quarterlySubscription!.product, monthlyProduct: storeManager.monthlySubscription!.product, selectedProduct: $storeManager.selectedProduct)
-//                            }
-//                            if storeManager.annuallySubscription != nil {
-//                                ProductSubView(product: storeManager.annuallySubscription!.product, monthlyProduct: storeManager.monthlySubscription!.product, selectedProduct: $storeManager.selectedProduct)
-//                            }
-//                        }
-//                    }
-                    Spacer()
-                    buildSubscribeButton()
-                    
-//                    buildQuestion(question: "BillQuestion", answer: "BillAnswer")
-//                    buildQuestion(question: "RenewQuestion", answer: "RenewAnswer")
-//                    buildQuestion(question: "CancelQuestion", answer: "CancelAnswer")
-                    
-                }.padding()
-//            }
+            VStack(alignment: .leading, spacing: 25) {
+                Text("Upgrade to D2A Pro")
+                    .font(.custom(fontString, size: 30))
+                    .bold()
+                    .fixedSize(horizontal: false, vertical: true)
+                Text("Purchase D2A Pro to unlock all features and support us to build a better app.")
+                    .font(.custom(fontString, size: 15))
+                    .foregroundColor(Color(.secondaryLabel))
+                    .fixedSize(horizontal: false, vertical: true)
+                VStack(alignment: .leading, spacing: 10) {
+                    buildFeature("Unlimit Following Users")
+                    buildFeature("Unlock Widgets")
+                }
+                Spacer()
+                buildSubscribeButton()
+            }.padding()
         }
     }
     

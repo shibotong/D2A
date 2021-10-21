@@ -14,6 +14,7 @@ class MatchListViewModel: ObservableObject {
     @Published var refreshing = false
     @Published var userid: String?
     @Published var userProfile: UserProfile?
+    @Published var progress: Double = 0.0
     
     init(userid: String?) {
         self.userid = userid
@@ -46,19 +47,24 @@ class MatchListViewModel: ObservableObject {
         if !self.isLoading {
             self.isLoading = true
             OpenDotaController.loadRecentMatch(userid: userid, allmatches: true) { result in
-                if result {
+//                print("currentprogress", result)
+                if result >= 1 {
                     DispatchQueue.main.async {
                         self.isLoading = false
                         self.fetchMoreData()
                     }
                 } else {
-                    self.isLoading = false
+//                    self.isLoading = false
+                    DispatchQueue.main.async {
+                        self.progress = result
+                    }
                 }
             }
         }
     }
     
     func refreshData() {
+        print("refresh data")
         guard let userid = userid else {
             return
         }
@@ -70,13 +76,15 @@ class MatchListViewModel: ObservableObject {
 
                 let dayCount = Double(days.day!) + (Double(days.hour!) / 24.0) + (Double(days.minute!) / 60.0 / 24.0)
                 OpenDotaController.loadRecentMatch(userid: userid, days: dayCount) { result in
-                    if result {
+                    if result >= 1 {
                         DispatchQueue.main.async {
                             self.matches = WCDBController.shared.fetchRecentMatches(userid: userid)
                             self.refreshing = false
                         }
                     } else {
-                        self.refreshing = false
+                        DispatchQueue.main.async {
+                            self.progress = result
+                        }
                     }
                 }
             } else {

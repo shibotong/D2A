@@ -167,7 +167,11 @@ struct PlayerDetailView: View {
                     .overlay(
                         ZStack {
                             Rectangle().stroke()
-                            Text(ability.dname ?? "Unknown").font(.custom(fontString, size: 8)).padding(0.5)
+                            if abilityID == 730 {
+                                Text("Bonus Attributes").font(.custom(fontString, size: 8)).padding(0.5)
+                            } else {
+                                Text(ability.dname ?? "Unknown \(abilityID)").font(.custom(fontString, size: 8)).padding(0.5)
+                            }
                         }
                     )
                 

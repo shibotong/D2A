@@ -3,7 +3,9 @@
     "attrib": [],
     "img": "/apps/dota2/images/dota_react/abilities/dota_base_ability.png"
   },
-  "special_bonus_attributes": {},
+  "special_bonus_attributes": {
+      
+  },
   "ability_capture": {
     "behavior": [
       "Unit Target",

@@ -116,7 +116,6 @@ struct AppActiveWidgetEntryView : View {
             }
         } else {
             VStack {
-                Text("reloadtime: \(entry.date)")
                 Text("Purchase D2APro to unlock Widget").font(.custom(fontString, size: 15)).bold()
                 Text("If you just purchased D2APro, please wait for a while to refresh.").font(.custom(fontString, size: 10))
             }
