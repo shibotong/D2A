@@ -275,6 +275,7 @@ struct ItemView: View {
             return nil
         }
         let url = URL(string: "https://api.opendota.com\(item.img)")
+//        let url = URL(string: "https://steamcdn-a.akamaihd.net\(item.img)")
         return url
     }
 }

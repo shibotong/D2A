@@ -3708,7 +3708,7 @@
       "Passive: Ability UpgradeUpgrades an existing ability or adds a new ability to your hero.."
     ],
     "id": 725,
-    "img": "/apps/dota2/images/items/aghanims_shard_roshan_lg.png?t=1593393829403",
+    "img": "/apps/dota2/images/items/aghanims_shard_lg.png?t=1593393829403",
     "dname": "Aghanim's Shard - Roshan",
     "qual": "rare",
     "cost": 1400,
