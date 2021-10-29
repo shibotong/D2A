@@ -95,7 +95,7 @@ struct PlayerDetailView: View {
         HStack {
             HeroImageView(heroID: player.heroID, type: .icon)
                 .frame(width:30, height: 30)
-            Text(LocalizedStringKey(heroData.fetchHeroWithID(id: player.heroID)!.localizedName)).font(.custom(fontString, size: 30)).bold()
+            Text(LocalizedStringKey(heroData.fetchHeroWithID(id: player.heroID)?.localizedName ?? "Unknown Hero (\(player.heroID))")).font(.custom(fontString, size: 30)).bold()
             Spacer()
         }.padding(.horizontal)
     }

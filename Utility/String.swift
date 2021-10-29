@@ -8,7 +8,7 @@
 import Foundation
 
 let fontString = "Avenir"
-let gameVersion = "7.30"
+let gameVersion = "7.30e"
 let productIDs = ["D2APRO"]//["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnually"]
 let subscriptionIdentifier = "D2APlusSubscription"
 let purchasesAPIKey = "jIuFaPQvgnVKprZdvHLWgHxfaTjQZzIj"

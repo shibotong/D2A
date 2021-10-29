@@ -484,6 +484,7 @@
 		32B36F0226C38821002D427D = {
 			isa = PBXGroup;
 			children = (
+				32B36F4826C39238002D427D /* Utility */,
 				32B36F2E26C38860002D427D /* resources */,
 				327C03432717AE8500DAEC42 /* README.md */,
 				3251C8F126F97C9500C826BD /* Localizable.strings */,
@@ -517,7 +518,6 @@
 				32D1605B26F30B5F00657449 /* Subscription */,
 				32B36F0E26C38821002D427D /* AppApp.swift */,
 				32B36F1026C38821002D427D /* ContentView.swift */,
-				32B36F4826C39238002D427D /* Utility */,
 				32B36F4326C389C3002D427D /* ViewModels */,
 				32B36F3D26C38894002D427D /* Views */,
 				32B36F2B26C3885A002D427D /* extensions */,
@@ -1343,7 +1343,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = AppWidgetExtensionDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidget/Info.plist;
@@ -1370,7 +1370,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = AppWidgetExtensionRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidget/Info.plist;
@@ -1395,7 +1395,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AppWidgetIntentHandler/AppWidgetIntentHandlerDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidgetIntentHandler/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1419,7 +1419,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AppWidgetIntentHandler/AppWidgetIntentHandlerRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidgetIntentHandler/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

@@ -13,9 +13,7 @@ struct HeroListView: View {
         ScrollView {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 100, maximum: 150), spacing: 10, alignment: .leading), count: 3)){
                 ForEach(herodata.fetchAllHeroes()) { hero in
-                   
-                        buildHero(hero: hero)
-                    
+                    buildHero(hero: hero)
                 }
             }
             .padding()
