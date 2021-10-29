@@ -18,7 +18,7 @@ struct MatchListRowView: View {
                 HStack {
                     HeroImageView(heroID: vm.match.heroID, type: .icon)
                         .frame(width: 25, height: 25)
-                    Text(LocalizedStringKey(database.fetchHeroWithID(id: vm.match.heroID)?.localizedName ?? "")).font(.custom(fontString, size: 20, relativeTo: .headline)).bold().lineLimit(1)
+                    Text(LocalizedStringKey(database.fetchHeroWithID(id: vm.match.heroID)?.localizedName ?? "Unknown Hero (\(vm.match.heroID))")).font(.custom(fontString, size: 20, relativeTo: .headline)).bold().lineLimit(1)
                 }
                 Text("\(vm.match.duration.convertToDuration())").font(.custom(fontString, size: 15))//.bold()
                 KDAView(kills: vm.match.kills, deaths: vm.match.deaths, assists: vm.match.assists, size: 15)

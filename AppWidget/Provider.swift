@@ -122,8 +122,8 @@ struct AppActiveWidgetEntryView : View {
         }
     }
     
-    private func gethero(match: RecentMatch) -> Hero {
-        return HeroDatabase.shared.fetchHeroWithID(id: match.heroID)!
+    private func gethero(match: RecentMatch) -> Hero? {
+        return HeroDatabase.shared.fetchHeroWithID(id: match.heroID)
     }
     
     @ViewBuilder private func largeView() -> some View {
@@ -209,7 +209,7 @@ struct AppActiveWidgetEntryView : View {
         case .systemSmall:
             // MARK: small
             VStack {
-                NetworkImage(urlString: "\(baseURL)\(self.gethero(match: match).icon)")
+                NetworkImage(urlString: "\(baseURL)\(self.gethero(match: match)?.icon ?? "")")
                     .frame(width: 20, height: 20)
                 buildWL(win: match.isPlayerWin())
             }
@@ -220,9 +220,9 @@ struct AppActiveWidgetEntryView : View {
             HStack {
                 VStack(alignment: .leading, spacing: 1) {
                     HStack {
-                        HeroImageView(localizedName: self.gethero(match: match).localizedName)
+                        HeroImageView(localizedName: self.gethero(match: match)?.localizedName ?? "")
                             .frame(width: primaryLabelSize, height: primaryLabelSize)
-                        Text(LocalizedStringKey(self.gethero(match: match).localizedName)).font(.custom(fontString, size: primaryLabelSize)).bold()
+                        Text(LocalizedStringKey(self.gethero(match: match)?.localizedName ?? "Unknown (\(match.heroID)")).font(.custom(fontString, size: primaryLabelSize)).bold()
                     }
                     
                     HStack {
@@ -244,9 +244,9 @@ struct AppActiveWidgetEntryView : View {
             HStack {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
-                        HeroImageView(localizedName: self.gethero(match: match).localizedName)
+                        HeroImageView(localizedName: self.gethero(match: match)?.localizedName ?? "")
                             .frame(width: primaryLabelSize, height: primaryLabelSize)
-                        Text(LocalizedStringKey(self.gethero(match: match).localizedName)).font(.custom(fontString, size: primaryLabelSize)).bold()
+                        Text(LocalizedStringKey(self.gethero(match: match)?.localizedName ?? "Unknown Hero \(match.heroID)")).font(.custom(fontString, size: primaryLabelSize)).bold()
                     }
                     HStack {
                         buildWL(win: match.isPlayerWin(), size: secondaryLabelSize)
