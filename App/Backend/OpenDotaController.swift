@@ -66,9 +66,9 @@ class OpenDotaController {
     static func loadRecentMatch(userid: String, days: Double? = nil, allmatches: Bool = false, onComplete: @escaping (Double) -> ()) {
         var url = ""
         if days != nil {
-            url = "\(baseURL)/api/players/\(userid)/matches/?date=\(days!)"
+            url = "\(baseURL)/api/players/\(userid)/matches/?date=\(days!)&&significant=0"
         } else {
-            url = "\(baseURL)/api/players/\(userid)/matches"
+            url = "\(baseURL)/api/players/\(userid)/matches?significant=0"
         }
         AF.request(url).responseJSON { response in
             guard let data = response.data else {

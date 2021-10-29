@@ -233,11 +233,11 @@ struct PlayerRowView: View {
                     HStack(spacing: 3) {
                         Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
                         Text("\(player.gpm)").foregroundColor(Color(.systemOrange))
-                    }.frame(width: 35)
+                    }.frame(width: 40)
                     HStack(spacing: 3) {
                         Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
                         Text("\(player.xpm)").foregroundColor(Color(.systemBlue))
-                    }.frame(width: 35)
+                    }.frame(width: 40)
                     DamageView(maxDamage: maxDamage, playerDamage: player.heroDamage ?? 0)
                 }.font(.custom(fontString, size: 10))
             }.frame(height: 50)
