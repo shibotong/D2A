@@ -27,92 +27,53 @@ struct MatchView: View {
                 if self.vm.match!.id == 0 {
                     Text("An error occured when finding match.")
                 } else {
-//                    if horizontalSizeClass == .regular {
-//                        VStack {
-//                            if vm.loading {
-//                                LoadingView()
-//                                    .frame(width: 32, height: 32)
-//                            }
-//                            HStack(spacing: 0) {
-//                                ScrollView(showsIndicators: false) {
-//                                    LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 160, maximum: .infinity), spacing: 20), count: 2), spacing: 20, content: {
-//                                        MatchStatCardView(icon: "calendar", title: "Start Time", label: vm.match!.startTime.convertToTime())
-//                                        MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())")
-//                                            .colorInvert()
-//                                        MatchStatCardView(icon: "rosette", title: "Game Mode", label: "\(vm.fetchGameMode(id: vm.match!.mode).fetchModeName())")
-//                                            .colorInvert()
-//                                        MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: vm.fetchGameRegion(id: "\(vm.match!.region)"))
-//                                    }).padding()
-//                                    DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
-//                                        .frame(height: 300)
-//                                        .padding(.horizontal)
-//                                    Divider().padding(.horizontal, 80)
-//                                    AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
-//                                        .background(Color(.systemBackground))
-//                                        .padding(.horizontal)
-//
-//                                }
-//                                Divider().padding(.vertical, 80)
-//                                ScrollView(showsIndicators: false) {
-//                                    AllTeamPlayerView(match: vm.match!)
-//                                        .background(Color(.systemBackground))
-//                                        .padding(.horizontal)
-//                                }.frame(minWidth: 350, maxWidth: 400)
-//                            }
-//                        }
-//                        .navigationTitle(vm.match!.radiantWin ? LocalizedStringKey("Radiant Win") : LocalizedStringKey("Dire Win"))
-//                        .navigationBarTitleDisplayMode(.inline)
-//                        .navigationBarItems(trailing: Button(action: {
-//                            withAnimation(.linear) {
-//                                vm.refresh()
-//                            }
-//                        }, label: {
-//                            Image(systemName: "arrow.clockwise")
-//                        }))
-//                    } else {
-                        ScrollView {
-                            if vm.loading {
-                                LoadingView()
-                                    .frame(width: 32, height: 32)
-                            }
-                            VStack(spacing: 10) {
-                                VStack(spacing: 30) {
-                                    ScrollView(.horizontal, showsIndicators: false) {
-                                        HStack(spacing: 15) {
-                                            MatchStatCardView(icon: "calendar", title: "Start Time", label: vm.match!.startTime.convertToTime())
-                                                .frame(width: 140)
-                                            MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())").colorInvert()
-                                                .frame(width: 140)
-                                            MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(data.fetchGameMode(id: vm.match!.mode).fetchModeName()))
-                                                .frame(width: 140)
-                                            MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: vm.fetchGameRegion(id: "\(vm.match!.region)"))
-                                                .colorInvert()
-                                                .frame(width: 140)
-                                        }.padding(.horizontal)
-                                    }
-                                }.padding([.top])
-                                if horizontalSizeClass == .regular {
-                                    HStack(alignment: .top) {
-                                        AllTeamPlayerView(match: vm.match!)
-                                        AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
-                                    }
-                                } else {
-                                    AllTeamPlayerView(match: vm.match!)
-                                    AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
-                                }
-                                DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
-                                    .frame(height: 300)
-                            }
+                    ScrollView {
+                        if vm.loading {
+                            LoadingView()
+                                .frame(width: 32, height: 32)
                         }
-                        .navigationTitle(vm.match!.radiantWin ? LocalizedStringKey("Radiant Win") : LocalizedStringKey("Dire Win"))
-                        .navigationBarTitleDisplayMode(.large)
-                        .navigationBarItems(trailing: Button(action: {
-                            vm.refresh()
-                        }, label: {
-                            Image(systemName: "arrow.clockwise")
-                        }))
+                        buildStack()
+                    }
+                    .navigationTitle(vm.match!.radiantWin ? LocalizedStringKey("Radiant Win") : LocalizedStringKey("Dire Win"))
+                    .navigationBarTitleDisplayMode(.large)
+                    .navigationBarItems(trailing: Button(action: {
+                        vm.refresh()
+                    }, label: {
+                        Image(systemName: "arrow.clockwise")
+                    }))
                 }
             }
+        }
+    }
+    
+    @ViewBuilder private func buildStack() -> some View {
+        VStack(spacing: 10) {
+            VStack(spacing: 30) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 15) {
+                        MatchStatCardView(icon: "calendar", title: "Start Time", label: vm.match!.startTime.convertToTime())
+                            .frame(width: 140)
+                        MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())").colorInvert()
+                            .frame(width: 140)
+                        MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(data.fetchGameMode(id: vm.match!.mode).fetchModeName()))
+                            .frame(width: 140)
+                        MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: vm.fetchGameRegion(id: "\(vm.match!.region)"))
+                            .colorInvert()
+                            .frame(width: 140)
+                    }.padding(.horizontal)
+                }
+            }.padding([.top])
+            if horizontalSizeClass == .regular {
+                HStack(alignment: .top) {
+                    AllTeamPlayerView(match: vm.match!)
+                    AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
+                }
+            } else {
+                AllTeamPlayerView(match: vm.match!)
+                AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
+            }
+            DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
+                .frame(height: 300)
         }
     }
     
@@ -140,11 +101,11 @@ struct MatchStatCardView: View {
 
 struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
-//        NavigationView {
-            MatchView(vm: MatchViewModel())
-//        }
-        .environmentObject(HeroDatabase.shared)
-        .environment(\.locale, .init(identifier: "zh-Hans"))
+        //        NavigationView {
+        MatchView(vm: MatchViewModel())
+        //        }
+            .environmentObject(HeroDatabase.shared)
+            .environment(\.locale, .init(identifier: "zh-Hans"))
         
     }
 }
@@ -275,30 +236,10 @@ struct ItemView: View {
             return nil
         }
         let url = URL(string: "https://api.opendota.com\(item.img)")
-//        let url = URL(string: "https://steamcdn-a.akamaihd.net\(item.img)")
+        //        let url = URL(string: "https://steamcdn-a.akamaihd.net\(item.img)")
         return url
     }
 }
-
-/*
-struct ScoreboardView: View {
-    var match: RecentMatch
-    @Environment(\.presentationMode) var presentationMode
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    var body: some View {
-        VStack(spacing: 20) {
-            Spacer()
-            HStack {
-                Spacer()
-                Text("\(match.fetchMode().fetchModeName()) | \(Int(match.startTime).convertToTime()) | \(Int(match.duration).convertToDuration())").font(.custom(fontString, size: 13))
-            }.foregroundColor(Color(.secondaryLabel))
-        }
-        .padding(.horizontal)
-        .padding(.vertical, 5)
-        .background(Color(match.radiantWin ? .systemGreen : .systemRed).opacity(0.4).ignoresSafeArea())
-    }
-}
- */
 
 struct TeamHeaderView: View {
     var isRadiant: Bool
