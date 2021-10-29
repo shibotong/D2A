@@ -484,6 +484,7 @@
 		32B36F0226C38821002D427D = {
 			isa = PBXGroup;
 			children = (
+				32B36F2E26C38860002D427D /* resources */,
 				327C03432717AE8500DAEC42 /* README.md */,
 				3251C8F126F97C9500C826BD /* Localizable.strings */,
 				3201BC3E26F81EEE00A67505 /* AppWidgetExtensionDebug.entitlements */,
@@ -519,7 +520,6 @@
 				32B36F4826C39238002D427D /* Utility */,
 				32B36F4326C389C3002D427D /* ViewModels */,
 				32B36F3D26C38894002D427D /* Views */,
-				32B36F2E26C38860002D427D /* resources */,
 				32B36F2B26C3885A002D427D /* extensions */,
 				32B36F2226C38852002D427D /* Model */,
 				32B36F1D26C38834002D427D /* Backend */,
