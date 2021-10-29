@@ -58,7 +58,7 @@ struct PlayerDetailView: View {
     @ViewBuilder private func buildAbiltyUpgrade(items: Int) -> some View {
         VStack(alignment: .leading, spacing: 1) {
             Text("Ability Upgrade").font(.custom(fontString, size: 15)).bold().foregroundColor(Color(.systemGray))
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 50)), count: items)) {
+            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50)), count: 6)) {
                 ForEach(0..<player.abilityUpgrade!.count, id: \.self) { index in
                     buildAbility(abilityID: player.abilityUpgrade![index])
                         .overlay(HStack {

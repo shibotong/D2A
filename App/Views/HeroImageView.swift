@@ -9,7 +9,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 enum HeroImageType {
-    case icon, portrait
+    case icon, portrait, full
 }
 
 struct HeroImageView: View {
@@ -18,7 +18,7 @@ struct HeroImageView: View {
     let type: HeroImageType
     
     var body: some View {
-        if type == .icon {
+        if type == .icon || type == .full {
             Image(searchHeroImage())
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -48,6 +48,9 @@ struct HeroImageView: View {
         case .portrait:
             let filename = "\(hero.localizedName)_portrait"
             return filename
+        case .full:
+            let filename = "\(hero.localizedName)_full"
+            return filename
         }
     }
     
@@ -63,6 +66,8 @@ struct HeroImageView: View {
             let name = hero.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
             let url = URL(string: "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/\(name).png")
             return url
+        case .full:
+            return nil
         }
     }
 }

@@ -184,5 +184,8 @@ func loadRegion() -> [String: String]? {
     }
 }
 
+//func loadPatchList() -> [Patch] {
+//    
+//}
 
 

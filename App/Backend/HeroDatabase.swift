@@ -75,4 +75,18 @@ class HeroDatabase: ObservableObject {
         }
         return abilities[abilityName]
     }
+    
+    func fetchAllHeroes() -> [Hero] {
+        var sortedHeroes = [Hero]()
+        for i in 1..<150 {
+            if let hero = heroes["\(i)"] {
+                sortedHeroes.append(hero)
+            }
+        }
+        
+        sortedHeroes.sort { hero1, hero2 in
+            return hero1.localizedName < hero2.localizedName
+        }
+        return sortedHeroes
+    }
 }
