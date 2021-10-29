@@ -18,6 +18,7 @@ struct HeroListView: View {
                     
                 }
             }
+            .padding()
         }
     }
     
