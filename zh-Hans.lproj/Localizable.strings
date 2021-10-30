@@ -117,7 +117,7 @@
 "All Pick" = "全阵营选择";
 "Captains Mode" = "队长模式";
 "Random Draft" = "随机征召";
-"Single Draft" = "Single Draft";
+"Single Draft" = "单一征召";
 "All Random" = "全阵营随机";
 "Intro" = "Intro";
 "Diretide" = "夜魇暗潮";
@@ -136,7 +136,7 @@
 "Death Match" = "死亡比赛";
 "1v1 Mid" = "1v1 Mid";
 "All Draft" = "全阵营选择";
-"Turbo" = "Turbo";
+"Turbo" = "加速模式";
 "Mutation" = "Mutation";
 "Unknown Mode" = "Unknown Mode";
 

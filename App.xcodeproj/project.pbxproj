@@ -61,6 +61,56 @@
 		323ADB38272B91F500253124 /* patch.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1F272B91F500253124 /* patch.json */; };
 		323ADB3B272B979D00253124 /* HeroListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ADB3A272B979D00253124 /* HeroListView.swift */; };
 		323ADB3D272B97D300253124 /* HeroListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ADB3C272B97D300253124 /* HeroListViewModel.swift */; };
+		323ADB58272E03E300253124 /* permanent_buffs.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB16272B91F400253124 /* permanent_buffs.json */; };
+		323ADB59272E03E300253124 /* hero_names.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0F272B91F400253124 /* hero_names.json */; };
+		323ADB5A272E03E300253124 /* heroes.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0A272B91F400253124 /* heroes.json */; };
+		323ADB5B272E03E300253124 /* ancients.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB15272B91F400253124 /* ancients.json */; };
+		323ADB5C272E03E300253124 /* item_colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB07272B91F400253124 /* item_colors.json */; };
+		323ADB5D272E03E300253124 /* hero_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1D272B91F400253124 /* hero_abilities.json */; };
+		323ADB5E272E03E300253124 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1A272B91F400253124 /* countries.json */; };
+		323ADB5F272E03E300253124 /* items.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0C272B91F400253124 /* items.json */; };
+		323ADB60272E03E300253124 /* cluster.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB10272B91F400253124 /* cluster.json */; };
+		323ADB61272E03E300253124 /* patchnotes.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB18272B91F400253124 /* patchnotes.json */; };
+		323ADB62272E03E300253124 /* player_colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB13272B91F400253124 /* player_colors.json */; };
+		323ADB63272E03E300253124 /* item_ids.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1E272B91F400253124 /* item_ids.json */; };
+		323ADB64272E03E300253124 /* aghs_desc.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0E272B91F400253124 /* aghs_desc.json */; };
+		323ADB65272E03E300253124 /* abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0D272B91F400253124 /* abilities.json */; };
+		323ADB66272E03E300253124 /* lobby_type.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0B272B91F400253124 /* lobby_type.json */; };
+		323ADB67272E03E300253124 /* ability_ids.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB08272B91F400253124 /* ability_ids.json */; };
+		323ADB68272E03E300253124 /* skillshots.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1B272B91F400253124 /* skillshots.json */; };
+		323ADB69272E03E300253124 /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB09272B91F400253124 /* game_mode.json */; };
+		323ADB6A272E03E300253124 /* xp_level.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB14272B91F400253124 /* xp_level.json */; };
+		323ADB6B272E03E300253124 /* hero_lore.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1C272B91F400253124 /* hero_lore.json */; };
+		323ADB6C272E03E300253124 /* region.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB17272B91F400253124 /* region.json */; };
+		323ADB6D272E03E300253124 /* patch.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1F272B91F500253124 /* patch.json */; };
+		323ADB6E272E03E300253124 /* order_types.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB12272B91F400253124 /* order_types.json */; };
+		323ADB6F272E03E300253124 /* neutral_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB11272B91F400253124 /* neutral_abilities.json */; };
+		323ADB70272E03E300253124 /* chat_wheel.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB19272B91F400253124 /* chat_wheel.json */; };
+		323ADB89272E03E500253124 /* permanent_buffs.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB16272B91F400253124 /* permanent_buffs.json */; };
+		323ADB8A272E03E500253124 /* hero_names.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0F272B91F400253124 /* hero_names.json */; };
+		323ADB8B272E03E500253124 /* heroes.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0A272B91F400253124 /* heroes.json */; };
+		323ADB8C272E03E500253124 /* ancients.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB15272B91F400253124 /* ancients.json */; };
+		323ADB8D272E03E500253124 /* item_colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB07272B91F400253124 /* item_colors.json */; };
+		323ADB8E272E03E500253124 /* hero_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1D272B91F400253124 /* hero_abilities.json */; };
+		323ADB8F272E03E500253124 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1A272B91F400253124 /* countries.json */; };
+		323ADB90272E03E500253124 /* items.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0C272B91F400253124 /* items.json */; };
+		323ADB91272E03E500253124 /* cluster.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB10272B91F400253124 /* cluster.json */; };
+		323ADB92272E03E500253124 /* patchnotes.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB18272B91F400253124 /* patchnotes.json */; };
+		323ADB93272E03E500253124 /* player_colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB13272B91F400253124 /* player_colors.json */; };
+		323ADB94272E03E500253124 /* item_ids.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1E272B91F400253124 /* item_ids.json */; };
+		323ADB95272E03E500253124 /* aghs_desc.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0E272B91F400253124 /* aghs_desc.json */; };
+		323ADB96272E03E500253124 /* abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0D272B91F400253124 /* abilities.json */; };
+		323ADB97272E03E500253124 /* lobby_type.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0B272B91F400253124 /* lobby_type.json */; };
+		323ADB98272E03E500253124 /* ability_ids.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB08272B91F400253124 /* ability_ids.json */; };
+		323ADB99272E03E500253124 /* skillshots.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1B272B91F400253124 /* skillshots.json */; };
+		323ADB9A272E03E500253124 /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB09272B91F400253124 /* game_mode.json */; };
+		323ADB9B272E03E500253124 /* xp_level.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB14272B91F400253124 /* xp_level.json */; };
+		323ADB9C272E03E500253124 /* hero_lore.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1C272B91F400253124 /* hero_lore.json */; };
+		323ADB9D272E03E500253124 /* region.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB17272B91F400253124 /* region.json */; };
+		323ADB9E272E03E500253124 /* patch.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1F272B91F500253124 /* patch.json */; };
+		323ADB9F272E03E500253124 /* order_types.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB12272B91F400253124 /* order_types.json */; };
+		323ADBA0272E03E500253124 /* neutral_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB11272B91F400253124 /* neutral_abilities.json */; };
+		323ADBA1272E03E500253124 /* chat_wheel.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB19272B91F400253124 /* chat_wheel.json */; };
 		3251C8EF26F97C9500C826BD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3251C8F126F97C9500C826BD /* Localizable.strings */; };
 		3252858F26C949940030F15B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252858E26C949940030F15B /* Date.swift */; };
 		3252859126C9E8040030F15B /* AnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859026C9E8040030F15B /* AnalysisView.swift */; };
@@ -883,11 +933,36 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				323ADB65272E03E300253124 /* abilities.json in Resources */,
+				323ADB6B272E03E300253124 /* hero_lore.json in Resources */,
+				323ADB6C272E03E300253124 /* region.json in Resources */,
+				323ADB66272E03E300253124 /* lobby_type.json in Resources */,
+				323ADB6F272E03E300253124 /* neutral_abilities.json in Resources */,
+				323ADB61272E03E300253124 /* patchnotes.json in Resources */,
+				323ADB68272E03E300253124 /* skillshots.json in Resources */,
+				323ADB6D272E03E300253124 /* patch.json in Resources */,
+				323ADB69272E03E300253124 /* game_mode.json in Resources */,
+				323ADB5B272E03E300253124 /* ancients.json in Resources */,
+				323ADB6E272E03E300253124 /* order_types.json in Resources */,
+				323ADB59272E03E300253124 /* hero_names.json in Resources */,
+				323ADB64272E03E300253124 /* aghs_desc.json in Resources */,
+				323ADB6A272E03E300253124 /* xp_level.json in Resources */,
+				323ADB5F272E03E300253124 /* items.json in Resources */,
+				323ADB58272E03E300253124 /* permanent_buffs.json in Resources */,
 				327A7B8227152387001F964D /* Assets.xcassets in Resources */,
 				32F70AAE26F5803C006E9B05 /* sampleRecentMatch.json in Resources */,
 				32F70AA426F57F7E006E9B05 /* Assets.xcassets in Resources */,
 				32F70B2326F6296C006E9B05 /* sampleMatch.json in Resources */,
+				323ADB60272E03E300253124 /* cluster.json in Resources */,
+				323ADB5A272E03E300253124 /* heroes.json in Resources */,
+				323ADB63272E03E300253124 /* item_ids.json in Resources */,
+				323ADB5C272E03E300253124 /* item_colors.json in Resources */,
+				323ADB5E272E03E300253124 /* countries.json in Resources */,
+				323ADB67272E03E300253124 /* ability_ids.json in Resources */,
+				323ADB62272E03E300253124 /* player_colors.json in Resources */,
 				327A7B802714EE46001F964D /* Localizable.strings in Resources */,
+				323ADB5D272E03E300253124 /* hero_abilities.json in Resources */,
+				323ADB70272E03E300253124 /* chat_wheel.json in Resources */,
 				32F70ADF26F60BDA006E9B05 /* sampleProfile.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -896,11 +971,36 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				323ADB8A272E03E500253124 /* hero_names.json in Resources */,
+				323ADB8B272E03E500253124 /* heroes.json in Resources */,
+				323ADB96272E03E500253124 /* abilities.json in Resources */,
+				323ADB9D272E03E500253124 /* region.json in Resources */,
+				323ADB90272E03E500253124 /* items.json in Resources */,
+				323ADB9B272E03E500253124 /* xp_level.json in Resources */,
+				323ADB97272E03E500253124 /* lobby_type.json in Resources */,
+				323ADB9A272E03E500253124 /* game_mode.json in Resources */,
+				323ADB8D272E03E500253124 /* item_colors.json in Resources */,
 				32F70B2626F62971006E9B05 /* sampleRecentMatch.json in Resources */,
+				323ADB99272E03E500253124 /* skillshots.json in Resources */,
 				327A7B812714EE46001F964D /* Localizable.strings in Resources */,
+				323ADB8C272E03E500253124 /* ancients.json in Resources */,
+				323ADB95272E03E500253124 /* aghs_desc.json in Resources */,
+				323ADB8F272E03E500253124 /* countries.json in Resources */,
+				323ADBA1272E03E500253124 /* chat_wheel.json in Resources */,
+				323ADB93272E03E500253124 /* player_colors.json in Resources */,
+				323ADB9F272E03E500253124 /* order_types.json in Resources */,
+				323ADB9C272E03E500253124 /* hero_lore.json in Resources */,
+				323ADB92272E03E500253124 /* patchnotes.json in Resources */,
+				323ADB9E272E03E500253124 /* patch.json in Resources */,
 				32F70B2426F6296C006E9B05 /* sampleMatch.json in Resources */,
+				323ADB8E272E03E500253124 /* hero_abilities.json in Resources */,
 				32F70B2526F6296F006E9B05 /* sampleProfile.json in Resources */,
 				327A7B8327152388001F964D /* Assets.xcassets in Resources */,
+				323ADBA0272E03E500253124 /* neutral_abilities.json in Resources */,
+				323ADB91272E03E500253124 /* cluster.json in Resources */,
+				323ADB89272E03E500253124 /* permanent_buffs.json in Resources */,
+				323ADB94272E03E500253124 /* item_ids.json in Resources */,
+				323ADB98272E03E500253124 /* ability_ids.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1285,7 +1385,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/AppDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
@@ -1296,7 +1396,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1314,7 +1414,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/AppRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
@@ -1325,7 +1425,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1343,7 +1443,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = AppWidgetExtensionDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidget/Info.plist;
@@ -1353,7 +1453,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.AppWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1370,7 +1470,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = AppWidgetExtensionRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidget/Info.plist;
@@ -1380,7 +1480,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.AppWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1395,7 +1495,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AppWidgetIntentHandler/AppWidgetIntentHandlerDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidgetIntentHandler/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1404,7 +1504,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.AppWidgetIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1419,7 +1519,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AppWidgetIntentHandler/AppWidgetIntentHandlerRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidgetIntentHandler/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1428,7 +1528,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.AppWidgetIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
