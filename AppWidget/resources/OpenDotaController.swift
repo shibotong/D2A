@@ -12,7 +12,7 @@ let baseURL = "https://api.opendota.com"
 
 class OpenDotaController {
     static func loadRecentMatch(id: String, completion: @escaping ([RecentMatch]) -> Void) {
-        let matchURL = "\(baseURL)/api/players/\(id)/matches/?limit=5"
+        let matchURL = "\(baseURL)/api/players/\(id)/matches/?limit=5&&significant=0"
         
         AF.request(matchURL).responseJSON { response in
             guard let data = response.data else {

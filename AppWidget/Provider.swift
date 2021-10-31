@@ -23,12 +23,12 @@ struct Provider: IntentTimelineProvider {
     func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         let user = user(for: configuration)
         guard let firstUser = DotaEnvironment.shared.userIDs.first else {
-            let entry = SimpleEntry(date: Date(), matches: [], user: user, subscription: true)
+            let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: user, subscription: true)
             completion(entry)
             return
         }
         guard let profile = WCDBController.shared.fetchUserProfile(userid: firstUser) else {
-            let entry = SimpleEntry(date: Date(), matches: [], user: user, subscription: true)
+            let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: user, subscription: true)
             completion(entry)
             return
         }
@@ -53,14 +53,14 @@ struct Provider: IntentTimelineProvider {
                 }
             } else {
                 guard let firstUser = DotaEnvironment.shared.userIDs.first else {
-                    let entry = SimpleEntry(date: Date(), matches: [], user: selectedProfile, subscription: status)
+                    let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: selectedProfile, subscription: status)
                     let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
                     let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
                     completion(timeline)
                     return
                 }
                 guard let profile = WCDBController.shared.fetchUserProfile(userid: firstUser) else {
-                    let entry = SimpleEntry(date: Date(), matches: [], user: selectedProfile, subscription: status)
+                    let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: selectedProfile, subscription: status)
                     let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
                     let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
                     completion(timeline)
@@ -74,7 +74,7 @@ struct Provider: IntentTimelineProvider {
                 }
             }
         } else {
-            let entry = SimpleEntry(date: Date(), matches: [], user: UserProfile.empty, subscription: status)
+            let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: UserProfile.empty, subscription: status)
             let timeline = Timeline(entries: [entry], policy: .never)
             completion(timeline)
         }
@@ -97,28 +97,23 @@ struct AppActiveWidgetEntryView : View {
     var entry: Provider.Entry
     @Environment(\.widgetFamily) var family
     
+    private let purchaseTitle = "D2A Pro"
+    private let purchaseSubTitle = "Purchase D2APro to unlock Widget"
+    
+    private let selectUserTitle = "No Profile"
+    private let selectUserSubTitle = "Please select a Profile"
+
     @ViewBuilder
     var body: some View {
-        if entry.subscription {
-            if entry.user.id == 0 {
-                Text("Select a player").font(.custom(fontString, size: 15))
-            } else {
-                switch family {
-                case .systemSmall:
-                    smallView()
-                case .systemMedium:
-                    mediumView()
-                case .systemLarge:
-                    largeView()
-                default:
-                    Text("Not this type of view")
-                }
-            }
-        } else {
-            VStack {
-                Text("Purchase D2APro to unlock Widget").font(.custom(fontString, size: 15)).bold()
-                Text("If you just purchased D2APro, please wait for a while to refresh.").font(.custom(fontString, size: 10))
-            }
+        switch family {
+        case .systemSmall:
+            smallView()
+        case .systemMedium:
+            mediumView()
+        case .systemLarge:
+            largeView()
+        default:
+            Text("Not this type of view")
         }
     }
     
@@ -126,81 +121,154 @@ struct AppActiveWidgetEntryView : View {
         return HeroDatabase.shared.fetchHeroWithID(id: match.heroID)
     }
     
+    @ViewBuilder private func buildPurchase() -> some View {
+        Text(purchaseSubTitle)
+    }
+    
     @ViewBuilder private func largeView() -> some View {
-        VStack(spacing: 5) {
-            Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)")!) {
+        if entry.user.id != 0 && entry.subscription {
+            VStack(spacing: 5) {
+                Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)")!) {
+                    HStack {
+                        NetworkImage(urlString: entry.user.avatarfull).frame(width: 20, height: 20).clipShape(Circle())
+                        Text("\(entry.user.personaname)").font(.custom(fontString, size: 13)).bold()
+                        Spacer()
+                    }
+                }
+                buildMatches()
+            }.padding()
+        } else {
+            VStack(spacing: 5) {
                 HStack {
-                    NetworkImage(urlString: entry.user.avatarfull).frame(width: 20, height: 20).clipShape(Circle())
-                    Text("\(entry.user.personaname)").font(.custom(fontString, size: 13)).bold()
+                    buildEmptyIcon(icon: entry.subscription ? "person" : "cart", size: 20)
+                    Text(entry.subscription ? selectUserTitle : purchaseTitle).font(.custom(fontString, size: 13)).bold()
                     Spacer()
                 }
-            }
-            Divider()
-            if let match = entry.matches.first {
-                Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
-                    buildMatch(match: match)
-                }
-            }
-            Divider()
-            if let match = entry.matches[1] {
-                Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
-                    buildMatch(match: match)
-                }
-            }
-            Divider()
-            if let match = entry.matches[2] {
-                Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
-                    buildMatch(match: match)
-                }
-            }
-            Divider()
-            if let match = entry.matches[3] {
-                Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
-                    buildMatch(match: match)
-                }
-            }
-        }.padding()
+                buildMatches()
+            }.padding()
+        }
     }
     
     @ViewBuilder private func mediumView() -> some View {
-        VStack(spacing: 5) {
-            Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)")!) {
+        if entry.user.id != 0 && entry.subscription {
+            VStack(spacing: 5) {
+                Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)")!) {
+                    HStack {
+                        NetworkImage(urlString: entry.user.avatarfull).frame(width: 20, height: 20).clipShape(Circle())
+                        Text("\(entry.user.personaname)").font(.custom(fontString, size: 13)).bold()
+                        Spacer()
+                    }
+                }
+                buildMatches()
+            }.padding()
+        } else {
+            VStack(spacing: 5) {
                 HStack {
-                    NetworkImage(urlString: entry.user.avatarfull).frame(width: 20, height: 20).clipShape(Circle())
-                    Text("\(entry.user.personaname)").font(.custom(fontString, size: 13)).bold()
+                    buildEmptyIcon(icon: entry.subscription ? "person" : "cart", size: 20)
+                    Text(entry.subscription ? selectUserTitle : purchaseTitle).font(.custom(fontString, size: 13)).bold()
                     Spacer()
                 }
-            }
-            Divider()
-            if let match = entry.matches.first {
-                Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
-                    buildMatch(match: match)
-                }
-            }
-            Divider()
-            if let match = entry.matches[1] {
-                Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
-                    buildMatch(match: match)
-                }
-            }
-        }.padding()
+                buildMatches()
+            }.padding()
+        }
     }
     
     @ViewBuilder private func smallView() -> some View {
-        ZStack {
-            NetworkImage(urlString: entry.user.avatarfull).blur(radius: 25)
+        if entry.user.id != 0 && entry.subscription  {
+            ZStack {
+                NetworkImage(urlString: entry.user.avatarfull).blur(radius: 25)
+                VStack {
+                    VStack {
+                        NetworkImage(urlString: entry.user.avatarfull).frame(width: 40, height: 40).clipShape(Circle())
+                        Text("\(entry.user.personaname)").font(.custom(fontString, size: 13))
+                    }
+                    buildMatches()
+                }.padding()
+            }
+        } else {
             VStack {
                 VStack {
-                    NetworkImage(urlString: entry.user.avatarfull).frame(width: 40, height: 40).clipShape(Circle())
-                    Text("\(entry.user.personaname)").font(.custom(fontString, size: 13))
+                    buildEmptyIcon(icon: entry.subscription ? "person" : "cart", size: 40)
+                    Text(entry.subscription ? selectUserTitle : purchaseTitle).font(.custom(fontString, size: 13)).bold()
                 }
+                buildMatches()
+            }.padding()
+        }
+    }
+    
+    @ViewBuilder private func buildMatches() -> some View {
+        ZStack {
+            switch family {
+            case .systemSmall:
                 HStack {
                     ForEach(entry.matches, id:\.id) { match in
                         buildMatch(match: match)
                     }
                 }
-            }.padding()
+                .blur(radius: (entry.subscription && entry.user.id != 0) ? 0 : 10)
+//                .overlay(Text(entry.subscription ? selectUserSubTitle : purchaseSubTitle)).font(.custom(fontString, size: 10).bold())
+            case .systemMedium:
+                VStack(spacing: 5) {
+                    Divider()
+                    if let match = entry.matches.first {
+                        Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
+                            buildMatch(match: match)
+                        }
+                        .disabled(entry.subscription && entry.user.id != 0)
+                    }
+                    Divider()
+                    if let match = entry.matches[1] {
+                        Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
+                            buildMatch(match: match)
+                        }
+                        .disabled(entry.subscription && entry.user.id != 0)
+                    }
+                }
+                .blur(radius: (entry.subscription && entry.user.id != 0) ? 0 : 10)
+//                .overlay(Text(entry.subscription ? selectUserSubTitle : purchaseSubTitle)).font(.custom(fontString, size: 20).bold())
+            case .systemLarge:
+                VStack(spacing: 5) {
+                    Divider()
+                    if let match = entry.matches.first {
+                        Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
+                            buildMatch(match: match)
+                        }.disabled(entry.subscription && entry.user.id != 0)
+                    }
+                    Divider()
+                    if let match = entry.matches[1] {
+                        Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
+                            buildMatch(match: match)
+                        }.disabled(entry.subscription && entry.user.id != 0)
+                    }
+                    Divider()
+                    if let match = entry.matches[2] {
+                        Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
+                            buildMatch(match: match)
+                        }.disabled(entry.subscription && entry.user.id != 0)
+                    }
+                    Divider()
+                    if let match = entry.matches[3] {
+                        Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
+                            buildMatch(match: match)
+                        }.disabled(entry.subscription && entry.user.id != 0)
+                    }
+                }
+                .blur(radius: (entry.subscription && entry.user.id != 0) ? 0 : 10)
+            default:
+                Spacer()
+            }
+            Text(entry.subscription ? selectUserSubTitle : purchaseSubTitle)
+                .font(.custom(fontString, size: 10))
+                .opacity((entry.subscription && entry.user.id != 0) ? 0 : 1)
         }
+    }
+    
+    @ViewBuilder private func buildEmptyIcon(icon: String, size: CGFloat) -> some View {
+        ZStack {
+            Circle().foregroundColor(Color.primaryDota)
+            Image(systemName: icon).resizable().scaledToFit().padding(size / 4.0)
+                .foregroundColor(.white)
+        }.frame(width: size, height: size)
     }
     
     // MARK: - Build Match
@@ -275,6 +343,17 @@ struct AppActiveWidgetEntryView : View {
             Rectangle().foregroundColor(win ? Color(.systemGreen) : Color(.systemRed))
                 .frame(width: size, height: size)
             Text("\(win ? "W" : "L")").font(.custom(fontString, size: 10)).bold().foregroundColor(.white)
+        }
+    }
+}
+
+struct AppWidget_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            AppActiveWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: SteamProfile.sample.profile, subscription: false))
+                .previewContext(WidgetPreviewContext(family: .systemSmall))
+            AppActiveWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: SteamProfile.sample.profile, subscription: false))
+                .previewContext(WidgetPreviewContext(family: .systemMedium))
         }
     }
 }
