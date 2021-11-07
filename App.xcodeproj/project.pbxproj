@@ -135,7 +135,6 @@
 		327C03422716ABEF00DAEC42 /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033F2716AB6E00DAEC42 /* HeroImageView.swift */; };
 		327C03442717AE8500DAEC42 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 327C03432717AE8500DAEC42 /* README.md */; };
 		32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0726C4EFF1008D3CC8 /* Int.swift */; };
-		32897B0E26C7A703008D3CC8 /* ItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0D26C7A703008D3CC8 /* ItemViewModel.swift */; };
 		32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */; };
 		3294463826E1A530006E0D06 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294463726E1A530006E0D06 /* ProfileView.swift */; };
 		3294463A26E1A5A5006E0D06 /* sampleProfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 3294463926E1A5A5006E0D06 /* sampleProfile.json */; };
@@ -146,7 +145,6 @@
 		32B36F1126C38821002D427D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F1026C38821002D427D /* ContentView.swift */; };
 		32B36F1326C38822002D427D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1226C38822002D427D /* Assets.xcassets */; };
 		32B36F1626C38822002D427D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1526C38822002D427D /* Preview Assets.xcassets */; };
-		32B36F2126C38849002D427D /* ItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F1F26C38849002D427D /* ItemController.swift */; };
 		32B36F2726C38852002D427D /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2326C38852002D427D /* Hero.swift */; };
 		32B36F2926C38852002D427D /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2526C38852002D427D /* Match.swift */; };
 		32B36F2A26C38852002D427D /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2626C38852002D427D /* Item.swift */; };
@@ -167,7 +165,7 @@
 		32F70A9F26F57F7E006E9B05 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1606C26F4EE1500657449 /* SwiftUI.framework */; };
 		32F70AA226F57F7E006E9B05 /* AppWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AA126F57F7E006E9B05 /* AppWidget.swift */; };
 		32F70AA426F57F7E006E9B05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32F70AA326F57F7E006E9B05 /* Assets.xcassets */; };
-		32F70AA826F57F7E006E9B05 /* AppWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32F70A9D26F57F7E006E9B05 /* AppWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		32F70AA826F57F7E006E9B05 /* AppWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32F70A9D26F57F7E006E9B05 /* AppWidgetExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		32F70AAC26F58006006E9B05 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893926CD456400DF67F9 /* RecentMatch.swift */; };
 		32F70AAE26F5803C006E9B05 /* sampleRecentMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 327772AC26D8BD47000A0A97 /* sampleRecentMatch.json */; };
 		32F70AB326F580DA006E9B05 /* ReadDataWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AB126F580D6006E9B05 /* ReadDataWidget.swift */; };
@@ -185,7 +183,7 @@
 		32F70ADF26F60BDA006E9B05 /* sampleProfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 3294463926E1A5A5006E0D06 /* sampleProfile.json */; };
 		32F70AE826F61836006E9B05 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F70AE726F61836006E9B05 /* Intents.framework */; };
 		32F70AEB26F61836006E9B05 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AEA26F61836006E9B05 /* IntentHandler.swift */; };
-		32F70AEF26F61836006E9B05 /* AppWidgetIntentHandler.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32F70AE626F61836006E9B05 /* AppWidgetIntentHandler.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		32F70AEF26F61836006E9B05 /* AppWidgetIntentHandler.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32F70AE626F61836006E9B05 /* AppWidgetIntentHandler.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		32F70AF626F61A92006E9B05 /* DotaEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AF526F61A92006E9B05 /* DotaEnvironment.swift */; };
 		32F70AFC26F61E52006E9B05 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893526CD438700DF67F9 /* UserProfile.swift */; };
 		32F70B0226F621ED006E9B05 /* AppWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AA126F57F7E006E9B05 /* AppWidget.swift */; };
@@ -332,7 +330,6 @@
 		327C033F2716AB6E00DAEC42 /* HeroImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageView.swift; sourceTree = "<group>"; };
 		327C03432717AE8500DAEC42 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		32897B0726C4EFF1008D3CC8 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
-		32897B0D26C7A703008D3CC8 /* ItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewModel.swift; sourceTree = "<group>"; };
 		32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageView.swift; sourceTree = "<group>"; };
 		3294463726E1A530006E0D06 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		3294463926E1A5A5006E0D06 /* sampleProfile.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleProfile.json; sourceTree = "<group>"; };
@@ -345,7 +342,6 @@
 		32B36F1226C38822002D427D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32B36F1526C38822002D427D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		32B36F1726C38822002D427D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		32B36F1F26C38849002D427D /* ItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemController.swift; sourceTree = "<group>"; };
 		32B36F2326C38852002D427D /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 		32B36F2526C38852002D427D /* Match.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		32B36F2626C38852002D427D /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -594,7 +590,6 @@
 			isa = PBXGroup;
 			children = (
 				329849F326DCAEAE00A1032C /* HeroDatabase.swift */,
-				32B36F1F26C38849002D427D /* ItemController.swift */,
 				322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */,
 				32B36F4B26C39C5D002D427D /* Environment.swift */,
 				322B893326CD425300DF67F9 /* WCDBController.swift */,
@@ -662,7 +657,6 @@
 			children = (
 				322B88FF26CCD2EA00DF67F9 /* MatchListViewModel.swift */,
 				325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */,
-				32897B0D26C7A703008D3CC8 /* ItemViewModel.swift */,
 				3252859626CB81480030F15B /* DifferenceGraphViewModel.swift */,
 				3252859F26CBB67C0030F15B /* SidebarRowViewModel.swift */,
 				322B893B26CD560100DF67F9 /* MatchViewModel.swift */,
@@ -1136,7 +1130,6 @@
 				322B89C526CFAC1000DF67F9 /* AddAccountView.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
 				32F70B3626F72D74006E9B05 /* ProductSubView.swift in Sources */,
-				32B36F2126C38849002D427D /* ItemController.swift in Sources */,
 				32B36F0F26C38821002D427D /* AppApp.swift in Sources */,
 				323ADB3D272B97D300253124 /* HeroListViewModel.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
@@ -1145,7 +1138,6 @@
 				32B36F2926C38852002D427D /* Match.swift in Sources */,
 				32D1605A26F304DC00657449 /* StoreView.swift in Sources */,
 				3201BC3F26F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
-				32897B0E26C7A703008D3CC8 /* ItemViewModel.swift in Sources */,
 				32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */,
 				3252859E26CB9FDC0030F15B /* Sidebar.swift in Sources */,
 				3294463826E1A530006E0D06 /* ProfileView.swift in Sources */,
@@ -1226,11 +1218,13 @@
 /* Begin PBXTargetDependency section */
 		32F70AA726F57F7E006E9B05 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = 32F70A9C26F57F7E006E9B05 /* AppWidgetExtension */;
 			targetProxy = 32F70AA626F57F7E006E9B05 /* PBXContainerItemProxy */;
 		};
 		32F70AEE26F61836006E9B05 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = 32F70AE526F61836006E9B05 /* AppWidgetIntentHandler */;
 			targetProxy = 32F70AED26F61836006E9B05 /* PBXContainerItemProxy */;
 		};
@@ -1401,6 +1395,7 @@
 				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1431,6 +1426,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Osize";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1459,6 +1455,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.AppWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1486,6 +1483,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.AppWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1510,6 +1508,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.AppWidgetIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1534,6 +1533,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.AppWidgetIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -91,39 +91,17 @@ class OpenDotaController {
             queue.async {
                 if matches.count > 0 {
                     let total = matches.count
-    //                if allmatches {
-    //                    try? WCDBController.shared.database.insert(objects: matches, intoTable: "RecentMatch")
-    //                } else {
                     var finished = 0
-                        matches.forEach { match in
-    //                        print("checking match \(match.id)")
-                            if let _ = WCDBController.shared.fetchRecentMatch(userid: userid, matchid: match.id) {
-                                WCDBController.shared.deleteRecentMatch(matchid: match.id, userid: Int(userid)!)
-                            }
-                            try? WCDBController.shared.database.insert(objects: [match], intoTable: "RecentMatch")
-                            finished += 1
-                            onComplete(Double(finished) / Double(total))
+                    matches.forEach { match in
+                        if let _ = WCDBController.shared.fetchRecentMatch(userid: userid, matchid: match.id) {
+                            WCDBController.shared.deleteRecentMatch(matchid: match.id, userid: Int(userid)!)
                         }
-    //                }
+                        try? WCDBController.shared.database.insert(objects: [match], intoTable: "RecentMatch")
+                        finished += 1
+                        onComplete(Double(finished) / Double(total))
+                    }
                 }
             }
-//            onComplete(true)
-        }
-    }
-    
-    static func loadItemImg(url: String, onCompletion: @escaping (Data) -> ()) {
-        let url = "\(baseURL)\(url)"
-        AF.request(url).responseData { response in
-            guard let data = response.data else {
-                return
-            }
-            guard let statusCode = response.response?.statusCode else {
-                return
-            }
-            if statusCode > 400 {
-                DotaEnvironment.shared.exceedLimit = true
-            }
-            onCompletion(data)
         }
     }
     

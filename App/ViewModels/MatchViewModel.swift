@@ -31,7 +31,6 @@ class MatchViewModel: ObservableObject {
             return
         }
         self.match = match
-
     }
     
     func loadNewMatch() {

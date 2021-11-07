@@ -11,7 +11,7 @@ import Intents
 //import App
 
 struct Provider: IntentTimelineProvider {
-    
+    // Intent configuration of the widget
     typealias Intent = DynamicUserSelectionIntent
     
     public typealias Entry = SimpleEntry

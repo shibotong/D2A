@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+//import SDWebImageSwiftUI
 
 struct MatchView: View {
     @EnvironmentObject var env: DotaEnvironment
@@ -217,18 +217,24 @@ struct ItemView: View {
     @EnvironmentObject var heroData: HeroDatabase
     var id: Int
     var body: some View {
-        if computeURL() == nil {
+//        if computeURL() == nil {
+//            Image("empty_item").resizable()
+//        } else {
+//            WebImage(url: computeURL())
+//                .resizable()
+//                .renderingMode(.original)
+//                .indicator(.init(content: { _, _ in
+//                    Image("empty_item")
+//                        .resizable()
+//                }))
+//                .transition(.fade)
+//        }
+        AsyncImage(url: computeURL()) { image in
+            image.resizable().renderingMode(.original)
+        } placeholder: {
             Image("empty_item").resizable()
-        } else {
-            WebImage(url: computeURL())
-                .resizable()
-                .renderingMode(.original)
-                .indicator(.init(content: { _, _ in
-                    Image("empty_item")
-                        .resizable()
-                }))
-                .transition(.fade)
         }
+        
     }
     
     private func computeURL() -> URL? {
