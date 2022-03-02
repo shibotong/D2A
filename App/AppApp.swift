@@ -15,7 +15,6 @@ struct AppApp: App {
     @StateObject var storeManager: StoreManager = StoreManager.shared
     @AppStorage("selectedMatch") var selectedMatch: String?
     @AppStorage("selectedUser") var selectedUser: String?
-//    @State private var selectedUser: String = ""
     var body: some Scene {
         WindowGroup {
             ContentView()

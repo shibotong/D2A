@@ -7,11 +7,57 @@
 
 import Foundation
 import Alamofire
+import WidgetKit
 
 let baseURL = "https://api.opendota.com"
 fileprivate var loading = false
 
 class OpenDotaController {
+    
+    static let shared = OpenDotaController()
+    
+    func searchUserByID(userid: String) async -> UserProfile? {
+        let url = URL(string: "\(baseURL)/api/players/\(userid)")!
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let decoder = JSONDecoder()
+            let user = try decoder.decode(SteamProfile.self, from: data)
+            var userProfile = user.profile
+            userProfile.rank = user.rank
+            return userProfile
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    func searchUserByText(text: String) async -> [UserProfile] {
+        let trimText = text.replacingOccurrences(of: " ", with: "%20")
+        let urlString = "\(baseURL)/api/search/?q=\(trimText)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let url = URL(string: urlString)
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url!)
+            let decoder = JSONDecoder()
+            let users = try decoder.decode([UserProfile].self, from: data)
+            return users
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+    
+    func getRecentMatches(userid: String) async -> [RecentMatch] {
+        let url = URL(string: "\(baseURL)/api/players/\(userid)/recentMatches")
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url!)
+            let decoder = JSONDecoder()
+            let recentMatches = try decoder.decode([RecentMatch].self, from: data)
+            return recentMatches
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
     
     static func loadUserData(userid: String, onCompletion: @escaping (SteamProfile?) -> ()) {
         let url = "\(baseURL)/api/players/\(userid)"
@@ -63,46 +109,30 @@ class OpenDotaController {
         }
     }
     
-    static func loadRecentMatch(userid: String, days: Double? = nil, allmatches: Bool = false, onComplete: @escaping (Double) -> ()) {
-        var url = ""
+    func loadRecentMatch(userid: String, days: Double? = nil) async -> [RecentMatch] {
+        var urlString = ""
         if days != nil {
-            url = "\(baseURL)/api/players/\(userid)/matches/?date=\(days!)&&significant=0"
+            urlString = "\(baseURL)/api/players/\(userid)/matches/?date=\(days!)&&significant=0"
         } else {
-            url = "\(baseURL)/api/players/\(userid)/matches?significant=0"
+            urlString = "\(baseURL)/api/players/\(userid)/matches?significant=0"
         }
-        AF.request(url).responseJSON { response in
-            guard let data = response.data else {
-                return
-            }
-            guard let statusCode = response.response?.statusCode else {
-                return
-            }
-            if statusCode > 400 {
-                DotaEnvironment.shared.exceedLimit = true
-                onComplete(0.0)
-            }
+        guard let url = URL(string: urlString) else {
+            return []
+        }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
             let decoder = JSONDecoder()
             guard let matches = try? decoder.decode([RecentMatch].self, from: data) else {
-                return
+                return []
             }
             matches.forEach({$0.playerId = Int(userid)})
+            try WCDBController.shared.database.insertOrReplace(objects: matches, intoTable: "RecentMatch")
             print("fetched new matches for player \(userid)", matches.count)
-            let queue = DispatchQueue(label: "com.d2a.calculate")
-            queue.async {
-                if matches.count > 0 {
-                    let total = matches.count
-                    var finished = 0
-                    matches.forEach { match in
-                        if let _ = WCDBController.shared.fetchRecentMatch(userid: userid, matchid: match.id) {
-                            WCDBController.shared.deleteRecentMatch(matchid: match.id, userid: Int(userid)!)
-                        }
-                        try? WCDBController.shared.database.insert(objects: [match], intoTable: "RecentMatch")
-                        finished += 1
-                        onComplete(Double(finished) / Double(total))
-                    }
-                }
-            }
+            return matches.count >= 50 ? Array(matches[0..<50]) : matches
+        } catch {
+            return []
         }
+        
     }
     
     static func loadHeroPortrait(url: String, onCompletion: @escaping (Data) -> ()) {

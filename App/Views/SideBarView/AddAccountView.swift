@@ -18,40 +18,36 @@ struct AddAccountView: View, Equatable {
                 HStack {
                     HStack {
                         Image(systemName: "magnifyingglass")
-                        TextField("Dota2 ID", text: $vm.userid)
+                        TextField("Dota2 ID or username", text: $vm.userid)
                             .keyboardType(.numberPad)
                             
                     }
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 15).stroke(Color.primaryDota))
                     Button(action: {
-                        vm.searched = true
-                        vm.searchUserId = vm.userid
+                        Task {
+                            await vm.search()
+                        }
+//                        vm.searched = true
+//                        vm.searchUserId = vm.userid
                     }) {
                         Text("Search").foregroundColor(.white).bold()
                     }
                     .keyboardShortcut(.defaultAction)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 15).foregroundColor(Color.primaryDota))
-                }
-//                HStack {
-//                    Spacer()
-//                    NavigationLink(destination: Text("Still Building....")) {
-//                        Text("How to find my Dota2 ID?")
-//                    }
-//                }
+                }.padding(.horizontal)
                 if vm.searched {
-                    VStack {
-                        ProfileView(vm: ProfileViewModel(id: vm.searchUserId), presentState: presentationMode).equatable()
-                        Spacer()
-                    }
+                    List(vm.userProfiles) { profile in 
+                        ProfileView(vm: ProfileViewModel(profile: profile), presentState: presentationMode).equatable()
+                    }.listStyle(.plain)
                 } else {
                     Spacer()
                 }
             }
             
             .font(.custom(fontString, size: 15))
-            .padding()
+            .padding(.vertical)
             .navigationTitle("Search Dota2 Profile")
         }
     }

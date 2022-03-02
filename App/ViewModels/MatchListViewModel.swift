@@ -24,7 +24,7 @@ class MatchListViewModel: ObservableObject {
         }
         let profile = WCDBController.shared.fetchUserProfile(userid: userid)
         self.userProfile = profile
-        self.refreshData()
+        self.loadMatchData()
     }
     
     init() {
@@ -40,56 +40,33 @@ class MatchListViewModel: ObservableObject {
         self.matches.append(contentsOf: matches)
     }
     
-    func fetchAllData() {
+    func loadMatchData() {
         guard let userid = userid else {
             return
         }
-        if !self.isLoading {
-            self.isLoading = true
-            OpenDotaController.loadRecentMatch(userid: userid, allmatches: true) { result in
-//                print("currentprogress", result)
-                if result >= 1 {
-                    DispatchQueue.main.async {
-                        self.isLoading = false
-                        self.fetchMoreData()
-                    }
-                } else {
-//                    self.isLoading = false
-                    DispatchQueue.main.async {
-                        self.progress = result
-                    }
-                }
-            }
+        let matches = WCDBController.shared.fetchRecentMatches(userid: userid)
+        self.matches = matches
+    }
+    
+    func refreshData() async {
+        guard let userid = userid else {
+            return
+        }
+        if let firstMatch = WCDBController.shared.fetchRecentMatches(userid: userid).first {
+            // have previous data
+            let today = Date()
+            let days = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(timeIntervalSince1970: TimeInterval(firstMatch.startTime)), to: today)
+            let dayCount = Double(days.day!) + (Double(days.hour!) / 24.0) + (Double(days.minute!) / 60.0 / 24.0)
+            let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid, days: dayCount)
+            await addMatches(matches)
+        } else {
+            let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid)
+            await addMatches(matches)
         }
     }
     
-    func refreshData() {
-        print("refresh data")
-        guard let userid = userid else {
-            return
-        }
-        if !self.refreshing && !self.isLoading {
-            self.refreshing = true
-            if let firstMatch = self.matches.first {
-                let today = Date()
-                let days = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(timeIntervalSince1970: TimeInterval(firstMatch.startTime)), to: today)
-
-                let dayCount = Double(days.day!) + (Double(days.hour!) / 24.0) + (Double(days.minute!) / 60.0 / 24.0)
-                OpenDotaController.loadRecentMatch(userid: userid, days: dayCount) { result in
-                    if result >= 1 {
-                        DispatchQueue.main.async {
-                            self.matches = WCDBController.shared.fetchRecentMatches(userid: userid)
-                            self.refreshing = false
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            self.progress = result
-                        }
-                    }
-                }
-            } else {
-                self.refreshing = false
-            }
-        }
+    @MainActor private func addMatches(_ matches: [RecentMatch]) {
+        self.matches.insert(contentsOf: matches, at: 0)
     }
 }
+

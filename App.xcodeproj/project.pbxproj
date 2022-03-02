@@ -496,6 +496,20 @@
 			path = HeroDataView;
 			sourceTree = "<group>";
 		};
+		3266081C27CED53C00D9A204 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				32B36F4826C39238002D427D /* Utility */,
+				32B36F2E26C38860002D427D /* resources */,
+				327C03432717AE8500DAEC42 /* README.md */,
+				3251C8F126F97C9500C826BD /* Localizable.strings */,
+				3201BC3E26F81EEE00A67505 /* AppWidgetExtensionDebug.entitlements */,
+				3201BC3D26F81EEE00A67505 /* AppWidgetExtensionRelease.entitlements */,
+				3214C0D026F0E19A00C377EF /* documents */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		3294463B26E1BC24006E0D06 /* MatchView */ = {
 			isa = PBXGroup;
 			children = (
@@ -531,13 +545,7 @@
 		32B36F0226C38821002D427D = {
 			isa = PBXGroup;
 			children = (
-				32B36F4826C39238002D427D /* Utility */,
-				32B36F2E26C38860002D427D /* resources */,
-				327C03432717AE8500DAEC42 /* README.md */,
-				3251C8F126F97C9500C826BD /* Localizable.strings */,
-				3201BC3E26F81EEE00A67505 /* AppWidgetExtensionDebug.entitlements */,
-				3201BC3D26F81EEE00A67505 /* AppWidgetExtensionRelease.entitlements */,
-				3214C0D026F0E19A00C377EF /* documents */,
+				3266081C27CED53C00D9A204 /* Shared */,
 				32B36F0D26C38821002D427D /* App */,
 				32F70AA026F57F7E006E9B05 /* AppWidget */,
 				32F70AE926F61836006E9B05 /* AppWidgetIntentHandler */,

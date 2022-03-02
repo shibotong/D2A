@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 class ProfileViewModel: ObservableObject {
-    @Published var steamProfile: SteamProfile?
+    @Published var userProfile: UserProfile?
     @Published var isloading = false
     var userid: String
     
@@ -18,8 +18,13 @@ class ProfileViewModel: ObservableObject {
         self.searchUser()
     }
     
+    init(profile: UserProfile) {
+        self.userProfile = profile
+        self.userid = profile.id.description
+    }
+    
     init() {
-        self.steamProfile = SteamProfile.sample
+        self.userProfile = SteamProfile.sample.profile
         self.userid = "123"
     }
     
@@ -53,7 +58,7 @@ class ProfileViewModel: ObservableObject {
             
             let user = try? decoder.decode(SteamProfile.self, from: data)
             DispatchQueue.main.async {
-                self.steamProfile = user
+                self.userProfile = user?.profile
                 self.isloading = false
             }
         }

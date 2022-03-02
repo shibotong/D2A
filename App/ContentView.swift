@@ -57,15 +57,8 @@ struct NavigationHostView: View {
             } else {
                 NavigationView {
                     Sidebar()
-//                    HStack {
-                        MatchListView(vm: MatchListViewModel(userid: selectedUser)).equatable()
-//                            .frame(width: 300)
-                        MatchView(vm: MatchViewModel(matchid: selectedMatch))
-//                        .introspectSplitViewController(customize: { splitViewController in
-//                                                splitViewController.show(.primary)
-//                                            })
-//                            .frame(width: .infinity)
-//                    }
+                    EmptyView()
+                    EmptyView()
                 }
                 .navigationViewStyle(DoubleColumnNavigationViewStyle())
             }

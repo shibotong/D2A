@@ -12,6 +12,7 @@ class AddAccountViewModel: ObservableObject {
     @Published var userid: String = ""
     @Published var searched = false
     @Published var searchUserId: String = ""
+    @Published var userProfiles: [UserProfile] = []
     private var cancellableObject: Set<AnyCancellable> = []
     init() {
 //        $userid
@@ -21,5 +22,12 @@ class AddAccountViewModel: ObservableObject {
 //            }
 //            .assign(to: \.searched, on: self)
 //            .store(in: &cancellableObject)
+    }
+    
+    @MainActor
+    func search() async {
+        let searchedProfile = await OpenDotaController.shared.searchUserByText(text: userid)
+        self.userProfiles = searchedProfile
+        self.searched = true
     }
 }

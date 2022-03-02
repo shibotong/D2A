@@ -23,7 +23,7 @@ struct ProfileView: View, Equatable {
                 Spacer()
             }.frame(height: 60)
         } else {
-            if vm.steamProfile == nil {
+            if vm.userProfile == nil {
                 VStack {
                     Spacer()
                     Text("Cannot find user profile.")
@@ -33,7 +33,7 @@ struct ProfileView: View, Equatable {
             }
             else {
                 HStack {
-                    WebImage(url: URL(string: vm.steamProfile!.profile.avatarfull))
+                    WebImage(url: URL(string: vm.userProfile!.avatarfull))
                         .resizable()
                         .renderingMode(.original)
                         .indicator(.activity)
@@ -41,16 +41,16 @@ struct ProfileView: View, Equatable {
                         .frame(width: 50, height: 50)
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                     VStack(alignment: .leading) {
-                        Text("\(vm.steamProfile!.profile.personaname)").font(.custom(fontString, size: 20)).bold()
-                        Text(vm.steamProfile!.profile.countryCode ?? "Unknown Country").font(.custom(fontString, size: 13))
+                        Text("\(vm.userProfile!.personaname)").font(.custom(fontString, size: 20)).bold()
+                        Text(vm.userProfile!.countryCode ?? "Unknown Country").font(.custom(fontString, size: 13))
                     }
                     Spacer()
                     Button(action: {
                         if selectedUser == nil {
-                            selectedUser = "\(vm.steamProfile!.profile.id)"
+                            selectedUser = "\(vm.userProfile!.id)"
                         }
                         if env.userIDs.count < 1 || env.subscriptionStatus {
-                            env.addUser(userid: "\(vm.steamProfile!.profile.id)")
+                            env.addUser(userid: "\(vm.userProfile!.id)")
                         } else {
                             self.presentState.dismiss()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
@@ -59,10 +59,10 @@ struct ProfileView: View, Equatable {
                             })
                         }
                     }) {
-                        Image(systemName: env.userIDs.contains("\(vm.steamProfile!.profile.id)") ? "star.fill" :"star")
+                        Image(systemName: env.userIDs.contains("\(vm.userProfile!.id)") ? "star.fill" :"star")
                             .foregroundColor(.white)
                             .padding()
-                            .background(RoundedRectangle(cornerRadius: 15).foregroundColor(env.userIDs.contains("\(vm.steamProfile!.profile.id)") ? .secondaryDota : .primaryDota))
+                            .background(RoundedRectangle(cornerRadius: 15).foregroundColor(env.userIDs.contains("\(vm.userProfile!.id)") ? .secondaryDota : .primaryDota))
                     }
                 }
                 .frame(height: 60)

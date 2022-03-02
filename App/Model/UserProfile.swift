@@ -8,7 +8,7 @@
 import Foundation
 import WCDBSwift
 
-struct UserProfile: TableCodable {
+struct UserProfile: TableCodable, Identifiable {
 
     var id: Int
     var avatarfull: String
@@ -16,8 +16,8 @@ struct UserProfile: TableCodable {
     var lastLogin: String?
     var countryCode: String?
     var personaname: String
-    var isPlus: Bool
-    var profileurl: String
+    var isPlus: Bool?
+    var profileurl: String?
     var rank: Int?
     
     static let empty = UserProfile(id: 0, avatarfull: "", lastLogin: nil, countryCode: nil, personaname: "", isPlus: false, profileurl: "", rank: nil)

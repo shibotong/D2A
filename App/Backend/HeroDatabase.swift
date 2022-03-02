@@ -66,7 +66,7 @@ class HeroDatabase: ObservableObject {
     }
     
     func fetchLobby(id: Int) -> LobbyType {
-        return lobbyTypes["\(id)"]!
+        return lobbyTypes["\(id)"] ?? LobbyType(id: id, name: "Unknown Lobby")
     }
     
     func fetchAbility(id: Int) -> Ability? {
