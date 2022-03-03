@@ -30,7 +30,7 @@ struct AboutUsView: View {
                     makeRow(image: "person", text: "Terms of Use", link: URL(string: "https://github.com/shibotong/Dota2Armory/blob/main/documents/terms-of-use.md"))
                     
                     makeDetailRow(image: "app.badge", text: "App Version", detail: versionNumber)
-                    makeDetailRow(image: "gamecontroller", text: "Game Patch", detail: gameVersion)
+//                    makeDetailRow(image: "gamecontroller", text: "Game Patch", detail: gameVersion)
                 }
                 Section(header: Text("Thanks To").font(.custom(fontString, size: 15))) {
                     makeRow(image: "heart.fill", text: "OpenDotaAPI", link: URL(string: "https://www.opendota.com"))
