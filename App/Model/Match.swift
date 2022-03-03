@@ -120,7 +120,7 @@ struct Player: Codable, TableCodable {
     var item5: Int
     var itemNeutral: Int?
     
-//     K/D/A lasthit/deny
+    // K/D/A lasthit/deny
     var kills: Int
     var deaths: Int
     var assists: Int
@@ -147,6 +147,8 @@ struct Player: Codable, TableCodable {
     var personaname: String?
     
     var multiKills: [String: Int]?
+    
+    var rank: Int?
     
     enum CodingKeys: String, CodingTableKey {
         typealias Root = Player
@@ -191,6 +193,8 @@ struct Player: Codable, TableCodable {
 
         case personaname
         case multiKills = "multi_kills"
+        
+        case rank = "rank_tier"
     }
     
     

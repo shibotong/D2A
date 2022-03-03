@@ -151,8 +151,8 @@ struct PlayerDetailView: View {
     @ViewBuilder private func buildAbility(abilityID: Int) -> some View {
         if let ability = HeroDatabase.shared.fetchAbility(id: abilityID) {
             if let img = ability.img {
-                //WebImage(url: URL(string: "https://api.opendota.com\(img)"))
-                WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(img)"))
+                let parsedimgURL = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+                WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
                     .resizable()
                     .renderingMode(.original)
                     .indicator(.activity)

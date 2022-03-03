@@ -26,14 +26,16 @@ class HeroDatabase: ObservableObject {
     
     init() {
         self.loading = true
-        self.gameModes = loadGameModes()!
-        self.heroes = loadHeroes()!
-        self.itemIDTable = loadItemIDs()!
-        self.items = loadItems()!
+        self.gameModes = loadGameModes()
         self.regions = loadRegion()!
         self.lobbyTypes = loadLobby()!
-        self.abilityIDTable = loadAbilityID()
-        self.abilities = loadAbilities()
+        Task {
+            self.itemIDTable = await loadItemIDs()
+            self.items = await loadItems()
+            self.heroes = await loadHeroes()
+            self.abilityIDTable = await loadAbilityID()
+            self.abilities = await loadAbilities()
+        }
     }
     
     func fetchHeroWithID(id: Int) -> Hero? {

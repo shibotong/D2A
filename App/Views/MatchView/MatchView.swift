@@ -12,71 +12,58 @@ struct MatchView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var data: HeroDatabase
     @ObservedObject var vm: MatchViewModel
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
-        if vm.id == nil {
-            Text("select a match")
-        } else {
-            if vm.match == nil {
-                LoadingView()
-                    .frame(width: 32, height: 32)
-                    .onAppear {
-                        vm.loadNewMatch()
-                    }
-            } else {
-                if self.vm.match!.id == 0 {
-                    Text("An error occured when finding match.")
-                } else {
-                    ScrollView {
-                        if vm.loading {
-                            LoadingView()
-                                .frame(width: 32, height: 32)
-                        }
-                        buildStack()
-                    }
-                    .navigationTitle(vm.match!.radiantWin ? LocalizedStringKey("Radiant Win") : LocalizedStringKey("Dire Win"))
-                    .navigationBarTitleDisplayMode(.large)
-                    .navigationBarItems(trailing: Button(action: {
-                        vm.refresh()
-                    }, label: {
-                        Image(systemName: "arrow.clockwise")
-                    }))
-                }
+        buildStack()
+            .task {
+                await vm.loadMatch()
             }
-        }
     }
     
     @ViewBuilder private func buildStack() -> some View {
-        VStack(spacing: 10) {
-            VStack(spacing: 30) {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 15) {
-                        MatchStatCardView(icon: "calendar", title: "Start Time", label: vm.match!.startTime.convertToTime())
-                            .frame(width: 140)
-                        MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())").colorInvert()
-                            .frame(width: 140)
-                        MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(data.fetchGameMode(id: vm.match!.mode).fetchModeName()))
-                            .frame(width: 140)
-                        MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: vm.fetchGameRegion(id: "\(vm.match!.region)"))
-                            .colorInvert()
-                            .frame(width: 140)
-                    }.padding(.horizontal)
-                }
-            }.padding([.top])
-            if horizontalSizeClass == .regular {
-                HStack(alignment: .top) {
-                    AllTeamPlayerView(match: vm.match!)
-                    AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
-                }
-            } else {
+        if vm.match != nil {
+            List {
+                buildMatchData()
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
                 AllTeamPlayerView(match: vm.match!)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
                 AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
+                DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
+                    .frame(height: 300)
             }
-            DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
-                .frame(height: 300)
+            .listStyle(.plain)
+            .navigationTitle("ID: \(vm.id ?? "")")
+            .navigationBarTitleDisplayMode(.large)
+            .refreshable {
+                await vm.refreshMatch()
+            }
+        } else {
+            Text("loading...")
         }
     }
     
+    @ViewBuilder private func buildMatchData() -> some View {
+        VStack(spacing: 30) {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 15) {
+                    MatchStatCardView(icon: "calendar", title: "Start Time", label: vm.match!.startTime.convertToTime())
+                        .frame(width: 140)
+                    MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())").colorInvert()
+                        .frame(width: 140)
+                    MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(data.fetchGameMode(id: vm.match!.mode).fetchModeName()))
+                        .frame(width: 140)
+                    MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: vm.fetchGameRegion(id: "\(vm.match!.region)"))
+                        .colorInvert()
+                        .frame(width: 140)
+                }.padding(.horizontal)
+            }
+        }.padding([.top])
+    }
 }
 
 struct MatchStatCardView: View {
@@ -113,13 +100,25 @@ struct MatchView_Previews: PreviewProvider {
 struct AllTeamPlayerView: View {
     var match: Match
     @State var selectedPlayer: Player?
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text("Players").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
-            TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.fetchKill(isRadiant: true), win: match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
-            TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.fetchKill(isRadiant: false), win: !match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
+        if horizontalSizeClass == .compact {
+            VStack(alignment: .leading, spacing: 0) {
+                Text("Players").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
+                TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.fetchKill(isRadiant: true), win: match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
+                TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.fetchKill(isRadiant: false), win: !match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
+            }
+            .frame(minWidth: 300)
+        } else {
+            VStack(alignment: .leading, spacing: 0) {
+                Text("Players").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
+                HStack {
+                    TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.fetchKill(isRadiant: true), win: match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
+                    TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.fetchKill(isRadiant: false), win: !match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
+                }
+            }
+            .frame(minWidth: 300)
         }
-        .frame(minWidth: 300)
     }
     
     func fetchMaxDamage(players: [Player]) -> Int {
@@ -169,9 +168,12 @@ struct PlayerRowView: View {
                                             .font(.custom(fontString, size: 8)).bold())
                         }
                     })
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 2) {
                     if player.personaname != nil {
-                        Text(player.personaname!).font(.custom(fontString, size: 15)).bold().lineLimit(1)
+                        HStack(spacing: 2) {
+                            Image("rank_\((player.rank ?? 0) / 10)").resizable().frame(width: 18, height: 18)
+                            Text(player.personaname!).font(.custom(fontString, size: 15)).bold().lineLimit(1)
+                        }
                     } else {
                         Text("Anonymous").font(.custom(fontString, size: 15)).bold().lineLimit(1)
                     }
@@ -217,18 +219,7 @@ struct ItemView: View {
     @EnvironmentObject var heroData: HeroDatabase
     var id: Int
     var body: some View {
-//        if computeURL() == nil {
-//            Image("empty_item").resizable()
-//        } else {
-//            WebImage(url: computeURL())
-//                .resizable()
-//                .renderingMode(.original)
-//                .indicator(.init(content: { _, _ in
-//                    Image("empty_item")
-//                        .resizable()
-//                }))
-//                .transition(.fade)
-//        }
+
         AsyncImage(url: computeURL()) { image in
             image.resizable().renderingMode(.original)
         } placeholder: {

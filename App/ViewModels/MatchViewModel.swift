@@ -9,13 +9,12 @@ import Foundation
 import SwiftUI
 
 class MatchViewModel: ObservableObject {
+    @Published var error: Error?
     @Published var match: Match?
-    @Published var loading = false
     @Published var id: String?
     
     init(matchid: String?) {
         self.id = matchid
-        self.loadMatch()
     }
     
     init() {
@@ -23,42 +22,31 @@ class MatchViewModel: ObservableObject {
         self.match = Match.sample
     }
     
-    func loadMatch() {
+    func loadMatch() async {
         guard let id = self.id else {
             return
         }
-        guard let match = WCDBController.shared.fetchMatch(matchid: id) else {
+        if let match = WCDBController.shared.fetchMatch(matchid: id) {
+            self.match = match
+        } else {
+            await refreshMatch()
+        }
+    }
+    
+    func refreshMatch() async {
+        guard let id = self.id else {
             return
         }
+        do {
+            let match = try await OpenDotaController.shared.loadMatchData(matchid: id)
+            await self.showMatch(match)
+        } catch {
+            self.error = error
+        }
+    }
+    
+    @MainActor private func showMatch(_ match: Match) {
         self.match = match
-    }
-    
-    func loadNewMatch() {
-        if self.match == nil {
-            guard let match = WCDBController.shared.fetchMatch(matchid: id!) else {
-                OpenDotaController.loadMatchData(matchid: id!) { result in
-                    if result {
-                        self.loadNewMatch()
-                    } else {
-                        self.match = Match.emptyMatch
-                    }
-                }
-                return
-            }
-            DispatchQueue.main.async {
-                self.match = match
-            }
-        }
-    }
-    
-    func refresh() {
-        if !self.loading {
-            self.loading = true
-            OpenDotaController.loadMatchData(matchid: id!) { result in
-                self.loadMatch()
-                self.loading = false
-            }
-        }
     }
     
     func fetchGameMode(id: Int) -> GameMode {

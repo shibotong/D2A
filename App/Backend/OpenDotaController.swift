@@ -84,28 +84,20 @@ class OpenDotaController {
         }
     }
     
-    static func loadMatchData(matchid: String, onComplete:@escaping (Bool) -> ()) {
-        let url = "\(baseURL)/api/matches/\(matchid)"
-        AF.request(url).responseJSON { response in
-            debugPrint(response)
-            guard let data = response.data else {
-                return
-            }
-            guard let statusCode = response.response?.statusCode else {
-                return
-            }
-            if statusCode > 400 {
-                DotaEnvironment.shared.exceedLimit = true
-            }
+    func loadMatchData(matchid: String) async throws -> Match {
+        let urlString = "\(baseURL)/api/matches/\(matchid)"
+        guard let url = URL(string: urlString) else {
+            throw NSError(domain: "Cannot Parse URL \(urlString)", code: 100, userInfo: nil)
+        }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
             let decoder = JSONDecoder()
-            guard let match = try? decoder.decode(Match.self, from: data) else {
-                print("cannot decode match")
-                print(data.description)
-                onComplete(false)
-                return
-            }
-            try? WCDBController.shared.database.insertOrReplace(objects: [match], intoTable: "Match")
-            onComplete(true)
+            let match = try decoder.decode(Match.self, from: data)
+            WCDBController.shared.deleteMatch(matchid: matchid)
+            try WCDBController.shared.database.insertOrReplace(objects: [match], intoTable: "Match")
+            return match
+        } catch {
+            throw error
         }
     }
     

@@ -51,17 +51,18 @@ func loadLobby() -> [String: LobbyType]? {
     }
 }
 
-func loadHeroes() -> [String: Hero]? {
-    guard let data = loadFile(filename: "heroes") else {
-        return nil
-    }
+func loadHeroes() async -> [String: Hero] {
+    let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/heroes.json"
+    let url = URL(string: urlString)!
     do {
+        let (data, _) = try await URLSession.shared.data(from: url)
+        
         let decoder = JSONDecoder()
         let jsonData = try decoder.decode([String: Hero].self, from: data)
         return jsonData
     } catch {
-        print("Cannot parse Lobby data")
-        return nil
+        print(error.localizedDescription)
+        return [:]
     }
 }
 
@@ -82,32 +83,30 @@ func loadProfile() -> SteamProfile? {
     }
 }
 
-func loadAbilityID() -> [String: String] {
-    let filename = "ability_ids"
-    guard let data = loadFile(filename: filename) else {
-        return [:]
-    }
+func loadAbilityID() async -> [String: String] {
+    let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/ability_ids.json"
+    let url = URL(string: urlString)!
     do {
+        let (data, _) = try await URLSession.shared.data(from: url)
         let decoder = JSONDecoder()
         let jsonData = try decoder.decode([String: String].self, from: data)
         return jsonData
     } catch {
-        print("JSON ERROR: cannot load \(filename)")
         return [:]
     }
 }
 
-func loadAbilities() -> [String: Ability] {
-    let filename = "abilities"
-    guard let data = loadFile(filename: filename) else {
-        return [:]
-    }
+func loadAbilities() async -> [String: Ability] {
+    let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/abilities.json"
+    let url = URL(string: urlString)!
     do {
+        let (data, _) = try await URLSession.shared.data(from: url)
+        
         let decoder = JSONDecoder()
         let jsonData = try decoder.decode([String: Ability].self, from: data)
         return jsonData
     } catch {
-        print("JSON ERROR: cannot load \(filename)")
+        print("Cannot parse Lobby data")
         return [:]
     }
 }
@@ -127,36 +126,35 @@ func loadMatch() -> Match? {
     }
 
 }
-//
-func loadItemIDs() -> [String: String]? {
-    guard let data = loadFile(filename: "item_ids") else {
-        return nil
-    }
 
+func loadItemIDs() async -> [String: String] {
+    let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/item_ids.json"
+    let url = URL(string: urlString)!
     do {
-        return try (JSONSerialization.jsonObject(with: data, options: []) as? [String : String])
+        let (data, _) = try await URLSession.shared.data(from: url)
+        return try (JSONSerialization.jsonObject(with: data, options: []) as! [String : String])
     } catch {
-        print("Cannot parse json data")
-        return nil
+        print(error.localizedDescription)
+        return [:]
     }
 
 }
-//
-func loadItems() -> [String: Item]? {
-    guard let data = loadFile(filename: "items") else {
-        return nil
-    }
+
+func loadItems() async -> [String: Item] {
+    let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/items.json"
+    let url = URL(string: urlString)!
     do {
+        let (data, _) = try await URLSession.shared.data(from: url)
         let decoder = JSONDecoder()
         let jsonData = try decoder.decode([String: Item].self, from: data)
         return jsonData
     } catch {
-        print("Cannot parse json data")
-        return nil
+        print(error.localizedDescription)
+        return [:]
     }
 }
-//
-func loadGameModes() -> [String: GameMode]? {
+
+func loadGameModes() -> [String: GameMode] {
     guard let data = loadFile(filename: "game_mode") else {
         fatalError("no game mode file")
     }
@@ -165,8 +163,8 @@ func loadGameModes() -> [String: GameMode]? {
         let modes = try decoder.decode([String: GameMode].self, from: data)
         return modes
     } catch {
-        print("cannot parse mode file")
-        return nil
+        print(error.localizedDescription)
+        return [:]
     }
 }
 
@@ -183,9 +181,3 @@ func loadRegion() -> [String: String]? {
         return nil
     }
 }
-
-//func loadPatchList() -> [Patch] {
-//    
-//}
-
-
