@@ -78,6 +78,7 @@ class OpenDotaController {
             
             let user = try? decoder.decode(SteamProfile.self, from: data)
             var userProfile = user?.profile
+            print(user)
             userProfile?.rank = user?.rank
             try? WCDBController.shared.database.insert(objects: [userProfile!], intoTable: "UserProfile")
             onCompletion(user)

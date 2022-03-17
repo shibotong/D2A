@@ -9,7 +9,7 @@ import Foundation
 import WCDBSwift
 
 struct SteamProfile: TableCodable {
-    var rank: Int
+    var rank: Int?
     var profile: UserProfile
     
     enum CodingKeys: String, CodingTableKey {

@@ -150,7 +150,7 @@ struct PlayerDetailView: View {
     }
     @ViewBuilder private func buildAbility(abilityID: Int) -> some View {
         if let ability = HeroDatabase.shared.fetchAbility(id: abilityID) {
-            if let img = ability.img {
+            if let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!" {
                 let parsedimgURL = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
                 WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
                     .resizable()
@@ -174,9 +174,8 @@ struct PlayerDetailView: View {
                             }
                         }
                     )
-                
             }
-        }else {
+        } else {
             Text("cannot find")
         }
     }

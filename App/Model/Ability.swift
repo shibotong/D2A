@@ -10,8 +10,10 @@ import Foundation
 struct Ability: Codable {
     var img: String?
     var dname: String?
+    var desc: String?
     enum CodingKeys: String, CodingKey {
         case img = "img"
         case dname
+        case desc
     }
 }
