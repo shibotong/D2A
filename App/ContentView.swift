@@ -13,21 +13,31 @@ struct ContentView: View {
     @EnvironmentObject var data: HeroDatabase
     @EnvironmentObject var store: StoreManager
     var body: some View {
-        NavigationHostView()
-            .sheet(isPresented: $env.addNewAccount, content: {
-                AddAccountView()
-                    .equatable()
-                    .environmentObject(env)
-            })
-            .sheet(isPresented: $env.aboutUs, content: {
-                AboutUsView()
-                    .environmentObject(env)
-            })
-            .sheet(isPresented: $env.subscriptionSheet, content: {
-                StoreView()
-                    .environmentObject(env)
-                    .environmentObject(store)
-            })
+        if data.loading {
+            LoadingView()
+                .frame(width: 50, height: 50)
+                .alert("An Error Occured", isPresented: $data.error) {
+                    Button("OK", role: .cancel) {
+                        exit(0)
+                    }
+                }
+        } else {
+            NavigationHostView()
+                .sheet(isPresented: $env.addNewAccount, content: {
+                    AddAccountView()
+                        .equatable()
+                        .environmentObject(env)
+                })
+                .sheet(isPresented: $env.aboutUs, content: {
+                    AboutUsView()
+                        .environmentObject(env)
+                })
+                .sheet(isPresented: $env.subscriptionSheet, content: {
+                    StoreView()
+                        .environmentObject(env)
+                        .environmentObject(store)
+                })
+        }
     }
 }
 

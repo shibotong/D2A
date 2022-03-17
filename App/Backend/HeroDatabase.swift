@@ -11,6 +11,7 @@ import SwiftUI
 
 class HeroDatabase: ObservableObject {
     @Published var loading = false
+    @Published var error = false
     var heroes = [String: Hero]()
     var gameModes = [String: GameMode]()
     var lobbyTypes = [String: LobbyType]()
@@ -35,6 +36,13 @@ class HeroDatabase: ObservableObject {
             self.heroes = await loadHeroes()
             self.abilityIDTable = await loadAbilityID()
             self.abilities = await loadAbilities()
+            DispatchQueue.main.async {
+                if self.abilities.count == 0 {
+                    self.error = true
+                } else {
+                    self.loading = false
+                }
+            }
         }
     }
     

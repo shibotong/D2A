@@ -42,7 +42,11 @@ struct ProfileView: View, Equatable {
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                     VStack(alignment: .leading) {
                         Text("\(vm.userProfile!.personaname)").font(.custom(fontString, size: 20)).bold()
-                        Text(vm.userProfile!.countryCode ?? "Unknown Country").font(.custom(fontString, size: 13))
+                        if vm.userProfile!.countryCode != nil {
+                            Text(vm.userProfile!.countryCode!).font(.custom(fontString, size: 13))
+                        } else {
+                            Text("ID: \(vm.userProfile!.id.description)").font(.custom(fontString, size: 13))
+                        }
                     }
                     Spacer()
                     Button(action: {

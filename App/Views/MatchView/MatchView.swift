@@ -31,10 +31,12 @@ struct MatchView: View {
                 AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
-                DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
-                    .frame(height: 300)
+                if vm.match!.goldDiff != nil {
+                    DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
+                        .frame(height: 300)
+                }
             }
             .listStyle(.plain)
             .navigationTitle("ID: \(vm.id ?? "")")

@@ -19,8 +19,6 @@ struct AddAccountView: View, Equatable {
                     HStack {
                         Image(systemName: "magnifyingglass")
                         TextField("Dota2 ID or username", text: $vm.userid)
-                            .keyboardType(.numberPad)
-                            
                     }
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 15).stroke(Color.primaryDota))
@@ -28,8 +26,6 @@ struct AddAccountView: View, Equatable {
                         Task {
                             await vm.search()
                         }
-//                        vm.searched = true
-//                        vm.searchUserId = vm.userid
                     }) {
                         Text("Search").foregroundColor(.white).bold()
                     }
