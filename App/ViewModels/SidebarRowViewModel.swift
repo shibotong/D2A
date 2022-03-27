@@ -17,10 +17,11 @@ class SidebarRowViewModel: ObservableObject {
         self.loadProfile()
     }
     
-    private func loadProfile() {
+    func loadProfile() {
         guard let profile = WCDBController.shared.fetchUserProfile(userid: userid) else {
-            OpenDotaController.loadUserData(userid: userid) { steamProfile in
-                self.loadProfile()
+            Task {
+                let profile = await OpenDotaController.shared.loadUserData(userid: userid)
+                self.profile = profile?.profile
             }
             return
         }

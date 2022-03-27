@@ -60,6 +60,14 @@ struct Sidebar: View {
 struct SidebarRowView: View {
     @ObservedObject var vm: SidebarRowViewModel
     var body: some View {
+        makeUI()
+            .task {
+                vm.loadProfile()
+            }
+    }
+    
+    @ViewBuilder
+    func makeUI() -> some View {
         if vm.profile != nil {
             Label {
                 Text("\(vm.profile!.personaname)").lineLimit(1)

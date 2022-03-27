@@ -59,31 +59,53 @@ class OpenDotaController {
         }
     }
     
-    static func loadUserData(userid: String, onCompletion: @escaping (SteamProfile?) -> ()) {
-        let url = "\(baseURL)/api/players/\(userid)"
-        AF.request(url).responseJSON { response in
-            print("load user data")
-            debugPrint(response)
-            guard let data = response.data else {
-                return
-            }
-            guard let statusCode = response.response?.statusCode else {
-                return
-            }
-            if statusCode > 400 {
-                DotaEnvironment.shared.exceedLimit = true
-                return
-            }
+    func loadUserData(userid: String) async -> SteamProfile? {
+        guard let url = URL(string: "\(baseURL)/api/players/\(userid)") else {
+            return nil
+        }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
             let decoder = JSONDecoder()
             
-            let user = try? decoder.decode(SteamProfile.self, from: data)
-            var userProfile = user?.profile
+            let user = try decoder.decode(SteamProfile.self, from: data)
+            var userProfile = user.profile
             print(user)
-            userProfile?.rank = user?.rank
-            try? WCDBController.shared.database.insert(objects: [userProfile!], intoTable: "UserProfile")
-            onCompletion(user)
+            userProfile.rank = user.rank
+            WCDBController.shared.deleteUser(userid: userid)
+            try WCDBController.shared.database.insertOrReplace(objects: [userProfile], intoTable: "UserProfile")
+            return user
+        } catch {
+            print(error.localizedDescription)
+            return nil
         }
+        
     }
+//
+//    static func loadUserData(userid: String, onCompletion: @escaping (SteamProfile?) -> ()) {
+//        let url = "\(baseURL)/api/players/\(userid)"
+//        AF.request(url).responseJSON { response in
+//            print("load user data")
+//            debugPrint(response)
+//            guard let data = response.data else {
+//                return
+//            }
+//            guard let statusCode = response.response?.statusCode else {
+//                return
+//            }
+//            if statusCode > 400 {
+//                DotaEnvironment.shared.exceedLimit = true
+//                return
+//            }
+//            let decoder = JSONDecoder()
+//
+//            let user = try? decoder.decode(SteamProfile.self, from: data)
+//            var userProfile = user?.profile
+//            print(user)
+//            userProfile?.rank = user?.rank
+//            try? WCDBController.shared.database.insert(objects: [userProfile!], intoTable: "UserProfile")
+//            onCompletion(user)
+//        }
+//    }
     
     func loadMatchData(matchid: String) async throws -> Match {
         let urlString = "\(baseURL)/api/matches/\(matchid)"

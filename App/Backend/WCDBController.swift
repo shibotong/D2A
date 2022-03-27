@@ -29,6 +29,7 @@ class WCDBController {
         }
     }
     
+    // MARK: - Fetch
     func fetchRecentMatches(userid: String, offSet: Int = 0) -> [RecentMatch] {
         do {
             let matches: [RecentMatch] = try database.getObjects(fromTable: "RecentMatch",
@@ -85,6 +86,7 @@ class WCDBController {
         }
     }
     
+    // MARK: - DELETE
     func deleteMatch(matchid: String) {
         do {
             try database.delete(fromTable: "Match", where: Match.Properties.id == Int(matchid)!)
@@ -98,6 +100,14 @@ class WCDBController {
             try database.delete(fromTable: "RecentMatch", where: RecentMatch.Properties.id == matchid && RecentMatch.Properties.playerId == userid)
         } catch {
             print("cannot delete match")
+        }
+    }
+    
+    func deleteUser(userid: String) {
+        do {
+            try database.delete(fromTable: "UserProfile", where: UserProfile.Properties.id == userid)
+        } catch {
+            print("cannot delete userProfile")
         }
     }
 }

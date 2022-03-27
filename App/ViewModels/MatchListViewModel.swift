@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import WidgetKit
 
 class MatchListViewModel: ObservableObject {
     @Published var matches: [RecentMatch] = []
@@ -52,21 +53,26 @@ class MatchListViewModel: ObservableObject {
         guard let userid = userid else {
             return
         }
+        let profile = await OpenDotaController.shared.loadUserData(userid: userid)
         if let firstMatch = WCDBController.shared.fetchRecentMatches(userid: userid).first {
             // have previous data
             let today = Date()
             let days = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(timeIntervalSince1970: TimeInterval(firstMatch.startTime)), to: today)
             let dayCount = Double(days.day!) + (Double(days.hour!) / 24.0) + (Double(days.minute!) / 60.0 / 24.0)
             let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid, days: dayCount)
-            await addMatches(matches)
+            await addMatches(matches, userProfile: profile?.profile)
         } else {
             let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid)
-            await addMatches(matches)
+            await addMatches(matches, userProfile: profile?.profile)
         }
     }
     
-    @MainActor private func addMatches(_ matches: [RecentMatch]) {
+    @MainActor private func addMatches(_ matches: [RecentMatch], userProfile: UserProfile?) {
         self.matches.insert(contentsOf: matches, at: 0)
+        if userProfile != nil {
+            self.userProfile = userProfile
+        }
+        WidgetCenter.shared.reloadTimelines(ofKind: "AppWidget")
     }
 }
 
