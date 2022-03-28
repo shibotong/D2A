@@ -8,8 +8,7 @@
 import Foundation
 
 let fontString = "Avenir"
-let gameVersion = "7.30e"
 let productIDs = ["D2APRO"]//["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnually"]
-let subscriptionIdentifier = "D2APlusSubscription"
-let purchasesAPIKey = "jIuFaPQvgnVKprZdvHLWgHxfaTjQZzIj"
-let groupName = "group.D2A"
+let GROUP_NAME = "group.D2A"
+let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/documents/terms-of-use.md"
+let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/documents/privacy-policy.md"

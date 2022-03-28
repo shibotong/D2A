@@ -14,19 +14,19 @@ class DotaEnvironment {
     
     var userIDs: [String] {
         didSet {
-            UserDefaults(suiteName: groupName)!.set(userIDs, forKey: "dotaArmory.userID")
+            UserDefaults(suiteName: GROUP_NAME)!.set(userIDs, forKey: "dotaArmory.userID")
         }
     }
     
     var subscriptionStatus: Bool {
         didSet {
-            UserDefaults(suiteName: groupName)!.set(subscriptionStatus, forKey: "dotaArmory.subscription")
+            UserDefaults(suiteName: GROUP_NAME)!.set(subscriptionStatus, forKey: "dotaArmory.subscription")
         }
     }
     
     init() {
-        self.userIDs = UserDefaults(suiteName: groupName)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
-        self.subscriptionStatus = UserDefaults(suiteName: groupName)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
+        self.userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
+        self.subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         if userIDs.isEmpty {
             print("no user")
         } else {

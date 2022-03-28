@@ -41,7 +41,7 @@ struct Provider: IntentTimelineProvider {
 
     func getTimeline(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
         let currentDate = Date()
-        let status = UserDefaults(suiteName: groupName)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
+        let status = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         if status {
             let selectedProfile = user(for: configuration)
             if selectedProfile.id != 0 {

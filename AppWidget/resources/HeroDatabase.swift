@@ -6,10 +6,8 @@
 //
 
 import Foundation
-import Alamofire
 
 class HeroDatabase {
-//    @Published var loading = false
     var gameModes = [String: GameMode]()
     var lobbyTypes = [String: LobbyType]()
     var heroes = [String: Hero]()
@@ -19,7 +17,6 @@ class HeroDatabase {
     let url = "https://api.opendota.com/api/herostats"
     
     init() {
-//        self.loading = true
         self.gameModes = loadGameModes()!
         self.lobbyTypes = loadLobby()!
         self.heroes = loadHeroes()!

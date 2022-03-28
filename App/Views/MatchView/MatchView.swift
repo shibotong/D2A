@@ -184,11 +184,27 @@ struct PlayerRowView: View {
                 Spacer()
                 VStack(spacing: 1) {
                     HStack(spacing: 1) {
+                        VStack(spacing: 0) {
+                            Image("agh")
+                                .resizable()
+                                .renderingMode(.template)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 18, height: 12)
+                                .foregroundColor(player.hasScepter() ? .blue : .gray)
+                                
+                            Image("agh_shard")
+                                .resizable()
+                                .renderingMode(.template)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 18, height: 6)
+                                .foregroundColor(player.hasShard() ? .blue : .gray)
+                        }
                         ItemView(id: player.item0).frame(width: 24, height: 18)
                         ItemView(id: player.item1).frame(width: 24, height: 18)
                         ItemView(id: player.item2).frame(width: 24, height: 18)
                     }
                     HStack(spacing: 1) {
+                        ItemView(id: player.itemNeutral!).frame(width: 24, height: 18).clipShape(Circle()).frame(width: 18)
                         ItemView(id: player.item3).frame(width: 24, height: 18)
                         ItemView(id: player.item4).frame(width: 24, height: 18)
                         ItemView(id: player.item5).frame(width: 24, height: 18)

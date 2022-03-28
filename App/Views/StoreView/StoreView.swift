@@ -81,11 +81,11 @@ struct StoreView: View {
                     Text("Restore Purchase").font(.custom(fontString, size: 15)).bold()
                 }
                 HStack {
-                    Link(destination: URL(string: "https://github.com/shibotong/Dota2Armory/blob/main/documents/terms-of-use.md")!, label: {
+                    Link(destination: URL(string: PRIVACY_POLICY)!, label: {
                         Text("Terms of Use").font(.custom(fontString, size: 15)).bold()
                     })
                     Text("and").font(.custom(fontString, size: 15))
-                    Link(destination: URL(string: "https://github.com/shibotong/Dota2Armory/blob/main/documents/privacy-policy.md")!, label: {
+                    Link(destination: URL(string: TERMS_OF_USE)!, label: {
                         Text("Privacy Policy").font(.custom(fontString, size: 15)).bold()
                     })
                 }

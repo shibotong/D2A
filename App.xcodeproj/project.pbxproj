@@ -158,7 +158,6 @@
 		32D1605D26F30B7A00657449 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D1605C26F30B7A00657449 /* StoreManager.swift */; };
 		32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1605E26F3122800657449 /* StoreKit.framework */; };
 		32D1606126F3753900657449 /* SKProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D1606026F3753900657449 /* SKProduct.swift */; };
-		32D1606426F4D90000657449 /* Purchases in Frameworks */ = {isa = PBXBuildFile; productRef = 32D1606326F4D90000657449 /* Purchases */; };
 		32D3EB4F26ED7B9B00AA8D8B /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* Ability.swift */; };
 		32F6A1B026C499E3009C00E1 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F6A1AF26C499E3009C00E1 /* MatchView.swift */; };
 		32F70A9E26F57F7E006E9B05 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1606A26F4EE1500657449 /* WidgetKit.framework */; };
@@ -399,7 +398,6 @@
 				3252859C26CB87060030F15B /* SDWebImageSwiftUI in Frameworks */,
 				32B36F4226C38972002D427D /* Alamofire in Frameworks */,
 				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
-				32D1606426F4D90000657449 /* Purchases in Frameworks */,
 				684D5603CDE765CC7F320F76 /* Pods_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -502,7 +500,6 @@
 				32B36F1226C38822002D427D /* Assets.xcassets */,
 				32B36F4826C39238002D427D /* Utility */,
 				32B36F2E26C38860002D427D /* resources */,
-				327C03432717AE8500DAEC42 /* README.md */,
 				3251C8F126F97C9500C826BD /* Localizable.strings */,
 				3214C0D026F0E19A00C377EF /* documents */,
 			);
@@ -544,6 +541,7 @@
 		32B36F0226C38821002D427D = {
 			isa = PBXGroup;
 			children = (
+				327C03432717AE8500DAEC42 /* README.md */,
 				3266081C27CED53C00D9A204 /* Shared */,
 				32B36F0D26C38821002D427D /* App */,
 				32F70AA026F57F7E006E9B05 /* AppWidget */,
@@ -795,7 +793,6 @@
 			packageProductDependencies = (
 				32B36F4126C38972002D427D /* Alamofire */,
 				3252859B26CB87060030F15B /* SDWebImageSwiftUI */,
-				32D1606326F4D90000657449 /* Purchases */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* App.app */;
@@ -877,7 +874,6 @@
 			packageReferences = (
 				32B36F4026C38972002D427D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				3252859A26CB87060030F15B /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				32D1606226F4D90000657449 /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
 			projectDirPath = "";
@@ -1389,7 +1385,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/AppDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
@@ -1400,7 +1396,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -1419,7 +1415,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/AppRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
@@ -1430,7 +1426,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.4.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1449,7 +1445,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = AppWidget/AppWidgetExtensionDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidget/Info.plist;
@@ -1459,7 +1455,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.AppWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1477,7 +1473,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = AppWidget/AppWidgetExtensionRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidget/Info.plist;
@@ -1487,7 +1483,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.AppWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1503,7 +1499,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AppWidgetIntentHandler/AppWidgetIntentHandlerDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidgetIntentHandler/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1512,7 +1508,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.AppWidgetIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1528,7 +1524,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AppWidgetIntentHandler/AppWidgetIntentHandlerRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				INFOPLIST_FILE = AppWidgetIntentHandler/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1537,7 +1533,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.AppWidgetIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1605,14 +1601,6 @@
 				minimumVersion = 5.4.3;
 			};
 		};
-		32D1606226F4D90000657449 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.12.4;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1625,11 +1613,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 32B36F4026C38972002D427D /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		32D1606326F4D90000657449 /* Purchases */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 32D1606226F4D90000657449 /* XCRemoteSwiftPackageReference "purchases-ios" */;
-			productName = Purchases;
 		};
 		32F70AD326F60313006E9B05 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
