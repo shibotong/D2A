@@ -137,14 +137,30 @@ class OpenDotaController {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             let decoder = JSONDecoder()
-            guard let matches = try? decoder.decode([RecentMatch].self, from: data) else {
+            guard let matches = try decoder.decode([RecentMatch]?.self, from: data) else {
                 return []
             }
             matches.forEach({$0.playerId = Int(userid)})
             try WCDBController.shared.database.insertOrReplace(objects: matches, intoTable: "RecentMatch")
             print("fetched new matches for player \(userid)", matches.count)
             return matches.count >= 50 ? Array(matches[0..<50]) : matches
+        } catch let DecodingError.dataCorrupted(context) {
+            print(context)
+            return []
+        } catch let DecodingError.keyNotFound(key, context) {
+            print("Key '\(key)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            return []
+        } catch let DecodingError.valueNotFound(value, context) {
+            print("Value '\(value)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            return []
+        } catch let DecodingError.typeMismatch(type, context)  {
+            print("Type '\(type)' mismatch:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            return []
         } catch {
+            print("error: ", error)
             return []
         }
         

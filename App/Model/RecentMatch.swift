@@ -40,6 +40,66 @@ class RecentMatch: TableCodable {
         case playerId
     }
     
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try! container.decode(Int.self, forKey: .id)
+        if let duration = try container.decodeIfPresent(Int.self, forKey: .duration) {
+            self.duration = duration
+        } else {
+            self.duration = 0
+        }
+        if let mode = try container.decodeIfPresent(Int.self, forKey: .mode) {
+            self.mode = mode
+        } else {
+            self.mode = 0
+        }
+        if let slot = try container.decodeIfPresent(Int.self, forKey: .slot) {
+            self.slot = slot
+        } else {
+            self.slot = 0
+        }
+        if let heroID = try container.decodeIfPresent(Int.self, forKey: .heroID) {
+            self.heroID = heroID
+        } else {
+            self.heroID = 0
+        }
+        if let radiantWin = try container.decodeIfPresent(Bool.self, forKey: .radiantWin) {
+            self.radiantWin = radiantWin
+        } else {
+            self.radiantWin = false
+        }
+        if let kills = try container.decodeIfPresent(Int.self, forKey: .kills) {
+            self.kills = kills
+        } else {
+            self.kills = 0
+        }
+        if let deaths = try container.decodeIfPresent(Int.self, forKey: .deaths) {
+            self.deaths = deaths
+        } else {
+            self.deaths = 0
+        }
+        if let assists = try container.decodeIfPresent(Int.self, forKey: .assists) {
+            self.assists = assists
+        } else {
+            self.assists = 0
+        }
+        if let lobbyType = try container.decodeIfPresent(Int.self, forKey: .lobbyType) {
+            self.lobbyType = lobbyType
+        } else {
+            self.lobbyType = 0
+        }
+        if let startTime = try container.decodeIfPresent(Int.self, forKey: .startTime) {
+            self.startTime = startTime
+        } else {
+            self.startTime = 0
+        }
+        if let playerId = try container.decodeIfPresent(Int.self, forKey: .playerId) {
+            self.playerId = playerId
+        } else {
+            self.playerId = 0
+        }
+    }
+    
     func isPlayerWin() -> Bool {
         if slot <= 127 {
             return radiantWin
