@@ -60,10 +60,10 @@ class MatchListViewModel: ObservableObject {
             let days = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(timeIntervalSince1970: TimeInterval(firstMatch.startTime)), to: today)
             let dayCount = Double(days.day!) + (Double(days.hour!) / 24.0) + (Double(days.minute!) / 60.0 / 24.0)
             let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid, days: dayCount)
-            await addMatches(matches, userProfile: profile?.profile)
+            await addMatches(matches, userProfile: profile)
         } else {
             let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid)
-            await addMatches(matches, userProfile: profile?.profile)
+            await addMatches(matches, userProfile: profile)
         }
     }
     

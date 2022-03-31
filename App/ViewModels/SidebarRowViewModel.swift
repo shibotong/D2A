@@ -21,7 +21,7 @@ class SidebarRowViewModel: ObservableObject {
         guard let profile = WCDBController.shared.fetchUserProfile(userid: userid) else {
             Task {
                 let profile = await OpenDotaController.shared.loadUserData(userid: userid)
-                self.profile = profile?.profile
+                self.profile = profile
             }
             return
         }

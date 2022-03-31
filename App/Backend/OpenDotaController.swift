@@ -16,6 +16,8 @@ class OpenDotaController {
     
     static let shared = OpenDotaController()
     
+    let decodingService = DecodingService()
+    
     func searchUserByID(userid: String) async -> UserProfile? {
         let url = URL(string: "\(baseURL)/api/players/\(userid)")!
         do {
@@ -59,20 +61,12 @@ class OpenDotaController {
         }
     }
     
-    func loadUserData(userid: String) async -> SteamProfile? {
-        guard let url = URL(string: "\(baseURL)/api/players/\(userid)") else {
-            return nil
-        }
+    func loadUserData(userid: String) async -> UserProfile? {
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let decoder = JSONDecoder()
-            
-            let user = try decoder.decode(SteamProfile.self, from: data)
-            var userProfile = user.profile
-            print(user)
-            userProfile.rank = user.rank
+            let data = try await decodingService.loadData("/players/\(userid)")
+            let user = try decodingService.decodeUserProfile(data)
             WCDBController.shared.deleteUser(userid: userid)
-            try WCDBController.shared.database.insertOrReplace(objects: [userProfile], intoTable: "UserProfile")
+            try WCDBController.shared.database.insertOrReplace(objects: [user], intoTable: "UserProfile")
             return user
         } catch {
             print(error.localizedDescription)
@@ -80,42 +74,11 @@ class OpenDotaController {
         }
         
     }
-//
-//    static func loadUserData(userid: String, onCompletion: @escaping (SteamProfile?) -> ()) {
-//        let url = "\(baseURL)/api/players/\(userid)"
-//        AF.request(url).responseJSON { response in
-//            print("load user data")
-//            debugPrint(response)
-//            guard let data = response.data else {
-//                return
-//            }
-//            guard let statusCode = response.response?.statusCode else {
-//                return
-//            }
-//            if statusCode > 400 {
-//                DotaEnvironment.shared.exceedLimit = true
-//                return
-//            }
-//            let decoder = JSONDecoder()
-//
-//            let user = try? decoder.decode(SteamProfile.self, from: data)
-//            var userProfile = user?.profile
-//            print(user)
-//            userProfile?.rank = user?.rank
-//            try? WCDBController.shared.database.insert(objects: [userProfile!], intoTable: "UserProfile")
-//            onCompletion(user)
-//        }
-//    }
     
     func loadMatchData(matchid: String) async throws -> Match {
-        let urlString = "\(baseURL)/api/matches/\(matchid)"
-        guard let url = URL(string: urlString) else {
-            throw NSError(domain: "Cannot Parse URL \(urlString)", code: 100, userInfo: nil)
-        }
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let decoder = JSONDecoder()
-            let match = try decoder.decode(Match.self, from: data)
+            let data = try await decodingService.loadData("/matches/\(matchid)")
+            let match = try decodingService.decodeMatch(data: data)
             WCDBController.shared.deleteMatch(matchid: matchid)
             try WCDBController.shared.database.insertOrReplace(objects: [match], intoTable: "Match")
             return match
@@ -127,23 +90,53 @@ class OpenDotaController {
     func loadRecentMatch(userid: String, days: Double? = nil) async -> [RecentMatch] {
         var urlString = ""
         if days != nil {
-            urlString = "\(baseURL)/api/players/\(userid)/matches/?date=\(days!)&&significant=0"
+            urlString = "/players/\(userid)/matches/?date=\(days!)&&significant=0"
         } else {
-            urlString = "\(baseURL)/api/players/\(userid)/matches?significant=0"
-        }
-        guard let url = URL(string: urlString) else {
-            return []
+            urlString = "/players/\(userid)/matches?significant=0"
         }
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let decoder = JSONDecoder()
-            guard let matches = try decoder.decode([RecentMatch]?.self, from: data) else {
-                return []
-            }
+            let data = try await decodingService.loadData(urlString)
+            let matches = try decodingService.decodeRecentMatch(data)
             matches.forEach({$0.playerId = Int(userid)})
             try WCDBController.shared.database.insertOrReplace(objects: matches, intoTable: "RecentMatch")
             print("fetched new matches for player \(userid)", matches.count)
             return matches.count >= 50 ? Array(matches[0..<50]) : matches
+        } catch {
+            print("error: ", error)
+            return []
+        }
+    }
+    
+    static func loadHeroPortrait(url: String, onCompletion: @escaping (Data) -> ()) {
+        let parse = url.replacingOccurrences(of: "/apps/dota2/images/heroes/", with: "")
+        let parse2 = parse.replacingOccurrences(of: "_icon.png", with: "")
+        let url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/\(parse2).png"
+        print("loading hero portrait \(url)")
+        AF.request(url).responseData { response in
+            guard let data = response.data else {
+                return
+            }
+            onCompletion(data)
+        }
+    }
+}
+
+struct DecodingService {
+    func decodeMatch(data: Data) throws -> Match {
+        do {
+            let decoder = JSONDecoder()
+            let match = try decoder.decode(Match.self, from: data)
+            return match
+        } catch {
+            throw APIError.decodingError
+        }
+    }
+    
+    func decodeRecentMatch(_ data: Data) throws -> [RecentMatch] {
+        do {
+            let decoder = JSONDecoder()
+            let match = try decoder.decode([RecentMatch].self, from: data)
+            return match
         } catch let DecodingError.dataCorrupted(context) {
             print(context)
             return []
@@ -159,23 +152,39 @@ class OpenDotaController {
             print("Type '\(type)' mismatch:", context.debugDescription)
             print("codingPath:", context.codingPath)
             return []
-        } catch {
-            print("error: ", error)
-            return []
         }
-        
     }
     
-    static func loadHeroPortrait(url: String, onCompletion: @escaping (Data) -> ()) {
-        let parse = url.replacingOccurrences(of: "/apps/dota2/images/heroes/", with: "")
-        let parse2 = parse.replacingOccurrences(of: "_icon.png", with: "")
-        let url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/\(parse2).png"
-        print("loading hero portrait \(url)")
-        AF.request(url).responseData { response in
-            guard let data = response.data else {
-                return
-            }
-            onCompletion(data)
+    func decodeUserProfile(_ data: Data) throws -> UserProfile {
+        do {
+            let decoder = JSONDecoder()
+            let user = try decoder.decode(SteamProfile.self, from: data)
+            var userProfile = user.profile
+            userProfile.rank = user.rank
+            return userProfile
+        } catch {
+            throw error
         }
     }
+    
+    func loadData(_ path: String) async throws -> Data {
+        let urlString = "\(baseURL)/api/\(path)"
+        print(urlString)
+        guard let url = URL(string: urlString) else {
+            throw APIError.urlError
+        }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            return data
+        } catch {
+            print(error)
+            throw APIError.networkError
+        }
+    }
+}
+
+enum APIError: LocalizedError {
+    case urlError
+    case decodingError
+    case networkError
 }
