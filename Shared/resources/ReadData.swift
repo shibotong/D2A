@@ -53,15 +53,18 @@ func loadLobby() -> [String: LobbyType]? {
 
 func loadHeroes() async -> [String: Hero] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/heroes.json"
-    let url = URL(string: urlString)!
-    do {
-        let (data, _) = try await URLSession.shared.data(from: url)
-        
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode([String: Hero].self, from: data)
-        return jsonData
-    } catch {
-        print(error.localizedDescription)
+    if let url = URL(string: urlString) {
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            
+            let decoder = JSONDecoder()
+            let jsonData = try decoder.decode([String: Hero].self, from: data)
+            return jsonData
+        } catch {
+            print(error.localizedDescription)
+            return [:]
+        }
+    } else {
         return [:]
     }
 }
@@ -85,28 +88,34 @@ func loadProfile() -> SteamProfile? {
 
 func loadAbilityID() async -> [String: String] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/ability_ids.json"
-    let url = URL(string: urlString)!
-    do {
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode([String: String].self, from: data)
-        return jsonData
-    } catch {
+    if let url = URL(string: urlString) {
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let decoder = JSONDecoder()
+            let jsonData = try decoder.decode([String: String].self, from: data)
+            return jsonData
+        } catch {
+            return [:]
+        }
+    } else {
         return [:]
     }
 }
 
 func loadAbilities() async -> [String: Ability] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/abilities.json"
-    let url = URL(string: urlString)!
-    do {
-        let (data, _) = try await URLSession.shared.data(from: url)
-        
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode([String: Ability].self, from: data)
-        return jsonData
-    } catch {
-        print("Cannot parse Lobby data")
+    if let url = URL(string: urlString) {
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            
+            let decoder = JSONDecoder()
+            let jsonData = try decoder.decode([String: Ability].self, from: data)
+            return jsonData
+        } catch {
+            print("Cannot parse Lobby data")
+            return [:]
+        }
+    } else {
         return [:]
     }
 }
@@ -129,12 +138,15 @@ func loadMatch() -> Match? {
 
 func loadItemIDs() async -> [String: String] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/item_ids.json"
-    let url = URL(string: urlString)!
-    do {
-        let (data, _) = try await URLSession.shared.data(from: url)
-        return try (JSONSerialization.jsonObject(with: data, options: []) as! [String : String])
-    } catch {
-        print(error.localizedDescription)
+    if let url = URL(string: urlString) {
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            return try (JSONSerialization.jsonObject(with: data, options: []) as! [String : String])
+        } catch {
+            print(error.localizedDescription)
+            return [:]
+        }
+    } else {
         return [:]
     }
 
@@ -142,14 +154,17 @@ func loadItemIDs() async -> [String: String] {
 
 func loadItems() async -> [String: Item] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/items.json"
-    let url = URL(string: urlString)!
-    do {
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode([String: Item].self, from: data)
-        return jsonData
-    } catch {
-        print(error.localizedDescription)
+    if let url = URL(string: urlString) {
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let decoder = JSONDecoder()
+            let jsonData = try decoder.decode([String: Item].self, from: data)
+            return jsonData
+        } catch {
+            print(error.localizedDescription)
+            return [:]
+        }
+    } else {
         return [:]
     }
 }

@@ -189,14 +189,14 @@ struct PlayerRowView: View {
                                 .resizable()
                                 .renderingMode(.template)
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 18, height: 12)
+                                .frame(width: 18, height: 15)
                                 .foregroundColor(player.hasScepter() ? .blue : .gray)
                                 
                             Image("agh_shard")
                                 .resizable()
                                 .renderingMode(.template)
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 18, height: 6)
+                                .frame(width: 18, height: 5)
                                 .foregroundColor(player.hasShard() ? .blue : .gray)
                         }
                         ItemView(id: player.item0).frame(width: 24, height: 18)
@@ -204,7 +204,11 @@ struct PlayerRowView: View {
                         ItemView(id: player.item2).frame(width: 24, height: 18)
                     }
                     HStack(spacing: 1) {
-                        ItemView(id: player.itemNeutral!).frame(width: 24, height: 18).clipShape(Circle()).frame(width: 18)
+                        if let item = player.itemNeutral {
+                            ItemView(id: item).frame(width: 24, height: 18).clipShape(Circle()).frame(width: 18)
+                        } else {
+                            Spacer().frame(width: 18, height: 18)
+                        }
                         ItemView(id: player.item3).frame(width: 24, height: 18)
                         ItemView(id: player.item4).frame(width: 24, height: 18)
                         ItemView(id: player.item5).frame(width: 24, height: 18)

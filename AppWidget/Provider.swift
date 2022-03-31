@@ -102,7 +102,7 @@ struct AppActiveWidgetEntryView : View {
     
     private let selectUserTitle = "No Profile"
     private let selectUserSubTitle = "Please select a Profile"
-
+    
     @ViewBuilder
     var body: some View {
         switch family {
