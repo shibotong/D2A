@@ -21,10 +21,15 @@ class SidebarRowViewModel: ObservableObject {
         guard let profile = WCDBController.shared.fetchUserProfile(userid: userid) else {
             Task {
                 let profile = await OpenDotaController.shared.loadUserData(userid: userid)
-                self.profile = profile
+                await self.setProfile(profile)
             }
             return
         }
+        self.profile = profile
+    }
+    
+    @MainActor
+    func setProfile(_ profile: UserProfile?) {
         self.profile = profile
     }
 }
