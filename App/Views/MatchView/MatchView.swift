@@ -125,7 +125,7 @@ struct AllTeamPlayerView: View {
     
     func fetchMaxDamage(players: [Player]) -> Int {
         if players.first!.heroDamage != nil {
-            let sortedPlayers = players.sorted(by: { $0.heroDamage! > $1.heroDamage! })
+            let sortedPlayers = players.sorted(by: { $0.heroDamage ?? 0 > $1.heroDamage ?? 0})
             return sortedPlayers.first!.heroDamage!
         } else {
             return 0

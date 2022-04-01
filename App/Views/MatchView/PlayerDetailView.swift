@@ -48,7 +48,9 @@ struct PlayerDetailView: View {
                                 }
                             }
                         }.frame(height: 250)
-                        buildAbiltyUpgrade(items: 10)
+                        if player.abilityUpgrade != nil {
+                            buildAbiltyUpgrade(items: 10)
+                        }
                     }.padding()
                 }
             }
@@ -119,7 +121,7 @@ struct PlayerDetailView: View {
             HStack {
                 HStack {
                     Circle().frame(width: 10, height: 10).foregroundColor(.red)
-                    Text("\(player.heroDamage!)").bold()
+                    Text("\(player.heroDamage ?? 0)").bold()
                     Text("Damage").foregroundColor(Color(.systemGray))
                 }
                 Spacer()
@@ -176,7 +178,21 @@ struct PlayerDetailView: View {
                     )
             }
         } else {
-            Text("cannot find")
+            Image("ability_slot")
+                .resizable()
+                .renderingMode(.template)
+                .aspectRatio(contentMode: .fit)
+                .foregroundColor(Color(.systemBackground))
+                .overlay(
+                    ZStack {
+                        Rectangle().stroke()
+                        if abilityID == 5002 {
+                            Text("Bonus Attributes").font(.custom(fontString, size: 8)).padding(0.5)
+                        } else {
+                            Text("Unknown: \(abilityID)").font(.custom(fontString, size: 8)).padding(0.5)
+                        }
+                    }
+                )
         }
     }
     @ViewBuilder private func profileHost(playerID: Int?) -> some View {

@@ -168,7 +168,7 @@ struct DecodingService {
     }
     
     func loadData(_ path: String) async throws -> Data {
-        let urlString = "\(baseURL)/api/\(path)"
+        let urlString = "\(baseURL)/api\(path)"
         print(urlString)
         guard let url = URL(string: urlString) else {
             throw APIError.urlError
