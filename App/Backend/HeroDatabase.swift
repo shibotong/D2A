@@ -78,12 +78,18 @@ class HeroDatabase: ObservableObject {
         return lobbyTypes["\(id)"] ?? LobbyType(id: id, name: "Unknown Lobby")
     }
     
-    func fetchAbility(id: Int) -> Ability? {
+    func fetchAbilityName(id: Int) -> String? {
         guard let abilityName = self.abilityIDTable["\(id)"] else {
             return nil
         }
-        return abilities[abilityName]
+        return abilityName
     }
+    
+    func fetchAbility(name: String) -> Ability? {
+        return abilities[name]
+    }
+    
+    
     
     func fetchAllHeroes() -> [Hero] {
         var sortedHeroes = [Hero]()

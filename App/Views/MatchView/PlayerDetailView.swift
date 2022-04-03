@@ -151,33 +151,34 @@ struct PlayerDetailView: View {
         }
     }
     @ViewBuilder private func buildAbility(abilityID: Int) -> some View {
-        if let ability = HeroDatabase.shared.fetchAbility(id: abilityID) {
-            if let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!" {
-                let parsedimgURL = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
-                    .resizable()
-                    .renderingMode(.original)
-                    .indicator(.activity)
-                    .transition(.fade)
-                    .aspectRatio(contentMode: .fit)
-            } else {
-                Image("ability_slot")
-                    .resizable()
-                    .renderingMode(.template)
-                    .aspectRatio(contentMode: .fit)
-                    .foregroundColor(Color(.systemBackground))
-                    .overlay(
-                        ZStack {
-                            Rectangle().stroke()
-                            if abilityID == 730 {
-                                Text("Bonus Attributes").font(.custom(fontString, size: 8)).padding(0.5)
-                            } else {
-                                Text(ability.dname ?? "Unknown \(abilityID)").font(.custom(fontString, size: 8)).padding(0.5)
+        if let abilityName = HeroDatabase.shared.fetchAbilityName(id: abilityID) {
+            if let ability = HeroDatabase.shared.fetchAbility(name: abilityName), let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!" {
+                    let parsedimgURL = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+                    WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
+                        .resizable()
+                        .renderingMode(.original)
+                        .indicator(.activity)
+                        .transition(.fade)
+                        .aspectRatio(contentMode: .fit)
+                } else {
+                    Image("ability_slot")
+                        .resizable()
+                        .renderingMode(.template)
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(Color(.systemBackground))
+                        .overlay(
+                            ZStack {
+                                Rectangle().stroke()
+                                if abilityID == 730 {
+                                    Text("Bonus Attributes").font(.custom(fontString, size: 8)).padding(0.5)
+                                } else {
+                                    Text(NSLocalizedString(abilityName, comment: "")).font(.custom(fontString, size: 8)).padding(0.5)
+                                }
                             }
-                        }
-                    )
-            }
+                        )
+                }
         } else {
+            // Cannot find ability with ID
             Image("ability_slot")
                 .resizable()
                 .renderingMode(.template)
@@ -186,11 +187,7 @@ struct PlayerDetailView: View {
                 .overlay(
                     ZStack {
                         Rectangle().stroke()
-                        if abilityID == 5002 {
-                            Text("Bonus Attributes").font(.custom(fontString, size: 8)).padding(0.5)
-                        } else {
-                            Text("Unknown: \(abilityID)").font(.custom(fontString, size: 8)).padding(0.5)
-                        }
+                        Text("Unknown: \(abilityID)").font(.custom(fontString, size: 8)).padding(0.5)
                     }
                 )
         }
