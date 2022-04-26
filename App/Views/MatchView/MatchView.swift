@@ -182,38 +182,36 @@ struct PlayerRowView: View {
                     KDAView(kills: player.kills, deaths: player.deaths, assists: player.assists, size: 13)
                 }.frame(minWidth: 0)
                 Spacer()
+                if let item = player.itemNeutral {
+                    ItemView(id: item)
+                        .frame(width: 24, height: 18)
+                        .clipShape(Circle())
+                        .frame(width: 8)
+                }
                 VStack(spacing: 1) {
                     HStack(spacing: 1) {
-                        VStack(spacing: 0) {
-                            Image("agh")
-                                .resizable()
-                                .renderingMode(.template)
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 18, height: 15)
-                                .foregroundColor(player.hasScepter() ? .blue : .gray)
-                                
-                            Image("agh_shard")
-                                .resizable()
-                                .renderingMode(.template)
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 18, height: 5)
-                                .foregroundColor(player.hasShard() ? .blue : .gray)
-                        }
+//                        Spacer().frame(width: 18)
                         ItemView(id: player.item0).frame(width: 24, height: 18)
                         ItemView(id: player.item1).frame(width: 24, height: 18)
                         ItemView(id: player.item2).frame(width: 24, height: 18)
                     }
                     HStack(spacing: 1) {
-                        if let item = player.itemNeutral {
-                            ItemView(id: item).frame(width: 24, height: 18).clipShape(Circle()).frame(width: 18)
-                        } else {
-                            Spacer().frame(width: 18, height: 18)
-                        }
                         ItemView(id: player.item3).frame(width: 24, height: 18)
                         ItemView(id: player.item4).frame(width: 24, height: 18)
                         ItemView(id: player.item5).frame(width: 24, height: 18)
                     }
                 }
+                VStack(spacing: 0) {
+                    Image("scepter_\(player.hasScepter() ? "1" : "0")")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 24, height: 24)
+                        
+                    Image("shard_\(player.hasShard() ? "0" : "1")")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 24, height: 12)
+                }.frame(width: 10)
                 VStack(spacing: 0) {
                     HStack(spacing: 3) {
                         Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
