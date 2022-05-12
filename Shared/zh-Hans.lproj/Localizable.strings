@@ -381,7 +381,6 @@
 "special_bonus_unique_lion_6" = "+15% 法力吸取减速";
 "special_bonus_unique_mars_spear_cooldown" = "-3s Spear Cooldown"; // TODO: Mars
 "special_bonus_hp_450" = "+450 生命";
-// MARK: - Here
 "special_bonus_unique_shadow_shaman_6" = "+140 枷锁总伤害";
 "special_bonus_strength_18" = "+18 力量";
 "special_bonus_unique_furion_5" = "+30 自然之怒基础伤害";
@@ -1659,7 +1658,7 @@
 "special_bonus_unique_terrorblade" = "-34秒 魂断冷却";
 "special_bonus_armor_2" = "+2 护甲";
 "special_bonus_lifesteal_25" = "25% 吸血";
-"special_bonus_attack_damage_120" = "+120 攻击力"
+"special_bonus_attack_damage_120" = "+120 攻击力";
 "special_bonus_cast_range_200" = "+200 施法距离";
 "special_bonus_strength_7" = "+7 力量";
 "special_bonus_mp_regen_10" = "+10 魔法恢复";
@@ -2571,3 +2570,4 @@
 "roshan_halloween_shell" = "Shell";
 "roshan_halloween_apocalypse" = "Apocalypse";
 "roshan_halloween_burn" = "Fire Breath";
+*/
