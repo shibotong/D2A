@@ -137,7 +137,7 @@
 "special_bonus_unique_oracle_6" = "-20s False Promise Cooldown";
 "special_bonus_unique_omniknight_6" = "-2s Purification Cooldown";
 "special_bonus_unique_riki_7" = "+75 Smoke Screen AoE";
-"special_bonus_unique_sand_king_4" = "40% Sand Storm Slow and Blind";
+"special_bonus_unique_sand_king_4" = "35% Sand Storm Slow and Blind";
 "special_bonus_unique_bane_5" = "-3s Nightmare Cooldown";
 "special_bonus_unique_wraith_king_9" = "-1s Wraithfire Blast Cooldown";
 "special_bonus_attack_speed_110" = "+110 Attack Speed";
@@ -1656,7 +1656,7 @@
 "special_bonus_agility_30" = "+30 Agility";
 "special_bonus_unique_queen_of_pain" = "525 AoE Shadow Strike";
 "special_bonus_unique_razor_2" = "0.1s Eye of the Storm Strike Interval";
-"special_bonus_unique_sand_king_2" = "+20 Sand Storm DPS";
+"special_bonus_unique_sand_king_2" = "+15 Sand Storm DPS";
 "special_bonus_mp_regen_5" = "+5 Mana Regen";
 "special_bonus_unique_tusk_2" = "+120 Snowball Damage";
 "special_bonus_unique_warlock_3" = "-4s Shadow Word Cooldown";
@@ -1722,7 +1722,7 @@
 "special_bonus_unique_legion_commander_3" = "+8% Moment Proc Chance";
 "special_bonus_unique_keeper_of_the_light_2" = "+200 Chakra Magic Mana";
 "special_bonus_unique_dazzle_3" = "+40 Poison Touch DPS";
-"special_bonus_unique_sand_king_3" = "+150 Sand Storm Radius";
+"special_bonus_unique_sand_king_3" = "+125 Sand Storm Radius";
 "special_bonus_unique_treant_2" = "+40 Leech Seed Damage/Heal";
 "special_bonus_unique_venomancer_2" = "-8% Poison Sting Slow";
 "special_bonus_unique_ancient_apparition_4" = "-5% Ice Vortex Slow/Resistance";
@@ -1732,7 +1732,7 @@
 "special_bonus_unique_jakiro_3" = "Macropyre Pure and Pierces Immunity";
 "special_bonus_unique_furion_3" = "Removed Teleportation Cooldown";
 "special_bonus_unique_oracle_2" = "+0.4s Fortune's End Duration";
-"special_bonus_unique_pugna_5" = "+1.5s Decrepify Duration";
+"special_bonus_unique_pugna_5" = "+1s Decrepify Duration";
 "special_bonus_unique_shadow_demon_3" = "-1.25s Shadow Poison Cooldown";
 "special_bonus_unique_spirit_breaker_3" = "+25% Greater Bash Damage";
 "special_bonus_unique_templar_assassin_2" = "-3 Meld Armor Reduction";
@@ -2151,7 +2151,7 @@
 "primal_beast_rock_throw" = "Rock Throw";
 "special_bonus_unique_primal_beast_roar_dispells" = "special_bonus_unique_primal_beast_roar_dispells (7740)"; // TODO = Translate
 "special_bonus_unique_primal_beast_onslaught_damage" = "special_bonus_unique_primal_beast_onslaught_damage (7741)"; //spawnlord_aura
-"special_bonus_unique_primal_beast_trample_attack_damage" = "+{s:bonus_attack_damage}% Trample Attack Multiplier";// TODO = Need value
+"special_bonus_unique_primal_beast_trample_attack_damage" = "+25% Trample Attack Multiplier";
 "special_bonus_unique_primal_beast_pulverize_duration" = "+{s:bonus_channel_time}% Pulverize Duration";// TODO = Need value
 "special_bonus_unique_primal_beast_uproar_armor" = "+{s:bonus_roared_bonus_armor} Uproar Armor Per Stack";// TODO = Need value
 "seasonal_throw_snowball" = "Throw Snowball";
@@ -2320,5 +2320,3 @@
 "roshan_halloween_shell" = "Shell";
 "roshan_halloween_apocalypse" = "Apocalypse";
 "roshan_halloween_burn" = "Fire Breath";
-*/
-

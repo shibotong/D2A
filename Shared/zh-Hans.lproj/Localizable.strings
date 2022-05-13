@@ -1972,7 +1972,7 @@
 "special_bonus_unique_legion_commander_3" = "+8% 勇气之霎触发几率";
 "special_bonus_unique_keeper_of_the_light_2" = "+200 Chakra Magic Mana"; // TODO: Keeper of light
 "special_bonus_unique_dazzle_3" = "+40 剧毒之触每秒伤害";
-"special_bonus_unique_sand_king_3" = "+150 Sand Storm Radius"; // TODO: Sandking
+"special_bonus_unique_sand_king_3" = "+125 沙尘暴作用范围";
 "special_bonus_unique_treant_2" = "+40 寄生种子伤害/治疗";
 "special_bonus_unique_venomancer_2" = "-8% 毒刺减速";
 "special_bonus_unique_ancient_apparition_4" = "-5% 冰霜漩涡减速/伤害加深";
