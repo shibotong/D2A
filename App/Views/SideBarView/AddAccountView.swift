@@ -14,42 +14,34 @@ struct AddAccountView: View, Equatable {
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         NavigationView {
-            VStack {
-                HStack {
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                        TextField("Dota2 ID or username", text: $vm.userid)
-                    }
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 15).stroke(Color.primaryDota))
-                    Button(action: {
-                        Task {
-                            await vm.search()
-                        }
-                    }) {
-                        Text("Search").foregroundColor(.white).bold()
-                    }
-                    .keyboardShortcut(.defaultAction)
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 15).foregroundColor(Color.primaryDota))
-                }.padding(.horizontal)
-                if vm.searched {
-                    List(vm.userProfiles) { profile in 
-                        ProfileView(vm: ProfileViewModel(profile: profile), presentState: presentationMode).equatable()
-                    }.listStyle(.plain)
-                } else {
-                    Spacer()
+            List(vm.userProfiles) { profile in
+                ProfileView(vm: ProfileViewModel(profile: profile), presentState: presentationMode).equatable()
+            }
+            .listStyle(.plain)
+            .font(.custom(fontString, size: 15))
+            .navigationTitle("Search")
+            .searchable(text: $vm.userid)
+            .onSubmit(of: .search) {
+                Task {
+                    await vm.search()
                 }
             }
-            
-            .font(.custom(fontString, size: 15))
-            .padding(.vertical)
-            .navigationTitle("Search Dota2 Profile")
         }
+        
     }
     
     static func == (lhs: AddAccountView, rhs: AddAccountView) -> Bool {
         return true
+    }
+    
+    @ViewBuilder func buildView() -> some View {
+        if vm.searched {
+            List(vm.userProfiles) { profile in
+                ProfileView(vm: ProfileViewModel(profile: profile), presentState: presentationMode).equatable()
+            }.listStyle(.plain)
+        } else {
+            Spacer()
+        }
     }
 }
 

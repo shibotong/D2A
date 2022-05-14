@@ -9,7 +9,7 @@
 import XCTest
 
 
-class DecodingTestService: XCTestCase {
+class DecodingTestCase: XCTestCase {
     
     var decodingService: DecodingService!
     

@@ -10,18 +10,18 @@ import SwiftUI
 struct HeroListView: View {
     @EnvironmentObject var herodata: HeroDatabase
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 100, maximum: 150), spacing: 10, alignment: .leading), count: 3)){
-                ForEach(herodata.fetchAllHeroes()) { hero in
-                    buildHero(hero: hero)
-                }
+        List {
+            ForEach(herodata.fetchAllHeroes()) { hero in
+                buildHero(hero: hero)
             }
-            .padding()
         }
     }
     
     @ViewBuilder private func buildHero(hero: Hero) -> some View {
-        HeroImageView(heroID: hero.id, type: .full)
+        HStack {
+            HeroImageView(heroID: hero.id, type: .full).frame(width: 50)
+            Text(hero.localizedName)
+        }
     }
 }
 

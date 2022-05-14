@@ -19,6 +19,7 @@ class HeroDatabase: ObservableObject {
     var itemIDTable = [String: String]()
     var abilityIDTable = [String: String]()
     var abilities = [String: Ability]()
+    var heroAbilities = [String: HeroAbility]()
     
     static var shared = HeroDatabase()
     
@@ -35,6 +36,7 @@ class HeroDatabase: ObservableObject {
             self.heroes = await loadHeroes()
             self.abilityIDTable = await loadAbilityID()
             self.abilities = await loadAbilities()
+            self.heroAbilities = await loadHeroAbilities()
             DispatchQueue.main.async {
                 if self.abilities.count == 0 {
                     self.error = true

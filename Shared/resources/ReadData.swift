@@ -69,6 +69,24 @@ func loadHeroes() async -> [String: Hero] {
     }
 }
 
+func loadHeroAbilities() async -> [String: HeroAbility] {
+    let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/hero_abilities.json"
+    if let url = URL(string: urlString) {
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            
+            let decoder = JSONDecoder()
+            let jsonData = try decoder.decode([String: HeroAbility].self, from: data)
+            return jsonData
+        } catch {
+            print(error.localizedDescription)
+            return [:]
+        }
+    } else {
+        return [:]
+    }
+}
+
 func loadProfile() -> SteamProfile? {
     guard let data = loadFile(filename: "sampleProfile") else {
         return nil

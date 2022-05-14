@@ -30,6 +30,15 @@ class Hero: Identifiable, Decodable {
         case img
         case icon
     }
-    
+}
+
+class HeroAbility: Decodable {
+    var abilities: [String]
+    var talents: [Talent]
+}
+
+struct Talent: Decodable {
+    var name: String
+    var level: Int
 }
 

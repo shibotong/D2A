@@ -46,6 +46,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(DotaEnvironment.shared)
+            .environmentObject(HeroDatabase.shared)
     }
 }
 
@@ -57,22 +58,44 @@ struct NavigationHostView: View {
     @AppStorage("selectedUser") var selectedUser: String?
     @AppStorage("selectedMatch") var selectedMatch: String?
     var body: some View {
-        if env.userIDs.isEmpty {
-            EmptyUserView()
-        } else {
+//        if env.userIDs.isEmpty {
+//            EmptyUserView()
+//        } else {
             if horizontalSizeClass == .compact {
-                NavigationView {
-                    Sidebar()
+                TabView{
+                    NavigationView {
+                        Sidebar()
+                    }.tabItem {
+                        Image(systemName: "person")
+                        Text("Profile")
+                    }
+                    NavigationView {
+                        HeroListView()
+                    }.tabItem {
+                        Image(systemName: "server.rack")
+                        Text("Hero")
+                    }
+
+                    AddAccountView()
+                        .tabItem {
+                            Image(systemName: "magnifyingglass")
+                            Text("Search")
+                        }
+                    NavigationView {
+                        EmptyView()
+                    }.tabItem {
+                        Image(systemName: "gear")
+                        Text("Settings")
+                    }
                 }
             } else {
                 NavigationView {
                     Sidebar()
                     EmptyView()
-                    EmptyView()
                 }
                 .navigationViewStyle(DoubleColumnNavigationViewStyle())
             }
-        }
+//        }
     }
 }
 
