@@ -20,7 +20,7 @@ fileprivate func loadFile(filename: String) -> Data? {
         return nil
     }
 }
-//
+
 func loadRecentMatches() -> [RecentMatch]? {
     guard let data = loadFile(filename: "sampleRecentMatch") else {
         return nil
@@ -48,6 +48,24 @@ func loadLobby() -> [String: LobbyType]? {
     } catch {
         print("Cannot parse Lobby data")
         return nil
+    }
+}
+
+func loadTalentData() async -> [String: String] {
+    let urlString = "https://raw.githubusercontent.com/shibotong/Dota2-talent-data/main/talent.json"
+    if let url = URL(string: urlString) {
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            
+            let decoder = JSONDecoder()
+            let jsonData = try decoder.decode([String: String].self, from: data)
+            return jsonData
+        } catch {
+            print(error.localizedDescription)
+            return [:]
+        }
+    } else {
+        return [:]
     }
 }
 

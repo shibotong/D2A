@@ -10,24 +10,55 @@ import SwiftUI
 struct HeroListView: View {
     @EnvironmentObject var herodata: HeroDatabase
     var body: some View {
-        List {
-            ForEach(herodata.fetchAllHeroes()) { hero in
-                buildHero(hero: hero)
+        ScrollView(.vertical, showsIndicators: false) {
+            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 170, maximum: 200), spacing: 10, alignment: .leading), count: 2)){
+                ForEach(herodata.fetchAllHeroes()) { hero in
+                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                        buildHero(hero: hero)
+                    }
+                }
             }
         }
+        .navigationTitle("Heroes")
+        .padding(.horizontal)
+        
     }
     
     @ViewBuilder private func buildHero(hero: Hero) -> some View {
-        HStack {
-            HeroImageView(heroID: hero.id, type: .full).frame(width: 50)
-            Text(hero.localizedName)
+        ZStack {
+            HeroImageView(heroID: hero.id, type: .full)
+                .overlay(LinearGradient(colors: [.black.opacity(0),.black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+            HStack {
+                VStack {
+                    Spacer()
+                    HStack {
+                        Image("hero_\(hero.primaryAttr)").resizable().frame(width: 20, height: 20)
+                        Text(LocalizedStringKey(hero.localizedName))
+                            .font(.custom(fontString, size: 13))
+                            .fontWeight(.black)
+                            .foregroundColor(.white)
+                    }
+                }
+                Spacer()
+            }
+            .padding(5)
         }
     }
 }
 
 struct HeroListView_Previews: PreviewProvider {
     static var previews: some View {
-        HeroListView()
-            .environmentObject(HeroDatabase.shared)
+        NavigationView {
+            HeroListView()
+        }
+        .environmentObject(HeroDatabase.shared)
+        .previewDevice(iPhone)
+//        NavigationView{
+//            EmptyView()
+//            HeroListView()
+//        }
+//        .environmentObject(HeroDatabase.shared)
+//        .previewDevice(iPadPro12)
     }
 }

@@ -112,6 +112,7 @@
 		323ADBA0272E03E500253124 /* neutral_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB11272B91F400253124 /* neutral_abilities.json */; };
 		323ADBA1272E03E500253124 /* chat_wheel.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB19272B91F400253124 /* chat_wheel.json */; };
 		323ADBA4272E24EE00253124 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AEA26F61836006E9B05 /* IntentHandler.swift */; };
+		32470F902841A18900448016 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 32470F8F2841A18900448016 /* BottomSheet */; };
 		324791B92818B7AF00605D55 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3251C8F126F97C9500C826BD /* Localizable.strings */; };
 		3252858F26C949940030F15B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252858E26C949940030F15B /* Date.swift */; };
 		3252859126C9E8040030F15B /* AnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859026C9E8040030F15B /* AnalysisView.swift */; };
@@ -122,6 +123,9 @@
 		325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
 		3261C907282F315100D47CDA /* HeroDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261C906282F315100D47CDA /* HeroDetailView.swift */; };
 		3261C90928306FDE00D47CDA /* MetadataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261C90828306FDE00D47CDA /* MetadataTestCase.swift */; };
+		3261C90B2830721500D47CDA /* HeroDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */; };
+		3261C90D2830748600D47CDA /* sampleHero.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90C2830748600D47CDA /* sampleHero.json */; };
+		3261C90F2830765300D47CDA /* sampleAbility.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90E2830765300D47CDA /* sampleAbility.json */; };
 		327772AD26D8BD47000A0A97 /* sampleRecentMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 327772AC26D8BD47000A0A97 /* sampleRecentMatch.json */; };
 		327772AF26D8BE63000A0A97 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
 		327772B126D9D71F000A0A97 /* LobbyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772B026D9D71F000A0A97 /* LobbyType.swift */; };
@@ -331,6 +335,9 @@
 		325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchListRowViewModel.swift; sourceTree = "<group>"; };
 		3261C906282F315100D47CDA /* HeroDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailView.swift; sourceTree = "<group>"; };
 		3261C90828306FDE00D47CDA /* MetadataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataTestCase.swift; sourceTree = "<group>"; };
+		3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewModel.swift; sourceTree = "<group>"; };
+		3261C90C2830748600D47CDA /* sampleHero.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleHero.json; sourceTree = "<group>"; };
+		3261C90E2830765300D47CDA /* sampleAbility.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleAbility.json; sourceTree = "<group>"; };
 		327772AC26D8BD47000A0A97 /* sampleRecentMatch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleRecentMatch.json; sourceTree = "<group>"; };
 		327772AE26D8BE63000A0A97 /* MatchListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchListRowView.swift; sourceTree = "<group>"; };
 		327772B026D9D71F000A0A97 /* LobbyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyType.swift; sourceTree = "<group>"; };
@@ -414,6 +421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				322B893026CD41A200DF67F9 /* (null) in Frameworks */,
+				32470F902841A18900448016 /* BottomSheet in Frameworks */,
 				3252859C26CB87060030F15B /* SDWebImageSwiftUI in Frameworks */,
 				32B36F4226C38972002D427D /* Alamofire in Frameworks */,
 				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
@@ -493,6 +501,8 @@
 				327772AC26D8BD47000A0A97 /* sampleRecentMatch.json */,
 				321D58A626D717900059526B /* sampleMatch.json */,
 				3294463926E1A5A5006E0D06 /* sampleProfile.json */,
+				3261C90C2830748600D47CDA /* sampleHero.json */,
+				3261C90E2830765300D47CDA /* sampleAbility.json */,
 			);
 			path = sample;
 			sourceTree = "<group>";
@@ -690,6 +700,7 @@
 		32B36F4326C389C3002D427D /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */,
 				322B88FF26CCD2EA00DF67F9 /* MatchListViewModel.swift */,
 				325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */,
 				3252859626CB81480030F15B /* DifferenceGraphViewModel.swift */,
@@ -842,6 +853,7 @@
 			packageProductDependencies = (
 				32B36F4126C38972002D427D /* Alamofire */,
 				3252859B26CB87060030F15B /* SDWebImageSwiftUI */,
+				32470F8F2841A18900448016 /* BottomSheet */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* App.app */;
@@ -927,6 +939,7 @@
 			packageReferences = (
 				32B36F4026C38972002D427D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				3252859A26CB87060030F15B /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				32470F8E2841A18900448016 /* XCRemoteSwiftPackageReference "bottom-sheet" */,
 			);
 			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
 			projectDirPath = "";
@@ -970,8 +983,10 @@
 				323ADB35272B91F500253124 /* hero_lore.json in Resources */,
 				323ADB24272B91F500253124 /* lobby_type.json in Resources */,
 				324791B92818B7AF00605D55 /* Localizable.strings in Resources */,
+				3261C90F2830765300D47CDA /* sampleAbility.json in Resources */,
 				323ADB2D272B91F500253124 /* xp_level.json in Resources */,
 				323ADB2F272B91F500253124 /* permanent_buffs.json in Resources */,
+				3261C90D2830748600D47CDA /* sampleHero.json in Resources */,
 				323ADB34272B91F500253124 /* skillshots.json in Resources */,
 				323ADB20272B91F500253124 /* item_colors.json in Resources */,
 				32B36F1626C38822002D427D /* Preview Assets.xcassets in Resources */,
@@ -1189,6 +1204,7 @@
 				325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */,
 				32B36F3F26C388AD002D427D /* MatchListView.swift in Sources */,
 				32B36F2A26C38852002D427D /* Item.swift in Sources */,
+				3261C90B2830721500D47CDA /* HeroDetailViewModel.swift in Sources */,
 				322B893826CD44FE00DF67F9 /* SteamProfile.swift in Sources */,
 				325285A026CBB67C0030F15B /* SidebarRowViewModel.swift in Sources */,
 				322B893626CD438700DF67F9 /* UserProfile.swift in Sources */,
@@ -1708,6 +1724,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		32470F8E2841A18900448016 /* XCRemoteSwiftPackageReference "bottom-sheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weitieda/bottom-sheet";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		3252859A26CB87060030F15B /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -1727,6 +1751,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		32470F8F2841A18900448016 /* BottomSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 32470F8E2841A18900448016 /* XCRemoteSwiftPackageReference "bottom-sheet" */;
+			productName = BottomSheet;
+		};
 		3252859B26CB87060030F15B /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3252859A26CB87060030F15B /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;

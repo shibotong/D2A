@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct Ability: Codable {
+struct Ability: Codable, Identifiable {
+    var id = UUID()
+    
     var img: String?
     var dname: String?
     var desc: String?

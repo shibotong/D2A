@@ -20,6 +20,7 @@ class HeroDatabase: ObservableObject {
     var abilityIDTable = [String: String]()
     var abilities = [String: Ability]()
     var heroAbilities = [String: HeroAbility]()
+    var talentData = [String: String]()
     
     static var shared = HeroDatabase()
     
@@ -30,13 +31,25 @@ class HeroDatabase: ObservableObject {
         self.gameModes = loadGameModes()
         self.regions = loadRegion()!
         self.lobbyTypes = loadLobby()!
+        
+        
         Task {
-            self.itemIDTable = await loadItemIDs()
-            self.items = await loadItems()
-            self.heroes = await loadHeroes()
-            self.abilityIDTable = await loadAbilityID()
-            self.abilities = await loadAbilities()
-            self.heroAbilities = await loadHeroAbilities()
+            async let idTable = loadItemIDs()
+            async let items = loadItems()
+            async let heroes = loadHeroes()
+            async let abilityIDTable = loadAbilityID()
+            async let abilities = loadAbilities()
+            async let heroAbilities = loadHeroAbilities()
+            async let talentData = loadTalentData()
+            
+            self.itemIDTable = await idTable
+            self.items = await items
+            self.heroes = await heroes
+            self.abilityIDTable = await abilityIDTable
+            self.abilities = await abilities
+            self.heroAbilities = await heroAbilities
+            self.talentData = await talentData
+            
             DispatchQueue.main.async {
                 if self.abilities.count == 0 {
                     self.error = true
@@ -46,7 +59,7 @@ class HeroDatabase: ObservableObject {
             }
         }
     }
-    
+
     func fetchHeroWithID(id: Int) -> Hero? {
         return heroes["\(id)"]
     }
@@ -91,7 +104,9 @@ class HeroDatabase: ObservableObject {
         return abilities[name]
     }
     
-    
+    func fetchHeroAbility(name: String) -> HeroAbility? {
+        return heroAbilities[name]
+    }
     
     func fetchAllHeroes() -> [Hero] {
         var sortedHeroes = [Hero]()
