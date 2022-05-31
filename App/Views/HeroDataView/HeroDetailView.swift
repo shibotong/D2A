@@ -8,18 +8,19 @@
 import SwiftUI
 import SDWebImageSwiftUI
 import BottomSheet
+import AVKit
 
 struct HeroDetailView: View {
     @ObservedObject var vm: HeroDetailViewModel
     
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var env: DotaEnvironment
-//    @State var selectedAbility: Ability? = nil
+    //    @State var selectedAbility: Ability? = nil
     
     
     
     var body: some View {
-//        VStack(spacing: 0) {
+        //        VStack(spacing: 0) {
         ScrollView {
             buildTitle(hero: vm.hero)
             buildSkills()
@@ -27,10 +28,10 @@ struct HeroDetailView: View {
             Rectangle()
                 .foregroundColor(Color(.secondarySystemBackground))
                 .frame(height: 1)
-//            ScrollView {
-                buildHeroDetail()
-                Spacer()
-//            }.frame(maxHeight: .infinity)
+            //            ScrollView {
+            buildHeroDetail()
+            Spacer()
+            //            }.frame(maxHeight: .infinity)
         }
         .navigationTitle(vm.hero.localizedName)
         .navigationBarTitleDisplayMode(.inline)
@@ -80,7 +81,7 @@ struct HeroDetailView: View {
                     let ability = vm.fetchAbility(name: abilityName)
                     let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
                     Button {
-                        self.env.selectedAbility = vm.fetchAbility(name: abilityName)
+                        self.env.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroName: vm.hero.heroNameLowerCase, abilityName: abilityName)
                     } label: {
                         WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
                             .resizable()
@@ -114,7 +115,7 @@ struct HeroDetailView: View {
             HStack {
                 Text("Talents")
                     .font(.custom(fontString, size: 15))
-                .bold()
+                    .bold()
                 Spacer()
             }.padding([.leading, .top])
             buildLevelTalent(talent: talent, level: 4)
@@ -166,7 +167,7 @@ struct HeroDetailView: View {
             HStack {
                 Text("Stats")
                     .font(.custom(fontString, size: 15))
-                .bold()
+                    .bold()
                 Spacer()
             }.padding()
             HStack(alignment: .top) {
@@ -206,7 +207,7 @@ struct HeroDetailView: View {
                 .resizable()
                 .frame(width: 15, height: 15)
                 .foregroundColor(Color(uiColor: UIColor.label))
-                
+            
             Text(value)
                 .font(.custom(fontString, size: 15))
         }
@@ -217,7 +218,7 @@ struct HeroDetailView: View {
             HStack {
                 Text("Attributes")
                     .font(.custom(fontString, size: 15))
-                .bold()
+                    .bold()
                 Spacer()
             }.padding([.leading, .top])
             GeometryReader { proxy in
@@ -230,39 +231,39 @@ struct HeroDetailView: View {
                             .overlay(LinearGradient(colors: [.black.opacity(0.5), .white.opacity(0.5)], startPoint: .leading, endPoint: .trailing))
                         Rectangle().frame(height: 20).foregroundColor(Color.blue)
                     }.frame(width: (proxy.size.width - 30) / 2)
-                   
-                        VStack (spacing: 3) {
-                            HStack {
-                                Image("hero_str")
-                                    .resizable()
-                                    .frame(width: 15, height: 15)
-                                Text("\(hero.baseStr)")
-                                    .font(.custom(fontString, size: 18))
-                                    .bold()
-                                Text("+ \(hero.strGain, specifier: "%.1f")")
-                                    .font(.custom(fontString, size: 13))
-                            }
-                            HStack {
-                                Image("hero_agi")
-                                    .resizable()
-                                    .frame(width: 15, height: 15)
-                                Text("\(hero.baseAgi)")
-                                    .font(.custom(fontString, size: 18))
-                                    .bold()
-                                Text("+ \(hero.agiGain, specifier: "%.1f")")
-                                    .font(.custom(fontString, size: 13))
-                            }
-                            HStack {
-                                Image("hero_int")
-                                    .resizable()
-                                    .frame(width: 15, height: 15)
-                                Text("\(hero.baseInt)")
-                                    .font(.custom(fontString, size: 18))
-                                    .bold()
-                                Text("+ \(hero.intGain, specifier: "%.1f")")
-                                    .font(.custom(fontString, size: 13))
-                            }
-                        }.frame(width: (proxy.size.width - 30) / 2)
+                    
+                    VStack (spacing: 3) {
+                        HStack {
+                            Image("hero_str")
+                                .resizable()
+                                .frame(width: 15, height: 15)
+                            Text("\(hero.baseStr)")
+                                .font(.custom(fontString, size: 18))
+                                .bold()
+                            Text("+ \(hero.strGain, specifier: "%.1f")")
+                                .font(.custom(fontString, size: 13))
+                        }
+                        HStack {
+                            Image("hero_agi")
+                                .resizable()
+                                .frame(width: 15, height: 15)
+                            Text("\(hero.baseAgi)")
+                                .font(.custom(fontString, size: 18))
+                                .bold()
+                            Text("+ \(hero.agiGain, specifier: "%.1f")")
+                                .font(.custom(fontString, size: 13))
+                        }
+                        HStack {
+                            Image("hero_int")
+                                .resizable()
+                                .frame(width: 15, height: 15)
+                            Text("\(hero.baseInt)")
+                                .font(.custom(fontString, size: 18))
+                                .bold()
+                            Text("+ \(hero.intGain, specifier: "%.1f")")
+                                .font(.custom(fontString, size: 13))
+                        }
+                    }.frame(width: (proxy.size.width - 30) / 2)
                     
                     
                 }
@@ -275,98 +276,103 @@ struct HeroDetailView: View {
 
 struct AbilityView: View {
     var ability: Ability
-    
+    var heroName: String
+    var abilityName: String
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            HStack(alignment: .top, spacing: 10) {
-                let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
-                    .resizable()
-                    .renderingMode(.original)
-                    .indicator(.activity)
-                    .transition(.fade)
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 70)
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                VStack(alignment: .leading) {
-                    Text(ability.dname ?? "")
-                        .font(.custom(fontString, size: 18))
-                        .bold()
-                    if let cd = ability.coolDown {
-                        Text("Cooldown: \(cd.transformString())")
-                            .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
-                    }
-                    if let mc = ability.manaCost {
-                        Text("Cost: \(mc.transformString())")
-                            .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
-                    }
-                }
-                Spacer()
-            }
-            
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 100, maximum: 200), spacing: 5), count: 2),alignment: .leading, spacing: 5) {
-                if let behavior = ability.behavior {
-                    buildAttributesText(title: "ABILITY:", message: "\(behavior.transformString())")
-                }
-                if let targetTeam = ability.targetTeam {
-                    buildAttributesText(title: "PIERCES SPELL:", message: "\(targetTeam.transformString())")
-                }
-                if let targetType = ability.targetType {
-                    buildAttributesText(title: "AFFECTS:", message: "\(targetType.transformString())")
-                }
-                if let bkbPierce = ability.bkbPierce {
-                    buildAttributesText(title: "IMMUNITY:", message: "\(bkbPierce.transformString())", color: bkbPierce.transformString() == "Yes" ? Color.green : Color(uiColor: UIColor.label))
-                }
-                if let dispellable = ability.dispellable {
-                    let dispellableString = dispellable.transformString()
-                    if dispellableString == "" {
-                        buildAttributesText(title: "DISPELLABLE:", message: "Only Strong Dispels", color: .red)
-                    } else {
-                        buildAttributesText(title: "DISPELLABLE:", message: "\(dispellable.transformString())", color: dispellable.transformString() == "No" ? .red : Color(uiColor: UIColor.label))
-                    }
-                }
-                if let damageType = ability.damageType {
-                    buildAttributesText(title: "DAMAGE TYPE:", message: "\(damageType.transformString())", color: {
-                        if damageType.transformString() == "Magical" {
-                            return Color.blue
-                        } else if damageType.transformString() == "Physics" {
-                            return Color.red
-                        } else if damageType.transformString() == "Pure" {
-                            return Color.yellow
-                        } else {
-                            return Color(UIColor.label)
+        VStack {
+            ScrollView(.vertical, showsIndicators: false) {
+                HStack(alignment: .top, spacing: 10) {
+                    let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+                    WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
+                        .resizable()
+                        .renderingMode(.original)
+                        .indicator(.activity)
+                        .transition(.fade)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 70)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                    VStack(alignment: .leading) {
+                        Text(ability.dname ?? "")
+                            .font(.custom(fontString, size: 18))
+                            .bold()
+                        if let cd = ability.coolDown {
+                            Text("Cooldown: \(cd.transformString())")
+                                .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
                         }
-                    }())
-                }
-            }
-            
-            Text(ability.desc ?? "")
-                .font(.custom(fontString, size: 12))
-            Spacer().frame(height: 10)
-            if let attributes = ability.attributes {
-                HStack {
-                    VStack(alignment: .leading, spacing: 5) {
-                        ForEach(attributes, id: \.self) { item in
-                            buildAttributesText(title: item.header ?? "", message: item.value?.transformString() ?? "")
+                        if let mc = ability.manaCost {
+                            Text("Cost: \(mc.transformString())")
+                                .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
                         }
                     }
                     Spacer()
                 }
+                
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 100, maximum: 200), spacing: 5), count: 2),alignment: .leading, spacing: 5) {
+                    if let behavior = ability.behavior {
+                        buildAttributesText(title: "ABILITY:", message: "\(behavior.transformString())")
+                    }
+                    if let targetTeam = ability.targetTeam {
+                        buildAttributesText(title: "PIERCES SPELL:", message: "\(targetTeam.transformString())")
+                    }
+                    if let targetType = ability.targetType {
+                        buildAttributesText(title: "AFFECTS:", message: "\(targetType.transformString())")
+                    }
+                    if let bkbPierce = ability.bkbPierce {
+                        buildAttributesText(title: "IMMUNITY:", message: "\(bkbPierce.transformString())", color: bkbPierce.transformString() == "Yes" ? Color.green : Color(uiColor: UIColor.label))
+                    }
+                    if let dispellable = ability.dispellable {
+                        let dispellableString = dispellable.transformString()
+                        if dispellableString == "" {
+                            buildAttributesText(title: "DISPELLABLE:", message: "Only Strong Dispels", color: .red)
+                        } else {
+                            buildAttributesText(title: "DISPELLABLE:", message: "\(dispellable.transformString())", color: dispellable.transformString() == "No" ? .red : Color(uiColor: UIColor.label))
+                        }
+                    }
+                    if let damageType = ability.damageType {
+                        buildAttributesText(title: "DAMAGE TYPE:", message: "\(damageType.transformString())", color: {
+                            if damageType.transformString() == "Magical" {
+                                return Color.blue
+                            } else if damageType.transformString() == "Physics" {
+                                return Color.red
+                            } else if damageType.transformString() == "Pure" {
+                                return Color.yellow
+                            } else {
+                                return Color(UIColor.label)
+                            }
+                        }())
+                    }
+                }
+                
+                Text(ability.desc ?? "")
+                    .font(.custom(fontString, size: 12))
+                Spacer().frame(height: 10)
+                if let attributes = ability.attributes {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 5) {
+                            ForEach(attributes, id: \.self) { item in
+                                buildAttributesText(title: item.header ?? "", message: item.value?.transformString() ?? "")
+                            }
+                        }
+                        Spacer()
+                    }
+                }
+                Spacer().frame(height: 10)
+                if let lore = ability.lore {
+                    Text(lore)
+                        .font(.custom(fontString, size: 10))
+                        .padding(8)
+                        .foregroundColor(Color(UIColor.secondaryLabel))
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .foregroundColor(Color(UIColor.secondarySystemBackground))
+                        )
+                }
+                
             }
-            Spacer().frame(height: 10)
-            if let lore = ability.lore {
-                Text(lore)
-                    .font(.custom(fontString, size: 10))
-                    .padding(8)
-                    .foregroundColor(Color(UIColor.secondaryLabel))
-                    .background(
-                        RoundedRectangle(cornerRadius: 5)
-                            .foregroundColor(Color(UIColor.secondarySystemBackground))
-                    )
-            }
-            
-        }
-        .padding()
+//            if let url = URL(string: "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/\(heroName)/\(abilityName).mp4") {
+//                VideoPlayer(player: AVPlayer(url: url))
+//            }
+        }.padding()
     }
     
     @ViewBuilder private func buildAttributesText(title: String, message: String, color: Color = Color(UIColor.label)) -> some View {

@@ -28,7 +28,7 @@ class DotaEnvironment: ObservableObject {
         }
     }
     
-    @Published var selectedAbility: Ability?
+    @Published var selectedAbility: AbilityContainer?
     
     init() {
         self.userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []

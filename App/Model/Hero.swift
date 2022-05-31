@@ -41,6 +41,10 @@ class Hero: Identifiable, Decodable {
     var cmEnabled: Bool
     var turnRate: Double?
     
+    var heroNameLowerCase: String {
+        return self.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
+    }
+    
     static let strMaxHP = 20
     static let strHPRegen = 0.1
     
