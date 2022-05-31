@@ -21,6 +21,7 @@ class HeroDatabase: ObservableObject {
     var abilities = [String: Ability]()
     var heroAbilities = [String: HeroAbility]()
     var talentData = [String: String]()
+    var scepterData = [HeroScepter]()
     
     static var shared = HeroDatabase()
     
@@ -41,6 +42,7 @@ class HeroDatabase: ObservableObject {
             async let abilities = loadAbilities()
             async let heroAbilities = loadHeroAbilities()
             async let talentData = loadTalentData()
+            async let scepter = loadScepter()
             
             self.itemIDTable = await idTable
             self.items = await items
@@ -49,6 +51,7 @@ class HeroDatabase: ObservableObject {
             self.abilities = await abilities
             self.heroAbilities = await heroAbilities
             self.talentData = await talentData
+            self.scepterData = await scepter
             
             DispatchQueue.main.async {
                 if self.abilities.count == 0 {
@@ -120,5 +123,64 @@ class HeroDatabase: ObservableObject {
             return hero1.localizedName < hero2.localizedName
         }
         return sortedHeroes
+    }
+    
+    func fetchSearchedHeroes(text: String) -> [Hero] {
+        return []
+    }
+    
+    func getAbilityScepterDesc(ability: Ability, heroID: Int) -> String? {
+        guard let hero = self.scepterData.filter({ scepter in
+            scepter.id == heroID
+        }).first else {
+            // Cannot find this hero
+            return nil
+        }
+        if ability.dname == hero.scepterSkillName {
+            return hero.scepterDesc
+        }
+        return nil
+    }
+    
+    func isScepterSkill(ability: Ability, heroID: Int) -> Bool {
+        guard let hero = self.scepterData.filter({ scepter in
+            scepter.id == heroID
+        }).first else {
+            // Cannot find this hero
+            return false
+        }
+        if ability.dname == hero.scepterSkillName && hero.scepterNewSkill {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func isShardSkill(ability: Ability, heroID: Int) -> Bool {
+        guard let hero = self.scepterData.filter({ scepter in
+            scepter.id == heroID
+        }).first else {
+            // Cannot find this hero
+            return false
+        }
+        if ability.dname == hero.shardSkillName && hero.shardNewSkill {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func getAbilityShardDesc(ability: Ability, heroID: Int) -> String? {
+        guard let hero = self.scepterData.filter({ scepter in
+            scepter.id == heroID
+        }).first else {
+            // Cannot find this hero
+            return nil
+        }
+        if ability.dname == hero.shardSkillName {
+            print("\(hero.shardDesc)")
+            return hero.shardDesc
+        }
+        return nil
     }
 }

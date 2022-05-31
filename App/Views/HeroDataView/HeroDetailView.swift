@@ -15,23 +15,15 @@ struct HeroDetailView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var env: DotaEnvironment
-    //    @State var selectedAbility: Ability? = nil
-    
-    
     
     var body: some View {
-        //        VStack(spacing: 0) {
         ScrollView {
             buildTitle(hero: vm.hero)
             buildSkills()
                 .padding(.horizontal, 5)
-            Rectangle()
-                .foregroundColor(Color(.secondarySystemBackground))
-                .frame(height: 1)
-            //            ScrollView {
+            Divider()
             buildHeroDetail()
             Spacer()
-            //            }.frame(maxHeight: .infinity)
         }
         .navigationTitle(vm.hero.localizedName)
         .navigationBarTitleDisplayMode(.inline)
@@ -81,7 +73,7 @@ struct HeroDetailView: View {
                     let ability = vm.fetchAbility(name: abilityName)
                     let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
                     Button {
-                        self.env.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroName: vm.hero.heroNameLowerCase, abilityName: abilityName)
+                        self.env.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroID: vm.heroID, abilityName: abilityName)
                     } label: {
                         WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
                             .resizable()
@@ -117,7 +109,7 @@ struct HeroDetailView: View {
                     .font(.custom(fontString, size: 15))
                     .bold()
                 Spacer()
-            }.padding([.leading, .top])
+            }.padding(.leading)
             buildLevelTalent(talent: talent, level: 4)
             Divider()
             buildLevelTalent(talent: talent, level: 3)
@@ -152,13 +144,9 @@ struct HeroDetailView: View {
     
     @ViewBuilder private func buildHeroDetail() -> some View {
         buildAttributes(hero: vm.hero)
-        Rectangle()
-            .foregroundColor(Color(.secondarySystemBackground))
-            .frame(height: 10)
+        Divider()
         buildStats(hero: vm.hero)
-        Rectangle()
-            .foregroundColor(Color(.secondarySystemBackground))
-            .frame(height: 10)
+        Divider()
         buildTalent(talent: vm.heroAbility.talents)
     }
     
@@ -169,7 +157,7 @@ struct HeroDetailView: View {
                     .font(.custom(fontString, size: 15))
                     .bold()
                 Spacer()
-            }.padding()
+            }.padding(.leading)
             HStack(alignment: .top) {
                 Spacer()
                 VStack(alignment: .leading, spacing: 5) {
@@ -220,7 +208,7 @@ struct HeroDetailView: View {
                     .font(.custom(fontString, size: 15))
                     .bold()
                 Spacer()
-            }.padding([.leading, .top])
+            }.padding(.leading)
             GeometryReader { proxy in
                 HStack(spacing: 30) {
                     VStack(spacing: 0) {
@@ -264,8 +252,6 @@ struct HeroDetailView: View {
                                 .font(.custom(fontString, size: 13))
                         }
                     }.frame(width: (proxy.size.width - 30) / 2)
-                    
-                    
                 }
             }
             .padding(.horizontal)
@@ -276,8 +262,11 @@ struct HeroDetailView: View {
 
 struct AbilityView: View {
     var ability: Ability
-    var heroName: String
+    var heroID: Int
     var abilityName: String
+    
+    @EnvironmentObject var dataBase: HeroDatabase
+    
     var body: some View {
         VStack {
             ScrollView(.vertical, showsIndicators: false) {
@@ -342,9 +331,23 @@ struct AbilityView: View {
                         }())
                     }
                 }
-                
-                Text(ability.desc ?? "")
-                    .font(.custom(fontString, size: 12))
+                Group {
+                    VStack {
+                        if dataBase.isScepterSkill(ability: ability, heroID: heroID) {
+                            buildDescription(desc: ability.desc ?? "", type: .Scepter)
+                        } else if dataBase.isShardSkill(ability: ability, heroID: heroID) {
+                            buildDescription(desc: ability.desc ?? "", type: .Shard)
+                        } else {
+                            buildDescription(desc: ability.desc ?? "")
+                            if let scepterDesc = dataBase.getAbilityScepterDesc(ability: ability, heroID: heroID) {
+                                buildDescription(desc: scepterDesc, type: .Scepter)
+                            }
+                            if let shardDesc = dataBase.getAbilityShardDesc(ability: ability, heroID: heroID) {
+                                buildDescription(desc: shardDesc, type: .Shard)
+                            }
+                        }
+                    }
+                }
                 Spacer().frame(height: 10)
                 if let attributes = ability.attributes {
                     HStack {
@@ -361,17 +364,14 @@ struct AbilityView: View {
                     Text(lore)
                         .font(.custom(fontString, size: 10))
                         .padding(8)
-                        .foregroundColor(Color(UIColor.secondaryLabel))
-                        .background(
-                            RoundedRectangle(cornerRadius: 5)
-                                .foregroundColor(Color(UIColor.secondarySystemBackground))
-                        )
+                        .foregroundColor(Color(UIColor.tertiaryLabel))
+//                        .background(
+//                            RoundedRectangle(cornerRadius: 5)
+//                                .foregroundColor(Color(UIColor.tertiarySystemBackground))
+//                        )
                 }
                 
             }
-//            if let url = URL(string: "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/\(heroName)/\(abilityName).mp4") {
-//                VideoPlayer(player: AVPlayer(url: url))
-//            }
         }.padding()
     }
     
@@ -386,6 +386,57 @@ struct AbilityView: View {
                 .bold()
                 .lineLimit(1)
                 .foregroundColor(color)
+        }
+    }
+    
+    enum ScepterType: String {
+        case Scepter
+        case Shard
+        case non
+    }
+    
+    @ViewBuilder private func buildDescription(desc: String, type: ScepterType = .non) -> some View {
+        VStack(alignment: .leading) {
+            if type != .non {
+                HStack {
+                    Image("\(type.rawValue.lowercased())_1")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 18, height: 18)
+                    Text("\(type.rawValue) Upgrade")
+                        .font(.custom(fontString, size: 15))
+                        .bold()
+                    Spacer()
+                }
+            }
+            Text(desc)
+                .font(.custom(fontString, size: 13))
+        }
+        .padding(calculateDescPadding(type: type))
+        .background(calculateDescBackground(type: type))
+    }
+    
+    private func calculateDescPadding(type: ScepterType) -> CGFloat {
+        switch type {
+        case .Scepter:
+            return 10
+        case .Shard:
+            return 10
+        case .non:
+            return 0
+        }
+    }
+    
+    @ViewBuilder private func calculateDescBackground(type: ScepterType) -> some View {
+        switch type {
+        case .Scepter:
+            RoundedRectangle(cornerRadius: 3)
+                .foregroundColor(Color(UIColor.secondarySystemBackground))
+        case .Shard:
+            RoundedRectangle(cornerRadius: 3)
+                .foregroundColor(Color(UIColor.secondarySystemBackground))
+        case .non:
+            EmptyView()
         }
     }
 }

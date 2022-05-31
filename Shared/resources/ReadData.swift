@@ -69,6 +69,24 @@ func loadTalentData() async -> [String: String] {
     }
 }
 
+func loadScepter() async -> [HeroScepter] {
+    let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/aghs_desc.json"
+    if let url = URL(string: urlString) {
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            
+            let decoder = JSONDecoder()
+            let jsonData = try decoder.decode([HeroScepter].self, from: data)
+            return jsonData
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    } else {
+        return []
+    }
+}
+
 func loadHeroes() async -> [String: Hero] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/heroes.json"
     if let url = URL(string: urlString) {

@@ -33,4 +33,8 @@ class MetadataTestCase: XCTestCase {
         XCTAssertNotEqual(talents.count, 0)
     }
 
+    func testHeroScepter() async {
+        let scepter = await loadScepter()
+        XCTAssertNotEqual(scepter.count, 0)
+    }
 }

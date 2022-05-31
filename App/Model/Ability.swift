@@ -98,6 +98,6 @@ enum StringOrArray: Codable {
 struct AbilityContainer: Identifiable {
     var id = UUID()
     var ability: Ability
-    var heroName: String
+    var heroID: Int
     var abilityName: String
 }

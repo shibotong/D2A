@@ -12,9 +12,11 @@ class HeroDetailViewModel: ObservableObject {
     @Published var hero: Hero
     @Published var heroAbility: HeroAbility
     
+    var heroID: Int
     private var database: HeroDatabase = HeroDatabase.shared
     
     init(heroID: Int) {
+        self.heroID = heroID
         let hero = database.fetchHeroWithID(id: heroID)!
         self.hero = hero
         self.heroAbility = database.fetchHeroAbility(name: hero.name)!

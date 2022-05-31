@@ -98,7 +98,7 @@ struct NavigationHostView: View {
                     }
                 }
                 .bottomSheet(item: $env.selectedAbility, height: sheetHeight, topBarCornerRadius: 30, content: { ability in
-                    AbilityView(ability: ability.ability, heroName: ability.heroName, abilityName: ability.abilityName)
+                    AbilityView(ability: ability.ability, heroID: ability.heroID, abilityName: ability.abilityName)
                 })
             } else {
                 NavigationView {

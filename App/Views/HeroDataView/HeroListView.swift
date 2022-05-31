@@ -9,13 +9,20 @@ import SwiftUI
 
 struct HeroListView: View {
     @EnvironmentObject var herodata: HeroDatabase
+    @State var searchString: String = ""
+    var searchResults: [Hero] {
+        if searchString.isEmpty {
+            return herodata.fetchAllHeroes()
+        } else {
+            return herodata.fetchAllHeroes().filter({ return $0.localizedName.lowercased().contains(searchString.lowercased()) })
+        }
+    }
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 170, maximum: 200), spacing: 10, alignment: .leading), count: 2)){
-                ForEach(herodata.fetchAllHeroes()) { hero in
+                ForEach(searchResults) { hero in
                     NavigationLink(destination:
                                     HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
-//                                   EmptyView()){
                         buildHero(hero: hero)
                     }
                 }
@@ -23,6 +30,7 @@ struct HeroListView: View {
         }
         .navigationTitle("Heroes")
         .padding(.horizontal)
+        .searchable(text: $searchString, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search Heroes")
         
     }
     
