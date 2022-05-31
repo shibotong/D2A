@@ -41,7 +41,8 @@ struct Ability: Codable, Identifiable {
     }
 }
 
-struct AbilityAttribute: Codable {
+struct AbilityAttribute: Codable, Hashable {
+    
     var key: String?
     var header: String?
     var value: StringOrArray?
@@ -52,6 +53,14 @@ struct AbilityAttribute: Codable {
         case header
         case value
         case generated
+    }
+    
+    static func == (lhs: AbilityAttribute, rhs: AbilityAttribute) -> Bool {
+        return lhs.key == rhs.key
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(key)
     }
 }
 
@@ -74,5 +83,14 @@ enum StringOrArray: Codable {
     
     enum Error: Swift.Error {
         case couldNotFindStringOrArray
+    }
+    
+    func transformString() -> String {
+        switch self {
+        case .string(let string):
+            return string
+        case .array(let array):
+            return array.joined(separator: "/")
+        }
     }
 }

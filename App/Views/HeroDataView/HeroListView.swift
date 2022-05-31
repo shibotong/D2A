@@ -13,7 +13,9 @@ struct HeroListView: View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 170, maximum: 200), spacing: 10, alignment: .leading), count: 2)){
                 ForEach(herodata.fetchAllHeroes()) { hero in
-                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                    NavigationLink(destination:
+                                    HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+//                                   EmptyView()){
                         buildHero(hero: hero)
                     }
                 }

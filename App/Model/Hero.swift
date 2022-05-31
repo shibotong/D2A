@@ -41,14 +41,14 @@ class Hero: Identifiable, Decodable {
     var cmEnabled: Bool
     var turnRate: Double?
     
-    let strMaxHP = 20
-    let strHPRegen = 0.1
+    static let strMaxHP = 20
+    static let strHPRegen = 0.1
     
-    let agiArmor = 0.16666666666666667
-    let agiAttackSpeed = 1
+    static let agiArmor = 0.16666666666666667
+    static let agiAttackSpeed = 1
     
-    let intMaxMP = 12
-    let intManaRegen = 0.05
+    static let intMaxMP = 12
+    static let intManaRegen = 0.05
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -84,31 +84,36 @@ class Hero: Identifiable, Decodable {
         case turnRate = "turn_rate"
     }
     
-    func calculateHP() -> Int {
-        let hp = self.baseHealth + self.baseStr * self.strMaxHP
+    var calculateHP: Int {
+        let hp = self.baseHealth + self.baseStr * Hero.strMaxHP
         return hp
     }
-    func calculateHPRegen() -> Double {
-        let regen = self.baseHealthRegen + Double(self.baseStr) * self.strHPRegen
+    var calculateHPRegen: Double {
+        let regen = self.baseHealthRegen + Double(self.baseStr) * Hero.strHPRegen
         return regen
     }
     
-    func calculateMP() -> Int {
-        let mp = self.baseMana + self.baseInt * self.intMaxMP
+    var calculateMP: Int {
+        let mp = self.baseMana + self.baseInt * Hero.intMaxMP
         return mp
     }
-    func calculateMPRegen() -> Double {
-        let regen = self.baseManaRegen + Double(self.baseInt) * self.intManaRegen
+    var calculateMPRegen: Double {
+        let regen = self.baseManaRegen + Double(self.baseInt) * Hero.intManaRegen
         return regen
     }
     
-    func calculateAttack(attack: Int) -> Int {
+    var calculatedAttackMin: Int {
         let mainAttributes = self.getMainAttributes()
-        return attack + mainAttributes
+        return self.baseAttackMin + mainAttributes
     }
     
-    func calculateArmor() -> Double {
-        let armor = self.baseArmor + self.agiArmor * Double(self.baseAgi)
+    var calculatedAttackMax: Int {
+        let mainAttributes = self.getMainAttributes()
+        return self.baseAttackMax + mainAttributes
+    }
+    
+    var calculateArmor: Double {
+        let armor = self.baseArmor + Hero.agiArmor * Double(self.baseAgi)
         return armor
     }
     

@@ -57,6 +57,15 @@ struct NavigationHostView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @AppStorage("selectedUser") var selectedUser: String?
     @AppStorage("selectedMatch") var selectedMatch: String?
+    
+    private var sheetHeight: CGFloat {
+        let screenHeight = UIScreen.main.bounds.height
+        let screenWidth = UIScreen.main.bounds.width
+        // image size: 256 * 144
+        let imageHeight = screenHeight - screenWidth / 256 * 144 - 50
+        return imageHeight
+    }
+    
     var body: some View {
 //        if env.userIDs.isEmpty {
 //            EmptyUserView()
@@ -88,6 +97,9 @@ struct NavigationHostView: View {
                         Text("Settings")
                     }
                 }
+                .bottomSheet(item: $env.selectedAbility, height: sheetHeight, topBarCornerRadius: 30, content: { ability in
+                    AbilityView(ability: ability)
+                })
             } else {
                 NavigationView {
                     Sidebar()
