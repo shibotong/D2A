@@ -12,16 +12,26 @@ class SidebarRowViewModel: ObservableObject {
     @Published var profile: UserProfile?
     var userid: String
     
-    init(userid: String) {
+    @Published var recentMatch: RecentMatch?
+    
+    init(userid: String, isRegistered: Bool = false) {
         self.userid = userid
-        self.loadProfile()
+        if userid != "" {
+            self.loadProfile(isRegistered)
+        }
     }
     
-    func loadProfile() {
+    func loadProfile(_ isRegistered: Bool) {
         guard let profile = WCDBController.shared.fetchUserProfile(userid: userid) else {
             Task {
-                let profile = await OpenDotaController.shared.loadUserData(userid: userid)
-                await self.setProfile(profile)
+                if isRegistered {
+                    let profile = await OpenDotaController.shared.loadUserData(userid: userid)
+                    let match = await OpenDotaController.shared.loadLatestMatch(userid: userid)
+                    await self.setProfile(profile, match: match)
+                } else {
+                    let profile = await OpenDotaController.shared.loadUserData(userid: userid)
+                    await self.setProfile(profile)
+                }
             }
             return
         }
@@ -29,7 +39,8 @@ class SidebarRowViewModel: ObservableObject {
     }
     
     @MainActor
-    func setProfile(_ profile: UserProfile?) {
+    func setProfile(_ profile: UserProfile?, match: RecentMatch? = nil) {
         self.profile = profile
+        self.recentMatch = match
     }
 }

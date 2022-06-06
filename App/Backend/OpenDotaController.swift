@@ -107,6 +107,19 @@ class OpenDotaController {
         }
     }
     
+    func loadLatestMatch(userid: String) async -> RecentMatch? {
+        let urlString = "/players/\(userid)/recentMatches"
+        do {
+            let data = try await decodingService.loadData(urlString)
+            let matches = try decodingService.decodeRecentMatch(data)
+            matches.forEach({$0.playerId = Int(userid)})
+            return matches.first
+        } catch {
+            print("error: ", error)
+            return nil
+        }
+    }
+    
     static func loadHeroPortrait(url: String, onCompletion: @escaping (Data) -> ()) {
         let parse = url.replacingOccurrences(of: "/apps/dota2/images/heroes/", with: "")
         let parse2 = parse.replacingOccurrences(of: "_icon.png", with: "")

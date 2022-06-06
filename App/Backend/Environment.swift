@@ -16,6 +16,12 @@ class DotaEnvironment: ObservableObject {
             UserDefaults(suiteName: GROUP_NAME)!.set(userIDs, forKey: "dotaArmory.userID")
         }
     }
+    
+    @Published var registerdID: String {
+        didSet {
+            UserDefaults(suiteName: GROUP_NAME)!.set(registerdID, forKey: "dotaArmory.registerdID")
+        }
+    }
     @Published var exceedLimit = false
     
     @Published var addNewAccount = false
@@ -33,10 +39,14 @@ class DotaEnvironment: ObservableObject {
     init() {
         self.userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
         self.subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
+        self.registerdID = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.registerdID") as? String ?? ""
         if userIDs.isEmpty {
             print("no user")
         } else {
             
+        }
+        if registerdID == "" {
+            print("no registered")
         }
     }
     

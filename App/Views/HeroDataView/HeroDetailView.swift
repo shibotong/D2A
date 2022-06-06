@@ -365,10 +365,10 @@ struct AbilityView: View {
                         .font(.custom(fontString, size: 10))
                         .padding(8)
                         .foregroundColor(Color(UIColor.tertiaryLabel))
-//                        .background(
-//                            RoundedRectangle(cornerRadius: 5)
-//                                .foregroundColor(Color(UIColor.tertiarySystemBackground))
-//                        )
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .foregroundColor(Color(UIColor.tertiarySystemBackground))
+                        )
                 }
                 
             }

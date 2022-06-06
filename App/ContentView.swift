@@ -73,7 +73,7 @@ struct NavigationHostView: View {
             if horizontalSizeClass == .compact {
                 TabView{
                     NavigationView {
-                        Sidebar()
+                        PlayerListView()
                     }.tabItem {
                         Image(systemName: "person")
                         Text("Profile")
