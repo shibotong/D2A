@@ -107,16 +107,15 @@ class OpenDotaController {
         }
     }
     
-    func loadLatestMatch(userid: String) async -> RecentMatch? {
+    func loadRecentMatches(userid: String) async -> [RecentMatch] {
         let urlString = "/players/\(userid)/recentMatches"
         do {
             let data = try await decodingService.loadData(urlString)
             let matches = try decodingService.decodeRecentMatch(data)
-            matches.forEach({$0.playerId = Int(userid)})
-            return matches.first
+            return matches
         } catch {
             print("error: ", error)
-            return nil
+            return []
         }
     }
     

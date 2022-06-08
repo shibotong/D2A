@@ -32,6 +32,7 @@ struct UserProfile: TableCodable, Identifiable {
         case personaname
         case isPlus = "plus"
         case profileurl
+        case rank
     }
     
 //    static let sample = loadProfile()!

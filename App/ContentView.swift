@@ -71,31 +71,31 @@ struct NavigationHostView: View {
 //            EmptyUserView()
 //        } else {
             if horizontalSizeClass == .compact {
-                TabView{
+                TabView(selection: $env.selectedTab) {
                     NavigationView {
                         PlayerListView()
                     }.tabItem {
                         Image(systemName: "person")
                         Text("Profile")
-                    }
+                    }.tag(TabSelection.home)
                     NavigationView {
                         HeroListView()
                     }.tabItem {
                         Image(systemName: "server.rack")
                         Text("Hero")
-                    }
+                    }.tag(TabSelection.hero)
 
                     AddAccountView()
                         .tabItem {
                             Image(systemName: "magnifyingglass")
                             Text("Search")
-                        }
+                        }.tag(TabSelection.search)
                     NavigationView {
                         EmptyView()
                     }.tabItem {
                         Image(systemName: "gear")
                         Text("Settings")
-                    }
+                    }.tag(TabSelection.setting)
                 }
                 .bottomSheet(item: $env.selectedAbility, height: sheetHeight, topBarCornerRadius: 30, content: { ability in
                     AbilityView(ability: ability.ability, heroID: ability.heroID, abilityName: ability.abilityName)

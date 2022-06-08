@@ -8,8 +8,20 @@
 import Foundation
 import SwiftUI
 
+enum TabSelection {
+    case home, hero, search, setting
+}
+
 class DotaEnvironment: ObservableObject {
     static var shared = DotaEnvironment()
+    static var preview: DotaEnvironment = {
+        let env = DotaEnvironment()
+//        env.userIDs = ["125581247", "177416702", "153041957"]
+        env.userIDs = []
+        env.registerdID = ""
+//        env.registerdID = "153041957"
+        return env
+    }()
     
     @Published var userIDs: [String] {
         didSet {
@@ -35,6 +47,7 @@ class DotaEnvironment: ObservableObject {
     }
     
     @Published var selectedAbility: AbilityContainer?
+    @Published var selectedTab: TabSelection = .home
     
     init() {
         self.userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
@@ -57,12 +70,23 @@ class DotaEnvironment: ObservableObject {
         userIDs.remove(atOffsets: indexSet)
     }
     
+    func delete(userID: String) {
+        if let index = userIDs.firstIndex(of: userID) {
+            self.userIDs.remove(at: index)
+        }
+    }
+    
     func addUser(userid: String) {
         if self.userIDs.contains(userid) {
             self.userIDs.remove(at: self.userIDs.firstIndex(of: userid)!)
         } else {
             self.userIDs.append(userid)
         }
+    }
+    
+    @MainActor
+    func registerUser(userid: String) {
+        self.registerdID = userid
     }
     
 //    func purchaseComplete(state: Bool) {

@@ -62,7 +62,7 @@ struct SidebarRowView: View {
     var body: some View {
         makeUI()
             .task {
-                vm.loadProfile(false)
+                vm.loadProfile()
             }
     }
     

@@ -15,7 +15,7 @@ class ProfileViewModel: ObservableObject {
     
     init(id: String) {
         self.userid = id
-        self.searchUser()
+//        self.loadProfile()
     }
     
     init(profile: UserProfile) {
@@ -28,39 +28,20 @@ class ProfileViewModel: ObservableObject {
         self.userid = "123"
     }
     
-    func searchUser() {
-        isloading = true
-        let url = "\(baseURL)/api/players/\(userid)"
-        AF.request(url).responseJSON { response in
-            guard let data = response.data else {
-                DispatchQueue.main.async {
-                    self.isloading = false
-                }
-                return
-            }
-            guard let statusCode = response.response?.statusCode else {
-                DispatchQueue.main.async {
-                    self.isloading = false
-                }
-                return
-            }
-            if statusCode == 500 {
-                DispatchQueue.main.async {
-                    self.isloading = false
-                }
-                return
-            }
-//            if statusCode > 400 {
-//                DotaEnvironment.shared.exceedLimit = true
-//                return
+//    func loadProfile() {
+//        guard let profile = WCDBController.shared.fetchUserProfile(userid: userid) else {
+//            Task {
+//                if isRegistered {
+//                    let profile = await OpenDotaController.shared.loadUserData(userid: userid)
+//                    let match = await OpenDotaController.shared.loadLatestMatch(userid: userid)
+//                    await self.setProfile(profile, match: match)
+//                } else {
+//                    let profile = await OpenDotaController.shared.loadUserData(userid: userid)
+//                    await self.setProfile(profile)
+//                }
 //            }
-            let decoder = JSONDecoder()
-            
-            let user = try? decoder.decode(SteamProfile.self, from: data)
-            DispatchQueue.main.async {
-                self.userProfile = user?.profile
-                self.isloading = false
-            }
-        }
-    }
+//            return
+//        }
+//        self.profile = profile
+//    }
 }

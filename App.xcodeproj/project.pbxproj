@@ -32,7 +32,6 @@
 		322B89C926D0F61900DF67F9 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89C826D0F61900DF67F9 /* ProfileViewModel.swift */; };
 		322B89CB26D1015E00DF67F9 /* EmptyUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89CA26D1015E00DF67F9 /* EmptyUserView.swift */; };
 		323ADB02272B8CCB00253124 /* PatchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ADB01272B8CCB00253124 /* PatchListView.swift */; };
-		323ADB04272B8D2500253124 /* PatchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ADB03272B8D2500253124 /* PatchListViewModel.swift */; };
 		323ADB06272B8D4900253124 /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ADB05272B8D4900253124 /* Patch.swift */; };
 		323ADB20272B91F500253124 /* item_colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB07272B91F400253124 /* item_colors.json */; };
 		323ADB21272B91F500253124 /* ability_ids.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB08272B91F400253124 /* ability_ids.json */; };
@@ -60,7 +59,6 @@
 		323ADB37272B91F500253124 /* item_ids.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1E272B91F400253124 /* item_ids.json */; };
 		323ADB38272B91F500253124 /* patch.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1F272B91F500253124 /* patch.json */; };
 		323ADB3B272B979D00253124 /* HeroListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ADB3A272B979D00253124 /* HeroListView.swift */; };
-		323ADB3D272B97D300253124 /* HeroListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323ADB3C272B97D300253124 /* HeroListViewModel.swift */; };
 		323ADB58272E03E300253124 /* permanent_buffs.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB16272B91F400253124 /* permanent_buffs.json */; };
 		323ADB59272E03E300253124 /* hero_names.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0F272B91F400253124 /* hero_names.json */; };
 		323ADB5A272E03E300253124 /* heroes.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0A272B91F400253124 /* heroes.json */; };
@@ -132,6 +130,13 @@
 		327772B326D9D735000A0A97 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772B226D9D735000A0A97 /* GameMode.swift */; };
 		327A7B8227152387001F964D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1226C38822002D427D /* Assets.xcassets */; };
 		327A7B8327152388001F964D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1226C38822002D427D /* Assets.xcassets */; };
+		327B875A284D96A600BBE1F8 /* PlayerListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B8759284D96A600BBE1F8 /* PlayerListRowView.swift */; };
+		327B875E284D9F5300BBE1F8 /* DataTransferTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B875D284D9F5300BBE1F8 /* DataTransferTestCase.swift */; };
+		327B8760284D9FA100BBE1F8 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B875F284D9FA100BBE1F8 /* DataHelper.swift */; };
+		327B8761284D9FA100BBE1F8 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B875F284D9FA100BBE1F8 /* DataHelper.swift */; };
+		327B8762284D9FA100BBE1F8 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B875F284D9FA100BBE1F8 /* DataHelper.swift */; };
+		327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B875F284D9FA100BBE1F8 /* DataHelper.swift */; };
+		327B8764284DBD4600BBE1F8 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70ADA26F6090A006E9B05 /* NetworkImage.swift */; };
 		327C033C2716A8F400DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
 		327C033D2716A90400DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
 		327C033E2716A92500DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
@@ -296,7 +301,6 @@
 		322B89CA26D1015E00DF67F9 /* EmptyUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyUserView.swift; sourceTree = "<group>"; };
 		3237E66D9A4EE03E8E0C222C /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		323ADB01272B8CCB00253124 /* PatchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchListView.swift; sourceTree = "<group>"; };
-		323ADB03272B8D2500253124 /* PatchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchListViewModel.swift; sourceTree = "<group>"; };
 		323ADB05272B8D4900253124 /* Patch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patch.swift; sourceTree = "<group>"; };
 		323ADB07272B91F400253124 /* item_colors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = item_colors.json; sourceTree = "<group>"; };
 		323ADB08272B91F400253124 /* ability_ids.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ability_ids.json; sourceTree = "<group>"; };
@@ -324,7 +328,6 @@
 		323ADB1E272B91F400253124 /* item_ids.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = item_ids.json; sourceTree = "<group>"; };
 		323ADB1F272B91F500253124 /* patch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = patch.json; sourceTree = "<group>"; };
 		323ADB3A272B979D00253124 /* HeroListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListView.swift; sourceTree = "<group>"; };
-		323ADB3C272B97D300253124 /* HeroListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListViewModel.swift; sourceTree = "<group>"; };
 		3251C8F026F97C9500C826BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3251C8F226F97D2400C826BD /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/DynamicUserSelection.strings"; sourceTree = "<group>"; };
 		3251C8F326F97D2400C826BD /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -343,6 +346,9 @@
 		327772AE26D8BE63000A0A97 /* MatchListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchListRowView.swift; sourceTree = "<group>"; };
 		327772B026D9D71F000A0A97 /* LobbyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyType.swift; sourceTree = "<group>"; };
 		327772B226D9D735000A0A97 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
+		327B8759284D96A600BBE1F8 /* PlayerListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListRowView.swift; sourceTree = "<group>"; };
+		327B875D284D9F5300BBE1F8 /* DataTransferTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferTestCase.swift; sourceTree = "<group>"; };
+		327B875F284D9FA100BBE1F8 /* DataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
 		327C033B2716A8F400DAEC42 /* KDAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDAView.swift; sourceTree = "<group>"; };
 		327C033F2716AB6E00DAEC42 /* HeroImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageView.swift; sourceTree = "<group>"; };
 		327C03432717AE8500DAEC42 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -543,6 +549,7 @@
 			children = (
 				328957A227F660D400BA9847 /* DecodingTestCase.swift */,
 				3261C90828306FDE00D47CDA /* MetadataTestCase.swift */,
+				327B875D284D9F5300BBE1F8 /* DataTransferTestCase.swift */,
 			);
 			path = AppTests;
 			sourceTree = "<group>";
@@ -576,6 +583,7 @@
 				322B89C426CFAC1000DF67F9 /* AddAccountView.swift */,
 				3252859D26CB9FDC0030F15B /* Sidebar.swift */,
 				32DE14482845E277006E864E /* PlayerListView.swift */,
+				327B8759284D96A600BBE1F8 /* PlayerListRowView.swift */,
 			);
 			path = SideBarView;
 			sourceTree = "<group>";
@@ -712,8 +720,6 @@
 				322B89BE26CE788900DF67F9 /* AnalysisViewModel.swift */,
 				322B89C626CFD2DE00DF67F9 /* AddAccountViewModel.swift */,
 				322B89C826D0F61900DF67F9 /* ProfileViewModel.swift */,
-				323ADB03272B8D2500253124 /* PatchListViewModel.swift */,
-				323ADB3C272B97D300253124 /* HeroListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -722,6 +728,7 @@
 			isa = PBXGroup;
 			children = (
 				32B36F4926C39242002D427D /* String.swift */,
+				327B875F284D9FA100BBE1F8 /* DataHelper.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -1174,6 +1181,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3261C90928306FDE00D47CDA /* MetadataTestCase.swift in Sources */,
+				327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
+				327B875E284D9F5300BBE1F8 /* DataTransferTestCase.swift in Sources */,
 				328957A327F660D400BA9847 /* DecodingTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1191,13 +1200,14 @@
 				322B893426CD425300DF67F9 /* WCDBController.swift in Sources */,
 				327C033C2716A8F400DAEC42 /* KDAView.swift in Sources */,
 				3252858F26C949940030F15B /* Date.swift in Sources */,
-				323ADB04272B8D2500253124 /* PatchListViewModel.swift in Sources */,
 				3261C907282F315100D47CDA /* HeroDetailView.swift in Sources */,
 				323ADB02272B8CCB00253124 /* PatchListView.swift in Sources */,
+				327B8760284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				322B893C26CD560100DF67F9 /* MatchViewModel.swift in Sources */,
 				32B36F1126C38821002D427D /* ContentView.swift in Sources */,
 				32B36F4C26C39C5D002D427D /* Environment.swift in Sources */,
 				327772B126D9D71F000A0A97 /* LobbyType.swift in Sources */,
+				327B8764284DBD4600BBE1F8 /* NetworkImage.swift in Sources */,
 				322B89CB26D1015E00DF67F9 /* EmptyUserView.swift in Sources */,
 				322B894026CE696C00DF67F9 /* DifferenceGraphView.swift in Sources */,
 				32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */,
@@ -1208,6 +1218,7 @@
 				32B36F3F26C388AD002D427D /* MatchListView.swift in Sources */,
 				32B36F2A26C38852002D427D /* Item.swift in Sources */,
 				3261C90B2830721500D47CDA /* HeroDetailViewModel.swift in Sources */,
+				327B875A284D96A600BBE1F8 /* PlayerListRowView.swift in Sources */,
 				322B893826CD44FE00DF67F9 /* SteamProfile.swift in Sources */,
 				325285A026CBB67C0030F15B /* SidebarRowViewModel.swift in Sources */,
 				322B893626CD438700DF67F9 /* UserProfile.swift in Sources */,
@@ -1223,7 +1234,6 @@
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
 				32F70B3626F72D74006E9B05 /* ProductSubView.swift in Sources */,
 				32B36F0F26C38821002D427D /* AppApp.swift in Sources */,
-				323ADB3D272B97D300253124 /* HeroListViewModel.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
 				32DE14492845E277006E864E /* PlayerListView.swift in Sources */,
 				322B89C926D0F61900DF67F9 /* ProfileViewModel.swift in Sources */,
@@ -1247,6 +1257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32F70AB426F58125006E9B05 /* GameMode.swift in Sources */,
+				327B8761284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				32F70AAC26F58006006E9B05 /* RecentMatch.swift in Sources */,
 				327C03412716ABEE00DAEC42 /* HeroImageView.swift in Sources */,
 				32F70B1B26F6295B006E9B05 /* Int.swift in Sources */,
@@ -1279,6 +1290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32F70B0426F6226D006E9B05 /* SteamProfile.swift in Sources */,
+				327B8762284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				32F70B0E26F622AE006E9B05 /* String.swift in Sources */,
 				32F70B0D26F62296006E9B05 /* OpenDotaController.swift in Sources */,
 				32F70B2226F6295C006E9B05 /* CodingKey.swift in Sources */,

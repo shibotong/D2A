@@ -8,7 +8,7 @@
 import Foundation
 import WCDBSwift
 
-class RecentMatch: TableCodable {
+class RecentMatch: TableCodable, Identifiable {
     var id: Int
     var duration: Int
     var mode: Int
