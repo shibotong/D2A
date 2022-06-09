@@ -41,6 +41,8 @@ class Hero: Identifiable, Decodable {
     var cmEnabled: Bool
     var turnRate: Double?
     
+    static let sample = loadSampleHero()!
+    
     var heroNameLowerCase: String {
         return self.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
     }
@@ -138,6 +140,8 @@ class Hero: Identifiable, Decodable {
 class HeroAbility: Decodable {
     var abilities: [String]
     var talents: [Talent]
+    
+    static let sample = loadSampleHeroAbility()!
 }
 
 struct Talent: Decodable {

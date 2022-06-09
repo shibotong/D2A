@@ -137,6 +137,21 @@
 		327B8762284D9FA100BBE1F8 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B875F284D9FA100BBE1F8 /* DataHelper.swift */; };
 		327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B875F284D9FA100BBE1F8 /* DataHelper.swift */; };
 		327B8764284DBD4600BBE1F8 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70ADA26F6090A006E9B05 /* NetworkImage.swift */; };
+		327B87692850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */ = {isa = PBXBuildFile; fileRef = 327B87682850D92A00BBE1F8 /* sampleHeroAbility.json */; };
+		327B876A2850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */ = {isa = PBXBuildFile; fileRef = 327B87682850D92A00BBE1F8 /* sampleHeroAbility.json */; };
+		327B876B2850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */ = {isa = PBXBuildFile; fileRef = 327B87682850D92A00BBE1F8 /* sampleHeroAbility.json */; };
+		327B876C2850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */ = {isa = PBXBuildFile; fileRef = 327B87682850D92A00BBE1F8 /* sampleHeroAbility.json */; };
+		327B876D2850D9D800BBE1F8 /* ReadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2F26C38860002D427D /* ReadData.swift */; };
+		327B876E2850D9D900BBE1F8 /* ReadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2F26C38860002D427D /* ReadData.swift */; };
+		327B876F2850DA6500BBE1F8 /* sampleHero.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90C2830748600D47CDA /* sampleHero.json */; };
+		327B87702850DA6500BBE1F8 /* sampleHero.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90C2830748600D47CDA /* sampleHero.json */; };
+		327B87712850DA6800BBE1F8 /* sampleAbility.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90E2830765300D47CDA /* sampleAbility.json */; };
+		327B87722850DA6900BBE1F8 /* sampleAbility.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90E2830765300D47CDA /* sampleAbility.json */; };
+		327B87732850DA7800BBE1F8 /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* Ability.swift */; };
+		327B87742850DA7900BBE1F8 /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* Ability.swift */; };
+		327B87752850DA9E00BBE1F8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2626C38852002D427D /* Item.swift */; };
+		327B87762850DA9F00BBE1F8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2626C38852002D427D /* Item.swift */; };
+		327B87782852263300BBE1F8 /* HeroListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B87772852263300BBE1F8 /* HeroListViewModel.swift */; };
 		327C033C2716A8F400DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
 		327C033D2716A90400DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
 		327C033E2716A92500DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
@@ -349,6 +364,8 @@
 		327B8759284D96A600BBE1F8 /* PlayerListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListRowView.swift; sourceTree = "<group>"; };
 		327B875D284D9F5300BBE1F8 /* DataTransferTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferTestCase.swift; sourceTree = "<group>"; };
 		327B875F284D9FA100BBE1F8 /* DataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
+		327B87682850D92A00BBE1F8 /* sampleHeroAbility.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleHeroAbility.json; sourceTree = "<group>"; };
+		327B87772852263300BBE1F8 /* HeroListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListViewModel.swift; sourceTree = "<group>"; };
 		327C033B2716A8F400DAEC42 /* KDAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDAView.swift; sourceTree = "<group>"; };
 		327C033F2716AB6E00DAEC42 /* HeroImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageView.swift; sourceTree = "<group>"; };
 		327C03432717AE8500DAEC42 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -511,6 +528,7 @@
 				3294463926E1A5A5006E0D06 /* sampleProfile.json */,
 				3261C90C2830748600D47CDA /* sampleHero.json */,
 				3261C90E2830765300D47CDA /* sampleAbility.json */,
+				327B87682850D92A00BBE1F8 /* sampleHeroAbility.json */,
 			);
 			path = sample;
 			sourceTree = "<group>";
@@ -720,6 +738,7 @@
 				322B89BE26CE788900DF67F9 /* AnalysisViewModel.swift */,
 				322B89C626CFD2DE00DF67F9 /* AddAccountViewModel.swift */,
 				322B89C826D0F61900DF67F9 /* ProfileViewModel.swift */,
+				327B87772852263300BBE1F8 /* HeroListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -968,6 +987,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				327B876C2850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1004,6 +1024,7 @@
 				323ADB23272B91F500253124 /* heroes.json in Resources */,
 				3214C0D426F0E44500C377EF /* terms-of-use.md in Resources */,
 				323ADB29272B91F500253124 /* cluster.json in Resources */,
+				327B87692850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */,
 				323ADB32272B91F500253124 /* chat_wheel.json in Resources */,
 				323ADB2B272B91F500253124 /* order_types.json in Resources */,
 				323ADB30272B91F500253124 /* region.json in Resources */,
@@ -1025,6 +1046,7 @@
 				323ADB6F272E03E300253124 /* neutral_abilities.json in Resources */,
 				323ADB61272E03E300253124 /* patchnotes.json in Resources */,
 				323ADB68272E03E300253124 /* skillshots.json in Resources */,
+				327B876F2850DA6500BBE1F8 /* sampleHero.json in Resources */,
 				323ADB6D272E03E300253124 /* patch.json in Resources */,
 				323ADB69272E03E300253124 /* game_mode.json in Resources */,
 				323ADB5B272E03E300253124 /* ancients.json in Resources */,
@@ -1038,6 +1060,8 @@
 				32F70AAE26F5803C006E9B05 /* sampleRecentMatch.json in Resources */,
 				32F70AA426F57F7E006E9B05 /* Assets.xcassets in Resources */,
 				32F70B2326F6296C006E9B05 /* sampleMatch.json in Resources */,
+				327B87712850DA6800BBE1F8 /* sampleAbility.json in Resources */,
+				327B876A2850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */,
 				323ADB60272E03E300253124 /* cluster.json in Resources */,
 				323ADB5A272E03E300253124 /* heroes.json in Resources */,
 				323ADB63272E03E300253124 /* item_ids.json in Resources */,
@@ -1055,14 +1079,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				327B87702850DA6500BBE1F8 /* sampleHero.json in Resources */,
 				323ADB8A272E03E500253124 /* hero_names.json in Resources */,
 				323ADB8B272E03E500253124 /* heroes.json in Resources */,
 				323ADB96272E03E500253124 /* abilities.json in Resources */,
 				323ADB9D272E03E500253124 /* region.json in Resources */,
+				327B876B2850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */,
 				323ADB90272E03E500253124 /* items.json in Resources */,
 				323ADB9B272E03E500253124 /* xp_level.json in Resources */,
 				323ADB97272E03E500253124 /* lobby_type.json in Resources */,
 				323ADB9A272E03E500253124 /* game_mode.json in Resources */,
+				327B87722850DA6900BBE1F8 /* sampleAbility.json in Resources */,
 				323ADB8D272E03E500253124 /* item_colors.json in Resources */,
 				32F70B2626F62971006E9B05 /* sampleRecentMatch.json in Resources */,
 				323ADB99272E03E500253124 /* skillshots.json in Resources */,
@@ -1231,6 +1258,7 @@
 				32D1605D26F30B7A00657449 /* StoreManager.swift in Sources */,
 				329849F426DCAEAE00A1032C /* HeroDatabase.swift in Sources */,
 				322B89C526CFAC1000DF67F9 /* AddAccountView.swift in Sources */,
+				327B87782852263300BBE1F8 /* HeroListViewModel.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
 				32F70B3626F72D74006E9B05 /* ProductSubView.swift in Sources */,
 				32B36F0F26C38821002D427D /* AppApp.swift in Sources */,
@@ -1266,6 +1294,7 @@
 				32F70ADD26F60B8D006E9B05 /* SteamProfile.swift in Sources */,
 				327C033D2716A90400DAEC42 /* KDAView.swift in Sources */,
 				32F70B1926F6295B006E9B05 /* Date.swift in Sources */,
+				327B87732850DA7800BBE1F8 /* Ability.swift in Sources */,
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
 				32F70ADB26F6090A006E9B05 /* NetworkImage.swift in Sources */,
 				323ADBA4272E24EE00253124 /* IntentHandler.swift in Sources */,
@@ -1280,8 +1309,10 @@
 				3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				32F70B3026F714FD006E9B05 /* Provider.swift in Sources */,
 				32F70AA226F57F7E006E9B05 /* AppWidget.swift in Sources */,
+				327B876D2850D9D800BBE1F8 /* ReadData.swift in Sources */,
 				32F70AF626F61A92006E9B05 /* DotaEnvironment.swift in Sources */,
 				32F70B1A26F6295B006E9B05 /* Color.swift in Sources */,
+				327B87752850DA9E00BBE1F8 /* Item.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1299,6 +1330,7 @@
 				32F70B0A26F62296006E9B05 /* ReadDataWidget.swift in Sources */,
 				32F70B0F26F622C0006E9B05 /* LobbyType.swift in Sources */,
 				32F70B1026F622C2006E9B05 /* GameMode.swift in Sources */,
+				327B87742850DA7900BBE1F8 /* Ability.swift in Sources */,
 				32F70B2026F6295C006E9B05 /* Int.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,
 				32F70B2C26F6E3EB006E9B05 /* WCDBController.swift in Sources */,
@@ -1313,8 +1345,10 @@
 				327C033E2716A92500DAEC42 /* KDAView.swift in Sources */,
 				32F70B0926F62296006E9B05 /* DotaEnvironment.swift in Sources */,
 				32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */,
+				327B876E2850D9D900BBE1F8 /* ReadData.swift in Sources */,
 				32F70B2126F6295C006E9B05 /* SKProduct.swift in Sources */,
 				32F70B0B26F62296006E9B05 /* HeroDatabase.swift in Sources */,
+				327B87762850DA9F00BBE1F8 /* Item.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,9 +17,11 @@ class HeroDatabase {
     let url = "https://api.opendota.com/api/herostats"
     
     init() {
-        self.gameModes = loadGameModes()!
+        self.gameModes = loadGameModes()
         self.lobbyTypes = loadLobby()!
-        self.heroes = loadHeroes()!
+        Task {
+            await self.heroes = loadHeroes()
+        }
     }
     
     func fetchGameMode(id: Int) -> GameMode {

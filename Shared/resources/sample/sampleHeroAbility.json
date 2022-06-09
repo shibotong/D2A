@@ -1,0 +1,44 @@
+{
+    "abilities": [
+        "antimage_mana_break",
+        "antimage_blink",
+        "antimage_counterspell",
+        "antimage_mana_overload",
+        "generic_hidden",
+        "antimage_mana_void"
+    ],
+    "talents": [
+        {
+            "name": "special_bonus_strength_9",
+            "level": 1
+        },
+        {
+            "name": "special_bonus_unique_antimage",
+            "level": 1
+        },
+        {
+            "name": "special_bonus_unique_antimage_7",
+            "level": 2
+        },
+        {
+            "name": "special_bonus_unique_antimage_8",
+            "level": 2
+        },
+        {
+            "name": "special_bonus_unique_antimage_6",
+            "level": 3
+        },
+        {
+            "name": "special_bonus_unique_antimage_3",
+            "level": 3
+        },
+        {
+            "name": "special_bonus_unique_antimage_4",
+            "level": 4
+        },
+        {
+            "name": "special_bonus_unique_antimage_2",
+            "level": 4
+        }
+    ]
+}

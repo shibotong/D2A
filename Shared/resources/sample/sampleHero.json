@@ -1,14 +1,13 @@
 {
-"1": {
     "id": 1,
     "name": "npc_dota_hero_antimage",
     "localized_name": "Anti-Mage",
     "primary_attr": "agi",
     "attack_type": "Melee",
     "roles": [
-      "Carry",
-      "Escape",
-      "Nuker"
+        "Carry",
+        "Escape",
+        "Nuker"
     ],
     "img": "/apps/dota2/images/dota_react/heroes/antimage.png?",
     "icon": "/apps/dota2/images/dota_react/heroes/icons/antimage.png?",
@@ -33,5 +32,4 @@
     "turn_rate": null,
     "cm_enabled": true,
     "legs": 2
-  }
 }

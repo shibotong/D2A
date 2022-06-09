@@ -12,6 +12,8 @@ class HeroDetailViewModel: ObservableObject {
     @Published var hero: Hero
     @Published var heroAbility: HeroAbility
     
+    static var preview = HeroDetailViewModel()
+    
     var heroID: Int
     private var database: HeroDatabase = HeroDatabase.shared
     
@@ -20,6 +22,12 @@ class HeroDetailViewModel: ObservableObject {
         let hero = database.fetchHeroWithID(id: heroID)!
         self.hero = hero
         self.heroAbility = database.fetchHeroAbility(name: hero.name)!
+    }
+    
+    init() {
+        self.heroID = 1
+        self.hero = Hero.sample
+        self.heroAbility = HeroAbility.sample
     }
     
     func fetchAbility(name: String) -> Ability {

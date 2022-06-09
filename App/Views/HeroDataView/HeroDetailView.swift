@@ -260,6 +260,12 @@ struct HeroDetailView: View {
     }
 }
 
+struct HeroDetailView_Preview: PreviewProvider {
+    static var previews: some View {
+        HeroDetailView(vm: HeroDetailViewModel.preview)
+    }
+}
+
 struct AbilityView: View {
     var ability: Ability
     var heroID: Int
