@@ -16,6 +16,8 @@ struct HeroDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var env: DotaEnvironment
     
+    @State var heroLevel = 1.00
+    
     var body: some View {
         ScrollView {
             buildTitle(hero: vm.hero)
@@ -43,12 +45,6 @@ struct HeroDetailView: View {
             .overlay(HStack {
                 VStack(alignment: .leading, spacing: 3) {
                     Spacer()
-                    Text(hero.roles.joined(separator: ", "))
-                        .font(.custom(fontString, size: 15))
-                        .bold()
-                        .foregroundColor(Color(.systemBackground))
-                        .padding(5)
-                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.primaryDota))
                     HStack {
                         Image("hero_\(hero.primaryAttr)")
                             .resizable()
@@ -84,7 +80,6 @@ struct HeroDetailView: View {
                             .frame(width: skillFrame)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
-                    
                 }
             }
             .padding(10)
@@ -208,61 +203,111 @@ struct HeroDetailView: View {
                     .font(.custom(fontString, size: 15))
                     .bold()
                 Spacer()
-            }.padding(.leading)
-            GeometryReader { proxy in
-                HStack(spacing: 30) {
-                    VStack(spacing: 0) {
-                        HeroImageView(heroID: hero.id, type: .full)
-                        Rectangle()
-                            .frame(height: 20)
-                            .foregroundColor(Color.green)
-                            .overlay(LinearGradient(colors: [.black.opacity(0.5), .white.opacity(0.5)], startPoint: .leading, endPoint: .trailing))
-                        Rectangle().frame(height: 20).foregroundColor(Color.blue)
-                    }.frame(width: (proxy.size.width - 30) / 2)
-                    
-                    VStack (spacing: 3) {
-                        HStack {
-                            Image("hero_str")
-                                .resizable()
-                                .frame(width: 15, height: 15)
-                            Text("\(hero.baseStr)")
-                                .font(.custom(fontString, size: 18))
-                                .bold()
-                            Text("+ \(hero.strGain, specifier: "%.1f")")
-                                .font(.custom(fontString, size: 13))
-                        }
-                        HStack {
-                            Image("hero_agi")
-                                .resizable()
-                                .frame(width: 15, height: 15)
-                            Text("\(hero.baseAgi)")
-                                .font(.custom(fontString, size: 18))
-                                .bold()
-                            Text("+ \(hero.agiGain, specifier: "%.1f")")
-                                .font(.custom(fontString, size: 13))
-                        }
-                        HStack {
-                            Image("hero_int")
-                                .resizable()
-                                .frame(width: 15, height: 15)
-                            Text("\(hero.baseInt)")
-                                .font(.custom(fontString, size: 18))
-                                .bold()
-                            Text("+ \(hero.intGain, specifier: "%.1f")")
-                                .font(.custom(fontString, size: 13))
-                        }
-                    }.frame(width: (proxy.size.width - 30) / 2)
+            }.padding(.bottom)
+//            Slider(value: $heroLevel, in: 1...30, step: 1)
+//                .padding(.horizontal)
+//            Text("Level \(Int(heroLevel))")
+
+            VStack(spacing: 0) {
+                HStack {
+                    Text("Health")
+                        .font(.custom(fontString, size: 15))
+                        .bold()
+                        .foregroundColor(.secondaryLabel)
+                    Spacer()
+                    Text("\(hero.calculateHPLevel(level: heroLevel))")
+                        .font(.custom(fontString, size: 15))
+                        .bold()
+                    Text("+ \(hero.calculateHPRegen, specifier: "%.1f")")
+                        .font(.custom(fontString, size: 13))
                 }
+                buildManaHealthBar(total: hero.calculateHPLevel(level: heroLevel), color: Color(UIColor.systemGreen))
             }
-            .padding(.horizontal)
-            .frame(height: 150)
+            VStack(spacing: 0) {
+                HStack {
+                    Text("Mana")
+                        .font(.custom(fontString, size: 15))
+                        .bold()
+                        .foregroundColor(.secondaryLabel)
+                    Spacer()
+                    Text("\(hero.calculateManaLevel(level: heroLevel))")
+                        .font(.custom(fontString, size: 15))
+                        .bold()
+                    Text("+ \(hero.calculateMPRegen, specifier: "%.1f")")
+                        .font(.custom(fontString, size: 13))
+                }
+
+                buildManaHealthBar(total: hero.calculateManaLevel(level: heroLevel), color: Color(UIColor.systemBlue))
+            }
+            
+            
+            HStack {
+                Spacer()
+                HStack {
+                    Image("hero_str")
+                        .resizable()
+                        .frame(width: 15, height: 15)
+                    Text("\(hero.baseStr)")
+                        .font(.custom(fontString, size: 18))
+                        .bold()
+                    Text("+ \(hero.strGain, specifier: "%.1f")")
+                        .font(.custom(fontString, size: 13))
+                }
+                Spacer()
+                HStack {
+                    Image("hero_agi")
+                        .resizable()
+                        .frame(width: 15, height: 15)
+                    Text("\(hero.baseAgi)")
+                        .font(.custom(fontString, size: 18))
+                        .bold()
+                    Text("+ \(hero.agiGain, specifier: "%.1f")")
+                        .font(.custom(fontString, size: 13))
+                }
+                Spacer()
+                HStack {
+                    Image("hero_int")
+                        .resizable()
+                        .frame(width: 15, height: 15)
+                    Text("\(hero.baseInt)")
+                        .font(.custom(fontString, size: 18))
+                        .bold()
+                    Text("+ \(hero.intGain, specifier: "%.1f")")
+                        .font(.custom(fontString, size: 13))
+                }
+                Spacer()
+            }
+        }
+        .padding(.horizontal)
+    }
+    
+    @ViewBuilder private func buildManaHealthBar(total: Int, color: Color) -> some View {
+        GeometryReader { proxy in
+            let rectangles = Double(total) / 250.00
+            let numberOfRect = total / 250
+            let spacer = (total % 250 == 0) ? numberOfRect : numberOfRect + 1
+            let restWidth = proxy.size.width - CGFloat(spacer)
+            let rectWidth = restWidth / rectangles
+            
+            HStack(spacing: 1) {
+                ForEach(0..<numberOfRect, id: \.self) { _ in
+                    Rectangle()
+                        .frame(width: rectWidth)
+                }
+                Rectangle()
+            }
+            .frame(height: 10)
+            .foregroundColor(color)
+            .clipShape(Capsule())
         }
     }
 }
 
 struct HeroDetailView_Preview: PreviewProvider {
     static var previews: some View {
-        HeroDetailView(vm: HeroDetailViewModel.preview)
+        NavigationView {
+            HeroDetailView(vm: HeroDetailViewModel.preview)
+        }
     }
 }
 

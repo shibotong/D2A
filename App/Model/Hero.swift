@@ -109,12 +109,12 @@ class Hero: Identifiable, Decodable {
     }
     
     var calculatedAttackMin: Int {
-        let mainAttributes = self.getMainAttributes()
+        let mainAttributes = self.mainAttributes
         return self.baseAttackMin + mainAttributes
     }
     
     var calculatedAttackMax: Int {
-        let mainAttributes = self.getMainAttributes()
+        let mainAttributes = self.mainAttributes
         return self.baseAttackMax + mainAttributes
     }
     
@@ -123,7 +123,7 @@ class Hero: Identifiable, Decodable {
         return armor
     }
     
-    private func getMainAttributes() -> Int {
+    var mainAttributes: Int {
         switch self.primaryAttr {
         case "str":
             return self.baseStr
@@ -134,6 +134,79 @@ class Hero: Identifiable, Decodable {
         default:
             return 0
         }
+    }
+    
+    var mainAttributesGain: Double {
+        switch self.primaryAttr {
+        case "str":
+            return self.strGain
+        case "agi":
+            return self.agiGain
+        case "int":
+            return self.intGain
+        default:
+            return 0.0
+        }
+    }
+    
+    func calculateHPLevel(level: Double) -> Int {
+        // 17, 19, 21, 22, 23, 24, 26 +2 all attributes
+        var totalStr = self.baseStr + Int((level - 1) * self.strGain)
+        if level >= 17 {
+            totalStr += 2
+        }
+        if level >= 19 {
+            totalStr += 2
+        }
+        if level >= 21 {
+            totalStr += 2
+        }
+        if level >= 22 {
+            totalStr += 2
+        }
+        if level >= 23 {
+            totalStr += 2
+        }
+        if level >= 24 {
+            totalStr += 2
+        }
+        if level >= 26 {
+            totalStr += 2
+        }
+        let hp = self.baseHealth + totalStr * Hero.strMaxHP
+        return hp
+    }
+    
+    func calculateManaLevel(level: Double) -> Int {
+        var totalInt = self.baseInt + Int((level - 1) * self.intGain)
+        if level >= 17 {
+            totalInt += 2
+        }
+        if level >= 19 {
+            totalInt += 2
+        }
+        if level >= 21 {
+            totalInt += 2
+        }
+        if level >= 22 {
+            totalInt += 2
+        }
+        if level >= 23 {
+            totalInt += 2
+        }
+        if level >= 24 {
+            totalInt += 2
+        }
+        if level >= 26 {
+            totalInt += 2
+        }
+        let hp = self.baseMana + totalInt * Hero.intMaxMP
+        return hp
+    }
+    
+    func calculateHPRegenLevel(level: Double) -> Double {
+        let regen = self.baseHealthRegen + Double(self.baseStr) * (level - 1) * Hero.strHPRegen
+        return regen
     }
 }
 

@@ -26,7 +26,7 @@ struct HeroListView: View {
                     }
                     
                     Picker("attributes", selection: $vm.attributes) {
-                        Label("All", systemImage: "").tag(HeroAttributes.all)
+                        Text("All").tag(HeroAttributes.all)
                         Label("Strength", image: "hero_str").tag(HeroAttributes.str)
                         Label("Agility", image: "hero_agi").tag(HeroAttributes.agi)
                         Label("Intelligence", image: "hero_int").tag(HeroAttributes.int)
@@ -56,20 +56,28 @@ struct HeroListView: View {
     }
     
     @ViewBuilder private func buildSection(heroes: [Hero], attributes: HeroAttributes) -> some View {
-        Section {
-            buildMainPart(heroes: heroes)
-        } header: {
-            if attributes != .all {
-                HStack {
-                    Image("hero_\(vm.attributes.rawValue)")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                    Text("\(attributes.fullName)")
-                        .bold()
-                    Spacer()
+        if heroes.count == 0 {
+            Text("No Results")
+                .bold()
+                .foregroundColor(.secondaryLabel)
+                .padding()
+                
+        } else {
+            Section {
+                buildMainPart(heroes: heroes)
+            } header: {
+                if attributes != .all {
+                    HStack {
+                        Image("hero_\(vm.attributes.rawValue)")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                        Text("\(attributes.fullName)")
+                            .bold()
+                        Spacer()
+                    }
+                } else {
+                    EmptyView()
                 }
-            } else {
-                EmptyView()
             }
         }
     }
