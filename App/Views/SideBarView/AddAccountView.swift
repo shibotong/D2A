@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddAccountView: View {
     @EnvironmentObject var env: DotaEnvironment
-    @ObservedObject var vm: AddAccountViewModel = AddAccountViewModel()
+    @StateObject var vm: AddAccountViewModel = AddAccountViewModel()
     var body: some View {
         NavigationView {
             buildSearchingList()
@@ -114,7 +114,9 @@ struct AddAccountView: View {
                 if !vm.userProfiles.isEmpty {
                     Section {
                         ForEach(vm.userProfiles) { profile in
-                            buildProfile(profile: profile)
+                            NavigationLink(destination: MatchListView(vm: MatchListViewModel(userid: profile.id.description))) {
+                                buildProfile(profile: profile)
+                            }
                         }
                     } header: {
                         Text("Players")
@@ -127,34 +129,7 @@ struct AddAccountView: View {
     
     @ViewBuilder private func buildProfile(profile: UserProfile) -> some View {
         HStack {
-            AsyncImage(url: URL(string: profile.avatarfull)) { phase in
-                let sideLength = CGFloat(40)
-                let cornerRadius = CGFloat(5)
-                switch phase {
-                case .empty:
-                    ProgressView()
-                        .frame(width: sideLength, height: sideLength)
-                case .success(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: sideLength, height: sideLength)
-                        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                case .failure(_):
-                    Image("profile")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: sideLength, height: sideLength)
-                        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                    
-                @unknown default:
-                    Image("profile")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: sideLength, height: sideLength)
-                        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                }
-            }
+            ProfileAvartar(url: profile.avatarfull, sideLength: 40, cornerRadius: 5)
             VStack(alignment: .leading) {
                 Text(profile.personaname).bold()
                 Text("ID: \(profile.id.description)")
@@ -181,3 +156,37 @@ struct AddAccountView_Previews: PreviewProvider {
 }
 
 
+
+struct ProfileAvartar: View {
+    var url: String
+    let sideLength: CGFloat
+    let cornerRadius: CGFloat
+    var body: some View {
+        AsyncImage(url: URL(string: url)) { phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+                    .frame(width: sideLength, height: sideLength)
+            case .success(let image):
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: sideLength, height: sideLength)
+                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+            case .failure(_):
+                Image("profile")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: sideLength, height: sideLength)
+                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+                
+            @unknown default:
+                Image("profile")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: sideLength, height: sideLength)
+                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+            }
+        }
+    }
+}

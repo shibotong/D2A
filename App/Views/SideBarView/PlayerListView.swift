@@ -9,14 +9,15 @@ import SwiftUI
 
 struct PlayerListView: View {
     @EnvironmentObject var env: DotaEnvironment
+    @ObservedObject var vm: PlayerListViewModel
     var body: some View {
         ScrollView {
             VStack(spacing: 10) {
-                if env.registerdID == "" {
+                if vm.registerdID == "" {
                     EmptyRegistedView()
                         .frame(height: 190)
                 } else {
-                    RegisteredPlayerView(vm: SidebarRowViewModel(userid: env.registerdID, isRegistered: true))
+                    RegisteredPlayerView(vm: SidebarRowViewModel(userid: vm.registerdID, isRegistered: true))
                         .background(Color.systemBackground)
                 }
                 VStack {
@@ -26,7 +27,7 @@ struct PlayerListView: View {
                             .bold()
                         Spacer()
                     }.padding()
-                    if env.userIDs.isEmpty {
+                    if vm.userIDs.isEmpty {
                         VStack {
                             Text("There are no players registered in you favorites.")
                                 .font(.custom(fontString, size: 13))
@@ -47,7 +48,7 @@ struct PlayerListView: View {
                         .padding()
                     } else {
                         LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 100, maximum: 110), spacing: 10, alignment: .leading), count: 3), spacing: 10) {
-                            ForEach(env.userIDs, id: \.self) { id in
+                            ForEach(vm.userIDs, id: \.self) { id in
                                 NavigationLink(destination: MatchListView(vm: MatchListViewModel(userid: id))) {
                                     PlayerListRowView(vm: SidebarRowViewModel(userid: id))
                                 }
@@ -56,17 +57,6 @@ struct PlayerListView: View {
                     }
                 }
                 .background(Color.systemBackground)
-//                VStack {
-//                    HStack {
-//                        Text("Gameplay Update")
-//                            .font(.custom(fontString, size: 20))
-//                            .bold()
-//                        Spacer()
-//                    }
-//                    .padding()
-//
-//                }
-//                .background(Color.systemBackground)
             }
             .background(Color(UIColor.secondarySystemBackground))
         }
@@ -79,7 +69,7 @@ struct PlayerListView: View {
 struct PlayerListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            PlayerListView()
+            PlayerListView(vm: PlayerListViewModel(registeredID: "153041957", followedID: []))
         }
         .environmentObject(DotaEnvironment.preview)
         .environmentObject(HeroDatabase.shared)
@@ -129,34 +119,7 @@ struct RegisteredPlayerView: View {
             VStack(spacing: 10) {
                 NavigationLink(destination: MatchListView(vm: MatchListViewModel(userid: env.registerdID))) {
                     HStack {
-                        AsyncImage(url: URL(string: vm.profile?.avatarfull ?? "")) { phase in
-                            let sideLength = CGFloat(70)
-                            let cornerRadius = CGFloat(25)
-                            switch phase {
-                            case .empty:
-                                ProgressView()
-                                    .frame(width: sideLength, height: sideLength)
-                            case .success(let image):
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: sideLength, height: sideLength)
-                                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                            case .failure(_):
-                                Image("profile")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: sideLength, height: sideLength)
-                                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                                
-                            @unknown default:
-                                Image("profile")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: sideLength, height: sideLength)
-                                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                            }
-                        }
+                        ProfileAvartar(url: vm.profile?.avatarfull ?? "", sideLength: 70, cornerRadius: 25)
                         VStack(alignment: .leading, spacing: 0) {
                             Text(vm.profile?.personaname ?? "").font(.custom(fontString, size: 20)).bold().lineLimit(1)
                             HStack(spacing: 4) {

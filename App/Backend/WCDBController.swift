@@ -33,7 +33,7 @@ class WCDBController {
     func fetchRecentMatches(userid: String, offSet: Int = 0) -> [RecentMatch] {
         do {
             let matches: [RecentMatch] = try database.getObjects(fromTable: "RecentMatch",
-                                                                 where: RecentMatch.Properties.playerId == Int(userid)!,
+                                                                 where: RecentMatch.Properties.playerId == Int(userid) ?? 0,
                                                                  orderBy: [RecentMatch.Properties.startTime.asOrder(by: .descending)],
                                                                  limit: 100,
                                                                  offset: offSet)
@@ -68,7 +68,7 @@ class WCDBController {
     
     func fetchUserProfile(userid: String) -> UserProfile? {
         do {
-            let profile: UserProfile? = try database.getObject(fromTable: "UserProfile", where: UserProfile.Properties.id == Int(userid)!)
+            let profile: UserProfile? = try database.getObject(fromTable: "UserProfile", where: UserProfile.Properties.id == Int(userid) ?? 0)
             return profile
         } catch {
             print("fetch User profile error")

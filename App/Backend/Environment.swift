@@ -12,7 +12,7 @@ enum TabSelection {
     case home, hero, search, setting
 }
 
-class DotaEnvironment: ObservableObject {
+final class DotaEnvironment: ObservableObject {
     static var shared = DotaEnvironment()
     static var preview: DotaEnvironment = {
         let env = DotaEnvironment()
@@ -86,6 +86,7 @@ class DotaEnvironment: ObservableObject {
     
     @MainActor
     func registerUser(userid: String) {
+        self.delete(userID: userid)
         self.registerdID = userid
     }
     

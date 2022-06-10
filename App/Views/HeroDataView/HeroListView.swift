@@ -11,7 +11,7 @@ import CryptoKit
 struct HeroListView: View {
     @EnvironmentObject var herodata: HeroDatabase
     @EnvironmentObject var env: DotaEnvironment
-    @ObservedObject var vm = HeroListViewModel()
+    @StateObject var vm = HeroListViewModel()
     
     var body: some View {
         buildBody()

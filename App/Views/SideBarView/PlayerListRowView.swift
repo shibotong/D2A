@@ -13,34 +13,7 @@ struct PlayerListRowView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                AsyncImage(url: URL(string: vm.profile?.avatarfull ?? "")) { phase in
-                    let sideLength = CGFloat(50)
-                    let cornerRadius = CGFloat(25)
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                            .frame(width: sideLength, height: sideLength)
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: sideLength, height: sideLength)
-                            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                    case .failure(_):
-                        Image("profile")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: sideLength, height: sideLength)
-                            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                        
-                    @unknown default:
-                        Image("profile")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: sideLength, height: sideLength)
-                            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                    }
-                }
+                ProfileAvartar(url: vm.profile?.avatarfull ?? "", sideLength: 50, cornerRadius: 25)
                 Spacer().frame(height: 10)
                 Text(vm.profile?.personaname ?? "nil")
                     .font(.custom(fontString, size: 12))

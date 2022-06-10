@@ -152,6 +152,8 @@
 		327B87752850DA9E00BBE1F8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2626C38852002D427D /* Item.swift */; };
 		327B87762850DA9F00BBE1F8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2626C38852002D427D /* Item.swift */; };
 		327B87782852263300BBE1F8 /* HeroListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B87772852263300BBE1F8 /* HeroListViewModel.swift */; };
+		327B877A28530CEF00BBE1F8 /* PlayerProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B877928530CEF00BBE1F8 /* PlayerProfileView.swift */; };
+		327B877C285316F900BBE1F8 /* PlayerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B877B285316F900BBE1F8 /* PlayerListViewModel.swift */; };
 		327C033C2716A8F400DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
 		327C033D2716A90400DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
 		327C033E2716A92500DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
@@ -366,6 +368,8 @@
 		327B875F284D9FA100BBE1F8 /* DataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
 		327B87682850D92A00BBE1F8 /* sampleHeroAbility.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleHeroAbility.json; sourceTree = "<group>"; };
 		327B87772852263300BBE1F8 /* HeroListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListViewModel.swift; sourceTree = "<group>"; };
+		327B877928530CEF00BBE1F8 /* PlayerProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProfileView.swift; sourceTree = "<group>"; };
+		327B877B285316F900BBE1F8 /* PlayerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListViewModel.swift; sourceTree = "<group>"; };
 		327C033B2716A8F400DAEC42 /* KDAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDAView.swift; sourceTree = "<group>"; };
 		327C033F2716AB6E00DAEC42 /* HeroImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageView.swift; sourceTree = "<group>"; };
 		327C03432717AE8500DAEC42 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -590,6 +594,7 @@
 				32B36F3E26C388AD002D427D /* MatchListView.swift */,
 				327772AE26D8BE63000A0A97 /* MatchListRowView.swift */,
 				322B89CA26D1015E00DF67F9 /* EmptyUserView.swift */,
+				327B877928530CEF00BBE1F8 /* PlayerProfileView.swift */,
 			);
 			path = MatchListView;
 			sourceTree = "<group>";
@@ -739,6 +744,7 @@
 				322B89C626CFD2DE00DF67F9 /* AddAccountViewModel.swift */,
 				322B89C826D0F61900DF67F9 /* ProfileViewModel.swift */,
 				327B87772852263300BBE1F8 /* HeroListViewModel.swift */,
+				327B877B285316F900BBE1F8 /* PlayerListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1229,6 +1235,7 @@
 				3252858F26C949940030F15B /* Date.swift in Sources */,
 				3261C907282F315100D47CDA /* HeroDetailView.swift in Sources */,
 				323ADB02272B8CCB00253124 /* PatchListView.swift in Sources */,
+				327B877C285316F900BBE1F8 /* PlayerListViewModel.swift in Sources */,
 				327B8760284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				322B893C26CD560100DF67F9 /* MatchViewModel.swift in Sources */,
 				32B36F1126C38821002D427D /* ContentView.swift in Sources */,
@@ -1253,6 +1260,7 @@
 				3252859726CB81480030F15B /* DifferenceGraphViewModel.swift in Sources */,
 				327772B326D9D735000A0A97 /* GameMode.swift in Sources */,
 				327772AF26D8BE63000A0A97 /* MatchListRowView.swift in Sources */,
+				327B877A28530CEF00BBE1F8 /* PlayerProfileView.swift in Sources */,
 				322B893A26CD456400DF67F9 /* RecentMatch.swift in Sources */,
 				3294463F26E1BC8F006E0D06 /* PlayerDetailView.swift in Sources */,
 				32D1605D26F30B7A00657449 /* StoreManager.swift in Sources */,

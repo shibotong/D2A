@@ -43,9 +43,17 @@ class AddAccountViewModel: ObservableObject {
         self.filterHeroes = HeroDatabase.shared.fetchAllHeroes().filter { hero in
             hero.localizedName.lowercased().contains(searchText.lowercased())
         }
-//        self.isLoading = true
-        let searchedProfile = await OpenDotaController.shared.searchUserByText(text: searchText)
-        self.userProfiles = searchedProfile
+        async let searchedProfile = OpenDotaController.shared.searchUserByText(text: searchText)
+        if Int(searchText) != nil {
+            async let searchedMatch = OpenDotaController.shared.loadMatchData(matchid: searchText)
+            do {
+                self.searchedMatch = try await searchedMatch
+            } catch {
+                print("parse match error")
+            }
+        }
+        
+        self.userProfiles = await searchedProfile
 //        self.isLoading = false
     }
 }

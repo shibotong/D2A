@@ -57,48 +57,35 @@ struct NavigationHostView: View {
     @AppStorage("selectedUser") var selectedUser: String?
     @AppStorage("selectedMatch") var selectedMatch: String?
     
-    private var sheetHeight: CGFloat {
-        let screenHeight = UIScreen.main.bounds.height
-        let screenWidth = UIScreen.main.bounds.width
-        // image size: 256 * 144
-        let imageHeight = screenHeight - screenWidth / 256 * 144 - 50
-        return imageHeight
-    }
-    
     var body: some View {
-//        if env.userIDs.isEmpty {
-//            EmptyUserView()
-//        } else {
             if horizontalSizeClass == .compact {
                 TabView(selection: $env.selectedTab) {
                     NavigationView {
-                        PlayerListView()
+                        PlayerListView(vm: PlayerListViewModel(registeredID: env.registerdID, followedID: env.userIDs))
                     }.tabItem {
                         Image(systemName: "person")
                         Text("Profile")
-                    }.tag(TabSelection.home)
+                    }.tag(TabSelection.home).navigationViewStyle(.stack)
                     NavigationView {
                         HeroListView()
                     }.tabItem {
                         Image(systemName: "server.rack")
                         Text("Hero")
-                    }.tag(TabSelection.hero)
+                    }.tag(TabSelection.hero).navigationViewStyle(.stack)
 
                     AddAccountView()
                         .tabItem {
                             Image(systemName: "magnifyingglass")
                             Text("Search")
-                        }.tag(TabSelection.search)
+                        }.tag(TabSelection.search).navigationViewStyle(.stack)
+                    
                     NavigationView {
                         EmptyView()
                     }.tabItem {
                         Image(systemName: "gear")
                         Text("Settings")
-                    }.tag(TabSelection.setting)
+                    }.tag(TabSelection.setting).navigationViewStyle(.stack)
                 }
-//                .bottomSheet(item: $env.selectedAbility, height: sheetHeight, topBarCornerRadius: 30, content: { ability in
-//                    AbilityView(ability: ability.ability, heroID: ability.heroID, abilityName: ability.abilityName)
-//                })
             } else {
                 NavigationView {
                     Sidebar()
@@ -106,7 +93,6 @@ struct NavigationHostView: View {
                 }
                 .navigationViewStyle(DoubleColumnNavigationViewStyle())
             }
-//        }
     }
 }
 

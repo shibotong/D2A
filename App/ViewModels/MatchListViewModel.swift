@@ -30,7 +30,10 @@ class MatchListViewModel: ObservableObject {
     
     init() {
         self.matches = RecentMatch.sample
-        self.userid = "0"
+        self.userid = "153041957"
+        Task {
+            await self.refreshData()
+        }
     }
     
     func fetchMoreData() {
