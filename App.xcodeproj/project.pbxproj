@@ -492,7 +492,7 @@
 			path = documents;
 			sourceTree = "<group>";
 		};
-		321D585326D22FE90059526B /* build */ = {
+		321D585326D22FE90059526B /* staticdata */ = {
 			isa = PBXGroup;
 			children = (
 				323ADB0D272B91F400253124 /* abilities.json */,
@@ -521,7 +521,7 @@
 				323ADB1B272B91F400253124 /* skillshots.json */,
 				323ADB14272B91F400253124 /* xp_level.json */,
 			);
-			path = build;
+			path = staticdata;
 			sourceTree = "<group>";
 		};
 		321D58A526D717780059526B /* sample */ = {
@@ -710,7 +710,7 @@
 			children = (
 				32B36F2F26C38860002D427D /* ReadData.swift */,
 				321D58A526D717780059526B /* sample */,
-				321D585326D22FE90059526B /* build */,
+				321D585326D22FE90059526B /* staticdata */,
 			);
 			path = resources;
 			sourceTree = "<group>";
