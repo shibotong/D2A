@@ -11,6 +11,7 @@ import UIKit
 class HeroDetailViewModel: ObservableObject {
     @Published var hero: Hero
     @Published var heroAbility: HeroAbility
+    @Published var selectedAbility: AbilityContainer?
     
     static var preview = HeroDetailViewModel()
     

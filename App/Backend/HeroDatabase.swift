@@ -170,6 +170,34 @@ class HeroDatabase: ObservableObject {
         }
     }
     
+    func hasScepter(ability: Ability, heroID: Int) -> Bool {
+        guard let hero = self.scepterData.filter({ scepter in
+            scepter.id == heroID
+        }).first else {
+            // Cannot find this hero
+            return false
+        }
+        if ability.dname == hero.scepterSkillName {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func hasShard(ability: Ability, heroID: Int) -> Bool {
+        guard let hero = self.scepterData.filter({ scepter in
+            scepter.id == heroID
+        }).first else {
+            // Cannot find this hero
+            return false
+        }
+        if ability.dname == hero.shardSkillName {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func getAbilityShardDesc(ability: Ability, heroID: Int) -> String? {
         guard let hero = self.scepterData.filter({ scepter in
             scepter.id == heroID

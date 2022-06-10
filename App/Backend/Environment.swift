@@ -46,7 +46,7 @@ class DotaEnvironment: ObservableObject {
         }
     }
     
-    @Published var selectedAbility: AbilityContainer?
+    
     @Published var selectedTab: TabSelection = .home
     
     init() {

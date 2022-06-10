@@ -25,7 +25,6 @@ struct ContentView: View {
             NavigationHostView()
                 .sheet(isPresented: $env.addNewAccount, content: {
                     AddAccountView()
-                        .equatable()
                         .environmentObject(env)
                 })
                 .sheet(isPresented: $env.aboutUs, content: {
@@ -97,9 +96,9 @@ struct NavigationHostView: View {
                         Text("Settings")
                     }.tag(TabSelection.setting)
                 }
-                .bottomSheet(item: $env.selectedAbility, height: sheetHeight, topBarCornerRadius: 30, content: { ability in
-                    AbilityView(ability: ability.ability, heroID: ability.heroID, abilityName: ability.abilityName)
-                })
+//                .bottomSheet(item: $env.selectedAbility, height: sheetHeight, topBarCornerRadius: 30, content: { ability in
+//                    AbilityView(ability: ability.ability, heroID: ability.heroID, abilityName: ability.abilityName)
+//                })
             } else {
                 NavigationView {
                     Sidebar()

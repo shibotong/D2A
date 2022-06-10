@@ -12,10 +12,8 @@ import AVKit
 
 struct HeroDetailView: View {
     @ObservedObject var vm: HeroDetailViewModel
-    
-    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var env: DotaEnvironment
-    
+    @EnvironmentObject var database: HeroDatabase
     @State var heroLevel = 1.00
     
     var body: some View {
@@ -29,9 +27,13 @@ struct HeroDetailView: View {
         }
         .navigationTitle(vm.hero.localizedName)
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(item: $vm.selectedAbility) { ability in
+            NavigationView {
+                AbilityView(ability: ability.ability, heroID: vm.heroID, abilityName: ability.abilityName)
+                
+            }
+        }
     }
-    
-    
     
     @ViewBuilder private func buildHeader() -> some View {
         buildTitle(hero: vm.hero)
@@ -64,12 +66,24 @@ struct HeroDetailView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(vm.heroAbility.abilities.filter { ability in
-                    return !ability.contains("hidden")
+                    let containHidden = ability.contains("hidden")
+                    let containEmpty = ability.contains("empty")
+//                    let abilityData = vm.fetchAbility(name: ability)
+//                    let isScepter = database.hasScepter(ability: abilityData, heroID: vm.heroID)
+//                    let isShard = database.hasShard(ability: abilityData, heroID: vm.heroID)
+//                    let hasLore = abilityData.lore != nil
+//                    var emptyLore = false
+//                    if hasLore {
+//                        let lore = abilityData.lore!
+//                        emptyLore = lore.isEmpty
+//                    }
+//                    let isPassive = abilityData.behavior?.transformString() == "Passive"
+                    return !containHidden && !containEmpty
                 }, id: \.self) { abilityName in
                     let ability = vm.fetchAbility(name: abilityName)
                     let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
                     Button {
-                        self.env.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroID: vm.heroID, abilityName: abilityName)
+                        self.vm.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroID: vm.heroID, abilityName: abilityName)
                     } label: {
                         WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
                             .resizable()
@@ -204,10 +218,10 @@ struct HeroDetailView: View {
                     .bold()
                 Spacer()
             }.padding(.bottom)
-//            Slider(value: $heroLevel, in: 1...30, step: 1)
-//                .padding(.horizontal)
-//            Text("Level \(Int(heroLevel))")
-
+            //            Slider(value: $heroLevel, in: 1...30, step: 1)
+            //                .padding(.horizontal)
+            //            Text("Level \(Int(heroLevel))")
+            
             VStack(spacing: 0) {
                 HStack {
                     Text("Health")
@@ -236,7 +250,7 @@ struct HeroDetailView: View {
                     Text("+ \(hero.calculateMPRegen, specifier: "%.1f")")
                         .font(.custom(fontString, size: 13))
                 }
-
+                
                 buildManaHealthBar(total: hero.calculateManaLevel(level: heroLevel), color: Color(UIColor.systemBlue))
             }
             
@@ -317,6 +331,7 @@ struct AbilityView: View {
     var abilityName: String
     
     @EnvironmentObject var dataBase: HeroDatabase
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack {
@@ -411,6 +426,8 @@ struct AbilityView: View {
                     }
                 }
                 Spacer().frame(height: 10)
+                //https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/keeper_of_the_light/keeper_of_the_light_aghanims_shard.mp4
+                
                 if let lore = ability.lore {
                     Text(lore)
                         .font(.custom(fontString, size: 10))
@@ -423,7 +440,18 @@ struct AbilityView: View {
                 }
                 
             }
-        }.padding()
+            
+        }
+        
+        .padding(.horizontal)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            Button {
+                self.presentationMode.wrappedValue.dismiss()
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+            }
+        }
     }
     
     @ViewBuilder private func buildAttributesText(title: String, message: String, color: Color = Color(UIColor.label)) -> some View {
@@ -462,6 +490,10 @@ struct AbilityView: View {
             }
             Text(desc)
                 .font(.custom(fontString, size: 13))
+            if let url = getVideoURL(abilityName, type: type) {
+                VideoPlayer(player: AVPlayer(url: url))
+                    .frame(height: (UIScreen.main.bounds.width - 32) / 16.0 * 9.0)
+            }
         }
         .padding(calculateDescPadding(type: type))
         .background(calculateDescBackground(type: type))
@@ -488,6 +520,42 @@ struct AbilityView: View {
                 .foregroundColor(Color(UIColor.secondarySystemBackground))
         case .non:
             EmptyView()
+        }
+    }
+    
+    private func getVideoURL(_ ability: String, type: ScepterType) -> URL? {
+        guard let heroName = dataBase.heroes["\(heroID)"]?.name.replacingOccurrences(of: "npc_dota_hero_", with: "") else {
+            return nil
+        }
+        let baseURL = "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/\(heroName)"
+        switch type {
+        case .Scepter:
+            guard let url = URL(string: "\(baseURL)/\(heroName)_aghanims_scepter.mp4") else {
+                return nil
+            }
+            if AVAsset(url: url).isPlayable {
+                return url
+            } else {
+                return nil
+            }
+        case .Shard:
+            guard let url = URL(string: "\(baseURL)/\(heroName)_aghanims_shard.mp4") else {
+                return nil
+            }
+            if AVAsset(url: url).isPlayable {
+                return url
+            } else {
+                return nil
+            }
+        case .non:
+            guard let url = URL(string: "\(baseURL)/\(abilityName).mp4") else {
+                return nil
+            }
+            if AVAsset(url: url).isPlayable {
+                return url
+            } else {
+                return nil
+            }
         }
     }
 }
