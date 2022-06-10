@@ -161,6 +161,14 @@ struct AddAccountView: View {
                     .foregroundColor(.secondaryLabel)
                     .font(.caption)
             }
+            Spacer()
+            if profile.id.description == env.registerdID {
+                Image(systemName: "person.fill")
+                    .foregroundColor(.primaryDota)
+            }
+            if env.userIDs.contains(profile.id.description) {
+                Image(systemName: "star.fill")
+            }
         }
     }
 }
