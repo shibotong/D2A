@@ -27,7 +27,6 @@ struct AddAccountView: View {
                         .font(.subheadline)
                         .frame(width: iconWidth)
                 }
-//                .searchCompletion(vm.searchText)
                 Label {
                     Text("Search player id \(vm.searchText)")
                         .font(.subheadline)
@@ -37,7 +36,6 @@ struct AddAccountView: View {
                         .font(.subheadline)
                         .frame(width: iconWidth)
                 }
-//                .searchCompletion(vm.searchText)
             }
             if !vm.searchText.isEmpty {
                 Label {
@@ -91,9 +89,19 @@ struct AddAccountView: View {
             List {
                 if let match = vm.searchedMatch {
                     Section {
-                        Text("\(match.id)")
+                        NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
+                            HStack {
+                                ForEach(match.fetchPlayers(isRadiant: true), id: \.heroID) { player in
+                                    HeroImageView(heroID: player.heroID, type: .icon)
+                                }
+                                Text("vs")
+                                ForEach(match.fetchPlayers(isRadiant: false), id: \.heroID) { player in
+                                    HeroImageView(heroID: player.heroID, type: .icon)
+                                }
+                            }
+                        }
                     } header: {
-                        Text("Match")
+                        Text("Match: \(match.id.description)")
                     }
                 }
                 if !vm.filterHeroes.isEmpty {
