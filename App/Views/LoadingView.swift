@@ -22,10 +22,12 @@ struct LoadingView: View {
 //                }
 //            }
         ZStack {
-            Color.primaryDota
+            Color.systemBackground
+            Color.primaryDota.opacity(0.9)
             Image("dota_armory_icon")
                 .resizable()
                 .frame(width: 100, height: 100)
+                .clipShape(RoundedRectangle(cornerRadius: 25))
         }
         .ignoresSafeArea()
             
@@ -34,10 +36,11 @@ struct LoadingView: View {
 
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        HStack {
-            LoadingView()
-            LoadingView()
-                .preferredColorScheme(.dark)
-        }
+        
+        LoadingView()
+            .preferredColorScheme(.light)
+        LoadingView()
+            .preferredColorScheme(.dark)
+        
     }
 }

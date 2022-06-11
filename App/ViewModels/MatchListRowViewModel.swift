@@ -1,5 +1,5 @@
 //
-//  MatchListViewModel.swift
+//  MatchListRowViewModel.swift
 //  App
 //
 //  Created by Shibo Tong on 11/8/21.

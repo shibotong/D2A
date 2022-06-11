@@ -1,5 +1,5 @@
 //
-//  MatchViewModel.swift
+//  PlayerProfileViewModel.swift
 //  App
 //
 //  Created by Shibo Tong on 18/8/21.
@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 import WidgetKit
 
-class MatchListViewModel: ObservableObject {
+class PlayerProfileViewModel: ObservableObject {
     @Published var matches: [RecentMatch] = []
     @Published var isLoading = false
     @Published var refreshing = false
@@ -33,23 +33,6 @@ class MatchListViewModel: ObservableObject {
             await self.refreshData()
         }
     }
-    
-//    func loadMoreMatchData() async {
-//        guard let userid = userid else {
-//            return
-//        }
-////        let matches = WCDBController.shared.fetchRecentMatches(userid: userid, offSet: matches.count)
-//        let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid, offset: self.matches.count)
-//        await self.addMoreMatches(matches)
-//    }
-    
-//    func loadMatchData() {
-//        guard let userid = userid else {
-//            return
-//        }
-//        let matches = WCDBController.shared.fetchRecentMatches(userid: userid)
-//        self.matches = matches
-//    }
     
     func refreshData(refreshAll: Bool = false) async {
         self.isLoading = true

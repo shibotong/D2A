@@ -122,7 +122,7 @@ struct AddAccountView: View {
                 if !vm.userProfiles.isEmpty {
                     Section {
                         ForEach(vm.userProfiles) { profile in
-                            NavigationLink(destination: MatchListView(vm: MatchListViewModel(userid: profile.id.description))) {
+                            NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id.description))) {
                                 buildProfile(profile: profile)
                             }
                         }

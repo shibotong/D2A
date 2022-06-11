@@ -49,7 +49,7 @@ struct PlayerListView: View {
                     } else {
                         LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 100, maximum: 130), spacing: 10, alignment: .leading), count: 3), spacing: 10) {
                             ForEach(vm.userIDs, id: \.self) { id in
-                                NavigationLink(destination: MatchListView(vm: MatchListViewModel(userid: id))) {
+                                NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: id))) {
                                     PlayerListRowView(vm: SidebarRowViewModel(userid: id))
                                 }
                             }
@@ -117,7 +117,7 @@ struct RegisteredPlayerView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 10) {
-                NavigationLink(destination: MatchListView(vm: MatchListViewModel(userid: env.registerdID))) {
+                NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: env.registerdID))) {
                     HStack {
                         ProfileAvartar(url: vm.profile?.avatarfull ?? "", sideLength: 70, cornerRadius: 25)
                         VStack(alignment: .leading, spacing: 0) {

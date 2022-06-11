@@ -36,14 +36,19 @@ struct MatchListRowView: View {
             if let size = vm.match.partySize {
                 buildParty(size: size)
             }
-            VStack(alignment: .trailing) {
-                Text(LocalizedStringKey(vm.match.fetchLobby().fetchLobbyName()))
-                    .foregroundColor(vm.match.fetchLobby().fetchLobbyName() == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
-                Text(vm.match.startTime.convertToTime()).bold()
+            HStack {
+                Spacer()
+                VStack(alignment: .trailing) {
+                    Text(LocalizedStringKey(vm.match.fetchLobby().fetchLobbyName()))
+                        .foregroundColor(vm.match.fetchLobby().fetchLobbyName() == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
+                    Text(vm.match.startTime.convertToTime()).bold()
+                }
             }
             .font(.caption2)
             .foregroundColor(Color(.secondaryLabel))
-            .padding()
+            .frame(width: 70)
+            .padding(.trailing)
+            
         }
     }
     
