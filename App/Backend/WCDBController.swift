@@ -16,7 +16,6 @@ class WCDBController {
         let groupPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.D2A")!.appendingPathComponent("WCDB.db")
         database = Database(withFileURL: groupPath)
         self.createTables()
-        
     }
     
     private func createTables() {
@@ -29,7 +28,34 @@ class WCDBController {
         }
     }
     
-    // MARK: - Fetch
+    func deleteDatabase() {
+        do {
+            let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.D2A")!.appendingPathComponent("WCDB.db")
+            try FileManager.default.removeItem(at: path)
+        } catch {
+            print("file remove error")
+        }
+    }
+    
+    // MARK: - CREATE
+    func insertUserProfile(profile: UserProfile) {
+        do {
+            self.deleteUser(userid: "\(profile.id.description)")
+            try database.insertOrReplace(objects: [profile], intoTable: "UserProfile")
+        } catch {
+            print("cannot insert this object")
+        }
+    }
+    
+    func insertMatch(match: Match) {
+        do {
+            try database.insertOrReplace(objects: [match], intoTable: "Match")
+        } catch {
+            print("cannot insert this object")
+        }
+    }
+    
+    // MARK: - READ
     func fetchRecentMatches(userid: String, offSet: Int = 0) -> [RecentMatch] {
         do {
             let matches: [RecentMatch] = try database.getObjects(fromTable: "RecentMatch",
@@ -76,6 +102,16 @@ class WCDBController {
         }
     }
     
+    func fetchUserProfile(userName: String) -> [UserProfile] {
+        do {
+            let profiles: [UserProfile] = try database.getObjects(fromTable: "UserProfile", where: UserProfile.Properties.personaname.like("%\(userName)%"))
+            return profiles
+        } catch {
+            print("fetch Uesr profile error")
+            return []
+        }
+    }
+    
     func fetchMatch(matchid: String) -> Match? {
         do {
             let match: Match? = try database.getObject(fromTable: "Match", where: Match.Properties.id == Int(matchid)!)
@@ -85,6 +121,8 @@ class WCDBController {
             return nil
         }
     }
+    
+    // MARK: - UPDATE
     
     // MARK: - DELETE
     func deleteMatch(matchid: String) {

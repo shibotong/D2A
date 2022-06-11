@@ -54,7 +54,7 @@ struct ProfileView: View, Equatable {
                             selectedUser = "\(vm.userProfile!.id)"
                         }
                         if env.userIDs.count < 1 || env.subscriptionStatus {
-                            env.addUser(userid: "\(vm.userProfile!.id)")
+                            env.addOrDeleteUser(userid: "\(vm.userProfile!.id)")
                         } else {
                             self.presentState.dismiss()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {

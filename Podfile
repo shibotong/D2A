@@ -16,8 +16,10 @@ target 'App' do
     end
   end
   
-  
-
+  target 'AppTests' do
+    use_frameworks!
+    pod 'WCDB.swift'
+  end
 end
 
 

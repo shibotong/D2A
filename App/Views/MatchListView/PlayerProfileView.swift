@@ -42,7 +42,7 @@ struct PlayerProfileView: View {
                                         guard let userid = vm.userid else {
                                             return
                                         }
-                                        env.addUser(userid: userid)
+                                        env.addOrDeleteUser(userid: userid, profile: vm.userProfile)
                                     } label: {
                                         Image(systemName: "star")
                                             .foregroundColor(.label)

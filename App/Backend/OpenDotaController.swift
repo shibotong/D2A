@@ -65,14 +65,13 @@ class OpenDotaController {
         do {
             let data = try await decodingService.loadData("/players/\(userid)")
             let user = try decodingService.decodeUserProfile(data)
-            WCDBController.shared.deleteUser(userid: userid)
-            try WCDBController.shared.database.insertOrReplace(objects: [user], intoTable: "UserProfile")
+//            WCDBController.shared.deleteUser(userid: userid)
+//            try WCDBController.shared.database.insertOrReplace(objects: [user], intoTable: "UserProfile")
             return user
         } catch {
             print(error.localizedDescription)
             return nil
         }
-        
     }
     
     func loadMatchData(matchid: String) async throws -> Match {

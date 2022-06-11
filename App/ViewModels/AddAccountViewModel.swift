@@ -17,6 +17,7 @@ class AddAccountViewModel: ObservableObject {
     @Published var filterHeroes: [Hero] = []
     
     @Published var isLoading: Bool = false
+    @Published var localProfiles: [UserProfile] = []
     
     
     private var cancellableObject: Set<AnyCancellable> = []
@@ -35,6 +36,23 @@ class AddAccountViewModel: ObservableObject {
             }
             .assign(to: \.searchedHeroes, on: self)
             .store(in: &cancellableObject)
+        $searchText
+            .receive(on: RunLoop.main)
+            .map { text in
+                if !text.isEmpty {
+                    let profiles = WCDBController.shared.fetchUserProfile(userName: text)
+                    return profiles
+                } else {
+                    return []
+                }
+            }
+            .assign(to: \.localProfiles, on: self)
+            .store(in: &cancellableObject)
+    }
+    
+    func searchUserInData(searchText: String) {
+        let profiles = WCDBController.shared.fetchUserProfile(userName: searchText)
+        self.localProfiles = profiles
     }
     
     @MainActor
@@ -54,6 +72,5 @@ class AddAccountViewModel: ObservableObject {
         }
         
         self.userProfiles = await searchedProfile
-//        self.isLoading = false
     }
 }

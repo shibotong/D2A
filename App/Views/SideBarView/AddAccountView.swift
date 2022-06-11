@@ -16,38 +16,20 @@ struct AddAccountView: View {
                 .navigationTitle("Search")
         }
         .searchable(text: $vm.searchText, prompt: "Players, Heroes, Matches") {
-            let iconWidth: CGFloat = 20
-            if Int(vm.searchText) != nil {
+            if vm.localProfiles.isEmpty && vm.searchedHeroes.isEmpty && !vm.searchText.isEmpty {
                 Label {
-                    Text("Search match id \(vm.searchText)")
-                        .font(.subheadline)
+                    Text("Search \(vm.searchText)")
                 } icon: {
-                    Image(systemName: "gamecontroller.fill")
-                        .foregroundColor(.gray)
-                        .font(.subheadline)
-                        .frame(width: iconWidth)
-                }
-                Label {
-                    Text("Search player id \(vm.searchText)")
-                        .font(.subheadline)
-                } icon: {
-                    Image(systemName: "person.fill")
-                        .foregroundColor(.gray)
-                        .font(.subheadline)
-                        .frame(width: iconWidth)
+                    Image(systemName: "magnifyingglass")
                 }
             }
-            if !vm.searchText.isEmpty {
-                Label {
-                    Text("Search player \(vm.searchText)")
-                        .font(.subheadline)
-                } icon: {
-                    Image(systemName: "person.fill")
-                        .foregroundColor(.gray)
-                        .font(.subheadline)
-                        .frame(width: iconWidth)
+            if !vm.localProfiles.isEmpty {
+                Section {
+                    ForEach(vm.localProfiles) { profile in
+                        buildProfile(profile: profile)
+                            .searchCompletion(profile.id.description)
+                    }
                 }
-//                .searchCompletion(vm.searchText)
             }
             if !vm.searchedHeroes.isEmpty {
                 Section {

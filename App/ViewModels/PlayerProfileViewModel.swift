@@ -22,8 +22,13 @@ class PlayerProfileViewModel: ObservableObject {
         guard let userid = userid else {
             return
         }
-        let profile = WCDBController.shared.fetchUserProfile(userid: userid)
-        self.userProfile = profile
+        if let profile = WCDBController.shared.fetchUserProfile(userid: userid) {
+            self.userProfile = profile
+        } else {
+            Task {
+                await self.loadUserProfile()
+            }
+        }
     }
     
     init() {
@@ -39,27 +44,35 @@ class PlayerProfileViewModel: ObservableObject {
         guard let userid = userid else {
             return
         }
-        let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid)
+        async let matches = OpenDotaController.shared.loadRecentMatch(userid: userid)
         if refreshAll {
-            let profile = await OpenDotaController.shared.loadUserData(userid: userid)
-            await addMatches(matches, userProfile: profile)
-        } else {
-        // dont save match user specific to Database. Thats gonna make problem. If want to get all data, fetch from API
-            await addMatches(matches, userProfile: nil)
+            await self.loadUserProfile()
         }
+        // dont save match user specific to Database. Thats gonna make problem. If want to get all data, fetch from API
+        await addMatches(matches)
     }
     
-    @MainActor private func addMatches(_ matches: [RecentMatch], userProfile: UserProfile?) {
-        self.matches = matches
-        if userProfile != nil {
-            self.userProfile = userProfile
+    func loadUserProfile() async {
+        guard let userid = userid else {
+            return
         }
+        let profile = await OpenDotaController.shared.loadUserData(userid: userid)
+        await setUserProfile(profile: profile)
+    }
+    
+    @MainActor private func addMatches(_ matches: [RecentMatch]) {
+        self.matches = matches
         WidgetCenter.shared.reloadTimelines(ofKind: "AppWidget")
         self.isLoading = false
     }
     
     @MainActor private func addMoreMatches(_ matches: [RecentMatch]) {
         self.matches.append(contentsOf: matches)
+    }
+    
+    @MainActor private func setUserProfile(profile: UserProfile?) {
+        self.userProfile = profile
+        WidgetCenter.shared.reloadTimelines(ofKind: "AppWidget")
     }
 }
 
