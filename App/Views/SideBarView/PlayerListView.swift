@@ -112,7 +112,7 @@ struct EmptyRegistedView: View {
 }
 
 struct RegisteredPlayerView: View {
-    @ObservedObject var vm: SidebarRowViewModel
+    @StateObject var vm: SidebarRowViewModel
     @EnvironmentObject var env: DotaEnvironment
     var body: some View {
         ZStack {

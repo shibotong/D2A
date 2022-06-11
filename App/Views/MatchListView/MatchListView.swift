@@ -116,6 +116,11 @@ struct MatchListView: View {
             }
             .background(Color.secondarySystemBackground)
         }
+        .onAppear {
+            Task {
+                await vm.refreshData()
+            }
+        }
         .listStyle(PlainListStyle())
         .navigationTitle("\(vm.userProfile?.personaname ?? "")")
         .navigationBarTitleDisplayMode(.inline)

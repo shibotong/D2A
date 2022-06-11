@@ -209,8 +209,14 @@ struct DecodingService {
             throw APIError.urlError
         }
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            return data
+            let (data, response) = try await URLSession.shared.data(from: url)
+            let httpResponse = response as? HTTPURLResponse
+            if httpResponse?.statusCode == 200 {
+                return data
+            } else {
+                DotaEnvironment.shared.exceedLimit = true
+                throw APIError.accessError
+            }
         } catch {
             print(error)
             throw APIError.networkError
@@ -222,4 +228,5 @@ enum APIError: LocalizedError {
     case urlError
     case decodingError
     case networkError
+    case accessError
 }

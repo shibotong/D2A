@@ -15,12 +15,12 @@ struct ContentView: View {
     var body: some View {
         if data.loading {
             LoadingView()
-                .frame(width: 50, height: 50)
-                .alert("An Error Occured", isPresented: $data.error) {
-                    Button("OK", role: .cancel) {
-                        exit(0)
-                    }
-                }
+//                .frame(width: 50, height: 50)
+//                .alert("An Error Occured", isPresented: $data.error) {
+//                    Button("OK", role: .cancel) {
+//                        exit(0)
+//                    }
+//                }
         } else {
             NavigationHostView()
                 .sheet(isPresented: $env.addNewAccount, content: {
@@ -35,6 +35,9 @@ struct ContentView: View {
                     StoreView()
                         .environmentObject(env)
                         .environmentObject(store)
+                })
+                .alert(isPresented: $env.exceedLimit, content: {
+                    Alert(title: Text("Slow down"), message: Text("You are so quick!"), dismissButton: .cancel())
                 })
         }
     }

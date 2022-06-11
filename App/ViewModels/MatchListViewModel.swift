@@ -24,9 +24,6 @@ class MatchListViewModel: ObservableObject {
         }
         let profile = WCDBController.shared.fetchUserProfile(userid: userid)
         self.userProfile = profile
-        Task {
-            await self.refreshData()
-        }
     }
     
     init() {
@@ -54,15 +51,19 @@ class MatchListViewModel: ObservableObject {
 //        self.matches = matches
 //    }
     
-    func refreshData() async {
+    func refreshData(refreshAll: Bool = false) async {
         self.isLoading = true
         guard let userid = userid else {
             return
         }
-        let profile = await OpenDotaController.shared.loadUserData(userid: userid)
-        // dont save match user specific to Database. Thats gonna make problem. If want to get all data, fetch from API
         let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid)
-        await addMatches(matches, userProfile: profile)
+        if refreshAll {
+            let profile = await OpenDotaController.shared.loadUserData(userid: userid)
+            await addMatches(matches, userProfile: profile)
+        } else {
+        // dont save match user specific to Database. Thats gonna make problem. If want to get all data, fetch from API
+            await addMatches(matches, userProfile: nil)
+        }
     }
     
     @MainActor private func addMatches(_ matches: [RecentMatch], userProfile: UserProfile?) {

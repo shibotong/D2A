@@ -207,7 +207,7 @@ struct PlayerRowView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
                         
-                    Image("shard_\(player.hasShard() ? "0" : "1")")
+                    Image("shard_\(player.hasShard() ? "1" : "0")")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 12)

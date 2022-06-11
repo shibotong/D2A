@@ -55,6 +55,9 @@ struct HeroDetailView: View {
                             .font(.custom(fontString, size: 30))
                             .bold()
                             .foregroundColor(.white)
+                        Text("\(hero.id.description)")
+                            .font(.caption2)
+                            .foregroundColor(.white.opacity(0.5))
                     }
                 }
                 Spacer()
