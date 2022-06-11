@@ -326,18 +326,19 @@ struct HeroDetailView_Preview: PreviewProvider {
 }
 
 struct AbilityView: View {
-    var ability: Ability
-    var heroID: Int
-    var abilityName: String
-    
     @EnvironmentObject var dataBase: HeroDatabase
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var vm: AbilityViewModel
+    
+    init(ability: Ability, heroID: Int, abilityName: String) {
+        self.vm = AbilityViewModel(ability: ability, heroID: heroID, abilityName: abilityName)
+    }
     
     var body: some View {
         VStack {
             ScrollView(.vertical, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 10) {
-                    let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+                    let parsedimgURL = vm.ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
                     WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
                         .resizable()
                         .renderingMode(.original)
@@ -347,14 +348,14 @@ struct AbilityView: View {
                         .frame(width: 70)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                     VStack(alignment: .leading) {
-                        Text(ability.dname ?? "")
+                        Text(vm.ability.dname ?? "")
                             .font(.custom(fontString, size: 18))
                             .bold()
-                        if let cd = ability.coolDown {
+                        if let cd = vm.ability.coolDown {
                             Text("Cooldown: \(cd.transformString())")
                                 .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
                         }
-                        if let mc = ability.manaCost {
+                        if let mc = vm.ability.manaCost {
                             Text("Cost: \(mc.transformString())")
                                 .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
                         }
@@ -363,19 +364,19 @@ struct AbilityView: View {
                 }
                 
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 100, maximum: 200), spacing: 5), count: 2),alignment: .leading, spacing: 5) {
-                    if let behavior = ability.behavior {
+                    if let behavior = vm.ability.behavior {
                         buildAttributesText(title: "ABILITY:", message: "\(behavior.transformString())")
                     }
-                    if let targetTeam = ability.targetTeam {
+                    if let targetTeam = vm.ability.targetTeam {
                         buildAttributesText(title: "PIERCES SPELL:", message: "\(targetTeam.transformString())")
                     }
-                    if let targetType = ability.targetType {
+                    if let targetType = vm.ability.targetType {
                         buildAttributesText(title: "AFFECTS:", message: "\(targetType.transformString())")
                     }
-                    if let bkbPierce = ability.bkbPierce {
+                    if let bkbPierce = vm.ability.bkbPierce {
                         buildAttributesText(title: "IMMUNITY:", message: "\(bkbPierce.transformString())", color: bkbPierce.transformString() == "Yes" ? Color.green : Color(uiColor: UIColor.label))
                     }
-                    if let dispellable = ability.dispellable {
+                    if let dispellable = vm.ability.dispellable {
                         let dispellableString = dispellable.transformString()
                         if dispellableString == "" {
                             buildAttributesText(title: "DISPELLABLE:", message: "Only Strong Dispels", color: .red)
@@ -383,7 +384,7 @@ struct AbilityView: View {
                             buildAttributesText(title: "DISPELLABLE:", message: "\(dispellable.transformString())", color: dispellable.transformString() == "No" ? .red : Color(uiColor: UIColor.label))
                         }
                     }
-                    if let damageType = ability.damageType {
+                    if let damageType = vm.ability.damageType {
                         buildAttributesText(title: "DAMAGE TYPE:", message: "\(damageType.transformString())", color: {
                             if damageType.transformString() == "Magical" {
                                 return Color.blue
@@ -399,23 +400,23 @@ struct AbilityView: View {
                 }
                 Group {
                     VStack {
-                        if dataBase.isScepterSkill(ability: ability, heroID: heroID) {
-                            buildDescription(desc: ability.desc ?? "", type: .Scepter)
-                        } else if dataBase.isShardSkill(ability: ability, heroID: heroID) {
-                            buildDescription(desc: ability.desc ?? "", type: .Shard)
+                        if dataBase.isScepterSkill(ability: vm.ability, heroID: vm.heroID) {
+                            buildDescription(desc: vm.ability.desc ?? "", type: .Scepter)
+                        } else if dataBase.isShardSkill(ability: vm.ability, heroID: vm.heroID) {
+                            buildDescription(desc: vm.ability.desc ?? "", type: .Shard)
                         } else {
-                            buildDescription(desc: ability.desc ?? "")
-                            if let scepterDesc = dataBase.getAbilityScepterDesc(ability: ability, heroID: heroID) {
+                            buildDescription(desc: vm.ability.desc ?? "")
+                            if let scepterDesc = dataBase.getAbilityScepterDesc(ability: vm.ability, heroID: vm.heroID) {
                                 buildDescription(desc: scepterDesc, type: .Scepter)
                             }
-                            if let shardDesc = dataBase.getAbilityShardDesc(ability: ability, heroID: heroID) {
+                            if let shardDesc = dataBase.getAbilityShardDesc(ability: vm.ability, heroID: vm.heroID) {
                                 buildDescription(desc: shardDesc, type: .Shard)
                             }
                         }
                     }
                 }
                 Spacer().frame(height: 10)
-                if let attributes = ability.attributes {
+                if let attributes = vm.ability.attributes {
                     HStack {
                         VStack(alignment: .leading, spacing: 5) {
                             ForEach(attributes, id: \.self) { item in
@@ -428,7 +429,7 @@ struct AbilityView: View {
                 Spacer().frame(height: 10)
                 //https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/keeper_of_the_light/keeper_of_the_light_aghanims_shard.mp4
                 
-                if let lore = ability.lore {
+                if let lore = vm.ability.lore {
                     Text(lore)
                         .font(.custom(fontString, size: 10))
                         .padding(8)
@@ -467,13 +468,7 @@ struct AbilityView: View {
                 .foregroundColor(color)
         }
     }
-    
-    enum ScepterType: String {
-        case Scepter
-        case Shard
-        case non
-    }
-    
+
     @ViewBuilder private func buildDescription(desc: String, type: ScepterType = .non) -> some View {
         VStack(alignment: .leading) {
             if type != .non {
@@ -490,10 +485,24 @@ struct AbilityView: View {
             }
             Text(desc)
                 .font(.custom(fontString, size: 13))
-            if let url = getVideoURL(abilityName, type: type) {
-                VideoPlayer(player: AVPlayer(url: url))
-                    .frame(height: (UIScreen.main.bounds.width - 32) / 16.0 * 9.0)
+            switch type {
+            case .Scepter:
+                if let url = vm.scepterVideo {
+                    VideoPlayer(player: AVPlayer(url: url))
+                        .frame(height: (UIScreen.main.bounds.width - 32) / 16.0 * 9.0)
+                }
+            case .Shard:
+                if let url = vm.shardVideo {
+                    VideoPlayer(player: AVPlayer(url: url))
+                        .frame(height: (UIScreen.main.bounds.width - 32) / 16.0 * 9.0)
+                }
+            case .non:
+                if let url = vm.abilityVideo {
+                    VideoPlayer(player: AVPlayer(url: url))
+                        .frame(height: (UIScreen.main.bounds.width - 32) / 16.0 * 9.0)
+                }
             }
+            
         }
         .padding(calculateDescPadding(type: type))
         .background(calculateDescBackground(type: type))
@@ -522,42 +531,12 @@ struct AbilityView: View {
             EmptyView()
         }
     }
-    
-    private func getVideoURL(_ ability: String, type: ScepterType) -> URL? {
-        guard let heroName = dataBase.heroes["\(heroID)"]?.name.replacingOccurrences(of: "npc_dota_hero_", with: "") else {
-            return nil
-        }
-        let baseURL = "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/\(heroName)"
-        switch type {
-        case .Scepter:
-            guard let url = URL(string: "\(baseURL)/\(heroName)_aghanims_scepter.mp4") else {
-                return nil
-            }
-            if AVAsset(url: url).isPlayable {
-                return url
-            } else {
-                return nil
-            }
-        case .Shard:
-            guard let url = URL(string: "\(baseURL)/\(heroName)_aghanims_shard.mp4") else {
-                return nil
-            }
-            if AVAsset(url: url).isPlayable {
-                return url
-            } else {
-                return nil
-            }
-        case .non:
-            guard let url = URL(string: "\(baseURL)/\(abilityName).mp4") else {
-                return nil
-            }
-            if AVAsset(url: url).isPlayable {
-                return url
-            } else {
-                return nil
-            }
-        }
-    }
+}
+
+enum ScepterType: String {
+    case Scepter
+    case Shard
+    case non
 }
 
 

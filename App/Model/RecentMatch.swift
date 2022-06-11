@@ -20,7 +20,7 @@ class RecentMatch: TableCodable, Identifiable {
     var assists: Int
     var lobbyType: Int
     var startTime: Int
-    var partySize: Int
+    var partySize: Int?
     var skill: Int?
     
     var playerId: Int?
@@ -105,7 +105,7 @@ class RecentMatch: TableCodable, Identifiable {
         if let partySize = try container.decodeIfPresent(Int.self, forKey: .partySize) {
             self.partySize = partySize
         } else {
-            self.partySize = 0
+            self.partySize = nil
         }
         if let skill = try container.decodeIfPresent(Int.self, forKey: .skill) {
             self.skill = skill

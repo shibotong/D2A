@@ -87,19 +87,19 @@ class OpenDotaController {
         }
     }
     
-    func loadRecentMatch(userid: String, days: Double? = nil) async -> [RecentMatch] {
+    func loadRecentMatch(userid: String, days: Double? = nil, offset: Int = 0) async -> [RecentMatch] {
         var urlString = ""
         if days != nil {
             urlString = "/players/\(userid)/matches/?date=\(days!)&&significant=0"
         } else {
-            urlString = "/players/\(userid)/matches?significant=0"
+            urlString = "/players/\(userid)/matches?limit=50&&significant=0&&offset=\(offset)"
         }
         do {
             let data = try await decodingService.loadData(urlString)
-            let matches = try decodingService.decodeRecentMatch(data)
+            let matches: [RecentMatch] = try decodingService.decode(data)
             matches.forEach({$0.playerId = Int(userid)})
-            try WCDBController.shared.database.insertOrReplace(objects: matches, intoTable: "RecentMatch")
-            print("fetched new matches for player \(userid)", matches.count)
+//            try WCDBController.shared.database.insertOrReplace(objects: matches, intoTable: "RecentMatch")
+//            print("fetched new matches for player \(userid)", matches.count)
             return matches.count >= 50 ? Array(matches[0..<50]) : matches
         } catch {
             print("error: ", error)
@@ -111,7 +111,7 @@ class OpenDotaController {
         let urlString = "/players/\(userid)/recentMatches"
         do {
             let data = try await decodingService.loadData(urlString)
-            let matches = try decodingService.decodeRecentMatch(data)
+            let matches: [RecentMatch] = try decodingService.decode(data)
             return matches
         } catch {
             print("error: ", error)
@@ -140,6 +140,29 @@ struct DecodingService {
             let match = try decoder.decode(Match.self, from: data)
             return match
         } catch {
+            throw APIError.decodingError
+        }
+    }
+    
+    func decode<T: Decodable>(_ data: Data) throws -> T {
+        do {
+            let decoder = JSONDecoder()
+            let match = try decoder.decode(T.self, from: data)
+            return match
+        } catch let DecodingError.dataCorrupted(context) {
+            print(context)
+            throw APIError.decodingError
+        } catch let DecodingError.keyNotFound(key, context) {
+            print("Key '\(key)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            throw APIError.decodingError
+        } catch let DecodingError.valueNotFound(value, context) {
+            print("Value '\(value)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            throw APIError.decodingError
+        } catch let DecodingError.typeMismatch(type, context)  {
+            print("Type '\(type)' mismatch:", context.debugDescription)
+            print("codingPath:", context.codingPath)
             throw APIError.decodingError
         }
     }

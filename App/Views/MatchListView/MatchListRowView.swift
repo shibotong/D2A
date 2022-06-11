@@ -16,7 +16,6 @@ struct MatchListRowView: View {
                 .overlay {
                     VStack(spacing: 0) {
                         Text("W")
-                            
                         Text("一")
                         Text("\(vm.match.duration.convertToDuration())")
                     }
@@ -34,7 +33,9 @@ struct MatchListRowView: View {
                     }
                 }
             }.padding(.vertical)
-            buildParty(size: vm.match.partySize)
+            if let size = vm.match.partySize {
+                buildParty(size: size)
+            }
             VStack(alignment: .trailing) {
                 Text(LocalizedStringKey(vm.match.fetchLobby().fetchLobbyName()))
                     .foregroundColor(vm.match.fetchLobby().fetchLobbyName() == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))

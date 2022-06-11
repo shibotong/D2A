@@ -23,6 +23,8 @@ final class DotaEnvironment: ObservableObject {
         return env
     }()
     
+    var refreshHandler: [String: TimeInterval] = [:]
+    
     @Published var userIDs: [String] {
         didSet {
             UserDefaults(suiteName: GROUP_NAME)!.set(userIDs, forKey: "dotaArmory.userID")
@@ -88,6 +90,23 @@ final class DotaEnvironment: ObservableObject {
     func registerUser(userid: String) {
         self.delete(userID: userid)
         self.registerdID = userid
+    }
+    
+    func canRefresh(userid: String) -> Bool {
+        let currentTime = Date().timeIntervalSince1970
+        guard let lastRefresh = refreshHandler[userid] else {
+            self.refreshHandler[userid] = currentTime
+            return true
+        }
+        
+        let distance = currentTime - lastRefresh
+        print("last refresh \(distance)s before")
+        if distance > 60 {
+            refreshHandler[userid] = currentTime
+            return true
+        } else {
+            return false
+        }
     }
     
 //    func purchaseComplete(state: Bool) {

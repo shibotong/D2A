@@ -19,13 +19,14 @@ class MatchListViewModel: ObservableObject {
     
     init(userid: String?) {
         self.userid = userid
-        self.fetchMoreData()
         guard let userid = userid else {
             return
         }
         let profile = WCDBController.shared.fetchUserProfile(userid: userid)
         self.userProfile = profile
-        self.loadMatchData()
+        Task {
+            await self.refreshData()
+        }
     }
     
     init() {
@@ -36,21 +37,22 @@ class MatchListViewModel: ObservableObject {
         }
     }
     
-    func fetchMoreData() {
-        guard let userid = userid else {
-            return
-        }
-        let matches = WCDBController.shared.fetchRecentMatches(userid: userid, offSet: matches.count)
-        self.matches.append(contentsOf: matches)
-    }
+//    func loadMoreMatchData() async {
+//        guard let userid = userid else {
+//            return
+//        }
+////        let matches = WCDBController.shared.fetchRecentMatches(userid: userid, offSet: matches.count)
+//        let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid, offset: self.matches.count)
+//        await self.addMoreMatches(matches)
+//    }
     
-    func loadMatchData() {
-        guard let userid = userid else {
-            return
-        }
-        let matches = WCDBController.shared.fetchRecentMatches(userid: userid)
-        self.matches = matches
-    }
+//    func loadMatchData() {
+//        guard let userid = userid else {
+//            return
+//        }
+//        let matches = WCDBController.shared.fetchRecentMatches(userid: userid)
+//        self.matches = matches
+//    }
     
     func refreshData() async {
         self.isLoading = true
@@ -58,26 +60,22 @@ class MatchListViewModel: ObservableObject {
             return
         }
         let profile = await OpenDotaController.shared.loadUserData(userid: userid)
-        if let firstMatch = WCDBController.shared.fetchRecentMatches(userid: userid).first {
-            // have previous data
-            let today = Date()
-            let days = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: Date(timeIntervalSince1970: TimeInterval(firstMatch.startTime)), to: today)
-            let dayCount = Double(days.day!) + (Double(days.hour!) / 24.0) + (Double(days.minute!) / 60.0 / 24.0)
-            let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid, days: dayCount)
-            await addMatches(matches, userProfile: profile)
-        } else {
-            let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid)
-            await addMatches(matches, userProfile: profile)
-        }
+        // dont save match user specific to Database. Thats gonna make problem. If want to get all data, fetch from API
+        let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid)
+        await addMatches(matches, userProfile: profile)
     }
     
     @MainActor private func addMatches(_ matches: [RecentMatch], userProfile: UserProfile?) {
-        self.matches.insert(contentsOf: matches, at: 0)
+        self.matches = matches
         if userProfile != nil {
             self.userProfile = userProfile
         }
         WidgetCenter.shared.reloadTimelines(ofKind: "AppWidget")
         self.isLoading = false
+    }
+    
+    @MainActor private func addMoreMatches(_ matches: [RecentMatch]) {
+        self.matches.append(contentsOf: matches)
     }
 }
 
