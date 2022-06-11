@@ -34,8 +34,8 @@ class OpenDotaController {
     }
     
     func searchUserByText(text: String) async -> [UserProfile] {
-        let trimText = text.replacingOccurrences(of: " ", with: "%20")
-        let urlString = "\(baseURL)/api/search/?q=\(trimText)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+//        let trimText = text.replacingOccurrences(of: " ", with: "%20")
+        let urlString = "\(baseURL)/api/search/?q=\(text)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: urlString)
         do {
             let (data, _) = try await URLSession.shared.data(from: url!)

@@ -11,7 +11,7 @@ import SwiftUI
 struct MatchView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var data: HeroDatabase
-    @ObservedObject var vm: MatchViewModel
+    @StateObject var vm: MatchViewModel
     var body: some View {
         buildStack()
             .task {

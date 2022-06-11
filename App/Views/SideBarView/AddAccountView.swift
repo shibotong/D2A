@@ -16,19 +16,25 @@ struct AddAccountView: View {
                 .navigationTitle("Search")
         }
         .searchable(text: $vm.searchText, prompt: "Players, Heroes, Matches") {
-            if vm.localProfiles.isEmpty && vm.searchedHeroes.isEmpty && !vm.searchText.isEmpty {
-                Label {
-                    Text("Search \(vm.searchText)")
-                } icon: {
+            if !vm.searchText.isEmpty {
+                HStack {
                     Image(systemName: "magnifyingglass")
+                    Text("Search \(vm.searchText)")
                 }
+//                .searchCompletion(vm.searchText)
+                .foregroundColor(.label)
             }
             if !vm.localProfiles.isEmpty {
                 Section {
                     ForEach(vm.localProfiles) { profile in
                         buildProfile(profile: profile)
                             .searchCompletion(profile.id.description)
+                            .foregroundColor(.label)
                     }
+                } header: {
+                    Text("Favourite Players")
+                        .foregroundColor(.secondaryLabel)
+                        .font(.subheadline)
                 }
             }
             if !vm.searchedHeroes.isEmpty {
@@ -39,10 +45,13 @@ struct AddAccountView: View {
                                 .frame(width: 30, height: 30)
                             Text(hero.localizedName)
                         }
+                        .foregroundColor(.label)
                         .searchCompletion(hero.localizedName)
                     }
                 } header: {
                     Text("Heroes")
+                        .foregroundColor(.secondaryLabel)
+                        .font(.subheadline)
                 }
             }
         }
@@ -99,6 +108,17 @@ struct AddAccountView: View {
                         }
                     } header: {
                         Text("Heroes")
+                    }
+                }
+                if !vm.localProfiles.isEmpty {
+                    Section {
+                        ForEach(vm.localProfiles) { profile in
+                            NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id.description))) {
+                                buildProfile(profile: profile)
+                            }
+                        }
+                    } header: {
+                        Text("Favorite Players")
                     }
                 }
                 if !vm.userProfiles.isEmpty {

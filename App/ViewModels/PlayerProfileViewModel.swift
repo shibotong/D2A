@@ -35,7 +35,7 @@ class PlayerProfileViewModel: ObservableObject {
         self.matches = RecentMatch.sample
         self.userid = "153041957"
         Task {
-            await self.refreshData()
+            await self.refreshData(refreshAll: true)
         }
     }
     

@@ -16,7 +16,7 @@ struct PlayerProfileView: View {
         ScrollView {
             VStack {
                 HStack {
-                    ProfileAvartar(url: vm.userProfile?.avatarfull ?? "", sideLength: 80, cornerRadius: 30)
+                    ProfileAvartar(url: vm.userProfile?.avatarfull ?? "", sideLength: 68, cornerRadius: 20)
                     VStack(alignment: .leading) {
                         HStack {
                             Text(vm.userProfile?.personaname ?? "")
@@ -51,10 +51,11 @@ struct PlayerProfileView: View {
                             }
                         }
                         Text(DataHelper.transferRank(rank: vm.userProfile?.rank))
+                            .font(.caption)
                             .foregroundColor(.secondaryLabel)
                         Text("id: \(vm.userProfile?.id.description ?? "0")")
-                            .font(.caption2)
-                            .foregroundColor(.tertiaryLabel)
+                            .font(.caption)
+                            .foregroundColor(.secondaryLabel)
                         
                     }
                     Spacer()
@@ -77,19 +78,17 @@ struct PlayerProfileView: View {
                         .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
                         
                     }
-                    
-                    Button {
-                        print("steam profile")
-                    } label: {
-                        HStack {
-                            Spacer()
-                            Text("Profile")
-                            Spacer()
+                    if let url = URL(string: vm.userProfile?.profileurl ?? "") {
+                        Link(destination: url) {
+                            HStack {
+                                Spacer()
+                                Text("Profile")
+                                Spacer()
+                            }
+                            .foregroundColor(.white)
+                            .frame(height: 40)
+                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.primaryDota))
                         }
-                        .foregroundColor(.white)
-                        .frame(height: 40)
-                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.primaryDota))
-                        
                     }
                 }
             }
@@ -141,6 +140,7 @@ struct MatchListView_Previews: PreviewProvider {
         PlayerProfileView(vm: PlayerProfileViewModel())
             .environmentObject(DotaEnvironment.shared)
             .environmentObject(HeroDatabase.shared)
+            .preferredColorScheme(.dark)
         
     }
 }
