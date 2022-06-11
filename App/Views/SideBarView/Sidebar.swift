@@ -17,7 +17,7 @@ struct Sidebar: View {
         List {
             ForEach(env.userIDs, id: \.self) { id in
                 NavigationLink(
-                    destination: MatchListView(vm: MatchListViewModel(userid: id)).equatable(),
+                    destination: MatchListView(vm: MatchListViewModel(userid: id)),
                     tag: id,
                     selection: $selectedUser
                 ) {

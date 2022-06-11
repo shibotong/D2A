@@ -12,33 +12,69 @@ struct MatchListRowView: View {
     @EnvironmentObject var database: HeroDatabase
     var body: some View {
         HStack {
-            Rectangle().frame(width: 20).foregroundColor(Color(vm.match.isPlayerWin() ? .systemGreen : .systemRed))
-                .padding(.vertical, 1)
+            Rectangle().frame(width: 40).foregroundColor(Color(vm.match.isPlayerWin() ? .systemGreen : .systemRed))
+                .overlay {
+                    VStack(spacing: 0) {
+                        Text("W")
+                            
+                        Text("一")
+                        Text("\(vm.match.duration.convertToDuration())")
+                    }
+                    .foregroundColor(.white)
+                    .font(.caption2)
+                }
             VStack(alignment: .leading, spacing: 1) {
                 HStack {
                     HeroImageView(heroID: vm.match.heroID, type: .icon)
-                        .frame(width: 25, height: 25)
-                    Text(LocalizedStringKey(database.fetchHeroWithID(id: vm.match.heroID)?.localizedName ?? "Unknown Hero (\(vm.match.heroID))")).font(.custom(fontString, size: 20, relativeTo: .headline)).bold().lineLimit(1)
+                        .frame(width: 30, height: 30)
+                    VStack(alignment: .leading) {
+                        KDAView(kills: vm.match.kills, deaths: vm.match.deaths, assists: vm.match.assists, size: 12)
+                        Text(LocalizedStringKey(vm.match.fetchMode().fetchModeName()))
+                            .font(.caption2)
+                    }
                 }
-                Text("\(vm.match.duration.convertToDuration())").font(.custom(fontString, size: 15))//.bold()
-                KDAView(kills: vm.match.kills, deaths: vm.match.deaths, assists: vm.match.assists, size: 15)
-            }.padding(.vertical, 5)
-            Spacer()
+            }.padding(.vertical)
+            buildParty(size: vm.match.partySize)
             VStack(alignment: .trailing) {
-                Text(vm.match.startTime.convertToTime()).bold()
-                Text(LocalizedStringKey(vm.match.fetchMode().fetchModeName()))
                 Text(LocalizedStringKey(vm.match.fetchLobby().fetchLobbyName()))
                     .foregroundColor(vm.match.fetchLobby().fetchLobbyName() == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
-                Spacer()
-                
-            }.font(.custom(fontString, size: 13)).foregroundColor(Color(.secondaryLabel)).padding(.vertical, 5)
+                Text(vm.match.startTime.convertToTime()).bold()
+            }
+            .font(.caption2)
+            .foregroundColor(Color(.secondaryLabel))
+            .padding()
+        }
+    }
+    
+    @ViewBuilder private func buildParty(size: Int) -> some View {
+        if size >= 4 {
+            HStack(spacing: 2) {
+                Image(systemName: "person.3.fill")
+                Text(size.description)
+            }
+            .font(.caption)
+            .foregroundColor(.label)
+        } else if size >= 2 {
+            HStack(spacing: 2) {
+                Image(systemName: "person.2.fill")
+                Text(size.description)
+            }
+            .font(.caption)
+            .foregroundColor(.secondaryLabel)
+        } else {
+            HStack(spacing: 2) {
+                Image(systemName: "person.fill")
+                Text(size.description)
+            }
+            .font(.caption)
+            .foregroundColor(.tertiaryLabel)
         }
     }
 }
 
 struct MatchListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        MatchListRowView(vm: MatchListRowViewModel()).previewLayout(.fixed(width: 375, height: 80))
+        MatchListRowView(vm: MatchListRowViewModel()).previewLayout(.fixed(width: 375, height: 70))
             .environmentObject(HeroDatabase.shared)
         MatchListRowEmptyView().previewLayout(.fixed(width: 375, height: 80))
     }

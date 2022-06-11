@@ -124,6 +124,8 @@
 		3261C90B2830721500D47CDA /* HeroDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */; };
 		3261C90D2830748600D47CDA /* sampleHero.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90C2830748600D47CDA /* sampleHero.json */; };
 		3261C90F2830765300D47CDA /* sampleAbility.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90E2830765300D47CDA /* sampleAbility.json */; };
+		32756CC128535CA800F38B81 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3251C8F126F97C9500C826BD /* Localizable.strings */; };
+		32756CC228535CA900F38B81 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3251C8F126F97C9500C826BD /* Localizable.strings */; };
 		327772AD26D8BD47000A0A97 /* sampleRecentMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 327772AC26D8BD47000A0A97 /* sampleRecentMatch.json */; };
 		327772AF26D8BE63000A0A97 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
 		327772B126D9D71F000A0A97 /* LobbyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772B026D9D71F000A0A97 /* LobbyType.swift */; };
@@ -1062,6 +1064,7 @@
 				323ADB6A272E03E300253124 /* xp_level.json in Resources */,
 				323ADB5F272E03E300253124 /* items.json in Resources */,
 				323ADB58272E03E300253124 /* permanent_buffs.json in Resources */,
+				32756CC128535CA800F38B81 /* Localizable.strings in Resources */,
 				327A7B8227152387001F964D /* Assets.xcassets in Resources */,
 				32F70AAE26F5803C006E9B05 /* sampleRecentMatch.json in Resources */,
 				32F70AA426F57F7E006E9B05 /* Assets.xcassets in Resources */,
@@ -1098,6 +1101,7 @@
 				327B87722850DA6900BBE1F8 /* sampleAbility.json in Resources */,
 				323ADB8D272E03E500253124 /* item_colors.json in Resources */,
 				32F70B2626F62971006E9B05 /* sampleRecentMatch.json in Resources */,
+				32756CC228535CA900F38B81 /* Localizable.strings in Resources */,
 				323ADB99272E03E500253124 /* skillshots.json in Resources */,
 				323ADB8C272E03E500253124 /* ancients.json in Resources */,
 				323ADB95272E03E500253124 /* aghs_desc.json in Resources */,

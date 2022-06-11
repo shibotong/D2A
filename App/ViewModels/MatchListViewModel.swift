@@ -53,6 +53,7 @@ class MatchListViewModel: ObservableObject {
     }
     
     func refreshData() async {
+        self.isLoading = true
         guard let userid = userid else {
             return
         }
@@ -76,6 +77,7 @@ class MatchListViewModel: ObservableObject {
             self.userProfile = userProfile
         }
         WidgetCenter.shared.reloadTimelines(ofKind: "AppWidget")
+        self.isLoading = false
     }
 }
 

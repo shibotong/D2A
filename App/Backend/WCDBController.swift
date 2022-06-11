@@ -35,7 +35,7 @@ class WCDBController {
             let matches: [RecentMatch] = try database.getObjects(fromTable: "RecentMatch",
                                                                  where: RecentMatch.Properties.playerId == Int(userid) ?? 0,
                                                                  orderBy: [RecentMatch.Properties.startTime.asOrder(by: .descending)],
-                                                                 limit: 100,
+                                                                 limit: 20,
                                                                  offset: offSet)
             return matches
         } catch {

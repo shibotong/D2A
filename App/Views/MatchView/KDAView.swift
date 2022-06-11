@@ -18,7 +18,8 @@ struct KDAView: View {
             Text("/\(deaths)").lineLimit(1).foregroundColor(Color(.systemRed))
             Text("/\(assists)").lineLimit(1)
             Text(" (\(calculateKDA().rounded(toPlaces: 1).description))").bold().foregroundColor(Color(.systemGray))
-        }.frame(minWidth:45).font(.custom(fontString, size: size))
+            Spacer()
+        }.font(.custom(fontString, size: size)).foregroundColor(.label)
     }
     
     private func calculateKDA() -> Double {

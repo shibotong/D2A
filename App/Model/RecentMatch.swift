@@ -20,6 +20,8 @@ class RecentMatch: TableCodable, Identifiable {
     var assists: Int
     var lobbyType: Int
     var startTime: Int
+    var partySize: Int
+    var skill: Int?
     
     var playerId: Int?
     static let sample = loadRecentMatches()!
@@ -38,6 +40,8 @@ class RecentMatch: TableCodable, Identifiable {
         case lobbyType = "lobby_type"
         case startTime = "start_time"
         case playerId
+        case partySize = "party_size"
+        case skill
     }
     
     required init(from decoder: Decoder) throws {
@@ -97,6 +101,16 @@ class RecentMatch: TableCodable, Identifiable {
             self.playerId = playerId
         } else {
             self.playerId = 0
+        }
+        if let partySize = try container.decodeIfPresent(Int.self, forKey: .partySize) {
+            self.partySize = partySize
+        } else {
+            self.partySize = 0
+        }
+        if let skill = try container.decodeIfPresent(Int.self, forKey: .skill) {
+            self.skill = skill
+        } else {
+            self.skill = nil
         }
     }
     

@@ -12,7 +12,7 @@ struct PlayerListView: View {
     @ObservedObject var vm: PlayerListViewModel
     var body: some View {
         ScrollView {
-            VStack(spacing: 10) {
+            VStack {
                 if vm.registerdID == "" {
                     EmptyRegistedView()
                         .frame(height: 190)
@@ -45,9 +45,9 @@ struct PlayerListView: View {
                             .frame(height: 40)
                             .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
                         }
-                        .padding()
+                        .padding(.vertical)
                     } else {
-                        LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 100, maximum: 110), spacing: 10, alignment: .leading), count: 3), spacing: 10) {
+                        LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 100, maximum: 130), spacing: 10, alignment: .leading), count: 3), spacing: 10) {
                             ForEach(vm.userIDs, id: \.self) { id in
                                 NavigationLink(destination: MatchListView(vm: MatchListViewModel(userid: id))) {
                                     PlayerListRowView(vm: SidebarRowViewModel(userid: id))
@@ -56,9 +56,9 @@ struct PlayerListView: View {
                         }
                     }
                 }
-                .background(Color.systemBackground)
+                .padding(.horizontal)
             }
-            .background(Color(UIColor.secondarySystemBackground))
+            
         }
         .listStyle(.plain)
         .navigationTitle("Home")
@@ -69,7 +69,7 @@ struct PlayerListView: View {
 struct PlayerListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            PlayerListView(vm: PlayerListViewModel(registeredID: "153041957", followedID: []))
+            PlayerListView(vm: PlayerListViewModel(registeredID: "153041957", followedID: ["222", "1234", "1233"]))
         }
         .environmentObject(DotaEnvironment.preview)
         .environmentObject(HeroDatabase.shared)
