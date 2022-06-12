@@ -8,84 +8,38 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct ProfileView: View, Equatable {
+struct ProfileView: View {
     @EnvironmentObject var env: DotaEnvironment
     @ObservedObject var vm: ProfileViewModel
-    @AppStorage("selectedUser") var selectedUser: String?
-    
-    @Binding var presentState: PresentationMode
     
     var body: some View {
-        if vm.isloading {
-            VStack {
-                Spacer()
-                ProgressView()
-                Spacer()
-            }.frame(height: 60)
-        } else {
-            if vm.userProfile == nil {
-                VStack {
-                    Spacer()
-                    Text("Cannot find user profile.")
-                        .foregroundColor(Color(.systemGray4))
-                    Spacer()
-                }.frame(height: 60)
-            }
-            else {
+        if !vm.isloading {
+            if let profile = vm.profile {
                 HStack {
-                    WebImage(url: URL(string: vm.userProfile!.avatarfull))
-                        .resizable()
-                        .renderingMode(.original)
-                        .indicator(.activity)
-                        .scaledToFit()
-                        .frame(width: 50, height: 50)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                    ProfileAvartar(url: profile.avatarfull, sideLength: 40, cornerRadius: 5)
                     VStack(alignment: .leading) {
-                        Text("\(vm.userProfile!.personaname)").font(.custom(fontString, size: 20)).bold()
-                        if vm.userProfile!.countryCode != nil {
-                            Text(vm.userProfile!.countryCode!).font(.custom(fontString, size: 13))
-                        } else {
-                            Text("ID: \(vm.userProfile!.id.description)").font(.custom(fontString, size: 13))
-                        }
+                        Text(profile.personaname).bold()
+                        Text("ID: \(profile.id.description)")
+                            .foregroundColor(.secondaryLabel)
+                            .font(.caption)
                     }
                     Spacer()
-                    Button(action: {
-                        if selectedUser == nil {
-                            selectedUser = "\(vm.userProfile!.id)"
-                        }
-                        if env.userIDs.count < 1 || env.subscriptionStatus {
-                            env.addOrDeleteUser(userid: "\(vm.userProfile!.id)")
-                        } else {
-                            self.presentState.dismiss()
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                                // show subscription after 0.5s
-                                self.env.subscriptionSheet = true
-                            })
-                        }
-                    }) {
-                        Image(systemName: env.userIDs.contains("\(vm.userProfile!.id)") ? "star.fill" :"star")
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(RoundedRectangle(cornerRadius: 15).foregroundColor(env.userIDs.contains("\(vm.userProfile!.id)") ? .secondaryDota : .primaryDota))
+                    if profile.id.description == env.registerdID {
+                        Image(systemName: "person.fill")
+                            .foregroundColor(.primaryDota)
+                    }
+                    if env.userIDs.contains(profile.id.description) {
+                        Image(systemName: "star.fill")
                     }
                 }
-                .frame(height: 60)
+            } else {
+                EmptyView()
             }
+        } else {
+            ProgressView()
         }
     }
-    static func == (lhs: ProfileView, rhs: ProfileView) -> Bool {
-        return lhs.vm.userid == rhs.vm.userid
-    }
 }
-
-//struct ProfileView_Previews: PreviewProvider {
-//    @Binding var present: PresentationMode  = .constant(false)
-//    static var previews: some View {
-//        ProfileView(vm: ProfileViewModel(), presentState: present)
-//            .environmentObject(DotaEnvironment.shared)
-//        ProfileEmptyView()
-//    }
-//}
 struct ProfileEmptyView: View {
     var body: some View {
         HStack {
@@ -93,14 +47,13 @@ struct ProfileEmptyView: View {
                 .resizable()
                 .renderingMode(.original)
                 .scaledToFit()
-                .frame(width: 50, height: 50)
-                .clipShape(RoundedRectangle(cornerRadius: 15))
+                .frame(width: 40, height: 40)
+                .clipShape(RoundedRectangle(cornerRadius:5))
             VStack(alignment: .leading) {
-                Text("Anonymous").font(.custom(fontString, size: 20)).bold()
-                Text(" ").font(.custom(fontString, size: 13))
+                Text("Anonymous").bold()
+                Text(" ").font(.caption)
             }
             Spacer()
         }
-        .frame(height: 60)
     }
 }

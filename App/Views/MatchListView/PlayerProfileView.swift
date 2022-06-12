@@ -75,7 +75,9 @@ struct PlayerProfileView: View {
                         .font(.custom(fontString, size: 20))
                         .bold()
                     Spacer()
+                    NavigationLink(destination: CalendarMatchListView(vm: CalendarMatchListViewModel(userid: self.vm.userid!))) {
                     Text("More")
+                    }
                 }
                 .padding(.horizontal)
                 VStack(spacing: 2) {
@@ -92,11 +94,11 @@ struct PlayerProfileView: View {
                 }
                 .background(Color.secondarySystemBackground)
             }
-            .onAppear {
-                Task {
-                    await vm.refreshData()
-                }
-            }
+//            .onAppear {
+//                Task {
+//                    await vm.refreshData()
+//                }
+//            }
             .listStyle(PlainListStyle())
             .navigationTitle("\(profile.personaname)")
             .navigationBarTitleDisplayMode(.inline)

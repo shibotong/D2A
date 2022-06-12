@@ -86,12 +86,12 @@ class OpenDotaController {
         }
     }
     
-    func loadRecentMatch(userid: String, days: Double? = nil, offset: Int = 0) async -> [RecentMatch] {
+    func loadRecentMatch(userid: String, days: Double? = nil, offset: Int = 0, numbers: Int? = nil) async -> [RecentMatch] {
         var urlString = ""
         if days != nil {
             urlString = "/players/\(userid)/matches/?date=\(days!)&&significant=0"
         } else {
-            urlString = "/players/\(userid)/matches?limit=50&&significant=0&&offset=\(offset)"
+            urlString = "/players/\(userid)/matches?significant=0"
         }
         do {
             let data = try await decodingService.loadData(urlString)
@@ -99,7 +99,12 @@ class OpenDotaController {
             matches.forEach({$0.playerId = Int(userid)})
 //            try WCDBController.shared.database.insertOrReplace(objects: matches, intoTable: "RecentMatch")
 //            print("fetched new matches for player \(userid)", matches.count)
-            return matches.count >= 50 ? Array(matches[0..<50]) : matches
+//            return matches.count >= 50 ? Array(matches[0..<50]) : matches
+            if let numbers = numbers {
+                return matches.count >= numbers ? Array(matches[0..<numbers]) : matches
+            } else {
+                return matches
+            }
         } catch {
             print("error: ", error)
             return []

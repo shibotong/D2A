@@ -29,6 +29,10 @@ class PlayerProfileViewModel: ObservableObject {
                 await self.loadUserProfile()
             }
         }
+        self.isLoading = true
+        Task {
+            await self.refreshData()
+        }
     }
     
     init() {
@@ -40,11 +44,10 @@ class PlayerProfileViewModel: ObservableObject {
     }
     
     func refreshData(refreshAll: Bool = false) async {
-        self.isLoading = true
         guard let userid = userid else {
             return
         }
-        async let matches = OpenDotaController.shared.loadRecentMatch(userid: userid)
+        async let matches = OpenDotaController.shared.loadRecentMatches(userid: userid)
         if refreshAll {
             await self.loadUserProfile()
         }

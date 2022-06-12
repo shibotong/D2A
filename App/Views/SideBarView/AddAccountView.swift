@@ -27,7 +27,7 @@ struct AddAccountView: View {
             if !vm.localProfiles.isEmpty {
                 Section {
                     ForEach(vm.localProfiles) { profile in
-                        buildProfile(profile: profile)
+                        ProfileView(vm: ProfileViewModel(profile: profile))
                             .searchCompletion(profile.id.description)
                             .foregroundColor(.label)
                     }
@@ -144,7 +144,7 @@ struct AddAccountView: View {
                 Text(profile.personaname).bold()
                 Text("ID: \(profile.id.description)")
                     .foregroundColor(.secondaryLabel)
-                    .font(.caption)
+                    .font(.caption) 
             }
             Spacer()
             if profile.id.description == env.registerdID {

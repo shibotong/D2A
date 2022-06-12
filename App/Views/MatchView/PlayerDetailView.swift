@@ -196,7 +196,7 @@ struct PlayerDetailView: View {
         if player.accountId == nil {
             ProfileEmptyView()
         } else {
-            ProfileView(vm: ProfileViewModel(id: "\(playerID!)"), presentState: present)
+            ProfileView(vm: ProfileViewModel(id: "\(playerID!)"))
         }
     }
 }

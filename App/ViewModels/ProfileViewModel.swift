@@ -9,39 +9,39 @@ import Foundation
 import Alamofire
 
 class ProfileViewModel: ObservableObject {
-    @Published var userProfile: UserProfile?
+    @Published var profile: UserProfile?
     @Published var isloading = false
     var userid: String
     
     init(id: String) {
         self.userid = id
-//        self.loadProfile()
+        Task {
+            await self.loadProfile()
+        }
     }
     
     init(profile: UserProfile) {
-        self.userProfile = profile
+        self.profile = profile
         self.userid = profile.id.description
     }
     
     init() {
-        self.userProfile = SteamProfile.sample.profile
+        self.profile = SteamProfile.sample.profile
         self.userid = "123"
     }
     
-//    func loadProfile() {
-//        guard let profile = WCDBController.shared.fetchUserProfile(userid: userid) else {
-//            Task {
-//                if isRegistered {
-//                    let profile = await OpenDotaController.shared.loadUserData(userid: userid)
-//                    let match = await OpenDotaController.shared.loadLatestMatch(userid: userid)
-//                    await self.setProfile(profile, match: match)
-//                } else {
-//                    let profile = await OpenDotaController.shared.loadUserData(userid: userid)
-//                    await self.setProfile(profile)
-//                }
-//            }
-//            return
-//        }
-//        self.profile = profile
-//    }
+    func loadProfile() async {
+        self.isloading = true
+        guard let profile = WCDBController.shared.fetchUserProfile(userid: userid) else {
+            let profile = await OpenDotaController.shared.loadUserData(userid: userid)
+            await self.setProfile(profile: profile)
+            return
+        }
+        await setProfile(profile: profile)
+    }
+    
+    @MainActor private func setProfile(profile: UserProfile?) {
+        self.profile = profile
+        self.isloading = false
+    }
 }
