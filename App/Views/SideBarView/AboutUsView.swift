@@ -16,7 +16,7 @@ struct AboutUsView: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("Our App").font(.custom(fontString, size: 15))) {
+                Section(header: Text("Our App")) {
                     makeButton(image: "cart", text: "Unlock All Features") {
                         self.presentState.wrappedValue.dismiss()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
@@ -30,20 +30,14 @@ struct AboutUsView: View {
                     makeRow(image: "person", text: "Terms of Use", link: URL(string: TERMS_OF_USE))
                     
                     makeDetailRow(image: "app.badge", text: "App Version", detail: versionNumber)
-//                    makeDetailRow(image: "gamecontroller", text: "Game Patch", detail: gameVersion)
                 }
-                Section(header: Text("Thanks To").font(.custom(fontString, size: 15))) {
+                Section(header: Text("Thanks To")) {
                     makeRow(image: "heart.fill", text: "OpenDotaAPI", link: URL(string: "https://www.opendota.com"))
                     makeRow(image: "heart.fill", text: "Our Loved Dota2", link: URL(string: "https://www.dota2.com/home"))
                 }
             }
-            .navigationBarItems(leading: Button(action: {
-                env.aboutUs.toggle()
-            }) {
-                Image(systemName: "xmark.circle.fill")
-            })
             .navigationTitle("About")
-            .navigationBarTitleDisplayMode(.inline)
+//            .navigationBarTitleDisplayMode(.inline)
             .listStyle(InsetGroupedListStyle())
         }
     }
@@ -77,7 +71,6 @@ struct AboutUsView: View {
                 .foregroundColor(.primaryDota)
                 .frame(width: 30)
             Text(text)
-                .font(.custom(fontString, size: 18))
             Spacer()
             Text(detail)
                 .foregroundColor(.gray)
@@ -93,7 +86,6 @@ struct AboutUsView: View {
                     .foregroundColor(.primaryDota)
                     .frame(width: 30)
                 Text(text)
-                    .font(.custom(fontString, size: 18))
                     .foregroundColor(Color(.label))
                 Spacer()
             }

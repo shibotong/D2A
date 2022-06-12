@@ -195,6 +195,7 @@ struct DecodingService {
             let user = try decoder.decode(SteamProfile.self, from: data)
             var userProfile = user.profile
             userProfile.rank = user.rank
+            userProfile.leaderboard = user.leaderboard
             return userProfile
         } catch {
             throw error

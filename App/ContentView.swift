@@ -82,12 +82,12 @@ struct NavigationHostView: View {
                             Text("Search")
                         }.tag(TabSelection.search).navigationViewStyle(.stack)
                     
-                    NavigationView {
-                        EmptyView()
-                    }.tabItem {
-                        Image(systemName: "gear")
-                        Text("Settings")
-                    }.tag(TabSelection.setting).navigationViewStyle(.stack)
+
+                    AboutUsView()
+                        .tabItem {
+                            Image(systemName: "ellipsis")
+                            Text("More")
+                        }.tag(TabSelection.setting).navigationViewStyle(.stack)
                 }
             } else {
                 NavigationView {

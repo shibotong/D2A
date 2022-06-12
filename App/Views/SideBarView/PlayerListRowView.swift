@@ -15,16 +15,22 @@ struct PlayerListRowView: View {
             VStack(spacing: 0) {
                 ProfileAvartar(url: vm.profile?.avatarfull ?? "", sideLength: 50, cornerRadius: 25)
                 Spacer().frame(height: 10)
-                Text(vm.profile?.personaname ?? "nil")
-                    .font(.custom(fontString, size: 12))
-                    .bold()
-                    .lineLimit(1)
-                    .foregroundColor(Color(UIColor.label))
+                HStack(spacing: 0) {
+                    if vm.profile?.name != nil {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.caption2)
+                    }
+                    Text(vm.profile?.name ?? vm.profile?.personaname ?? "nil")
+                        .font(.custom(fontString, size: 12))
+                        .bold()
+                        .lineLimit(1)
+                        .foregroundColor(Color(UIColor.label))
+                }
                     
-                HStack {
+                HStack(spacing: 0) {
                     Image("rank_\((vm.profile?.rank ?? 0) / 10)")
                         .resizable()
-                        .frame(width: 10, height: 10)
+                        .frame(width: 15, height: 15)
                     Text(DataHelper.transferRank(rank: vm.profile?.rank))
                         .font(.custom(fontString, size: 10))
                         .foregroundColor(Color(uiColor: UIColor.secondaryLabel))

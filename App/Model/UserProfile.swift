@@ -19,8 +19,9 @@ struct UserProfile: TableCodable, Identifiable {
     var isPlus: Bool?
     var profileurl: String?
     var rank: Int?
-    
-    static let empty = UserProfile(id: 0, avatarfull: "", lastLogin: nil, countryCode: nil, personaname: "", isPlus: false, profileurl: "", rank: nil)
+    var leaderboard: Int?
+    var name: String?
+    static let empty = UserProfile(id: 0, avatarfull: "", lastLogin: nil, countryCode: nil, personaname: "", isPlus: false, profileurl: "", rank: nil, leaderboard: nil)
 
     enum CodingKeys: String, CodingTableKey {
         typealias Root = UserProfile
@@ -33,6 +34,8 @@ struct UserProfile: TableCodable, Identifiable {
         case isPlus = "plus"
         case profileurl
         case rank
+        case leaderboard
+        case name
     }
     
 //    static let sample = loadProfile()!
