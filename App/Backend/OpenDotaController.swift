@@ -216,6 +216,7 @@ struct DecodingService {
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             let httpResponse = response as? HTTPURLResponse
+            print("statuscode \(httpResponse?.statusCode)")
             if httpResponse?.statusCode == 200 {
                 return data
             } else {

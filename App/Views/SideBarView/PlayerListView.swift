@@ -123,12 +123,6 @@ struct RegisteredPlayerView: View {
                         ProfileAvartar(url: vm.profile?.avatarfull ?? "", sideLength: 70, cornerRadius: 25)
                         VStack(alignment: .leading, spacing: 0) {
                             Text(vm.profile?.personaname ?? "").font(.custom(fontString, size: 20)).bold().lineLimit(1)
-//                            HStack(spacing: 4) {
-//                                Image("rank_\((vm.profile?.rank ?? 0) / 10)").resizable().frame(width: 15, height: 15)
-//                                Text(DataHelper.transferRank(rank: vm.profile?.rank))
-//                                    .font(.custom(fontString, size: 13))
-//                                    .foregroundColor(Color.secondaryLabel)
-//                            }
                             Text("\(vm.profile?.id.description ?? "")")
                                 .font(.custom(fontString, size: 13))
                                 .foregroundColor(Color.secondaryLabel)
@@ -168,10 +162,6 @@ struct RegisteredPlayerView: View {
                 }
             }
             .padding(15)
-            .onAppear {
-                vm.loadProfile()
-                vm.loadMatches()
-            }
             HStack {
                 Spacer()
                 VStack {

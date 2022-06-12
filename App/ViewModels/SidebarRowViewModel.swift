@@ -15,6 +15,7 @@ class SidebarRowViewModel: ObservableObject {
     private var isRegistered: Bool
     
     init(userid: String, isRegistered: Bool = false) {
+        print("init \(userid)")
         self.userid = userid
         self.isRegistered = isRegistered
         self.loadProfile()
