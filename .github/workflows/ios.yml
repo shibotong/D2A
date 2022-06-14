@@ -20,5 +20,5 @@ jobs:
         run: /usr/bin/xcodebuild -version
       
       - name: Xcode build iOS App
-      - run: |
+        run: |
          xcodebuild clean build -scheme App -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.0'
