@@ -1,0 +1,38 @@
+name: iOS Github Action CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build and Test default scheme using any available iPhone simulator
+    runs-on: macos-latest
+
+    steps:
+      - name: iOS Build/Release Action
+        uses: hectorguerrini/build-ios-action@v1.0.4
+        with:
+          project-path: App.xcodeproj
+          p12-base64: ${{ secrets.P12_BASE64 }}
+          mobileprovision-base64: ${{ secrets.MOBILEPROVISION_BASE64 }}
+          scheme: App
+          build-pods: yes
+          code-signing-identity: ${{ secrets.CODE_SIGNING_IDENTITY }}
+          team-id: ${{ secrets.TEAM_ID }}
+          workspace-path: App.xcworkspace # optional
+
+      #- name: Checkout
+      #  uses: actions/checkout@v3
+
+      # - name: pod
+      #  run: pod install
+
+      #- name: Xcode Version
+      #  run: /usr/bin/xcodebuild -version
+      
+      #- name: Xcode build iOS App
+      #  run: |
+      #    if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
+      #    file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
+      #    xcodebuild build-for-testing -scheme App -"$filetype_parameter" "$file_to_build" -destination "platform=iOS Simulator,name=iPhone 11"
