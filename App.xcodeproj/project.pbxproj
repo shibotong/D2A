@@ -117,6 +117,7 @@
 		323BCBA728558F960061F937 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323BCBA628558F960061F937 /* CustomDatePicker.swift */; };
 		323BCBAA28558FF60061F937 /* DateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323BCBA928558FF60061F937 /* DateValue.swift */; };
 		323BCBAC2855901B0061F937 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323BCBAB2855901B0061F937 /* Task.swift */; };
+		323BCBAF285700CA0061F937 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 323BCBAE285700CA0061F937 /* Apollo */; };
 		32470F902841A18900448016 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 32470F8F2841A18900448016 /* BottomSheet */; };
 		324791B92818B7AF00605D55 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3251C8F126F97C9500C826BD /* Localizable.strings */; };
 		3252858F26C949940030F15B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252858E26C949940030F15B /* Date.swift */; };
@@ -475,6 +476,7 @@
 				3252859C26CB87060030F15B /* SDWebImageSwiftUI in Frameworks */,
 				32B36F4226C38972002D427D /* Alamofire in Frameworks */,
 				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
+				323BCBAF285700CA0061F937 /* Apollo in Frameworks */,
 				684D5603CDE765CC7F320F76 /* Pods_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -930,6 +932,7 @@
 				32B36F4126C38972002D427D /* Alamofire */,
 				3252859B26CB87060030F15B /* SDWebImageSwiftUI */,
 				32470F8F2841A18900448016 /* BottomSheet */,
+				323BCBAE285700CA0061F937 /* Apollo */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* App.app */;
@@ -1016,6 +1019,7 @@
 				32B36F4026C38972002D427D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				3252859A26CB87060030F15B /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				32470F8E2841A18900448016 /* XCRemoteSwiftPackageReference "bottom-sheet" */,
+				323BCBAD285700CA0061F937 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 			);
 			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
 			projectDirPath = "";
@@ -1875,6 +1879,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		323BCBAD285700CA0061F937 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
+			requirement = {
+				kind = versionRange;
+				maximumVersion = 0.52.0;
+				minimumVersion = 0.51.2;
+			};
+		};
 		32470F8E2841A18900448016 /* XCRemoteSwiftPackageReference "bottom-sheet" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weitieda/bottom-sheet";
@@ -1902,6 +1915,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		323BCBAE285700CA0061F937 /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 323BCBAD285700CA0061F937 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
 		32470F8F2841A18900448016 /* BottomSheet */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 32470F8E2841A18900448016 /* XCRemoteSwiftPackageReference "bottom-sheet" */;

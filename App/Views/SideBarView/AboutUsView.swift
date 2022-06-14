@@ -58,7 +58,6 @@ struct AboutUsView: View {
                     Text(text)
                 }
             }
-            .font(.custom(fontString, size: 18))
             Spacer()
             Image(systemName: "chevron.right").imageScale(.medium)
         }

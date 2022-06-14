@@ -15,6 +15,19 @@ struct Sidebar: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
         List {
+            Text("Home")
+            NavigationLink(destination: PlayerListView(vm: PlayerListViewModel(registeredID: env.registerdID, followedID: env.userIDs))) {
+                Label {
+                    Text("Home")
+                } icon: {
+                    Image(systemName: "person.fill")
+                }
+            }
+            
+            
+            if env.registerdID != "" {
+                SidebarRowView(vm: SidebarRowViewModel(userid: env.registerdID))
+            }
             ForEach(env.userIDs, id: \.self) { id in
                 NavigationLink(
                     destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: id)),
@@ -32,28 +45,7 @@ struct Sidebar: View {
             })
         }
         .navigationTitle("Follow")
-        .navigationBarItems(leading: Button(action: {
-            env.aboutUs.toggle()
-        }) {
-            Image(systemName: "info.circle")
-                .foregroundColor(.primaryDota)
-        }, trailing: EditButton())
         .listStyle(SidebarListStyle())
-        .overlay(VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                Button(action: {env.addNewAccount.toggle()}) {
-                    Image(systemName: "plus")
-                        .font(.largeTitle)
-                        .foregroundColor(Color.white)
-                        .frame(width: 15, height: 15)
-                        .padding(25)
-                        .background(RoundedRectangle(cornerRadius: 20).foregroundColor(.primaryDota).shadow(radius: 5))
-                }
-                .keyboardShortcut("n", modifiers: .command)
-            }
-        }.padding())
     }
 }
 
