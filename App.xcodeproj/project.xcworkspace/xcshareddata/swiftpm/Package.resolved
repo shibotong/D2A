@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "bottom-sheet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/weitieda/bottom-sheet",
+      "state" : {
+        "revision" : "4e074d49f3148577ac66cf47b85a99d016480d01",
+        "version" : "1.0.10"
+      }
+    },
+    {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
