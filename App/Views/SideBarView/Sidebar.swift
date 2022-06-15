@@ -18,7 +18,7 @@ struct Sidebar: View {
             NavigationLink(
                 destination: PlayerListView(),
                 tag: TabSelection.home,
-                selection: $env.selectedTab
+                selection: $env.iPadSelectedTab
             ) {
                 Label {
                     Text("Home")
@@ -29,7 +29,7 @@ struct Sidebar: View {
             NavigationLink(
                 destination: HeroListView(),
                 tag: TabSelection.hero,
-                selection: $env.selectedTab
+                selection: $env.iPadSelectedTab
             ) {
                 Label {
                     Text("Heroes")
@@ -40,7 +40,7 @@ struct Sidebar: View {
             NavigationLink(
                 destination: AddAccountView(),
                 tag: TabSelection.search,
-                selection: $env.selectedTab
+                selection: $env.iPadSelectedTab
             ) {
                 Label {
                     Text("Search")
@@ -81,7 +81,7 @@ struct Sidebar: View {
             NavigationLink(
                 destination: AboutUsView(),
                 tag: TabSelection.setting,
-                selection: $env.selectedTab
+                selection: $env.iPadSelectedTab
             ) {
                 Label {
                     Text("About Us")

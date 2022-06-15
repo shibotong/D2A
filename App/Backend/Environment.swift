@@ -53,11 +53,8 @@ final class DotaEnvironment: ObservableObject {
     }
     
     
-    @Published var selectedTab: TabSelection? {
-        willSet {
-            print("set to \(newValue)")
-        }
-    }
+    @Published var selectedTab: TabSelection = .home
+    @Published var iPadSelectedTab: TabSelection? = .home
     
     init() {
         self.userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
