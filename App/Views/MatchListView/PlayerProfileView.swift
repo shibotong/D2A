@@ -15,66 +15,19 @@ struct PlayerProfileView: View {
     var body: some View {
         if let profile = vm.userProfile {
             ScrollView {
-                VStack {
-                    VStack {
-                        ProfileAvartar(url: profile.avatarfull, sideLength: 150, cornerRadius: 20)
-                        VStack {
-                            buildNameBar(profile: profile)
-                            Text("id: \(profile.id.description)")
-                                .font(.caption)
-                                .foregroundColor(.secondaryLabel)
-                            HStack {
-                                if profile.isPlus ?? false {
-                                    Image("dota_plus")
-                                        .resizable()
-                                        .padding()
-                                        .frame(width: 80, height: 80)
-                                }
-                                RankView(rank: profile.rank, leaderboard: profile.leaderboard)
-                                    .frame(width: 80, height: 80)
-                            }
-                            
-                        }
-                    }
-                    HStack(spacing: 10) {
-                        Button {
-                            if env.canRefresh(userid: vm.userid ?? "") {
-                                Task {
-                                    await vm.refreshData(refreshAll: true)
-                                }
-                            }
-                        } label: {
-                            HStack {
-                                Spacer()
-                                Text("Update")
-                                Spacer()
-                            }
-                            .frame(height: 40)
-                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
-                            
-                        }
-                        if let url = URL(string: profile.profileurl ?? "") {
-                            Link(destination: url) {
-                                HStack {
-                                    Spacer()
-                                    Text("Profile")
-                                    Spacer()
-                                }
-                                .foregroundColor(.white)
-                                .frame(height: 40)
-                                .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.primaryDota))
-                            }
-                        }
-                    }
+                if horizontalSizeClass == .compact {
+                    buildCompactTopBar(profile: profile)
+                } else {
+                    buildRegularTopBar(profile: profile)
+                        .padding()
                 }
-                .padding()
                 HStack {
                     Text("Recent Matches")
                         .font(.custom(fontString, size: 20))
                         .bold()
                     Spacer()
                     NavigationLink(destination: CalendarMatchListView(vm: CalendarMatchListViewModel(userid: self.vm.userid!))) {
-                    Text("More")
+                        Text("More")
                     }
                 }
                 .padding(.horizontal)
@@ -92,11 +45,11 @@ struct PlayerProfileView: View {
                 }
                 .background(Color.secondarySystemBackground)
             }
-//            .onAppear {
-//                Task {
-//                    await vm.refreshData()
-//                }
-//            }
+            //            .onAppear {
+            //                Task {
+            //                    await vm.refreshData()
+            //                }
+            //            }
             .listStyle(PlainListStyle())
             .navigationTitle("\(profile.personaname)")
             .navigationBarTitleDisplayMode(.inline)
@@ -113,45 +66,137 @@ struct PlayerProfileView: View {
     }
     
     @ViewBuilder private func buildNameBar(profile: UserProfile) -> some View {
-        VStack {
-            HStack {
-                Text(profile.name ?? profile.personaname)
-                    .font(.title)
-                    .bold()
-                    .lineLimit(1)
-                
-                if env.registerdID == vm.userid {
-                    Image(systemName: "person.text.rectangle")
-                        .foregroundColor(.primaryDota)
+        
+        HStack {
+            Text(profile.name ?? profile.personaname)
+                .font(.title)
+                .bold()
+                .lineLimit(1)
+            
+            if env.registerdID == vm.userid {
+                Image(systemName: "person.text.rectangle")
+                    .foregroundColor(.primaryDota)
+            } else {
+                if env.userIDs.contains(vm.userid ?? "0") {
+                    Button {
+                        guard let userid = vm.userid else {
+                            return
+                        }
+                        env.delete(userID: userid)
+                    } label: {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.blue)
+                    }
                 } else {
-                    if env.userIDs.contains(vm.userid ?? "0") {
-                        Button {
-                            guard let userid = vm.userid else {
-                                return
-                            }
-                            env.delete(userID: userid)
-                        } label: {
-                            Image(systemName: "star.fill")
-                                .foregroundColor(.blue)
+                    Button {
+                        guard let userid = vm.userid else {
+                            return
                         }
-                    } else {
-                        Button {
-                            guard let userid = vm.userid else {
-                                return
-                            }
-                            env.addOrDeleteUser(userid: userid, profile: profile)
-                        } label: {
-                            Image(systemName: "star")
-                                .foregroundColor(.label)
-                        }
+                        env.addOrDeleteUser(userid: userid, profile: profile)
+                    } label: {
+                        Image(systemName: "star")
+                            .foregroundColor(.label)
                     }
                 }
             }
-            if profile.name != nil {
-                Text(profile.personaname)
-                    .font(.subheadline)
-                    .lineLimit(1)
-//                    .foregroundColor(.secondaryLabel)
+        }
+        
+    }
+    
+    @ViewBuilder private func buildCompactTopBar(profile: UserProfile) -> some View {
+        VStack {
+            VStack {
+                ProfileAvartar(url: profile.avatarfull, sideLength: 150, cornerRadius: 20)
+                VStack {
+                    buildNameBar(profile: profile)
+                    if profile.name != nil {
+                        Text(profile.personaname)
+                            .font(.subheadline)
+                            .lineLimit(1)
+                    }
+                    buildRank(profile: profile)
+                }
+            }
+            buildButton(profile: profile)
+        }
+        .padding()
+    }
+    
+    @ViewBuilder private func buildRegularTopBar(profile: UserProfile) -> some View {
+        HStack(spacing: 30) {
+            ProfileAvartar(url: profile.avatarfull, sideLength: 250, cornerRadius: 20)
+            VStack {
+                Spacer()
+                HStack {
+                    VStack(alignment: .leading) {
+                        buildNameBar(profile: profile)
+                        if profile.name != nil {
+                            Text(profile.personaname)
+                                .font(.subheadline)
+                                .lineLimit(1)
+                            //                    .foregroundColor(.secondaryLabel)
+                        }
+                        Text("id: \(profile.id.description)")
+                            .font(.caption)
+                            .foregroundColor(.secondaryLabel)
+                    }
+                    Spacer()
+                    buildRank(profile: profile)
+                }
+                Spacer()
+                buildButton(profile: profile)
+            }
+        }
+    }
+    
+    @ViewBuilder private func buildRank(profile: UserProfile) -> some View {
+        HStack {
+            if profile.isPlus ?? false {
+                Image("dota_plus")
+                    .resizable()
+                    .padding()
+                    .frame(width: 80, height: 80)
+            }
+            RankView(rank: profile.rank, leaderboard: profile.leaderboard)
+                .frame(width: 80, height: 80)
+        }
+    }
+    
+    @ViewBuilder private func buildButton(profile: UserProfile) -> some View {
+        HStack(spacing: 25) {
+            Button {
+                if env.canRefresh(userid: vm.userid ?? "") {
+                    Task {
+                        await vm.refreshData(refreshAll: true)
+                    }
+                }
+            } label: {
+                HStack {
+                    Spacer()
+                    Image(systemName: "arrow.clockwise")
+                        .font(Font.system(size: 15, weight: .semibold))
+                    Text("Update")
+                        .font(Font.system(size: 15, weight: .semibold))
+                    Spacer()
+                }
+                .frame(height: 45)
+                .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
+                
+            }
+            if let url = URL(string: profile.profileurl ?? "") {
+                Link(destination: url) {
+                    HStack {
+                        Spacer()
+                        Image(systemName: "person.fill")
+                            .font(Font.system(size: 15, weight: .semibold))
+                        Text("Profile")
+                            .font(Font.system(size: 15, weight: .semibold))
+                        Spacer()
+                    }
+                    .foregroundColor(.white)
+                    .frame(height: 45)
+                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.primaryDota))
+                }
             }
         }
     }
