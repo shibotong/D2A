@@ -70,16 +70,16 @@ struct HeroDetailView: View {
                 ForEach(vm.heroAbility.abilities.filter { ability in
                     let containHidden = ability.contains("hidden")
                     let containEmpty = ability.contains("empty")
-//                    let abilityData = vm.fetchAbility(name: ability)
-//                    let isScepter = database.hasScepter(ability: abilityData, heroID: vm.heroID)
-//                    let isShard = database.hasShard(ability: abilityData, heroID: vm.heroID)
-//                    let hasLore = abilityData.lore != nil
-//                    var emptyLore = false
-//                    if hasLore {
-//                        let lore = abilityData.lore!
-//                        emptyLore = lore.isEmpty
-//                    }
-//                    let isPassive = abilityData.behavior?.transformString() == "Passive"
+                    //                    let abilityData = vm.fetchAbility(name: ability)
+                    //                    let isScepter = database.hasScepter(ability: abilityData, heroID: vm.heroID)
+                    //                    let isShard = database.hasShard(ability: abilityData, heroID: vm.heroID)
+                    //                    let hasLore = abilityData.lore != nil
+                    //                    var emptyLore = false
+                    //                    if hasLore {
+                    //                        let lore = abilityData.lore!
+                    //                        emptyLore = lore.isEmpty
+                    //                    }
+                    //                    let isPassive = abilityData.behavior?.transformString() == "Passive"
                     return !containHidden && !containEmpty
                 }, id: \.self) { abilityName in
                     let ability = vm.fetchAbility(name: abilityName)
@@ -337,7 +337,7 @@ struct AbilityView: View {
     }
     
     var body: some View {
-        VStack {
+        GeometryReader { proxy in
             ScrollView(.vertical, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 10) {
                     let parsedimgURL = vm.ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
@@ -403,16 +403,16 @@ struct AbilityView: View {
                 Group {
                     VStack {
                         if dataBase.isScepterSkill(ability: vm.ability, heroID: vm.heroID) {
-                            buildDescription(desc: vm.ability.desc ?? "", type: .Scepter)
+                            buildDescription(desc: vm.ability.desc ?? "", type: .Scepter, width: proxy.size.width)
                         } else if dataBase.isShardSkill(ability: vm.ability, heroID: vm.heroID) {
-                            buildDescription(desc: vm.ability.desc ?? "", type: .Shard)
+                            buildDescription(desc: vm.ability.desc ?? "", type: .Shard, width: proxy.size.width)
                         } else {
-                            buildDescription(desc: vm.ability.desc ?? "")
+                            buildDescription(desc: vm.ability.desc ?? "", width: proxy.size.width)
                             if let scepterDesc = dataBase.getAbilityScepterDesc(ability: vm.ability, heroID: vm.heroID) {
-                                buildDescription(desc: scepterDesc, type: .Scepter)
+                                buildDescription(desc: scepterDesc, type: .Scepter, width: proxy.size.width)
                             }
                             if let shardDesc = dataBase.getAbilityShardDesc(ability: vm.ability, heroID: vm.heroID) {
-                                buildDescription(desc: shardDesc, type: .Shard)
+                                buildDescription(desc: shardDesc, type: .Shard, width: proxy.size.width)
                             }
                         }
                     }
@@ -443,8 +443,8 @@ struct AbilityView: View {
                 
             }
             
+            
         }
-        
         .padding(.horizontal)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -469,8 +469,8 @@ struct AbilityView: View {
                 .foregroundColor(color)
         }
     }
-
-    @ViewBuilder private func buildDescription(desc: String, type: ScepterType = .non) -> some View {
+    
+    @ViewBuilder private func buildDescription(desc: String, type: ScepterType = .non, width: CGFloat) -> some View {
         VStack(alignment: .leading) {
             if type != .non {
                 HStack {
@@ -488,23 +488,23 @@ struct AbilityView: View {
                 .font(.custom(fontString, size: 13))
             HStack {
                 Spacer()
-            switch type {
-            case .Scepter:
-                if let url = vm.scepterVideo {
-                    VideoPlayer(player: AVPlayer(url: url))
-                        .frame(width: 375, height: 375 / 16.0 * 9.0)
+                switch type {
+                case .Scepter:
+                    if let url = vm.scepterVideo {
+                        VideoPlayer(player: AVPlayer(url: url))
+                            .frame(width: width - 40, height: (width - 40.0) / 16.0 * 9.0)
+                    }
+                case .Shard:
+                    if let url = vm.shardVideo {
+                        VideoPlayer(player: AVPlayer(url: url))
+                            .frame(width: width - 40, height: (width - 40.0) / 16.0 * 9.0)
+                    }
+                case .non:
+                    if let url = vm.abilityVideo {
+                        VideoPlayer(player: AVPlayer(url: url))
+                            .frame(width: width - 20, height: (width - 20.0) / 16.0 * 9.0)
+                    }
                 }
-            case .Shard:
-                if let url = vm.shardVideo {
-                    VideoPlayer(player: AVPlayer(url: url))
-                        .frame(width: 375, height: 375 / 16.0 * 9.0)
-                }
-            case .non:
-                if let url = vm.abilityVideo {
-                    VideoPlayer(player: AVPlayer(url: url))
-                        .frame(width: 375, height: 375 / 16.0 * 9.0)
-                }
-            }
                 Spacer()
             }
             

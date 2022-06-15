@@ -15,7 +15,7 @@ iPadOS 15.0+
 This application is fully written in SwiftUI.
 * Follow Dota2 players and check their matches.
 * See item builds for each match.
-* Support iOS and iPadOS
+* ~~Support iOS and iPadOS~~
 * Support Widgets
 # Whats doing now
 * WatchOS app
