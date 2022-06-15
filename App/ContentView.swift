@@ -23,6 +23,11 @@ struct ContentView: View {
 //                }
         } else {
             NavigationHostView()
+                .sheet(isPresented: $env.subscriptionSheet, content: {
+                    StoreView()
+                        .environmentObject(env)
+                        .environmentObject(store)
+                })
                 .alert(isPresented: $env.exceedLimit, content: {
                     Alert(title: Text("Slow down"), message: Text("You are so quick!"), dismissButton: .cancel())
                 })
