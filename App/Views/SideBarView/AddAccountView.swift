@@ -11,49 +11,47 @@ struct AddAccountView: View {
     @EnvironmentObject var env: DotaEnvironment
     @StateObject var vm: AddAccountViewModel = AddAccountViewModel()
     var body: some View {
-        NavigationView {
-            buildSearchingList()
-                .navigationTitle("Search")
-        }
-        .searchable(text: $vm.searchText, prompt: "Players, Heroes, Matches") {
-            if !vm.searchText.isEmpty {
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                    Text("Search \(vm.searchText)")
-                }
-//                .searchCompletion(vm.searchText)
-                .foregroundColor(.label)
-            }
-            if !vm.localProfiles.isEmpty {
-                Section {
-                    ForEach(vm.localProfiles) { profile in
-                        ProfileView(vm: ProfileViewModel(profile: profile))
-                            .searchCompletion(profile.id.description)
-                            .foregroundColor(.label)
+        buildSearchingList()
+            .navigationTitle("Search")
+            .searchable(text: $vm.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Players, Heroes, Matches") {
+                if !vm.searchText.isEmpty {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                        Text("Search \(vm.searchText)")
                     }
-                } header: {
-                    Text("Favourite Players")
-                        .foregroundColor(.secondaryLabel)
-                        .font(.subheadline)
+                    //                .searchCompletion(vm.searchText)
+                    .foregroundColor(.label)
                 }
-            }
-            if !vm.searchedHeroes.isEmpty {
-                Section {
-                    ForEach(vm.searchedHeroes) { hero in
-                        HStack {
-                            HeroImageView(heroID: hero.id, type: .icon)
-                                .frame(width: 30, height: 30)
-                            Text(hero.localizedName)
+                if !vm.localProfiles.isEmpty {
+                    Section {
+                        ForEach(vm.localProfiles) { profile in
+                            ProfileView(vm: ProfileViewModel(profile: profile))
+                                .searchCompletion(profile.id.description)
+                                .foregroundColor(.label)
                         }
-                        .foregroundColor(.label)
-                        .searchCompletion(hero.localizedName)
+                    } header: {
+                        Text("Favourite Players")
+                            .foregroundColor(.secondaryLabel)
+                            .font(.subheadline)
                     }
-                } header: {
-                    Text("Heroes")
-                        .foregroundColor(.secondaryLabel)
-                        .font(.subheadline)
                 }
-            }
+                if !vm.searchedHeroes.isEmpty {
+                    Section {
+                        ForEach(vm.searchedHeroes) { hero in
+                            HStack {
+                                HeroImageView(heroID: hero.id, type: .icon)
+                                    .frame(width: 30, height: 30)
+                                Text(hero.localizedName)
+                            }
+                            .foregroundColor(.label)
+                            .searchCompletion(hero.localizedName)
+                        }
+                    } header: {
+                        Text("Heroes")
+                            .foregroundColor(.secondaryLabel)
+                            .font(.subheadline)
+                    }
+                }
         }
         .disableAutocorrection(true)
         .onSubmit(of: .search) {

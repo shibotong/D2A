@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlayerListView: View {
     @EnvironmentObject var env: DotaEnvironment
-    @ObservedObject var vm: PlayerListViewModel
+    @StateObject var vm: PlayerListViewModel
     var body: some View {
         ScrollView {
             VStack {
@@ -94,7 +94,9 @@ struct EmptyRegistedView: View {
                 .keyboardType(.numberPad)
             Spacer()
             Button {
-                env.registerUser(userid: self.searchText)
+                Task {
+                    await env.registerUser(userid: self.searchText)
+                }
             } label: {
                 HStack {
                     Spacer()
@@ -118,7 +120,7 @@ struct RegisteredPlayerView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 10) {
-                NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: env.registerdID))) {
+                NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: vm.userid))) {
                     HStack {
                         ProfileAvartar(url: vm.profile?.avatarfull ?? "", sideLength: 70, cornerRadius: 25)
                         VStack(alignment: .leading, spacing: 0) {
@@ -166,7 +168,7 @@ struct RegisteredPlayerView: View {
                 Spacer()
                 VStack {
                     Button {
-                        env.registerdID = ""
+                        env.deRegisterUser(userid: vm.userid)
                     } label: {
                         Image(systemName: "xmark")
                     }

@@ -15,42 +15,72 @@ struct Sidebar: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
         List {
-            Text("Home")
             NavigationLink(destination: PlayerListView(vm: PlayerListViewModel(registeredID: env.registerdID, followedID: env.userIDs))) {
                 Label {
                     Text("Home")
                 } icon: {
-                    Image(systemName: "person.fill")
+                    Image(systemName: "house")
+                }
+            }
+            NavigationLink(destination: HeroListView()) {
+                Label {
+                    Text("Heroes")
+                } icon: {
+                    Image(systemName: "server.rack")
+                }
+            }
+            NavigationLink(destination: AddAccountView()) {
+                Label {
+                    Text("Search")
+                } icon: {
+                    Image(systemName: "magnifyingglass")
                 }
             }
             
             
-            if env.registerdID != "" {
-                SidebarRowView(vm: SidebarRowViewModel(userid: env.registerdID))
+            Section {
+                if env.registerdID != "" {
+                    NavigationLink(
+                        destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: env.registerdID)),
+                        tag: env.registerdID,
+                        selection: $selectedUser
+                    ) {
+                        SidebarRowView(vm: SidebarRowViewModel(userid: env.registerdID))
+                    }.isDetailLink(true)
+                }
+                ForEach(env.userIDs, id: \.self) { id in
+                    NavigationLink(
+                        destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: id)),
+                        tag: id,
+                        selection: $selectedUser
+                    ) {
+                        SidebarRowView(vm: SidebarRowViewModel(userid: id))
+                    }.isDetailLink(true)
+                }
+                .onMove(perform: { indices, newOffset in
+                    env.move(from: indices, to: newOffset)
+                })
+                .onDelete(perform: { indexSet in
+                    env.delete(from: indexSet)
+                })
+            } header: {
+                Text("Favorite Players")
             }
-            ForEach(env.userIDs, id: \.self) { id in
-                NavigationLink(
-                    destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: id)),
-                    tag: id,
-                    selection: $selectedUser
-                ) {
-                    SidebarRowView(vm: SidebarRowViewModel(userid: id))
-                }.isDetailLink(true)
+            NavigationLink(destination: AboutUsView()) {
+                Label {
+                    Text("About Us")
+                } icon: {
+                    Image(systemName: "info.circle")
+                }
             }
-            .onMove(perform: { indices, newOffset in
-                env.move(from: indices, to: newOffset)
-            })
-            .onDelete(perform: { indexSet in
-                env.delete(from: indexSet)
-            })
         }
-        .navigationTitle("Follow")
+        .navigationTitle("D2A")
         .listStyle(SidebarListStyle())
     }
 }
 
 struct SidebarRowView: View {
-    @ObservedObject var vm: SidebarRowViewModel
+    @StateObject var vm: SidebarRowViewModel
     var body: some View {
         makeUI()
             .task {
@@ -62,7 +92,7 @@ struct SidebarRowView: View {
     func makeUI() -> some View {
         if vm.profile != nil {
             Label {
-                Text("\(vm.profile!.personaname)").lineLimit(1)
+                Text("\(vm.profile?.name ?? vm.profile!.personaname)").lineLimit(1)
             } icon: {
                 WebImage(url: URL(string: vm.profile!.avatarfull))
                     .resizable()
@@ -85,7 +115,8 @@ struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             Sidebar()
-                .environmentObject(DotaEnvironment.shared)
+                .environmentObject(DotaEnvironment.preview)
         }
+        .previewInterfaceOrientation(.landscapeLeft)
     }
 }

@@ -75,24 +75,26 @@ struct NavigationHostView: View {
                         Image(systemName: "server.rack")
                         Text("Hero")
                     }.tag(TabSelection.hero).navigationViewStyle(.stack)
-
-                    AddAccountView()
-                        .tabItem {
-                            Image(systemName: "magnifyingglass")
-                            Text("Search")
-                        }.tag(TabSelection.search).navigationViewStyle(.stack)
+                    NavigationView {
+                        AddAccountView()
+                    }
+                    .tabItem {
+                        Image(systemName: "magnifyingglass")
+                        Text("Search")
+                    }.tag(TabSelection.search).navigationViewStyle(.stack)
                     
-
-                    AboutUsView()
-                        .tabItem {
-                            Image(systemName: "ellipsis")
-                            Text("More")
-                        }.tag(TabSelection.setting).navigationViewStyle(.stack)
+                    NavigationView {
+                        AboutUsView()
+                    }
+                    .tabItem {
+                        Image(systemName: "ellipsis")
+                        Text("More")
+                    }.tag(TabSelection.setting).navigationViewStyle(.stack)
                 }
             } else {
                 NavigationView {
                     Sidebar()
-                    EmptyView()
+                    AddAccountView()
                 }
                 .navigationViewStyle(DoubleColumnNavigationViewStyle())
             }

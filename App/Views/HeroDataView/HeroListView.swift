@@ -16,7 +16,7 @@ struct HeroListView: View {
     var body: some View {
         buildBody()
             .navigationTitle("Heroes")
-            .searchable(text: $vm.searchString.animation(.linear), placement: .navigationBarDrawer(displayMode: .always), prompt: "Search Heroes")
+            .searchable(text: $vm.searchString.animation(.linear), placement: .toolbar, prompt: "Search Heroes")
             .disableAutocorrection(true)
             .toolbar {
                 Menu {

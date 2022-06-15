@@ -24,14 +24,12 @@ struct PlayerProfileView: View {
                                 .font(.caption)
                                 .foregroundColor(.secondaryLabel)
                             HStack {
-                                
                                 if profile.isPlus ?? false {
                                     Image("dota_plus")
                                         .resizable()
                                         .padding()
                                         .frame(width: 80, height: 80)
                                 }
-                                
                                 RankView(rank: profile.rank, leaderboard: profile.leaderboard)
                                     .frame(width: 80, height: 80)
                             }
@@ -42,7 +40,7 @@ struct PlayerProfileView: View {
                         Button {
                             if env.canRefresh(userid: vm.userid ?? "") {
                                 Task {
-                                    await vm.refreshData()
+                                    await vm.refreshData(refreshAll: true)
                                 }
                             }
                         } label: {

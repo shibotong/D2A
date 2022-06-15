@@ -14,32 +14,29 @@ struct AboutUsView: View {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("Error", comment: "")
     }
     var body: some View {
-        NavigationView {
-            List {
-                Section(header: Text("Our App")) {
-                    makeButton(image: "cart", text: "Unlock All Features") {
-                        self.presentState.wrappedValue.dismiss()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                            // show subscription after 0.5s
-                            self.env.subscriptionSheet = true
-                        })
-                    }
-                    makeRow(image: "chevron.left.slash.chevron.right", text: "Source Code / Report an Issue", link: URL(string: "https://github.com/shibotong/Dota2Armory"))
-                    makeRow(image: "star", text: "Rate the app on App Store", link: URL(string: "https://apps.apple.com/au/app/dota2armory/id1582344852"))
-                    makeRow(image: "lock", text: "Privacy Policy", link: URL(string: PRIVACY_POLICY))
-                    makeRow(image: "person", text: "Terms of Use", link: URL(string: TERMS_OF_USE))
-                    
-                    makeDetailRow(image: "app.badge", text: "App Version", detail: versionNumber)
+        List {
+            Section(header: Text("Our App")) {
+                makeButton(image: "cart", text: "Unlock All Features") {
+                    self.presentState.wrappedValue.dismiss()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                        // show subscription after 0.5s
+                        self.env.subscriptionSheet = true
+                    })
                 }
-                Section(header: Text("Thanks To")) {
-                    makeRow(image: "heart.fill", text: "OpenDotaAPI", link: URL(string: "https://www.opendota.com"))
-                    makeRow(image: "heart.fill", text: "Our Loved Dota2", link: URL(string: "https://www.dota2.com/home"))
-                }
+                makeRow(image: "chevron.left.slash.chevron.right", text: "Source Code / Report an Issue", link: URL(string: "https://github.com/shibotong/Dota2Armory"))
+                makeRow(image: "star", text: "Rate the app on App Store", link: URL(string: "https://apps.apple.com/au/app/dota2armory/id1582344852"))
+                makeRow(image: "lock", text: "Privacy Policy", link: URL(string: PRIVACY_POLICY))
+                makeRow(image: "person", text: "Terms of Use", link: URL(string: TERMS_OF_USE))
+                
+                makeDetailRow(image: "app.badge", text: "App Version", detail: versionNumber)
             }
-            .navigationTitle("About")
-//            .navigationBarTitleDisplayMode(.inline)
-            .listStyle(InsetGroupedListStyle())
+            Section(header: Text("Thanks To")) {
+                makeRow(image: "heart.fill", text: "OpenDotaAPI", link: URL(string: "https://www.opendota.com"))
+                makeRow(image: "heart.fill", text: "Our Loved Dota2", link: URL(string: "https://www.dota2.com/home"))
+            }
         }
+        .navigationTitle("About")
+        .listStyle(InsetGroupedListStyle())
     }
     
     private func makeRow(image: String,

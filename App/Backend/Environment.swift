@@ -16,10 +16,10 @@ final class DotaEnvironment: ObservableObject {
     static var shared = DotaEnvironment()
     static var preview: DotaEnvironment = {
         let env = DotaEnvironment()
-//        env.userIDs = ["125581247", "177416702", "153041957"]
-        env.userIDs = []
-        env.registerdID = ""
-//        env.registerdID = "153041957"
+        env.userIDs = ["125581247", "177416702", "153041957"]
+//        env.userIDs = []
+//        env.registerdID = ""
+        env.registerdID = "153041957"
         return env
     }()
     
@@ -91,8 +91,21 @@ final class DotaEnvironment: ObservableObject {
         }
     }
     
+    func registerUser(userid: String) async {
+        guard let user = await OpenDotaController.shared.loadUserData(userid: userid) else {
+            return
+        }
+        await self.setRegisterUser(userid: userid)
+        WCDBController.shared.insertUserProfile(profile: user)
+    }
+    
+    func deRegisterUser(userid: String) {
+        WCDBController.shared.deleteUser(userid: userid)
+        self.registerdID = ""
+    }
+    
     @MainActor
-    func registerUser(userid: String) {
+    func setRegisterUser(userid: String) {
         self.delete(userID: userid)
         self.registerdID = userid
     }
