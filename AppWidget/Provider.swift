@@ -32,12 +32,13 @@ struct Provider: IntentTimelineProvider {
             completion(entry)
             return
         }
-        OpenDotaController.loadRecentMatch(id: "\(profile.id)") { matches in
+        Task {
+            let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(profile.id)")
             let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: true)
             completion(entry)
         }
-        
     }
+    
 
     func getTimeline(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
         let currentDate = Date()
@@ -45,8 +46,10 @@ struct Provider: IntentTimelineProvider {
         if status {
             let selectedProfile = user(for: configuration)
             if selectedProfile.id != 0 {
-                OpenDotaController.loadRecentMatch(id: "\(selectedProfile.id)") { matches in
+                Task {
+                    let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(selectedProfile.id)")
                     let entry = SimpleEntry(date: Date(), matches: matches, user: selectedProfile, subscription: status)
+                    
                     let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
                     let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
                     completion(timeline)
@@ -66,7 +69,8 @@ struct Provider: IntentTimelineProvider {
                     completion(timeline)
                     return
                 }
-                OpenDotaController.loadRecentMatch(id: "\(profile.id)") { matches in
+                Task {
+                    let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(profile.id)")
                     let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: status)
                     let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
                     let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
@@ -201,11 +205,12 @@ struct AppActiveWidgetEntryView : View {
             switch family {
             case .systemSmall:
                 HStack {
-                    ForEach(entry.matches, id:\.id) { match in
+                    ForEach(entry.matches[0..<5], id:\.id) { match in
                         buildMatch(match: match)
                     }
                 }
                 .blur(radius: (entry.subscription && entry.user.id != 0) ? 0 : 10)
+                .padding(.horizontal)
 //                .overlay(Text(entry.subscription ? selectUserSubTitle : purchaseSubTitle)).font(.custom(fontString, size: 10).bold())
             case .systemMedium:
                 VStack(spacing: 5) {

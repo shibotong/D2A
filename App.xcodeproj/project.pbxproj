@@ -117,8 +117,6 @@
 		323BCBA728558F960061F937 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323BCBA628558F960061F937 /* CustomDatePicker.swift */; };
 		323BCBAA28558FF60061F937 /* DateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323BCBA928558FF60061F937 /* DateValue.swift */; };
 		323BCBAC2855901B0061F937 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323BCBAB2855901B0061F937 /* Task.swift */; };
-		323BCBAF285700CA0061F937 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 323BCBAE285700CA0061F937 /* Apollo */; };
-		32470F902841A18900448016 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 32470F8F2841A18900448016 /* BottomSheet */; };
 		324791B92818B7AF00605D55 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3251C8F126F97C9500C826BD /* Localizable.strings */; };
 		3252858F26C949940030F15B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252858E26C949940030F15B /* Date.swift */; };
 		3252859126C9E8040030F15B /* AnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859026C9E8040030F15B /* AnalysisView.swift */; };
@@ -177,6 +175,12 @@
 		3294463F26E1BC8F006E0D06 /* PlayerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294463E26E1BC8F006E0D06 /* PlayerDetailView.swift */; };
 		329849F426DCAEAE00A1032C /* HeroDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* HeroDatabase.swift */; };
 		32985DD3285569D0001869F2 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32985DD2285569D0001869F2 /* RankView.swift */; };
+		32A26C51285947D3005E890F /* OpenDotaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */; };
+		32A26C52285947D4005E890F /* OpenDotaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */; };
+		32A26C53285949FE005E890F /* WCDBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893326CD425300DF67F9 /* WCDBController.swift */; };
+		32A26C54285949FE005E890F /* WCDBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893326CD425300DF67F9 /* WCDBController.swift */; };
+		32A26C5528594A28005E890F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4B26C39C5D002D427D /* Environment.swift */; };
+		32A26C5628594A28005E890F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4B26C39C5D002D427D /* Environment.swift */; };
 		32AEEEF926F9B1120088DEC8 /* LocalizableStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AEEEF826F9B1120088DEC8 /* LocalizableStrings.swift */; };
 		32B36F0F26C38821002D427D /* AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F0E26C38821002D427D /* AppApp.swift */; };
 		32B36F1126C38821002D427D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F1026C38821002D427D /* ContentView.swift */; };
@@ -205,13 +209,11 @@
 		32F70AA826F57F7E006E9B05 /* AppWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32F70A9D26F57F7E006E9B05 /* AppWidgetExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		32F70AAC26F58006006E9B05 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893926CD456400DF67F9 /* RecentMatch.swift */; };
 		32F70AAE26F5803C006E9B05 /* sampleRecentMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 327772AC26D8BD47000A0A97 /* sampleRecentMatch.json */; };
-		32F70AB326F580DA006E9B05 /* ReadDataWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AB126F580D6006E9B05 /* ReadDataWidget.swift */; };
 		32F70AB426F58125006E9B05 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772B226D9D735000A0A97 /* GameMode.swift */; };
 		32F70AB526F5812B006E9B05 /* LobbyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772B026D9D71F000A0A97 /* LobbyType.swift */; };
 		32F70AB926F5818B006E9B05 /* HeroDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AB726F5816A006E9B05 /* HeroDatabase.swift */; };
 		32F70AD426F60313006E9B05 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 32F70AD326F60313006E9B05 /* SDWebImageSwiftUI */; };
 		32F70AD526F60364006E9B05 /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2326C38852002D427D /* Hero.swift */; };
-		32F70AD726F60512006E9B05 /* OpenDotaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AD626F60512006E9B05 /* OpenDotaController.swift */; };
 		32F70AD926F606B2006E9B05 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 32F70AD826F606B2006E9B05 /* Alamofire */; };
 		32F70ADB26F6090A006E9B05 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70ADA26F6090A006E9B05 /* NetworkImage.swift */; };
 		32F70ADC26F60B30006E9B05 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4926C39242002D427D /* String.swift */; };
@@ -221,16 +223,12 @@
 		32F70AE826F61836006E9B05 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F70AE726F61836006E9B05 /* Intents.framework */; };
 		32F70AEB26F61836006E9B05 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AEA26F61836006E9B05 /* IntentHandler.swift */; };
 		32F70AEF26F61836006E9B05 /* AppWidgetIntentHandler.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32F70AE626F61836006E9B05 /* AppWidgetIntentHandler.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		32F70AF626F61A92006E9B05 /* DotaEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AF526F61A92006E9B05 /* DotaEnvironment.swift */; };
 		32F70AFC26F61E52006E9B05 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893526CD438700DF67F9 /* UserProfile.swift */; };
 		32F70B0226F621ED006E9B05 /* AppWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AA126F57F7E006E9B05 /* AppWidget.swift */; };
 		32F70B0326F62268006E9B05 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893926CD456400DF67F9 /* RecentMatch.swift */; };
 		32F70B0426F6226D006E9B05 /* SteamProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893726CD44FE00DF67F9 /* SteamProfile.swift */; };
-		32F70B0926F62296006E9B05 /* DotaEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AF526F61A92006E9B05 /* DotaEnvironment.swift */; };
-		32F70B0A26F62296006E9B05 /* ReadDataWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AB126F580D6006E9B05 /* ReadDataWidget.swift */; };
 		32F70B0B26F62296006E9B05 /* HeroDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AB726F5816A006E9B05 /* HeroDatabase.swift */; };
 		32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70ADA26F6090A006E9B05 /* NetworkImage.swift */; };
-		32F70B0D26F62296006E9B05 /* OpenDotaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AD626F60512006E9B05 /* OpenDotaController.swift */; };
 		32F70B0E26F622AE006E9B05 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4926C39242002D427D /* String.swift */; };
 		32F70B0F26F622C0006E9B05 /* LobbyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772B026D9D71F000A0A97 /* LobbyType.swift */; };
 		32F70B1026F622C2006E9B05 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772B226D9D735000A0A97 /* GameMode.swift */; };
@@ -252,8 +250,6 @@
 		32F70B2426F6296C006E9B05 /* sampleMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D58A626D717900059526B /* sampleMatch.json */; };
 		32F70B2526F6296F006E9B05 /* sampleProfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 3294463926E1A5A5006E0D06 /* sampleProfile.json */; };
 		32F70B2626F62971006E9B05 /* sampleRecentMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 327772AC26D8BD47000A0A97 /* sampleRecentMatch.json */; };
-		32F70B2C26F6E3EB006E9B05 /* WCDBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2B26F6E3EB006E9B05 /* WCDBController.swift */; };
-		32F70B2D26F6E4C6006E9B05 /* WCDBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2B26F6E3EB006E9B05 /* WCDBController.swift */; };
 		32F70B3026F714FD006E9B05 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2F26F714FD006E9B05 /* Provider.swift */; };
 		32F70B3126F714FD006E9B05 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2F26F714FD006E9B05 /* Provider.swift */; };
 		32F70B3626F72D74006E9B05 /* ProductSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B3526F72D74006E9B05 /* ProductSubView.swift */; };
@@ -428,18 +424,14 @@
 		32F70AA126F57F7E006E9B05 /* AppWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWidget.swift; sourceTree = "<group>"; };
 		32F70AA326F57F7E006E9B05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32F70AA526F57F7E006E9B05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		32F70AB126F580D6006E9B05 /* ReadDataWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDataWidget.swift; sourceTree = "<group>"; };
 		32F70AB726F5816A006E9B05 /* HeroDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDatabase.swift; sourceTree = "<group>"; };
-		32F70AD626F60512006E9B05 /* OpenDotaController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaController.swift; sourceTree = "<group>"; };
 		32F70ADA26F6090A006E9B05 /* NetworkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImage.swift; sourceTree = "<group>"; };
 		32F70AE626F61836006E9B05 /* AppWidgetIntentHandler.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AppWidgetIntentHandler.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		32F70AE726F61836006E9B05 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		32F70AEA26F61836006E9B05 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		32F70AEC26F61836006E9B05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		32F70AF526F61A92006E9B05 /* DotaEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotaEnvironment.swift; sourceTree = "<group>"; };
 		32F70B2726F62B09006E9B05 /* AppDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppDebug.entitlements; sourceTree = "<group>"; };
 		32F70B2926F62B77006E9B05 /* AppWidgetIntentHandlerDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppWidgetIntentHandlerDebug.entitlements; sourceTree = "<group>"; };
-		32F70B2B26F6E3EB006E9B05 /* WCDBController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCDBController.swift; sourceTree = "<group>"; };
 		32F70B2F26F714FD006E9B05 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		32F70B3526F72D74006E9B05 /* ProductSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSubView.swift; sourceTree = "<group>"; };
 		32F70B3726F80AD3006E9B05 /* AppRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppRelease.entitlements; sourceTree = "<group>"; };
@@ -472,11 +464,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				322B893026CD41A200DF67F9 /* (null) in Frameworks */,
-				32470F902841A18900448016 /* BottomSheet in Frameworks */,
 				3252859C26CB87060030F15B /* SDWebImageSwiftUI in Frameworks */,
 				32B36F4226C38972002D427D /* Alamofire in Frameworks */,
 				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
-				323BCBAF285700CA0061F937 /* Apollo in Frameworks */,
 				684D5603CDE765CC7F320F76 /* Pods_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -831,11 +821,8 @@
 		32F70AB626F58154006E9B05 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				32F70AB126F580D6006E9B05 /* ReadDataWidget.swift */,
 				32F70AB726F5816A006E9B05 /* HeroDatabase.swift */,
-				32F70AD626F60512006E9B05 /* OpenDotaController.swift */,
 				32F70ADA26F6090A006E9B05 /* NetworkImage.swift */,
-				32F70AF526F61A92006E9B05 /* DotaEnvironment.swift */,
 				327C033F2716AB6E00DAEC42 /* HeroImageView.swift */,
 			);
 			path = resources;
@@ -847,7 +834,6 @@
 				32F70B3926F80AE4006E9B05 /* AppWidgetIntentHandlerRelease.entitlements */,
 				32F70B2926F62B77006E9B05 /* AppWidgetIntentHandlerDebug.entitlements */,
 				32F70AEA26F61836006E9B05 /* IntentHandler.swift */,
-				32F70B2B26F6E3EB006E9B05 /* WCDBController.swift */,
 				32F70AEC26F61836006E9B05 /* Info.plist */,
 			);
 			path = AppWidgetIntentHandler;
@@ -931,8 +917,6 @@
 			packageProductDependencies = (
 				32B36F4126C38972002D427D /* Alamofire */,
 				3252859B26CB87060030F15B /* SDWebImageSwiftUI */,
-				32470F8F2841A18900448016 /* BottomSheet */,
-				323BCBAE285700CA0061F937 /* Apollo */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* App.app */;
@@ -1018,8 +1002,6 @@
 			packageReferences = (
 				32B36F4026C38972002D427D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				3252859A26CB87060030F15B /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				32470F8E2841A18900448016 /* XCRemoteSwiftPackageReference "bottom-sheet" */,
-				323BCBAD285700CA0061F937 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 			);
 			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
 			projectDirPath = "";
@@ -1398,20 +1380,19 @@
 				327B87732850DA7800BBE1F8 /* Ability.swift in Sources */,
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
 				32F70ADB26F6090A006E9B05 /* NetworkImage.swift in Sources */,
+				32A26C51285947D3005E890F /* OpenDotaController.swift in Sources */,
 				323ADBA4272E24EE00253124 /* IntentHandler.swift in Sources */,
 				32F70B1C26F6295B006E9B05 /* SKProduct.swift in Sources */,
 				32F70AD526F60364006E9B05 /* Hero.swift in Sources */,
 				32F70AB526F5812B006E9B05 /* LobbyType.swift in Sources */,
-				32F70AB326F580DA006E9B05 /* ReadDataWidget.swift in Sources */,
+				32A26C5528594A28005E890F /* Environment.swift in Sources */,
 				32F70ADE26F60B95006E9B05 /* UserProfile.swift in Sources */,
 				32F70AB926F5818B006E9B05 /* HeroDatabase.swift in Sources */,
-				32F70AD726F60512006E9B05 /* OpenDotaController.swift in Sources */,
-				32F70B2D26F6E4C6006E9B05 /* WCDBController.swift in Sources */,
 				3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				32F70B3026F714FD006E9B05 /* Provider.swift in Sources */,
 				32F70AA226F57F7E006E9B05 /* AppWidget.swift in Sources */,
+				32A26C53285949FE005E890F /* WCDBController.swift in Sources */,
 				327B876D2850D9D800BBE1F8 /* ReadData.swift in Sources */,
-				32F70AF626F61A92006E9B05 /* DotaEnvironment.swift in Sources */,
 				32F70B1A26F6295B006E9B05 /* Color.swift in Sources */,
 				327B87752850DA9E00BBE1F8 /* Item.swift in Sources */,
 			);
@@ -1424,28 +1405,27 @@
 				32F70B0426F6226D006E9B05 /* SteamProfile.swift in Sources */,
 				327B8762284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				32F70B0E26F622AE006E9B05 /* String.swift in Sources */,
-				32F70B0D26F62296006E9B05 /* OpenDotaController.swift in Sources */,
 				32F70B2226F6295C006E9B05 /* CodingKey.swift in Sources */,
 				327C03422716ABEF00DAEC42 /* HeroImageView.swift in Sources */,
 				32F70B1126F622C5006E9B05 /* Hero.swift in Sources */,
-				32F70B0A26F62296006E9B05 /* ReadDataWidget.swift in Sources */,
 				32F70B0F26F622C0006E9B05 /* LobbyType.swift in Sources */,
 				32F70B1026F622C2006E9B05 /* GameMode.swift in Sources */,
 				327B87742850DA7900BBE1F8 /* Ability.swift in Sources */,
 				32F70B2026F6295C006E9B05 /* Int.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,
-				32F70B2C26F6E3EB006E9B05 /* WCDBController.swift in Sources */,
+				32A26C52285947D4005E890F /* OpenDotaController.swift in Sources */,
 				32F70AEB26F61836006E9B05 /* IntentHandler.swift in Sources */,
 				32F70B1826F6294E006E9B05 /* Match.swift in Sources */,
 				32F70B0226F621ED006E9B05 /* AppWidget.swift in Sources */,
 				32F70B1F26F6295C006E9B05 /* Color.swift in Sources */,
 				32F70B0326F62268006E9B05 /* RecentMatch.swift in Sources */,
 				32F70AFC26F61E52006E9B05 /* UserProfile.swift in Sources */,
+				32A26C5628594A28005E890F /* Environment.swift in Sources */,
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				32F70B3126F714FD006E9B05 /* Provider.swift in Sources */,
 				327C033E2716A92500DAEC42 /* KDAView.swift in Sources */,
-				32F70B0926F62296006E9B05 /* DotaEnvironment.swift in Sources */,
 				32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */,
+				32A26C54285949FE005E890F /* WCDBController.swift in Sources */,
 				327B876E2850D9D900BBE1F8 /* ReadData.swift in Sources */,
 				32F70B2126F6295C006E9B05 /* SKProduct.swift in Sources */,
 				32F70B0B26F62296006E9B05 /* HeroDatabase.swift in Sources */,
@@ -1879,23 +1859,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		323BCBAD285700CA0061F937 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
-			requirement = {
-				kind = versionRange;
-				maximumVersion = 0.52.0;
-				minimumVersion = 0.51.2;
-			};
-		};
-		32470F8E2841A18900448016 /* XCRemoteSwiftPackageReference "bottom-sheet" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/weitieda/bottom-sheet";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		3252859A26CB87060030F15B /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -1915,16 +1878,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		323BCBAE285700CA0061F937 /* Apollo */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 323BCBAD285700CA0061F937 /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = Apollo;
-		};
-		32470F8F2841A18900448016 /* BottomSheet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 32470F8E2841A18900448016 /* XCRemoteSwiftPackageReference "bottom-sheet" */;
-			productName = BottomSheet;
-		};
 		3252859B26CB87060030F15B /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3252859A26CB87060030F15B /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 class ProfileViewModel: ObservableObject {
     @Published var profile: UserProfile?

@@ -24,13 +24,10 @@ struct NetworkImage: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .aspectRatio(contentMode: contentMode)
-//                    .frame(width: 25, height: 25)
             }
             else {
-                Image("placeholder-image")
+                Image("profile")
                     .resizable()
-//                    .aspectRatio(contentMode: .fit)
-//                    .frame(width: 25, height: 25)
             }
         }
     }

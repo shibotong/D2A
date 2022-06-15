@@ -9,11 +9,11 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>1nSOOi</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>20G95</string>
+	<string>21F79</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>12E507</string>
+	<string>13F100</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>12.5.1</string>
+	<string>13.4.1</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
@@ -105,7 +105,7 @@
 			<key>INTypeDisplayNameID</key>
 			<string>0sUNU0</string>
 			<key>INTypeLastPropertyTag</key>
-			<integer>100</integer>
+			<integer>103</integer>
 			<key>INTypeName</key>
 			<string>Profile</string>
 			<key>INTypeProperties</key>
@@ -142,9 +142,9 @@
 					<key>INTypePropertyName</key>
 					<string>pronunciationHint</string>
 					<key>INTypePropertyTag</key>
-					<integer>3</integer>
+					<integer>103</integer>
 					<key>INTypePropertyType</key>
-					<string>String</string>
+					<string>Object</string>
 				</dict>
 				<dict>
 					<key>INTypePropertyDefault</key>

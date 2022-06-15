@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-import BottomSheet
 import AVKit
 
 struct HeroDetailView: View {

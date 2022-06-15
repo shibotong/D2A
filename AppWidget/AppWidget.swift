@@ -30,14 +30,3 @@ struct SimpleEntry: TimelineEntry {
     let user: UserProfile
     let subscription: Bool
 }
-
-//struct AppWidget_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            AppActiveWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: SteamProfile.sample.profile, subscription: false))
-//                .previewContext(WidgetPreviewContext(family: .systemSmall))
-//            AppActiveWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: SteamProfile.sample.profile, subscription: false))
-//                .previewContext(WidgetPreviewContext(family: .systemMedium))
-//        }
-//    }
-//}

@@ -10,7 +10,6 @@ import Alamofire
 import WidgetKit
 
 let baseURL = "https://api.opendota.com"
-fileprivate var loading = false
 
 class OpenDotaController {
     
@@ -216,7 +215,7 @@ struct DecodingService {
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             let httpResponse = response as? HTTPURLResponse
-            print("statuscode \(httpResponse?.statusCode)")
+            print("statuscode \(httpResponse?.statusCode ?? 0)")
             if httpResponse?.statusCode == 200 {
                 return data
             } else {
