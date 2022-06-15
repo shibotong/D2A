@@ -12,46 +12,86 @@ struct HeroListView: View {
     @EnvironmentObject var herodata: HeroDatabase
     @EnvironmentObject var env: DotaEnvironment
     @StateObject var vm = HeroListViewModel()
-    
+    @Environment(\.horizontalSizeClass) private var horizontalSize
     var body: some View {
         buildBody()
             .navigationTitle("Heroes")
             .searchable(text: $vm.searchString.animation(.linear), placement: .toolbar, prompt: "Search Heroes")
             .disableAutocorrection(true)
             .toolbar {
-                Menu {
-                    Picker("picker", selection: $vm.gridView) {
-                        Label("Icons", systemImage: "square.grid.2x2").tag(true)
-                        Label("List", systemImage: "list.bullet").tag(false)
-                    }
-                    
-                    Picker("attributes", selection: $vm.attributes) {
-                        Text("All").tag(HeroAttributes.all)
-                        Label("Strength", image: "hero_str").tag(HeroAttributes.str)
-                        Label("Agility", image: "hero_agi").tag(HeroAttributes.agi)
-                        Label("Intelligence", image: "hero_int").tag(HeroAttributes.int)
-                    }
-                } label: {
-                    if vm.gridView {
-                        Image(systemName: "square.grid.2x2")
-                    } else {
-                        Image(systemName: "list.bullet")
+                if horizontalSize == .compact {
+                    Menu {
+                        Picker("picker", selection: $vm.gridView) {
+                            Label("Icons", systemImage: "square.grid.2x2").tag(true)
+                            Label("List", systemImage: "list.bullet").tag(false)
+                        }
+                        
+                        Picker("attributes", selection: $vm.attributes) {
+                            Text("All").tag(HeroAttributes.all)
+                            Label("Strength", image: "hero_str").tag(HeroAttributes.str)
+                            Label("Agility", image: "hero_agi").tag(HeroAttributes.agi)
+                            Label("Intelligence", image: "hero_int").tag(HeroAttributes.int)
+                        }
+                    } label: {
+                        if vm.gridView {
+                            Image(systemName: "square.grid.2x2")
+                        } else {
+                            Image(systemName: "list.bullet")
+                        }
                     }
                 }
             }
     }
     
     @ViewBuilder private func buildBody() -> some View {
-        if vm.gridView {
+        if horizontalSize == .compact {
+            if vm.gridView {
+                ScrollView(.vertical, showsIndicators: false) {
+                    buildSection(heroes: vm.searchResults, attributes: vm.attributes)
+                }
+                .padding(.horizontal)
+            } else {
+                List {
+                    buildSection(heroes: vm.searchResults, attributes: vm.attributes)
+                }
+                .listStyle(PlainListStyle())
+            }
+        } else {
             ScrollView(.vertical, showsIndicators: false) {
-                buildSection(heroes: vm.searchResults, attributes: vm.attributes)
+                let strHero = vm.heroList.filter { hero in
+                    return hero.primaryAttr == "str"
+                }
+                buildHeroGrid(heroes: strHero, title: "Strength", icon: "str")
+                let agiHero = vm.heroList.filter { hero in
+                    return hero.primaryAttr == "agi"
+                }
+                buildHeroGrid(heroes: agiHero, title: "Agility", icon: "agi")
+                let intHero = vm.heroList.filter { hero in
+                    return hero.primaryAttr == "int"
+                }
+                buildHeroGrid(heroes: intHero, title: "Intelligence", icon: "int")
             }
             .padding(.horizontal)
-        } else {
-            List {
-                buildSection(heroes: vm.searchResults, attributes: vm.attributes)
+        }
+    }
+    
+    @ViewBuilder private func buildHeroGrid(heroes: [Hero], title: String, icon: String) -> some View {
+        Section {
+            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading), count: 1)) {
+                ForEach(heroes) { hero in
+                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                        buildHero(hero: hero)
+                    }
+                }
             }
-            .listStyle(PlainListStyle())
+        } header: {
+            HStack {
+                Image("hero_\(icon)")
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                Text(title)
+                Spacer()
+            }
         }
     }
     
@@ -101,9 +141,14 @@ struct HeroListView: View {
     }
     
     @ViewBuilder private func buildHero(hero: Hero) -> some View {
-        if vm.gridView {
-            ZStack {
-                HeroImageView(heroID: hero.id, type: .full)
+        if horizontalSize == .regular {
+            HeroImageView(heroID: hero.id, type: .vert)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .opacity((hero.localizedName.lowercased().contains(vm.searchString.lowercased()) || vm.searchString.isEmpty) ? 1 : 0.5)
+        } else {
+            if vm.gridView {
+                ZStack {
+                    HeroImageView(heroID: hero.id, type: .full)
                     .overlay(LinearGradient(colors: [.black.opacity(0),.black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 HStack {
@@ -133,15 +178,14 @@ struct HeroListView: View {
                     .frame(width: 20, height: 20)
             }
         }
+        }
     }
 }
 
 struct HeroListView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            HeroListView()
-        }
-        .environmentObject(HeroDatabase.shared)
-        .previewDevice(iPhone)
+        HeroListView()
+            .environmentObject(HeroDatabase.shared)
+            .previewDevice(iPadMini)
     }
 }

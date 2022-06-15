@@ -429,7 +429,6 @@ struct AbilityView: View {
                     }
                 }
                 Spacer().frame(height: 10)
-                //https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/keeper_of_the_light/keeper_of_the_light_aghanims_shard.mp4
                 
                 if let lore = vm.ability.lore {
                     Text(lore)
@@ -487,22 +486,26 @@ struct AbilityView: View {
             }
             Text(desc)
                 .font(.custom(fontString, size: 13))
+            HStack {
+                Spacer()
             switch type {
             case .Scepter:
                 if let url = vm.scepterVideo {
                     VideoPlayer(player: AVPlayer(url: url))
-                        .frame(height: (UIScreen.main.bounds.width - 32) / 16.0 * 9.0)
+                        .frame(width: 375, height: 375 / 16.0 * 9.0)
                 }
             case .Shard:
                 if let url = vm.shardVideo {
                     VideoPlayer(player: AVPlayer(url: url))
-                        .frame(height: (UIScreen.main.bounds.width - 32) / 16.0 * 9.0)
+                        .frame(width: 375, height: 375 / 16.0 * 9.0)
                 }
             case .non:
                 if let url = vm.abilityVideo {
                     VideoPlayer(player: AVPlayer(url: url))
-                        .frame(height: (UIScreen.main.bounds.width - 32) / 16.0 * 9.0)
+                        .frame(width: 375, height: 375 / 16.0 * 9.0)
                 }
+            }
+                Spacer()
             }
             
         }

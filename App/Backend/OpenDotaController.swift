@@ -218,13 +218,24 @@ struct DecodingService {
             print("statuscode \(httpResponse?.statusCode ?? 0)")
             if httpResponse?.statusCode == 200 {
                 return data
+            } else if httpResponse?.statusCode == 400 {
+                await self.setError(APIError.invalidError)
+                throw APIError.invalidError
             } else {
-                DotaEnvironment.shared.exceedLimit = true
                 throw APIError.accessError
             }
         } catch {
             print(error)
             throw APIError.networkError
+        }
+    }
+    
+    @MainActor func setError(_ error: APIError) {
+        switch error {
+        case .invalidError:
+            DotaEnvironment.shared.invalidID = true
+        default:
+            DotaEnvironment.shared.exceedLimit = true
         }
     }
 }
@@ -234,4 +245,5 @@ enum APIError: LocalizedError {
     case decodingError
     case networkError
     case accessError
+    case invalidError
 }

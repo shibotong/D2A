@@ -36,7 +36,11 @@ final class DotaEnvironment: ObservableObject {
             UserDefaults(suiteName: GROUP_NAME)!.set(registerdID, forKey: "dotaArmory.registerdID")
         }
     }
+    
+    // MARK: Errors
     @Published var exceedLimit = false
+    @Published var invalidID = false
+    @Published var cantFindUser = false
     
     @Published var addNewAccount = false
     @Published var aboutUs = false
@@ -49,7 +53,11 @@ final class DotaEnvironment: ObservableObject {
     }
     
     
-    @Published var selectedTab: TabSelection = .home
+    @Published var selectedTab: TabSelection? {
+        willSet {
+            print("set to \(newValue)")
+        }
+    }
     
     init() {
         self.userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
@@ -93,6 +101,8 @@ final class DotaEnvironment: ObservableObject {
     
     func registerUser(userid: String) async {
         guard let user = await OpenDotaController.shared.loadUserData(userid: userid) else {
+            print("cannot find this user please try again")
+            await self.cannotFindUser()
             return
         }
         await self.setRegisterUser(userid: userid)
@@ -108,6 +118,11 @@ final class DotaEnvironment: ObservableObject {
     func setRegisterUser(userid: String) {
         self.delete(userID: userid)
         self.registerdID = userid
+    }
+    
+    @MainActor
+    func cannotFindUser() {
+        self.cantFindUser = true
     }
     
     func canRefresh(userid: String) -> Bool {

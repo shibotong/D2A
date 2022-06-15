@@ -9,15 +9,14 @@ import SwiftUI
 
 struct PlayerListView: View {
     @EnvironmentObject var env: DotaEnvironment
-    @StateObject var vm: PlayerListViewModel
     var body: some View {
         ScrollView {
             VStack {
-                if vm.registerdID == "" {
+                if env.registerdID == "" {
                     EmptyRegistedView()
                         .frame(height: 190)
                 } else {
-                    RegisteredPlayerView(vm: SidebarRowViewModel(userid: vm.registerdID, isRegistered: true))
+                    RegisteredPlayerView(vm: SidebarRowViewModel(userid: env.registerdID, isRegistered: true))
                         .background(Color.systemBackground)
                 }
                 VStack {
@@ -27,7 +26,7 @@ struct PlayerListView: View {
                             .bold()
                         Spacer()
                     }.padding()
-                    if vm.userIDs.isEmpty {
+                    if env.userIDs.isEmpty {
                         VStack {
                             Text("There are no players registered in you favorites.")
                                 .font(.custom(fontString, size: 13))
@@ -48,7 +47,7 @@ struct PlayerListView: View {
                         .padding(.vertical)
                     } else {
                         LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 100, maximum: 130), spacing: 10, alignment: .leading), count: 3), spacing: 10) {
-                            ForEach(vm.userIDs, id: \.self) { id in
+                            ForEach(env.userIDs, id: \.self) { id in
                                 NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: id))) {
                                     PlayerListRowView(vm: SidebarRowViewModel(userid: id))
                                 }
@@ -69,7 +68,7 @@ struct PlayerListView: View {
 struct PlayerListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            PlayerListView(vm: PlayerListViewModel(registeredID: "153041957", followedID: ["222", "1234", "1233"]))
+            PlayerListView()
         }
         .environmentObject(DotaEnvironment.preview)
         .environmentObject(HeroDatabase.shared)
@@ -115,7 +114,7 @@ struct EmptyRegistedView: View {
 }
 
 struct RegisteredPlayerView: View {
-    @StateObject var vm: SidebarRowViewModel
+    @ObservedObject var vm: SidebarRowViewModel
     @EnvironmentObject var env: DotaEnvironment
     var body: some View {
         ZStack {

@@ -15,21 +15,33 @@ struct Sidebar: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
         List {
-            NavigationLink(destination: PlayerListView(vm: PlayerListViewModel(registeredID: env.registerdID, followedID: env.userIDs))) {
+            NavigationLink(
+                destination: PlayerListView(),
+                tag: TabSelection.home,
+                selection: $env.selectedTab
+            ) {
                 Label {
                     Text("Home")
                 } icon: {
                     Image(systemName: "house")
                 }
             }
-            NavigationLink(destination: HeroListView()) {
+            NavigationLink(
+                destination: HeroListView(),
+                tag: TabSelection.hero,
+                selection: $env.selectedTab
+            ) {
                 Label {
                     Text("Heroes")
                 } icon: {
                     Image(systemName: "server.rack")
                 }
             }
-            NavigationLink(destination: AddAccountView()) {
+            NavigationLink(
+                destination: AddAccountView(),
+                tag: TabSelection.search,
+                selection: $env.selectedTab
+            ) {
                 Label {
                     Text("Search")
                 } icon: {
@@ -66,7 +78,11 @@ struct Sidebar: View {
             } header: {
                 Text("Favorite Players")
             }
-            NavigationLink(destination: AboutUsView()) {
+            NavigationLink(
+                destination: AboutUsView(),
+                tag: TabSelection.setting,
+                selection: $env.selectedTab
+            ) {
                 Label {
                     Text("About Us")
                 } icon: {

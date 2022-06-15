@@ -23,21 +23,14 @@ struct ContentView: View {
 //                }
         } else {
             NavigationHostView()
-                .sheet(isPresented: $env.addNewAccount, content: {
-                    AddAccountView()
-                        .environmentObject(env)
-                })
-                .sheet(isPresented: $env.aboutUs, content: {
-                    AboutUsView()
-                        .environmentObject(env)
-                })
-                .sheet(isPresented: $env.subscriptionSheet, content: {
-                    StoreView()
-                        .environmentObject(env)
-                        .environmentObject(store)
-                })
                 .alert(isPresented: $env.exceedLimit, content: {
                     Alert(title: Text("Slow down"), message: Text("You are so quick!"), dismissButton: .cancel())
+                })
+                .alert(isPresented: $env.invalidID, content: {
+                    Alert(title: Text("Oops!"), message: Text("Invalid Account ID"), dismissButton: .cancel())
+                })
+                .alert(isPresented: $env.cantFindUser, content: {
+                    Alert(title: Text("Error!"), message: Text("Cannot find this account"), dismissButton: .cancel())
                 })
         }
     }
@@ -64,10 +57,10 @@ struct NavigationHostView: View {
             if horizontalSizeClass == .compact {
                 TabView(selection: $env.selectedTab) {
                     NavigationView {
-                        PlayerListView(vm: PlayerListViewModel(registeredID: env.registerdID, followedID: env.userIDs))
+                        PlayerListView()
                     }.tabItem {
-                        Image(systemName: "person")
-                        Text("Profile")
+                        Image(systemName: "house")
+                        Text("Home")
                     }.tag(TabSelection.home).navigationViewStyle(.stack)
                     NavigationView {
                         HeroListView()
@@ -94,7 +87,7 @@ struct NavigationHostView: View {
             } else {
                 NavigationView {
                     Sidebar()
-                    AddAccountView()
+                    PlayerListView()
                 }
                 .navigationViewStyle(DoubleColumnNavigationViewStyle())
             }
