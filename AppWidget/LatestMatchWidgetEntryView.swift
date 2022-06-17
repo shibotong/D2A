@@ -86,7 +86,7 @@ struct LatestMatchWidgetEntryView: View {
         VStack(spacing: 0) {
             ForEach(matches) { match in
                     Divider()
-                    Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
+                    Link(destination: URL(string: "d2aapp:Match?matchid=\(match.id)")!) {
                         buildMatch(match: match)
                             .padding(5)
                             .frame(height:rowHeight)

@@ -23,22 +23,25 @@ struct AppApp: App {
                 .environmentObject(storeManager)
                 .onOpenURL { url in
                     print(url.absoluteString)
+                    environment.userActive = false
+                    environment.matchActive = false
                     guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
                         let params = components.queryItems else {
                             print("Invalid URL or album path missing")
                             return //false
                     }
                     print(params)
-                    guard let userid = params.first(where: { $0.name == "userid" })?.value else {
-                        self.selectedUser = nil
-                        return
+                    if let userid = params.first(where: { $0.name == "userid" })?.value {
+                        if userid != "0" {
+                            environment.userActive = true
+                            environment.selectedUser = userid
+                        }
                     }
-                    self.selectedUser = userid
-                    guard let matchid = params.first(where: { $0.name == "matchid" })?.value else {
-                        self.selectedMatch = nil
-                        return
+                    
+                    if let matchid = params.first(where: { $0.name == "matchid" })?.value {
+                        environment.matchActive = true
+                        environment.selectedMatch = matchid
                     }
-                    self.selectedMatch = matchid
                 }
         }
     }

@@ -56,6 +56,10 @@ final class DotaEnvironment: ObservableObject {
     @Published var selectedTab: TabSelection = .home
     @Published var iPadSelectedTab: TabSelection? = .home
     
+    @Published var selectedUser: String? = nil
+    @Published var selectedMatch: String? = nil
+    @Published var matchActive: Bool = false
+    @Published var userActive: Bool = false
     init() {
         self.userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
         self.subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false

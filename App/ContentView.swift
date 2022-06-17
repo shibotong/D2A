@@ -55,8 +55,6 @@ struct NavigationHostView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var data: HeroDatabase
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @AppStorage("selectedUser") var selectedUser: String?
-    @AppStorage("selectedMatch") var selectedMatch: String?
     
     var body: some View {
             if horizontalSizeClass == .compact {
@@ -80,7 +78,6 @@ struct NavigationHostView: View {
                         Image(systemName: "magnifyingglass")
                         Text("Search")
                     }.tag(TabSelection.search).navigationViewStyle(.stack)
-                    
                     NavigationView {
                         AboutUsView()
                     }

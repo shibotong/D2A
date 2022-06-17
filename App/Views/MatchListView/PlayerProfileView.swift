@@ -10,7 +10,6 @@ import SwiftUI
 struct PlayerProfileView: View {
     @EnvironmentObject var env: DotaEnvironment
     @StateObject var vm: PlayerProfileViewModel
-    @AppStorage("selectedMatch") var selectedMatch: String?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
         if let profile = vm.userProfile {
@@ -34,9 +33,7 @@ struct PlayerProfileView: View {
                 VStack(spacing: 2) {
                     ForEach(vm.matches, id: \.id) { match in
                         NavigationLink(
-                            destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)")),
-                            tag: "\(match.id)",
-                            selection: $selectedMatch
+                            destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))
                         ) {
                             MatchListRowView(vm: MatchListRowViewModel(match: match))
                                 .background(Color.systemBackground)
