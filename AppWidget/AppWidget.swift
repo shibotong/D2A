@@ -15,11 +15,12 @@ struct AppWidget: Widget {
     
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: DynamicUserSelectionIntent.self, provider: Provider()) { entry in
-            AppActiveWidgetEntryView(entry: entry)
+            RecentMatchesEntryView(entry: entry)
+//            RecentMatchesWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Recent Matches")
         .description("Your recent matches.")
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .supportedFamilies([.systemSmall, .systemMedium])
         
     }
 }
@@ -30,3 +31,5 @@ struct SimpleEntry: TimelineEntry {
     let user: UserProfile
     let subscription: Bool
 }
+
+

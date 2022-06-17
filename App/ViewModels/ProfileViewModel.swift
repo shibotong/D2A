@@ -25,7 +25,7 @@ class ProfileViewModel: ObservableObject {
     }
     
     init() {
-        self.profile = SteamProfile.sample.profile
+        self.profile = UserProfile.sample
         self.userid = "123"
     }
     

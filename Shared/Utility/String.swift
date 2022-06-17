@@ -16,6 +16,8 @@ let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/
 
 let iPhoneMini = PreviewDevice("iPhone 13 mini")
 let iPhone = PreviewDevice("iPhone 13")
+let iPhoneSE = PreviewDevice("iPhone SE (3rd generation)")
+let iPodTouch = PreviewDevice("iPod touch (7th generation)")
 let iPadMini = PreviewDevice("iPad mini (6th generation)")
 let iPad = PreviewDevice("iPad (9th generation)")
 let iPadPro = PreviewDevice("iPad Pro (11-inch) (3rd generation)")

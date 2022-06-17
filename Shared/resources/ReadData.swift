@@ -123,16 +123,17 @@ func loadHeroAbilities() async -> [String: HeroAbility] {
     }
 }
 
-func loadProfile() -> SteamProfile? {
+func loadProfile() -> UserProfile? {
     guard let data = loadFile(filename: "sampleProfile") else {
         return nil
     }
-
     do {
-
         let decoder = JSONDecoder()
         let jsonData = try decoder.decode(SteamProfile.self, from: data)
-        return jsonData
+        var userprofile = jsonData.profile
+        userprofile.rank = jsonData.rank
+        userprofile.leaderboard = jsonData.leaderboard
+        return userprofile
     } catch {
         // handle error
         print("Cannot parse json data")

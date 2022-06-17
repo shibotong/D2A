@@ -22,6 +22,7 @@ struct UserProfile: TableCodable, Identifiable {
     var leaderboard: Int?
     var name: String?
     static let empty = UserProfile(id: 0, avatarfull: "", lastLogin: nil, countryCode: nil, personaname: "", isPlus: false, profileurl: "", rank: nil, leaderboard: nil)
+    static let sample: UserProfile = loadProfile()!
 
     enum CodingKeys: String, CodingTableKey {
         typealias Root = UserProfile

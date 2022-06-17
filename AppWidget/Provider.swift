@@ -97,7 +97,7 @@ struct Provider: IntentTimelineProvider {
     }
 }
 
-struct AppActiveWidgetEntryView : View {
+struct RecentMatchesEntryView : View {
     var entry: Provider.Entry
     @Environment(\.widgetFamily) var family
     
@@ -119,10 +119,6 @@ struct AppActiveWidgetEntryView : View {
         default:
             Text("Not this type of view")
         }
-    }
-    
-    private func gethero(match: RecentMatch) -> Hero? {
-        return HeroDatabase.shared.fetchHeroWithID(id: match.heroID)
     }
     
     @ViewBuilder private func buildPurchase() -> some View {
@@ -211,7 +207,6 @@ struct AppActiveWidgetEntryView : View {
                 }
                 .blur(radius: (entry.subscription && entry.user.id != 0) ? 0 : 10)
                 .padding(.horizontal)
-//                .overlay(Text(entry.subscription ? selectUserSubTitle : purchaseSubTitle)).font(.custom(fontString, size: 10).bold())
             case .systemMedium:
                 VStack(spacing: 5) {
                     Divider()
@@ -230,7 +225,6 @@ struct AppActiveWidgetEntryView : View {
                     }
                 }
                 .blur(radius: (entry.subscription && entry.user.id != 0) ? 0 : 10)
-//                .overlay(Text(entry.subscription ? selectUserSubTitle : purchaseSubTitle)).font(.custom(fontString, size: 20).bold())
             case .systemLarge:
                 VStack(spacing: 5) {
                     Divider()
@@ -282,8 +276,8 @@ struct AppActiveWidgetEntryView : View {
         case .systemSmall:
             // MARK: small
             VStack {
-                NetworkImage(urlString: "\(baseURL)\(self.gethero(match: match)?.icon ?? "")")
-                    .frame(width: 20, height: 20)
+                HeroImageView(heroID: match.heroID, type: .icon)
+                    .frame(width: 15, height: 15)
                 buildWL(win: match.isPlayerWin())
             }
         case .systemMedium:
@@ -291,17 +285,11 @@ struct AppActiveWidgetEntryView : View {
             let primaryLabelSize: CGFloat = 17
             let secondaryLabelSize: CGFloat = 14
             HStack {
-                VStack(alignment: .leading, spacing: 1) {
-                    HStack {
-                        HeroImageView(localizedName: self.gethero(match: match)?.localizedName ?? "")
-                            .frame(width: primaryLabelSize, height: primaryLabelSize)
-                        Text(LocalizedStringKey(self.gethero(match: match)?.localizedName ?? "Unknown (\(match.heroID)")).font(.custom(fontString, size: primaryLabelSize)).bold()
-                    }
-                    
-                    HStack {
-                        buildWL(win: match.isPlayerWin(), size: secondaryLabelSize)
-                        KDAView(kills: match.kills, deaths: match.deaths, assists: match.assists, size: secondaryLabelSize)
-                    }
+                HStack {
+                    buildWL(win: match.isPlayerWin(), size: primaryLabelSize)
+                    HeroImageView(heroID: match.heroID, type: .icon)
+                        .frame(width: primaryLabelSize, height: primaryLabelSize)
+                    KDAView(kills: match.kills, deaths: match.deaths, assists: match.assists, size: primaryLabelSize)
                 }
                 Spacer()
                 VStack(alignment: .trailing) {
@@ -317,9 +305,8 @@ struct AppActiveWidgetEntryView : View {
             HStack {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
-                        HeroImageView(localizedName: self.gethero(match: match)?.localizedName ?? "")
+                        HeroImageView(heroID: match.heroID, type: .icon)
                             .frame(width: primaryLabelSize, height: primaryLabelSize)
-                        Text(LocalizedStringKey(self.gethero(match: match)?.localizedName ?? "Unknown Hero \(match.heroID)")).font(.custom(fontString, size: primaryLabelSize)).bold()
                     }
                     HStack {
                         buildWL(win: match.isPlayerWin(), size: secondaryLabelSize)
@@ -352,13 +339,3 @@ struct AppActiveWidgetEntryView : View {
     }
 }
 
-struct AppWidget_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            AppActiveWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: SteamProfile.sample.profile, subscription: false))
-                .previewContext(WidgetPreviewContext(family: .systemSmall))
-            AppActiveWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: SteamProfile.sample.profile, subscription: false))
-                .previewContext(WidgetPreviewContext(family: .systemMedium))
-        }
-    }
-}

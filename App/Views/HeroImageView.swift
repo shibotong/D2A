@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 enum HeroImageType {
     case icon, portrait, full, vert
@@ -29,9 +28,9 @@ struct HeroImageView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)// Displays the loaded image.
                 } else if phase.error != nil {
-                    ActivityIndicator(.constant(true)) // Indicates an error.
+                    ProgressView()// Indicates an error.
                 } else {
-                    ActivityIndicator(.constant(true)) // Acts as a placeholder.
+                    ProgressView() // Acts as a placeholder.
                 }
             }
         }
