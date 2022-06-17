@@ -403,9 +403,13 @@ struct AbilityView: View {
                 Group {
                     VStack {
                         if dataBase.isScepterSkill(ability: vm.ability, heroID: vm.heroID) {
-                            buildDescription(desc: vm.ability.desc ?? "", type: .Scepter, width: proxy.size.width)
+                            if let scepterDesc = dataBase.getAbilityScepterDesc(ability: vm.ability, heroID: vm.heroID) {
+                                buildDescription(desc: scepterDesc, type: .Scepter, width: proxy.size.width)
+                            }
                         } else if dataBase.isShardSkill(ability: vm.ability, heroID: vm.heroID) {
-                            buildDescription(desc: vm.ability.desc ?? "", type: .Shard, width: proxy.size.width)
+                            if let shardDesc = dataBase.getAbilityShardDesc(ability: vm.ability, heroID: vm.heroID) {
+                                buildDescription(desc: shardDesc, type: .Shard, width: proxy.size.width)
+                            }
                         } else {
                             buildDescription(desc: vm.ability.desc ?? "", width: proxy.size.width)
                             if let scepterDesc = dataBase.getAbilityScepterDesc(ability: vm.ability, heroID: vm.heroID) {
