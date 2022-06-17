@@ -45,11 +45,6 @@ struct PlayerProfileView: View {
                 }
                 .background(Color.secondarySystemBackground)
             }
-            //            .onAppear {
-            //                Task {
-            //                    await vm.refreshData()
-            //                }
-            //            }
             .listStyle(PlainListStyle())
             .navigationTitle("\(profile.personaname)")
             .navigationBarTitleDisplayMode(.inline)
@@ -114,6 +109,9 @@ struct PlayerProfileView: View {
                             .font(.subheadline)
                             .lineLimit(1)
                     }
+                    Text("id: \(profile.id.description)")
+                        .font(.caption)
+                        .foregroundColor(.secondaryLabel)
                     buildRank(profile: profile)
                 }
             }
@@ -134,7 +132,6 @@ struct PlayerProfileView: View {
                             Text(profile.personaname)
                                 .font(.subheadline)
                                 .lineLimit(1)
-                            //                    .foregroundColor(.secondaryLabel)
                         }
                         Text("id: \(profile.id.description)")
                             .font(.caption)

@@ -60,6 +60,9 @@ class PlayerProfileViewModel: ObservableObject {
             return
         }
         let profile = await OpenDotaController.shared.loadUserData(userid: userid)
+        if WCDBController.shared.fetchUserProfile(userid: self.userid ?? "") != nil && profile != nil {
+            WCDBController.shared.insertUserProfile(profile: profile!)
+        }
         await setUserProfile(profile: profile)
     }
     
