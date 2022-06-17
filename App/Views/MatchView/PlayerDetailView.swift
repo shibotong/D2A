@@ -116,7 +116,7 @@ struct PlayerDetailView: View {
                     Text("XPM").foregroundColor(Color(.systemGray))
                 }
                 Spacer()
-                KDAView(kills: player.kills, deaths: player.deaths, assists: player.assists, size: 15)
+                KDAView(kills: player.kills, deaths: player.deaths, assists: player.assists, size: .caption)
             }.padding(.horizontal).font(.custom(fontString, size: 15))
             HStack {
                 HStack {

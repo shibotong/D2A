@@ -179,7 +179,7 @@ struct PlayerRowView: View {
                     } else {
                         Text("Anonymous").font(.custom(fontString, size: 15)).bold().lineLimit(1)
                     }
-                    KDAView(kills: player.kills, deaths: player.deaths, assists: player.assists, size: 13)
+                    KDAView(kills: player.kills, deaths: player.deaths, assists: player.assists, size: .caption)
                 }.frame(minWidth: 0)
                 Spacer()
                 if let item = player.itemNeutral {

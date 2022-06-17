@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MatchListRowView: View {
     @ObservedObject var vm: MatchListRowViewModel
-    @EnvironmentObject var database: HeroDatabase
     var body: some View {
         HStack {
             Rectangle().frame(width: 40).foregroundColor(Color(vm.match.isPlayerWin() ? .systemGreen : .systemRed))
@@ -27,7 +26,7 @@ struct MatchListRowView: View {
                     HeroImageView(heroID: vm.match.heroID, type: .icon)
                         .frame(width: 30, height: 30)
                     VStack(alignment: .leading) {
-                        KDAView(kills: vm.match.kills, deaths: vm.match.deaths, assists: vm.match.assists, size: 12)
+                        KDAView(kills: vm.match.kills, deaths: vm.match.deaths, assists: vm.match.assists, size: .caption)
                         Text(LocalizedStringKey(vm.match.fetchMode().fetchModeName()))
                             .font(.caption2)
                     }
@@ -48,7 +47,6 @@ struct MatchListRowView: View {
             .foregroundColor(Color(.secondaryLabel))
             .frame(width: 70)
             .padding(.trailing)
-            
         }
     }
     

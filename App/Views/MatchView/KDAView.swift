@@ -11,7 +11,7 @@ struct KDAView: View {
     var kills: Int
     var deaths: Int
     var assists: Int
-    var size: CGFloat
+    var size: Font
     var body: some View {
         HStack(spacing: 0) {
             Text("\(kills)").bold()
@@ -19,7 +19,7 @@ struct KDAView: View {
             Text("/\(assists)").lineLimit(1)
             Text(" (\(calculateKDA().rounded(toPlaces: 1).description))").bold().foregroundColor(Color(.systemGray))
             Spacer()
-        }.font(.custom(fontString, size: size)).foregroundColor(.label)
+        }.font(size).foregroundColor(.label)
     }
     
     private func calculateKDA() -> Double {

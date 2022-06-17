@@ -11,9 +11,89 @@ import WidgetKit
 struct LatestMatchWidgetEntryView: View {
     var entry: Provider.Entry
     @Environment(\.widgetFamily) var family
+    var maxMatches: Int {
+        switch self.family {
+        case .systemSmall:
+            return 1
+        case .systemMedium:
+            return 2
+        case .systemLarge:
+            return 5
+        default:
+            return 1
+        }
+    }
     var body: some View {
         GeometryReader { proxy in
-            buildBody(cardHeight: proxy.size.height / 3)
+            switch self.family {
+            case .systemSmall:
+                buildBody(cardHeight: proxy.size.height / 3)
+            case .systemMedium, .systemLarge:
+                let avatarHeight: CGFloat = 20
+                VStack(spacing: 5) {
+                    Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)")!) {
+                        HStack {
+                            NetworkImage(urlString: entry.user.avatarfull).frame(width: avatarHeight, height: avatarHeight).clipShape(Circle())
+                            Text("\(entry.user.personaname)").font(.caption2).bold()
+                            Spacer()
+                            Text("\(entry.user.id.description)")
+                                .font(.caption2)
+                                .foregroundColor(.secondaryLabel)
+                        }
+                    }
+                    buildMatches(self.maxMatches, height: proxy.size.height - 40)
+                }.padding(10)
+            default:
+                EmptyView()
+            }
+        }
+    }
+    
+    @ViewBuilder func buildMatch(match: RecentMatch) -> some View {
+        HStack {
+            buildWL(win: match.isPlayerWin())
+            VStack(alignment: .leading, spacing: 1) {
+                HStack {
+                    HeroImageView(heroID: match.heroID, type: .icon)
+                        .frame(width: 25, height: 25)
+                    VStack(alignment: .leading) {
+                        KDAView(kills: match.kills, deaths: match.deaths, assists: match.assists, size: .caption)
+                        Text(LocalizedStringKey(match.fetchMode().fetchModeName()))
+                            .font(.caption2)
+                    }
+                }
+            }
+            if let size = match.partySize {
+                buildParty(size: size)
+            }
+            HStack {
+                Spacer()
+                VStack(alignment: .trailing) {
+                    Text(LocalizedStringKey(match.fetchLobby().fetchLobbyName()))
+                        .foregroundColor(match.fetchLobby().fetchLobbyName() == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
+                    Text(match.startTime.convertToTime()).bold()
+                }
+            }
+            .font(.caption2)
+            .foregroundColor(Color(.secondaryLabel))
+            .frame(width: 70)
+        }
+    }
+    
+    @ViewBuilder func buildMatches(_ matchNumber: Int, height: CGFloat) -> some View {
+        let matches = Array(entry.matches[0..<matchNumber])
+        let rowHeight = height / CGFloat(matchNumber)
+        VStack(spacing: 0) {
+            ForEach(matches) { match in
+                    Divider()
+                    Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
+                        buildMatch(match: match)
+                            .padding(5)
+                            .frame(height:rowHeight)
+                    }
+                    .disabled(entry.subscription && entry.user.id != 0)
+                
+            }
         }
     }
     
@@ -40,7 +120,7 @@ struct LatestMatchWidgetEntryView: View {
                         HeroImageView(heroID: match.heroID, type: .icon)
                             .frame(width: iconSize, height: iconSize)
                         VStack(alignment: .leading) {
-                            KDAView(kills: match.kills, deaths: match.deaths, assists: match.assists, size: 12)
+                            KDAView(kills: match.kills, deaths: match.deaths, assists: match.assists, size: .caption)
                         }
                     }
                     HStack(spacing: 2) {
@@ -94,11 +174,14 @@ struct LatestMatchWidgetEntryView: View {
 struct LatestMatchWidgetEntryView_Previews: PreviewProvider {
     static var previews: some View {
         LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: true))
-            .environment(\.widgetFamily, .systemSmall)
+//            .environment(\.widgetFamily, .systemSmall)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
         LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: true))
-            .environment(\.widgetFamily, .systemSmall)
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
+//            .environment(\.widgetFamily, .systemMedium)
+            .previewContext(WidgetPreviewContext(family: .systemMedium))
+        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: true))
+//            .environment(\.widgetFamily, .systemLarge)
+            .previewContext(WidgetPreviewContext(family: .systemLarge))
             .previewDevice(iPodTouch)
     }
 }

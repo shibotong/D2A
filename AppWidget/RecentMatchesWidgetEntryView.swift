@@ -31,17 +31,25 @@ struct RecentMatchesWidgetEntryView: View {
     
     @ViewBuilder
     var body: some View {
-        GeometryReader { proxy in
-            let avatarSize = proxy.size.height / 3
-            ZStack {
-                NetworkImage(urlString: entry.user.avatarfull).blur(radius: 25)
+        ZStack {
+            NetworkImage(urlString: entry.user.avatarfull).blur(radius: 40)
+//            Color.black
+            Color.systemBackground.opacity(0.7)
+            GeometryReader { proxy in
+                let avatarSize = { () -> CGFloat in
+                    if self.family == .systemSmall {
+                        return proxy.size.height / 3
+                    } else {
+                        return proxy.size.height * 3 / 7
+                    }
+                }()
                 VStack {
                     buildProfile(user: entry.user, avatarSize: avatarSize)
                     buildMatches(width: proxy.size.width)
                 }
-            }
+            }.padding()
         }
-        .padding()
+        
     }
     
     @ViewBuilder private func buildProfile(user: UserProfile, avatarSize: CGFloat) -> some View {
@@ -60,8 +68,14 @@ struct RecentMatchesWidgetEntryView: View {
                 NetworkImage(urlString: entry.user.avatarfull)
                     .frame(width: avatarSize, height: avatarSize)
                     .clipShape(Circle())
-                Text("\(entry.user.personaname)")
-                    .font(.caption)
+                VStack(alignment: .leading) {
+                    Text("\(entry.user.personaname)")
+                        .font(.caption)
+                    Text("\(entry.user.id.description)")
+                        .font(.caption2)
+                        .foregroundColor(.secondaryLabel)
+                }
+                
                 Spacer()
                 buildRank(profile: entry.user, size: avatarSize)
             }
@@ -126,7 +140,8 @@ struct RecentMatchesWidgetEntryView: View {
 struct RecentMatchesWidgetEntryView_Previews: PreviewProvider {
     static var previews: some View {
         RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: true))
-            .previewContext(WidgetPreviewContext(family: .systemMedium))
+//            .environment(\.widgetFamily, .systemSmall)
+            .previewContext(WidgetPreviewContext(family: .systemSmall))
             .previewDevice(iPadPro12)
         
         RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: true))

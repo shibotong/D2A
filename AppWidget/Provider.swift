@@ -289,7 +289,7 @@ struct RecentMatchesEntryView : View {
                     buildWL(win: match.isPlayerWin(), size: primaryLabelSize)
                     HeroImageView(heroID: match.heroID, type: .icon)
                         .frame(width: primaryLabelSize, height: primaryLabelSize)
-                    KDAView(kills: match.kills, deaths: match.deaths, assists: match.assists, size: primaryLabelSize)
+                    KDAView(kills: match.kills, deaths: match.deaths, assists: match.assists, size: .caption)
                 }
                 Spacer()
                 VStack(alignment: .trailing) {
@@ -313,7 +313,7 @@ struct RecentMatchesEntryView : View {
                         Text("\(match.duration.convertToDuration())").font(.custom(fontString, size: secondaryLabelSize))
                     }
                     HStack {
-                        KDAView(kills: match.kills, deaths: match.deaths, assists: match.assists, size: secondaryLabelSize)
+                        KDAView(kills: match.kills, deaths: match.deaths, assists: match.assists, size: .caption)
                     }
                 }
                 Spacer()
