@@ -57,18 +57,6 @@ struct PlayerListView: View {
                 }
                 .padding(.horizontal)
             }
-            NavigationLink(
-                destination: MatchView(vm: MatchViewModel(matchid: env.selectedMatch)),
-                isActive: $env.matchActive
-            ) {
-                EmptyView()
-            }
-            NavigationLink(
-                destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: env.selectedUser)),
-                isActive: $env.userActive
-            ) {
-                EmptyView()
-            }
         }
         .listStyle(.plain)
         .navigationTitle("Home")

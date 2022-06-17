@@ -22,10 +22,14 @@ struct Provider: IntentTimelineProvider {
 
     func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         let user = user(for: configuration)
-        guard let firstUser = DotaEnvironment.shared.userIDs.first else {
+        if DotaEnvironment.shared.registerdID == "" && DotaEnvironment.shared.userIDs.isEmpty {
             let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: user, subscription: true)
             completion(entry)
             return
+        }
+        var firstUser = DotaEnvironment.shared.registerdID
+        if firstUser == "" {
+            firstUser = DotaEnvironment.shared.userIDs.first!
         }
         guard let profile = WCDBController.shared.fetchUserProfile(userid: firstUser) else {
             let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: user, subscription: true)

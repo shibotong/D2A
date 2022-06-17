@@ -68,7 +68,7 @@ class PlayerProfileViewModel: ObservableObject {
     
     @MainActor private func addMatches(_ matches: [RecentMatch]) {
         self.matches = matches
-        WidgetCenter.shared.reloadTimelines(ofKind: "AppWidget")
+        WidgetCenter.shared.reloadAllTimelines()
         self.isLoading = false
     }
     
@@ -78,7 +78,7 @@ class PlayerProfileViewModel: ObservableObject {
     
     @MainActor private func setUserProfile(profile: UserProfile?) {
         self.userProfile = profile
-        WidgetCenter.shared.reloadTimelines(ofKind: "AppWidget")
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }
 

@@ -33,12 +33,16 @@ struct AppApp: App {
                     print(params)
                     if let userid = params.first(where: { $0.name == "userid" })?.value {
                         if userid != "0" {
+                            environment.selectedTab = .search
+                            environment.iPadSelectedTab = .search
                             environment.userActive = true
                             environment.selectedUser = userid
                         }
                     }
                     
                     if let matchid = params.first(where: { $0.name == "matchid" })?.value {
+                        environment.selectedTab = .search
+                        environment.iPadSelectedTab = .search
                         environment.matchActive = true
                         environment.selectedMatch = matchid
                     }

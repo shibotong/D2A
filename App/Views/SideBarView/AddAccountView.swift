@@ -73,6 +73,18 @@ struct AddAccountView: View {
                     Text("hero name and match id")
                     .foregroundColor(.secondaryLabel)
                 }
+                NavigationLink(
+                    destination: MatchView(vm: MatchViewModel(matchid: env.selectedMatch)),
+                    isActive: $env.matchActive
+                ) {
+                    EmptyView()
+                }
+                NavigationLink(
+                    destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: env.selectedUser)),
+                    isActive: $env.userActive
+                ) {
+                    EmptyView()
+                }
             }
         } else {
             List {
