@@ -208,7 +208,6 @@
 		32B526D4285C1DBC0099B058 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526D2285C1DBC0099B058 /* Extension.swift */; };
 		32B526D5285C1DBC0099B058 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526D2285C1DBC0099B058 /* Extension.swift */; };
 		32B526DB285C503C0099B058 /* LatestMatchWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526D0285C1C480099B058 /* LatestMatchWidgetEntryView.swift */; };
-		32B526DD285C54FD0099B058 /* RecentMatchesWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526C9285C0CBF0099B058 /* RecentMatchesWidgetEntryView.swift */; };
 		32D1605A26F304DC00657449 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D1605926F304DC00657449 /* StoreView.swift */; };
 		32D1605D26F30B7A00657449 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D1605C26F30B7A00657449 /* StoreManager.swift */; };
 		32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1605E26F3122800657449 /* StoreKit.framework */; };
@@ -1424,7 +1423,6 @@
 				327B8762284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				3270271C285C088300927426 /* HeroImageView.swift in Sources */,
 				32B526CE285C18450099B058 /* RankView.swift in Sources */,
-				32B526DD285C54FD0099B058 /* RecentMatchesWidgetEntryView.swift in Sources */,
 				32F70B0E26F622AE006E9B05 /* String.swift in Sources */,
 				32F70B2226F6295C006E9B05 /* CodingKey.swift in Sources */,
 				32F70B1126F622C5006E9B05 /* Hero.swift in Sources */,

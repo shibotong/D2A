@@ -23,8 +23,8 @@ struct RecentMatchesWidget: Widget {
     let kind: String = "AppWidget"
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: DynamicUserSelectionIntent.self, provider: Provider()) { entry in
-//            RecentMatchesEntryView(entry: entry)
-            RecentMatchesWidgetEntryView(entry: entry)
+            RecentMatchesEntryView(entry: entry)
+//            RecentMatchesWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Recent Matches")
         .description("Your recent matches.")

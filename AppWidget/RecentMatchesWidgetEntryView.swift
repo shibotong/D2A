@@ -33,7 +33,6 @@ struct RecentMatchesWidgetEntryView: View {
     var body: some View {
         ZStack {
             NetworkImage(urlString: entry.user.avatarfull).blur(radius: 40)
-//            Color.black
             Color.systemBackground.opacity(0.7)
             GeometryReader { proxy in
                 let avatarSize = { () -> CGFloat in
@@ -43,9 +42,11 @@ struct RecentMatchesWidgetEntryView: View {
                         return proxy.size.height * 3 / 7
                     }
                 }()
-                VStack {
+                VStack(spacing: 0) {
                     buildProfile(user: entry.user, avatarSize: avatarSize)
+                        .frame(height: proxy.size.height / 2)
                     buildMatches(width: proxy.size.width)
+                        .frame(height: proxy.size.height / 2)
                 }
             }.padding()
         }
@@ -120,9 +121,10 @@ struct RecentMatchesWidgetEntryView: View {
     
     @ViewBuilder private func buildMatch(match: RecentMatch, width: CGFloat) -> some View {
         // MARK: small
+        let imageSize = width / 1.2
         VStack {
             HeroImageView(heroID: match.heroID, type: .icon)
-                .frame(width: width / 1.5, height: width / 1.5)
+                .frame(width: imageSize, height: imageSize)
             buildWL(win: match.isPlayerWin(), size: width / 1.5)
         }
         .padding(.horizontal, width / 4)
@@ -140,7 +142,7 @@ struct RecentMatchesWidgetEntryView: View {
 struct RecentMatchesWidgetEntryView_Previews: PreviewProvider {
     static var previews: some View {
         RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: true))
-//            .environment(\.widgetFamily, .systemSmall)
+            .environment(\.widgetFamily, .systemSmall)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
             .previewDevice(iPadPro12)
         

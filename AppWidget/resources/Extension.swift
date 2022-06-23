@@ -9,13 +9,13 @@ import Foundation
 import WidgetKit
 import SwiftUI
 
-//extension WidgetFamily: EnvironmentKey {
-//    public static var defaultValue: WidgetFamily = .systemMedium
-//}
-//
-//extension EnvironmentValues {
-//  var widgetFamily: WidgetFamily {
-//    get { self[WidgetFamily.self] }
-//    set { self[WidgetFamily.self] = newValue }
-//  }
-//}
+extension WidgetFamily: EnvironmentKey {
+    public static var defaultValue: WidgetFamily = .systemMedium
+}
+
+extension EnvironmentValues {
+  var widgetFamily: WidgetFamily {
+    get { self[WidgetFamily.self] }
+    set { self[WidgetFamily.self] = newValue }
+  }
+}
