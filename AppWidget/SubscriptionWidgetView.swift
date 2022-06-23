@@ -19,54 +19,55 @@ struct SubscriptionWidgetView: View {
     private let selectUserSubTitle = "Please select a Profile"
     
     var body: some View {
-        switch self.family {
-        case .systemSmall, .systemMedium:
-            GeometryReader { proxy in
-                let avatarSize = { () -> CGFloat in
-                    switch self.family {
-                    case .systemSmall:
-                        return proxy.size.height / 3
-                    case .systemMedium:
-                        return proxy.size.height * 3 / 7
-                    case .systemLarge:
-                        return proxy.size.height
-                    default:
-                        return proxy.size.height
+        Link(destination: URL(string: "d2aapp:Match?purchase=true")!) {
+            switch self.family {
+            case .systemSmall, .systemMedium:
+                GeometryReader { proxy in
+                    let avatarSize = { () -> CGFloat in
+                        switch self.family {
+                        case .systemSmall:
+                            return proxy.size.height / 3
+                        case .systemMedium:
+                            return proxy.size.height * 3 / 7
+                        case .systemLarge:
+                            return proxy.size.height
+                        default:
+                            return proxy.size.height
+                        }
+                        
+                    }()
+                    VStack(spacing: 0) {
+                        buildSubscriptionTitle(avatarSize: avatarSize)
+                            .frame(height: proxy.size.height / 2)
+                        Text(purchaseSubTitle)
+                            .font(.caption)
+                            .frame(height: proxy.size.height / 2)
+                        
                     }
-                    
-                }()
-                VStack(spacing: 0) {
-                    buildSubscriptionTitle(avatarSize: avatarSize)
-                        .frame(height: proxy.size.height / 2)
+                }.padding()
+            case .systemLarge:
+                VStack(spacing: 20) {
+                    VStack {
+                        ZStack {
+                            Circle().foregroundColor(Color.primaryDota)
+                            Image(systemName: "cart")
+                                .resizable()
+                                .scaledToFit()
+                                .padding(20)
+                                .foregroundColor(.white)
+                        }.frame(width: 80, height: 80)
+                        Text(purchaseTitle)
+                            .font(.caption)
+                            .bold()
+                        
+                    }
                     Text(purchaseSubTitle)
                         .font(.caption)
-                        .frame(height: proxy.size.height / 2)
-                        
                 }
-            }.padding()
-        case .systemLarge:
-            VStack(spacing: 20) {
-                VStack {
-                    ZStack {
-                        Circle().foregroundColor(Color.primaryDota)
-                        Image(systemName: "cart")
-                            .resizable()
-                            .scaledToFit()
-                            .padding(20)
-                            .foregroundColor(.white)
-                    }.frame(width: 80, height: 80)
-                    Text(purchaseTitle)
-                        .font(.caption)
-                        .bold()
-          
-                }
-                Text(purchaseSubTitle)
-                    .font(.caption)
+            default:
+                EmptyView()
             }
-        default:
-            EmptyView()
         }
-        
     }
     
     @ViewBuilder private func buildSubscriptionTitle(avatarSize: CGFloat) -> some View {

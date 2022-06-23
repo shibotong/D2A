@@ -31,6 +31,11 @@ struct AppApp: App {
                             return //false
                     }
                     print(params)
+                    if let purchase = params.first(where: { $0.name == "purchase" })?.value {
+                        if purchase == "true" {
+                            environment.subscriptionSheet = true
+                        }
+                    }
                     if let userid = params.first(where: { $0.name == "userid" })?.value {
                         if userid != "0" {
                             environment.selectedTab = .search
