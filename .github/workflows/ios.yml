@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-       - name: pod
+      - name: pod
         run: pod install
 
       - name: Xcode Version
