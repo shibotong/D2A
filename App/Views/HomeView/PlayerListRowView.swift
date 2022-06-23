@@ -47,7 +47,7 @@ struct PlayerListRowView: View {
                         env.delete(userID: vm.userid)
                     } label: {
                         Image(systemName: "star.fill")
-                            .foregroundColor(.blue)
+                            .foregroundColor(.primaryDota)
                             .font(.caption)
                     }
                     Spacer()

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var env: DotaEnvironment
@@ -25,11 +24,12 @@ struct ProfileView: View {
                     }
                     Spacer()
                     if profile.id.description == env.registerdID {
-                        Image(systemName: "person.fill")
+                        Image(systemName: "person.text.rectangle")
                             .foregroundColor(.primaryDota)
                     }
                     if env.userIDs.contains(profile.id.description) {
                         Image(systemName: "star.fill")
+                            .foregroundColor(.primaryDota)
                     }
                 }
             } else {

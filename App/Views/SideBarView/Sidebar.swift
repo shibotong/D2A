@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct Sidebar: View {
     @EnvironmentObject var env: DotaEnvironment
@@ -110,14 +109,15 @@ struct SidebarRowView: View {
             Label {
                 Text("\(vm.profile?.name ?? vm.profile!.personaname)").lineLimit(1)
             } icon: {
-                WebImage(url: URL(string: vm.profile!.avatarfull))
-                    .resizable()
-                    .renderingMode(.original)
-                    .indicator(.activity)
-                    .transition(.fade)
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 30, height: 30)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                ProfileAvartar(url: vm.profile!.avatarfull, sideLength: 30, cornerRadius: 10)
+//                WebImage(url: URL(string: vm.profile!.avatarfull))
+//                    .resizable()
+//                    .renderingMode(.original)
+//                    .indicator(.activity)
+//                    .transition(.fade)
+//                    .aspectRatio(contentMode: .fit)
+//                    .frame(width: 30, height: 30)
+//                    .clipShape(RoundedRectangle(cornerRadius: 10))
             }
             
         } else {

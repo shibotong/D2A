@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-//import SDWebImageSwiftUI
 
 struct MatchView: View {
     @EnvironmentObject var env: DotaEnvironment

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct PlayerDetailView: View {
     var player: Player
@@ -154,12 +153,13 @@ struct PlayerDetailView: View {
         if let abilityName = HeroDatabase.shared.fetchAbilityName(id: abilityID) {
             if let ability = HeroDatabase.shared.fetchAbility(name: abilityName), let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!" {
                     let parsedimgURL = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                    WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
-                        .resizable()
-                        .renderingMode(.original)
-                        .indicator(.activity)
-                        .transition(.fade)
-                        .aspectRatio(contentMode: .fit)
+                ProfileAvartar(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 50, cornerRadius: 0)
+//                    WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
+//                        .resizable()
+//                        .renderingMode(.original)
+//                        .indicator(.activity)
+//                        .transition(.fade)
+//                        .aspectRatio(contentMode: .fit)
                 } else {
                     Image("ability_slot")
                         .resizable()

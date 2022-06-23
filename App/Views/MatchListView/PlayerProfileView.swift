@@ -77,7 +77,7 @@ struct PlayerProfileView: View {
                         env.delete(userID: userid)
                     } label: {
                         Image(systemName: "star.fill")
-                            .foregroundColor(.blue)
+                            .foregroundColor(.primaryDota)
                     }
                 } else {
                     Button {

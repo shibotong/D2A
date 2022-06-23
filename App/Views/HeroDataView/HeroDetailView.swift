@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 import AVKit
 
 struct HeroDetailView: View {
@@ -70,16 +69,6 @@ struct HeroDetailView: View {
                 ForEach(vm.heroAbility.abilities.filter { ability in
                     let containHidden = ability.contains("hidden")
                     let containEmpty = ability.contains("empty")
-                    //                    let abilityData = vm.fetchAbility(name: ability)
-                    //                    let isScepter = database.hasScepter(ability: abilityData, heroID: vm.heroID)
-                    //                    let isShard = database.hasShard(ability: abilityData, heroID: vm.heroID)
-                    //                    let hasLore = abilityData.lore != nil
-                    //                    var emptyLore = false
-                    //                    if hasLore {
-                    //                        let lore = abilityData.lore!
-                    //                        emptyLore = lore.isEmpty
-                    //                    }
-                    //                    let isPassive = abilityData.behavior?.transformString() == "Passive"
                     return !containHidden && !containEmpty
                 }, id: \.self) { abilityName in
                     let ability = vm.fetchAbility(name: abilityName)
@@ -87,14 +76,15 @@ struct HeroDetailView: View {
                     Button {
                         self.vm.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroID: vm.heroID, abilityName: abilityName)
                     } label: {
-                        WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
-                            .resizable()
-                            .renderingMode(.original)
-                            .indicator(.activity)
-                            .transition(.fade)
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: skillFrame)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                        ProfileAvartar(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
+//                        WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
+//                            .resizable()
+//                            .renderingMode(.original)
+//                            .indicator(.activity)
+//                            .transition(.fade)
+//                            .aspectRatio(contentMode: .fit)
+//                            .frame(width: skillFrame)
+//                            .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
                 }
             }
@@ -102,17 +92,6 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildAbility(ability: Ability) -> some View {
-        if let img = ability.img{
-            let parsedimgURL = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-            WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
-                .resizable()
-                .renderingMode(.original)
-                .indicator(.activity)
-                .transition(.fade)
-                .aspectRatio(contentMode: .fit)
-        }
-    }
     @ViewBuilder private func buildTalent(talent: [Talent]) -> some View {
         VStack {
             HStack {
@@ -341,14 +320,15 @@ struct AbilityView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 10) {
                     let parsedimgURL = vm.ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                    WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
-                        .resizable()
-                        .renderingMode(.original)
-                        .indicator(.activity)
-                        .transition(.fade)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 70)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                    ProfileAvartar(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 70, cornerRadius: 20)
+//                    WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
+//                        .resizable()
+//                        .renderingMode(.original)
+//                        .indicator(.activity)
+//                        .transition(.fade)
+//                        .aspectRatio(contentMode: .fit)
+//                        .frame(width: 70)
+//                        .clipShape(RoundedRectangle(cornerRadius: 20))
                     VStack(alignment: .leading) {
                         Text(vm.ability.dname ?? "")
                             .font(.custom(fontString, size: 18))
