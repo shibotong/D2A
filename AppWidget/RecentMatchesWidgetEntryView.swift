@@ -12,12 +12,6 @@ struct RecentMatchesWidgetEntryView: View {
     var entry: Provider.Entry
     @Environment(\.widgetFamily) var family
     
-    private let purchaseTitle = "D2A Pro"
-    private let purchaseSubTitle = "Purchase D2APro to unlock Widget"
-    
-    private let selectUserTitle = "No Profile"
-    private let selectUserSubTitle = "Please select a Profile"
-    
     private var maxNumberOfMatches: Int {
         switch self.family {
         case .systemSmall:
@@ -48,9 +42,13 @@ struct RecentMatchesWidgetEntryView: View {
                     buildMatches(width: proxy.size.width)
                         .frame(height: proxy.size.height / 2)
                 }
-            }.padding()
+            }
+            .padding()
+            .blur(radius: entry.subscription ? 0 : 15)
+            if !entry.subscription {
+                SubscriptionWidgetView()
+            }
         }
-        
     }
     
     @ViewBuilder private func buildProfile(user: UserProfile, avatarSize: CGFloat) -> some View {
@@ -62,7 +60,6 @@ struct RecentMatchesWidgetEntryView: View {
                     .clipShape(Circle())
                 Text("\(entry.user.personaname)")
                     .font(.caption)
-                
             }
         case .systemMedium:
             HStack {
@@ -141,12 +138,12 @@ struct RecentMatchesWidgetEntryView: View {
 
 struct RecentMatchesWidgetEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: true))
-            .environment(\.widgetFamily, .systemSmall)
+        RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
+//            .environment(\.widgetFamily, .systemSmall)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
             .previewDevice(iPadPro12)
         
-        RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: true))
+        RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
             .previewDevice(iPodTouch)
         

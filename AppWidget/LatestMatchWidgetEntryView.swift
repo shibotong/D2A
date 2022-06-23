@@ -47,6 +47,12 @@ struct LatestMatchWidgetEntryView: View {
                 EmptyView()
             }
         }
+        .blur(radius: entry.subscription ? 0 : 15)
+        .overlay {
+            if !entry.subscription {
+                SubscriptionWidgetView()
+            }
+        }
     }
     
     @ViewBuilder func buildMatch(match: RecentMatch) -> some View {
@@ -91,7 +97,7 @@ struct LatestMatchWidgetEntryView: View {
                             .padding(5)
                             .frame(height:rowHeight)
                     }
-                    .disabled(entry.subscription && entry.user.id != 0)
+                    .disabled(!entry.subscription && entry.user.id != 0)
                 
             }
         }
@@ -173,14 +179,14 @@ struct LatestMatchWidgetEntryView: View {
 
 struct LatestMatchWidgetEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: true))
-//            .environment(\.widgetFamily, .systemSmall)
+        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
+            .environment(\.widgetFamily, .systemSmall)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
-        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: true))
-//            .environment(\.widgetFamily, .systemMedium)
+        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
+            .environment(\.widgetFamily, .systemMedium)
             .previewContext(WidgetPreviewContext(family: .systemMedium))
-        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: true))
-//            .environment(\.widgetFamily, .systemLarge)
+        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
+            .environment(\.widgetFamily, .systemLarge)
             .previewContext(WidgetPreviewContext(family: .systemLarge))
             .previewDevice(iPodTouch)
     }
