@@ -19,11 +19,11 @@
 "CancelAnswer" = "You can cancel anytime with your iTunes account settings.";
 "SAVE %@" = "SAVE %@";
 
-"MINUTESCALCULATE %lld" = "%lld minutes";
-"HOURSCALCULATE %lld" = "%lld hours";
+"MINUTESCALCULATE %lld" = "%lld mins";
+"HOURSCALCULATE %lld" = "%lld hrs";
 "DAYSCALCULATE %lld" = "%lld days";
 "MONTHSCALCULATE %lld" = "%lld months";
-"YEARSCALCULATE %lld" = "%lld years";
+"YEARSCALCULATE %lld" = "%lld yrs";
 
 
 // MARK: - Abilities
