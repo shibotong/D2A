@@ -68,7 +68,10 @@ class AddAccountViewModel: ObservableObject {
                 self.searchedMatch = try await searchedMatch
             } catch {
                 print("parse match error")
+                self.searchedMatch = nil
             }
+        } else {
+            self.searchedMatch = nil
         }
         
         self.userProfiles = await searchedProfile

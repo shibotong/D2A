@@ -10,6 +10,7 @@ import SwiftUI
 struct AddAccountView: View {
     @EnvironmentObject var env: DotaEnvironment
     @StateObject var vm: AddAccountViewModel = AddAccountViewModel()
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
         buildSearchingList()
             .navigationTitle("Search")
@@ -91,18 +92,41 @@ struct AddAccountView: View {
                 if let match = vm.searchedMatch {
                     Section {
                         NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
+                            let iconSize: CGFloat = 30
                             HStack {
                                 ForEach(match.fetchPlayers(isRadiant: true), id: \.heroID) { player in
-                                    HeroImageView(heroID: player.heroID, type: .icon)
+                                    if horizontalSizeClass == .compact {
+                                        HeroImageView(heroID: player.heroID, type: .icon)
+                                    } else {
+                                        HeroImageView(heroID: player.heroID, type: .icon)
+                                            .frame(width: iconSize, height: iconSize)
+                                    }
                                 }
                                 Text("vs")
                                 ForEach(match.fetchPlayers(isRadiant: false), id: \.heroID) { player in
-                                    HeroImageView(heroID: player.heroID, type: .icon)
+                                    if horizontalSizeClass == .compact {
+                                        HeroImageView(heroID: player.heroID, type: .icon)
+                                    } else {
+                                        HeroImageView(heroID: player.heroID, type: .icon)
+                                            .frame(width: iconSize, height: iconSize)
+                                    }
                                 }
+                                Spacer()
                             }
                         }
                     } header: {
                         Text("Match: \(match.id.description)")
+                    }
+                }
+                if !vm.localProfiles.isEmpty {
+                    Section {
+                        ForEach(vm.localProfiles) { profile in
+                            NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id.description))) {
+                                buildProfile(profile: profile)
+                            }
+                        }
+                    } header: {
+                        Text("Favorite Players")
                     }
                 }
                 if !vm.filterHeroes.isEmpty {
@@ -118,17 +142,6 @@ struct AddAccountView: View {
                         }
                     } header: {
                         Text("Heroes")
-                    }
-                }
-                if !vm.localProfiles.isEmpty {
-                    Section {
-                        ForEach(vm.localProfiles) { profile in
-                            NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id.description))) {
-                                buildProfile(profile: profile)
-                            }
-                        }
-                    } header: {
-                        Text("Favorite Players")
                     }
                 }
                 if !vm.userProfiles.isEmpty {
@@ -170,8 +183,10 @@ struct AddAccountView: View {
 
 struct AddAccountView_Previews: PreviewProvider {
     static var previews: some View {
-        AddAccountView()
-            .environmentObject(DotaEnvironment.shared)
+        NavigationView {
+            EmptyView()
+            AddAccountView()
+        }.environmentObject(DotaEnvironment.shared)
     }
 }
 
