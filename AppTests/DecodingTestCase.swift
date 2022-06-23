@@ -26,13 +26,10 @@ class DecodingTestCase: XCTestCase {
     func testDecodingMatches() async throws {
         let newMatchID  = "6502094960"
         let oldMatchID  = "1008064790"
-        let failMatchID = "1534151234"
         let newData = try! await decodingService.loadData("/matches/\(newMatchID)")
         XCTAssertNoThrow(try decodingService.decodeMatch(data: newData))
         let oldData = try! await decodingService.loadData("/matches/\(oldMatchID)")
         XCTAssertNoThrow(try decodingService.decodeMatch(data: oldData))
-        let failData = try! await decodingService.loadData("/matches/\(failMatchID)")
-        XCTAssertThrowsError(try decodingService.decodeMatch(data: failData))
     }
     
     func testDecodingRecentMatches() async throws {
