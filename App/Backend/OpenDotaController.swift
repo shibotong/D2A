@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 import WidgetKit
 
 let baseURL = "https://api.opendota.com"
@@ -16,21 +15,6 @@ class OpenDotaController {
     static let shared = OpenDotaController()
     
     let decodingService = DecodingService()
-    
-//    func searchUserByID(userid: String) async -> UserProfile? {
-//        let url = URL(string: "\(baseURL)/api/players/\(userid)")!
-//        do {
-//            let (data, _) = try await URLSession.shared.data(from: url)
-//            let decoder = JSONDecoder()
-//            let user = try decoder.decode(SteamProfile.self, from: data)
-//            var userProfile = user.profile
-//            userProfile.rank = user.rank
-//            return userProfile
-//        } catch {
-//            print(error.localizedDescription)
-//            return nil
-//        }
-//    }
     
     func searchUserByText(text: String) async -> [UserProfile] {
 //        let trimText = text.replacingOccurrences(of: " ", with: "%20")
@@ -122,18 +106,18 @@ class OpenDotaController {
         }
     }
     
-    static func loadHeroPortrait(url: String, onCompletion: @escaping (Data) -> ()) {
-        let parse = url.replacingOccurrences(of: "/apps/dota2/images/heroes/", with: "")
-        let parse2 = parse.replacingOccurrences(of: "_icon.png", with: "")
-        let url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/\(parse2).png"
-        print("loading hero portrait \(url)")
-        AF.request(url).responseData { response in
-            guard let data = response.data else {
-                return
-            }
-            onCompletion(data)
-        }
-    }
+//    static func loadHeroPortrait(url: String, onCompletion: @escaping (Data) -> ()) {
+//        let parse = url.replacingOccurrences(of: "/apps/dota2/images/heroes/", with: "")
+//        let parse2 = parse.replacingOccurrences(of: "_icon.png", with: "")
+//        let url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/\(parse2).png"
+//        print("loading hero portrait \(url)")
+//        AF.request(url).responseData { response in
+//            guard let data = response.data else {
+//                return
+//            }
+//            onCompletion(data)
+//        }
+//    }
 }
 
 struct DecodingService {
