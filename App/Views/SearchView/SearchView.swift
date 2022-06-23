@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddAccountView: View {
+struct SearchView: View {
     @EnvironmentObject var env: DotaEnvironment
     @StateObject var vm: AddAccountViewModel = AddAccountViewModel()
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -122,7 +122,7 @@ struct AddAccountView: View {
                     Section {
                         ForEach(vm.localProfiles) { profile in
                             NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id.description))) {
-                                buildProfile(profile: profile)
+                                ProfileView(vm: ProfileViewModel(profile: profile))
                             }
                         }
                     } header: {
@@ -148,7 +148,7 @@ struct AddAccountView: View {
                     Section {
                         ForEach(vm.userProfiles) { profile in
                             NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id.description))) {
-                                buildProfile(profile: profile)
+                                ProfileView(vm: ProfileViewModel(profile: profile))
                             }
                         }
                     } header: {
@@ -159,33 +159,13 @@ struct AddAccountView: View {
             .listStyle(PlainListStyle())
         }
     }
-    
-    @ViewBuilder private func buildProfile(profile: UserProfile) -> some View {
-        HStack {
-            ProfileAvartar(url: profile.avatarfull, sideLength: 40, cornerRadius: 5)
-            VStack(alignment: .leading) {
-                Text(profile.personaname).bold()
-                Text("ID: \(profile.id.description)")
-                    .foregroundColor(.secondaryLabel)
-                    .font(.caption) 
-            }
-            Spacer()
-            if profile.id.description == env.registerdID {
-                Image(systemName: "person.fill")
-                    .foregroundColor(.primaryDota)
-            }
-            if env.userIDs.contains(profile.id.description) {
-                Image(systemName: "star.fill")
-            }
-        }
-    }
 }
 
 struct AddAccountView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             EmptyView()
-            AddAccountView()
+            SearchView()
         }.environmentObject(DotaEnvironment.shared)
     }
 }

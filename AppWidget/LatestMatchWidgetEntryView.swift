@@ -180,13 +180,13 @@ struct LatestMatchWidgetEntryView: View {
 struct LatestMatchWidgetEntryView_Previews: PreviewProvider {
     static var previews: some View {
         LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
-            .environment(\.widgetFamily, .systemSmall)
+//            .environment(\.widgetFamily, .systemSmall)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
         LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
-            .environment(\.widgetFamily, .systemMedium)
+//            .environment(\.widgetFamily, .systemMedium)
             .previewContext(WidgetPreviewContext(family: .systemMedium))
         LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
-            .environment(\.widgetFamily, .systemLarge)
+//            .environment(\.widgetFamily, .systemLarge)
             .previewContext(WidgetPreviewContext(family: .systemLarge))
             .previewDevice(iPodTouch)
     }

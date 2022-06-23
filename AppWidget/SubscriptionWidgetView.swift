@@ -126,13 +126,13 @@ struct SubscriptionWidgetView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             SubscriptionWidgetView()
-                .environment(\.widgetFamily, .systemSmall)
+//                .environment(\.widgetFamily, .systemSmall)
                 .previewContext(WidgetPreviewContext(family: .systemSmall))
             SubscriptionWidgetView()
-                .environment(\.widgetFamily, .systemMedium)
+//                .environment(\.widgetFamily, .systemMedium)
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
             SubscriptionWidgetView()
-                .environment(\.widgetFamily, .systemLarge)
+//                .environment(\.widgetFamily, .systemLarge)
                 .previewContext(WidgetPreviewContext(family: .systemLarge))
                 .previewDevice(iPodTouch)
         }

@@ -38,7 +38,7 @@ struct Sidebar: View {
                 }
             }
             NavigationLink(
-                destination: AddAccountView(),
+                destination: SearchView(),
                 tag: TabSelection.search,
                 selection: $env.iPadSelectedTab
             ) {

@@ -17,8 +17,6 @@ final class DotaEnvironment: ObservableObject {
     static var preview: DotaEnvironment = {
         let env = DotaEnvironment()
         env.userIDs = ["125581247", "177416702", "153041957"]
-//        env.userIDs = []
-//        env.registerdID = ""
         env.registerdID = "153041957"
         return env
     }()
@@ -42,8 +40,6 @@ final class DotaEnvironment: ObservableObject {
     @Published var invalidID = false
     @Published var cantFindUser = false
     
-    @Published var addNewAccount = false
-    @Published var aboutUs = false
     @Published var subscriptionSheet = false
     
     @Published var subscriptionStatus: Bool {
@@ -93,9 +89,13 @@ final class DotaEnvironment: ObservableObject {
             self.userIDs.remove(at: self.userIDs.firstIndex(of: userid)!)
             WCDBController.shared.deleteUser(userid: userid)
         } else {
-            self.userIDs.append(userid)
-            if let profile = profile {
-                WCDBController.shared.insertUserProfile(profile: profile)
+            if self.userIDs.count >= 1 && !self.subscriptionStatus {
+                self.subscriptionSheet = true
+            } else {
+                self.userIDs.append(userid)
+                if let profile = profile {
+                    WCDBController.shared.insertUserProfile(profile: profile)
+                }
             }
         }
     }

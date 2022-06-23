@@ -72,7 +72,7 @@ struct NavigationHostView: View {
                         Text("Hero")
                     }.tag(TabSelection.hero).navigationViewStyle(.stack)
                     NavigationView {
-                        AddAccountView()
+                        SearchView()
                     }
                     .tabItem {
                         Image(systemName: "magnifyingglass")
