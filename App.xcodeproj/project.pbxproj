@@ -202,6 +202,7 @@
 		32B526D3285C1DBC0099B058 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526D2285C1DBC0099B058 /* Extension.swift */; };
 		32B526D4285C1DBC0099B058 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526D2285C1DBC0099B058 /* Extension.swift */; };
 		32B526D5285C1DBC0099B058 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526D2285C1DBC0099B058 /* Extension.swift */; };
+		32C606CD28647A10007AD14B /* ci_post_clone.sh in Resources */ = {isa = PBXBuildFile; fileRef = 32C606CC28647A10007AD14B /* ci_post_clone.sh */; };
 		32D1605A26F304DC00657449 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D1605926F304DC00657449 /* StoreView.swift */; };
 		32D1605D26F30B7A00657449 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D1605C26F30B7A00657449 /* StoreManager.swift */; };
 		32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1605E26F3122800657449 /* StoreKit.framework */; };
@@ -415,6 +416,7 @@
 		32B526C9285C0CBF0099B058 /* RecentMatchesWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMatchesWidgetEntryView.swift; sourceTree = "<group>"; };
 		32B526D0285C1C480099B058 /* LatestMatchWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestMatchWidgetEntryView.swift; sourceTree = "<group>"; };
 		32B526D2285C1DBC0099B058 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		32C606CC28647A10007AD14B /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		32D1605926F304DC00657449 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		32D1605C26F30B7A00657449 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		32D1605E26F3122800657449 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -619,6 +621,7 @@
 		32B36F0226C38821002D427D = {
 			isa = PBXGroup;
 			children = (
+				32C606CB286479F7007AD14B /* ci_scripts */,
 				327C03432717AE8500DAEC42 /* README.md */,
 				3266081C27CED53C00D9A204 /* Shared */,
 				32B36F0D26C38821002D427D /* App */,
@@ -762,6 +765,14 @@
 				327B875F284D9FA100BBE1F8 /* DataHelper.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		32C606CB286479F7007AD14B /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				32C606CC28647A10007AD14B /* ci_post_clone.sh */,
+			);
+			path = ci_scripts;
 			sourceTree = "<group>";
 		};
 		32D1605B26F30B5F00657449 /* Subscription */ = {
@@ -1053,6 +1064,7 @@
 				327C03442717AE8500DAEC42 /* README.md in Resources */,
 				323ADB2C272B91F500253124 /* player_colors.json in Resources */,
 				323ADB35272B91F500253124 /* hero_lore.json in Resources */,
+				32C606CD28647A10007AD14B /* ci_post_clone.sh in Resources */,
 				323ADB24272B91F500253124 /* lobby_type.json in Resources */,
 				324791B92818B7AF00605D55 /* Localizable.strings in Resources */,
 				3261C90F2830765300D47CDA /* sampleAbility.json in Resources */,
