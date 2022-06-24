@@ -13,14 +13,8 @@ struct ContentView: View {
     @EnvironmentObject var data: HeroDatabase
     @EnvironmentObject var store: StoreManager
     var body: some View {
-        if data.loading {
-            LoadingView()
-//                .frame(width: 50, height: 50)
-//                .alert("An Error Occured", isPresented: $data.error) {
-//                    Button("OK", role: .cancel) {
-//                        exit(0)
-//                    }
-//                }
+        if data.status != .finish {
+            LoadingView(status: $data.status)
         } else {
             NavigationHostView()
                 .sheet(isPresented: $env.subscriptionSheet, content: {
@@ -46,7 +40,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(DotaEnvironment.shared)
-            .environmentObject(HeroDatabase.shared)
+            .environmentObject(HeroDatabase.preview)
     }
 }
 
@@ -93,12 +87,5 @@ struct NavigationHostView: View {
                 }
                 .navigationViewStyle(DoubleColumnNavigationViewStyle())
             }
-    }
-}
-
-extension UISplitViewController {
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        self.show(.primary)
     }
 }

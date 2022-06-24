@@ -48,34 +48,35 @@ struct Sidebar: View {
                 }
             }
             
-            
-            Section {
-                if env.registerdID != "" {
-                    NavigationLink(
-                        destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: env.registerdID)),
-                        tag: env.registerdID,
-                        selection: $selectedUser
-                    ) {
-                        SidebarRowView(vm: SidebarRowViewModel(userid: env.registerdID))
-                    }.isDetailLink(true)
+            if env.registerdID != "" || !env.userIDs.isEmpty {
+                Section {
+                    if env.registerdID != "" {
+                        NavigationLink(
+                            destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: env.registerdID)),
+                            tag: env.registerdID,
+                            selection: $selectedUser
+                        ) {
+                            SidebarRowView(vm: SidebarRowViewModel(userid: env.registerdID))
+                        }.isDetailLink(true)
+                    }
+                    ForEach(env.userIDs, id: \.self) { id in
+                        NavigationLink(
+                            destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: id)),
+                            tag: id,
+                            selection: $selectedUser
+                        ) {
+                            SidebarRowView(vm: SidebarRowViewModel(userid: id))
+                        }.isDetailLink(true)
+                    }
+                    .onMove(perform: { indices, newOffset in
+                        env.move(from: indices, to: newOffset)
+                    })
+                    .onDelete(perform: { indexSet in
+                        env.delete(from: indexSet)
+                    })
+                } header: {
+                    Text("Favorite Players")
                 }
-                ForEach(env.userIDs, id: \.self) { id in
-                    NavigationLink(
-                        destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: id)),
-                        tag: id,
-                        selection: $selectedUser
-                    ) {
-                        SidebarRowView(vm: SidebarRowViewModel(userid: id))
-                    }.isDetailLink(true)
-                }
-                .onMove(perform: { indices, newOffset in
-                    env.move(from: indices, to: newOffset)
-                })
-                .onDelete(perform: { indexSet in
-                    env.delete(from: indexSet)
-                })
-            } header: {
-                Text("Favorite Players")
             }
             NavigationLink(
                 destination: AboutUsView(),
@@ -110,14 +111,6 @@ struct SidebarRowView: View {
                 Text("\(vm.profile?.name ?? vm.profile!.personaname)").lineLimit(1)
             } icon: {
                 ProfileAvartar(url: vm.profile!.avatarfull, sideLength: 30, cornerRadius: 10)
-//                WebImage(url: URL(string: vm.profile!.avatarfull))
-//                    .resizable()
-//                    .renderingMode(.original)
-//                    .indicator(.activity)
-//                    .transition(.fade)
-//                    .aspectRatio(contentMode: .fit)
-//                    .frame(width: 30, height: 30)
-//                    .clipShape(RoundedRectangle(cornerRadius: 10))
             }
             
         } else {

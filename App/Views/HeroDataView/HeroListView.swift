@@ -13,6 +13,10 @@ struct HeroListView: View {
     @EnvironmentObject var env: DotaEnvironment
     @StateObject var vm = HeroListViewModel()
     @Environment(\.horizontalSizeClass) private var horizontalSize
+    
+    private let heroAttributes = ["str", "agi", "int"]
+    private let heroAttributesTitle = ["str": "Strength", "agi": "Agility", "int": "Intelligence"]
+    
     var body: some View {
         buildBody()
             .navigationTitle("Heroes")
@@ -58,18 +62,12 @@ struct HeroListView: View {
             }
         } else {
             ScrollView(.vertical, showsIndicators: false) {
-                let strHero = vm.heroList.filter { hero in
-                    return hero.primaryAttr == "str"
+                ForEach(self.heroAttributes, id: \.self) { attribute in
+                    let heroes = vm.heroList.filter { hero in
+                        return hero.primaryAttr == attribute
+                    }
+                    buildHeroGrid(heroes: heroes, title: self.heroAttributesTitle[attribute]!, icon: attribute)
                 }
-                buildHeroGrid(heroes: strHero, title: "Strength", icon: "str")
-                let agiHero = vm.heroList.filter { hero in
-                    return hero.primaryAttr == "agi"
-                }
-                buildHeroGrid(heroes: agiHero, title: "Agility", icon: "agi")
-                let intHero = vm.heroList.filter { hero in
-                    return hero.primaryAttr == "int"
-                }
-                buildHeroGrid(heroes: intHero, title: "Intelligence", icon: "int")
             }
             .padding(.horizontal)
         }
@@ -144,7 +142,7 @@ struct HeroListView: View {
         if horizontalSize == .regular {
             HeroImageView(heroID: hero.id, type: .vert)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-                .opacity((hero.localizedName.lowercased().contains(vm.searchString.lowercased()) || vm.searchString.isEmpty) ? 1 : 0.5)
+                .opacity((hero.localizedName.lowercased().contains(vm.searchString.lowercased()) || vm.searchString.isEmpty) ? 1 : 0.2)
         } else {
             if vm.gridView {
                 ZStack {

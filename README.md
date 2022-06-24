@@ -1,6 +1,5 @@
 # Dota 2 Armory SwiftUI application!
 ![Image](images/promo_image.PNG)
-Updated to 7.30e!
 # Important notes:
 There might be some issue or bugs in the app. You can submit issues on Github. I will try my best to fix it.
 
@@ -15,13 +14,13 @@ iPadOS 15.0+
 This application is fully written in SwiftUI.
 * Follow Dota2 players and check their matches.
 * See item builds for each match.
-* ~~Support iOS and iPadOS~~
+* Support iOS and iPadOS
 * Support Widgets
 # Whats doing now
 * WatchOS app
 * MacOS app
 * ~~Localization~~
 * Try to build a TvOS app
-* You can use this application to learn SwiftUI. It uses only standard MVVM architecture.
+
 ## Credits
 API is based on [OpenDotaAPI](https://www.opendota.com), thank you!

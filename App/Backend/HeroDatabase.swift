@@ -8,9 +8,12 @@
 import Foundation
 import SwiftUI
 
+enum LoadingStatus {
+    case loading, error, finish
+}
+
 class HeroDatabase: ObservableObject {
-    @Published var loading = false
-    @Published var error = false
+    @Published var status: LoadingStatus = .loading
     var heroes = [String: Hero]()
     var gameModes = [String: GameMode]()
     var lobbyTypes = [String: LobbyType]()
@@ -24,11 +27,16 @@ class HeroDatabase: ObservableObject {
     var scepterData = [HeroScepter]()
     
     static var shared = HeroDatabase()
+    static var preview: HeroDatabase {
+        let base = HeroDatabase()
+        base.status = .error
+        return base
+    }
     
     let url = "https://api.opendota.com/api/herostats"
     
     init() {
-        self.loading = true
+        self.status = .loading
         self.gameModes = loadGameModes()
         self.regions = loadRegion()!
         self.lobbyTypes = loadLobby()!
@@ -55,9 +63,9 @@ class HeroDatabase: ObservableObject {
             
             DispatchQueue.main.async {
                 if self.abilities.count == 0 {
-                    self.error = true
+                    self.status = .error
                 } else {
-                    self.loading = false
+                    self.status = .finish
                 }
             }
         }
