@@ -34,6 +34,7 @@ struct PlayerListView: View {
                                 .font(.custom(fontString, size: 13))
                             Button {
                                 env.selectedTab = .search
+                                env.iPadSelectedTab = .search
                             } label: {
                                 HStack {
                                     Spacer()
