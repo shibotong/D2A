@@ -17,7 +17,6 @@ class OpenDotaController {
     let decodingService = DecodingService()
     
     func searchUserByText(text: String) async -> [UserProfile] {
-//        let trimText = text.replacingOccurrences(of: " ", with: "%20")
         let urlString = "\(baseURL)/api/search/?q=\(text)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: urlString)
         do {
@@ -48,8 +47,6 @@ class OpenDotaController {
         do {
             let data = try await decodingService.loadData("/players/\(userid)")
             let user = try decodingService.decodeUserProfile(data)
-//            WCDBController.shared.deleteUser(userid: userid)
-//            try WCDBController.shared.database.insertOrReplace(objects: [user], intoTable: "UserProfile")
             return user
         } catch {
             print(error.localizedDescription)
@@ -105,19 +102,6 @@ class OpenDotaController {
             return []
         }
     }
-    
-//    static func loadHeroPortrait(url: String, onCompletion: @escaping (Data) -> ()) {
-//        let parse = url.replacingOccurrences(of: "/apps/dota2/images/heroes/", with: "")
-//        let parse2 = parse.replacingOccurrences(of: "_icon.png", with: "")
-//        let url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/\(parse2).png"
-//        print("loading hero portrait \(url)")
-//        AF.request(url).responseData { response in
-//            guard let data = response.data else {
-//                return
-//            }
-//            onCompletion(data)
-//        }
-//    }
 }
 
 struct DecodingService {

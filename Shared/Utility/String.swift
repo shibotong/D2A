@@ -14,11 +14,19 @@ let GROUP_NAME = "group.D2A"
 let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/documents/terms-of-use.md"
 let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/documents/privacy-policy.md"
 
-let iPhoneMini = PreviewDevice("iPhone 13 mini")
-let iPhone = PreviewDevice("iPhone 13")
-let iPhoneSE = PreviewDevice("iPhone SE (3rd generation)")
-let iPodTouch = PreviewDevice("iPod touch (7th generation)")
-let iPadMini = PreviewDevice("iPad mini (6th generation)")
-let iPad = PreviewDevice("iPad (9th generation)")
-let iPadPro = PreviewDevice("iPad Pro (11-inch) (3rd generation)")
-let iPadPro12 = PreviewDevice("iPad Pro (12-inch) (5th generation)")
+#if DEBUG
+extension PreviewDevice {
+
+    static let previewDevices = [PreviewDevice.iPodTouch, PreviewDevice.iPhoneSE, PreviewDevice.iPhoneMini, PreviewDevice.iPhone, PreviewDevice.iPhoneProMax]
+
+    static let iPhoneMini = PreviewDevice("iPhone 13 mini")
+    static let iPhone = PreviewDevice("iPhone 13")
+    static let iPhoneProMax = PreviewDevice("iPhone 13 Pro Max")
+    static let iPhoneSE = PreviewDevice("iPhone SE (3rd generation)")
+    static let iPodTouch = PreviewDevice("iPod touch (7th generation)")
+    static let iPadMini = PreviewDevice("iPad mini (6th generation)")
+    static let iPad = PreviewDevice("iPad (9th generation)")
+    static let iPadPro = PreviewDevice("iPad Pro (11-inch) (3rd generation)")
+    static let iPadPro12 = PreviewDevice("iPad Pro (12-inch) (5th generation)")
+}
+#endif

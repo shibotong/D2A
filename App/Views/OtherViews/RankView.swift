@@ -63,7 +63,7 @@ struct RankView: View {
 
 struct RankView_Previews: PreviewProvider {
     static var previews: some View {
-        RankView(rank: 80, leaderboard: 100)
+        RankView(rank: 75, leaderboard: 100)
             .previewLayout(.fixed(width: 200, height: 200))
         RankView(rank: 80, leaderboard: 1)
             .previewLayout(.fixed(width: 100, height: 100))

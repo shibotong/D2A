@@ -47,7 +47,7 @@ struct PlayerListView: View {
                         }
                         .padding(.vertical)
                     } else {
-                        LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 100, maximum: 130), spacing: 10, alignment: .leading), count: 3), spacing: 10) {
+                        LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 100, maximum: 140), spacing: 10, alignment: .leading), count: 1), spacing: 10) {
                             ForEach(env.userIDs, id: \.self) { id in
                                 NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: id))) {
                                     PlayerListRowView(vm: SidebarRowViewModel(userid: id))
@@ -67,11 +67,16 @@ struct PlayerListView: View {
 
 struct PlayerListView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            PlayerListView()
+        Group {
+            ForEach(PreviewDevice.previewDevices, id: \.rawValue) { device in
+                NavigationView {
+                    PlayerListView()
+                }
+                .environmentObject(DotaEnvironment.preview)
+                .environmentObject(HeroDatabase.shared)
+                .previewDevice(device)
+            }
         }
-        .environmentObject(DotaEnvironment.preview)
-        .environmentObject(HeroDatabase.shared)
     }
 }
 

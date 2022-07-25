@@ -184,6 +184,6 @@ struct HeroListView_Previews: PreviewProvider {
     static var previews: some View {
         HeroListView()
             .environmentObject(HeroDatabase.shared)
-            .previewDevice(iPadMini)
+            .previewDevice(PreviewDevice.iPadMini)
     }
 }

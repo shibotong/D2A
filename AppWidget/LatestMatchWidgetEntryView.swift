@@ -188,6 +188,6 @@ struct LatestMatchWidgetEntryView_Previews: PreviewProvider {
         LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
 //            .environment(\.widgetFamily, .systemLarge)
             .previewContext(WidgetPreviewContext(family: .systemLarge))
-            .previewDevice(iPodTouch)
+            .previewDevice(PreviewDevice.iPodTouch)
     }
 }

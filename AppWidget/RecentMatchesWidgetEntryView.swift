@@ -141,11 +141,11 @@ struct RecentMatchesWidgetEntryView_Previews: PreviewProvider {
         RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
 //            .environment(\.widgetFamily, .systemSmall)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
-            .previewDevice(iPadPro12)
+            .previewDevice(PreviewDevice.iPadPro12)
         
         RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
-            .previewDevice(iPodTouch)
+            .previewDevice(PreviewDevice.iPodTouch)
         
     }
 }

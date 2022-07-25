@@ -135,7 +135,7 @@ struct SubscriptionWidgetView_Previews: PreviewProvider {
             SubscriptionWidgetView()
 //                .environment(\.widgetFamily, .systemLarge)
                 .previewContext(WidgetPreviewContext(family: .systemLarge))
-                .previewDevice(iPodTouch)
+                .previewDevice(PreviewDevice.iPodTouch)
         }
     }
 }
