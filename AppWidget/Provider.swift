@@ -59,14 +59,23 @@ struct Provider: IntentTimelineProvider {
                     completion(timeline)
                 }
             } else {
-                guard let firstUser = DotaEnvironment.shared.userIDs.first else {
-                    let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: selectedProfile, subscription: status)
-                    let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
-                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-                    completion(timeline)
-                    return
+                // no configuration
+                var defaultUser = ""
+                if DotaEnvironment.shared.registerdID != "" {
+                    // check registered user
+                    defaultUser = DotaEnvironment.shared.registerdID
+                } else {
+                    guard let firstUser = DotaEnvironment.shared.userIDs.first else {
+                        let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: selectedProfile, subscription: status)
+                        let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
+                        let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+                        completion(timeline)
+                        return
+                    }
+                    defaultUser = firstUser
                 }
-                guard let profile = WCDBController.shared.fetchUserProfile(userid: firstUser) else {
+
+                guard let profile = WCDBController.shared.fetchUserProfile(userid: defaultUser) else {
                     let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: selectedProfile, subscription: status)
                     let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
                     let timeline = Timeline(entries: [entry], policy: .after(refreshDate))

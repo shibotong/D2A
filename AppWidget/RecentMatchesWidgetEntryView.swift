@@ -28,25 +28,30 @@ struct RecentMatchesWidgetEntryView: View {
         ZStack {
             NetworkImage(urlString: entry.user.avatarfull).blur(radius: 40)
             Color.systemBackground.opacity(0.7)
-            GeometryReader { proxy in
-                let avatarSize = { () -> CGFloat in
-                    if self.family == .systemSmall {
-                        return proxy.size.height / 3
-                    } else {
-                        return proxy.size.height * 3 / 7
-                    }
-                }()
-                VStack(spacing: 0) {
-                    buildProfile(user: entry.user, avatarSize: avatarSize)
-                        .frame(height: proxy.size.height / 2)
-                    buildMatches(width: proxy.size.width)
-                        .frame(height: proxy.size.height / 2)
+            ZStack {
+                if entry.user.id == 0 {
+                    WidgetOverlayView(widgetType: .chooseProfile)
+                } else {
+                    GeometryReader { proxy in
+                        let avatarSize = { () -> CGFloat in
+                            if self.family == .systemSmall {
+                                return proxy.size.height / 3
+                            } else {
+                                return proxy.size.height * 3 / 7
+                            }
+                        }()
+                        VStack(spacing: 0) {
+                            buildProfile(user: entry.user, avatarSize: avatarSize)
+                                .frame(height: proxy.size.height / 2)
+                            buildMatches(width: proxy.size.width)
+                                .frame(height: proxy.size.height / 2)
+                        }
+                    }.padding()
                 }
             }
-            .padding()
             .blur(radius: entry.subscription ? 0 : 15)
             if !entry.subscription {
-                SubscriptionWidgetView()
+                WidgetOverlayView(widgetType: .subscription)
             }
         }
     }

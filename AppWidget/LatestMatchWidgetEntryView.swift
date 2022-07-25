@@ -24,33 +24,39 @@ struct LatestMatchWidgetEntryView: View {
         }
     }
     var body: some View {
-        GeometryReader { proxy in
-            switch self.family {
-            case .systemSmall:
-                buildBody(cardHeight: proxy.size.height / 3)
-            case .systemMedium, .systemLarge:
-                let avatarHeight: CGFloat = 20
-                VStack(spacing: 5) {
-                    Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)")!) {
-                        HStack {
-                            NetworkImage(urlString: entry.user.avatarfull).frame(width: avatarHeight, height: avatarHeight).clipShape(Circle())
-                            Text("\(entry.user.personaname)").font(.caption2).bold()
-                            Spacer()
-                            Text("\(entry.user.id.description)")
-                                .font(.caption2)
-                                .foregroundColor(.secondaryLabel)
-                        }
+        ZStack {
+            if entry.user.id == 0 {
+                WidgetOverlayView(widgetType: .chooseProfile)
+            } else {
+                GeometryReader { proxy in
+                    switch self.family {
+                    case .systemSmall:
+                        buildBody(cardHeight: proxy.size.height / 3)
+                    case .systemMedium, .systemLarge:
+                        let avatarHeight: CGFloat = 20
+                        VStack(spacing: 5) {
+                            Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)")!) {
+                                HStack {
+                                    NetworkImage(urlString: entry.user.avatarfull).frame(width: avatarHeight, height: avatarHeight).clipShape(Circle())
+                                    Text("\(entry.user.personaname)").font(.caption2).bold()
+                                    Spacer()
+                                    Text("\(entry.user.id.description)")
+                                        .font(.caption2)
+                                        .foregroundColor(.secondaryLabel)
+                                }
+                            }
+                            buildMatches(self.maxMatches, height: proxy.size.height - 40)
+                        }.padding(10)
+                    default:
+                        EmptyView()
                     }
-                    buildMatches(self.maxMatches, height: proxy.size.height - 40)
-                }.padding(10)
-            default:
-                EmptyView()
+                }
             }
         }
         .blur(radius: entry.subscription ? 0 : 15)
         .overlay {
             if !entry.subscription {
-                SubscriptionWidgetView()
+                WidgetOverlayView(widgetType: .subscription)
             }
         }
     }
