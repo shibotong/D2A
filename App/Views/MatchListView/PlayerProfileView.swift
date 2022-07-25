@@ -12,6 +12,8 @@ struct PlayerProfileView: View {
     @StateObject var vm: PlayerProfileViewModel
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
+    @State private var isSharePresented: Bool = false
+
     @ViewBuilder var favoriteButton: some View {
         if env.registerdID == vm.userid {
             Image(systemName: "person.text.rectangle")
@@ -49,12 +51,15 @@ struct PlayerProfileView: View {
                 .toolbar(content: {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
                         favoriteButton
-//                        Button {
-//                            print("Pressed")
-//                        } label: {
-//                            Image(systemName: "star")
-//                        }
+                        Button {
+                            self.isSharePresented = true
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                        }
                     }
+                })
+                .sheet(isPresented: $isSharePresented, content: {
+                    ShareActivityView(activityItems: [SharingLink(title: "\(profile.personaname)", link: "d2aapp://profile?userid=\(profile.id.description)", image: vm.userIcon!)])
                 })
                 .overlay {
                     if vm.isLoading {
@@ -111,7 +116,7 @@ struct PlayerProfileView: View {
     @ViewBuilder private func buildCompactTopBar(profile: UserProfile) -> some View {
         VStack {
             VStack {
-                ProfileAvartar(url: profile.avatarfull, sideLength: 150, cornerRadius: 20)
+                ProfileAvartar(image: vm.userIcon, sideLength: 150, cornerRadius: 20)
                 VStack {
                     buildNameBar(profile: profile)
                     if profile.name != nil {
@@ -132,7 +137,7 @@ struct PlayerProfileView: View {
     
     @ViewBuilder private func buildRegularTopBar(profile: UserProfile) -> some View {
         HStack(spacing: 30) {
-            ProfileAvartar(url: profile.avatarfull, sideLength: 250, cornerRadius: 20)
+            ProfileAvartar(image: vm.userIcon, sideLength: 250, cornerRadius: 20)
             VStack {
                 Spacer()
                 HStack {

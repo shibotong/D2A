@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 enum TabSelection {
     case home, hero, search, setting
@@ -56,6 +57,9 @@ final class DotaEnvironment: ObservableObject {
     @Published var selectedMatch: String? = nil
     @Published var matchActive: Bool = false
     @Published var userActive: Bool = false
+
+    var profileImages: [Int: UIImage] = [:]
+
     init() {
         self.userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
         self.subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false

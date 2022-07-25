@@ -110,7 +110,7 @@ struct SidebarRowView: View {
             Label {
                 Text("\(vm.profile?.name ?? vm.profile!.personaname)").lineLimit(1)
             } icon: {
-                ProfileAvartar(url: vm.profile!.avatarfull, sideLength: 30, cornerRadius: 10)
+                ProfileAvartar(image: vm.userIcon, sideLength: 30, cornerRadius: 10)
             }
             
         } else {

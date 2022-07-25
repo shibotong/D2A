@@ -76,15 +76,7 @@ struct HeroDetailView: View {
                     Button {
                         self.vm.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroID: vm.heroID, abilityName: abilityName)
                     } label: {
-                        ProfileAvartar(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
-//                        WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
-//                            .resizable()
-//                            .renderingMode(.original)
-//                            .indicator(.activity)
-//                            .transition(.fade)
-//                            .aspectRatio(contentMode: .fit)
-//                            .frame(width: skillFrame)
-//                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                        AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
                     }
                 }
             }
@@ -320,15 +312,7 @@ struct AbilityView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 10) {
                     let parsedimgURL = vm.ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                    ProfileAvartar(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 70, cornerRadius: 20)
-//                    WebImage(url: URL(string: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
-//                        .resizable()
-//                        .renderingMode(.original)
-//                        .indicator(.activity)
-//                        .transition(.fade)
-//                        .aspectRatio(contentMode: .fit)
-//                        .frame(width: 70)
-//                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                    AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 70, cornerRadius: 20)
                     VStack(alignment: .leading) {
                         Text(vm.ability.dname ?? "")
                             .font(.custom(fontString, size: 18))

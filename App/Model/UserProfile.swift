@@ -38,6 +38,4 @@ struct UserProfile: TableCodable, Identifiable {
         case leaderboard
         case name
     }
-    
-//    static let sample = loadProfile()!
 }

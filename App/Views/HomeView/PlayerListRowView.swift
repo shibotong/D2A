@@ -13,7 +13,7 @@ struct PlayerListRowView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                ProfileAvartar(url: vm.profile?.avatarfull ?? "", sideLength: 50, cornerRadius: 25)
+                ProfileAvartar(image: vm.userIcon, sideLength: 50, cornerRadius: 25)
                 Spacer().frame(height: 10)
                 HStack(spacing: 0) {
                     if vm.profile?.name != nil {

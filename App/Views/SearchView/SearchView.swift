@@ -173,10 +173,30 @@ struct AddAccountView_Previews: PreviewProvider {
 
 
 struct ProfileAvartar: View {
-    var url: String
+    var image: UIImage?
     let sideLength: CGFloat
     let cornerRadius: CGFloat
     var body: some View {
+        if let image = image {
+            Image(uiImage: image)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: sideLength, height: sideLength)
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+        } else {
+            ProgressView()
+                .frame(width: sideLength, height: sideLength)
+        }
+    }
+}
+
+struct AbilityImage: View {
+    var url: String
+    let sideLength: CGFloat
+    let cornerRadius: CGFloat
+    
+    var body: some View {
+
         AsyncImage(url: URL(string: url)) { phase in
             switch phase {
             case .empty:
@@ -194,7 +214,7 @@ struct ProfileAvartar: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: sideLength, height: sideLength)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                
+
             @unknown default:
                 Image("profile")
                     .resizable()

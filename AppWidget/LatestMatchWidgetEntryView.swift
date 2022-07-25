@@ -35,7 +35,7 @@ struct LatestMatchWidgetEntryView: View {
                     case .systemMedium, .systemLarge:
                         let avatarHeight: CGFloat = 20
                         VStack(spacing: 5) {
-                            Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)")!) {
+                            Link(destination: URL(string: "d2aapp:profile?userid=\(entry.user.id)")!) {
                                 HStack {
                                     NetworkImage(urlString: entry.user.avatarfull).frame(width: avatarHeight, height: avatarHeight).clipShape(Circle())
                                     Text("\(entry.user.personaname)").font(.caption2).bold()
@@ -98,7 +98,7 @@ struct LatestMatchWidgetEntryView: View {
         VStack(spacing: 0) {
             ForEach(matches) { match in
                     Divider()
-                    Link(destination: URL(string: "d2aapp:Match?matchid=\(match.id)")!) {
+                    Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
                         buildMatch(match: match)
                             .padding(5)
                             .frame(height:rowHeight)

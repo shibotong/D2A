@@ -97,7 +97,7 @@ struct WidgetOverlayView: View {
     var body: some View {
         ZStack {
             if self.widgetType == .subscription {
-                Link(destination: URL(string: "d2aapp:Match?purchase=true")!) {
+                Link(destination: URL(string: "d2aapp:purchase?purchase=true")!) {
                     mainView
                 }
             } else {

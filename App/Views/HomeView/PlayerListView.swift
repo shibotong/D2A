@@ -126,7 +126,7 @@ struct RegisteredPlayerView: View {
             VStack(spacing: 10) {
                 NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: vm.userid))) {
                     HStack {
-                        ProfileAvartar(url: vm.profile?.avatarfull ?? "", sideLength: 70, cornerRadius: 25)
+                        ProfileAvartar(image: vm.userIcon, sideLength: 70, cornerRadius: 25)
                         VStack(alignment: .leading, spacing: 0) {
                             Text(vm.profile?.personaname ?? "").font(.custom(fontString, size: 20)).bold().lineLimit(1).foregroundColor(.label)
                             Text("\(vm.profile?.id.description ?? "")")

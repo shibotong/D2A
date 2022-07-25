@@ -141,7 +141,7 @@ struct RecentMatchesEntryView : View {
     @ViewBuilder private func largeView() -> some View {
         if entry.user.id != 0 && entry.subscription {
             VStack(spacing: 5) {
-                Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)")!) {
+                Link(destination: URL(string: "d2aapp:profile?userid=\(entry.user.id)")!) {
                     HStack {
                         NetworkImage(urlString: entry.user.avatarfull).frame(width: 20, height: 20).clipShape(Circle())
                         Text("\(entry.user.personaname)").font(.custom(fontString, size: 13)).bold()
@@ -165,7 +165,7 @@ struct RecentMatchesEntryView : View {
     @ViewBuilder private func mediumView() -> some View {
         if entry.user.id != 0 && entry.subscription {
             VStack(spacing: 5) {
-                Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)")!) {
+                Link(destination: URL(string: "d2aapp:profile?userid=\(entry.user.id)")!) {
                     HStack {
                         NetworkImage(urlString: entry.user.avatarfull).frame(width: 20, height: 20).clipShape(Circle())
                         Text("\(entry.user.personaname)").font(.custom(fontString, size: 13)).bold()
@@ -224,14 +224,14 @@ struct RecentMatchesEntryView : View {
                 VStack(spacing: 5) {
                     Divider()
                     if let match = entry.matches.first {
-                        Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
+                        Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
                             buildMatch(match: match)
                         }
                         .disabled(entry.subscription && entry.user.id != 0)
                     }
                     Divider()
                     if let match = entry.matches[1] {
-                        Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
+                        Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
                             buildMatch(match: match)
                         }
                         .disabled(entry.subscription && entry.user.id != 0)
@@ -242,25 +242,25 @@ struct RecentMatchesEntryView : View {
                 VStack(spacing: 5) {
                     Divider()
                     if let match = entry.matches.first {
-                        Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
+                        Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
                             buildMatch(match: match)
                         }.disabled(entry.subscription && entry.user.id != 0)
                     }
                     Divider()
                     if let match = entry.matches[1] {
-                        Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
+                        Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
                             buildMatch(match: match)
                         }.disabled(entry.subscription && entry.user.id != 0)
                     }
                     Divider()
                     if let match = entry.matches[2] {
-                        Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
+                        Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
                             buildMatch(match: match)
                         }.disabled(entry.subscription && entry.user.id != 0)
                     }
                     Divider()
                     if let match = entry.matches[3] {
-                        Link(destination: URL(string: "d2aapp:Match?userid=\(entry.user.id)&matchid=\(match.id)")!) {
+                        Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
                             buildMatch(match: match)
                         }.disabled(entry.subscription && entry.user.id != 0)
                     }
