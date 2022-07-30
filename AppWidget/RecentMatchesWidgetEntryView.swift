@@ -144,13 +144,10 @@ struct RecentMatchesWidgetEntryView: View {
 struct RecentMatchesWidgetEntryView_Previews: PreviewProvider {
     static var previews: some View {
         RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
-//            .environment(\.widgetFamily, .systemSmall)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
-            .previewDevice(PreviewDevice.iPadPro12)
         
         RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
-            .previewDevice(PreviewDevice.iPodTouch)
         
     }
 }
