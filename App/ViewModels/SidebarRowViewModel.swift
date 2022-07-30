@@ -29,15 +29,14 @@ class SidebarRowViewModel: ObservableObject {
     func loadProfile() {
         if self.profile == nil {
             if let profile = WCDBController.shared.fetchUserProfile(userid: userid) {
-                self.profile = profile
+                Task {
+                    await self.setProfile(profile)
+                }
             } else {
                 Task {
                     let profile = await OpenDotaController.shared.loadUserData(userid: userid)
                     await self.setProfile(profile)
                 }
-            }
-            Task {
-                try? await self.loadUserIcon()
             }
         }
     }
@@ -68,6 +67,9 @@ class SidebarRowViewModel: ObservableObject {
     @MainActor
     func setProfile(_ profile: UserProfile?) {
         self.profile = profile
+        Task {
+            try? await self.loadUserIcon()
+        }
     }
     
     @MainActor
