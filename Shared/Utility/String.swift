@@ -14,7 +14,6 @@ let GROUP_NAME = "group.D2A"
 let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/documents/terms-of-use.md"
 let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/documents/privacy-policy.md"
 
-#if DEBUG
 extension PreviewDevice {
 
     static let previewDevices = [PreviewDevice.iPodTouch, PreviewDevice.iPhoneSE, PreviewDevice.iPhoneMini, PreviewDevice.iPhone, PreviewDevice.iPhoneProMax]
@@ -29,4 +28,3 @@ extension PreviewDevice {
     static let iPadPro = PreviewDevice("iPad Pro (11-inch) (3rd generation)")
     static let iPadPro12 = PreviewDevice("iPad Pro (12-inch) (5th generation)")
 }
-#endif
