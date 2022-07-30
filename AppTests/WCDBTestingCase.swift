@@ -17,6 +17,7 @@ class WCDBTestingCase: XCTestCase {
     override func setUp() {
         super.setUp()
         self.wcdbController = WCDBController()
+        self.wcdbController.deleteDatabase()
         self.decodingService = DecodingService()
     }
     
