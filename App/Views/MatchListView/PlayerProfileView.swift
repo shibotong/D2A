@@ -51,11 +51,11 @@ struct PlayerProfileView: View {
                 .toolbar(content: {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
                         favoriteButton
-                        Button {
-                            self.isSharePresented = true
-                        } label: {
-                            Image(systemName: "square.and.arrow.up")
-                        }
+//                        Button {
+//                            self.isSharePresented = true
+//                        } label: {
+//                            Image(systemName: "square.and.arrow.up")
+//                        }
                     }
                 })
                 .sheet(isPresented: $isSharePresented, content: {
