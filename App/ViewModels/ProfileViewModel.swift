@@ -15,17 +15,24 @@ class ProfileViewModel: ObservableObject {
     @Published var profileIcon: UIImage?
 
     var userid: String
-    
+
+    ///Init with userID
+    ///- parameter id: Player ID
     init(id: String) {
         self.userid = id
         Task {
             await self.loadProfile()
         }
     }
-    
+
+    ///Init with User Profile
+    ///- parameter profile: User Profile
     init(profile: UserProfile) {
         self.profile = profile
         self.userid = profile.id.description
+        Task {
+            try? await self.loadProfileImage(profile: profile)
+        }
     }
     
     init() {
