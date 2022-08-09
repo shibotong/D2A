@@ -20,7 +20,6 @@ struct SearchView: View {
                         Image(systemName: "magnifyingglass")
                         Text("Search \(vm.searchText)")
                     }
-                    //                .searchCompletion(vm.searchText)
                     .foregroundColor(.label)
                 }
                 if !vm.localProfiles.isEmpty {
