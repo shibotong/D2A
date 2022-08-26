@@ -25,6 +25,20 @@
 "MONTHSCALCULATE %lld" = "%lld months";
 "YEARSCALCULATE %lld" = "%lld yrs";
 
+"FAVORITESADDTITLE" = "There are no players registered in your favorites.";
+"FAVORITESADDSUBTITLE" = "Please search and register a player";
+
+// MARK: - Talents
+// MARK: Abaddon
+"abaddon_death_coil" = "Mist Coil";
+"abaddon_aphotic_shield" = "Aphotic Shield";
+"abaddon_frostmourne" = "Curse of Avernus";
+"abaddon_borrowed_time" = "Borrowed Time";
+"special_bonus_unique_abaddon" = "+100 Aphotic Shield Health";
+"special_bonus_unique_abaddon_2" = "+50 Mist Coil Heal/Damage";
+"special_bonus_unique_abaddon_3" = "-{s:bonus_hit_count} Curse of Avernus Attacks Required";// TODO = Need value
+"special_bonus_unique_abaddon_4" = "400 AoE Mist Coil";
+"special_bonus_unique_abaddon_5" = "-8s Borrowed Time Cooldown";
 
 // MARK: - Abilities
 
@@ -1098,10 +1112,7 @@
 "skywrath_mage_concussive_shot" = "Concussive Shot";
 "skywrath_mage_ancient_seal" = "Ancient Seal";
 "skywrath_mage_mystic_flare" = "Mystic Flare";
-"abaddon_death_coil" = "Mist Coil";
-"abaddon_aphotic_shield" = "Aphotic Shield";
-"abaddon_frostmourne" = "Curse of Avernus";
-"abaddon_borrowed_time" = "Borrowed Time";
+
 "elder_titan_echo_stomp" = "Echo Stomp";
 "elder_titan_echo_stomp_spirit" = "Echo Stomp";
 "elder_titan_ancestral_spirit" = "Astral Spirit";
@@ -1398,7 +1409,6 @@
 "special_bonus_unique_invoker_1" = "4 Forged Spirits Summoned";
 "special_bonus_unique_invoker_2" = "Radial Deafening Blast";
 "special_bonus_unique_invoker_3" = "-10s Tornado Cooldown";
-"special_bonus_unique_abaddon" = "+100 Aphotic Shield Health";
 "special_bonus_unique_alchemist" = "+125 Unstable Concoction Radius";
 "special_bonus_unique_axe" = "{s:bonus_armor_multiplier}x Battle Hunger Armor Multiplier";// TODO = Need value
 "special_bonus_unique_beastmaster" = "+50 Wild Axes Damage";
@@ -1756,8 +1766,7 @@
 "special_bonus_unique_mars_spear_stun_duration" = "+0.8s Spear of Mars Stun";
 "mars_arena_of_blood" = "Arena Of Blood";
 "special_bonus_unique_lion_3" = "+160 Finger of Death Damage";
-"special_bonus_unique_abaddon_2" = "+50 Mist Coil Heal/Damage";
-"special_bonus_unique_abaddon_3" = "-{s:bonus_hit_count} Curse of Avernus Attacks Required";// TODO = Need value
+
 "special_bonus_cleave_20" = "+20% Cleave";
 "special_bonus_unique_alchemist_3" = "0.15 Chemical Rage Base Attack Time";
 "special_bonus_attack_speed_160" = "+160 Attack Speed";
@@ -2099,8 +2108,7 @@
 "tusk_tag_team" = "Tag Team";
 "omniknight_pacify" = "Divine Sanction";
 "lich_sinister_gaze" = "Sinister Gaze";
-"special_bonus_unique_abaddon_4" = "400 AoE Mist Coil";
-"special_bonus_unique_abaddon_5" = "-8s Borrowed Time Cooldown";
+
 "special_bonus_unique_elder_titan_4" = "+450 Echo Stomp Wake Damage";
 "special_bonus_unique_lich_4" = "+4s Frost Shield Duration";
 "special_bonus_attack_base_damage_45" = "+45 Base Damage";

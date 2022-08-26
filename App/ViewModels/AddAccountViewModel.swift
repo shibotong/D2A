@@ -26,9 +26,9 @@ class AddAccountViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .map { text in
                 if !text.isEmpty {
-                    let heroes = HeroDatabase.shared.fetchAllHeroes().filter { hero in
-                        hero.localizedName.lowercased().contains(text.lowercased()) && hero.localizedName.lowercased() != text.lowercased()
-                    }
+                    let heroes = HeroDatabase.shared.fetchAllHeroes().filter({
+                        return $0.heroNameLocalized.lowercased().contains(text.lowercased())
+                    })
                     return heroes
                 } else {
                     return []
@@ -59,7 +59,7 @@ class AddAccountViewModel: ObservableObject {
     func search(searchText: String) async {
         self.userProfiles = []
         self.filterHeroes = HeroDatabase.shared.fetchAllHeroes().filter { hero in
-            hero.localizedName.lowercased().contains(searchText.lowercased())
+            return hero.heroNameLocalized.lowercased().contains(searchText.lowercased())
         }
         async let searchedProfile = OpenDotaController.shared.searchUserByText(text: searchText)
         if Int(searchText) != nil {

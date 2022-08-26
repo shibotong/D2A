@@ -30,7 +30,7 @@ struct SearchView: View {
                                 .foregroundColor(.label)
                         }
                     } header: {
-                        Text("Favourite Players")
+                        Text("Favorite Players")
                             .foregroundColor(.secondaryLabel)
                             .font(.subheadline)
                     }
@@ -41,10 +41,10 @@ struct SearchView: View {
                             HStack {
                                 HeroImageView(heroID: hero.id, type: .icon)
                                     .frame(width: 30, height: 30)
-                                Text(hero.localizedName)
+                                Text(hero.heroNameLocalized)
                             }
                             .foregroundColor(.label)
-                            .searchCompletion(hero.localizedName)
+                            .searchCompletion(hero.heroNameLocalized)
                         }
                     } header: {
                         Text("Heroes")
@@ -68,7 +68,7 @@ struct SearchView: View {
                 Text("Players, Heroes, Matches")
                     .bold()
                 VStack {
-                    Text("Search with players id or name, ")
+                    Text("Search with players id or name,")
                         .foregroundColor(.secondaryLabel)
                     Text("hero name and match id")
                     .foregroundColor(.secondaryLabel)
@@ -135,7 +135,7 @@ struct SearchView: View {
                                 HStack {
                                     HeroImageView(heroID: hero.id, type: .icon)
                                         .frame(width: 30, height: 30)
-                                    Text(hero.localizedName)
+                                    Text(hero.heroNameLocalized)
                                 }
                             }
                         }
