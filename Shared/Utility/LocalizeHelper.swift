@@ -78,6 +78,64 @@ class LocalizeHelper {
                 return LocalizedStringKey("+\(value) Mana Void Radius")
             }
 
+            //MARK: 2. Axe
+        case "special_bonus_unique_axe":
+            let prefix = ""
+            let suffix = "x Battle Hunger Armor Multiplier"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("\(value)x Battle Hunger Armor Multiplier")
+            }
+        case "special_bonus_unique_axe_2":
+            let prefix = "+"
+            let suffix = " Berserker's Call AoE"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Berserker's Call AoE")
+            }
+        case "special_bonus_unique_axe_3":
+            let prefix = "+"
+            let suffix = " Bonus Armor per Culling Blade Stack"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Bonus Armor per Culling Blade Stack")
+            }
+        case "special_bonus_unique_axe_4":
+            let prefix = "+"
+            let suffix = " Counter Helix Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Counter Helix Damage")
+            }
+        case "special_bonus_unique_axe_5":
+            let prefix = "+"
+            let suffix = " Culling Blade Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Culling Blade Damage")
+            }
+        case "special_bonus_unique_axe_6":
+            let prefix = "+"
+            let suffix = " Battle Hunger Slow"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Battle Hunger Slow")
+            }
+        case "special_bonus_unique_axe_7":
+            let prefix = "+"
+            let suffix = " Berseker's Call Armor"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Berseker's Call Armor")
+            }
+        case "special_bonus_unique_axe_8":
+            let prefix = "+"
+            let suffix = " Movement Speed per active Battle Hunger"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Movement Speed per active Battle Hunger")
+            }
+
             //MARK: 68. Ancient Apparition
         case "special_bonus_unique_ancient_apparition_1":
             let prefix = "+"

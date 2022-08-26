@@ -326,6 +326,17 @@
 "+%@s Mana Void Stun" = "+%@秒 法力虚空眩晕"; // special_bonus_unique_antimage_8
 "+%@ Mana Void Radius" = "+%@ 法力虚空范围"; // special_bonus_unique_antimage_manavoid_aoe
 
+// MARK: 2. Axe
+"%@x Battle Hunger Armor Multiplier" = "%@ 战斗饥渴护甲系数"; // special_bonus_unique_axe
+"+%@ Berserker's Call AoE" = "+%@ 狂战士之吼范围"; // special_bonus_unique_axe_2
+"+%@ Bonus Armor per Culling Blade Stack" = "+%@ 淘汰之刃额外护甲"; // special_bonus_unique_axe_3
+"+%@ Counter Helix Damage" = "+%@ 反击螺旋伤害"; // special_bonus_unique_axe_4
+"+%@ Culling Blade Damage" = "+%@ 淘汰之刃伤害"; // special_bonus_unique_axe_5
+"+%@ Battle Hunger Slow" = "+%@ 战斗饥渴减速"; // special_bonus_unique_axe_6
+"+%@ Berseker's Call Armor" = "+%@ 狂战士之吼护甲"; // special_bonus_unique_axe_7
+"+%@ Movement Speed per active Battle Hunger" = "战斗饥渴每作用一个目标提供+%@ 移动速度"; // special_bonus_unique_axe_8
+
+
 // MARK: 68. Ancient Apparition
 "+%@ Cold Feet Breaking distance" = "+%@ 寒霜之足失效距离"; // special_bonus_unique_ancient_apparition_1
 "+%@ Chilling Touch Damage" = "+%@ 极寒之触伤害"; // special_bonus_unique_ancient_apparition_2
@@ -557,7 +568,6 @@
 "special_bonus_unique_phantom_assassin_7" = "-2秒 窒碍短匕冷却";
 "special_bonus_unique_dark_seer_7" = "+20% 复制之墙幻象攻击力";
 "grimstroke_ink_over" = "Ink Over";
-"special_bonus_unique_axe_5" = "+150 淘汰之刃伤害";
 "special_bonus_unique_phantom_lancer_5" = "-2秒 灵魂之矛冷却";
 "special_bonus_unique_phantom_lancer_6" = "+8% 并列攻击力";
 "special_bonus_unique_razor_5" = "+21% 风暴涌动移动速度";
@@ -627,7 +637,6 @@
 "special_bonus_unique_shadow_demon_8" = "+5s Soul Catcher Duration"; // TODO: Shadow Demon
 "slark_fish_bait" = "Fish Bait";
 "special_bonus_unique_keeper_of_the_light_9" = "+50% Illuminate Daytime Heal"; // TODO: Keeper of light
-"special_bonus_unique_axe_6" = "+10% 战斗饥渴减速";
 "special_bonus_unique_bane_6" = "-50% Enfeeble Regen Reduction"; // TODO: Bane
 "special_bonus_unique_bane_7" = "Brain Sap Pure and Pierces Immunity"; // TODO: Bane
 "special_bonus_unique_sven_5" = "+3秒 战吼持续时间";
@@ -1728,8 +1737,6 @@
 "special_bonus_unique_invoker_1" = "4 Forged Spirits Summoned"; // TODO: Invoker
 "special_bonus_unique_invoker_2" = "环形超震声波";
 "special_bonus_unique_invoker_3" = "-10秒 强袭飓风冷却";
-
-"special_bonus_unique_axe" = "2 战斗饥渴护甲系数";
 "special_bonus_unique_beastmaster" = "+50 Wild Axes Damage"; // TODO: BM
 "special_bonus_unique_clinkz_1" = "+20 灼热之箭伤害";
 "special_bonus_unique_juggernaut" = "+75 剑刃风暴作用范围";
@@ -2080,7 +2087,6 @@
 "special_bonus_unique_lion_3" = "+160 死亡之指伤害";
 "special_bonus_cleave_20" = "+20% Cleave";
 "special_bonus_attack_speed_160" = "+160 攻击速度";
-"special_bonus_unique_axe_2" = "+100 狂战士之吼范围";
 "special_bonus_unique_bane_3" = "+5秒 魔爪持续时间";
 "special_bonus_unique_batrider_3" = "+75 烈焰破击击退距离";
 "special_bonus_unique_beastmaster_3" = "-14s Hawks Cooldown"; // TODO: BM
@@ -2177,7 +2183,6 @@
 "special_bonus_unique_invoker_6" = "+40% 混沌陨石伤害";
 "special_bonus_unique_disruptor_5" = "+2秒 动能力场持续时间";
 "special_bonus_unique_nyx_3" = "复仇无视地形";
-"special_bonus_unique_axe_3" = "+1 淘汰之刃额外护甲";
 "special_bonus_mp_800" = "+800 魔法";
 "special_bonus_spell_lifesteal_6" = "6% 技能吸血";
 "special_bonus_unique_viper_3" = "+40 幽冥剧毒最低/最高伤害";
@@ -2301,7 +2306,6 @@
 "special_bonus_unique_weaver_3" = "+0.5 虫群削弱护甲";
 "special_bonus_unique_weaver_4" = "+2 虫群可被攻击次数";
 "special_bonus_unique_weaver_5" = "+1 连击";
-"special_bonus_unique_axe_4" = "+30 反击螺旋伤害";
 "special_bonus_unique_windranger_4" = "-4秒 风行冷却";
 "special_bonus_unique_windranger_5" = "+2 Shackleshot Target"; // TODO: WR
 "special_bonus_unique_winter_wyvern_4" = "碎裂冲击造成1.5秒眩晕";
