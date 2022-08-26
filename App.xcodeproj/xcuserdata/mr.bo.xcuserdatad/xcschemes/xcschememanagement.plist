@@ -19,6 +19,11 @@
 			<key>orderHint</key>
 			<integer>9</integer>
 		</dict>
+		<key>D2A-CN.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -28,6 +33,16 @@
 			<true/>
 		</dict>
 		<key>32D1606826F4EE1500657449</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>32F70A9C26F57F7E006E9B05</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>32F70AE526F61836006E9B05</key>
 		<dict>
 			<key>primary</key>
 			<true/>

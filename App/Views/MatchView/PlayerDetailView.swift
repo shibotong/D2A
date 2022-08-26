@@ -151,41 +151,42 @@ struct PlayerDetailView: View {
     }
     @ViewBuilder private func buildAbility(abilityID: Int) -> some View {
         if let abilityName = HeroDatabase.shared.fetchAbilityName(id: abilityID) {
-            if let ability = HeroDatabase.shared.fetchAbility(name: abilityName), let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!" {
+            if let ability = HeroDatabase.shared.fetchAbility(name: abilityName) {
+                if let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!" {
                     let parsedimgURL = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
                 AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 50, cornerRadius: 0)
                 } else {
-                    Image("ability_slot")
-                        .resizable()
-                        .renderingMode(.template)
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(Color(.systemBackground))
-                        .overlay(
-                            ZStack {
-                                Rectangle().stroke()
-                                if abilityID == 730 {
-                                    Text("Bonus Attributes").font(.custom(fontString, size: 8)).padding(0.5)
-                                } else {
-                                    Text(NSLocalizedString(abilityName, comment: "")).font(.custom(fontString, size: 8)).padding(0.5)
-                                }
-                            }
-                        )
+                    // no image
+                    if abilityID == 730 {
+                        buildAbilityWithString("Bonus Attributes")
+                    } else {
+                        buildAbilityWithString(LocalizeHelper.localizationString(ability, key: abilityName))
+                    }
                 }
+            } else {
+                // Cannot find abiilty with name
+                buildAbilityWithString(LocalizedStringKey(abilityName))
+            }
         } else {
             // Cannot find ability with ID
-            Image("ability_slot")
-                .resizable()
-                .renderingMode(.template)
-                .aspectRatio(contentMode: .fit)
-                .foregroundColor(Color(.systemBackground))
-                .overlay(
-                    ZStack {
-                        Rectangle().stroke()
-                        Text("Unknown: \(abilityID)").font(.custom(fontString, size: 8)).padding(0.5)
-                    }
-                )
+            buildAbilityWithString("Unknown: \(abilityID)")
         }
     }
+
+    @ViewBuilder private func buildAbilityWithString(_ text: LocalizedStringKey) -> some View {
+        Image("ability_slot")
+            .resizable()
+            .renderingMode(.template)
+            .aspectRatio(contentMode: .fit)
+            .foregroundColor(Color(.systemBackground))
+            .overlay(
+                ZStack {
+                    Rectangle().stroke()
+                    Text(text).font(.custom(fontString, size: 8)).padding(0.5)
+                }
+            )
+    }
+
     @ViewBuilder private func profileHost(playerID: Int?) -> some View {
         if player.accountId == nil {
             ProfileEmptyView()
