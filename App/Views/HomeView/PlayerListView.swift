@@ -28,9 +28,9 @@ struct PlayerListView: View {
                     }.padding()
                     if env.userIDs.isEmpty {
                         VStack {
-                            Text("There are no players registered in you favorites.")
+                            Text("FAVORITESADDTITLE")
                                 .font(.custom(fontString, size: 13))
-                            Text("Please search and register a player.")
+                            Text("FAVORITESADDSUBTITLE")
                                 .font(.custom(fontString, size: 13))
                             Button {
                                 env.selectedTab = .search

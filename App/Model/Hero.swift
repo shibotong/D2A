@@ -46,6 +46,10 @@ class Hero: Identifiable, Decodable {
     var heroNameLowerCase: String {
         return self.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
     }
+
+    var heroNameLocalized: String {
+        return NSLocalizedString(self.localizedName, comment: "")
+    }
     
     static let strMaxHP = 20
     static let strHPRegen = 0.1

@@ -84,7 +84,7 @@ struct Sidebar: View {
                 selection: $env.iPadSelectedTab
             ) {
                 Label {
-                    Text("About Us")
+                    Text("About")
                 } icon: {
                     Image(systemName: "info.circle")
                 }

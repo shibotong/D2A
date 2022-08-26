@@ -87,7 +87,7 @@ struct HeroListView: View {
                 Image("hero_\(icon)")
                     .resizable()
                     .frame(width: 20, height: 20)
-                Text(title)
+                Text(LocalizedStringKey(title))
                 Spacer()
             }
         }
@@ -122,7 +122,7 @@ struct HeroListView: View {
     
     @ViewBuilder private func buildMainPart(heroes: [Hero]) -> some View {
         if vm.gridView {
-            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 170, maximum: 200), spacing: 10, alignment: .leading), count: 2)){
+            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 170, maximum: 200), spacing: 10, alignment: .leading), count: 1)){
                 ForEach(heroes) { hero in
                     NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
                         buildHero(hero: hero)
@@ -142,7 +142,7 @@ struct HeroListView: View {
         if horizontalSize == .regular {
             HeroImageView(heroID: hero.id, type: .vert)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-                .opacity((hero.localizedName.lowercased().contains(vm.searchString.lowercased()) || vm.searchString.isEmpty) ? 1 : 0.2)
+                .opacity((hero.heroNameLocalized.lowercased().contains(vm.searchString.lowercased()) || vm.searchString.isEmpty) ? 1 : 0.2)
         } else {
             if vm.gridView {
                 ZStack {
@@ -154,7 +154,7 @@ struct HeroListView: View {
                         Spacer()
                         HStack {
                             Image("hero_\(hero.primaryAttr)").resizable().frame(width: 20, height: 20)
-                            Text(LocalizedStringKey(hero.localizedName))
+                            Text(hero.heroNameLocalized)
                                 .font(.system(size: 12))
                                 .fontWeight(.black)
                                 .foregroundColor(.white)
@@ -169,7 +169,7 @@ struct HeroListView: View {
                 HeroImageView(heroID: hero.id, type: .full)
                     .frame(width: 70)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
-                Text(LocalizedStringKey(hero.localizedName))
+                Text(hero.heroNameLocalized)
                 Spacer()
                 Image("hero_\(hero.primaryAttr)")
                     .resizable()

@@ -44,11 +44,11 @@ class HeroListViewModel: ObservableObject {
         $searchString
             .combineLatest($attributes)
             .map { searchString, attributes in
-                let filterHeroes = attributes == .all ? self.heroList : self.heroList.filter({ return $0.primaryAttr == attributes.rawValue })
+                let filterHeroes = attributes == .all ? self.heroList.sorted { $0.id < $1.id } : self.heroList.filter({ return $0.primaryAttr == attributes.rawValue })
                 if searchString.isEmpty {
                     return filterHeroes
                 } else {
-                    let searchedHeroes = filterHeroes.filter({return $0.localizedName.lowercased().contains(searchString.lowercased())})
+                    let searchedHeroes = filterHeroes.filter({return NSLocalizedString($0.localizedName, comment: "").lowercased().contains(searchString.lowercased())})
                     return searchedHeroes
                 }
             }
