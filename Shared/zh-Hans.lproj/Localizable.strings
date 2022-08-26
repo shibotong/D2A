@@ -278,35 +278,7 @@
 "Primal Beast" = "兽";
 
 //MARK: - Talent
-// MARK: Abaddon
-"+%@ Aphotic Shield Health" = "+%@ 无光之盾吸收"; // special_bonus_unique_abaddon
-"+%@ Mist Coil Heal/Damage" = "+%@ 迷雾缠绕治疗/伤害"; // special_bonus_unique_abaddon_2
-"-%@ Curse of Avernus Attacks Required" = "-%@ 魔霭诅咒所需攻击次数"; // special_bonus_unique_abaddon_3
-"%@ AoE Mist Coil" = "%@ 范围型迷雾缠绕"; // special_bonus_unique_abaddon_4
-"-%@s Borrowed Time Cooldown" = "-%@秒 回光返照冷却"; //special_bonus_unique_abaddon_5
-"-%@ Curse of Avernus Movement Slow" = "-%@ 魔霭诅咒减速"; // special_bonus_unique_abaddon_6
-
-// MARK: Alchemist
-"+%@ Unstable Concoction Radius" = "+%@ 不稳定化合物作用范围"; // special_bonus_unique_alchemist
-"+%@ Unstable Concoction Max Damage" = "+%@ 不稳定化合物最高伤害"; // special_bonus_unique_alchemist_2
-"Acid Spray grants armor to allies" = "酸性喷雾向友军提供护甲"; // special_bonus_unique_alchemist_3
-"+%@ Chemical Rage Regeneration" = "+%@ 化学狂暴恢复"; // special_bonus_unique_alchemist_4
-"+%@ Acid Spray Armor Reduction" = "+%@ 酸性喷雾护甲降低"; // special_bonus_unique_alchemist_5
-"+%@ Chemical Rage Movement Speed" = "+%@ 化学狂暴移动速度"; // special_bonus_unique_alchemist_6
-"+%@ Damage per Greevil Greed stack" = "贪魔的贪婪叠加效果+%@ 攻击力"; // special_bonus_unique_alchemist_7
-"-%@s Chemical Rage Base Attack Time" = "-%@秒 化学狂暴基础攻击间隔"; // special_bonus_unique_alchemist_8
-
-// MARK: Ancient Apparition
-"+%@ Cold Feet Breaking distance" = "+%@ 寒霜之足失效距离"; // special_bonus_unique_ancient_apparition_1
-"+%@ Chilling Touch Damage" = "+%@ 极寒之触伤害"; // special_bonus_unique_ancient_apparition_2
-"-%@s Ice Vortex Cooldown" = "-%@秒 冰霜漩涡冷却"; // special_bonus_unique_ancient_apparition_3
-"%@ Ice Vortex Slow/Resistance" = "%@ 冰霜漩涡减速/伤害加深"; // special_bonus_unique_ancient_apparition_4
-"+%@ Ice Blast Kill Threshold" = "+%@ 冰晶爆轰斩杀上限"; // special_bonus_unique_ancient_apparition_5
-"%@ AoE Cold Feet" = "%@ 范围型寒霜之足"; // special_bonus_unique_ancient_apparition_6
-"+%@ Chilling Touch Attack Range" = "+%@ 极寒之触攻击距离"; // special_bonus_unique_ancient_apparition_7
-"+%@ Cold Feet Damage Per Second" = "+%@ 寒霜之足每秒伤害"; // special_bonus_unique_ancient_apparition_8
-
-// MARK: Antimage
+// MARK: 1. Antimage
 "-%@s Blink Cooldown" = "-%@秒 闪烁冷却"; // special_bonus_unique_antimage
 "-%@s Mana Void Cooldown" = "-%@秒 法力虚空冷却"; // special_bonus_unique_antimage_2
 "+%@ Blink Cast Range" = "+%@ 闪烁施法距离"; // special_bonus_unique_antimage_3
@@ -317,7 +289,35 @@
 "+%@s Mana Void Stun" = "+%@秒 法力虚空眩晕"; // special_bonus_unique_antimage_8
 "+%@ Mana Void Radius" = "+%@ 法力虚空范围"; // special_bonus_unique_antimage_manavoid_aoe
 
-// TODO: Arc Warden
+// MARK: 68. Ancient Apparition
+"+%@ Cold Feet Breaking distance" = "+%@ 寒霜之足失效距离"; // special_bonus_unique_ancient_apparition_1
+"+%@ Chilling Touch Damage" = "+%@ 极寒之触伤害"; // special_bonus_unique_ancient_apparition_2
+"-%@s Ice Vortex Cooldown" = "-%@秒 冰霜漩涡冷却"; // special_bonus_unique_ancient_apparition_3
+"%@ Ice Vortex Slow/Resistance" = "%@ 冰霜漩涡减速/伤害加深"; // special_bonus_unique_ancient_apparition_4
+"+%@ Ice Blast Kill Threshold" = "+%@ 冰晶爆轰斩杀上限"; // special_bonus_unique_ancient_apparition_5
+"%@ AoE Cold Feet" = "%@ 范围型寒霜之足"; // special_bonus_unique_ancient_apparition_6
+"+%@ Chilling Touch Attack Range" = "+%@ 极寒之触攻击距离"; // special_bonus_unique_ancient_apparition_7
+"+%@ Cold Feet Damage Per Second" = "+%@ 寒霜之足每秒伤害"; // special_bonus_unique_ancient_apparition_8
+
+// MARK: 73. Alchemist
+"+%@ Unstable Concoction Radius" = "+%@ 不稳定化合物作用范围"; // special_bonus_unique_alchemist
+"+%@ Unstable Concoction Max Damage" = "+%@ 不稳定化合物最高伤害"; // special_bonus_unique_alchemist_2
+"Acid Spray grants armor to allies" = "酸性喷雾向友军提供护甲"; // special_bonus_unique_alchemist_3
+"+%@ Chemical Rage Regeneration" = "+%@ 化学狂暴恢复"; // special_bonus_unique_alchemist_4
+"+%@ Acid Spray Armor Reduction" = "+%@ 酸性喷雾护甲降低"; // special_bonus_unique_alchemist_5
+"+%@ Chemical Rage Movement Speed" = "+%@ 化学狂暴移动速度"; // special_bonus_unique_alchemist_6
+"+%@ Damage per Greevil Greed stack" = "贪魔的贪婪叠加效果+%@ 攻击力"; // special_bonus_unique_alchemist_7
+"-%@s Chemical Rage Base Attack Time" = "-%@秒 化学狂暴基础攻击间隔"; // special_bonus_unique_alchemist_8
+
+// MARK: 102. Abaddon
+"+%@ Aphotic Shield Health" = "+%@ 无光之盾吸收"; // special_bonus_unique_abaddon
+"+%@ Mist Coil Heal/Damage" = "+%@ 迷雾缠绕治疗/伤害"; // special_bonus_unique_abaddon_2
+"-%@ Curse of Avernus Attacks Required" = "-%@ 魔霭诅咒所需攻击次数"; // special_bonus_unique_abaddon_3
+"%@ AoE Mist Coil" = "%@ 范围型迷雾缠绕"; // special_bonus_unique_abaddon_4
+"-%@s Borrowed Time Cooldown" = "-%@秒 回光返照冷却"; //special_bonus_unique_abaddon_5
+"-%@ Curse of Avernus Movement Slow" = "-%@ 魔霭诅咒减速"; // special_bonus_unique_abaddon_6
+
+// MARK: 113. Arc Warden
 "+%@ Spark Wraith Damage" = "+%@ 闪光幽魂伤害"; // special_bonus_unique_arc_warden
 "+%@ Flux Damage" = "+%@ 乱流伤害"; // special_bonus_unique_arc_warden_2
 "+%@ Magnetic Field Attack Speed" = "+%@ 磁场攻击速度"; // special_bonus_unique_arc_warden_3

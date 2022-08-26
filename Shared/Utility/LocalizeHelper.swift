@@ -14,166 +14,7 @@ class LocalizeHelper {
             return LocalizedStringKey("")
         }
         switch key {
-        //MARK: Abaddon
-        case "special_bonus_unique_abaddon":
-            let prefix = "+"
-            let suffix = " Aphotic Shield Health"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("+\(value) Aphotic Shield Health")
-            }
-        case "special_bonus_unique_abaddon_2":
-            let prefix = "+"
-            let suffix = " Mist Coil Heal/Damage"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("+\(value) Mist Coil Heal/Damage")
-            }
-        case "special_bonus_unique_abaddon_3":
-            let prefix = "-"
-            let suffix = " Curse of Avernus Attacks Required"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("-\(value) Curse of Avernus Attacks Required")
-            }
-        case "special_bonus_unique_abaddon_4":
-            let prefix = ""
-            let suffix = " AoE Mist Coil"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("\(value) AoE Mist Coil")
-            }
-        case "special_bonus_unique_abaddon_5":
-            let prefix = "-"
-            let suffix = "s Borrowed Time Cooldown"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("-\(value)s Borrowed Time Cooldown")
-            }
-        case "special_bonus_unique_abaddon_6":
-            let prefix = "-"
-            let suffix = " Curse of Avernus Movement Slow"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("-\(value) Curse of Avernus Movement Slow")
-            }
-
-        //MARK: Alchemist
-        case "special_bonus_unique_alchemist":
-            let prefix = "+"
-            let suffix = " Unstable Concoction Radius"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("+\(value) Unstable Concoction Radius")
-            }
-        case "special_bonus_unique_alchemist_2":
-            let prefix = "+"
-            let suffix = " Unstable Concoction Max Damage"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("+\(value) Unstable Concoction Max Damage")
-            }
-        case "special_bonus_unique_alchemist_3":
-            let prefix = ""
-            let suffix = "Acid Spray grants armor to allies"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                return LocalizedStringKey("Acid Spray grants armor to allies")
-            }
-        case "special_bonus_unique_alchemist_4":
-            let prefix = "+"
-            let suffix = " Chemical Rage Regeneration"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("+\(value) Chemical Rage Regeneration")
-            }
-        case "special_bonus_unique_alchemist_5":
-            let prefix = "+"
-            let suffix = " Acid Spray Armor Reduction"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("+\(value) Acid Spray Armor Reduction")
-            }
-        case "special_bonus_unique_alchemist_6":
-            let prefix = "+"
-            let suffix = " Chemical Rage Movement Speed"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("+\(value) Chemical Rage Movement Speed")
-            }
-        case "special_bonus_unique_alchemist_7":
-            let prefix = "+"
-            let suffix = " Damage per Greevil Greed stack"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("+\(value) Damage per Greevil Greed stack")
-            }
-        case "special_bonus_unique_alchemist_8":
-            let prefix = "-"
-            let suffix = "s Chemical Rage Base Attack Time"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("-\(value)s Chemical Rage Base Attack Time")
-            }
-
-        //MARK: Ancient Apparition
-        case "special_bonus_unique_ancient_apparition_1":
-            let prefix = "+"
-            let suffix = " Cold Feet Breaking distance"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("+\(value) Cold Feet Breaking distance")
-            }
-        case "special_bonus_unique_ancient_apparition_2":
-            let prefix = "+"
-            let suffix = " Chilling Touch Damage"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("+\(value) Chilling Touch Damage")
-            }
-        case "special_bonus_unique_ancient_apparition_3":
-            let prefix = "-"
-            let suffix = "s Ice Vortex Cooldown"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("-\(value)s Ice Vortex Cooldown")
-            }
-        case "special_bonus_unique_ancient_apparition_4":
-            let prefix = ""
-            let suffix = " Ice Vortex Slow/Resistance"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("\(value) Ice Vortex Slow/Resistance")
-            }
-        case "special_bonus_unique_ancient_apparition_5":
-            let prefix = "+"
-            let suffix = " Ice Blast Kill Threshold"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("+\(value) Ice Blast Kill Threshold")
-            }
-        case "special_bonus_unique_ancient_apparition_6":
-            let prefix = ""
-            let suffix = " AoE Cold Feet"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("\(value) AoE Cold Feet")
-            }
-        case "special_bonus_unique_ancient_apparition_7":
-            let prefix = "+"
-            let suffix = " Chilling Touch Attack Range"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("+\(value) Chilling Touch Attack Range")
-            }
-        case "special_bonus_unique_ancient_apparition_8":
-            let prefix = "+"
-            let suffix = " Cold Feet Damage Per Second"
-            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
-                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
-                return LocalizedStringKey("+\(value) Cold Feet Damage Per Second")
-            }
-
-        //MARK: Anti-mage
+            //MARK: 1. Anti-mage
         case "special_bonus_unique_antimage":
             let prefix = "-"
             let suffix = "s Blink Cooldown"
@@ -237,7 +78,166 @@ class LocalizeHelper {
                 return LocalizedStringKey("+\(value) Mana Void Radius")
             }
 
-        //MARK: Arc Warden
+            //MARK: 68. Ancient Apparition
+        case "special_bonus_unique_ancient_apparition_1":
+            let prefix = "+"
+            let suffix = " Cold Feet Breaking distance"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Cold Feet Breaking distance")
+            }
+        case "special_bonus_unique_ancient_apparition_2":
+            let prefix = "+"
+            let suffix = " Chilling Touch Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Chilling Touch Damage")
+            }
+        case "special_bonus_unique_ancient_apparition_3":
+            let prefix = "-"
+            let suffix = "s Ice Vortex Cooldown"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value)s Ice Vortex Cooldown")
+            }
+        case "special_bonus_unique_ancient_apparition_4":
+            let prefix = ""
+            let suffix = " Ice Vortex Slow/Resistance"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("\(value) Ice Vortex Slow/Resistance")
+            }
+        case "special_bonus_unique_ancient_apparition_5":
+            let prefix = "+"
+            let suffix = " Ice Blast Kill Threshold"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Ice Blast Kill Threshold")
+            }
+        case "special_bonus_unique_ancient_apparition_6":
+            let prefix = ""
+            let suffix = " AoE Cold Feet"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("\(value) AoE Cold Feet")
+            }
+        case "special_bonus_unique_ancient_apparition_7":
+            let prefix = "+"
+            let suffix = " Chilling Touch Attack Range"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Chilling Touch Attack Range")
+            }
+        case "special_bonus_unique_ancient_apparition_8":
+            let prefix = "+"
+            let suffix = " Cold Feet Damage Per Second"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Cold Feet Damage Per Second")
+            }
+
+            //MARK: 73. Alchemist
+        case "special_bonus_unique_alchemist":
+            let prefix = "+"
+            let suffix = " Unstable Concoction Radius"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Unstable Concoction Radius")
+            }
+        case "special_bonus_unique_alchemist_2":
+            let prefix = "+"
+            let suffix = " Unstable Concoction Max Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Unstable Concoction Max Damage")
+            }
+        case "special_bonus_unique_alchemist_3":
+            let prefix = ""
+            let suffix = "Acid Spray grants armor to allies"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                return LocalizedStringKey("Acid Spray grants armor to allies")
+            }
+        case "special_bonus_unique_alchemist_4":
+            let prefix = "+"
+            let suffix = " Chemical Rage Regeneration"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Chemical Rage Regeneration")
+            }
+        case "special_bonus_unique_alchemist_5":
+            let prefix = "+"
+            let suffix = " Acid Spray Armor Reduction"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Acid Spray Armor Reduction")
+            }
+        case "special_bonus_unique_alchemist_6":
+            let prefix = "+"
+            let suffix = " Chemical Rage Movement Speed"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Chemical Rage Movement Speed")
+            }
+        case "special_bonus_unique_alchemist_7":
+            let prefix = "+"
+            let suffix = " Damage per Greevil Greed stack"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Damage per Greevil Greed stack")
+            }
+        case "special_bonus_unique_alchemist_8":
+            let prefix = "-"
+            let suffix = "s Chemical Rage Base Attack Time"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value)s Chemical Rage Base Attack Time")
+            }
+            
+            //MARK: 102. Abaddon
+        case "special_bonus_unique_abaddon":
+            let prefix = "+"
+            let suffix = " Aphotic Shield Health"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Aphotic Shield Health")
+            }
+        case "special_bonus_unique_abaddon_2":
+            let prefix = "+"
+            let suffix = " Mist Coil Heal/Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Mist Coil Heal/Damage")
+            }
+        case "special_bonus_unique_abaddon_3":
+            let prefix = "-"
+            let suffix = " Curse of Avernus Attacks Required"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value) Curse of Avernus Attacks Required")
+            }
+        case "special_bonus_unique_abaddon_4":
+            let prefix = ""
+            let suffix = " AoE Mist Coil"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("\(value) AoE Mist Coil")
+            }
+        case "special_bonus_unique_abaddon_5":
+            let prefix = "-"
+            let suffix = "s Borrowed Time Cooldown"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value)s Borrowed Time Cooldown")
+            }
+        case "special_bonus_unique_abaddon_6":
+            let prefix = "-"
+            let suffix = " Curse of Avernus Movement Slow"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value) Curse of Avernus Movement Slow")
+            }
+
+            //MARK: 113. Arc Warden
         case "special_bonus_unique_arc_warden":
             let prefix = "+"
             let suffix = " Spark Wraith Damage"
