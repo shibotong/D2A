@@ -48,7 +48,7 @@ class HeroListViewModel: ObservableObject {
                 if searchString.isEmpty {
                     return filterHeroes
                 } else {
-                    let searchedHeroes = filterHeroes.filter({return $0.localizedName.lowercased().contains(searchString.lowercased())})
+                    let searchedHeroes = filterHeroes.filter({return NSLocalizedString($0.localizedName, comment: "").lowercased().contains(searchString.lowercased())})
                     return searchedHeroes
                 }
             }

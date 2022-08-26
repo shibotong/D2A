@@ -25,6 +25,9 @@
 "MONTHSCALCULATE %lld" = "%lld months";
 "YEARSCALCULATE %lld" = "%lld yrs";
 
+"FAVORITESADDTITLE" = "There are no players registered in your favorites.";
+"FAVORITESADDSUBTITLE" = "Please search and register a player";
+
 // MARK: - Talents
 // MARK: Abaddon
 "abaddon_death_coil" = "Mist Coil";

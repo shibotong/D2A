@@ -6,11 +6,27 @@
   
 */
 
-// MARK = - Sidebarview
+// MARK: - Text In UI
+//MARK: Sidebar
 "Follow" = "关注";
 "Edit" = "编辑";
 
-// MARK = -  about us view
+//MARK: Home View
+"Home" = "D2A";
+"Register Your Profile" = "注册你的资料";
+"Search ID" = "搜索ID";
+"Register Player" = "注册资料";
+"Favorite Players" = "关注列表";
+"Search Player" = "搜索玩家";
+"FAVORITESADDTITLE" = "现在还没有关注的玩家";
+"FAVORITESADDSUBTITLE" = "请搜索然后关注玩家";
+
+//MARK: Player Detail View
+"Update" = "刷新";
+"Profile" = "Steam资料";
+"Recent Matches" = "最近比赛";
+
+//MARK: about us view
 "About" = "关于";
 "Our App" = "应用";
 "Unlock All Features" = "解锁所有功能";
@@ -22,15 +38,15 @@
 "Game Patch" = "游戏版本";
 "Thanks To" = "感谢";
 
-// MARK = -  Add account view
-"Search Dota2 Profile" = "搜索Dota2个人资料";
-"Dota2 ID or username" = "搜索Dota2 ID 或者用户名";
+//MARK: Add account view
 "Search" = "搜索";
-"Cannot find user profile." = "找不到用户";
-"No Following User" = "没有关注的用户";
-"You don't have any following user at the moment" = "目前还没有关注的用户";
+"Players, Heroes, Matches" = "玩家，英雄，比赛";
+"Search with players id or name," = "搜索玩家ID或者昵称，";
+"hero name and match id" = "英雄名称和比赛ID";
+"Search %@" = "搜索 %@";
+"Match: %@" = "比赛ID：%@";
 
-// MARK = -  Store View
+//MARK: Store View
 "Upgrade to D2A Pro" = "升级D2A Pro解锁所有功能";
 "Purchase D2A Pro to unlock all features and support us to build a better app." = "购买D2A Pro解锁所有功能并支持我们做出一个更好的应用！";
 "Unlimit Following Users" = "解锁关注用户数量限制";
@@ -47,13 +63,14 @@
 "RenewAnswer" = "是的。订阅将会自动续订，除非您在下一个订阅周期开始24小时之前取消订阅。";
 "CancelQuestion" = "我要怎样取消订阅？";
 "CancelAnswer" = "您可以在您的iTunes账号设置里面取消订阅。";
+"More" = "更多";
 
-// MARK = -  Product Sub View
+// MARK: Product Sub View
 "month%@" = "个月";
 "%@ / mo" = "%@ / 月";
 "SAVE %@" = "节省 %@";
 
-// MARK = -  Match View
+// MARK:  Match View
 "Dire Win" = "夜魇胜利";
 "Radiant Win" = "天辉胜利";
 "Start Time" = "开始时间";
@@ -72,24 +89,43 @@
 "MONTHSCALCULATE %lld" = "%lld个月前";
 "YEARSCALCULATE %lld" = "%lld年前";
 
-// MARK = -  Analysis View
+// MARK:  Analysis View
 "Analysis" = "分析";
 "Tower Damage" = "建筑伤害";
 "Hero Damage" = "英雄伤害";
 "Kills" = "击杀";
 "Net Worth" = "财产总和";
 
-// MARK = -  Difference Graph View
+// MARK: Difference Graph View
 "Difference In Gold/XP Earned" = "经济/经验差";
 "Gold/XP difference is not available." = "经济/经验差目前不可用";
 
-// MARK = -  Player Detail View
+// MARK: Player Detail View
 "Damage" = "英雄伤害";
 "LH = %@  DN = %@" = "正补 = %@  反补 = %@";
 "Items" = "物品";
 "Ability Upgrade" = "技能升级";
 
-// MARK = -  Region
+//MARK: Hero List View
+"Heroes" = "英雄";
+"Search Heroes" = "搜索英雄";
+"Icons" = "图标";
+"List" = "列表";
+"All" = "全部";
+"Strength" = "力量";
+"Agility" = "敏捷";
+"Intelligence" = "智力";
+"Attributes" = "属性";
+"Health" = "血量";
+"Mana" = "魔法";
+"Stats" = "属性";
+"Attack" = "攻击";
+"Defense" = "防御";
+"Mobility" = "机动性";
+"Talents" = "天赋";
+
+// MARK: - Game Text
+// MARK: Region
 "US WEST" = "美国西部";
 "US EAST" = "美国东部";
 "EUROPE" = "欧洲";
@@ -113,7 +149,8 @@
 "TAIWAN" = "台湾";
 "ARGENTINA" = "阿根廷";
 
-// Game Mode
+
+//MARK: Game Mode
 // TODO = add modes translate
 "Unknown" = "未知";
 "All Pick" = "全阵营选择";
@@ -142,7 +179,7 @@
 "Mutation" = "Mutation";
 "Unknown Mode" = "Unknown Mode";
 
-// Lobby Type
+//MARK: Lobby Type
 "Normal" = "普通匹配";
 "Practice" = "练习赛";
 "Tournament" = "职业比赛";
@@ -152,7 +189,7 @@
 "1v1 mid" = "中路对抗";
 "Battle Cup" = "勇士联赛";
 
-// Hero Name
+//MARK: Hero Name
 "Anti-Mage" = "敌法师";
 "Axe" = "斧王";
 "Bane" = "祸乱之源";

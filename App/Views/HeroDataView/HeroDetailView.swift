@@ -22,7 +22,7 @@ struct HeroDetailView: View {
             buildHeroDetail()
             Spacer()
         }
-        .navigationTitle(vm.hero.localizedName)
+        .navigationTitle(vm.hero.heroNameLocalized)
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $vm.selectedAbility) { ability in
             NavigationView {
