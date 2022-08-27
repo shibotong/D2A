@@ -136,6 +136,82 @@ class LocalizeHelper {
                 return LocalizedStringKey("+\(value) Movement Speed per active Battle Hunger")
             }
 
+            //MARK: 3. Bane
+        case "special_bonus_unique_bane_1":
+            let prefix = "+"
+            let suffix = " Enfeeble Attack Speed Reduction"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Enfeeble Attack Speed Reduction")
+            }
+        case "special_bonus_unique_bane_2":
+            let prefix = "+"
+            let suffix = " Brain Sap Damage/Heal"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Brain Sap Damage/Heal")
+            }
+        case "special_bonus_unique_bane_3":
+            let prefix = "+"
+            let suffix = "s Fiend's Grip Duration"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value)s Fiend's Grip Duration")
+            }
+        case "special_bonus_unique_bane_4":
+            let prefix = ""
+            let suffix = "Enfeeble Steals Attack Speed"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                return LocalizedStringKey("Enfeeble Steals Attack Speed")
+            }
+        case "special_bonus_unique_bane_5":
+            let prefix = "-"
+            let suffix = "s Nightmare Cooldown"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value)s Nightmare Cooldown")
+            }
+        case "special_bonus_unique_bane_6":
+            let prefix = "-"
+            let suffix = " Enfeeble Regen Reduction"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value) Enfeeble Regen Reduction")
+            }
+        case "special_bonus_unique_bane_7":
+            let prefix = ""
+            let suffix = "Brain Sap Pure and Pierces Immunity"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                return LocalizedStringKey("Brain Sap Pure and Pierces Immunity")
+            }
+        case "special_bonus_unique_bane_8":
+            let prefix = "-"
+            let suffix = "s Brain Sap Cooldown"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value)s Brain Sap Cooldown")
+            }
+        case "special_bonus_unique_bane_9":
+            let prefix = "+"
+            let suffix = " Fiend's Grip Max Mana Drain"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Fiend's Grip Max Mana Drain")
+            }
+        case "special_bonus_unique_bane_10":
+            let prefix = ""
+            let suffix = "Nightmare Damage Heals Bane"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                return LocalizedStringKey("Nightmare Damage Heals Bane")
+            }
+        case "special_bonus_unique_bane_11":
+            let prefix = "+"
+            let suffix = " Enfeeble Cast Range Reduction"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Enfeeble Cast Range Reduction")
+            }
+
             //MARK: 68. Ancient Apparition
         case "special_bonus_unique_ancient_apparition_1":
             let prefix = "+"

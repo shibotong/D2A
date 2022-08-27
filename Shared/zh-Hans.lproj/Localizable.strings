@@ -336,6 +336,18 @@
 "+%@ Berseker's Call Armor" = "+%@ 狂战士之吼护甲"; // special_bonus_unique_axe_7
 "+%@ Movement Speed per active Battle Hunger" = "战斗饥渴每作用一个目标提供+%@ 移动速度"; // special_bonus_unique_axe_8
 
+// MARK: 3. Bane
+"+%@ Enfeeble Attack Speed Reduction" = "+%@ Enfeeble Attack Speed Reduction"; // special_bonus_unique_bane_1
+"+%@ Brain Sap Damage/Heal" = "+%@ 蚀脑伤害/治疗"; // special_bonus_unique_bane_2
+"+%@s Fiend's Grip Duration" = "+%@秒 魔爪持续时间"; // special_bonus_unique_bane_3
+"Enfeeble Steals Attack Speed" = "Enfeeble Steals Attack Speed"; // special_bonus_unique_bane_4
+"-%@s Nightmare Cooldown" = "-%@秒 噩梦冷却"; // special_bonus_unique_bane_5
+"-%@ Enfeeble Regen Reduction" = "-%@ Enfeeble Regen Reduction"; // special_bonus_unique_bane_6
+"Brain Sap Pure and Pierces Immunity" = "Brain Sap Pure and Pierces Immunity"; // special_bonus_unique_bane_7
+"-%@s Brain Sap Cooldown" = "-%@秒 蚀脑冷却"; // special_bonus_unique_bane_8
+"+%@ Fiend's Grip Max Mana Drain" = "+%@ 魔爪吸取最大魔法值"; // special_bonus_unique_bane_9
+"Nightmare Damage Heals Bane" = "噩梦伤害治疗祸乱之源"; // special_bonus_unique_bane_10
+"+%@ Enfeeble Cast Range Reduction" = "+%@ 虚弱降低施法距离"; // special_bonus_unique_bane_11
 
 // MARK: 68. Ancient Apparition
 "+%@ Cold Feet Breaking distance" = "+%@ 寒霜之足失效距离"; // special_bonus_unique_ancient_apparition_1
@@ -485,7 +497,6 @@
 "special_bonus_unique_omniknight_6" = "-2秒 洗礼冷却";
 "special_bonus_unique_riki_7" = "+75 烟幕范围";
 "special_bonus_unique_sand_king_4" = "35% 沙尘暴减速和致盲";
-"special_bonus_unique_bane_5" = "-3秒 噩梦冷却";
 "special_bonus_unique_wraith_king_9" = "-1s Wraithfire Blast Cooldown"; // TODO: WK
 "special_bonus_attack_speed_110" = "+110 攻击速度";
 "special_bonus_unique_terrorblade_5" = "+10秒 惑幻持续时间";
@@ -637,8 +648,6 @@
 "special_bonus_unique_shadow_demon_8" = "+5s Soul Catcher Duration"; // TODO: Shadow Demon
 "slark_fish_bait" = "Fish Bait";
 "special_bonus_unique_keeper_of_the_light_9" = "+50% Illuminate Daytime Heal"; // TODO: Keeper of light
-"special_bonus_unique_bane_6" = "-50% Enfeeble Regen Reduction"; // TODO: Bane
-"special_bonus_unique_bane_7" = "Brain Sap Pure and Pierces Immunity"; // TODO: Bane
 "special_bonus_unique_sven_5" = "+3秒 战吼持续时间";
 "special_bonus_unique_oracle_8" = "+30% 涤罪之焰对敌人伤害";
 "storm_spirit_electric_rave" = "Electric Rave";
@@ -674,7 +683,6 @@
 "special_bonus_unique_viper_6" = "2倍 腐蚀皮肤减速和魔抗";
 "special_bonus_unique_tiny_7" = "+40% 长大抓树时攻击力加成";
 "special_bonus_unique_winter_wyvern_7" = "+100 碎裂冲击伤害";
-"special_bonus_unique_bane_8" = "-3秒 蚀脑冷却";
 "special_bonus_unique_silencer_7" = "-25秒 全领域静默冷却";
 "special_bonus_unique_beastmaster_7" = "-30秒 原始咆哮冷却";
 "special_bonus_unique_huskar_8" = "special_bonus_unique_huskar_8 (723)"; // TODO: Huskar
@@ -1708,8 +1716,6 @@
 "special_bonus_unique_enigma" = "+5 恶魔转化虚灵";
 "special_bonus_respawn_reduction_40" = "-40s Respawn Time";
 "special_bonus_mp_175" = "+175 魔法";
-"special_bonus_unique_bane_1" = "+125 Enfeeble Attack Speed Reduction"; // TODO: Bane
-"special_bonus_unique_bane_2" = "+200 蚀脑伤害/治疗";
 "special_bonus_unique_nevermore_2" = "+100 毁灭阴影伤害";
 "special_bonus_unique_templar_assassin" = "+7 折光次数";
 "special_bonus_unique_crystal_maiden_1" = "+1.25秒 冰封禁制持续时间";
@@ -2087,7 +2093,6 @@
 "special_bonus_unique_lion_3" = "+160 死亡之指伤害";
 "special_bonus_cleave_20" = "+20% Cleave";
 "special_bonus_attack_speed_160" = "+160 攻击速度";
-"special_bonus_unique_bane_3" = "+5秒 魔爪持续时间";
 "special_bonus_unique_batrider_3" = "+75 烈焰破击击退距离";
 "special_bonus_unique_beastmaster_3" = "-14s Hawks Cooldown"; // TODO: BM
 "special_bonus_unique_beastmaster_4" = "+30 野性之心攻击速度";
@@ -2190,7 +2195,6 @@
 "special_bonus_unique_wraith_king_5" = "+6 最低骷髅兵产生数量";
 "special_bonus_unique_wraith_king_6" = "+24 骷髅兵攻击力";
 "special_bonus_mana_break_35" = "+35 法力损毁";
-"special_bonus_unique_bane_4" = "Enfeeble Steals Attack Speed"; // TODO: Bane
 "special_bonus_cleave_100" = "+100% 分裂";
 "special_bonus_mana_break_25" = "+25 法力损毁";
 "special_bonus_unique_morphling_4" = "波浪形态攻击目标";
