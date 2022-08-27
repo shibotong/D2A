@@ -212,6 +212,115 @@ class LocalizeHelper {
                 return LocalizedStringKey("+\(value) Enfeeble Cast Range Reduction")
             }
 
+            //MARK: BloodSeeker
+        case "special_bonus_unique_bloodseeker":
+            let prefix = "-"
+            let suffix = "s Blood Rite Cooldown"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value)s Blood Rite Cooldown")
+            }
+        case "special_bonus_unique_bloodseeker_2":
+            let prefix = "+"
+            let suffix = " Blood Rite Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Blood Rite Damage")
+            }
+        case "special_bonus_unique_bloodseeker_3":
+            let prefix = "+"
+            let suffix = " Rupture Cast Range"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Rupture Cast Range")
+            }
+        case "special_bonus_unique_bloodseeker_4":
+            let prefix = "+"
+            let suffix = " Max Thirst MS"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Max Thirst MS")
+            }
+        case "special_bonus_unique_bloodseeker_5":
+            let prefix = "+"
+            let suffix = " Bloodrage Attack Speed"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Bloodrage Attack Speed")
+            }
+        case "special_bonus_unique_bloodseeker_6":
+            let prefix = "+"
+            let suffix = " Bloodrage Spell Amplification"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Bloodrage Spell Amplification")
+            }
+        case "special_bonus_unique_bloodseeker_7":
+            let prefix = "+"
+            let suffix = " Rupture Initial Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Rupture Initial Damage")
+            }
+        case "special_bonus_unique_bloodseeker_rupture_charges":
+            let prefix = ""
+            let suffix = " Rupture Charges"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("\(value) Rupture Charges")
+            }
+
+            //MARK: 5. Crystal Maiden
+        case "special_bonus_unique_crystal_maiden_1":
+            let prefix = "+"
+            let suffix = "s Frostbite Duration"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value)s Frostbite Duration")
+            }
+        case "special_bonus_unique_crystal_maiden_2":
+            let prefix = "+"
+            let suffix = " Crystal Nova Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Crystal Nova Damage")
+            }
+        case "special_bonus_unique_crystal_maiden_3":
+            let prefix = "+"
+            let suffix = " Freezing Field Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Freezing Field Damage")
+            }
+        case "special_bonus_unique_crystal_maiden_4":
+            let prefix = "+"
+            let suffix = " Arcane Aura Base Mana Regeneration"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Arcane Aura Base Mana Regeneration")
+            }
+        case "special_bonus_unique_crystal_maiden_5":
+            let prefix = "-"
+            let suffix = "s Crystal Nova Cooldown"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value)s Crystal Nova Cooldown")
+            }
+        case "special_bonus_unique_crystal_maiden_6":
+            let prefix = "+"
+            let suffix = " Crystal Nova AoE"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Crystal Nova AoE")
+            }
+        case "special_bonus_unique_crystal_maiden_frostbite_castrange":
+            let prefix = "+"
+            let suffix = " Frostbite Cast Range"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Frostbite Cast Range")
+            }
+
             //MARK: 68. Ancient Apparition
         case "special_bonus_unique_ancient_apparition_1":
             let prefix = "+"

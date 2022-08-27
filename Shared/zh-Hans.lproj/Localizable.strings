@@ -349,6 +349,26 @@
 "Nightmare Damage Heals Bane" = "噩梦伤害治疗祸乱之源"; // special_bonus_unique_bane_10
 "+%@ Enfeeble Cast Range Reduction" = "+%@ 虚弱降低施法距离"; // special_bonus_unique_bane_11
 
+// MARK: 4. BloodSeeker
+"-%@s Blood Rite Cooldown" = "-%@s Blood Rite Cooldown"; // special_bonus_unique_bloodseeker
+"+%@ Blood Rite Damage" = "+%@ 血祭伤害"; // special_bonus_unique_bloodseeker_2
+"+%@ Rupture Cast Range" = "+%@ 割裂施法距离"; // special_bonus_unique_bloodseeker_3
+"+%@ Max Thirst MS" = "+%@ 焦渴最大移速"; // special_bonus_unique_bloodseeker_4
+"+%@ Bloodrage Attack Speed" = "+%@ 血怒攻击速度"; // special_bonus_unique_bloodseeker_5
+"+%@ Bloodrage Spell Amplification" = "+%@ 血怒技能增强"; // special_bonus_unique_bloodseeker_6
+"+%@ Rupture Initial Damage" = "+%@ 割裂初始伤害"; // special_bonus_unique_bloodseeker_7
+"%@ Rupture Charges" = "%@ 割裂能量点数"; // special_bonus_unique_bloodseeker_rupture_charges
+
+// MARK: 5. Crystal Maiden
+"+%@s Frostbite Duration" = "+%@秒 冰封禁制持续时间"; // special_bonus_unique_crystal_maiden_1
+"+%@ Crystal Nova Damage" = "+%@ 冰霜新星伤害"; // special_bonus_unique_crystal_maiden_2
+"+%@ Freezing Field Damage" = "+%@ 极寒领域伤害"; // special_bonus_unique_crystal_maiden_3
+"+%@ Arcane Aura Base Mana Regeneration" = "+%@ 奥术光环每次施法回魔"; // special_bonus_unique_crystal_maiden_4
+"-%@s Crystal Nova Cooldown" = "-%@秒 冰霜新星冷却"; // special_bonus_unique_crystal_maiden_5
+"+%@ Crystal Nova AoE" = "+%@ 冰霜新星范围"; // special_bonus_unique_crystal_maiden_6
+"+%@ Frostbite Cast Range" = "+%@ 冰封禁制施法距离"; // special_bonus_unique_crystal_maiden_frostbite_castrange
+
+
 // MARK: 68. Ancient Apparition
 "+%@ Cold Feet Breaking distance" = "+%@ 寒霜之足失效距离"; // special_bonus_unique_ancient_apparition_1
 "+%@ Chilling Touch Damage" = "+%@ 极寒之触伤害"; // special_bonus_unique_ancient_apparition_2
@@ -502,7 +522,6 @@
 "special_bonus_unique_terrorblade_5" = "+10秒 惑幻持续时间";
 "special_bonus_unique_night_stalker_3" = "+35 黑暗飞升攻击力";
 "special_bonus_attack_range_275" = "+275 攻击距离";
-"special_bonus_unique_bloodseeker_5" = "+30 血怒攻击速度";
 "special_bonus_unique_phantom_assassin_4" = "+1秒 幻影突袭持续时间";
 "special_bonus_unique_bounty_hunter_4" = "+40 忍术攻击力";
 "special_bonus_unique_drow_ranger_6" = "-8秒 数箭齐发冷却";
@@ -730,7 +749,6 @@
 "special_bonus_unique_chen_10" = "Global Divine Favor Aura"; //TODO: Chen
 "special_bonus_unique_luna_6" = "-25秒 月蚀冷却";
 "special_bonus_unique_keeper_of_the_light_12" = "2 致盲之光点数";
-"special_bonus_unique_crystal_maiden_6" = "+125 冰霜新星范围";
 "special_bonus_unique_lina_5" = "+100 Laguna Blade Damage"; // TODO: Lina
 "special_bonus_unique_grimstroke_8" = "+50 幻影之拥每秒伤害";
 "special_bonus_unique_lich_8" = "+10% 冰霜魔盾伤害降低";
@@ -776,8 +794,6 @@
 "special_bonus_unique_nevermore_6" = "+0.4秒 魂之挽歌每道魔能恐惧";
 "special_bonus_unique_night_stalker_7" = "+8秒 黑暗飞升持续时间";
 "special_bonus_unique_mirana_6" = "+100 跳跃距离";
-"special_bonus_unique_bloodseeker_6" = "+8% 血怒技能增强";
-"special_bonus_unique_bloodseeker_7" = "+10% 割裂初始伤害";
 "special_bonus_unique_necrophos_6" = "+100 死神镰刀施法距离";
 "special_bonus_unique_slark_6" = "-1秒 黑暗契约冷却";
 "special_bonus_unique_monkey_king_11" = "+2 如意棒法攻击次数";
@@ -843,7 +859,6 @@
 "special_bonus_unique_beastmaster_9" = "+2.5% 野性之斧每次伤害加深";
 "bloodseeker_blood_mist" = "Blood Mist";
 "special_bonus_unique_morphling_10" = "眩晕时可属性变换";
-"special_bonus_unique_bloodseeker_rupture_charges" = "2 割裂能量点数";
 "tinker_warp_grenade" = "Warp Flare";
 "creep_siege" = "Reinforced";
 "creep_piercing" = "Piercing";
@@ -1718,7 +1733,6 @@
 "special_bonus_mp_175" = "+175 魔法";
 "special_bonus_unique_nevermore_2" = "+100 毁灭阴影伤害";
 "special_bonus_unique_templar_assassin" = "+7 折光次数";
-"special_bonus_unique_crystal_maiden_1" = "+1.25秒 冰封禁制持续时间";
 "special_bonus_unique_doom_1" = "+2.09% 阎刃伤害";
 "special_bonus_all_stats_7" = "+7 全属性";
 "special_bonus_movement_speed_35" = "+35 移动速度";
@@ -1859,10 +1873,8 @@
 "special_bonus_unique_phoenix_1" = "+3 超新星可被攻击次数";
 "special_bonus_vision_200" = "+200 Vision";
 "special_bonus_unique_batrider_2" = "烈焰破击施加2层粘性燃油";
-"special_bonus_unique_bloodseeker" = "-{s:value}s Blood Rite Cooldown"; // TODO: Blood
 "special_bonus_unique_clinkz_2" = "死亡契约获得野怪技能";
 "special_bonus_unique_dazzle_2" = "+50 暗影波治疗/伤害";
-"special_bonus_unique_crystal_maiden_2" = "+240 冰霜新星伤害";
 "special_bonus_hp_500" = "+500 生命";
 "special_bonus_spell_amplify_20" = "+20% 技能增强";
 "special_bonus_unique_vengeful_spirit_2" = "+16% 复仇光环攻击力加成";
@@ -1947,8 +1959,6 @@
 "pangolier_heartpiercer" = "Heartpiercer";
 "special_bonus_hp_regen_30" = "+30 生命恢复";
 "special_bonus_movement_speed_75" = "+75 移动速度";
-"special_bonus_unique_bloodseeker_2" = "+85 血祭伤害";
-"special_bonus_unique_bloodseeker_3" = "+475 割裂施法距离";
 "special_bonus_unique_bounty_hunter_2" = "+50 投掷飞镖伤害";
 "special_bonus_unique_brewmaster_2" = "-65s Primal Split Cooldown"; // TODO: Brew
 "special_bonus_unique_bristleback_2" = "+20 刺针叠加伤害";
@@ -2050,7 +2060,6 @@
 "special_bonus_unique_beastmaster_2" = "+35 豪猪攻击力";
 "special_bonus_unique_zeus_3" = "+0.4秒 雷击眩晕";
 "special_bonus_unique_lycan_3" = "+10 精灵狼攻击力";
-"special_bonus_unique_crystal_maiden_3" = "+50 极寒领域伤害";
 "special_bonus_unique_shadow_shaman_4" = "+25 群蛇守卫攻击力";
 "special_bonus_unique_visage_3" = "灵魂超度攻击2个目标";
 "special_bonus_unique_winter_wyvern_3" = "+1.5秒 寒冬诅咒持续时间";
@@ -2184,7 +2193,6 @@
 "special_bonus_unique_lone_druid_8" = "-50秒 真熊形态冷却";
 "special_bonus_unique_faceless_void_3" = "+70 时间锁定伤害";
 "special_bonus_unique_wisp_4" = "攻击羁绊友军的目标";
-"special_bonus_unique_bloodseeker_4" = "+14% 焦渴最大移速";
 "special_bonus_unique_invoker_6" = "+40% 混沌陨石伤害";
 "special_bonus_unique_disruptor_5" = "+2秒 动能力场持续时间";
 "special_bonus_unique_nyx_3" = "复仇无视地形";
@@ -2344,7 +2352,6 @@
 "special_bonus_unique_monkey_king_7" = "+450 丛林之舞施法距离";
 "special_bonus_attack_damage_251" = "+251 攻击力";
 "special_bonus_unique_bounty_hunter_3" = "+250 追踪术金钱";
-"special_bonus_unique_crystal_maiden_4" = "+20 奥术光环每次施法回魔";
 "special_bonus_20_crit_15" = "+20% 致命一击 (150%)";
 "special_bonus_unique_dark_seer_4" = "平行光墙";
 "special_bonus_unique_luna_4" = "+0.4秒 月光眩晕";
@@ -2444,7 +2451,6 @@
 "special_bonus_unique_chaos_knight_4" = "+10秒 混沌之军持续时间";
 "special_bonus_unique_ancient_apparition_7" = "+200 极寒之触攻击距离";
 "special_bonus_unique_chen_7" = "-40秒 上帝之手冷却";
-"special_bonus_unique_crystal_maiden_5" = "-3秒 冰霜新星冷却";
 "special_bonus_unique_dark_willow_4" = "+30 作祟伤害";
 "special_bonus_unique_disruptor_6" = "Kinetic Field Grants True Sight"; // TODO: Disruptor
 "special_bonus_unique_earth_spirit_5" = "+3秒 地磁之握沉默";
