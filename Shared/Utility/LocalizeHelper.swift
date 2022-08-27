@@ -321,6 +321,77 @@ class LocalizeHelper {
                 return LocalizedStringKey("+\(value) Frostbite Cast Range")
             }
 
+            //MARK: 6. Drow Ranger
+        case "special_bonus_unique_drow_ranger_1":
+            let prefix = "+"
+            let suffix = " Multishot Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Multishot Damage")
+            }
+        case "special_bonus_unique_drow_ranger_2":
+            let prefix = "+"
+            let suffix = " Frost Arrow Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Frost Arrow Damage")
+            }
+        case "special_bonus_unique_drow_ranger_3":
+            let prefix = "+"
+            let suffix = " Marksmanship Chance"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Marksmanship Chance")
+            }
+        case "special_bonus_unique_drow_ranger_4":
+            let prefix = "+"
+            let suffix = " Gust Width"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Gust Width")
+            }
+        case "special_bonus_unique_drow_ranger_5":
+            let prefix = "+"
+            let suffix = " Gust Blind"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Gust Blind")
+            }
+        case "special_bonus_unique_drow_ranger_6":
+            let prefix = "-"
+            let suffix = "s Multishot Cooldown"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value)s Multishot Cooldown")
+            }
+        case "special_bonus_unique_drow_ranger_7":
+            let prefix = "-"
+            let suffix = "s Gust Cooldown"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value)s Gust Cooldown")
+            }
+        case "special_bonus_unique_drow_ranger_8":
+            let prefix = "+"
+            let suffix = " Multishot Waves"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Multishot Waves")
+            }
+        case "special_bonus_unique_drow_ranger_gust_invis":
+            let prefix = ""
+            let suffix = "Gust Reveals Invisible Units"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                return LocalizedStringKey("Gust Reveals Invisible Units")
+            }
+        case "special_bonus_unique_drow_ranger_gust_selfmovespeed":
+            let prefix = "+"
+            let suffix = " Gust Self Movement Speed"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Gust Self Movement Speed")
+            }
+
             //MARK: 68. Ancient Apparition
         case "special_bonus_unique_ancient_apparition_1":
             let prefix = "+"

@@ -368,6 +368,18 @@
 "+%@ Crystal Nova AoE" = "+%@ 冰霜新星范围"; // special_bonus_unique_crystal_maiden_6
 "+%@ Frostbite Cast Range" = "+%@ 冰封禁制施法距离"; // special_bonus_unique_crystal_maiden_frostbite_castrange
 
+// MARK: 6. Drow Ranger
+"+%@ Multishot Damage" = "+%@ 数箭齐发伤害"; // special_bonus_unique_drow_ranger_1
+"+%@ Frost Arrow Damage" = "+%@ 霜冻之箭伤害"; // special_bonus_unique_drow_ranger_2
+"+%@ Marksmanship Chance" = "+%@ 射手天赋几率"; // special_bonus_unique_drow_ranger_3
+"+%@ Gust Width" = "+%@ 狂风宽度"; // special_bonus_unique_drow_ranger_4
+"+%@ Gust Blind" = "+%@ 狂风致盲"; // special_bonus_unique_drow_ranger_5
+"-%@s Multishot Cooldown" = "-%@秒 数箭齐发冷却"; // special_bonus_unique_drow_ranger_6
+"-%@s Gust Cooldown" = "-%@秒 狂风冷却"; // special_bonus_unique_drow_ranger_7
+"+%@ Multishot Waves" = "+%@ 数箭齐发波数"; // special_bonus_unique_drow_ranger_8
+"Gust Reveals Invisible Units" = "狂风显示隐身单位"; // special_bonus_unique_drow_ranger_gust_invis
+"+%@ Gust Self Movement Speed" = "+%@ 狂风对自身移动速度"; // special_bonus_unique_drow_ranger_gust_selfmovespeed
+
 
 // MARK: 68. Ancient Apparition
 "+%@ Cold Feet Breaking distance" = "+%@ 寒霜之足失效距离"; // special_bonus_unique_ancient_apparition_1
@@ -524,7 +536,6 @@
 "special_bonus_attack_range_275" = "+275 攻击距离";
 "special_bonus_unique_phantom_assassin_4" = "+1秒 幻影突袭持续时间";
 "special_bonus_unique_bounty_hunter_4" = "+40 忍术攻击力";
-"special_bonus_unique_drow_ranger_6" = "-8秒 数箭齐发冷却";
 "special_bonus_attack_damage_16" = "+16 攻击力";
 "special_bonus_attack_damage_18" = "+18 攻击力";
 "special_bonus_agility_and_intelligence_6" = "+6 Agility and Intelligence";
@@ -604,7 +615,6 @@
 "special_bonus_cooldown_reduction_14" = "14% Cooldown Reduction";
 "special_bonus_unique_batrider_5" = "2 烈焰破击能量点数";
 "dazzle_rain_of_vermin" = "dazzle_rain_of_vermin (579)";
-"special_bonus_unique_drow_ranger_7" = "-4秒 狂风冷却";
 "centaur_overrun" = "Overrun";
 "special_bonus_unique_clinkz_11" = "Kills Reset Death Pact Cooldown"; // TODO: CLinkz
 "special_bonus_attack_range_325" = "+325 攻击距离";
@@ -716,7 +726,6 @@
 "special_bonus_unique_dark_seer_13" = "-40秒 复制之墙冷却";
 "special_bonus_unique_disruptor_8" = "+250 静态风暴范围";
 "special_bonus_mp_regen_125" = "+1.25 魔法恢复";
-"special_bonus_unique_drow_ranger_8" = "+3 数箭齐发波数";
 "special_bonus_unique_dragon_knight_7" = "+175 古龙形态攻击距离";
 "special_bonus_unique_wraith_king_10" = "-2秒 本命一击冷却";
 "special_bonus_unique_dragon_knight_8" = "+400 古龙形态下范围型神龙摆尾";
@@ -1845,14 +1854,12 @@
 "special_bonus_unique_magnus" = "+125 震荡波伤害";
 "special_bonus_unique_weaver_1" = "+50 缩地伤害";
 "special_bonus_unique_wraith_king_1" = "No Reincarnation Manacost"; // TODO: WK
-"special_bonus_unique_drow_ranger_1" = "+28% 数箭齐发伤害";
 "special_bonus_unique_earth_spirit" = "+120 巨石翻滚伤害";
 "special_bonus_unique_huskar" = "+20% 牺牲伤害";
 "special_bonus_unique_naga_siren" = "+1 镜像幻象";
 "special_bonus_unique_oracle" = "+1.5秒 虚妄之诺持续时间";
 "special_bonus_unique_sand_king" = "+5 地震波数";
 "special_bonus_unique_shadow_demon_1" = "+200 邪恶净化伤害";
-"special_bonus_unique_drow_ranger_2" = "+15 霜冻之箭伤害";
 "special_bonus_attack_speed_40" = "+40 攻击速度";
 "special_bonus_unique_slardar" = "+150 鱼人碎击伤害";
 "special_bonus_unique_lina_1" = "-3.5秒 龙破斩冷却";
@@ -1906,7 +1913,6 @@
 "special_bonus_respawn_reduction_50" = "-50s Respawn Time";
 "spawnlord_master_stomp" = "Desecrate";
 "spawnlord_master_freeze" = "Petrify";
-"special_bonus_unique_drow_ranger_3" = "+12% 射手天赋几率";
 "special_bonus_strength_14" = "+14 力量";
 "special_bonus_unique_techies" = "+200 爆破起飞伤害";
 "special_bonus_undefined" = "Pending Replacement";
@@ -2121,7 +2127,6 @@
 "special_bonus_unique_disruptor_4" = "-12秒 恶念瞥视冷却";
 "special_bonus_cleave_60" = "+60% 分裂";
 "special_bonus_strength_40" = "+40 力量";
-"special_bonus_unique_drow_ranger_4" = "+250 狂风宽度";
 "special_bonus_unique_dragon_knight_2" = "+0.5秒 神龙摆尾眩晕";
 "special_bonus_unique_earth_spirit_3" = "+0.6秒 巨石翻滚眩晕";
 "special_bonus_magic_resistance_50" = "+50% 魔法抗性";
@@ -2574,7 +2579,6 @@
 "special_bonus_gold_income_210" = "+210 Gold/Min";
 "grimstroke_ink_creature" = "Phantom's Embrace";
 "grimstroke_spirit_walk" = "Ink Swell";
-"special_bonus_unique_drow_ranger_5" = "+50% 狂风致盲";
 "special_bonus_lifesteal_35" = "35% 吸血";
 "special_bonus_attack_damage_160" = "+160 攻击力";
 "special_bonus_mana_reduction_9" = "+9% 魔法消耗/损失降低";
