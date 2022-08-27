@@ -389,6 +389,16 @@
 "+%@ Aftershock Damage" = "+%@ 余震伤害"; // special_bonus_unique_earthshaker_6
 "+%@ Enchant Totem Damage" = "+%@ 强化图腾攻击力"; // special_bonus_unique_earthshaker_totem_damage
 
+// MARK: 8. Juggernaut
+"+%@ Blade Fury Radius" = "+%@ 剑刃风暴作用范围"; // special_bonus_unique_juggernaut
+"+%@ Healing Ward Health" = "+%@ 治疗守卫生命"; // special_bonus_unique_juggernaut_2
+"+%@ Blade Fury DPS" = "+%@ 剑刃风暴每秒伤害"; // special_bonus_unique_juggernaut_3
+"+%@s Blade Fury Duration" = "+%@秒 剑刃风暴持续时间"; // special_bonus_unique_juggernaut_4
+"-%@s Healing Ward Cooldown" = "-%@秒 治疗守卫冷却"; // special_bonus_unique_juggernaut_5
+"+%@ Blade Dance Lifesteal" = "+%@ 剑舞吸血"; // special_bonus_unique_juggernaut_blade_dance_lifesteal
+"+%@s Omnislash Duration" = "+%@秒 无敌斩持续时间"; // special_bonus_unique_juggernaut_omnislash_duration
+"+%@ Omnislash Cast Range" = "+%@ Omnislash Cast Range"; // special_bonus_unique_juggernaut_omnislash_cast_range
+
 
 // MARK: 68. Ancient Apparition
 "+%@ Cold Feet Breaking distance" = "+%@ 寒霜之足失效距离"; // special_bonus_unique_ancient_apparition_1
@@ -653,7 +663,6 @@
 "furion_greater_sprout" = "Greater Sprout";
 "special_bonus_unique_visage_7" = "+8 维萨吉和佣兽攻击力";
 "special_bonus_unique_storm_spirit_7" = "2 超负荷攻击弹射";
-"special_bonus_unique_juggernaut_5" = "-20秒 治疗守卫冷却";
 "special_bonus_unique_queen_of_pain_4" = "+2 暗影突袭后续伤害次数";
 "rattletrap_jetpack" = "Jetpack";
 "life_stealer_ghoul_frenzy" = "Ghoul Frenzy";
@@ -879,7 +888,6 @@
 "creep_siege" = "Reinforced";
 "creep_piercing" = "Piercing";
 "creep_irresolute" = "Runty";
-"special_bonus_unique_juggernaut_blade_dance_lifesteal" = "+40% 剑舞吸血";
 "shadow_demon_demonic_cleanse" = "Demonic Cleanse";
 "special_bonus_unique_elder_titan_bonus_spirit_speed" = "+2% 灵体游魂触碰英雄移速";
 "clinkz_empty1" = "Creep Ability";
@@ -1773,7 +1781,6 @@
 "special_bonus_unique_invoker_3" = "-10秒 强袭飓风冷却";
 "special_bonus_unique_beastmaster" = "+50 Wild Axes Damage"; // TODO: BM
 "special_bonus_unique_clinkz_1" = "+20 灼热之箭伤害";
-"special_bonus_unique_juggernaut" = "+75 剑刃风暴作用范围";
 "special_bonus_unique_winter_wyvern_1" = "+12% 严寒烧灼减速";
 "special_bonus_unique_terrorblade" = "-34秒 魂断冷却";
 "special_bonus_armor_2" = "+2 护甲";
@@ -2149,7 +2156,6 @@
 "special_bonus_unique_wisp_3" = "+6% 羁绊移动速度";
 "special_bonus_hp_regen_80" = "+80 生命恢复";
 "special_bonus_unique_jakiro_4" = "-50 液态火降低攻击速度";
-"special_bonus_unique_juggernaut_2" = "+1秒 无敌斩持续时间";
 "special_bonus_magic_resistance_40" = "+40% 魔法抗性";
 "special_bonus_unique_keeper_of_the_light_3" = "+2 Will-O-Wisp Flicker"; // TODO: Keeper of light
 "special_bonus_unique_kunkka_3" = "幽灵船舰队";
@@ -2346,7 +2352,6 @@
 "special_bonus_unique_vengeful_spirit_6" = "-6s Wave of Terror Cooldown"; // TODO: VS
 "special_bonus_night_vision_600" = "+600 夜间视野";
 "special_bonus_attack_speed_250" = "+250 攻击速度";
-"special_bonus_unique_juggernaut_3" = "+150 剑刃风暴每秒伤害";
 "special_bonus_night_vision_500" = "+500 夜间视野";
 "special_bonus_unique_monkey_king_5" = "+50% 丛林之舞视野范围";
 "special_bonus_unique_monkey_king_6" = "猴子猴孙额外圆阵";
@@ -2450,7 +2455,6 @@
 "special_bonus_unique_faceless_void_5" = "-1.5秒 时间漫游冷却";
 "special_bonus_unique_medusa_5" = "-1.5秒 秘术异蛇冷却";
 "special_bonus_unique_invoker_10" = "-25秒 幽灵漫步冷却";
-"special_bonus_unique_juggernaut_4" = "+1秒 剑刃风暴持续时间";
 "special_bonus_unique_legion_commander_5" = "250 范围型强攻";
 "special_bonus_unique_sniper_5" = "-14% 榴霰弹减速";
 "special_bonus_unique_keeper_of_the_light_4" = "+3 Will-O-Wisp Health Count"; // TODO: Keeper of light

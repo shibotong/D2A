@@ -443,6 +443,64 @@ class LocalizeHelper {
                 return LocalizedStringKey("+\(value) Enchant Totem Damage")
             }
 
+            //MARK: 8. Juggernaut
+        case "special_bonus_unique_juggernaut":
+            let prefix = "+"
+            let suffix = " Blade Fury Radius"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Blade Fury Radius")
+            }
+        case "special_bonus_unique_juggernaut_2":
+            let prefix = "+"
+            let suffix = " Healing Ward Health"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Healing Ward Health")
+            }
+        case "special_bonus_unique_juggernaut_3":
+            let prefix = "+"
+            let suffix = " Blade Fury DPS"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Blade Fury DPS")
+            }
+        case "special_bonus_unique_juggernaut_4":
+            let prefix = "+"
+            let suffix = "s Blade Fury Duration"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value)s Blade Fury Duration")
+            }
+        case "special_bonus_unique_juggernaut_5":
+            let prefix = "-"
+            let suffix = "s Healing Ward Cooldown"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value)s Healing Ward Cooldown")
+            }
+        case "special_bonus_unique_juggernaut_blade_dance_lifesteal":
+            let prefix = "+"
+            let suffix = " Blade Dance Lifesteal"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Blade Dance Lifesteal")
+            }
+        case "special_bonus_unique_juggernaut_omnislash_duration":
+            let prefix = "+"
+            let suffix = "s Omnislash Duration"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value)s Omnislash Duration")
+            }
+        case "special_bonus_unique_juggernaut_omnislash_cast_range":
+            let prefix = "+"
+            let suffix = " Omnislash Cast Range"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Omnislash Cast Range")
+            }
+
             //MARK: 68. Ancient Apparition
         case "special_bonus_unique_ancient_apparition_1":
             let prefix = "+"
