@@ -380,6 +380,15 @@
 "Gust Reveals Invisible Units" = "狂风显示隐身单位"; // special_bonus_unique_drow_ranger_gust_invis
 "+%@ Gust Self Movement Speed" = "+%@ 狂风对自身移动速度"; // special_bonus_unique_drow_ranger_gust_selfmovespeed
 
+// MARK: 7. Earth Shaker
+"-%@s Enchant Totem Cooldown" = "-%@秒 强化图腾冷却"; // special_bonus_unique_earthshaker
+"+%@ Echo Damage" = "+%@ 回音击回音伤害"; // special_bonus_unique_earthshaker_2
+"+%@ Fissure Range" = "+%@ 沟壑距离"; // special_bonus_unique_earthshaker_3
+"+%@ Fissure Damage" = "+%@ 沟壑伤害"; // special_bonus_unique_earthshaker_4
+"+%@ Aftershock Range" = "+%@ 余震范围"; // special_bonus_unique_earthshaker_5
+"+%@ Aftershock Damage" = "+%@ 余震伤害"; // special_bonus_unique_earthshaker_6
+"+%@ Enchant Totem Damage" = "+%@ 强化图腾攻击力"; // special_bonus_unique_earthshaker_totem_damage
+
 
 // MARK: 68. Ancient Apparition
 "+%@ Cold Feet Breaking distance" = "+%@ 寒霜之足失效距离"; // special_bonus_unique_ancient_apparition_1
@@ -730,7 +739,6 @@
 "special_bonus_unique_wraith_king_10" = "-2秒 本命一击冷却";
 "special_bonus_unique_dragon_knight_8" = "+400 古龙形态下范围型神龙摆尾";
 "special_bonus_spell_amplify_18" = "+18% 技能增强";
-"special_bonus_unique_earthshaker_4" = "+80 沟壑伤害";
 "special_bonus_unique_kunkka_6" = "+25% X标记移动速度";
 "special_bonus_unique_lifestealer_7" = "+50 Ghoul Frenzy Attack Speed"; // TODO: LS
 "special_bonus_unique_monkey_king_8" = "乾坤之跃无冷却";
@@ -824,7 +832,6 @@
 "special_bonus_unique_slardar_8" = "+10% 鱼人碎击降低攻速/移速";
 "special_bonus_unique_faceless_void_6" = "+6 时间膨胀冷却技能每秒伤害";
 "special_bonus_unique_dawnbreaker_fire_wreath_aoe" = "special_bonus_unique_dawnbreaker_fire_wreath_aoe (857)";// TODO: Dawnbreaker
-"special_bonus_unique_earthshaker_6" = "+50 余震伤害";
 "harpy_scout_take_off" = "Take Off";
 "kobold_tunneler_prospecting" = "Prospecting Aura";
 "furbolg_enrage_attack_speed" = "Death Throe: Rush";
@@ -875,7 +882,6 @@
 "special_bonus_unique_juggernaut_blade_dance_lifesteal" = "+40% 剑舞吸血";
 "shadow_demon_demonic_cleanse" = "Demonic Cleanse";
 "special_bonus_unique_elder_titan_bonus_spirit_speed" = "+2% 灵体游魂触碰英雄移速";
-"special_bonus_unique_earthshaker_totem_damage" = "+50% 强化图腾攻击力";
 "clinkz_empty1" = "Creep Ability";
 "special_bonus_unique_medusa_6" = "+0.5 魔法盾每点魔法吸收伤害";
 "special_bonus_unique_slark_8" = "+1.5% 暗影之舞生命恢复";
@@ -1711,7 +1717,6 @@
 "special_bonus_unique_visage_1" = "+1.5 维萨吉和佣兽削弱护甲";
 "special_bonus_cast_range_60" = "+60 施法距离";
 "special_bonus_hp_175" = "+175 生命";
-"special_bonus_unique_earthshaker" = "-1.5秒 强化图腾冷却";
 "special_bonus_attack_speed_100" = "+100 攻击速度";
 "special_bonus_respawn_reduction_35" = "-35s Respawn Time";
 "special_bonus_unique_lich_1" = "冰霜魔盾提供+50生命恢复";
@@ -2019,7 +2024,6 @@
 "special_bonus_unique_monkey_king_2" = "+130 如意棒法攻击力";
 "special_bonus_movement_speed_100" = "+100 移动速度";
 "special_bonus_hp_325" = "+325 生命";
-"special_bonus_unique_earthshaker_2" = "+40 回音击回音伤害";
 "special_bonus_agility_40" = "+40 敏捷";
 "special_bonus_attack_speed_70" = "+70 攻击速度";
 "special_bonus_cooldown_reduction_40" = "40% Cooldown Reduction";
@@ -2057,7 +2061,6 @@
 "special_bonus_unique_lone_druid_5" = "+40% Spirit Bear Magic Resistance"; // TODO: LD
 "special_bonus_unique_lina_4" = "+75 Light Strike AoE"; // TODO: Lina
 "special_bonus_unique_enigma_2" = "+4 憎恶触发次数";
-"special_bonus_unique_earthshaker_3" = "+320 沟壑距离";
 "special_bonus_unique_clockwerk_3" = "+24 弹幕冲击伤害";
 "special_bonus_spell_lifesteal_30" = "30% 技能吸血";
 "special_bonus_unique_earth_spirit_2" = "地磁之握可作用友军";
@@ -2602,7 +2605,6 @@
 "special_bonus_unique_zeus_5" = "325 范围型雷击";
 "special_bonus_unique_tinker_7" = "+125 防御矩阵伤害吸收";
 "special_bonus_unique_spectre_6" = "+100 幽鬼之刃伤害";
-"special_bonus_unique_earthshaker_5" = "+200 余震范围";
 "hoodwink_sharpshooter" = "Sharpshooter";
 "hoodwink_decoy" = "Decoy";
 "hoodwink_bushwhack" = "Bushwhack";

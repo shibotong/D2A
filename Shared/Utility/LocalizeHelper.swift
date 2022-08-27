@@ -392,6 +392,57 @@ class LocalizeHelper {
                 return LocalizedStringKey("+\(value) Gust Self Movement Speed")
             }
 
+            //MARK: 7. Earch SHaker
+        case "special_bonus_unique_earthshaker":
+            let prefix = "-"
+            let suffix = "s Enchant Totem Cooldown"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value)s Enchant Totem Cooldown")
+            }
+        case "special_bonus_unique_earthshaker_2":
+            let prefix = "+"
+            let suffix = " Echo Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Echo Damage")
+            }
+        case "special_bonus_unique_earthshaker_3":
+            let prefix = "+"
+            let suffix = " Fissure Range"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Fissure Range")
+            }
+        case "special_bonus_unique_earthshaker_4":
+            let prefix = "+"
+            let suffix = " Fissure Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Fissure Damage")
+            }
+        case "special_bonus_unique_earthshaker_5":
+            let prefix = "+"
+            let suffix = " Aftershock Range"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Aftershock Range")
+            }
+        case "special_bonus_unique_earthshaker_6":
+            let prefix = "+"
+            let suffix = " Aftershock Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Aftershock Damage")
+            }
+        case "special_bonus_unique_earthshaker_totem_damage":
+            let prefix = "+"
+            let suffix = " Enchant Totem Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Enchant Totem Damage")
+            }
+
             //MARK: 68. Ancient Apparition
         case "special_bonus_unique_ancient_apparition_1":
             let prefix = "+"
