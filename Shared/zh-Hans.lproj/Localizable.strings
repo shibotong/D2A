@@ -399,6 +399,15 @@
 "+%@s Omnislash Duration" = "+%@秒 无敌斩持续时间"; // special_bonus_unique_juggernaut_omnislash_duration
 "+%@ Omnislash Cast Range" = "+%@ Omnislash Cast Range"; // special_bonus_unique_juggernaut_omnislash_cast_range
 
+// MARK: 9. Mirana
+"+%@ Leap Attack Speed" = "+%@ 跳跃攻击速度"; // special_bonus_unique_mirana_1
+"+%@ Multishot Sacred Arrows" = "+%@ 月神之箭齐发"; // special_bonus_unique_mirana_2
+"-%@s Sacred Arrow cooldown" = "-%@秒 月神之箭冷却"; // special_bonus_unique_mirana_3
+"-%@s Moonlight Shadow Cooldown" = "-%@秒 月之暗面冷却"; // special_bonus_unique_mirana_4
+"Moonlight Shadow gives +%@ Evasion" = "月之暗面提供+%@ 闪避"; // special_bonus_unique_mirana_5
+"+%@ Leap Distance" = "+%@ 跳跃距离"; // special_bonus_unique_mirana_6
+"+%@ Starstorm Damage" = "+%@ 群星风暴伤害"; // special_bonus_unique_mirana_7
+
 
 // MARK: 68. Ancient Apparition
 "+%@ Cold Feet Breaking distance" = "+%@ 寒霜之足失效距离"; // special_bonus_unique_ancient_apparition_1
@@ -713,7 +722,6 @@
 "terrorblade_demon_zeal" = "Demon Zeal";
 "beastmaster_hawk_dive" = "Dive Bomb";
 "medusa_cold_blooded" = "Cold Blooded";
-"special_bonus_unique_mirana_5" = "月之暗面提供+20% 闪避";
 "special_bonus_attack_damage_252" = "+252 攻击力";
 "special_bonus_unique_troll_warlord_7" = "-15秒 战斗专注冷却";
 "special_bonus_unique_grimstroke_7" = "-5秒 墨涌冷却";
@@ -819,11 +827,9 @@
 "special_bonus_unique_slark_5" = "+1 能量转移敏捷获取/窃取";
 "special_bonus_unique_nevermore_6" = "+0.4秒 魂之挽歌每道魔能恐惧";
 "special_bonus_unique_night_stalker_7" = "+8秒 黑暗飞升持续时间";
-"special_bonus_unique_mirana_6" = "+100 跳跃距离";
 "special_bonus_unique_necrophos_6" = "+100 死神镰刀施法距离";
 "special_bonus_unique_slark_6" = "-1秒 黑暗契约冷却";
 "special_bonus_unique_monkey_king_11" = "+2 如意棒法攻击次数";
-"special_bonus_unique_mirana_7" = "+200 群星风暴伤害";
 "special_bonus_unique_spirit_breaker_4" = "+175 暗影冲刺移动速度";
 "special_bonus_movement_speed_percentage_5" = "+5% Movement Speed";
 "special_bonus_movement_speed_percentage_6" = "+6% Movement Speed";
@@ -1704,7 +1710,6 @@
 "special_bonus_attack_damage_25" = "+25 攻击力";
 "special_bonus_unique_necrophos" = "-2.5秒 死亡脉冲冷却";
 "special_bonus_agility_13" = "+13 敏捷";
-"special_bonus_unique_mirana_1" = "+80 跳跃攻击速度";
 "special_bonus_agility_8" = "+8 敏捷";
 "special_bonus_spell_amplify_4" = "+4% 技能增强";
 "special_bonus_attack_speed_25" = "+25 攻击速度";
@@ -1901,7 +1906,6 @@
 "special_bonus_evasion_12" = "12% 闪避";
 "special_bonus_unique_leshrac_2" = "闪电风暴可弹跳两次";
 "special_bonus_unique_outworld_devourer" = "+2% 奥术天球伤害";
-"special_bonus_unique_mirana_2" = "+2 月神之箭齐发";
 "special_bonus_mp_regen_8" = "+8 魔法恢复";
 "special_bonus_unique_pudge_2" = "+30 腐烂伤害";
 "special_bonus_attack_damage_150" = "+150 攻击力";
@@ -2009,7 +2013,6 @@
 "special_bonus_unique_magnus_2" = "+10% 授予力量攻击力/分裂";
 "special_bonus_unique_medusa_2" = "-12% 分裂箭减少攻击力";
 "special_bonus_attack_damage_55" = "+55 攻击力";
-"special_bonus_unique_mirana_3" = "-2秒 月神之箭冷却";
 "special_bonus_unique_naga_siren_2" = "+30 激流伤害";
 "special_bonus_unique_nyx_2" = "+130 穿刺伤害";
 "special_bonus_unique_phantom_lancer_2" = "+2.5秒 幻影冲锋敏捷加成";
@@ -2176,7 +2179,6 @@
 "special_bonus_unique_meepo_2" = "+30 忽悠伤害";
 "special_bonus_unique_magnus_4" = "+10秒 授予力量持续时间";
 "special_bonus_unique_magnus_5" = "+1秒 两极反转眩晕";
-"special_bonus_unique_mirana_4" = "-20秒 月之暗面冷却";
 "special_bonus_mana_break_40" = "+40 法力损毁";
 "special_bonus_unique_monkey_king_3" = "+350 Primal Spring Damage"; // TODO: MK
 "special_bonus_unique_monkey_king_4" = "+200 Armor Wukong's Command"; // TODO: MK

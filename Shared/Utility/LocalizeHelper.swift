@@ -501,6 +501,57 @@ class LocalizeHelper {
                 return LocalizedStringKey("+\(value) Omnislash Cast Range")
             }
 
+            //MARK: 9. Mirana
+        case "special_bonus_unique_mirana_1":
+            let prefix = "+"
+            let suffix = " Leap Attack Speed"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Leap Attack Speed")
+            }
+        case "special_bonus_unique_mirana_2":
+            let prefix = "+"
+            let suffix = " Multishot Sacred Arrows"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Multishot Sacred Arrows")
+            }
+        case "special_bonus_unique_mirana_3":
+            let prefix = "-"
+            let suffix = "s Sacred Arrow cooldown"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value)s Sacred Arrow cooldown")
+            }
+        case "special_bonus_unique_mirana_4":
+            let prefix = "-"
+            let suffix = "s Moonlight Shadow Cooldown"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value)s Moonlight Shadow Cooldown")
+            }
+        case "special_bonus_unique_mirana_5":
+            let prefix = "Moonlight Shadow gives +"
+            let suffix = " Evasion"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("Moonlight Shadow gives +\(value) Evasion")
+            }
+        case "special_bonus_unique_mirana_6":
+            let prefix = "+"
+            let suffix = " Leap Distance"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Leap Distance")
+            }
+        case "special_bonus_unique_mirana_7":
+            let prefix = "+"
+            let suffix = " Starstorm Damage"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Starstorm Damage")
+            }
+
             //MARK: 68. Ancient Apparition
         case "special_bonus_unique_ancient_apparition_1":
             let prefix = "+"
