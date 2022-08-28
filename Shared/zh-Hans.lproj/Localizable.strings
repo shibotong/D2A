@@ -420,6 +420,112 @@
 "-%@ Adaptive Strike Armor Reduction" = "-7 Adaptive Strike Armor Reduction"; // special_bonus_unique_morphling_9
 "+%@s Adaptive Strike Stun Duration" = "+%@秒 变体打击眩晕"; // special_bonus_unique_morphling_10
 
+// MARK: 11. Shadow Fiend
+"+%@ Damage Per Soul" = "+%@ 攻击力/灵魂"; // special_bonus_unique_nevermore_1
+"+%@ Shadowraze Damage" = "+%@ 毁灭阴影伤害"; // special_bonus_unique_nevermore_2
+"Presence Aura Affects Building" = "魔王降临影响建筑"; // special_bonus_unique_nevermore_3
+"-%@s Requiem of Souls Cooldown" = "-%@秒 魂之挽歌冷却"; // special_bonus_unique_nevermore_4
+"-%@ Presence Aura Armor" = "-%@ 魔王降临护甲削弱"; // special_bonus_unique_nevermore_5
+"+%@s Requiem Fear per line" = "+%@秒 魂之挽歌每道魔能恐惧"; // special_bonus_unique_nevermore_6
+"+%@ Shadowraze Stack Damage" = "+%@ 毁灭阴影连中伤害"; // special_bonus_unique_nevermore_7
+"Shadowraze Applies Attack Damage" = "毁灭阴影施加攻击伤害"; // special_bonus_unique_nevermore_raze_procsattacks
+"-%@s Shadowraze Cooldown" = "-%@秒 毁灭阴影冷却"; // special_bonus_unique_nevermore_shadowraze_cooldown
+
+// MARK: 12. Phantom Lancer
+"+%@ Phantom Rush Range" = "+%@ 幻影冲锋距离"; // special_bonus_unique_phantom_lancer
+"+%@s Phantom Rush Bonus Agi Duration" = "+%@秒 幻影冲锋敏捷加成"; // special_bonus_unique_phantom_lancer_2
+"+%@ Max Juxtapose Illusions" = "+%@ Max Juxtapose Illusions"; // special_bonus_unique_phantom_lancer_3
+"-%@s Doppelganger CD" = "-%@秒 神行百变冷却"; // special_bonus_unique_phantom_lancer_4
+"-%@s Spirit Lance CD" = "-%@秒 灵魂之矛冷却"; // special_bonus_unique_phantom_lancer_5
+"+%@ Juxtapose Damage" = "+%@ 并列攻击力"; // special_bonus_unique_phantom_lancer_6
+"+%@ Spirit Lance Multishot" = "+%@ Spirit Lance Multishot"; // special_bonus_unique_phantom_lancer_7
+"+%@ Doppelganger Illusion" = "+%@ Doppelganger Illusion"; // special_bonus_unique_phantom_lancer_doppel_illusion2_amt
+"+%@ Spirit Lance Damage" = "+%@ 灵魂之矛伤害"; // special_bonus_unique_phantom_lancer_lance_damage
+
+// TODO: 13. Puck
+"-10s Dream Coil Cooldown" = ""; // special_bonus_unique_puck
+"-4s Waning Rift Cooldown" = ""; // special_bonus_unique_puck_2
+"Dream Coil Rapid Fire" = ""; // special_bonus_unique_puck_3
+"+{s:bonus_coil_stun_duration}s Dream Coil Stun Duration" = ""; // special_bonus_unique_puck_4
+"Dream Coil Pierces Magic Immunity" = ""; // special_bonus_unique_puck_5
+"+{s:bonus_damage} Waning Rift Damage" = ""; // special_bonus_unique_puck_6
+"+{s:bonus_silence_duration}s Waning Rift Silence Duration" = ""; // special_bonus_unique_puck_7
+"-{s:bonus_AbilityCooldown}s Illusory Orb Cooldown" = ""; // special_bonus_unique_puck_8
+"+{s:bonus_damage} Illusory Orb Damage" = ""; // special_bonus_unique_puck_orb_damage
+"+{s:bonus_coil_break_damage} Initial/Break Dream Coil Damage" = ""; // special_bonus_unique_puck_coil_damage
+
+// TODO: 14. Pudge
+"1.5x Flesh Heap Stack Str and Damage Block bonuses" = ""; // special_bonus_unique_pudge_1
+"+30 Rot Damage" = ""; // special_bonus_unique_pudge_2
+"1.8x Dismember Damage/Heal" = ""; // special_bonus_unique_pudge_3
+"-16% Rot Slow" = ""; // special_bonus_unique_pudge_4
+"-{s:bonus_AbilityCooldown}s Meat Hook Cooldown" = ""; // special_bonus_unique_pudge_5
+"+0.8s Dismember Duration" = ""; // special_bonus_unique_pudge_6
+"+{s:bonus_damage} Meat Hook Damage" = ""; // special_bonus_unique_pudge_7
+
+// TODO: 15. Razor
+"+{s:bonus_drain_rate} Static Link Damage Steal" = ""; // special_bonus_unique_razor
+"0.1s Eye of the Storm Strike Interval" = ""; // special_bonus_unique_razor_2
+"+{s:bonus_drain_duration}s Static Link Drain Duration" = ""; // special_bonus_unique_razor_3
+"+{s:bonus_damage_min} Plasma Field Damage" = ""; // special_bonus_unique_razor_4
+"+21% Storm Surge Move Speed" = ""; // special_bonus_unique_razor_5
+"2 Static Link Charges" = ""; // special_bonus_unique_razor_6
+"Creates A Second Plasma Field Delayed By {s:bonus_second_ring_delay}s" = ""; // special_bonus_unique_razor_plasmafield_second_ring
+"Static Link Steals Attack Speed" = ""; // special_bonus_unique_razor_static_link_aspd
+
+// TODO: 16. Sand King
+"+5 Epicenter Pulses" = ""; // special_bonus_unique_sand_king
+"+20 Sand Storm Damage Per Second" = ""; // special_bonus_unique_sand_king_2
+"+125 Sand Storm Radius" = ""; // special_bonus_unique_sand_king_3
+"35% Sand Storm Slow and Blind" = ""; // special_bonus_unique_sand_king_4
+"+{s:bonus_epicenter_radius} Epicenter Radius" = ""; // special_bonus_unique_sand_king_5
+"+12% Caustic Finale Slow" = ""; // special_bonus_unique_sand_king_6
+"-2s Burrowstrike Cooldown" = ""; // special_bonus_unique_sand_king_7
+"+100 Caustic Finale Damage" = ""; // special_bonus_unique_sand_king_8
+"+{s:bonus_burrow_duration}s Burrowstrike Stun" = ""; // special_bonus_unique_sand_king_burrowstrike_stun
+
+// TODO: 17. Storm Spirit
+"+0.4s Electric Vortex" = ""; // special_bonus_unique_storm_spirit
+"+6 Ball Lightning Damage" = ""; // special_bonus_unique_storm_spirit_2
+"Overload Pierces Immunity" = ""; // special_bonus_unique_storm_spirit_3
+"500 Distance Auto Remnant in Ball Lightning" = ""; // special_bonus_unique_storm_spirit_4
+"+50 Static Remnant Damage" = ""; // special_bonus_unique_storm_spirit_5
+"+24 Overload Damage" = ""; // special_bonus_unique_storm_spirit_6
+"2x Overload Attack Bounce" = ""; // special_bonus_unique_storm_spirit_7
+"-1.25s Static Remnant Cooldown" = ""; // special_bonus_unique_storm_spirit_8
+
+// TODO: 18. Sven
+"-4s Storm Hammer Cooldown" = ""; // special_bonus_unique_sven
+"+50% God's Strength Damage" = ""; // special_bonus_unique_sven_2
+"-15s God's Strength Cooldown" = ""; // special_bonus_unique_sven_3
+"+1.25s Storm Hammer Stun Duration" = ""; // special_bonus_unique_sven_4
+"+3s Warcry Duration" = ""; // special_bonus_unique_sven_5
+"+8% Warcry Movement Speed" = ""; // special_bonus_unique_sven_6
+"+10 Warcry Armor" = ""; // special_bonus_unique_sven_7
+"+25% Great Cleave Damage" = ""; // special_bonus_unique_sven_8
+
+// TODO: 19. Tiny
+"+80 Avalanche Damage" = ""; // special_bonus_unique_tiny
+"2 Toss Charges" = ""; // special_bonus_unique_tiny_2
+"-8s Avalanche Cooldown" = ""; // special_bonus_unique_tiny_3
+"-7s Tree Grab CD" = ""; // special_bonus_unique_tiny_4
+"Toss Requires No Target" = ""; // special_bonus_unique_tiny_5
+"+5 Tree Grab Attack Charges" = ""; // special_bonus_unique_tiny_6
+"+40% Grow Bonus Damage With Tree" = ""; // special_bonus_unique_tiny_7
+
+// TODO: 20. Vengeful Spirit
+"+{s:bonus_magic_missile_damage} Magic Missile Damage" = ""; // special_bonus_unique_vengeful_spirit_1
+"+16% Vengeance Aura Base Damage Bonus" = ""; // special_bonus_unique_vengeful_spirit_2
+"Magic Missile Pierces Spell Immunity" = ""; // special_bonus_unique_vengeful_spirit_3
+"-2 Wave of Terror Armor" = ""; // special_bonus_unique_vengeful_spirit_4
+"-2s Magic Missile Cooldown" = ""; // special_bonus_unique_vengeful_spirit_5
+"-6s Wave of Terror Cooldown" = ""; // special_bonus_unique_vengeful_spirit_6
+"Vengeance Aura Illusion Casts Spells" = ""; // special_bonus_unique_vengeful_spirit_7
+"+100 Vengeance Aura Attack Range" = ""; // special_bonus_unique_vengeful_spirit_8
+"-15s Nether Swap Cooldown" = ""; // special_bonus_unique_vengeful_spirit_9
+"+{s:bonus_AbilityCastRange} Magic Missile Cast Range" = ""; // special_bonus_unique_vengeful_spirit_missile_castrange
+"+{s:bonus_damage} Nether Swap Enemy Damage" = ""; // special_bonus_unique_vengeful_spirit_swap_damage
+
 // MARK: 68. Ancient Apparition
 "+%@ Cold Feet Breaking distance" = "+%@ 寒霜之足失效距离"; // special_bonus_unique_ancient_apparition_1
 "+%@ Chilling Touch Damage" = "+%@ 极寒之触伤害"; // special_bonus_unique_ancient_apparition_2
@@ -648,8 +754,6 @@
 "special_bonus_unique_phantom_assassin_7" = "-2秒 窒碍短匕冷却";
 "special_bonus_unique_dark_seer_7" = "+20% 复制之墙幻象攻击力";
 "grimstroke_ink_over" = "Ink Over";
-"special_bonus_unique_phantom_lancer_5" = "-2秒 灵魂之矛冷却";
-"special_bonus_unique_phantom_lancer_6" = "+8% 并列攻击力";
 "special_bonus_unique_razor_5" = "+21% 风暴涌动移动速度";
 "special_bonus_cooldown_reduction_14" = "14% Cooldown Reduction";
 "special_bonus_unique_batrider_5" = "2 烈焰破击能量点数";
@@ -687,7 +791,6 @@
 "rattletrap_jetpack" = "Jetpack";
 "life_stealer_ghoul_frenzy" = "Ghoul Frenzy";
 "witch_doctor_voodoo_switcheroo" = "Voodoo Switcheroo";
-"special_bonus_unique_phantom_lancer_7" = "+1 Spirit Lance Multishot"; //TODO: PL
 "special_bonus_mp_regen_amp_10" = "+10% Mana Regen Amp";
 "broodmother_silken_bola" = "Silken Bola";
 "zuus_heavenly_jump" = "Heavenly Jump";
@@ -835,7 +938,6 @@
 "special_bonus_unique_warlock_9" = "+2 Fatal Bond Targets"; // TODO: Warlock
 "special_bonus_unique_undying_8" = "+55 腐朽伤害";
 "special_bonus_unique_slark_5" = "+1 能量转移敏捷获取/窃取";
-"special_bonus_unique_nevermore_6" = "+0.4秒 魂之挽歌每道魔能恐惧";
 "special_bonus_unique_night_stalker_7" = "+8秒 黑暗飞升持续时间";
 "special_bonus_unique_necrophos_6" = "+100 死神镰刀施法距离";
 "special_bonus_unique_slark_6" = "-1秒 黑暗契约冷却";
@@ -926,7 +1028,6 @@
 "primal_beast_trample" = "Trample";
 "primal_beast_uproar" = "Uproar";
 "primal_beast_pulverize" = "Pulverize";
-"special_bonus_unique_nevermore_7" = "+25 毁灭阴影连中伤害";
 "seasonal_ti10_high_five" = "seasonal_ti10_high_five (4000)";
 "seasonal_ti10_guild_banner" = "seasonal_ti10_guild_banner (4001)";
 "tinker_keen_teleport" = "Keen Conveyance";
@@ -1766,7 +1867,6 @@
 "special_bonus_unique_enigma" = "+5 恶魔转化虚灵";
 "special_bonus_respawn_reduction_40" = "-40s Respawn Time";
 "special_bonus_mp_175" = "+175 魔法";
-"special_bonus_unique_nevermore_2" = "+100 毁灭阴影伤害";
 "special_bonus_unique_templar_assassin" = "+7 折光次数";
 "special_bonus_unique_doom_1" = "+2.09% 阎刃伤害";
 "special_bonus_all_stats_7" = "+7 全属性";
@@ -1830,7 +1930,6 @@
 "special_bonus_attack_damage_65" = "+65 攻击力";
 "special_bonus_unique_windranger" = "+225 风行作用范围";
 "special_bonus_strength_15" = "+15 力量";
-"special_bonus_unique_phantom_lancer" = "+300 幻影冲锋距离";
 "special_bonus_unique_slark" = "+0.5秒 突袭束缚时间";
 "special_bonus_unique_spectre" = "-4秒 幽鬼之刃冷却";
 "special_bonus_unique_spirit_breaker_1" = "+10% 巨力重击几率";
@@ -2022,7 +2121,6 @@
 "special_bonus_attack_damage_55" = "+55 攻击力";
 "special_bonus_unique_naga_siren_2" = "+30 激流伤害";
 "special_bonus_unique_nyx_2" = "+130 穿刺伤害";
-"special_bonus_unique_phantom_lancer_2" = "+2.5秒 幻影冲锋敏捷加成";
 "special_bonus_unique_phoenix_3" = "+25 烈火精灵每秒伤害";
 "special_bonus_unique_puck_2" = "-6秒 新月之痕冷却";
 "special_bonus_unique_pugna_3" = "+1.75 幽冥守卫伤害系数";
@@ -2170,7 +2268,6 @@
 "special_bonus_unique_keeper_of_the_light_3" = "+2 Will-O-Wisp Flicker"; // TODO: Keeper of light
 "special_bonus_unique_kunkka_3" = "幽灵船舰队";
 "special_bonus_unique_kunkka_4" = "+70% 潮汐使者分裂";
-"special_bonus_unique_nevermore_1" = "+3 攻击力/灵魂";
 "special_bonus_unique_legion_commander_4" = "+100 压倒性优势英雄提供伤害";
 "special_bonus_unique_leshrac_3" = "+40 脉冲新星伤害";
 "special_bonus_unique_lifestealer_2" = "+10% 狂暴移动速度";
@@ -2231,8 +2328,6 @@
 "special_bonus_corruption_5" = "-5 攻击削弱护甲";
 "special_bonus_unique_phantom_assassin_2" = "+7% 恩赐解脱几率";
 "special_bonus_unique_phantom_assassin_3" = "+35% 魅影无形闪避";
-"special_bonus_unique_phantom_lancer_3" = "+5 Max Juxtapose Illusions"; //TODO: PL
-"special_bonus_unique_phantom_lancer_4" = "-4秒 神行百变冷却";
 "special_bonus_24_crit_2" = "+24% 致命一击 (200%)";
 "special_bonus_unique_phoenix_4" = "+1000 凤凰冲击施法距离";
 "special_bonus_unique_puck_3" = "梦境缠绕快速攻击";
@@ -2250,8 +2345,6 @@
 "special_bonus_unique_sand_king_5" = "+100 地震作用范围";
 "special_bonus_unique_shadow_demon_4" = "+15% 暗影剧毒伤害";
 "special_bonus_magic_resistance_100" = "+100% 魔法抗性";
-"special_bonus_unique_nevermore_3" = "魔王降临影响建筑";
-"special_bonus_unique_nevermore_4" = "-50秒 魂之挽歌冷却";
 "special_bonus_unique_shadow_shaman_5" = "-3秒 妖术冷却";
 "special_bonus_unique_silencer_2" = "遗言锁闭物品";
 "special_bonus_unique_silencer_3" = "+15% 智慧之刃伤害";
@@ -2278,7 +2371,6 @@
 "special_bonus_unique_storm_spirit_4" = "球状闪电每550距离释放残影";
 "special_bonus_unique_sven_2" = "+50% 神之力量攻击力";
 "special_bonus_unique_sven_3" = "-15秒 神之力量冷却";
-"special_bonus_unique_nevermore_5" = "-4 魔王降临护甲削弱";
 "special_bonus_unique_phoenix_5" = "+1.5% 烈日炙烤最大生命值伤害";
 "special_bonus_unique_storm_spirit_5" = "+50 残影伤害";
 "special_bonus_night_vision_400" = "+400 夜间视野";
