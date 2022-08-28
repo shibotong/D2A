@@ -408,6 +408,17 @@
 "+%@ Leap Distance" = "+%@ 跳跃距离"; // special_bonus_unique_mirana_6
 "+%@ Starstorm Damage" = "+%@ 群星风暴伤害"; // special_bonus_unique_mirana_7
 
+// MARK: 10. Morphling
+"+%@ Waveform Range" = "+%@ 波浪形态距离"; // special_bonus_unique_morphling_1
+"-%@ Morph Cooldown" = "-%@ Morph Cooldown"; // special_bonus_unique_morphling_2
+"+%@ Multishot Adaptive Strike" = "+%@ Multishot Adaptive Strike"; // special_bonus_unique_morphling_3
+"Waveform Attacks Targets" = "波浪形态攻击目标"; // special_bonus_unique_morphling_4
+"Morph Targets Allies" = "Morph Targets Allies"; // special_bonus_unique_morphling_5
+"%@ Waveform Charges" = "%@ 波浪形态能量点数"; // special_bonus_unique_morphling_6
+"-%@s Adaptive Strike Cooldown" = "-%@s Adaptive Strike Cooldown"; // special_bonus_unique_morphling_7
+"+%@s Morph Duration" = "+%@秒 变形持续时间"; // special_bonus_unique_morphling_8
+"-%@ Adaptive Strike Armor Reduction" = "-7 Adaptive Strike Armor Reduction"; // special_bonus_unique_morphling_9
+"+%@s Adaptive Strike Stun Duration" = "+%@秒 变体打击眩晕"; // special_bonus_unique_morphling_10
 
 // MARK: 68. Ancient Apparition
 "+%@ Cold Feet Breaking distance" = "+%@ 寒霜之足失效距离"; // special_bonus_unique_ancient_apparition_1
@@ -770,7 +781,6 @@
 "special_bonus_unique_treant_13" = "+8 活体护甲额外护甲";
 "special_bonus_unique_templar_assassin_8" = "+120 灵能之刃攻击和飞溅距离";
 "special_bonus_unique_ursa_8" = "+15% 激怒状态抗性";
-"special_bonus_unique_morphling_9" = "-7 Adaptive Strike Armor Reduction"; // TODO: Moph
 "special_bonus_unique_shadow_shaman_7" = "妖术施加破坏";
 "special_bonus_unique_naga_siren_6" = "-10秒 镜像冷却";
 "special_bonus_unique_storm_spirit_8" = "-1.25秒 残影冷却";
@@ -889,7 +899,6 @@
 "special_bonus_unique_broodmother_6" = "+3 织网最多蛛网";
 "special_bonus_unique_beastmaster_9" = "+2.5% 野性之斧每次伤害加深";
 "bloodseeker_blood_mist" = "Blood Mist";
-"special_bonus_unique_morphling_10" = "眩晕时可属性变换";
 "tinker_warp_grenade" = "Warp Flare";
 "creep_siege" = "Reinforced";
 "creep_piercing" = "Piercing";
@@ -1752,7 +1761,6 @@
 "special_bonus_respawn_reduction_60" = "-60s Respawn Time";
 "special_bonus_intelligence_30" = "+30 智力";
 "special_bonus_spell_lifesteal_70" = "70% 技能吸血";
-"special_bonus_unique_morphling_1" = "+250 波浪形态距离";
 "special_bonus_unique_leshrac_1" = "+30 恶魔敕令爆炸次数";
 "special_bonus_unique_jakiro" = "+0.5秒 冰封路径持续时间";
 "special_bonus_unique_enigma" = "+5 恶魔转化虚灵";
@@ -1892,7 +1900,6 @@
 "special_bonus_cooldown_reduction_25" = "25% Cooldown Reduction";
 "special_bonus_unique_timbersaw" = "+10% 死亡旋风属性降低";
 "special_bonus_attack_speed_45" = "+45 攻击速度";
-"special_bonus_unique_morphling_2" = "-50 Morph Cooldown"; // TODO: Moph
 "filler_ability" = "Sanctuary";
 "special_bonus_unique_phoenix_1" = "+3 超新星可被攻击次数";
 "special_bonus_vision_200" = "+200 Vision";
@@ -2182,7 +2189,6 @@
 "special_bonus_mana_break_40" = "+40 法力损毁";
 "special_bonus_unique_monkey_king_3" = "+350 Primal Spring Damage"; // TODO: MK
 "special_bonus_unique_monkey_king_4" = "+200 Armor Wukong's Command"; // TODO: MK
-"special_bonus_unique_morphling_3" = "+3 Multishot Adaptive Strike"; // TODO: Moph
 "special_bonus_evasion_30" = "30% 闪避";
 "special_bonus_unique_naga_siren_3" = "-7 激流降低护甲";
 "special_bonus_unique_furion_4" = "100% 被发芽单位落空几率";
@@ -2221,7 +2227,6 @@
 "special_bonus_mana_break_35" = "+35 法力损毁";
 "special_bonus_cleave_100" = "+100% 分裂";
 "special_bonus_mana_break_25" = "+25 法力损毁";
-"special_bonus_unique_morphling_4" = "波浪形态攻击目标";
 "special_bonus_cleave_15" = "+15% 分裂";
 "special_bonus_corruption_5" = "-5 攻击削弱护甲";
 "special_bonus_unique_phantom_assassin_2" = "+7% 恩赐解脱几率";
@@ -2281,7 +2286,6 @@
 "special_bonus_truestrike" = "True Strike";
 "special_bonus_unique_wisp_5" = "Tether Grants Scepter Bonus"; // TODO: IO
 "special_bonus_mp_regen_175" = "+1.75 魔法恢复";
-"special_bonus_unique_morphling_5" = "Morph Targets Allies"; // TODO: Moph
 "special_bonus_cast_range_350" = "+350 施法距离";
 "special_bonus_unique_tiny_2" = "2 投掷能量点数";
 "special_bonus_unique_tiny_3" = "-8秒 山崩冷却";
@@ -2373,14 +2377,10 @@
 "special_bonus_unique_silencer_5" = "+1s Glaives Silence"; // TODO: +1s Glaives Silence
 "special_bonus_unique_ember_spirit_4" = "2 无影拳能量点数";
 "special_bonus_unique_ember_spirit_5" = "-12秒 残焰充能";
-"special_bonus_unique_morphling_6" = "2 波浪形态能量点数";
-
 "special_bonus_unique_luna_5" = "+0.25秒 月蚀月光眩晕";
-"special_bonus_unique_morphling_7" = "-5s Adaptive Strike Cooldown"; // TODO: Moph
 "special_bonus_unique_puck_4" = "+1秒 梦境缠绕眩晕";
 "special_bonus_unique_templar_assassin_6" = "+3 Psionic Traps"; // TODO: PA
 "special_bonus_mp_700" = "+700 魔法";
-"special_bonus_unique_morphling_8" = "+16秒 变形持续时间";
 "special_bonus_unique_shadow_demon_6" = "Soul Catcher Creates 2 Illusion On Death"; // TODO: Shadow Demon
 "special_bonus_unique_windranger_6" = "+0.8秒 束缚击眩晕";
 "special_bonus_unique_wisp_6" = "-25秒 降临冷却";

@@ -552,6 +552,76 @@ class LocalizeHelper {
                 return LocalizedStringKey("+\(value) Starstorm Damage")
             }
 
+            //MARK: 10. Morphling
+        case "special_bonus_unique_morphling_1":
+            let prefix = "+"
+            let suffix = " Waveform Range"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value) Waveform Range")
+            }
+        case "special_bonus_unique_morphling_2":
+            let prefix = "-"
+            let suffix = " Morph Cooldown"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value) Morph Cooldown")
+            }
+        case "special_bonus_unique_morphling_3":
+            let prefix = "+"
+            let suffix = " Multishot Adaptive Strike"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("\(value) Multishot Adaptive Strike")
+            }
+        case "special_bonus_unique_morphling_4":
+            let prefix = ""
+            let suffix = "Waveform Attacks Targets"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                return LocalizedStringKey("Waveform Attacks Targets")
+            }
+        case "special_bonus_unique_morphling_5":
+            let prefix = ""
+            let suffix = "Morph Targets Allies"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                return LocalizedStringKey("Morph Targets Allies")
+            }
+        case "special_bonus_unique_morphling_6":
+            let prefix = ""
+            let suffix = " Waveform Charges"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("\(value) Waveform Charges")
+            }
+        case "special_bonus_unique_morphling_7":
+            let prefix = "-"
+            let suffix = "s Adaptive Strike Cooldown"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value)s Adaptive Strike Cooldown")
+            }
+        case "special_bonus_unique_morphling_8":
+            let prefix = "+"
+            let suffix = "s Morph Duration"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value)s Morph Duration")
+            }
+        case "special_bonus_unique_morphling_9":
+            let prefix = "-"
+            let suffix = " Adaptive Strike Armor Reduction"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("-\(value) Adaptive Strike Armor Reduction")
+            }
+        case "special_bonus_unique_morphling_10":
+            let prefix = "+"
+            let suffix = "s Adaptive Strike Stun Duration"
+            if dname.hasPrefix(prefix) && dname.hasSuffix(suffix) {
+                let value = dname.fetchTalentValue(prefix: prefix, suffix: suffix)
+                return LocalizedStringKey("+\(value)s Adaptive Strike Stun Duration")
+            }
+
             //MARK: 68. Ancient Apparition
         case "special_bonus_unique_ancient_apparition_1":
             let prefix = "+"
