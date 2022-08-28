@@ -336,6 +336,195 @@
 "+%@ Berseker's Call Armor" = "+%@ 狂战士之吼护甲"; // special_bonus_unique_axe_7
 "+%@ Movement Speed per active Battle Hunger" = "战斗饥渴每作用一个目标提供+%@ 移动速度"; // special_bonus_unique_axe_8
 
+// MARK: 3. Bane
+"+%@ Enfeeble Attack Speed Reduction" = "+%@ Enfeeble Attack Speed Reduction"; // special_bonus_unique_bane_1
+"+%@ Brain Sap Damage/Heal" = "+%@ 蚀脑伤害/治疗"; // special_bonus_unique_bane_2
+"+%@s Fiend's Grip Duration" = "+%@秒 魔爪持续时间"; // special_bonus_unique_bane_3
+"Enfeeble Steals Attack Speed" = "Enfeeble Steals Attack Speed"; // special_bonus_unique_bane_4
+"-%@s Nightmare Cooldown" = "-%@秒 噩梦冷却"; // special_bonus_unique_bane_5
+"-%@ Enfeeble Regen Reduction" = "-%@ Enfeeble Regen Reduction"; // special_bonus_unique_bane_6
+"Brain Sap Pure and Pierces Immunity" = "Brain Sap Pure and Pierces Immunity"; // special_bonus_unique_bane_7
+"-%@s Brain Sap Cooldown" = "-%@秒 蚀脑冷却"; // special_bonus_unique_bane_8
+"+%@ Fiend's Grip Max Mana Drain" = "+%@ 魔爪吸取最大魔法值"; // special_bonus_unique_bane_9
+"Nightmare Damage Heals Bane" = "噩梦伤害治疗祸乱之源"; // special_bonus_unique_bane_10
+"+%@ Enfeeble Cast Range Reduction" = "+%@ 虚弱降低施法距离"; // special_bonus_unique_bane_11
+
+// MARK: 4. BloodSeeker
+"-%@s Blood Rite Cooldown" = "-%@s Blood Rite Cooldown"; // special_bonus_unique_bloodseeker
+"+%@ Blood Rite Damage" = "+%@ 血祭伤害"; // special_bonus_unique_bloodseeker_2
+"+%@ Rupture Cast Range" = "+%@ 割裂施法距离"; // special_bonus_unique_bloodseeker_3
+"+%@ Max Thirst MS" = "+%@ 焦渴最大移速"; // special_bonus_unique_bloodseeker_4
+"+%@ Bloodrage Attack Speed" = "+%@ 血怒攻击速度"; // special_bonus_unique_bloodseeker_5
+"+%@ Bloodrage Spell Amplification" = "+%@ 血怒技能增强"; // special_bonus_unique_bloodseeker_6
+"+%@ Rupture Initial Damage" = "+%@ 割裂初始伤害"; // special_bonus_unique_bloodseeker_7
+"%@ Rupture Charges" = "%@ 割裂能量点数"; // special_bonus_unique_bloodseeker_rupture_charges
+
+// MARK: 5. Crystal Maiden
+"+%@s Frostbite Duration" = "+%@秒 冰封禁制持续时间"; // special_bonus_unique_crystal_maiden_1
+"+%@ Crystal Nova Damage" = "+%@ 冰霜新星伤害"; // special_bonus_unique_crystal_maiden_2
+"+%@ Freezing Field Damage" = "+%@ 极寒领域伤害"; // special_bonus_unique_crystal_maiden_3
+"+%@ Arcane Aura Base Mana Regeneration" = "+%@ 奥术光环每次施法回魔"; // special_bonus_unique_crystal_maiden_4
+"-%@s Crystal Nova Cooldown" = "-%@秒 冰霜新星冷却"; // special_bonus_unique_crystal_maiden_5
+"+%@ Crystal Nova AoE" = "+%@ 冰霜新星范围"; // special_bonus_unique_crystal_maiden_6
+"+%@ Frostbite Cast Range" = "+%@ 冰封禁制施法距离"; // special_bonus_unique_crystal_maiden_frostbite_castrange
+
+// MARK: 6. Drow Ranger
+"+%@ Multishot Damage" = "+%@ 数箭齐发伤害"; // special_bonus_unique_drow_ranger_1
+"+%@ Frost Arrow Damage" = "+%@ 霜冻之箭伤害"; // special_bonus_unique_drow_ranger_2
+"+%@ Marksmanship Chance" = "+%@ 射手天赋几率"; // special_bonus_unique_drow_ranger_3
+"+%@ Gust Width" = "+%@ 狂风宽度"; // special_bonus_unique_drow_ranger_4
+"+%@ Gust Blind" = "+%@ 狂风致盲"; // special_bonus_unique_drow_ranger_5
+"-%@s Multishot Cooldown" = "-%@秒 数箭齐发冷却"; // special_bonus_unique_drow_ranger_6
+"-%@s Gust Cooldown" = "-%@秒 狂风冷却"; // special_bonus_unique_drow_ranger_7
+"+%@ Multishot Waves" = "+%@ 数箭齐发波数"; // special_bonus_unique_drow_ranger_8
+"Gust Reveals Invisible Units" = "狂风显示隐身单位"; // special_bonus_unique_drow_ranger_gust_invis
+"+%@ Gust Self Movement Speed" = "+%@ 狂风对自身移动速度"; // special_bonus_unique_drow_ranger_gust_selfmovespeed
+
+// MARK: 7. Earth Shaker
+"-%@s Enchant Totem Cooldown" = "-%@秒 强化图腾冷却"; // special_bonus_unique_earthshaker
+"+%@ Echo Damage" = "+%@ 回音击回音伤害"; // special_bonus_unique_earthshaker_2
+"+%@ Fissure Range" = "+%@ 沟壑距离"; // special_bonus_unique_earthshaker_3
+"+%@ Fissure Damage" = "+%@ 沟壑伤害"; // special_bonus_unique_earthshaker_4
+"+%@ Aftershock Range" = "+%@ 余震范围"; // special_bonus_unique_earthshaker_5
+"+%@ Aftershock Damage" = "+%@ 余震伤害"; // special_bonus_unique_earthshaker_6
+"+%@ Enchant Totem Damage" = "+%@ 强化图腾攻击力"; // special_bonus_unique_earthshaker_totem_damage
+
+// MARK: 8. Juggernaut
+"+%@ Blade Fury Radius" = "+%@ 剑刃风暴作用范围"; // special_bonus_unique_juggernaut
+"+%@ Healing Ward Health" = "+%@ 治疗守卫生命"; // special_bonus_unique_juggernaut_2
+"+%@ Blade Fury DPS" = "+%@ 剑刃风暴每秒伤害"; // special_bonus_unique_juggernaut_3
+"+%@s Blade Fury Duration" = "+%@秒 剑刃风暴持续时间"; // special_bonus_unique_juggernaut_4
+"-%@s Healing Ward Cooldown" = "-%@秒 治疗守卫冷却"; // special_bonus_unique_juggernaut_5
+"+%@ Blade Dance Lifesteal" = "+%@ 剑舞吸血"; // special_bonus_unique_juggernaut_blade_dance_lifesteal
+"+%@s Omnislash Duration" = "+%@秒 无敌斩持续时间"; // special_bonus_unique_juggernaut_omnislash_duration
+"+%@ Omnislash Cast Range" = "+%@ Omnislash Cast Range"; // special_bonus_unique_juggernaut_omnislash_cast_range
+
+// MARK: 9. Mirana
+"+%@ Leap Attack Speed" = "+%@ 跳跃攻击速度"; // special_bonus_unique_mirana_1
+"+%@ Multishot Sacred Arrows" = "+%@ 月神之箭齐发"; // special_bonus_unique_mirana_2
+"-%@s Sacred Arrow cooldown" = "-%@秒 月神之箭冷却"; // special_bonus_unique_mirana_3
+"-%@s Moonlight Shadow Cooldown" = "-%@秒 月之暗面冷却"; // special_bonus_unique_mirana_4
+"Moonlight Shadow gives +%@ Evasion" = "月之暗面提供+%@ 闪避"; // special_bonus_unique_mirana_5
+"+%@ Leap Distance" = "+%@ 跳跃距离"; // special_bonus_unique_mirana_6
+"+%@ Starstorm Damage" = "+%@ 群星风暴伤害"; // special_bonus_unique_mirana_7
+
+// MARK: 10. Morphling
+"+%@ Waveform Range" = "+%@ 波浪形态距离"; // special_bonus_unique_morphling_1
+"-%@ Morph Cooldown" = "-%@ Morph Cooldown"; // special_bonus_unique_morphling_2
+"+%@ Multishot Adaptive Strike" = "+%@ Multishot Adaptive Strike"; // special_bonus_unique_morphling_3
+"Waveform Attacks Targets" = "波浪形态攻击目标"; // special_bonus_unique_morphling_4
+"Morph Targets Allies" = "Morph Targets Allies"; // special_bonus_unique_morphling_5
+"%@ Waveform Charges" = "%@ 波浪形态能量点数"; // special_bonus_unique_morphling_6
+"-%@s Adaptive Strike Cooldown" = "-%@s Adaptive Strike Cooldown"; // special_bonus_unique_morphling_7
+"+%@s Morph Duration" = "+%@秒 变形持续时间"; // special_bonus_unique_morphling_8
+"-%@ Adaptive Strike Armor Reduction" = "-7 Adaptive Strike Armor Reduction"; // special_bonus_unique_morphling_9
+"+%@s Adaptive Strike Stun Duration" = "+%@秒 变体打击眩晕"; // special_bonus_unique_morphling_10
+
+// MARK: 11. Shadow Fiend
+"+%@ Damage Per Soul" = "+%@ 攻击力/灵魂"; // special_bonus_unique_nevermore_1
+"+%@ Shadowraze Damage" = "+%@ 毁灭阴影伤害"; // special_bonus_unique_nevermore_2
+"Presence Aura Affects Building" = "魔王降临影响建筑"; // special_bonus_unique_nevermore_3
+"-%@s Requiem of Souls Cooldown" = "-%@秒 魂之挽歌冷却"; // special_bonus_unique_nevermore_4
+"-%@ Presence Aura Armor" = "-%@ 魔王降临护甲削弱"; // special_bonus_unique_nevermore_5
+"+%@s Requiem Fear per line" = "+%@秒 魂之挽歌每道魔能恐惧"; // special_bonus_unique_nevermore_6
+"+%@ Shadowraze Stack Damage" = "+%@ 毁灭阴影连中伤害"; // special_bonus_unique_nevermore_7
+"Shadowraze Applies Attack Damage" = "毁灭阴影施加攻击伤害"; // special_bonus_unique_nevermore_raze_procsattacks
+"-%@s Shadowraze Cooldown" = "-%@秒 毁灭阴影冷却"; // special_bonus_unique_nevermore_shadowraze_cooldown
+
+// MARK: 12. Phantom Lancer
+"+%@ Phantom Rush Range" = "+%@ 幻影冲锋距离"; // special_bonus_unique_phantom_lancer
+"+%@s Phantom Rush Bonus Agi Duration" = "+%@秒 幻影冲锋敏捷加成"; // special_bonus_unique_phantom_lancer_2
+"+%@ Max Juxtapose Illusions" = "+%@ Max Juxtapose Illusions"; // special_bonus_unique_phantom_lancer_3
+"-%@s Doppelganger CD" = "-%@秒 神行百变冷却"; // special_bonus_unique_phantom_lancer_4
+"-%@s Spirit Lance CD" = "-%@秒 灵魂之矛冷却"; // special_bonus_unique_phantom_lancer_5
+"+%@ Juxtapose Damage" = "+%@ 并列攻击力"; // special_bonus_unique_phantom_lancer_6
+"+%@ Spirit Lance Multishot" = "+%@ Spirit Lance Multishot"; // special_bonus_unique_phantom_lancer_7
+"+%@ Doppelganger Illusion" = "+%@ Doppelganger Illusion"; // special_bonus_unique_phantom_lancer_doppel_illusion2_amt
+"+%@ Spirit Lance Damage" = "+%@ 灵魂之矛伤害"; // special_bonus_unique_phantom_lancer_lance_damage
+
+// TODO: 13. Puck
+"-10s Dream Coil Cooldown" = ""; // special_bonus_unique_puck
+"-4s Waning Rift Cooldown" = ""; // special_bonus_unique_puck_2
+"Dream Coil Rapid Fire" = ""; // special_bonus_unique_puck_3
+"+{s:bonus_coil_stun_duration}s Dream Coil Stun Duration" = ""; // special_bonus_unique_puck_4
+"Dream Coil Pierces Magic Immunity" = ""; // special_bonus_unique_puck_5
+"+{s:bonus_damage} Waning Rift Damage" = ""; // special_bonus_unique_puck_6
+"+{s:bonus_silence_duration}s Waning Rift Silence Duration" = ""; // special_bonus_unique_puck_7
+"-{s:bonus_AbilityCooldown}s Illusory Orb Cooldown" = ""; // special_bonus_unique_puck_8
+"+{s:bonus_damage} Illusory Orb Damage" = ""; // special_bonus_unique_puck_orb_damage
+"+{s:bonus_coil_break_damage} Initial/Break Dream Coil Damage" = ""; // special_bonus_unique_puck_coil_damage
+
+// TODO: 14. Pudge
+"1.5x Flesh Heap Stack Str and Damage Block bonuses" = ""; // special_bonus_unique_pudge_1
+"+30 Rot Damage" = ""; // special_bonus_unique_pudge_2
+"1.8x Dismember Damage/Heal" = ""; // special_bonus_unique_pudge_3
+"-16% Rot Slow" = ""; // special_bonus_unique_pudge_4
+"-{s:bonus_AbilityCooldown}s Meat Hook Cooldown" = ""; // special_bonus_unique_pudge_5
+"+0.8s Dismember Duration" = ""; // special_bonus_unique_pudge_6
+"+{s:bonus_damage} Meat Hook Damage" = ""; // special_bonus_unique_pudge_7
+
+// TODO: 15. Razor
+"+{s:bonus_drain_rate} Static Link Damage Steal" = ""; // special_bonus_unique_razor
+"0.1s Eye of the Storm Strike Interval" = ""; // special_bonus_unique_razor_2
+"+{s:bonus_drain_duration}s Static Link Drain Duration" = ""; // special_bonus_unique_razor_3
+"+{s:bonus_damage_min} Plasma Field Damage" = ""; // special_bonus_unique_razor_4
+"+21% Storm Surge Move Speed" = ""; // special_bonus_unique_razor_5
+"2 Static Link Charges" = ""; // special_bonus_unique_razor_6
+"Creates A Second Plasma Field Delayed By {s:bonus_second_ring_delay}s" = ""; // special_bonus_unique_razor_plasmafield_second_ring
+"Static Link Steals Attack Speed" = ""; // special_bonus_unique_razor_static_link_aspd
+
+// TODO: 16. Sand King
+"+5 Epicenter Pulses" = ""; // special_bonus_unique_sand_king
+"+20 Sand Storm Damage Per Second" = ""; // special_bonus_unique_sand_king_2
+"+125 Sand Storm Radius" = ""; // special_bonus_unique_sand_king_3
+"35% Sand Storm Slow and Blind" = ""; // special_bonus_unique_sand_king_4
+"+{s:bonus_epicenter_radius} Epicenter Radius" = ""; // special_bonus_unique_sand_king_5
+"+12% Caustic Finale Slow" = ""; // special_bonus_unique_sand_king_6
+"-2s Burrowstrike Cooldown" = ""; // special_bonus_unique_sand_king_7
+"+100 Caustic Finale Damage" = ""; // special_bonus_unique_sand_king_8
+"+{s:bonus_burrow_duration}s Burrowstrike Stun" = ""; // special_bonus_unique_sand_king_burrowstrike_stun
+
+// TODO: 17. Storm Spirit
+"+0.4s Electric Vortex" = ""; // special_bonus_unique_storm_spirit
+"+6 Ball Lightning Damage" = ""; // special_bonus_unique_storm_spirit_2
+"Overload Pierces Immunity" = ""; // special_bonus_unique_storm_spirit_3
+"500 Distance Auto Remnant in Ball Lightning" = ""; // special_bonus_unique_storm_spirit_4
+"+50 Static Remnant Damage" = ""; // special_bonus_unique_storm_spirit_5
+"+24 Overload Damage" = ""; // special_bonus_unique_storm_spirit_6
+"2x Overload Attack Bounce" = ""; // special_bonus_unique_storm_spirit_7
+"-1.25s Static Remnant Cooldown" = ""; // special_bonus_unique_storm_spirit_8
+
+// TODO: 18. Sven
+"-4s Storm Hammer Cooldown" = ""; // special_bonus_unique_sven
+"+50% God's Strength Damage" = ""; // special_bonus_unique_sven_2
+"-15s God's Strength Cooldown" = ""; // special_bonus_unique_sven_3
+"+1.25s Storm Hammer Stun Duration" = ""; // special_bonus_unique_sven_4
+"+3s Warcry Duration" = ""; // special_bonus_unique_sven_5
+"+8% Warcry Movement Speed" = ""; // special_bonus_unique_sven_6
+"+10 Warcry Armor" = ""; // special_bonus_unique_sven_7
+"+25% Great Cleave Damage" = ""; // special_bonus_unique_sven_8
+
+// TODO: 19. Tiny
+"+80 Avalanche Damage" = ""; // special_bonus_unique_tiny
+"2 Toss Charges" = ""; // special_bonus_unique_tiny_2
+"-8s Avalanche Cooldown" = ""; // special_bonus_unique_tiny_3
+"-7s Tree Grab CD" = ""; // special_bonus_unique_tiny_4
+"Toss Requires No Target" = ""; // special_bonus_unique_tiny_5
+"+5 Tree Grab Attack Charges" = ""; // special_bonus_unique_tiny_6
+"+40% Grow Bonus Damage With Tree" = ""; // special_bonus_unique_tiny_7
+
+// TODO: 20. Vengeful Spirit
+"+{s:bonus_magic_missile_damage} Magic Missile Damage" = ""; // special_bonus_unique_vengeful_spirit_1
+"+16% Vengeance Aura Base Damage Bonus" = ""; // special_bonus_unique_vengeful_spirit_2
+"Magic Missile Pierces Spell Immunity" = ""; // special_bonus_unique_vengeful_spirit_3
+"-2 Wave of Terror Armor" = ""; // special_bonus_unique_vengeful_spirit_4
+"-2s Magic Missile Cooldown" = ""; // special_bonus_unique_vengeful_spirit_5
+"-6s Wave of Terror Cooldown" = ""; // special_bonus_unique_vengeful_spirit_6
+"Vengeance Aura Illusion Casts Spells" = ""; // special_bonus_unique_vengeful_spirit_7
+"+100 Vengeance Aura Attack Range" = ""; // special_bonus_unique_vengeful_spirit_8
+"-15s Nether Swap Cooldown" = ""; // special_bonus_unique_vengeful_spirit_9
+"+{s:bonus_AbilityCastRange} Magic Missile Cast Range" = ""; // special_bonus_unique_vengeful_spirit_missile_castrange
+"+{s:bonus_damage} Nether Swap Enemy Damage" = ""; // special_bonus_unique_vengeful_spirit_swap_damage
 
 // MARK: 68. Ancient Apparition
 "+%@ Cold Feet Breaking distance" = "+%@ 寒霜之足失效距离"; // special_bonus_unique_ancient_apparition_1
@@ -485,16 +674,13 @@
 "special_bonus_unique_omniknight_6" = "-2秒 洗礼冷却";
 "special_bonus_unique_riki_7" = "+75 烟幕范围";
 "special_bonus_unique_sand_king_4" = "35% 沙尘暴减速和致盲";
-"special_bonus_unique_bane_5" = "-3秒 噩梦冷却";
 "special_bonus_unique_wraith_king_9" = "-1s Wraithfire Blast Cooldown"; // TODO: WK
 "special_bonus_attack_speed_110" = "+110 攻击速度";
 "special_bonus_unique_terrorblade_5" = "+10秒 惑幻持续时间";
 "special_bonus_unique_night_stalker_3" = "+35 黑暗飞升攻击力";
 "special_bonus_attack_range_275" = "+275 攻击距离";
-"special_bonus_unique_bloodseeker_5" = "+30 血怒攻击速度";
 "special_bonus_unique_phantom_assassin_4" = "+1秒 幻影突袭持续时间";
 "special_bonus_unique_bounty_hunter_4" = "+40 忍术攻击力";
-"special_bonus_unique_drow_ranger_6" = "-8秒 数箭齐发冷却";
 "special_bonus_attack_damage_16" = "+16 攻击力";
 "special_bonus_attack_damage_18" = "+18 攻击力";
 "special_bonus_agility_and_intelligence_6" = "+6 Agility and Intelligence";
@@ -568,13 +754,10 @@
 "special_bonus_unique_phantom_assassin_7" = "-2秒 窒碍短匕冷却";
 "special_bonus_unique_dark_seer_7" = "+20% 复制之墙幻象攻击力";
 "grimstroke_ink_over" = "Ink Over";
-"special_bonus_unique_phantom_lancer_5" = "-2秒 灵魂之矛冷却";
-"special_bonus_unique_phantom_lancer_6" = "+8% 并列攻击力";
 "special_bonus_unique_razor_5" = "+21% 风暴涌动移动速度";
 "special_bonus_cooldown_reduction_14" = "14% Cooldown Reduction";
 "special_bonus_unique_batrider_5" = "2 烈焰破击能量点数";
 "dazzle_rain_of_vermin" = "dazzle_rain_of_vermin (579)";
-"special_bonus_unique_drow_ranger_7" = "-4秒 狂风冷却";
 "centaur_overrun" = "Overrun";
 "special_bonus_unique_clinkz_11" = "Kills Reset Death Pact Cooldown"; // TODO: CLinkz
 "special_bonus_attack_range_325" = "+325 攻击距离";
@@ -604,12 +787,10 @@
 "furion_greater_sprout" = "Greater Sprout";
 "special_bonus_unique_visage_7" = "+8 维萨吉和佣兽攻击力";
 "special_bonus_unique_storm_spirit_7" = "2 超负荷攻击弹射";
-"special_bonus_unique_juggernaut_5" = "-20秒 治疗守卫冷却";
 "special_bonus_unique_queen_of_pain_4" = "+2 暗影突袭后续伤害次数";
 "rattletrap_jetpack" = "Jetpack";
 "life_stealer_ghoul_frenzy" = "Ghoul Frenzy";
 "witch_doctor_voodoo_switcheroo" = "Voodoo Switcheroo";
-"special_bonus_unique_phantom_lancer_7" = "+1 Spirit Lance Multishot"; //TODO: PL
 "special_bonus_mp_regen_amp_10" = "+10% Mana Regen Amp";
 "broodmother_silken_bola" = "Silken Bola";
 "zuus_heavenly_jump" = "Heavenly Jump";
@@ -637,8 +818,6 @@
 "special_bonus_unique_shadow_demon_8" = "+5s Soul Catcher Duration"; // TODO: Shadow Demon
 "slark_fish_bait" = "Fish Bait";
 "special_bonus_unique_keeper_of_the_light_9" = "+50% Illuminate Daytime Heal"; // TODO: Keeper of light
-"special_bonus_unique_bane_6" = "-50% Enfeeble Regen Reduction"; // TODO: Bane
-"special_bonus_unique_bane_7" = "Brain Sap Pure and Pierces Immunity"; // TODO: Bane
 "special_bonus_unique_sven_5" = "+3秒 战吼持续时间";
 "special_bonus_unique_oracle_8" = "+30% 涤罪之焰对敌人伤害";
 "storm_spirit_electric_rave" = "Electric Rave";
@@ -657,7 +836,6 @@
 "terrorblade_demon_zeal" = "Demon Zeal";
 "beastmaster_hawk_dive" = "Dive Bomb";
 "medusa_cold_blooded" = "Cold Blooded";
-"special_bonus_unique_mirana_5" = "月之暗面提供+20% 闪避";
 "special_bonus_attack_damage_252" = "+252 攻击力";
 "special_bonus_unique_troll_warlord_7" = "-15秒 战斗专注冷却";
 "special_bonus_unique_grimstroke_7" = "-5秒 墨涌冷却";
@@ -674,7 +852,6 @@
 "special_bonus_unique_viper_6" = "2倍 腐蚀皮肤减速和魔抗";
 "special_bonus_unique_tiny_7" = "+40% 长大抓树时攻击力加成";
 "special_bonus_unique_winter_wyvern_7" = "+100 碎裂冲击伤害";
-"special_bonus_unique_bane_8" = "-3秒 蚀脑冷却";
 "special_bonus_unique_silencer_7" = "-25秒 全领域静默冷却";
 "special_bonus_unique_beastmaster_7" = "-30秒 原始咆哮冷却";
 "special_bonus_unique_huskar_8" = "special_bonus_unique_huskar_8 (723)"; // TODO: Huskar
@@ -689,12 +866,10 @@
 "special_bonus_unique_dark_seer_13" = "-40秒 复制之墙冷却";
 "special_bonus_unique_disruptor_8" = "+250 静态风暴范围";
 "special_bonus_mp_regen_125" = "+1.25 魔法恢复";
-"special_bonus_unique_drow_ranger_8" = "+3 数箭齐发波数";
 "special_bonus_unique_dragon_knight_7" = "+175 古龙形态攻击距离";
 "special_bonus_unique_wraith_king_10" = "-2秒 本命一击冷却";
 "special_bonus_unique_dragon_knight_8" = "+400 古龙形态下范围型神龙摆尾";
 "special_bonus_spell_amplify_18" = "+18% 技能增强";
-"special_bonus_unique_earthshaker_4" = "+80 沟壑伤害";
 "special_bonus_unique_kunkka_6" = "+25% X标记移动速度";
 "special_bonus_unique_lifestealer_7" = "+50 Ghoul Frenzy Attack Speed"; // TODO: LS
 "special_bonus_unique_monkey_king_8" = "乾坤之跃无冷却";
@@ -709,7 +884,6 @@
 "special_bonus_unique_treant_13" = "+8 活体护甲额外护甲";
 "special_bonus_unique_templar_assassin_8" = "+120 灵能之刃攻击和飞溅距离";
 "special_bonus_unique_ursa_8" = "+15% 激怒状态抗性";
-"special_bonus_unique_morphling_9" = "-7 Adaptive Strike Armor Reduction"; // TODO: Moph
 "special_bonus_unique_shadow_shaman_7" = "妖术施加破坏";
 "special_bonus_unique_naga_siren_6" = "-10秒 镜像冷却";
 "special_bonus_unique_storm_spirit_8" = "-1.25秒 残影冷却";
@@ -722,7 +896,6 @@
 "special_bonus_unique_chen_10" = "Global Divine Favor Aura"; //TODO: Chen
 "special_bonus_unique_luna_6" = "-25秒 月蚀冷却";
 "special_bonus_unique_keeper_of_the_light_12" = "2 致盲之光点数";
-"special_bonus_unique_crystal_maiden_6" = "+125 冰霜新星范围";
 "special_bonus_unique_lina_5" = "+100 Laguna Blade Damage"; // TODO: Lina
 "special_bonus_unique_grimstroke_8" = "+50 幻影之拥每秒伤害";
 "special_bonus_unique_lich_8" = "+10% 冰霜魔盾伤害降低";
@@ -765,15 +938,10 @@
 "special_bonus_unique_warlock_9" = "+2 Fatal Bond Targets"; // TODO: Warlock
 "special_bonus_unique_undying_8" = "+55 腐朽伤害";
 "special_bonus_unique_slark_5" = "+1 能量转移敏捷获取/窃取";
-"special_bonus_unique_nevermore_6" = "+0.4秒 魂之挽歌每道魔能恐惧";
 "special_bonus_unique_night_stalker_7" = "+8秒 黑暗飞升持续时间";
-"special_bonus_unique_mirana_6" = "+100 跳跃距离";
-"special_bonus_unique_bloodseeker_6" = "+8% 血怒技能增强";
-"special_bonus_unique_bloodseeker_7" = "+10% 割裂初始伤害";
 "special_bonus_unique_necrophos_6" = "+100 死神镰刀施法距离";
 "special_bonus_unique_slark_6" = "-1秒 黑暗契约冷却";
 "special_bonus_unique_monkey_king_11" = "+2 如意棒法攻击次数";
-"special_bonus_unique_mirana_7" = "+200 群星风暴伤害";
 "special_bonus_unique_spirit_breaker_4" = "+175 暗影冲刺移动速度";
 "special_bonus_movement_speed_percentage_5" = "+5% Movement Speed";
 "special_bonus_movement_speed_percentage_6" = "+6% Movement Speed";
@@ -791,7 +959,6 @@
 "special_bonus_unique_slardar_8" = "+10% 鱼人碎击降低攻速/移速";
 "special_bonus_unique_faceless_void_6" = "+6 时间膨胀冷却技能每秒伤害";
 "special_bonus_unique_dawnbreaker_fire_wreath_aoe" = "special_bonus_unique_dawnbreaker_fire_wreath_aoe (857)";// TODO: Dawnbreaker
-"special_bonus_unique_earthshaker_6" = "+50 余震伤害";
 "harpy_scout_take_off" = "Take Off";
 "kobold_tunneler_prospecting" = "Prospecting Aura";
 "furbolg_enrage_attack_speed" = "Death Throe: Rush";
@@ -834,16 +1001,12 @@
 "special_bonus_unique_broodmother_6" = "+3 织网最多蛛网";
 "special_bonus_unique_beastmaster_9" = "+2.5% 野性之斧每次伤害加深";
 "bloodseeker_blood_mist" = "Blood Mist";
-"special_bonus_unique_morphling_10" = "眩晕时可属性变换";
-"special_bonus_unique_bloodseeker_rupture_charges" = "2 割裂能量点数";
 "tinker_warp_grenade" = "Warp Flare";
 "creep_siege" = "Reinforced";
 "creep_piercing" = "Piercing";
 "creep_irresolute" = "Runty";
-"special_bonus_unique_juggernaut_blade_dance_lifesteal" = "+40% 剑舞吸血";
 "shadow_demon_demonic_cleanse" = "Demonic Cleanse";
 "special_bonus_unique_elder_titan_bonus_spirit_speed" = "+2% 灵体游魂触碰英雄移速";
-"special_bonus_unique_earthshaker_totem_damage" = "+50% 强化图腾攻击力";
 "clinkz_empty1" = "Creep Ability";
 "special_bonus_unique_medusa_6" = "+0.5 魔法盾每点魔法吸收伤害";
 "special_bonus_unique_slark_8" = "+1.5% 暗影之舞生命恢复";
@@ -865,7 +1028,6 @@
 "primal_beast_trample" = "Trample";
 "primal_beast_uproar" = "Uproar";
 "primal_beast_pulverize" = "Pulverize";
-"special_bonus_unique_nevermore_7" = "+25 毁灭阴影连中伤害";
 "seasonal_ti10_high_five" = "seasonal_ti10_high_five (4000)";
 "seasonal_ti10_guild_banner" = "seasonal_ti10_guild_banner (4001)";
 "tinker_keen_teleport" = "Keen Conveyance";
@@ -1658,7 +1820,6 @@
 "special_bonus_attack_damage_25" = "+25 攻击力";
 "special_bonus_unique_necrophos" = "-2.5秒 死亡脉冲冷却";
 "special_bonus_agility_13" = "+13 敏捷";
-"special_bonus_unique_mirana_1" = "+80 跳跃攻击速度";
 "special_bonus_agility_8" = "+8 敏捷";
 "special_bonus_spell_amplify_4" = "+4% 技能增强";
 "special_bonus_attack_speed_25" = "+25 攻击速度";
@@ -1679,7 +1840,6 @@
 "special_bonus_unique_visage_1" = "+1.5 维萨吉和佣兽削弱护甲";
 "special_bonus_cast_range_60" = "+60 施法距离";
 "special_bonus_hp_175" = "+175 生命";
-"special_bonus_unique_earthshaker" = "-1.5秒 强化图腾冷却";
 "special_bonus_attack_speed_100" = "+100 攻击速度";
 "special_bonus_respawn_reduction_35" = "-35s Respawn Time";
 "special_bonus_unique_lich_1" = "冰霜魔盾提供+50生命恢复";
@@ -1702,17 +1862,12 @@
 "special_bonus_respawn_reduction_60" = "-60s Respawn Time";
 "special_bonus_intelligence_30" = "+30 智力";
 "special_bonus_spell_lifesteal_70" = "70% 技能吸血";
-"special_bonus_unique_morphling_1" = "+250 波浪形态距离";
 "special_bonus_unique_leshrac_1" = "+30 恶魔敕令爆炸次数";
 "special_bonus_unique_jakiro" = "+0.5秒 冰封路径持续时间";
 "special_bonus_unique_enigma" = "+5 恶魔转化虚灵";
 "special_bonus_respawn_reduction_40" = "-40s Respawn Time";
 "special_bonus_mp_175" = "+175 魔法";
-"special_bonus_unique_bane_1" = "+125 Enfeeble Attack Speed Reduction"; // TODO: Bane
-"special_bonus_unique_bane_2" = "+200 蚀脑伤害/治疗";
-"special_bonus_unique_nevermore_2" = "+100 毁灭阴影伤害";
 "special_bonus_unique_templar_assassin" = "+7 折光次数";
-"special_bonus_unique_crystal_maiden_1" = "+1.25秒 冰封禁制持续时间";
 "special_bonus_unique_doom_1" = "+2.09% 阎刃伤害";
 "special_bonus_all_stats_7" = "+7 全属性";
 "special_bonus_movement_speed_35" = "+35 移动速度";
@@ -1739,7 +1894,6 @@
 "special_bonus_unique_invoker_3" = "-10秒 强袭飓风冷却";
 "special_bonus_unique_beastmaster" = "+50 Wild Axes Damage"; // TODO: BM
 "special_bonus_unique_clinkz_1" = "+20 灼热之箭伤害";
-"special_bonus_unique_juggernaut" = "+75 剑刃风暴作用范围";
 "special_bonus_unique_winter_wyvern_1" = "+12% 严寒烧灼减速";
 "special_bonus_unique_terrorblade" = "-34秒 魂断冷却";
 "special_bonus_armor_2" = "+2 护甲";
@@ -1776,7 +1930,6 @@
 "special_bonus_attack_damage_65" = "+65 攻击力";
 "special_bonus_unique_windranger" = "+225 风行作用范围";
 "special_bonus_strength_15" = "+15 力量";
-"special_bonus_unique_phantom_lancer" = "+300 幻影冲锋距离";
 "special_bonus_unique_slark" = "+0.5秒 突袭束缚时间";
 "special_bonus_unique_spectre" = "-4秒 幽鬼之刃冷却";
 "special_bonus_unique_spirit_breaker_1" = "+10% 巨力重击几率";
@@ -1825,14 +1978,12 @@
 "special_bonus_unique_magnus" = "+125 震荡波伤害";
 "special_bonus_unique_weaver_1" = "+50 缩地伤害";
 "special_bonus_unique_wraith_king_1" = "No Reincarnation Manacost"; // TODO: WK
-"special_bonus_unique_drow_ranger_1" = "+28% 数箭齐发伤害";
 "special_bonus_unique_earth_spirit" = "+120 巨石翻滚伤害";
 "special_bonus_unique_huskar" = "+20% 牺牲伤害";
 "special_bonus_unique_naga_siren" = "+1 镜像幻象";
 "special_bonus_unique_oracle" = "+1.5秒 虚妄之诺持续时间";
 "special_bonus_unique_sand_king" = "+5 地震波数";
 "special_bonus_unique_shadow_demon_1" = "+200 邪恶净化伤害";
-"special_bonus_unique_drow_ranger_2" = "+15 霜冻之箭伤害";
 "special_bonus_attack_speed_40" = "+40 攻击速度";
 "special_bonus_unique_slardar" = "+150 鱼人碎击伤害";
 "special_bonus_unique_lina_1" = "-3.5秒 龙破斩冷却";
@@ -1848,15 +1999,12 @@
 "special_bonus_cooldown_reduction_25" = "25% Cooldown Reduction";
 "special_bonus_unique_timbersaw" = "+10% 死亡旋风属性降低";
 "special_bonus_attack_speed_45" = "+45 攻击速度";
-"special_bonus_unique_morphling_2" = "-50 Morph Cooldown"; // TODO: Moph
 "filler_ability" = "Sanctuary";
 "special_bonus_unique_phoenix_1" = "+3 超新星可被攻击次数";
 "special_bonus_vision_200" = "+200 Vision";
 "special_bonus_unique_batrider_2" = "烈焰破击施加2层粘性燃油";
-"special_bonus_unique_bloodseeker" = "-{s:value}s Blood Rite Cooldown"; // TODO: Blood
 "special_bonus_unique_clinkz_2" = "死亡契约获得野怪技能";
 "special_bonus_unique_dazzle_2" = "+50 暗影波治疗/伤害";
-"special_bonus_unique_crystal_maiden_2" = "+240 冰霜新星伤害";
 "special_bonus_hp_500" = "+500 生命";
 "special_bonus_spell_amplify_20" = "+20% 技能增强";
 "special_bonus_unique_vengeful_spirit_2" = "+16% 复仇光环攻击力加成";
@@ -1864,7 +2012,6 @@
 "special_bonus_evasion_12" = "12% 闪避";
 "special_bonus_unique_leshrac_2" = "闪电风暴可弹跳两次";
 "special_bonus_unique_outworld_devourer" = "+2% 奥术天球伤害";
-"special_bonus_unique_mirana_2" = "+2 月神之箭齐发";
 "special_bonus_mp_regen_8" = "+8 魔法恢复";
 "special_bonus_unique_pudge_2" = "+30 腐烂伤害";
 "special_bonus_attack_damage_150" = "+150 攻击力";
@@ -1888,7 +2035,6 @@
 "special_bonus_respawn_reduction_50" = "-50s Respawn Time";
 "spawnlord_master_stomp" = "Desecrate";
 "spawnlord_master_freeze" = "Petrify";
-"special_bonus_unique_drow_ranger_3" = "+12% 射手天赋几率";
 "special_bonus_strength_14" = "+14 力量";
 "special_bonus_unique_techies" = "+200 爆破起飞伤害";
 "special_bonus_undefined" = "Pending Replacement";
@@ -1941,8 +2087,6 @@
 "pangolier_heartpiercer" = "Heartpiercer";
 "special_bonus_hp_regen_30" = "+30 生命恢复";
 "special_bonus_movement_speed_75" = "+75 移动速度";
-"special_bonus_unique_bloodseeker_2" = "+85 血祭伤害";
-"special_bonus_unique_bloodseeker_3" = "+475 割裂施法距离";
 "special_bonus_unique_bounty_hunter_2" = "+50 投掷飞镖伤害";
 "special_bonus_unique_brewmaster_2" = "-65s Primal Split Cooldown"; // TODO: Brew
 "special_bonus_unique_bristleback_2" = "+20 刺针叠加伤害";
@@ -1975,10 +2119,8 @@
 "special_bonus_unique_magnus_2" = "+10% 授予力量攻击力/分裂";
 "special_bonus_unique_medusa_2" = "-12% 分裂箭减少攻击力";
 "special_bonus_attack_damage_55" = "+55 攻击力";
-"special_bonus_unique_mirana_3" = "-2秒 月神之箭冷却";
 "special_bonus_unique_naga_siren_2" = "+30 激流伤害";
 "special_bonus_unique_nyx_2" = "+130 穿刺伤害";
-"special_bonus_unique_phantom_lancer_2" = "+2.5秒 幻影冲锋敏捷加成";
 "special_bonus_unique_phoenix_3" = "+25 烈火精灵每秒伤害";
 "special_bonus_unique_puck_2" = "-6秒 新月之痕冷却";
 "special_bonus_unique_pugna_3" = "+1.75 幽冥守卫伤害系数";
@@ -1997,7 +2139,6 @@
 "special_bonus_unique_monkey_king_2" = "+130 如意棒法攻击力";
 "special_bonus_movement_speed_100" = "+100 移动速度";
 "special_bonus_hp_325" = "+325 生命";
-"special_bonus_unique_earthshaker_2" = "+40 回音击回音伤害";
 "special_bonus_agility_40" = "+40 敏捷";
 "special_bonus_attack_speed_70" = "+70 攻击速度";
 "special_bonus_cooldown_reduction_40" = "40% Cooldown Reduction";
@@ -2035,7 +2176,6 @@
 "special_bonus_unique_lone_druid_5" = "+40% Spirit Bear Magic Resistance"; // TODO: LD
 "special_bonus_unique_lina_4" = "+75 Light Strike AoE"; // TODO: Lina
 "special_bonus_unique_enigma_2" = "+4 憎恶触发次数";
-"special_bonus_unique_earthshaker_3" = "+320 沟壑距离";
 "special_bonus_unique_clockwerk_3" = "+24 弹幕冲击伤害";
 "special_bonus_spell_lifesteal_30" = "30% 技能吸血";
 "special_bonus_unique_earth_spirit_2" = "地磁之握可作用友军";
@@ -2044,7 +2184,6 @@
 "special_bonus_unique_beastmaster_2" = "+35 豪猪攻击力";
 "special_bonus_unique_zeus_3" = "+0.4秒 雷击眩晕";
 "special_bonus_unique_lycan_3" = "+10 精灵狼攻击力";
-"special_bonus_unique_crystal_maiden_3" = "+50 极寒领域伤害";
 "special_bonus_unique_shadow_shaman_4" = "+25 群蛇守卫攻击力";
 "special_bonus_unique_visage_3" = "灵魂超度攻击2个目标";
 "special_bonus_unique_winter_wyvern_3" = "+1.5秒 寒冬诅咒持续时间";
@@ -2087,7 +2226,6 @@
 "special_bonus_unique_lion_3" = "+160 死亡之指伤害";
 "special_bonus_cleave_20" = "+20% Cleave";
 "special_bonus_attack_speed_160" = "+160 攻击速度";
-"special_bonus_unique_bane_3" = "+5秒 魔爪持续时间";
 "special_bonus_unique_batrider_3" = "+75 烈焰破击击退距离";
 "special_bonus_unique_beastmaster_3" = "-14s Hawks Cooldown"; // TODO: BM
 "special_bonus_unique_beastmaster_4" = "+30 野性之心攻击速度";
@@ -2107,7 +2245,6 @@
 "special_bonus_unique_disruptor_4" = "-12秒 恶念瞥视冷却";
 "special_bonus_cleave_60" = "+60% 分裂";
 "special_bonus_strength_40" = "+40 力量";
-"special_bonus_unique_drow_ranger_4" = "+250 狂风宽度";
 "special_bonus_unique_dragon_knight_2" = "+0.5秒 神龙摆尾眩晕";
 "special_bonus_unique_earth_spirit_3" = "+0.6秒 巨石翻滚眩晕";
 "special_bonus_magic_resistance_50" = "+50% 魔法抗性";
@@ -2127,12 +2264,10 @@
 "special_bonus_unique_wisp_3" = "+6% 羁绊移动速度";
 "special_bonus_hp_regen_80" = "+80 生命恢复";
 "special_bonus_unique_jakiro_4" = "-50 液态火降低攻击速度";
-"special_bonus_unique_juggernaut_2" = "+1秒 无敌斩持续时间";
 "special_bonus_magic_resistance_40" = "+40% 魔法抗性";
 "special_bonus_unique_keeper_of_the_light_3" = "+2 Will-O-Wisp Flicker"; // TODO: Keeper of light
 "special_bonus_unique_kunkka_3" = "幽灵船舰队";
 "special_bonus_unique_kunkka_4" = "+70% 潮汐使者分裂";
-"special_bonus_unique_nevermore_1" = "+3 攻击力/灵魂";
 "special_bonus_unique_legion_commander_4" = "+100 压倒性优势英雄提供伤害";
 "special_bonus_unique_leshrac_3" = "+40 脉冲新星伤害";
 "special_bonus_unique_lifestealer_2" = "+10% 狂暴移动速度";
@@ -2148,11 +2283,9 @@
 "special_bonus_unique_meepo_2" = "+30 忽悠伤害";
 "special_bonus_unique_magnus_4" = "+10秒 授予力量持续时间";
 "special_bonus_unique_magnus_5" = "+1秒 两极反转眩晕";
-"special_bonus_unique_mirana_4" = "-20秒 月之暗面冷却";
 "special_bonus_mana_break_40" = "+40 法力损毁";
 "special_bonus_unique_monkey_king_3" = "+350 Primal Spring Damage"; // TODO: MK
 "special_bonus_unique_monkey_king_4" = "+200 Armor Wukong's Command"; // TODO: MK
-"special_bonus_unique_morphling_3" = "+3 Multishot Adaptive Strike"; // TODO: Moph
 "special_bonus_evasion_30" = "30% 闪避";
 "special_bonus_unique_naga_siren_3" = "-7 激流降低护甲";
 "special_bonus_unique_furion_4" = "100% 被发芽单位落空几率";
@@ -2179,7 +2312,6 @@
 "special_bonus_unique_lone_druid_8" = "-50秒 真熊形态冷却";
 "special_bonus_unique_faceless_void_3" = "+70 时间锁定伤害";
 "special_bonus_unique_wisp_4" = "攻击羁绊友军的目标";
-"special_bonus_unique_bloodseeker_4" = "+14% 焦渴最大移速";
 "special_bonus_unique_invoker_6" = "+40% 混沌陨石伤害";
 "special_bonus_unique_disruptor_5" = "+2秒 动能力场持续时间";
 "special_bonus_unique_nyx_3" = "复仇无视地形";
@@ -2190,16 +2322,12 @@
 "special_bonus_unique_wraith_king_5" = "+6 最低骷髅兵产生数量";
 "special_bonus_unique_wraith_king_6" = "+24 骷髅兵攻击力";
 "special_bonus_mana_break_35" = "+35 法力损毁";
-"special_bonus_unique_bane_4" = "Enfeeble Steals Attack Speed"; // TODO: Bane
 "special_bonus_cleave_100" = "+100% 分裂";
 "special_bonus_mana_break_25" = "+25 法力损毁";
-"special_bonus_unique_morphling_4" = "波浪形态攻击目标";
 "special_bonus_cleave_15" = "+15% 分裂";
 "special_bonus_corruption_5" = "-5 攻击削弱护甲";
 "special_bonus_unique_phantom_assassin_2" = "+7% 恩赐解脱几率";
 "special_bonus_unique_phantom_assassin_3" = "+35% 魅影无形闪避";
-"special_bonus_unique_phantom_lancer_3" = "+5 Max Juxtapose Illusions"; //TODO: PL
-"special_bonus_unique_phantom_lancer_4" = "-4秒 神行百变冷却";
 "special_bonus_24_crit_2" = "+24% 致命一击 (200%)";
 "special_bonus_unique_phoenix_4" = "+1000 凤凰冲击施法距离";
 "special_bonus_unique_puck_3" = "梦境缠绕快速攻击";
@@ -2217,8 +2345,6 @@
 "special_bonus_unique_sand_king_5" = "+100 地震作用范围";
 "special_bonus_unique_shadow_demon_4" = "+15% 暗影剧毒伤害";
 "special_bonus_magic_resistance_100" = "+100% 魔法抗性";
-"special_bonus_unique_nevermore_3" = "魔王降临影响建筑";
-"special_bonus_unique_nevermore_4" = "-50秒 魂之挽歌冷却";
 "special_bonus_unique_shadow_shaman_5" = "-3秒 妖术冷却";
 "special_bonus_unique_silencer_2" = "遗言锁闭物品";
 "special_bonus_unique_silencer_3" = "+15% 智慧之刃伤害";
@@ -2245,7 +2371,6 @@
 "special_bonus_unique_storm_spirit_4" = "球状闪电每550距离释放残影";
 "special_bonus_unique_sven_2" = "+50% 神之力量攻击力";
 "special_bonus_unique_sven_3" = "-15秒 神之力量冷却";
-"special_bonus_unique_nevermore_5" = "-4 魔王降临护甲削弱";
 "special_bonus_unique_phoenix_5" = "+1.5% 烈日炙烤最大生命值伤害";
 "special_bonus_unique_storm_spirit_5" = "+50 残影伤害";
 "special_bonus_night_vision_400" = "+400 夜间视野";
@@ -2253,7 +2378,6 @@
 "special_bonus_truestrike" = "True Strike";
 "special_bonus_unique_wisp_5" = "Tether Grants Scepter Bonus"; // TODO: IO
 "special_bonus_mp_regen_175" = "+1.75 魔法恢复";
-"special_bonus_unique_morphling_5" = "Morph Targets Allies"; // TODO: Moph
 "special_bonus_cast_range_350" = "+350 施法距离";
 "special_bonus_unique_tiny_2" = "2 投掷能量点数";
 "special_bonus_unique_tiny_3" = "-8秒 山崩冷却";
@@ -2326,7 +2450,6 @@
 "special_bonus_unique_vengeful_spirit_6" = "-6s Wave of Terror Cooldown"; // TODO: VS
 "special_bonus_night_vision_600" = "+600 夜间视野";
 "special_bonus_attack_speed_250" = "+250 攻击速度";
-"special_bonus_unique_juggernaut_3" = "+150 剑刃风暴每秒伤害";
 "special_bonus_night_vision_500" = "+500 夜间视野";
 "special_bonus_unique_monkey_king_5" = "+50% 丛林之舞视野范围";
 "special_bonus_unique_monkey_king_6" = "猴子猴孙额外圆阵";
@@ -2340,21 +2463,16 @@
 "special_bonus_unique_monkey_king_7" = "+450 丛林之舞施法距离";
 "special_bonus_attack_damage_251" = "+251 攻击力";
 "special_bonus_unique_bounty_hunter_3" = "+250 追踪术金钱";
-"special_bonus_unique_crystal_maiden_4" = "+20 奥术光环每次施法回魔";
 "special_bonus_20_crit_15" = "+20% 致命一击 (150%)";
 "special_bonus_unique_dark_seer_4" = "平行光墙";
 "special_bonus_unique_luna_4" = "+0.4秒 月光眩晕";
 "special_bonus_unique_silencer_5" = "+1s Glaives Silence"; // TODO: +1s Glaives Silence
 "special_bonus_unique_ember_spirit_4" = "2 无影拳能量点数";
 "special_bonus_unique_ember_spirit_5" = "-12秒 残焰充能";
-"special_bonus_unique_morphling_6" = "2 波浪形态能量点数";
-
 "special_bonus_unique_luna_5" = "+0.25秒 月蚀月光眩晕";
-"special_bonus_unique_morphling_7" = "-5s Adaptive Strike Cooldown"; // TODO: Moph
 "special_bonus_unique_puck_4" = "+1秒 梦境缠绕眩晕";
 "special_bonus_unique_templar_assassin_6" = "+3 Psionic Traps"; // TODO: PA
 "special_bonus_mp_700" = "+700 魔法";
-"special_bonus_unique_morphling_8" = "+16秒 变形持续时间";
 "special_bonus_unique_shadow_demon_6" = "Soul Catcher Creates 2 Illusion On Death"; // TODO: Shadow Demon
 "special_bonus_unique_windranger_6" = "+0.8秒 束缚击眩晕";
 "special_bonus_unique_wisp_6" = "-25秒 降临冷却";
@@ -2431,7 +2549,6 @@
 "special_bonus_unique_faceless_void_5" = "-1.5秒 时间漫游冷却";
 "special_bonus_unique_medusa_5" = "-1.5秒 秘术异蛇冷却";
 "special_bonus_unique_invoker_10" = "-25秒 幽灵漫步冷却";
-"special_bonus_unique_juggernaut_4" = "+1秒 剑刃风暴持续时间";
 "special_bonus_unique_legion_commander_5" = "250 范围型强攻";
 "special_bonus_unique_sniper_5" = "-14% 榴霰弹减速";
 "special_bonus_unique_keeper_of_the_light_4" = "+3 Will-O-Wisp Health Count"; // TODO: Keeper of light
@@ -2440,7 +2557,6 @@
 "special_bonus_unique_chaos_knight_4" = "+10秒 混沌之军持续时间";
 "special_bonus_unique_ancient_apparition_7" = "+200 极寒之触攻击距离";
 "special_bonus_unique_chen_7" = "-40秒 上帝之手冷却";
-"special_bonus_unique_crystal_maiden_5" = "-3秒 冰霜新星冷却";
 "special_bonus_unique_dark_willow_4" = "+30 作祟伤害";
 "special_bonus_unique_disruptor_6" = "Kinetic Field Grants True Sight"; // TODO: Disruptor
 "special_bonus_unique_earth_spirit_5" = "+3秒 地磁之握沉默";
@@ -2564,7 +2680,6 @@
 "special_bonus_gold_income_210" = "+210 Gold/Min";
 "grimstroke_ink_creature" = "Phantom's Embrace";
 "grimstroke_spirit_walk" = "Ink Swell";
-"special_bonus_unique_drow_ranger_5" = "+50% 狂风致盲";
 "special_bonus_lifesteal_35" = "35% 吸血";
 "special_bonus_attack_damage_160" = "+160 攻击力";
 "special_bonus_mana_reduction_9" = "+9% 魔法消耗/损失降低";
@@ -2588,7 +2703,6 @@
 "special_bonus_unique_zeus_5" = "325 范围型雷击";
 "special_bonus_unique_tinker_7" = "+125 防御矩阵伤害吸收";
 "special_bonus_unique_spectre_6" = "+100 幽鬼之刃伤害";
-"special_bonus_unique_earthshaker_5" = "+200 余震范围";
 "hoodwink_sharpshooter" = "Sharpshooter";
 "hoodwink_decoy" = "Decoy";
 "hoodwink_bushwhack" = "Bushwhack";
