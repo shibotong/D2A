@@ -1,4 +1,4 @@
-# Dota2Armory Privacy Policy
+# D2A Privacy Policy
 
 We do not collect any of your data. The only data we need is your Dota2 ID which used for searching your account. All match data are get from OpenDota. Thanks for them! All data will be stored locally.
 

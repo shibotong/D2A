@@ -1,4 +1,4 @@
-# Dota2Armory Terms of Use
+# D2A Terms of Use
 
 ## In-App Purchase
 Some features of the App require you to purchase a D2A Pro.
