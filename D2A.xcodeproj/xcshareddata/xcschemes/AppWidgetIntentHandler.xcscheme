@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "32F70A9C26F57F7E006E9B05"
-               BuildableName = "AppWidgetExtension.appex"
-               BlueprintName = "AppWidgetExtension"
-               ReferencedContainer = "container:App.xcodeproj">
+               BlueprintIdentifier = "32F70AE526F61836006E9B05"
+               BuildableName = "AppWidgetIntentHandler.appex"
+               BlueprintName = "D2AWidgetIntentHandler"
+               ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,8 +31,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "32B36F0A26C38821002D427D"
                BuildableName = "App.app"
-               BlueprintName = "App"
-               ReferencedContainer = "container:App.xcodeproj">
+               BlueprintName = "D2A"
+               ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -63,27 +63,10 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "32B36F0A26C38821002D427D"
             BuildableName = "App.app"
-            BlueprintName = "App"
-            ReferencedContainer = "container:App.xcodeproj">
+            BlueprintName = "D2A"
+            ReferencedContainer = "container:D2A.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "_XCWidgetKind"
-            value = ""
-            isEnabled = "NO">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "_XCWidgetDefaultView"
-            value = "timeline"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "_XCWidgetFamily"
-            value = "medium"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -99,8 +82,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "32B36F0A26C38821002D427D"
             BuildableName = "App.app"
-            BlueprintName = "App"
-            ReferencedContainer = "container:App.xcodeproj">
+            BlueprintName = "D2A"
+            ReferencedContainer = "container:D2A.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
