@@ -223,7 +223,7 @@
 		32F70A9F26F57F7E006E9B05 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1606C26F4EE1500657449 /* SwiftUI.framework */; };
 		32F70AA226F57F7E006E9B05 /* AppWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AA126F57F7E006E9B05 /* AppWidget.swift */; };
 		32F70AA426F57F7E006E9B05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32F70AA326F57F7E006E9B05 /* Assets.xcassets */; };
-		32F70AA826F57F7E006E9B05 /* AppWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32F70A9D26F57F7E006E9B05 /* AppWidgetExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		32F70AA826F57F7E006E9B05 /* D2AWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32F70A9D26F57F7E006E9B05 /* D2AWidgetExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		32F70AAC26F58006006E9B05 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893926CD456400DF67F9 /* RecentMatch.swift */; };
 		32F70AAE26F5803C006E9B05 /* sampleRecentMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 327772AC26D8BD47000A0A97 /* sampleRecentMatch.json */; };
 		32F70AB426F58125006E9B05 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772B226D9D735000A0A97 /* GameMode.swift */; };
@@ -235,7 +235,7 @@
 		32F70ADE26F60B95006E9B05 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893526CD438700DF67F9 /* UserProfile.swift */; };
 		32F70ADF26F60BDA006E9B05 /* sampleProfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 3294463926E1A5A5006E0D06 /* sampleProfile.json */; };
 		32F70AE826F61836006E9B05 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F70AE726F61836006E9B05 /* Intents.framework */; };
-		32F70AEF26F61836006E9B05 /* AppWidgetIntentHandler.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32F70AE626F61836006E9B05 /* AppWidgetIntentHandler.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		32F70AEF26F61836006E9B05 /* D2AWidgetIntentHandler.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		32F70AFC26F61E52006E9B05 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893526CD438700DF67F9 /* UserProfile.swift */; };
 		32F70B0226F621ED006E9B05 /* AppWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AA126F57F7E006E9B05 /* AppWidget.swift */; };
 		32F70B0326F62268006E9B05 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893926CD456400DF67F9 /* RecentMatch.swift */; };
@@ -299,8 +299,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				32F70AA826F57F7E006E9B05 /* AppWidgetExtension.appex in Embed App Extensions */,
-				32F70AEF26F61836006E9B05 /* AppWidgetIntentHandler.appex in Embed App Extensions */,
+				32F70AA826F57F7E006E9B05 /* D2AWidgetExtension.appex in Embed App Extensions */,
+				32F70AEF26F61836006E9B05 /* D2AWidgetIntentHandler.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,7 +394,7 @@
 		327B877B285316F900BBE1F8 /* PlayerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListViewModel.swift; sourceTree = "<group>"; };
 		327C033B2716A8F400DAEC42 /* KDAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDAView.swift; sourceTree = "<group>"; };
 		327C03432717AE8500DAEC42 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		3289579927F6609B00BA9847 /* AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3289579927F6609B00BA9847 /* D2ATests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = D2ATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		328957A227F660D400BA9847 /* DecodingTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodingTestCase.swift; sourceTree = "<group>"; };
 		32897B0726C4EFF1008D3CC8 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageView.swift; sourceTree = "<group>"; };
@@ -406,7 +406,7 @@
 		329849F326DCAEAE00A1032C /* HeroDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroDatabase.swift; sourceTree = "<group>"; };
 		32985DD2285569D0001869F2 /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
 		32AEEEF826F9B1120088DEC8 /* LocalizableStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableStrings.swift; sourceTree = "<group>"; };
-		32B36F0B26C38821002D427D /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		32B36F0B26C38821002D427D /* D2A.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = D2A.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32B36F0E26C38821002D427D /* AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppApp.swift; sourceTree = "<group>"; };
 		32B36F1026C38821002D427D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		32B36F1226C38822002D427D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -434,12 +434,12 @@
 		32DE14482845E277006E864E /* PlayerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListView.swift; sourceTree = "<group>"; };
 		32EC7F34286464C300A36AF6 /* WidgetOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetOverlayView.swift; sourceTree = "<group>"; };
 		32F6A1AF26C499E3009C00E1 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
-		32F70A9D26F57F7E006E9B05 /* AppWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AppWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		32F70A9D26F57F7E006E9B05 /* D2AWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = D2AWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		32F70AA126F57F7E006E9B05 /* AppWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWidget.swift; sourceTree = "<group>"; };
 		32F70AA326F57F7E006E9B05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32F70AA526F57F7E006E9B05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32F70ADA26F6090A006E9B05 /* NetworkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImage.swift; sourceTree = "<group>"; };
-		32F70AE626F61836006E9B05 /* AppWidgetIntentHandler.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AppWidgetIntentHandler.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = D2AWidgetIntentHandler.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		32F70AE726F61836006E9B05 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		32F70AEA26F61836006E9B05 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		32F70AEC26F61836006E9B05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -641,10 +641,10 @@
 		32B36F0C26C38821002D427D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				32B36F0B26C38821002D427D /* App.app */,
-				32F70A9D26F57F7E006E9B05 /* AppWidgetExtension.appex */,
-				32F70AE626F61836006E9B05 /* AppWidgetIntentHandler.appex */,
-				3289579927F6609B00BA9847 /* AppTests.xctest */,
+				32B36F0B26C38821002D427D /* D2A.app */,
+				32F70A9D26F57F7E006E9B05 /* D2AWidgetExtension.appex */,
+				32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */,
+				3289579927F6609B00BA9847 /* D2ATests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -903,9 +903,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3289579827F6609B00BA9847 /* AppTests */ = {
+		3289579827F6609B00BA9847 /* D2ATests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 328957A127F6609B00BA9847 /* Build configuration list for PBXNativeTarget "AppTests" */;
+			buildConfigurationList = 328957A127F6609B00BA9847 /* Build configuration list for PBXNativeTarget "D2ATests" */;
 			buildPhases = (
 				916BDCC4488B5E86111B2739 /* [CP] Check Pods Manifest.lock */,
 				3289579527F6609B00BA9847 /* Sources */,
@@ -918,14 +918,14 @@
 			dependencies = (
 				3289579E27F6609B00BA9847 /* PBXTargetDependency */,
 			);
-			name = AppTests;
+			name = D2ATests;
 			productName = AppTests;
-			productReference = 3289579927F6609B00BA9847 /* AppTests.xctest */;
+			productReference = 3289579927F6609B00BA9847 /* D2ATests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		32B36F0A26C38821002D427D /* App */ = {
+		32B36F0A26C38821002D427D /* D2A */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 32B36F1A26C38822002D427D /* Build configuration list for PBXNativeTarget "App" */;
+			buildConfigurationList = 32B36F1A26C38822002D427D /* Build configuration list for PBXNativeTarget "D2A" */;
 			buildPhases = (
 				1D34EA369400583B736AC5F9 /* [CP] Check Pods Manifest.lock */,
 				32B36F0726C38821002D427D /* Sources */,
@@ -940,16 +940,16 @@
 				32F70AA726F57F7E006E9B05 /* PBXTargetDependency */,
 				32F70AEE26F61836006E9B05 /* PBXTargetDependency */,
 			);
-			name = App;
+			name = D2A;
 			packageProductDependencies = (
 			);
 			productName = App;
-			productReference = 32B36F0B26C38821002D427D /* App.app */;
+			productReference = 32B36F0B26C38821002D427D /* D2A.app */;
 			productType = "com.apple.product-type.application";
 		};
-		32F70A9C26F57F7E006E9B05 /* AppWidgetExtension */ = {
+		32F70A9C26F57F7E006E9B05 /* D2AWidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 32F70AA926F57F7E006E9B05 /* Build configuration list for PBXNativeTarget "AppWidgetExtension" */;
+			buildConfigurationList = 32F70AA926F57F7E006E9B05 /* Build configuration list for PBXNativeTarget "D2AWidgetExtension" */;
 			buildPhases = (
 				BD4C62AF74E6E581FDE2E2E4 /* [CP] Check Pods Manifest.lock */,
 				32F70A9926F57F7E006E9B05 /* Sources */,
@@ -960,16 +960,16 @@
 			);
 			dependencies = (
 			);
-			name = AppWidgetExtension;
+			name = D2AWidgetExtension;
 			packageProductDependencies = (
 			);
 			productName = AppWidgetExtension;
-			productReference = 32F70A9D26F57F7E006E9B05 /* AppWidgetExtension.appex */;
+			productReference = 32F70A9D26F57F7E006E9B05 /* D2AWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		32F70AE526F61836006E9B05 /* AppWidgetIntentHandler */ = {
+		32F70AE526F61836006E9B05 /* D2AWidgetIntentHandler */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 32F70AF026F61836006E9B05 /* Build configuration list for PBXNativeTarget "AppWidgetIntentHandler" */;
+			buildConfigurationList = 32F70AF026F61836006E9B05 /* Build configuration list for PBXNativeTarget "D2AWidgetIntentHandler" */;
 			buildPhases = (
 				B414AF10A648D6BE1CA3BD49 /* [CP] Check Pods Manifest.lock */,
 				32F70AE226F61836006E9B05 /* Sources */,
@@ -980,11 +980,11 @@
 			);
 			dependencies = (
 			);
-			name = AppWidgetIntentHandler;
+			name = D2AWidgetIntentHandler;
 			packageProductDependencies = (
 			);
 			productName = AppWidgetIntentHandler;
-			productReference = 32F70AE626F61836006E9B05 /* AppWidgetIntentHandler.appex */;
+			productReference = 32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -1011,7 +1011,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 32B36F0626C38821002D427D /* Build configuration list for PBXProject "App" */;
+			buildConfigurationList = 32B36F0626C38821002D427D /* Build configuration list for PBXProject "D2A" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1027,10 +1027,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				32B36F0A26C38821002D427D /* App */,
-				32F70A9C26F57F7E006E9B05 /* AppWidgetExtension */,
-				32F70AE526F61836006E9B05 /* AppWidgetIntentHandler */,
-				3289579827F6609B00BA9847 /* AppTests */,
+				32B36F0A26C38821002D427D /* D2A */,
+				32F70A9C26F57F7E006E9B05 /* D2AWidgetExtension */,
+				32F70AE526F61836006E9B05 /* D2AWidgetIntentHandler */,
+				3289579827F6609B00BA9847 /* D2ATests */,
 			);
 		};
 /* End PBXProject section */
@@ -1473,19 +1473,19 @@
 /* Begin PBXTargetDependency section */
 		3289579E27F6609B00BA9847 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 32B36F0A26C38821002D427D /* App */;
+			target = 32B36F0A26C38821002D427D /* D2A */;
 			targetProxy = 3289579D27F6609B00BA9847 /* PBXContainerItemProxy */;
 		};
 		32F70AA726F57F7E006E9B05 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
-			target = 32F70A9C26F57F7E006E9B05 /* AppWidgetExtension */;
+			target = 32F70A9C26F57F7E006E9B05 /* D2AWidgetExtension */;
 			targetProxy = 32F70AA626F57F7E006E9B05 /* PBXContainerItemProxy */;
 		};
 		32F70AEE26F61836006E9B05 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
-			target = 32F70AE526F61836006E9B05 /* AppWidgetIntentHandler */;
+			target = 32F70AE526F61836006E9B05 /* D2AWidgetIntentHandler */;
 			targetProxy = 32F70AED26F61836006E9B05 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1530,7 +1530,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/App.app/App";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/D2A.app/D2A";
 			};
 			name = Debug;
 		};
@@ -1551,7 +1551,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/App.app/App";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/D2A.app/D2A";
 			};
 			name = Release;
 		};
@@ -1846,7 +1846,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		328957A127F6609B00BA9847 /* Build configuration list for PBXNativeTarget "AppTests" */ = {
+		328957A127F6609B00BA9847 /* Build configuration list for PBXNativeTarget "D2ATests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3289579F27F6609B00BA9847 /* Debug */,
@@ -1855,7 +1855,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		32B36F0626C38821002D427D /* Build configuration list for PBXProject "App" */ = {
+		32B36F0626C38821002D427D /* Build configuration list for PBXProject "D2A" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				32B36F1826C38822002D427D /* Debug */,
@@ -1864,7 +1864,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		32B36F1A26C38822002D427D /* Build configuration list for PBXNativeTarget "App" */ = {
+		32B36F1A26C38822002D427D /* Build configuration list for PBXNativeTarget "D2A" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				32B36F1B26C38822002D427D /* Debug */,
@@ -1873,7 +1873,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		32F70AA926F57F7E006E9B05 /* Build configuration list for PBXNativeTarget "AppWidgetExtension" */ = {
+		32F70AA926F57F7E006E9B05 /* Build configuration list for PBXNativeTarget "D2AWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				32F70AAA26F57F7E006E9B05 /* Debug */,
@@ -1882,7 +1882,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		32F70AF026F61836006E9B05 /* Build configuration list for PBXNativeTarget "AppWidgetIntentHandler" */ = {
+		32F70AF026F61836006E9B05 /* Build configuration list for PBXNativeTarget "D2AWidgetIntentHandler" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				32F70AF126F61836006E9B05 /* Debug */,
