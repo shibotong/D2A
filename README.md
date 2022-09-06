@@ -1,7 +1,8 @@
-# Dota 2 Armory SwiftUI application!
+# D2A SwiftUI application!
 ![Image](images/promo_image.PNG)
 # Important notes:
 There might be some issue or bugs in the app. You can submit issues on Github. I will try my best to fix it.
+Dota2 Armory is now renamed to D2A!
 
 # Info
 * Support Version: 
