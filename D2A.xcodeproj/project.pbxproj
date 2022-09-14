@@ -184,7 +184,7 @@
 		32A26C5528594A28005E890F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4B26C39C5D002D427D /* Environment.swift */; };
 		32A26C5628594A28005E890F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4B26C39C5D002D427D /* Environment.swift */; };
 		32AEEEF926F9B1120088DEC8 /* LocalizableStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AEEEF826F9B1120088DEC8 /* LocalizableStrings.swift */; };
-		32B36F0F26C38821002D427D /* AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F0E26C38821002D427D /* AppApp.swift */; };
+		32B36F0F26C38821002D427D /* D2AApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F0E26C38821002D427D /* D2AApp.swift */; };
 		32B36F1126C38821002D427D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F1026C38821002D427D /* ContentView.swift */; };
 		32B36F1326C38822002D427D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1226C38822002D427D /* Assets.xcassets */; };
 		32B36F1626C38822002D427D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1526C38822002D427D /* Preview Assets.xcassets */; };
@@ -407,7 +407,7 @@
 		32985DD2285569D0001869F2 /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
 		32AEEEF826F9B1120088DEC8 /* LocalizableStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableStrings.swift; sourceTree = "<group>"; };
 		32B36F0B26C38821002D427D /* D2A.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = D2A.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		32B36F0E26C38821002D427D /* AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppApp.swift; sourceTree = "<group>"; };
+		32B36F0E26C38821002D427D /* D2AApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AApp.swift; sourceTree = "<group>"; };
 		32B36F1026C38821002D427D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		32B36F1226C38822002D427D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32B36F1526C38822002D427D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -443,11 +443,11 @@
 		32F70AE726F61836006E9B05 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		32F70AEA26F61836006E9B05 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		32F70AEC26F61836006E9B05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		32F70B2726F62B09006E9B05 /* AppDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppDebug.entitlements; sourceTree = "<group>"; };
+		32F70B2726F62B09006E9B05 /* D2ADebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2ADebug.entitlements; sourceTree = "<group>"; };
 		32F70B2926F62B77006E9B05 /* AppWidgetIntentHandlerDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppWidgetIntentHandlerDebug.entitlements; sourceTree = "<group>"; };
 		32F70B2F26F714FD006E9B05 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		32F70B3526F72D74006E9B05 /* ProductSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSubView.swift; sourceTree = "<group>"; };
-		32F70B3726F80AD3006E9B05 /* AppRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppRelease.entitlements; sourceTree = "<group>"; };
+		32F70B3726F80AD3006E9B05 /* D2ARelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2ARelease.entitlements; sourceTree = "<group>"; };
 		32F70B3926F80AE4006E9B05 /* AppWidgetIntentHandlerRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppWidgetIntentHandlerRelease.entitlements; sourceTree = "<group>"; };
 		423E0238071512450B5EE764 /* Pods-App-AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppTests.debug.xcconfig"; path = "Target Support Files/Pods-App-AppTests/Pods-App-AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4CC1AABD31D8FA64802BA284 /* Pods-App-AppWidgetExtension-AppWidgetIntentHandler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppWidgetExtension-AppWidgetIntentHandler.debug.xcconfig"; path = "Target Support Files/Pods-App-AppWidgetExtension-AppWidgetIntentHandler/Pods-App-AppWidgetExtension-AppWidgetIntentHandler.debug.xcconfig"; sourceTree = "<group>"; };
@@ -581,7 +581,7 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		3289579A27F6609B00BA9847 /* AppTests */ = {
+		3289579A27F6609B00BA9847 /* D2ATests */ = {
 			isa = PBXGroup;
 			children = (
 				328957A227F660D400BA9847 /* DecodingTestCase.swift */,
@@ -589,7 +589,7 @@
 				327B875D284D9F5300BBE1F8 /* DataTransferTestCase.swift */,
 				321E3D02285448A40094FB10 /* WCDBTestingCase.swift */,
 			);
-			path = AppTests;
+			path = D2ATests;
 			sourceTree = "<group>";
 		};
 		3294463B26E1BC24006E0D06 /* MatchView */ = {
@@ -628,10 +628,10 @@
 				32C606CB286479F7007AD14B /* ci_scripts */,
 				327C03432717AE8500DAEC42 /* README.md */,
 				3266081C27CED53C00D9A204 /* Shared */,
-				32B36F0D26C38821002D427D /* App */,
-				32F70AA026F57F7E006E9B05 /* AppWidget */,
-				32F70AE926F61836006E9B05 /* AppWidgetIntentHandler */,
-				3289579A27F6609B00BA9847 /* AppTests */,
+				32B36F0D26C38821002D427D /* D2A */,
+				32F70AA026F57F7E006E9B05 /* D2AWidget */,
+				32F70AE926F61836006E9B05 /* D2AWidgetIntentHandler */,
+				3289579A27F6609B00BA9847 /* D2ATests */,
 				32B36F0C26C38821002D427D /* Products */,
 				3E7148974F8047B04FFE93FB /* Pods */,
 				78E76DAB4BB6331DA85B70C0 /* Frameworks */,
@@ -649,13 +649,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		32B36F0D26C38821002D427D /* App */ = {
+		32B36F0D26C38821002D427D /* D2A */ = {
 			isa = PBXGroup;
 			children = (
-				32F70B3726F80AD3006E9B05 /* AppRelease.entitlements */,
-				32F70B2726F62B09006E9B05 /* AppDebug.entitlements */,
+				32F70B3726F80AD3006E9B05 /* D2ARelease.entitlements */,
+				32F70B2726F62B09006E9B05 /* D2ADebug.entitlements */,
 				32D1605B26F30B5F00657449 /* Subscription */,
-				32B36F0E26C38821002D427D /* AppApp.swift */,
+				32B36F0E26C38821002D427D /* D2AApp.swift */,
 				32B36F1026C38821002D427D /* ContentView.swift */,
 				32B36F4326C389C3002D427D /* ViewModels */,
 				32B36F3D26C38894002D427D /* Views */,
@@ -665,7 +665,7 @@
 				32B36F1426C38822002D427D /* Preview Content */,
 				32AEEEF826F9B1120088DEC8 /* LocalizableStrings.swift */,
 			);
-			path = App;
+			path = D2A;
 			sourceTree = "<group>";
 		};
 		32B36F1426C38822002D427D /* Preview Content */ = {
@@ -828,7 +828,7 @@
 			path = OtherViews;
 			sourceTree = "<group>";
 		};
-		32F70AA026F57F7E006E9B05 /* AppWidget */ = {
+		32F70AA026F57F7E006E9B05 /* D2AWidget */ = {
 			isa = PBXGroup;
 			children = (
 				3201BC3E26F81EEE00A67505 /* AppWidgetExtensionDebug.entitlements */,
@@ -843,7 +843,7 @@
 				32F70AA326F57F7E006E9B05 /* Assets.xcassets */,
 				32F70AA526F57F7E006E9B05 /* Info.plist */,
 			);
-			path = AppWidget;
+			path = D2AWidget;
 			sourceTree = "<group>";
 		};
 		32F70AB626F58154006E9B05 /* resources */ = {
@@ -855,7 +855,7 @@
 			path = resources;
 			sourceTree = "<group>";
 		};
-		32F70AE926F61836006E9B05 /* AppWidgetIntentHandler */ = {
+		32F70AE926F61836006E9B05 /* D2AWidgetIntentHandler */ = {
 			isa = PBXGroup;
 			children = (
 				32F70B3926F80AE4006E9B05 /* AppWidgetIntentHandlerRelease.entitlements */,
@@ -863,7 +863,7 @@
 				32F70AEA26F61836006E9B05 /* IntentHandler.swift */,
 				32F70AEC26F61836006E9B05 /* Info.plist */,
 			);
-			path = AppWidgetIntentHandler;
+			path = D2AWidgetIntentHandler;
 			sourceTree = "<group>";
 		};
 		3E7148974F8047B04FFE93FB /* Pods */ = {
@@ -1363,7 +1363,7 @@
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
 				32F70B3626F72D74006E9B05 /* ProductSubView.swift in Sources */,
 				32079DBF28B843360056D19F /* String.swift in Sources */,
-				32B36F0F26C38821002D427D /* AppApp.swift in Sources */,
+				32B36F0F26C38821002D427D /* D2AApp.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
 				32DE14492845E277006E864E /* PlayerListView.swift in Sources */,
 				322B89C926D0F61900DF67F9 /* ProfileViewModel.swift in Sources */,
