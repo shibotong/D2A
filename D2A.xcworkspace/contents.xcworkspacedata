@@ -5,7 +5,7 @@
       location = "group:D2APro.storekit">
    </FileRef>
    <FileRef
-      location = "group:/Users/shibotong/Documents/Github/D2A/D2A.xcodeproj">
+      location = "group:D2A.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
