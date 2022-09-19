@@ -1,6 +1,6 @@
 //
-//  AppApp.swift
-//  App
+//  D2AApp.swift
+//  D2A
 //
 //  Created by Shibo Tong on 11/8/21.
 //
@@ -9,7 +9,7 @@ import SwiftUI
 import StoreKit
 
 @main
-struct AppApp: App {
+struct D2AApp: App {
     @StateObject var environment: DotaEnvironment = DotaEnvironment.shared
     @StateObject var heroDatabase: HeroDatabase = HeroDatabase.shared
     @StateObject var storeManager: StoreManager = StoreManager.shared
