@@ -307,9 +307,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		24AC04A071B6144DF9C8C478 /* Pods-App-AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppTests.release.xcconfig"; path = "Target Support Files/Pods-App-AppTests/Pods-App-AppTests.release.xcconfig"; sourceTree = "<group>"; };
-		25A6EBA8BA4720224C60E300 /* Pods-AppWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-AppWidgetExtension/Pods-AppWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		299809630145C1C980670C92 /* Pods-App-AppWidgetIntentHandler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppWidgetIntentHandler.debug.xcconfig"; path = "Target Support Files/Pods-App-AppWidgetIntentHandler/Pods-App-AppWidgetIntentHandler.debug.xcconfig"; sourceTree = "<group>"; };
 		2FDD6223B73A9C434217A863 /* Pods_D2A_D2ATests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_D2A_D2ATests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3201BC3D26F81EEE00A67505 /* D2AWidgetExtensionRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2AWidgetExtensionRelease.entitlements; sourceTree = "<group>"; };
 		3201BC3E26F81EEE00A67505 /* D2AWidgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2AWidgetExtensionDebug.entitlements; sourceTree = "<group>"; };
@@ -338,7 +335,6 @@
 		322B89C426CFAC1000DF67F9 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		322B89C626CFD2DE00DF67F9 /* AddAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountViewModel.swift; sourceTree = "<group>"; };
 		322B89C826D0F61900DF67F9 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		3237E66D9A4EE03E8E0C222C /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		323ADB05272B8D4900253124 /* Patch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patch.swift; sourceTree = "<group>"; };
 		323ADB07272B91F400253124 /* item_colors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = item_colors.json; sourceTree = "<group>"; };
 		323ADB08272B91F400253124 /* ability_ids.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ability_ids.json; sourceTree = "<group>"; };
@@ -452,21 +448,13 @@
 		34FA65536DB6B318CBCA83C2 /* Pods-D2A-D2AWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A-D2AWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-D2A-D2AWidgetExtension/Pods-D2A-D2AWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		39BE3E3E1ED48A0352B40C40 /* Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.release.xcconfig"; path = "Target Support Files/Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler/Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.release.xcconfig"; sourceTree = "<group>"; };
 		3DEE0AFAFDCC9C88B3433D49 /* Pods_D2A_D2AWidgetExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_D2A_D2AWidgetExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		423E0238071512450B5EE764 /* Pods-App-AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppTests.debug.xcconfig"; path = "Target Support Files/Pods-App-AppTests/Pods-App-AppTests.debug.xcconfig"; sourceTree = "<group>"; };
-		4CC1AABD31D8FA64802BA284 /* Pods-App-AppWidgetExtension-AppWidgetIntentHandler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppWidgetExtension-AppWidgetIntentHandler.debug.xcconfig"; path = "Target Support Files/Pods-App-AppWidgetExtension-AppWidgetIntentHandler/Pods-App-AppWidgetExtension-AppWidgetIntentHandler.debug.xcconfig"; sourceTree = "<group>"; };
-		561B928902588C8B116D52D1 /* Pods-App-AppWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-App-AppWidgetExtension/Pods-App-AppWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
-		694542C8AC5D574203E57D64 /* Pods-AppWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-AppWidgetExtension/Pods-AppWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
-		6F33EFFF1F57BCDE753C966A /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
 		80E11F7D64ECDFC27D3CA2D8 /* Pods-D2A.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A.release.xcconfig"; path = "Target Support Files/Pods-D2A/Pods-D2A.release.xcconfig"; sourceTree = "<group>"; };
 		A995EBABDB7DDD64D825BD52 /* Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.debug.xcconfig"; path = "Target Support Files/Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler/Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.debug.xcconfig"; sourceTree = "<group>"; };
 		C2BA33F8011411B22E722B79 /* Pods_D2A_D2AWidgetExtension_D2AWidgetIntentHandler.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_D2A_D2AWidgetExtension_D2AWidgetIntentHandler.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C7A0359D32DE19C917D0E240 /* Pods-App-AppWidgetExtension-AppWidgetIntentHandler.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppWidgetExtension-AppWidgetIntentHandler.release.xcconfig"; path = "Target Support Files/Pods-App-AppWidgetExtension-AppWidgetIntentHandler/Pods-App-AppWidgetExtension-AppWidgetIntentHandler.release.xcconfig"; sourceTree = "<group>"; };
 		DA1584372ED753A70C013471 /* Pods-D2A-D2ATests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A-D2ATests.debug.xcconfig"; path = "Target Support Files/Pods-D2A-D2ATests/Pods-D2A-D2ATests.debug.xcconfig"; sourceTree = "<group>"; };
 		DC445130C4701C3E9C849127 /* Pods-D2A-D2ATests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A-D2ATests.release.xcconfig"; path = "Target Support Files/Pods-D2A-D2ATests/Pods-D2A-D2ATests.release.xcconfig"; sourceTree = "<group>"; };
 		DEDA046AB20B47815283E580 /* Pods_D2A.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_D2A.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E87042310CAD92B76D10AC53 /* Pods-D2A-D2AWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A-D2AWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-D2A-D2AWidgetExtension/Pods-D2A-D2AWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
-		FA973116ACE01DE72CD0A90D /* Pods-App-AppWidgetIntentHandler.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppWidgetIntentHandler.release.xcconfig"; path = "Target Support Files/Pods-App-AppWidgetIntentHandler/Pods-App-AppWidgetIntentHandler.release.xcconfig"; sourceTree = "<group>"; };
-		FB3E982393E5A14F8679187A /* Pods-App-AppWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-AppWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-App-AppWidgetExtension/Pods-App-AppWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		FE808E7513D18933B8A5257F /* Pods-D2A.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A.debug.xcconfig"; path = "Target Support Files/Pods-D2A/Pods-D2A.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -875,18 +863,6 @@
 		3E7148974F8047B04FFE93FB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6F33EFFF1F57BCDE753C966A /* Pods-App.debug.xcconfig */,
-				3237E66D9A4EE03E8E0C222C /* Pods-App.release.xcconfig */,
-				25A6EBA8BA4720224C60E300 /* Pods-AppWidgetExtension.debug.xcconfig */,
-				694542C8AC5D574203E57D64 /* Pods-AppWidgetExtension.release.xcconfig */,
-				FB3E982393E5A14F8679187A /* Pods-App-AppWidgetExtension.debug.xcconfig */,
-				561B928902588C8B116D52D1 /* Pods-App-AppWidgetExtension.release.xcconfig */,
-				299809630145C1C980670C92 /* Pods-App-AppWidgetIntentHandler.debug.xcconfig */,
-				FA973116ACE01DE72CD0A90D /* Pods-App-AppWidgetIntentHandler.release.xcconfig */,
-				4CC1AABD31D8FA64802BA284 /* Pods-App-AppWidgetExtension-AppWidgetIntentHandler.debug.xcconfig */,
-				C7A0359D32DE19C917D0E240 /* Pods-App-AppWidgetExtension-AppWidgetIntentHandler.release.xcconfig */,
-				423E0238071512450B5EE764 /* Pods-App-AppTests.debug.xcconfig */,
-				24AC04A071B6144DF9C8C478 /* Pods-App-AppTests.release.xcconfig */,
 				FE808E7513D18933B8A5257F /* Pods-D2A.debug.xcconfig */,
 				80E11F7D64ECDFC27D3CA2D8 /* Pods-D2A.release.xcconfig */,
 				DA1584372ED753A70C013471 /* Pods-D2A-D2ATests.debug.xcconfig */,

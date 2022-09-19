@@ -5,7 +5,7 @@
 //  Created by Shibo Tong on 1/4/2022.
 //
 
-@testable import App
+@testable import D2A
 import XCTest
 
 
