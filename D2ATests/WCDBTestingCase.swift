@@ -5,7 +5,7 @@
 //  Created by Shibo Tong on 11/6/2022.
 //
 
-@testable import App
+@testable import D2A
 import XCTest
 
 
@@ -29,7 +29,7 @@ class WCDBTestingCase: XCTestCase {
     }
 
     func testUserSearch() async throws {
-        let searchText = "kks"
+        let searchText = "MR.BOBOBO"
         let playerID = "153041957"
         let data = try! await decodingService.loadData("/players/\(playerID)")
         let profile: UserProfile = try! decodingService.decodeUserProfile(data)
@@ -37,12 +37,4 @@ class WCDBTestingCase: XCTestCase {
         let profiles = wcdbController.fetchUserProfile(userName: searchText)
         XCTAssertEqual(profiles.count, 1)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
