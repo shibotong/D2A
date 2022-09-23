@@ -2,7 +2,7 @@ name: iOS Github Action CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "graphQL" ]
 
 jobs:
   build:
