@@ -269,6 +269,16 @@
 		79B1630728DD5C0B009B2AE2 /* TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */; };
 		79D5280E28DD5D990070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
 		79D5281028DD5DBD0070841D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280F28DD5DBC0070841D /* Token.swift */; };
+		79D5281128DD642E0070841D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
+		79D5281228DD642E0070841D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
+		79D5281328DD64390070841D /* TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */; };
+		79D5281428DD64390070841D /* TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */; };
+		79D5281528DD64410070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
+		79D5281628DD64420070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
+		79D5281728DD644F0070841D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280F28DD5DBC0070841D /* Token.swift */; };
+		79D5281828DD644F0070841D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280F28DD5DBC0070841D /* Token.swift */; };
+		79D5281A28DD64770070841D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79D5281928DD64770070841D /* Apollo */; };
+		79D5281C28DD647D0070841D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79D5281B28DD647D0070841D /* Apollo */; };
 		A3FDA0678AD27CF488B232D8 /* Pods_D2A.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEDA046AB20B47815283E580 /* Pods_D2A.framework */; };
 /* End PBXBuildFile section */
 
@@ -494,6 +504,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32F70A9F26F57F7E006E9B05 /* SwiftUI.framework in Frameworks */,
+				79D5281A28DD64770070841D /* Apollo in Frameworks */,
 				32F70A9E26F57F7E006E9B05 /* WidgetKit.framework in Frameworks */,
 				6AB984C0AA1572B0AE007E80 /* Pods_D2A_D2AWidgetExtension.framework in Frameworks */,
 			);
@@ -504,6 +515,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32F70AE826F61836006E9B05 /* Intents.framework in Frameworks */,
+				79D5281C28DD647D0070841D /* Apollo in Frameworks */,
 				3DB45183075C710AF2D0084B /* Pods_D2A_D2AWidgetExtension_D2AWidgetIntentHandler.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -981,6 +993,9 @@
 			dependencies = (
 			);
 			name = D2AWidgetExtension;
+			packageProductDependencies = (
+				79D5281928DD64770070841D /* Apollo */,
+			);
 			productName = AppWidgetExtension;
 			productReference = 32F70A9D26F57F7E006E9B05 /* D2AWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -999,6 +1014,9 @@
 			dependencies = (
 			);
 			name = D2AWidgetIntentHandler;
+			packageProductDependencies = (
+				79D5281B28DD647D0070841D /* Apollo */,
+			);
 			productName = AppWidgetIntentHandler;
 			productReference = 32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1429,6 +1447,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79D5281528DD64410070841D /* Network.swift in Sources */,
 				32F70AB426F58125006E9B05 /* GameMode.swift in Sources */,
 				32EC7F35286464C300A36AF6 /* WidgetOverlayView.swift in Sources */,
 				327B8761284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
@@ -1443,6 +1462,7 @@
 				327C033D2716A90400DAEC42 /* KDAView.swift in Sources */,
 				32F70B1926F6295B006E9B05 /* Date.swift in Sources */,
 				3270271D285C08C200927426 /* HeroDatabase.swift in Sources */,
+				79D5281728DD644F0070841D /* Token.swift in Sources */,
 				32079DC028B843360056D19F /* String.swift in Sources */,
 				327B87732850DA7800BBE1F8 /* Ability.swift in Sources */,
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
@@ -1456,6 +1476,7 @@
 				32B526C3285C0B380099B058 /* IntentHandler.swift in Sources */,
 				32A26C5528594A28005E890F /* Environment.swift in Sources */,
 				32F70ADE26F60B95006E9B05 /* UserProfile.swift in Sources */,
+				79D5281328DD64390070841D /* TypeConversion.swift in Sources */,
 				3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				32F70B3026F714FD006E9B05 /* Provider.swift in Sources */,
 				32F70AA226F57F7E006E9B05 /* D2AWidget.swift in Sources */,
@@ -1463,6 +1484,7 @@
 				327B876D2850D9D800BBE1F8 /* ReadData.swift in Sources */,
 				32F70B1A26F6295B006E9B05 /* Color.swift in Sources */,
 				327B87752850DA9E00BBE1F8 /* Item.swift in Sources */,
+				79D5281128DD642E0070841D /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1470,6 +1492,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79D5281628DD64420070841D /* Network.swift in Sources */,
 				32F70B0426F6226D006E9B05 /* SteamProfile.swift in Sources */,
 				327B8762284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				3270271C285C088300927426 /* HeroImageView.swift in Sources */,
@@ -1484,6 +1507,7 @@
 				3270271E285C08C300927426 /* HeroDatabase.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,
 				32A26C52285947D4005E890F /* OpenDotaController.swift in Sources */,
+				79D5281828DD644F0070841D /* Token.swift in Sources */,
 				32079DC128B843360056D19F /* String.swift in Sources */,
 				32F70B1826F6294E006E9B05 /* Match.swift in Sources */,
 				32B526D5285C1DBC0099B058 /* Extension.swift in Sources */,
@@ -1497,6 +1521,7 @@
 				32EC7F3828646BAE00A36AF6 /* RecentMatchesWidgetEntryView.swift in Sources */,
 				32A26C5628594A28005E890F /* Environment.swift in Sources */,
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
+				79D5281428DD64390070841D /* TypeConversion.swift in Sources */,
 				327C033E2716A92500DAEC42 /* KDAView.swift in Sources */,
 				32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */,
 				32EC7F3728646BAC00A36AF6 /* WidgetOverlayView.swift in Sources */,
@@ -1504,6 +1529,7 @@
 				327B876E2850D9D900BBE1F8 /* ReadData.swift in Sources */,
 				32F70B2126F6295C006E9B05 /* SKProduct.swift in Sources */,
 				327B87762850DA9F00BBE1F8 /* Item.swift in Sources */,
+				79D5281228DD642E0070841D /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1945,6 +1971,16 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		79B162FD28DD596D009B2AE2 /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79B162FC28DD596D009B2AE2 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
+		79D5281928DD64770070841D /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79B162FC28DD596D009B2AE2 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
+		79D5281B28DD647D0070841D /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 79B162FC28DD596D009B2AE2 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
