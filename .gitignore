@@ -92,3 +92,4 @@ iOSInjectionProject/
 Podfile.lock
 
 .DS_Store
+Shared/Utility/Token.swift
