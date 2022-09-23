@@ -18,6 +18,14 @@ jobs:
 
       - name: Xcode Version
         run: /usr/bin/xcodebuild -version
+
+      - name: Add Token
+        run: |
+          echo '
+          struct Token {
+            static let stratzToken = ${{ secrets.STRATZTOKEN }}
+          }
+          ' >> Shared/Utility/Token.swift
       
       - name: Xcode build iOS App
         run: |
