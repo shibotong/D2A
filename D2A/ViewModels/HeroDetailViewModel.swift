@@ -24,7 +24,6 @@ class HeroDetailViewModel: ObservableObject {
         let hero = database.fetchHeroWithID(id: heroID)!
         self.hero = hero
         self.heroAbility = database.fetchHeroAbility(name: hero.name)!
-        self.fetchAbilities(id: heroID)
     }
     
     init() {
@@ -37,8 +36,8 @@ class HeroDetailViewModel: ObservableObject {
         return database.fetchAbility(name: name)!
     }
     
-    private func fetchAbilities(id: Int) {
-        Network.shared.apollo.fetch(query: HeroQuery(id: Double(id))) { [weak self] result in
+    func fetchAbilities() {
+        Network.shared.apollo.fetch(query: HeroQuery(id: Double(heroID))) { [weak self] result in
             guard let self = self else {
                 return
             }

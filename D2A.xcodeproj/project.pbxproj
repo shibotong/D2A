@@ -268,17 +268,20 @@
 		79B1630528DD5B33009B2AE2 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
 		79B1630728DD5C0B009B2AE2 /* TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */; };
 		79D5280E28DD5D990070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
-		79D5281028DD5DBD0070841D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280F28DD5DBC0070841D /* Token.swift */; };
 		79D5281128DD642E0070841D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
 		79D5281228DD642E0070841D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
 		79D5281328DD64390070841D /* TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */; };
 		79D5281428DD64390070841D /* TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */; };
 		79D5281528DD64410070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
 		79D5281628DD64420070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
-		79D5281728DD644F0070841D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280F28DD5DBC0070841D /* Token.swift */; };
-		79D5281828DD644F0070841D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280F28DD5DBC0070841D /* Token.swift */; };
 		79D5281A28DD64770070841D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79D5281928DD64770070841D /* Apollo */; };
 		79D5281C28DD647D0070841D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79D5281B28DD647D0070841D /* Apollo */; };
+		79D5281E28DD73CF0070841D /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.json */; };
+		79D5281F28DD73CF0070841D /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.json */; };
+		79D5282028DD73CF0070841D /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.json */; };
+		79D5282228DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
+		79D5282328DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
+		79D5282428DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
 		A3FDA0678AD27CF488B232D8 /* Pods_D2A.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEDA046AB20B47815283E580 /* Pods_D2A.framework */; };
 /* End PBXBuildFile section */
 
@@ -469,7 +472,8 @@
 		79B1630428DD5B33009B2AE2 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeConversion.swift; sourceTree = "<group>"; };
 		79D5280D28DD5D990070841D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		79D5280F28DD5DBC0070841D /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		79D5281D28DD73CF0070841D /* secrets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = secrets.json; sourceTree = "<group>"; };
+		79D5282128DD74930070841D /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		80E11F7D64ECDFC27D3CA2D8 /* Pods-D2A.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A.release.xcconfig"; path = "Target Support Files/Pods-D2A/Pods-D2A.release.xcconfig"; sourceTree = "<group>"; };
 		A995EBABDB7DDD64D825BD52 /* Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.debug.xcconfig"; path = "Target Support Files/Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler/Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.debug.xcconfig"; sourceTree = "<group>"; };
 		C2BA33F8011411B22E722B79 /* Pods_D2A_D2AWidgetExtension_D2AWidgetIntentHandler.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_D2A_D2AWidgetExtension_D2AWidgetIntentHandler.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -789,7 +793,6 @@
 				32079DBA28B83A180056D19F /* LocalizeHelper.swift */,
 				32B36F4926C39242002D427D /* StringVariable.swift */,
 				327B875F284D9FA100BBE1F8 /* DataHelper.swift */,
-				79D5280F28DD5DBC0070841D /* Token.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -926,6 +929,8 @@
 				79B1630428DD5B33009B2AE2 /* API.swift */,
 				79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */,
 				79D5280D28DD5D990070841D /* Network.swift */,
+				79D5282128DD74930070841D /* Secret.swift */,
+				79D5281D28DD73CF0070841D /* secrets.json */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -1086,6 +1091,7 @@
 				323ADB27272B91F500253124 /* aghs_desc.json in Resources */,
 				323ADB28272B91F500253124 /* hero_names.json in Resources */,
 				323ADB37272B91F500253124 /* item_ids.json in Resources */,
+				79D5281E28DD73CF0070841D /* secrets.json in Resources */,
 				3214C0D226F0E1AF00C377EF /* privacy-policy.md in Resources */,
 				323ADB22272B91F500253124 /* game_mode.json in Resources */,
 				323ADB2E272B91F500253124 /* ancients.json in Resources */,
@@ -1141,6 +1147,7 @@
 				323ADB5B272E03E300253124 /* ancients.json in Resources */,
 				323ADB6E272E03E300253124 /* order_types.json in Resources */,
 				323ADB59272E03E300253124 /* hero_names.json in Resources */,
+				79D5281F28DD73CF0070841D /* secrets.json in Resources */,
 				323ADB64272E03E300253124 /* aghs_desc.json in Resources */,
 				323ADB6A272E03E300253124 /* xp_level.json in Resources */,
 				323ADB5F272E03E300253124 /* items.json in Resources */,
@@ -1194,6 +1201,7 @@
 				323ADB92272E03E500253124 /* patchnotes.json in Resources */,
 				323ADB9E272E03E500253124 /* patch.json in Resources */,
 				32F70B2426F6296C006E9B05 /* sampleMatch.json in Resources */,
+				79D5282028DD73CF0070841D /* secrets.json in Resources */,
 				323ADB8E272E03E500253124 /* hero_abilities.json in Resources */,
 				32F70B2526F6296F006E9B05 /* sampleProfile.json in Resources */,
 				327A7B8327152388001F964D /* Assets.xcassets in Resources */,
@@ -1388,7 +1396,7 @@
 				327B8764284DBD4600BBE1F8 /* NetworkImage.swift in Sources */,
 				323BCBA5285586E40061F937 /* CalendarMatchListViewModel.swift in Sources */,
 				322B894026CE696C00DF67F9 /* DifferenceGraphView.swift in Sources */,
-				79D5281028DD5DBD0070841D /* Token.swift in Sources */,
+				79D5282228DD74930070841D /* Secret.swift in Sources */,
 				32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */,
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
 				3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */,
@@ -1456,13 +1464,13 @@
 				32F70B1B26F6295B006E9B05 /* Int.swift in Sources */,
 				32F70ADC26F60B30006E9B05 /* StringVariable.swift in Sources */,
 				32B526CB285C0CE40099B058 /* RecentMatchesWidgetEntryView.swift in Sources */,
+				79D5282328DD74930070841D /* Secret.swift in Sources */,
 				32B526D4285C1DBC0099B058 /* Extension.swift in Sources */,
 				32F70B1726F6294D006E9B05 /* Match.swift in Sources */,
 				32F70ADD26F60B8D006E9B05 /* SteamProfile.swift in Sources */,
 				327C033D2716A90400DAEC42 /* KDAView.swift in Sources */,
 				32F70B1926F6295B006E9B05 /* Date.swift in Sources */,
 				3270271D285C08C200927426 /* HeroDatabase.swift in Sources */,
-				79D5281728DD644F0070841D /* Token.swift in Sources */,
 				32079DC028B843360056D19F /* String.swift in Sources */,
 				327B87732850DA7800BBE1F8 /* Ability.swift in Sources */,
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
@@ -1501,13 +1509,13 @@
 				32F70B2226F6295C006E9B05 /* CodingKey.swift in Sources */,
 				32F70B1126F622C5006E9B05 /* Hero.swift in Sources */,
 				32F70B0F26F622C0006E9B05 /* LobbyType.swift in Sources */,
+				79D5282428DD74930070841D /* Secret.swift in Sources */,
 				32F70B1026F622C2006E9B05 /* GameMode.swift in Sources */,
 				327B87742850DA7900BBE1F8 /* Ability.swift in Sources */,
 				32F70B2026F6295C006E9B05 /* Int.swift in Sources */,
 				3270271E285C08C300927426 /* HeroDatabase.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,
 				32A26C52285947D4005E890F /* OpenDotaController.swift in Sources */,
-				79D5281828DD644F0070841D /* Token.swift in Sources */,
 				32079DC128B843360056D19F /* String.swift in Sources */,
 				32F70B1826F6294E006E9B05 /* Match.swift in Sources */,
 				32B526D5285C1DBC0099B058 /* Extension.swift in Sources */,

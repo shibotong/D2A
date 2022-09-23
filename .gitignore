@@ -92,4 +92,4 @@ iOSInjectionProject/
 Podfile.lock
 
 .DS_Store
-Shared/Utility/Token.swift
+Shared/GraphQL/secrets.json
