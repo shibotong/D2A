@@ -22,10 +22,10 @@ jobs:
       - name: Add Token
         run: |
           echo '
-          struct Token {
-            static let stratzToken = ${{ secrets.STRATZTOKEN }}
+          {
+            "stratzToken": "${{ secrets.STRATZTOKEN }}""
           }
-          ' >> Shared/Utility/Token.swift
+          ' >> Shared/GraphQL/secrets.json
       
       - name: Xcode build iOS App
         run: |
