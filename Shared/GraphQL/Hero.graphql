@@ -1,0 +1,10 @@
+query Hero($id: Short!) {
+  constants {
+    hero(id: $id) {
+      talents {
+        abilityId
+        slot
+      }
+    }
+  }
+}

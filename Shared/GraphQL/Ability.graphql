@@ -1,0 +1,10 @@
+query Ability($language: Language) {
+  constants {
+    abilities(language: $language) {
+      id
+      language {
+        displayName
+      }
+    }
+  }
+}
