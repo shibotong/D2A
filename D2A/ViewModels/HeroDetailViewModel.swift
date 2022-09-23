@@ -12,6 +12,7 @@ class HeroDetailViewModel: ObservableObject {
     @Published var hero: Hero
     @Published var heroAbility: HeroAbility
     @Published var selectedAbility: AbilityContainer?
+    @Published var talents = [HeroQuery.Data.Constant.Hero.Talent]()
     
     static var preview = HeroDetailViewModel()
     
@@ -23,6 +24,7 @@ class HeroDetailViewModel: ObservableObject {
         let hero = database.fetchHeroWithID(id: heroID)!
         self.hero = hero
         self.heroAbility = database.fetchHeroAbility(name: hero.name)!
+        
     }
     
     init() {
@@ -33,5 +35,9 @@ class HeroDetailViewModel: ObservableObject {
     
     func fetchAbility(name: String) -> Ability {
         return database.fetchAbility(name: name)!
+    }
+    
+    private func fetchAbilities(id: Int) {
+        
     }
 }

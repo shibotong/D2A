@@ -264,6 +264,11 @@
 		3DB45183075C710AF2D0084B /* Pods_D2A_D2AWidgetExtension_D2AWidgetIntentHandler.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BA33F8011411B22E722B79 /* Pods_D2A_D2AWidgetExtension_D2AWidgetIntentHandler.framework */; };
 		52BECA400B349C3B9BBC5BE6 /* Pods_D2A_D2ATests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDD6223B73A9C434217A863 /* Pods_D2A_D2ATests.framework */; };
 		6AB984C0AA1572B0AE007E80 /* Pods_D2A_D2AWidgetExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DEE0AFAFDCC9C88B3433D49 /* Pods_D2A_D2AWidgetExtension.framework */; };
+		79B162FE28DD596D009B2AE2 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79B162FD28DD596D009B2AE2 /* Apollo */; };
+		79B1630528DD5B33009B2AE2 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
+		79B1630728DD5C0B009B2AE2 /* TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */; };
+		79D5280E28DD5D990070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
+		79D5281028DD5DBD0070841D /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280F28DD5DBC0070841D /* Token.swift */; };
 		A3FDA0678AD27CF488B232D8 /* Pods_D2A.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEDA046AB20B47815283E580 /* Pods_D2A.framework */; };
 /* End PBXBuildFile section */
 
@@ -448,6 +453,13 @@
 		34FA65536DB6B318CBCA83C2 /* Pods-D2A-D2AWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A-D2AWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-D2A-D2AWidgetExtension/Pods-D2A-D2AWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		39BE3E3E1ED48A0352B40C40 /* Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.release.xcconfig"; path = "Target Support Files/Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler/Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.release.xcconfig"; sourceTree = "<group>"; };
 		3DEE0AFAFDCC9C88B3433D49 /* Pods_D2A_D2AWidgetExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_D2A_D2AWidgetExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		79B1630128DD5A08009B2AE2 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
+		79B1630228DD5A29009B2AE2 /* Ability.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Ability.graphql; sourceTree = "<group>"; };
+		79B1630328DD5A31009B2AE2 /* Hero.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hero.graphql; sourceTree = "<group>"; };
+		79B1630428DD5B33009B2AE2 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeConversion.swift; sourceTree = "<group>"; };
+		79D5280D28DD5D990070841D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		79D5280F28DD5DBC0070841D /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		80E11F7D64ECDFC27D3CA2D8 /* Pods-D2A.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A.release.xcconfig"; path = "Target Support Files/Pods-D2A/Pods-D2A.release.xcconfig"; sourceTree = "<group>"; };
 		A995EBABDB7DDD64D825BD52 /* Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.debug.xcconfig"; path = "Target Support Files/Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler/Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.debug.xcconfig"; sourceTree = "<group>"; };
 		C2BA33F8011411B22E722B79 /* Pods_D2A_D2AWidgetExtension_D2AWidgetIntentHandler.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_D2A_D2AWidgetExtension_D2AWidgetIntentHandler.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -472,6 +484,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
+				79B162FE28DD596D009B2AE2 /* Apollo in Frameworks */,
 				A3FDA0678AD27CF488B232D8 /* Pods_D2A.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -565,6 +578,7 @@
 		3266081C27CED53C00D9A204 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				79B1630028DD59FC009B2AE2 /* GraphQL */,
 				32B36F1226C38822002D427D /* Assets.xcassets */,
 				32B36F2B26C3885A002D427D /* extensions */,
 				32B36F4826C39238002D427D /* Utility */,
@@ -763,6 +777,7 @@
 				32079DBA28B83A180056D19F /* LocalizeHelper.swift */,
 				32B36F4926C39242002D427D /* StringVariable.swift */,
 				327B875F284D9FA100BBE1F8 /* DataHelper.swift */,
+				79D5280F28DD5DBC0070841D /* Token.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -890,6 +905,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		79B1630028DD59FC009B2AE2 /* GraphQL */ = {
+			isa = PBXGroup;
+			children = (
+				79B1630128DD5A08009B2AE2 /* schema.json */,
+				79B1630228DD5A29009B2AE2 /* Ability.graphql */,
+				79B1630328DD5A31009B2AE2 /* Hero.graphql */,
+				79B1630428DD5B33009B2AE2 /* API.swift */,
+				79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */,
+				79D5280D28DD5D990070841D /* Network.swift */,
+			);
+			path = GraphQL;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -918,6 +946,7 @@
 			buildConfigurationList = 32B36F1A26C38822002D427D /* Build configuration list for PBXNativeTarget "D2A" */;
 			buildPhases = (
 				1D34EA369400583B736AC5F9 /* [CP] Check Pods Manifest.lock */,
+				79B162FF28DD5982009B2AE2 /* Apollo */,
 				32B36F0726C38821002D427D /* Sources */,
 				32B36F0826C38821002D427D /* Frameworks */,
 				32B36F0926C38821002D427D /* Resources */,
@@ -931,6 +960,9 @@
 				32F70AEE26F61836006E9B05 /* PBXTargetDependency */,
 			);
 			name = D2A;
+			packageProductDependencies = (
+				79B162FD28DD596D009B2AE2 /* Apollo */,
+			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* D2A.app */;
 			productType = "com.apple.product-type.application";
@@ -1005,6 +1037,9 @@
 				"zh-Hans",
 			);
 			mainGroup = 32B36F0226C38821002D427D;
+			packageReferences = (
+				79B162FC28DD596D009B2AE2 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+			);
 			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1194,6 +1229,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-D2A-D2ATests/Pods-D2A-D2ATests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		79B162FF28DD5982009B2AE2 /* Apollo */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Apollo;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\n# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --passthroughCustomScalars --target=swift --includes=../Shared/GraphQL/*.graphql --localSchemaFile=\"../Shared/GraphQL/schema.json\" ../Shared/GraphQL/API.swift\n#\"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=\"https://api.stratz.com/graphql\" --header \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJodHRwczovL3N0ZWFtY29tbXVuaXR5LmNvbS9vcGVuaWQvaWQvNzY1NjExOTgxMTMzMDc2ODUiLCJ1bmlxdWVfbmFtZSI6Ik1yLkJPQk9CTyIsIlN1YmplY3QiOiIwMTg0NGZiOS01ZDZjLTQ2MGEtYjRmZS04OTJjNzgwZjVjMTciLCJTdGVhbUlkIjoiMTUzMDQxOTU3IiwibmJmIjoxNjYzODE4NTU4LCJleHAiOjE2OTUzNTQ1NTgsImlhdCI6MTY2MzgxODU1OCwiaXNzIjoiaHR0cHM6Ly9hcGkuc3RyYXR6LmNvbSJ9.9yUJodq--fWTzs2lWdTULjUayX7djl6hhIqsu0TNvcw\"\n";
+		};
 		916BDCC4488B5E86111B2739 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1317,6 +1370,7 @@
 				327B8764284DBD4600BBE1F8 /* NetworkImage.swift in Sources */,
 				323BCBA5285586E40061F937 /* CalendarMatchListViewModel.swift in Sources */,
 				322B894026CE696C00DF67F9 /* DifferenceGraphView.swift in Sources */,
+				79D5281028DD5DBD0070841D /* Token.swift in Sources */,
 				32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */,
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
 				3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */,
@@ -1330,6 +1384,7 @@
 				327B875A284D96A600BBE1F8 /* PlayerListRowView.swift in Sources */,
 				322B893826CD44FE00DF67F9 /* SteamProfile.swift in Sources */,
 				325285A026CBB67C0030F15B /* SidebarRowViewModel.swift in Sources */,
+				79B1630528DD5B33009B2AE2 /* API.swift in Sources */,
 				322B893626CD438700DF67F9 /* UserProfile.swift in Sources */,
 				322B89BF26CE788900DF67F9 /* AnalysisViewModel.swift in Sources */,
 				32079DBB28B83A180056D19F /* LocalizeHelper.swift in Sources */,
@@ -1345,7 +1400,9 @@
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
 				32F70B3626F72D74006E9B05 /* ProductSubView.swift in Sources */,
 				32079DBF28B843360056D19F /* String.swift in Sources */,
+				79D5280E28DD5D990070841D /* Network.swift in Sources */,
 				32B36F0F26C38821002D427D /* D2AApp.swift in Sources */,
+				79B1630728DD5C0B009B2AE2 /* TypeConversion.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
 				32DE14492845E277006E864E /* PlayerListView.swift in Sources */,
 				322B89C926D0F61900DF67F9 /* ProfileViewModel.swift in Sources */,
@@ -1874,6 +1931,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		79B162FC28DD596D009B2AE2 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apollographql/apollo-ios";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.53.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		79B162FD28DD596D009B2AE2 /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79B162FC28DD596D009B2AE2 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 32B36F0326C38821002D427D /* Project object */;
 }
