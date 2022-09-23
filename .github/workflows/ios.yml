@@ -19,6 +19,9 @@ jobs:
       - name: Xcode Version
         run: /usr/bin/xcodebuild -version
 
+      - name: print token
+        run: echo "${{ secrets.STRATZTOKEN }}"
+
       - name: Add Token
         run: |
           echo '
