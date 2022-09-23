@@ -30,6 +30,9 @@ struct HeroDetailView: View {
                 
             }
         }
+        .task {
+            vm.fetchAbilities()
+        }
     }
     
     @ViewBuilder private func buildHeader() -> some View {
@@ -137,7 +140,9 @@ struct HeroDetailView: View {
         Divider()
         buildStats(hero: vm.hero)
         Divider()
-        buildTalent(talent: vm.talents)
+        if vm.talents.count != 0 {
+            buildTalent(talent: vm.talents)
+        }
     }
     
     @ViewBuilder private func buildStats(hero: Hero) -> some View {
