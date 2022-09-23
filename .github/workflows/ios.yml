@@ -23,7 +23,7 @@ jobs:
         run: |
           echo '
           {
-            "stratzToken": "${{ secrets.STRATZTOKEN }}""
+            "stratzToken": "${{ secrets.STRATZTOKEN }}"
           }
           ' >> Shared/GraphQL/secrets.json
       
