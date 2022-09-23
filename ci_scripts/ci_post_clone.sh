@@ -9,6 +9,6 @@ pod install
 # Add Secret
 echo '
 {
-    "stratzToken": "$STRATZTOKEN""
+    "stratzToken": "$STRATZTOKEN"
 }
 ' >> Shared/GraphQL/secrets.json
