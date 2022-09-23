@@ -25,6 +25,7 @@ class HeroDatabase: ObservableObject {
     var heroAbilities = [String: HeroAbility]()
     var talentData = [String: String]()
     var scepterData = [HeroScepter]()
+    var apolloAbilities = [AbilityQuery.Data.Constant.Ability]()
     
     static var shared = HeroDatabase()
     static var preview: HeroDatabase {
@@ -41,6 +42,7 @@ class HeroDatabase: ObservableObject {
         self.regions = loadRegion()!
         self.lobbyTypes = loadLobby()!
         
+        self.loadStratzAbilities()
         
         Task {
             async let idTable = loadItemIDs()
@@ -69,6 +71,8 @@ class HeroDatabase: ObservableObject {
                 }
             }
         }
+        
+        
     }
 
     func fetchHeroWithID(id: Int) -> Hero? {
@@ -218,5 +222,38 @@ class HeroDatabase: ObservableObject {
             return hero.shardDesc
         }
         return nil
+    }
+    
+    func getTalentDisplayName(id: Short) -> String {
+        let talent = self.apolloAbilities.first { ability in
+            return ability.id == id
+        }
+        return talent?.language?.displayName ?? "Fetch String Error"
+    }
+    
+    // MARK: - private functions
+    private func loadStratzAbilities() {
+        Network.shared.apollo.fetch(query: AbilityQuery(language: languageCode)) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            switch result {
+            case .success(let graphQLResult):
+                if let abilitiesConnection = graphQLResult.data?.constants?.abilities {
+                    let abilities = abilitiesConnection.compactMap({ $0 })
+                    self.apolloAbilities = abilities
+                    print("statz abilities load successfully")
+                }
+                
+                if let errors = graphQLResult.errors {
+                    let message = errors
+                        .map { $0.localizedDescription }
+                        .joined(separator: "\n")
+                    print(message)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

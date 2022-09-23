@@ -13,6 +13,18 @@ let productIDs = ["D2APRO"]//["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnu
 let GROUP_NAME = "group.D2A"
 let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/documents/terms-of-use.md"
 let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/documents/privacy-policy.md"
+let languageCode: Language = {
+    let languageStr = Locale.preferredLanguages[0]
+    print("Current \(languageStr)")
+    switch languageStr {
+    case "en":
+        return .english
+    case "zh-Hans":
+        return .sChinese
+    default:
+        return .english
+    }
+}()
 
 extension PreviewDevice {
 
