@@ -8,7 +8,7 @@ pod install
 
 echo 'This is token'
 echo $STRATZTOKEN
-
+echo pwd
 # Add Secret
 echo '
 {
