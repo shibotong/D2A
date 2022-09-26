@@ -122,7 +122,7 @@ struct HeroListView: View {
     
     @ViewBuilder private func buildMainPart(heroes: [Hero]) -> some View {
         if vm.gridView {
-            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 170, maximum: 200), spacing: 10, alignment: .leading), count: 1)){
+            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 160, maximum: 200), spacing: 10, alignment: .leading), count: 1)){
                 ForEach(heroes) { hero in
                     NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
                         buildHero(hero: hero)
@@ -184,6 +184,5 @@ struct HeroListView_Previews: PreviewProvider {
     static var previews: some View {
         HeroListView()
             .environmentObject(HeroDatabase.shared)
-            .previewDevice(PreviewDevice.iPadMini)
     }
 }
