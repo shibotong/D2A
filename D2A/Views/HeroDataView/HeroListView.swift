@@ -99,7 +99,6 @@ struct HeroListView: View {
                 .bold()
                 .foregroundColor(.secondaryLabel)
                 .padding()
-                
         } else {
             Section {
                 buildMainPart(heroes: heroes)
@@ -164,18 +163,18 @@ struct HeroListView: View {
                     }
                     .padding(5)
                 }
-        } else {
-            HStack {
-                HeroImageView(heroID: hero.id, type: .full)
-                    .frame(width: 70)
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
-                Text(hero.heroNameLocalized)
-                Spacer()
-                Image("hero_\(hero.primaryAttr)")
-                    .resizable()
-                    .frame(width: 20, height: 20)
+            } else {
+                HStack {
+                    HeroImageView(heroID: hero.id, type: .full)
+                        .frame(width: 70)
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                    Text(hero.heroNameLocalized)
+                    Spacer()
+                    Image("hero_\(hero.primaryAttr)")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                }
             }
-        }
         }
     }
 }
