@@ -20,7 +20,7 @@ struct HeroListView: View {
     var body: some View {
         buildBody()
             .navigationTitle("Heroes")
-            .searchable(text: $vm.searchString.animation(.linear), placement: .toolbar, prompt: "Search Heroes")
+            .searchable(text: $vm.searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
             .disableAutocorrection(true)
             .toolbar {
                 if horizontalSize == .compact {
@@ -142,7 +142,7 @@ struct HeroListView: View {
         if horizontalSize == .regular {
             HeroImageView(heroID: hero.id, type: .vert)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-                .opacity((hero.heroNameLocalized.lowercased().contains(vm.searchString.lowercased()) || vm.searchString.isEmpty) ? 1 : 0.2)
+                .opacity(vm.searchResults.contains(where: { $0.id == hero.id }) || vm.searchString.isEmpty ? 1 : 0.2)
         } else {
             if vm.gridView {
                 ZStack {
