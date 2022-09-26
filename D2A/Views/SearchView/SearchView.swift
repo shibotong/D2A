@@ -12,15 +12,17 @@ struct SearchView: View {
     @StateObject var vm: AddAccountViewModel = AddAccountViewModel()
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
-        buildSearchingList()
+        searchPage
             .navigationTitle("Search")
             .searchable(text: $vm.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Players, Heroes, Matches") {
                 if !vm.searchText.isEmpty {
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                        Text("Search \(vm.searchText)")
+                    Section {
+                        HStack {
+                            Image(systemName: "magnifyingglass")
+                            Text("Search \(vm.searchText)")
+                        }
+                        .foregroundColor(.label)
                     }
-                    .foregroundColor(.label)
                 }
                 if !vm.localProfiles.isEmpty {
                     Section {
@@ -62,101 +64,123 @@ struct SearchView: View {
         
     }
     
-    @ViewBuilder private func buildSearchingList() -> some View {
-        if vm.searchText.isEmpty {
-            VStack(spacing: 15) {
-                Text("Players, Heroes, Matches")
-                    .bold()
-                VStack {
-                    Text("Search with players id or name,")
-                        .foregroundColor(.secondaryLabel)
-                    Text("hero name and match id")
-                    .foregroundColor(.secondaryLabel)
-                }
-                NavigationLink(
-                    destination: MatchView(vm: MatchViewModel(matchid: env.selectedMatch)),
-                    isActive: $env.matchActive
-                ) {
-                    EmptyView()
-                }
-                NavigationLink(
-                    destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: env.selectedUser)),
-                    isActive: $env.userActive
-                ) {
-                    EmptyView()
-                }
-            }
-        } else {
-            List {
-                if let match = vm.searchedMatch {
-                    Section {
-                        NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
-                            let iconSize: CGFloat = 30
-                            HStack {
-                                ForEach(match.fetchPlayers(isRadiant: true), id: \.heroID) { player in
-                                    if horizontalSizeClass == .compact {
-                                        HeroImageView(heroID: player.heroID, type: .icon)
-                                    } else {
-                                        HeroImageView(heroID: player.heroID, type: .icon)
-                                            .frame(width: iconSize, height: iconSize)
-                                    }
-                                }
-                                Text("vs")
-                                ForEach(match.fetchPlayers(isRadiant: false), id: \.heroID) { player in
-                                    if horizontalSizeClass == .compact {
-                                        HeroImageView(heroID: player.heroID, type: .icon)
-                                    } else {
-                                        HeroImageView(heroID: player.heroID, type: .icon)
-                                            .frame(width: iconSize, height: iconSize)
-                                    }
-                                }
-                                Spacer()
-                            }
-                        }
-                    } header: {
-                        Text("Match: \(match.id.description)")
-                    }
-                }
-                if !vm.localProfiles.isEmpty {
-                    Section {
-                        ForEach(vm.localProfiles) { profile in
-                            NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id.description))) {
-                                ProfileView(vm: ProfileViewModel(profile: profile))
-                            }
-                        }
-                    } header: {
-                        Text("Favorite Players")
-                    }
-                }
-                if !vm.filterHeroes.isEmpty {
-                    Section {
-                        ForEach(vm.filterHeroes) { hero in
-                            NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
-                                HStack {
-                                    HeroImageView(heroID: hero.id, type: .icon)
-                                        .frame(width: 30, height: 30)
-                                    Text(hero.heroNameLocalized)
-                                }
-                            }
-                        }
-                    } header: {
-                        Text("Heroes")
-                    }
-                }
-                if !vm.userProfiles.isEmpty {
-                    Section {
-                        ForEach(vm.userProfiles) { profile in
-                            NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id.description))) {
-                                ProfileView(vm: ProfileViewModel(profile: profile))
-                            }
-                        }
-                    } header: {
-                        Text("Players")
+    private var searchPage: some View {
+        ZStack {
+            if vm.searchText.isEmpty {
+                emptySearchPage
+            } else {
+                if vm.isLoading {
+                    ProgressView()
+                } else {
+                    if vm.searchedMatch == nil &&
+                        vm.localProfiles.isEmpty &&
+                        vm.filterHeroes.isEmpty &&
+                        vm.userProfiles.isEmpty {
+                        Label("Cannot find any player", systemImage: "magnifyingglass")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    } else {
+                        searchedList
                     }
                 }
             }
-            .listStyle(PlainListStyle())
         }
+    }
+    
+    private var emptySearchPage: some View {
+        VStack(spacing: 15) {
+            Text("Players, Heroes, Matches")
+                .bold()
+            VStack {
+                Text("Search with players id or name,")
+                    .foregroundColor(.secondaryLabel)
+                Text("hero name and match id")
+                .foregroundColor(.secondaryLabel)
+            }
+            NavigationLink(
+                destination: MatchView(vm: MatchViewModel(matchid: env.selectedMatch)),
+                isActive: $env.matchActive
+            ) {
+                EmptyView()
+            }
+            NavigationLink(
+                destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: env.selectedUser)),
+                isActive: $env.userActive
+            ) {
+                EmptyView()
+            }
+        }
+    }
+    
+    private var searchedList: some View {
+        List {
+            if let match = vm.searchedMatch {
+                Section {
+                    NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
+                        let iconSize: CGFloat = 30
+                        HStack {
+                            ForEach(match.fetchPlayers(isRadiant: true), id: \.heroID) { player in
+                                if horizontalSizeClass == .compact {
+                                    HeroImageView(heroID: player.heroID, type: .icon)
+                                } else {
+                                    HeroImageView(heroID: player.heroID, type: .icon)
+                                        .frame(width: iconSize, height: iconSize)
+                                }
+                            }
+                            Text("vs")
+                            ForEach(match.fetchPlayers(isRadiant: false), id: \.heroID) { player in
+                                if horizontalSizeClass == .compact {
+                                    HeroImageView(heroID: player.heroID, type: .icon)
+                                } else {
+                                    HeroImageView(heroID: player.heroID, type: .icon)
+                                        .frame(width: iconSize, height: iconSize)
+                                }
+                            }
+                            Spacer()
+                        }
+                    }
+                } header: {
+                    Text("Match: \(match.id.description)")
+                }
+            }
+            if !vm.localProfiles.isEmpty {
+                Section {
+                    ForEach(vm.localProfiles) { profile in
+                        NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id.description))) {
+                            ProfileView(vm: ProfileViewModel(profile: profile))
+                        }
+                    }
+                } header: {
+                    Text("Favorite Players")
+                }
+            }
+            if !vm.filterHeroes.isEmpty {
+                Section {
+                    ForEach(vm.filterHeroes) { hero in
+                        NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                            HStack {
+                                HeroImageView(heroID: hero.id, type: .icon)
+                                    .frame(width: 30, height: 30)
+                                Text(hero.heroNameLocalized)
+                            }
+                        }
+                    }
+                } header: {
+                    Text("Heroes")
+                }
+            }
+            if !vm.userProfiles.isEmpty {
+                Section {
+                    ForEach(vm.userProfiles) { profile in
+                        NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id.description))) {
+                            ProfileView(vm: ProfileViewModel(profile: profile))
+                        }
+                    }
+                } header: {
+                    Text("Players")
+                }
+            }
+        }
+        .listStyle(PlainListStyle())
     }
 }
 
