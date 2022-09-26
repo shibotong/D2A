@@ -160,12 +160,12 @@ struct PlayerDetailView: View {
                     if abilityID == 730 {
                         buildAbilityWithString("Bonus Attributes")
                     } else {
-                        buildAbilityWithString(LocalizeHelper.localizationString(ability, key: abilityName))
+                        buildAbilityWithString(heroData.getTalentDisplayName(id: Short(abilityID)))
                     }
                 }
             } else {
                 // Cannot find abiilty with name
-                buildAbilityWithString(LocalizedStringKey(abilityName))
+                buildAbilityWithString(abilityName)
             }
         } else {
             // Cannot find ability with ID
@@ -173,7 +173,7 @@ struct PlayerDetailView: View {
         }
     }
 
-    @ViewBuilder private func buildAbilityWithString(_ text: LocalizedStringKey) -> some View {
+    @ViewBuilder private func buildAbilityWithString(_ text: String) -> some View {
         Image("ability_slot")
             .resizable()
             .renderingMode(.template)
@@ -182,7 +182,7 @@ struct PlayerDetailView: View {
             .overlay(
                 ZStack {
                     Rectangle().stroke()
-                    Text(text).font(.custom(fontString, size: 8)).padding(0.5)
+                    Text(LocalizedStringKey(text)).font(.custom(fontString, size: 8)).padding(0.5)
                 }
             )
     }
