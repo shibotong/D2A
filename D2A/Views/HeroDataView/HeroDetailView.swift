@@ -30,6 +30,9 @@ struct HeroDetailView: View {
                 
             }
         }
+        .task {
+            vm.fetchAbilities()
+        }
     }
     
     @ViewBuilder private func buildHeader() -> some View {
@@ -83,7 +86,7 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildTalent(talent: [Talent]) -> some View {
+    @ViewBuilder private func buildTalent(talent: [HeroQuery.Data.Constant.Hero.Talent]) -> some View {
         VStack {
             HStack {
                 Text("Talents")
@@ -101,12 +104,12 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildLevelTalent(talent: [Talent], level: Int) -> some View {
+    @ViewBuilder private func buildLevelTalent(talent: [HeroQuery.Data.Constant.Hero.Talent], level: Int) -> some View {
         GeometryReader { proxy in
             HStack(spacing: 5) {
-                let talents = talent.filter { talent in return talent.level == level }
-                if let leftSideTalent = talents.last {
-                    Text(fetchTalentString(leftSideTalent))
+                if let leftSideTalent = talent.first { $0.slot == level * 2 - 1 },
+                   let abilityId = leftSideTalent.abilityId {
+                    Text(vm.fetchTalentName(id: abilityId))
                         .font(.custom(fontString, size: 10))
                         .frame(width: (proxy.size.width - 40) / 2)
                 } else {
@@ -118,8 +121,9 @@ struct HeroDetailView: View {
                     .padding(5)
                     .frame(width: 30, height: 30)
                     .background(Circle().stroke().foregroundColor(.yellow))
-                if let rightSideTalent = talents.first {
-                    Text(fetchTalentString(rightSideTalent))
+                if let rightSideTalent = talent.first { $0.slot == level * 2 - 2 },
+                   let abilityId = rightSideTalent.abilityId {
+                    Text(vm.fetchTalentName(id: abilityId))
                         .font(.custom(fontString, size: 10))
                         .frame(width: (proxy.size.width - 30) / 2)
                 } else {
@@ -136,7 +140,9 @@ struct HeroDetailView: View {
         Divider()
         buildStats(hero: vm.hero)
         Divider()
-        buildTalent(talent: vm.heroAbility.talents)
+        if vm.talents.count != 0 {
+            buildTalent(talent: vm.talents)
+        }
     }
     
     @ViewBuilder private func buildStats(hero: Hero) -> some View {

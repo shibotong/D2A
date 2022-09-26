@@ -12,6 +12,7 @@ class HeroDetailViewModel: ObservableObject {
     @Published var hero: Hero
     @Published var heroAbility: HeroAbility
     @Published var selectedAbility: AbilityContainer?
+    @Published var talents = [HeroQuery.Data.Constant.Hero.Talent]()
     
     static var preview = HeroDetailViewModel()
     
@@ -33,5 +34,33 @@ class HeroDetailViewModel: ObservableObject {
     
     func fetchAbility(name: String) -> Ability {
         return database.fetchAbility(name: name)!
+    }
+    
+    func fetchAbilities() {
+        Network.shared.apollo.fetch(query: HeroQuery(id: Double(heroID))) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(let graphQLResult):
+                if let hero = graphQLResult.data?.constants?.hero, let talents = hero.talents?.compactMap({ $0 }) {
+                    self.talents = talents
+                }
+                
+                if let errors = graphQLResult.errors {
+                    let message = errors
+                        .map { $0.localizedDescription }
+                        .joined(separator: "\n")
+                    print(message)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func fetchTalentName(id: Short) -> String {
+        return database.getTalentDisplayName(id: id)
     }
 }
