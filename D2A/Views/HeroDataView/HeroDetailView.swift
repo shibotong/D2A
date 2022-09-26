@@ -301,13 +301,6 @@ struct HeroDetailView: View {
             .clipShape(Capsule())
         }
     }
-
-    private func fetchTalentString(_ talent: Talent) -> LocalizedStringKey {
-        guard let ability = HeroDatabase.shared.fetchAbility(name: talent.name) else {
-            return LocalizedStringKey(talent.name)
-        }
-        return LocalizeHelper.localizationString(ability, key: talent.name)
-    }
 }
 
 struct HeroDetailView_Preview: PreviewProvider {
