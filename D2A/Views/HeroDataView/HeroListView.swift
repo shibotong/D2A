@@ -147,23 +147,23 @@ struct HeroListView: View {
             if vm.gridView {
                 ZStack {
                     HeroImageView(heroID: hero.id, type: .full)
-                    .overlay(LinearGradient(colors: [.black.opacity(0),.black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                HStack {
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Image("hero_\(hero.primaryAttr)").resizable().frame(width: 20, height: 20)
-                            Text(hero.heroNameLocalized)
-                                .font(.system(size: 12))
-                                .fontWeight(.black)
-                                .foregroundColor(.white)
+                        .overlay(LinearGradient(colors: [.black.opacity(0),.black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                    HStack {
+                        VStack {
+                            Spacer()
+                            HStack(spacing: 3) {
+                                Image("hero_\(hero.primaryAttr)").resizable().frame(width: 15, height: 15)
+                                Text(hero.heroNameLocalized)
+                                    .font(.caption2)
+                                    .fontWeight(.black)
+                                    .foregroundColor(.white)
+                            }
                         }
+                        Spacer()
                     }
-                    Spacer()
+                    .padding(5)
                 }
-                .padding(5)
-            }
         } else {
             HStack {
                 HeroImageView(heroID: hero.id, type: .full)
