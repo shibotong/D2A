@@ -57,6 +57,7 @@ class AddAccountViewModel: ObservableObject {
     
     @MainActor
     func search(searchText: String) async {
+        self.isLoading = true
         self.userProfiles = []
         self.filterHeroes = HeroDatabase.shared.fetchAllHeroes().filter { hero in
             return hero.heroNameLocalized.lowercased().contains(searchText.lowercased())
@@ -75,5 +76,6 @@ class AddAccountViewModel: ObservableObject {
         }
         
         self.userProfiles = await searchedProfile
+        self.isLoading = false
     }
 }
