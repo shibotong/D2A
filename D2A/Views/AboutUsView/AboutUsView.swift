@@ -32,7 +32,9 @@ struct AboutUsView: View {
             }
             Section(header: Text("Thanks To")) {
                 makeRow(image: "heart.fill", text: "OpenDotaAPI", link: URL(string: "https://www.opendota.com"))
+                makeRow(image: "heart.fill", text: "STRATZ API", link: URL(string: "https://stratz.com/dashboard"))
                 makeRow(image: "heart.fill", text: "Our Loved Dota2", link: URL(string: "https://www.dota2.com/home"))
+                
             }
         }
         .navigationTitle("About")

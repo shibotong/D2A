@@ -242,7 +242,7 @@ class HeroDatabase: ObservableObject {
                 if let abilitiesConnection = graphQLResult.data?.constants?.abilities {
                     let abilities = abilitiesConnection.compactMap({ $0 })
                     self.apolloAbilities = abilities
-                    print("statz abilities load successfully")
+                    print("stratz abilities load successfully")
                 }
                 
                 if let errors = graphQLResult.errors {
