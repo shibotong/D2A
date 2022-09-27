@@ -24,4 +24,4 @@ This application is fully written in SwiftUI.
 * Try to build a TvOS app
 
 ## Credits
-API is based on [OpenDotaAPI](https://www.opendota.com), thank you!
+API is based on [OpenDotaAPI](https://www.opendota.com) and [STRATZ](https://stratz.com/dashboard), thank you!
