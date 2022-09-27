@@ -52,6 +52,18 @@ struct D2AApp: App {
                         environment.selectedMatch = matchid
                     }
                 }
+                .overlay {
+                    Text(getToken).background(Color.secondaryDota)
+                }
+        }
+    }
+    
+    private func getToken() -> String {
+        do {
+            let token = try Secrets.load().stratzToken
+            return token
+        } catch {
+            return "no-token"
         }
     }
 }
