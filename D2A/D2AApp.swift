@@ -53,7 +53,7 @@ struct D2AApp: App {
                     }
                 }
                 .overlay {
-                    Text(getToken).background(Color.secondaryDota)
+                    Text(getToken()).background(Color.secondaryDota)
                 }
         }
     }
