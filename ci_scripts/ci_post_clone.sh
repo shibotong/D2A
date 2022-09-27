@@ -12,3 +12,7 @@ echo '
     "stratzToken": "${STRATZTOKEN}"
 }
 ' >> ../Shared/GraphQL/secrets.json
+
+
+echo $PWD
+cat ../Shared/GraphQL/secrets.json
