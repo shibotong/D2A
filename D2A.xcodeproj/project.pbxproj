@@ -281,6 +281,8 @@
 		79D5282228DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
 		79D5282328DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
 		79D5282428DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
+		79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
+		79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
 		A3FDA0678AD27CF488B232D8 /* Pods_D2A.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEDA046AB20B47815283E580 /* Pods_D2A.framework */; };
 /* End PBXBuildFile section */
 
@@ -472,6 +474,8 @@
 		79D5280D28DD5D990070841D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		79D5281D28DD73CF0070841D /* secrets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = secrets.json; sourceTree = "<group>"; };
 		79D5282128DD74930070841D /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
+		79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Backend.xcdatamodel; sourceTree = "<group>"; };
+		79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceContainer.swift; sourceTree = "<group>"; };
 		80E11F7D64ECDFC27D3CA2D8 /* Pods-D2A.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A.release.xcconfig"; path = "Target Support Files/Pods-D2A/Pods-D2A.release.xcconfig"; sourceTree = "<group>"; };
 		A995EBABDB7DDD64D825BD52 /* Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.debug.xcconfig"; path = "Target Support Files/Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler/Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.debug.xcconfig"; sourceTree = "<group>"; };
 		C2BA33F8011411B22E722B79 /* Pods_D2A_D2AWidgetExtension_D2AWidgetIntentHandler.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_D2A_D2AWidgetExtension_D2AWidgetIntentHandler.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -701,6 +705,8 @@
 		32B36F1D26C38834002D427D /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
+				79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */,
 				329849F326DCAEAE00A1032C /* HeroDatabase.swift */,
 				322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */,
 				32B36F4B26C39C5D002D427D /* Environment.swift */,
@@ -1376,6 +1382,7 @@
 				32B526D3285C1DBC0099B058 /* Extension.swift in Sources */,
 				322B890026CCD2EA00DF67F9 /* PlayerProfileViewModel.swift in Sources */,
 				32B36F2726C38852002D427D /* Hero.swift in Sources */,
+				79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */,
 				32B36F4A26C39242002D427D /* StringVariable.swift in Sources */,
 				32F6A1B026C499E3009C00E1 /* MatchView.swift in Sources */,
 				322B89C726CFD2DE00DF67F9 /* AddAccountViewModel.swift in Sources */,
@@ -1424,6 +1431,7 @@
 				32F70B3626F72D74006E9B05 /* ProductSubView.swift in Sources */,
 				32079DBF28B843360056D19F /* String.swift in Sources */,
 				79D5280E28DD5D990070841D /* Network.swift in Sources */,
+				79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */,
 				32B36F0F26C38821002D427D /* D2AApp.swift in Sources */,
 				79B1630728DD5C0B009B2AE2 /* TypeConversion.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
@@ -2015,6 +2023,19 @@
 			productName = Apollo;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */,
+			);
+			currentVersion = 79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */;
+			path = D2AModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 32B36F0326C38821002D427D /* Project object */;
 }
