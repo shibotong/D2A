@@ -72,19 +72,18 @@ struct HeroDetailView: View {
     
     @ViewBuilder private func buildAbilities(hero: Hero) -> some View {
         let skillFrame: CGFloat = 30
-        if let abilities = hero.abilities {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(abilities.filter { ability in
-                        let containHidden = ability.contains("hidden")
-                        let containEmpty = ability.contains("empty")
-                        return !containHidden && !containEmpty
-                    }, id: \.self) { abilityName in
-                        let ability = vm.fetchAbility(name: abilityName)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(vm.heroAbility.abilities.filter { ability in
+                    let containHidden = ability.contains("hidden")
+                    let containEmpty = ability.contains("empty")
+                    return !containHidden && !containEmpty
+                }, id: \.self) { abilityName in
+                    let ability = vm.fetchAbility(name: abilityName)
+                    if ability.dname != "" {
                         let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
                         Button {
-                            isPresented.toggle()
-                            vm.selectedAbility = abilityName
+                            self.vm.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroID: vm.heroID, abilityName: abilityName)
                         } label: {
                             AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
                         }
