@@ -22,64 +22,101 @@ struct AbilityView: View {
     init(ability: Ability, heroID: Int, abilityName: String) {
         self.vm = AbilityViewModel(ability: ability, heroID: heroID, abilityName: abilityName)
     }
-
-    var body: some View {
-        GeometryReader { proxy in
-            ScrollView(.vertical, showsIndicators: false) {
-                HStack(alignment: .top, spacing: 10) {
-                    let parsedimgURL = vm.ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                    AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 70, cornerRadius: 20)
-                    VStack(alignment: .leading) {
-                        Text(vm.ability.dname ?? "")
-                            .font(.custom(fontString, size: 18))
-                            .bold()
-                        if let cd = vm.ability.coolDown {
-                            Text("Cooldown: \(cd.transformString())")
-                                .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
-                        }
-                        if let mc = vm.ability.manaCost {
-                            Text("Cost: \(mc.transformString())")
-                                .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
+    
+    private var lore: some View {
+        ZStack {
+            if let lore = vm.ability.lore {
+                Text(lore)
+                    .font(.custom(fontString, size: 10))
+                    .padding(8)
+                    .foregroundColor(Color(UIColor.tertiaryLabel))
+                    .background(
+                        RoundedRectangle(cornerRadius: 5)
+                            .foregroundColor(Color(UIColor.tertiarySystemBackground))
+                    )
+            }
+        }
+    }
+    
+    private var attributes: some View {
+        ZStack {
+            if let attributes = vm.ability.attributes {
+                HStack {
+                    VStack(alignment: .leading, spacing: 5) {
+                        ForEach(attributes, id: \.self) { item in
+                            buildAttributesText(title: item.header ?? "", message: item.value?.transformString() ?? "")
                         }
                     }
                     Spacer()
                 }
-
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 100, maximum: 200), spacing: 5), count: 2),alignment: .leading, spacing: 5) {
-                    if let behavior = vm.ability.behavior {
-                        buildAttributesText(title: "ABILITY:", message: "\(behavior.transformString())")
-                    }
-                    if let targetTeam = vm.ability.targetTeam {
-                        buildAttributesText(title: "PIERCES SPELL:", message: "\(targetTeam.transformString())")
-                    }
-                    if let targetType = vm.ability.targetType {
-                        buildAttributesText(title: "AFFECTS:", message: "\(targetType.transformString())")
-                    }
-                    if let bkbPierce = vm.ability.bkbPierce {
-                        buildAttributesText(title: "IMMUNITY:", message: "\(bkbPierce.transformString())", color: bkbPierce.transformString() == "Yes" ? Color.green : Color(uiColor: UIColor.label))
-                    }
-                    if let dispellable = vm.ability.dispellable {
-                        let dispellableString = dispellable.transformString()
-                        if dispellableString == "" {
-                            buildAttributesText(title: "DISPELLABLE:", message: "Only Strong Dispels", color: .red)
-                        } else {
-                            buildAttributesText(title: "DISPELLABLE:", message: "\(dispellable.transformString())", color: dispellable.transformString() == "No" ? .red : Color(uiColor: UIColor.label))
-                        }
-                    }
-                    if let damageType = vm.ability.damageType {
-                        buildAttributesText(title: "DAMAGE TYPE:", message: "\(damageType.transformString())", color: {
-                            if damageType.transformString() == "Magical" {
-                                return Color.blue
-                            } else if damageType.transformString() == "Physics" {
-                                return Color.red
-                            } else if damageType.transformString() == "Pure" {
-                                return Color.yellow
-                            } else {
-                                return Color(UIColor.label)
-                            }
-                        }())
-                    }
+            }
+        }
+    }
+    
+    private var abilityTitle: some View {
+        HStack(alignment: .top, spacing: 10) {
+            let parsedimgURL = vm.ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+            AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 70, cornerRadius: 20)
+            VStack(alignment: .leading) {
+                Text(vm.ability.dname ?? "")
+                    .font(.custom(fontString, size: 18))
+                    .bold()
+                if let cd = vm.ability.coolDown {
+                    Text("Cooldown: \(cd.transformString())")
+                        .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
                 }
+                if let mc = vm.ability.manaCost {
+                    Text("Cost: \(mc.transformString())")
+                        .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
+                }
+            }
+            Spacer()
+        }
+    }
+    
+    private var abilityData: some View {
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 100, maximum: 200), spacing: 5), count: 2),alignment: .leading, spacing: 5) {
+            if let behavior = vm.ability.behavior {
+                buildAttributesText(title: "ABILITY:", message: "\(behavior.transformString())")
+            }
+            if let targetTeam = vm.ability.targetTeam {
+                buildAttributesText(title: "PIERCES SPELL:", message: "\(targetTeam.transformString())")
+            }
+            if let targetType = vm.ability.targetType {
+                buildAttributesText(title: "AFFECTS:", message: "\(targetType.transformString())")
+            }
+            if let bkbPierce = vm.ability.bkbPierce {
+                buildAttributesText(title: "IMMUNITY:", message: "\(bkbPierce.transformString())", color: bkbPierce.transformString() == "Yes" ? Color.green : Color(uiColor: UIColor.label))
+            }
+            if let dispellable = vm.ability.dispellable {
+                let dispellableString = dispellable.transformString()
+                if dispellableString == "" {
+                    buildAttributesText(title: "DISPELLABLE:", message: "Only Strong Dispels", color: .red)
+                } else {
+                    buildAttributesText(title: "DISPELLABLE:", message: "\(dispellable.transformString())", color: dispellable.transformString() == "No" ? .red : Color(uiColor: UIColor.label))
+                }
+            }
+            if let damageType = vm.ability.damageType {
+                buildAttributesText(title: "DAMAGE TYPE:", message: "\(damageType.transformString())", color: {
+                    if damageType.transformString() == "Magical" {
+                        return Color.blue
+                    } else if damageType.transformString() == "Physics" {
+                        return Color.red
+                    } else if damageType.transformString() == "Pure" {
+                        return Color.yellow
+                    } else {
+                        return Color(UIColor.label)
+                    }
+                }())
+            }
+        }
+    }
+
+    var body: some View {
+        GeometryReader { proxy in
+            ScrollView(.vertical, showsIndicators: false) {
+                abilityTitle
+                abilityData
                 Group {
                     VStack {
                         if dataBase.isScepterSkill(ability: vm.ability, heroID: vm.heroID) {
@@ -102,32 +139,10 @@ struct AbilityView: View {
                     }
                 }
                 Spacer().frame(height: 10)
-                if let attributes = vm.ability.attributes {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 5) {
-                            ForEach(attributes, id: \.self) { item in
-                                buildAttributesText(title: item.header ?? "", message: item.value?.transformString() ?? "")
-                            }
-                        }
-                        Spacer()
-                    }
-                }
+                attributes
                 Spacer().frame(height: 10)
-
-                if let lore = vm.ability.lore {
-                    Text(lore)
-                        .font(.custom(fontString, size: 10))
-                        .padding(8)
-                        .foregroundColor(Color(UIColor.tertiaryLabel))
-                        .background(
-                            RoundedRectangle(cornerRadius: 5)
-                                .foregroundColor(Color(UIColor.tertiarySystemBackground))
-                        )
-                }
-
+                lore
             }
-
-
         }
         .padding(.horizontal)
         .navigationBarTitleDisplayMode(.inline)
@@ -175,18 +190,15 @@ struct AbilityView: View {
                 switch type {
                 case .Scepter:
                     if let url = vm.scepterVideo {
-                        VideoPlayer(player: AVPlayer(url: url))
-                            .frame(width: width - 40, height: (width - 40.0) / 16.0 * 9.0)
+                        buildPlayer(player: vm.getPlayer(url: url), width: width)
                     }
                 case .Shard:
                     if let url = vm.shardVideo {
-                        VideoPlayer(player: AVPlayer(url: url))
-                            .frame(width: width - 40, height: (width - 40.0) / 16.0 * 9.0)
+                        buildPlayer(player: vm.getPlayer(url: url), width: width)
                     }
                 case .non:
                     if let url = vm.abilityVideo {
-                        VideoPlayer(player: AVPlayer(url: url))
-                            .frame(width: width - 20, height: (width - 20.0) / 16.0 * 9.0)
+                        buildPlayer(player: vm.getPlayer(url: url), width: width)
                     }
                 }
                 Spacer()
@@ -219,5 +231,19 @@ struct AbilityView: View {
         case .non:
             EmptyView()
         }
+    }
+    
+    @ViewBuilder private func buildPlayer(player: AVPlayer, width: CGFloat) -> some View {
+        VideoPlayer(player: player)
+            .frame(width: width - 40, height: (width - 40.0) / 16.0 * 9.0)
+            .disabled(true)
+            .onAppear {
+                player.play()
+                self.vm.addObserver(player: player)
+            }
+            .onDisappear {
+                player.pause()
+                self.vm.removeObserver(player: player)
+            }
     }
 }
