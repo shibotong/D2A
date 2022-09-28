@@ -74,7 +74,7 @@ struct HeroDetailView: View {
                     return !containHidden && !containEmpty
                 }, id: \.self) { abilityName in
                     let ability = vm.fetchAbility(name: abilityName)
-                    if ability.dname != "" {
+                    if ability.behavior?.transformString() != "Hidden" {
                         let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
                         Button {
                             self.vm.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroID: vm.heroID, abilityName: abilityName)
