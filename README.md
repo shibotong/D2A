@@ -20,7 +20,7 @@ This application is fully written in SwiftUI.
 # Whats doing now
 * WatchOS app
 * MacOS app
-* ~~Localization
+* ~~Localization~~
 * Try to build a TvOS app
 * Live Match
 
