@@ -26,8 +26,9 @@ struct HeroDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $vm.selectedAbility) { ability in
             NavigationView {
-                AbilityView(ability: ability.ability, heroID: vm.heroID, abilityName: ability.abilityName)
-                
+                AbilityView(ability: ability.ability,
+                            heroID: vm.heroID,
+                            abilityName: ability.abilityName)
             }
         }
         .task {
@@ -35,15 +36,13 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildHeader() -> some View {
-        buildTitle(hero: vm.hero)
-        buildSkills()
-            .padding(.horizontal, 5)
-    }
-    
     @ViewBuilder private func buildTitle(hero: Hero) -> some View {
         HeroImageView(heroID: hero.id, type: .full)
-            .overlay(LinearGradient(colors: [Color(.black).opacity(0), Color(.black).opacity(1)], startPoint: .top, endPoint: .bottom))
+            .overlay(
+                LinearGradient(
+                    colors: [Color(.black).opacity(0), Color(.black).opacity(1)],
+                    startPoint: .top,
+                    endPoint: .bottom))
             .overlay(HStack {
                 VStack(alignment: .leading, spacing: 3) {
                     Spacer()
@@ -74,11 +73,13 @@ struct HeroDetailView: View {
                     return !containHidden && !containEmpty
                 }, id: \.self) { abilityName in
                     let ability = vm.fetchAbility(name: abilityName)
-                    let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                    Button {
-                        self.vm.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroID: vm.heroID, abilityName: abilityName)
-                    } label: {
-                        AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
+                    if ability.behavior?.transformString() != "Hidden" {
+                        let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+                        Button {
+                            self.vm.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroID: vm.heroID, abilityName: abilityName)
+                        } label: {
+                            AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
+                        }
                     }
                 }
             }
