@@ -77,4 +77,23 @@ class AbilityViewModel: ObservableObject {
             }
         }
     }
+    
+    func getPlayer(url: URL) -> AVPlayer {
+        let player = AVPlayer(url: url)
+        player.isMuted = true
+        return player
+    }
+    
+    func addObserver(player: AVPlayer) {
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
+                                               object: player.currentItem,
+                                               queue: nil) { notif in
+            player.seek(to: .zero)
+            player.play()
+        }
+    }
+    
+    func removeObserver(player: AVPlayer) {
+        NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
+    }
 }

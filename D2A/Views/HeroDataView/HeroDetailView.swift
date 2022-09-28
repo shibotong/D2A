@@ -26,8 +26,9 @@ struct HeroDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $vm.selectedAbility) { ability in
             NavigationView {
-                AbilityView(ability: ability.ability, heroID: vm.heroID, abilityName: ability.abilityName)
-                
+                AbilityView(ability: ability.ability,
+                            heroID: vm.heroID,
+                            abilityName: ability.abilityName)
             }
         }
         .task {
@@ -35,15 +36,13 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildHeader() -> some View {
-        buildTitle(hero: vm.hero)
-        buildSkills()
-            .padding(.horizontal, 5)
-    }
-    
     @ViewBuilder private func buildTitle(hero: Hero) -> some View {
         HeroImageView(heroID: hero.id, type: .full)
-            .overlay(LinearGradient(colors: [Color(.black).opacity(0), Color(.black).opacity(1)], startPoint: .top, endPoint: .bottom))
+            .overlay(
+                LinearGradient(
+                    colors: [Color(.black).opacity(0), Color(.black).opacity(1)],
+                    startPoint: .top,
+                    endPoint: .bottom))
             .overlay(HStack {
                 VStack(alignment: .leading, spacing: 3) {
                     Spacer()
