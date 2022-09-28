@@ -15,13 +15,14 @@ iPadOS 15.0+
 This application is fully written in SwiftUI.
 * Follow Dota2 players and check their matches.
 * See item builds for each match.
-* ~~Support iOS and iPadOS~~
+* Support iOS and iPadOS
 * Support Widgets
 # Whats doing now
 * WatchOS app
 * MacOS app
-* ~~Localization~~
+* ~~Localization
 * Try to build a TvOS app
+* Live Match
 
 ## Credits
 API is based on [OpenDotaAPI](https://www.opendota.com) and [STRATZ](https://stratz.com/dashboard), thank you!
