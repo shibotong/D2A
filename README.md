@@ -25,4 +25,5 @@ This application is fully written in SwiftUI.
 * Live Match
 
 ## Credits
-API is based on [OpenDotaAPI](https://www.opendota.com) and [STRATZ](https://stratz.com/dashboard), thank you!
+* API is based on [OpenDotaAPI](https://www.opendota.com) and [STRATZ](https://stratz.com/dashboard), thank you!
+* All Hero Images are from [Dota2](https://www.dota2.com)
