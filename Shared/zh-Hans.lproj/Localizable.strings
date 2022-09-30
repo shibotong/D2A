@@ -133,6 +133,8 @@
 "Escape" = "逃生";
 "Pusher" = "推进";
 "Initiator" = "先手";
+"Cooldown: %@" = "冷却：%@";
+"Cost: %@" = "魔法：%@";
 
 // MARK: - Game Text
 // MARK: Region

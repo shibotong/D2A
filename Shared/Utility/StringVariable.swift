@@ -25,6 +25,18 @@ let languageCode: Language = {
         return .english
     }
 }()
+let colonLocalize: Character = {
+    let languageStr = Locale.preferredLanguages[0]
+    print("Current \(languageStr)")
+    switch languageStr {
+    case "en":
+        return ":"
+    case "zh-Hans":
+        return "："
+    default:
+        return ":"
+    }
+}()
 
 extension PreviewDevice {
 
