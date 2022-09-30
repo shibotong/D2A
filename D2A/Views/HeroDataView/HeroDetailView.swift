@@ -97,12 +97,12 @@ struct HeroDetailView: View {
         VStack {
             buildAttributes(hero: hero)
             Divider()
-            buildStats(hero: hero)
-            Divider()
             if let roles = hero.roles?.allObjects as? [Role] {
                 buildRoles(roles: roles)
                 Divider()
             }
+            buildStats(hero: hero)
+            Divider()
             if let talents = hero.talents?.allObjects as? [Talent] {
                 buildTalent(talent: talents)
             }

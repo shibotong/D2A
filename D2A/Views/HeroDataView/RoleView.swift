@@ -12,7 +12,7 @@ struct RoleView: View {
     var level: Double
     var body: some View {
         VStack(alignment: .leading, spacing: 1) {
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.custom(fontString, size: 15))
             ProgressView(value: Float(level / 3.0))
                 .progressViewStyle(.linear)
