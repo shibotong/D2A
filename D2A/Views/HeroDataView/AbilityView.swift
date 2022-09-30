@@ -19,123 +19,134 @@ struct AbilityView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var vm: AbilityViewModel
 
-    init(ability: Ability, heroID: Int, abilityName: String) {
-        self.vm = AbilityViewModel(ability: ability, heroID: heroID, abilityName: abilityName)
+    init(heroID: Int, abilityName: String) {
+        self.vm = AbilityViewModel(heroID: heroID, abilityName: abilityName)
     }
 
     var body: some View {
-        GeometryReader { proxy in
-            ScrollView(.vertical, showsIndicators: false) {
-                HStack(alignment: .top, spacing: 10) {
-                    let parsedimgURL = vm.ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                    AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 70, cornerRadius: 20)
-                    VStack(alignment: .leading) {
-                        Text(vm.ability.dname ?? "")
-                            .font(.custom(fontString, size: 18))
-                            .bold()
-                        if let cd = vm.ability.coolDown {
-                            Text("Cooldown: \(cd.transformString())")
-                                .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
-                        }
-                        if let mc = vm.ability.manaCost {
-                            Text("Cost: \(mc.transformString())")
-                                .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
-                        }
-                    }
-                    Spacer()
-                }
-
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 100, maximum: 200), spacing: 5), count: 2),alignment: .leading, spacing: 5) {
-                    if let behavior = vm.ability.behavior {
-                        buildAttributesText(title: "ABILITY:", message: "\(behavior.transformString())")
-                    }
-                    if let targetTeam = vm.ability.targetTeam {
-                        buildAttributesText(title: "PIERCES SPELL:", message: "\(targetTeam.transformString())")
-                    }
-                    if let targetType = vm.ability.targetType {
-                        buildAttributesText(title: "AFFECTS:", message: "\(targetType.transformString())")
-                    }
-                    if let bkbPierce = vm.ability.bkbPierce {
-                        buildAttributesText(title: "IMMUNITY:", message: "\(bkbPierce.transformString())", color: bkbPierce.transformString() == "Yes" ? Color.green : Color(uiColor: UIColor.label))
-                    }
-                    if let dispellable = vm.ability.dispellable {
-                        let dispellableString = dispellable.transformString()
-                        if dispellableString == "" {
-                            buildAttributesText(title: "DISPELLABLE:", message: "Only Strong Dispels", color: .red)
-                        } else {
-                            buildAttributesText(title: "DISPELLABLE:", message: "\(dispellable.transformString())", color: dispellable.transformString() == "No" ? .red : Color(uiColor: UIColor.label))
+        if let openDotaAbility = vm.opentDotaAbility,
+           let stratzAbility = vm.stratzAbility {
+            GeometryReader { proxy in
+                ScrollView(.vertical, showsIndicators: false) {
+                    buildTitle(openDotaAbility: openDotaAbility,
+                               stratzAbility: stratzAbility)
+                    buildStats(ability: openDotaAbility)
+                    buildDescription(ability: openDotaAbility, proxy: proxy)
+                    Spacer().frame(height: 10)
+                    if let attributes = openDotaAbility.attributes {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 5) {
+                                ForEach(attributes, id: \.self) { item in
+                                    buildAttributesText(title: item.header ?? "", message: item.value?.transformString() ?? "")
+                                }
+                            }
+                            Spacer()
                         }
                     }
-                    if let damageType = vm.ability.damageType {
-                        buildAttributesText(title: "DAMAGE TYPE:", message: "\(damageType.transformString())", color: {
-                            if damageType.transformString() == "Magical" {
-                                return Color.blue
-                            } else if damageType.transformString() == "Physics" {
-                                return Color.red
-                            } else if damageType.transformString() == "Pure" {
-                                return Color.yellow
-                            } else {
-                                return Color(UIColor.label)
-                            }
-                        }())
+                    Spacer().frame(height: 10)
+                    if let lore = openDotaAbility.lore {
+                        Text(lore)
+                            .font(.custom(fontString, size: 10))
+                            .padding(8)
+                            .foregroundColor(Color(UIColor.tertiaryLabel))
+                            .background(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .foregroundColor(Color(UIColor.tertiarySystemBackground))
+                            )
                     }
                 }
-                Group {
-                    VStack {
-                        if dataBase.isScepterSkill(ability: vm.ability, heroID: vm.heroID) {
-                            if let scepterDesc = dataBase.getAbilityScepterDesc(ability: vm.ability, heroID: vm.heroID) {
-                                buildDescription(desc: scepterDesc, type: .Scepter, width: proxy.size.width)
-                            }
-                        } else if dataBase.isShardSkill(ability: vm.ability, heroID: vm.heroID) {
-                            if let shardDesc = dataBase.getAbilityShardDesc(ability: vm.ability, heroID: vm.heroID) {
-                                buildDescription(desc: shardDesc, type: .Shard, width: proxy.size.width)
-                            }
-                        } else {
-                            buildDescription(desc: vm.ability.desc ?? "", width: proxy.size.width)
-                            if let scepterDesc = dataBase.getAbilityScepterDesc(ability: vm.ability, heroID: vm.heroID) {
-                                buildDescription(desc: scepterDesc, type: .Scepter, width: proxy.size.width)
-                            }
-                            if let shardDesc = dataBase.getAbilityShardDesc(ability: vm.ability, heroID: vm.heroID) {
-                                buildDescription(desc: shardDesc, type: .Shard, width: proxy.size.width)
-                            }
-                        }
-                    }
-                }
-                Spacer().frame(height: 10)
-                if let attributes = vm.ability.attributes {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 5) {
-                            ForEach(attributes, id: \.self) { item in
-                                buildAttributesText(title: item.header ?? "", message: item.value?.transformString() ?? "")
-                            }
-                        }
-                        Spacer()
-                    }
-                }
-                Spacer().frame(height: 10)
-
-                if let lore = vm.ability.lore {
-                    Text(lore)
-                        .font(.custom(fontString, size: 10))
-                        .padding(8)
-                        .foregroundColor(Color(UIColor.tertiaryLabel))
-                        .background(
-                            RoundedRectangle(cornerRadius: 5)
-                                .foregroundColor(Color(UIColor.tertiarySystemBackground))
-                        )
-                }
-
             }
-
-
+            .padding(.horizontal)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                Button {
+                    self.presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                }
+            }
+        } else {
+            ProgressView()
         }
-        .padding(.horizontal)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            Button {
-                self.presentationMode.wrappedValue.dismiss()
-            } label: {
-                Image(systemName: "xmark.circle.fill")
+    }
+    
+    @ViewBuilder private func buildTitle(openDotaAbility: Ability, stratzAbility: AbilityQuery.Data.Constant.Ability) -> some View {
+        HStack(alignment: .top, spacing: 10) {
+            let parsedimgURL = openDotaAbility.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+            AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 70, cornerRadius: 20)
+            VStack(alignment: .leading) {
+                Text(stratzAbility.language?.displayName ?? "")
+                    .font(.custom(fontString, size: 18))
+                    .bold()
+                if let cd = openDotaAbility.coolDown {
+                    Text("Cooldown: \(cd.transformString())")
+                        .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
+                }
+                if let mc = openDotaAbility.manaCost {
+                    Text("Cost: \(mc.transformString())")
+                        .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
+                }
+            }
+            Spacer()
+        }
+    }
+    
+    @ViewBuilder private func buildStats(ability: Ability) -> some View {
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 100, maximum: 200), spacing: 5), count: 2),alignment: .leading, spacing: 5) {
+            if let behavior = ability.behavior {
+                buildAttributesText(title: "ABILITY:", message: "\(behavior.transformString())")
+            }
+            if let targetTeam = ability.targetTeam {
+                buildAttributesText(title: "PIERCES SPELL:", message: "\(targetTeam.transformString())")
+            }
+            if let targetType = ability.targetType {
+                buildAttributesText(title: "AFFECTS:", message: "\(targetType.transformString())")
+            }
+            if let bkbPierce = ability.bkbPierce {
+                buildAttributesText(title: "IMMUNITY:", message: "\(bkbPierce.transformString())", color: bkbPierce.transformString() == "Yes" ? Color.green : Color(uiColor: UIColor.label))
+            }
+            if let dispellable = ability.dispellable {
+                let dispellableString = dispellable.transformString()
+                if dispellableString == "" {
+                    buildAttributesText(title: "DISPELLABLE:", message: "Only Strong Dispels", color: .red)
+                } else {
+                    buildAttributesText(title: "DISPELLABLE:", message: "\(dispellable.transformString())", color: dispellable.transformString() == "No" ? .red : Color(uiColor: UIColor.label))
+                }
+            }
+            if let damageType = ability.damageType {
+                buildAttributesText(title: "DAMAGE TYPE:", message: "\(damageType.transformString())", color: {
+                    if damageType.transformString() == "Magical" {
+                        return Color.blue
+                    } else if damageType.transformString() == "Physics" {
+                        return Color.red
+                    } else if damageType.transformString() == "Pure" {
+                        return Color.yellow
+                    } else {
+                        return Color(UIColor.label)
+                    }
+                }())
+            }
+        }
+    }
+    
+    @ViewBuilder private func buildDescription(ability: Ability, proxy: GeometryProxy) -> some View {
+        VStack {
+            if dataBase.isScepterSkill(ability: ability, heroID: vm.heroID) {
+                if let scepterDesc = dataBase.getAbilityScepterDesc(ability: ability, heroID: vm.heroID) {
+                    buildDescription(desc: scepterDesc, type: .Scepter, width: proxy.size.width)
+                }
+            } else if dataBase.isShardSkill(ability: ability, heroID: vm.heroID) {
+                if let shardDesc = dataBase.getAbilityShardDesc(ability: ability, heroID: vm.heroID) {
+                    buildDescription(desc: shardDesc, type: .Shard, width: proxy.size.width)
+                }
+            } else {
+                buildDescription(desc: ability.desc ?? "", width: proxy.size.width)
+                if let scepterDesc = dataBase.getAbilityScepterDesc(ability: ability, heroID: vm.heroID) {
+                    buildDescription(desc: scepterDesc, type: .Scepter, width: proxy.size.width)
+                }
+                if let shardDesc = dataBase.getAbilityShardDesc(ability: ability, heroID: vm.heroID) {
+                    buildDescription(desc: shardDesc, type: .Shard, width: proxy.size.width)
+                }
             }
         }
     }

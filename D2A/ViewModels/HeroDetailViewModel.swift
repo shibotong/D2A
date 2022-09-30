@@ -22,7 +22,7 @@ class HeroDetailViewModel: ObservableObject {
     }
     
     func fetchAbility(name: String) -> Ability {
-        return database.fetchAbility(name: name)!
+        return database.fetchOpenDotaAbility(name: name)!
     }
     
     /// Load hero
