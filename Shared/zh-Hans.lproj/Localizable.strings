@@ -123,6 +123,16 @@
 "Defense" = "防御";
 "Mobility" = "机动性";
 "Talents" = "天赋";
+"Roles" = "定位";
+"Carry" = "核心";
+"Support" = "辅助";
+"Nuker" = "爆发";
+"Disabler" = "控制";
+"Jungler" = "打野";
+"Durable" = "耐久";
+"Escape" = "逃生";
+"Pusher" = "推进";
+"Initiator" = "先手";
 
 // MARK: - Game Text
 // MARK: Region
