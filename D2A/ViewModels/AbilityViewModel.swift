@@ -9,9 +9,10 @@ import Foundation
 import AVFoundation
 
 class AbilityViewModel: ObservableObject {
-    var ability: Ability
-    var heroID: Int
-    var abilityName: String
+    let heroID: Int
+    
+    @Published var stratzAbility: AbilityQuery.Data.Constant.Ability?
+    @Published var opentDotaAbility: Ability?
     
     @Published var scepterVideo: URL? = nil
     @Published var shardVideo: URL? = nil
@@ -19,19 +20,20 @@ class AbilityViewModel: ObservableObject {
     
     private var database = HeroDatabase.shared
     
-    init(ability: Ability, heroID: Int, abilityName: String) {
-        self.ability = ability
+    init(heroID: Int, abilityName: String) {
+        self.stratzAbility = database.fetchStratzAbility(name: abilityName)
+        self.opentDotaAbility = database.fetchOpenDotaAbility(name: abilityName)
+        
         self.heroID = heroID
-        self.abilityName = abilityName
         Task {
-            await buildDetailView()
+            await buildDetailView(name: abilityName)
         }
     }
     
-    private func buildDetailView() async {
-        let abilityVideo = self.getVideoURL(abilityName, type: .non)
-        let scepterVideo = self.getVideoURL(abilityName, type: .Scepter)
-        let shardVideo = self.getVideoURL(abilityName, type: .Shard)
+    private func buildDetailView(name: String) async {
+        let abilityVideo = self.getVideoURL(name, type: .non)
+        let scepterVideo = self.getVideoURL(name, type: .Scepter)
+        let shardVideo = self.getVideoURL(name, type: .Shard)
         await self.setVideoURL(ability: abilityVideo, scepter: scepterVideo, shard: shardVideo)
     }
     
@@ -43,7 +45,7 @@ class AbilityViewModel: ObservableObject {
     }
     
     private func getVideoURL(_ ability: String, type: ScepterType) -> URL? {
-        guard let heroName = database.heroes["\(heroID)"]?.name.replacingOccurrences(of: "npc_dota_hero_", with: "") else {
+        guard let heroName = try? database.fetchHeroWithID(id: heroID).name.replacingOccurrences(of: "npc_dota_hero_", with: "") else {
             return nil
         }
         let baseURL = "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/\(heroName)"
@@ -67,7 +69,7 @@ class AbilityViewModel: ObservableObject {
                 return nil
             }
         case .non:
-            guard let url = URL(string: "\(baseURL)/\(abilityName).mp4") else {
+            guard let url = URL(string: "\(baseURL)/\(ability).mp4") else {
                 return nil
             }
             if AVAsset(url: url).isPlayable {

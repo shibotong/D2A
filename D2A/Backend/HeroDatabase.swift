@@ -19,18 +19,18 @@ class HeroDatabase: ObservableObject {
     }
     
     @Published var status: LoadingStatus = .loading
-    var heroes = [String: HeroModel]()
-    var gameModes = [String: GameMode]()
-    var lobbyTypes = [String: LobbyType]()
-    var regions = [String: String]()
-    var items = [String: Item]()
-    var itemIDTable = [String: String]()
-    var abilityIDTable = [String: String]()
-    var abilities = [String: Ability]()
-    var heroAbilities = [String: HeroAbility]()
-    var talentData = [String: String]()
-    var scepterData = [HeroScepter]()
-    var apolloAbilities = [AbilityQuery.Data.Constant.Ability]()
+    private var heroes = [String: HeroModel]()
+    private var gameModes = [String: GameMode]()
+    private var lobbyTypes = [String: LobbyType]()
+    private var regions = [String: String]()
+    private var items = [String: Item]()
+    private var itemIDTable = [String: String]()
+    private var abilityIDTable = [String: String]()
+    private var abilities = [String: Ability]()
+    private var heroAbilities = [String: HeroAbility]()
+    private var talentData = [String: String]()
+    private var scepterData = [HeroScepter]()
+    private var apolloAbilities = [AbilityQuery.Data.Constant.Ability]()
     
     static var shared = HeroDatabase()
     static var preview: HeroDatabase {
@@ -76,8 +76,6 @@ class HeroDatabase: ObservableObject {
                 }
             }
         }
-        
-        
     }
 
     func fetchHeroWithID(id: Int) throws -> HeroModel {
@@ -123,8 +121,13 @@ class HeroDatabase: ObservableObject {
         return abilityName
     }
     
-    func fetchAbility(name: String) -> Ability? {
+    func fetchOpenDotaAbility(name: String) -> Ability? {
         return abilities[name]
+    }
+    
+    func fetchStratzAbility(name: String) -> AbilityQuery.Data.Constant.Ability? {
+        let ability = apolloAbilities.first { $0.name == name }
+        return ability
     }
     
     func fetchHeroAbility(name: String) -> [String] {
