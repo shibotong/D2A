@@ -15,7 +15,6 @@ struct HeroDetailView: View {
     
     var body: some View {
         mainBody
-            .navigationTitle(vm.heroModel.heroNameLocalized)
             .navigationBarTitleDisplayMode(.inline)
             .sheet(item: $vm.selectedAbility) { ability in
                 NavigationView {
@@ -32,11 +31,11 @@ struct HeroDetailView: View {
             if let hero = vm.hero {
                 ScrollView {
                     buildTitle(hero: hero)
-                    buildSkills()
+                    buildSkills(hero: hero)
                         .padding(.horizontal, 5)
                     Divider()
                     buildHeroDetails(hero: hero)
-                }
+                }.navigationTitle(hero.heroNameLocalized)
             } else {
                 ProgressView()
             }
@@ -70,25 +69,27 @@ struct HeroDetailView: View {
             }.padding(.leading))
     }
     
-    @ViewBuilder private func buildSkills() -> some View {
+    @ViewBuilder private func buildSkills(hero: Hero) -> some View {
         let skillFrame: CGFloat = 30
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(vm.heroAbility.abilities.filter { ability in
-                    let containHidden = ability.contains("hidden")
-                    let containEmpty = ability.contains("empty")
-                    return !containHidden && !containEmpty
-                }, id: \.self) { abilityName in
-                    let ability = vm.fetchAbility(name: abilityName)
-                    let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                    Button {
-                        self.vm.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroID: vm.heroID, abilityName: abilityName)
-                    } label: {
-                        AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
+        if let abilities = hero.abilities as? [String] {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(abilities.filter { ability in
+                        let containHidden = ability.contains("hidden")
+                        let containEmpty = ability.contains("empty")
+                        return !containHidden && !containEmpty
+                    }, id: \.self) { abilityName in
+                        let ability = vm.fetchAbility(name: abilityName)
+                        let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+                        Button {
+                            self.vm.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroID: vm.heroID, abilityName: abilityName)
+                        } label: {
+                            AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
+                        }
                     }
                 }
+                .padding(10)
             }
-            .padding(10)
         }
     }
     
@@ -351,14 +352,6 @@ struct HeroDetailView: View {
             .frame(height: 10)
             .foregroundColor(color)
             .clipShape(Capsule())
-        }
-    }
-}
-
-struct HeroDetailView_Preview: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            HeroDetailView(vm: HeroDetailViewModel.preview)
         }
     }
 }

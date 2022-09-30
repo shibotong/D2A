@@ -15,7 +15,7 @@ extension Hero {
     }
     
     // MARK: - Static func
-    static func createHero(_ queryHero: HeroQuery.Data.Constant.Hero, model: HeroModel? = nil) throws -> Hero {
+    static func createHero(_ queryHero: HeroQuery.Data.Constant.Hero, model: HeroModel, abilities: [String] = []) throws -> Hero {
         let viewContext = PersistenceController.shared.container.viewContext
         
         guard let heroID = queryHero.id,
@@ -24,39 +24,43 @@ extension Hero {
             throw Hero.CoreDataError.decodingError
         }
         let hero = Self.fetchHero(id: heroID) ?? Hero(context: viewContext)
+        
+        // data from Stratz
         hero.lastFetch = Date()
         hero.id = heroID
         hero.displayName = queryHero.displayName
         hero.name = queryHero.name
         hero.roles = NSSet(array: try heroRoles.map({ return try Role.createRole($0) }))
         hero.talents = NSSet(array: try heroTalents.map({ return try HeroTalentType.createTalent($0) }))
-        if let model = model {
-            hero.primaryAttr = model.primaryAttr
-            hero.attackType = model.attackType
-            hero.img = model.img
-            hero.icon = model.icon
-            
-            hero.baseHealth = model.baseHealth
-            hero.baseHealthRegen = model.baseHealthRegen
-            hero.baseMana = model.baseMana
-            hero.baseManaRegen = model.baseManaRegen
-            hero.baseArmor = model.baseArmor
-            hero.baseMr = model.baseMr
-            hero.baseAttackMin = model.baseAttackMin
-            
-            hero.baseStr = model.baseStr
-            hero.baseAgi = model.baseAgi
-            hero.baseInt = model.baseInt
-            hero.gainStr = model.strGain
-            hero.gainAgi = model.agiGain
-            hero.gainInt = model.intGain
-            
-            hero.attackRange = model.attackRange
-            hero.projectileSpeed = model.projectileSpeed
-            hero.attackRate = model.attackRate
-            hero.moveSpeed = model.moveSpeed
-            hero.turnRate = model.turnRate ?? 0.6
-        }
+        
+        // data from OpenDota
+        hero.abilities = abilities as NSObject
+        hero.primaryAttr = model.primaryAttr
+        hero.attackType = model.attackType
+        hero.img = model.img
+        hero.icon = model.icon
+        
+        hero.baseHealth = model.baseHealth
+        hero.baseHealthRegen = model.baseHealthRegen
+        hero.baseMana = model.baseMana
+        hero.baseManaRegen = model.baseManaRegen
+        hero.baseArmor = model.baseArmor
+        hero.baseMr = model.baseMr
+        hero.baseAttackMin = model.baseAttackMin
+        
+        hero.baseStr = model.baseStr
+        hero.baseAgi = model.baseAgi
+        hero.baseInt = model.baseInt
+        hero.gainStr = model.strGain
+        hero.gainAgi = model.agiGain
+        hero.gainInt = model.intGain
+        
+        hero.attackRange = model.attackRange
+        hero.projectileSpeed = model.projectileSpeed
+        hero.attackRate = model.attackRate
+        hero.moveSpeed = model.moveSpeed
+        hero.turnRate = model.turnRate ?? 0.6
+        
         do {
             try viewContext.save()
         } catch {
@@ -89,6 +93,14 @@ extension Hero {
     static let intManaRegen = 0.05
     
     // MARK: - Variables
+    var heroNameLowerCase: String {
+        return self.name?.replacingOccurrences(of: "npc_dota_hero_", with: "") ?? "no_name"
+    }
+
+    var heroNameLocalized: String {
+        return NSLocalizedString(self.displayName ?? "no_name", comment: "")
+    }
+    
     var calculateHP: Int32 {
         let hp = self.baseHealth + self.baseStr * HeroModel.strMaxHP
         return hp

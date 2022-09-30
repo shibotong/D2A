@@ -54,7 +54,7 @@ struct HeroImageView: View {
     }
     
     private func computeURL() -> URL? {
-        guard let hero = heroData.fetchHeroWithID(id: heroID) else {
+        guard let hero = try? heroData.fetchHeroWithID(id: heroID) else {
             return nil
         }
         switch self.type {
