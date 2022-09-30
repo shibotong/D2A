@@ -38,8 +38,8 @@ struct MatchListRowView: View {
             HStack {
                 Spacer()
                 VStack(alignment: .trailing) {
-                    Text(LocalizedStringKey(vm.match.fetchLobby().fetchLobbyName()))
-                        .foregroundColor(vm.match.fetchLobby().fetchLobbyName() == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
+                    Text(LocalizedStringKey(vm.match.fetchLobby().lobbyName))
+                        .foregroundColor(vm.match.fetchLobby().lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
                     Text(vm.match.startTime.convertToTime()).bold()
                 }
             }

@@ -81,8 +81,8 @@ struct LatestMatchWidgetEntryView: View {
             HStack {
                 Spacer()
                 VStack(alignment: .trailing) {
-                    Text(LocalizedStringKey(match.fetchLobby().fetchLobbyName()))
-                        .foregroundColor(match.fetchLobby().fetchLobbyName() == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
+                    Text(LocalizedStringKey(match.fetchLobby().lobbyName))
+                        .foregroundColor(match.fetchLobby().lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
                     Text(match.startTime.convertToTime()).bold()
                 }
             }
@@ -137,9 +137,9 @@ struct LatestMatchWidgetEntryView: View {
                     }
                     HStack(spacing: 2) {
                         buildWL(win: match.isPlayerWin(), size: 15)
-                        Text(LocalizedStringKey(match.fetchLobby().fetchLobbyName()))
+                        Text(LocalizedStringKey(match.fetchLobby().lobbyName))
                             .font(.caption)
-                            .foregroundColor(match.fetchLobby().fetchLobbyName() == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
+                            .foregroundColor(match.fetchLobby().lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
                         Text(match.startTime.convertToTime()).font(.caption)
                             .foregroundColor(.secondaryLabel)
                     }
