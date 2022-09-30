@@ -31,7 +31,7 @@ extension Hero {
         hero.displayName = queryHero.displayName
         hero.name = queryHero.name
         hero.roles = NSSet(array: try heroRoles.map({ return try Role.createRole($0) }))
-        hero.talents = NSSet(array: try heroTalents.map({ return try HeroTalentType.createTalent($0) }))
+        hero.talents = NSSet(array: try heroTalents.map({ return try Talent.createTalent($0) }))
         
         // data from OpenDota
         hero.abilities = abilities

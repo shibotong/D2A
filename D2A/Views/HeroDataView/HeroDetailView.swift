@@ -60,7 +60,7 @@ struct HeroDetailView: View {
                             .font(.custom(fontString, size: 30))
                             .bold()
                             .foregroundColor(.white)
-                        Text("\(hero.id.description)")
+                        Text("\(Int(hero.id))")
                             .font(.caption2)
                             .foregroundColor(.white.opacity(0.5))
                     }
@@ -103,13 +103,13 @@ struct HeroDetailView: View {
                 buildRoles(roles: roles)
                 Divider()
             }
-            if let talents = hero.talents?.allObjects as? [HeroTalentType] {
+            if let talents = hero.talents?.allObjects as? [Talent] {
                 buildTalent(talent: talents)
             }
         }
     }
     
-    @ViewBuilder private func buildTalent(talent: [HeroTalentType]) -> some View {
+    @ViewBuilder private func buildTalent(talent: [Talent]) -> some View {
         VStack {
             HStack {
                 Text("Talents")
@@ -127,7 +127,7 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildLevelTalent(talent: [HeroTalentType], level: Int) -> some View {
+    @ViewBuilder private func buildLevelTalent(talent: [Talent], level: Int) -> some View {
         GeometryReader { proxy in
             HStack(spacing: 5) {
                 if let leftSideTalent = talent.first { $0.slot == level * 2 - 1 },
