@@ -42,7 +42,11 @@ class HeroDetailViewModel: ObservableObject {
                 if let hero = graphQLResult.data?.constants?.hero {
                     do {
                         let model = try self.database.fetchHeroWithID(id: self.heroID)
-                        let abilities = self.database.fetchHeroAbility(name: model.name)
+                        let abilities = self.database
+                            .fetchHeroAbility(name: model.name)
+                            .filter { ability in
+                            return !ability.contains("hidden") && !ability.contains("empty")
+                        }
                         let newHero = try Hero.createHero(hero, model: model, abilities: abilities)
                         DispatchQueue.main.async {
                             self.hero = newHero
