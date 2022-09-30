@@ -169,6 +169,81 @@ public enum Language: RawRepresentable, Equatable, Hashable, CaseIterable, Apoll
   }
 }
 
+public enum HeroRoleEnum: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
+  case carry
+  case escape
+  case nuker
+  case initiator
+  case durable
+  case disabler
+  case jungler
+  case support
+  case pusher
+  /// Auto generated constant for unknown enum values
+  case __unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "CARRY": self = .carry
+      case "ESCAPE": self = .escape
+      case "NUKER": self = .nuker
+      case "INITIATOR": self = .initiator
+      case "DURABLE": self = .durable
+      case "DISABLER": self = .disabler
+      case "JUNGLER": self = .jungler
+      case "SUPPORT": self = .support
+      case "PUSHER": self = .pusher
+      default: self = .__unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .carry: return "CARRY"
+      case .escape: return "ESCAPE"
+      case .nuker: return "NUKER"
+      case .initiator: return "INITIATOR"
+      case .durable: return "DURABLE"
+      case .disabler: return "DISABLER"
+      case .jungler: return "JUNGLER"
+      case .support: return "SUPPORT"
+      case .pusher: return "PUSHER"
+      case .__unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: HeroRoleEnum, rhs: HeroRoleEnum) -> Bool {
+    switch (lhs, rhs) {
+      case (.carry, .carry): return true
+      case (.escape, .escape): return true
+      case (.nuker, .nuker): return true
+      case (.initiator, .initiator): return true
+      case (.durable, .durable): return true
+      case (.disabler, .disabler): return true
+      case (.jungler, .jungler): return true
+      case (.support, .support): return true
+      case (.pusher, .pusher): return true
+      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+
+  public static var allCases: [HeroRoleEnum] {
+    return [
+      .carry,
+      .escape,
+      .nuker,
+      .initiator,
+      .durable,
+      .disabler,
+      .jungler,
+      .support,
+      .pusher,
+    ]
+  }
+}
+
 public final class AbilityQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
@@ -368,6 +443,16 @@ public final class HeroQuery: GraphQLQuery {
         __typename
         hero(id: $id) {
           __typename
+          id
+          name
+          displayName
+          shortName
+          aliases
+          roles {
+            __typename
+            roleId
+            level
+          }
           talents {
             __typename
             abilityId
@@ -463,6 +548,12 @@ public final class HeroQuery: GraphQLQuery {
         public static var selections: [GraphQLSelection] {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("id", type: .scalar(Short.self)),
+            GraphQLField("name", type: .scalar(String.self)),
+            GraphQLField("displayName", type: .scalar(String.self)),
+            GraphQLField("shortName", type: .scalar(String.self)),
+            GraphQLField("aliases", type: .list(.scalar(String.self))),
+            GraphQLField("roles", type: .list(.object(Role.selections))),
             GraphQLField("talents", type: .list(.object(Talent.selections))),
           ]
         }
@@ -473,8 +564,8 @@ public final class HeroQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(talents: [Talent?]? = nil) {
-          self.init(unsafeResultMap: ["__typename": "HeroType", "talents": talents.flatMap { (value: [Talent?]) -> [ResultMap?] in value.map { (value: Talent?) -> ResultMap? in value.flatMap { (value: Talent) -> ResultMap in value.resultMap } } }])
+        public init(id: Short? = nil, name: String? = nil, displayName: String? = nil, shortName: String? = nil, aliases: [String?]? = nil, roles: [Role?]? = nil, talents: [Talent?]? = nil) {
+          self.init(unsafeResultMap: ["__typename": "HeroType", "id": id, "name": name, "displayName": displayName, "shortName": shortName, "aliases": aliases, "roles": roles.flatMap { (value: [Role?]) -> [ResultMap?] in value.map { (value: Role?) -> ResultMap? in value.flatMap { (value: Role) -> ResultMap in value.resultMap } } }, "talents": talents.flatMap { (value: [Talent?]) -> [ResultMap?] in value.map { (value: Talent?) -> ResultMap? in value.flatMap { (value: Talent) -> ResultMap in value.resultMap } } }])
         }
 
         public var __typename: String {
@@ -486,12 +577,115 @@ public final class HeroQuery: GraphQLQuery {
           }
         }
 
+        public var id: Short? {
+          get {
+            return resultMap["id"] as? Short
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var name: String? {
+          get {
+            return resultMap["name"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+
+        public var displayName: String? {
+          get {
+            return resultMap["displayName"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "displayName")
+          }
+        }
+
+        public var shortName: String? {
+          get {
+            return resultMap["shortName"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "shortName")
+          }
+        }
+
+        public var aliases: [String?]? {
+          get {
+            return resultMap["aliases"] as? [String?]
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "aliases")
+          }
+        }
+
+        public var roles: [Role?]? {
+          get {
+            return (resultMap["roles"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Role?] in value.map { (value: ResultMap?) -> Role? in value.flatMap { (value: ResultMap) -> Role in Role(unsafeResultMap: value) } } }
+          }
+          set {
+            resultMap.updateValue(newValue.flatMap { (value: [Role?]) -> [ResultMap?] in value.map { (value: Role?) -> ResultMap? in value.flatMap { (value: Role) -> ResultMap in value.resultMap } } }, forKey: "roles")
+          }
+        }
+
         public var talents: [Talent?]? {
           get {
             return (resultMap["talents"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Talent?] in value.map { (value: ResultMap?) -> Talent? in value.flatMap { (value: ResultMap) -> Talent in Talent(unsafeResultMap: value) } } }
           }
           set {
             resultMap.updateValue(newValue.flatMap { (value: [Talent?]) -> [ResultMap?] in value.map { (value: Talent?) -> ResultMap? in value.flatMap { (value: Talent) -> ResultMap in value.resultMap } } }, forKey: "talents")
+          }
+        }
+
+        public struct Role: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["HeroRoleType"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("roleId", type: .scalar(HeroRoleEnum.self)),
+              GraphQLField("level", type: .scalar(Short.self)),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(roleId: HeroRoleEnum? = nil, level: Short? = nil) {
+            self.init(unsafeResultMap: ["__typename": "HeroRoleType", "roleId": roleId, "level": level])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var roleId: HeroRoleEnum? {
+            get {
+              return resultMap["roleId"] as? HeroRoleEnum
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "roleId")
+            }
+          }
+
+          public var level: Short? {
+            get {
+              return resultMap["level"] as? Short
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "level")
+            }
           }
         }
 

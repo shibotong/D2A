@@ -26,9 +26,9 @@ enum HeroAttributes: String {
 }
 
 class HeroListViewModel: ObservableObject {
-    let heroList: [Hero]
+    let heroList: [HeroModel]
     
-    @Published var searchResults: [Hero]
+    @Published var searchResults: [HeroModel]
     
     @Published var searchString: String = ""
     @Published var gridView = true

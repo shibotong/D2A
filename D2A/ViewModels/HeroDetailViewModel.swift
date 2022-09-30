@@ -7,9 +7,11 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class HeroDetailViewModel: ObservableObject {
-    @Published var hero: Hero
+    let heroModel: HeroModel
+    @Published var hero: Hero?
     @Published var heroAbility: HeroAbility
     @Published var selectedAbility: AbilityContainer?
     @Published var talents = [HeroQuery.Data.Constant.Hero.Talent]()
@@ -22,13 +24,13 @@ class HeroDetailViewModel: ObservableObject {
     init(heroID: Int) {
         self.heroID = heroID
         let hero = database.fetchHeroWithID(id: heroID)!
-        self.hero = hero
+        self.heroModel = hero
         self.heroAbility = database.fetchHeroAbility(name: hero.name)!
     }
     
     init() {
         self.heroID = 1
-        self.hero = Hero.sample
+        self.heroModel = HeroModel.sample
         self.heroAbility = HeroAbility.sample
     }
     
@@ -36,16 +38,30 @@ class HeroDetailViewModel: ObservableObject {
         return database.fetchAbility(name: name)!
     }
     
-    func fetchAbilities() {
-        Network.shared.apollo.fetch(query: HeroQuery(id: Double(heroID))) { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            
+    /// Load hero
+    func loadHero() {
+        hero = Hero.fetchHero(id: Double(heroID))
+        if let lastFetch = hero?.lastFetch, lastFetch.startOfDay == Date().startOfDay {
+            // if hero exist and already fetched today, dont download hero
+            return
+        }
+        downloadHero()
+    }
+    
+    /// Download hero from API
+    func downloadHero() {
+        Network.shared.apollo.fetch(query: HeroQuery(id: Double(heroID))) { result in
             switch result {
             case .success(let graphQLResult):
-                if let hero = graphQLResult.data?.constants?.hero, let talents = hero.talents?.compactMap({ $0 }) {
-                    self.talents = talents
+                if let hero = graphQLResult.data?.constants?.hero {
+                    do {
+                        let newHero = try Hero.createHero(hero, model: self.heroModel)
+                        DispatchQueue.main.async {
+                            self.hero = newHero
+                        }
+                    } catch {
+                        print("creating hero error")
+                    }
                 }
                 
                 if let errors = graphQLResult.errors {
