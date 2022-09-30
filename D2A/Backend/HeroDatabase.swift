@@ -14,7 +14,7 @@ enum LoadingStatus {
 
 class HeroDatabase: ObservableObject {
     @Published var status: LoadingStatus = .loading
-    var heroes = [String: Hero]()
+    var heroes = [String: HeroModel]()
     var gameModes = [String: GameMode]()
     var lobbyTypes = [String: LobbyType]()
     var regions = [String: String]()
@@ -75,7 +75,7 @@ class HeroDatabase: ObservableObject {
         
     }
 
-    func fetchHeroWithID(id: Int) -> Hero? {
+    func fetchHeroWithID(id: Int) -> HeroModel? {
         return heroes["\(id)"]
     }
     
@@ -123,8 +123,8 @@ class HeroDatabase: ObservableObject {
         return heroAbilities[name]
     }
     
-    func fetchAllHeroes() -> [Hero] {
-        var sortedHeroes = [Hero]()
+    func fetchAllHeroes() -> [HeroModel] {
+        var sortedHeroes = [HeroModel]()
         for i in 1..<150 {
             if let hero = heroes["\(i)"] {
                 sortedHeroes.append(hero)
@@ -137,7 +137,7 @@ class HeroDatabase: ObservableObject {
         return sortedHeroes
     }
     
-    func fetchSearchedHeroes(text: String) -> [Hero] {
+    func fetchSearchedHeroes(text: String) -> [HeroModel] {
         return []
     }
     

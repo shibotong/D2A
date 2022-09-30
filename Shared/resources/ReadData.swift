@@ -87,14 +87,14 @@ func loadScepter() async -> [HeroScepter] {
     }
 }
 
-func loadHeroes() async -> [String: Hero] {
+func loadHeroes() async -> [String: HeroModel] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/heroes.json"
     if let url = URL(string: urlString) {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             
             let decoder = JSONDecoder()
-            let jsonData = try decoder.decode([String: Hero].self, from: data)
+            let jsonData = try decoder.decode([String: HeroModel].self, from: data)
             return jsonData
         } catch {
             print(error.localizedDescription)
@@ -141,14 +141,14 @@ func loadProfile() -> UserProfile? {
     }
 }
 
-func loadSampleHero() -> Hero? {
+func loadSampleHero() -> HeroModel? {
     guard let data = loadFile(filename: "sampleHero") else {
         return nil
     }
     
     do {
         let decoder = JSONDecoder()
-        let jsonData = try decoder.decode(Hero.self, from: data)
+        let jsonData = try decoder.decode(HeroModel.self, from: data)
         return jsonData
     } catch {
         print("Cannot parse json data")

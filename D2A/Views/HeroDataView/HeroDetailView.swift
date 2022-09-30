@@ -14,44 +14,50 @@ struct HeroDetailView: View {
     @State var heroLevel = 1.00
     
     var body: some View {
-        ScrollView {
-            buildTitle(hero: vm.hero)
-            buildSkills()
-                .padding(.horizontal, 5)
-            Divider()
-            buildHeroDetail()
-            Spacer()
-        }
-        .navigationTitle(vm.hero.heroNameLocalized)
-        .navigationBarTitleDisplayMode(.inline)
-        .sheet(item: $vm.selectedAbility) { ability in
-            NavigationView {
-                AbilityView(ability: ability.ability, heroID: vm.heroID, abilityName: ability.abilityName)
-                
+        mainBody
+            .navigationTitle(vm.heroModel.heroNameLocalized)
+            .navigationBarTitleDisplayMode(.inline)
+            .sheet(item: $vm.selectedAbility) { ability in
+                NavigationView {
+                    AbilityView(ability: ability.ability, heroID: vm.heroID, abilityName: ability.abilityName)
+                }
+            }
+            .task {
+                vm.loadHero()
+            }
+    }
+    
+    private var mainBody: some View {
+        ZStack {
+            if let hero = vm.hero {
+                ScrollView {
+                    buildTitle(hero: hero)
+                    buildSkills()
+                        .padding(.horizontal, 5)
+                    Divider()
+                    buildHeroDetails(hero: hero)
+                }
+            } else {
+                ProgressView()
             }
         }
-        .task {
-            vm.fetchAbilities()
-        }
     }
-    
-    @ViewBuilder private func buildHeader() -> some View {
-        buildTitle(hero: vm.hero)
-        buildSkills()
-            .padding(.horizontal, 5)
-    }
-    
+
     @ViewBuilder private func buildTitle(hero: Hero) -> some View {
-        HeroImageView(heroID: hero.id, type: .full)
-            .overlay(LinearGradient(colors: [Color(.black).opacity(0), Color(.black).opacity(1)], startPoint: .top, endPoint: .bottom))
+        HeroImageView(heroID: Int(hero.id), type: .full)
+            .overlay(
+                LinearGradient(colors: [Color(.black).opacity(0),
+                                        Color(.black).opacity(1)],
+                               startPoint: .top,
+                               endPoint: .bottom))
             .overlay(HStack {
                 VStack(alignment: .leading, spacing: 3) {
                     Spacer()
                     HStack {
-                        Image("hero_\(hero.primaryAttr)")
+                        Image("hero_\(String(describing: hero.primaryAttr))")
                             .resizable()
                             .frame(width: 25, height: 25)
-                        Text(LocalizedStringKey(hero.localizedName))
+                        Text(LocalizedStringKey(hero.displayName ?? ""))
                             .font(.custom(fontString, size: 30))
                             .bold()
                             .foregroundColor(.white)
@@ -86,7 +92,23 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildTalent(talent: [HeroQuery.Data.Constant.Hero.Talent]) -> some View {
+    @ViewBuilder private func buildHeroDetails(hero: Hero) -> some View {
+        VStack {
+            buildAttributes(hero: hero)
+            Divider()
+            buildStats(hero: hero)
+            Divider()
+            if let roles = hero.roles?.allObjects as? [Role] {
+                buildRoles(roles: roles)
+                Divider()
+            }
+            if let talents = hero.talents?.allObjects as? [HeroTalentType] {
+                buildTalent(talent: talents)
+            }
+        }
+    }
+    
+    @ViewBuilder private func buildTalent(talent: [HeroTalentType]) -> some View {
         VStack {
             HStack {
                 Text("Talents")
@@ -104,7 +126,7 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildLevelTalent(talent: [HeroQuery.Data.Constant.Hero.Talent], level: Int) -> some View {
+    @ViewBuilder private func buildLevelTalent(talent: [HeroTalentType], level: Int) -> some View {
         GeometryReader { proxy in
             HStack(spacing: 5) {
                 if let leftSideTalent = talent.first { $0.slot == level * 2 - 1 },
@@ -135,14 +157,45 @@ struct HeroDetailView: View {
         .padding(.horizontal)
     }
     
-    @ViewBuilder private func buildHeroDetail() -> some View {
-        buildAttributes(hero: vm.hero)
-        Divider()
-        buildStats(hero: vm.hero)
-        Divider()
-        if vm.talents.count != 0 {
-            buildTalent(talent: vm.talents)
+    @ViewBuilder private func buildRoles(roles: [Role]) -> some View {
+        VStack {
+            HStack {
+                Text("Roles")
+                    .font(.custom(fontString, size: 15))
+                    .bold()
+                Spacer()
+            }.padding(.leading)
+            GeometryReader { proxy in
+                let horizontalSpacing: CGFloat = 32
+                let verticalSpacing: CGFloat = 8
+                let width = (proxy.size.width - horizontalSpacing * 4) / 3
+                HStack(spacing: horizontalSpacing) {
+                    VStack(alignment: .leading, spacing: verticalSpacing) {
+                        buildRole(role: "Carry", roles: roles)
+                        buildRole(role: "Disabler", roles: roles)
+                        buildRole(role: "Escape", roles: roles)
+                    }.frame(width: width)
+                    VStack(alignment: .leading, spacing: verticalSpacing) {
+                        buildRole(role: "Support", roles: roles)
+                        buildRole(role: "Jungler", roles: roles)
+                        buildRole(role: "Pusher", roles: roles)
+                    }.frame(width: width)
+                    VStack(alignment: .leading, spacing: verticalSpacing) {
+                        buildRole(role: "Nuker", roles: roles)
+                        buildRole(role: "Durable", roles: roles)
+                        buildRole(role: "Initiator", roles: roles)
+                    }.frame(width: width)
+                }
+                .padding(.horizontal, horizontalSpacing)
+            }
+            .frame(height: 120)
         }
+    }
+    
+    
+    @ViewBuilder private func buildRole(role: String, roles: [Role]) -> some View {
+        let filterdRole = roles.first { $0.roleId == role.uppercased() }
+        RoleView(title: role, level: filterdRole?.level ?? 0.0)
     }
     
     @ViewBuilder private func buildStats(hero: Hero) -> some View {
@@ -175,7 +228,7 @@ struct HeroDetailView: View {
                     Text("Mobility")
                         .font(.custom(fontString, size: 15))
                     buildStatDetail(image: "icon_movement_speed", value: "\(hero.moveSpeed)")
-                    buildStatDetail(image: "icon_turn_rate", value: "\(hero.turnRate ?? 0.6)")
+                    buildStatDetail(image: "icon_turn_rate", value: "\(hero.turnRate)")
                     buildStatDetail(image: "icon_vision", value: "\(hero.id == 42 ? "800/1800" : "1800/800")")
                 }
                 Spacer()
@@ -190,7 +243,6 @@ struct HeroDetailView: View {
                 .resizable()
                 .frame(width: 15, height: 15)
                 .foregroundColor(Color(uiColor: UIColor.label))
-            
             Text(value)
                 .font(.custom(fontString, size: 15))
         }
@@ -250,7 +302,7 @@ struct HeroDetailView: View {
                     Text("\(hero.baseStr)")
                         .font(.custom(fontString, size: 18))
                         .bold()
-                    Text("+ \(hero.strGain, specifier: "%.1f")")
+                    Text("+ \(hero.gainStr, specifier: "%.1f")")
                         .font(.custom(fontString, size: 13))
                 }
                 Spacer()
@@ -261,7 +313,7 @@ struct HeroDetailView: View {
                     Text("\(hero.baseAgi)")
                         .font(.custom(fontString, size: 18))
                         .bold()
-                    Text("+ \(hero.agiGain, specifier: "%.1f")")
+                    Text("+ \(hero.gainAgi, specifier: "%.1f")")
                         .font(.custom(fontString, size: 13))
                 }
                 Spacer()
@@ -272,7 +324,7 @@ struct HeroDetailView: View {
                     Text("\(hero.baseInt)")
                         .font(.custom(fontString, size: 18))
                         .bold()
-                    Text("+ \(hero.intGain, specifier: "%.1f")")
+                    Text("+ \(hero.gainInt, specifier: "%.1f")")
                         .font(.custom(fontString, size: 13))
                 }
                 Spacer()

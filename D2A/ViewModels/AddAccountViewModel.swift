@@ -12,9 +12,9 @@ class AddAccountViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var searched = false
     @Published var userProfiles: [UserProfile] = []
-    @Published var searchedHeroes: [Hero] = []
+    @Published var searchedHeroes: [HeroModel] = []
     @Published var searchedMatch: Match? = nil
-    @Published var filterHeroes: [Hero] = []
+    @Published var filterHeroes: [HeroModel] = []
     
     @Published var isLoading: Bool = false
     @Published var localProfiles: [UserProfile] = []
