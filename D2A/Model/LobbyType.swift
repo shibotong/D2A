@@ -10,8 +10,7 @@ import Foundation
 struct LobbyType: Codable {
     var id: Int
     var name: String
-    
-    func fetchLobbyName() -> String {
+    var lobbyName: String {
         switch self.id {
         case 0:
             return "Normal"
