@@ -31,20 +31,29 @@ struct AbilityView: View {
                     buildTitle(openDotaAbility: openDotaAbility,
                                stratzAbility: stratzAbility)
                     buildStats(ability: openDotaAbility)
-                    buildDescription(ability: openDotaAbility, proxy: proxy)
+                    buildDescription(ability: openDotaAbility,
+                                     stratz: stratzAbility,
+                                     proxy: proxy)
                     Spacer().frame(height: 10)
-                    if let attributes = openDotaAbility.attributes {
+                    if let attributes = stratzAbility.language?.attributes?.compactMap({$0}) {
                         HStack {
                             VStack(alignment: .leading, spacing: 5) {
                                 ForEach(attributes, id: \.self) { item in
-                                    buildAttributesText(title: item.header ?? "", message: item.value?.transformString() ?? "")
+                                    let splits = item.split(separator: colonLocalize)
+                                    if splits.count == 2 {
+                                        let header = String(splits.first ?? "")
+                                        let message = String(splits.last ?? "")
+                                        self.buildAttributesText(title: "\(header):", message: message)
+                                    } else {
+                                        self.buildAttributesText(title: item, message: "")
+                                    }
                                 }
                             }
                             Spacer()
                         }
                     }
                     Spacer().frame(height: 10)
-                    if let lore = openDotaAbility.lore {
+                    if let lore = stratzAbility.language?.lore {
                         Text(lore)
                             .font(.custom(fontString, size: 10))
                             .padding(8)
@@ -129,22 +138,28 @@ struct AbilityView: View {
         }
     }
     
-    @ViewBuilder private func buildDescription(ability: Ability, proxy: GeometryProxy) -> some View {
+    @ViewBuilder private func buildDescription(ability: Ability,
+                                               stratz: AbilityQuery.Data.Constant.Ability,
+                                               proxy: GeometryProxy) -> some View {
         VStack {
             if dataBase.isScepterSkill(ability: ability, heroID: vm.heroID) {
-                if let scepterDesc = dataBase.getAbilityScepterDesc(ability: ability, heroID: vm.heroID) {
+                if let scepterDesc = stratz.language?.aghanimDescription {
                     buildDescription(desc: scepterDesc, type: .Scepter, width: proxy.size.width)
                 }
             } else if dataBase.isShardSkill(ability: ability, heroID: vm.heroID) {
-                if let shardDesc = dataBase.getAbilityShardDesc(ability: ability, heroID: vm.heroID) {
+                if let shardDesc = stratz.language?.shardDescription {
                     buildDescription(desc: shardDesc, type: .Shard, width: proxy.size.width)
                 }
             } else {
-                buildDescription(desc: ability.desc ?? "", width: proxy.size.width)
-                if let scepterDesc = dataBase.getAbilityScepterDesc(ability: ability, heroID: vm.heroID) {
+                if let descriptions = stratz.language?.description?.compactMap({$0}) {
+                    ForEach(descriptions, id: \.self) { description in
+                        buildDescription(desc: description, width: proxy.size.width)
+                    }
+                }
+                if let scepterDesc = stratz.language?.aghanimDescription {
                     buildDescription(desc: scepterDesc, type: .Scepter, width: proxy.size.width)
                 }
-                if let shardDesc = dataBase.getAbilityShardDesc(ability: ability, heroID: vm.heroID) {
+                if let shardDesc = stratz.language?.shardDescription {
                     buildDescription(desc: shardDesc, type: .Shard, width: proxy.size.width)
                 }
             }
