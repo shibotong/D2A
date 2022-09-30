@@ -11,7 +11,7 @@ import CoreData
 
 class HeroDetailViewModel: ObservableObject {
     @Published var hero: Hero?
-    @Published var selectedAbility: AbilityContainer?
+    @Published var selectedAbility: String?
     
     let heroID: Int
     private var database: HeroDatabase = HeroDatabase.shared

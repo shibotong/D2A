@@ -16,12 +16,8 @@ enum ScepterType: String {
 
 struct AbilityView: View {
     @EnvironmentObject var dataBase: HeroDatabase
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @ObservedObject var vm: AbilityViewModel
-
-    init(heroID: Int, abilityName: String) {
-        self.vm = AbilityViewModel(heroID: heroID, abilityName: abilityName)
-    }
 
     var body: some View {
         if let openDotaAbility = vm.opentDotaAbility,
@@ -69,7 +65,8 @@ struct AbilityView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 Button {
-                    self.presentationMode.wrappedValue.dismiss()
+//                    self.presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
                 }
