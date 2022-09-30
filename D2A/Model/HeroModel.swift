@@ -97,14 +97,6 @@ class HeroModel: Identifiable, Decodable {
 
 class HeroAbility: Decodable {
     var abilities: [String]
-    var talents: [Talent]
-    
-    static let sample = loadSampleHeroAbility()!
-}
-
-struct Talent: Decodable {
-    var name: String
-    var level: Int
 }
 
 struct HeroScepter: Decodable {

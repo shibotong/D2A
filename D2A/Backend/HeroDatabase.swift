@@ -13,6 +13,11 @@ enum LoadingStatus {
 }
 
 class HeroDatabase: ObservableObject {
+    
+    enum HeroDataError: Error {
+        case heroNotFound
+    }
+    
     @Published var status: LoadingStatus = .loading
     var heroes = [String: HeroModel]()
     var gameModes = [String: GameMode]()
@@ -75,8 +80,11 @@ class HeroDatabase: ObservableObject {
         
     }
 
-    func fetchHeroWithID(id: Int) -> HeroModel? {
-        return heroes["\(id)"]
+    func fetchHeroWithID(id: Int) throws -> HeroModel {
+        guard let hero = heroes["\(id)"] else {
+            throw Self.HeroDataError.heroNotFound
+        }
+        return hero
     }
     
     func fetchGameMode(id: Int) -> GameMode {
@@ -119,8 +127,9 @@ class HeroDatabase: ObservableObject {
         return abilities[name]
     }
     
-    func fetchHeroAbility(name: String) -> HeroAbility? {
-        return heroAbilities[name]
+    func fetchHeroAbility(name: String) -> [String] {
+        let abilities = heroAbilities[name]?.abilities
+        return abilities ?? []
     }
     
     func fetchAllHeroes() -> [HeroModel] {

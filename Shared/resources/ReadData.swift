@@ -156,21 +156,6 @@ func loadSampleHero() -> HeroModel? {
     }
 }
 
-func loadSampleHeroAbility() -> HeroAbility? {
-    guard let data = loadFile(filename: "sampleHeroAbility") else {
-        return nil
-    }
-    
-    do {
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode(HeroAbility.self, from: data)
-        return jsonData
-    } catch {
-        print("Cannot parse json data")
-        return nil
-    }
-}
-
 func loadAbilityID() async -> [String: String] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/ability_ids.json"
     if let url = URL(string: urlString) {

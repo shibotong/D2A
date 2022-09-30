@@ -93,10 +93,11 @@ struct PlayerDetailView: View {
     }
     
     @ViewBuilder private func buildHeroName() -> some View {
+        let hero = try? heroData.fetchHeroWithID(id: player.heroID)
         HStack {
             HeroImageView(heroID: player.heroID, type: .icon)
                 .frame(width:30, height: 30)
-            Text(LocalizedStringKey(heroData.fetchHeroWithID(id: player.heroID)?.localizedName ?? "Unknown Hero (\(player.heroID))")).font(.custom(fontString, size: 30)).bold()
+            Text(LocalizedStringKey(hero?.localizedName ?? "Unknown Hero \(player.heroID)")).font(.custom(fontString, size: 30)).bold()
             Spacer()
         }.padding(.horizontal)
     }
