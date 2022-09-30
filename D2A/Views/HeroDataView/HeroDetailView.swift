@@ -31,7 +31,7 @@ struct HeroDetailView: View {
             if let hero = vm.hero {
                 ScrollView {
                     buildTitle(hero: hero)
-                    buildSkills(hero: hero)
+                    buildAbilities(hero: hero)
                         .padding(.horizontal, 5)
                     Divider()
                     buildHeroDetails(hero: hero)
@@ -53,7 +53,7 @@ struct HeroDetailView: View {
                 VStack(alignment: .leading, spacing: 3) {
                     Spacer()
                     HStack {
-                        Image("hero_\(String(describing: hero.primaryAttr))")
+                        Image("hero_\(hero.primaryAttr ?? "")")
                             .resizable()
                             .frame(width: 25, height: 25)
                         Text(LocalizedStringKey(hero.displayName ?? ""))
@@ -69,9 +69,9 @@ struct HeroDetailView: View {
             }.padding(.leading))
     }
     
-    @ViewBuilder private func buildSkills(hero: Hero) -> some View {
+    @ViewBuilder private func buildAbilities(hero: Hero) -> some View {
         let skillFrame: CGFloat = 30
-        if let abilities = hero.abilities as? [String] {
+        if let abilities = hero.abilities {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(abilities.filter { ability in
