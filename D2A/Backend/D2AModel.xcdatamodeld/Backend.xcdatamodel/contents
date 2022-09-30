@@ -29,15 +29,17 @@
         <attribute name="primaryAttr" attributeType="String" defaultValueString="str"/>
         <attribute name="projectileSpeed" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="turnRate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="roles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Role"/>
-        <relationship name="talents" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Talent"/>
+        <relationship name="roles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Role" inverseName="hero" inverseEntity="Role"/>
+        <relationship name="talents" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Talent" inverseName="hero" inverseEntity="Talent"/>
     </entity>
     <entity name="Role" representedClassName="Role" syncable="YES" codeGenerationType="class">
         <attribute name="level" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="roleId" optional="YES" attributeType="String"/>
+        <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="roles" inverseEntity="Hero"/>
     </entity>
     <entity name="Talent" representedClassName="Talent" syncable="YES" codeGenerationType="class">
         <attribute name="abilityId" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="slot" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="talents" inverseEntity="Hero"/>
     </entity>
 </model>
