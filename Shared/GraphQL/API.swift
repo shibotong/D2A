@@ -254,9 +254,16 @@ public final class AbilityQuery: GraphQLQuery {
         abilities(language: $language) {
           __typename
           id
+          name
           language {
             __typename
             displayName
+            description
+            attributes
+            lore
+            aghanimDescription
+            shardDescription
+            notes
           }
         }
       }
@@ -350,6 +357,7 @@ public final class AbilityQuery: GraphQLQuery {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("id", type: .scalar(Short.self)),
+            GraphQLField("name", type: .scalar(String.self)),
             GraphQLField("language", type: .object(Language.selections)),
           ]
         }
@@ -360,8 +368,8 @@ public final class AbilityQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(id: Short? = nil, language: Language? = nil) {
-          self.init(unsafeResultMap: ["__typename": "AbilityType", "id": id, "language": language.flatMap { (value: Language) -> ResultMap in value.resultMap }])
+        public init(id: Short? = nil, name: String? = nil, language: Language? = nil) {
+          self.init(unsafeResultMap: ["__typename": "AbilityType", "id": id, "name": name, "language": language.flatMap { (value: Language) -> ResultMap in value.resultMap }])
         }
 
         public var __typename: String {
@@ -382,6 +390,15 @@ public final class AbilityQuery: GraphQLQuery {
           }
         }
 
+        public var name: String? {
+          get {
+            return resultMap["name"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+
         public var language: Language? {
           get {
             return (resultMap["language"] as? ResultMap).flatMap { Language(unsafeResultMap: $0) }
@@ -398,6 +415,12 @@ public final class AbilityQuery: GraphQLQuery {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("displayName", type: .scalar(String.self)),
+              GraphQLField("description", type: .list(.scalar(String.self))),
+              GraphQLField("attributes", type: .list(.scalar(String.self))),
+              GraphQLField("lore", type: .scalar(String.self)),
+              GraphQLField("aghanimDescription", type: .scalar(String.self)),
+              GraphQLField("shardDescription", type: .scalar(String.self)),
+              GraphQLField("notes", type: .list(.scalar(String.self))),
             ]
           }
 
@@ -407,8 +430,8 @@ public final class AbilityQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(displayName: String? = nil) {
-            self.init(unsafeResultMap: ["__typename": "AbilityLanguageType", "displayName": displayName])
+          public init(displayName: String? = nil, description: [String?]? = nil, attributes: [String?]? = nil, lore: String? = nil, aghanimDescription: String? = nil, shardDescription: String? = nil, notes: [String?]? = nil) {
+            self.init(unsafeResultMap: ["__typename": "AbilityLanguageType", "displayName": displayName, "description": description, "attributes": attributes, "lore": lore, "aghanimDescription": aghanimDescription, "shardDescription": shardDescription, "notes": notes])
           }
 
           public var __typename: String {
@@ -426,6 +449,60 @@ public final class AbilityQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue, forKey: "displayName")
+            }
+          }
+
+          public var description: [String?]? {
+            get {
+              return resultMap["description"] as? [String?]
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "description")
+            }
+          }
+
+          public var attributes: [String?]? {
+            get {
+              return resultMap["attributes"] as? [String?]
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "attributes")
+            }
+          }
+
+          public var lore: String? {
+            get {
+              return resultMap["lore"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "lore")
+            }
+          }
+
+          public var aghanimDescription: String? {
+            get {
+              return resultMap["aghanimDescription"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "aghanimDescription")
+            }
+          }
+
+          public var shardDescription: String? {
+            get {
+              return resultMap["shardDescription"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "shardDescription")
+            }
+          }
+
+          public var notes: [String?]? {
+            get {
+              return resultMap["notes"] as? [String?]
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "notes")
             }
           }
         }
