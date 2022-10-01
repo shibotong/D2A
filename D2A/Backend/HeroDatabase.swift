@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 enum LoadingStatus {
     case loading, error, finish
@@ -39,9 +40,28 @@ class HeroDatabase: ObservableObject {
         return base
     }
     
+    @Published private var openDotaLoadFinish: LoadingStatus = .loading
+    @Published private var stratzLoadFinish: LoadingStatus = .loading
+    private var cancellable = Set<AnyCancellable>()
+    
     let url = "https://api.opendota.com/api/herostats"
     
     init() {
+        Publishers
+            .CombineLatest($openDotaLoadFinish, $stratzLoadFinish)
+            .map({ opendota, stratz in
+                print(opendota, stratz)
+                if opendota == .error || stratz == .error {
+                    return .error
+                }
+                if opendota == .finish && stratz == .finish {
+                    return .finish
+                }
+                return .loading
+            })
+            .assign(to: \.status, on: self)
+            .store(in: &cancellable)
+        
         self.status = .loading
         self.gameModes = loadGameModes()
         self.regions = loadRegion()!
@@ -70,9 +90,9 @@ class HeroDatabase: ObservableObject {
             
             DispatchQueue.main.async {
                 if self.abilities.count == 0 {
-                    self.status = .error
+                    self.openDotaLoadFinish = .error
                 } else {
-                    self.status = .finish
+                    self.openDotaLoadFinish = .finish
                 }
             }
         }
@@ -254,18 +274,30 @@ class HeroDatabase: ObservableObject {
                 if let abilitiesConnection = graphQLResult.data?.constants?.abilities {
                     let abilities = abilitiesConnection.compactMap({ $0 })
                     self.apolloAbilities = abilities
-                    print("stratz abilities load successfully")
+                    DispatchQueue.main.async {
+                        self.stratzLoadFinish = .finish
+                    }
                 }
                 
                 if let errors = graphQLResult.errors {
                     let message = errors
                         .map { $0.localizedDescription }
                         .joined(separator: "\n")
+                    DispatchQueue.main.async {
+                        self.stratzLoadFinish = .error
+                    }
                     print(message)
                 }
             case .failure(let error):
                 print(error)
+                DispatchQueue.main.async {
+                    self.stratzLoadFinish = .error
+                }
             }
         }
+    }
+    
+    private func networkFetchFinishCheck() {
+        
     }
 }
