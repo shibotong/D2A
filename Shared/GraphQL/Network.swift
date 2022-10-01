@@ -9,12 +9,11 @@ import Foundation
 import Apollo
 
 class Network {
-  static let shared = Network()
+    static let shared = Network()
     private(set) lazy var apollo = {
-        let token = try! Secrets.load().stratzToken
+        let token = try? Secrets.load().stratzToken
         let url = URL(string: "https://api.stratz.com/graphql")!
-        
-        let additionalHeaders = ["Authorization": "Bearer \(token)"]
+        let additionalHeaders = ["Authorization": "Bearer \(token ?? "no-token")"]
         
         let store = ApolloStore(cache: InMemoryNormalizedCache())
         let provider = DefaultInterceptorProvider(store: store)

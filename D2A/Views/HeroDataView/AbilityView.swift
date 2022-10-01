@@ -198,18 +198,15 @@ struct AbilityView: View {
                 switch type {
                 case .Scepter:
                     if let url = vm.scepterVideo {
-                        VideoPlayer(player: AVPlayer(url: url))
-                            .frame(width: width - 40, height: (width - 40.0) / 16.0 * 9.0)
+                        buildPlayer(player: vm.getPlayer(url: url), width: width)
                     }
                 case .Shard:
                     if let url = vm.shardVideo {
-                        VideoPlayer(player: AVPlayer(url: url))
-                            .frame(width: width - 40, height: (width - 40.0) / 16.0 * 9.0)
+                        buildPlayer(player: vm.getPlayer(url: url), width: width)
                     }
                 case .non:
                     if let url = vm.abilityVideo {
-                        VideoPlayer(player: AVPlayer(url: url))
-                            .frame(width: width - 20, height: (width - 20.0) / 16.0 * 9.0)
+                        buildPlayer(player: vm.getPlayer(url: url), width: width)
                     }
                 }
                 Spacer()
@@ -242,5 +239,19 @@ struct AbilityView: View {
         case .non:
             EmptyView()
         }
+    }
+    
+    @ViewBuilder private func buildPlayer(player: AVPlayer, width: CGFloat) -> some View {
+        VideoPlayer(player: player)
+            .frame(width: width - 40, height: (width - 40.0) / 16.0 * 9.0)
+            .disabled(true)
+            .onAppear {
+                player.play()
+                self.vm.addObserver(player: player)
+            }
+            .onDisappear {
+                player.pause()
+                self.vm.removeObserver(player: player)
+            }
     }
 }
