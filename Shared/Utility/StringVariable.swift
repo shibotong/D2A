@@ -14,12 +14,12 @@ let GROUP_NAME = "group.D2A"
 let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/documents/terms-of-use.md"
 let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/documents/privacy-policy.md"
 let languageCode: Language = {
-    let languageStr = Locale.preferredLanguages[0]
+    let languageStr = Locale.current.languageCode
     print("Current \(languageStr)")
     switch languageStr {
     case "en":
         return .english
-    case "zh-Hans":
+    case "zh":
         return .sChinese
     default:
         return .english
