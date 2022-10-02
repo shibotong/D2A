@@ -121,7 +121,7 @@ struct HeroListView: View {
     
     @ViewBuilder private func buildMainPart(heroes: [HeroModel]) -> some View {
         if vm.gridView {
-            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 160, maximum: 200), spacing: 10, alignment: .leading), count: 1)){
+            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 120, maximum: 200), spacing: 10, alignment: .leading), count: 1)){
                 ForEach(heroes) { hero in
                     NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
                         buildHero(hero: hero)
