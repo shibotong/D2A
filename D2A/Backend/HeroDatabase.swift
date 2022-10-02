@@ -50,11 +50,12 @@ class HeroDatabase: ObservableObject {
         Publishers
             .CombineLatest($openDotaLoadFinish, $stratzLoadFinish)
             .map({ opendota, stratz in
-                print(opendota, stratz)
                 if opendota == .error || stratz == .error {
+                    print("Loading ability error")
                     return .error
                 }
                 if opendota == .finish && stratz == .finish {
+                    print("Loading ability success")
                     return .finish
                 }
                 return .loading

@@ -139,18 +139,13 @@ struct AbilityView: View {
                                                stratz: AbilityQuery.Data.Constant.Ability,
                                                proxy: GeometryProxy) -> some View {
         VStack {
+            let description = stratz.language?.description?.compactMap{ $0 }.joined(separator: "\n") ?? ""
             if dataBase.isScepterSkill(ability: ability, heroID: vm.heroID) {
-                if let scepterDesc = stratz.language?.aghanimDescription {
-                    buildDescription(desc: scepterDesc, type: .Scepter, width: proxy.size.width)
-                }
+                buildDescription(desc: description, type: .Scepter, width: proxy.size.width)
             } else if dataBase.isShardSkill(ability: ability, heroID: vm.heroID) {
-                if let shardDesc = stratz.language?.shardDescription {
-                    buildDescription(desc: shardDesc, type: .Shard, width: proxy.size.width)
-                }
+                buildDescription(desc: description, type: .Shard, width: proxy.size.width)
             } else {
-                if let descriptions = stratz.language?.description?.compactMap({$0}) {
-                    buildDescription(desc: descriptions.joined(separator: "\n"), width: proxy.size.width)
-                }
+                buildDescription(desc: description, width: proxy.size.width)
                 if let scepterDesc = stratz.language?.aghanimDescription {
                     buildDescription(desc: scepterDesc, type: .Scepter, width: proxy.size.width)
                 }

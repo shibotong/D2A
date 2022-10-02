@@ -23,7 +23,6 @@ class AbilityViewModel: ObservableObject {
     init(heroID: Int, abilityName: String) {
         self.stratzAbility = database.fetchStratzAbility(name: abilityName)
         self.opentDotaAbility = database.fetchOpenDotaAbility(name: abilityName)
-        
         self.heroID = heroID
         Task {
             await buildDetailView(name: abilityName)
