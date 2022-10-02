@@ -149,9 +149,7 @@ struct AbilityView: View {
                 }
             } else {
                 if let descriptions = stratz.language?.description?.compactMap({$0}) {
-                    ForEach(descriptions, id: \.self) { description in
-                        buildDescription(desc: description, width: proxy.size.width)
-                    }
+                    buildDescription(desc: descriptions.joined(separator: "\n"), width: proxy.size.width)
                 }
                 if let scepterDesc = stratz.language?.aghanimDescription {
                     buildDescription(desc: scepterDesc, type: .Scepter, width: proxy.size.width)
