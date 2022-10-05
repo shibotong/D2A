@@ -15,6 +15,7 @@ extension Hero {
     }
     
     // MARK: - Static func
+    /// Create `Hero` with `HeroModel` and `HeroQuery.Data.Constant.Hero` and save into Core Data
     static func createHero(_ queryHero: HeroQuery.Data.Constant.Hero, model: HeroModel, abilities: [String] = []) throws -> Hero {
         let viewContext = PersistenceController.shared.container.viewContext
         
@@ -73,6 +74,7 @@ extension Hero {
         return hero
     }
     
+    /// Fetch `Hero` with `id` in CoreData
     static func fetchHero(id: Double) -> Hero? {
         let viewContext = PersistenceController.shared.container.viewContext
         let fetchHero: NSFetchRequest<Hero> = Hero.fetchRequest()
@@ -102,20 +104,20 @@ extension Hero {
     }
     
     var calculateHP: Int32 {
-        let hp = self.baseHealth + self.baseStr * HeroModel.strMaxHP
+        let hp = self.baseHealth + self.baseStr * Hero.strMaxHP
         return hp
     }
     var calculateHPRegen: Double {
-        let regen = self.baseHealthRegen + Double(self.baseStr) * HeroModel.strHPRegen
+        let regen = self.baseHealthRegen + Double(self.baseStr) * Hero.strHPRegen
         return regen
     }
     
     var calculateMP: Int32 {
-        let mp = self.baseMana + self.baseInt * HeroModel.intMaxMP
+        let mp = self.baseMana + self.baseInt * Hero.intMaxMP
         return mp
     }
     var calculateMPRegen: Double {
-        let regen = self.baseManaRegen + Double(self.baseInt) * HeroModel.intManaRegen
+        let regen = self.baseManaRegen + Double(self.baseInt) * Hero.intManaRegen
         return regen
     }
     
@@ -130,7 +132,7 @@ extension Hero {
     }
     
     var calculateArmor: Double {
-        let armor = self.baseArmor + HeroModel.agiArmor * Double(self.baseAgi)
+        let armor = self.baseArmor + Hero.agiArmor * Double(self.baseAgi)
         return armor
     }
     
@@ -162,62 +164,75 @@ extension Hero {
     
     // MARK: - functions
     func calculateHPLevel(level: Double) -> Int {
-        // 17, 19, 21, 22, 23, 24, 26 +2 all attributes
-        var totalStr = self.baseStr + Int32((level - 1) * self.gainStr)
-        if level >= 17 {
-            totalStr += 2
-        }
-        if level >= 19 {
-            totalStr += 2
-        }
-        if level >= 21 {
-            totalStr += 2
-        }
-        if level >= 22 {
-            totalStr += 2
-        }
-        if level >= 23 {
-            totalStr += 2
-        }
-        if level >= 24 {
-            totalStr += 2
-        }
-        if level >= 26 {
-            totalStr += 2
-        }
-        let hp = Int(self.baseHealth + totalStr * HeroModel.strMaxHP)
+        let totalStr = calculateAttribute(level: level, attr: .str)
+        let hp = Int(self.baseHealth + totalStr * Hero.strMaxHP)
         return hp
     }
     
     func calculateManaLevel(level: Double) -> Int {
-        var totalInt = self.baseInt + Int32((level - 1) * self.gainInt)
-        if level >= 17 {
-            totalInt += 2
-        }
-        if level >= 19 {
-            totalInt += 2
-        }
-        if level >= 21 {
-            totalInt += 2
-        }
-        if level >= 22 {
-            totalInt += 2
-        }
-        if level >= 23 {
-            totalInt += 2
-        }
-        if level >= 24 {
-            totalInt += 2
-        }
-        if level >= 26 {
-            totalInt += 2
-        }
-        let hp = Int(self.baseMana + totalInt * HeroModel.intMaxMP)
+        let totalInt = calculateAttribute(level: level, attr: .int)
+        let hp = Int(self.baseMana + totalInt * Hero.intMaxMP)
         return hp
     }
     
-    func calculateHPRegenLevel(level: Double) -> Double {
-        let regen = self.baseHealthRegen + Double(self.baseStr) * (level - 1) * HeroModel.strHPRegen
+    func calculateHPRegen(level: Double) -> Double {
+        let totalStr = calculateAttribute(level: level, attr: .str)
+        let regen = self.baseHealthRegen + Double(totalStr) * Hero.strHPRegen
         return regen
+    }
+    
+    func calculateMPRegen(level: Double) -> Double {
+        let totalInt = calculateAttribute(level: level, attr: .int)
+        let regen = self.baseManaRegen + Double(totalInt) * Hero.intManaRegen
+        return regen
+    }
+    
+    func calculateAttribute(level: Double, attr: HeroAttributes) -> Int32 {
+        var base: Int32 = 0
+        var gain = 0.0
+        switch attr {
+        case .all:
+            base = 0
+            gain = 0
+        case .str:
+            base = baseStr
+            gain = gainStr
+        case .agi:
+            base = baseAgi
+            gain = gainAgi
+        case .int:
+            base = baseInt
+            gain = gainInt
+        }
+        var total = base + Int32((level - 1) * gain)
+        total = levelBonusAttribute(base: total, level: level)
+        return Int32(total)
+    }
+    
+    private func levelBonusAttribute(base: Int32, level: Double) -> Int32 {
+        // 17, 19, 21, 22, 23, 24, 26 +2 all attributes
+        var bonus: Int32 = 0
+        if level >= 17 {
+            bonus += 2
+        }
+        if level >= 19 {
+            bonus += 2
+        }
+        if level >= 21 {
+            bonus += 2
+        }
+        if level >= 22 {
+            bonus += 2
+        }
+        if level >= 23 {
+            bonus += 2
+        }
+        if level >= 24 {
+            bonus += 2
+        }
+        if level >= 26 {
+            bonus += 2
+        }
+        return base + bonus
     }
 }

@@ -9,8 +9,6 @@ import SwiftUI
 
 struct HeroDetailView: View {
     @ObservedObject var vm: HeroDetailViewModel
-    @EnvironmentObject var env: DotaEnvironment
-    @EnvironmentObject var database: HeroDatabase
     @State var heroLevel = 1.00
     @State var isPresented = false
     
@@ -259,10 +257,6 @@ struct HeroDetailView: View {
                     .bold()
                 Spacer()
             }.padding(.bottom)
-            //            Slider(value: $heroLevel, in: 1...30, step: 1)
-            //                .padding(.horizontal)
-            //            Text("Level \(Int(heroLevel))")
-            
             VStack(spacing: 0) {
                 HStack {
                     Text("Health")
@@ -273,7 +267,7 @@ struct HeroDetailView: View {
                     Text("\(hero.calculateHPLevel(level: heroLevel))")
                         .font(.custom(fontString, size: 15))
                         .bold()
-                    Text("+ \(hero.calculateHPRegen, specifier: "%.1f")")
+                    Text("+ \(hero.calculateHPRegen(level: heroLevel), specifier: "%.1f")")
                         .font(.custom(fontString, size: 13))
                 }
                 buildManaHealthBar(total: hero.calculateHPLevel(level: heroLevel), color: Color(UIColor.systemGreen))
@@ -288,7 +282,7 @@ struct HeroDetailView: View {
                     Text("\(hero.calculateManaLevel(level: heroLevel))")
                         .font(.custom(fontString, size: 15))
                         .bold()
-                    Text("+ \(hero.calculateMPRegen, specifier: "%.1f")")
+                    Text("+ \(hero.calculateMPRegen(level: heroLevel), specifier: "%.1f")")
                         .font(.custom(fontString, size: 13))
                 }
                 
@@ -302,7 +296,7 @@ struct HeroDetailView: View {
                     Image("hero_str")
                         .resizable()
                         .frame(width: 15, height: 15)
-                    Text("\(hero.baseStr)")
+                    Text("\(hero.calculateAttribute(level: heroLevel, attr: .str))")
                         .font(.custom(fontString, size: 18))
                         .bold()
                     Text("+ \(hero.gainStr, specifier: "%.1f")")
@@ -313,7 +307,7 @@ struct HeroDetailView: View {
                     Image("hero_agi")
                         .resizable()
                         .frame(width: 15, height: 15)
-                    Text("\(hero.baseAgi)")
+                    Text("\(hero.calculateAttribute(level: heroLevel, attr: .agi))")
                         .font(.custom(fontString, size: 18))
                         .bold()
                     Text("+ \(hero.gainAgi, specifier: "%.1f")")
@@ -324,13 +318,20 @@ struct HeroDetailView: View {
                     Image("hero_int")
                         .resizable()
                         .frame(width: 15, height: 15)
-                    Text("\(hero.baseInt)")
+                    Text("\(hero.calculateAttribute(level: heroLevel, attr: .int))")
                         .font(.custom(fontString, size: 18))
                         .bold()
                     Text("+ \(hero.gainInt, specifier: "%.1f")")
                         .font(.custom(fontString, size: 13))
                 }
                 Spacer()
+            }
+            Slider(value: $heroLevel, in: 1...30, step: 1) {
+                Text("Level \(Int(heroLevel))")
+            } minimumValueLabel: {
+                Text("\(Int(heroLevel))")
+            } maximumValueLabel: {
+                Text("30")
             }
         }
         .padding(.horizontal)
@@ -355,5 +356,11 @@ struct HeroDetailView: View {
             .foregroundColor(color)
             .clipShape(Capsule())
         }
+    }
+}
+
+struct HeroDetailView_Preview: PreviewProvider {
+    static var previews: some View {
+        HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
     }
 }
