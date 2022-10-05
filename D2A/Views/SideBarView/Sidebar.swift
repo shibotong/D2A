@@ -19,33 +19,21 @@ struct Sidebar: View {
                 tag: TabSelection.home,
                 selection: $env.iPadSelectedTab
             ) {
-                Label {
-                    Text("Home")
-                } icon: {
-                    Image(systemName: "house")
-                }
+                Label("Home", systemImage: "house")
             }
             NavigationLink(
                 destination: HeroListView(),
                 tag: TabSelection.hero,
                 selection: $env.iPadSelectedTab
             ) {
-                Label {
-                    Text("Heroes")
-                } icon: {
-                    Image(systemName: "server.rack")
-                }
+                Label("Heroes", systemImage: "server.rack")
             }
             NavigationLink(
                 destination: SearchView(),
                 tag: TabSelection.search,
                 selection: $env.iPadSelectedTab
             ) {
-                Label {
-                    Text("Search")
-                } icon: {
-                    Image(systemName: "magnifyingglass")
-                }
+                Label("Search", systemImage: "magnifyingglass")
             }
             
             if env.registerdID != "" || !env.userIDs.isEmpty {
@@ -83,11 +71,7 @@ struct Sidebar: View {
                 tag: TabSelection.setting,
                 selection: $env.iPadSelectedTab
             ) {
-                Label {
-                    Text("About")
-                } icon: {
-                    Image(systemName: "info.circle")
-                }
+                Label("About", systemImage: "info.circle")
             }
         }
         .navigationTitle("D2A")

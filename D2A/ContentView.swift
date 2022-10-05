@@ -85,7 +85,6 @@ struct NavigationHostView: View {
                     Sidebar()
                     PlayerListView()
                 }
-                .navigationViewStyle(DoubleColumnNavigationViewStyle())
             }
     }
 }
