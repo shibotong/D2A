@@ -62,6 +62,21 @@ struct HeroDetailView: View {
                         Text("\(Int(hero.id))")
                             .font(.caption2)
                             .foregroundColor(.white.opacity(0.5))
+                        Spacer()
+                        HStack {
+                            ForEach(1..<4) { complexity in
+                                if complexity <= hero.complexity {
+                                    Circle()
+                                        .frame(width: 15)
+                                        .foregroundColor(.white)
+                                } else {
+                                    Circle()
+                                        .stroke()
+                                        .frame(width: 15)
+                                        .foregroundColor(.white)
+                                }
+                            }
+                        }
                     }
                 }
                 Spacer()
@@ -230,7 +245,7 @@ struct HeroDetailView: View {
                         .font(.custom(fontString, size: 15))
                     buildStatDetail(image: "icon_movement_speed", value: "\(hero.moveSpeed)")
                     buildStatDetail(image: "icon_turn_rate", value: "\(hero.turnRate)")
-                    buildStatDetail(image: "icon_vision", value: "\(hero.id == 42 ? "800/1800" : "1800/800")")
+                    buildStatDetail(image: "icon_vision", value: "\(Int(hero.visionDaytimeRange))/\(Int(hero.visionNighttimeRange))")
                 }
                 Spacer()
             }

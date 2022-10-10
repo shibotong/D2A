@@ -535,6 +535,12 @@ public final class HeroQuery: GraphQLQuery {
             abilityId
             slot
           }
+          stats {
+            __typename
+            visionDaytimeRange
+            visionNighttimeRange
+            complexity
+          }
         }
       }
     }
@@ -632,6 +638,7 @@ public final class HeroQuery: GraphQLQuery {
             GraphQLField("aliases", type: .list(.scalar(String.self))),
             GraphQLField("roles", type: .list(.object(Role.selections))),
             GraphQLField("talents", type: .list(.object(Talent.selections))),
+            GraphQLField("stats", type: .object(Stat.selections)),
           ]
         }
 
@@ -641,8 +648,8 @@ public final class HeroQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(id: Short? = nil, name: String? = nil, displayName: String? = nil, shortName: String? = nil, aliases: [String?]? = nil, roles: [Role?]? = nil, talents: [Talent?]? = nil) {
-          self.init(unsafeResultMap: ["__typename": "HeroType", "id": id, "name": name, "displayName": displayName, "shortName": shortName, "aliases": aliases, "roles": roles.flatMap { (value: [Role?]) -> [ResultMap?] in value.map { (value: Role?) -> ResultMap? in value.flatMap { (value: Role) -> ResultMap in value.resultMap } } }, "talents": talents.flatMap { (value: [Talent?]) -> [ResultMap?] in value.map { (value: Talent?) -> ResultMap? in value.flatMap { (value: Talent) -> ResultMap in value.resultMap } } }])
+        public init(id: Short? = nil, name: String? = nil, displayName: String? = nil, shortName: String? = nil, aliases: [String?]? = nil, roles: [Role?]? = nil, talents: [Talent?]? = nil, stats: Stat? = nil) {
+          self.init(unsafeResultMap: ["__typename": "HeroType", "id": id, "name": name, "displayName": displayName, "shortName": shortName, "aliases": aliases, "roles": roles.flatMap { (value: [Role?]) -> [ResultMap?] in value.map { (value: Role?) -> ResultMap? in value.flatMap { (value: Role) -> ResultMap in value.resultMap } } }, "talents": talents.flatMap { (value: [Talent?]) -> [ResultMap?] in value.map { (value: Talent?) -> ResultMap? in value.flatMap { (value: Talent) -> ResultMap in value.resultMap } } }, "stats": stats.flatMap { (value: Stat) -> ResultMap in value.resultMap }])
         }
 
         public var __typename: String {
@@ -714,6 +721,15 @@ public final class HeroQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue.flatMap { (value: [Talent?]) -> [ResultMap?] in value.map { (value: Talent?) -> ResultMap? in value.flatMap { (value: Talent) -> ResultMap in value.resultMap } } }, forKey: "talents")
+          }
+        }
+
+        public var stats: Stat? {
+          get {
+            return (resultMap["stats"] as? ResultMap).flatMap { Stat(unsafeResultMap: $0) }
+          }
+          set {
+            resultMap.updateValue(newValue?.resultMap, forKey: "stats")
           }
         }
 
@@ -811,6 +827,65 @@ public final class HeroQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue, forKey: "slot")
+            }
+          }
+        }
+
+        public struct Stat: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["HeroStatType"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("visionDaytimeRange", type: .scalar(Double.self)),
+              GraphQLField("visionNighttimeRange", type: .scalar(Double.self)),
+              GraphQLField("complexity", type: .scalar(Byte.self)),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(visionDaytimeRange: Double? = nil, visionNighttimeRange: Double? = nil, complexity: Byte? = nil) {
+            self.init(unsafeResultMap: ["__typename": "HeroStatType", "visionDaytimeRange": visionDaytimeRange, "visionNighttimeRange": visionNighttimeRange, "complexity": complexity])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var visionDaytimeRange: Double? {
+            get {
+              return resultMap["visionDaytimeRange"] as? Double
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "visionDaytimeRange")
+            }
+          }
+
+          public var visionNighttimeRange: Double? {
+            get {
+              return resultMap["visionNighttimeRange"] as? Double
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "visionNighttimeRange")
+            }
+          }
+
+          public var complexity: Byte? {
+            get {
+              return resultMap["complexity"] as? Byte
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "complexity")
             }
           }
         }

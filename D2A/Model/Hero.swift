@@ -21,7 +21,8 @@ extension Hero {
         
         guard let heroID = queryHero.id,
               let heroTalents = queryHero.talents,
-              let heroRoles = queryHero.roles else {
+              let heroRoles = queryHero.roles,
+              let heroStats = queryHero.stats else {
             throw Hero.CoreDataError.decodingError
         }
         let hero = Self.fetchHero(id: heroID) ?? Hero(context: viewContext)
@@ -31,6 +32,9 @@ extension Hero {
         hero.id = heroID
         hero.displayName = queryHero.displayName
         hero.name = queryHero.name
+        hero.complexity = Int16(heroStats.complexity ?? 0)
+        hero.visionDaytimeRange = heroStats.visionDaytimeRange ?? 1800
+        hero.visionNighttimeRange = heroStats.visionNighttimeRange ?? 800
         hero.roles = NSSet(array: try heroRoles.map({ return try Role.createRole($0) }))
         hero.talents = NSSet(array: try heroTalents.map({ return try Talent.createTalent($0) }))
         
@@ -48,6 +52,7 @@ extension Hero {
         hero.baseArmor = model.baseArmor
         hero.baseMr = model.baseMr
         hero.baseAttackMin = model.baseAttackMin
+        hero.baseAttackMax = model.baseAttackMax
         
         hero.baseStr = model.baseStr
         hero.baseAgi = model.baseAgi
