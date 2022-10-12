@@ -7,25 +7,31 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 enum LoadingStatus {
     case loading, error, finish
 }
 
 class HeroDatabase: ObservableObject {
+    
+    enum HeroDataError: Error {
+        case heroNotFound
+    }
+    
     @Published var status: LoadingStatus = .loading
-    var heroes = [String: Hero]()
-    var gameModes = [String: GameMode]()
-    var lobbyTypes = [String: LobbyType]()
-    var regions = [String: String]()
-    var items = [String: Item]()
-    var itemIDTable = [String: String]()
-    var abilityIDTable = [String: String]()
-    var abilities = [String: Ability]()
-    var heroAbilities = [String: HeroAbility]()
-    var talentData = [String: String]()
-    var scepterData = [HeroScepter]()
-    var apolloAbilities = [AbilityQuery.Data.Constant.Ability]()
+    private var heroes = [String: HeroModel]()
+    private var gameModes = [String: GameMode]()
+    private var lobbyTypes = [String: LobbyType]()
+    private var regions = [String: String]()
+    private var items = [String: Item]()
+    private var itemIDTable = [String: String]()
+    private var abilityIDTable = [String: String]()
+    private var abilities = [String: Ability]()
+    private var heroAbilities = [String: HeroAbility]()
+    private var talentData = [String: String]()
+    private var scepterData = [HeroScepter]()
+    private var apolloAbilities = [AbilityQuery.Data.Constant.Ability]()
     
     static var shared = HeroDatabase()
     static var preview: HeroDatabase {
@@ -34,9 +40,29 @@ class HeroDatabase: ObservableObject {
         return base
     }
     
+    @Published private var openDotaLoadFinish: LoadingStatus = .loading
+    @Published private var stratzLoadFinish: LoadingStatus = .loading
+    private var cancellable = Set<AnyCancellable>()
+    
     let url = "https://api.opendota.com/api/herostats"
     
     init() {
+        Publishers
+            .CombineLatest($openDotaLoadFinish, $stratzLoadFinish)
+            .map({ opendota, stratz in
+                if opendota == .error || stratz == .error {
+                    print("Loading ability error")
+                    return .error
+                }
+                if opendota == .finish && stratz == .finish {
+                    print("Loading ability success")
+                    return .finish
+                }
+                return .loading
+            })
+            .assign(to: \.status, on: self)
+            .store(in: &cancellable)
+        
         self.status = .loading
         self.gameModes = loadGameModes()
         self.regions = loadRegion()!
@@ -65,18 +91,19 @@ class HeroDatabase: ObservableObject {
             
             DispatchQueue.main.async {
                 if self.abilities.count == 0 {
-                    self.status = .error
+                    self.openDotaLoadFinish = .error
                 } else {
-                    self.status = .finish
+                    self.openDotaLoadFinish = .finish
                 }
             }
         }
-        
-        
     }
 
-    func fetchHeroWithID(id: Int) -> Hero? {
-        return heroes["\(id)"]
+    func fetchHeroWithID(id: Int) throws -> HeroModel {
+        guard let hero = heroes["\(id)"] else {
+            throw Self.HeroDataError.heroNotFound
+        }
+        return hero
     }
     
     func fetchGameMode(id: Int) -> GameMode {
@@ -115,16 +142,22 @@ class HeroDatabase: ObservableObject {
         return abilityName
     }
     
-    func fetchAbility(name: String) -> Ability? {
+    func fetchOpenDotaAbility(name: String) -> Ability? {
         return abilities[name]
     }
     
-    func fetchHeroAbility(name: String) -> HeroAbility? {
-        return heroAbilities[name]
+    func fetchStratzAbility(name: String) -> AbilityQuery.Data.Constant.Ability? {
+        let ability = apolloAbilities.first { $0.name == name }
+        return ability
     }
     
-    func fetchAllHeroes() -> [Hero] {
-        var sortedHeroes = [Hero]()
+    func fetchHeroAbility(name: String) -> [String] {
+        let abilities = heroAbilities[name]?.abilities
+        return abilities ?? []
+    }
+    
+    func fetchAllHeroes() -> [HeroModel] {
+        var sortedHeroes = [HeroModel]()
         for i in 1..<150 {
             if let hero = heroes["\(i)"] {
                 sortedHeroes.append(hero)
@@ -137,7 +170,7 @@ class HeroDatabase: ObservableObject {
         return sortedHeroes
     }
     
-    func fetchSearchedHeroes(text: String) -> [Hero] {
+    func fetchSearchedHeroes(text: String) -> [HeroModel] {
         return []
     }
     
@@ -242,18 +275,30 @@ class HeroDatabase: ObservableObject {
                 if let abilitiesConnection = graphQLResult.data?.constants?.abilities {
                     let abilities = abilitiesConnection.compactMap({ $0 })
                     self.apolloAbilities = abilities
-                    print("stratz abilities load successfully")
+                    DispatchQueue.main.async {
+                        self.stratzLoadFinish = .finish
+                    }
                 }
                 
                 if let errors = graphQLResult.errors {
                     let message = errors
                         .map { $0.localizedDescription }
                         .joined(separator: "\n")
+                    DispatchQueue.main.async {
+                        self.stratzLoadFinish = .error
+                    }
                     print(message)
                 }
             case .failure(let error):
                 print(error)
+                DispatchQueue.main.async {
+                    self.stratzLoadFinish = .error
+                }
             }
         }
+    }
+    
+    private func networkFetchFinishCheck() {
+        
     }
 }

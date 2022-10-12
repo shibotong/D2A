@@ -7,45 +7,53 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class HeroDetailViewModel: ObservableObject {
-    @Published var hero: Hero
-    @Published var heroAbility: HeroAbility
-    @Published var selectedAbility: AbilityContainer?
-    @Published var talents = [HeroQuery.Data.Constant.Hero.Talent]()
+    @Published var hero: Hero?
+    @Published var selectedAbility: String?
     
-    static var preview = HeroDetailViewModel()
-    
-    var heroID: Int
+    let heroID: Int
     private var database: HeroDatabase = HeroDatabase.shared
     
     init(heroID: Int) {
+        self.hero = Hero.fetchHero(id: Double(heroID))
         self.heroID = heroID
-        let hero = database.fetchHeroWithID(id: heroID)!
-        self.hero = hero
-        self.heroAbility = database.fetchHeroAbility(name: hero.name)!
-    }
-    
-    init() {
-        self.heroID = 1
-        self.hero = Hero.sample
-        self.heroAbility = HeroAbility.sample
     }
     
     func fetchAbility(name: String) -> Ability {
-        return database.fetchAbility(name: name)!
+        return database.fetchOpenDotaAbility(name: name)!
     }
     
-    func fetchAbilities() {
-        Network.shared.apollo.fetch(query: HeroQuery(id: Double(heroID))) { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            
+    /// Load hero
+    func loadHero() {
+        if let lastFetch = hero?.lastFetch, lastFetch.startOfDay == Date().startOfDay {
+            // if hero exist and already fetched today, dont download hero
+            return
+        }
+        downloadHero()
+    }
+    
+    /// Download hero from API
+    func downloadHero() {
+        Network.shared.apollo.fetch(query: HeroQuery(id: Double(heroID))) { result in
             switch result {
             case .success(let graphQLResult):
-                if let hero = graphQLResult.data?.constants?.hero, let talents = hero.talents?.compactMap({ $0 }) {
-                    self.talents = talents
+                if let hero = graphQLResult.data?.constants?.hero {
+                    do {
+                        let model = try self.database.fetchHeroWithID(id: self.heroID)
+                        let abilities = self.database
+                            .fetchHeroAbility(name: model.name)
+                            .filter { ability in
+                            return !ability.contains("hidden") && !ability.contains("empty")
+                        }
+                        let newHero = try Hero.createHero(hero, model: model, abilities: abilities)
+                        DispatchQueue.main.async {
+                            self.hero = newHero
+                        }
+                    } catch(let error) {
+                        print(error.localizedDescription)
+                    }
                 }
                 
                 if let errors = graphQLResult.errors {

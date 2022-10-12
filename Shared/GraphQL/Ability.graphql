@@ -2,8 +2,15 @@ query Ability($language: Language) {
   constants {
     abilities(language: $language) {
       id
+      name
       language {
         displayName
+        description
+        attributes
+        lore
+        aghanimDescription
+        shardDescription
+        notes
       }
     }
   }

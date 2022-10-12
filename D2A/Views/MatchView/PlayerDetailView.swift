@@ -93,10 +93,11 @@ struct PlayerDetailView: View {
     }
     
     @ViewBuilder private func buildHeroName() -> some View {
+        let hero = try? heroData.fetchHeroWithID(id: player.heroID)
         HStack {
             HeroImageView(heroID: player.heroID, type: .icon)
                 .frame(width:30, height: 30)
-            Text(LocalizedStringKey(heroData.fetchHeroWithID(id: player.heroID)?.localizedName ?? "Unknown Hero (\(player.heroID))")).font(.custom(fontString, size: 30)).bold()
+            Text(LocalizedStringKey(hero?.localizedName ?? "Unknown Hero \(player.heroID)")).font(.custom(fontString, size: 30)).bold()
             Spacer()
         }.padding(.horizontal)
     }
@@ -151,7 +152,7 @@ struct PlayerDetailView: View {
     }
     @ViewBuilder private func buildAbility(abilityID: Int) -> some View {
         if let abilityName = HeroDatabase.shared.fetchAbilityName(id: abilityID) {
-            if let ability = HeroDatabase.shared.fetchAbility(name: abilityName) {
+            if let ability = HeroDatabase.shared.fetchOpenDotaAbility(name: abilityName) {
                 if let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!" {
                     let parsedimgURL = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
                 AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 50, cornerRadius: 0)

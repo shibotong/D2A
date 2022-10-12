@@ -123,6 +123,25 @@
 "Defense" = "防御";
 "Mobility" = "机动性";
 "Talents" = "天赋";
+"Roles" = "定位";
+"Carry" = "核心";
+"Support" = "辅助";
+"Nuker" = "爆发";
+"Disabler" = "控制";
+"Jungler" = "打野";
+"Durable" = "耐久";
+"Escape" = "逃生";
+"Pusher" = "推进";
+"Initiator" = "先手";
+
+// MARK: - Ability View
+"Cooldown: %@" = "冷却：%@";
+"Cost: %@" = "魔法：%@";
+"ABILITY:" = "技能：";
+"AFFECTS:" = "影响：";
+"IMMUNITY:" = "无视技能免疫：";
+"DISPELLABLE:" = "可以驱散：";
+"DAMAGE TYPE:" = "伤害类型：";
 
 // MARK: - Game Text
 // MARK: Region

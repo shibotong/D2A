@@ -9,8 +9,6 @@ import SwiftUI
 import CryptoKit
 
 struct HeroListView: View {
-    @EnvironmentObject var herodata: HeroDatabase
-    @EnvironmentObject var env: DotaEnvironment
     @StateObject var vm = HeroListViewModel()
     @Environment(\.horizontalSizeClass) private var horizontalSize
     
@@ -73,7 +71,7 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildHeroGrid(heroes: [Hero], title: String, icon: String) -> some View {
+    @ViewBuilder private func buildHeroGrid(heroes: [HeroModel], title: String, icon: String) -> some View {
         Section {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading), count: 1)) {
                 ForEach(heroes) { hero in
@@ -93,7 +91,7 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildSection(heroes: [Hero], attributes: HeroAttributes) -> some View {
+    @ViewBuilder private func buildSection(heroes: [HeroModel], attributes: HeroAttributes) -> some View {
         if heroes.count == 0 {
             Text("No Results")
                 .bold()
@@ -119,9 +117,9 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildMainPart(heroes: [Hero]) -> some View {
+    @ViewBuilder private func buildMainPart(heroes: [HeroModel]) -> some View {
         if vm.gridView {
-            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 160, maximum: 200), spacing: 10, alignment: .leading), count: 1)){
+            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 130, maximum: 200), spacing: 10, alignment: .leading), count: 1)){
                 ForEach(heroes) { hero in
                     NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
                         buildHero(hero: hero)
@@ -137,7 +135,7 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildHero(hero: Hero) -> some View {
+    @ViewBuilder private func buildHero(hero: HeroModel) -> some View {
         if horizontalSize == .regular {
             HeroImageView(heroID: hero.id, type: .vert)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -182,6 +180,5 @@ struct HeroListView: View {
 struct HeroListView_Previews: PreviewProvider {
     static var previews: some View {
         HeroListView()
-            .environmentObject(HeroDatabase.shared)
     }
 }

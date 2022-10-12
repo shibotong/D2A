@@ -13,16 +13,25 @@ let productIDs = ["D2APRO"]//["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnu
 let GROUP_NAME = "group.D2A"
 let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/documents/terms-of-use.md"
 let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/documents/privacy-policy.md"
+let currentLanguage: String = Locale.current.languageCode ?? "en"
 let languageCode: Language = {
-    let languageStr = Locale.preferredLanguages[0]
-    print("Current \(languageStr)")
-    switch languageStr {
+    switch currentLanguage {
     case "en":
         return .english
-    case "zh-Hans":
+    case "zh":
         return .sChinese
     default:
         return .english
+    }
+}()
+let colonLocalize: Character = {
+    switch currentLanguage {
+    case "en":
+        return ":"
+    case "zh":
+        return "："
+    default:
+        return ":"
     }
 }()
 

@@ -307,8 +307,8 @@ struct RecentMatchesEntryView : View {
                 Spacer()
                 VStack(alignment: .trailing) {
                     Text(match.startTime.convertToTime())
-                    Text(LocalizedStringKey(match.fetchLobby().fetchLobbyName()))
-                        .foregroundColor(match.fetchLobby().fetchLobbyName() == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
+                    Text(LocalizedStringKey(match.fetchLobby().lobbyName))
+                        .foregroundColor(match.fetchLobby().lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
                 }.font(.custom(fontString, size: secondaryLabelSize)).foregroundColor(Color(.secondaryLabel)).padding(.vertical, 5)
             }
         case .systemLarge:
@@ -333,8 +333,8 @@ struct RecentMatchesEntryView : View {
                 VStack(alignment: .trailing, spacing: 0) {
                     Text(match.startTime.convertToTime())
                     Text(LocalizedStringKey(match.fetchMode().fetchModeName()))
-                    Text(LocalizedStringKey(match.fetchLobby().fetchLobbyName()))
-                        .foregroundColor(match.fetchLobby().fetchLobbyName() == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
+                    Text(LocalizedStringKey(match.fetchLobby().lobbyName))
+                        .foregroundColor(match.fetchLobby().lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
                 }.font(.custom(fontString, size: secondaryLabelSize)).foregroundColor(Color(.secondaryLabel)).padding(.vertical, 5)
             }
         default:

@@ -1,9 +1,23 @@
 query Hero($id: Short!) {
   constants {
     hero(id: $id) {
+      id
+      name
+      displayName
+      shortName
+      aliases
+      roles {
+        roleId
+        level
+      }
       talents {
         abilityId
         slot
+      }
+      stats {
+        visionDaytimeRange
+        visionNighttimeRange
+        complexity
       }
     }
   }
