@@ -72,7 +72,7 @@ struct HeroDetailView: View {
                                 } else {
                                     Circle()
                                         .stroke()
-                                        .frame(width: 15)
+                                        .frame(width: 15, height: 15)
                                         .foregroundColor(.white)
                                 }
                             }
