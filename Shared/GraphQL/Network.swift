@@ -10,7 +10,7 @@ import Apollo
 
 class Network {
     static let shared = Network()
-    private(set) lazy var apollo = {
+    private(set) lazy var apollo: ApolloClient = {
         let token = try? Secrets.load().stratzToken
         let url = URL(string: "https://api.stratz.com/graphql")!
         let additionalHeaders = ["Authorization": "Bearer \(token ?? "no-token")"]
