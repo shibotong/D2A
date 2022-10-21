@@ -1,0 +1,45 @@
+subscription MatchLive($id: Long!) {
+  matchLive(matchId: $id) {
+    matchId
+    radiantScore
+    direScore
+    leagueId
+    delay
+    averageRank
+    buildingState
+    radiantLead
+    lobbyType
+    gameTime
+    completed
+    isUpdating
+    isParsing
+    radiantTeam {
+      id
+      name
+      countryCode
+      url
+      logo
+      baseLogo
+      bannerLogo
+    }
+    direTeam {
+      id
+      name
+      countryCode
+      url
+      logo
+      baseLogo
+      bannerLogo
+    }
+    gameMode
+    gameMinute
+    createdDateTime
+    modifiedDateTime
+    winRateValues
+    durationValues
+    liveWinRateValues {
+      time
+      winRate
+    }
+  }
+}

@@ -244,6 +244,246 @@ public enum HeroRoleEnum: RawRepresentable, Equatable, Hashable, CaseIterable, A
   }
 }
 
+public enum LobbyTypeEnum: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
+  case unranked
+  case practice
+  case tournament
+  case tutorial
+  case coopVsBots
+  case teamMatch
+  case soloQueue
+  case ranked
+  case soloMid
+  case battleCup
+  case event
+  /// Auto generated constant for unknown enum values
+  case __unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "UNRANKED": self = .unranked
+      case "PRACTICE": self = .practice
+      case "TOURNAMENT": self = .tournament
+      case "TUTORIAL": self = .tutorial
+      case "COOP_VS_BOTS": self = .coopVsBots
+      case "TEAM_MATCH": self = .teamMatch
+      case "SOLO_QUEUE": self = .soloQueue
+      case "RANKED": self = .ranked
+      case "SOLO_MID": self = .soloMid
+      case "BATTLE_CUP": self = .battleCup
+      case "EVENT": self = .event
+      default: self = .__unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .unranked: return "UNRANKED"
+      case .practice: return "PRACTICE"
+      case .tournament: return "TOURNAMENT"
+      case .tutorial: return "TUTORIAL"
+      case .coopVsBots: return "COOP_VS_BOTS"
+      case .teamMatch: return "TEAM_MATCH"
+      case .soloQueue: return "SOLO_QUEUE"
+      case .ranked: return "RANKED"
+      case .soloMid: return "SOLO_MID"
+      case .battleCup: return "BATTLE_CUP"
+      case .event: return "EVENT"
+      case .__unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: LobbyTypeEnum, rhs: LobbyTypeEnum) -> Bool {
+    switch (lhs, rhs) {
+      case (.unranked, .unranked): return true
+      case (.practice, .practice): return true
+      case (.tournament, .tournament): return true
+      case (.tutorial, .tutorial): return true
+      case (.coopVsBots, .coopVsBots): return true
+      case (.teamMatch, .teamMatch): return true
+      case (.soloQueue, .soloQueue): return true
+      case (.ranked, .ranked): return true
+      case (.soloMid, .soloMid): return true
+      case (.battleCup, .battleCup): return true
+      case (.event, .event): return true
+      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+
+  public static var allCases: [LobbyTypeEnum] {
+    return [
+      .unranked,
+      .practice,
+      .tournament,
+      .tutorial,
+      .coopVsBots,
+      .teamMatch,
+      .soloQueue,
+      .ranked,
+      .soloMid,
+      .battleCup,
+      .event,
+    ]
+  }
+}
+
+public enum GameModeEnumType: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
+  case `none`
+  case allPick
+  case captainsMode
+  case randomDraft
+  case singleDraft
+  case allRandom
+  case intro
+  case theDiretide
+  case reverseCaptainsMode
+  case theGreeviling
+  case tutorial
+  case midOnly
+  case leastPlayed
+  case newPlayerPool
+  case compendiumMatchmaking
+  case custom
+  case captainsDraft
+  case balancedDraft
+  case abilityDraft
+  case event
+  case allRandomDeathMatch
+  case soloMid
+  case allPickRanked
+  case turbo
+  case mutation
+  /// Auto generated constant for unknown enum values
+  case __unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "NONE": self = .none
+      case "ALL_PICK": self = .allPick
+      case "CAPTAINS_MODE": self = .captainsMode
+      case "RANDOM_DRAFT": self = .randomDraft
+      case "SINGLE_DRAFT": self = .singleDraft
+      case "ALL_RANDOM": self = .allRandom
+      case "INTRO": self = .intro
+      case "THE_DIRETIDE": self = .theDiretide
+      case "REVERSE_CAPTAINS_MODE": self = .reverseCaptainsMode
+      case "THE_GREEVILING": self = .theGreeviling
+      case "TUTORIAL": self = .tutorial
+      case "MID_ONLY": self = .midOnly
+      case "LEAST_PLAYED": self = .leastPlayed
+      case "NEW_PLAYER_POOL": self = .newPlayerPool
+      case "COMPENDIUM_MATCHMAKING": self = .compendiumMatchmaking
+      case "CUSTOM": self = .custom
+      case "CAPTAINS_DRAFT": self = .captainsDraft
+      case "BALANCED_DRAFT": self = .balancedDraft
+      case "ABILITY_DRAFT": self = .abilityDraft
+      case "EVENT": self = .event
+      case "ALL_RANDOM_DEATH_MATCH": self = .allRandomDeathMatch
+      case "SOLO_MID": self = .soloMid
+      case "ALL_PICK_RANKED": self = .allPickRanked
+      case "TURBO": self = .turbo
+      case "MUTATION": self = .mutation
+      default: self = .__unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .none: return "NONE"
+      case .allPick: return "ALL_PICK"
+      case .captainsMode: return "CAPTAINS_MODE"
+      case .randomDraft: return "RANDOM_DRAFT"
+      case .singleDraft: return "SINGLE_DRAFT"
+      case .allRandom: return "ALL_RANDOM"
+      case .intro: return "INTRO"
+      case .theDiretide: return "THE_DIRETIDE"
+      case .reverseCaptainsMode: return "REVERSE_CAPTAINS_MODE"
+      case .theGreeviling: return "THE_GREEVILING"
+      case .tutorial: return "TUTORIAL"
+      case .midOnly: return "MID_ONLY"
+      case .leastPlayed: return "LEAST_PLAYED"
+      case .newPlayerPool: return "NEW_PLAYER_POOL"
+      case .compendiumMatchmaking: return "COMPENDIUM_MATCHMAKING"
+      case .custom: return "CUSTOM"
+      case .captainsDraft: return "CAPTAINS_DRAFT"
+      case .balancedDraft: return "BALANCED_DRAFT"
+      case .abilityDraft: return "ABILITY_DRAFT"
+      case .event: return "EVENT"
+      case .allRandomDeathMatch: return "ALL_RANDOM_DEATH_MATCH"
+      case .soloMid: return "SOLO_MID"
+      case .allPickRanked: return "ALL_PICK_RANKED"
+      case .turbo: return "TURBO"
+      case .mutation: return "MUTATION"
+      case .__unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: GameModeEnumType, rhs: GameModeEnumType) -> Bool {
+    switch (lhs, rhs) {
+      case (.none, .none): return true
+      case (.allPick, .allPick): return true
+      case (.captainsMode, .captainsMode): return true
+      case (.randomDraft, .randomDraft): return true
+      case (.singleDraft, .singleDraft): return true
+      case (.allRandom, .allRandom): return true
+      case (.intro, .intro): return true
+      case (.theDiretide, .theDiretide): return true
+      case (.reverseCaptainsMode, .reverseCaptainsMode): return true
+      case (.theGreeviling, .theGreeviling): return true
+      case (.tutorial, .tutorial): return true
+      case (.midOnly, .midOnly): return true
+      case (.leastPlayed, .leastPlayed): return true
+      case (.newPlayerPool, .newPlayerPool): return true
+      case (.compendiumMatchmaking, .compendiumMatchmaking): return true
+      case (.custom, .custom): return true
+      case (.captainsDraft, .captainsDraft): return true
+      case (.balancedDraft, .balancedDraft): return true
+      case (.abilityDraft, .abilityDraft): return true
+      case (.event, .event): return true
+      case (.allRandomDeathMatch, .allRandomDeathMatch): return true
+      case (.soloMid, .soloMid): return true
+      case (.allPickRanked, .allPickRanked): return true
+      case (.turbo, .turbo): return true
+      case (.mutation, .mutation): return true
+      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+
+  public static var allCases: [GameModeEnumType] {
+    return [
+      .none,
+      .allPick,
+      .captainsMode,
+      .randomDraft,
+      .singleDraft,
+      .allRandom,
+      .intro,
+      .theDiretide,
+      .reverseCaptainsMode,
+      .theGreeviling,
+      .tutorial,
+      .midOnly,
+      .leastPlayed,
+      .newPlayerPool,
+      .compendiumMatchmaking,
+      .custom,
+      .captainsDraft,
+      .balancedDraft,
+      .abilityDraft,
+      .event,
+      .allRandomDeathMatch,
+      .soloMid,
+      .allPickRanked,
+      .turbo,
+      .mutation,
+    ]
+  }
+}
+
 public final class AbilityQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
@@ -887,6 +1127,599 @@ public final class HeroQuery: GraphQLQuery {
             set {
               resultMap.updateValue(newValue, forKey: "complexity")
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+public final class MatchLiveSubscription: GraphQLSubscription {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    subscription MatchLive($id: Long!) {
+      matchLive(matchId: $id) {
+        __typename
+        matchId
+        radiantScore
+        direScore
+        leagueId
+        delay
+        averageRank
+        buildingState
+        radiantLead
+        lobbyType
+        gameTime
+        completed
+        isUpdating
+        isParsing
+        radiantTeam {
+          __typename
+          id
+          name
+          countryCode
+          url
+          logo
+          baseLogo
+          bannerLogo
+        }
+        direTeam {
+          __typename
+          id
+          name
+          countryCode
+          url
+          logo
+          baseLogo
+          bannerLogo
+        }
+        gameMode
+        gameMinute
+        createdDateTime
+        modifiedDateTime
+        winRateValues
+        durationValues
+        liveWinRateValues {
+          __typename
+          time
+          winRate
+        }
+      }
+    }
+    """
+
+  public let operationName: String = "MatchLive"
+
+  public var id: Long
+
+  public init(id: Long) {
+    self.id = id
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["DotaSubscription"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("matchLive", arguments: ["matchId": GraphQLVariable("id")], type: .object(MatchLive.selections)),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(matchLive: MatchLive? = nil) {
+      self.init(unsafeResultMap: ["__typename": "DotaSubscription", "matchLive": matchLive.flatMap { (value: MatchLive) -> ResultMap in value.resultMap }])
+    }
+
+    public var matchLive: MatchLive? {
+      get {
+        return (resultMap["matchLive"] as? ResultMap).flatMap { MatchLive(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "matchLive")
+      }
+    }
+
+    public struct MatchLive: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["MatchLiveType"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("matchId", type: .scalar(Long.self)),
+          GraphQLField("radiantScore", type: .scalar(Byte.self)),
+          GraphQLField("direScore", type: .scalar(Byte.self)),
+          GraphQLField("leagueId", type: .scalar(Int.self)),
+          GraphQLField("delay", type: .scalar(Short.self)),
+          GraphQLField("averageRank", type: .scalar(Int.self)),
+          GraphQLField("buildingState", type: .scalar(Long.self)),
+          GraphQLField("radiantLead", type: .scalar(Int.self)),
+          GraphQLField("lobbyType", type: .scalar(LobbyTypeEnum.self)),
+          GraphQLField("gameTime", type: .scalar(Int.self)),
+          GraphQLField("completed", type: .scalar(Bool.self)),
+          GraphQLField("isUpdating", type: .scalar(Bool.self)),
+          GraphQLField("isParsing", type: .scalar(Bool.self)),
+          GraphQLField("radiantTeam", type: .object(RadiantTeam.selections)),
+          GraphQLField("direTeam", type: .object(DireTeam.selections)),
+          GraphQLField("gameMode", type: .scalar(GameModeEnumType.self)),
+          GraphQLField("gameMinute", type: .scalar(Short.self)),
+          GraphQLField("createdDateTime", type: .scalar(Long.self)),
+          GraphQLField("modifiedDateTime", type: .scalar(Long.self)),
+          GraphQLField("winRateValues", type: .list(.scalar(Double.self))),
+          GraphQLField("durationValues", type: .list(.scalar(Double.self))),
+          GraphQLField("liveWinRateValues", type: .list(.object(LiveWinRateValue.selections))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(matchId: Long? = nil, radiantScore: Byte? = nil, direScore: Byte? = nil, leagueId: Int? = nil, delay: Short? = nil, averageRank: Int? = nil, buildingState: Long? = nil, radiantLead: Int? = nil, lobbyType: LobbyTypeEnum? = nil, gameTime: Int? = nil, completed: Bool? = nil, isUpdating: Bool? = nil, isParsing: Bool? = nil, radiantTeam: RadiantTeam? = nil, direTeam: DireTeam? = nil, gameMode: GameModeEnumType? = nil, gameMinute: Short? = nil, createdDateTime: Long? = nil, modifiedDateTime: Long? = nil, winRateValues: [Double?]? = nil, durationValues: [Double?]? = nil, liveWinRateValues: [LiveWinRateValue?]? = nil) {
+        self.init(unsafeResultMap: ["__typename": "MatchLiveType", "matchId": matchId, "radiantScore": radiantScore, "direScore": direScore, "leagueId": leagueId, "delay": delay, "averageRank": averageRank, "buildingState": buildingState, "radiantLead": radiantLead, "lobbyType": lobbyType, "gameTime": gameTime, "completed": completed, "isUpdating": isUpdating, "isParsing": isParsing, "radiantTeam": radiantTeam.flatMap { (value: RadiantTeam) -> ResultMap in value.resultMap }, "direTeam": direTeam.flatMap { (value: DireTeam) -> ResultMap in value.resultMap }, "gameMode": gameMode, "gameMinute": gameMinute, "createdDateTime": createdDateTime, "modifiedDateTime": modifiedDateTime, "winRateValues": winRateValues, "durationValues": durationValues, "liveWinRateValues": liveWinRateValues.flatMap { (value: [LiveWinRateValue?]) -> [ResultMap?] in value.map { (value: LiveWinRateValue?) -> ResultMap? in value.flatMap { (value: LiveWinRateValue) -> ResultMap in value.resultMap } } }])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var matchId: Long? {
+        get {
+          return resultMap["matchId"] as? Long
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "matchId")
+        }
+      }
+
+      public var radiantScore: Byte? {
+        get {
+          return resultMap["radiantScore"] as? Byte
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "radiantScore")
+        }
+      }
+
+      public var direScore: Byte? {
+        get {
+          return resultMap["direScore"] as? Byte
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "direScore")
+        }
+      }
+
+      public var leagueId: Int? {
+        get {
+          return resultMap["leagueId"] as? Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "leagueId")
+        }
+      }
+
+      public var delay: Short? {
+        get {
+          return resultMap["delay"] as? Short
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "delay")
+        }
+      }
+
+      public var averageRank: Int? {
+        get {
+          return resultMap["averageRank"] as? Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "averageRank")
+        }
+      }
+
+      public var buildingState: Long? {
+        get {
+          return resultMap["buildingState"] as? Long
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "buildingState")
+        }
+      }
+
+      public var radiantLead: Int? {
+        get {
+          return resultMap["radiantLead"] as? Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "radiantLead")
+        }
+      }
+
+      public var lobbyType: LobbyTypeEnum? {
+        get {
+          return resultMap["lobbyType"] as? LobbyTypeEnum
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "lobbyType")
+        }
+      }
+
+      public var gameTime: Int? {
+        get {
+          return resultMap["gameTime"] as? Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "gameTime")
+        }
+      }
+
+      public var completed: Bool? {
+        get {
+          return resultMap["completed"] as? Bool
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "completed")
+        }
+      }
+
+      public var isUpdating: Bool? {
+        get {
+          return resultMap["isUpdating"] as? Bool
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "isUpdating")
+        }
+      }
+
+      public var isParsing: Bool? {
+        get {
+          return resultMap["isParsing"] as? Bool
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "isParsing")
+        }
+      }
+
+      public var radiantTeam: RadiantTeam? {
+        get {
+          return (resultMap["radiantTeam"] as? ResultMap).flatMap { RadiantTeam(unsafeResultMap: $0) }
+        }
+        set {
+          resultMap.updateValue(newValue?.resultMap, forKey: "radiantTeam")
+        }
+      }
+
+      public var direTeam: DireTeam? {
+        get {
+          return (resultMap["direTeam"] as? ResultMap).flatMap { DireTeam(unsafeResultMap: $0) }
+        }
+        set {
+          resultMap.updateValue(newValue?.resultMap, forKey: "direTeam")
+        }
+      }
+
+      public var gameMode: GameModeEnumType? {
+        get {
+          return resultMap["gameMode"] as? GameModeEnumType
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "gameMode")
+        }
+      }
+
+      public var gameMinute: Short? {
+        get {
+          return resultMap["gameMinute"] as? Short
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "gameMinute")
+        }
+      }
+
+      public var createdDateTime: Long? {
+        get {
+          return resultMap["createdDateTime"] as? Long
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "createdDateTime")
+        }
+      }
+
+      public var modifiedDateTime: Long? {
+        get {
+          return resultMap["modifiedDateTime"] as? Long
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "modifiedDateTime")
+        }
+      }
+
+      public var winRateValues: [Double?]? {
+        get {
+          return resultMap["winRateValues"] as? [Double?]
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "winRateValues")
+        }
+      }
+
+      public var durationValues: [Double?]? {
+        get {
+          return resultMap["durationValues"] as? [Double?]
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "durationValues")
+        }
+      }
+
+      public var liveWinRateValues: [LiveWinRateValue?]? {
+        get {
+          return (resultMap["liveWinRateValues"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [LiveWinRateValue?] in value.map { (value: ResultMap?) -> LiveWinRateValue? in value.flatMap { (value: ResultMap) -> LiveWinRateValue in LiveWinRateValue(unsafeResultMap: value) } } }
+        }
+        set {
+          resultMap.updateValue(newValue.flatMap { (value: [LiveWinRateValue?]) -> [ResultMap?] in value.map { (value: LiveWinRateValue?) -> ResultMap? in value.flatMap { (value: LiveWinRateValue) -> ResultMap in value.resultMap } } }, forKey: "liveWinRateValues")
+        }
+      }
+
+      public struct RadiantTeam: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["TeamType"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("id", type: .nonNull(.scalar(Int.self))),
+            GraphQLField("name", type: .scalar(String.self)),
+            GraphQLField("countryCode", type: .scalar(String.self)),
+            GraphQLField("url", type: .scalar(String.self)),
+            GraphQLField("logo", type: .scalar(String.self)),
+            GraphQLField("baseLogo", type: .scalar(String.self)),
+            GraphQLField("bannerLogo", type: .scalar(String.self)),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(id: Int, name: String? = nil, countryCode: String? = nil, url: String? = nil, logo: String? = nil, baseLogo: String? = nil, bannerLogo: String? = nil) {
+          self.init(unsafeResultMap: ["__typename": "TeamType", "id": id, "name": name, "countryCode": countryCode, "url": url, "logo": logo, "baseLogo": baseLogo, "bannerLogo": bannerLogo])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var id: Int {
+          get {
+            return resultMap["id"]! as! Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var name: String? {
+          get {
+            return resultMap["name"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+
+        public var countryCode: String? {
+          get {
+            return resultMap["countryCode"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "countryCode")
+          }
+        }
+
+        public var url: String? {
+          get {
+            return resultMap["url"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "url")
+          }
+        }
+
+        public var logo: String? {
+          get {
+            return resultMap["logo"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "logo")
+          }
+        }
+
+        public var baseLogo: String? {
+          get {
+            return resultMap["baseLogo"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "baseLogo")
+          }
+        }
+
+        public var bannerLogo: String? {
+          get {
+            return resultMap["bannerLogo"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "bannerLogo")
+          }
+        }
+      }
+
+      public struct DireTeam: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["TeamType"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("id", type: .nonNull(.scalar(Int.self))),
+            GraphQLField("name", type: .scalar(String.self)),
+            GraphQLField("countryCode", type: .scalar(String.self)),
+            GraphQLField("url", type: .scalar(String.self)),
+            GraphQLField("logo", type: .scalar(String.self)),
+            GraphQLField("baseLogo", type: .scalar(String.self)),
+            GraphQLField("bannerLogo", type: .scalar(String.self)),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(id: Int, name: String? = nil, countryCode: String? = nil, url: String? = nil, logo: String? = nil, baseLogo: String? = nil, bannerLogo: String? = nil) {
+          self.init(unsafeResultMap: ["__typename": "TeamType", "id": id, "name": name, "countryCode": countryCode, "url": url, "logo": logo, "baseLogo": baseLogo, "bannerLogo": bannerLogo])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var id: Int {
+          get {
+            return resultMap["id"]! as! Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var name: String? {
+          get {
+            return resultMap["name"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+
+        public var countryCode: String? {
+          get {
+            return resultMap["countryCode"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "countryCode")
+          }
+        }
+
+        public var url: String? {
+          get {
+            return resultMap["url"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "url")
+          }
+        }
+
+        public var logo: String? {
+          get {
+            return resultMap["logo"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "logo")
+          }
+        }
+
+        public var baseLogo: String? {
+          get {
+            return resultMap["baseLogo"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "baseLogo")
+          }
+        }
+
+        public var bannerLogo: String? {
+          get {
+            return resultMap["bannerLogo"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "bannerLogo")
+          }
+        }
+      }
+
+      public struct LiveWinRateValue: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["MatchLiveWinRateDetailType"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("time", type: .nonNull(.scalar(Int.self))),
+            GraphQLField("winRate", type: .nonNull(.scalar(Double.self))),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(time: Int, winRate: Double) {
+          self.init(unsafeResultMap: ["__typename": "MatchLiveWinRateDetailType", "time": time, "winRate": winRate])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var time: Int {
+          get {
+            return resultMap["time"]! as! Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "time")
+          }
+        }
+
+        public var winRate: Double {
+          get {
+            return resultMap["winRate"]! as! Double
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "winRate")
           }
         }
       }
