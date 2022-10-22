@@ -31,6 +31,55 @@ subscription MatchLive($id: Long!) {
       baseLogo
       bannerLogo
     }
+    players {
+      steamAccountId
+      steamAccount {
+        realName
+        name
+        seasonRank
+        proSteamAccount {
+          name
+          realName
+        }
+      }
+      heroId
+      name
+      playerSlot
+      isRadiant
+      numKills
+      numDeaths
+      numAssists
+      numLastHits
+      numDenies
+      goldPerMinute
+      experiencePerMinute
+      level
+      gold
+      heroDamage
+      towerDamage
+      itemId0
+      itemId1
+      itemId2
+      itemId3
+      itemId4
+      itemId5
+      backpackId0
+      backpackId1
+      backpackId2
+      playbackData {
+        positionEvents {
+          time
+          x
+          y
+        }
+      }
+      networth
+      impPerMinute {
+        time
+        imp
+      }
+      position
+    }
     gameMode
     gameMinute
     createdDateTime

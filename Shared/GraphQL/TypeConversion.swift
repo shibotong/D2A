@@ -10,3 +10,4 @@ import Foundation
 public typealias Short = Double
 public typealias Byte = Int
 public typealias Long = Int
+public typealias UShort = Double

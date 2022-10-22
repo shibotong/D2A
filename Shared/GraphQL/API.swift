@@ -329,6 +329,76 @@ public enum LobbyTypeEnum: RawRepresentable, Equatable, Hashable, CaseIterable, 
   }
 }
 
+public enum MatchPlayerPositionType: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
+  case position_1
+  case position_2
+  case position_3
+  case position_4
+  case position_5
+  case unknown
+  case filtered
+  case all
+  /// Auto generated constant for unknown enum values
+  case __unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "POSITION_1": self = .position_1
+      case "POSITION_2": self = .position_2
+      case "POSITION_3": self = .position_3
+      case "POSITION_4": self = .position_4
+      case "POSITION_5": self = .position_5
+      case "UNKNOWN": self = .unknown
+      case "FILTERED": self = .filtered
+      case "ALL": self = .all
+      default: self = .__unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .position_1: return "POSITION_1"
+      case .position_2: return "POSITION_2"
+      case .position_3: return "POSITION_3"
+      case .position_4: return "POSITION_4"
+      case .position_5: return "POSITION_5"
+      case .unknown: return "UNKNOWN"
+      case .filtered: return "FILTERED"
+      case .all: return "ALL"
+      case .__unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: MatchPlayerPositionType, rhs: MatchPlayerPositionType) -> Bool {
+    switch (lhs, rhs) {
+      case (.position_1, .position_1): return true
+      case (.position_2, .position_2): return true
+      case (.position_3, .position_3): return true
+      case (.position_4, .position_4): return true
+      case (.position_5, .position_5): return true
+      case (.unknown, .unknown): return true
+      case (.filtered, .filtered): return true
+      case (.all, .all): return true
+      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+
+  public static var allCases: [MatchPlayerPositionType] {
+    return [
+      .position_1,
+      .position_2,
+      .position_3,
+      .position_4,
+      .position_5,
+      .unknown,
+      .filtered,
+      .all,
+    ]
+  }
+}
+
 public enum GameModeEnumType: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
   public typealias RawValue = String
   case `none`
@@ -1174,6 +1244,61 @@ public final class MatchLiveSubscription: GraphQLSubscription {
           baseLogo
           bannerLogo
         }
+        players {
+          __typename
+          steamAccountId
+          steamAccount {
+            __typename
+            realName
+            name
+            seasonRank
+            proSteamAccount {
+              __typename
+              name
+              realName
+            }
+          }
+          heroId
+          name
+          playerSlot
+          isRadiant
+          numKills
+          numDeaths
+          numAssists
+          numLastHits
+          numDenies
+          goldPerMinute
+          experiencePerMinute
+          level
+          gold
+          heroDamage
+          towerDamage
+          itemId0
+          itemId1
+          itemId2
+          itemId3
+          itemId4
+          itemId5
+          backpackId0
+          backpackId1
+          backpackId2
+          playbackData {
+            __typename
+            positionEvents {
+              __typename
+              time
+              x
+              y
+            }
+          }
+          networth
+          impPerMinute {
+            __typename
+            time
+            imp
+          }
+          position
+        }
         gameMode
         gameMinute
         createdDateTime
@@ -1250,6 +1375,7 @@ public final class MatchLiveSubscription: GraphQLSubscription {
           GraphQLField("isParsing", type: .scalar(Bool.self)),
           GraphQLField("radiantTeam", type: .object(RadiantTeam.selections)),
           GraphQLField("direTeam", type: .object(DireTeam.selections)),
+          GraphQLField("players", type: .list(.object(Player.selections))),
           GraphQLField("gameMode", type: .scalar(GameModeEnumType.self)),
           GraphQLField("gameMinute", type: .scalar(Short.self)),
           GraphQLField("createdDateTime", type: .scalar(Long.self)),
@@ -1266,8 +1392,8 @@ public final class MatchLiveSubscription: GraphQLSubscription {
         self.resultMap = unsafeResultMap
       }
 
-      public init(matchId: Long? = nil, radiantScore: Byte? = nil, direScore: Byte? = nil, leagueId: Int? = nil, delay: Short? = nil, averageRank: Int? = nil, buildingState: Long? = nil, radiantLead: Int? = nil, lobbyType: LobbyTypeEnum? = nil, gameTime: Int? = nil, completed: Bool? = nil, isUpdating: Bool? = nil, isParsing: Bool? = nil, radiantTeam: RadiantTeam? = nil, direTeam: DireTeam? = nil, gameMode: GameModeEnumType? = nil, gameMinute: Short? = nil, createdDateTime: Long? = nil, modifiedDateTime: Long? = nil, winRateValues: [Double?]? = nil, durationValues: [Double?]? = nil, liveWinRateValues: [LiveWinRateValue?]? = nil) {
-        self.init(unsafeResultMap: ["__typename": "MatchLiveType", "matchId": matchId, "radiantScore": radiantScore, "direScore": direScore, "leagueId": leagueId, "delay": delay, "averageRank": averageRank, "buildingState": buildingState, "radiantLead": radiantLead, "lobbyType": lobbyType, "gameTime": gameTime, "completed": completed, "isUpdating": isUpdating, "isParsing": isParsing, "radiantTeam": radiantTeam.flatMap { (value: RadiantTeam) -> ResultMap in value.resultMap }, "direTeam": direTeam.flatMap { (value: DireTeam) -> ResultMap in value.resultMap }, "gameMode": gameMode, "gameMinute": gameMinute, "createdDateTime": createdDateTime, "modifiedDateTime": modifiedDateTime, "winRateValues": winRateValues, "durationValues": durationValues, "liveWinRateValues": liveWinRateValues.flatMap { (value: [LiveWinRateValue?]) -> [ResultMap?] in value.map { (value: LiveWinRateValue?) -> ResultMap? in value.flatMap { (value: LiveWinRateValue) -> ResultMap in value.resultMap } } }])
+      public init(matchId: Long? = nil, radiantScore: Byte? = nil, direScore: Byte? = nil, leagueId: Int? = nil, delay: Short? = nil, averageRank: Int? = nil, buildingState: Long? = nil, radiantLead: Int? = nil, lobbyType: LobbyTypeEnum? = nil, gameTime: Int? = nil, completed: Bool? = nil, isUpdating: Bool? = nil, isParsing: Bool? = nil, radiantTeam: RadiantTeam? = nil, direTeam: DireTeam? = nil, players: [Player?]? = nil, gameMode: GameModeEnumType? = nil, gameMinute: Short? = nil, createdDateTime: Long? = nil, modifiedDateTime: Long? = nil, winRateValues: [Double?]? = nil, durationValues: [Double?]? = nil, liveWinRateValues: [LiveWinRateValue?]? = nil) {
+        self.init(unsafeResultMap: ["__typename": "MatchLiveType", "matchId": matchId, "radiantScore": radiantScore, "direScore": direScore, "leagueId": leagueId, "delay": delay, "averageRank": averageRank, "buildingState": buildingState, "radiantLead": radiantLead, "lobbyType": lobbyType, "gameTime": gameTime, "completed": completed, "isUpdating": isUpdating, "isParsing": isParsing, "radiantTeam": radiantTeam.flatMap { (value: RadiantTeam) -> ResultMap in value.resultMap }, "direTeam": direTeam.flatMap { (value: DireTeam) -> ResultMap in value.resultMap }, "players": players.flatMap { (value: [Player?]) -> [ResultMap?] in value.map { (value: Player?) -> ResultMap? in value.flatMap { (value: Player) -> ResultMap in value.resultMap } } }, "gameMode": gameMode, "gameMinute": gameMinute, "createdDateTime": createdDateTime, "modifiedDateTime": modifiedDateTime, "winRateValues": winRateValues, "durationValues": durationValues, "liveWinRateValues": liveWinRateValues.flatMap { (value: [LiveWinRateValue?]) -> [ResultMap?] in value.map { (value: LiveWinRateValue?) -> ResultMap? in value.flatMap { (value: LiveWinRateValue) -> ResultMap in value.resultMap } } }])
       }
 
       public var __typename: String {
@@ -1411,6 +1537,15 @@ public final class MatchLiveSubscription: GraphQLSubscription {
         }
         set {
           resultMap.updateValue(newValue?.resultMap, forKey: "direTeam")
+        }
+      }
+
+      public var players: [Player?]? {
+        get {
+          return (resultMap["players"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Player?] in value.map { (value: ResultMap?) -> Player? in value.flatMap { (value: ResultMap) -> Player in Player(unsafeResultMap: value) } } }
+        }
+        set {
+          resultMap.updateValue(newValue.flatMap { (value: [Player?]) -> [ResultMap?] in value.map { (value: Player?) -> ResultMap? in value.flatMap { (value: Player) -> ResultMap in value.resultMap } } }, forKey: "players")
         }
       }
 
@@ -1671,6 +1806,600 @@ public final class MatchLiveSubscription: GraphQLSubscription {
           }
           set {
             resultMap.updateValue(newValue, forKey: "bannerLogo")
+          }
+        }
+      }
+
+      public struct Player: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["MatchLivePlayerType"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("steamAccountId", type: .scalar(Long.self)),
+            GraphQLField("steamAccount", type: .object(SteamAccount.selections)),
+            GraphQLField("heroId", type: .scalar(Short.self)),
+            GraphQLField("name", type: .scalar(String.self)),
+            GraphQLField("playerSlot", type: .scalar(Byte.self)),
+            GraphQLField("isRadiant", type: .scalar(Bool.self)),
+            GraphQLField("numKills", type: .scalar(Byte.self)),
+            GraphQLField("numDeaths", type: .scalar(Byte.self)),
+            GraphQLField("numAssists", type: .scalar(Byte.self)),
+            GraphQLField("numLastHits", type: .scalar(UShort.self)),
+            GraphQLField("numDenies", type: .scalar(UShort.self)),
+            GraphQLField("goldPerMinute", type: .scalar(UShort.self)),
+            GraphQLField("experiencePerMinute", type: .scalar(UShort.self)),
+            GraphQLField("level", type: .scalar(Byte.self)),
+            GraphQLField("gold", type: .scalar(Int.self)),
+            GraphQLField("heroDamage", type: .scalar(Int.self)),
+            GraphQLField("towerDamage", type: .scalar(Int.self)),
+            GraphQLField("itemId0", type: .scalar(Short.self)),
+            GraphQLField("itemId1", type: .scalar(Short.self)),
+            GraphQLField("itemId2", type: .scalar(Short.self)),
+            GraphQLField("itemId3", type: .scalar(Short.self)),
+            GraphQLField("itemId4", type: .scalar(Short.self)),
+            GraphQLField("itemId5", type: .scalar(Short.self)),
+            GraphQLField("backpackId0", type: .scalar(Short.self)),
+            GraphQLField("backpackId1", type: .scalar(Short.self)),
+            GraphQLField("backpackId2", type: .scalar(Short.self)),
+            GraphQLField("playbackData", type: .object(PlaybackDatum.selections)),
+            GraphQLField("networth", type: .scalar(Int.self)),
+            GraphQLField("impPerMinute", type: .list(.object(ImpPerMinute.selections))),
+            GraphQLField("position", type: .scalar(MatchPlayerPositionType.self)),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(steamAccountId: Long? = nil, steamAccount: SteamAccount? = nil, heroId: Short? = nil, name: String? = nil, playerSlot: Byte? = nil, isRadiant: Bool? = nil, numKills: Byte? = nil, numDeaths: Byte? = nil, numAssists: Byte? = nil, numLastHits: UShort? = nil, numDenies: UShort? = nil, goldPerMinute: UShort? = nil, experiencePerMinute: UShort? = nil, level: Byte? = nil, gold: Int? = nil, heroDamage: Int? = nil, towerDamage: Int? = nil, itemId0: Short? = nil, itemId1: Short? = nil, itemId2: Short? = nil, itemId3: Short? = nil, itemId4: Short? = nil, itemId5: Short? = nil, backpackId0: Short? = nil, backpackId1: Short? = nil, backpackId2: Short? = nil, playbackData: PlaybackDatum? = nil, networth: Int? = nil, impPerMinute: [ImpPerMinute?]? = nil, position: MatchPlayerPositionType? = nil) {
+          self.init(unsafeResultMap: ["__typename": "MatchLivePlayerType", "steamAccountId": steamAccountId, "steamAccount": steamAccount.flatMap { (value: SteamAccount) -> ResultMap in value.resultMap }, "heroId": heroId, "name": name, "playerSlot": playerSlot, "isRadiant": isRadiant, "numKills": numKills, "numDeaths": numDeaths, "numAssists": numAssists, "numLastHits": numLastHits, "numDenies": numDenies, "goldPerMinute": goldPerMinute, "experiencePerMinute": experiencePerMinute, "level": level, "gold": gold, "heroDamage": heroDamage, "towerDamage": towerDamage, "itemId0": itemId0, "itemId1": itemId1, "itemId2": itemId2, "itemId3": itemId3, "itemId4": itemId4, "itemId5": itemId5, "backpackId0": backpackId0, "backpackId1": backpackId1, "backpackId2": backpackId2, "playbackData": playbackData.flatMap { (value: PlaybackDatum) -> ResultMap in value.resultMap }, "networth": networth, "impPerMinute": impPerMinute.flatMap { (value: [ImpPerMinute?]) -> [ResultMap?] in value.map { (value: ImpPerMinute?) -> ResultMap? in value.flatMap { (value: ImpPerMinute) -> ResultMap in value.resultMap } } }, "position": position])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var steamAccountId: Long? {
+          get {
+            return resultMap["steamAccountId"] as? Long
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "steamAccountId")
+          }
+        }
+
+        public var steamAccount: SteamAccount? {
+          get {
+            return (resultMap["steamAccount"] as? ResultMap).flatMap { SteamAccount(unsafeResultMap: $0) }
+          }
+          set {
+            resultMap.updateValue(newValue?.resultMap, forKey: "steamAccount")
+          }
+        }
+
+        public var heroId: Short? {
+          get {
+            return resultMap["heroId"] as? Short
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "heroId")
+          }
+        }
+
+        public var name: String? {
+          get {
+            return resultMap["name"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+
+        public var playerSlot: Byte? {
+          get {
+            return resultMap["playerSlot"] as? Byte
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "playerSlot")
+          }
+        }
+
+        public var isRadiant: Bool? {
+          get {
+            return resultMap["isRadiant"] as? Bool
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "isRadiant")
+          }
+        }
+
+        public var numKills: Byte? {
+          get {
+            return resultMap["numKills"] as? Byte
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "numKills")
+          }
+        }
+
+        public var numDeaths: Byte? {
+          get {
+            return resultMap["numDeaths"] as? Byte
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "numDeaths")
+          }
+        }
+
+        public var numAssists: Byte? {
+          get {
+            return resultMap["numAssists"] as? Byte
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "numAssists")
+          }
+        }
+
+        public var numLastHits: UShort? {
+          get {
+            return resultMap["numLastHits"] as? UShort
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "numLastHits")
+          }
+        }
+
+        public var numDenies: UShort? {
+          get {
+            return resultMap["numDenies"] as? UShort
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "numDenies")
+          }
+        }
+
+        public var goldPerMinute: UShort? {
+          get {
+            return resultMap["goldPerMinute"] as? UShort
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "goldPerMinute")
+          }
+        }
+
+        public var experiencePerMinute: UShort? {
+          get {
+            return resultMap["experiencePerMinute"] as? UShort
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "experiencePerMinute")
+          }
+        }
+
+        public var level: Byte? {
+          get {
+            return resultMap["level"] as? Byte
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "level")
+          }
+        }
+
+        public var gold: Int? {
+          get {
+            return resultMap["gold"] as? Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "gold")
+          }
+        }
+
+        public var heroDamage: Int? {
+          get {
+            return resultMap["heroDamage"] as? Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "heroDamage")
+          }
+        }
+
+        public var towerDamage: Int? {
+          get {
+            return resultMap["towerDamage"] as? Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "towerDamage")
+          }
+        }
+
+        public var itemId0: Short? {
+          get {
+            return resultMap["itemId0"] as? Short
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "itemId0")
+          }
+        }
+
+        public var itemId1: Short? {
+          get {
+            return resultMap["itemId1"] as? Short
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "itemId1")
+          }
+        }
+
+        public var itemId2: Short? {
+          get {
+            return resultMap["itemId2"] as? Short
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "itemId2")
+          }
+        }
+
+        public var itemId3: Short? {
+          get {
+            return resultMap["itemId3"] as? Short
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "itemId3")
+          }
+        }
+
+        public var itemId4: Short? {
+          get {
+            return resultMap["itemId4"] as? Short
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "itemId4")
+          }
+        }
+
+        public var itemId5: Short? {
+          get {
+            return resultMap["itemId5"] as? Short
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "itemId5")
+          }
+        }
+
+        public var backpackId0: Short? {
+          get {
+            return resultMap["backpackId0"] as? Short
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "backpackId0")
+          }
+        }
+
+        public var backpackId1: Short? {
+          get {
+            return resultMap["backpackId1"] as? Short
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "backpackId1")
+          }
+        }
+
+        public var backpackId2: Short? {
+          get {
+            return resultMap["backpackId2"] as? Short
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "backpackId2")
+          }
+        }
+
+        public var playbackData: PlaybackDatum? {
+          get {
+            return (resultMap["playbackData"] as? ResultMap).flatMap { PlaybackDatum(unsafeResultMap: $0) }
+          }
+          set {
+            resultMap.updateValue(newValue?.resultMap, forKey: "playbackData")
+          }
+        }
+
+        public var networth: Int? {
+          get {
+            return resultMap["networth"] as? Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "networth")
+          }
+        }
+
+        public var impPerMinute: [ImpPerMinute?]? {
+          get {
+            return (resultMap["impPerMinute"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [ImpPerMinute?] in value.map { (value: ResultMap?) -> ImpPerMinute? in value.flatMap { (value: ResultMap) -> ImpPerMinute in ImpPerMinute(unsafeResultMap: value) } } }
+          }
+          set {
+            resultMap.updateValue(newValue.flatMap { (value: [ImpPerMinute?]) -> [ResultMap?] in value.map { (value: ImpPerMinute?) -> ResultMap? in value.flatMap { (value: ImpPerMinute) -> ResultMap in value.resultMap } } }, forKey: "impPerMinute")
+          }
+        }
+
+        public var position: MatchPlayerPositionType? {
+          get {
+            return resultMap["position"] as? MatchPlayerPositionType
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "position")
+          }
+        }
+
+        public struct SteamAccount: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["SteamAccountType"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("realName", type: .scalar(String.self)),
+              GraphQLField("name", type: .scalar(String.self)),
+              GraphQLField("seasonRank", type: .scalar(Byte.self)),
+              GraphQLField("proSteamAccount", type: .object(ProSteamAccount.selections)),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(realName: String? = nil, name: String? = nil, seasonRank: Byte? = nil, proSteamAccount: ProSteamAccount? = nil) {
+            self.init(unsafeResultMap: ["__typename": "SteamAccountType", "realName": realName, "name": name, "seasonRank": seasonRank, "proSteamAccount": proSteamAccount.flatMap { (value: ProSteamAccount) -> ResultMap in value.resultMap }])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var realName: String? {
+            get {
+              return resultMap["realName"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "realName")
+            }
+          }
+
+          public var name: String? {
+            get {
+              return resultMap["name"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "name")
+            }
+          }
+
+          public var seasonRank: Byte? {
+            get {
+              return resultMap["seasonRank"] as? Byte
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "seasonRank")
+            }
+          }
+
+          public var proSteamAccount: ProSteamAccount? {
+            get {
+              return (resultMap["proSteamAccount"] as? ResultMap).flatMap { ProSteamAccount(unsafeResultMap: $0) }
+            }
+            set {
+              resultMap.updateValue(newValue?.resultMap, forKey: "proSteamAccount")
+            }
+          }
+
+          public struct ProSteamAccount: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["ProSteamAccountType"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("name", type: .scalar(String.self)),
+                GraphQLField("realName", type: .scalar(String.self)),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(name: String? = nil, realName: String? = nil) {
+              self.init(unsafeResultMap: ["__typename": "ProSteamAccountType", "name": name, "realName": realName])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var name: String? {
+              get {
+                return resultMap["name"] as? String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "name")
+              }
+            }
+
+            public var realName: String? {
+              get {
+                return resultMap["realName"] as? String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "realName")
+              }
+            }
+          }
+        }
+
+        public struct PlaybackDatum: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["MatchPlayerLivePlaybackDataType"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("positionEvents", type: .list(.object(PositionEvent.selections))),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(positionEvents: [PositionEvent?]? = nil) {
+            self.init(unsafeResultMap: ["__typename": "MatchPlayerLivePlaybackDataType", "positionEvents": positionEvents.flatMap { (value: [PositionEvent?]) -> [ResultMap?] in value.map { (value: PositionEvent?) -> ResultMap? in value.flatMap { (value: PositionEvent) -> ResultMap in value.resultMap } } }])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var positionEvents: [PositionEvent?]? {
+            get {
+              return (resultMap["positionEvents"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [PositionEvent?] in value.map { (value: ResultMap?) -> PositionEvent? in value.flatMap { (value: ResultMap) -> PositionEvent in PositionEvent(unsafeResultMap: value) } } }
+            }
+            set {
+              resultMap.updateValue(newValue.flatMap { (value: [PositionEvent?]) -> [ResultMap?] in value.map { (value: PositionEvent?) -> ResultMap? in value.flatMap { (value: PositionEvent) -> ResultMap in value.resultMap } } }, forKey: "positionEvents")
+            }
+          }
+
+          public struct PositionEvent: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["MatchLivePlayerPositionDetailType"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("time", type: .nonNull(.scalar(Int.self))),
+                GraphQLField("x", type: .nonNull(.scalar(Int.self))),
+                GraphQLField("y", type: .nonNull(.scalar(Int.self))),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(time: Int, x: Int, y: Int) {
+              self.init(unsafeResultMap: ["__typename": "MatchLivePlayerPositionDetailType", "time": time, "x": x, "y": y])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var time: Int {
+              get {
+                return resultMap["time"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "time")
+              }
+            }
+
+            public var x: Int {
+              get {
+                return resultMap["x"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "x")
+              }
+            }
+
+            public var y: Int {
+              get {
+                return resultMap["y"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "y")
+              }
+            }
+          }
+        }
+
+        public struct ImpPerMinute: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["MatchLivePlayerImpDetailType"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("time", type: .nonNull(.scalar(Int.self))),
+              GraphQLField("imp", type: .nonNull(.scalar(Short.self))),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(time: Int, imp: Short) {
+            self.init(unsafeResultMap: ["__typename": "MatchLivePlayerImpDetailType", "time": time, "imp": imp])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var time: Int {
+            get {
+              return resultMap["time"]! as! Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "time")
+            }
+          }
+
+          public var imp: Short {
+            get {
+              return resultMap["imp"]! as! Short
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "imp")
+            }
           }
         }
       }

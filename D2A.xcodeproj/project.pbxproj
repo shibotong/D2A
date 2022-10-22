@@ -263,11 +263,25 @@
 		3DB45183075C710AF2D0084B /* Pods_D2A_D2AWidgetExtension_D2AWidgetIntentHandler.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BA33F8011411B22E722B79 /* Pods_D2A_D2AWidgetExtension_D2AWidgetIntentHandler.framework */; };
 		52BECA400B349C3B9BBC5BE6 /* Pods_D2A_D2ATests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDD6223B73A9C434217A863 /* Pods_D2A_D2ATests.framework */; };
 		6AB984C0AA1572B0AE007E80 /* Pods_D2A_D2AWidgetExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DEE0AFAFDCC9C88B3433D49 /* Pods_D2A_D2AWidgetExtension.framework */; };
+		7904704C29035E9F002D5066 /* MatchLiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904704B29035E9F002D5066 /* MatchLiveView.swift */; };
+		7904704E29035FD7002D5066 /* MatchLiveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904704D29035FD7002D5066 /* MatchLiveViewModel.swift */; };
+		7904705429036A2C002D5066 /* HeroBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904705329036A2C002D5066 /* HeroBanner.swift */; };
+		7904705629036BCC002D5066 /* MiniMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904705529036BCC002D5066 /* MiniMapView.swift */; };
+		7904705829036D03002D5066 /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904705729036D03002D5066 /* ScoreView.swift */; };
+		7915ABF6290269D2004F023F /* MatchLive.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7915ABF5290269D2004F023F /* MatchLive.graphql */; };
+		7915ABF7290269D2004F023F /* MatchLive.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7915ABF5290269D2004F023F /* MatchLive.graphql */; };
+		7915ABF8290269D2004F023F /* MatchLive.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 7915ABF5290269D2004F023F /* MatchLive.graphql */; };
+		7915ABFB29026A2D004F023F /* SubscriptionHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7915ABFA29026A2D004F023F /* SubscriptionHomeView.swift */; };
+		7915AC002902702A004F023F /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 7915ABFF2902702A004F023F /* Apollo */; };
+		7915AC022902702A004F023F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 7915AC012902702A004F023F /* ApolloWebSocket */; };
+		7915AC0429027268004F023F /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 7915AC0329027268004F023F /* Apollo */; };
+		7915AC062902726B004F023F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 7915AC052902726B004F023F /* ApolloWebSocket */; };
+		7915AC0829027270004F023F /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 7915AC0729027270004F023F /* Apollo */; };
+		7915AC0A29027274004F023F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 7915AC0929027274004F023F /* ApolloWebSocket */; };
 		79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79368C0928E6D8ED009517D2 /* RoleView.swift */; };
 		7985E7EB28E53919007A43AF /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E7EA28E53919007A43AF /* Hero.swift */; };
 		7985E7ED28E53A40007A43AF /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E7EC28E53A40007A43AF /* Role.swift */; };
 		7985E7EF28E53E47007A43AF /* Talent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E7EE28E53E47007A43AF /* Talent.swift */; };
-		79B162FE28DD596D009B2AE2 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79B162FD28DD596D009B2AE2 /* Apollo */; };
 		79B1630528DD5B33009B2AE2 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
 		79B1630728DD5C0B009B2AE2 /* TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */; };
 		79D5280E28DD5D990070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
@@ -277,14 +291,13 @@
 		79D5281428DD64390070841D /* TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */; };
 		79D5281528DD64410070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
 		79D5281628DD64420070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
-		79D5281A28DD64770070841D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79D5281928DD64770070841D /* Apollo */; };
-		79D5281C28DD647D0070841D /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79D5281B28DD647D0070841D /* Apollo */; };
 		79D5281E28DD73CF0070841D /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.json */; };
 		79D5281F28DD73CF0070841D /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.json */; };
 		79D5282028DD73CF0070841D /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.json */; };
 		79D5282228DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
 		79D5282328DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
 		79D5282428DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
+		79EB79372903AF3A00B6838B /* MatchLiveDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB79362903AF3A00B6838B /* MatchLiveDetailView.swift */; };
 		79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
 		A3FDA0678AD27CF488B232D8 /* Pods_D2A.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEDA046AB20B47815283E580 /* Pods_D2A.framework */; };
@@ -470,6 +483,13 @@
 		34FA65536DB6B318CBCA83C2 /* Pods-D2A-D2AWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A-D2AWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-D2A-D2AWidgetExtension/Pods-D2A-D2AWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		39BE3E3E1ED48A0352B40C40 /* Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.release.xcconfig"; path = "Target Support Files/Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler/Pods-D2A-D2AWidgetExtension-D2AWidgetIntentHandler.release.xcconfig"; sourceTree = "<group>"; };
 		3DEE0AFAFDCC9C88B3433D49 /* Pods_D2A_D2AWidgetExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_D2A_D2AWidgetExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7904704B29035E9F002D5066 /* MatchLiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchLiveView.swift; sourceTree = "<group>"; };
+		7904704D29035FD7002D5066 /* MatchLiveViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchLiveViewModel.swift; sourceTree = "<group>"; };
+		7904705329036A2C002D5066 /* HeroBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroBanner.swift; sourceTree = "<group>"; };
+		7904705529036BCC002D5066 /* MiniMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniMapView.swift; sourceTree = "<group>"; };
+		7904705729036D03002D5066 /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
+		7915ABF5290269D2004F023F /* MatchLive.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = MatchLive.graphql; sourceTree = "<group>"; };
+		7915ABFA29026A2D004F023F /* SubscriptionHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionHomeView.swift; sourceTree = "<group>"; };
 		79368C0928E6D8ED009517D2 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
 		7985E7EA28E53919007A43AF /* Hero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 		7985E7EC28E53A40007A43AF /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
@@ -482,6 +502,7 @@
 		79D5280D28DD5D990070841D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		79D5281D28DD73CF0070841D /* secrets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = secrets.json; sourceTree = "<group>"; };
 		79D5282128DD74930070841D /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
+		79EB79362903AF3A00B6838B /* MatchLiveDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchLiveDetailView.swift; sourceTree = "<group>"; };
 		79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Backend.xcdatamodel; sourceTree = "<group>"; };
 		79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceContainer.swift; sourceTree = "<group>"; };
 		80E11F7D64ECDFC27D3CA2D8 /* Pods-D2A.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-D2A.release.xcconfig"; path = "Target Support Files/Pods-D2A/Pods-D2A.release.xcconfig"; sourceTree = "<group>"; };
@@ -508,7 +529,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
-				79B162FE28DD596D009B2AE2 /* Apollo in Frameworks */,
+				7915AC022902702A004F023F /* ApolloWebSocket in Frameworks */,
+				7915AC002902702A004F023F /* Apollo in Frameworks */,
 				A3FDA0678AD27CF488B232D8 /* Pods_D2A.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,7 +540,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				32F70A9F26F57F7E006E9B05 /* SwiftUI.framework in Frameworks */,
-				79D5281A28DD64770070841D /* Apollo in Frameworks */,
+				7915AC0429027268004F023F /* Apollo in Frameworks */,
+				7915AC062902726B004F023F /* ApolloWebSocket in Frameworks */,
 				32F70A9E26F57F7E006E9B05 /* WidgetKit.framework in Frameworks */,
 				6AB984C0AA1572B0AE007E80 /* Pods_D2A_D2AWidgetExtension.framework in Frameworks */,
 			);
@@ -529,7 +552,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				32F70AE826F61836006E9B05 /* Intents.framework in Frameworks */,
-				79D5281C28DD647D0070841D /* Apollo in Frameworks */,
+				7915AC0A29027274004F023F /* ApolloWebSocket in Frameworks */,
+				7915AC0829027270004F023F /* Apollo in Frameworks */,
 				3DB45183075C710AF2D0084B /* Pods_D2A_D2AWidgetExtension_D2AWidgetIntentHandler.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -771,6 +795,7 @@
 		32B36F3D26C38894002D427D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7915ABF929026A20004F023F /* SubscriptionView */,
 				32EC7F3E286474EB00A36AF6 /* OtherViews */,
 				32EC7F3D286474C600A36AF6 /* HomeView */,
 				32EC7F3C2864748200A36AF6 /* AboutUsView */,
@@ -799,6 +824,7 @@
 				327B877B285316F900BBE1F8 /* PlayerListViewModel.swift */,
 				321E3D00285422D00094FB10 /* AbilityViewModel.swift */,
 				323BCBA4285586E40061F937 /* CalendarMatchListViewModel.swift */,
+				7904704D29035FD7002D5066 /* MatchLiveViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -935,12 +961,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7915ABF929026A20004F023F /* SubscriptionView */ = {
+			isa = PBXGroup;
+			children = (
+				7915ABFA29026A2D004F023F /* SubscriptionHomeView.swift */,
+				7904704B29035E9F002D5066 /* MatchLiveView.swift */,
+				7904705329036A2C002D5066 /* HeroBanner.swift */,
+				7904705529036BCC002D5066 /* MiniMapView.swift */,
+				7904705729036D03002D5066 /* ScoreView.swift */,
+				79EB79362903AF3A00B6838B /* MatchLiveDetailView.swift */,
+			);
+			path = SubscriptionView;
+			sourceTree = "<group>";
+		};
 		79B1630028DD59FC009B2AE2 /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
 				79B1630128DD5A08009B2AE2 /* schema.json */,
 				79B1630228DD5A29009B2AE2 /* Ability.graphql */,
 				79B1630328DD5A31009B2AE2 /* Hero.graphql */,
+				7915ABF5290269D2004F023F /* MatchLive.graphql */,
 				79B1630428DD5B33009B2AE2 /* API.swift */,
 				79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */,
 				79D5280D28DD5D990070841D /* Network.swift */,
@@ -993,7 +1033,8 @@
 			);
 			name = D2A;
 			packageProductDependencies = (
-				79B162FD28DD596D009B2AE2 /* Apollo */,
+				7915ABFF2902702A004F023F /* Apollo */,
+				7915AC012902702A004F023F /* ApolloWebSocket */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* D2A.app */;
@@ -1014,7 +1055,8 @@
 			);
 			name = D2AWidgetExtension;
 			packageProductDependencies = (
-				79D5281928DD64770070841D /* Apollo */,
+				7915AC0329027268004F023F /* Apollo */,
+				7915AC052902726B004F023F /* ApolloWebSocket */,
 			);
 			productName = AppWidgetExtension;
 			productReference = 32F70A9D26F57F7E006E9B05 /* D2AWidgetExtension.appex */;
@@ -1035,7 +1077,8 @@
 			);
 			name = D2AWidgetIntentHandler;
 			packageProductDependencies = (
-				79D5281B28DD647D0070841D /* Apollo */,
+				7915AC0729027270004F023F /* Apollo */,
+				7915AC0929027274004F023F /* ApolloWebSocket */,
 			);
 			productName = AppWidgetIntentHandler;
 			productReference = 32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */;
@@ -1076,7 +1119,7 @@
 			);
 			mainGroup = 32B36F0226C38821002D427D;
 			packageReferences = (
-				79B162FC28DD596D009B2AE2 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				7915ABFE2902702A004F023F /* XCRemoteSwiftPackageReference "apollo-ios" */,
 			);
 			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
 			projectDirPath = "";
@@ -1114,6 +1157,7 @@
 				323ADB31272B91F500253124 /* patchnotes.json in Resources */,
 				323ADB2A272B91F500253124 /* neutral_abilities.json in Resources */,
 				323ADB26272B91F500253124 /* abilities.json in Resources */,
+				7915ABF6290269D2004F023F /* MatchLive.graphql in Resources */,
 				321D58A726D717900059526B /* sampleMatch.json in Resources */,
 				323ADB33272B91F500253124 /* countries.json in Resources */,
 				323ADB21272B91F500253124 /* ability_ids.json in Resources */,
@@ -1180,6 +1224,7 @@
 				323ADB5C272E03E300253124 /* item_colors.json in Resources */,
 				323ADB5E272E03E300253124 /* countries.json in Resources */,
 				323ADB67272E03E300253124 /* ability_ids.json in Resources */,
+				7915ABF7290269D2004F023F /* MatchLive.graphql in Resources */,
 				323ADB62272E03E300253124 /* player_colors.json in Resources */,
 				323ADB5D272E03E300253124 /* hero_abilities.json in Resources */,
 				323ADB70272E03E300253124 /* chat_wheel.json in Resources */,
@@ -1217,6 +1262,7 @@
 				323ADB9E272E03E500253124 /* patch.json in Resources */,
 				32F70B2426F6296C006E9B05 /* sampleMatch.json in Resources */,
 				79D5282028DD73CF0070841D /* secrets.json in Resources */,
+				7915ABF8290269D2004F023F /* MatchLive.graphql in Resources */,
 				323ADB8E272E03E500253124 /* hero_abilities.json in Resources */,
 				32F70B2526F6296F006E9B05 /* sampleProfile.json in Resources */,
 				327A7B8327152388001F964D /* Assets.xcassets in Resources */,
@@ -1273,7 +1319,7 @@
 		79B162FF28DD5982009B2AE2 /* Apollo */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -1397,6 +1443,7 @@
 				79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */,
 				32B36F4A26C39242002D427D /* StringVariable.swift in Sources */,
 				7985E7EB28E53919007A43AF /* Hero.swift in Sources */,
+				7904704C29035E9F002D5066 /* MatchLiveView.swift in Sources */,
 				32F6A1B026C499E3009C00E1 /* MatchView.swift in Sources */,
 				322B89C726CFD2DE00DF67F9 /* AddAccountViewModel.swift in Sources */,
 				3252859126C9E8040030F15B /* AnalysisView.swift in Sources */,
@@ -1421,6 +1468,7 @@
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
 				3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */,
 				322B893E26CE66F800DF67F9 /* LoadingView.swift in Sources */,
+				7904705429036A2C002D5066 /* HeroBanner.swift in Sources */,
 				32079DBD28B83F0F0056D19F /* AbilityView.swift in Sources */,
 				32AEEEF926F9B1120088DEC8 /* LocalizableStrings.swift in Sources */,
 				325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */,
@@ -1435,10 +1483,14 @@
 				322B89BF26CE788900DF67F9 /* AnalysisViewModel.swift in Sources */,
 				3252859726CB81480030F15B /* DifferenceGraphViewModel.swift in Sources */,
 				327772B326D9D735000A0A97 /* GameMode.swift in Sources */,
+				7904704E29035FD7002D5066 /* MatchLiveViewModel.swift in Sources */,
 				327772AF26D8BE63000A0A97 /* MatchListRowView.swift in Sources */,
+				7915ABFB29026A2D004F023F /* SubscriptionHomeView.swift in Sources */,
+				7904705629036BCC002D5066 /* MiniMapView.swift in Sources */,
 				322B893A26CD456400DF67F9 /* RecentMatch.swift in Sources */,
 				3294463F26E1BC8F006E0D06 /* PlayerDetailView.swift in Sources */,
 				32D1605D26F30B7A00657449 /* StoreManager.swift in Sources */,
+				7904705829036D03002D5066 /* ScoreView.swift in Sources */,
 				329849F426DCAEAE00A1032C /* HeroDatabase.swift in Sources */,
 				7985E7ED28E53A40007A43AF /* Role.swift in Sources */,
 				322B89C526CFAC1000DF67F9 /* SearchView.swift in Sources */,
@@ -1463,6 +1515,7 @@
 				323BCBA3285584D90061F937 /* CalendarMatchListView.swift in Sources */,
 				3252859E26CB9FDC0030F15B /* Sidebar.swift in Sources */,
 				3294463826E1A530006E0D06 /* ProfileView.swift in Sources */,
+				79EB79372903AF3A00B6838B /* MatchLiveDetailView.swift in Sources */,
 				32D1606126F3753900657449 /* SKProduct.swift in Sources */,
 				32D3EB4F26ED7B9B00AA8D8B /* Ability.swift in Sources */,
 				323ADB06272B8D4900253124 /* Patch.swift in Sources */,
@@ -2012,7 +2065,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		79B162FC28DD596D009B2AE2 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+		7915ABFE2902702A004F023F /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios";
 			requirement = {
@@ -2023,20 +2076,35 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		79B162FD28DD596D009B2AE2 /* Apollo */ = {
+		7915ABFF2902702A004F023F /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 79B162FC28DD596D009B2AE2 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 7915ABFE2902702A004F023F /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
 		};
-		79D5281928DD64770070841D /* Apollo */ = {
+		7915AC012902702A004F023F /* ApolloWebSocket */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 79B162FC28DD596D009B2AE2 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 7915ABFE2902702A004F023F /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloWebSocket;
+		};
+		7915AC0329027268004F023F /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7915ABFE2902702A004F023F /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
 		};
-		79D5281B28DD647D0070841D /* Apollo */ = {
+		7915AC052902726B004F023F /* ApolloWebSocket */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 79B162FC28DD596D009B2AE2 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = 7915ABFE2902702A004F023F /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloWebSocket;
+		};
+		7915AC0729027270004F023F /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7915ABFE2902702A004F023F /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
+		};
+		7915AC0929027274004F023F /* ApolloWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7915ABFE2902702A004F023F /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloWebSocket;
 		};
 /* End XCSwiftPackageProductDependency section */
 
