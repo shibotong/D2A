@@ -28,6 +28,10 @@ class MatchLiveViewModel: ObservableObject {
             case .success(let graphQLResult):
                 DispatchQueue.main.async {
                     self.matchLive = self.processMatchLive(data: graphQLResult.data?.matchLive)
+                    if let events = graphQLResult.data?.matchLive?.playbackData?.buildingEvents {
+                        print(events)
+                        self.updateBuildingStatus(events: events)
+                    }
                 }
             case .failure(let error):
                 print(error)
@@ -71,5 +75,22 @@ class MatchLiveViewModel: ObservableObject {
             currentStatus.append(BuildingEvent(from: event))
         }
         return currentStatus
+    }
+    
+    private func updateBuildingStatus(events: [BuildingEventLive?]) {
+        for event in events {
+            guard let event = event else {
+                continue
+            }
+            if towerStatus.contains(where: { current in
+                return current.indexId == event.indexId
+            }) {
+                // if currenStatus contains current event, remove it and append new
+                towerStatus.removeAll { current in
+                    return current.indexId == event.indexId
+                }
+                towerStatus.append(BuildingEvent(from: event))
+            }
+        }
     }
 }

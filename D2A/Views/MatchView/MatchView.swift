@@ -150,8 +150,8 @@ struct PlayerRowView: View {
     var player: Player
     var isRadiant: Bool
     @EnvironmentObject var env: DotaEnvironment
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State var showPlayer = false
+    var canClick: Bool
     var maxDamage: Int?
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -165,8 +165,8 @@ struct PlayerRowView: View {
                             Circle()
                                 .frame(width: 15, height: 15)
                                 .overlay(Text("\(player.level)")
-                                            .foregroundColor(Color(.systemBackground))
-                                            .font(.custom(fontString, size: 8)).bold())
+                                    .foregroundColor(Color(.systemBackground))
+                                    .font(.custom(fontString, size: 8)).bold())
                         }
                     })
                 VStack(alignment: .leading, spacing: 2) {
@@ -179,6 +179,12 @@ struct PlayerRowView: View {
                         Text("Anonymous").font(.custom(fontString, size: 15)).bold().lineLimit(1)
                     }
                     KDAView(kills: player.kills, deaths: player.deaths, assists: player.assists, size: .caption)
+                    HStack {
+                        Text("LH/DN: \(player.lastHits)/\(player.denies)").lineLimit(1)
+                        if let netWorth = player.netWorth {
+                            Text("💰: \(netWorth)").lineLimit(1)
+                        }
+                    }.font(.custom(fontString, size: 10))
                 }.frame(minWidth: 0)
                 Spacer()
                 if let item = player.itemNeutral {
@@ -189,7 +195,6 @@ struct PlayerRowView: View {
                 }
                 VStack(spacing: 1) {
                     HStack(spacing: 1) {
-//                        Spacer().frame(width: 18)
                         ItemView(id: player.item0).frame(width: 24, height: 18)
                         ItemView(id: player.item1).frame(width: 24, height: 18)
                         ItemView(id: player.item2).frame(width: 24, height: 18)
@@ -198,6 +203,13 @@ struct PlayerRowView: View {
                         ItemView(id: player.item3).frame(width: 24, height: 18)
                         ItemView(id: player.item4).frame(width: 24, height: 18)
                         ItemView(id: player.item5).frame(width: 24, height: 18)
+                    }
+                    if let backpack0 = player.backpack0, let backpack1 = player.backpack1, let backpack2 = player.backpack2 {
+                        HStack(spacing: 1) {
+                            ItemView(id: backpack0).frame(width: 24, height: 18)
+                            ItemView(id: backpack1).frame(width: 24, height: 18)
+                            ItemView(id: backpack2).frame(width: 24, height: 18)
+                        }.grayscale(1)
                     }
                 }
                 VStack(spacing: 0) {
@@ -216,18 +228,22 @@ struct PlayerRowView: View {
                         Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
                         Text("\(player.gpm)").foregroundColor(Color(.systemOrange))
                     }.frame(width: 40)
-                    HStack(spacing: 3) {
-                        Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
-                        Text("\(player.xpm)").foregroundColor(Color(.systemBlue))
-                    }.frame(width: 40)
+                    if player.xpm != 0 {
+                        HStack(spacing: 3) {
+                            Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
+                            Text("\(player.xpm)").foregroundColor(Color(.systemBlue))
+                        }.frame(width: 40)
+                    }
                     if let maxDamage = maxDamage {
                         DamageView(maxDamage: maxDamage, playerDamage: player.heroDamage ?? 0)
                     }
                 }.font(.custom(fontString, size: 10))
-            }.frame(height: 50)
+            }.frame(height: 65)
         }
         .onTapGesture {
-            showPlayer.toggle()
+            if canClick {
+                showPlayer.toggle()
+            }
         }
         .sheet(isPresented: $showPlayer) {
             PlayerDetailView(player: player)
@@ -304,13 +320,14 @@ struct TeamView: View {
     var score: Int
     var radiantWin: Bool?
     var maxDamage: Int?
+    var canClick: Bool = true
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         VStack(spacing: 0) {
             TeamHeaderView(isRadiant: isRadiant, score: score, radiantWin: radiantWin)
             ForEach(players, id: \.heroID) { player in
-                PlayerRowView(player: player, isRadiant: isRadiant, maxDamage: maxDamage)
+                PlayerRowView(player: player, isRadiant: isRadiant, canClick: canClick, maxDamage: maxDamage)
                     .padding(.horizontal)
             }
         }

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ScoreView: View {
     
-    var radiantTeam: MatchLiveSubscription.Data.MatchLive.RadiantTeam?
-    var direTeam: MatchLiveSubscription.Data.MatchLive.DireTeam?
+    var radiantTeam: Team?
+    var direTeam: Team?
     
     var radiantScore: Int = 0
     var direScore: Int = 0
@@ -31,8 +31,8 @@ struct ScoreView: View {
     
     @ViewBuilder private func teamIcon(isRadiant: Bool) -> some View {
         if isRadiant {
-            if let team = radiantTeam, let url = team.url {
-                AsyncImage(url: URL(string: url)) { image in
+            if let team = radiantTeam{
+                AsyncImage(url: URL(string: "https://cdn.stratz.com/images/dota2/teams/\(team.id).png")) { image in
                     image.resizable().scaledToFit()
                 } placeholder: {
                     ProgressView()
@@ -46,8 +46,8 @@ struct ScoreView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 5))
             }
         } else {
-            if let team = direTeam, let url = team.url {
-                AsyncImage(url: URL(string: url)) { image in
+            if let team = direTeam {
+                AsyncImage(url: URL(string: "https://cdn.stratz.com/images/dota2/teams/\(team.id).png")) { image in
                     image.resizable().scaledToFit()
                 } placeholder: {
                     ProgressView()

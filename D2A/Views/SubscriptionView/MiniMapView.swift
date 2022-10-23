@@ -25,6 +25,7 @@ struct MiniMapView: View {
                 if let players = players {
                     ForEach(players, id: \.accountId) { player in
                         buildIconOnMap(proxy: proxy, player: player)
+                            .animation(.linear)
                     }
                 }
             }

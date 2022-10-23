@@ -27,7 +27,9 @@ class MatchViewModel: ObservableObject {
             return
         }
         if let match = WCDBController.shared.fetchMatch(matchid: id) {
-            self.match = match
+            DispatchQueue.main.async {
+                self.match = match
+            }
         } else {
             await refreshMatch()
         }

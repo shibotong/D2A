@@ -15,8 +15,8 @@ struct MatchLiveDetailView: View {
     
     var body: some View {
         VStack {
-            TeamView(players: players.filter{ $0.slot <= 127 }, isRadiant: true, score: radiantScore, radiantWin: nil, maxDamage: fetchMaxDamage(players: players))
-            TeamView(players: players.filter{ $0.slot > 127 }, isRadiant: false, score: radiantScore, radiantWin: nil, maxDamage: fetchMaxDamage(players: players))
+            TeamView(players: players.filter{ $0.slot <= 127 }, isRadiant: true, score: radiantScore, radiantWin: nil, maxDamage: fetchMaxDamage(players: players), canClick: false)
+            TeamView(players: players.filter{ $0.slot > 127 }, isRadiant: false, score: direScore, radiantWin: nil, maxDamage: fetchMaxDamage(players: players), canClick: false)
         }
     }
     

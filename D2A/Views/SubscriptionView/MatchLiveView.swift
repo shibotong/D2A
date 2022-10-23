@@ -17,12 +17,11 @@ struct MatchLiveView: View {
     }
     
     var body: some View {
-//        ScrollView {
-//            MiniMapView(players: [], buildingEvents: viewModel.towerStatus)
-//        }
         if let match = viewModel.matchLive {
             VStack {
-                ScoreView(radiantScore: match.radiantKill ?? 0,
+                ScoreView(radiantTeam: match.radiantTeam,
+                          direTeam: match.direTeam,
+                          radiantScore: match.radiantKill ?? 0,
                           direScore: match.direKill ?? 0,
                           time: match.duration)
                 .padding(.horizontal)
