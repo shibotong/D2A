@@ -72,6 +72,24 @@ subscription MatchLive($id: Long!) {
           x
           y
         }
+        killEvents {
+          time
+        }
+        deathEvents {
+          time
+        }
+        inventoryEvents {
+          time
+          itemId0
+          itemId1
+          itemId2
+          itemId3
+          itemId4
+          itemId5
+          backpackId0
+          backpackId1
+          backpackId2
+        }
       }
       networth
       impPerMinute {

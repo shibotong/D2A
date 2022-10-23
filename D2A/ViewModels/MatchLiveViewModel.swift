@@ -31,9 +31,6 @@ class MatchLiveViewModel: ObservableObject {
             case .success(let graphQLResult):
                 DispatchQueue.main.async {
                     self.matchLive = self.processMatchLive(data: graphQLResult.data?.matchLive)
-                    if let events = graphQLResult.data?.matchLive?.playbackData?.buildingEvents {
-                        self.updateBuildingStatus(events: events)
-                    }
                 }
             case .failure(let error):
                 print(error)
@@ -59,7 +56,83 @@ class MatchLiveViewModel: ObservableObject {
         guard let data = data else {
             return nil
         }
-        return Match(from: data)
+        let match = Match(from: data)
+        
+        var combinedEvents: [Event] = []
+        
+        // tower events performing
+        var towerEvents: [TowerEvent] = []
+        if let buildingEvent = data.playbackData?.buildingEvents, !buildingEvent.isEmpty {
+            towerEvents = self.updateBuildingStatus(events: buildingEvent)
+        }
+        
+        for event in towerEvents {
+            if let index = combinedEvents.firstIndex(where: { $0.time == event.time }) {
+                combinedEvents[index].events.append(event)
+            } else {
+                combinedEvents.append(Event(time: event.time, events: [event]))
+            }
+        }
+        
+        // kill events performing
+        var killEvents: [KillEvent] = []
+        // kill events
+        if let players = data.players {
+            for player in players {
+                // for each players
+                guard let heroID = player?.heroId else {
+                    continue
+                }
+                guard let playerKillEvents = player?.playbackData?.killEvents,
+                      let playerDeathEvents = player?.playbackData?.deathEvents else {
+                    continue
+                }
+                
+                // kills
+                for killEvent in playerKillEvents {
+                    // for each kill events for the player
+                    guard let killEvent = killEvent else {
+                        continue
+                    }
+                    if let index = killEvents.firstIndex(where: { $0.time == killEvent.time }) {
+                        // if events already here add to kill
+                        if !killEvents[index].kill.contains(Int(heroID)) {
+                            killEvents[index].kill.append(Int(heroID))
+                        }
+                    } else {
+                        // if no events here add a new one
+                        killEvents.append(KillEvent(time: killEvent.time, kill: [(Int(heroID))], died: []))
+                    }
+                }
+                
+                // deaths
+                for deathEvent in playerDeathEvents {
+                    guard let deathEvent = deathEvent else {
+                        continue
+                    }
+                    if let index = killEvents.firstIndex(where: { $0.time == deathEvent.time }) {
+                        // if events already here add to kill
+                        if !killEvents[index].died.contains(Int(heroID)) {
+                            killEvents[index].died.append(Int(heroID))
+                        }
+                    } else {
+                        // if no events here add a new one
+                        killEvents.append(KillEvent(time: deathEvent.time, kill: [], died: [(Int(heroID))]))
+                    }
+                }
+            }
+        }
+        for event in killEvents {
+            if let index = combinedEvents.firstIndex(where: { $0.time == event.time }) {
+                combinedEvents[index].events.append(event)
+            } else {
+                combinedEvents.append(Event(time: event.time, events: [event]))
+            }
+        }
+        
+        self.liveEvents.insert(contentsOf: combinedEvents.sorted(by: { $0.time > $1.time }), at: 0)
+        
+        return match
     }
     
     private func updateHistoryEvents(query: MatchLiveHistoryQuery.Data.Live.Match) {
@@ -163,11 +236,13 @@ class MatchLiveViewModel: ObservableObject {
         return currentStatus
     }
     
-    private func updateBuildingStatus(events: [BuildingEventLive?]) {
+    private func updateBuildingStatus(events: [BuildingEventLive?]) -> [TowerEvent] {
+        var towerEvents: [TowerEvent] = []
         for event in events {
             guard let event = event else {
                 continue
             }
+            towerEvents.append(TowerEvent(time: event.time, towerIndex: event.indexId ?? 0))
             if towerStatus.contains(where: { current in
                 return current.indexId == event.indexId
             }) {
@@ -178,5 +253,6 @@ class MatchLiveViewModel: ObservableObject {
                 towerStatus.append(BuildingEvent(from: event))
             }
         }
+        return towerEvents
     }
 }

@@ -1345,6 +1345,27 @@ public final class MatchLiveSubscription: GraphQLSubscription {
               x
               y
             }
+            killEvents {
+              __typename
+              time
+            }
+            deathEvents {
+              __typename
+              time
+            }
+            inventoryEvents {
+              __typename
+              time
+              itemId0
+              itemId1
+              itemId2
+              itemId3
+              itemId4
+              itemId5
+              backpackId0
+              backpackId1
+              backpackId2
+            }
           }
           networth
           impPerMinute {
@@ -2342,6 +2363,9 @@ public final class MatchLiveSubscription: GraphQLSubscription {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("positionEvents", type: .list(.object(PositionEvent.selections))),
+              GraphQLField("killEvents", type: .list(.object(KillEvent.selections))),
+              GraphQLField("deathEvents", type: .list(.object(DeathEvent.selections))),
+              GraphQLField("inventoryEvents", type: .list(.object(InventoryEvent.selections))),
             ]
           }
 
@@ -2351,8 +2375,8 @@ public final class MatchLiveSubscription: GraphQLSubscription {
             self.resultMap = unsafeResultMap
           }
 
-          public init(positionEvents: [PositionEvent?]? = nil) {
-            self.init(unsafeResultMap: ["__typename": "MatchPlayerLivePlaybackDataType", "positionEvents": positionEvents.flatMap { (value: [PositionEvent?]) -> [ResultMap?] in value.map { (value: PositionEvent?) -> ResultMap? in value.flatMap { (value: PositionEvent) -> ResultMap in value.resultMap } } }])
+          public init(positionEvents: [PositionEvent?]? = nil, killEvents: [KillEvent?]? = nil, deathEvents: [DeathEvent?]? = nil, inventoryEvents: [InventoryEvent?]? = nil) {
+            self.init(unsafeResultMap: ["__typename": "MatchPlayerLivePlaybackDataType", "positionEvents": positionEvents.flatMap { (value: [PositionEvent?]) -> [ResultMap?] in value.map { (value: PositionEvent?) -> ResultMap? in value.flatMap { (value: PositionEvent) -> ResultMap in value.resultMap } } }, "killEvents": killEvents.flatMap { (value: [KillEvent?]) -> [ResultMap?] in value.map { (value: KillEvent?) -> ResultMap? in value.flatMap { (value: KillEvent) -> ResultMap in value.resultMap } } }, "deathEvents": deathEvents.flatMap { (value: [DeathEvent?]) -> [ResultMap?] in value.map { (value: DeathEvent?) -> ResultMap? in value.flatMap { (value: DeathEvent) -> ResultMap in value.resultMap } } }, "inventoryEvents": inventoryEvents.flatMap { (value: [InventoryEvent?]) -> [ResultMap?] in value.map { (value: InventoryEvent?) -> ResultMap? in value.flatMap { (value: InventoryEvent) -> ResultMap in value.resultMap } } }])
           }
 
           public var __typename: String {
@@ -2370,6 +2394,33 @@ public final class MatchLiveSubscription: GraphQLSubscription {
             }
             set {
               resultMap.updateValue(newValue.flatMap { (value: [PositionEvent?]) -> [ResultMap?] in value.map { (value: PositionEvent?) -> ResultMap? in value.flatMap { (value: PositionEvent) -> ResultMap in value.resultMap } } }, forKey: "positionEvents")
+            }
+          }
+
+          public var killEvents: [KillEvent?]? {
+            get {
+              return (resultMap["killEvents"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [KillEvent?] in value.map { (value: ResultMap?) -> KillEvent? in value.flatMap { (value: ResultMap) -> KillEvent in KillEvent(unsafeResultMap: value) } } }
+            }
+            set {
+              resultMap.updateValue(newValue.flatMap { (value: [KillEvent?]) -> [ResultMap?] in value.map { (value: KillEvent?) -> ResultMap? in value.flatMap { (value: KillEvent) -> ResultMap in value.resultMap } } }, forKey: "killEvents")
+            }
+          }
+
+          public var deathEvents: [DeathEvent?]? {
+            get {
+              return (resultMap["deathEvents"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [DeathEvent?] in value.map { (value: ResultMap?) -> DeathEvent? in value.flatMap { (value: ResultMap) -> DeathEvent in DeathEvent(unsafeResultMap: value) } } }
+            }
+            set {
+              resultMap.updateValue(newValue.flatMap { (value: [DeathEvent?]) -> [ResultMap?] in value.map { (value: DeathEvent?) -> ResultMap? in value.flatMap { (value: DeathEvent) -> ResultMap in value.resultMap } } }, forKey: "deathEvents")
+            }
+          }
+
+          public var inventoryEvents: [InventoryEvent?]? {
+            get {
+              return (resultMap["inventoryEvents"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [InventoryEvent?] in value.map { (value: ResultMap?) -> InventoryEvent? in value.flatMap { (value: ResultMap) -> InventoryEvent in InventoryEvent(unsafeResultMap: value) } } }
+            }
+            set {
+              resultMap.updateValue(newValue.flatMap { (value: [InventoryEvent?]) -> [ResultMap?] in value.map { (value: InventoryEvent?) -> ResultMap? in value.flatMap { (value: InventoryEvent) -> ResultMap in value.resultMap } } }, forKey: "inventoryEvents")
             }
           }
 
@@ -2428,6 +2479,213 @@ public final class MatchLiveSubscription: GraphQLSubscription {
               }
               set {
                 resultMap.updateValue(newValue, forKey: "y")
+              }
+            }
+          }
+
+          public struct KillEvent: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["MatchLivePlayerKillDetailType"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("time", type: .nonNull(.scalar(Int.self))),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(time: Int) {
+              self.init(unsafeResultMap: ["__typename": "MatchLivePlayerKillDetailType", "time": time])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var time: Int {
+              get {
+                return resultMap["time"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "time")
+              }
+            }
+          }
+
+          public struct DeathEvent: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["MatchLivePlayerDeathDetailType"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("time", type: .nonNull(.scalar(Int.self))),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(time: Int) {
+              self.init(unsafeResultMap: ["__typename": "MatchLivePlayerDeathDetailType", "time": time])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var time: Int {
+              get {
+                return resultMap["time"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "time")
+              }
+            }
+          }
+
+          public struct InventoryEvent: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["MatchLivePlayerInventoryDetailType"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("time", type: .nonNull(.scalar(Int.self))),
+                GraphQLField("itemId0", type: .scalar(Short.self)),
+                GraphQLField("itemId1", type: .scalar(Short.self)),
+                GraphQLField("itemId2", type: .scalar(Short.self)),
+                GraphQLField("itemId3", type: .scalar(Short.self)),
+                GraphQLField("itemId4", type: .scalar(Short.self)),
+                GraphQLField("itemId5", type: .scalar(Short.self)),
+                GraphQLField("backpackId0", type: .scalar(Short.self)),
+                GraphQLField("backpackId1", type: .scalar(Short.self)),
+                GraphQLField("backpackId2", type: .scalar(Short.self)),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(time: Int, itemId0: Short? = nil, itemId1: Short? = nil, itemId2: Short? = nil, itemId3: Short? = nil, itemId4: Short? = nil, itemId5: Short? = nil, backpackId0: Short? = nil, backpackId1: Short? = nil, backpackId2: Short? = nil) {
+              self.init(unsafeResultMap: ["__typename": "MatchLivePlayerInventoryDetailType", "time": time, "itemId0": itemId0, "itemId1": itemId1, "itemId2": itemId2, "itemId3": itemId3, "itemId4": itemId4, "itemId5": itemId5, "backpackId0": backpackId0, "backpackId1": backpackId1, "backpackId2": backpackId2])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var time: Int {
+              get {
+                return resultMap["time"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "time")
+              }
+            }
+
+            public var itemId0: Short? {
+              get {
+                return resultMap["itemId0"] as? Short
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "itemId0")
+              }
+            }
+
+            public var itemId1: Short? {
+              get {
+                return resultMap["itemId1"] as? Short
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "itemId1")
+              }
+            }
+
+            public var itemId2: Short? {
+              get {
+                return resultMap["itemId2"] as? Short
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "itemId2")
+              }
+            }
+
+            public var itemId3: Short? {
+              get {
+                return resultMap["itemId3"] as? Short
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "itemId3")
+              }
+            }
+
+            public var itemId4: Short? {
+              get {
+                return resultMap["itemId4"] as? Short
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "itemId4")
+              }
+            }
+
+            public var itemId5: Short? {
+              get {
+                return resultMap["itemId5"] as? Short
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "itemId5")
+              }
+            }
+
+            public var backpackId0: Short? {
+              get {
+                return resultMap["backpackId0"] as? Short
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "backpackId0")
+              }
+            }
+
+            public var backpackId1: Short? {
+              get {
+                return resultMap["backpackId1"] as? Short
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "backpackId1")
+              }
+            }
+
+            public var backpackId2: Short? {
+              get {
+                return resultMap["backpackId2"] as? Short
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "backpackId2")
               }
             }
           }

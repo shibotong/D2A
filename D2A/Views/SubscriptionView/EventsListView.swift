@@ -49,6 +49,7 @@ struct EventsListView: View {
                 }
             }
         }
+        .animation(.linear)
     }
     
     private func heroIsRadiant(heroID: Int) -> Bool {
