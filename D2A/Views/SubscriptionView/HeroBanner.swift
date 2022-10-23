@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HeroBanner: View {
     
-    var players: [MatchLiveSubscription.Data.MatchLive.Player?] = []
+    var players: [Player] = []
     
     var body: some View {
         ZStack {
@@ -26,9 +26,9 @@ struct HeroBanner: View {
     
     @ViewBuilder private func buildHeroIcon(isRadiant: Bool) -> some View {
         let heroes = players.filter { player in
-            return player?.isRadiant == isRadiant
+            return isRadiant ? player.slot <= 127 : player.slot > 127
         }.compactMap { player in
-            return player?.heroId
+            return player.heroID
         }
         
         HStack {

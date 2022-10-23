@@ -1,0 +1,19 @@
+query MatchLiveHistory($id: Long!) {
+  live {
+    match(id: $id) {
+      playbackData {
+        buildingEvents {
+          indexId
+          isAlive
+          isRadiant
+          npcId
+          positionX
+          positionY
+          time
+          type
+        }
+      }
+    }
+  }
+}
+

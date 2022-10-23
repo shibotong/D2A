@@ -90,5 +90,17 @@ subscription MatchLive($id: Long!) {
       time
       winRate
     }
+    playbackData {
+      buildingEvents {
+        indexId
+        isAlive
+        isRadiant
+        npcId
+        positionX
+        positionY
+        time
+        type
+      }
+    }
   }
 }

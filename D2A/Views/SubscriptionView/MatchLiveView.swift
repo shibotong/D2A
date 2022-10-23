@@ -17,18 +17,21 @@ struct MatchLiveView: View {
     }
     
     var body: some View {
+//        ScrollView {
+//            MiniMapView(players: [], buildingEvents: viewModel.towerStatus)
+//        }
         if let match = viewModel.matchLive {
-            ScrollView {
-                VStack {
-                    HeroBanner(players: match.players ?? [])
-                    ScoreView(radiantScore: match.radiantScore ?? 0,
-                              direScore: match.direScore ?? 0,
-                              time: match.gameTime ?? 0)
+            VStack {
+                ScoreView(radiantScore: match.radiantKill ?? 0,
+                          direScore: match.direKill ?? 0,
+                          time: match.duration)
+                .padding(.horizontal)
+                ScrollView {
                     MiniMapView(players: match.players,
-                                buildingState: match.buildingState)
-                    MatchLiveDetailView(players: match.players ?? [])
+                                buildingEvents: viewModel.towerStatus)
+                    .padding(.horizontal)
+                    MatchLiveDetailView(players: match.players, radiantScore: match.radiantKill ?? 0, direScore: match.direKill ?? 0)
                 }
-                .padding()
             }
         } else {
             VStack {

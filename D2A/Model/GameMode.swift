@@ -67,5 +67,5 @@ struct GameMode: Codable {
             return "Unknown Mode"
         }
     }
-    
 }
+

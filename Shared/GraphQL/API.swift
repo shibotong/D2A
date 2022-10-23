@@ -554,6 +554,61 @@ public enum GameModeEnumType: RawRepresentable, Equatable, Hashable, CaseIterabl
   }
 }
 
+public enum BuildingType: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
+  case fort
+  case tower
+  case barracks
+  case healer
+  case outpost
+  /// Auto generated constant for unknown enum values
+  case __unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "FORT": self = .fort
+      case "TOWER": self = .tower
+      case "BARRACKS": self = .barracks
+      case "HEALER": self = .healer
+      case "OUTPOST": self = .outpost
+      default: self = .__unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .fort: return "FORT"
+      case .tower: return "TOWER"
+      case .barracks: return "BARRACKS"
+      case .healer: return "HEALER"
+      case .outpost: return "OUTPOST"
+      case .__unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: BuildingType, rhs: BuildingType) -> Bool {
+    switch (lhs, rhs) {
+      case (.fort, .fort): return true
+      case (.tower, .tower): return true
+      case (.barracks, .barracks): return true
+      case (.healer, .healer): return true
+      case (.outpost, .outpost): return true
+      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+
+  public static var allCases: [BuildingType] {
+    return [
+      .fort,
+      .tower,
+      .barracks,
+      .healer,
+      .outpost,
+    ]
+  }
+}
+
 public final class AbilityQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
@@ -1310,6 +1365,20 @@ public final class MatchLiveSubscription: GraphQLSubscription {
           time
           winRate
         }
+        playbackData {
+          __typename
+          buildingEvents {
+            __typename
+            indexId
+            isAlive
+            isRadiant
+            npcId
+            positionX
+            positionY
+            time
+            type
+          }
+        }
       }
     }
     """
@@ -1383,6 +1452,7 @@ public final class MatchLiveSubscription: GraphQLSubscription {
           GraphQLField("winRateValues", type: .list(.scalar(Double.self))),
           GraphQLField("durationValues", type: .list(.scalar(Double.self))),
           GraphQLField("liveWinRateValues", type: .list(.object(LiveWinRateValue.selections))),
+          GraphQLField("playbackData", type: .object(PlaybackDatum.selections)),
         ]
       }
 
@@ -1392,8 +1462,8 @@ public final class MatchLiveSubscription: GraphQLSubscription {
         self.resultMap = unsafeResultMap
       }
 
-      public init(matchId: Long? = nil, radiantScore: Byte? = nil, direScore: Byte? = nil, leagueId: Int? = nil, delay: Short? = nil, averageRank: Int? = nil, buildingState: Long? = nil, radiantLead: Int? = nil, lobbyType: LobbyTypeEnum? = nil, gameTime: Int? = nil, completed: Bool? = nil, isUpdating: Bool? = nil, isParsing: Bool? = nil, radiantTeam: RadiantTeam? = nil, direTeam: DireTeam? = nil, players: [Player?]? = nil, gameMode: GameModeEnumType? = nil, gameMinute: Short? = nil, createdDateTime: Long? = nil, modifiedDateTime: Long? = nil, winRateValues: [Double?]? = nil, durationValues: [Double?]? = nil, liveWinRateValues: [LiveWinRateValue?]? = nil) {
-        self.init(unsafeResultMap: ["__typename": "MatchLiveType", "matchId": matchId, "radiantScore": radiantScore, "direScore": direScore, "leagueId": leagueId, "delay": delay, "averageRank": averageRank, "buildingState": buildingState, "radiantLead": radiantLead, "lobbyType": lobbyType, "gameTime": gameTime, "completed": completed, "isUpdating": isUpdating, "isParsing": isParsing, "radiantTeam": radiantTeam.flatMap { (value: RadiantTeam) -> ResultMap in value.resultMap }, "direTeam": direTeam.flatMap { (value: DireTeam) -> ResultMap in value.resultMap }, "players": players.flatMap { (value: [Player?]) -> [ResultMap?] in value.map { (value: Player?) -> ResultMap? in value.flatMap { (value: Player) -> ResultMap in value.resultMap } } }, "gameMode": gameMode, "gameMinute": gameMinute, "createdDateTime": createdDateTime, "modifiedDateTime": modifiedDateTime, "winRateValues": winRateValues, "durationValues": durationValues, "liveWinRateValues": liveWinRateValues.flatMap { (value: [LiveWinRateValue?]) -> [ResultMap?] in value.map { (value: LiveWinRateValue?) -> ResultMap? in value.flatMap { (value: LiveWinRateValue) -> ResultMap in value.resultMap } } }])
+      public init(matchId: Long? = nil, radiantScore: Byte? = nil, direScore: Byte? = nil, leagueId: Int? = nil, delay: Short? = nil, averageRank: Int? = nil, buildingState: Long? = nil, radiantLead: Int? = nil, lobbyType: LobbyTypeEnum? = nil, gameTime: Int? = nil, completed: Bool? = nil, isUpdating: Bool? = nil, isParsing: Bool? = nil, radiantTeam: RadiantTeam? = nil, direTeam: DireTeam? = nil, players: [Player?]? = nil, gameMode: GameModeEnumType? = nil, gameMinute: Short? = nil, createdDateTime: Long? = nil, modifiedDateTime: Long? = nil, winRateValues: [Double?]? = nil, durationValues: [Double?]? = nil, liveWinRateValues: [LiveWinRateValue?]? = nil, playbackData: PlaybackDatum? = nil) {
+        self.init(unsafeResultMap: ["__typename": "MatchLiveType", "matchId": matchId, "radiantScore": radiantScore, "direScore": direScore, "leagueId": leagueId, "delay": delay, "averageRank": averageRank, "buildingState": buildingState, "radiantLead": radiantLead, "lobbyType": lobbyType, "gameTime": gameTime, "completed": completed, "isUpdating": isUpdating, "isParsing": isParsing, "radiantTeam": radiantTeam.flatMap { (value: RadiantTeam) -> ResultMap in value.resultMap }, "direTeam": direTeam.flatMap { (value: DireTeam) -> ResultMap in value.resultMap }, "players": players.flatMap { (value: [Player?]) -> [ResultMap?] in value.map { (value: Player?) -> ResultMap? in value.flatMap { (value: Player) -> ResultMap in value.resultMap } } }, "gameMode": gameMode, "gameMinute": gameMinute, "createdDateTime": createdDateTime, "modifiedDateTime": modifiedDateTime, "winRateValues": winRateValues, "durationValues": durationValues, "liveWinRateValues": liveWinRateValues.flatMap { (value: [LiveWinRateValue?]) -> [ResultMap?] in value.map { (value: LiveWinRateValue?) -> ResultMap? in value.flatMap { (value: LiveWinRateValue) -> ResultMap in value.resultMap } } }, "playbackData": playbackData.flatMap { (value: PlaybackDatum) -> ResultMap in value.resultMap }])
       }
 
       public var __typename: String {
@@ -1609,6 +1679,15 @@ public final class MatchLiveSubscription: GraphQLSubscription {
         }
         set {
           resultMap.updateValue(newValue.flatMap { (value: [LiveWinRateValue?]) -> [ResultMap?] in value.map { (value: LiveWinRateValue?) -> ResultMap? in value.flatMap { (value: LiveWinRateValue) -> ResultMap in value.resultMap } } }, forKey: "liveWinRateValues")
+        }
+      }
+
+      public var playbackData: PlaybackDatum? {
+        get {
+          return (resultMap["playbackData"] as? ResultMap).flatMap { PlaybackDatum(unsafeResultMap: $0) }
+        }
+        set {
+          resultMap.updateValue(newValue?.resultMap, forKey: "playbackData")
         }
       }
 
@@ -2449,6 +2528,452 @@ public final class MatchLiveSubscription: GraphQLSubscription {
           }
           set {
             resultMap.updateValue(newValue, forKey: "winRate")
+          }
+        }
+      }
+
+      public struct PlaybackDatum: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["MatchLivePlaybackDataType"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("buildingEvents", type: .list(.object(BuildingEvent.selections))),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(buildingEvents: [BuildingEvent?]? = nil) {
+          self.init(unsafeResultMap: ["__typename": "MatchLivePlaybackDataType", "buildingEvents": buildingEvents.flatMap { (value: [BuildingEvent?]) -> [ResultMap?] in value.map { (value: BuildingEvent?) -> ResultMap? in value.flatMap { (value: BuildingEvent) -> ResultMap in value.resultMap } } }])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var buildingEvents: [BuildingEvent?]? {
+          get {
+            return (resultMap["buildingEvents"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [BuildingEvent?] in value.map { (value: ResultMap?) -> BuildingEvent? in value.flatMap { (value: ResultMap) -> BuildingEvent in BuildingEvent(unsafeResultMap: value) } } }
+          }
+          set {
+            resultMap.updateValue(newValue.flatMap { (value: [BuildingEvent?]) -> [ResultMap?] in value.map { (value: BuildingEvent?) -> ResultMap? in value.flatMap { (value: BuildingEvent) -> ResultMap in value.resultMap } } }, forKey: "buildingEvents")
+          }
+        }
+
+        public struct BuildingEvent: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["MatchLiveBuildingDetailType"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("indexId", type: .scalar(Int.self)),
+              GraphQLField("isAlive", type: .nonNull(.scalar(Bool.self))),
+              GraphQLField("isRadiant", type: .scalar(Bool.self)),
+              GraphQLField("npcId", type: .scalar(Int.self)),
+              GraphQLField("positionX", type: .scalar(Int.self)),
+              GraphQLField("positionY", type: .scalar(Int.self)),
+              GraphQLField("time", type: .nonNull(.scalar(Int.self))),
+              GraphQLField("type", type: .scalar(BuildingType.self)),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(indexId: Int? = nil, isAlive: Bool, isRadiant: Bool? = nil, npcId: Int? = nil, positionX: Int? = nil, positionY: Int? = nil, time: Int, type: BuildingType? = nil) {
+            self.init(unsafeResultMap: ["__typename": "MatchLiveBuildingDetailType", "indexId": indexId, "isAlive": isAlive, "isRadiant": isRadiant, "npcId": npcId, "positionX": positionX, "positionY": positionY, "time": time, "type": type])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var indexId: Int? {
+            get {
+              return resultMap["indexId"] as? Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "indexId")
+            }
+          }
+
+          public var isAlive: Bool {
+            get {
+              return resultMap["isAlive"]! as! Bool
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "isAlive")
+            }
+          }
+
+          public var isRadiant: Bool? {
+            get {
+              return resultMap["isRadiant"] as? Bool
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "isRadiant")
+            }
+          }
+
+          public var npcId: Int? {
+            get {
+              return resultMap["npcId"] as? Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "npcId")
+            }
+          }
+
+          public var positionX: Int? {
+            get {
+              return resultMap["positionX"] as? Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "positionX")
+            }
+          }
+
+          public var positionY: Int? {
+            get {
+              return resultMap["positionY"] as? Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "positionY")
+            }
+          }
+
+          public var time: Int {
+            get {
+              return resultMap["time"]! as! Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "time")
+            }
+          }
+
+          public var type: BuildingType? {
+            get {
+              return resultMap["type"] as? BuildingType
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "type")
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+public final class MatchLiveHistoryQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    query MatchLiveHistory($id: Long!) {
+      live {
+        __typename
+        match(id: $id) {
+          __typename
+          playbackData {
+            __typename
+            buildingEvents {
+              __typename
+              indexId
+              isAlive
+              isRadiant
+              npcId
+              positionX
+              positionY
+              time
+              type
+            }
+          }
+        }
+      }
+    }
+    """
+
+  public let operationName: String = "MatchLiveHistory"
+
+  public var id: Long
+
+  public init(id: Long) {
+    self.id = id
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["DotaQuery"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("live", type: .object(Live.selections)),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(live: Live? = nil) {
+      self.init(unsafeResultMap: ["__typename": "DotaQuery", "live": live.flatMap { (value: Live) -> ResultMap in value.resultMap }])
+    }
+
+    /// Queries used to find live match data.
+    public var live: Live? {
+      get {
+        return (resultMap["live"] as? ResultMap).flatMap { Live(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "live")
+      }
+    }
+
+    public struct Live: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["LiveQuery"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("match", arguments: ["id": GraphQLVariable("id")], type: .object(Match.selections)),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(match: Match? = nil) {
+        self.init(unsafeResultMap: ["__typename": "LiveQuery", "match": match.flatMap { (value: Match) -> ResultMap in value.resultMap }])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// Find a live match by match id. A live match is data where a match is on the Dota watch list and still active. All League games are also Live. id is a required input field.
+      public var match: Match? {
+        get {
+          return (resultMap["match"] as? ResultMap).flatMap { Match(unsafeResultMap: $0) }
+        }
+        set {
+          resultMap.updateValue(newValue?.resultMap, forKey: "match")
+        }
+      }
+
+      public struct Match: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["MatchLiveType"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("playbackData", type: .object(PlaybackDatum.selections)),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(playbackData: PlaybackDatum? = nil) {
+          self.init(unsafeResultMap: ["__typename": "MatchLiveType", "playbackData": playbackData.flatMap { (value: PlaybackDatum) -> ResultMap in value.resultMap }])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var playbackData: PlaybackDatum? {
+          get {
+            return (resultMap["playbackData"] as? ResultMap).flatMap { PlaybackDatum(unsafeResultMap: $0) }
+          }
+          set {
+            resultMap.updateValue(newValue?.resultMap, forKey: "playbackData")
+          }
+        }
+
+        public struct PlaybackDatum: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["MatchLivePlaybackDataType"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("buildingEvents", type: .list(.object(BuildingEvent.selections))),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(buildingEvents: [BuildingEvent?]? = nil) {
+            self.init(unsafeResultMap: ["__typename": "MatchLivePlaybackDataType", "buildingEvents": buildingEvents.flatMap { (value: [BuildingEvent?]) -> [ResultMap?] in value.map { (value: BuildingEvent?) -> ResultMap? in value.flatMap { (value: BuildingEvent) -> ResultMap in value.resultMap } } }])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var buildingEvents: [BuildingEvent?]? {
+            get {
+              return (resultMap["buildingEvents"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [BuildingEvent?] in value.map { (value: ResultMap?) -> BuildingEvent? in value.flatMap { (value: ResultMap) -> BuildingEvent in BuildingEvent(unsafeResultMap: value) } } }
+            }
+            set {
+              resultMap.updateValue(newValue.flatMap { (value: [BuildingEvent?]) -> [ResultMap?] in value.map { (value: BuildingEvent?) -> ResultMap? in value.flatMap { (value: BuildingEvent) -> ResultMap in value.resultMap } } }, forKey: "buildingEvents")
+            }
+          }
+
+          public struct BuildingEvent: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["MatchLiveBuildingDetailType"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("indexId", type: .scalar(Int.self)),
+                GraphQLField("isAlive", type: .nonNull(.scalar(Bool.self))),
+                GraphQLField("isRadiant", type: .scalar(Bool.self)),
+                GraphQLField("npcId", type: .scalar(Int.self)),
+                GraphQLField("positionX", type: .scalar(Int.self)),
+                GraphQLField("positionY", type: .scalar(Int.self)),
+                GraphQLField("time", type: .nonNull(.scalar(Int.self))),
+                GraphQLField("type", type: .scalar(BuildingType.self)),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(indexId: Int? = nil, isAlive: Bool, isRadiant: Bool? = nil, npcId: Int? = nil, positionX: Int? = nil, positionY: Int? = nil, time: Int, type: BuildingType? = nil) {
+              self.init(unsafeResultMap: ["__typename": "MatchLiveBuildingDetailType", "indexId": indexId, "isAlive": isAlive, "isRadiant": isRadiant, "npcId": npcId, "positionX": positionX, "positionY": positionY, "time": time, "type": type])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var indexId: Int? {
+              get {
+                return resultMap["indexId"] as? Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "indexId")
+              }
+            }
+
+            public var isAlive: Bool {
+              get {
+                return resultMap["isAlive"]! as! Bool
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "isAlive")
+              }
+            }
+
+            public var isRadiant: Bool? {
+              get {
+                return resultMap["isRadiant"] as? Bool
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "isRadiant")
+              }
+            }
+
+            public var npcId: Int? {
+              get {
+                return resultMap["npcId"] as? Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "npcId")
+              }
+            }
+
+            public var positionX: Int? {
+              get {
+                return resultMap["positionX"] as? Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "positionX")
+              }
+            }
+
+            public var positionY: Int? {
+              get {
+                return resultMap["positionY"] as? Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "positionY")
+              }
+            }
+
+            public var time: Int {
+              get {
+                return resultMap["time"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "time")
+              }
+            }
+
+            public var type: BuildingType? {
+              get {
+                return resultMap["type"] as? BuildingType
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "type")
+              }
+            }
           }
         }
       }

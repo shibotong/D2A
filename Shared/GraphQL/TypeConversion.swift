@@ -11,3 +11,8 @@ public typealias Short = Double
 public typealias Byte = Int
 public typealias Long = Int
 public typealias UShort = Double
+
+public typealias PlayerLive = MatchLiveSubscription.Data.MatchLive.Player
+public typealias MatchLive = MatchLiveSubscription.Data.MatchLive
+public typealias BuildingEventLive = MatchLiveSubscription.Data.MatchLive.PlaybackDatum.BuildingEvent
+public typealias BuildingEventHistory = MatchLiveHistoryQuery.Data.Live.Match.PlaybackDatum.BuildingEvent
