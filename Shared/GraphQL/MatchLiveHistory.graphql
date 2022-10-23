@@ -13,6 +13,30 @@ query MatchLiveHistory($id: Long!) {
           type
         }
       }
+      players {
+        heroId
+        playerSlot
+        playbackData {
+          killEvents {
+            time
+          }
+          deathEvents {
+            time
+          }
+          inventoryEvents {
+            time
+            itemId0
+            itemId1
+            itemId2
+            itemId3
+            itemId4
+            itemId5
+            backpackId0
+            backpackId1
+            backpackId2
+          }
+        }
+      }
     }
   }
 }

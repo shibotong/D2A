@@ -25,11 +25,23 @@ struct MatchLiveView: View {
                           direScore: match.direKill ?? 0,
                           time: match.duration)
                 .padding(.horizontal)
+                
                 ScrollView {
                     MiniMapView(players: match.players,
                                 buildingEvents: viewModel.towerStatus)
                     .padding(.horizontal)
-                    MatchLiveDetailView(players: match.players, radiantScore: match.radiantKill ?? 0, direScore: match.direKill ?? 0)
+                    Picker("selection", selection: $viewModel.selection) {
+                        Text("Hero Detail").tag(0)
+                        Text("Events").tag(1)
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.horizontal)
+                    if viewModel.selection == 0 {
+                        MatchLiveDetailView(players: match.players, radiantScore: match.radiantKill ?? 0, direScore: match.direKill ?? 0)
+                    } else {
+                        EventsListView(events: viewModel.liveEvents, players: match.players)
+                            .padding(.horizontal)
+                    }
                 }
             }
         } else {
