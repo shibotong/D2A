@@ -37,7 +37,7 @@ struct EventsListView: View {
                                 ForEach(kill.died, id: \.self) { diedHeroID in
                                     KillEventView(kill: diedHeroID,
                                                   died: nil,
-                                                  isRadiant: !heroIsRadiant(heroID: diedHeroID),
+                                                  isRadiant: heroIsRadiant(heroID: diedHeroID),
                                                   isKill: false,
                                                   time: kill.time)
                                 }
