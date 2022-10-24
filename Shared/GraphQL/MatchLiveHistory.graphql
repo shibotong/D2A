@@ -12,6 +12,13 @@ query MatchLiveHistory($id: Long!) {
           time
           type
         }
+        pickBans {
+          isPick
+          heroId
+          order
+          bannedHeroId
+          isRadiant
+        }
       }
       players {
         steamAccountId

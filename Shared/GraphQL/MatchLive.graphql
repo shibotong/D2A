@@ -115,6 +115,13 @@ subscription MatchLive($id: Long!) {
         time
         type
       }
+      pickBans {
+        isPick
+        heroId
+        order
+        bannedHeroId
+        isRadiant
+      }
     }
   }
 }

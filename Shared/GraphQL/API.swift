@@ -1394,6 +1394,14 @@ public final class MatchLiveSubscription: GraphQLSubscription {
             time
             type
           }
+          pickBans {
+            __typename
+            isPick
+            heroId
+            order
+            bannedHeroId
+            isRadiant
+          }
         }
       }
     }
@@ -2733,6 +2741,7 @@ public final class MatchLiveSubscription: GraphQLSubscription {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("buildingEvents", type: .list(.object(BuildingEvent.selections))),
+            GraphQLField("pickBans", type: .list(.object(PickBan.selections))),
           ]
         }
 
@@ -2742,8 +2751,8 @@ public final class MatchLiveSubscription: GraphQLSubscription {
           self.resultMap = unsafeResultMap
         }
 
-        public init(buildingEvents: [BuildingEvent?]? = nil) {
-          self.init(unsafeResultMap: ["__typename": "MatchLivePlaybackDataType", "buildingEvents": buildingEvents.flatMap { (value: [BuildingEvent?]) -> [ResultMap?] in value.map { (value: BuildingEvent?) -> ResultMap? in value.flatMap { (value: BuildingEvent) -> ResultMap in value.resultMap } } }])
+        public init(buildingEvents: [BuildingEvent?]? = nil, pickBans: [PickBan?]? = nil) {
+          self.init(unsafeResultMap: ["__typename": "MatchLivePlaybackDataType", "buildingEvents": buildingEvents.flatMap { (value: [BuildingEvent?]) -> [ResultMap?] in value.map { (value: BuildingEvent?) -> ResultMap? in value.flatMap { (value: BuildingEvent) -> ResultMap in value.resultMap } } }, "pickBans": pickBans.flatMap { (value: [PickBan?]) -> [ResultMap?] in value.map { (value: PickBan?) -> ResultMap? in value.flatMap { (value: PickBan) -> ResultMap in value.resultMap } } }])
         }
 
         public var __typename: String {
@@ -2761,6 +2770,15 @@ public final class MatchLiveSubscription: GraphQLSubscription {
           }
           set {
             resultMap.updateValue(newValue.flatMap { (value: [BuildingEvent?]) -> [ResultMap?] in value.map { (value: BuildingEvent?) -> ResultMap? in value.flatMap { (value: BuildingEvent) -> ResultMap in value.resultMap } } }, forKey: "buildingEvents")
+          }
+        }
+
+        public var pickBans: [PickBan?]? {
+          get {
+            return (resultMap["pickBans"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [PickBan?] in value.map { (value: ResultMap?) -> PickBan? in value.flatMap { (value: ResultMap) -> PickBan in PickBan(unsafeResultMap: value) } } }
+          }
+          set {
+            resultMap.updateValue(newValue.flatMap { (value: [PickBan?]) -> [ResultMap?] in value.map { (value: PickBan?) -> ResultMap? in value.flatMap { (value: PickBan) -> ResultMap in value.resultMap } } }, forKey: "pickBans")
           }
         }
 
@@ -2872,6 +2890,85 @@ public final class MatchLiveSubscription: GraphQLSubscription {
             }
           }
         }
+
+        public struct PickBan: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["MatchLivePickBanType"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("isPick", type: .nonNull(.scalar(Bool.self))),
+              GraphQLField("heroId", type: .scalar(Short.self)),
+              GraphQLField("order", type: .scalar(Int.self)),
+              GraphQLField("bannedHeroId", type: .scalar(Short.self)),
+              GraphQLField("isRadiant", type: .scalar(Bool.self)),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(isPick: Bool, heroId: Short? = nil, order: Int? = nil, bannedHeroId: Short? = nil, isRadiant: Bool? = nil) {
+            self.init(unsafeResultMap: ["__typename": "MatchLivePickBanType", "isPick": isPick, "heroId": heroId, "order": order, "bannedHeroId": bannedHeroId, "isRadiant": isRadiant])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var isPick: Bool {
+            get {
+              return resultMap["isPick"]! as! Bool
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "isPick")
+            }
+          }
+
+          public var heroId: Short? {
+            get {
+              return resultMap["heroId"] as? Short
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "heroId")
+            }
+          }
+
+          public var order: Int? {
+            get {
+              return resultMap["order"] as? Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "order")
+            }
+          }
+
+          public var bannedHeroId: Short? {
+            get {
+              return resultMap["bannedHeroId"] as? Short
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "bannedHeroId")
+            }
+          }
+
+          public var isRadiant: Bool? {
+            get {
+              return resultMap["isRadiant"] as? Bool
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "isRadiant")
+            }
+          }
+        }
       }
     }
   }
@@ -2898,6 +2995,14 @@ public final class MatchLiveHistoryQuery: GraphQLQuery {
               positionY
               time
               type
+            }
+            pickBans {
+              __typename
+              isPick
+              heroId
+              order
+              bannedHeroId
+              isRadiant
             }
           }
           players {
@@ -3111,6 +3216,7 @@ public final class MatchLiveHistoryQuery: GraphQLQuery {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("buildingEvents", type: .list(.object(BuildingEvent.selections))),
+              GraphQLField("pickBans", type: .list(.object(PickBan.selections))),
             ]
           }
 
@@ -3120,8 +3226,8 @@ public final class MatchLiveHistoryQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(buildingEvents: [BuildingEvent?]? = nil) {
-            self.init(unsafeResultMap: ["__typename": "MatchLivePlaybackDataType", "buildingEvents": buildingEvents.flatMap { (value: [BuildingEvent?]) -> [ResultMap?] in value.map { (value: BuildingEvent?) -> ResultMap? in value.flatMap { (value: BuildingEvent) -> ResultMap in value.resultMap } } }])
+          public init(buildingEvents: [BuildingEvent?]? = nil, pickBans: [PickBan?]? = nil) {
+            self.init(unsafeResultMap: ["__typename": "MatchLivePlaybackDataType", "buildingEvents": buildingEvents.flatMap { (value: [BuildingEvent?]) -> [ResultMap?] in value.map { (value: BuildingEvent?) -> ResultMap? in value.flatMap { (value: BuildingEvent) -> ResultMap in value.resultMap } } }, "pickBans": pickBans.flatMap { (value: [PickBan?]) -> [ResultMap?] in value.map { (value: PickBan?) -> ResultMap? in value.flatMap { (value: PickBan) -> ResultMap in value.resultMap } } }])
           }
 
           public var __typename: String {
@@ -3139,6 +3245,15 @@ public final class MatchLiveHistoryQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue.flatMap { (value: [BuildingEvent?]) -> [ResultMap?] in value.map { (value: BuildingEvent?) -> ResultMap? in value.flatMap { (value: BuildingEvent) -> ResultMap in value.resultMap } } }, forKey: "buildingEvents")
+            }
+          }
+
+          public var pickBans: [PickBan?]? {
+            get {
+              return (resultMap["pickBans"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [PickBan?] in value.map { (value: ResultMap?) -> PickBan? in value.flatMap { (value: ResultMap) -> PickBan in PickBan(unsafeResultMap: value) } } }
+            }
+            set {
+              resultMap.updateValue(newValue.flatMap { (value: [PickBan?]) -> [ResultMap?] in value.map { (value: PickBan?) -> ResultMap? in value.flatMap { (value: PickBan) -> ResultMap in value.resultMap } } }, forKey: "pickBans")
             }
           }
 
@@ -3247,6 +3362,85 @@ public final class MatchLiveHistoryQuery: GraphQLQuery {
               }
               set {
                 resultMap.updateValue(newValue, forKey: "type")
+              }
+            }
+          }
+
+          public struct PickBan: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["MatchLivePickBanType"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("isPick", type: .nonNull(.scalar(Bool.self))),
+                GraphQLField("heroId", type: .scalar(Short.self)),
+                GraphQLField("order", type: .scalar(Int.self)),
+                GraphQLField("bannedHeroId", type: .scalar(Short.self)),
+                GraphQLField("isRadiant", type: .scalar(Bool.self)),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(isPick: Bool, heroId: Short? = nil, order: Int? = nil, bannedHeroId: Short? = nil, isRadiant: Bool? = nil) {
+              self.init(unsafeResultMap: ["__typename": "MatchLivePickBanType", "isPick": isPick, "heroId": heroId, "order": order, "bannedHeroId": bannedHeroId, "isRadiant": isRadiant])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var isPick: Bool {
+              get {
+                return resultMap["isPick"]! as! Bool
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "isPick")
+              }
+            }
+
+            public var heroId: Short? {
+              get {
+                return resultMap["heroId"] as? Short
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "heroId")
+              }
+            }
+
+            public var order: Int? {
+              get {
+                return resultMap["order"] as? Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "order")
+              }
+            }
+
+            public var bannedHeroId: Short? {
+              get {
+                return resultMap["bannedHeroId"] as? Short
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "bannedHeroId")
+              }
+            }
+
+            public var isRadiant: Bool? {
+              get {
+                return resultMap["isRadiant"] as? Bool
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "isRadiant")
               }
             }
           }
