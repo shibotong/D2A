@@ -286,6 +286,8 @@
 		79B1630728DD5C0B009B2AE2 /* TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */; };
 		79B7E9062906B60100EE4A02 /* LiveEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB794C2904E78400B6838B /* LiveEvents.swift */; };
 		79B7E9072906B60200EE4A02 /* LiveEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB794C2904E78400B6838B /* LiveEvents.swift */; };
+		79B7E9092906BF2E00EE4A02 /* LiveDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7E9082906BF2E00EE4A02 /* LiveDraftView.swift */; };
+		79B7E90B2906C12B00EE4A02 /* BanPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B7E90A2906C12B00EE4A02 /* BanPick.swift */; };
 		79D5280E28DD5D990070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
 		79D5281128DD642E0070841D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
 		79D5281228DD642E0070841D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
@@ -516,6 +518,8 @@
 		79B1630328DD5A31009B2AE2 /* Hero.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hero.graphql; sourceTree = "<group>"; };
 		79B1630428DD5B33009B2AE2 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeConversion.swift; sourceTree = "<group>"; };
+		79B7E9082906BF2E00EE4A02 /* LiveDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveDraftView.swift; sourceTree = "<group>"; };
+		79B7E90A2906C12B00EE4A02 /* BanPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BanPick.swift; sourceTree = "<group>"; };
 		79D5280D28DD5D990070841D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		79D5281D28DD73CF0070841D /* secrets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = secrets.json; sourceTree = "<group>"; };
 		79D5282128DD74930070841D /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
@@ -991,6 +995,7 @@
 			children = (
 				7915ABFA29026A2D004F023F /* SubscriptionHomeView.swift */,
 				7904704B29035E9F002D5066 /* MatchLiveView.swift */,
+				79B7E9082906BF2E00EE4A02 /* LiveDraftView.swift */,
 				79EB794E2904F3E700B6838B /* EventsListView.swift */,
 				79EB79502904FD3100B6838B /* BuildingEventView.swift */,
 				79EB79522904FE7200B6838B /* KillEventView.swift */,
@@ -1037,6 +1042,7 @@
 				79EB79392904BF5600B6838B /* Team.swift */,
 				79EB79482904D4FD00B6838B /* BuildingEvent.swift */,
 				79EB794C2904E78400B6838B /* LiveEvents.swift */,
+				79B7E90A2906C12B00EE4A02 /* BanPick.swift */,
 			);
 			path = Match;
 			sourceTree = "<group>";
@@ -1555,6 +1561,7 @@
 				327B87782852263300BBE1F8 /* HeroListViewModel.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
 				32F70B3626F72D74006E9B05 /* ProductSubView.swift in Sources */,
+				79B7E9092906BF2E00EE4A02 /* LiveDraftView.swift in Sources */,
 				32079DBF28B843360056D19F /* String.swift in Sources */,
 				79EB794D2904E78400B6838B /* LiveEvents.swift in Sources */,
 				79D5280E28DD5D990070841D /* Network.swift in Sources */,
@@ -1563,6 +1570,7 @@
 				79B1630728DD5C0B009B2AE2 /* TypeConversion.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
 				32DE14492845E277006E864E /* PlayerListView.swift in Sources */,
+				79B7E90B2906C12B00EE4A02 /* BanPick.swift in Sources */,
 				322B89C926D0F61900DF67F9 /* ProfileViewModel.swift in Sources */,
 				328D88B5288EB4F700DFD204 /* SharingLink.swift in Sources */,
 				321D58A026D234A90059526B /* AboutUsView.swift in Sources */,

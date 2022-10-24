@@ -36,21 +36,23 @@ class MatchLiveViewModel: ObservableObject {
         }
     }
     
-    func fetchHistoryData() {
+    private func fetchHistoryData() {
         Network.shared.apollo.fetch(query: MatchLiveHistoryQuery(id: matchID)) { result in
             switch result {
             case .success(let graphQLResult):
                 guard let data = graphQLResult.data?.live?.match else {
                     return
                 }
+                print(data.playbackData?.pickBans)
                 self.processHistoryEvents(query: data)
+                self.processDraftData()
             case .failure(let error):
                 print(error)
             }
         }
     }
     
-    func processLiveEvents(data: MatchLiveSubscription.Data.MatchLive?) -> Match? {
+    private func processLiveEvents(data: MatchLiveSubscription.Data.MatchLive?) -> Match? {
         guard let data = data else {
             return nil
         }
@@ -91,6 +93,10 @@ class MatchLiveViewModel: ObservableObject {
         }
         
         liveEvents = combineEvents(buildingEvents: buildingEvents, killEvents: killEvents)
+    }
+    
+    private func processDraftData() {
+        
     }
     
     private func combineEvents(buildingEvents: [BuildingEvent], killEvents: [KillEvent]) -> [Event] {

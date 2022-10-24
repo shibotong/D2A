@@ -326,7 +326,7 @@ struct TeamView: View {
     var body: some View {
         VStack(spacing: 0) {
             TeamHeaderView(isRadiant: isRadiant, score: score, radiantWin: radiantWin)
-            ForEach(players, id: \.heroID) { player in
+            ForEach(players) { player in
                 PlayerRowView(player: player, isRadiant: isRadiant, canClick: canClick, maxDamage: maxDamage)
                     .padding(.horizontal)
             }

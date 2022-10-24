@@ -8,7 +8,8 @@
 import Foundation
 import WCDBSwift
 
-struct Player: Codable, TableCodable {
+struct Player: Codable, TableCodable, Identifiable {
+    var id = UUID()
     var accountId: Int?
     var slot: Int
     var abilityUpgrade: [Int]? //An array describing how abilities were upgraded
