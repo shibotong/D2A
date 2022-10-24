@@ -41,11 +41,11 @@ struct BuildingEvent: LiveEvent {
     
     var lane: String {
         switch indexId {
-        case 0, 1, 2, 11, 12, 18, 19, 20, 27, 28:
+        case 0, 1, 2, 11, 12, 18, 19, 20, 29, 30:
             return "Top "
-        case 3, 4, 5, 13, 14, 21, 22, 23, 29, 30:
+        case 3, 4, 5, 13, 14, 21, 22, 23, 31, 32:
             return "Mid "
-        case 6, 7, 8, 15, 16, 24, 25, 26, 31, 32:
+        case 6, 7, 8, 15, 16, 24, 25, 26, 33, 34:
             return "Btm "
         default:
             return ""
