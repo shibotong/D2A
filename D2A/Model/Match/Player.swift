@@ -59,6 +59,9 @@ struct Player: Codable, TableCodable {
     var positionX: Int?
     var positionY: Int?
     
+    var deathEvents: [Int]?
+    var killEvents: [Int]?
+    
     init(from player: MatchLiveSubscription.Data.MatchLive.Player) {
         accountId = player.steamAccountId ?? 0
         slot = player.playerSlot ?? 0
@@ -91,6 +94,46 @@ struct Player: Codable, TableCodable {
         
         positionX = player.playbackData?.positionEvents?.first??.x
         positionY = player.playbackData?.positionEvents?.first??.y
+        
+        killEvents = player.playbackData?.killEvents?.compactMap({ $0 }).map{ $0.time }
+        deathEvents = player.playbackData?.deathEvents?.compactMap({ $0 }).map{ $0.time }
+    }
+    
+    init(from player: MatchLiveHistoryQuery.Data.Live.Match.Player) {
+        accountId = player.steamAccountId ?? 0
+        slot = player.playerSlot ?? 0
+        backpack0 = Int(player.backpackId0 ?? 0)
+        backpack1 = Int(player.backpackId1 ?? 0)
+        backpack2 = Int(player.backpackId2 ?? 0)
+        item0 = Int(player.itemId0 ?? 0)
+        item1 = Int(player.itemId1 ?? 0)
+        item2 = Int(player.itemId2 ?? 0)
+        item3 = Int(player.itemId3 ?? 0)
+        item4 = Int(player.itemId4 ?? 0)
+        item5 = Int(player.itemId5 ?? 0)
+        
+        kills = player.numKills ?? 0
+        deaths = player.numDeaths ?? 0
+        assists = player.numAssists ?? 0
+        lastHits = Int(player.numLastHits ?? 0)
+        denies = Int(player.numDenies ?? 0)
+        
+        gpm = Int(player.goldPerMinute ?? 0)
+        netWorth = player.networth
+        xpm = Int(player.experiencePerMinute ?? 0)
+        
+        heroDamage = player.heroDamage
+        heroID = Int(player.heroId ?? 0)
+        level = player.level ?? 0
+        
+        personaname = player.steamAccount?.proSteamAccount?.name ?? player.steamAccount?.name
+        rank = player.steamAccount?.seasonRank
+        
+        positionX = player.playbackData?.positionEvents?.first??.x
+        positionY = player.playbackData?.positionEvents?.first??.y
+        
+        killEvents = player.playbackData?.killEvents?.compactMap({ $0 }).map{ $0.time }
+        deathEvents = player.playbackData?.deathEvents?.compactMap({ $0 }).map{ $0.time }
     }
     
     enum CodingKeys: String, CodingTableKey {

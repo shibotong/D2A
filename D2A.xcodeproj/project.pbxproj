@@ -284,6 +284,8 @@
 		7985E7EF28E53E47007A43AF /* Talent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E7EE28E53E47007A43AF /* Talent.swift */; };
 		79B1630528DD5B33009B2AE2 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
 		79B1630728DD5C0B009B2AE2 /* TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */; };
+		79B7E9062906B60100EE4A02 /* LiveEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB794C2904E78400B6838B /* LiveEvents.swift */; };
+		79B7E9072906B60200EE4A02 /* LiveEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB794C2904E78400B6838B /* LiveEvents.swift */; };
 		79D5280E28DD5D990070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
 		79D5281128DD642E0070841D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
 		79D5281228DD642E0070841D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
@@ -1615,6 +1617,7 @@
 				32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */,
 				32B526C3285C0B380099B058 /* IntentHandler.swift in Sources */,
 				79EB794A2904D6A600B6838B /* BuildingEvent.swift in Sources */,
+				79B7E9062906B60100EE4A02 /* LiveEvents.swift in Sources */,
 				32A26C5528594A28005E890F /* Environment.swift in Sources */,
 				79EB79442904CCBB00B6838B /* Team.swift in Sources */,
 				32F70ADE26F60B95006E9B05 /* UserProfile.swift in Sources */,
@@ -1663,6 +1666,7 @@
 				32B526C4285C0B380099B058 /* IntentHandler.swift in Sources */,
 				32EC7F3828646BAE00A36AF6 /* RecentMatchesWidgetEntryView.swift in Sources */,
 				79EB794B2904D6A600B6838B /* BuildingEvent.swift in Sources */,
+				79B7E9072906B60200EE4A02 /* LiveEvents.swift in Sources */,
 				32A26C5628594A28005E890F /* Environment.swift in Sources */,
 				79EB79452904CCBC00B6838B /* Team.swift in Sources */,
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,

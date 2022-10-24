@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct BuildingEvent {
+struct BuildingEvent: LiveEvent {
+    var id = UUID()
     var indexId: Int
     var isAlive: Bool
     var isRadiant: Bool
