@@ -8,13 +8,13 @@
 import Foundation
 
 class MatchLiveViewModel: ObservableObject {
-    @Published var selection: Int = 0
-    @Published var matchLive: Match?
     private var matchID: Int
     
+    @Published var selection: Int = 0
+    @Published var matchLive: Match?
     @Published var towerStatus: [BuildingEvent] = []
-    
     @Published var liveEvents: [Event] = []
+    @Published var drafts: [BanPick] = []
     
     init(matchID: Int) {
         self.matchID = matchID
@@ -29,7 +29,10 @@ class MatchLiveViewModel: ObservableObject {
         Network.shared.apollo.subscribe(subscription: MatchLiveSubscription(id: matchID)) { result in
             switch result {
             case .success(let graphQLResult):
-                self.matchLive = self.processLiveEvents(data: graphQLResult.data?.matchLive)
+                guard let data = graphQLResult.data?.matchLive else {
+                    return
+                }
+                self.matchLive = self.processLiveEvents(data: data)
             case .failure(let error):
                 print(error)
             }
@@ -43,21 +46,18 @@ class MatchLiveViewModel: ObservableObject {
                 guard let data = graphQLResult.data?.live?.match else {
                     return
                 }
-                print(data.playbackData?.pickBans)
                 self.processHistoryEvents(query: data)
-                self.processDraftData()
             case .failure(let error):
                 print(error)
             }
         }
     }
     
-    private func processLiveEvents(data: MatchLiveSubscription.Data.MatchLive?) -> Match? {
-        guard let data = data else {
-            return nil
-        }
+    private func processLiveEvents(data: MatchLiveSubscription.Data.MatchLive) -> Match? {
         let match = Match(from: data)
-        
+        if let draftData = data.playbackData?.pickBans?.compactMap({ $0 }).map({ BanPick(from: $0) }) {
+            self.drafts = draftData
+        }
         // tower events performing
         var buildingEvents: [BuildingEvent] = []
         if let buildingEventsData = data.playbackData?.buildingEvents, !buildingEventsData.isEmpty {
@@ -80,6 +80,9 @@ class MatchLiveViewModel: ObservableObject {
     }
     
     private func processHistoryEvents(query: MatchLiveHistoryQuery.Data.Live.Match) {
+        if let draftData = query.playbackData?.pickBans?.compactMap({ $0 }).map({ BanPick(from: $0) }) {
+            self.drafts = draftData
+        }
         // setup building status
         var buildingEvents: [BuildingEvent] = []
         if let buildingEventsData = query.playbackData?.buildingEvents?.compactMap({ $0 }).map({ BuildingEvent(from: $0) }) {
@@ -95,7 +98,7 @@ class MatchLiveViewModel: ObservableObject {
         liveEvents = combineEvents(buildingEvents: buildingEvents, killEvents: killEvents)
     }
     
-    private func processDraftData() {
+    private func processDraftData(drafts: [BanPick]) {
         
     }
     

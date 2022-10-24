@@ -31,14 +31,14 @@ struct MatchLiveView: View {
                                 buildingEvents: viewModel.towerStatus)
                     .padding(.horizontal)
                     Picker("selection", selection: $viewModel.selection) {
-                        Text("Draft").tag(0)
+                        Text("Drafts").tag(0)
                         Text("Hero Detail").tag(1)
                         Text("Events").tag(2)
                     }
                     .pickerStyle(.segmented)
                     .padding(.horizontal)
                     if viewModel.selection == 0 {
-                        LiveDraftView()
+                        LiveDraftView(drafts: viewModel.drafts)
                     } else if viewModel.selection == 1 {
                         MatchLiveDetailView(players: match.players, radiantScore: match.radiantKill ?? 0, direScore: match.direKill ?? 0)
                     } else if viewModel.selection == 2 {
