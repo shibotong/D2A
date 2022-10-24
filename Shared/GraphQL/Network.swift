@@ -26,9 +26,7 @@ class Network {
     /// A web socket transport to use for subscriptions
     private lazy var webSocketTransport: WebSocketTransport = {
         let token = try? Secrets.load().stratzToken
-        print("token: \(token)")
         let urlString = "https://api.stratz.com/graphql?jwt=\(token ?? "no-token")"
-        print(urlString)
         let url = URL(string: urlString)!
         let webSocketClient = WebSocket(url: url, protocol: .graphql_ws)
         return WebSocketTransport(websocket: webSocketClient)
