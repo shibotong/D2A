@@ -1,5 +1,5 @@
 //
-//  TowerEventView.swift
+//  BuildingEventView.swift
 //  D2A
 //
 //  Created by Shibo Tong on 23/10/2022.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct TowerEventView: View {
+struct BuildingEventView: View {
     
-    var event: TowerEvent
+    var event: BuildingEvent
     
     var body: some View {
         HStack {
@@ -53,11 +53,5 @@ struct MatchLiveTimeLabel: View {
         Text(time.convertToDuration())
             .font(.custom(fontString, size: 10))
             .foregroundColor(.tertiaryLabel)
-    }
-}
-
-struct TowerEventView_Previews: PreviewProvider {
-    static var previews: some View {
-        TowerEventView(event: TowerEvent(time: 60, towerIndex: 0))
     }
 }

@@ -313,7 +313,7 @@
 		79EB794B2904D6A600B6838B /* BuildingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB79482904D4FD00B6838B /* BuildingEvent.swift */; };
 		79EB794D2904E78400B6838B /* LiveEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB794C2904E78400B6838B /* LiveEvents.swift */; };
 		79EB794F2904F3E700B6838B /* EventsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB794E2904F3E700B6838B /* EventsListView.swift */; };
-		79EB79512904FD3100B6838B /* TowerEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB79502904FD3100B6838B /* TowerEventView.swift */; };
+		79EB79512904FD3100B6838B /* BuildingEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB79502904FD3100B6838B /* BuildingEventView.swift */; };
 		79EB79532904FE7200B6838B /* KillEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB79522904FE7200B6838B /* KillEventView.swift */; };
 		79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
@@ -527,7 +527,7 @@
 		79EB79482904D4FD00B6838B /* BuildingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingEvent.swift; sourceTree = "<group>"; };
 		79EB794C2904E78400B6838B /* LiveEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveEvents.swift; sourceTree = "<group>"; };
 		79EB794E2904F3E700B6838B /* EventsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListView.swift; sourceTree = "<group>"; };
-		79EB79502904FD3100B6838B /* TowerEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TowerEventView.swift; sourceTree = "<group>"; };
+		79EB79502904FD3100B6838B /* BuildingEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingEventView.swift; sourceTree = "<group>"; };
 		79EB79522904FE7200B6838B /* KillEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillEventView.swift; sourceTree = "<group>"; };
 		79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Backend.xcdatamodel; sourceTree = "<group>"; };
 		79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceContainer.swift; sourceTree = "<group>"; };
@@ -992,7 +992,7 @@
 				7915ABFA29026A2D004F023F /* SubscriptionHomeView.swift */,
 				7904704B29035E9F002D5066 /* MatchLiveView.swift */,
 				79EB794E2904F3E700B6838B /* EventsListView.swift */,
-				79EB79502904FD3100B6838B /* TowerEventView.swift */,
+				79EB79502904FD3100B6838B /* BuildingEventView.swift */,
 				79EB79522904FE7200B6838B /* KillEventView.swift */,
 				7904705329036A2C002D5066 /* HeroBanner.swift */,
 				7904705529036BCC002D5066 /* MiniMapView.swift */,
@@ -1503,7 +1503,7 @@
 				322B893426CD425300DF67F9 /* WCDBController.swift in Sources */,
 				327C033C2716A8F400DAEC42 /* KDAView.swift in Sources */,
 				3252858F26C949940030F15B /* Date.swift in Sources */,
-				79EB79512904FD3100B6838B /* TowerEventView.swift in Sources */,
+				79EB79512904FD3100B6838B /* BuildingEventView.swift in Sources */,
 				79EB794F2904F3E700B6838B /* EventsListView.swift in Sources */,
 				3261C907282F315100D47CDA /* HeroDetailView.swift in Sources */,
 				327B877C285316F900BBE1F8 /* PlayerListViewModel.swift in Sources */,

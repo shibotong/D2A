@@ -16,8 +16,8 @@ struct EventsListView: View {
         VStack {
             ForEach(events, id:\.time) { eventTime in
                 ForEach(eventTime.events, id: \.id) { event in
-                    if let tower = event as? TowerEvent {
-                        TowerEventView(event: tower)
+                    if let tower = event as? BuildingEvent {
+                        BuildingEventView(event: tower)
                     } else if let kill = event as? KillEvent {
                         Group {
                             if kill.kill.count == 1 && !kill.died.isEmpty {
