@@ -29,6 +29,13 @@ struct Sidebar: View {
                 Label("Heroes", systemImage: "server.rack")
             }
             NavigationLink(
+                destination: LeaguesHomeView(),
+                tag: TabSelection.league,
+                selection: $env.iPadSelectedTab
+            ) {
+                Label("Leagues", systemImage: "gamecontroller")
+            }
+            NavigationLink(
                 destination: SearchView(),
                 tag: TabSelection.search,
                 selection: $env.iPadSelectedTab

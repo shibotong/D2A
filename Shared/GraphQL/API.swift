@@ -244,6 +244,381 @@ public enum HeroRoleEnum: RawRepresentable, Equatable, Hashable, CaseIterable, A
   }
 }
 
+public struct LeagueRequestType: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  /// - Parameters:
+  ///   - leagueId: A league id to include in this query, excluding all results that do not have this league id.
+  ///   - leagueIds: An array of league ids to include in this query, excluding all results that do not include one of these leagues.
+  ///   - tiers: An array of tier ids to include in this query, excluding all results that do not include one of these tiers.
+  ///   - requireImage: Whether an image is required or not, represented in a boolean.
+  ///   - requirePrizePool: Whether a prize pool is required or not, represented in a boolean.
+  ///   - requireStartAndEndDates: Whether a start and end date is required or not, represented in a boolean.
+  ///   - hasLiveMatches: Whether a league has live matches or not, represented in a boolean.
+  ///   - leagueEnded: Whether a league has ended or not, represented in a boolean.
+  ///   - isFutureLeague: Whether a league has started or not, represented in a boolean.
+  ///   - startDateTime: If a league is set to start after this time.
+  ///   - endDateTime: If a league is set to end before this time.
+  ///   - betweenStartDateTime: Determine to Start value of finding a League Between two specific datetimes.
+  ///   - betweenEndDateTime: Determine to End value of finding a League Between two specific datetimes.
+  ///   - orderBy: The id to order the results by in this query.
+  ///   - skip: The amount to skip before collecting your query. Hint: Paging
+  ///   - take: The amount to have returned in your query. The maximum of this is always dynamic.
+  public init(leagueId: Swift.Optional<Int?> = nil, leagueIds: Swift.Optional<[Int?]?> = nil, tiers: Swift.Optional<[LeagueTier?]?> = nil, requireImage: Swift.Optional<Bool?> = nil, requirePrizePool: Swift.Optional<Bool?> = nil, requireStartAndEndDates: Swift.Optional<Bool?> = nil, hasLiveMatches: Swift.Optional<Bool?> = nil, leagueEnded: Swift.Optional<Bool?> = nil, isFutureLeague: Swift.Optional<Bool?> = nil, startDateTime: Swift.Optional<Long?> = nil, endDateTime: Swift.Optional<Long?> = nil, betweenStartDateTime: Swift.Optional<Long?> = nil, betweenEndDateTime: Swift.Optional<Long?> = nil, orderBy: Swift.Optional<FilterOrderBy?> = nil, skip: Swift.Optional<Int?> = nil, take: Swift.Optional<Int?> = nil) {
+    graphQLMap = ["leagueId": leagueId, "leagueIds": leagueIds, "tiers": tiers, "requireImage": requireImage, "requirePrizePool": requirePrizePool, "requireStartAndEndDates": requireStartAndEndDates, "hasLiveMatches": hasLiveMatches, "leagueEnded": leagueEnded, "isFutureLeague": isFutureLeague, "startDateTime": startDateTime, "endDateTime": endDateTime, "betweenStartDateTime": betweenStartDateTime, "betweenEndDateTime": betweenEndDateTime, "orderBy": orderBy, "skip": skip, "take": take]
+  }
+
+  /// A league id to include in this query, excluding all results that do not have this league id.
+  public var leagueId: Swift.Optional<Int?> {
+    get {
+      return graphQLMap["leagueId"] as? Swift.Optional<Int?> ?? Swift.Optional<Int?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "leagueId")
+    }
+  }
+
+  /// An array of league ids to include in this query, excluding all results that do not include one of these leagues.
+  public var leagueIds: Swift.Optional<[Int?]?> {
+    get {
+      return graphQLMap["leagueIds"] as? Swift.Optional<[Int?]?> ?? Swift.Optional<[Int?]?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "leagueIds")
+    }
+  }
+
+  /// An array of tier ids to include in this query, excluding all results that do not include one of these tiers.
+  public var tiers: Swift.Optional<[LeagueTier?]?> {
+    get {
+      return graphQLMap["tiers"] as? Swift.Optional<[LeagueTier?]?> ?? Swift.Optional<[LeagueTier?]?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "tiers")
+    }
+  }
+
+  /// Whether an image is required or not, represented in a boolean.
+  public var requireImage: Swift.Optional<Bool?> {
+    get {
+      return graphQLMap["requireImage"] as? Swift.Optional<Bool?> ?? Swift.Optional<Bool?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "requireImage")
+    }
+  }
+
+  /// Whether a prize pool is required or not, represented in a boolean.
+  public var requirePrizePool: Swift.Optional<Bool?> {
+    get {
+      return graphQLMap["requirePrizePool"] as? Swift.Optional<Bool?> ?? Swift.Optional<Bool?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "requirePrizePool")
+    }
+  }
+
+  /// Whether a start and end date is required or not, represented in a boolean.
+  public var requireStartAndEndDates: Swift.Optional<Bool?> {
+    get {
+      return graphQLMap["requireStartAndEndDates"] as? Swift.Optional<Bool?> ?? Swift.Optional<Bool?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "requireStartAndEndDates")
+    }
+  }
+
+  /// Whether a league has live matches or not, represented in a boolean.
+  public var hasLiveMatches: Swift.Optional<Bool?> {
+    get {
+      return graphQLMap["hasLiveMatches"] as? Swift.Optional<Bool?> ?? Swift.Optional<Bool?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "hasLiveMatches")
+    }
+  }
+
+  /// Whether a league has ended or not, represented in a boolean.
+  public var leagueEnded: Swift.Optional<Bool?> {
+    get {
+      return graphQLMap["leagueEnded"] as? Swift.Optional<Bool?> ?? Swift.Optional<Bool?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "leagueEnded")
+    }
+  }
+
+  /// Whether a league has started or not, represented in a boolean.
+  public var isFutureLeague: Swift.Optional<Bool?> {
+    get {
+      return graphQLMap["isFutureLeague"] as? Swift.Optional<Bool?> ?? Swift.Optional<Bool?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "isFutureLeague")
+    }
+  }
+
+  /// If a league is set to start after this time.
+  public var startDateTime: Swift.Optional<Long?> {
+    get {
+      return graphQLMap["startDateTime"] as? Swift.Optional<Long?> ?? Swift.Optional<Long?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "startDateTime")
+    }
+  }
+
+  /// If a league is set to end before this time.
+  public var endDateTime: Swift.Optional<Long?> {
+    get {
+      return graphQLMap["endDateTime"] as? Swift.Optional<Long?> ?? Swift.Optional<Long?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "endDateTime")
+    }
+  }
+
+  /// Determine to Start value of finding a League Between two specific datetimes.
+  public var betweenStartDateTime: Swift.Optional<Long?> {
+    get {
+      return graphQLMap["betweenStartDateTime"] as? Swift.Optional<Long?> ?? Swift.Optional<Long?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "betweenStartDateTime")
+    }
+  }
+
+  /// Determine to End value of finding a League Between two specific datetimes.
+  public var betweenEndDateTime: Swift.Optional<Long?> {
+    get {
+      return graphQLMap["betweenEndDateTime"] as? Swift.Optional<Long?> ?? Swift.Optional<Long?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "betweenEndDateTime")
+    }
+  }
+
+  /// The id to order the results by in this query.
+  public var orderBy: Swift.Optional<FilterOrderBy?> {
+    get {
+      return graphQLMap["orderBy"] as? Swift.Optional<FilterOrderBy?> ?? Swift.Optional<FilterOrderBy?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "orderBy")
+    }
+  }
+
+  /// The amount to skip before collecting your query. Hint: Paging
+  public var skip: Swift.Optional<Int?> {
+    get {
+      return graphQLMap["skip"] as? Swift.Optional<Int?> ?? Swift.Optional<Int?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "skip")
+    }
+  }
+
+  /// The amount to have returned in your query. The maximum of this is always dynamic.
+  public var take: Swift.Optional<Int?> {
+    get {
+      return graphQLMap["take"] as? Swift.Optional<Int?> ?? Swift.Optional<Int?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "take")
+    }
+  }
+}
+
+public enum LeagueTier: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
+  case unset
+  case amateur
+  case professional
+  case minor
+  case major
+  case international
+  case dpcQualifier
+  case dpcLeagueQualifier
+  case dpcLeague
+  case dpcLeagueFinals
+  /// Auto generated constant for unknown enum values
+  case __unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "UNSET": self = .unset
+      case "AMATEUR": self = .amateur
+      case "PROFESSIONAL": self = .professional
+      case "MINOR": self = .minor
+      case "MAJOR": self = .major
+      case "INTERNATIONAL": self = .international
+      case "DPC_QUALIFIER": self = .dpcQualifier
+      case "DPC_LEAGUE_QUALIFIER": self = .dpcLeagueQualifier
+      case "DPC_LEAGUE": self = .dpcLeague
+      case "DPC_LEAGUE_FINALS": self = .dpcLeagueFinals
+      default: self = .__unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .unset: return "UNSET"
+      case .amateur: return "AMATEUR"
+      case .professional: return "PROFESSIONAL"
+      case .minor: return "MINOR"
+      case .major: return "MAJOR"
+      case .international: return "INTERNATIONAL"
+      case .dpcQualifier: return "DPC_QUALIFIER"
+      case .dpcLeagueQualifier: return "DPC_LEAGUE_QUALIFIER"
+      case .dpcLeague: return "DPC_LEAGUE"
+      case .dpcLeagueFinals: return "DPC_LEAGUE_FINALS"
+      case .__unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: LeagueTier, rhs: LeagueTier) -> Bool {
+    switch (lhs, rhs) {
+      case (.unset, .unset): return true
+      case (.amateur, .amateur): return true
+      case (.professional, .professional): return true
+      case (.minor, .minor): return true
+      case (.major, .major): return true
+      case (.international, .international): return true
+      case (.dpcQualifier, .dpcQualifier): return true
+      case (.dpcLeagueQualifier, .dpcLeagueQualifier): return true
+      case (.dpcLeague, .dpcLeague): return true
+      case (.dpcLeagueFinals, .dpcLeagueFinals): return true
+      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+
+  public static var allCases: [LeagueTier] {
+    return [
+      .unset,
+      .amateur,
+      .professional,
+      .minor,
+      .major,
+      .international,
+      .dpcQualifier,
+      .dpcLeagueQualifier,
+      .dpcLeague,
+      .dpcLeagueFinals,
+    ]
+  }
+}
+
+public enum FilterOrderBy: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
+  case lastMatchTime
+  case id
+  case `none`
+  case startDateThenTier
+  case lastMatchTimeThenTier
+  /// Auto generated constant for unknown enum values
+  case __unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "LAST_MATCH_TIME": self = .lastMatchTime
+      case "ID": self = .id
+      case "NONE": self = .none
+      case "START_DATE_THEN_TIER": self = .startDateThenTier
+      case "LAST_MATCH_TIME_THEN_TIER": self = .lastMatchTimeThenTier
+      default: self = .__unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .lastMatchTime: return "LAST_MATCH_TIME"
+      case .id: return "ID"
+      case .none: return "NONE"
+      case .startDateThenTier: return "START_DATE_THEN_TIER"
+      case .lastMatchTimeThenTier: return "LAST_MATCH_TIME_THEN_TIER"
+      case .__unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: FilterOrderBy, rhs: FilterOrderBy) -> Bool {
+    switch (lhs, rhs) {
+      case (.lastMatchTime, .lastMatchTime): return true
+      case (.id, .id): return true
+      case (.none, .none): return true
+      case (.startDateThenTier, .startDateThenTier): return true
+      case (.lastMatchTimeThenTier, .lastMatchTimeThenTier): return true
+      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+
+  public static var allCases: [FilterOrderBy] {
+    return [
+      .lastMatchTime,
+      .id,
+      .none,
+      .startDateThenTier,
+      .lastMatchTimeThenTier,
+    ]
+  }
+}
+
+public enum LeagueNodeDefaultGroupEnum: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
+  case invalid
+  case bestOfOne
+  case bestOfThree
+  case bestOfFive
+  case bestOfTwo
+  /// Auto generated constant for unknown enum values
+  case __unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "INVALID": self = .invalid
+      case "BEST_OF_ONE": self = .bestOfOne
+      case "BEST_OF_THREE": self = .bestOfThree
+      case "BEST_OF_FIVE": self = .bestOfFive
+      case "BEST_OF_TWO": self = .bestOfTwo
+      default: self = .__unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .invalid: return "INVALID"
+      case .bestOfOne: return "BEST_OF_ONE"
+      case .bestOfThree: return "BEST_OF_THREE"
+      case .bestOfFive: return "BEST_OF_FIVE"
+      case .bestOfTwo: return "BEST_OF_TWO"
+      case .__unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: LeagueNodeDefaultGroupEnum, rhs: LeagueNodeDefaultGroupEnum) -> Bool {
+    switch (lhs, rhs) {
+      case (.invalid, .invalid): return true
+      case (.bestOfOne, .bestOfOne): return true
+      case (.bestOfThree, .bestOfThree): return true
+      case (.bestOfFive, .bestOfFive): return true
+      case (.bestOfTwo, .bestOfTwo): return true
+      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+
+  public static var allCases: [LeagueNodeDefaultGroupEnum] {
+    return [
+      .invalid,
+      .bestOfOne,
+      .bestOfThree,
+      .bestOfFive,
+      .bestOfTwo,
+    ]
+  }
+}
+
 public enum LobbyTypeEnum: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
   public typealias RawValue = String
   case unranked
@@ -1252,6 +1627,702 @@ public final class HeroQuery: GraphQLQuery {
             set {
               resultMap.updateValue(newValue, forKey: "complexity")
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+public final class LeaguesListQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    query LeaguesList($leagueRequest: LeagueRequestType!) {
+      leagues(request: $leagueRequest) {
+        __typename
+        id
+        tier
+        tournamentUrl
+        hasLiveMatches
+        prizePool
+        displayName
+        description
+        nodeGroups {
+          __typename
+          id
+          name
+          nodes {
+            __typename
+            id
+            scheduledTime
+            actualTime
+            teamOne {
+              __typename
+              id
+              name
+              tag
+            }
+            teamTwo {
+              __typename
+              id
+              name
+              tag
+            }
+            teamOneWins
+            teamTwoWins
+            hasStarted
+            isCompleted
+            nodeType
+            matches {
+              __typename
+              id
+            }
+          }
+        }
+        liveMatches {
+          __typename
+          matchId
+        }
+        streams {
+          __typename
+          id
+          languageId
+          name
+          streamUrl
+        }
+      }
+    }
+    """
+
+  public let operationName: String = "LeaguesList"
+
+  public var leagueRequest: LeagueRequestType
+
+  public init(leagueRequest: LeagueRequestType) {
+    self.leagueRequest = leagueRequest
+  }
+
+  public var variables: GraphQLMap? {
+    return ["leagueRequest": leagueRequest]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["DotaQuery"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("leagues", arguments: ["request": GraphQLVariable("leagueRequest")], type: .list(.object(League.selections))),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(leagues: [League?]? = nil) {
+      self.init(unsafeResultMap: ["__typename": "DotaQuery", "leagues": leagues.flatMap { (value: [League?]) -> [ResultMap?] in value.map { (value: League?) -> ResultMap? in value.flatMap { (value: League) -> ResultMap in value.resultMap } } }])
+    }
+
+    /// Find league details by searching for leagues using a LeagueRequest.
+    public var leagues: [League?]? {
+      get {
+        return (resultMap["leagues"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [League?] in value.map { (value: ResultMap?) -> League? in value.flatMap { (value: ResultMap) -> League in League(unsafeResultMap: value) } } }
+      }
+      set {
+        resultMap.updateValue(newValue.flatMap { (value: [League?]) -> [ResultMap?] in value.map { (value: League?) -> ResultMap? in value.flatMap { (value: League) -> ResultMap in value.resultMap } } }, forKey: "leagues")
+      }
+    }
+
+    public struct League: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["LeagueType"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .scalar(Int.self)),
+          GraphQLField("tier", type: .scalar(LeagueTier.self)),
+          GraphQLField("tournamentUrl", type: .scalar(String.self)),
+          GraphQLField("hasLiveMatches", type: .scalar(Bool.self)),
+          GraphQLField("prizePool", type: .scalar(Int.self)),
+          GraphQLField("displayName", type: .scalar(String.self)),
+          GraphQLField("description", type: .scalar(String.self)),
+          GraphQLField("nodeGroups", type: .list(.object(NodeGroup.selections))),
+          GraphQLField("liveMatches", type: .list(.object(LiveMatch.selections))),
+          GraphQLField("streams", type: .list(.object(Stream.selections))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: Int? = nil, tier: LeagueTier? = nil, tournamentUrl: String? = nil, hasLiveMatches: Bool? = nil, prizePool: Int? = nil, displayName: String? = nil, description: String? = nil, nodeGroups: [NodeGroup?]? = nil, liveMatches: [LiveMatch?]? = nil, streams: [Stream?]? = nil) {
+        self.init(unsafeResultMap: ["__typename": "LeagueType", "id": id, "tier": tier, "tournamentUrl": tournamentUrl, "hasLiveMatches": hasLiveMatches, "prizePool": prizePool, "displayName": displayName, "description": description, "nodeGroups": nodeGroups.flatMap { (value: [NodeGroup?]) -> [ResultMap?] in value.map { (value: NodeGroup?) -> ResultMap? in value.flatMap { (value: NodeGroup) -> ResultMap in value.resultMap } } }, "liveMatches": liveMatches.flatMap { (value: [LiveMatch?]) -> [ResultMap?] in value.map { (value: LiveMatch?) -> ResultMap? in value.flatMap { (value: LiveMatch) -> ResultMap in value.resultMap } } }, "streams": streams.flatMap { (value: [Stream?]) -> [ResultMap?] in value.map { (value: Stream?) -> ResultMap? in value.flatMap { (value: Stream) -> ResultMap in value.resultMap } } }])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: Int? {
+        get {
+          return resultMap["id"] as? Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var tier: LeagueTier? {
+        get {
+          return resultMap["tier"] as? LeagueTier
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "tier")
+        }
+      }
+
+      public var tournamentUrl: String? {
+        get {
+          return resultMap["tournamentUrl"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "tournamentUrl")
+        }
+      }
+
+      public var hasLiveMatches: Bool? {
+        get {
+          return resultMap["hasLiveMatches"] as? Bool
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "hasLiveMatches")
+        }
+      }
+
+      public var prizePool: Int? {
+        get {
+          return resultMap["prizePool"] as? Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "prizePool")
+        }
+      }
+
+      public var displayName: String? {
+        get {
+          return resultMap["displayName"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "displayName")
+        }
+      }
+
+      public var description: String? {
+        get {
+          return resultMap["description"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "description")
+        }
+      }
+
+      public var nodeGroups: [NodeGroup?]? {
+        get {
+          return (resultMap["nodeGroups"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [NodeGroup?] in value.map { (value: ResultMap?) -> NodeGroup? in value.flatMap { (value: ResultMap) -> NodeGroup in NodeGroup(unsafeResultMap: value) } } }
+        }
+        set {
+          resultMap.updateValue(newValue.flatMap { (value: [NodeGroup?]) -> [ResultMap?] in value.map { (value: NodeGroup?) -> ResultMap? in value.flatMap { (value: NodeGroup) -> ResultMap in value.resultMap } } }, forKey: "nodeGroups")
+        }
+      }
+
+      public var liveMatches: [LiveMatch?]? {
+        get {
+          return (resultMap["liveMatches"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [LiveMatch?] in value.map { (value: ResultMap?) -> LiveMatch? in value.flatMap { (value: ResultMap) -> LiveMatch in LiveMatch(unsafeResultMap: value) } } }
+        }
+        set {
+          resultMap.updateValue(newValue.flatMap { (value: [LiveMatch?]) -> [ResultMap?] in value.map { (value: LiveMatch?) -> ResultMap? in value.flatMap { (value: LiveMatch) -> ResultMap in value.resultMap } } }, forKey: "liveMatches")
+        }
+      }
+
+      public var streams: [Stream?]? {
+        get {
+          return (resultMap["streams"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Stream?] in value.map { (value: ResultMap?) -> Stream? in value.flatMap { (value: ResultMap) -> Stream in Stream(unsafeResultMap: value) } } }
+        }
+        set {
+          resultMap.updateValue(newValue.flatMap { (value: [Stream?]) -> [ResultMap?] in value.map { (value: Stream?) -> ResultMap? in value.flatMap { (value: Stream) -> ResultMap in value.resultMap } } }, forKey: "streams")
+        }
+      }
+
+      public struct NodeGroup: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["LeagueNodeGroupType"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("id", type: .scalar(Short.self)),
+            GraphQLField("name", type: .scalar(String.self)),
+            GraphQLField("nodes", type: .list(.object(Node.selections))),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(id: Short? = nil, name: String? = nil, nodes: [Node?]? = nil) {
+          self.init(unsafeResultMap: ["__typename": "LeagueNodeGroupType", "id": id, "name": name, "nodes": nodes.flatMap { (value: [Node?]) -> [ResultMap?] in value.map { (value: Node?) -> ResultMap? in value.flatMap { (value: Node) -> ResultMap in value.resultMap } } }])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var id: Short? {
+          get {
+            return resultMap["id"] as? Short
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var name: String? {
+          get {
+            return resultMap["name"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+
+        public var nodes: [Node?]? {
+          get {
+            return (resultMap["nodes"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Node?] in value.map { (value: ResultMap?) -> Node? in value.flatMap { (value: ResultMap) -> Node in Node(unsafeResultMap: value) } } }
+          }
+          set {
+            resultMap.updateValue(newValue.flatMap { (value: [Node?]) -> [ResultMap?] in value.map { (value: Node?) -> ResultMap? in value.flatMap { (value: Node) -> ResultMap in value.resultMap } } }, forKey: "nodes")
+          }
+        }
+
+        public struct Node: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["LeagueNodeType"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("id", type: .scalar(Short.self)),
+              GraphQLField("scheduledTime", type: .scalar(Long.self)),
+              GraphQLField("actualTime", type: .scalar(Long.self)),
+              GraphQLField("teamOne", type: .object(TeamOne.selections)),
+              GraphQLField("teamTwo", type: .object(TeamTwo.selections)),
+              GraphQLField("teamOneWins", type: .scalar(Byte.self)),
+              GraphQLField("teamTwoWins", type: .scalar(Byte.self)),
+              GraphQLField("hasStarted", type: .scalar(Bool.self)),
+              GraphQLField("isCompleted", type: .scalar(Bool.self)),
+              GraphQLField("nodeType", type: .scalar(LeagueNodeDefaultGroupEnum.self)),
+              GraphQLField("matches", type: .list(.object(Match.selections))),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(id: Short? = nil, scheduledTime: Long? = nil, actualTime: Long? = nil, teamOne: TeamOne? = nil, teamTwo: TeamTwo? = nil, teamOneWins: Byte? = nil, teamTwoWins: Byte? = nil, hasStarted: Bool? = nil, isCompleted: Bool? = nil, nodeType: LeagueNodeDefaultGroupEnum? = nil, matches: [Match?]? = nil) {
+            self.init(unsafeResultMap: ["__typename": "LeagueNodeType", "id": id, "scheduledTime": scheduledTime, "actualTime": actualTime, "teamOne": teamOne.flatMap { (value: TeamOne) -> ResultMap in value.resultMap }, "teamTwo": teamTwo.flatMap { (value: TeamTwo) -> ResultMap in value.resultMap }, "teamOneWins": teamOneWins, "teamTwoWins": teamTwoWins, "hasStarted": hasStarted, "isCompleted": isCompleted, "nodeType": nodeType, "matches": matches.flatMap { (value: [Match?]) -> [ResultMap?] in value.map { (value: Match?) -> ResultMap? in value.flatMap { (value: Match) -> ResultMap in value.resultMap } } }])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var id: Short? {
+            get {
+              return resultMap["id"] as? Short
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "id")
+            }
+          }
+
+          public var scheduledTime: Long? {
+            get {
+              return resultMap["scheduledTime"] as? Long
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "scheduledTime")
+            }
+          }
+
+          public var actualTime: Long? {
+            get {
+              return resultMap["actualTime"] as? Long
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "actualTime")
+            }
+          }
+
+          public var teamOne: TeamOne? {
+            get {
+              return (resultMap["teamOne"] as? ResultMap).flatMap { TeamOne(unsafeResultMap: $0) }
+            }
+            set {
+              resultMap.updateValue(newValue?.resultMap, forKey: "teamOne")
+            }
+          }
+
+          public var teamTwo: TeamTwo? {
+            get {
+              return (resultMap["teamTwo"] as? ResultMap).flatMap { TeamTwo(unsafeResultMap: $0) }
+            }
+            set {
+              resultMap.updateValue(newValue?.resultMap, forKey: "teamTwo")
+            }
+          }
+
+          public var teamOneWins: Byte? {
+            get {
+              return resultMap["teamOneWins"] as? Byte
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "teamOneWins")
+            }
+          }
+
+          public var teamTwoWins: Byte? {
+            get {
+              return resultMap["teamTwoWins"] as? Byte
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "teamTwoWins")
+            }
+          }
+
+          public var hasStarted: Bool? {
+            get {
+              return resultMap["hasStarted"] as? Bool
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "hasStarted")
+            }
+          }
+
+          public var isCompleted: Bool? {
+            get {
+              return resultMap["isCompleted"] as? Bool
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "isCompleted")
+            }
+          }
+
+          public var nodeType: LeagueNodeDefaultGroupEnum? {
+            get {
+              return resultMap["nodeType"] as? LeagueNodeDefaultGroupEnum
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "nodeType")
+            }
+          }
+
+          public var matches: [Match?]? {
+            get {
+              return (resultMap["matches"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Match?] in value.map { (value: ResultMap?) -> Match? in value.flatMap { (value: ResultMap) -> Match in Match(unsafeResultMap: value) } } }
+            }
+            set {
+              resultMap.updateValue(newValue.flatMap { (value: [Match?]) -> [ResultMap?] in value.map { (value: Match?) -> ResultMap? in value.flatMap { (value: Match) -> ResultMap in value.resultMap } } }, forKey: "matches")
+            }
+          }
+
+          public struct TeamOne: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["TeamType"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("id", type: .nonNull(.scalar(Int.self))),
+                GraphQLField("name", type: .scalar(String.self)),
+                GraphQLField("tag", type: .scalar(String.self)),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(id: Int, name: String? = nil, tag: String? = nil) {
+              self.init(unsafeResultMap: ["__typename": "TeamType", "id": id, "name": name, "tag": tag])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var id: Int {
+              get {
+                return resultMap["id"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "id")
+              }
+            }
+
+            public var name: String? {
+              get {
+                return resultMap["name"] as? String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "name")
+              }
+            }
+
+            public var tag: String? {
+              get {
+                return resultMap["tag"] as? String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "tag")
+              }
+            }
+          }
+
+          public struct TeamTwo: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["TeamType"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("id", type: .nonNull(.scalar(Int.self))),
+                GraphQLField("name", type: .scalar(String.self)),
+                GraphQLField("tag", type: .scalar(String.self)),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(id: Int, name: String? = nil, tag: String? = nil) {
+              self.init(unsafeResultMap: ["__typename": "TeamType", "id": id, "name": name, "tag": tag])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var id: Int {
+              get {
+                return resultMap["id"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "id")
+              }
+            }
+
+            public var name: String? {
+              get {
+                return resultMap["name"] as? String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "name")
+              }
+            }
+
+            public var tag: String? {
+              get {
+                return resultMap["tag"] as? String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "tag")
+              }
+            }
+          }
+
+          public struct Match: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["MatchType"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("id", type: .scalar(Long.self)),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(id: Long? = nil) {
+              self.init(unsafeResultMap: ["__typename": "MatchType", "id": id])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var id: Long? {
+              get {
+                return resultMap["id"] as? Long
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "id")
+              }
+            }
+          }
+        }
+      }
+
+      public struct LiveMatch: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["MatchLiveType"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("matchId", type: .scalar(Long.self)),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(matchId: Long? = nil) {
+          self.init(unsafeResultMap: ["__typename": "MatchLiveType", "matchId": matchId])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var matchId: Long? {
+          get {
+            return resultMap["matchId"] as? Long
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "matchId")
+          }
+        }
+      }
+
+      public struct Stream: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["LeagueStreamType"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("id", type: .scalar(Int.self)),
+            GraphQLField("languageId", type: .scalar(Language.self)),
+            GraphQLField("name", type: .scalar(String.self)),
+            GraphQLField("streamUrl", type: .scalar(String.self)),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(id: Int? = nil, languageId: Language? = nil, name: String? = nil, streamUrl: String? = nil) {
+          self.init(unsafeResultMap: ["__typename": "LeagueStreamType", "id": id, "languageId": languageId, "name": name, "streamUrl": streamUrl])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var id: Int? {
+          get {
+            return resultMap["id"] as? Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var languageId: Language? {
+          get {
+            return resultMap["languageId"] as? Language
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "languageId")
+          }
+        }
+
+        public var name: String? {
+          get {
+            return resultMap["name"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+
+        public var streamUrl: String? {
+          get {
+            return resultMap["streamUrl"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "streamUrl")
           }
         }
       }

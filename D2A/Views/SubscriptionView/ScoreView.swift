@@ -31,7 +31,7 @@ struct ScoreView: View {
     
     @ViewBuilder private func teamIcon(isRadiant: Bool) -> some View {
         if isRadiant {
-            if let team = radiantTeam{
+            if let team = radiantTeam {
                 AsyncImage(url: URL(string: "https://cdn.stratz.com/images/dota2/teams/\(team.id).png")) { image in
                     image.resizable().scaledToFit()
                 } placeholder: {

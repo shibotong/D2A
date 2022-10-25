@@ -1,0 +1,47 @@
+query LeaguesList($leagueRequest: LeagueRequestType!){
+  leagues(request: $leagueRequest) {
+    id
+    tier
+    tournamentUrl
+    hasLiveMatches
+    prizePool
+    displayName
+    description
+    nodeGroups {
+      id
+      name
+      nodes {
+        id
+        scheduledTime
+        actualTime
+        teamOne {
+          id
+          name
+          tag
+        }
+        teamTwo {
+          id
+          name
+          tag
+        }
+        teamOneWins
+        teamTwoWins
+        hasStarted
+        isCompleted
+        nodeType
+        matches {
+          id
+        }
+      }
+    }
+    liveMatches{
+      matchId
+    }
+    streams {
+      id
+      languageId
+      name
+      streamUrl
+    }
+  }
+}
