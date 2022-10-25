@@ -39,6 +39,7 @@ struct MatchLiveView: View {
                     .padding(.horizontal)
                     if viewModel.selection == 0 {
                         LiveDraftView(drafts: viewModel.drafts)
+                            .padding(.horizontal)
                     } else if viewModel.selection == 1 {
                         MatchLiveDetailView(players: match.players, radiantScore: match.radiantKill ?? 0, direScore: match.direKill ?? 0)
                     } else if viewModel.selection == 2 {
