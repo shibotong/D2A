@@ -19,7 +19,6 @@ struct LiveDraftView: View {
             buildHeroes(isRadiant: false, isPicked: true)
             buildHeroes(isRadiant: false, isPicked: false)
         }
-        .frame(height: 250)
     }
     
     @ViewBuilder private func buildHeroes(isRadiant: Bool, isPicked: Bool) -> some View {
