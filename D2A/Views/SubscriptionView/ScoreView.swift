@@ -32,32 +32,24 @@ struct ScoreView: View {
     @ViewBuilder private func teamIcon(isRadiant: Bool) -> some View {
         if isRadiant {
             if let team = radiantTeam {
-                AsyncImage(url: URL(string: "https://cdn.stratz.com/images/dota2/teams/\(team.id).png")) { image in
-                    image.resizable().scaledToFit()
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: 30, height: 30)
+                team.image
+                    .frame(width: 50, height: 50)
             } else {
                 Image("radiant_icon")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 30, height: 30)
+                    .frame(width: 50, height: 50)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
             }
         } else {
             if let team = direTeam {
-                AsyncImage(url: URL(string: "https://cdn.stratz.com/images/dota2/teams/\(team.id).png")) { image in
-                    image.resizable().scaledToFit()
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: 30, height: 30)
+                team.image
+                    .frame(width: 50, height: 50)
             } else {
                 Image("dire_icon")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 30, height: 30)
+                    .frame(width: 50, height: 50)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
             }
         }

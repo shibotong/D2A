@@ -17,10 +17,6 @@ struct Match: TableCodable {
     var radiantKill: Int?
     var radiantWin: Bool?
     var startTime: Int
-//    var direBarracks: Int
-//    var radiantBarracks: Int
-//    var direTowers: Int
-//    var radiantTowers: Int
     var skill: Int?
     var region: Int
     
@@ -36,6 +32,11 @@ struct Match: TableCodable {
     
     static let sample = loadMatch()!
     
+    static var liveMatch: Match {
+        let match = Match(from: MatchLive(matchId: 0, radiantScore: 13, direScore: 13, leagueId: 1, delay: 120, averageRank: 9999, buildingState: 0, radiantLead: 0, lobbyType: .practice, gameTime: 90, completed: false, isUpdating: true, isParsing: true, radiantTeam: MatchLive.RadiantTeam(id: 6, name: "LGD", countryCode: nil, url: nil, logo: nil, baseLogo: nil, bannerLogo: nil), direTeam: MatchLive.DireTeam(id: 6, name: "LGD", countryCode: nil, url: nil, logo: nil, baseLogo: nil, bannerLogo: nil), players: [], gameMode: .allPickRanked, gameMinute: 100, createdDateTime: 1000, modifiedDateTime: 100, winRateValues: [], durationValues: [], liveWinRateValues: [], playbackData: nil))
+        return match
+    }
+    
     enum CodingKeys: String, CodingTableKey {
         typealias Root = Match
         static let objectRelationalMapping = TableBinding(CodingKeys.self)
@@ -48,10 +49,6 @@ struct Match: TableCodable {
         case radiantWin = "radiant_win"
         case startTime = "start_time"
         case players
-//        case direBarracks = "barracks_status_dire"
-//        case radiantBarracks = "barracks_status_radiant"
-//        case direTowers = "tower_status_dire"
-//        case radiantTowers = "tower_status_radiant"
         case skill
         case region
         

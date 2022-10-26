@@ -15,6 +15,8 @@ class LeaguesHomeViewModel: ObservableObject {
     @Published var leagues: [League] = []
     @Published var upcomingMatches: [LeagueSeries] = []
     
+    @Published var liveMatchs: [LeagueSeries] = []
+    
     init() {
         startFetchingLeagues(tier: dpcTiers)
         for tier in otherTiers {
@@ -29,8 +31,7 @@ class LeaguesHomeViewModel: ObservableObject {
             case .success(let graphQLResult):
                 if let leagues = graphQLResult.data?.leagues?.compactMap({ $0 }) {
                     self.leagues.append(contentsOf: leagues)
-                    let featuredLeagues = leagues.filter({ self.dpcTiers.contains($0.tier ?? .unset) })
-                    self.upcomingMatches.append(contentsOf: self.searchForUpcomingSeries(leagues: featuredLeagues))
+                    self.upcomingMatches.append(contentsOf: self.searchForUpcomingSeries(leagues: leagues))
                     if tier == self.dpcTiers && leagues.count == 10 && skip <= 30 {
                         self.startFetchingLeagues(tier: tier, skip: skip + leagues.count)
                     }
@@ -55,7 +56,8 @@ class LeaguesHomeViewModel: ObservableObject {
                     guard let matchSeries = matchSeries else {
                         continue
                     }
-                    if matchSeries.isCompleted == false {
+                    
+                    if matchSeries.isCompleted == false && matchSeries.scheduledTime != nil {
                         upcomingSeries.append(matchSeries)
                     }
                 }

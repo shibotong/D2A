@@ -20,6 +20,11 @@ class MatchLiveViewModel: ObservableObject {
         self.matchID = matchID
     }
     
+    init() {
+        matchLive = Match.liveMatch
+        matchID = 0
+    }
+    
     func startFetching() {
         fetchHistoryData()
         fetchLiveData()

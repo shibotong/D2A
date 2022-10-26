@@ -10,42 +10,38 @@ import SwiftUI
 
 extension Int {
     func convertToDuration() -> String {
-        var min = self / 60
-        let sec = self - min * 60
+        var absolute = self
+        var minus = false
+        if self < 0 {
+            absolute = self * -1
+            minus = true
+        }
+        
+        var min = absolute / 60
+        let sec = absolute - min * 60
         if min >= 60 {
             let hr = min / 60
             min = min - hr * 60
             if min < 10 && sec < 10{
-                return "\(hr):0\(min):0\(sec)"
+                return "\(minus ? "-" : "")\(hr):0\(min):0\(sec)"
             } else if min < 10 {
-                return "\(hr):0\(min):\(sec)"
+                return "\(minus ? "-" : "")\(hr):0\(min):\(sec)"
             } else if sec < 10 {
-                return "\(hr):\(min):0\(sec)"
+                return "\(minus ? "-" : "")\(hr):\(min):0\(sec)"
             } else {
-                return "\(hr):\(min):\(sec)"
+                return "\(minus ? "-" : "")\(hr):\(min):\(sec)"
             }
         } else {
             if sec < 10 {
-                return "\(min):0\(sec)"
+                return "\(minus ? "-" : "")\(min):0\(sec)"
             } else {
-                return "\(min):\(sec)"
+                return "\(minus ? "-" : "")\(min):\(sec)"
             }
         }
     }
     
     func convertToTime() -> LocalizedStringKey {
         let date = TimeInterval(self)
-//        if Calendar.current.isDateInToday(date) {
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "HH:mm"
-//            return formatter.string(from: date)
-//        } else if Calendar.current.isDateInYesterday(date){
-//            return "Yesterday"
-//        } else {
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "yyyy. MM. dd"
-//            return formatter.string(from: date)
-//        }
         let today = Date().timeIntervalSince1970
         let oneHour = 3600.0
         let oneDay = 86400.0

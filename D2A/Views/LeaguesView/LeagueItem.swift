@@ -16,18 +16,7 @@ struct LeagueItem: View {
             HStack {
                 Spacer()
                 if !(league.liveMatches?.isEmpty ?? true) {
-                    HStack {
-                        Circle()
-                            .frame(width: 10, height: 10)
-                        Text("Live")
-                            .font(.caption2)
-                    }
-                    .padding(3)
-                    .foregroundColor(.green)
-                    .background {
-                        RoundedRectangle(cornerRadius: 5)
-                            .foregroundColor(.systemBackground.opacity(0.9))
-                    }
+                    LiveIndicator()
                 } else {
                     EmptyView()
                 }

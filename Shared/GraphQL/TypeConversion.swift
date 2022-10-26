@@ -19,3 +19,4 @@ public typealias BuildingEventHistory = MatchLiveHistoryQuery.Data.Live.Match.Pl
 
 public typealias League = LeaguesListQuery.Data.League
 public typealias LeagueSeries = LeaguesListQuery.Data.League.NodeGroup.Node
+public typealias LeagueLiveMatch = LeaguesListQuery.Data.League.LiveMatch

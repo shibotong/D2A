@@ -1683,6 +1683,20 @@ public final class LeaguesListQuery: GraphQLQuery {
         liveMatches {
           __typename
           matchId
+          radiantScore
+          direScore
+          completed
+          isParsing
+          radiantTeam {
+            __typename
+            id
+            name
+          }
+          direTeam {
+            __typename
+            id
+            name
+          }
         }
         streams {
           __typename
@@ -2226,6 +2240,12 @@ public final class LeaguesListQuery: GraphQLQuery {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("matchId", type: .scalar(Long.self)),
+            GraphQLField("radiantScore", type: .scalar(Byte.self)),
+            GraphQLField("direScore", type: .scalar(Byte.self)),
+            GraphQLField("completed", type: .scalar(Bool.self)),
+            GraphQLField("isParsing", type: .scalar(Bool.self)),
+            GraphQLField("radiantTeam", type: .object(RadiantTeam.selections)),
+            GraphQLField("direTeam", type: .object(DireTeam.selections)),
           ]
         }
 
@@ -2235,8 +2255,8 @@ public final class LeaguesListQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(matchId: Long? = nil) {
-          self.init(unsafeResultMap: ["__typename": "MatchLiveType", "matchId": matchId])
+        public init(matchId: Long? = nil, radiantScore: Byte? = nil, direScore: Byte? = nil, completed: Bool? = nil, isParsing: Bool? = nil, radiantTeam: RadiantTeam? = nil, direTeam: DireTeam? = nil) {
+          self.init(unsafeResultMap: ["__typename": "MatchLiveType", "matchId": matchId, "radiantScore": radiantScore, "direScore": direScore, "completed": completed, "isParsing": isParsing, "radiantTeam": radiantTeam.flatMap { (value: RadiantTeam) -> ResultMap in value.resultMap }, "direTeam": direTeam.flatMap { (value: DireTeam) -> ResultMap in value.resultMap }])
         }
 
         public var __typename: String {
@@ -2254,6 +2274,158 @@ public final class LeaguesListQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "matchId")
+          }
+        }
+
+        public var radiantScore: Byte? {
+          get {
+            return resultMap["radiantScore"] as? Byte
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "radiantScore")
+          }
+        }
+
+        public var direScore: Byte? {
+          get {
+            return resultMap["direScore"] as? Byte
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "direScore")
+          }
+        }
+
+        public var completed: Bool? {
+          get {
+            return resultMap["completed"] as? Bool
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "completed")
+          }
+        }
+
+        public var isParsing: Bool? {
+          get {
+            return resultMap["isParsing"] as? Bool
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "isParsing")
+          }
+        }
+
+        public var radiantTeam: RadiantTeam? {
+          get {
+            return (resultMap["radiantTeam"] as? ResultMap).flatMap { RadiantTeam(unsafeResultMap: $0) }
+          }
+          set {
+            resultMap.updateValue(newValue?.resultMap, forKey: "radiantTeam")
+          }
+        }
+
+        public var direTeam: DireTeam? {
+          get {
+            return (resultMap["direTeam"] as? ResultMap).flatMap { DireTeam(unsafeResultMap: $0) }
+          }
+          set {
+            resultMap.updateValue(newValue?.resultMap, forKey: "direTeam")
+          }
+        }
+
+        public struct RadiantTeam: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["TeamType"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("id", type: .nonNull(.scalar(Int.self))),
+              GraphQLField("name", type: .scalar(String.self)),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(id: Int, name: String? = nil) {
+            self.init(unsafeResultMap: ["__typename": "TeamType", "id": id, "name": name])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var id: Int {
+            get {
+              return resultMap["id"]! as! Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "id")
+            }
+          }
+
+          public var name: String? {
+            get {
+              return resultMap["name"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "name")
+            }
+          }
+        }
+
+        public struct DireTeam: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["TeamType"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("id", type: .nonNull(.scalar(Int.self))),
+              GraphQLField("name", type: .scalar(String.self)),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(id: Int, name: String? = nil) {
+            self.init(unsafeResultMap: ["__typename": "TeamType", "id": id, "name": name])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var id: Int {
+            get {
+              return resultMap["id"]! as! Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "id")
+            }
+          }
+
+          public var name: String? {
+            get {
+              return resultMap["name"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "name")
+            }
           }
         }
       }

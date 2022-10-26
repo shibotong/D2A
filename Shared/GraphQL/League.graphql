@@ -36,6 +36,18 @@ query LeaguesList($leagueRequest: LeagueRequestType!){
     }
     liveMatches{
       matchId
+      radiantScore
+      direScore
+      completed
+      isParsing
+      radiantTeam {
+        id
+        name
+      }
+      direTeam {
+        id
+        name
+      }
     }
     streams {
       id

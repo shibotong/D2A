@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Team {
     var id: Int
@@ -15,6 +16,16 @@ struct Team {
     var logo: String?
     var baseLogo: String?
     var bannerLogo: String?
+    
+    var image: some View {
+        AsyncImage(url: URL(string: "https://cdn.stratz.com/images/dota2/teams/\(id).png")) { image in
+            image
+                .resizable()
+        } placeholder: {
+            Circle()
+                .foregroundColor(.gray)
+        }
+    }
     
     init?(from team: MatchLiveSubscription.Data.MatchLive.RadiantTeam?) {
         guard let team = team else {
@@ -48,5 +59,15 @@ struct Team {
         self.logo = team.logo
         self.baseLogo = team.baseLogo
         self.bannerLogo = team.bannerLogo
+    }
+    
+    init(from team: League.LiveMatch.DireTeam) {
+        id = team.id
+        name = team.name ?? ""
+    }
+    
+    init(from team: League.LiveMatch.RadiantTeam) {
+        id = team.id
+        name = team.name ?? ""
     }
 }

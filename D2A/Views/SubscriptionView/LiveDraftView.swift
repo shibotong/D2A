@@ -24,15 +24,28 @@ struct LiveDraftView: View {
     
     @ViewBuilder private func buildHeroes(isRadiant: Bool, isPicked: Bool) -> some View {
         let heroes = drafts.filter { $0.isRadiant == isRadiant && $0.isPick == isPicked }
+        let totalHeroes = isPicked ? 5 : 7
         VStack {
-                ForEach(heroes, id:\.heroID) { hero in
+            ForEach(0..<totalHeroes, id:\.self) { slot in
+                if slot < heroes.count {
+                    let hero = heroes[slot] 
                     if isPicked {
                         HeroImageView(heroID: hero.heroID, type: .full)
                     } else {
                         HeroImageView(heroID: hero.heroID, type: .icon)
                             .grayscale(1)
                     }
+                } else {
+                    if isPicked {
+                        HeroImageView(heroID: 1, type: .full)
+                            .overlay(Color.gray)
+                    } else {
+                        HeroImageView(heroID: 1, type: .icon)
+                            .overlay(Color.gray)
+                    }
                 }
+                
+            }
         }
     }
 }

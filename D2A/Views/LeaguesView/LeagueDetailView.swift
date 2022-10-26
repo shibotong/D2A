@@ -15,7 +15,7 @@ struct LeagueDetailView: View {
     
     var banner: some View {
         ZStack {
-            league.image.scaledToFill().blur(radius: 100)
+            league.image.blur(radius: 100)
             Color.systemBackground.opacity(0.5)
             if horizontalSize == .compact {
                 VStack {
@@ -40,9 +40,28 @@ struct LeagueDetailView: View {
         ScrollView {
             banner
                 .frame(height: 200)
+                .ignoresSafeArea()
                 .clipped()
+            if let liveMatches = league.liveMatches, !liveMatches.isEmpty {
+                buildLiveMatches(matches: liveMatches.compactMap { $0 }.filter { $0.completed == false })
+            }
         }
         .navigationTitle(league.displayName ?? "")
         .navigationBarTitleDisplayMode(.inline)
     }
+    
+    @ViewBuilder private func buildLiveMatches(matches: [LeagueLiveMatch]) -> some View {
+        VStack(alignment: .leading, spacing: 15) {
+            Text("Live")
+            ForEach(matches, id:\.matchId) { match in
+                if let matchID = match.matchId, let parsing = match.isParsing {
+                    MatchLiveRowView(matchID: matchID, isParsing: parsing)
+                        .frame(height: 110)
+                }
+            }
+        }
+        .padding()
+    }
+
+    
 }

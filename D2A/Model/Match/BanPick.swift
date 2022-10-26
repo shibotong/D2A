@@ -14,7 +14,7 @@ struct BanPick: Identifiable {
     var isRadiant: Bool
     var order: Int
     
-    static let preview = {
+    static let preview: [BanPick] = {
         var picked: [BanPick] = []
         for i in 1...5 {
             picked.append(BanPick(heroID: i, isRadiant: true, isPicked: true))

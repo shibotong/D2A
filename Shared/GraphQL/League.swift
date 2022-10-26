@@ -15,7 +15,6 @@ extension League {
                 .resizable()
         } placeholder: {
             Color.secondarySystemBackground
-//                .frame(width: 256, height: 100)
         }
     }
 }

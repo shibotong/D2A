@@ -66,6 +66,5 @@ struct SeriesItem: View {
                     .foregroundColor(match < win ?? 0 ? .yellow : .gray.opacity(0.7))
             }
         }
-        
     }
 }

@@ -16,6 +16,11 @@ struct MatchLiveView: View {
         viewModel.startFetching()
     }
     
+    init(viewModel: MatchLiveViewModel) {
+        self.viewModel = viewModel
+//        viewModel.startFetching()
+    }
+    
     var body: some View {
         if let match = viewModel.matchLive {
             VStack {
@@ -47,7 +52,9 @@ struct MatchLiveView: View {
                             .padding(.horizontal)
                     }
                 }
+                .clipped()
             }
+            .navigationTitle("\(match.radiantTeam?.name ?? "") vs \(match.direTeam?.name ?? "")")
         } else {
             VStack {
                 ProgressView()
