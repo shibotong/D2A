@@ -66,6 +66,13 @@ struct NavigationHostView: View {
                         Text("Heroes")
                     }.tag(TabSelection.hero).navigationViewStyle(.stack)
                     NavigationView {
+                        LeaguesHomeView()
+                    }
+                    .tabItem {
+                        Image(systemName: "gamecontroller")
+                        Text("Leagues")
+                    }.tag(TabSelection.league).navigationViewStyle(.stack)
+                    NavigationView {
                         SearchView()
                     }
                     .tabItem {

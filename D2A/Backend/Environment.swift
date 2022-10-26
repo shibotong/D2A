@@ -10,7 +10,7 @@ import SwiftUI
 import UIKit
 
 enum TabSelection {
-    case home, hero, search, setting
+    case home, hero, search, setting, league
 }
 
 final class DotaEnvironment: ObservableObject {
