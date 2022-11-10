@@ -44,14 +44,14 @@ struct MatchLiveView: View {
     @ViewBuilder private func regularMain(match: Match) -> some View {
         HStack(spacing: 0) {
             VStack {
-                LiveDraftView(drafts: viewModel.drafts)
+//                LiveDraftView(drafts: viewModel.drafts)
+                LiveDraftView(drafts: [])
                     .padding(.horizontal)
-                    .frame(height: 150)
                 ScrollView {
                     MatchLiveDetailView(players: match.players, radiantScore: match.radiantKill ?? 0, direScore: match.direKill ?? 0)
                 }
             }
-            VStack(spacing: 20) {
+            VStack(spacing: 0) {
                 VStack(spacing: 0) {
                     ScoreView(radiantTeam: match.radiantTeam,
                               direTeam: match.direTeam,
@@ -63,15 +63,10 @@ struct MatchLiveView: View {
                     .frame(height: 300)
                 }
                 .background(Color.secondarySystemBackground)
-                .cornerRadius(5)
-                .clipped()
                 ScrollView {
                     EventsListView(events: viewModel.liveEvents, players: match.players)
                         .padding(.horizontal)
                 }
-                .background(Color.secondarySystemBackground)
-                .cornerRadius(5)
-                .clipped()
             }.frame(width: 300)
         }
     }

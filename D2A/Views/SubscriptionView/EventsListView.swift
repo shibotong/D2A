@@ -26,7 +26,7 @@ struct EventsListView: View {
                 }
             }
         }
-        .animation(.linear)
+        .padding(.top, 15)
     }
     
     @ViewBuilder private func buildKillEvent(kill: KillEvent) -> some View {

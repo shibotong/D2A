@@ -25,7 +25,7 @@ class LeaguesHomeViewModel: ObservableObject {
     }
     
     private func startFetchingLeagues(tier: [LeagueTier], skip: Int = 0) {
-        let request = LeagueRequestType(tiers: tier, leagueEnded: false, isFutureLeague: false, skip: skip)
+        let request = LeagueRequestType(tiers: tier, isFutureLeague: false, skip: skip)
         Network.shared.apollo.fetch(query: LeaguesListQuery(leagueRequest: request)) { result in
             switch result {
             case .success(let graphQLResult):

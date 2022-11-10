@@ -11,39 +11,95 @@ struct LiveDraftView: View {
     
     var drafts: [BanPick]
     
-    var body: some View {
+    @Environment (\.horizontalSizeClass) private var horizontalClass
+    
+    private var emptyPick: some View {
+        ZStack {
+            LinearGradient(colors: [.black, .gray, .black], startPoint: .leading, endPoint: .trailing)
+            Image("dota_armory_icon")
+                .resizable()
+                .scaledToFit()
+                .padding(10)
+                .cornerRadius(5)
+                .clipped()
+        }
+    }
+    
+    private var emptyBan: some View {
+        LinearGradient(colors: [.black, .gray, .black], startPoint: .leading, endPoint: .trailing)
+    }
+    
+    private var compactDraft: some View {
         HStack(spacing: 5) {
-            buildHeroes(isRadiant: true, isPicked: false)
-            buildHeroes(isRadiant: true, isPicked: true)
+            VStack {
+                buildHeroes(isRadiant: true, isPicked: false)
+            }
+            VStack {
+                buildHeroes(isRadiant: true, isPicked: true)
+            }
             Spacer()
-            buildHeroes(isRadiant: false, isPicked: true)
-            buildHeroes(isRadiant: false, isPicked: false)
+            VStack {
+                buildHeroes(isRadiant: false, isPicked: true)
+            }
+            VStack {
+                buildHeroes(isRadiant: false, isPicked: false)
+            }
+        }
+    }
+    
+    private var regularDraft: some View {
+        HStack {
+            VStack(spacing: 0) {
+                HStack(spacing: 0) {
+                    buildHeroes(isRadiant: true, isPicked: true)
+                }
+                HStack(spacing: 0) {
+                    buildHeroes(isRadiant: true, isPicked: false)
+                }
+            }
+            Spacer()
+            VStack(spacing: 0) {
+                HStack(spacing: 0) {
+                    buildHeroes(isRadiant: false, isPicked: true)
+                }
+                HStack(spacing: 0) {
+                    buildHeroes(isRadiant: false, isPicked: false)
+                }
+            }
+        }
+    }
+    
+    var body: some View {
+        if horizontalClass == .compact {
+            compactDraft
+        } else {
+            regularDraft
         }
     }
     
     @ViewBuilder private func buildHeroes(isRadiant: Bool, isPicked: Bool) -> some View {
         let heroes = drafts.filter { $0.isRadiant == isRadiant && $0.isPick == isPicked }
         let totalHeroes = isPicked ? 5 : 7
-        VStack {
-            ForEach(0..<totalHeroes, id:\.self) { slot in
-                if slot < heroes.count {
-                    let hero = heroes[slot] 
-                    if isPicked {
-                        HeroImageView(heroID: hero.heroID, type: .full)
-                    } else {
-                        HeroImageView(heroID: hero.heroID, type: .icon)
-                            .grayscale(1)
-                    }
+        let horizontal = horizontalClass == .regular
+        ForEach(0..<totalHeroes, id:\.self) { slot in
+            if slot < heroes.count {
+                let hero = heroes[slot]
+                if isPicked {
+                    HeroImageView(heroID: hero.heroID, type: horizontal ? .vert : .full)
                 } else {
-                    if isPicked {
-                        HeroImageView(heroID: 1, type: .full)
-                            .overlay(Color.gray)
-                    } else {
-                        HeroImageView(heroID: 1, type: .icon)
-                            .overlay(Color.gray)
-                    }
+                    HeroImageView(heroID: hero.heroID, type: horizontal ? .full : .icon)
+                        .grayscale(1)
                 }
-                
+            } else {
+                if isPicked {
+                    HeroImageView(heroID: 1, type: horizontal ? .vert : .full)
+                        .opacity(0)
+                        .overlay(emptyPick)
+                } else {
+                    HeroImageView(heroID: 1, type: horizontal ? .full : .icon)
+                        .opacity(0)
+                        .overlay(emptyBan)
+                }
             }
         }
     }
@@ -52,6 +108,6 @@ struct LiveDraftView: View {
 struct LiveDraftView_Previews: PreviewProvider {
     @State static var drafts: [BanPick] = BanPick.preview
     static var previews: some View {
-        LiveDraftView(drafts: drafts)
+        LiveDraftView(drafts: [])
     }
 }
