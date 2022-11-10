@@ -56,12 +56,9 @@ struct LeagueDetailView: View {
             ForEach(matches, id:\.matchId) { match in
                 if let matchID = match.matchId, let parsing = match.isParsing {
                     MatchLiveRowView(matchID: matchID, isParsing: parsing)
-                        .frame(height: 110)
                 }
             }
         }
         .padding()
     }
-
-    
 }
