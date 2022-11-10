@@ -14,7 +14,7 @@ struct MatchListRowView: View {
             Rectangle().frame(width: 40).foregroundColor(Color(vm.match.isPlayerWin() ? .systemGreen : .systemRed))
                 .overlay {
                     VStack(spacing: 0) {
-                        Text("W")
+                        Text(vm.match.isPlayerWin() ? "W" : "L")
                         Text("一")
                         Text("\(vm.match.duration.convertToDuration())")
                     }
