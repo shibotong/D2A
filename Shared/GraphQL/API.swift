@@ -1648,6 +1648,8 @@ public final class LeaguesListQuery: GraphQLQuery {
         prizePool
         displayName
         description
+        startDateTime
+        endDateTime
         nodeGroups {
           __typename
           id
@@ -1763,6 +1765,8 @@ public final class LeaguesListQuery: GraphQLQuery {
           GraphQLField("prizePool", type: .scalar(Int.self)),
           GraphQLField("displayName", type: .scalar(String.self)),
           GraphQLField("description", type: .scalar(String.self)),
+          GraphQLField("startDateTime", type: .scalar(Long.self)),
+          GraphQLField("endDateTime", type: .scalar(Long.self)),
           GraphQLField("nodeGroups", type: .list(.object(NodeGroup.selections))),
           GraphQLField("liveMatches", type: .list(.object(LiveMatch.selections))),
           GraphQLField("streams", type: .list(.object(Stream.selections))),
@@ -1775,8 +1779,8 @@ public final class LeaguesListQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: Int? = nil, tier: LeagueTier? = nil, tournamentUrl: String? = nil, hasLiveMatches: Bool? = nil, prizePool: Int? = nil, displayName: String? = nil, description: String? = nil, nodeGroups: [NodeGroup?]? = nil, liveMatches: [LiveMatch?]? = nil, streams: [Stream?]? = nil) {
-        self.init(unsafeResultMap: ["__typename": "LeagueType", "id": id, "tier": tier, "tournamentUrl": tournamentUrl, "hasLiveMatches": hasLiveMatches, "prizePool": prizePool, "displayName": displayName, "description": description, "nodeGroups": nodeGroups.flatMap { (value: [NodeGroup?]) -> [ResultMap?] in value.map { (value: NodeGroup?) -> ResultMap? in value.flatMap { (value: NodeGroup) -> ResultMap in value.resultMap } } }, "liveMatches": liveMatches.flatMap { (value: [LiveMatch?]) -> [ResultMap?] in value.map { (value: LiveMatch?) -> ResultMap? in value.flatMap { (value: LiveMatch) -> ResultMap in value.resultMap } } }, "streams": streams.flatMap { (value: [Stream?]) -> [ResultMap?] in value.map { (value: Stream?) -> ResultMap? in value.flatMap { (value: Stream) -> ResultMap in value.resultMap } } }])
+      public init(id: Int? = nil, tier: LeagueTier? = nil, tournamentUrl: String? = nil, hasLiveMatches: Bool? = nil, prizePool: Int? = nil, displayName: String? = nil, description: String? = nil, startDateTime: Long? = nil, endDateTime: Long? = nil, nodeGroups: [NodeGroup?]? = nil, liveMatches: [LiveMatch?]? = nil, streams: [Stream?]? = nil) {
+        self.init(unsafeResultMap: ["__typename": "LeagueType", "id": id, "tier": tier, "tournamentUrl": tournamentUrl, "hasLiveMatches": hasLiveMatches, "prizePool": prizePool, "displayName": displayName, "description": description, "startDateTime": startDateTime, "endDateTime": endDateTime, "nodeGroups": nodeGroups.flatMap { (value: [NodeGroup?]) -> [ResultMap?] in value.map { (value: NodeGroup?) -> ResultMap? in value.flatMap { (value: NodeGroup) -> ResultMap in value.resultMap } } }, "liveMatches": liveMatches.flatMap { (value: [LiveMatch?]) -> [ResultMap?] in value.map { (value: LiveMatch?) -> ResultMap? in value.flatMap { (value: LiveMatch) -> ResultMap in value.resultMap } } }, "streams": streams.flatMap { (value: [Stream?]) -> [ResultMap?] in value.map { (value: Stream?) -> ResultMap? in value.flatMap { (value: Stream) -> ResultMap in value.resultMap } } }])
       }
 
       public var __typename: String {
@@ -1848,6 +1852,24 @@ public final class LeaguesListQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "description")
+        }
+      }
+
+      public var startDateTime: Long? {
+        get {
+          return resultMap["startDateTime"] as? Long
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "startDateTime")
+        }
+      }
+
+      public var endDateTime: Long? {
+        get {
+          return resultMap["endDateTime"] as? Long
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "endDateTime")
         }
       }
 
