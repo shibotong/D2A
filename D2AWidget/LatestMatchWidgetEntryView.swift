@@ -43,10 +43,10 @@ struct LatestMatchWidgetEntryView: View {
                                     Text("\(entry.user.id.description)")
                                         .font(.caption2)
                                         .foregroundColor(.secondaryLabel)
-                                }
+                                }.padding([.top, .horizontal], 10)
                             }
-                            buildMatches(self.maxMatches, height: proxy.size.height - 40)
-                        }.padding(10)
+                            buildMatches(self.maxMatches, height: proxy.size.height - 35)
+                        }
                     default:
                         EmptyView()
                     }
@@ -61,37 +61,6 @@ struct LatestMatchWidgetEntryView: View {
         }
     }
     
-    @ViewBuilder func buildMatch(match: RecentMatch) -> some View {
-        HStack {
-            buildWL(win: match.isPlayerWin())
-            VStack(alignment: .leading, spacing: 1) {
-                HStack {
-                    HeroImageView(heroID: match.heroID, type: .icon)
-                        .frame(width: 25, height: 25)
-                    VStack(alignment: .leading) {
-                        KDAView(kills: match.kills, deaths: match.deaths, assists: match.assists, size: .caption)
-                        Text(LocalizedStringKey(match.fetchMode().fetchModeName()))
-                            .font(.caption2)
-                    }
-                }
-            }
-            if let size = match.partySize {
-                buildParty(size: size)
-            }
-            HStack {
-                Spacer()
-                VStack(alignment: .trailing) {
-                    Text(LocalizedStringKey(match.fetchLobby().lobbyName))
-                        .foregroundColor(match.fetchLobby().lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
-                    Text(match.startTime.convertToTime()).bold()
-                }
-            }
-            .font(.caption2)
-            .foregroundColor(Color(.secondaryLabel))
-            .frame(width: 70)
-        }
-    }
-    
     @ViewBuilder func buildMatches(_ matchNumber: Int, height: CGFloat) -> some View {
         let matches = Array(entry.matches[0..<matchNumber])
         let rowHeight = height / CGFloat(matchNumber)
@@ -99,9 +68,8 @@ struct LatestMatchWidgetEntryView: View {
             ForEach(matches) { match in
                     Divider()
                     Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
-                        buildMatch(match: match)
-                            .padding(5)
-                            .frame(height:rowHeight)
+                        MatchListRowView(vm: MatchListRowViewModel(match: match))
+                            .frame(height: rowHeight)
                     }
                     .disabled(!entry.subscription && entry.user.id != 0)
                 

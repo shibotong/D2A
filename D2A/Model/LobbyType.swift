@@ -28,8 +28,10 @@ struct LobbyType: Codable {
             return "1v1 mid"
         case 9:
             return "Battle Cup"
+        case 12:
+            return "Event"
         default:
-            return "Unknown Lobby"
+            return "Unknown (\(id))"
         }
     }
 }

@@ -10,8 +10,7 @@ import Foundation
 struct GameMode: Codable {
     var id: Int
     var name: String
-    
-    func fetchModeName() -> String {
+    var modeName: String {
         switch self.id {
         case 0:
             return "Unknown"
@@ -64,7 +63,7 @@ struct GameMode: Codable {
         case 24:
             return "Mutation"
         default:
-            return "Unknown Mode"
+            return "Unknown (\(id))"
         }
     }
     

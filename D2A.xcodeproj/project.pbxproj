@@ -285,6 +285,10 @@
 		79D5282228DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
 		79D5282328DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
 		79D5282428DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
+		79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
+		79E01CA9291E351B0073BF68 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
+		79E01CAA291E35320073BF68 /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
+		79E01CAB291E35320073BF68 /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
 		79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
 		A3FDA0678AD27CF488B232D8 /* Pods_D2A.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEDA046AB20B47815283E580 /* Pods_D2A.framework */; };
@@ -1501,6 +1505,7 @@
 				32F70B1C26F6295B006E9B05 /* SKProduct.swift in Sources */,
 				32F70AD526F60364006E9B05 /* HeroModel.swift in Sources */,
 				32F70AB526F5812B006E9B05 /* LobbyType.swift in Sources */,
+				79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */,
 				32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */,
 				32B526C3285C0B380099B058 /* IntentHandler.swift in Sources */,
 				32A26C5528594A28005E890F /* Environment.swift in Sources */,
@@ -1510,6 +1515,7 @@
 				32F70B3026F714FD006E9B05 /* Provider.swift in Sources */,
 				32F70AA226F57F7E006E9B05 /* D2AWidget.swift in Sources */,
 				32A26C53285949FE005E890F /* WCDBController.swift in Sources */,
+				79E01CAA291E35320073BF68 /* MatchListRowViewModel.swift in Sources */,
 				327B876D2850D9D800BBE1F8 /* ReadData.swift in Sources */,
 				32F70B1A26F6295B006E9B05 /* Color.swift in Sources */,
 				327B87752850DA9E00BBE1F8 /* Item.swift in Sources */,
@@ -1546,6 +1552,7 @@
 				32F70B0326F62268006E9B05 /* RecentMatch.swift in Sources */,
 				32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */,
 				32F70AFC26F61E52006E9B05 /* UserProfile.swift in Sources */,
+				79E01CA9291E351B0073BF68 /* MatchListRowView.swift in Sources */,
 				32B526C4285C0B380099B058 /* IntentHandler.swift in Sources */,
 				32EC7F3828646BAE00A36AF6 /* RecentMatchesWidgetEntryView.swift in Sources */,
 				32A26C5628594A28005E890F /* Environment.swift in Sources */,
@@ -1555,6 +1562,7 @@
 				32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */,
 				32EC7F3728646BAC00A36AF6 /* WidgetOverlayView.swift in Sources */,
 				32A26C54285949FE005E890F /* WCDBController.swift in Sources */,
+				79E01CAB291E35320073BF68 /* MatchListRowViewModel.swift in Sources */,
 				327B876E2850D9D900BBE1F8 /* ReadData.swift in Sources */,
 				32F70B2126F6295C006E9B05 /* SKProduct.swift in Sources */,
 				327B87762850DA9F00BBE1F8 /* Item.swift in Sources */,

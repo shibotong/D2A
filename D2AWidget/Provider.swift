@@ -332,7 +332,7 @@ struct RecentMatchesEntryView : View {
                 Spacer()
                 VStack(alignment: .trailing, spacing: 0) {
                     Text(match.startTime.convertToTime())
-                    Text(LocalizedStringKey(match.fetchMode().fetchModeName()))
+                    Text(LocalizedStringKey(match.fetchMode().modeName))
                     Text(LocalizedStringKey(match.fetchLobby().lobbyName))
                         .foregroundColor(match.fetchLobby().lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
                 }.font(.custom(fontString, size: secondaryLabelSize)).foregroundColor(Color(.secondaryLabel)).padding(.vertical, 5)

@@ -9,25 +9,30 @@ import SwiftUI
 
 struct MatchListRowView: View {
     @ObservedObject var vm: MatchListRowViewModel
+    
+    var winLoss: some View {
+        Rectangle().frame(width: 40).foregroundColor(Color(vm.match.isPlayerWin() ? .systemGreen : .systemRed))
+            .overlay {
+                VStack(spacing: 0) {
+                    Text(vm.match.isPlayerWin() ? "W" : "L")
+                    Text("一")
+                    Text("\(vm.match.duration.convertToDuration())")
+                }
+                .foregroundColor(.white)
+                .font(.caption2)
+            }
+    }
+    
     var body: some View {
         HStack {
-            Rectangle().frame(width: 40).foregroundColor(Color(vm.match.isPlayerWin() ? .systemGreen : .systemRed))
-                .overlay {
-                    VStack(spacing: 0) {
-                        Text(vm.match.isPlayerWin() ? "W" : "L")
-                        Text("一")
-                        Text("\(vm.match.duration.convertToDuration())")
-                    }
-                    .foregroundColor(.white)
-                    .font(.caption2)
-                }
+            winLoss
             VStack(alignment: .leading, spacing: 1) {
                 HStack {
                     HeroImageView(heroID: vm.match.heroID, type: .icon)
                         .frame(width: 30, height: 30)
                     VStack(alignment: .leading) {
                         KDAView(kills: vm.match.kills, deaths: vm.match.deaths, assists: vm.match.assists, size: .caption)
-                        Text(LocalizedStringKey(vm.match.fetchMode().fetchModeName()))
+                        Text(LocalizedStringKey(vm.match.fetchMode().modeName))
                             .font(.caption2)
                     }
                 }
