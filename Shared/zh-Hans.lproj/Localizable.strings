@@ -106,6 +106,17 @@
 "Items" = "物品";
 "Ability Upgrade" = "技能升级";
 
+// MARK: Rank
+"Immortal" = "冠绝一世";
+"Divine %@" = "超凡入圣%@";
+"Ancient %@" = "万古流芳%@";
+"Legend %@" = "传奇%@";
+"Archon %@" = "统帅%@";
+"Crusader %@" = "中军%@";
+"Guardian %@" = "卫士%@";
+"Herald %@" = "先锋%@";
+"Uncalibrated" = "未校准";
+
 // MARK: Hero List View
 "Heroes" = "英雄";
 "Search Heroes" = "搜索英雄";
