@@ -11,15 +11,11 @@ struct MatchListRowView: View {
     @ObservedObject var vm: MatchListRowViewModel
     
     var winLoss: some View {
-        Rectangle().frame(width: 40).foregroundColor(Color(vm.match.isPlayerWin() ? .systemGreen : .systemRed))
+        Rectangle().frame(width: 15, height: 15).foregroundColor(Color(vm.match.isPlayerWin() ? .systemGreen : .systemRed))
             .overlay {
-                VStack(spacing: 0) {
-                    Text(vm.match.isPlayerWin() ? "W" : "L")
-                    Text("一")
-                    Text("\(vm.match.duration.convertToDuration())")
-                }
-                .foregroundColor(.white)
-                .font(.caption2)
+                Text(vm.match.isPlayerWin() ? "W" : "L")
+                    .foregroundColor(.white)
+                    .font(.caption2)
             }
     }
     
@@ -51,8 +47,8 @@ struct MatchListRowView: View {
             .font(.caption2)
             .foregroundColor(Color(.secondaryLabel))
             .frame(width: 70)
-            .padding(.trailing)
         }
+        .padding(.horizontal)
     }
     
     @ViewBuilder private func buildParty(size: Int) -> some View {
