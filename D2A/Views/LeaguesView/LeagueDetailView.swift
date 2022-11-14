@@ -15,24 +15,7 @@ struct LeagueDetailView: View {
     @State var descriptionSheet: Bool = false
     
     var banner: some View {
-        ZStack {
-            if horizontalSize == .compact {
-                VStack {
-                    league.image.scaledToFit().clipShape(RoundedRectangle(cornerRadius: 5))
-                    Text(league.displayName ?? "")
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.2)
-                }
-                .padding()
-            } else {
-                HStack {
-                    league.image.scaledToFit().clipShape(RoundedRectangle(cornerRadius: 5))
-                    Text(league.displayName ?? "")
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.2)
-                }
-            }
-        }
+        league.image.scaledToFit().clipShape(RoundedRectangle(cornerRadius: 5)).padding()
     }
         
     var body: some View {
@@ -47,8 +30,25 @@ struct LeagueDetailView: View {
                 if let liveMatches = league.liveMatches, !liveMatches.isEmpty {
                     buildLiveMatches(matches: liveMatches.compactMap { $0 }.filter { $0.completed == false })
                 }
-            }.padding(.horizontal)
+                if let nodeGroupsOptional = league.nodeGroups, let nodeGroups = nodeGroupsOptional.compactMap { $0 } {
+                    ForEach(nodeGroups, id: \.id) { nodeGroup in
+                        if let nodesOptional = nodeGroup.nodes, let nodes = nodesOptional.compactMap { $0 }, nodes.count != 0 {
+                            Section {
+                                ForEach(nodes, id: \.id) { node in
+                                    NavigationLink(destination: SeriesDetailView(matches: node.matches?.compactMap {$0})) {
+                                        SeriesItem(series: node)
+                                    }
+                                }
+                            } header: {
+                                Text(nodeGroup.name ?? " ")
+                            }
+                        }
+                    }
+                }
+            }
+            .padding(.horizontal)
         }
+        .listStyle(PlainListStyle())
         .sheet(isPresented: $descriptionSheet) {
             NavigationView {
                 ScrollView {
@@ -73,28 +73,11 @@ struct LeagueDetailView: View {
     
     var description: some View {
         ZStack {
+            RoundedRectangle(cornerRadius: 5)
+                .foregroundColor(.secondarySystemBackground)
             Text(league.description ?? "")
-                .lineLimit(2)
                 .foregroundColor(.secondaryLabel)
-            HStack {
-                Spacer()
-                VStack {
-                    Spacer()
-                    Button {
-                        descriptionSheet.toggle()
-                    } label: {
-                        Text("MORE")
-                            .font(.footnote)
-                            .fontWeight(.bold)
-                            .foregroundColor(.label)
-                    }
-                    .padding([.top, .leading], 5)
-                    .background {
-                        RadialGradient(colors: [.systemBackground, .systemBackground.opacity(0)], center: .center, startRadius: 1, endRadius: 100)
-                    }
-
-                }
-            }
+                .padding()
         }
     }
     

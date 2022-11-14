@@ -20,7 +20,7 @@ struct SeriesRowView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 0) {
                     ForEach(series.sorted(by: { $0.scheduledTime ?? 0 < $1.scheduledTime ?? 0 }), id: \.id) { series in
-                        SeriesItem(series: series)
+                        SeriesItem(series: series).padding(.leading, 15)
                     }
                 }
             }

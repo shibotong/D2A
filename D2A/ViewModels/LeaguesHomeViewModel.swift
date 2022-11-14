@@ -31,8 +31,8 @@ class LeaguesHomeViewModel: ObservableObject {
             case .success(let graphQLResult):
                 if let leagues = graphQLResult.data?.leagues?.compactMap({ $0 }) {
                     self.leagues.append(contentsOf: leagues)
-                    self.upcomingMatches.append(contentsOf: self.searchForUpcomingSeries(leagues: leagues))
                     if tier == self.dpcTiers && leagues.count == 10 && skip <= 30 {
+                        self.upcomingMatches.append(contentsOf: self.searchForUpcomingSeries(leagues: leagues))
                         self.startFetchingLeagues(tier: tier, skip: skip + leagues.count)
                     }
                 }

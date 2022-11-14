@@ -13,9 +13,11 @@ struct SeriesItem: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(Date.init(timeIntervalSince1970: TimeInterval(series.scheduledTime ?? 0)).toDateString)
-                .font(.caption2)
-                .foregroundColor(.secondaryLabel)
+            if series.actualTime != nil || series.scheduledTime != nil {
+                Text(Date.init(timeIntervalSince1970: TimeInterval(series.actualTime ?? series.scheduledTime ?? 0)).toDateString)
+                    .font(.caption2)
+                    .foregroundColor(.secondaryLabel)
+            }
             buildTeam(teamID: series.teamOne?.id, name: series.teamOne?.name, seriesType: series.nodeType, win: series.teamOneWins)
             buildTeam(teamID: series.teamTwo?.id, name: series.teamTwo?.name, seriesType: series.nodeType, win: series.teamTwoWins)
         }
@@ -23,7 +25,6 @@ struct SeriesItem: View {
         .background{ Color.secondarySystemBackground }
         .cornerRadius(5)
         .clipped()
-        .padding(.leading, 15)
     }
     
     @ViewBuilder private func buildTeam(teamID: Int?,

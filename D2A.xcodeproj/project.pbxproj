@@ -312,6 +312,8 @@
 		79D5282428DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
 		79DD501E29091FEC002EF71A /* MatchLiveRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD501D29091FEC002EF71A /* MatchLiveRowView.swift */; };
 		79DD50202909288B002EF71A /* LiveIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD501F2909288B002EF71A /* LiveIndicator.swift */; };
+		79E01CB12922081B0073BF68 /* SeriesDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E01CB02922081B0073BF68 /* SeriesDetailView.swift */; };
+		79E01CB329220A580073BF68 /* SeriesDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E01CB229220A580073BF68 /* SeriesDetailViewModel.swift */; };
 		79EB79372903AF3A00B6838B /* MatchLiveDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB79362903AF3A00B6838B /* MatchLiveDetailView.swift */; };
 		79EB793A2904BF5600B6838B /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB79392904BF5600B6838B /* Team.swift */; };
 		79EB793D2904C45B00B6838B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB793C2904C45B00B6838B /* Player.swift */; };
@@ -545,6 +547,8 @@
 		79D5282128DD74930070841D /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		79DD501D29091FEC002EF71A /* MatchLiveRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchLiveRowView.swift; sourceTree = "<group>"; };
 		79DD501F2909288B002EF71A /* LiveIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveIndicator.swift; sourceTree = "<group>"; };
+		79E01CB02922081B0073BF68 /* SeriesDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesDetailView.swift; sourceTree = "<group>"; };
+		79E01CB229220A580073BF68 /* SeriesDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesDetailViewModel.swift; sourceTree = "<group>"; };
 		79EB79362903AF3A00B6838B /* MatchLiveDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchLiveDetailView.swift; sourceTree = "<group>"; };
 		79EB79392904BF5600B6838B /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		79EB793C2904C45B00B6838B /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -1061,6 +1065,8 @@
 				79B7E9172907A67200EE4A02 /* LeaguesRowView.swift */,
 				79B7E9192907A6F100EE4A02 /* LeagueItem.swift */,
 				79B7E91B2907BB9600EE4A02 /* LeagueDetailView.swift */,
+				79E01CB02922081B0073BF68 /* SeriesDetailView.swift */,
+				79E01CB229220A580073BF68 /* SeriesDetailViewModel.swift */,
 			);
 			path = LeaguesView;
 			sourceTree = "<group>";
@@ -1574,6 +1580,7 @@
 				79DD501E29091FEC002EF71A /* MatchLiveRowView.swift in Sources */,
 				79D5282228DD74930070841D /* Secret.swift in Sources */,
 				32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */,
+				79E01CB329220A580073BF68 /* SeriesDetailViewModel.swift in Sources */,
 				79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */,
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
 				3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */,
@@ -1617,6 +1624,7 @@
 				79EB794D2904E78400B6838B /* LiveEvents.swift in Sources */,
 				79D5280E28DD5D990070841D /* Network.swift in Sources */,
 				79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */,
+				79E01CB12922081B0073BF68 /* SeriesDetailView.swift in Sources */,
 				32B36F0F26C38821002D427D /* D2AApp.swift in Sources */,
 				79B1630728DD5C0B009B2AE2 /* TypeConversion.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
