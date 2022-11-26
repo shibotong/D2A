@@ -40,6 +40,7 @@ final class DotaEnvironment: ObservableObject {
     @Published var exceedLimit = false
     @Published var invalidID = false
     @Published var cantFindUser = false
+    @Published var error = false
     
     @Published var subscriptionSheet = false
     

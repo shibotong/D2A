@@ -42,7 +42,7 @@ struct CalendarMatchListView: View {
                 ScrollView {
                     VStack(spacing: 1) {
                         ForEach(vm.matchesOnDate) { match in
-                            NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
+                            NavigationLink(destination: MatchView(matchid: match.id.description)) {
                                 MatchListRowView(vm: MatchListRowViewModel(match: match))
                                     .background(Color.systemBackground)
                             }

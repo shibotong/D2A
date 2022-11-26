@@ -7,12 +7,14 @@
 
 import SwiftUI
 import StoreKit
+import CoreData
 
 @main
 struct D2AApp: App {
     @StateObject var environment: DotaEnvironment = DotaEnvironment.shared
     @StateObject var heroDatabase: HeroDatabase = HeroDatabase.shared
     @StateObject var storeManager: StoreManager = StoreManager.shared
+    let persistenceController = PersistenceController.shared
     @AppStorage("selectedMatch") var selectedMatch: String?
     @AppStorage("selectedUser") var selectedUser: String?
     var body: some Scene {
@@ -21,6 +23,7 @@ struct D2AApp: App {
                 .environmentObject(environment)
                 .environmentObject(heroDatabase)
                 .environmentObject(storeManager)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onOpenURL { url in
                     print(url.absoluteString)
                     environment.userActive = false

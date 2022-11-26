@@ -95,7 +95,7 @@ struct PlayerProfileView: View {
             VStack(spacing: 2) {
                 ForEach(vm.matches, id: \.id) { match in
                     NavigationLink(
-                        destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))
+                        destination: MatchView(matchid: match.id.description)
                     ) {
                         MatchListRowView(vm: MatchListRowViewModel(match: match))
                             .background(Color.systemBackground)

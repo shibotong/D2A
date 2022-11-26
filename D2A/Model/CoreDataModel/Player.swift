@@ -9,83 +9,86 @@ import Foundation
 import CoreData
 
 extension Player {
-    static func create(_ player: PlayerCodable) -> Player? {
+    static func create(_ player: PlayerCodable) -> Player {
         let viewContext = PersistenceController.shared.container.viewContext
         let newPlayer = Player(context: viewContext)
-        newPlayer.id = UUID()
+        newPlayer.update(player)
+        return newPlayer
+    }
+    
+    func update(_ player: PlayerCodable) {
         if let accountId = player.accountId {
-            newPlayer.accountId = Int64(accountId)
+            self.accountId = Int64(accountId)
         }
         if let persona = player.personaname {
-            newPlayer.personaname = persona
+            self.personaname = persona
         }
         if let rank = player.rank {
-            newPlayer.rank = Int16(rank)
+            self.rank = Int16(rank)
         }
         
         // hero data
-        newPlayer.heroID = Int16(player.heroID)
-        newPlayer.level = Int16(player.level)
-        newPlayer.slot = Int16(player.slot)
+        self.heroID = Int16(player.heroID)
+        self.level = Int16(player.level)
+        self.slot = Int16(player.slot)
         
         // items
-        newPlayer.item0 = Int16(player.item0)
-        newPlayer.item1 = Int16(player.item1)
-        newPlayer.item2 = Int16(player.item2)
-        newPlayer.item3 = Int16(player.item3)
-        newPlayer.item4 = Int16(player.item4)
-        newPlayer.item5 = Int16(player.item5)
+        self.item0 = Int16(player.item0)
+        self.item1 = Int16(player.item1)
+        self.item2 = Int16(player.item2)
+        self.item3 = Int16(player.item3)
+        self.item4 = Int16(player.item4)
+        self.item5 = Int16(player.item5)
         if let backpack0 = player.backpack0,
            let backpack1 = player.backpack1,
            let backpack2 = player.backpack2 {
-            newPlayer.backpack0 = Int16(backpack0)
-            newPlayer.backpack1 = Int16(backpack1)
-            newPlayer.backpack2 = Int16(backpack2)
+            self.backpack0 = Int16(backpack0)
+            self.backpack1 = Int16(backpack1)
+            self.backpack2 = Int16(backpack2)
         }
         if let itemNeutral = player.itemNeutral {
-            newPlayer.itemNeutral = Int16(itemNeutral)
+            self.itemNeutral = Int16(itemNeutral)
         }
         
         // KDA
-        newPlayer.kills = Int16(player.kills)
-        newPlayer.deaths = Int16(player.deaths)
-        newPlayer.assists = Int16(player.assists)
+        self.kills = Int16(player.kills)
+        self.deaths = Int16(player.deaths)
+        self.assists = Int16(player.assists)
         
-        newPlayer.denies = Int16(player.denies)
-        newPlayer.lastHits = Int16(player.lastHits)
+        self.denies = Int16(player.denies)
+        self.lastHits = Int16(player.lastHits)
         
         // finance
-        newPlayer.gpm = Int16(player.gpm)
-        newPlayer.xpm = Int16(player.xpm)
+        self.gpm = Int16(player.gpm)
+        self.xpm = Int16(player.xpm)
         if let towerDamage = player.towerDamage {
-            newPlayer.towerDamage = Int32(towerDamage)
+            self.towerDamage = Int32(towerDamage)
         }
         if let netWorth = player.netWorth {
-            newPlayer.netWorth = Int32(netWorth)
+            self.netWorth = Int32(netWorth)
         }
         if let heroDamage = player.heroDamage {
-            newPlayer.heroDamage = Int32(heroDamage)
+            self.heroDamage = Int32(heroDamage)
         }
         if let heroHealing = player.heroHealing {
-            newPlayer.heroHealing = Int32(heroHealing)
+            self.heroHealing = Int32(heroHealing)
         }
         if let abilityUpgrade = player.abilityUpgrade {
-            newPlayer.abilityUpgrade = abilityUpgrade as [NSNumber]
+            self.abilityUpgrade = abilityUpgrade as [NSNumber]
         }
         
-        if let permanentBuffs = player.permanentBuffs {
-            newPlayer.permanentBuffs = NSSet(array: permanentBuffs.compactMap { PermanentBuff.create($0) })
+        if let buffs = self.permanentBuffs?.allObjects as? [PermanentBuff] {
+            player.permanentBuffs?.forEach { buffCodable in
+                if let existBuff = buffs.first (where: { buff in
+                    return buff.buffID == buffCodable.buffID
+                }) {
+                    existBuff.update(buffCodable)
+                } else {
+                    let newBuff = PermanentBuff.create(buffCodable)
+                    self.addToPermanentBuffs(newBuff)
+                }
+            }
         }
-        do {
-            try viewContext.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            print("Unresolved error \(nsError), \(nsError.userInfo)")
-            return nil
-        }
-        return newPlayer
     }
     
     var hasScepter: Bool {

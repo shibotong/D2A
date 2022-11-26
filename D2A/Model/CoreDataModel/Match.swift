@@ -10,10 +10,9 @@ import CoreData
 import SwiftUI
 
 extension Match {
-    static func create(_ match: MatchCodable) -> Match {
+    static func create(_ match: MatchCodable) throws -> Match {
         let viewContext = PersistenceController.shared.container.viewContext
-        Self.delete(id: match.id)
-        let matchCoreData = Match(context: viewContext)
+        let matchCoreData = Self.fetch(id: match.id) ?? Match(context: viewContext)
         
         matchCoreData.id = match.id.description
         
@@ -30,17 +29,22 @@ extension Match {
         matchCoreData.skill = Int16(match.skill ?? 0)
         matchCoreData.startTime = Date(timeIntervalSince1970: TimeInterval(match.startTime))
                 
-        matchCoreData.players = NSSet(array: match.players.compactMap { Player.create($0) })
+        if let players = matchCoreData.players?.allObjects as? [Player] {
+            match.players.forEach { playerCodable in
+                if let existPlayer = players.first (where: { player in
+                    return player.slot == playerCodable.slot
+                }) {
+                    existPlayer.update(playerCodable)
+                } else {
+                    let newPlayer = Player.create(playerCodable)
+                    matchCoreData.addToPlayers(newPlayer)
+                }
+            }
+        }
+        
         matchCoreData.goldDiff = match.goldDiff as [NSNumber]?
         matchCoreData.xpDiff = match.xpDiff as [NSNumber]?
-        do {
-            try viewContext.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
+        try viewContext.save()
         print("save match successfully \(matchCoreData.id)")
         return matchCoreData
     }
