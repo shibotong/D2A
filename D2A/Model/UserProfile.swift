@@ -1,38 +1,51 @@
 //
 //  UserProfile.swift
-//  App
+//  D2A
 //
-//  Created by Shibo Tong on 18/8/21.
+//  Created by Shibo Tong on 26/11/2022.
 //
 
 import Foundation
+import CoreData
 
-struct UserProfile: Decodable, Identifiable {
-
-    var id: Int
-    var avatarfull: String
+extension UserProfile {
+    static func create(_ profile: UserProfileCodable) -> UserProfile {
+        let viewContext = PersistenceController.shared.container.viewContext
+        let newProfile = Self.fetch(profile.id) ?? UserProfile(context: viewContext)
+        newProfile.id = Int32(profile.id)
+        newProfile.avatarfull = profile.avatarfull
+        
+        newProfile.countryCode = profile.countryCode
+        newProfile.personaname = profile.personaname
+        newProfile.profileurl = profile.profileurl
+        newProfile.isPlus = profile.isPlus ?? false
+        if let rank = profile.rank {
+            newProfile.rank = Int16(rank)
+        }
+        if let leaderboard = profile.leaderboard {
+            newProfile.leaderboard = Int16(leaderboard)
+        }
+            
+        newProfile.name = profile.name
+        
+        do {
+            try viewContext.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+        print("save profile successfully \(newProfile.id)")
+        return newProfile
+    }
     
-    var lastLogin: String?
-    var countryCode: String?
-    var personaname: String
-    var isPlus: Bool?
-    var profileurl: String?
-    var rank: Int?
-    var leaderboard: Int?
-    var name: String?
-    static let empty = UserProfile(id: 0, avatarfull: "", lastLogin: nil, countryCode: nil, personaname: "", isPlus: false, profileurl: "", rank: nil, leaderboard: nil)
-    static let sample: UserProfile = loadProfile()!
-
-    enum CodingKeys: String, CodingKey {
-        case id = "account_id"
-        case avatarfull
-        case lastLogin = "last_login"
-        case countryCode = "loccountrycode"
-        case personaname
-        case isPlus = "plus"
-        case profileurl
-        case rank
-        case leaderboard
-        case name
+    static func fetch(_ id: Int) -> UserProfile? {
+        let viewContext = PersistenceController.shared.container.viewContext
+        let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
+        fetchResult.predicate = NSPredicate(format: "id == %f", id)
+        
+        let results = try? viewContext.fetch(fetchResult)
+        return results?.first
     }
 }

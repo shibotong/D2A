@@ -14,16 +14,16 @@ class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
         print("configuring profile")
         let registeredID = DotaEnvironment.shared.registerdID
         let profiles: [Profile] = DotaEnvironment.shared.userIDs.map { id in
-            let profile = WCDBController.shared.fetchUserProfile(userid: id)
+            let profile = UserProfile.fetch(Int(id) ?? 0)
             return Profile(identifier: id, display: "\(profile?.name ?? profile?.personaname ?? "Unknown")", subtitle: "\(id)", image: nil)
         }
         
-        guard let registeredProfile = WCDBController.shared.fetchUserProfile(userid: registeredID) else {
+        guard let registeredProfile = UserProfile.fetch(Int(registeredID) ?? 0) else {
             let collection = INObjectCollection(items: profiles)
             completion(collection, nil)
             return
         }
-        let registerProfile = Profile(identifier: registeredProfile.id.description, display: "\(registeredProfile.name ?? registeredProfile.personaname)", subtitle: "\(registeredProfile.id.description)", image: nil)
+        let registerProfile = Profile(identifier: registeredProfile.id.description, display: "\(registeredProfile.name ?? registeredProfile.personaname ?? "")", subtitle: "\(registeredProfile.id.description)", image: nil)
         let registerSection = INObjectSection(title: "Registered", items: [registerProfile])
         let profileSection = INObjectSection(title: "Favorite Players", items: profiles)
         let collection = INObjectCollection(sections: [registerSection, profileSection])

@@ -16,13 +16,13 @@ class OpenDotaController {
     
     let decodingService = DecodingService()
     
-    func searchUserByText(text: String) async -> [UserProfile] {
+    func searchUserByText(text: String) async -> [UserProfileCodable] {
         let urlString = "\(baseURL)/api/search/?q=\(text)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: urlString)
         do {
             let (data, _) = try await URLSession.shared.data(from: url!)
             let decoder = JSONDecoder()
-            let users = try decoder.decode([UserProfile].self, from: data)
+            let users = try decoder.decode([UserProfileCodable].self, from: data)
             return users
         } catch {
             print(error.localizedDescription)
@@ -43,7 +43,7 @@ class OpenDotaController {
         }
     }
     
-    func loadUserData(userid: String) async -> UserProfile? {
+    func loadUserData(userid: String) async -> UserProfileCodable? {
         do {
             let data = try await decodingService.loadData("/players/\(userid)")
             let user = try decodingService.decodeUserProfile(data)
@@ -57,9 +57,8 @@ class OpenDotaController {
     func loadMatchData(matchid: String) async throws -> Match {
         do {
             let data = try await decodingService.loadData("/matches/\(matchid)")
-            let match = try decodingService.decodeMatch(data: data)
-            WCDBController.shared.deleteMatch(matchid: matchid)
-            try WCDBController.shared.database.insertOrReplace(objects: [match], intoTable: "Match")
+            let matchCodable = try decodingService.decodeMatch(data: data)
+            let match = Match.create(matchCodable)
             return match
         } catch {
             throw error
@@ -105,10 +104,10 @@ class OpenDotaController {
 }
 
 struct DecodingService {
-    func decodeMatch(data: Data) throws -> Match {
+    func decodeMatch(data: Data) throws -> MatchCodable {
         do {
             let decoder = JSONDecoder()
-            let match = try decoder.decode(Match.self, from: data)
+            let match = try decoder.decode(MatchCodable.self, from: data)
             return match
         } catch {
             throw APIError.decodingError
@@ -161,7 +160,7 @@ struct DecodingService {
         }
     }
     
-    func decodeUserProfile(_ data: Data) throws -> UserProfile {
+    func decodeUserProfile(_ data: Data) throws -> UserProfileCodable {
         do {
             let decoder = JSONDecoder()
             let user = try decoder.decode(SteamProfile.self, from: data)

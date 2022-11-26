@@ -22,25 +22,25 @@ struct Provider: IntentTimelineProvider {
 
     func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         let user = user(for: configuration)
-        if DotaEnvironment.shared.registerdID == "" && DotaEnvironment.shared.userIDs.isEmpty {
+//        if DotaEnvironment.shared.registerdID == "" && DotaEnvironment.shared.userIDs.isEmpty {
             let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: user, subscription: true)
             completion(entry)
-            return
-        }
-        var firstUser = DotaEnvironment.shared.registerdID
-        if firstUser == "" {
-            firstUser = DotaEnvironment.shared.userIDs.first!
-        }
-        guard let profile = WCDBController.shared.fetchUserProfile(userid: firstUser) else {
-            let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: user, subscription: true)
-            completion(entry)
-            return
-        }
-        Task {
-            let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(profile.id)")
-            let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: true)
-            completion(entry)
-        }
+//            return
+//        }
+//        var firstUser = DotaEnvironment.shared.registerdID
+//        if firstUser == "" {
+//            firstUser = DotaEnvironment.shared.userIDs.first!
+//        }
+//        guard let profile = WCDBController.shared.fetchUserProfile(userid: firstUser) else {
+//            let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: user, subscription: true)
+//            completion(entry)
+//            return
+//        }
+//        Task {
+//            let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(profile.id)")
+//            let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: true)
+//            completion(entry)
+//        }
     }
     
 
@@ -61,34 +61,34 @@ struct Provider: IntentTimelineProvider {
             } else {
                 // no configuration
                 var defaultUser = ""
-                if DotaEnvironment.shared.registerdID != "" {
-                    // check registered user
-                    defaultUser = DotaEnvironment.shared.registerdID
-                } else {
-                    guard let firstUser = DotaEnvironment.shared.userIDs.first else {
+//                if DotaEnvironment.shared.registerdID != "" {
+//                    // check registered user
+//                    defaultUser = DotaEnvironment.shared.registerdID
+//                } else {
+//                    guard let firstUser = DotaEnvironment.shared.userIDs.first else {
                         let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: selectedProfile, subscription: status)
                         let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
                         let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
                         completion(timeline)
-                        return
-                    }
-                    defaultUser = firstUser
-                }
-
-                guard let profile = WCDBController.shared.fetchUserProfile(userid: defaultUser) else {
-                    let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: selectedProfile, subscription: status)
-                    let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
-                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-                    completion(timeline)
-                    return
-                }
-                Task {
-                    let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(profile.id)")
-                    let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: status)
-                    let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
-                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-                    completion(timeline)
-                }
+//                        return
+//                    }
+//                    defaultUser = firstUser
+//                }
+//
+//                guard let profile = WCDBController.shared.fetchUserProfile(userid: defaultUser) else {
+//                    let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: selectedProfile, subscription: status)
+//                    let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
+//                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+//                    completion(timeline)
+//                    return
+//                }
+//                Task {
+//                    let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(profile.id)")
+//                    let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: status)
+//                    let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
+//                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+//                    completion(timeline)
+//                }
             }
         } else {
             let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: UserProfile.empty, subscription: status)
@@ -98,15 +98,15 @@ struct Provider: IntentTimelineProvider {
     }
     
     func user(for configuration: DynamicUserSelectionIntent) -> UserProfile {
-        if let id = configuration.profile?.identifier {
-            if let profile = WCDBController.shared.fetchUserProfile(userid: id) {
-                return profile
-            } else {
-                return UserProfile.empty
-            }
-        } else {
+//        if let id = configuration.profile?.identifier {
+//            if let profile = WCDBController.shared.fetchUserProfile(userid: id) {
+//                return profile
+//            } else {
+//                return UserProfile.empty
+//            }
+//        } else {
             return UserProfile.empty
-        }
+//        }
     }
 }
 

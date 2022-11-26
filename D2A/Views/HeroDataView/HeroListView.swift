@@ -71,7 +71,7 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildHeroGrid(heroes: [HeroModel], title: String, icon: String) -> some View {
+    @ViewBuilder private func buildHeroGrid(heroes: [HeroCodable], title: String, icon: String) -> some View {
         Section {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading), count: 1)) {
                 ForEach(heroes) { hero in
@@ -91,7 +91,7 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildSection(heroes: [HeroModel], attributes: HeroAttributes) -> some View {
+    @ViewBuilder private func buildSection(heroes: [HeroCodable], attributes: HeroAttributes) -> some View {
         if heroes.count == 0 {
             Text("No Results")
                 .bold()
@@ -117,7 +117,7 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildMainPart(heroes: [HeroModel]) -> some View {
+    @ViewBuilder private func buildMainPart(heroes: [HeroCodable]) -> some View {
         if vm.gridView {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 130, maximum: 200), spacing: 10, alignment: .leading), count: 1)){
                 ForEach(heroes) { hero in
@@ -135,7 +135,7 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildHero(hero: HeroModel) -> some View {
+    @ViewBuilder private func buildHero(hero: HeroCodable) -> some View {
         if horizontalSize == .regular {
             HeroImageView(heroID: hero.id, type: .vert)
                 .clipShape(RoundedRectangle(cornerRadius: 8))

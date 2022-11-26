@@ -16,7 +16,7 @@ extension Hero {
     
     // MARK: - Static func
     /// Create `Hero` with `HeroModel` and `HeroQuery.Data.Constant.Hero` and save into Core Data
-    static func createHero(_ queryHero: HeroQuery.Data.Constant.Hero, model: HeroModel, abilities: [String] = []) throws -> Hero {
+    static func createHero(_ queryHero: HeroQuery.Data.Constant.Hero, model: HeroCodable, abilities: [String] = []) throws -> Hero {
         let viewContext = PersistenceController.shared.container.viewContext
         
         guard let heroID = queryHero.id,
