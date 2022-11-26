@@ -146,9 +146,4 @@ final class DotaEnvironment: ObservableObject {
             return false
         }
     }
-    
-//    func purchaseComplete(state: Bool) {
-//        self.subscriptionStatus = state
-//        self.subscription = false
-//    }
 }
