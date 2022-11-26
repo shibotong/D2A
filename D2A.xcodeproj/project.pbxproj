@@ -26,7 +26,6 @@
 		322B893626CD438700DF67F9 /* UserProfileCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893526CD438700DF67F9 /* UserProfileCodable.swift */; };
 		322B893826CD44FE00DF67F9 /* SteamProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893726CD44FE00DF67F9 /* SteamProfile.swift */; };
 		322B893A26CD456400DF67F9 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893926CD456400DF67F9 /* RecentMatch.swift */; };
-		322B893C26CD560100DF67F9 /* MatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893B26CD560100DF67F9 /* MatchViewModel.swift */; };
 		322B893E26CE66F800DF67F9 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893D26CE66F800DF67F9 /* LoadingView.swift */; };
 		322B894026CE696C00DF67F9 /* DifferenceGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893F26CE696C00DF67F9 /* DifferenceGraphView.swift */; };
 		322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */; };
@@ -369,7 +368,6 @@
 		322B893526CD438700DF67F9 /* UserProfileCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCodable.swift; sourceTree = "<group>"; };
 		322B893726CD44FE00DF67F9 /* SteamProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteamProfile.swift; sourceTree = "<group>"; };
 		322B893926CD456400DF67F9 /* RecentMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMatch.swift; sourceTree = "<group>"; };
-		322B893B26CD560100DF67F9 /* MatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewModel.swift; sourceTree = "<group>"; };
 		322B893D26CE66F800DF67F9 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		322B893F26CE696C00DF67F9 /* DifferenceGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DifferenceGraphView.swift; sourceTree = "<group>"; };
 		322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenDotaController.swift; sourceTree = "<group>"; };
@@ -647,7 +645,6 @@
 				3252859026C9E8040030F15B /* AnalysisView.swift */,
 				322B89BE26CE788900DF67F9 /* AnalysisViewModel.swift */,
 				32F6A1AF26C499E3009C00E1 /* MatchView.swift */,
-				322B893B26CD560100DF67F9 /* MatchViewModel.swift */,
 				322B893F26CE696C00DF67F9 /* DifferenceGraphView.swift */,
 				3252859626CB81480030F15B /* DifferenceGraphViewModel.swift */,
 				3294463E26E1BC8F006E0D06 /* PlayerDetailView.swift */,
@@ -1285,7 +1282,6 @@
 				327B8760284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				321E3D01285422D00094FB10 /* AbilityViewModel.swift in Sources */,
 				7985E7EF28E53E47007A43AF /* Talent.swift in Sources */,
-				322B893C26CD560100DF67F9 /* MatchViewModel.swift in Sources */,
 				32B36F1126C38821002D427D /* ContentView.swift in Sources */,
 				32B36F4C26C39C5D002D427D /* Environment.swift in Sources */,
 				327772B126D9D71F000A0A97 /* LobbyType.swift in Sources */,

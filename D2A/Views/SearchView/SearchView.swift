@@ -97,7 +97,7 @@ struct SearchView: View {
                 .foregroundColor(.secondaryLabel)
             }
             NavigationLink(
-                destination: MatchView(vm: MatchViewModel(matchid: env.selectedMatch)),
+                destination: MatchView(matchid: env.selectedMatch ?? ""),
                 isActive: $env.matchActive
             ) {
                 EmptyView()
@@ -115,7 +115,7 @@ struct SearchView: View {
         List {
             if let match = vm.searchedMatch {
                 Section {
-                    NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
+                    NavigationLink(destination: MatchView(matchid: match.id ?? "")) {
                         let iconSize: CGFloat = 30
                         HStack {
                             ForEach(match.fetchPlayers(isRadiant: true)) { player in
