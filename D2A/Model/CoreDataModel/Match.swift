@@ -45,7 +45,7 @@ extension Match {
         matchCoreData.goldDiff = match.goldDiff as [NSNumber]?
         matchCoreData.xpDiff = match.xpDiff as [NSNumber]?
         try viewContext.save()
-        print("save match successfully \(matchCoreData.id)")
+        print("save match successfully \(matchCoreData.id ?? "nil")")
         return matchCoreData
     }
     

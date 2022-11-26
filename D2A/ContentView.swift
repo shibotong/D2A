@@ -14,7 +14,7 @@ struct ContentView: View {
     @EnvironmentObject var store: StoreManager
     var body: some View {
         if data.status != .finish {
-            LoadingView(status: $data.status) {
+            MainLoadingView(status: $data.status) {
                 data.loadData()
             }
         } else {
