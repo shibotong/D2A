@@ -50,7 +50,7 @@ struct MatchView: View {
                 await loadMatch()
             }
         } else {
-            Text("loading...")
+            LoadingView()
                 .onAppear {
                     Task {
                         await loadMatch()

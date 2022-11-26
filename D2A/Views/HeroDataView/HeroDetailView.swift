@@ -36,7 +36,7 @@ struct HeroDetailView: View {
                     buildHeroDetails(hero: hero)
                 }.navigationTitle(hero.heroNameLocalized)
             } else {
-                ProgressView()
+                LoadingView()
             }
         }
     }
