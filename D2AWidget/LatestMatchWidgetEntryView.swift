@@ -106,7 +106,7 @@ struct LatestMatchWidgetEntryView: View {
                         Text(LocalizedStringKey(match.fetchLobby().lobbyName))
                             .font(.caption)
                             .foregroundColor(match.fetchLobby().lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
-                        Text(match.startTime.convertToTime()).font(.caption)
+                        Text(match.startTime.toTime).font(.caption)
                             .foregroundColor(.secondaryLabel)
                     }
                 }.padding(5)

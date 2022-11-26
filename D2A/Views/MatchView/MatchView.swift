@@ -52,7 +52,7 @@ struct MatchView: View {
         VStack(spacing: 30) {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 15) {
-                    MatchStatCardView(icon: "calendar", title: "Start Time", label: LocalizedStringKey(vm.match!.startTimeString ?? ""))
+                    MatchStatCardView(icon: "calendar", title: "Start Time", label: vm.match!.startTimeString ?? "")
                         .frame(width: 140)
                     MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.durationString)").colorInvert()
                         .frame(width: 140)
@@ -123,8 +123,8 @@ struct AllTeamPlayerView: View {
     }
     
     func fetchMaxDamage(players: [Player]) -> Int {
-        let sortedPlayers = players.sorted(by: { $0.heroDamage ?? 0 > $1.heroDamage ?? 0})
-        return Int(sortedPlayers.first!.heroDamage)
+        let sortedPlayers = players.sorted(by: { $0.heroDamage > $1.heroDamage })
+        return Int(sortedPlayers.first?.heroDamage ?? 0)
     }
 }
 
@@ -168,7 +168,7 @@ struct PlayerRowView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     if player.personaname != nil {
                         HStack(spacing: 2) {
-                            Image("rank_\((player.rank ?? 0) / 10)").resizable().frame(width: 18, height: 18)
+                            Image("rank_\((player.rank) / 10)").resizable().frame(width: 18, height: 18)
                             Text(player.personaname!).font(.custom(fontString, size: 15)).bold().lineLimit(1)
                         }
                     } else {
@@ -215,7 +215,7 @@ struct PlayerRowView: View {
                         Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
                         Text("\(player.xpm)").foregroundColor(Color(.systemBlue))
                     }.frame(width: 40)
-                    DamageView(maxDamage: maxDamage, playerDamage: Int(player.heroDamage) ?? 0)
+                    DamageView(maxDamage: maxDamage, playerDamage: Int(player.heroDamage))
                 }.font(.custom(fontString, size: 10))
             }.frame(height: 50)
         }

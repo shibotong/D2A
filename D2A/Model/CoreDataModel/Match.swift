@@ -7,13 +7,15 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 extension Match {
     static func create(_ match: MatchCodable) -> Match {
         let viewContext = PersistenceController.shared.container.viewContext
-        let matchCoreData = Self.fetch(id: match.id) ?? Match(context: viewContext)
+        Self.delete(id: match.id)
+        let matchCoreData = Match(context: viewContext)
         
-        matchCoreData.id = Int32(match.id)
+        matchCoreData.id = match.id.description
         
         // Match data
         matchCoreData.direKill = Int16(match.direKill ?? 0)
@@ -27,7 +29,8 @@ extension Match {
         matchCoreData.region = Int16(match.region)
         matchCoreData.skill = Int16(match.skill ?? 0)
         matchCoreData.startTime = Date(timeIntervalSince1970: TimeInterval(match.startTime))
-        matchCoreData.players = NSSet(array: match.players.map { Player.create($0) })
+                
+        matchCoreData.players = NSSet(array: match.players.compactMap { Player.create($0) })
         matchCoreData.goldDiff = match.goldDiff as [NSNumber]?
         matchCoreData.xpDiff = match.xpDiff as [NSNumber]?
         do {
@@ -46,10 +49,20 @@ extension Match {
     static func fetch(id: Int) -> Match? {
         let viewContext = PersistenceController.shared.container.viewContext
         let fetchMatch: NSFetchRequest<Match> = Match.fetchRequest()
-        fetchMatch.predicate = NSPredicate(format: "id == %f", id)
+        let predicate = NSPredicate(format: "id == %@", "\(id)")
+        fetchMatch.predicate = predicate
         
         let results = try? viewContext.fetch(fetchMatch)
         return results?.first
+    }
+    
+    static func delete(id: Int) {
+        guard let match = Self.fetch(id: id) else {
+            return
+        }
+        let viewContext = PersistenceController.shared.container.viewContext
+        viewContext.delete(match)
+        print("delete \(id) success")
     }
     
     var allPlayers: [Player] {
@@ -57,19 +70,11 @@ extension Match {
     }
     
     var durationString: String {
-        let mins = Int(self.duration / 60)
-        let sec = Int(Int(self.duration) - (mins * 60))
-        return "\(mins):\(sec)"
+        return Int(duration).toDuration
     }
     
-    var startTimeString: String? {
-        guard let startTime = startTime else {
-            return nil
-        }
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy,MMM,dd"
-        
-        return formatter.string(from: startTime)
+    var startTimeString: LocalizedStringKey? {
+        return startTime?.toTime
     }
     
     func fetchPlayers(isRadiant: Bool) -> [Player] {

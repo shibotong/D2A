@@ -9,12 +9,12 @@ import Foundation
 import CoreData
 
 extension Player {
-    static func create(_ player: PlayerCodable) -> Player {
+    static func create(_ player: PlayerCodable) -> Player? {
         let viewContext = PersistenceController.shared.container.viewContext
         let newPlayer = Player(context: viewContext)
         newPlayer.id = UUID()
         if let accountId = player.accountId {
-            newPlayer.accountId = Int32(accountId)
+            newPlayer.accountId = Int64(accountId)
         }
         if let persona = player.personaname {
             newPlayer.personaname = persona
@@ -73,10 +73,8 @@ extension Player {
             newPlayer.abilityUpgrade = abilityUpgrade as [NSNumber]
         }
         
-        newPlayer.permanentBuffs?.allObjects.forEach { viewContext.delete($0 as! NSManagedObject) }
-        
         if let permanentBuffs = player.permanentBuffs {
-            newPlayer.permanentBuffs = NSSet(array: permanentBuffs.map { PermanentBuff.create($0) })
+            newPlayer.permanentBuffs = NSSet(array: permanentBuffs.compactMap { PermanentBuff.create($0) })
         }
         do {
             try viewContext.save()
@@ -84,7 +82,8 @@ extension Player {
             // Replace this implementation with code to handle the error appropriately.
             // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            print("Unresolved error \(nsError), \(nsError.userInfo)")
+            return nil
         }
         return newPlayer
     }

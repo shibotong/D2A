@@ -13,21 +13,21 @@ struct ProfileView: View {
     
     var body: some View {
         if !vm.isloading {
-            if let profile = vm.profile {
+            if let personaname = vm.personaname {
                 HStack {
                     ProfileAvartar(image: vm.profileIcon, sideLength: 40, cornerRadius: 5)
                     VStack(alignment: .leading) {
-                        Text(profile.personaname ?? "").bold()
-                        Text("ID: \(profile.id.description)")
+                        Text(personaname).bold()
+                        Text("ID: \(vm.userid.description)")
                             .foregroundColor(.secondaryLabel)
                             .font(.caption)
                     }
                     Spacer()
-                    if profile.id.description == env.registerdID {
+                    if vm.userid.description == env.registerdID {
                         Image(systemName: "person.text.rectangle")
                             .foregroundColor(.primaryDota)
                     }
-                    if env.userIDs.contains(profile.id.description) {
+                    if env.userIDs.contains(vm.userid.description) {
                         Image(systemName: "star.fill")
                             .foregroundColor(.primaryDota)
                     }

@@ -59,7 +59,7 @@ struct PlayerProfileView: View {
                     }
                 })
                 .sheet(isPresented: $isSharePresented, content: {
-                    ShareActivityView(activityItems: [SharingLink(title: "\(profile.personaname)", link: "d2aapp://profile?userid=\(profile.id.description)", image: vm.userIcon!)])
+                    ShareActivityView(activityItems: [SharingLink(title: "\(profile.personaname ?? "")", link: "d2aapp://profile?userid=\(profile.id.description)", image: vm.userIcon!)])
                 })
                 .overlay {
                     if vm.isLoading {

@@ -41,7 +41,7 @@ struct MatchListRowView: View {
                 VStack(alignment: .trailing) {
                     Text(LocalizedStringKey(vm.match.fetchLobby().lobbyName))
                         .foregroundColor(vm.match.fetchLobby().lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
-                    Text(vm.match.startTime.convertToTime()).bold()
+                    Text(vm.match.startTime.toTime).bold()
                 }
             }
             .font(.caption2)

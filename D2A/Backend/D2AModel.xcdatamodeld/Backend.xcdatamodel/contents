@@ -39,7 +39,7 @@
         <attribute name="direKill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="goldDiff" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[NSNumber]"/>
-        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="String"/>
         <attribute name="lobbyType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="mode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="radiantKill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -48,16 +48,17 @@
         <attribute name="skill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="xpDiff" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[NSNumber]"/>
-        <relationship name="players" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Player"/>
+        <relationship name="players" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Player" inverseName="match" inverseEntity="Player"/>
     </entity>
     <entity name="PermanentBuff" representedClassName="PermanentBuff" syncable="YES" codeGenerationType="class">
         <attribute name="buffID" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="stack" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="player" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Player" inverseName="permanentBuffs" inverseEntity="Player"/>
     </entity>
     <entity name="Player" representedClassName="Player" syncable="YES" codeGenerationType="class">
         <attribute name="abilityUpgrade" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[NSNumber]"/>
-        <attribute name="accountId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="accountId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="assists" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="backpack0" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="backpack1" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -85,7 +86,8 @@
         <attribute name="slot" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="towerDamage" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="xpm" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="permanentBuffs" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PermanentBuff"/>
+        <relationship name="match" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Match" inverseName="players" inverseEntity="Match"/>
+        <relationship name="permanentBuffs" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PermanentBuff" inverseName="player" inverseEntity="PermanentBuff"/>
     </entity>
     <entity name="Role" representedClassName="Role" syncable="YES" codeGenerationType="class">
         <attribute name="level" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
