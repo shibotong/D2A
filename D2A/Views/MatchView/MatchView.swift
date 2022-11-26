@@ -90,7 +90,7 @@ struct MatchStatCardView: View {
 struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
         //        NavigationView {
-        MatchView(vm: MatchViewModel())
+        MatchView(vm: MatchViewModel(matchid: "153041957"))
         //        }
             .environmentObject(HeroDatabase.shared)
             .environment(\.locale, .init(identifier: "zh-Hans"))

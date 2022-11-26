@@ -44,11 +44,10 @@ class OpenDotaController {
         }
     }
     
-    func loadUserData(userid: String) async -> UserProfile? {
+    func loadUserData(userid: String) async -> UserProfileCodable? {
         do {
             let data = try await decodingService.loadData("/players/\(userid)")
-            let userCodable = try decodingService.decodeUserProfile(data)
-            let user = UserProfile.create(userCodable)
+            let user = try decodingService.decodeUserProfile(data)
             return user
         } catch {
             print(error.localizedDescription)

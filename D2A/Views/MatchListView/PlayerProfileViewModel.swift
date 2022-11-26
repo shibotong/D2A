@@ -25,7 +25,7 @@ class PlayerProfileViewModel: ObservableObject {
         guard let userid = userid else {
             return
         }
-        if let profile = WCDBController.shared.fetchUserProfile(userid: userid) {
+        if let profile = UserProfile.fetch(id: Int(userid) ?? 0) {
             self.userProfile = profile
         } else {
             Task {
@@ -64,17 +64,18 @@ class PlayerProfileViewModel: ObservableObject {
             return
         }
         let profile = await OpenDotaController.shared.loadUserData(userid: userid)
-        if WCDBController.shared.fetchUserProfile(userid: self.userid ?? "") != nil && profile != nil {
-            WCDBController.shared.insertUserProfile(profile: profile!)
+        guard let profile = profile else {
+            return
         }
-        await setUserProfile(profile: profile)
+        let newProfile = UserProfile.create(profile)
+        await setUserProfile(profile: newProfile)
     }
 
     private func loadUserIcon() async throws {
         guard let profile = self.userProfile else {
             return
         }
-        guard let imageLink = URL(string: profile.avatarfull) else {
+        guard let imageLink = URL(string: profile.avatarfull ?? "") else {
             return
         }
         let (imageData, _) = try await URLSession.shared.data(from: imageLink)
