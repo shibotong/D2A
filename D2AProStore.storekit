@@ -1,0 +1,73 @@
+{
+  "identifier" : "26262CE4",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "1589873320",
+      "localizations" : [
+        {
+          "description" : "Unlock all features in D2A",
+          "displayName" : "D2APRO",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "解锁所有功能",
+          "displayName" : "D2APro",
+          "locale" : "zh_CN"
+        }
+      ],
+      "productID" : "D2APRO",
+      "referenceName" : "D2A Pro",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1582344852",
+    "_developerTeamID" : "6ZU3XJ94Y7",
+    "_lastSynchronizedDate" : 691141212.45211506
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "20881818",
+      "localizations" : [
+
+      ],
+      "name" : "D2APlus",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "2.49",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "1586081870",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "D2A Quarterly Subscription",
+              "displayName" : "D2A Quarterly Subscription",
+              "locale" : "en_GB"
+            }
+          ],
+          "productID" : "D2APlusQuarterly",
+          "recurringSubscriptionPeriod" : "P3M",
+          "referenceName" : "Quarterly Subscription D2A+",
+          "subscriptionGroupID" : "20881818",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}

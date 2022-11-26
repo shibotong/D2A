@@ -305,7 +305,7 @@ struct RecentMatchesEntryView : View {
                 }
                 Spacer()
                 VStack(alignment: .trailing) {
-                    Text(match.startTime.convertToTime())
+                    Text(match.startTime.toTime)
                     Text(LocalizedStringKey(match.fetchLobby().lobbyName))
                         .foregroundColor(match.fetchLobby().lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
                 }.font(.custom(fontString, size: secondaryLabelSize)).foregroundColor(Color(.secondaryLabel)).padding(.vertical, 5)
@@ -322,7 +322,7 @@ struct RecentMatchesEntryView : View {
                     }
                     HStack {
                         buildWL(win: match.isPlayerWin(), size: secondaryLabelSize)
-                        Text("\(match.duration.convertToDuration())").font(.custom(fontString, size: secondaryLabelSize))
+                        Text("\(match.duration.toDuration)").font(.custom(fontString, size: secondaryLabelSize))
                     }
                     HStack {
                         KDAView(kills: match.kills, deaths: match.deaths, assists: match.assists, size: .caption)
@@ -330,7 +330,7 @@ struct RecentMatchesEntryView : View {
                 }
                 Spacer()
                 VStack(alignment: .trailing, spacing: 0) {
-                    Text(match.startTime.convertToTime())
+                    Text(match.startTime.toTime)
                     Text(LocalizedStringKey(match.fetchMode().modeName))
                     Text(LocalizedStringKey(match.fetchLobby().lobbyName))
                         .foregroundColor(match.fetchLobby().lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))

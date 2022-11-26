@@ -90,7 +90,7 @@ struct RecentMatchesWidgetEntryView: View {
     
     @ViewBuilder private func buildRank(profile: UserProfile, size: CGFloat) -> some View {
         HStack {
-            if profile.isPlus ?? false {
+            if profile.isPlus {
                 Image("dota_plus")
                     .resizable()
                     .padding(5)

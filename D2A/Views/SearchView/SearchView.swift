@@ -143,7 +143,7 @@ struct SearchView: View {
                         }
                     }
                 } header: {
-                    Text("Match: \(match.id.description)")
+                    Text("Match: \(match.id ?? "")")
                 }
             }
             if !vm.localProfiles.isEmpty {

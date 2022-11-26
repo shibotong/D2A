@@ -22,7 +22,7 @@ class MatchViewModel: ObservableObject {
             return
         }
         if let match = Match.fetch(id: Int(id) ?? 0) {
-            self.match = match
+            await self.showMatch(match)
         } else {
             await refreshMatch()
         }

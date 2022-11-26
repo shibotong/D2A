@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 extension Int {
-    func convertToDuration() -> String {
+    var toDuration: String {
         var min = self / 60
         let sec = self - min * 60
         if min >= 60 {
@@ -33,7 +33,7 @@ extension Int {
         }
     }
     
-    func convertToTime() -> LocalizedStringKey {
+    var toTime: LocalizedStringKey {
         let date = TimeInterval(self)
 //        if Calendar.current.isDateInToday(date) {
 //            let formatter = DateFormatter()

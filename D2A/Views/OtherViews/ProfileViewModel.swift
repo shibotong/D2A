@@ -9,10 +9,11 @@ import Foundation
 import UIKit
 
 class ProfileViewModel: ObservableObject {
-    @Published var profile: UserProfile?
     @Published var isloading = false
 
     @Published var profileIcon: UIImage?
+    
+    @Published var personaname: String?
 
     var userid: String
 
@@ -28,19 +29,18 @@ class ProfileViewModel: ObservableObject {
     ///Init with User Profile
     ///- parameter profile: User Profile
     init(profile: UserProfile) {
-        self.profile = profile
+        self.personaname = profile.personaname ?? ""
         self.userid = profile.id.description
         Task {
-            try? await self.loadProfileImage(profile: profile)
+            try? await self.loadProfileImage(url: profile.avatarfull)
         }
     }
     
     init(profile: UserProfileCodable) {
-        let newProfile = UserProfile.create(profile)
-        self.profile = newProfile
+        self.personaname = profile.personaname
         self.userid = profile.id.description
         Task {
-            try? await self.loadProfileImage(profile: newProfile)
+            try? await self.loadProfileImage(url: profile.avatarfull)
         }
     }
     
@@ -50,20 +50,16 @@ class ProfileViewModel: ObservableObject {
             guard let profile = await OpenDotaController.shared.loadUserData(userid: userid) else {
                 return
             }
-            let newProfile = UserProfile.create(profile)
-            await self.setProfile(profile: newProfile)
-            try? await self.loadProfileImage(profile: newProfile)
+            await self.setProfile(name: profile.personaname)
+            try? await self.loadProfileImage(url: profile.avatarfull)
             return
         }
-        await setProfile(profile: profile)
-        try? await loadProfileImage(profile: profile)
+        await setProfile(name: profile.personaname)
+        try? await loadProfileImage(url: profile.avatarfull)
     }
 
-    private func loadProfileImage(profile: UserProfile?) async throws {
-        guard let profile = profile else {
-            return
-        }
-        guard let imageLink = URL(string: profile.avatarfull ?? "") else {
+    private func loadProfileImage(url: String?) async throws {
+        guard let imageLink = URL(string: url ?? "") else {
             return
         }
         let (imageData, _) = try await URLSession.shared.data(from: imageLink)
@@ -77,8 +73,8 @@ class ProfileViewModel: ObservableObject {
         self.profileIcon = image
     }
     
-    @MainActor private func setProfile(profile: UserProfile?) {
-        self.profile = profile
+    @MainActor private func setProfile(name: String?) {
+        self.personaname = name ?? ""
         self.isloading = false
     }
 }

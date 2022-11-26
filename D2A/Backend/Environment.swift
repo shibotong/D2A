@@ -102,13 +102,12 @@ final class DotaEnvironment: ObservableObject {
     }
     
     func registerUser(userid: String) async {
-        guard let user = await OpenDotaController.shared.loadUserData(userid: userid) else {
+        guard let _ = await OpenDotaController.shared.loadUserData(userid: userid) else {
             print("cannot find this user please try again")
             await self.cannotFindUser()
             return
         }
         await self.setRegisterUser(userid: userid)
-        _ = UserProfile.create(user)
     }
     
     func deRegisterUser(userid: String) {

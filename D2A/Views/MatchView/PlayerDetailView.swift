@@ -188,7 +188,7 @@ struct PlayerDetailView: View {
             )
     }
 
-    @ViewBuilder private func profileHost(playerID: Int32?) -> some View {
+    @ViewBuilder private func profileHost(playerID: Int64?) -> some View {
         if let playerID = playerID {
             ProfileView(vm: ProfileViewModel(id: "\(playerID)"))
         } else {
