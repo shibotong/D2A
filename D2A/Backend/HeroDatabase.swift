@@ -20,7 +20,7 @@ class HeroDatabase: ObservableObject {
     }
     
     @Published var status: LoadingStatus = .loading
-    private var heroes = [String: HeroModel]()
+    private var heroes = [String: HeroCodable]()
     private var gameModes = [String: GameMode]()
     private var lobbyTypes = [String: LobbyType]()
     private var regions = [String: String]()
@@ -104,7 +104,7 @@ class HeroDatabase: ObservableObject {
             .store(in: &cancellable)
     }
 
-    func fetchHeroWithID(id: Int) throws -> HeroModel {
+    func fetchHeroWithID(id: Int) throws -> HeroCodable {
         guard let hero = heroes["\(id)"] else {
             throw Self.HeroDataError.heroNotFound
         }
@@ -161,8 +161,8 @@ class HeroDatabase: ObservableObject {
         return abilities ?? []
     }
     
-    func fetchAllHeroes() -> [HeroModel] {
-        var sortedHeroes = [HeroModel]()
+    func fetchAllHeroes() -> [HeroCodable] {
+        var sortedHeroes = [HeroCodable]()
         for i in 1..<150 {
             if let hero = heroes["\(i)"] {
                 sortedHeroes.append(hero)
@@ -175,7 +175,7 @@ class HeroDatabase: ObservableObject {
         return sortedHeroes
     }
     
-    func fetchSearchedHeroes(text: String) -> [HeroModel] {
+    func fetchSearchedHeroes(text: String) -> [HeroCodable] {
         return []
     }
     
