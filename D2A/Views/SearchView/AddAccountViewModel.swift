@@ -11,7 +11,7 @@ import Combine
 class AddAccountViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var searched = false
-    @Published var userProfiles: [UserProfile] = []
+    @Published var userProfiles: [UserProfileCodable] = []
     @Published var searchedHeroes: [HeroCodable] = []
     @Published var searchedMatch: Match? = nil
     @Published var filterHeroes: [HeroCodable] = []

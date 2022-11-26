@@ -56,6 +56,7 @@
         <attribute name="stack" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Player" representedClassName="Player" syncable="YES" codeGenerationType="class">
+        <attribute name="abilityUpgrade" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[NSNumber]"/>
         <attribute name="accountId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="assists" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="backpack0" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

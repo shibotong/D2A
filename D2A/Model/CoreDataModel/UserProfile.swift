@@ -40,28 +40,6 @@ extension UserProfile {
         return newProfile
     }
     
-    static func make(_ profile: UserProfileCodable) -> UserProfile {
-        let viewContext = PersistenceController.shared.container.viewContext
-        let newProfile = UserProfile(context: viewContext)
-        newProfile.id = Int32(profile.id)
-        newProfile.avatarfull = profile.avatarfull
-        
-        newProfile.countryCode = profile.countryCode
-        newProfile.personaname = profile.personaname
-        newProfile.profileurl = profile.profileurl
-        newProfile.isPlus = profile.isPlus ?? false
-        if let rank = profile.rank {
-            newProfile.rank = Int16(rank)
-        }
-        if let leaderboard = profile.leaderboard {
-            newProfile.leaderboard = Int16(leaderboard)
-        }
-            
-        newProfile.name = profile.name
-        
-        return newProfile
-    }
-    
     static func fetch(id: Int?) -> UserProfile? {
         guard let id = id else {
             return nil
@@ -81,5 +59,13 @@ extension UserProfile {
         
         let results = try? viewContext.fetch(fetchResult)
         return results ?? []
+    }
+    
+    static func delete(id: Int?) {
+        guard let user = Self.fetch(id: id) else {
+            return
+        }
+        let viewContext = PersistenceController.shared.container.viewContext
+        viewContext.delete(user)
     }
 }

@@ -84,22 +84,19 @@ final class DotaEnvironment: ObservableObject {
     func delete(userID: String) {
         if let index = userIDs.firstIndex(of: userID) {
             self.userIDs.remove(at: index)
-//            WCDBController.shared.deleteUser(userid: userID)
+            UserProfile.delete(id: Int(userID))
         }
     }
     
     func addOrDeleteUser(userid: String, profile: UserProfile? = nil) {
         if self.userIDs.contains(userid) {
             self.userIDs.remove(at: self.userIDs.firstIndex(of: userid)!)
-//            WCDBController.shared.deleteUser(userid: userid)
+            UserProfile.delete(id: Int(userid))
         } else {
             if self.userIDs.count >= 1 && !self.subscriptionStatus {
                 self.subscriptionSheet = true
             } else {
                 self.userIDs.append(userid)
-                if let profile = profile {
-//                    WCDBController.shared.insertUserProfile(profile: profile)
-                }
             }
         }
     }
@@ -111,11 +108,11 @@ final class DotaEnvironment: ObservableObject {
             return
         }
         await self.setRegisterUser(userid: userid)
-//        WCDBController.shared.insertUserProfile(profile: user)
+        _ = UserProfile.create(user)
     }
     
     func deRegisterUser(userid: String) {
-//        WCDBController.shared.deleteUser(userid: userid)
+        UserProfile.delete(id: Int(userid))
         self.registerdID = ""
     }
     

@@ -118,20 +118,24 @@ struct SearchView: View {
                     NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
                         let iconSize: CGFloat = 30
                         HStack {
-                            ForEach(match.fetchPlayers(isRadiant: true), id: \.heroID) { player in
+                            ForEach(match.fetchPlayers(isRadiant: true)) { player in
+                                HeroImageView(heroID: Int(player.heroID), type: .icon)
                                 if horizontalSizeClass == .compact {
-                                    HeroImageView(heroID: player.heroID, type: .icon)
+                                    HeroImageView(heroID: Int(player.heroID), type: .icon)
                                 } else {
-                                    HeroImageView(heroID: player.heroID, type: .icon)
+                                    HeroImageView(heroID: Int(player.heroID), type: .icon)
                                         .frame(width: iconSize, height: iconSize)
                                 }
                             }
+
                             Text("vs")
-                            ForEach(match.fetchPlayers(isRadiant: false), id: \.heroID) { player in
+                            
+                            ForEach(match.fetchPlayers(isRadiant: false)) { player in
+                                HeroImageView(heroID: Int(player.heroID), type: .icon)
                                 if horizontalSizeClass == .compact {
-                                    HeroImageView(heroID: player.heroID, type: .icon)
+                                    HeroImageView(heroID: Int(player.heroID), type: .icon)
                                 } else {
-                                    HeroImageView(heroID: player.heroID, type: .icon)
+                                    HeroImageView(heroID: Int(player.heroID), type: .icon)
                                         .frame(width: iconSize, height: iconSize)
                                 }
                             }
