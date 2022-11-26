@@ -20,7 +20,7 @@ struct PlayerDetailView: View {
                 Divider()
                 ScrollView {
                     VStack (alignment: .center, spacing: 5) {
-                        HeroImageView(heroID: player.heroID, type: .portrait).frame(height: 300)
+                        HeroImageView(heroID: Int(player.heroID), type: .portrait).frame(height: 300)
                         buildHeroName()
                         buildStats()
                         buildItem()
@@ -39,7 +39,7 @@ struct PlayerDetailView: View {
                     VStack {
                         GeometryReader { proxy in
                             HStack {
-                                HeroImageView(heroID: player.heroID, type: .portrait).frame(width: proxy.size.width / 3)
+                                HeroImageView(heroID: Int(player.heroID), type: .portrait).frame(width: proxy.size.width / 3)
                                 VStack {
                                     buildHeroName()
                                     buildStats()
@@ -61,7 +61,7 @@ struct PlayerDetailView: View {
             Text("Ability Upgrade").font(.custom(fontString, size: 15)).bold().foregroundColor(Color(.systemGray))
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50)), count: 6)) {
                 ForEach(0..<player.abilityUpgrade!.count, id: \.self) { index in
-                    buildAbility(abilityID: player.abilityUpgrade![index])
+                    buildAbility(abilityID: Int(truncating: player.abilityUpgrade![index]))
                         .overlay(HStack {
                             Spacer()
                             VStack {
@@ -78,14 +78,14 @@ struct PlayerDetailView: View {
             VStack(alignment: .leading, spacing: 1) {
                 Text("Items").font(.custom(fontString, size: 15)).bold().foregroundColor(Color(.systemGray))
                 HStack {
-                    ItemView(id: player.item0).aspectRatio(contentMode: .fit)
-                    ItemView(id: player.item1).aspectRatio(contentMode: .fit)
-                    ItemView(id: player.item2).aspectRatio(contentMode: .fit)
-                    ItemView(id: player.item3).aspectRatio(contentMode: .fit)
-                    ItemView(id: player.item4).aspectRatio(contentMode: .fit)
-                    ItemView(id: player.item5).aspectRatio(contentMode: .fit)
-                    if player.itemNeutral != nil {
-                        ItemView(id: player.itemNeutral!).aspectRatio(contentMode: .fit).clipShape(Circle())
+                    ItemView(id: Int(player.item0)).aspectRatio(contentMode: .fit)
+                    ItemView(id: Int(player.item1)).aspectRatio(contentMode: .fit)
+                    ItemView(id: Int(player.item2)).aspectRatio(contentMode: .fit)
+                    ItemView(id: Int(player.item3)).aspectRatio(contentMode: .fit)
+                    ItemView(id: Int(player.item4)).aspectRatio(contentMode: .fit)
+                    ItemView(id: Int(player.item5)).aspectRatio(contentMode: .fit)
+                    if let itemNeutral = player.itemNeutral {
+                        ItemView(id: Int(itemNeutral)).aspectRatio(contentMode: .fit).clipShape(Circle())
                     }
                 }
             }.padding(.horizontal)
@@ -93,9 +93,9 @@ struct PlayerDetailView: View {
     }
     
     @ViewBuilder private func buildHeroName() -> some View {
-        let hero = try? heroData.fetchHeroWithID(id: player.heroID)
+        let hero = try? heroData.fetchHeroWithID(id: Int(player.heroID))
         HStack {
-            HeroImageView(heroID: player.heroID, type: .icon)
+            HeroImageView(heroID: Int(player.heroID), type: .icon)
                 .frame(width:30, height: 30)
             Text(LocalizedStringKey(hero?.localizedName ?? "Unknown Hero \(player.heroID)")).font(.custom(fontString, size: 30)).bold()
             Spacer()
@@ -116,12 +116,12 @@ struct PlayerDetailView: View {
                     Text("XPM").foregroundColor(Color(.systemGray))
                 }
                 Spacer()
-                KDAView(kills: player.kills, deaths: player.deaths, assists: player.assists, size: .caption)
+                KDAView(kills: Int(player.kills), deaths: Int(player.deaths), assists: Int(player.assists), size: .caption)
             }.padding(.horizontal).font(.custom(fontString, size: 15))
             HStack {
                 HStack {
                     Circle().frame(width: 10, height: 10).foregroundColor(.red)
-                    Text("\(player.heroDamage ?? 0)").bold()
+                    Text("\(player.heroDamage)").bold()
                     Text("Damage").foregroundColor(Color(.systemGray))
                 }
                 Spacer()
@@ -188,25 +188,11 @@ struct PlayerDetailView: View {
             )
     }
 
-    @ViewBuilder private func profileHost(playerID: Int?) -> some View {
-        if player.accountId == nil {
-            ProfileEmptyView()
+    @ViewBuilder private func profileHost(playerID: Int32?) -> some View {
+        if let playerID = playerID {
+            ProfileView(vm: ProfileViewModel(id: "\(playerID)"))
         } else {
-            ProfileView(vm: ProfileViewModel(id: "\(playerID!)"))
-        }
-    }
-}
-
-struct PlayerDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            PlayerDetailView(player: Match.sample.players.first!)
-                .environmentObject(DotaEnvironment.shared)
-                .environmentObject(HeroDatabase.shared)
-            PlayerDetailView(player: Match.sample.players.first!)
-                .previewLayout(.fixed(width: 704, height: 1000))
-                .environmentObject(DotaEnvironment.shared)
-                .environmentObject(HeroDatabase.shared)
+            ProfileEmptyView()
         }
     }
 }

@@ -28,13 +28,16 @@ class SidebarRowViewModel: ObservableObject {
     
     func loadProfile() {
         if self.profile == nil {
-            if let profile = UserProfile.fetch(Int(userid) ?? 0) {
+            if let profile = UserProfile.fetch(id: Int(userid)) {
                 Task {
                     await self.setProfile(profile)
                 }
             } else {
                 Task {
-                    let profile = await OpenDotaController.shared.loadUserData(userid: userid)
+                    guard let profileCodable = await OpenDotaController.shared.loadUserData(userid: userid) else {
+                        return
+                    }
+                    let profile = UserProfile.create(profileCodable)
                     await self.setProfile(profile)
                 }
             }

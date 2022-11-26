@@ -69,6 +69,9 @@ extension Player {
         if let heroHealing = player.heroHealing {
             newPlayer.heroHealing = Int32(heroHealing)
         }
+        if let abilityUpgrade = player.abilityUpgrade {
+            newPlayer.abilityUpgrade = abilityUpgrade as [NSNumber]
+        }
         
         newPlayer.permanentBuffs?.allObjects.forEach { viewContext.delete($0 as! NSManagedObject) }
         

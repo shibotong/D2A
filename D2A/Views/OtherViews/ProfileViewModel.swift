@@ -35,17 +35,24 @@ class ProfileViewModel: ObservableObject {
         }
     }
     
-    init() {
-        self.profile = UserProfile.sample
-        self.userid = "123"
+    init(profile: UserProfileCodable) {
+        let newProfile = UserProfile.create(profile)
+        self.profile = newProfile
+        self.userid = profile.id.description
+        Task {
+            try? await self.loadProfileImage(profile: newProfile)
+        }
     }
     
     func loadProfile() async {
         self.isloading = true
-        guard let profile = WCDBController.shared.fetchUserProfile(userid: userid) else {
-            let profile = await OpenDotaController.shared.loadUserData(userid: userid)
-            await self.setProfile(profile: profile)
-            try? await self.loadProfileImage(profile: profile)
+        guard let profile = UserProfile.fetch(id: Int(userid)) else {
+            guard let profile = await OpenDotaController.shared.loadUserData(userid: userid) else {
+                return
+            }
+            let newProfile = UserProfile.create(profile)
+            await self.setProfile(profile: newProfile)
+            try? await self.loadProfileImage(profile: newProfile)
             return
         }
         await setProfile(profile: profile)
@@ -56,7 +63,7 @@ class ProfileViewModel: ObservableObject {
         guard let profile = profile else {
             return
         }
-        guard let imageLink = URL(string: profile.avatarfull) else {
+        guard let imageLink = URL(string: profile.avatarfull ?? "") else {
             return
         }
         let (imageData, _) = try await URLSession.shared.data(from: imageLink)
