@@ -62,7 +62,10 @@ extension UserProfile {
         return newProfile
     }
     
-    static func fetch(id: Int) -> UserProfile? {
+    static func fetch(id: Int?) -> UserProfile? {
+        guard let id = id else {
+            return nil
+        }
         let viewContext = PersistenceController.shared.container.viewContext
         let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         fetchResult.predicate = NSPredicate(format: "id == %f", id)
