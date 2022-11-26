@@ -21,8 +21,10 @@ class ProfileViewModel: ObservableObject {
     ///- parameter id: Player ID
     init(id: String) {
         self.userid = id
-        Task {
-            await self.loadProfile()
+        if id != "0" {
+            Task {
+                await self.loadProfile()
+            }
         }
     }
 
