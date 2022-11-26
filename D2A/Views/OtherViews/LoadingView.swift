@@ -9,6 +9,11 @@ import SwiftUI
 
 struct LoadingView: View {
     @Binding var status: LoadingStatus
+    
+    var reloadData: () -> () = {
+        print("Button Pressed")
+    }
+    
     var body: some View {
         ZStack {
             Color.systemBackground
@@ -19,27 +24,29 @@ struct LoadingView: View {
                     .frame(width: 100, height: 100)
                     .clipShape(RoundedRectangle(cornerRadius: 25))
             } else if status == .error {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 25)
-                        .foregroundColor(.primaryDota)
-                    Image(systemName: "wifi.exclamationmark")
-                        .resizable()
-                        .scaledToFit()
-                        .padding()
-                        .foregroundColor(.white)
+                Button {
+                    reloadData()
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 25)
+                            .foregroundColor(.primaryDota)
+                        Image(systemName: "wifi.exclamationmark")
+                            .resizable()
+                            .scaledToFit()
+                            .padding()
+                            .foregroundColor(.white)
+                    }
+                    .frame(width: 100, height: 100)
                 }
-                .frame(width: 100, height: 100)
             }
         }
         .ignoresSafeArea()
-            
     }
 }
 
 struct LoadingView_Previews: PreviewProvider {
     @State static var status: LoadingStatus = .error
     static var previews: some View {
-        
         LoadingView(status: $status)
             .preferredColorScheme(.light)
         LoadingView(status: $status)

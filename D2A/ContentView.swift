@@ -14,7 +14,9 @@ struct ContentView: View {
     @EnvironmentObject var store: StoreManager
     var body: some View {
         if data.status != .finish {
-            LoadingView(status: $data.status)
+            LoadingView(status: $data.status) {
+                data.loadData()
+            }
         } else {
             NavigationHostView()
                 .sheet(isPresented: $env.subscriptionSheet, content: {
