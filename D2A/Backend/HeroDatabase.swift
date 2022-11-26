@@ -47,22 +47,11 @@ class HeroDatabase: ObservableObject {
     let url = "https://api.opendota.com/api/herostats"
     
     init() {
-        Publishers
-            .CombineLatest($openDotaLoadFinish, $stratzLoadFinish)
-            .map({ opendota, stratz in
-                if opendota == .error || stratz == .error {
-                    print("Loading ability error")
-                    return .error
-                }
-                if opendota == .finish && stratz == .finish {
-                    print("Loading ability success")
-                    return .finish
-                }
-                return .loading
-            })
-            .assign(to: \.status, on: self)
-            .store(in: &cancellable)
-        
+        setupBinding()
+        loadData()
+    }
+    
+    func loadData() {
         self.status = .loading
         self.gameModes = loadGameModes()
         self.regions = loadRegion()!
@@ -97,6 +86,22 @@ class HeroDatabase: ObservableObject {
                 }
             }
         }
+    }
+    
+    private func setupBinding() {
+        Publishers
+            .CombineLatest($openDotaLoadFinish, $stratzLoadFinish)
+            .map({ opendota, stratz in
+                if opendota == .error || stratz == .error {
+                    return .error
+                }
+                if opendota == .finish && stratz == .finish {
+                    return .finish
+                }
+                return .loading
+            })
+            .assign(to: \.status, on: self)
+            .store(in: &cancellable)
     }
 
     func fetchHeroWithID(id: Int) throws -> HeroModel {
