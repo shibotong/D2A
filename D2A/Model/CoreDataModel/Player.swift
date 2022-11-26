@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 extension Player {
     static func create(_ player: PlayerCodable) -> Player {
@@ -68,6 +69,12 @@ extension Player {
         if let heroHealing = player.heroHealing {
             newPlayer.heroHealing = Int32(heroHealing)
         }
+        
+        newPlayer.permanentBuffs?.allObjects.forEach { viewContext.delete($0 as! NSManagedObject) }
+        
+        if let permanentBuffs = player.permanentBuffs {
+            newPlayer.permanentBuffs = NSSet(array: permanentBuffs.map { PermanentBuff.create($0) })
+        }
         do {
             try viewContext.save()
         } catch {
@@ -78,4 +85,44 @@ extension Player {
         }
         return newPlayer
     }
+    
+    var hasScepter: Bool {
+        if item0 == 108 {
+            return true
+        } else if item1 == 108 {
+            return true
+        } else if item2 == 108 {
+            return true
+        } else if item3 == 108 {
+            return true
+        } else if item4 == 108 {
+            return true
+        } else if item5 == 108 {
+            return true
+        } else {
+            guard let buffs = permanentBuffs?.allObjects as? [PermanentBuff] else {
+                return false
+            }
+            for buff in buffs {
+                if buff.buffID == 2 {
+                    return true
+                }
+            }
+            return false
+        }
+    }
+    
+    var hasShard: Bool {
+        guard let buffs = permanentBuffs?.allObjects as? [PermanentBuff] else {
+            return false
+        }
+        for buff in buffs {
+            if buff.buffID == 12 {
+                return true
+            }
+        }
+        return false
+    }
 }
+
+

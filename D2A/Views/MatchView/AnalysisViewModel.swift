@@ -28,38 +28,26 @@ class AnalysisViewModel: ObservableObject {
     func sortPlayer(selection: AnalysisType) -> [Player]? {
         switch selection {
         case .golds:
-            if storedPlayers.allSatisfy({ $0.netWorth != nil }) {
-                return storedPlayers.sorted(by: { $0.netWorth! >= $1.netWorth! })
-            } else {
-                return nil
-            }
+            return storedPlayers.sorted(by: { $0.netWorth >= $1.netWorth })
         case .heroDamage:
-            if storedPlayers.allSatisfy({ $0.heroDamage != nil }) {
-                return storedPlayers.sorted(by: { $0.heroDamage! >= $1.heroDamage! })
-            } else {
-                return nil
-            }
+            return storedPlayers.sorted(by: { $0.heroDamage >= $1.heroDamage })
         case .kills:
             return storedPlayers.sorted(by: { $0.kills >= $1.kills })
         case .towerDamage:
-            if storedPlayers.allSatisfy({ $0.towerDamage != nil }) {
-                return storedPlayers.sorted(by: { $0.towerDamage! >= $1.towerDamage! })
-            } else {
-                return nil
-            }
+            return storedPlayers.sorted(by: { $0.towerDamage >= $1.towerDamage })
         }
     }
     
     func fetchPlayerValue(player: Player) -> Int {
         switch selection {
         case .golds:
-            return player.netWorth ?? 0
+            return Int(player.netWorth)
         case .heroDamage:
-            return player.heroDamage ?? 0
+            return Int(player.heroDamage)
         case .kills:
-            return player.kills
+            return Int(player.kills)
         case .towerDamage:
-            return player.towerDamage ?? 0
+            return Int(player.towerDamage)
         }
     }
     
@@ -70,13 +58,13 @@ class AnalysisViewModel: ObservableObject {
     private func fetchMaxValue() -> Int {
         switch selection {
         case .golds:
-            return players?.first?.netWorth ?? 0
+            return Int(players?.first?.netWorth ?? 0)
         case .heroDamage:
-            return players?.first?.heroDamage ?? 0
+            return Int(players?.first?.heroDamage ?? 0)
         case .kills:
-            return players?.first?.kills ?? 0
+            return Int(players?.first?.kills ?? 0)
         case .towerDamage:
-            return players?.first?.towerDamage ?? 0
+            return Int(players?.first?.towerDamage ?? 0)
         }
     }
 }

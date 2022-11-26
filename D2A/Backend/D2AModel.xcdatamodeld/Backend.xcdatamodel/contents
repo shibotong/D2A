@@ -38,6 +38,7 @@
     <entity name="Match" representedClassName="Match" syncable="YES" codeGenerationType="class">
         <attribute name="direKill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="goldDiff" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[NSNumber]"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="lobbyType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="mode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -46,7 +47,13 @@
         <attribute name="region" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="skill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="xpDiff" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[NSNumber]"/>
         <relationship name="players" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Player"/>
+    </entity>
+    <entity name="PermanentBuff" representedClassName="PermanentBuff" syncable="YES" codeGenerationType="class">
+        <attribute name="buffID" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="stack" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Player" representedClassName="Player" syncable="YES" codeGenerationType="class">
         <attribute name="accountId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -77,6 +84,7 @@
         <attribute name="slot" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="towerDamage" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="xpm" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="permanentBuffs" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PermanentBuff"/>
     </entity>
     <entity name="Role" representedClassName="Role" syncable="YES" codeGenerationType="class">
         <attribute name="level" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
@@ -92,7 +100,7 @@
         <attribute name="avatarfull" attributeType="String"/>
         <attribute name="countryCode" optional="YES" attributeType="String"/>
         <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="isPlus" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isPlus" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="leaderboard" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="personaname" attributeType="String"/>

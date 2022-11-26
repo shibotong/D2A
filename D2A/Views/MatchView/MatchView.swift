@@ -27,7 +27,7 @@ struct MatchView: View {
                 AllTeamPlayerView(match: vm.match!)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
-                AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
+                AnalysisView(vm: AnalysisViewModel(player: vm.match!.allPlayers))
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
                 if vm.match!.goldDiff != nil {
@@ -52,11 +52,11 @@ struct MatchView: View {
         VStack(spacing: 30) {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 15) {
-                    MatchStatCardView(icon: "calendar", title: "Start Time", label: vm.match!.startTime.convertToTime())
+                    MatchStatCardView(icon: "calendar", title: "Start Time", label: LocalizedStringKey(vm.match!.startTimeString ?? ""))
                         .frame(width: 140)
-                    MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())").colorInvert()
+                    MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.durationString)").colorInvert()
                         .frame(width: 140)
-                    MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(data.fetchGameMode(id: vm.match!.mode).modeName))
+                    MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(data.fetchGameMode(id: Int(vm.match!.mode)).modeName))
                         .frame(width: 140)
                     MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: vm.fetchGameRegion(id: "\(vm.match!.region)"))
                         .colorInvert()
@@ -106,16 +106,16 @@ struct AllTeamPlayerView: View {
         if horizontalSizeClass == .compact {
             VStack(alignment: .leading, spacing: 0) {
                 Text("Players").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
-                TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.fetchKill(isRadiant: true), win: match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
-                TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.fetchKill(isRadiant: false), win: !match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
+                TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: Int(match.radiantKill), win: match.radiantWin, maxDamage: fetchMaxDamage(players: match.allPlayers))
+                TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: Int(match.direKill), win: !match.radiantWin, maxDamage: fetchMaxDamage(players: match.allPlayers))
             }
             .frame(minWidth: 300)
         } else {
             VStack(alignment: .leading, spacing: 0) {
                 Text("Players").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
                 HStack {
-                    TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.fetchKill(isRadiant: true), win: match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
-                    TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.fetchKill(isRadiant: false), win: !match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
+                    TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: Int(match.radiantKill), win: match.radiantWin, maxDamage: fetchMaxDamage(players: match.allPlayers))
+                    TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: Int(match.direKill), win: !match.radiantWin, maxDamage: fetchMaxDamage(players: match.allPlayers))
                 }
             }
             .frame(minWidth: 300)
@@ -123,12 +123,8 @@ struct AllTeamPlayerView: View {
     }
     
     func fetchMaxDamage(players: [Player]) -> Int {
-        if players.first!.heroDamage != nil {
-            let sortedPlayers = players.sorted(by: { $0.heroDamage ?? 0 > $1.heroDamage ?? 0})
-            return sortedPlayers.first!.heroDamage!
-        } else {
-            return 0
-        }
+        let sortedPlayers = players.sorted(by: { $0.heroDamage ?? 0 > $1.heroDamage ?? 0})
+        return Int(sortedPlayers.first!.heroDamage)
     }
 }
 
@@ -156,7 +152,7 @@ struct PlayerRowView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                HeroImageView(heroID: player.heroID, type: .icon)
+                HeroImageView(heroID: Int(player.heroID), type: .icon)
                     .frame(width: 35, height: 35)
                     .overlay(HStack {
                         Spacer()
@@ -178,35 +174,34 @@ struct PlayerRowView: View {
                     } else {
                         Text("Anonymous").font(.custom(fontString, size: 15)).bold().lineLimit(1)
                     }
-                    KDAView(kills: player.kills, deaths: player.deaths, assists: player.assists, size: .caption)
+                    KDAView(kills: Int(player.kills), deaths: Int(player.deaths), assists: Int(player.assists), size: .caption)
                 }.frame(minWidth: 0)
                 Spacer()
                 if let item = player.itemNeutral {
-                    ItemView(id: item)
+                    ItemView(id: Int(item))
                         .frame(width: 24, height: 18)
                         .clipShape(Circle())
                         .frame(width: 8)
                 }
                 VStack(spacing: 1) {
                     HStack(spacing: 1) {
-//                        Spacer().frame(width: 18)
-                        ItemView(id: player.item0).frame(width: 24, height: 18)
-                        ItemView(id: player.item1).frame(width: 24, height: 18)
-                        ItemView(id: player.item2).frame(width: 24, height: 18)
+                        ItemView(id: Int(player.item0)).frame(width: 24, height: 18)
+                        ItemView(id: Int(player.item1)).frame(width: 24, height: 18)
+                        ItemView(id: Int(player.item2)).frame(width: 24, height: 18)
                     }
                     HStack(spacing: 1) {
-                        ItemView(id: player.item3).frame(width: 24, height: 18)
-                        ItemView(id: player.item4).frame(width: 24, height: 18)
-                        ItemView(id: player.item5).frame(width: 24, height: 18)
+                        ItemView(id: Int(player.item3)).frame(width: 24, height: 18)
+                        ItemView(id: Int(player.item4)).frame(width: 24, height: 18)
+                        ItemView(id: Int(player.item5)).frame(width: 24, height: 18)
                     }
                 }
                 VStack(spacing: 0) {
-                    Image("scepter_\(player.hasScepter() ? "1" : "0")")
+                    Image("scepter_\(player.hasScepter ? "1" : "0")")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
                         
-                    Image("shard_\(player.hasShard() ? "1" : "0")")
+                    Image("shard_\(player.hasShard ? "1" : "0")")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 12)
@@ -220,7 +215,7 @@ struct PlayerRowView: View {
                         Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
                         Text("\(player.xpm)").foregroundColor(Color(.systemBlue))
                     }.frame(width: 40)
-                    DamageView(maxDamage: maxDamage, playerDamage: player.heroDamage ?? 0)
+                    DamageView(maxDamage: maxDamage, playerDamage: Int(player.heroDamage) ?? 0)
                 }.font(.custom(fontString, size: 10))
             }.frame(height: 50)
         }

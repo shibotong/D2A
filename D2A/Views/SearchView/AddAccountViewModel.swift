@@ -40,7 +40,7 @@ class AddAccountViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .map { text in
                 if !text.isEmpty {
-                    let profiles = WCDBController.shared.fetchUserProfile(userName: text)
+                    let profiles = UserProfile.fetch(text: text)
                     return profiles
                 } else {
                     return []
@@ -51,7 +51,7 @@ class AddAccountViewModel: ObservableObject {
     }
     
     func searchUserInData(searchText: String) {
-        let profiles = WCDBController.shared.fetchUserProfile(userName: searchText)
+        let profiles = UserProfile.fetch(text: searchText)
         self.localProfiles = profiles
     }
     

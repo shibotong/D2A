@@ -12,13 +12,13 @@ class DifferenceGraphViewModel: ObservableObject {
     var goldDiff: [Int]?
     var xpDiff: [Int]?
     
-    init(goldDiff: [Int]?, xpDiff: [Int]?) {
-        self.goldDiff = goldDiff
-        self.xpDiff = xpDiff
-        if goldDiff != nil && xpDiff != nil {
-            self.mins = Double(goldDiff!.count - 1)
-        } else {
-            self.mins = 0
+    init(goldDiff: [NSNumber]?, xpDiff: [NSNumber]?) {
+        guard let goldDiff = goldDiff, let xpDiff = xpDiff else {
+            return
         }
+        
+        self.goldDiff = goldDiff.map { Int(truncating: $0) }
+        self.xpDiff = xpDiff.map { Int(truncating: $0) }
+        self.mins = Double(goldDiff.count - 1)
     }
 }

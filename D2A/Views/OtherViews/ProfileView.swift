@@ -17,7 +17,7 @@ struct ProfileView: View {
                 HStack {
                     ProfileAvartar(image: vm.profileIcon, sideLength: 40, cornerRadius: 5)
                     VStack(alignment: .leading) {
-                        Text(profile.personaname).bold()
+                        Text(profile.personaname ?? "").bold()
                         Text("ID: \(profile.id.description)")
                             .foregroundColor(.secondaryLabel)
                             .font(.caption)

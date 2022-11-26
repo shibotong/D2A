@@ -54,47 +54,4 @@ struct MatchCodable: Decodable {
     }
     
 //    static var sample = loadMatch()!
-    
-    func fetchDuration() -> String {
-        let mins = Int(self.duration / 60)
-        let sec = Int(self.duration - (mins * 60))
-        return "\(mins):\(sec)"
-    }
-    
-    func fetchStartTime() -> String {
-        let date = Date(timeIntervalSince1970: TimeInterval(startTime))
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy,MMM,dd"
-        return formatter.string(from: date)
-    }
-    
-    func fetchPlayers(isRadiant: Bool) -> [PlayerCodable] {
-        return players.filter({ isRadiant ? $0.slot <= 127 :  $0.slot > 127 })
-    }
-    
-    func fetchKill(isRadiant: Bool) -> Int {
-        if isRadiant {
-            if self.radiantKill != nil {
-                return self.radiantKill!
-            } else {
-                let players = self.fetchPlayers(isRadiant: isRadiant)
-                var kills = 0
-                players.forEach { player in
-                    kills += player.kills
-                }
-                return kills
-            }
-        } else {
-            if self.direKill != nil {
-                return self.direKill!
-            } else {
-                let players = self.fetchPlayers(isRadiant: isRadiant)
-                var countKills = 0
-                players.forEach { player in
-                    countKills += player.kills
-                }
-                return countKills
-            }
-        }
-    }
 }

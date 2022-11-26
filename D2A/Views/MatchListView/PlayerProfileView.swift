@@ -46,7 +46,7 @@ struct PlayerProfileView: View {
         if let profile = vm.userProfile {
             buildProfileView(profile: profile)
                 .listStyle(PlainListStyle())
-                .navigationTitle("\(profile.personaname)")
+                .navigationTitle("\(profile.personaname ?? "")")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -107,7 +107,7 @@ struct PlayerProfileView: View {
     }
     
     @ViewBuilder private func buildNameBar(profile: UserProfile) -> some View {
-        Text(profile.name ?? profile.personaname)
+        Text(profile.name ?? profile.personaname ?? "")
             .font(.title2)
             .bold()
             .lineLimit(1)
@@ -120,7 +120,7 @@ struct PlayerProfileView: View {
                 VStack {
                     buildNameBar(profile: profile)
                     if profile.name != nil {
-                        Text(profile.personaname)
+                        Text(profile.personaname ?? "")
                             .font(.subheadline)
                             .lineLimit(1)
                     }
@@ -144,7 +144,7 @@ struct PlayerProfileView: View {
                     VStack(alignment: .leading) {
                         buildNameBar(profile: profile)
                         if profile.name != nil {
-                            Text(profile.personaname)
+                            Text(profile.personaname ?? "")
                                 .font(.subheadline)
                                 .lineLimit(1)
                         }
@@ -163,13 +163,13 @@ struct PlayerProfileView: View {
     
     @ViewBuilder private func buildRank(profile: UserProfile, size: CGFloat) -> some View {
         HStack {
-            if profile.isPlus ?? false {
+            if profile.isPlus {
                 Image("dota_plus")
                     .resizable()
                     .padding(size / 10)
                     .frame(width: size, height: size)
             }
-            RankView(rank: profile.rank, leaderboard: profile.leaderboard)
+            RankView(rank: Int(profile.rank), leaderboard: Int(profile.leaderboard))
                 .frame(width: size, height: size)
         }
     }

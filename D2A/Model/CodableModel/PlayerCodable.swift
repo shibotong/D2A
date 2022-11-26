@@ -44,7 +44,7 @@ struct PlayerCodable: Decodable {
     var heroID: Int
     var level: Int
 
-    var permanentBuffs: [PermanentBuff]?
+    var permanentBuffs: [PermanentBuffCodable]?
 
     var teamFightParticipation: Double?
     var towerDamage: Int?
@@ -99,48 +99,9 @@ struct PlayerCodable: Decodable {
         
         case rank = "rank_tier"
     }
-    
-    func hasScepter() -> Bool {
-        if item0 == 108 {
-            return true
-        } else if item1 == 108 {
-            return true
-        } else if item2 == 108 {
-            return true
-        } else if item3 == 108 {
-            return true
-        } else if item4 == 108 {
-            return true
-        } else if item5 == 108 {
-            return true
-        } else {
-            guard let buffs = permanentBuffs else {
-                return false
-            }
-            for buff in buffs {
-                if buff.buffID == 2 {
-                    return true
-                }
-            }
-            return false
-        }
-    }
-    
-    func hasShard() -> Bool {
-        guard let buffs = permanentBuffs else {
-            return false
-        }
-        for buff in buffs {
-            if buff.buffID == 12 {
-                return true
-            }
-        }
-        return false
-    }
-    
 }
 
-struct PermanentBuff: Decodable {
+struct PermanentBuffCodable: Decodable {
     var buffID: Int
     var stack: Int
     

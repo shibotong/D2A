@@ -17,96 +17,95 @@ struct Provider: IntentTimelineProvider {
     public typealias Entry = SimpleEntry
     
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: UserProfile.empty, subscription: true)
+        SimpleEntry(date: Date(), matches: Array(RecentMatch.sample[0...4]), user: nil, subscription: true)
     }
 
     func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         let user = user(for: configuration)
-//        if DotaEnvironment.shared.registerdID == "" && DotaEnvironment.shared.userIDs.isEmpty {
+        if DotaEnvironment.shared.registerdID == "" && DotaEnvironment.shared.userIDs.isEmpty {
             let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: user, subscription: true)
             completion(entry)
-//            return
-//        }
-//        var firstUser = DotaEnvironment.shared.registerdID
-//        if firstUser == "" {
-//            firstUser = DotaEnvironment.shared.userIDs.first!
-//        }
-//        guard let profile = WCDBController.shared.fetchUserProfile(userid: firstUser) else {
-//            let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: user, subscription: true)
-//            completion(entry)
-//            return
-//        }
-//        Task {
-//            let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(profile.id)")
-//            let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: true)
-//            completion(entry)
-//        }
+            return
+        }
+        var firstUser = DotaEnvironment.shared.registerdID
+        if firstUser == "" {
+            firstUser = DotaEnvironment.shared.userIDs.first!
+        }
+        guard let profile = UserProfile.fetch(id: Int(firstUser) ?? 0) else {
+            let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: user, subscription: true)
+            completion(entry)
+            return
+        }
+        Task {
+            let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(profile.id)")
+            let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: true)
+            completion(entry)
+        }
     }
     
 
     func getTimeline(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
         let currentDate = Date()
         let status = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
-        if status {
-            let selectedProfile = user(for: configuration)
-            if selectedProfile.id != 0 {
-                Task {
-                    let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(selectedProfile.id)")
-                    let entry = SimpleEntry(date: Date(), matches: matches, user: selectedProfile, subscription: status)
-                    
-                    let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
-                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-                    completion(timeline)
-                }
-            } else {
-                // no configuration
-                var defaultUser = ""
-//                if DotaEnvironment.shared.registerdID != "" {
-//                    // check registered user
-//                    defaultUser = DotaEnvironment.shared.registerdID
-//                } else {
-//                    guard let firstUser = DotaEnvironment.shared.userIDs.first else {
-                        let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: selectedProfile, subscription: status)
-                        let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
-                        let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-                        completion(timeline)
-//                        return
-//                    }
-//                    defaultUser = firstUser
-//                }
-//
-//                guard let profile = WCDBController.shared.fetchUserProfile(userid: defaultUser) else {
-//                    let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: selectedProfile, subscription: status)
-//                    let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
-//                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-//                    completion(timeline)
-//                    return
-//                }
-//                Task {
-//                    let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(profile.id)")
-//                    let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: status)
-//                    let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
-//                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-//                    completion(timeline)
-//                }
-            }
-        } else {
-            let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: UserProfile.empty, subscription: status)
+        guard status, let selectedProfile = user(for: configuration) else {
+            let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: nil, subscription: status)
             let timeline = Timeline(entries: [entry], policy: .never)
             completion(timeline)
+            return
+        }
+        if selectedProfile.id != 0 {
+            Task {
+                let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(selectedProfile.id)")
+                let entry = SimpleEntry(date: Date(), matches: matches, user: selectedProfile, subscription: status)
+                
+                let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
+                let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+                completion(timeline)
+            }
+        } else {
+            // no configuration
+            var defaultUser = ""
+            if DotaEnvironment.shared.registerdID != "" {
+                // check registered user
+                defaultUser = DotaEnvironment.shared.registerdID
+            } else {
+                guard let firstUser = DotaEnvironment.shared.userIDs.first else {
+                    let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: selectedProfile, subscription: status)
+                    let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
+                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+                    completion(timeline)
+                    return
+                }
+                defaultUser = firstUser
+            }
+            
+            guard let profile = UserProfile.fetch(id: Int(defaultUser) ?? 0) else {
+                let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: selectedProfile, subscription: status)
+                let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
+                let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+                completion(timeline)
+                return
+            }
+            Task {
+                let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(profile.id)")
+                let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: status)
+                let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
+                let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+                completion(timeline)
+            }
         }
     }
     
-    func user(for configuration: DynamicUserSelectionIntent) -> UserProfile {
-//        if let id = configuration.profile?.identifier {
-//            if let profile = WCDBController.shared.fetchUserProfile(userid: id) {
-//                return profile
-//            } else {
-//                return UserProfile.empty
-//            }
-//        } else {
-            return UserProfile.empty
-//        }
+    func user(for configuration: DynamicUserSelectionIntent) -> UserProfile? {
+        if let id = configuration.profile?.identifier {
+            if let profile = UserProfile.fetch(id: Int(id) ?? 0) {
+                return profile
+            } else {
+                return nil
+            }
+        } else {
+            return nil
+        }
     }
 }
 
@@ -139,12 +138,12 @@ struct RecentMatchesEntryView : View {
     }
     
     @ViewBuilder private func largeView() -> some View {
-        if entry.user.id != 0 && entry.subscription {
+        if let user = entry.user, entry.subscription {
             VStack(spacing: 5) {
-                Link(destination: URL(string: "d2aapp:profile?userid=\(entry.user.id)")!) {
+                Link(destination: URL(string: "d2aapp:profile?userid=\(user.id)")!) {
                     HStack {
-                        NetworkImage(urlString: entry.user.avatarfull).frame(width: 20, height: 20).clipShape(Circle())
-                        Text("\(entry.user.personaname)").font(.custom(fontString, size: 13)).bold()
+                        NetworkImage(urlString: user.avatarfull ?? "").frame(width: 20, height: 20).clipShape(Circle())
+                        Text("\(user.personaname ?? "")").font(.custom(fontString, size: 13)).bold()
                         Spacer()
                     }
                 }
@@ -163,12 +162,12 @@ struct RecentMatchesEntryView : View {
     }
     
     @ViewBuilder private func mediumView() -> some View {
-        if entry.user.id != 0 && entry.subscription {
+        if let user = entry.user, entry.subscription {
             VStack(spacing: 5) {
-                Link(destination: URL(string: "d2aapp:profile?userid=\(entry.user.id)")!) {
+                Link(destination: URL(string: "d2aapp:profile?userid=\(user.id)")!) {
                     HStack {
-                        NetworkImage(urlString: entry.user.avatarfull).frame(width: 20, height: 20).clipShape(Circle())
-                        Text("\(entry.user.personaname)").font(.custom(fontString, size: 13)).bold()
+                        NetworkImage(urlString: user.avatarfull ?? "").frame(width: 20, height: 20).clipShape(Circle())
+                        Text("\(user.personaname ?? "")").font(.custom(fontString, size: 13)).bold()
                         Spacer()
                     }
                 }
@@ -187,13 +186,13 @@ struct RecentMatchesEntryView : View {
     }
     
     @ViewBuilder private func smallView() -> some View {
-        if entry.user.id != 0 && entry.subscription  {
+        if let user = entry.user, entry.subscription  {
             ZStack {
-                NetworkImage(urlString: entry.user.avatarfull).blur(radius: 25)
+                NetworkImage(urlString: user.avatarfull ?? "").blur(radius: 25)
                 VStack {
                     VStack {
-                        NetworkImage(urlString: entry.user.avatarfull).frame(width: 40, height: 40).clipShape(Circle())
-                        Text("\(entry.user.personaname)").font(.custom(fontString, size: 13))
+                        NetworkImage(urlString: user.avatarfull ?? "").frame(width: 40, height: 40).clipShape(Circle())
+                        Text("\(user.personaname ?? "")").font(.custom(fontString, size: 13))
                     }
                     buildMatches()
                 }.padding()
@@ -218,7 +217,7 @@ struct RecentMatchesEntryView : View {
                         buildMatch(match: match)
                     }
                 }
-                .blur(radius: (entry.subscription && entry.user.id != 0) ? 0 : 10)
+                .blur(radius: (entry.subscription && entry.user != nil) ? 0 : 10)
                 .padding(.horizontal)
             case .systemMedium:
                 VStack(spacing: 5) {
@@ -227,51 +226,51 @@ struct RecentMatchesEntryView : View {
                         Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
                             buildMatch(match: match)
                         }
-                        .disabled(entry.subscription && entry.user.id != 0)
+                        .disabled(entry.subscription && entry.user != nil)
                     }
                     Divider()
                     if let match = entry.matches[1] {
                         Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
                             buildMatch(match: match)
                         }
-                        .disabled(entry.subscription && entry.user.id != 0)
+                        .disabled(entry.subscription && entry.user != nil)
                     }
                 }
-                .blur(radius: (entry.subscription && entry.user.id != 0) ? 0 : 10)
+                .blur(radius: (entry.subscription && entry.user != nil) ? 0 : 10)
             case .systemLarge:
                 VStack(spacing: 5) {
                     Divider()
                     if let match = entry.matches.first {
                         Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
                             buildMatch(match: match)
-                        }.disabled(entry.subscription && entry.user.id != 0)
+                        }.disabled(entry.subscription && entry.user != nil)
                     }
                     Divider()
                     if let match = entry.matches[1] {
                         Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
                             buildMatch(match: match)
-                        }.disabled(entry.subscription && entry.user.id != 0)
+                        }.disabled(entry.subscription && entry.user != nil)
                     }
                     Divider()
                     if let match = entry.matches[2] {
                         Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
                             buildMatch(match: match)
-                        }.disabled(entry.subscription && entry.user.id != 0)
+                        }.disabled(entry.subscription && entry.user != nil)
                     }
                     Divider()
                     if let match = entry.matches[3] {
                         Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
                             buildMatch(match: match)
-                        }.disabled(entry.subscription && entry.user.id != 0)
+                        }.disabled(entry.subscription && entry.user != nil)
                     }
                 }
-                .blur(radius: (entry.subscription && entry.user.id != 0) ? 0 : 10)
+                .blur(radius: (entry.subscription && entry.user != nil) ? 0 : 10)
             default:
                 Spacer()
             }
             Text(entry.subscription ? selectUserSubTitle : purchaseSubTitle)
                 .font(.custom(fontString, size: 10))
-                .opacity((entry.subscription && entry.user.id != 0) ? 0 : 1)
+                .opacity((entry.subscription && entry.user != nil) ? 0 : 1)
         }
     }
     

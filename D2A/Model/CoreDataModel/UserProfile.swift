@@ -11,7 +11,7 @@ import CoreData
 extension UserProfile {
     static func create(_ profile: UserProfileCodable) -> UserProfile {
         let viewContext = PersistenceController.shared.container.viewContext
-        let newProfile = Self.fetch(profile.id) ?? UserProfile(context: viewContext)
+        let newProfile = Self.fetch(id: profile.id) ?? UserProfile(context: viewContext)
         newProfile.id = Int32(profile.id)
         newProfile.avatarfull = profile.avatarfull
         
@@ -40,12 +40,43 @@ extension UserProfile {
         return newProfile
     }
     
-    static func fetch(_ id: Int) -> UserProfile? {
+    static func make(_ profile: UserProfileCodable) -> UserProfile {
+        let viewContext = PersistenceController.shared.container.viewContext
+        let newProfile = UserProfile(context: viewContext)
+        newProfile.id = Int32(profile.id)
+        newProfile.avatarfull = profile.avatarfull
+        
+        newProfile.countryCode = profile.countryCode
+        newProfile.personaname = profile.personaname
+        newProfile.profileurl = profile.profileurl
+        newProfile.isPlus = profile.isPlus ?? false
+        if let rank = profile.rank {
+            newProfile.rank = Int16(rank)
+        }
+        if let leaderboard = profile.leaderboard {
+            newProfile.leaderboard = Int16(leaderboard)
+        }
+            
+        newProfile.name = profile.name
+        
+        return newProfile
+    }
+    
+    static func fetch(id: Int) -> UserProfile? {
         let viewContext = PersistenceController.shared.container.viewContext
         let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         fetchResult.predicate = NSPredicate(format: "id == %f", id)
         
         let results = try? viewContext.fetch(fetchResult)
         return results?.first
+    }
+    
+    static func fetch(text: String) -> [UserProfile] {
+        let viewContext = PersistenceController.shared.container.viewContext
+        let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
+        fetchResult.predicate = NSPredicate(format: "name CONTAINS[cd] %@", text)
+        
+        let results = try? viewContext.fetch(fetchResult)
+        return results ?? []
     }
 }
