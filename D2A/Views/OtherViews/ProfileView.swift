@@ -33,13 +33,14 @@ struct ProfileView: View {
                     }
                 }
             } else {
-                EmptyView()
+                ProfileEmptyView()
             }
         } else {
             ProgressView()
         }
     }
 }
+
 struct ProfileEmptyView: View {
     var body: some View {
         HStack {
