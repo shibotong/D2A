@@ -35,6 +35,50 @@
         <relationship name="roles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Role" inverseName="hero" inverseEntity="Role"/>
         <relationship name="talents" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Talent" inverseName="hero" inverseEntity="Talent"/>
     </entity>
+    <entity name="Match" representedClassName="Match" syncable="YES" codeGenerationType="class">
+        <attribute name="direKill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lobbyType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="mode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="radiantKill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="radiantWin" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="region" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="skill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="players" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Player"/>
+    </entity>
+    <entity name="Player" representedClassName="Player" syncable="YES" codeGenerationType="class">
+        <attribute name="accountId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="assists" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="backpack0" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="backpack1" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="backpack2" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="deaths" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="denies" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="gpm" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="heroDamage" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="heroHealing" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="heroID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="item0" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="item1" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="item2" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="item3" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="item4" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="item5" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="itemNeutral" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="kills" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastHits" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="level" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="netWorth" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="personaname" optional="YES" attributeType="String"/>
+        <attribute name="rank" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="slot" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="teamFightParticipation" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="towerDamage" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="xpm" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="Role" representedClassName="Role" syncable="YES" codeGenerationType="class">
         <attribute name="level" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="roleId" optional="YES" attributeType="String"/>
