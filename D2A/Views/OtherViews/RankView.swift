@@ -43,7 +43,7 @@ struct RankView: View {
     
     @ViewBuilder
     private func buildStar(rank: Int, leaderboard: Int?) -> some View {
-        if rank < 80 {
+        if rank < 80 && rank % 10 != 0 {
             Image("rank_star_\(rank % 10)").resizable()
         } else {
             if let leaderboard = leaderboard {
@@ -63,11 +63,15 @@ struct RankView: View {
 
 struct RankView_Previews: PreviewProvider {
     static var previews: some View {
-        RankView(rank: 75, leaderboard: 100)
-            .previewLayout(.fixed(width: 200, height: 200))
-        RankView(rank: 80, leaderboard: 1)
-            .previewLayout(.fixed(width: 100, height: 100))
-        RankView(rank: 80, leaderboard: 1)
-            .previewLayout(.fixed(width: 50, height: 50))
+        Group {
+            RankView(rank: 74, leaderboard: nil)
+                .previewLayout(.fixed(width: 100, height: 100))
+            RankView(rank: 80, leaderboard: 1)
+                .previewLayout(.fixed(width: 100, height: 100))
+            RankView(rank: 80, leaderboard: 10)
+                .previewLayout(.fixed(width: 100, height: 100))
+            RankView(rank: 80, leaderboard: 100)
+                .previewLayout(.fixed(width: 100, height: 100))
+        }
     }
 }
