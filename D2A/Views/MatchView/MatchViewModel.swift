@@ -17,16 +17,11 @@ class MatchViewModel: ObservableObject {
         self.id = matchid
     }
     
-    init() {
-        self.id = "0"
-        self.match = Match.sample
-    }
-    
     func loadMatch() async {
         guard let id = self.id else {
             return
         }
-        if let match = WCDBController.shared.fetchMatch(matchid: id) {
+        if let match = Match.fetch(id: Int(id) ?? 0) {
             self.match = match
         } else {
             await refreshMatch()

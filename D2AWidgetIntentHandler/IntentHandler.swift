@@ -14,11 +14,11 @@ class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
         print("configuring profile")
         let registeredID = DotaEnvironment.shared.registerdID
         let profiles: [Profile] = DotaEnvironment.shared.userIDs.map { id in
-            let profile = UserProfile.fetch(Int(id) ?? 0)
+            let profile = UserProfile.fetch(id: Int(id) ?? 0)
             return Profile(identifier: id, display: "\(profile?.name ?? profile?.personaname ?? "Unknown")", subtitle: "\(id)", image: nil)
         }
         
-        guard let registeredProfile = UserProfile.fetch(Int(registeredID) ?? 0) else {
+        guard let registeredProfile = UserProfile.fetch(id: Int(registeredID) ?? 0) else {
             let collection = INObjectCollection(items: profiles)
             completion(collection, nil)
             return

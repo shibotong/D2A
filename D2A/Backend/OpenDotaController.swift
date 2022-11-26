@@ -16,13 +16,14 @@ class OpenDotaController {
     
     let decodingService = DecodingService()
     
-    func searchUserByText(text: String) async -> [UserProfileCodable] {
+    func searchUserByText(text: String) async -> [UserProfile] {
         let urlString = "\(baseURL)/api/search/?q=\(text)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: urlString)
         do {
             let (data, _) = try await URLSession.shared.data(from: url!)
             let decoder = JSONDecoder()
-            let users = try decoder.decode([UserProfileCodable].self, from: data)
+            let usersCodable = try decoder.decode([UserProfileCodable].self, from: data)
+            let users = usersCodable.map{ UserProfile.make($0) }
             return users
         } catch {
             print(error.localizedDescription)
@@ -43,10 +44,11 @@ class OpenDotaController {
         }
     }
     
-    func loadUserData(userid: String) async -> UserProfileCodable? {
+    func loadUserData(userid: String) async -> UserProfile? {
         do {
             let data = try await decodingService.loadData("/players/\(userid)")
-            let user = try decodingService.decodeUserProfile(data)
+            let userCodable = try decodingService.decodeUserProfile(data)
+            let user = UserProfile.create(userCodable)
             return user
         } catch {
             print(error.localizedDescription)

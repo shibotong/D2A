@@ -92,7 +92,7 @@ struct SidebarRowView: View {
     func makeUI() -> some View {
         if vm.profile != nil {
             Label {
-                Text("\(vm.profile?.name ?? vm.profile!.personaname)").lineLimit(1)
+                Text("\(vm.profile?.name ?? vm.profile?.personaname ?? "")").lineLimit(1)
             } icon: {
                 ProfileAvartar(image: vm.userIcon, sideLength: 30, cornerRadius: 10)
             }

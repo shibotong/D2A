@@ -20,7 +20,7 @@ struct PlayerListRowView: View {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.caption2)
                     }
-                    Text(vm.profile?.name ?? vm.profile?.personaname ?? "nil")
+                    Text(vm.profile?.name ?? vm.profile?.personaname ?? "")
                         .font(.custom(fontString, size: 12))
                         .bold()
                         .lineLimit(1)
@@ -31,7 +31,7 @@ struct PlayerListRowView: View {
                     Image("rank_\((vm.profile?.rank ?? 0) / 10)")
                         .resizable()
                         .frame(width: 15, height: 15)
-                    Text(DataHelper.transferRank(rank: vm.profile?.rank))
+                    Text(DataHelper.transferRank(rank: Int(vm.profile?.rank ?? 0)))
                         .font(.custom(fontString, size: 10))
                         .foregroundColor(Color(uiColor: UIColor.secondaryLabel))
                 }

@@ -26,12 +26,10 @@ struct RecentMatchesWidgetEntryView: View {
     @ViewBuilder
     var body: some View {
         ZStack {
-            NetworkImage(urlString: entry.user.avatarfull).blur(radius: 40)
-            Color.systemBackground.opacity(0.7)
             ZStack {
-                if entry.user.id == 0 {
-                    WidgetOverlayView(widgetType: .chooseProfile)
-                } else {
+                if let user = entry.user {
+                    NetworkImage(urlString: user.avatarfull ?? "").blur(radius: 40)
+                    Color.systemBackground.opacity(0.7)
                     GeometryReader { proxy in
                         let avatarSize = { () -> CGFloat in
                             if self.family == .systemSmall {
@@ -41,15 +39,16 @@ struct RecentMatchesWidgetEntryView: View {
                             }
                         }()
                         VStack(spacing: 0) {
-                            buildProfile(user: entry.user, avatarSize: avatarSize)
+                            buildProfile(user: user, avatarSize: avatarSize)
                                 .frame(height: proxy.size.height / 2)
                             buildMatches(width: proxy.size.width)
                                 .frame(height: proxy.size.height / 2)
                         }
                     }.padding()
+                } else {
+                    WidgetOverlayView(widgetType: .chooseProfile)
                 }
-            }
-            .blur(radius: entry.subscription ? 0 : 15)
+            }.blur(radius: entry.subscription ? 0 : 15)
             if !entry.subscription {
                 WidgetOverlayView(widgetType: .subscription)
             }
@@ -60,27 +59,27 @@ struct RecentMatchesWidgetEntryView: View {
         switch self.family {
         case .systemSmall:
             VStack {
-                NetworkImage(urlString: entry.user.avatarfull)
+                NetworkImage(urlString: user.avatarfull ?? "")
                     .frame(width: avatarSize, height: avatarSize)
                     .clipShape(Circle())
-                Text("\(entry.user.personaname)")
+                Text("\(user.personaname ?? "")")
                     .font(.caption)
             }
         case .systemMedium:
             HStack {
-                NetworkImage(urlString: entry.user.avatarfull)
+                NetworkImage(urlString: user.avatarfull ?? "")
                     .frame(width: avatarSize, height: avatarSize)
                     .clipShape(Circle())
                 VStack(alignment: .leading) {
-                    Text("\(entry.user.personaname)")
+                    Text("\(user.personaname ?? "")")
                         .font(.caption)
-                    Text("\(entry.user.id.description)")
+                    Text("\(user.id.description)")
                         .font(.caption2)
                         .foregroundColor(.secondaryLabel)
                 }
                 
                 Spacer()
-                buildRank(profile: entry.user, size: avatarSize)
+                buildRank(profile: user, size: avatarSize)
             }
         default:
             EmptyView()
@@ -97,7 +96,7 @@ struct RecentMatchesWidgetEntryView: View {
                     .padding(5)
                     .frame(width: size, height: size)
             }
-            RankView(rank: profile.rank, leaderboard: profile.leaderboard)
+            RankView(rank: Int(profile.rank), leaderboard: Int(profile.leaderboard))
                 .frame(width: size, height: size)
         }
     }
@@ -117,8 +116,6 @@ struct RecentMatchesWidgetEntryView: View {
                     .frame(width: matchWidth)
             }
         }
-//        .blur(radius: (entry.subscription && entry.user.id != 0) ? 0 : 10)
-//        .padding(.horizontal)
     }
     
     @ViewBuilder private func buildMatch(match: RecentMatch, width: CGFloat) -> some View {
@@ -143,10 +140,10 @@ struct RecentMatchesWidgetEntryView: View {
 
 struct RecentMatchesWidgetEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
+        RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: nil, subscription: false))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
         
-        RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
+        RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: nil, subscription: false))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
         
     }

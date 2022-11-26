@@ -25,22 +25,20 @@ struct LatestMatchWidgetEntryView: View {
     }
     var body: some View {
         ZStack {
-            if entry.user.id == 0 {
-                WidgetOverlayView(widgetType: .chooseProfile)
-            } else {
+            if let user = entry.user {
                 GeometryReader { proxy in
                     switch self.family {
                     case .systemSmall:
-                        buildBody(cardHeight: proxy.size.height / 3)
+                        buildBody(user: user, cardHeight: proxy.size.height / 3)
                     case .systemMedium, .systemLarge:
                         let avatarHeight: CGFloat = 20
                         VStack(spacing: 5) {
-                            Link(destination: URL(string: "d2aapp:profile?userid=\(entry.user.id)")!) {
+                            Link(destination: URL(string: "d2aapp:profile?userid=\(user.id)")!) {
                                 HStack {
-                                    NetworkImage(urlString: entry.user.avatarfull).frame(width: avatarHeight, height: avatarHeight).clipShape(Circle())
-                                    Text("\(entry.user.personaname)").font(.caption2).bold()
+                                    NetworkImage(urlString: user.avatarfull ?? "").frame(width: avatarHeight, height: avatarHeight).clipShape(Circle())
+                                    Text("\(user.personaname ?? "")").font(.caption2).bold()
                                     Spacer()
-                                    Text("\(entry.user.id.description)")
+                                    Text("\(user.id.description)")
                                         .font(.caption2)
                                         .foregroundColor(.secondaryLabel)
                                 }.padding([.top, .horizontal], 10)
@@ -51,6 +49,8 @@ struct LatestMatchWidgetEntryView: View {
                         EmptyView()
                     }
                 }
+            } else {
+                WidgetOverlayView(widgetType: .chooseProfile)
             }
         }
         .blur(radius: entry.subscription ? 0 : 15)
@@ -66,29 +66,27 @@ struct LatestMatchWidgetEntryView: View {
         let rowHeight = height / CGFloat(matchNumber)
         VStack(spacing: 0) {
             ForEach(matches) { match in
-                    Divider()
-                    Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
-                        MatchListRowView(vm: MatchListRowViewModel(match: match))
-                            .frame(height: rowHeight)
-                    }
-                    .disabled(!entry.subscription && entry.user.id != 0)
-                
+                Divider()
+                Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
+                    MatchListRowView(vm: MatchListRowViewModel(match: match))
+                        .frame(height: rowHeight)
+                }
+                .disabled(!entry.subscription && entry.user != nil)
             }
         }
     }
     
     @ViewBuilder
-    private func buildBody(cardHeight: CGFloat) -> some View {
+    private func buildBody(user: UserProfile, cardHeight: CGFloat) -> some View {
         let match = entry.matches.first!
-        let user = entry.user
         let avatarSize: CGFloat = cardHeight - 5
         let iconSize: CGFloat = cardHeight / 3
         VStack {
             VStack {
-                NetworkImage(urlString: user.avatarfull)
+                NetworkImage(urlString: user.avatarfull ?? "")
                     .frame(width: avatarSize, height: avatarSize)
                     .clipShape(Circle())
-                Text(user.personaname)
+                Text(user.personaname ?? "")
                     .lineLimit(1)
                     .font(.caption)
             }
@@ -153,13 +151,13 @@ struct LatestMatchWidgetEntryView: View {
 
 struct LatestMatchWidgetEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
+        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: nil, subscription: false))
 //            .environment(\.widgetFamily, .systemSmall)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
-        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
+        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: nil, subscription: false))
 //            .environment(\.widgetFamily, .systemMedium)
             .previewContext(WidgetPreviewContext(family: .systemMedium))
-        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
+        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: nil, subscription: false))
 //            .environment(\.widgetFamily, .systemLarge)
             .previewContext(WidgetPreviewContext(family: .systemLarge))
 //            .previewDevice(PreviewDevice.iPodTouch)

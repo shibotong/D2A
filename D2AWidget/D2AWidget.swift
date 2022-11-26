@@ -51,7 +51,7 @@ struct LatestMatchWidget: Widget {
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let matches: [RecentMatch]
-    let user: UserProfile
+    let user: UserProfile?
     let subscription: Bool
 }
 

@@ -28,7 +28,7 @@ class SidebarRowViewModel: ObservableObject {
     
     func loadProfile() {
         if self.profile == nil {
-            if let profile = WCDBController.shared.fetchUserProfile(userid: userid) {
+            if let profile = UserProfile.fetch(Int(userid) ?? 0) {
                 Task {
                     await self.setProfile(profile)
                 }
@@ -54,7 +54,7 @@ class SidebarRowViewModel: ObservableObject {
         guard let profile = self.profile else {
             return
         }
-        guard let imageLink = URL(string: profile.avatarfull) else {
+        guard let imageLink = URL(string: profile.avatarfull ?? "") else {
             return
         }
         let (imageData, _) = try await URLSession.shared.data(from: imageLink)
