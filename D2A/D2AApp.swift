@@ -28,7 +28,7 @@ struct D2AApp: App {
                     guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
                         let params = components.queryItems else {
                             print("Invalid URL or album path missing")
-                            return //false
+                            return
                     }
                     print(params)
                     if let purchase = params.first(where: { $0.name == "purchase" })?.value {
