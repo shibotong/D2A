@@ -190,14 +190,14 @@ func loadAbilities() async -> [String: Ability] {
     }
 }
 
-func loadMatch() -> Match? {
+func loadMatch() -> MatchCodable? {
     guard let data = loadFile(filename: "sampleMatch") else {
         return nil
     }
 
     do {
         let decoder = JSONDecoder()
-        let jsonData = try decoder.decode(Match.self, from: data)
+        let jsonData = try decoder.decode(MatchCodable.self, from: data)
         return jsonData
     } catch {
         print("Cannot parse json data")

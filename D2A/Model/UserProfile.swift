@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import WCDBSwift
 
-struct UserProfile: TableCodable, Identifiable {
+struct UserProfile: Decodable, Identifiable {
 
     var id: Int
     var avatarfull: String
@@ -24,9 +23,7 @@ struct UserProfile: TableCodable, Identifiable {
     static let empty = UserProfile(id: 0, avatarfull: "", lastLogin: nil, countryCode: nil, personaname: "", isPlus: false, profileurl: "", rank: nil, leaderboard: nil)
     static let sample: UserProfile = loadProfile()!
 
-    enum CodingKeys: String, CodingTableKey {
-        typealias Root = UserProfile
-        static let objectRelationalMapping = TableBinding(CodingKeys.self)
+    enum CodingKeys: String, CodingKey {
         case id = "account_id"
         case avatarfull
         case lastLogin = "last_login"

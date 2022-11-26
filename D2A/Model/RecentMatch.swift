@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import WCDBSwift
 
-class RecentMatch: TableCodable, Identifiable {
+class RecentMatch: Decodable, Identifiable {
     var id: Int
     var duration: Int
     var mode: Int
@@ -25,9 +24,7 @@ class RecentMatch: TableCodable, Identifiable {
     
     var playerId: Int?
     static let sample = loadRecentMatches()!
-    enum CodingKeys: String, CodingTableKey {
-        typealias Root = RecentMatch
-        static let objectRelationalMapping = TableBinding(CodingKeys.self)
+    enum CodingKeys: String, CodingKey {
         case id = "match_id"
         case duration
         case mode = "game_mode"

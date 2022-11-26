@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import WCDBSwift
 
-struct Match: TableCodable {
+struct MatchCodable: Decodable {
     var id: Int
     var direKill: Int?
     var duration: Int
@@ -27,15 +26,13 @@ struct Match: TableCodable {
     var goldDiff: [Int]?
     var xpDiff: [Int]?
     
-    var players: [Player] = []
+    var players: [PlayerCodable] = []
     
     static let sample = loadMatch()!
     
-    static let emptyMatch = Match(id: 0, duration: 0, mode: 0, lobbyType: 0, radiantWin: false, startTime: 0, direBarracks: 0, radiantBarracks: 0, direTowers: 0, radiantTowers: 0, region: 0)
+    static let emptyMatch = MatchCodable(id: 0, duration: 0, mode: 0, lobbyType: 0, radiantWin: false, startTime: 0, direBarracks: 0, radiantBarracks: 0, direTowers: 0, radiantTowers: 0, region: 0)
     
-    enum CodingKeys: String, CodingTableKey {
-        typealias Root = Match
-        static let objectRelationalMapping = TableBinding(CodingKeys.self)
+    enum CodingKeys: String, CodingKey {
         case id = "match_id"
         case direKill = "dire_score"
         case duration
@@ -71,7 +68,7 @@ struct Match: TableCodable {
         return formatter.string(from: date)
     }
     
-    func fetchPlayers(isRadiant: Bool) -> [Player] {
+    func fetchPlayers(isRadiant: Bool) -> [PlayerCodable] {
         return players.filter({ isRadiant ? $0.slot <= 127 :  $0.slot > 127 })
     }
     
@@ -102,7 +99,7 @@ struct Match: TableCodable {
     }
 }
 
-struct Player: Codable, TableCodable {
+struct PlayerCodable: Decodable {
     var accountId: Int?
     var slot: Int
     var abilityUpgrade: [Int]? //An array describing how abilities were upgraded
@@ -150,9 +147,7 @@ struct Player: Codable, TableCodable {
     
     var rank: Int?
     
-    enum CodingKeys: String, CodingTableKey {
-        typealias Root = Player
-        static let objectRelationalMapping = TableBinding(CodingKeys.self)
+    enum CodingKeys: String, CodingKey {
         case accountId = "account_id"
         case slot = "player_slot"
         case abilityUpgrade = "ability_upgrades_arr"
@@ -237,13 +232,11 @@ struct Player: Codable, TableCodable {
     
 }
 
-struct PermanentBuff: TableCodable {
+struct PermanentBuff: Decodable {
     var buffID: Int
     var stack: Int
     
-    enum CodingKeys: String, CodingTableKey {
-        typealias Root = PermanentBuff
-        static let objectRelationalMapping = TableBinding(CodingKeys.self)
+    enum CodingKeys: String, CodingKey {
         case buffID = "permanent_buff"
         case stack = "stack_count"
     }
