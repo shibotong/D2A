@@ -35,9 +35,9 @@ struct LeagueDetailView: View {
                         if let nodesOptional = nodeGroup.nodes, let nodes = nodesOptional.compactMap { $0 }, nodes.count != 0 {
                             Section {
                                 ForEach(nodes, id: \.id) { node in
-                                    NavigationLink(destination: SeriesDetailView(matches: node.matches?.compactMap {$0})) {
+//                                    NavigationLink(destination: SeriesDetailView(matches: node.matches?.compactMap {$0})) {
                                         SeriesItem(series: node)
-                                    }
+//                                    }
                                 }
                             } header: {
                                 Text(nodeGroup.name ?? " ")
@@ -68,6 +68,7 @@ struct LeagueDetailView: View {
                 }
             }
         }
+        .navigationTitle(league.displayName ?? "")
         .navigationBarTitleDisplayMode(.inline)
     }
     
