@@ -27,9 +27,15 @@ struct PersistenceController {
     let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
+        let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME)!
+        let storeURL = containerURL.appendingPathComponent("D2AModel.sqlite")
+        let description = NSPersistentStoreDescription(url: storeURL)
+        
         container = NSPersistentContainer(name: "D2AModel")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+        } else {
+            container.persistentStoreDescriptions = [description]
         }
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = container.viewContext
