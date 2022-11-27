@@ -90,13 +90,12 @@ struct SidebarRowView: View {
     
     @ViewBuilder
     func makeUI() -> some View {
-        if vm.profile != nil {
+        if let profile = vm.profile {
             Label {
-                Text("\(vm.profile?.name ?? vm.profile?.personaname ?? "")").lineLimit(1)
+                Text("\(profile.name ?? profile.personaname ?? "")").lineLimit(1)
             } icon: {
-                ProfileAvartar(image: vm.userIcon, sideLength: 30, cornerRadius: 10)
+                ProfileAvartar(profile: profile, sideLength: 30, cornerRadius: 10)
             }
-            
         } else {
             ProgressView()
         }

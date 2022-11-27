@@ -11,7 +11,7 @@ import UIKit
 class ProfileViewModel: ObservableObject {
     @Published var isloading = false
 
-    @Published var profileIcon: UIImage?
+    @Published var urlString: String?
     
     @Published var personaname: String?
 
@@ -33,17 +33,13 @@ class ProfileViewModel: ObservableObject {
     init(profile: UserProfile) {
         self.personaname = profile.personaname ?? ""
         self.userid = profile.id.description
-        Task {
-            try? await self.loadProfileImage(url: profile.avatarfull)
-        }
+        self.urlString = profile.avatarfull
     }
     
     init(profile: UserProfileCodable) {
         self.personaname = profile.personaname
         self.userid = profile.id.description
-        Task {
-            try? await self.loadProfileImage(url: profile.avatarfull)
-        }
+        self.urlString = profile.avatarfull
     }
     
     func loadProfile() async {
@@ -52,31 +48,15 @@ class ProfileViewModel: ObservableObject {
             guard let profile = await OpenDotaController.shared.loadUserData(userid: userid) else {
                 return
             }
-            await self.setProfile(name: profile.personaname)
-            try? await self.loadProfileImage(url: profile.avatarfull)
+            await self.setProfile(name: profile.personaname, image: profile.avatarfull)
             return
         }
-        await setProfile(name: profile.personaname)
-        try? await loadProfileImage(url: profile.avatarfull)
-    }
-
-    private func loadProfileImage(url: String?) async throws {
-        guard let imageLink = URL(string: url ?? "") else {
-            return
-        }
-        let (imageData, _) = try await URLSession.shared.data(from: imageLink)
-        guard let profileImage = UIImage(data: imageData) else {
-            return
-        }
-        await self.setImage(profileImage)
+        await setProfile(name: profile.personaname, image: profile.avatarfull)
     }
     
-    @MainActor private func setImage(_ image: UIImage) {
-        self.profileIcon = image
-    }
-    
-    @MainActor private func setProfile(name: String?) {
+    @MainActor private func setProfile(name: String?, image: String?) {
         self.personaname = name ?? ""
+        self.urlString = image
         self.isloading = false
     }
 }
