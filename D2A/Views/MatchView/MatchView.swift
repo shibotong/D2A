@@ -71,7 +71,7 @@ struct MatchView: View {
         VStack(spacing: 30) {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 15) {
-                    MatchStatCardView(icon: "calendar", title: "Start Time", label: match.startTimeString ?? "")
+                    MatchStatCardView(icon: "calendar", title: "Start Time", label: match.startTimeString)
                         .frame(width: 140)
                     MatchStatCardView(icon: "clock", title: "Duration", label: "\(match.durationString)").colorInvert()
                         .frame(width: 140)
