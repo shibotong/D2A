@@ -17,8 +17,6 @@ class PlayerProfileViewModel: ObservableObject {
     @Published var userid: String?
     @Published var userProfile: UserProfile?
     @Published var progress: Double = 0.0
-
-    @Published var userIcon: UIImage?
     
     init(userid: String?) {
         self.userid = userid
@@ -35,7 +33,6 @@ class PlayerProfileViewModel: ObservableObject {
         self.isLoading = true
         Task {
             await self.refreshData(refreshAll: true)
-            try? await self.loadUserIcon()
         }
     }
     
@@ -69,24 +66,6 @@ class PlayerProfileViewModel: ObservableObject {
         }
         let newProfile = UserProfile.create(profile)
         await setUserProfile(profile: newProfile)
-    }
-
-    private func loadUserIcon() async throws {
-        guard let profile = self.userProfile else {
-            return
-        }
-        guard let imageLink = URL(string: profile.avatarfull ?? "") else {
-            return
-        }
-        let (imageData, _) = try await URLSession.shared.data(from: imageLink)
-        guard let profileImage = UIImage(data: imageData) else {
-            return
-        }
-        await self.setImage(profileImage)
-    }
-
-    @MainActor private func setImage(_ image: UIImage) {
-        self.userIcon = image
     }
     
     @MainActor private func addMatches(_ matches: [RecentMatch]) {

@@ -15,7 +15,7 @@ struct ProfileView: View {
         if !vm.isloading {
             if let personaname = vm.personaname {
                 HStack {
-                    ProfileAvartar(image: vm.profileIcon, sideLength: 40, cornerRadius: 5)
+                    ProfileAvartar(userid: Int(vm.userid)!, urlString: vm.urlString ?? "", sideLength: 40, cornerRadius: 5)
                     VStack(alignment: .leading) {
                         Text(personaname).bold()
                         Text("ID: \(vm.userid.description)")

@@ -256,15 +256,24 @@ struct PlayerRowView: View {
 
 struct ItemView: View {
     @EnvironmentObject var heroData: HeroDatabase
+    @State var image: UIImage?
     var id: Int
+    
+    init(id: Int) {
+        self.id = id
+    }
+    
     var body: some View {
-
-        AsyncImage(url: computeURL()) { image in
-            image.resizable().renderingMode(.original)
-        } placeholder: {
-            Image("empty_item").resizable()
+        ZStack {
+            if let image = image {
+                Image(uiImage: image).resizable()
+            } else {
+                Image("empty_item").resizable()
+            }
         }
-        
+        .task {
+            await loadImage()
+        }
     }
     
     private func computeURL() -> URL? {
@@ -272,8 +281,12 @@ struct ItemView: View {
             return nil
         }
         let url = URL(string: "https://api.opendota.com\(item.img)")
-        //        let url = URL(string: "https://steamcdn-a.akamaihd.net\(item.img)")
         return url
+    }
+    
+    private func loadImage() async {
+        let image = try? await ImageCache.shared.fetchImage(type: .item, id: id, url: computeURL())
+        self.image = image
     }
 }
 

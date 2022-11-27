@@ -58,9 +58,9 @@ struct PlayerProfileView: View {
 //                        }
                     }
                 })
-                .sheet(isPresented: $isSharePresented, content: {
-                    ShareActivityView(activityItems: [SharingLink(title: "\(profile.personaname ?? "")", link: "d2aapp://profile?userid=\(profile.id.description)", image: vm.userIcon!)])
-                })
+//                .sheet(isPresented: $isSharePresented, content: {
+//                    ShareActivityView(activityItems: [SharingLink(title: "\(profile.personaname ?? "")", link: "d2aapp://profile?userid=\(profile.id.description)", image: vm.userIcon)])
+//                })
                 .overlay {
                     if vm.isLoading {
                         ProgressView()
@@ -116,7 +116,7 @@ struct PlayerProfileView: View {
     @ViewBuilder private func buildCompactTopBar(profile: UserProfile) -> some View {
         VStack {
             VStack {
-                ProfileAvartar(image: vm.userIcon, sideLength: 150, cornerRadius: 20)
+                ProfileAvartar(profile: profile, sideLength: 150, cornerRadius: 20)
                 VStack {
                     buildNameBar(profile: profile)
                     if profile.name != nil {
@@ -137,7 +137,7 @@ struct PlayerProfileView: View {
     
     @ViewBuilder private func buildRegularTopBar(profile: UserProfile) -> some View {
         HStack(spacing: 30) {
-            ProfileAvartar(image: vm.userIcon, sideLength: 250, cornerRadius: 20)
+            ProfileAvartar(profile: profile, sideLength: 250, cornerRadius: 20)
             VStack {
                 Spacer()
                 HStack {

@@ -12,50 +12,51 @@ struct PlayerListRowView: View {
     @EnvironmentObject var env: DotaEnvironment
     var body: some View {
         ZStack {
-            VStack(spacing: 0) {
-                ProfileAvartar(image: vm.userIcon, sideLength: 50, cornerRadius: 25)
-                Spacer().frame(height: 10)
-                HStack(spacing: 0) {
-                    if vm.profile?.name != nil {
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.caption2)
+            if let profile = vm.profile {
+                VStack(spacing: 0) {
+                    ProfileAvartar(profile: profile, sideLength: 50, cornerRadius: 25)
+                    Spacer().frame(height: 10)
+                    HStack(spacing: 0) {
+                        if profile.name != nil {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.caption2)
+                        }
+                        Text(profile.name ?? profile.personaname ?? "")
+                            .font(.custom(fontString, size: 12))
+                            .bold()
+                            .lineLimit(1)
+                            .foregroundColor(Color(UIColor.label))
                     }
-                    Text(vm.profile?.name ?? vm.profile?.personaname ?? "")
-                        .font(.custom(fontString, size: 12))
-                        .bold()
-                        .lineLimit(1)
-                        .foregroundColor(Color(UIColor.label))
-                }
                     
-                HStack(spacing: 0) {
-                    Image("rank_\((vm.profile?.rank ?? 0) / 10)")
-                        .resizable()
-                        .frame(width: 15, height: 15)
-                    Text(DataHelper.transferRank(rank: Int(vm.profile?.rank ?? 0)))
-                        .font(.custom(fontString, size: 10))
-                        .foregroundColor(Color(uiColor: UIColor.secondaryLabel))
-                }
-                Text("\(vm.userid)")
-                    .font(.custom(fontString, size: 9))
-                    .foregroundColor(Color(uiColor: UIColor.tertiaryLabel))
-            }
-            .padding()
-            HStack {
-                Spacer()
-                VStack {
-                    Button {
-                        env.delete(userID: vm.userid)
-                    } label: {
-                        Image(systemName: "star.fill")
-                            .foregroundColor(.primaryDota)
-                            .font(.caption)
+                    HStack(spacing: 0) {
+                        Image("rank_\((profile.rank) / 10)")
+                            .resizable()
+                            .frame(width: 15, height: 15)
+                        Text(DataHelper.transferRank(rank: Int(vm.profile?.rank ?? 0)))
+                            .font(.custom(fontString, size: 10))
+                            .foregroundColor(Color(uiColor: UIColor.secondaryLabel))
                     }
-                    Spacer()
+                    Text("\(vm.userid)")
+                        .font(.custom(fontString, size: 9))
+                        .foregroundColor(Color(uiColor: UIColor.tertiaryLabel))
                 }
+                .padding()
+                HStack {
+                    Spacer()
+                    VStack {
+                        Button {
+                            env.delete(userID: vm.userid)
+                        } label: {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.primaryDota)
+                                .font(.caption)
+                        }
+                        Spacer()
+                    }
+                }
+                .padding(6)
             }
-            .padding(6)
         }
-        
         .background(Color(UIColor.secondarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 15))
         .onAppear {

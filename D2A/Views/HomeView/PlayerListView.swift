@@ -123,63 +123,65 @@ struct RegisteredPlayerView: View {
     @EnvironmentObject var env: DotaEnvironment
     var body: some View {
         ZStack {
-            VStack(spacing: 10) {
-                NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: vm.userid))) {
-                    HStack {
-                        ProfileAvartar(image: vm.userIcon, sideLength: 70, cornerRadius: 25)
-                        VStack(alignment: .leading, spacing: 0) {
-                            Text(vm.profile?.personaname ?? "").font(.custom(fontString, size: 20)).bold().lineLimit(1).foregroundColor(.label)
-                            Text("\(vm.profile?.id.description ?? "")")
-                                .font(.custom(fontString, size: 13))
-                                .foregroundColor(Color.secondaryLabel)
-                        }
-                        
-                        Spacer()
-                        RankView(rank: Int(vm.profile?.rank ?? 0), leaderboard: Int(vm.profile?.leaderboard ?? 0))
-                            .frame(width: 70, height: 70)
-                            .padding(.trailing)
-                        
-                    }
-                }
-                if let matches = vm.recentMatches {
-                    ScrollView(.horizontal, showsIndicators: false) {
+            if let profile = vm.profile {
+                VStack(spacing: 10) {
+                    NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: vm.userid))) {
                         HStack {
-                            ForEach(matches) { match in
-                                VStack {
-                                    HeroImageView(heroID: match.heroID, type: .icon)
-                                    buildWL(win: match.isPlayerWin())
+                            ProfileAvartar(profile: profile, sideLength: 70, cornerRadius: 25)
+                            VStack(alignment: .leading, spacing: 0) {
+                                Text(profile.personaname ?? "").font(.custom(fontString, size: 20)).bold().lineLimit(1).foregroundColor(.label)
+                                Text("\(profile.id.description)")
+                                    .font(.custom(fontString, size: 13))
+                                    .foregroundColor(Color.secondaryLabel)
+                            }
+                            
+                            Spacer()
+                            RankView(rank: Int(profile.rank), leaderboard: Int(profile.leaderboard))
+                                .frame(width: 70, height: 70)
+                                .padding(.trailing)
+                            
+                        }
+                    }
+                    if let matches = vm.recentMatches {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(matches) { match in
+                                    VStack {
+                                        HeroImageView(heroID: match.heroID, type: .icon)
+                                        buildWL(win: match.isPlayerWin())
+                                    }
                                 }
                             }
+                            .padding()
                         }
-                        .padding()
+                        .frame(height: 80)
+                        .background(Color.secondarySystemBackground)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                    } else {
+                        HStack {
+                            Spacer()
+                            ProgressView()
+                            Spacer()
+                        }
+                        .frame(height: 80)
+                        .background(Color.secondarySystemBackground)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
                     }
-                    .frame(height: 80)
-                    .background(Color.secondarySystemBackground)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                } else {
-                    HStack {
-                        Spacer()
-                        ProgressView()
-                        Spacer()
-                    }
-                    .frame(height: 80)
-                    .background(Color.secondarySystemBackground)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
                 }
-            }
-            .padding(15)
-            HStack {
-                Spacer()
-                VStack {
-                    Button {
-                        env.deRegisterUser(userid: vm.userid)
-                    } label: {
-                        Image(systemName: "xmark")
-                            .foregroundColor(.label)
-                    }
+                .padding(15)
+                HStack {
                     Spacer()
-                }
-            }.padding()
+                    VStack {
+                        Button {
+                            env.deRegisterUser(userid: vm.userid)
+                        } label: {
+                            Image(systemName: "xmark")
+                                .foregroundColor(.label)
+                        }
+                        Spacer()
+                    }
+                }.padding()
+            }
         }
     }
     @ViewBuilder private func buildWL(win: Bool, size: CGFloat = 15) -> some View {
