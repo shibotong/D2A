@@ -136,7 +136,6 @@
 		327A7B8227152387001F964D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1226C38822002D427D /* Assets.xcassets */; };
 		327A7B8327152388001F964D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1226C38822002D427D /* Assets.xcassets */; };
 		327B875A284D96A600BBE1F8 /* PlayerListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B8759284D96A600BBE1F8 /* PlayerListRowView.swift */; };
-		327B875E284D9F5300BBE1F8 /* DataTransferTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B875D284D9F5300BBE1F8 /* DataTransferTestCase.swift */; };
 		327B8760284D9FA100BBE1F8 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B875F284D9FA100BBE1F8 /* DataHelper.swift */; };
 		327B8761284D9FA100BBE1F8 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B875F284D9FA100BBE1F8 /* DataHelper.swift */; };
 		327B8762284D9FA100BBE1F8 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B875F284D9FA100BBE1F8 /* DataHelper.swift */; };
@@ -425,7 +424,6 @@
 		327772B026D9D71F000A0A97 /* LobbyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyType.swift; sourceTree = "<group>"; };
 		327772B226D9D735000A0A97 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
 		327B8759284D96A600BBE1F8 /* PlayerListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListRowView.swift; sourceTree = "<group>"; };
-		327B875D284D9F5300BBE1F8 /* DataTransferTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferTestCase.swift; sourceTree = "<group>"; };
 		327B875F284D9FA100BBE1F8 /* DataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
 		327B87682850D92A00BBE1F8 /* sampleHeroAbility.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleHeroAbility.json; sourceTree = "<group>"; };
 		327B87772852263300BBE1F8 /* HeroListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListViewModel.swift; sourceTree = "<group>"; };
@@ -639,7 +637,6 @@
 			children = (
 				328957A227F660D400BA9847 /* DecodingTestCase.swift */,
 				3261C90828306FDE00D47CDA /* MetadataTestCase.swift */,
-				327B875D284D9F5300BBE1F8 /* DataTransferTestCase.swift */,
 			);
 			path = D2ATests;
 			sourceTree = "<group>";
@@ -1260,7 +1257,6 @@
 			files = (
 				3261C90928306FDE00D47CDA /* MetadataTestCase.swift in Sources */,
 				327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
-				327B875E284D9F5300BBE1F8 /* DataTransferTestCase.swift in Sources */,
 				328957A327F660D400BA9847 /* DecodingTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
