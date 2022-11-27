@@ -12,7 +12,7 @@ struct MatchView: View {
     @EnvironmentObject var data: HeroDatabase
     @Environment(\.managedObjectContext) var context
     @FetchRequest var match: FetchedResults<Match>
-    
+    @State var selectPlayer: Player?
     var matchid: String
     
     init(matchid: String) {
@@ -22,6 +22,10 @@ struct MatchView: View {
     
     var body: some View {
         buildStack()
+            .sheet(item: $selectPlayer, content: { player in
+                PlayerDetailView(player: player)
+                    .environmentObject(env)
+            })
     }
     
     @ViewBuilder private func buildStack() -> some View {
@@ -30,7 +34,7 @@ struct MatchView: View {
                 buildMatchData(match: match)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
-                AllTeamPlayerView(match: match, players: match.allPlayers)
+                AllTeamPlayerView(match: match, players: match.allPlayers, selectedPlayer: $selectPlayer)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
                 AnalysisView(vm: AnalysisViewModel(player: match.allPlayers))
@@ -120,23 +124,43 @@ struct MatchView_Previews: PreviewProvider {
 struct AllTeamPlayerView: View {
     var match: Match
     var players: [Player]
-    @State var selectedPlayer: Player?
+    @Binding var selectedPlayer: Player?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
         if horizontalSizeClass == .compact {
             VStack(alignment: .leading, spacing: 0) {
                 Text("Players").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
-                TeamView(players: fetchPlayers(isRadiant: true), isRadiant: true, score: Int(match.radiantKill), win: match.radiantWin, maxDamage: fetchMaxDamage(players: match.allPlayers))
-                TeamView(players: fetchPlayers(isRadiant: false), isRadiant: false, score: Int(match.direKill), win: !match.radiantWin, maxDamage: fetchMaxDamage(players: match.allPlayers))
+                TeamView(players: fetchPlayers(isRadiant: true),
+                         isRadiant: true,
+                         score: Int(match.radiantKill),
+                         win: match.radiantWin,
+                         maxDamage: fetchMaxDamage(players: match.allPlayers),
+                         selectedPlayer: $selectedPlayer)
+                TeamView(players: fetchPlayers(isRadiant: false),
+                         isRadiant: false,
+                         score: Int(match.direKill),
+                         win: !match.radiantWin,
+                         maxDamage: fetchMaxDamage(players: match.allPlayers),
+                         selectedPlayer: $selectedPlayer)
             }
             .frame(minWidth: 300)
         } else {
             VStack(alignment: .leading, spacing: 0) {
                 Text("Players").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
                 HStack {
-                    TeamView(players: fetchPlayers(isRadiant: true), isRadiant: true, score: Int(match.radiantKill), win: match.radiantWin, maxDamage: fetchMaxDamage(players: match.allPlayers))
-                    TeamView(players: fetchPlayers(isRadiant: false), isRadiant: false, score: Int(match.direKill), win: !match.radiantWin, maxDamage: fetchMaxDamage(players: match.allPlayers))
+                    TeamView(players: fetchPlayers(isRadiant: true),
+                             isRadiant: true,
+                             score: Int(match.radiantKill),
+                             win: match.radiantWin,
+                             maxDamage: fetchMaxDamage(players: match.allPlayers),
+                             selectedPlayer: $selectedPlayer)
+                    TeamView(players: fetchPlayers(isRadiant: false),
+                             isRadiant: false,
+                             score: Int(match.direKill),
+                             win: !match.radiantWin,
+                             maxDamage: fetchMaxDamage(players: match.allPlayers),
+                             selectedPlayer: $selectedPlayer)
                 }
             }
             .frame(minWidth: 300)
@@ -172,7 +196,6 @@ struct PlayerRowView: View {
     var isRadiant: Bool
     @EnvironmentObject var env: DotaEnvironment
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @State var showPlayer = false
     var maxDamage: Int
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -243,13 +266,6 @@ struct PlayerRowView: View {
                     DamageView(maxDamage: maxDamage, playerDamage: Int(player.heroDamage))
                 }.font(.custom(fontString, size: 10))
             }.frame(height: 50)
-        }
-        .onTapGesture {
-            showPlayer.toggle()
-        }
-        .sheet(isPresented: $showPlayer) {
-            PlayerDetailView(player: player)
-                .environmentObject(env)
         }
     }
 }
@@ -332,6 +348,7 @@ struct TeamView: View {
     var score: Int
     var win: Bool
     var maxDamage: Int
+    @Binding var selectedPlayer: Player?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
@@ -340,6 +357,9 @@ struct TeamView: View {
             ForEach(players, id: \.heroID) { player in
                 PlayerRowView(player: player, isRadiant: isRadiant, maxDamage: maxDamage)
                     .padding(.horizontal)
+                    .onTapGesture {
+                        selectedPlayer = player
+                    }
             }
         }
         
