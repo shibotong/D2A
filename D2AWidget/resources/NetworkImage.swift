@@ -9,21 +9,17 @@ import SwiftUI
 
 struct NetworkImage: View {
     let urlString: String
-    let contentMode: ContentMode
     
-    init(urlString: String, contentMode: ContentMode = .fit) {
+    init(urlString: String) {
         self.urlString = urlString
-        self.contentMode = contentMode
     }
     
     var body: some View {
         Group {
             if let url = URL(string: urlString), let imageData = try? Data(contentsOf: url),
                let uiImage = UIImage(data: imageData) {
-                
                 Image(uiImage: uiImage)
                     .resizable()
-                    .aspectRatio(contentMode: contentMode)
             }
             else {
                 Image("profile")
@@ -31,5 +27,4 @@ struct NetworkImage: View {
             }
         }
     }
-    
 }
