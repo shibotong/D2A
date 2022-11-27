@@ -56,7 +56,7 @@ extension UserProfile {
     static func fetch(text: String) -> [UserProfile] {
         let viewContext = PersistenceController.shared.container.viewContext
         let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
-        fetchResult.predicate = NSPredicate(format: "name CONTAINS[cd] %@", text)
+        fetchResult.predicate = NSPredicate(format: "personaname CONTAINS[cd] %@", text)
         
         let results = try? viewContext.fetch(fetchResult)
         return results ?? []

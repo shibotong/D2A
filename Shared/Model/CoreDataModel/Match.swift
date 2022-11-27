@@ -77,8 +77,8 @@ extension Match {
         return Int(duration).toDuration
     }
     
-    var startTimeString: LocalizedStringKey? {
-        return startTime?.toTime
+    var startTimeString: LocalizedStringKey {
+        return startTime?.toTime ?? ""
     }
     
     func fetchPlayers(isRadiant: Bool) -> [Player] {
