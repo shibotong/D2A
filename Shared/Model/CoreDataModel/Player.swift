@@ -9,14 +9,15 @@ import Foundation
 import CoreData
 
 extension Player {
-    static func create(_ player: PlayerCodable) -> Player {
+    static func create(_ player: PlayerCodable) throws -> Player {
         let viewContext = PersistenceController.shared.container.viewContext
         let newPlayer = Player(context: viewContext)
-        newPlayer.update(player)
+        try newPlayer.update(player)
         return newPlayer
     }
     
-    func update(_ player: PlayerCodable) {
+    func update(_ player: PlayerCodable) throws {
+        let viewContext = PersistenceController.shared.container.viewContext
         if let accountId = player.accountId {
             self.accountId = Int64(accountId)
         }
@@ -89,6 +90,7 @@ extension Player {
                 }
             }
         }
+        try viewContext.save()
     }
     
     var hasScepter: Bool {
