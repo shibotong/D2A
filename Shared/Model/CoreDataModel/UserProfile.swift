@@ -10,34 +10,16 @@ import CoreData
 import UIKit
 
 extension UserProfile {
-    static func create(_ profile: UserProfileCodable) -> UserProfile {
+    static func create(_ profile: UserProfileCodable) async -> UserProfile? {
         let viewContext = PersistenceController.shared.container.viewContext
         let newProfile = Self.fetch(id: profile.id) ?? UserProfile(context: viewContext)
-        newProfile.id = Int32(profile.id)
-        newProfile.avatarfull = profile.avatarfull
-        
-        newProfile.countryCode = profile.countryCode
-        newProfile.personaname = profile.personaname
-        newProfile.profileurl = profile.profileurl
-        newProfile.isPlus = profile.isPlus ?? false
-        if let rank = profile.rank {
-            newProfile.rank = Int16(rank)
-        }
-        if let leaderboard = profile.leaderboard {
-            newProfile.leaderboard = Int16(leaderboard)
-        }
-            
-        newProfile.name = profile.name
-        
         do {
-            try viewContext.save()
+            try await newProfile.update(profile)
         } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            print(error)
+            return nil
         }
-        print("save profile successfully \(newProfile.id)")
+        print("save user success \(newProfile.personaname)")
         return newProfile
     }
     
@@ -68,5 +50,28 @@ extension UserProfile {
         }
         let viewContext = PersistenceController.shared.container.viewContext
         viewContext.delete(user)
+    }
+    
+    func update(_ profile: UserProfileCodable) async throws {
+        let viewContext = PersistenceController.shared.container.viewContext
+        try await viewContext.perform {
+            self.id = Int32(profile.id)
+            self.avatarfull = profile.avatarfull
+            
+            self.countryCode = profile.countryCode
+            self.personaname = profile.personaname
+            self.profileurl = profile.profileurl
+            self.isPlus = profile.isPlus ?? false
+            if let rank = profile.rank {
+                self.rank = Int16(rank)
+            }
+            if let leaderboard = profile.leaderboard {
+                self.leaderboard = Int16(leaderboard)
+            }
+            
+            self.name = profile.name
+            
+            try viewContext.save()
+        }
     }
 }

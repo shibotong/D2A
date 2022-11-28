@@ -37,7 +37,7 @@ class SidebarRowViewModel: ObservableObject {
                     guard let profileCodable = await OpenDotaController.shared.loadUserData(userid: userid) else {
                         return
                     }
-                    let profile = UserProfile.create(profileCodable)
+                    let profile = await UserProfile.create(profileCodable)
                     await self.setProfile(profile)
                 }
             }

@@ -11,6 +11,7 @@ extension PermanentBuff {
     static func create(_ permanentBuff: PermanentBuffCodable) -> PermanentBuff {
         let viewContext = PersistenceController.shared.container.viewContext
         let buff = PermanentBuff(context: viewContext)
+        print(Thread.isMainThread)
         buff.update(permanentBuff)
         return buff
     }

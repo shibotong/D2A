@@ -50,7 +50,7 @@ struct PlayerListView: View {
                         LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 100, maximum: 140), spacing: 10, alignment: .leading), count: 1), spacing: 10) {
                             ForEach(env.userIDs, id: \.self) { id in
                                 NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: id))) {
-                                    PlayerListRowView(vm: SidebarRowViewModel(userid: id))
+                                    PlayerListRowView(userid: id)
                                 }
                             }
                         }

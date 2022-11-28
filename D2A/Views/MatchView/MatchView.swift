@@ -225,24 +225,24 @@ struct PlayerRowView: View {
                     KDAView(kills: Int(player.kills), deaths: Int(player.deaths), assists: Int(player.assists), size: .caption)
                 }.frame(minWidth: 0)
                 Spacer()
-                if let item = player.itemNeutral {
-                    ItemView(id: Int(item))
-                        .frame(width: 24, height: 18)
-                        .clipShape(Circle())
-                        .frame(width: 8)
-                }
-                VStack(spacing: 1) {
-                    HStack(spacing: 1) {
-                        ItemView(id: Int(player.item0)).frame(width: 24, height: 18)
-                        ItemView(id: Int(player.item1)).frame(width: 24, height: 18)
-                        ItemView(id: Int(player.item2)).frame(width: 24, height: 18)
-                    }
-                    HStack(spacing: 1) {
-                        ItemView(id: Int(player.item3)).frame(width: 24, height: 18)
-                        ItemView(id: Int(player.item4)).frame(width: 24, height: 18)
-                        ItemView(id: Int(player.item5)).frame(width: 24, height: 18)
-                    }
-                }
+//                if let item = player.itemNeutral {
+//                    ItemView(id: Int(item))
+//                        .frame(width: 24, height: 18)
+//                        .clipShape(Circle())
+//                        .frame(width: 8)
+//                }
+//                VStack(spacing: 1) {
+//                    HStack(spacing: 1) {
+//                        ItemView(id: Int(player.item0)).frame(width: 24, height: 18)
+//                        ItemView(id: Int(player.item1)).frame(width: 24, height: 18)
+//                        ItemView(id: Int(player.item2)).frame(width: 24, height: 18)
+//                    }
+//                    HStack(spacing: 1) {
+//                        ItemView(id: Int(player.item3)).frame(width: 24, height: 18)
+//                        ItemView(id: Int(player.item4)).frame(width: 24, height: 18)
+//                        ItemView(id: Int(player.item5)).frame(width: 24, height: 18)
+//                    }
+//                }
                 VStack(spacing: 0) {
                     Image("scepter_\(player.hasScepter ? "1" : "0")")
                         .resizable()

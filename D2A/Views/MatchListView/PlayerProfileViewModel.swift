@@ -64,7 +64,7 @@ class PlayerProfileViewModel: ObservableObject {
         guard let profile = profile else {
             return
         }
-        let newProfile = UserProfile.create(profile)
+        let newProfile = await UserProfile.create(profile)
         await setUserProfile(profile: newProfile)
     }
     

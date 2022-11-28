@@ -13,7 +13,7 @@ extension Match {
     static func create(_ match: MatchCodable) throws -> Match {
         let viewContext = PersistenceController.shared.container.viewContext
         let matchCoreData = Self.fetch(id: match.id) ?? Match(context: viewContext)
-        
+        print(Thread.isMainThread)
         matchCoreData.id = match.id.description
         
         // Match data
