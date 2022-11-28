@@ -221,9 +221,9 @@ struct ProfileAvartar: View {
                     .frame(width: sideLength, height: sideLength)
             }
         }
-        .task {
-            await fetchImage()
-        }
+//        .task {
+//            await fetchImage()
+//        }
     }
     
     private func fetchImage() async {

@@ -44,7 +44,7 @@ struct Sidebar: View {
                             tag: env.registerdID,
                             selection: $selectedUser
                         ) {
-                            SidebarRowView(vm: SidebarRowViewModel(userid: env.registerdID))
+                            SidebarRowView(userid: env.registerdID)
                         }.isDetailLink(true)
                     }
                     ForEach(env.userIDs, id: \.self) { id in
@@ -53,7 +53,7 @@ struct Sidebar: View {
                             tag: id,
                             selection: $selectedUser
                         ) {
-                            SidebarRowView(vm: SidebarRowViewModel(userid: id))
+                            SidebarRowView(userid: id)
                         }.isDetailLink(true)
                     }
                     .onMove(perform: { indices, newOffset in
@@ -80,17 +80,19 @@ struct Sidebar: View {
 }
 
 struct SidebarRowView: View {
-    @StateObject var vm: SidebarRowViewModel
+    @FetchRequest var profile: FetchedResults<UserProfile>
+    
+    init(userid: String) {
+        _profile = FetchRequest<UserProfile>(sortDescriptors: [], predicate: NSPredicate(format: "id == %d", Int(userid)!))
+    }
+    
     var body: some View {
         makeUI()
-            .task {
-                vm.loadProfile()
-            }
     }
     
     @ViewBuilder
     func makeUI() -> some View {
-        if let profile = vm.profile {
+        if let profile = profile.first {
             Label {
                 Text("\(profile.name ?? profile.personaname ?? "")").lineLimit(1)
             } icon: {

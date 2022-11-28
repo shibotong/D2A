@@ -65,13 +65,18 @@ final class DotaEnvironment: ObservableObject {
         self.userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
         self.subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         self.registerdID = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.registerdID") as? String ?? ""
-        if userIDs.isEmpty {
-            print("no user")
-        } else {
-            
-        }
-        if registerdID == "" {
-            print("no registered")
+        Task {
+            if !userIDs.isEmpty {
+                for userID in userIDs {
+                    if let _ = UserProfile.fetch(id: Int(userID)) {
+                        continue
+                    }
+                    await self.loadUser(userid: userID)
+                }
+            }
+            if let registeredUser = Int(registerdID), UserProfile.fetch(id: registeredUser) != nil {
+                await self.loadUser(userid: registerdID)
+            }
         }
     }
     
@@ -142,5 +147,13 @@ final class DotaEnvironment: ObservableObject {
         } else {
             return false
         }
+    }
+    
+    private func loadUser(userid: String) async {
+        let profile = await OpenDotaController.shared.loadUserData(userid: userid)
+        guard let profile = profile else {
+            return
+        }
+        let _ = await UserProfile.create(profile)
     }
 }
