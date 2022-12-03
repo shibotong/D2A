@@ -33,12 +33,12 @@ struct LatestMatchWidgetEntryView: View {
                     case .systemMedium, .systemLarge:
                         let avatarHeight: CGFloat = 20
                         VStack(spacing: 5) {
-                            Link(destination: URL(string: "d2aapp:profile?userid=\(user.id)")!) {
+                            Link(destination: URL(string: "d2aapp:profile?userid=\(user.id ?? "0")")!) {
                                 HStack {
                                     NetworkImage(urlString: user.avatarfull ?? "").frame(width: avatarHeight, height: avatarHeight).clipShape(Circle())
                                     Text("\(user.personaname ?? "")").font(.caption2).bold()
                                     Spacer()
-                                    Text("\(user.id.description)")
+                                    Text("\(user.id ?? "")")
                                         .font(.caption2)
                                         .foregroundColor(.secondaryLabel)
                                 }.padding([.top, .horizontal], 10)

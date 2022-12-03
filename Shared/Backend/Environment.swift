@@ -61,19 +61,6 @@ final class DotaEnvironment: ObservableObject {
         self.userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
         self.subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         self.registerdID = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.registerdID") as? String ?? ""
-//        Task {
-//            if !userIDs.isEmpty {
-//                for userID in userIDs {
-//                    if let _ = UserProfile.fetch(id: Int(userID)) {
-//                        continue
-//                    }
-//                    await self.loadUser(userid: userID)
-//                }
-//            }
-//            if let registeredUser = Int(registerdID), UserProfile.fetch(id: registeredUser) != nil {
-//                await self.loadUser(userid: registerdID)
-//            }
-//        }
     }
     
     func move(from source: IndexSet, to destination: Int) {
@@ -86,14 +73,14 @@ final class DotaEnvironment: ObservableObject {
     func delete(userID: String) {
         if let index = userIDs.firstIndex(of: userID) {
             self.userIDs.remove(at: index)
-            UserProfile.delete(id: Int(userID))
+            UserProfile.delete(id: userID)
         }
     }
     
     func addOrDeleteUser(userid: String, profile: UserProfile? = nil) {
         if self.userIDs.contains(userid) {
             self.userIDs.remove(at: self.userIDs.firstIndex(of: userid)!)
-            UserProfile.delete(id: Int(userid))
+            UserProfile.delete(id: userid)
         } else {
             if self.userIDs.count >= 1 && !self.subscriptionStatus {
                 self.subscriptionSheet = true
@@ -113,7 +100,7 @@ final class DotaEnvironment: ObservableObject {
     }
     
     func deRegisterUser(userid: String) {
-        UserProfile.delete(id: Int(userid))
+        UserProfile.delete(id: userid)
         self.registerdID = ""
     }
     

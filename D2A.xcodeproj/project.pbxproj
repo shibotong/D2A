@@ -116,7 +116,6 @@
 		3252859126C9E8040030F15B /* AnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859026C9E8040030F15B /* AnalysisView.swift */; };
 		3252859726CB81480030F15B /* DifferenceGraphViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859626CB81480030F15B /* DifferenceGraphViewModel.swift */; };
 		3252859E26CB9FDC0030F15B /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859D26CB9FDC0030F15B /* Sidebar.swift */; };
-		325285A026CBB67C0030F15B /* SidebarRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859F26CBB67C0030F15B /* SidebarRowViewModel.swift */; };
 		325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
 		3261C907282F315100D47CDA /* HeroDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261C906282F315100D47CDA /* HeroDetailView.swift */; };
 		3261C90928306FDE00D47CDA /* MetadataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261C90828306FDE00D47CDA /* MetadataTestCase.swift */; };
@@ -156,7 +155,6 @@
 		327B87752850DA9E00BBE1F8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2626C38852002D427D /* Item.swift */; };
 		327B87762850DA9F00BBE1F8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2626C38852002D427D /* Item.swift */; };
 		327B87782852263300BBE1F8 /* HeroListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B87772852263300BBE1F8 /* HeroListViewModel.swift */; };
-		327B877C285316F900BBE1F8 /* PlayerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B877B285316F900BBE1F8 /* PlayerListViewModel.swift */; };
 		327C033C2716A8F400DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
 		327C033D2716A90400DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
 		327C033E2716A92500DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
@@ -412,7 +410,6 @@
 		3252859026C9E8040030F15B /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
 		3252859626CB81480030F15B /* DifferenceGraphViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferenceGraphViewModel.swift; sourceTree = "<group>"; };
 		3252859D26CB9FDC0030F15B /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
-		3252859F26CBB67C0030F15B /* SidebarRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRowViewModel.swift; sourceTree = "<group>"; };
 		325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchListRowViewModel.swift; sourceTree = "<group>"; };
 		3261C906282F315100D47CDA /* HeroDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailView.swift; sourceTree = "<group>"; };
 		3261C90828306FDE00D47CDA /* MetadataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataTestCase.swift; sourceTree = "<group>"; };
@@ -427,7 +424,6 @@
 		327B875F284D9FA100BBE1F8 /* DataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
 		327B87682850D92A00BBE1F8 /* sampleHeroAbility.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleHeroAbility.json; sourceTree = "<group>"; };
 		327B87772852263300BBE1F8 /* HeroListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListViewModel.swift; sourceTree = "<group>"; };
-		327B877B285316F900BBE1F8 /* PlayerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListViewModel.swift; sourceTree = "<group>"; };
 		327C033B2716A8F400DAEC42 /* KDAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDAView.swift; sourceTree = "<group>"; };
 		327C03432717AE8500DAEC42 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3289579927F6609B00BA9847 /* D2ATests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = D2ATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -672,7 +668,6 @@
 			isa = PBXGroup;
 			children = (
 				3252859D26CB9FDC0030F15B /* Sidebar.swift */,
-				3252859F26CBB67C0030F15B /* SidebarRowViewModel.swift */,
 			);
 			path = SideBarView;
 			sourceTree = "<group>";
@@ -844,7 +839,6 @@
 		32EC7F3D286474C600A36AF6 /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
-				327B877B285316F900BBE1F8 /* PlayerListViewModel.swift */,
 				32DE14482845E277006E864E /* PlayerListView.swift */,
 				327B8759284D96A600BBE1F8 /* PlayerListRowView.swift */,
 			);
@@ -1278,7 +1272,6 @@
 				327C033C2716A8F400DAEC42 /* KDAView.swift in Sources */,
 				3252858F26C949940030F15B /* Date.swift in Sources */,
 				3261C907282F315100D47CDA /* HeroDetailView.swift in Sources */,
-				327B877C285316F900BBE1F8 /* PlayerListViewModel.swift in Sources */,
 				327B8760284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				321E3D01285422D00094FB10 /* AbilityViewModel.swift in Sources */,
 				7985E7EF28E53E47007A43AF /* Talent.swift in Sources */,
@@ -1306,7 +1299,6 @@
 				79A988FB2931D6D7006AC847 /* PlayerCodable.swift in Sources */,
 				327B875A284D96A600BBE1F8 /* PlayerListRowView.swift in Sources */,
 				322B893826CD44FE00DF67F9 /* SteamProfile.swift in Sources */,
-				325285A026CBB67C0030F15B /* SidebarRowViewModel.swift in Sources */,
 				79B1630528DD5B33009B2AE2 /* API.swift in Sources */,
 				322B893626CD438700DF67F9 /* UserProfileCodable.swift in Sources */,
 				322B89BF26CE788900DF67F9 /* AnalysisViewModel.swift in Sources */,

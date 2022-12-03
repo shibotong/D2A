@@ -124,7 +124,7 @@ struct PlayerProfileView: View {
                             .font(.subheadline)
                             .lineLimit(1)
                     }
-                    Text("id: \(profile.id.description)")
+                    Text("id: \(profile.id ?? "")")
                         .font(.caption)
                         .foregroundColor(.secondaryLabel)
                     buildRank(profile: profile, size: 60)
@@ -148,7 +148,7 @@ struct PlayerProfileView: View {
                                 .font(.subheadline)
                                 .lineLimit(1)
                         }
-                        Text("id: \(profile.id.description)")
+                        Text("id: \(profile.id ?? "")")
                             .font(.caption)
                             .foregroundColor(.secondaryLabel)
                     }

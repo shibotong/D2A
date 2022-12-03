@@ -11,9 +11,11 @@ struct PlayerListRowView: View {
     @EnvironmentObject var env: DotaEnvironment
     
     @FetchRequest var profile: FetchedResults<UserProfile>
+    private var userid: String
     
     init(userid: String) {
-        _profile = FetchRequest<UserProfile>(sortDescriptors: [], predicate: NSPredicate(format: "id == %d", Int(userid)!))
+        self.userid = userid
+        _profile = FetchRequest<UserProfile>(sortDescriptors: [], predicate: NSPredicate(format: "id == %@", userid))
     }
     
     var body: some View {
@@ -42,7 +44,7 @@ struct PlayerListRowView: View {
                             .font(.custom(fontString, size: 10))
                             .foregroundColor(Color(uiColor: UIColor.secondaryLabel))
                     }
-                    Text("\(profile.id)")
+                    Text(profile.id ?? "")
                         .font(.custom(fontString, size: 9))
                         .foregroundColor(Color(uiColor: UIColor.tertiaryLabel))
                 }
@@ -51,7 +53,7 @@ struct PlayerListRowView: View {
                     Spacer()
                     VStack {
                         Button {
-                            env.delete(userID: "\(profile.id)")
+                            env.delete(userID: profile.id ?? "")
                         } label: {
                             Image(systemName: "star.fill")
                                 .foregroundColor(.primaryDota)
@@ -61,10 +63,25 @@ struct PlayerListRowView: View {
                     }
                 }
                 .padding(6)
+            } else {
+                ProgressView()
+                    .onAppear {
+                        Task {
+                            await loadProfile()
+                        }
+                    }
             }
         }
         .background(Color(UIColor.secondarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 15))
+    }
+    
+    private func loadProfile() async {
+        let profile = await OpenDotaController.shared.loadUserData(userid: userid)
+        guard let profile = profile else {
+            return
+        }
+        let _ = try UserProfile.create(profile)
     }
 }
 

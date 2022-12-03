@@ -28,7 +28,7 @@ struct SearchView: View {
                     Section {
                         ForEach(vm.localProfiles) { profile in
                             ProfileView(vm: ProfileViewModel(profile: profile))
-                                .searchCompletion(profile.id.description)
+                                .searchCompletion(profile.id ?? "")
                                 .foregroundColor(.label)
                         }
                     } header: {
@@ -137,7 +137,7 @@ struct SearchView: View {
             if !vm.localProfiles.isEmpty {
                 Section {
                     ForEach(vm.localProfiles) { profile in
-                        NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id.description))) {
+                        NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id ?? ""))) {
                             ProfileView(vm: ProfileViewModel(profile: profile))
                         }
                     }
@@ -196,7 +196,7 @@ struct ProfileAvartar: View {
     
     init(profile: UserProfile, sideLength: CGFloat, cornerRadius: CGFloat) {
         self.urlString = profile.avatarfull ?? ""
-        self.userid = Int(profile.id)
+        self.userid = Int(profile.id ?? "0") ?? 0
         self.sideLength = sideLength
         self.cornerRadius = cornerRadius
     }

@@ -32,7 +32,7 @@ class ProfileViewModel: ObservableObject {
     ///- parameter profile: User Profile
     init(profile: UserProfile) {
         self.personaname = profile.personaname ?? ""
-        self.userid = profile.id.description
+        self.userid = profile.id ?? ""
         self.urlString = profile.avatarfull
     }
     
@@ -44,7 +44,7 @@ class ProfileViewModel: ObservableObject {
     
     func loadProfile() async {
         self.isloading = true
-        guard let profile = UserProfile.fetch(id: Int(userid)) else {
+        guard let profile = UserProfile.fetch(id: userid) else {
             guard let profile = await OpenDotaController.shared.loadUserData(userid: userid) else {
                 return
             }
