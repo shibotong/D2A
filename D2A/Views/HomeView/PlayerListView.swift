@@ -11,7 +11,7 @@ struct PlayerListView: View {
     @EnvironmentObject var env: DotaEnvironment
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(sortDescriptors: [],
-                  predicate: NSPredicate(format: "favourite = %d", true))
+                  predicate: NSPredicate(format: "favourite = %d AND register = %d", true, false))
     private var favouritePlayers: FetchedResults<UserProfile>
     
     var body: some View {
@@ -71,6 +71,7 @@ struct PlayerListView: View {
                                 profile.favourite = true
                             }
                             try? viewContext.save()
+                            env.userIDs = []
                         }
                     }
             } else {
