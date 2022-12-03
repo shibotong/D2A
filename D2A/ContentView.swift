@@ -34,7 +34,7 @@ struct ContentView: View {
                     Alert(title: Text("Error!"), message: Text("Cannot find this account"), dismissButton: .cancel())
                 })
                 .alert(isPresented: $env.error, content: {
-                    Alert(title: Text("There are something wrong"), message: Text("Please try again"), dismissButton: .cancel())
+                    Alert(title: Text("There are something wrong"), message: Text(env.errorMessage), dismissButton: .cancel())
                 })
         }
     }
