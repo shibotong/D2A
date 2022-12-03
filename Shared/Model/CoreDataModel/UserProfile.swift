@@ -10,11 +10,11 @@ import CoreData
 import UIKit
 
 extension UserProfile {
-    static func create(_ profile: UserProfileCodable) -> UserProfile? {
+    static func create(_ profile: UserProfileCodable) throws -> UserProfile {
         let viewContext = PersistenceController.shared.makeContext()
         let newProfile = Self.fetch(id: profile.id.description) ?? UserProfile(context: viewContext)
         newProfile.update(profile)
-        try? viewContext.save()
+        try viewContext.save()
         return newProfile
     }
     
