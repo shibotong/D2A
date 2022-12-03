@@ -8,9 +8,9 @@
 import Foundation
 import CoreData
 
-class Player: NSObject, NSSecureCoding {
+public class Player: NSObject, NSSecureCoding, Identifiable {
     
-    static let supportsSecureCoding: Bool = true
+    public static let supportsSecureCoding: Bool = true
     
     let accountId: String?
     let personaname: String?
@@ -180,7 +180,7 @@ class Player: NSObject, NSSecureCoding {
         case rank
     }
     
-    func encode(with coder: NSCoder) {
+    public func encode(with coder: NSCoder) {
         coder.encode(accountId, forKey: CodingKeys.accountId.rawValue)
         coder.encode(personaname, forKey: CodingKeys.personaname.rawValue)
         coder.encode(rank, forKey: CodingKeys.rank.rawValue)
@@ -212,7 +212,7 @@ class Player: NSObject, NSSecureCoding {
         coder.encode(permanentBuffs, forKey: CodingKeys.permanentBuffs.rawValue)
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         guard let abilityUpgrade = coder.decodeArrayOfObjects(ofClass: NSNumber.self, forKey: CodingKeys.abilityUpgrade.rawValue) as? [Int],
               let permanentBuffs = coder.decodeArrayOfObjects(ofClass: PermanentBuff.self, forKey: CodingKeys.permanentBuffs.rawValue) else {
                   return nil

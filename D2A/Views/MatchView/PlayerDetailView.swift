@@ -24,9 +24,7 @@ struct PlayerDetailView: View {
                         buildHeroName()
                         buildStats()
                         buildItem()
-                        if player.abilityUpgrade != nil {
-                            buildAbiltyUpgrade(items: 6)
-                        }
+                        buildAbiltyUpgrade(items: 6)
                     }.padding()
                 }
             }
@@ -47,9 +45,7 @@ struct PlayerDetailView: View {
                                 }
                             }
                         }.frame(height: 250)
-                        if player.abilityUpgrade != nil {
-                            buildAbiltyUpgrade(items: 10)
-                        }
+                        buildAbiltyUpgrade(items: 10)
                     }.padding()
                 }
             }
@@ -60,8 +56,8 @@ struct PlayerDetailView: View {
         VStack(alignment: .leading, spacing: 1) {
             Text("Ability Upgrade").font(.custom(fontString, size: 15)).bold().foregroundColor(Color(.systemGray))
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50)), count: 6)) {
-                ForEach(0..<player.abilityUpgrade!.count, id: \.self) { index in
-                    buildAbility(abilityID: Int(truncating: player.abilityUpgrade![index]))
+                ForEach(0..<player.abilityUpgrade.count, id: \.self) { index in
+                    buildAbility(abilityID: player.abilityUpgrade[index])
                         .overlay(HStack {
                             Spacer()
                             VStack {
@@ -121,7 +117,7 @@ struct PlayerDetailView: View {
             HStack {
                 HStack {
                     Circle().frame(width: 10, height: 10).foregroundColor(.red)
-                    Text("\(player.heroDamage)").bold()
+                    Text("\(player.heroDamage ?? 0)").bold()
                     Text("Damage").foregroundColor(Color(.systemGray))
                 }
                 Spacer()
@@ -188,9 +184,9 @@ struct PlayerDetailView: View {
             )
     }
 
-    @ViewBuilder private func profileHost(playerID: Int64?) -> some View {
+    @ViewBuilder private func profileHost(playerID: String?) -> some View {
         if let playerID = playerID {
-            ProfileView(vm: ProfileViewModel(id: "\(playerID)"))
+            ProfileView(vm: ProfileViewModel(id: playerID))
         } else {
             ProfileEmptyView()
         }

@@ -13,7 +13,7 @@ extension Match {
     static func create(_ match: MatchCodable) throws -> Match {
         let viewContext = PersistenceController.shared.makeContext()
         let matchCoreData = Self.fetch(id: match.id) ?? Match(context: viewContext)
-        
+        matchCoreData.update(match)
         try viewContext.save()
         print("save match successfully \(matchCoreData.id ?? "nil")")
         return matchCoreData
@@ -40,7 +40,7 @@ extension Match {
     }
     
     var allPlayers: [Player] {
-        return self.players?.allObjects as? [Player] ?? []
+        return players ?? []
     }
     
     var durationString: String {
@@ -52,14 +52,14 @@ extension Match {
     }
     
     func fetchPlayers(isRadiant: Bool) -> [Player] {
-        guard let players = players?.allObjects as? [Player] else {
+        guard let players = players else {
             return []
         }
         let filteredPlayers = players.filter { isRadiant ? $0.slot <= 127 :  $0.slot > 127 }
         return filteredPlayers
     }
     
-    func update(match: MatchCodable) {
+    func update(_ match: MatchCodable) {
         self.id = match.id.description
         
         // Match data
@@ -74,19 +74,7 @@ extension Match {
         self.region = Int16(match.region)
         self.skill = Int16(match.skill ?? 0)
         self.startTime = Date(timeIntervalSince1970: TimeInterval(match.startTime))
-                
-        if let players = self.players?.allObjects as? [Player] {
-            match.players.forEach { playerCodable in
-                if let existPlayer = players.first (where: { player in
-                    return player.slot == playerCodable.slot
-                }) {
-                    existPlayer.update(playerCodable)
-                } else {
-                    let newPlayer = Player.create(playerCodable)
-                    self.addToPlayers(newPlayer)
-                }
-            }
-        }
+        self.players = match.players.map { Player(player: $0) }
         
         self.goldDiff = match.goldDiff as [NSNumber]?
         self.xpDiff = match.xpDiff as [NSNumber]?

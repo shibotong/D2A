@@ -28,26 +28,26 @@ class AnalysisViewModel: ObservableObject {
     func sortPlayer(selection: AnalysisType) -> [Player]? {
         switch selection {
         case .golds:
-            return storedPlayers.sorted(by: { $0.netWorth >= $1.netWorth })
+            return storedPlayers.sorted(by: { $0.netWorth ?? 0 >= $1.netWorth ?? 0 })
         case .heroDamage:
-            return storedPlayers.sorted(by: { $0.heroDamage >= $1.heroDamage })
+            return storedPlayers.sorted(by: { $0.heroDamage ?? 0 >= $1.heroDamage ?? 0 })
         case .kills:
             return storedPlayers.sorted(by: { $0.kills >= $1.kills })
         case .towerDamage:
-            return storedPlayers.sorted(by: { $0.towerDamage >= $1.towerDamage })
+            return storedPlayers.sorted(by: { $0.towerDamage ?? 0 >= $1.towerDamage ?? 0 })
         }
     }
     
     func fetchPlayerValue(player: Player) -> Int {
         switch selection {
         case .golds:
-            return Int(player.netWorth)
+            return Int(player.netWorth ?? 0)
         case .heroDamage:
-            return Int(player.heroDamage)
+            return Int(player.heroDamage ?? 0)
         case .kills:
             return Int(player.kills)
         case .towerDamage:
-            return Int(player.towerDamage)
+            return Int(player.towerDamage ?? 0)
         }
     }
     
