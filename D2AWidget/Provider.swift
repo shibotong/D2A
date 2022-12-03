@@ -31,13 +31,13 @@ struct Provider: IntentTimelineProvider {
         if firstUser == "" {
             firstUser = DotaEnvironment.shared.userIDs.first!
         }
-        guard let profile = UserProfile.fetch(id: Int(firstUser) ?? 0) else {
+        guard let profile = UserProfile.fetch(id: firstUser) else {
             let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: user, subscription: true)
             completion(entry)
             return
         }
         Task {
-            let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(profile.id)")
+            let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(profile.id ?? "")")
             let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: true)
             completion(entry)
         }
@@ -53,7 +53,7 @@ struct Provider: IntentTimelineProvider {
             completion(timeline)
             return
         }
-        if selectedProfile.id != 0 {
+        if selectedProfile.id != "" {
             Task {
                 let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(selectedProfile.id)")
                 let entry = SimpleEntry(date: Date(), matches: matches, user: selectedProfile, subscription: status)
@@ -79,7 +79,7 @@ struct Provider: IntentTimelineProvider {
                 defaultUser = firstUser
             }
             
-            guard let profile = UserProfile.fetch(id: Int(defaultUser) ?? 0) else {
+            guard let profile = UserProfile.fetch(id: defaultUser) else {
                 let entry = SimpleEntry(date: Date(), matches: RecentMatch.sample, user: selectedProfile, subscription: status)
                 let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
                 let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
@@ -98,7 +98,7 @@ struct Provider: IntentTimelineProvider {
     
     func user(for configuration: DynamicUserSelectionIntent) -> UserProfile? {
         if let id = configuration.profile?.identifier {
-            if let profile = UserProfile.fetch(id: Int(id) ?? 0) {
+            if let profile = UserProfile.fetch(id: id) {
                 return profile
             } else {
                 return nil

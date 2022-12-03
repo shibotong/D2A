@@ -16,7 +16,7 @@ struct PlayerListView: View {
                     EmptyRegistedView()
                         .frame(height: 190)
                 } else {
-                    RegisteredPlayerView(vm: SidebarRowViewModel(userid: env.registerdID, isRegistered: true))
+                    RegisteredPlayerView(userid: env.registerdID)
                         .frame(height: 190)
                         .background(Color.systemBackground)
                 }
@@ -120,18 +120,25 @@ struct EmptyRegistedView: View {
 }
 
 struct RegisteredPlayerView: View {
-    @ObservedObject var vm: SidebarRowViewModel
     @EnvironmentObject var env: DotaEnvironment
+    @FetchRequest var profile: FetchedResults<UserProfile>
+    private var userID: String
+    
+    init(userid: String) {
+        self.userID = userid
+        _profile = FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "id == %@", userid))
+    }
+    
     var body: some View {
         ZStack {
-            if let profile = vm.profile {
+            if let profile = profile.first {
                 VStack(spacing: 10) {
-                    NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: vm.userid))) {
+                    NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: userID))) {
                         HStack {
                             ProfileAvartar(profile: profile, sideLength: 70, cornerRadius: 25)
                             VStack(alignment: .leading, spacing: 0) {
                                 Text(profile.personaname ?? "").font(.custom(fontString, size: 20)).bold().lineLimit(1).foregroundColor(.label)
-                                Text("\(profile.id.description)")
+                                Text(profile.id ?? "")
                                     .font(.custom(fontString, size: 13))
                                     .foregroundColor(Color.secondaryLabel)
                             }
@@ -143,38 +150,38 @@ struct RegisteredPlayerView: View {
                             
                         }
                     }
-                    if let matches = vm.recentMatches {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                ForEach(matches) { match in
-                                    VStack {
-                                        HeroImageView(heroID: match.heroID, type: .icon)
-                                        buildWL(win: match.isPlayerWin())
-                                    }
-                                }
-                            }
-                            .padding()
-                        }
-                        .frame(height: 80)
-                        .background(Color.secondarySystemBackground)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                    } else {
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                            Spacer()
-                        }
-                        .frame(height: 80)
-                        .background(Color.secondarySystemBackground)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                    }
+//                    if let matches = vm.recentMatches {
+//                        ScrollView(.horizontal, showsIndicators: false) {
+//                            HStack {
+//                                ForEach(matches) { match in
+//                                    VStack {
+//                                        HeroImageView(heroID: match.heroID, type: .icon)
+//                                        buildWL(win: match.isPlayerWin())
+//                                    }
+//                                }
+//                            }
+//                            .padding()
+//                        }
+//                        .frame(height: 80)
+//                        .background(Color.secondarySystemBackground)
+//                        .clipShape(RoundedRectangle(cornerRadius: 15))
+//                    } else {
+//                        HStack {
+//                            Spacer()
+//                            ProgressView()
+//                            Spacer()
+//                        }
+//                        .frame(height: 80)
+//                        .background(Color.secondarySystemBackground)
+//                        .clipShape(RoundedRectangle(cornerRadius: 15))
+//                    }
                 }
                 .padding(15)
                 HStack {
                     Spacer()
                     VStack {
                         Button {
-                            env.deRegisterUser(userid: vm.userid)
+                            env.deRegisterUser(userid: userID)
                         } label: {
                             Image(systemName: "xmark")
                                 .foregroundColor(.label)

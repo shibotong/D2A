@@ -12,19 +12,16 @@ import UIKit
 extension UserProfile {
     static func create(_ profile: UserProfileCodable) -> UserProfile? {
         let viewContext = PersistenceController.shared.makeContext()
-        let newProfile = Self.fetch(id: profile.id) ?? UserProfile(context: viewContext)
+        let newProfile = Self.fetch(id: profile.id.description) ?? UserProfile(context: viewContext)
         newProfile.update(profile)
         try? viewContext.save()
         return newProfile
     }
     
-    static func fetch(id: Int?) -> UserProfile? {
-        guard let id = id else {
-            return nil
-        }
+    static func fetch(id: String) -> UserProfile? {
         let viewContext = PersistenceController.shared.container.viewContext
         let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
-        fetchResult.predicate = NSPredicate(format: "id == %d", id)
+        fetchResult.predicate = NSPredicate(format: "id == %@", id)
         
         let results = try? viewContext.fetch(fetchResult)
         return results?.first
@@ -39,7 +36,7 @@ extension UserProfile {
         return results ?? []
     }
     
-    static func delete(id: Int?) {
+    static func delete(id: String) {
         guard let user = Self.fetch(id: id) else {
             return
         }
@@ -48,7 +45,7 @@ extension UserProfile {
     }
     
     func update(_ profile: UserProfileCodable) {
-        self.id = Int32(profile.id)
+        self.id = profile.id.description
         self.avatarfull = profile.avatarfull
         
         self.countryCode = profile.countryCode

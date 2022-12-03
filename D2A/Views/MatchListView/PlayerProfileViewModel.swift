@@ -23,7 +23,7 @@ class PlayerProfileViewModel: ObservableObject {
         guard let userid = userid else {
             return
         }
-        if let profile = UserProfile.fetch(id: Int(userid) ?? 0) {
+        if let profile = UserProfile.fetch(id: userid) {
             self.userProfile = profile
         } else {
             Task {

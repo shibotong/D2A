@@ -73,7 +73,7 @@ struct RecentMatchesWidgetEntryView: View {
                 VStack(alignment: .leading) {
                     Text("\(user.personaname ?? "")")
                         .font(.caption)
-                    Text("\(user.id.description)")
+                    Text("\(user.id ?? "")")
                         .font(.caption2)
                         .foregroundColor(.secondaryLabel)
                 }
