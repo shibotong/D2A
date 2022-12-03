@@ -57,7 +57,7 @@ struct PlayerCodable: Decodable {
     
     enum CodingKeys: String, CodingKey {
         case accountId = "account_id"
-        case slot = "player_slot"
+        case slot
         case abilityUpgrade = "ability_upgrades_arr"
        
         // backpack

@@ -11,39 +11,9 @@ import SwiftUI
 
 extension Match {
     static func create(_ match: MatchCodable) throws -> Match {
-        let viewContext = PersistenceController.shared.container.viewContext
+        let viewContext = PersistenceController.shared.makeContext()
         let matchCoreData = Self.fetch(id: match.id) ?? Match(context: viewContext)
-        print(Thread.isMainThread)
-        matchCoreData.id = match.id.description
         
-        // Match data
-        matchCoreData.direKill = Int16(match.direKill ?? 0)
-        matchCoreData.radiantKill = Int16(match.radiantKill ?? 0)
-        matchCoreData.duration = Int32(match.duration)
-        matchCoreData.radiantWin = match.radiantWin
-        
-        // Lobby data
-        matchCoreData.lobbyType = Int16(match.lobbyType)
-        matchCoreData.mode = Int16(match.mode)
-        matchCoreData.region = Int16(match.region)
-        matchCoreData.skill = Int16(match.skill ?? 0)
-        matchCoreData.startTime = Date(timeIntervalSince1970: TimeInterval(match.startTime))
-                
-        if let players = matchCoreData.players?.allObjects as? [Player] {
-            match.players.forEach { playerCodable in
-                if let existPlayer = players.first (where: { player in
-                    return player.slot == playerCodable.slot
-                }) {
-                    existPlayer.update(playerCodable)
-                } else {
-                    let newPlayer = Player.create(playerCodable)
-                    matchCoreData.addToPlayers(newPlayer)
-                }
-            }
-        }
-        
-        matchCoreData.goldDiff = match.goldDiff as [NSNumber]?
-        matchCoreData.xpDiff = match.xpDiff as [NSNumber]?
         try viewContext.save()
         print("save match successfully \(matchCoreData.id ?? "nil")")
         return matchCoreData
@@ -89,29 +59,36 @@ extension Match {
         return filteredPlayers
     }
     
-//    func fetchKill(isRadiant: Bool) -> Int {
-//        if isRadiant {
-//            if self.radiantKill != nil {
-//                return self.radiantKill!
-//            } else {
-//                let players = self.fetchPlayers(isRadiant: isRadiant)
-//                var kills = 0
-//                players.forEach { player in
-//                    kills += player.kills
-//                }
-//                return kills
-//            }
-//        } else {
-//            if self.direKill != nil {
-//                return self.direKill!
-//            } else {
-//                let players = self.fetchPlayers(isRadiant: isRadiant)
-//                var countKills = 0
-//                players.forEach { player in
-//                    countKills += player.kills
-//                }
-//                return countKills
-//            }
-//        }
-//    }
+    func update(match: MatchCodable) {
+        self.id = match.id.description
+        
+        // Match data
+        self.direKill = Int16(match.direKill ?? 0)
+        self.radiantKill = Int16(match.radiantKill ?? 0)
+        self.duration = Int32(match.duration)
+        self.radiantWin = match.radiantWin
+        
+        // Lobby data
+        self.lobbyType = Int16(match.lobbyType)
+        self.mode = Int16(match.mode)
+        self.region = Int16(match.region)
+        self.skill = Int16(match.skill ?? 0)
+        self.startTime = Date(timeIntervalSince1970: TimeInterval(match.startTime))
+                
+        if let players = self.players?.allObjects as? [Player] {
+            match.players.forEach { playerCodable in
+                if let existPlayer = players.first (where: { player in
+                    return player.slot == playerCodable.slot
+                }) {
+                    existPlayer.update(playerCodable)
+                } else {
+                    let newPlayer = Player.create(playerCodable)
+                    self.addToPlayers(newPlayer)
+                }
+            }
+        }
+        
+        self.goldDiff = match.goldDiff as [NSNumber]?
+        self.xpDiff = match.xpDiff as [NSNumber]?
+    }
 }
