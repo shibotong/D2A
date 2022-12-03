@@ -37,9 +37,6 @@ final class DotaEnvironment: ObservableObject {
     }
     
     // MARK: Errors
-    @Published var exceedLimit = false
-    @Published var invalidID = false
-    @Published var cantFindUser = false
     @Published var error = false
     @Published var errorMessage = ""
     
@@ -59,8 +56,6 @@ final class DotaEnvironment: ObservableObject {
     @Published var selectedMatch: String? = nil
     @Published var matchActive: Bool = false
     @Published var userActive: Bool = false
-
-    var profileImages: [Int: UIImage] = [:]
 
     init() {
         self.userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
@@ -130,7 +125,8 @@ final class DotaEnvironment: ObservableObject {
     
     @MainActor
     func cannotFindUser() {
-        self.cantFindUser = true
+        self.error = true
+        self.errorMessage = "Cannot Find User"
     }
     
     func canRefresh(userid: String) -> Bool {
@@ -155,6 +151,6 @@ final class DotaEnvironment: ObservableObject {
         guard let profile = profile else {
             return
         }
-        let _ = await UserProfile.create(profile)
+        let _ = UserProfile.create(profile)
     }
 }

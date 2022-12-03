@@ -24,17 +24,8 @@ struct ContentView: View {
                         .environmentObject(env)
                         .environmentObject(store)
                 })
-                .alert(isPresented: $env.exceedLimit, content: {
-                    Alert(title: Text("Slow down"), message: Text("You are so quick!"), dismissButton: .cancel())
-                })
-                .alert(isPresented: $env.invalidID, content: {
-                    Alert(title: Text("Oops!"), message: Text("Invalid Account ID"), dismissButton: .cancel())
-                })
-                .alert(isPresented: $env.cantFindUser, content: {
-                    Alert(title: Text("Error!"), message: Text("Cannot find this account"), dismissButton: .cancel())
-                })
                 .alert(isPresented: $env.error, content: {
-                    Alert(title: Text("There are something wrong"), message: Text(env.errorMessage), dismissButton: .cancel())
+                    Alert(title: Text("Error"), message: Text(env.errorMessage), dismissButton: .cancel())
                 })
         }
     }
