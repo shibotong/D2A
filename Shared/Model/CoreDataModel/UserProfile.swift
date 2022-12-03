@@ -10,16 +10,11 @@ import CoreData
 import UIKit
 
 extension UserProfile {
-    static func create(_ profile: UserProfileCodable) async -> UserProfile? {
-        let viewContext = PersistenceController.shared.container.viewContext
+    static func create(_ profile: UserProfileCodable) -> UserProfile? {
+        let viewContext = PersistenceController.shared.makeContext()
         let newProfile = Self.fetch(id: profile.id) ?? UserProfile(context: viewContext)
-        do {
-            try await newProfile.update(profile)
-        } catch {
-            print(error)
-            return nil
-        }
-        print("save user success \(newProfile.personaname)")
+        newProfile.update(profile)
+        try? viewContext.save()
         return newProfile
     }
     
@@ -52,26 +47,21 @@ extension UserProfile {
         viewContext.delete(user)
     }
     
-    func update(_ profile: UserProfileCodable) async throws {
-        let viewContext = PersistenceController.shared.container.viewContext
-        try await viewContext.perform {
-            self.id = Int32(profile.id)
-            self.avatarfull = profile.avatarfull
-            
-            self.countryCode = profile.countryCode
-            self.personaname = profile.personaname
-            self.profileurl = profile.profileurl
-            self.isPlus = profile.isPlus ?? false
-            if let rank = profile.rank {
-                self.rank = Int16(rank)
-            }
-            if let leaderboard = profile.leaderboard {
-                self.leaderboard = Int16(leaderboard)
-            }
-            
-            self.name = profile.name
-            
-            try viewContext.save()
+    func update(_ profile: UserProfileCodable) {
+        self.id = Int32(profile.id)
+        self.avatarfull = profile.avatarfull
+        
+        self.countryCode = profile.countryCode
+        self.personaname = profile.personaname
+        self.profileurl = profile.profileurl
+        self.isPlus = profile.isPlus ?? false
+        if let rank = profile.rank {
+            self.rank = Int16(rank)
         }
+        if let leaderboard = profile.leaderboard {
+            self.leaderboard = Int16(leaderboard)
+        }
+        
+        self.name = profile.name
     }
 }

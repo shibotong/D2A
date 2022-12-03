@@ -284,8 +284,6 @@
 		79A9891F2931ECAF006AC847 /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
 		79A989202931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79A989212931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
-		79A989222931ECC1006AC847 /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
-		79A989232931ECC1006AC847 /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
 		79B162FE28DD596D009B2AE2 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79B162FD28DD596D009B2AE2 /* Apollo */; };
 		79B1630528DD5B33009B2AE2 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
 		79B1630728DD5C0B009B2AE2 /* TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */; };
@@ -1367,7 +1365,6 @@
 				79A989172931E8F3006AC847 /* Talent.swift in Sources */,
 				32F70ADC26F60B30006E9B05 /* StringVariable.swift in Sources */,
 				32B526CB285C0CE40099B058 /* RecentMatchesWidgetEntryView.swift in Sources */,
-				79A989222931ECC1006AC847 /* PermanentBuff.swift in Sources */,
 				79D5282328DD74930070841D /* Secret.swift in Sources */,
 				32B526D4285C1DBC0099B058 /* Extension.swift in Sources */,
 				32F70B1726F6294D006E9B05 /* MatchCodable.swift in Sources */,
@@ -1423,7 +1420,6 @@
 				32F70B1126F622C5006E9B05 /* HeroCodable.swift in Sources */,
 				32F70B0F26F622C0006E9B05 /* LobbyType.swift in Sources */,
 				79D5282428DD74930070841D /* Secret.swift in Sources */,
-				79A989232931ECC1006AC847 /* PermanentBuff.swift in Sources */,
 				32F70B1026F622C2006E9B05 /* GameMode.swift in Sources */,
 				327B87742850DA7900BBE1F8 /* Ability.swift in Sources */,
 				32F70B2026F6295C006E9B05 /* Int.swift in Sources */,
