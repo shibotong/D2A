@@ -168,7 +168,7 @@ struct AllTeamPlayerView: View {
     }
     
     func fetchMaxDamage(players: [Player]) -> Int {
-        let sortedPlayers = players.sorted(by: { $0.heroDamage > $1.heroDamage })
+        let sortedPlayers = players.sorted(by: { $0.heroDamage ?? 0 > $1.heroDamage ?? 0 })
         return Int(sortedPlayers.first?.heroDamage ?? 0)
     }
     
@@ -263,7 +263,7 @@ struct PlayerRowView: View {
                         Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
                         Text("\(player.xpm)").foregroundColor(Color(.systemBlue))
                     }.frame(width: 40)
-                    DamageView(maxDamage: maxDamage, playerDamage: Int(player.heroDamage))
+                    DamageView(maxDamage: maxDamage, playerDamage: Int(player.heroDamage ?? 0))
                 }.font(.custom(fontString, size: 10))
             }.frame(height: 50)
         }
