@@ -17,6 +17,7 @@ struct PlayerListView: View {
                         .frame(height: 190)
                 } else {
                     RegisteredPlayerView(vm: SidebarRowViewModel(userid: env.registerdID, isRegistered: true))
+                        .frame(height: 190)
                         .background(Color.systemBackground)
                 }
                 VStack {
@@ -181,6 +182,8 @@ struct RegisteredPlayerView: View {
                         Spacer()
                     }
                 }.padding()
+            } else {
+                ProgressView()
             }
         }
     }

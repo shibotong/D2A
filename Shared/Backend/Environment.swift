@@ -61,19 +61,19 @@ final class DotaEnvironment: ObservableObject {
         self.userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
         self.subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         self.registerdID = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.registerdID") as? String ?? ""
-        Task {
-            if !userIDs.isEmpty {
-                for userID in userIDs {
-                    if let _ = UserProfile.fetch(id: Int(userID)) {
-                        continue
-                    }
-                    await self.loadUser(userid: userID)
-                }
-            }
-            if let registeredUser = Int(registerdID), UserProfile.fetch(id: registeredUser) != nil {
-                await self.loadUser(userid: registerdID)
-            }
-        }
+//        Task {
+//            if !userIDs.isEmpty {
+//                for userID in userIDs {
+//                    if let _ = UserProfile.fetch(id: Int(userID)) {
+//                        continue
+//                    }
+//                    await self.loadUser(userid: userID)
+//                }
+//            }
+//            if let registeredUser = Int(registerdID), UserProfile.fetch(id: registeredUser) != nil {
+//                await self.loadUser(userid: registerdID)
+//            }
+//        }
     }
     
     func move(from source: IndexSet, to destination: Int) {
