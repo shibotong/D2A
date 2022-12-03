@@ -9,35 +9,66 @@ import SwiftUI
 
 struct RegisteredPlayerView: View {
     @EnvironmentObject var env: DotaEnvironment
-    @FetchRequest var profile: FetchedResults<UserProfile>
-    private var userID: String
-    
-    init(userid: String) {
-        self.userID = userid
-        _profile = FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "id == %@", userid))
-    }
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "register = %d", true))
+    var profile: FetchedResults<UserProfile>
     
     var body: some View {
         ZStack {
             if let profile = profile.first {
-                VStack(spacing: 10) {
-                    NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: userID))) {
-                        HStack {
-                            ProfileAvartar(profile: profile, sideLength: 70, cornerRadius: 25)
-                            VStack(alignment: .leading, spacing: 0) {
-                                Text(profile.personaname ?? "").font(.custom(fontString, size: 20)).bold().lineLimit(1).foregroundColor(.label)
-                                Text(profile.id ?? "")
-                                    .font(.custom(fontString, size: 13))
-                                    .foregroundColor(Color.secondaryLabel)
-                            }
-                            
-                            Spacer()
-                            RankView(rank: Int(profile.rank), leaderboard: Int(profile.leaderboard))
-                                .frame(width: 70, height: 70)
-                                .padding(.trailing)
-                            
+                buildProfile(profile: profile)
+                HStack {
+                    Spacer()
+                    VStack {
+                        Button {
+                            deRegisterUser(user: profile)
+                        } label: {
+                            Image(systemName: "xmark")
+                                .foregroundColor(.label)
+                        }
+                        Spacer()
+                    }
+                }.padding()
+            } else if env.registerdID == "" {
+                EmptyRegistedView()
+            } else {
+                ProgressView()
+                    .onAppear {
+                        Task {
+                            await loadRegisterUser()
+                            env.registerdID = ""
                         }
                     }
+            }
+        }
+    }
+    @ViewBuilder private func buildWL(win: Bool, size: CGFloat = 15) -> some View {
+        ZStack {
+            Rectangle().foregroundColor(win ? Color(.systemGreen) : Color(.systemRed))
+                .frame(width: size, height: size)
+            Text("\(win ? "W" : "L")").font(.custom(fontString, size: 10)).bold().foregroundColor(.white)
+        }
+    }
+    
+    @ViewBuilder private func buildProfile(profile: UserProfile) -> some View {
+        VStack(spacing: 10) {
+            NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id ?? ""))) {
+                HStack {
+                    ProfileAvartar(profile: profile, sideLength: 70, cornerRadius: 25)
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(profile.personaname ?? "").font(.custom(fontString, size: 20)).bold().lineLimit(1).foregroundColor(.label)
+                        Text(profile.id ?? "")
+                            .font(.custom(fontString, size: 13))
+                            .foregroundColor(Color.secondaryLabel)
+                    }
+                    
+                    Spacer()
+                    RankView(rank: Int(profile.rank), leaderboard: Int(profile.leaderboard))
+                        .frame(width: 70, height: 70)
+                        .padding(.trailing)
+                    
+                }
+            }
 //                    if let matches = vm.recentMatches {
 //                        ScrollView(.horizontal, showsIndicators: false) {
 //                            HStack {
@@ -63,37 +94,28 @@ struct RegisteredPlayerView: View {
 //                        .background(Color.secondarySystemBackground)
 //                        .clipShape(RoundedRectangle(cornerRadius: 15))
 //                    }
-                }
-                .padding(15)
-                HStack {
-                    Spacer()
-                    VStack {
-                        Button {
-                            env.deRegisterUser(userid: userID)
-                        } label: {
-                            Image(systemName: "xmark")
-                                .foregroundColor(.label)
-                        }
-                        Spacer()
-                    }
-                }.padding()
-            } else {
-                ProgressView()
-            }
         }
+        .padding(15)
     }
-    @ViewBuilder private func buildWL(win: Bool, size: CGFloat = 15) -> some View {
-        ZStack {
-            Rectangle().foregroundColor(win ? Color(.systemGreen) : Color(.systemRed))
-                .frame(width: size, height: size)
-            Text("\(win ? "W" : "L")").font(.custom(fontString, size: 10)).bold().foregroundColor(.white)
-        }
+    
+    private func loadRegisterUser() async {
+        let user = try? await OpenDotaController.shared.loadUserData(userid: env.registerdID)
+        user?.favourite = true
+        user?.register = true
+        try? viewContext.save()
+    }
+    
+    private func deRegisterUser(user: UserProfile) {
+        user.register = false
+        try? viewContext.save()
     }
 }
 
 struct EmptyRegistedView: View {
     @State var searchText: String = ""
     @EnvironmentObject var env: DotaEnvironment
+    @Environment(\.managedObjectContext) private var viewContext
+    
     var body: some View {
         VStack {
             HStack {
@@ -110,7 +132,7 @@ struct EmptyRegistedView: View {
             Spacer()
             Button {
                 Task {
-                    await env.registerUser(userid: self.searchText)
+                    await registerUser(userid: searchText)
                 }
             } label: {
                 HStack {
@@ -126,6 +148,19 @@ struct EmptyRegistedView: View {
         .padding()
         .background(Color.systemBackground)
         
+    }
+    
+    private func registerUser(userid: String) async {
+        do {
+            let user = try await OpenDotaController.shared.loadUserData(userid: userid)
+            user.register = true
+            user.favourite = true
+            try viewContext.save()
+            return
+        } catch {
+            env.error = true
+            env.errorMessage = "Cannot find User"
+        }
     }
 }
 

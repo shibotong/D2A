@@ -45,7 +45,7 @@ class ProfileViewModel: ObservableObject {
     func loadProfile() async {
         self.isloading = true
         guard let profile = UserProfile.fetch(id: userid) else {
-            guard let profile = await OpenDotaController.shared.loadUserData(userid: userid) else {
+            guard let profile = try? await OpenDotaController.shared.loadUserData(userid: userid) else {
                 return
             }
             await self.setProfile(name: profile.personaname, image: profile.avatarfull)
