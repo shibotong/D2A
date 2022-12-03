@@ -60,12 +60,11 @@ class PlayerProfileViewModel: ObservableObject {
         guard let userid = userid else {
             return
         }
-        let profile = await OpenDotaController.shared.loadUserData(userid: userid)
+        let profile = try? await OpenDotaController.shared.loadUserData(userid: userid)
         guard let profile = profile else {
             return
         }
-        let newProfile = await UserProfile.create(profile)
-        await setUserProfile(profile: newProfile)
+        await setUserProfile(profile: profile)
     }
     
     @MainActor private func addMatches(_ matches: [RecentMatch]) {
