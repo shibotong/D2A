@@ -196,9 +196,11 @@ struct DecodingService {
     @MainActor func setError(_ error: APIError) {
         switch error {
         case .invalidError:
-            DotaEnvironment.shared.invalidID = true
+            DotaEnvironment.shared.error = true
+            DotaEnvironment.shared.errorMessage = "Invalid Account ID"
         default:
-            DotaEnvironment.shared.exceedLimit = true
+            DotaEnvironment.shared.error = true
+            DotaEnvironment.shared.errorMessage = "You are so quick!"
         }
     }
 }
