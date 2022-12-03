@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlayerListRowView: View {
     @EnvironmentObject var env: DotaEnvironment
-    
+    @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest var profile: FetchedResults<UserProfile>
     private var userid: String
     
@@ -77,11 +77,9 @@ struct PlayerListRowView: View {
     }
     
     private func loadProfile() async {
-        let profile = await OpenDotaController.shared.loadUserData(userid: userid)
-        guard let profile = profile else {
-            return
-        }
-        let _ = try UserProfile.create(profile)
+        let user = try? await OpenDotaController.shared.loadUserData(userid: userid)
+        user?.favourite = true
+        try? viewContext.save()
     }
 }
 
