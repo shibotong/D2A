@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HeroDetailView: View {
     @ObservedObject var vm: HeroDetailViewModel
+    @EnvironmentObject var heroDatabase: HeroDatabase
     @State var heroLevel = 1.00
     @State var isPresented = false
     
@@ -18,6 +19,7 @@ struct HeroDetailView: View {
             .sheet(isPresented: $isPresented, content: {
                 NavigationView {
                     AbilityView(vm: AbilityViewModel(heroID: vm.heroID, abilityName: vm.selectedAbility ?? ""))
+                        .environmentObject(heroDatabase)
                 }
             })
             .onAppear {
