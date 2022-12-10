@@ -9,9 +9,12 @@ import SwiftUI
 
 struct RegisteredPlayerView: View {
     @EnvironmentObject var env: DotaEnvironment
+    
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "register = %d", true))
     var profile: FetchedResults<UserProfile>
+    
+    @State var loading = false
     
     var body: some View {
         ZStack {
@@ -29,19 +32,12 @@ struct RegisteredPlayerView: View {
                         Spacer()
                     }
                 }.padding()
-            } else if env.registerdID == "" {
-                EmptyRegistedView()
             } else {
-                ProgressView()
-                    .onAppear {
-                        Task {
-                            await loadRegisterUser()
-                            env.registerdID = ""
-                        }
-                    }
+                EmptyRegistedView()
             }
         }
     }
+    
     @ViewBuilder private func buildWL(win: Bool, size: CGFloat = 15) -> some View {
         ZStack {
             Rectangle().foregroundColor(win ? Color(.systemGreen) : Color(.systemRed))
@@ -111,7 +107,17 @@ struct EmptyRegistedView: View {
     @EnvironmentObject var env: DotaEnvironment
     @Environment(\.managedObjectContext) private var viewContext
     
+    @State var loading = false
+    
     var body: some View {
+        if loading {
+            ProgressView()
+        } else {
+            mainBody
+        }
+    }
+    
+    private var mainBody: some View {
         VStack {
             HStack {
                 Text("Register Your Profile")
@@ -127,6 +133,7 @@ struct EmptyRegistedView: View {
             Spacer()
             Button {
                 Task {
+                    loading = true
                     await registerUser(userid: searchText)
                 }
             } label: {
@@ -142,19 +149,19 @@ struct EmptyRegistedView: View {
         }
         .padding()
         .background(Color.systemBackground)
-        
     }
     
     private func registerUser(userid: String) async {
         do {
-            let user = try await OpenDotaController.shared.loadUserData(userid: userid)
-            user.register = true
-            user.favourite = true
-            try viewContext.save()
+            let userCodable = try await OpenDotaController.shared.loadUserData(userid: userid)
+            _ = try UserProfile.create(userCodable, favourite: true, register: true)
             return
         } catch {
             env.error = true
             env.errorMessage = "Cannot find User"
+        }
+        DispatchQueue.main.async {
+            loading = false
         }
     }
 }
