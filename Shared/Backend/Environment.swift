@@ -34,6 +34,13 @@ final class DotaEnvironment: ObservableObject {
     @Published var loading = false
     
     // tab selections
+    var tab: TabSelection {
+        didSet {
+            selectedTab = tab
+            iPadSelectedTab = tab
+        }
+    }
+    
     @Published var selectedTab: TabSelection = .home
     @Published var iPadSelectedTab: TabSelection? = .home
     
@@ -46,7 +53,7 @@ final class DotaEnvironment: ObservableObject {
         let userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
         let registerdID = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.registerdID") as? String ?? ""
         subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
-        
+        tab = .home
         // migrate from WCDB Database to CoreData
         if registerdID != "" || !userIDs.isEmpty {
             loading = true
