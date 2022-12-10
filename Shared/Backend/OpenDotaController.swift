@@ -43,18 +43,16 @@ class OpenDotaController {
         }
     }
     
-    func loadUserData(userid: String) async throws -> UserProfile {
+    func loadUserData(userid: String) async throws -> UserProfileCodable {
         let data = try await decodingService.loadData("/players/\(userid)")
         let userCodable = try decodingService.decodeUserProfile(data)
-        let user = try UserProfile.create(userCodable)
-        return user
+        return userCodable
     }
     
-    func loadMatchData(matchid: String) async throws -> Match {
+    func loadMatchData(matchid: String) async throws -> MatchCodable {
         let data = try await decodingService.loadData("/matches/\(matchid)")
         let matchCodable = try decodingService.decodeMatch(data: data)
-        let match = try Match.create(matchCodable)
-        return match
+        return matchCodable
     }
     
     func loadRecentMatch(userid: String, days: Double? = nil, offset: Int = 0, numbers: Int? = nil) async -> [RecentMatch] {
