@@ -10,10 +10,10 @@ import CoreData
 import UIKit
 
 extension UserProfile {
-    static func create(_ profile: UserProfileCodable) throws -> UserProfile {
+    static func create(_ profile: UserProfileCodable, favourite: Bool = false, register: Bool = false) throws -> UserProfile {
         let viewContext = PersistenceController.shared.makeContext()
         let newProfile = Self.fetch(id: profile.id.description) ?? UserProfile(context: viewContext)
-        newProfile.update(profile)
+        newProfile.update(profile, favourite: favourite, register: register)
         try viewContext.save()
         return newProfile
     }
@@ -44,7 +44,7 @@ extension UserProfile {
         viewContext.delete(user)
     }
     
-    func update(_ profile: UserProfileCodable) {
+    func update(_ profile: UserProfileCodable, favourite: Bool, register: Bool) {
         self.id = profile.id.description
         self.avatarfull = profile.avatarfull
         
@@ -59,6 +59,10 @@ extension UserProfile {
             self.leaderboard = Int16(leaderboard)
         }
         
+        self.favourite = favourite
+        self.register = register
+        
         self.name = profile.name
+        
     }
 }
