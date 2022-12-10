@@ -98,12 +98,7 @@ struct RegisteredPlayerView: View {
         .padding(15)
     }
     
-    private func loadRegisterUser() async {
-        let user = try? await OpenDotaController.shared.loadUserData(userid: env.registerdID)
-        user?.favourite = true
-        user?.register = true
-        try? viewContext.save()
-    }
+    
     
     private func deRegisterUser(user: UserProfile) {
         user.register = false

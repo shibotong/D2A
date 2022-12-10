@@ -15,26 +15,8 @@ enum TabSelection {
 
 final class DotaEnvironment: ObservableObject {
     static var shared = DotaEnvironment()
-    static var preview: DotaEnvironment = {
-        let env = DotaEnvironment()
-        env.userIDs = ["125581247", "177416702", "153041957"]
-        env.registerdID = "153041957"
-        return env
-    }()
     
     var refreshHandler: [String: TimeInterval] = [:]
-    
-    @Published var userIDs: [String] {
-        didSet {
-            UserDefaults(suiteName: GROUP_NAME)!.set(userIDs, forKey: "dotaArmory.userID")
-        }
-    }
-    
-    @Published var registerdID: String {
-        didSet {
-            UserDefaults(suiteName: GROUP_NAME)!.set(registerdID, forKey: "dotaArmory.registerdID")
-        }
-    }
     
     // MARK: Errors
     @Published var error = false
@@ -58,53 +40,29 @@ final class DotaEnvironment: ObservableObject {
     @Published var userActive: Bool = false
 
     init() {
-        self.userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
-        self.subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
-        self.registerdID = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.registerdID") as? String ?? ""
-    }
-    
-    func move(from source: IndexSet, to destination: Int) {
-        userIDs.move(fromOffsets: source, toOffset: destination)
-    }
-    func delete(from indexSet: IndexSet) {
-        userIDs.remove(atOffsets: indexSet)
-    }
-    
-    func delete(userID: String) {
-        if let index = userIDs.firstIndex(of: userID) {
-            self.userIDs.remove(at: index)
-            UserProfile.delete(id: userID)
-        }
-    }
-    
-    func addOrDeleteUser(userid: String, profile: UserProfile? = nil) {
-        if self.userIDs.contains(userid) {
-            self.userIDs.remove(at: self.userIDs.firstIndex(of: userid)!)
-            UserProfile.delete(id: userid)
-        } else {
-            if self.userIDs.count >= 1 && !self.subscriptionStatus {
-                self.subscriptionSheet = true
-            } else {
-                self.userIDs.append(userid)
+        let userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
+        let registerdID = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.registerdID") as? String ?? ""
+        subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
+        
+        // migrate from WCDB Database to CoreData
+        if registerdID != "" || !userIDs.isEmpty {
+            Task {
+                await migration(registerID: registerdID, userIDs: userIDs)
             }
         }
     }
     
-    func deRegisterUser(userid: String) {
-        UserProfile.delete(id: userid)
-        self.registerdID = ""
-    }
-    
-    @MainActor
-    func setRegisterUser(userid: String) {
-        self.delete(userID: userid)
-        self.registerdID = userid
-    }
-    
-    @MainActor
-    func cannotFindUser() {
-        self.error = true
-        self.errorMessage = "Cannot Find User"
+    private func migration(registerID: String, userIDs: [String]) async {
+        if let userCodable = try? await OpenDotaController.shared.loadUserData(userid: registerID) {
+            _ = try? UserProfile.create(userCodable, favourite: true, register: true)
+        }
+        for userID in userIDs {
+            if let userCodable = try? await OpenDotaController.shared.loadUserData(userid: userID) {
+                _ = try? UserProfile.create(userCodable, favourite: true, register: false)
+            }
+        }
+        UserDefaults(suiteName: GROUP_NAME)?.set("", forKey: "dotaArmory.registerdID")
+        UserDefaults(suiteName: GROUP_NAME)?.set([], forKey: "dotaArmory.userID")
     }
     
     func canRefresh(userid: String) -> Bool {
