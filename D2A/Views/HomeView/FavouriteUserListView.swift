@@ -1,0 +1,71 @@
+//
+//  FavouriteUserListView.swift
+//  D2A
+//
+//  Created by Shibo Tong on 11/12/2022.
+//
+
+import SwiftUI
+
+struct FavouriteUserListView: View {
+    
+    @EnvironmentObject var env: DotaEnvironment
+    
+    @Environment(\.managedObjectContext) var viewContext
+    @FetchRequest(sortDescriptors: [],
+                  predicate: NSPredicate(format: "favourite = %d AND register = %d", true, false))
+    private var favouritePlayers: FetchedResults<UserProfile>
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("Favorite Players")
+                    .font(.custom(fontString, size: 20))
+                    .bold()
+                Spacer()
+            }.padding()
+            if favouritePlayers.isEmpty {
+                emptyPlayers
+            } else {
+                playersView
+            }
+        }
+    }
+    
+    private var emptyPlayers: some View {
+        VStack {
+            Text("FAVORITESADDTITLE")
+                .font(.custom(fontString, size: 13))
+            Text("FAVORITESADDSUBTITLE")
+                .font(.custom(fontString, size: 13))
+            Button {
+                env.tab = .search
+            } label: {
+                HStack {
+                    Spacer()
+                    Text("Search Player")
+                    Spacer()
+                }
+            }
+            .frame(height: 40)
+            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
+        }
+        .padding(.vertical)
+    }
+    
+    private var playersView: some View {
+        LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 100, maximum: 140), spacing: 10, alignment: .leading), count: 1), spacing: 10) {
+            ForEach(favouritePlayers, id: \.id) { player in
+                NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: player.id ?? ""))) {
+                    PlayerRowView(profile: player)
+                }
+            }
+        }
+    }
+}
+
+struct FavouriteUserListView_Previews: PreviewProvider {
+    static var previews: some View {
+        FavouriteUserListView()
+    }
+}

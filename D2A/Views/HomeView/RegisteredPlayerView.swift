@@ -8,13 +8,9 @@
 import SwiftUI
 
 struct RegisteredPlayerView: View {
-    @EnvironmentObject var env: DotaEnvironment
-    
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "register = %d", true))
     var profile: FetchedResults<UserProfile>
-    
-    @State var loading = false
     
     var body: some View {
         ZStack {
@@ -98,6 +94,7 @@ struct RegisteredPlayerView: View {
     
     private func deRegisterUser(user: UserProfile) {
         user.register = false
+        user.favourite = false
         try? viewContext.save()
     }
 }

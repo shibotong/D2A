@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlayerListRowView: View {
+struct PlayerRowView: View {
     @Environment(\.managedObjectContext) private var viewContext
     var profile: UserProfile
     

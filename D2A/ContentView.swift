@@ -50,7 +50,7 @@ struct NavigationHostView: View {
             if horizontalSizeClass == .compact {
                 TabView(selection: $env.selectedTab) {
                     NavigationView {
-                        PlayerListView()
+                        HomeView()
                     }.tabItem {
                         Image(systemName: "house")
                         Text("Home")
@@ -79,7 +79,7 @@ struct NavigationHostView: View {
             } else {
                 NavigationView {
                     Sidebar()
-                    PlayerListView()
+                    HomeView()
                 }
             }
     }

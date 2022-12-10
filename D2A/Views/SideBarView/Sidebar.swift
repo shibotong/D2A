@@ -15,7 +15,7 @@ struct Sidebar: View {
     var body: some View {
         List {
             NavigationLink(
-                destination: PlayerListView(),
+                destination: HomeView(),
                 tag: TabSelection.home,
                 selection: $env.iPadSelectedTab
             ) {
