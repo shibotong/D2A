@@ -8,57 +8,30 @@
 import Foundation
 import UIKit
 
-enum ImageCacheType {
-    case item, avatar
+enum ImageCacheType: String {
+    case item = "item"
+    case avatar = "avatar"
 }
 
 class ImageCache: ObservableObject {
     
-    static let shared = ImageCache()
-    
-    private var items: [String: UIImage] = [:]
-    private var avatar: [String: UIImage] = [:]
-    
-    func fetchImage(type: ImageCacheType, id: Int, url: URL?) async throws -> UIImage {
-        switch type {
-        case .item:
-            return try await fetchItemImage(id: id, url: url)
-        case .avatar:
-            return try await fetchAvatarImage(id: id, url: url)
+    static func readImage(type: ImageCacheType, id: String) -> UIImage? {
+        guard let docDir = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true) else {
+            return nil
         }
+        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).jpg")
+        print(imageURL)
+        let newImage = UIImage(contentsOfFile: imageURL.path)
+        return newImage
     }
     
-    private func fetchItemImage(id: Int, url: URL?) async throws -> UIImage {
-        if let image = items["\(id)"] {
-            return image
-        } else {
-            guard let url = url else {
-                throw NSError()
-            }
-            let image = try await loadImage(url: url)
-            items["\(id)"] = image
-            return image
+    static func saveImage(_ image: UIImage, type: ImageCacheType, id: String) {
+        guard let docDir = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true) else {
+            print("save image error")
+            return
         }
-    }
-    
-    private func fetchAvatarImage(id: Int, url: URL?) async throws -> UIImage {
-        if let image = avatar["\(id)"] {
-            return image
-        } else {
-            guard let url = url else {
-                throw NSError()
-            }
-            let image = try await loadImage(url: url)
-            avatar["\(id)"] = image
-            return image
-        }
-    }
-    
-    private func loadImage(url: URL) async throws -> UIImage {
-        let (imageData, _) = try await URLSession.shared.data(from: url)
-        guard let profileImage = UIImage(data: imageData) else {
-            throw NSError()
-        }
-        return profileImage
+        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).jpg")
+        let imageData = image.jpegData(compressionQuality: 1.0)
+        try? imageData?.write(to: imageURL)
     }
 }

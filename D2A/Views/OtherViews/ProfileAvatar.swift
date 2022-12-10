@@ -44,9 +44,9 @@ struct ProfileAvartar: View {
                     .frame(width: sideLength, height: sideLength)
             }
         }
-//        .task {
-//            await fetchImage()
-//        }
+        .task {
+            await fetchImage()
+        }
     }
     
     private func fetchImage() async {
@@ -57,4 +57,6 @@ struct ProfileAvartar: View {
         let image = try? await cache.fetchImage(type: .avatar, id: userid, url: url)
         self.image = image
     }
+    
+    
 }
