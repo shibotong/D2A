@@ -57,7 +57,7 @@ struct FavouriteUserListView: View {
         LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 100, maximum: 140), spacing: 10, alignment: .leading), count: 1), spacing: 10) {
             ForEach(favouritePlayers, id: \.id) { player in
                 NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: player.id ?? ""))) {
-                    PlayerRowView(profile: player)
+                    UserProfileRowView(profile: player)
                 }
             }
         }
