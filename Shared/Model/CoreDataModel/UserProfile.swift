@@ -61,8 +61,7 @@ extension UserProfile {
         
         self.favourite = favourite
         self.register = register
-        
         self.name = profile.name
-        
+        self.lastUpdate = Date()
     }
 }
