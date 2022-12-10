@@ -13,7 +13,7 @@ struct ContentView: View {
     @EnvironmentObject var data: HeroDatabase
     @EnvironmentObject var store: StoreManager
     var body: some View {
-        if data.status != .finish {
+        if data.status != .finish || env.loading == true {
             MainLoadingView(status: $data.status) {
                 data.loadData()
             }

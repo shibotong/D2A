@@ -30,7 +30,10 @@ final class DotaEnvironment: ObservableObject {
         }
     }
     
+    // migration loading
+    @Published var loading = false
     
+    // tab selections
     @Published var selectedTab: TabSelection = .home
     @Published var iPadSelectedTab: TabSelection? = .home
     
@@ -46,6 +49,7 @@ final class DotaEnvironment: ObservableObject {
         
         // migrate from WCDB Database to CoreData
         if registerdID != "" || !userIDs.isEmpty {
+            loading = true
             Task {
                 await migration(registerID: registerdID, userIDs: userIDs)
             }
@@ -53,6 +57,7 @@ final class DotaEnvironment: ObservableObject {
     }
     
     private func migration(registerID: String, userIDs: [String]) async {
+        print("Migrating")
         if let userCodable = try? await OpenDotaController.shared.loadUserData(userid: registerID) {
             _ = try? UserProfile.create(userCodable, favourite: true, register: true)
         }
@@ -63,6 +68,7 @@ final class DotaEnvironment: ObservableObject {
         }
         UserDefaults(suiteName: GROUP_NAME)?.set("", forKey: "dotaArmory.registerdID")
         UserDefaults(suiteName: GROUP_NAME)?.set([], forKey: "dotaArmory.userID")
+        loading = false
     }
     
     func canRefresh(userid: String) -> Bool {
