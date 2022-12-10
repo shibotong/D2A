@@ -1,5 +1,5 @@
 //
-//  PlayerRowView.swift
+//  UserProfileRowView.swift
 //  App
 //
 //  Created by Shibo Tong on 6/6/2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlayerRowView: View {
+struct UserProfileRowView: View {
     @Environment(\.managedObjectContext) private var viewContext
     var profile: UserProfile
     

@@ -57,11 +57,9 @@ class PlayerProfileViewModel: ObservableObject {
     }
     
     func loadUserProfile() async {
-        guard let userid = userid else {
-            return
-        }
-        let profile = try? await OpenDotaController.shared.loadUserData(userid: userid)
-        guard let profile = profile else {
+        guard let userid = userid,
+              let profileCodable = try? await OpenDotaController.shared.loadUserData(userid: userid),
+              let profile = try? UserProfile.create(profileCodable) else {
             return
         }
         await setUserProfile(profile: profile)
