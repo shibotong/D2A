@@ -103,7 +103,7 @@ struct SearchView: View {
                 EmptyView()
             }
             NavigationLink(
-                destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: env.selectedUser)),
+                destination: PlayerProfileView(userid: env.selectedUser ?? ""),
                 isActive: $env.userActive
             ) {
                 EmptyView()
@@ -137,7 +137,7 @@ struct SearchView: View {
             if !vm.localProfiles.isEmpty {
                 Section {
                     ForEach(vm.localProfiles) { profile in
-                        NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id ?? ""))) {
+                        NavigationLink(destination: PlayerProfileView(userid: profile.id ?? "")) {
                             ProfileView(vm: ProfileViewModel(profile: profile))
                         }
                     }
@@ -163,7 +163,7 @@ struct SearchView: View {
             if !vm.userProfiles.isEmpty {
                 Section {
                     ForEach(vm.userProfiles) { profile in
-                        NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id.description))) {
+                        NavigationLink(destination: PlayerProfileView(userid: profile.id.description)) {
                             ProfileView(vm: ProfileViewModel(profile: profile))
                         }
                     }
