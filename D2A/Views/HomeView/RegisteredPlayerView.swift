@@ -44,7 +44,7 @@ struct RegisteredPlayerView: View {
     
     @ViewBuilder private func buildProfile(profile: UserProfile) -> some View {
         VStack(spacing: 10) {
-            NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id ?? ""))) {
+            NavigationLink(destination: PlayerProfileView(userid: profile.id ?? "")) {
                 HStack {
                     ProfileAvartar(profile: profile, sideLength: 70, cornerRadius: 25)
                     VStack(alignment: .leading, spacing: 0) {
