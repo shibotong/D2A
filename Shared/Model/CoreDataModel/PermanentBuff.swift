@@ -30,11 +30,7 @@ class PermanentBuff: NSObject, NSSecureCoding {
     }
     
     required init?(coder: NSCoder) {
-        guard let buffID = coder.decodeObject(of: NSNumber.self, forKey: CodingKeys.buffID.rawValue) as? Int,
-              let stack = coder.decodeObject(of: NSNumber.self, forKey: CodingKeys.stack.rawValue) as? Int else {
-            return nil
-        }
-        self.buffID = buffID
-        self.stack = stack
+        self.buffID = coder.decodeInteger(forKey: CodingKeys.buffID.rawValue)
+        self.stack = coder.decodeInteger(forKey: CodingKeys.stack.rawValue)
     }
 }

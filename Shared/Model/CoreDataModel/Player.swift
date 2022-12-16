@@ -16,7 +16,7 @@ final class PlayerTransformer: NSSecureUnarchiveFromDataTransformer {
 
     // Our class `Test` should in the allowed class list. (This is what the unarchiver uses to check for the right class)
     override static var allowedTopLevelClasses: [AnyClass] {
-        return [NSArray.self, Player.self]
+        return [NSArray.self, NSNumber.self, Player.self, PermanentBuff.self]
     }
 
     /// Registers the transformer.
