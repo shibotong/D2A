@@ -9,9 +9,13 @@ import SwiftUI
 
 struct Sidebar: View {
     @EnvironmentObject var env: DotaEnvironment
-    @EnvironmentObject var data: HeroDatabase
     @AppStorage("selectedUser") var selectedUser: String?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    @FetchRequest(sortDescriptors: [],
+                  predicate: NSPredicate(format: "favourite = %d", true))
+    private var favouritePlayers: FetchedResults<UserProfile>
+    
     var body: some View {
         List {
             NavigationLink(
@@ -36,32 +40,23 @@ struct Sidebar: View {
                 Label("Search", systemImage: "magnifyingglass")
             }
             
-            if env.registerdID != "" || !env.userIDs.isEmpty {
+            if !favouritePlayers.isEmpty {
                 Section {
-                    if env.registerdID != "" {
+                    ForEach(favouritePlayers, id: \.self) { player in
                         NavigationLink(
-                            destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: env.registerdID)),
-                            tag: env.registerdID,
+                            destination: PlayerProfileView(userid: player.id!),
+                            tag: player.id!,
                             selection: $selectedUser
                         ) {
-                            SidebarRowView(userid: env.registerdID)
+                            SidebarRowView(userid: player.id!)
                         }.isDetailLink(true)
                     }
-                    ForEach(env.userIDs, id: \.self) { id in
-                        NavigationLink(
-                            destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: id)),
-                            tag: id,
-                            selection: $selectedUser
-                        ) {
-                            SidebarRowView(userid: id)
-                        }.isDetailLink(true)
-                    }
-                    .onMove(perform: { indices, newOffset in
-                        env.move(from: indices, to: newOffset)
-                    })
-                    .onDelete(perform: { indexSet in
-                        env.delete(from: indexSet)
-                    })
+//                    .onMove(perform: { indices, newOffset in
+//                        env.move(from: indices, to: newOffset)
+//                    })
+//                    .onDelete(perform: { indexSet in
+//                        env.delete(from: indexSet)
+//                    })
                 } header: {
                     Text("Favorite Players")
                 }
@@ -104,13 +99,9 @@ struct SidebarRowView: View {
     }
     
 }
-
-struct Sidebar_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            Sidebar()
-                .environmentObject(DotaEnvironment.preview)
-        }
-        .previewInterfaceOrientation(.landscapeLeft)
-    }
-}
+//
+//struct Sidebar_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Text("Hello world")
+//    }
+//}
