@@ -17,6 +17,11 @@ struct D2AApp: App {
     let persistenceController = PersistenceController.shared
     @AppStorage("selectedMatch") var selectedMatch: String?
     @AppStorage("selectedUser") var selectedUser: String?
+    
+    init() {
+        PlayerTransformer.register()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
