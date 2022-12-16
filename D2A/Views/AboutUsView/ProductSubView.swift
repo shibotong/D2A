@@ -30,9 +30,9 @@ struct ProductSubView: View {
     }
     @ViewBuilder private func buildMainView() -> some View {
         VStack {
-            Text("\(product.getNumberOfUnit()) month\(product.getNumberOfUnit() > 1 ? "s" : "")").font(.custom(fontString, size: 15))
-            Text(product.localizedPrice ?? "").font(.custom(fontString, size: 15)).bold()
-            Text("\(product.monthlyCost!) / mo").font(.custom(fontString, size: 12))
+            Text("\(product.getNumberOfUnit()) month\(product.getNumberOfUnit() > 1 ? "s" : "")").font(.system(size: 15))
+            Text(product.localizedPrice ?? "").font(.system(size: 15)).bold()
+            Text("\(product.monthlyCost!) / mo").font(.system(size: 12))
         }
     }
     
@@ -42,7 +42,7 @@ struct ProductSubView: View {
         } else {
             ZStack {
                 Capsule().foregroundColor(.primaryDota)
-                Text("SAVE \(buildSaveString())").font(.custom(fontString, size: 10)).bold().foregroundColor(.white)
+                Text("SAVE \(buildSaveString())").font(.system(size: 10)).bold().foregroundColor(.white)
             }.frame(height: 20)
         }
     }
@@ -83,13 +83,13 @@ struct ProductSubView: View {
     }
 }
 
-struct ProductSubView_Previews: PreviewProvider {
-    @State static var product: SKProduct? = MockSKProduct()
-    static var previews: some View {
-        ProductSubView(product: MockSKProduct(), monthlyProduct: MockSKProduct(), selectedProduct: $product)
-            .previewLayout(.fixed(width: 100, height: 150))
-    }
-}
+//struct ProductSubView_Previews: PreviewProvider {
+//    @State static var product: SKProduct? = MockSKProduct()
+//    static var previews: some View {
+//        ProductSubView(product: MockSKProduct(), monthlyProduct: MockSKProduct(), selectedProduct: $product)
+//            .previewLayout(.fixed(width: 100, height: 150))
+//    }
+//}
 
 class MockSKProductSubscriptionPeriod: SKProductSubscriptionPeriod {
     private let _numberOfUnits: Int

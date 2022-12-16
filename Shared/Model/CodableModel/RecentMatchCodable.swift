@@ -1,5 +1,5 @@
 //
-//  RecentMatch.swift
+//  RecentMatchCodable.swift
 //  App
 //
 //  Created by Shibo Tong on 18/8/21.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RecentMatch: Decodable, Identifiable {
+class RecentMatchCodable: Decodable, Identifiable {
     var id: Int
     var duration: Int
     var mode: Int
@@ -109,21 +109,5 @@ class RecentMatch: Decodable, Identifiable {
         } else {
             self.skill = nil
         }
-    }
-    
-    func isPlayerWin() -> Bool {
-        if slot <= 127 {
-            return radiantWin
-        } else {
-            return !radiantWin
-        }
-    }
-    
-    func fetchMode() -> GameMode {
-        HeroDatabase.shared.fetchGameMode(id: mode)
-    }
-    
-    func fetchLobby() -> LobbyType {
-        HeroDatabase.shared.fetchLobby(id: lobbyType)
     }
 }
