@@ -8,6 +8,24 @@
 import Foundation
 import CoreData
 
+@objc(PlayerTransformer)
+final class PlayerTransformer: NSSecureUnarchiveFromDataTransformer {
+
+    // The name of the transformer. This is what we will use to register the transformer `ValueTransformer.setValueTrandformer(_"forName:)`.
+    static let name = NSValueTransformerName(rawValue: String(describing: PlayerTransformer.self))
+
+    // Our class `Test` should in the allowed class list. (This is what the unarchiver uses to check for the right class)
+    override static var allowedTopLevelClasses: [AnyClass] {
+        return [NSArray.self, Player.self]
+    }
+
+    /// Registers the transformer.
+    public static func register() {
+        let transformer = PlayerTransformer()
+        ValueTransformer.setValueTransformer(transformer, forName: name)
+    }
+}
+
 public class Player: NSObject, NSSecureCoding, Identifiable {
     
     public static let supportsSecureCoding: Bool = true
@@ -84,6 +102,48 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
             }
         }
         return false
+    }
+    
+    init(id: String,
+         slot: Int,
+         heroID: Int = 1,
+         personaname: String = "Sample Player",
+         rank: Int = 0,
+         level: Int = 25,
+         item: Int = 1) {
+        self.accountId = id
+        self.heroID = heroID
+        self.slot = slot
+        self.rank = rank
+        self.level = level
+        self.personaname = personaname
+        
+        self.item0 = item
+        self.item1 = item
+        self.item2 = item
+        self.item3 = item
+        self.item4 = item
+        self.item5 = item
+        self.backpack0 = item
+        self.backpack1 = item
+        self.backpack2 = item
+        self.itemNeutral = item
+        
+        self.kills = 5
+        self.assists = 5
+        self.deaths = 5
+        
+        self.denies = 5
+        self.lastHits = 5
+        
+        self.gpm = 100
+        self.xpm = 100
+        self.towerDamage = 10000
+        self.heroDamage = 10000
+        self.heroHealing = 10000
+        self.netWorth = 10000
+        
+        self.abilityUpgrade = []
     }
     
     init(player: PlayerCodable) {

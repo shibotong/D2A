@@ -58,7 +58,7 @@ struct HeroDetailView: View {
                             .resizable()
                             .frame(width: 25, height: 25)
                         Text(LocalizedStringKey(hero.displayName ?? ""))
-                            .font(.custom(fontString, size: 30))
+                            .font(.system(size: 30))
                             .bold()
                             .foregroundColor(.white)
                         Text("\(Int(hero.id))")
@@ -129,7 +129,7 @@ struct HeroDetailView: View {
         VStack {
             HStack {
                 Text("Talents")
-                    .font(.custom(fontString, size: 15))
+                    .font(.system(size: 15))
                     .bold()
                 Spacer()
             }.padding(.leading)
@@ -149,13 +149,13 @@ struct HeroDetailView: View {
                 if let leftSideTalent = talent.first { $0.slot == level * 2 - 1 },
                    let abilityId = leftSideTalent.abilityId {
                     Text(vm.fetchTalentName(id: abilityId))
-                        .font(.custom(fontString, size: 10))
+                        .font(.system(size: 10))
                         .frame(width: (proxy.size.width - 40) / 2)
                 } else {
                     Text("No Talent")
                 }
                 Text("\(5 + 5 * level)")
-                    .font(.custom(fontString, size: 10))
+                    .font(.system(size: 10))
                     .bold()
                     .padding(5)
                     .frame(width: 30, height: 30)
@@ -163,7 +163,7 @@ struct HeroDetailView: View {
                 if let rightSideTalent = talent.first { $0.slot == level * 2 - 2 },
                    let abilityId = rightSideTalent.abilityId {
                     Text(vm.fetchTalentName(id: abilityId))
-                        .font(.custom(fontString, size: 10))
+                        .font(.system(size: 10))
                         .frame(width: (proxy.size.width - 30) / 2)
                 } else {
                     Text("No Talent")
@@ -178,7 +178,7 @@ struct HeroDetailView: View {
         VStack {
             HStack {
                 Text("Roles")
-                    .font(.custom(fontString, size: 15))
+                    .font(.system(size: 15))
                     .bold()
                 Spacer()
             }.padding(.leading)
@@ -219,7 +219,7 @@ struct HeroDetailView: View {
         VStack {
             HStack {
                 Text("Stats")
-                    .font(.custom(fontString, size: 15))
+                    .font(.system(size: 15))
                     .bold()
                 Spacer()
             }.padding(.leading)
@@ -227,7 +227,7 @@ struct HeroDetailView: View {
                 Spacer()
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Attack")
-                        .font(.custom(fontString, size: 15))
+                        .font(.system(size: 15))
                     buildStatDetail(image: "icon_damage", value: "\(hero.calculatedAttackMin)-\(hero.calculatedAttackMax)")
                     buildStatDetail(image: "icon_attack_time", value: "\(hero.attackRate)")
                     buildStatDetail(image: "icon_attack_range", value: "\(hero.attackRange)")
@@ -236,14 +236,14 @@ struct HeroDetailView: View {
                 Spacer()
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Defense")
-                        .font(.custom(fontString, size: 15))
+                        .font(.system(size: 15))
                     buildStatDetail(image: "icon_armor", value: String(format: "%.1f", hero.calculateArmor))
                     buildStatDetail(image: "icon_magic_resist", value: "\(hero.baseMr)%")
                 }
                 Spacer()
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Mobility")
-                        .font(.custom(fontString, size: 15))
+                        .font(.system(size: 15))
                     buildStatDetail(image: "icon_movement_speed", value: "\(hero.moveSpeed)")
                     buildStatDetail(image: "icon_turn_rate", value: "\(hero.turnRate)")
                     buildStatDetail(image: "icon_vision", value: "\(Int(hero.visionDaytimeRange))/\(Int(hero.visionNighttimeRange))")
@@ -261,7 +261,7 @@ struct HeroDetailView: View {
                 .frame(width: 15, height: 15)
                 .foregroundColor(Color(uiColor: UIColor.label))
             Text(value)
-                .font(.custom(fontString, size: 15))
+                .font(.system(size: 15))
         }
     }
     
@@ -269,37 +269,37 @@ struct HeroDetailView: View {
         VStack {
             HStack {
                 Text("Attributes")
-                    .font(.custom(fontString, size: 15))
+                    .font(.system(size: 15))
                     .bold()
                 Spacer()
             }.padding(.bottom)
             VStack(spacing: 0) {
                 HStack {
                     Text("Health")
-                        .font(.custom(fontString, size: 15))
+                        .font(.system(size: 15))
                         .bold()
                         .foregroundColor(.secondaryLabel)
                     Spacer()
                     Text("\(hero.calculateHPLevel(level: heroLevel))")
-                        .font(.custom(fontString, size: 15))
+                        .font(.system(size: 15))
                         .bold()
                     Text("+ \(hero.calculateHPRegen(level: heroLevel), specifier: "%.1f")")
-                        .font(.custom(fontString, size: 13))
+                        .font(.system(size: 13))
                 }
                 buildManaHealthBar(total: hero.calculateHPLevel(level: heroLevel), color: Color(UIColor.systemGreen))
             }
             VStack(spacing: 0) {
                 HStack {
                     Text("Mana")
-                        .font(.custom(fontString, size: 15))
+                        .font(.system(size: 15))
                         .bold()
                         .foregroundColor(.secondaryLabel)
                     Spacer()
                     Text("\(hero.calculateManaLevel(level: heroLevel))")
-                        .font(.custom(fontString, size: 15))
+                        .font(.system(size: 15))
                         .bold()
                     Text("+ \(hero.calculateMPRegen(level: heroLevel), specifier: "%.1f")")
-                        .font(.custom(fontString, size: 13))
+                        .font(.system(size: 13))
                 }
                 
                 buildManaHealthBar(total: hero.calculateManaLevel(level: heroLevel), color: Color(UIColor.systemBlue))
@@ -313,10 +313,10 @@ struct HeroDetailView: View {
                         .resizable()
                         .frame(width: 15, height: 15)
                     Text("\(hero.calculateAttribute(level: heroLevel, attr: .str))")
-                        .font(.custom(fontString, size: 18))
+                        .font(.system(size: 18))
                         .bold()
                     Text("+ \(hero.gainStr, specifier: "%.1f")")
-                        .font(.custom(fontString, size: 13))
+                        .font(.system(size: 13))
                 }
                 Spacer()
                 HStack {
@@ -324,10 +324,10 @@ struct HeroDetailView: View {
                         .resizable()
                         .frame(width: 15, height: 15)
                     Text("\(hero.calculateAttribute(level: heroLevel, attr: .agi))")
-                        .font(.custom(fontString, size: 18))
+                        .font(.system(size: 18))
                         .bold()
                     Text("+ \(hero.gainAgi, specifier: "%.1f")")
-                        .font(.custom(fontString, size: 13))
+                        .font(.system(size: 13))
                 }
                 Spacer()
                 HStack {
@@ -335,10 +335,10 @@ struct HeroDetailView: View {
                         .resizable()
                         .frame(width: 15, height: 15)
                     Text("\(hero.calculateAttribute(level: heroLevel, attr: .int))")
-                        .font(.custom(fontString, size: 18))
+                        .font(.system(size: 18))
                         .bold()
                     Text("+ \(hero.gainInt, specifier: "%.1f")")
-                        .font(.custom(fontString, size: 13))
+                        .font(.system(size: 13))
                 }
                 Spacer()
             }
@@ -375,8 +375,8 @@ struct HeroDetailView: View {
     }
 }
 
-struct HeroDetailView_Preview: PreviewProvider {
-    static var previews: some View {
-        HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
-    }
-}
+//struct HeroDetailView_Preview: PreviewProvider {
+//    static var previews: some View {
+//        HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
+//    }
+//}

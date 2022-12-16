@@ -7,12 +7,18 @@
 
 import CoreData
 
-struct PersistenceController {
+enum PersistanceError: Error {
+    case insertError
+    case persistentHistoryChangeError
+}
+
+class PersistenceController {
     static let shared = PersistenceController()
 
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
+        Match.create(id: "123")
         do {
             try viewContext.save()
         } catch {
@@ -25,12 +31,24 @@ struct PersistenceController {
     }()
 
     let container: NSPersistentContainer
+    private var notificationToken: NSObjectProtocol?
+    
+    /// A peristent history token used for fetching transactions from the store.
+    private var lastToken: NSPersistentHistoryToken?
 
     init(inMemory: Bool = false) {
         let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME)!
         let storeURL = containerURL.appendingPathComponent("D2AModel.sqlite")
         let description = NSPersistentStoreDescription(url: storeURL)
-        
+        // Enable persistent store remote change notifications
+        /// - Tag: persistentStoreRemoteChange
+        description.setOption(true as NSNumber,
+                              forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+
+        // Enable persistent history tracking
+        /// - Tag: persistentHistoryTracking
+        description.setOption(true as NSNumber,
+                              forKey: NSPersistentHistoryTrackingKey)
         container = NSPersistentContainer(name: "D2AModel")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
@@ -55,6 +73,54 @@ struct PersistenceController {
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
+        // Observe Core Data remote change notifications on the queue where the changes were made.
+        notificationToken = NotificationCenter.default.addObserver(forName: .NSPersistentStoreRemoteChange, object: nil, queue: nil) { note in
+            Task {
+                await self.fetchPersistentHistory()
+            }
+        }
+    }
+    
+    func fetchPersistentHistory() async {
+        do {
+            try await fetchPersistentHistoryTransactionsAndChanges()
+        } catch {
+           print("\(error.localizedDescription)")
+        }
+    }
+
+    private func fetchPersistentHistoryTransactionsAndChanges() async throws {
+        let taskContext = makeContext()
+        taskContext.name = "persistentHistoryContext"
+        print("Start fetching persistent history changes from the store...")
+
+        try await taskContext.perform {
+            // Execute the persistent history change since the last transaction.
+            /// - Tag: fetchHistory
+            let changeRequest = NSPersistentHistoryChangeRequest.fetchHistory(after: self.lastToken)
+            let historyResult = try taskContext.execute(changeRequest) as? NSPersistentHistoryResult
+            if let history = historyResult?.result as? [NSPersistentHistoryTransaction],
+               !history.isEmpty {
+                self.mergePersistentHistoryChanges(from: history)
+                return
+            }
+            
+            print("No persistent history transactions found.")
+            throw PersistanceError.persistentHistoryChangeError
+        }
+    }
+
+    private func mergePersistentHistoryChanges(from history: [NSPersistentHistoryTransaction]) {
+        print("Received \(history.count) persistent history transactions.")
+        // Update view context with objectIDs from history change request.
+        /// - Tag: mergeChanges
+        let viewContext = container.viewContext
+        viewContext.perform {
+            for transaction in history {
+                viewContext.mergeChanges(fromContextDidSave: transaction.objectIDNotification())
+                self.lastToken = transaction.token
+            }
+        }
     }
     
     func makeContext() -> NSManagedObjectContext {

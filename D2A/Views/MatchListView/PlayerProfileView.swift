@@ -6,44 +6,51 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct PlayerProfileView: View {
     @EnvironmentObject var env: DotaEnvironment
-    @StateObject var vm: PlayerProfileViewModel
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-
+    @Environment(\.managedObjectContext) var viewContext
     @State private var isSharePresented: Bool = false
-
-    @ViewBuilder var favoriteButton: some View {
-        if env.registerdID == vm.userid {
-            Image(systemName: "person.text.rectangle")
-                .foregroundColor(.primaryDota)
-        } else {
-            if env.userIDs.contains(vm.userid ?? "0") {
-                Button {
-                    guard let userid = vm.userid else {
-                        return
-                    }
-                    env.delete(userID: userid)
-                } label: {
-                    Image(systemName: "star.fill")
+    
+    @FetchRequest private var profile: FetchedResults<UserProfile>
+    @FetchRequest private var matches: FetchedResults<RecentMatch>
+    
+    private var userid: String
+    
+    init(userid: String) {
+        _profile = FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "id = %@", userid))
+        let request = NSFetchRequest<RecentMatch>(entityName: "RecentMatch")
+        request.fetchLimit = 10
+        request.fetchBatchSize = 1
+        request.predicate = NSPredicate(format: "playerId = %@", userid)
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \RecentMatch.startTime, ascending: false)]
+        _matches = FetchRequest(fetchRequest: request)
+        self.userid = userid
+    }
+    
+    var favoriteButton: some View {
+        ZStack {
+            if let profile = profile.first {
+                if profile.register {
+                    Image(systemName: "person.text.rectangle")
                         .foregroundColor(.primaryDota)
-                }
-            } else {
-                Button {
-                    guard let userid = vm.userid else {
-                        return
+                } else {
+                    Button {
+                        profile.favourite.toggle()
+                        try? viewContext.save()
+                    } label: {
+                        Image(systemName: profile.favourite ? "star.fill" : "star")
+                            .foregroundColor(profile.favourite ? .primaryDota : .label)
                     }
-                    env.addOrDeleteUser(userid: userid, profile: vm.userProfile)
-                } label: {
-                    Image(systemName: "star")
                 }
             }
         }
     }
 
     var body: some View {
-        if let profile = vm.userProfile {
+        if let profile = profile.first {
             buildProfileView(profile: profile)
                 .listStyle(PlainListStyle())
                 .navigationTitle("\(profile.personaname ?? "")")
@@ -58,16 +65,12 @@ struct PlayerProfileView: View {
 //                        }
                     }
                 })
+                .task {
+                    await loadMatches()
+                }
 //                .sheet(isPresented: $isSharePresented, content: {
 //                    ShareActivityView(activityItems: [SharingLink(title: "\(profile.personaname ?? "")", link: "d2aapp://profile?userid=\(profile.id.description)", image: vm.userIcon)])
 //                })
-                .overlay {
-                    if vm.isLoading {
-                        ProgressView()
-                            .frame(width: 50, height: 50)
-                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
-                    }
-                }
         } else {
             ProgressView()
         }
@@ -84,20 +87,21 @@ struct PlayerProfileView: View {
             }
             HStack {
                 Text("Recent Matches")
-                    .font(.custom(fontString, size: 20))
+                    .font(.system(size: 20))
                     .bold()
                 Spacer()
-                NavigationLink(destination: CalendarMatchListView(vm: CalendarMatchListViewModel(userid: self.vm.userid!))) {
+                NavigationLink(destination: CalendarMatchListView(vm: CalendarMatchListViewModel(userid: profile.id!))) {
                     Text("All")
                 }
             }
             .padding(.horizontal)
+//            Text(matches.count.description)
             VStack(spacing: 2) {
-                ForEach(vm.matches, id: \.id) { match in
+                ForEach(matches[0..<(matches.count > 10 ? 10 : matches.count)], id: \.id) { match in
                     NavigationLink(
-                        destination: MatchView(matchid: match.id.description)
+                        destination: MatchView(matchid: match.id)
                     ) {
-                        MatchListRowView(vm: MatchListRowViewModel(match: match))
+                        MatchListRowView(match: match)
                             .background(Color.systemBackground)
                     }.listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
                 }
@@ -177,9 +181,9 @@ struct PlayerProfileView: View {
     @ViewBuilder private func buildButton(profile: UserProfile) -> some View {
         HStack(spacing: 20) {
             Button {
-                if env.canRefresh(userid: vm.userid ?? "") {
+                if env.canRefresh(userid: userid ?? "") {
                     Task {
-                        await vm.refreshData(refreshAll: true)
+                        await loadMatches()
                     }
                 }
             } label: {
@@ -212,16 +216,20 @@ struct PlayerProfileView: View {
             }
         }
     }
-}
-
-
-
-struct MatchListView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            PlayerProfileView(vm: PlayerProfileViewModel())
-                .environmentObject(DotaEnvironment.shared)
-                .environmentObject(HeroDatabase.shared)
+    
+    private func loadMatches() async {
+        guard let userID = profile.first?.id else {
+            return
+        }
+        if matches.count == 0 {
+            await OpenDotaController.shared.loadRecentMatch(userid: userID)
+        } else {
+            guard let latestMatchStartTime = matches.first?.startTime?.timeIntervalSinceNow as? Double else {
+                return
+            }
+            let oneDay: Double = 60 * 60 * 24
+            let days = latestMatchStartTime / oneDay
+            await OpenDotaController.shared.loadRecentMatch(userid: userID, days: days)
         }
     }
 }

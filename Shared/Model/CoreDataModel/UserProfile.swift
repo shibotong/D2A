@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreData
-import UIKit
 
 extension UserProfile {
     static func create(_ profile: UserProfileCodable, favourite: Bool = false, register: Bool = false) throws -> UserProfile {

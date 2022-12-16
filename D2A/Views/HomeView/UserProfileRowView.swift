@@ -22,7 +22,7 @@ struct UserProfileRowView: View {
                             .font(.caption2)
                     }
                     Text(profile.name ?? profile.personaname ?? "")
-                        .font(.custom(fontString, size: 12))
+                        .font(.system(size: 12))
                         .bold()
                         .lineLimit(1)
                         .foregroundColor(Color(UIColor.label))
@@ -33,11 +33,11 @@ struct UserProfileRowView: View {
                         .resizable()
                         .frame(width: 15, height: 15)
                     Text(DataHelper.transferRank(rank: Int(profile.rank)))
-                        .font(.custom(fontString, size: 10))
+                        .font(.system(size: 10))
                         .foregroundColor(Color(uiColor: UIColor.secondaryLabel))
                 }
                 Text(profile.id ?? "")
-                    .font(.custom(fontString, size: 9))
+                    .font(.system(size: 9))
                     .foregroundColor(Color(uiColor: UIColor.tertiaryLabel))
             }
             .padding()

@@ -51,7 +51,7 @@ struct AbilityView: View {
                     Spacer().frame(height: 10)
                     if let lore = stratzAbility.language?.lore {
                         Text(lore)
-                            .font(.custom(fontString, size: 10))
+                            .font(.system(size: 10))
                             .padding(8)
                             .foregroundColor(Color(UIColor.tertiaryLabel))
                             .background(
@@ -82,15 +82,15 @@ struct AbilityView: View {
             AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 70, cornerRadius: 20)
             VStack(alignment: .leading) {
                 Text(stratzAbility.language?.displayName ?? "")
-                    .font(.custom(fontString, size: 18))
+                    .font(.system(size: 18))
                     .bold()
                 if let cd = openDotaAbility.coolDown?.transformString() {
                     Text("Cooldown: \(cd)")
-                        .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
+                        .font(.system(size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
                 }
                 if let mc = openDotaAbility.manaCost?.transformString() {
                     Text("Cost: \(mc)")
-                        .font(.custom(fontString, size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
+                        .font(.system(size: 14)).foregroundColor(Color(UIColor.secondaryLabel))
                 }
             }
             Spacer()
@@ -166,11 +166,11 @@ struct AbilityView: View {
     @ViewBuilder private func buildAttributesText(title: String, message: String, color: Color = Color(UIColor.label)) -> some View {
         HStack {
             Text(LocalizedStringKey(title))
-                .font(.custom(fontString, size: 11))
+                .font(.system(size: 11))
                 .foregroundColor(Color(uiColor: UIColor.secondaryLabel))
                 .lineLimit(1)
             Text(LocalizedStringKey(message))
-                .font(.custom(fontString, size: 11))
+                .font(.system(size: 11))
                 .bold()
                 .lineLimit(1)
                 .foregroundColor(color)
@@ -186,13 +186,13 @@ struct AbilityView: View {
                         .scaledToFit()
                         .frame(width: 18, height: 18)
                     Text("\(type.rawValue) Upgrade")
-                        .font(.custom(fontString, size: 15))
+                        .font(.system(size: 15))
                         .bold()
                     Spacer()
                 }
             }
             Text(desc)
-                .font(.custom(fontString, size: 13))
+                .font(.system(size: 13))
             HStack {
                 Spacer()
                 switch type {
