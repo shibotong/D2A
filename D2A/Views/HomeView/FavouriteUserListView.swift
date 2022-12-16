@@ -20,7 +20,7 @@ struct FavouriteUserListView: View {
         VStack {
             HStack {
                 Text("Favorite Players")
-                    .font(.custom(fontString, size: 20))
+                    .font(.system(size: 20))
                     .bold()
                 Spacer()
             }.padding()
@@ -35,9 +35,9 @@ struct FavouriteUserListView: View {
     private var emptyPlayers: some View {
         VStack {
             Text("FAVORITESADDTITLE")
-                .font(.custom(fontString, size: 13))
+                .font(.system(size: 13))
             Text("FAVORITESADDSUBTITLE")
-                .font(.custom(fontString, size: 13))
+                .font(.system(size: 13))
             Button {
                 env.tab = .search
             } label: {
@@ -64,8 +64,8 @@ struct FavouriteUserListView: View {
     }
 }
 
-struct FavouriteUserListView_Previews: PreviewProvider {
-    static var previews: some View {
-        FavouriteUserListView()
-    }
-}
+//struct FavouriteUserListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FavouriteUserListView()
+//    }
+//}

@@ -38,7 +38,7 @@ struct RegisteredPlayerView: View {
         ZStack {
             Rectangle().foregroundColor(win ? Color(.systemGreen) : Color(.systemRed))
                 .frame(width: size, height: size)
-            Text("\(win ? "W" : "L")").font(.custom(fontString, size: 10)).bold().foregroundColor(.white)
+            Text("\(win ? "W" : "L")").font(.system(size: 10)).bold().foregroundColor(.white)
         }
     }
     
@@ -48,9 +48,9 @@ struct RegisteredPlayerView: View {
                 HStack {
                     ProfileAvartar(profile: profile, sideLength: 70, cornerRadius: 25)
                     VStack(alignment: .leading, spacing: 0) {
-                        Text(profile.personaname ?? "").font(.custom(fontString, size: 20)).bold().lineLimit(1).foregroundColor(.label)
+                        Text(profile.personaname ?? "").font(.system(size: 20)).bold().lineLimit(1).foregroundColor(.label)
                         Text(profile.id ?? "")
-                            .font(.custom(fontString, size: 13))
+                            .font(.system(size: 13))
                             .foregroundColor(Color.secondaryLabel)
                     }
                     
@@ -118,7 +118,7 @@ struct EmptyRegistedView: View {
         VStack {
             HStack {
                 Text("Register Your Profile")
-                    .font(.custom(fontString, size: 15))
+                    .font(.system(size: 15))
                     .bold()
                 Spacer()
             }
@@ -163,8 +163,8 @@ struct EmptyRegistedView: View {
     }
 }
 
-struct RegisteredPlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-        RegisteredPlayerView()
-    }
-}
+//struct RegisteredPlayerView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RegisteredPlayerView()
+//    }
+//}

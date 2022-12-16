@@ -30,12 +30,12 @@ class OpenDotaController {
         }
     }
     
-    func getRecentMatches(userid: String) async -> [RecentMatch] {
+    func getRecentMatches(userid: String) async -> [RecentMatchCodable] {
         let url = URL(string: "\(baseURL)/api/players/\(userid)/recentMatches")
         do {
             let (data, _) = try await URLSession.shared.data(from: url!)
             let decoder = JSONDecoder()
-            let recentMatches = try decoder.decode([RecentMatch].self, from: data)
+            let recentMatches = try decoder.decode([RecentMatchCodable].self, from: data)
             return recentMatches
         } catch {
             print(error.localizedDescription)
@@ -56,7 +56,7 @@ class OpenDotaController {
         return match
     }
     
-    func loadRecentMatch(userid: String, days: Double? = nil, offset: Int = 0, numbers: Int? = nil) async -> [RecentMatch] {
+    func loadRecentMatch(userid: String, days: Double? = nil, offset: Int = 0, numbers: Int? = nil) async {
         var urlString = ""
         if days != nil {
             urlString = "/players/\(userid)/matches/?date=\(days!)&&significant=0"
@@ -65,27 +65,20 @@ class OpenDotaController {
         }
         do {
             let data = try await decodingService.loadData(urlString)
-            let matches: [RecentMatch] = try decodingService.decode(data)
+            let matches: [RecentMatchCodable] = try decodingService.decode(data)
             matches.forEach({$0.playerId = Int(userid)})
-//            try WCDBController.shared.database.insertOrReplace(objects: matches, intoTable: "RecentMatch")
-//            print("fetched new matches for player \(userid)", matches.count)
-//            return matches.count >= 50 ? Array(matches[0..<50]) : matches
-            if let numbers = numbers {
-                return matches.count >= numbers ? Array(matches[0..<numbers]) : matches
-            } else {
-                return matches
-            }
+            try await RecentMatch.create(matches)
         } catch {
             print("error: ", error)
-            return []
+            return
         }
     }
     
-    func loadRecentMatches(userid: String) async -> [RecentMatch] {
+    func loadRecentMatches(userid: String) async -> [RecentMatchCodable] {
         let urlString = "/players/\(userid)/recentMatches"
         do {
             let data = try await decodingService.loadData(urlString)
-            let matches: [RecentMatch] = try decodingService.decode(data)
+            let matches: [RecentMatchCodable] = try decodingService.decode(data)
             return matches
         } catch {
             print("error: ", error)
@@ -128,10 +121,10 @@ struct DecodingService {
         }
     }
     
-    func decodeRecentMatch(_ data: Data) throws -> [RecentMatch] {
+    func decodeRecentMatch(_ data: Data) throws -> [RecentMatchCodable] {
         do {
             let decoder = JSONDecoder()
-            let match = try decoder.decode([RecentMatch].self, from: data)
+            let match = try decoder.decode([RecentMatchCodable].self, from: data)
             return match
         } catch let DecodingError.dataCorrupted(context) {
             print(context)

@@ -54,7 +54,7 @@ struct PlayerDetailView: View {
     
     @ViewBuilder private func buildAbiltyUpgrade(items: Int) -> some View {
         VStack(alignment: .leading, spacing: 1) {
-            Text("Ability Upgrade").font(.custom(fontString, size: 15)).bold().foregroundColor(Color(.systemGray))
+            Text("Ability Upgrade").font(.system(size: 15)).bold().foregroundColor(Color(.systemGray))
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50)), count: 6)) {
                 ForEach(0..<player.abilityUpgrade.count, id: \.self) { index in
                     buildAbility(abilityID: player.abilityUpgrade[index])
@@ -72,7 +72,7 @@ struct PlayerDetailView: View {
     
     @ViewBuilder private func buildItem() -> some View {
             VStack(alignment: .leading, spacing: 1) {
-                Text("Items").font(.custom(fontString, size: 15)).bold().foregroundColor(Color(.systemGray))
+                Text("Items").font(.system(size: 15)).bold().foregroundColor(Color(.systemGray))
                 HStack {
                     ItemView(id: Int(player.item0)).aspectRatio(contentMode: .fit)
                     ItemView(id: Int(player.item1)).aspectRatio(contentMode: .fit)
@@ -93,7 +93,7 @@ struct PlayerDetailView: View {
         HStack {
             HeroImageView(heroID: Int(player.heroID), type: .icon)
                 .frame(width:30, height: 30)
-            Text(LocalizedStringKey(hero?.localizedName ?? "Unknown Hero \(player.heroID)")).font(.custom(fontString, size: 30)).bold()
+            Text(LocalizedStringKey(hero?.localizedName ?? "Unknown Hero \(player.heroID)")).font(.system(size: 30)).bold()
             Spacer()
         }.padding(.horizontal)
     }
@@ -113,7 +113,7 @@ struct PlayerDetailView: View {
                 }
                 Spacer()
                 KDAView(kills: Int(player.kills), deaths: Int(player.deaths), assists: Int(player.assists), size: .caption)
-            }.padding(.horizontal).font(.custom(fontString, size: 15))
+            }.padding(.horizontal).font(.system(size: 15))
             HStack {
                 HStack {
                     Circle().frame(width: 10, height: 10).foregroundColor(.red)
@@ -122,8 +122,8 @@ struct PlayerDetailView: View {
                 }
                 Spacer()
                 //buildMultiKill
-            }.padding(.horizontal).font(.custom(fontString, size: 15))
-            Text("LH: \(getPlayerHits(last: true))  DN: \(getPlayerHits(last: false))").font(.custom(fontString, size: 15)).padding(.horizontal)
+            }.padding(.horizontal).font(.system(size: 15))
+            Text("LH: \(getPlayerHits(last: true))  DN: \(getPlayerHits(last: false))").font(.system(size: 15)).padding(.horizontal)
         }
     }
     
@@ -179,7 +179,7 @@ struct PlayerDetailView: View {
             .overlay(
                 ZStack {
                     Rectangle().stroke()
-                    Text(LocalizedStringKey(text)).font(.custom(fontString, size: 8)).padding(0.5)
+                    Text(LocalizedStringKey(text)).font(.system(size: 8)).padding(0.5)
                 }
             )
     }

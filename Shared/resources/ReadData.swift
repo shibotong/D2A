@@ -21,13 +21,13 @@ fileprivate func loadFile(filename: String) -> Data? {
     }
 }
 
-func loadRecentMatches() -> [RecentMatch]? {
+func loadRecentMatches() -> [RecentMatchCodable]? {
     guard let data = loadFile(filename: "sampleRecentMatch") else {
         return nil
     }
     do {
         let decoder = JSONDecoder()
-        let jsonData = try decoder.decode([RecentMatch].self, from: data)
+        let jsonData = try decoder.decode([RecentMatchCodable].self, from: data)
         return jsonData
     } catch {
         // handle error
