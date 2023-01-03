@@ -22,7 +22,7 @@ extension Match {
                        radiantWin: Bool = true,
                        startTime: Date = Date()) {
         let viewContext = PersistenceController.shared.makeContext()
-        let matchCoreData = Self.fetch(id: id) ?? Match(context: viewContext)
+        let matchCoreData = fetch(id: id) ?? Match(context: viewContext)
         matchCoreData.id = id
         matchCoreData.lobbyType = lobbyType
         matchCoreData.mode = mode
@@ -50,7 +50,7 @@ extension Match {
     
     static func create(_ match: MatchCodable) throws -> Match {
         let viewContext = PersistenceController.shared.makeContext()
-        let matchCoreData = Self.fetch(id: match.id.description) ?? Match(context: viewContext)
+        let matchCoreData = fetch(id: match.id.description) ?? Match(context: viewContext)
         matchCoreData.update(match)
         try viewContext.save()
         print("save match successfully \(matchCoreData.id ?? "nil")")
@@ -69,7 +69,7 @@ extension Match {
     }
     
     static func delete(id: String) {
-        guard let match = Self.fetch(id: id) else {
+        guard let match = fetch(id: id) else {
             return
         }
         let viewContext = PersistenceController.shared.container.viewContext
@@ -98,23 +98,23 @@ extension Match {
     }
     
     func update(_ match: MatchCodable) {
-        self.id = match.id.description
+        id = match.id.description
         
         // Match data
-        self.direKill = Int16(match.direKill ?? 0)
-        self.radiantKill = Int16(match.radiantKill ?? 0)
-        self.duration = Int32(match.duration)
-        self.radiantWin = match.radiantWin
+        direKill = Int16(match.direKill ?? 0)
+        radiantKill = Int16(match.radiantKill ?? 0)
+        duration = Int32(match.duration)
+        radiantWin = match.radiantWin
         
         // Lobby data
-        self.lobbyType = Int16(match.lobbyType)
-        self.mode = Int16(match.mode)
-        self.region = Int16(match.region)
-        self.skill = Int16(match.skill ?? 0)
-        self.startTime = Date(timeIntervalSince1970: TimeInterval(match.startTime))
-        self.players = match.players.map { Player(player: $0) }
+        lobbyType = Int16(match.lobbyType)
+        mode = Int16(match.mode)
+        region = Int16(match.region)
+        skill = Int16(match.skill ?? 0)
+        startTime = Date(timeIntervalSince1970: TimeInterval(match.startTime))
+        players = match.players.map { Player(player: $0) }
         
-        self.goldDiff = match.goldDiff as [NSNumber]?
-        self.xpDiff = match.xpDiff as [NSNumber]?
+        goldDiff = match.goldDiff as [NSNumber]?
+        xpDiff = match.xpDiff as [NSNumber]?
     }
 }
