@@ -25,7 +25,7 @@ extension Hero {
               let heroStats = queryHero.stats else {
             throw Hero.CoreDataError.decodingError
         }
-        let hero = Self.fetchHero(id: heroID) ?? Hero(context: viewContext)
+        let hero = fetchHero(id: heroID) ?? Hero(context: viewContext)
         
         // data from Stratz
         hero.lastFetch = Date()
@@ -94,67 +94,67 @@ extension Hero {
     
     // MARK: - Variables
     var heroNameLowerCase: String {
-        return self.name?.replacingOccurrences(of: "npc_dota_hero_", with: "") ?? "no_name"
+        return name?.replacingOccurrences(of: "npc_dota_hero_", with: "") ?? "no_name"
     }
 
     var heroNameLocalized: String {
-        return NSLocalizedString(self.displayName ?? "no_name", comment: "")
+        return NSLocalizedString(displayName ?? "no_name", comment: "")
     }
     
     var calculateHP: Int32 {
-        let hp = self.baseHealth + self.baseStr * Hero.strMaxHP
+        let hp = baseHealth + baseStr * Hero.strMaxHP
         return hp
     }
     var calculateHPRegen: Double {
-        let regen = self.baseHealthRegen + Double(self.baseStr) * Hero.strHPRegen
+        let regen = baseHealthRegen + Double(baseStr) * Hero.strHPRegen
         return regen
     }
     
     var calculateMP: Int32 {
-        let mp = self.baseMana + self.baseInt * Hero.intMaxMP
+        let mp = baseMana + baseInt * Hero.intMaxMP
         return mp
     }
     var calculateMPRegen: Double {
-        let regen = self.baseManaRegen + Double(self.baseInt) * Hero.intManaRegen
+        let regen = baseManaRegen + Double(baseInt) * Hero.intManaRegen
         return regen
     }
     
     var calculatedAttackMin: Int32 {
-        let mainAttributes = self.mainAttributes
-        return self.baseAttackMin + mainAttributes
+        let mainAttributes = mainAttributes
+        return baseAttackMin + mainAttributes
     }
     
     var calculatedAttackMax: Int32 {
-        let mainAttributes = self.mainAttributes
-        return self.baseAttackMax + mainAttributes
+        let mainAttributes = mainAttributes
+        return baseAttackMax + mainAttributes
     }
     
     var calculateArmor: Double {
-        let armor = self.baseArmor + Hero.agiArmor * Double(self.baseAgi)
+        let armor = baseArmor + Hero.agiArmor * Double(baseAgi)
         return armor
     }
     
     var mainAttributes: Int32 {
-        switch self.primaryAttr {
+        switch primaryAttr {
         case "str":
-            return self.baseStr
+            return baseStr
         case "agi":
-            return self.baseAgi
+            return baseAgi
         case "int":
-            return self.baseInt
+            return baseInt
         default:
             return 0
         }
     }
     
     var mainAttributesGain: Double {
-        switch self.primaryAttr {
+        switch primaryAttr {
         case "str":
-            return self.gainStr
+            return gainStr
         case "agi":
-            return self.gainAgi
+            return gainAgi
         case "int":
-            return self.gainInt
+            return gainInt
         default:
             return 0.0
         }
@@ -163,25 +163,25 @@ extension Hero {
     // MARK: - functions
     func calculateHPLevel(level: Double) -> Int {
         let totalStr = calculateAttribute(level: level, attr: .str)
-        let hp = Int(self.baseHealth + totalStr * Hero.strMaxHP)
+        let hp = Int(baseHealth + totalStr * Hero.strMaxHP)
         return hp
     }
     
     func calculateManaLevel(level: Double) -> Int {
         let totalInt = calculateAttribute(level: level, attr: .int)
-        let hp = Int(self.baseMana + totalInt * Hero.intMaxMP)
+        let hp = Int(baseMana + totalInt * Hero.intMaxMP)
         return hp
     }
     
     func calculateHPRegen(level: Double) -> Double {
         let totalStr = calculateAttribute(level: level, attr: .str)
-        let regen = self.baseHealthRegen + Double(totalStr) * Hero.strHPRegen
+        let regen = baseHealthRegen + Double(totalStr) * Hero.strHPRegen
         return regen
     }
     
     func calculateMPRegen(level: Double) -> Double {
         let totalInt = calculateAttribute(level: level, attr: .int)
-        let regen = self.baseManaRegen + Double(totalInt) * Hero.intManaRegen
+        let regen = baseManaRegen + Double(totalInt) * Hero.intManaRegen
         return regen
     }
     
