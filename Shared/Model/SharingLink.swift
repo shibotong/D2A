@@ -41,6 +41,6 @@ class SharingLink: NSObject, UIActivityItemSource {
     }
 
     func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
-        return self.metadata
+        return metadata
     }
 }
