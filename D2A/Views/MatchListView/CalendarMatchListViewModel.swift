@@ -10,9 +10,9 @@ import Combine
 
 class CalendarMatchListViewModel: ObservableObject {
     @Published var selectDate: Date = Date()
-    @Published var matchesOnDate: [RecentMatch] = []
+    @Published var matchesOnDate: [RecentMatchCodable] = []
     @Published var isLoading = false
-    var matches: [RecentMatch] = []
+    var matches: [RecentMatchCodable] = []
     let userid: String
     private var cancellableSet: Set<AnyCancellable> = []
     init(userid: String) {
@@ -33,19 +33,19 @@ class CalendarMatchListViewModel: ObservableObject {
     }
     
     func loadAllMatches() async {
-        let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid)
-        self.matches = matches
-        let filteredMatches = self.filterMatch(on: self.selectDate)
-        await self.setMatches(matches: filteredMatches)
+//        let matches = await OpenDotaController.shared.loadRecentMatch(userid: userid)
+//        self.matches = matches
+//        let filteredMatches = self.filterMatch(on: self.selectDate)
+//        await self.setMatches(matches: filteredMatches)
     }
     
     @MainActor
-    func setMatches(matches: [RecentMatch]) {
+    func setMatches(matches: [RecentMatchCodable]) {
         self.matchesOnDate = matches
         self.isLoading = false
     }
     
-    private func filterMatch(on date: Date) -> [RecentMatch]{
+    private func filterMatch(on date: Date) -> [RecentMatchCodable]{
         print("select Date \(date.description)")
         let filteredMatches = self.matches.filter { match in
             let startTime = date.startOfDay.timeIntervalSince1970

@@ -177,8 +177,8 @@ struct HeroListView: View {
     }
 }
 
-struct HeroListView_Previews: PreviewProvider {
-    static var previews: some View {
-        HeroListView()
-    }
-}
+//struct HeroListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HeroListView()
+//    }
+//}

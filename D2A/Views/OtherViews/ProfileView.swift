@@ -15,7 +15,7 @@ struct ProfileView: View {
         if !vm.isloading {
             if let personaname = vm.personaname {
                 HStack {
-                    ProfileAvartar(userid: Int(vm.userid)!, urlString: vm.urlString ?? "", sideLength: 40, cornerRadius: 5)
+//                    ProfileAvartar(userid: Int(vm.userid)!, urlString: vm.urlString ?? "", sideLength: 40, cornerRadius: 5)
                     VStack(alignment: .leading) {
                         Text(personaname).bold()
                         Text("ID: \(vm.userid.description)")
@@ -23,14 +23,14 @@ struct ProfileView: View {
                             .font(.caption)
                     }
                     Spacer()
-                    if vm.userid.description == env.registerdID {
-                        Image(systemName: "person.text.rectangle")
-                            .foregroundColor(.primaryDota)
-                    }
-                    if env.userIDs.contains(vm.userid.description) {
-                        Image(systemName: "star.fill")
-                            .foregroundColor(.primaryDota)
-                    }
+//                    if vm.userid.description == env.registerdID {
+//                        Image(systemName: "person.text.rectangle")
+//                            .foregroundColor(.primaryDota)
+//                    }
+//                    if env.userIDs.contains(vm.userid.description) {
+//                        Image(systemName: "star.fill")
+//                            .foregroundColor(.primaryDota)
+//                    }
                 }
             } else {
                 ProfileEmptyView()

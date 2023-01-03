@@ -43,8 +43,9 @@ struct CalendarMatchListView: View {
                     VStack(spacing: 1) {
                         ForEach(vm.matchesOnDate) { match in
                             NavigationLink(destination: MatchView(matchid: match.id.description)) {
-                                MatchListRowView(vm: MatchListRowViewModel(match: match))
-                                    .background(Color.systemBackground)
+//                                MatchListRowView(vm: MatchListRowViewModel(match: match))
+//                                    .background(Color.systemBackground)
+                                Text("123")
                             }
                         }
                     }
@@ -55,8 +56,8 @@ struct CalendarMatchListView: View {
     }
 }
 
-struct CalendarMatchListView_Previews: PreviewProvider {
-    static var previews: some View {
-        CalendarMatchListView(vm: CalendarMatchListViewModel(userid: "153041957"))
-    }
-}
+//struct CalendarMatchListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CalendarMatchListView(vm: CalendarMatchListViewModel(userid: "153041957"))
+//    }
+//}

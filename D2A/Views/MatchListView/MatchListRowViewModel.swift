@@ -9,13 +9,13 @@ import Foundation
 import UIKit
 
 class MatchListRowViewModel: ObservableObject {
-    @Published var match: RecentMatch
+    @Published var match: RecentMatchCodable
     
-    init(match: RecentMatch) {
+    init(match: RecentMatchCodable) {
         self.match = match
     }
     
     init() {
-        self.match = RecentMatch.sample.last!
+        self.match = RecentMatchCodable.sample.last!
     }
 }

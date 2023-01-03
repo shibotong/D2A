@@ -11,7 +11,7 @@ import WidgetKit
 import UIKit
 
 class PlayerProfileViewModel: ObservableObject {
-    @Published var matches: [RecentMatch] = []
+    @Published var matches: [RecentMatchCodable] = []
     @Published var isLoading = false
     @Published var refreshing = false
     @Published var userid: String?
@@ -37,7 +37,7 @@ class PlayerProfileViewModel: ObservableObject {
     }
     
     init() {
-        self.matches = RecentMatch.sample
+        self.matches = RecentMatchCodable.sample
         self.userid = "153041957"
         Task {
             await self.refreshData(refreshAll: true)
@@ -65,13 +65,13 @@ class PlayerProfileViewModel: ObservableObject {
         await setUserProfile(profile: profile)
     }
     
-    @MainActor private func addMatches(_ matches: [RecentMatch]) {
+    @MainActor private func addMatches(_ matches: [RecentMatchCodable]) {
         self.matches = matches
         WidgetCenter.shared.reloadAllTimelines()
         self.isLoading = false
     }
     
-    @MainActor private func addMoreMatches(_ matches: [RecentMatch]) {
+    @MainActor private func addMoreMatches(_ matches: [RecentMatchCodable]) {
         self.matches.append(contentsOf: matches)
     }
     
