@@ -15,8 +15,8 @@ class PermanentBuff: NSObject, NSSecureCoding {
     let stack: Int
     
     init(_ permanentBuff: PermanentBuffCodable) {
-        self.buffID = permanentBuff.buffID
-        self.stack = permanentBuff.stack
+        buffID = permanentBuff.buffID
+        stack = permanentBuff.stack
     }
     
     enum CodingKeys: String {
@@ -30,7 +30,7 @@ class PermanentBuff: NSObject, NSSecureCoding {
     }
     
     required init?(coder: NSCoder) {
-        self.buffID = coder.decodeInteger(forKey: CodingKeys.buffID.rawValue)
-        self.stack = coder.decodeInteger(forKey: CodingKeys.stack.rawValue)
+        buffID = coder.decodeInteger(forKey: CodingKeys.buffID.rawValue)
+        stack = coder.decodeInteger(forKey: CodingKeys.stack.rawValue)
     }
 }
