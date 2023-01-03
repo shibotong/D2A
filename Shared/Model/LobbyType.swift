@@ -11,7 +11,7 @@ struct LobbyType: Codable {
     var id: Int
     var name: String
     var lobbyName: String {
-        switch self.id {
+        switch id {
         case 0:
             return "Normal"
         case 1:
