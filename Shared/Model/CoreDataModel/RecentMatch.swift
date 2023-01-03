@@ -11,7 +11,7 @@ import CoreData
 extension RecentMatch {
     static func create(_ match: RecentMatchCodable) throws -> RecentMatch {
         let viewContext = PersistenceController.shared.makeContext()
-        let newRecentMatch = Self.fetch(match.id.description, userID: match.playerId?.description ?? "") ?? RecentMatch(context: viewContext)
+        let newRecentMatch = fetch(match.id.description, userID: match.playerId?.description ?? "") ?? RecentMatch(context: viewContext)
         newRecentMatch.update(match)
         try viewContext.save()
         return newRecentMatch
@@ -82,22 +82,22 @@ extension RecentMatch {
     }
     
     func update(_ match: RecentMatchCodable) {
-        self.id = match.id.description
-        self.playerId = match.playerId?.description ?? ""
+        id = match.id.description
+        playerId = match.playerId?.description ?? ""
         
         
-        self.duration = Int32(match.duration)
-        self.mode = Int16(match.mode)
-        self.radiantWin = match.radiantWin
-        self.slot = Int16(match.slot)
-        self.heroID = Int16(match.heroID)
-        self.kills = Int16(match.kills)
-        self.deaths = Int16(match.deaths)
-        self.assists = Int16(match.assists)
-        self.lobbyType = Int16(match.lobbyType)
-        self.startTime = Date(timeIntervalSince1970: TimeInterval(match.startTime))
-        self.partySize = Int16(match.partySize ?? 0)
-        self.skill = Int16(match.skill ?? 0)
+        duration = Int32(match.duration)
+        mode = Int16(match.mode)
+        radiantWin = match.radiantWin
+        slot = Int16(match.slot)
+        heroID = Int16(match.heroID)
+        kills = Int16(match.kills)
+        deaths = Int16(match.deaths)
+        assists = Int16(match.assists)
+        lobbyType = Int16(match.lobbyType)
+        startTime = Date(timeIntervalSince1970: TimeInterval(match.startTime))
+        partySize = Int16(match.partySize ?? 0)
+        skill = Int16(match.skill ?? 0)
     }
     
     var playerWin: Bool {
