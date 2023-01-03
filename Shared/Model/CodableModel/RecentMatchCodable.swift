@@ -43,71 +43,19 @@ class RecentMatchCodable: Decodable, Identifiable {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try! container.decode(Int.self, forKey: .id)
-        if let duration = try container.decodeIfPresent(Int.self, forKey: .duration) {
-            self.duration = duration
-        } else {
-            self.duration = 0
-        }
-        if let mode = try container.decodeIfPresent(Int.self, forKey: .mode) {
-            self.mode = mode
-        } else {
-            self.mode = 0
-        }
-        if let slot = try container.decodeIfPresent(Int.self, forKey: .slot) {
-            self.slot = slot
-        } else {
-            self.slot = 0
-        }
-        if let heroID = try container.decodeIfPresent(Int.self, forKey: .heroID) {
-            self.heroID = heroID
-        } else {
-            self.heroID = 0
-        }
-        if let radiantWin = try container.decodeIfPresent(Bool.self, forKey: .radiantWin) {
-            self.radiantWin = radiantWin
-        } else {
-            self.radiantWin = false
-        }
-        if let kills = try container.decodeIfPresent(Int.self, forKey: .kills) {
-            self.kills = kills
-        } else {
-            self.kills = 0
-        }
-        if let deaths = try container.decodeIfPresent(Int.self, forKey: .deaths) {
-            self.deaths = deaths
-        } else {
-            self.deaths = 0
-        }
-        if let assists = try container.decodeIfPresent(Int.self, forKey: .assists) {
-            self.assists = assists
-        } else {
-            self.assists = 0
-        }
-        if let lobbyType = try container.decodeIfPresent(Int.self, forKey: .lobbyType) {
-            self.lobbyType = lobbyType
-        } else {
-            self.lobbyType = 0
-        }
-        if let startTime = try container.decodeIfPresent(Int.self, forKey: .startTime) {
-            self.startTime = startTime
-        } else {
-            self.startTime = 0
-        }
-        if let playerId = try container.decodeIfPresent(Int.self, forKey: .playerId) {
-            self.playerId = playerId
-        } else {
-            self.playerId = 0
-        }
-        if let partySize = try container.decodeIfPresent(Int.self, forKey: .partySize) {
-            self.partySize = partySize
-        } else {
-            self.partySize = nil
-        }
-        if let skill = try container.decodeIfPresent(Int.self, forKey: .skill) {
-            self.skill = skill
-        } else {
-            self.skill = nil
-        }
+        id = try! container.decode(Int.self, forKey: .id)
+        duration = try container.decodeIfPresent(Int.self, forKey: .duration) ?? 0
+        mode = try container.decodeIfPresent(Int.self, forKey: .mode) ?? 0
+        slot = try container.decodeIfPresent(Int.self, forKey: .slot) ?? 0
+        heroID = try container.decodeIfPresent(Int.self, forKey: .heroID) ?? 0
+        radiantWin = try container.decodeIfPresent(Bool.self, forKey: .radiantWin) ?? true
+        kills = try container.decodeIfPresent(Int.self, forKey: .kills) ?? 0
+        deaths = try container.decodeIfPresent(Int.self, forKey: .deaths) ?? 0
+        assists = try container.decodeIfPresent(Int.self, forKey: .assists) ?? 0
+        lobbyType = try container.decodeIfPresent(Int.self, forKey: .lobbyType) ?? 0
+        startTime = try container.decodeIfPresent(Int.self, forKey: .startTime) ?? 0
+        playerId = try container.decodeIfPresent(Int.self, forKey: .playerId) ?? 0
+        partySize = try container.decodeIfPresent(Int.self, forKey: .partySize)
+        skill = try container.decodeIfPresent(Int.self, forKey: .skill)
     }
 }
