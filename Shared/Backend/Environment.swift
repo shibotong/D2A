@@ -81,7 +81,7 @@ final class DotaEnvironment: ObservableObject {
     func canRefresh(userid: String) -> Bool {
         let currentTime = Date().timeIntervalSince1970
         guard let lastRefresh = refreshHandler[userid] else {
-            self.refreshHandler[userid] = currentTime
+            refreshHandler[userid] = currentTime
             return true
         }
         
