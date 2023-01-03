@@ -15,13 +15,13 @@ extension Talent {
     
     static func createTalent(_ talent: HeroQuery.Data.Constant.Hero.Talent?) throws -> Talent {
         guard let talent = talent else {
-            throw Self.CoreDataError.nilValue
+            throw CoreDataError.nilValue
         }
         let viewContext = PersistenceController.shared.container.viewContext
         let newTalent = Talent(context: viewContext)
         guard let talentID = talent.abilityId,
               let slot = talent.slot else {
-            throw Self.CoreDataError.decodingError
+            throw CoreDataError.decodingError
         }
         newTalent.abilityId = talentID
         newTalent.slot = Int32(slot)
