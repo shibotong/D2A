@@ -19,7 +19,7 @@ extension Date {
     var endOfDay: Date {
         var components = DateComponents()
         components.day = 1
-        let date = Calendar.current.date(byAdding: components, to: self.startOfDay)
+        let date = Calendar.current.date(byAdding: components, to: startOfDay)
         return (date?.addingTimeInterval(-1))!
     }
     
