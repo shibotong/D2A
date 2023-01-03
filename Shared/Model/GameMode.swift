@@ -11,7 +11,7 @@ struct GameMode: Codable {
     var id: Int
     var name: String
     var modeName: String {
-        switch self.id {
+        switch id {
         case 0:
             return "Unknown"
         case 1:
