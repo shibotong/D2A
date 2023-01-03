@@ -24,9 +24,9 @@ class StoreManager: NSObject, ObservableObject {
         super.init()
         products = []
         updateListenerTask = listenForTransactions()
-        Task {
+        Task { [weak self] in
             // initializing store
-            await self.requestProducts()
+            await self?.requestProducts()
         }
     }
     
@@ -34,8 +34,8 @@ class StoreManager: NSObject, ObservableObject {
         do {
             //Request products from the App Store using the identifiers defined in the Products.plist file.
             let storeProducts = try await Product.products(for: productIDs)
-            DispatchQueue.main.async {
-                self.products = storeProducts
+            DispatchQueue.main.async { [weak self] in
+                self?.products = storeProducts
             }
         } catch {
             print("Failed product request: \(error)")
@@ -61,7 +61,7 @@ class StoreManager: NSObject, ObservableObject {
     
     func purchase() async throws -> Transaction? {
         //Begin a purchase.
-        guard let product = self.products.first else {
+        guard let product = products.first else {
             return nil
         }
         let result = try await product.purchase()
@@ -71,7 +71,7 @@ class StoreManager: NSObject, ObservableObject {
             let transaction = try checkVerified(verification)
 
             //Deliver content to the user.
-            self.parsePurchaseInfo(info: transaction)
+            parsePurchaseInfo(info: transaction)
 
             //Always finish a transaction.
             await transaction.finish()
@@ -85,7 +85,8 @@ class StoreManager: NSObject, ObservableObject {
     }
     
     func listenForTransactions() -> Task<Void, Error> {
-        return Task.detached {
+        return Task.detached { [weak self] in
+            guard let self = self else { return }
             //Iterate through any transactions which didn't come from a direct call to `purchase()`.
             for await result in Transaction.updates {
                 do {
