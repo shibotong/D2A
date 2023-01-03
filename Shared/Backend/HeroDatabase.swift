@@ -52,14 +52,14 @@ class HeroDatabase: ObservableObject {
     }
     
     func loadData() {
-        self.status = .loading
-        self.gameModes = loadGameModes()
-        self.regions = loadRegion()!
-        self.lobbyTypes = loadLobby()!
+        status = .loading
+        gameModes = loadGameModes()
+        regions = loadRegion()!
+        lobbyTypes = loadLobby()!
         
-        self.loadStratzAbilities()
+        loadStratzAbilities()
         
-        Task {
+        Task { [weak self] in
             async let idTable = loadItemIDs()
             async let items = loadItems()
             async let heroes = loadHeroes()
@@ -69,23 +69,22 @@ class HeroDatabase: ObservableObject {
             async let talentData = loadTalentData()
             async let scepter = loadScepter()
             
-            self.itemIDTable = await idTable
-            self.items = await items
-            self.heroes = await heroes
-            self.abilityIDTable = await abilityIDTable
-            self.abilities = await abilities
-            self.heroAbilities = await heroAbilities
-            self.talentData = await talentData
-            self.scepterData = await scepter
-            
-            DispatchQueue.main.async {
-                if self.abilities.count == 0 {
-                    self.openDotaLoadFinish = .error
-                } else {
-                    self.openDotaLoadFinish = .finish
-                }
-            }
+            self?.itemIDTable = await idTable
+            self?.items = await items
+            self?.heroes = await heroes
+            self?.abilityIDTable = await abilityIDTable
+            self?.abilities = await abilities
+            self?.heroAbilities = await heroAbilities
+            self?.talentData = await talentData
+            self?.scepterData = await scepter
+            let status: LoadingStatus = self?.abilities.count == 0 ? .error : .finish
+            await self?.setStatus(status: status)
         }
+    }
+    
+    @MainActor
+    private func setStatus(status: LoadingStatus) {
+        openDotaLoadFinish = status
     }
     
     private func setupBinding() {
@@ -106,7 +105,7 @@ class HeroDatabase: ObservableObject {
 
     func fetchHeroWithID(id: Int) throws -> HeroCodable {
         guard let hero = heroes["\(id)"] else {
-            throw Self.HeroDataError.heroNotFound
+            throw HeroDataError.heroNotFound
         }
         return hero
     }
@@ -130,7 +129,7 @@ class HeroDatabase: ObservableObject {
     }
     
     func fetchRegion(id: String) -> String {
-        guard let region = self.regions[id] else {
+        guard let region = regions[id] else {
             return "Unknown"
         }
         return region
@@ -141,7 +140,7 @@ class HeroDatabase: ObservableObject {
     }
     
     func fetchAbilityName(id: Int) -> String? {
-        guard let abilityName = self.abilityIDTable["\(id)"] else {
+        guard let abilityName = abilityIDTable["\(id)"] else {
             return nil
         }
         return abilityName
@@ -180,7 +179,7 @@ class HeroDatabase: ObservableObject {
     }
     
     func getAbilityScepterDesc(ability: Ability, heroID: Int) -> String? {
-        guard let hero = self.scepterData.filter({ scepter in
+        guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
             // Cannot find this hero
@@ -193,49 +192,37 @@ class HeroDatabase: ObservableObject {
     }
     
     func isScepterSkill(ability: Ability, heroID: Int) -> Bool {
-        guard let hero = self.scepterData.filter({ scepter in
+        guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
             // Cannot find this hero
             return false
         }
-        if ability.dname == hero.scepterSkillName && hero.scepterNewSkill {
-            return true
-        } else {
-            return false
-        }
+        return ability.dname == hero.scepterSkillName && hero.scepterNewSkill
     }
     
     func isShardSkill(ability: Ability, heroID: Int) -> Bool {
-        guard let hero = self.scepterData.filter({ scepter in
+        guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
             // Cannot find this hero
             return false
         }
-        if ability.dname == hero.shardSkillName && hero.shardNewSkill {
-            return true
-        } else {
-            return false
-        }
+        return ability.dname == hero.shardSkillName && hero.shardNewSkill
     }
     
     func hasScepter(ability: Ability, heroID: Int) -> Bool {
-        guard let hero = self.scepterData.filter({ scepter in
+        guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
             // Cannot find this hero
             return false
         }
-        if ability.dname == hero.scepterSkillName {
-            return true
-        } else {
-            return false
-        }
+        return ability.dname == hero.scepterSkillName
     }
     
     func hasShard(ability: Ability, heroID: Int) -> Bool {
-        guard let hero = self.scepterData.filter({ scepter in
+        guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
             // Cannot find this hero
@@ -249,7 +236,7 @@ class HeroDatabase: ObservableObject {
     }
     
     func getAbilityShardDesc(ability: Ability, heroID: Int) -> String? {
-        guard let hero = self.scepterData.filter({ scepter in
+        guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
             // Cannot find this hero
@@ -263,7 +250,7 @@ class HeroDatabase: ObservableObject {
     }
     
     func getTalentDisplayName(id: Short) -> String {
-        let talent = self.apolloAbilities.first { ability in
+        let talent = apolloAbilities.first { ability in
             return ability.id == id
         }
         return talent?.language?.displayName ?? "Fetch String Error"
@@ -272,16 +259,13 @@ class HeroDatabase: ObservableObject {
     // MARK: - private functions
     private func loadStratzAbilities() {
         Network.shared.apollo.fetch(query: AbilityQuery(language: languageCode)) { [weak self] result in
-            guard let self = self else {
-                return
-            }
             switch result {
             case .success(let graphQLResult):
                 if let abilitiesConnection = graphQLResult.data?.constants?.abilities {
                     let abilities = abilitiesConnection.compactMap({ $0 })
-                    self.apolloAbilities = abilities
+                    self?.apolloAbilities = abilities
                     DispatchQueue.main.async {
-                        self.stratzLoadFinish = .finish
+                        self?.stratzLoadFinish = .finish
                     }
                 }
                 
@@ -290,14 +274,14 @@ class HeroDatabase: ObservableObject {
                         .map { $0.localizedDescription }
                         .joined(separator: "\n")
                     DispatchQueue.main.async {
-                        self.stratzLoadFinish = .error
+                        self?.stratzLoadFinish = .error
                     }
                     print(message)
                 }
             case .failure(let error):
                 print(error)
                 DispatchQueue.main.async {
-                    self.stratzLoadFinish = .error
+                    self?.stratzLoadFinish = .error
                 }
             }
         }
