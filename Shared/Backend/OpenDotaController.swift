@@ -170,7 +170,7 @@ struct DecodingService {
             if httpResponse?.statusCode == 200 {
                 return data
             } else if httpResponse?.statusCode == 400 {
-                await self.setError(APIError.invalidError)
+                await setError(APIError.invalidError)
                 throw APIError.invalidError
             } else {
                 throw APIError.accessError
