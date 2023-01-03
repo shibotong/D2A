@@ -74,8 +74,9 @@ class PersistenceController {
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
         // Observe Core Data remote change notifications on the queue where the changes were made.
-        notificationToken = NotificationCenter.default.addObserver(forName: .NSPersistentStoreRemoteChange, object: nil, queue: nil) { note in
+        notificationToken = NotificationCenter.default.addObserver(forName: .NSPersistentStoreRemoteChange, object: nil, queue: nil) { [weak self] note in
             Task {
+                guard let self = self else { return }
                 await self.fetchPersistentHistory()
             }
         }
@@ -94,14 +95,14 @@ class PersistenceController {
         taskContext.name = "persistentHistoryContext"
         print("Start fetching persistent history changes from the store...")
 
-        try await taskContext.perform {
+        try await taskContext.perform { [weak self] in
             // Execute the persistent history change since the last transaction.
             /// - Tag: fetchHistory
-            let changeRequest = NSPersistentHistoryChangeRequest.fetchHistory(after: self.lastToken)
+            let changeRequest = NSPersistentHistoryChangeRequest.fetchHistory(after: self?.lastToken)
             let historyResult = try taskContext.execute(changeRequest) as? NSPersistentHistoryResult
             if let history = historyResult?.result as? [NSPersistentHistoryTransaction],
                !history.isEmpty {
-                self.mergePersistentHistoryChanges(from: history)
+                self?.mergePersistentHistoryChanges(from: history)
                 return
             }
             
@@ -115,10 +116,10 @@ class PersistenceController {
         // Update view context with objectIDs from history change request.
         /// - Tag: mergeChanges
         let viewContext = container.viewContext
-        viewContext.perform {
+        viewContext.perform { [weak self] in
             for transaction in history {
                 viewContext.mergeChanges(fromContextDidSave: transaction.objectIDNotification())
-                self.lastToken = transaction.token
+                self?.lastToken = transaction.token
             }
         }
     }
