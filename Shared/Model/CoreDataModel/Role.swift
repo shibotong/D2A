@@ -15,13 +15,13 @@ extension Role {
     
     static func createRole(_ role: HeroQuery.Data.Constant.Hero.Role?) throws -> Role {
         guard let role = role else {
-            throw Self.CoreDataError.nilValue
+            throw CoreDataError.nilValue
         }
         let viewContext = PersistenceController.shared.container.viewContext
         let newRole = Role(context: viewContext)
         guard let roleID = role.roleId,
               let level = role.level else {
-            throw Self.CoreDataError.decodingError
+            throw CoreDataError.decodingError
         }
         newRole.roleId = roleID.rawValue
         newRole.level = level
