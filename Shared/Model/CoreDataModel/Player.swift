@@ -111,86 +111,86 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
          rank: Int = 0,
          level: Int = 25,
          item: Int = 1) {
-        self.accountId = id
+        accountId = id
         self.heroID = heroID
         self.slot = slot
         self.rank = rank
         self.level = level
         self.personaname = personaname
         
-        self.item0 = item
-        self.item1 = item
-        self.item2 = item
-        self.item3 = item
-        self.item4 = item
-        self.item5 = item
-        self.backpack0 = item
-        self.backpack1 = item
-        self.backpack2 = item
-        self.itemNeutral = item
+        item0 = item
+        item1 = item
+        item2 = item
+        item3 = item
+        item4 = item
+        item5 = item
+        backpack0 = item
+        backpack1 = item
+        backpack2 = item
+        itemNeutral = item
         
-        self.kills = 5
-        self.assists = 5
-        self.deaths = 5
+        kills = 5
+        assists = 5
+        deaths = 5
         
-        self.denies = 5
-        self.lastHits = 5
+        denies = 5
+        lastHits = 5
         
-        self.gpm = 100
-        self.xpm = 100
-        self.towerDamage = 10000
-        self.heroDamage = 10000
-        self.heroHealing = 10000
-        self.netWorth = 10000
+        gpm = 100
+        xpm = 100
+        towerDamage = 10000
+        heroDamage = 10000
+        heroHealing = 10000
+        netWorth = 10000
         
-        self.abilityUpgrade = []
+        abilityUpgrade = []
     }
     
     init(player: PlayerCodable) {
-        self.accountId = player.accountId?.description
-        self.personaname = player.personaname
-        self.rank = player.rank ?? 0
+        accountId = player.accountId?.description
+        personaname = player.personaname
+        rank = player.rank ?? 0
         
         
         // hero data
-        self.heroID = player.heroID
-        self.level = player.level
-        self.slot = player.slot
+        heroID = player.heroID
+        level = player.level
+        slot = player.slot
         
         // items
-        self.item0 = player.item0
-        self.item1 = player.item1
-        self.item2 = player.item2
-        self.item3 = player.item3
-        self.item4 = player.item4
-        self.item5 = player.item5
-        self.backpack0 = player.backpack0
-        self.backpack1 = player.backpack1
-        self.backpack2 = player.backpack2
-        self.itemNeutral = player.itemNeutral
+        item0 = player.item0
+        item1 = player.item1
+        item2 = player.item2
+        item3 = player.item3
+        item4 = player.item4
+        item5 = player.item5
+        backpack0 = player.backpack0
+        backpack1 = player.backpack1
+        backpack2 = player.backpack2
+        itemNeutral = player.itemNeutral
         
         
         // KDA
-        self.kills = player.kills
-        self.deaths = player.deaths
-        self.assists = player.assists
+        kills = player.kills
+        deaths = player.deaths
+        assists = player.assists
         
-        self.denies = player.denies
-        self.lastHits = player.lastHits
+        denies = player.denies
+        lastHits = player.lastHits
         
         // finance
-        self.gpm = player.gpm
-        self.xpm = player.xpm
-        self.towerDamage = player.towerDamage
-        self.netWorth = player.netWorth
-        self.heroDamage = player.heroDamage
-        self.heroHealing = player.heroHealing
+        gpm = player.gpm
+        xpm = player.xpm
+        towerDamage = player.towerDamage
+        netWorth = player.netWorth
+        heroDamage = player.heroDamage
+        heroHealing = player.heroHealing
         
         if let abilityUpgrade = player.abilityUpgrade {
             self.abilityUpgrade = abilityUpgrade as [Int]
         }
         if let buffs = player.permanentBuffs {
-            self.permanentBuffs = buffs.map { PermanentBuff($0) }
+            permanentBuffs = buffs.map { PermanentBuff($0) }
         }
         
     }
@@ -277,37 +277,37 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
               let permanentBuffs = coder.decodeArrayOfObjects(ofClass: PermanentBuff.self, forKey: CodingKeys.permanentBuffs.rawValue) else {
                   return nil
         }
-        self.accountId = coder.decodeObject(of: NSString.self, forKey: CodingKeys.accountId.rawValue) as? String
-        self.personaname = coder.decodeObject(of: NSString.self, forKey: CodingKeys.personaname.rawValue) as? String
-        self.rank = coder.decodeInteger(forKey: CodingKeys.rank.rawValue)
+        accountId = coder.decodeObject(of: NSString.self, forKey: CodingKeys.accountId.rawValue) as? String
+        personaname = coder.decodeObject(of: NSString.self, forKey: CodingKeys.personaname.rawValue) as? String
+        rank = coder.decodeInteger(forKey: CodingKeys.rank.rawValue)
         
-        self.heroID = coder.decodeInteger(forKey: CodingKeys.heroID.rawValue)
-        self.level = coder.decodeInteger(forKey: CodingKeys.level.rawValue)
-        self.slot = coder.decodeInteger(forKey: CodingKeys.slot.rawValue)
+        heroID = coder.decodeInteger(forKey: CodingKeys.heroID.rawValue)
+        level = coder.decodeInteger(forKey: CodingKeys.level.rawValue)
+        slot = coder.decodeInteger(forKey: CodingKeys.slot.rawValue)
         
-        self.item0 = coder.decodeInteger(forKey: CodingKeys.item0.rawValue)
-        self.item1 = coder.decodeInteger(forKey: CodingKeys.item1.rawValue)
-        self.item2 = coder.decodeInteger(forKey: CodingKeys.item2.rawValue)
-        self.item3 = coder.decodeInteger(forKey: CodingKeys.item3.rawValue)
-        self.item4 = coder.decodeInteger(forKey: CodingKeys.item4.rawValue)
-        self.item5 = coder.decodeInteger(forKey: CodingKeys.item5.rawValue)
-        self.backpack0 = coder.decodeObject(forKey: CodingKeys.backpack0.rawValue) as? Int
-        self.backpack1 = coder.decodeObject(forKey: CodingKeys.backpack1.rawValue) as? Int
-        self.backpack2 = coder.decodeObject(forKey: CodingKeys.backpack2.rawValue) as? Int
-        self.itemNeutral = coder.decodeObject(forKey: CodingKeys.itemNeutral.rawValue) as? Int
+        item0 = coder.decodeInteger(forKey: CodingKeys.item0.rawValue)
+        item1 = coder.decodeInteger(forKey: CodingKeys.item1.rawValue)
+        item2 = coder.decodeInteger(forKey: CodingKeys.item2.rawValue)
+        item3 = coder.decodeInteger(forKey: CodingKeys.item3.rawValue)
+        item4 = coder.decodeInteger(forKey: CodingKeys.item4.rawValue)
+        item5 = coder.decodeInteger(forKey: CodingKeys.item5.rawValue)
+        backpack0 = coder.decodeObject(forKey: CodingKeys.backpack0.rawValue) as? Int
+        backpack1 = coder.decodeObject(forKey: CodingKeys.backpack1.rawValue) as? Int
+        backpack2 = coder.decodeObject(forKey: CodingKeys.backpack2.rawValue) as? Int
+        itemNeutral = coder.decodeObject(forKey: CodingKeys.itemNeutral.rawValue) as? Int
         
-        self.kills = coder.decodeInteger(forKey: CodingKeys.kills.rawValue)
-        self.deaths = coder.decodeInteger(forKey: CodingKeys.deaths.rawValue)
-        self.assists = coder.decodeInteger(forKey: CodingKeys.assists.rawValue)
-        self.denies = coder.decodeInteger(forKey: CodingKeys.denies.rawValue)
-        self.lastHits = coder.decodeInteger(forKey: CodingKeys.lastHits.rawValue)
+        kills = coder.decodeInteger(forKey: CodingKeys.kills.rawValue)
+        deaths = coder.decodeInteger(forKey: CodingKeys.deaths.rawValue)
+        assists = coder.decodeInteger(forKey: CodingKeys.assists.rawValue)
+        denies = coder.decodeInteger(forKey: CodingKeys.denies.rawValue)
+        lastHits = coder.decodeInteger(forKey: CodingKeys.lastHits.rawValue)
         
-        self.gpm = coder.decodeInteger(forKey: CodingKeys.gpm.rawValue)
-        self.xpm = coder.decodeInteger(forKey: CodingKeys.xpm.rawValue)
-        self.towerDamage = coder.decodeObject(forKey: CodingKeys.towerDamage.rawValue) as? Int
-        self.netWorth = coder.decodeObject(forKey: CodingKeys.netWorth.rawValue) as? Int
-        self.heroDamage = coder.decodeObject(forKey: CodingKeys.heroDamage.rawValue) as? Int
-        self.heroHealing = coder.decodeObject(forKey: CodingKeys.heroHealing.rawValue) as? Int
+        gpm = coder.decodeInteger(forKey: CodingKeys.gpm.rawValue)
+        xpm = coder.decodeInteger(forKey: CodingKeys.xpm.rawValue)
+        towerDamage = coder.decodeObject(forKey: CodingKeys.towerDamage.rawValue) as? Int
+        netWorth = coder.decodeObject(forKey: CodingKeys.netWorth.rawValue) as? Int
+        heroDamage = coder.decodeObject(forKey: CodingKeys.heroDamage.rawValue) as? Int
+        heroHealing = coder.decodeObject(forKey: CodingKeys.heroHealing.rawValue) as? Int
         
         self.abilityUpgrade = abilityUpgrade
         self.permanentBuffs = permanentBuffs
