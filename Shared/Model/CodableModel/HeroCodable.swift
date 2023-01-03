@@ -44,11 +44,11 @@ class HeroCodable: Identifiable, Decodable {
     static let sample = loadSampleHero()!
     
     var heroNameLowerCase: String {
-        return self.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
+        return name.replacingOccurrences(of: "npc_dota_hero_", with: "")
     }
 
     var heroNameLocalized: String {
-        return NSLocalizedString(self.localizedName, comment: "")
+        return NSLocalizedString(localizedName, comment: "")
     }
     
     static let strMaxHP: Int32 = 20
