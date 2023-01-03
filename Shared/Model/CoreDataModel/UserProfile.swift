@@ -11,7 +11,7 @@ import CoreData
 extension UserProfile {
     static func create(_ profile: UserProfileCodable, favourite: Bool = false, register: Bool = false) throws -> UserProfile {
         let viewContext = PersistenceController.shared.makeContext()
-        let newProfile = Self.fetch(id: profile.id.description) ?? UserProfile(context: viewContext)
+        let newProfile = fetch(id: profile.id.description) ?? UserProfile(context: viewContext)
         newProfile.update(profile, favourite: favourite, register: register)
         try viewContext.save()
         return newProfile
@@ -36,7 +36,7 @@ extension UserProfile {
     }
     
     static func delete(id: String) {
-        guard let user = Self.fetch(id: id) else {
+        guard let user = fetch(id: id) else {
             return
         }
         let viewContext = PersistenceController.shared.container.viewContext
@@ -44,13 +44,13 @@ extension UserProfile {
     }
     
     func update(_ profile: UserProfileCodable, favourite: Bool, register: Bool) {
-        self.id = profile.id.description
-        self.avatarfull = profile.avatarfull
+        id = profile.id.description
+        avatarfull = profile.avatarfull
         
-        self.countryCode = profile.countryCode
-        self.personaname = profile.personaname
-        self.profileurl = profile.profileurl
-        self.isPlus = profile.isPlus ?? false
+        countryCode = profile.countryCode
+        personaname = profile.personaname
+        profileurl = profile.profileurl
+        isPlus = profile.isPlus ?? false
         if let rank = profile.rank {
             self.rank = Int16(rank)
         }
@@ -60,7 +60,7 @@ extension UserProfile {
         
         self.favourite = favourite
         self.register = register
-        self.name = profile.name
-        self.lastUpdate = Date()
+        name = profile.name
+        lastUpdate = Date()
     }
 }
