@@ -56,8 +56,8 @@ extension SKProduct {
     }
 
     func getNumberOfUnit() -> Int {
-        let number = self.subscriptionPeriod!.numberOfUnits
-        switch self.subscriptionPeriod!.unit {
+        let number = subscriptionPeriod!.numberOfUnits
+        switch subscriptionPeriod!.unit {
         case .month:
             return number
         case .year:
