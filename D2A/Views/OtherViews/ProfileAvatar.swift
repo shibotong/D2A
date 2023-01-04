@@ -49,16 +49,17 @@ struct ProfileAvartar: View {
         Dispatch.DispatchQueue.main.async {
             image = cacheImage
         }
-        if cacheImage == nil || profile.lastUpdate?.startOfDay != Date().startOfDay {
-            guard let newImage = await loadImage() else {
-                return
-            }
-            ImageCache.saveImage(newImage, type: .avatar, id: userid)
-            profile.lastUpdate = Date()
-            try? viewContext.save()
-            DispatchQueue.main.async {
-                image = newImage
-            }
+        guard cacheImage == nil || profile.lastUpdate?.startOfDay != Date().startOfDay else {
+            return
+        }
+        guard let newImage = await loadImage() else {
+            return
+        }
+        ImageCache.saveImage(newImage, type: .avatar, id: userid)
+        profile.lastUpdate = Date()
+        try? viewContext.save()
+        DispatchQueue.main.async {
+            image = newImage
         }
     }
     
