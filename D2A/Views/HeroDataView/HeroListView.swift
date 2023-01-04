@@ -60,11 +60,11 @@ struct HeroListView: View {
             }
         } else {
             ScrollView(.vertical, showsIndicators: false) {
-                ForEach(self.heroAttributes, id: \.self) { attribute in
+                ForEach(heroAttributes, id: \.self) { attribute in
                     let heroes = vm.heroList.filter { hero in
                         return hero.primaryAttr == attribute
                     }
-                    buildHeroGrid(heroes: heroes, title: self.heroAttributesTitle[attribute]!, icon: attribute)
+                    buildHeroGrid(heroes: heroes, title: heroAttributesTitle[attribute]!, icon: attribute)
                 }
             }
             .padding(.horizontal)
