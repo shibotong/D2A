@@ -67,7 +67,9 @@ class OpenDotaController {
             let data = try await decodingService.loadData(urlString)
             let matches: [RecentMatchCodable] = try decodingService.decode(data)
             matches.forEach({$0.playerId = Int(userid)})
-            try await RecentMatch.create(matches)
+            if !matches.isEmpty {
+                try await RecentMatch.create(matches)
+            }
         } catch {
             print("error: ", error)
             return
