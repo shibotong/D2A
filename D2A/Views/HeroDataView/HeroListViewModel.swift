@@ -37,13 +37,14 @@ class HeroListViewModel: ObservableObject {
     private var subscribers = Set<AnyCancellable>()
     
     init() {
-        self.heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
-        self.searchString = ""
-        self.searchResults = []
-        self.attributes = .all
+        heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
+        searchString = ""
+        searchResults = []
+        attributes = .all
         $searchString
             .combineLatest($attributes)
-            .map { searchString, attributes in
+            .map { [weak self] searchString, attributes in
+                guard let self = self else { return [] }
                 let filterHeroes = attributes == .all ? self.heroList : self.heroList.filter({ return $0.primaryAttr == attributes.rawValue })
                 if searchString.isEmpty {
                     return filterHeroes
@@ -56,7 +57,9 @@ class HeroListViewModel: ObservableObject {
                     return searchedHeroes
                 }
             }
-            .assign(to: \.searchResults, on: self)
+            .sink { [weak self] results in
+                self?.searchResults = results
+            }
             .store(in: &subscribers)
     }
 }
