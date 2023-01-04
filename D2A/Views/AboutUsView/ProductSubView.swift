@@ -25,7 +25,7 @@ struct ProductSubView: View {
             }
         }
         .onTapGesture {
-            selectedProduct = self.product
+            selectedProduct = product
         }
     }
     @ViewBuilder private func buildMainView() -> some View {
@@ -101,11 +101,11 @@ class MockSKProductSubscriptionPeriod: SKProductSubscriptionPeriod {
     }
 
     override var numberOfUnits: Int {
-        self._numberOfUnits
+        _numberOfUnits
     }
 
     override var unit: SKProduct.PeriodUnit {
-        self._unit
+        _unit
     }
 }
 
