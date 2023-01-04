@@ -35,6 +35,22 @@ class PersistenceController {
     
     /// A peristent history token used for fetching transactions from the store.
     private var lastToken: NSPersistentHistoryToken?
+    
+    /// URL of tokenFile
+    private lazy var tokenFileURL: URL = {
+        let url = NSPersistentContainer.defaultDirectoryURL()
+            .appendingPathComponent("D2AToken", isDirectory: true)
+        do {
+            try FileManager.default
+                .createDirectory(
+                    at: url,
+                    withIntermediateDirectories: true,
+                    attributes: nil)
+        } catch {
+            // log any errors
+        }
+        return url.appendingPathComponent("token.data", isDirectory: false)
+    }()
 
     init(inMemory: Bool = false) {
         let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME)!
@@ -73,6 +89,7 @@ class PersistenceController {
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
+        loadHistoryToken()
         // Observe Core Data remote change notifications on the queue where the changes were made.
         notificationToken = NotificationCenter.default.addObserver(forName: .NSPersistentStoreRemoteChange, object: nil, queue: nil) { [weak self] note in
             Task {
@@ -102,6 +119,7 @@ class PersistenceController {
             let historyResult = try taskContext.execute(changeRequest) as? NSPersistentHistoryResult
             if let history = historyResult?.result as? [NSPersistentHistoryTransaction],
                !history.isEmpty {
+                print(history)
                 self?.mergePersistentHistoryChanges(from: history)
                 return
             }
@@ -119,14 +137,39 @@ class PersistenceController {
         viewContext.perform { [weak self] in
             for transaction in history {
                 viewContext.mergeChanges(fromContextDidSave: transaction.objectIDNotification())
-                self?.lastToken = transaction.token
+                self?.storeHistoryToken(transaction.token)
             }
         }
     }
     
-    func makeContext() -> NSManagedObjectContext {
+    /// Save latest history token to disk
+    private func storeHistoryToken(_ token: NSPersistentHistoryToken) {
+        do {
+            let data = try NSKeyedArchiver
+                .archivedData(withRootObject: token, requiringSecureCoding: true)
+            try data.write(to: tokenFileURL)
+            lastToken = token
+        } catch {
+            // log any errors
+        }
+    }
+    
+    /// Load saved history token to decide which part of CoreDate remote change should be fetched
+    private func loadHistoryToken() {
+        do {
+            let tokenData = try Data(contentsOf: tokenFileURL)
+            lastToken = try NSKeyedUnarchiver
+                .unarchivedObject(ofClass: NSPersistentHistoryToken.self, from: tokenData)
+        } catch {
+            print("History Token not exist")
+            // log any errors
+        }
+    }
+    
+    func makeContext(author: String? = nil) -> NSManagedObjectContext {
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = container.viewContext
+        privateContext.transactionAuthor = author
         return privateContext
     }
 }
