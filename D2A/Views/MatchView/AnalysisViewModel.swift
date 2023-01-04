@@ -14,14 +14,16 @@ class AnalysisViewModel: ObservableObject {
     @Published var selection: AnalysisType = .kills
     private var cancellableSet: Set<AnyCancellable> = []
     init(player: [Player]) {
-        self.storedPlayers = player
+        storedPlayers = player
         $selection
             .receive(on: RunLoop.main)
-            .map { selection in
-                return self.sortPlayer(selection: selection)
+            .map { [weak self] selection in
+                return self?.sortPlayer(selection: selection)
                 
             }
-            .assign(to: \.players, on: self)
+            .sink{ [weak self] sortedPlayer in
+                self?.players = sortedPlayer
+            }
             .store(in: &cancellableSet)
     }
     
