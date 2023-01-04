@@ -37,7 +37,7 @@ struct HeroImageView: View {
     }
     
     private func searchHeroImage() -> String {
-        switch self.type {
+        switch type {
         case .icon:
             let filename = "\(heroID.description)_icon"
             return filename
@@ -57,7 +57,7 @@ struct HeroImageView: View {
         guard let hero = try? heroData.fetchHeroWithID(id: heroID) else {
             return nil
         }
-        switch self.type {
+        switch type {
         case .icon:
             let url = URL(string: "https://api.opendota.com\(hero.icon)")
             return url
