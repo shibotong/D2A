@@ -20,10 +20,10 @@ class ProfileViewModel: ObservableObject {
     ///Init with userID
     ///- parameter id: Player ID
     init(id: String) {
-        self.userid = id
+        userid = id
         if id != "0" {
             Task {
-                await self.loadProfile()
+                await loadProfile()
             }
         }
     }
@@ -31,32 +31,32 @@ class ProfileViewModel: ObservableObject {
     ///Init with User Profile
     ///- parameter profile: User Profile
     init(profile: UserProfile) {
-        self.personaname = profile.personaname ?? ""
-        self.userid = profile.id ?? ""
-        self.urlString = profile.avatarfull
+        personaname = profile.personaname ?? ""
+        userid = profile.id ?? ""
+        urlString = profile.avatarfull
     }
     
     init(profile: UserProfileCodable) {
-        self.personaname = profile.personaname
-        self.userid = profile.id.description
-        self.urlString = profile.avatarfull
+        personaname = profile.personaname
+        userid = profile.id.description
+        urlString = profile.avatarfull
     }
     
     func loadProfile() async {
-        self.isloading = true
+        isloading = true
         guard let profile = UserProfile.fetch(id: userid) else {
             guard let profile = try? await OpenDotaController.shared.loadUserData(userid: userid) else {
                 return
             }
-            await self.setProfile(name: profile.personaname, image: profile.avatarfull)
+            await setProfile(name: profile.personaname, image: profile.avatarfull)
             return
         }
         await setProfile(name: profile.personaname, image: profile.avatarfull)
     }
     
     @MainActor private func setProfile(name: String?, image: String?) {
-        self.personaname = name ?? ""
-        self.urlString = image
-        self.isloading = false
+        personaname = name ?? ""
+        urlString = image
+        isloading = false
     }
 }
