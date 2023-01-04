@@ -228,7 +228,9 @@ struct PlayerProfileView: View {
                 return
             }
             let oneDay: Double = 60 * 60 * 24
-            let days = latestMatchStartTime / oneDay
+            
+            // Decrease 1 sec to avoid adding repeated match
+            let days = -(latestMatchStartTime + 1) / oneDay
             await OpenDotaController.shared.loadRecentMatch(userid: userID, days: days)
         }
     }
