@@ -39,9 +39,9 @@ struct AbilityView: View {
                                     if splits.count == 2 {
                                         let header = String(splits.first ?? "")
                                         let message = String(splits.last ?? "")
-                                        self.buildAttributesText(title: "\(header):", message: message)
+                                        buildAttributesText(title: "\(header):", message: message)
                                     } else {
-                                        self.buildAttributesText(title: item, message: "")
+                                        buildAttributesText(title: item, message: "")
                                     }
                                 }
                             }
@@ -65,7 +65,6 @@ struct AbilityView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 Button {
-//                    self.presentationMode.wrappedValue.dismiss()
                     dismiss()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
@@ -247,11 +246,11 @@ struct AbilityView: View {
             .disabled(true)
             .onAppear {
                 player.play()
-                self.vm.addObserver(player: player)
+                vm.addObserver(player: player)
             }
             .onDisappear {
                 player.pause()
-                self.vm.removeObserver(player: player)
+                vm.removeObserver(player: player)
             }
     }
 }
