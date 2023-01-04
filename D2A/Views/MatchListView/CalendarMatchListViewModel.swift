@@ -15,20 +15,23 @@ class CalendarMatchListViewModel: ObservableObject {
     var matches: [RecentMatchCodable] = []
     let userid: String
     private var cancellableSet: Set<AnyCancellable> = []
+    
     init(userid: String) {
         self.userid = userid
-        self.isLoading = true
+        isLoading = true
         Task {
-            await self.loadAllMatches()
+            await loadAllMatches()
         }
         $selectDate
-            .map { date in
-                self.isLoading = true
-                let filteredMatches = self.filterMatch(on: date)
-                self.isLoading = false
-                return filteredMatches
+            .map { [weak self] date in
+                self?.isLoading = true
+                let filteredMatches = self?.filterMatch(on: date)
+                self?.isLoading = false
+                return filteredMatches ?? []
             }
-            .assign(to: \.matchesOnDate, on: self)
+            .sink { [weak self] filteredMatches in
+                self?.matchesOnDate = filteredMatches
+            }
             .store(in: &cancellableSet)
     }
     
@@ -41,13 +44,13 @@ class CalendarMatchListViewModel: ObservableObject {
     
     @MainActor
     func setMatches(matches: [RecentMatchCodable]) {
-        self.matchesOnDate = matches
-        self.isLoading = false
+        matchesOnDate = matches
+        isLoading = false
     }
     
     private func filterMatch(on date: Date) -> [RecentMatchCodable]{
         print("select Date \(date.description)")
-        let filteredMatches = self.matches.filter { match in
+        let filteredMatches = matches.filter { match in
             let startTime = date.startOfDay.timeIntervalSince1970
             let endTime = date.endOfDay.timeIntervalSince1970
             return match.startTime >= Int(startTime) && match.startTime <= Int(endTime)

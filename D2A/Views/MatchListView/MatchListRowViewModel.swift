@@ -16,6 +16,6 @@ class MatchListRowViewModel: ObservableObject {
     }
     
     init() {
-        self.match = RecentMatchCodable.sample.last!
+        match = RecentMatchCodable.sample.last!
     }
 }

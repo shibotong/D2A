@@ -112,7 +112,7 @@ struct MatchListRowEmptyView: View {
         }
         .foregroundColor(loading ? Color(.systemGray6) : Color(.systemGray5))
         .onAppear {
-            self.loading = true
+            loading = true
         }
         .animation(Animation.default.repeatForever(), value: loading)
     }
