@@ -17,7 +17,7 @@ class HeroDetailViewModel: ObservableObject {
     private var database: HeroDatabase = HeroDatabase.shared
     
     init(heroID: Int) {
-        self.hero = Hero.fetchHero(id: Double(heroID))
+        hero = Hero.fetchHero(id: Double(heroID))
         self.heroID = heroID
     }
     
@@ -36,7 +36,8 @@ class HeroDetailViewModel: ObservableObject {
     
     /// Download hero from API
     func downloadHero() {
-        Network.shared.apollo.fetch(query: HeroQuery(id: Double(heroID))) { result in
+        Network.shared.apollo.fetch(query: HeroQuery(id: Double(heroID))) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let graphQLResult):
                 if let hero = graphQLResult.data?.constants?.hero {
@@ -48,8 +49,8 @@ class HeroDetailViewModel: ObservableObject {
                             return !ability.contains("hidden") && !ability.contains("empty")
                         }
                         let newHero = try Hero.createHero(hero, model: model, abilities: abilities)
-                        DispatchQueue.main.async {
-                            self.hero = newHero
+                        DispatchQueue.main.async { [weak self] in
+                            self?.hero = newHero
                         }
                     } catch(let error) {
                         print(error.localizedDescription)
