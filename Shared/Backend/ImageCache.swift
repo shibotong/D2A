@@ -19,8 +19,7 @@ class ImageCache: ObservableObject {
         guard let docDir = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true) else {
             return nil
         }
-        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).jpg")
-        print(imageURL)
+        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).jpg", isDirectory: false)
         let newImage = UIImage(contentsOfFile: imageURL.path)
         return newImage
     }
@@ -30,8 +29,20 @@ class ImageCache: ObservableObject {
             print("save image error")
             return
         }
-        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).jpg")
-        let imageData = image.jpegData(compressionQuality: 1.0)
-        try? imageData?.write(to: imageURL)
+        
+        let imageFolder = docDir.appendingPathComponent(type.rawValue)
+        do {
+            try FileManager.default
+                .createDirectory(
+                    at: imageFolder,
+                    withIntermediateDirectories: true,
+                    attributes: nil)
+            let imageURL = imageFolder.appendingPathComponent("\(id).jpg", isDirectory: false)
+            let imageData = image.jpegData(compressionQuality: 1.0)
+            try imageData?.write(to: imageURL)
+        } catch {
+            print(error)
+            // log any errors
+        }
     }
 }
