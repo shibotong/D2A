@@ -34,7 +34,9 @@ class AddAccountViewModel: ObservableObject {
                     return []
                 }
             }
-            .assign(to: \.searchedHeroes, on: self)
+            .sink { [weak self] searchResults in
+                self?.searchedHeroes = searchResults
+            }
             .store(in: &cancellableObject)
         $searchText
             .receive(on: RunLoop.main)
@@ -46,36 +48,38 @@ class AddAccountViewModel: ObservableObject {
                     return []
                 }
             }
-            .assign(to: \.localProfiles, on: self)
+            .sink { [weak self] searchProfiles in
+                self?.localProfiles = searchProfiles
+            }
             .store(in: &cancellableObject)
     }
     
     func searchUserInData(searchText: String) {
         let profiles = UserProfile.fetch(text: searchText)
-        self.localProfiles = profiles
+        localProfiles = profiles
     }
     
     @MainActor
     func search(searchText: String) async {
-        self.isLoading = true
-        self.userProfiles = []
-        self.filterHeroes = HeroDatabase.shared.fetchAllHeroes().filter { hero in
+        isLoading = true
+        userProfiles = []
+        filterHeroes = HeroDatabase.shared.fetchAllHeroes().filter { hero in
             return hero.heroNameLocalized.lowercased().contains(searchText.lowercased())
         }
         async let searchedProfile = OpenDotaController.shared.searchUserByText(text: searchText)
         if Int(searchText) != nil {
-            async let searchedMatch = OpenDotaController.shared.loadMatchData(matchid: searchText)
+            async let searchedMatchResult = OpenDotaController.shared.loadMatchData(matchid: searchText)
             do {
-                self.searchedMatch = try await searchedMatch
+                searchedMatch = try await searchedMatchResult
             } catch {
                 print("parse match error")
-                self.searchedMatch = nil
+                searchedMatch = nil
             }
         } else {
-            self.searchedMatch = nil
+            searchedMatch = nil
         }
         
-        self.userProfiles = await searchedProfile
-        self.isLoading = false
+        userProfiles = await searchedProfile
+        isLoading = false
     }
 }
