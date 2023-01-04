@@ -10,7 +10,7 @@ import CoreData
 
 extension UserProfile {
     static func create(_ profile: UserProfileCodable, favourite: Bool = false, register: Bool = false) throws -> UserProfile {
-        let viewContext = PersistenceController.shared.makeContext()
+        let viewContext = PersistenceController.shared.makeContext(author: "UserProfile")
         let newProfile = fetch(id: profile.id.description) ?? UserProfile(context: viewContext)
         newProfile.update(profile, favourite: favourite, register: register)
         try viewContext.save()

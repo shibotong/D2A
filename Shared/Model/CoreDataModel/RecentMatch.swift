@@ -10,7 +10,7 @@ import CoreData
 
 extension RecentMatch {
     static func create(_ match: RecentMatchCodable) throws -> RecentMatch {
-        let viewContext = PersistenceController.shared.makeContext()
+        let viewContext = PersistenceController.shared.makeContext(author: "RecentMatch")
         let newRecentMatch = fetch(match.id.description, userID: match.playerId?.description ?? "") ?? RecentMatch(context: viewContext)
         newRecentMatch.update(match)
         try viewContext.save()
@@ -18,7 +18,7 @@ extension RecentMatch {
     }
     
     static func create(_ matches: [RecentMatchCodable]) async throws {
-        let viewContext = PersistenceController.shared.makeContext()
+        let viewContext = PersistenceController.shared.makeContext(author: "RecentMatch")
         weak var weakContext = viewContext
         try await viewContext.perform {
             guard let strongContext = weakContext else {
