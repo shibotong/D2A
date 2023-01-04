@@ -21,8 +21,8 @@ class AbilityViewModel: ObservableObject {
     private var database = HeroDatabase.shared
     
     init(heroID: Int, abilityName: String) {
-        self.stratzAbility = database.fetchStratzAbility(name: abilityName)
-        self.opentDotaAbility = database.fetchOpenDotaAbility(name: abilityName)
+        stratzAbility = database.fetchStratzAbility(name: abilityName)
+        opentDotaAbility = database.fetchOpenDotaAbility(name: abilityName)
         self.heroID = heroID
         Task {
             await buildDetailView(name: abilityName)
@@ -30,17 +30,17 @@ class AbilityViewModel: ObservableObject {
     }
     
     private func buildDetailView(name: String) async {
-        let abilityVideo = self.getVideoURL(name, type: .non)
-        let scepterVideo = self.getVideoURL(name, type: .Scepter)
-        let shardVideo = self.getVideoURL(name, type: .Shard)
-        await self.setVideoURL(ability: abilityVideo, scepter: scepterVideo, shard: shardVideo)
+        let abilityVideo = getVideoURL(name, type: .non)
+        let scepterVideo = getVideoURL(name, type: .Scepter)
+        let shardVideo = getVideoURL(name, type: .Shard)
+        await setVideoURL(ability: abilityVideo, scepter: scepterVideo, shard: shardVideo)
     }
     
     @MainActor
     private func setVideoURL(ability: URL?, scepter: URL?, shard: URL?) {
-        self.abilityVideo = ability
-        self.scepterVideo = scepter
-        self.shardVideo = shard
+        abilityVideo = ability
+        scepterVideo = scepter
+        shardVideo = shard
     }
     
     private func getVideoURL(_ ability: String, type: ScepterType) -> URL? {
@@ -48,35 +48,17 @@ class AbilityViewModel: ObservableObject {
             return nil
         }
         let baseURL = "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/\(heroName)"
+        var url: URL?
         switch type {
         case .Scepter:
-            guard let url = URL(string: "\(baseURL)/\(heroName)_aghanims_scepter.mp4") else {
-                return nil
-            }
-            if AVAsset(url: url).isPlayable {
-                return url
-            } else {
-                return nil
-            }
+            url = URL(string: "\(baseURL)/\(heroName)_aghanims_scepter.mp4")
         case .Shard:
-            guard let url = URL(string: "\(baseURL)/\(heroName)_aghanims_shard.mp4") else {
-                return nil
-            }
-            if AVAsset(url: url).isPlayable {
-                return url
-            } else {
-                return nil
-            }
+            url = URL(string: "\(baseURL)/\(heroName)_aghanims_shard.mp4")
         case .non:
-            guard let url = URL(string: "\(baseURL)/\(ability).mp4") else {
-                return nil
-            }
-            if AVAsset(url: url).isPlayable {
-                return url
-            } else {
-                return nil
-            }
+            url = URL(string: "\(baseURL)/\(ability).mp4")
         }
+        guard let url = url else { return nil }
+        return AVAsset(url: url).isPlayable ? url : nil
     }
     
     func getPlayer(url: URL) -> AVPlayer {
