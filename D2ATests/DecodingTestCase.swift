@@ -15,7 +15,7 @@ class DecodingTestCase: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        self.decodingService = DecodingService()
+        decodingService = DecodingService()
     }
     
     override func tearDown() {
