@@ -51,7 +51,6 @@ struct D2AApp: App {
                             environment.selectedUser = userid
                         }
                     }
-                    
                     if let matchid = params.first(where: { $0.name == "matchid" })?.value {
                         environment.tab = .search
                         environment.matchActive = true

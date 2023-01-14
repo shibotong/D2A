@@ -23,17 +23,13 @@ struct HomeView: View {
     }
 }
 
-//struct PlayerListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            ForEach(PreviewDevice.previewDevices, id: \.rawValue) { device in
-//                NavigationView {
-//                    HomeView()
-//                }
-//                .previewDevice(device)
-//            }
-//        }
-//    }
-//}
+struct PlayerListView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            HomeView()
+        }
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+}
 
 
