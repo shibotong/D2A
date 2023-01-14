@@ -17,6 +17,20 @@ extension UserProfile {
         return newProfile
     }
     
+    /// Create a UserProfile object in CoreData for testing purpose
+    static func create(id: String, favourite: Bool = false, register: Bool = false, controller: PersistenceController = PersistenceController.shared) {
+        let viewContext = controller.makeContext(author: "UserProfile")
+        let newProfile = UserProfile(context: viewContext)
+        newProfile.id = id
+        newProfile.name = "Mr.BOBOBO"
+        newProfile.personaname = "Mr.BOBOBO"
+        newProfile.favourite = favourite
+        newProfile.register = register
+        newProfile.rank = 13
+        newProfile.avatarfull = "nil"
+        try! viewContext.save()
+    }
+    
     static func fetch(id: String) -> UserProfile? {
         let viewContext = PersistenceController.shared.container.viewContext
         let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()

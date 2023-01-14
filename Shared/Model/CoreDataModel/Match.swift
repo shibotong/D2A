@@ -20,8 +20,9 @@ extension Match {
                        direKill: Int16 = 30,
                        radiantKill: Int16 = 20,
                        radiantWin: Bool = true,
-                       startTime: Date = Date()) {
-        let viewContext = PersistenceController.shared.makeContext(author: "Match")
+                       startTime: Date = Date(),
+                       controller: PersistenceController = PersistenceController.shared) {
+        let viewContext = controller.makeContext(author: "Match")
         let matchCoreData = fetch(id: id) ?? Match(context: viewContext)
         matchCoreData.id = id
         matchCoreData.lobbyType = lobbyType
