@@ -9,6 +9,21 @@ import Foundation
 import CoreData
 
 extension RecentMatch {
+    
+    // Example movie for Xcode previews
+    static var example: RecentMatch {
+        
+        // Get the first movie from the in-memory Core Data store
+        let context = PersistenceController.preview.container.viewContext
+        
+        let fetchRequest: NSFetchRequest<RecentMatch> = RecentMatch.fetchRequest()
+        fetchRequest.fetchLimit = 1
+        
+        let results = try? context.fetch(fetchRequest)
+        
+        return (results?.first!)!
+    }
+    
     static func create(_ match: RecentMatchCodable) throws -> RecentMatch {
         let viewContext = PersistenceController.shared.makeContext(author: "RecentMatch")
         let newRecentMatch = fetch(match.id.description, userID: match.playerId?.description ?? "") ?? RecentMatch(context: viewContext)
@@ -48,6 +63,43 @@ extension RecentMatch {
         }
     }
     
+    static func create(userID: String,
+                       matchID: String,
+                       duration: Int32 = 1600,
+                       mode: Int16 = 1,
+                       radiantWin: Bool = true,
+                       slot: Int16 = 1,
+                       heroID: Int16 = 1,
+                       kills: Int16 = 1,
+                       deaths: Int16 = 1,
+                       assists: Int16 = 1,
+                       lobbyType: Int16 = 1,
+                       startTime: Date = Date(),
+                       partySize: Int16 = 5,
+                       skill: Int16 = 0,
+                       controller: PersistenceController = PersistenceController.shared) -> RecentMatch {
+        let viewContext = controller.makeContext(author: "RecentMatch")
+        let match = RecentMatch(context: viewContext)
+        match.playerId = userID
+        match.id = matchID
+        
+        match.duration = duration
+        match.mode = mode
+        match.radiantWin = radiantWin
+        match.slot = slot
+        match.heroID = heroID
+        match.kills = kills
+        match.deaths = deaths
+        match.assists = assists
+        match.lobbyType = lobbyType
+        match.startTime = startTime
+        match.partySize = partySize
+        match.skill = skill
+        
+        try! viewContext.save()
+        return match
+    }
+    
     func batchInsertItem(amount: Int) async throws -> Bool {
         // 创建私有上下文
         let context = PersistenceController.shared.container.newBackgroundContext()
@@ -84,7 +136,6 @@ extension RecentMatch {
     func update(_ match: RecentMatchCodable) {
         id = match.id.description
         playerId = match.playerId?.description ?? ""
-        
         
         duration = Int32(match.duration)
         mode = Int16(match.mode)

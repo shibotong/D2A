@@ -18,7 +18,9 @@ class PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        UserProfile.create(id: "123456789", favourite: true, register: true, controller: result)
+        let previewID = "preview"
+        UserProfile.create(id: previewID, favourite: true, register: true, controller: result)
+        _ = RecentMatch.create(userID: previewID, matchID: previewID, controller: result)
         return result
     }()
 

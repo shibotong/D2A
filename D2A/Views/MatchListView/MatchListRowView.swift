@@ -83,13 +83,13 @@ struct MatchListRowView: View {
     }
 }
 
-//struct MatchListRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MatchListRowView(vm: MatchListRowViewModel()).previewLayout(.fixed(width: 375, height: 70))
-//            .environmentObject(HeroDatabase.shared)
-//        MatchListRowEmptyView().previewLayout(.fixed(width: 375, height: 80))
-//    }
-//}
+struct MatchListRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        MatchListRowView(match: RecentMatch.example)
+            .previewLayout(.fixed(width: 375, height: 70))
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+}
 
 struct MatchListRowEmptyView: View {
     @State var loading = false
