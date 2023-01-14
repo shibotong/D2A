@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct RegisteredPlayerView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -61,31 +62,9 @@ struct RegisteredPlayerView: View {
                     
                 }
             }
-//                    if let matches = vm.recentMatches {
-//                        ScrollView(.horizontal, showsIndicators: false) {
-//                            HStack {
-//                                ForEach(matches) { match in
-//                                    VStack {
-//                                        HeroImageView(heroID: match.heroID, type: .icon)
-//                                        buildWL(win: match.isPlayerWin())
-//                                    }
-//                                }
-//                            }
-//                            .padding()
-//                        }
-//                        .frame(height: 80)
-//                        .background(Color.secondarySystemBackground)
-//                        .clipShape(RoundedRectangle(cornerRadius: 15))
-//                    } else {
-//                        HStack {
-//                            Spacer()
-//                            ProgressView()
-//                            Spacer()
-//                        }
-//                        .frame(height: 80)
-//                        .background(Color.secondarySystemBackground)
-//                        .clipShape(RoundedRectangle(cornerRadius: 15))
-//                    }
+            if let userid = profile.id {
+                LatestRecentMatchView(userid: userid)
+            }
         }
         .padding(15)
     }
