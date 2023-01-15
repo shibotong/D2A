@@ -23,7 +23,6 @@ struct RecentMatchesWidget: Widget {
     let kind: String = "D2AWidget"
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: DynamicUserSelectionIntent.self, provider: Provider()) { entry in
-//            RecentMatchesEntryView(entry: entry)
             RecentMatchesWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Recent Matches")
@@ -36,7 +35,6 @@ struct LatestMatchWidget: Widget {
     let kind: String = "LatestWidget"
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: DynamicUserSelectionIntent.self, provider: Provider()) { entry in
-//            RecentMatchesEntryView(entry: entry)
             LatestMatchWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Latest Match")
