@@ -49,16 +49,16 @@ extension RecentMatch {
                     let recentMatch = object as! RecentMatch
                     recentMatch.update(match)
                     insertItems += 1
-                    print(insertItems)
                     return false
                 } else {
                     return true
                 }
             })
-            request.resultType = .statusOnly
+            request.resultType = .objectIDs
             if let result = try strongContext.execute(request) as? NSBatchInsertResult,
-               let success = result.result as? Bool,
-               success {
+               let objs = result.result as? [NSManagedObjectID] {
+                let changes: [AnyHashable: Any] = [NSInsertedObjectIDsKey: objs]
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [PersistenceController.shared.container.viewContext])
                 return
             }
             throw PersistanceError.insertError
