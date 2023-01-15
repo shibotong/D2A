@@ -56,7 +56,23 @@ class OpenDotaController {
         return match
     }
     
-    func loadRecentMatch(userid: String, days: Double? = nil, offset: Int = 0, numbers: Int? = nil) async {
+    func loadRecentMatch(userid: String, lastMatch: RecentMatch? = nil, offset: Int = 0, numbers: Int? = nil) async {
+        if let lastMatch {
+            guard let latestMatchStartTime = lastMatch.startTime?.timeIntervalSinceNow else {
+                return
+            }
+            let oneDay: Double = 60 * 60 * 24
+            
+            // Decrease 1 sec to avoid adding repeated match
+            let days = -(latestMatchStartTime + 1) / oneDay
+            
+            await loadRecentMatch(userid: userid, days: days, offset: offset, numbers: numbers)
+        } else {
+            await loadRecentMatch(userid: userid, days: nil, offset: offset, numbers: numbers)
+        }
+    }
+    
+    func loadRecentMatch(userid: String, days: Double?, offset: Int, numbers: Int?) async {
         var urlString = ""
         if days != nil {
             urlString = "/players/\(userid)/matches/?date=\(days!)&&significant=0"

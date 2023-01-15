@@ -95,7 +95,6 @@ struct PlayerProfileView: View {
                 }
             }
             .padding(.horizontal)
-//            Text(matches.count.description)
             VStack(spacing: 2) {
                 ForEach(matches[0..<(matches.count > 10 ? 10 : matches.count)], id: \.id) { match in
                     NavigationLink(
@@ -221,17 +220,6 @@ struct PlayerProfileView: View {
         guard let userID = profile.first?.id else {
             return
         }
-        if matches.count == 0 {
-            await OpenDotaController.shared.loadRecentMatch(userid: userID)
-        } else {
-            guard let latestMatchStartTime = matches.first?.startTime?.timeIntervalSinceNow as? Double else {
-                return
-            }
-            let oneDay: Double = 60 * 60 * 24
-            
-            // Decrease 1 sec to avoid adding repeated match
-            let days = -(latestMatchStartTime + 1) / oneDay
-            await OpenDotaController.shared.loadRecentMatch(userid: userID, days: days)
-        }
+        await OpenDotaController.shared.loadRecentMatch(userid: userID, lastMatch: matches.first)
     }
 }

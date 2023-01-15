@@ -31,20 +31,17 @@ struct Provider: IntentTimelineProvider {
             return
         }
 
-        guard let profile = profiles.first(where: { $0.register }) ?? profiles.first else {
+        guard let profile = profiles.first(where: { $0.register }) ?? profiles.first, let userID = profile.id else {
             let entry = SimpleEntry(date: Date(), matches: [], user: user, subscription: true)
             completion(entry)
             return
         }
         
-//        Task {
-//            let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(profile.id ?? "")").compactMap { match in
-//                return try? RecentMatch.create(match, discardable: true)
-//            }
-            let matches = RecentMatch.fetch(userID: profile.id ?? "", count: 10)
-            let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: true)
+        Task {
+            let newMatches = await loadNewMatches(for: userID)
+            let entry = SimpleEntry(date: Date(), matches: newMatches, user: profile, subscription: true)
             completion(entry)
-//        }
+        }
     }
     
 
@@ -57,12 +54,10 @@ struct Provider: IntentTimelineProvider {
             completion(timeline)
             return
         }
-        if selectedProfile.id != "" {
+        if let userID = selectedProfile.id {
             Task {
-//                let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(selectedProfile.id ?? "")")
-                let matches = RecentMatch.fetch(userID: selectedProfile.id ?? "", count: 10)
+                let matches = await loadNewMatches(for: userID)
                 let entry = SimpleEntry(date: Date(), matches: matches, user: selectedProfile, subscription: status)
-                
                 let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
                 let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
                 completion(timeline)
@@ -70,7 +65,7 @@ struct Provider: IntentTimelineProvider {
         } else {
             // no configuration
             let userProfiles = persistenceController.fetchFavouriteUserProfiles()
-            guard let profile = userProfiles.first(where: { $0.register }) ?? userProfiles.first else {
+            guard let profile = userProfiles.first(where: { $0.register }) ?? userProfiles.first, let userID = profile.id else {
                 let entry = SimpleEntry(date: Date(), matches: [], user: selectedProfile, subscription: status)
                 let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
                 let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
@@ -79,10 +74,9 @@ struct Provider: IntentTimelineProvider {
             }
             
             Task {
-//                let matches = await OpenDotaController.shared.loadRecentMatches(userid: "\(profile.id ?? "")")
-                let matches = RecentMatch.fetch(userID: profile.id ?? "", count: 10)
+                let matches = await loadNewMatches(for: userID)
                 let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: status)
-                let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
+                let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
                 let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
                 completion(timeline)
             }
@@ -90,15 +84,17 @@ struct Provider: IntentTimelineProvider {
     }
     
     func user(for configuration: DynamicUserSelectionIntent) -> UserProfile? {
-        if let id = configuration.profile?.identifier {
-            if let profile = UserProfile.fetch(id: id) {
-                return profile
-            } else {
-                return nil
-            }
-        } else {
+        guard let id = configuration.profile?.identifier, let profile = UserProfile.fetch(id: id) else {
             return nil
         }
+        return profile
+    }
+    
+    private func loadNewMatches(for userID: String) async -> [RecentMatch] {
+        let existMatches = RecentMatch.fetch(userID: userID, count: 1)
+        await OpenDotaController.shared.loadRecentMatch(userid: userID, lastMatch: existMatches.first)
+        let newMatches = RecentMatch.fetch(userID: userID, count: 10)
+        return newMatches
     }
 }
 

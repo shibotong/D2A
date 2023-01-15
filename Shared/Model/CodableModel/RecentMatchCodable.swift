@@ -24,6 +24,23 @@ class RecentMatchCodable: Decodable, Identifiable {
     
     var playerId: Int?
     static let sample = loadRecentMatches()!
+    
+    var playerWin: Bool {
+        if slot <= 127 {
+            return radiantWin
+        } else {
+            return !radiantWin
+        }
+    }
+    
+    var gameMode: GameMode {
+        return HeroDatabase.shared.fetchGameMode(id: Int(mode))
+    }
+    
+    var gameLobby: LobbyType {
+        return HeroDatabase.shared.fetchLobby(id: Int(lobbyType))
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id = "match_id"
         case duration
