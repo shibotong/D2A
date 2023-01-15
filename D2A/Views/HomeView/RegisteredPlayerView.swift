@@ -47,7 +47,8 @@ struct RegisteredPlayerView: View {
         VStack(spacing: 10) {
             NavigationLink(destination: PlayerProfileView(userid: profile.id ?? "")) {
                 HStack {
-                    ProfileAvartar(profile: profile, sideLength: 70, cornerRadius: 25)
+                    ProfileAvartar(profile: profile, cornerRadius: 25)
+                        .frame(width: 70, height: 70)
                     VStack(alignment: .leading, spacing: 0) {
                         Text(profile.personaname ?? "").font(.system(size: 20)).bold().lineLimit(1).foregroundColor(.label)
                         Text(profile.id ?? "")

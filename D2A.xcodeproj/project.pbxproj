@@ -298,6 +298,8 @@
 		79B1630528DD5B33009B2AE2 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
 		79B1630728DD5C0B009B2AE2 /* TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630628DD5C0B009B2AE2 /* TypeConversion.swift */; };
 		79BEC5BF29736E4900510748 /* LatestRecentMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BEC5BE29736E4900510748 /* LatestRecentMatchView.swift */; };
+		79BEC5C02973967000510748 /* ProfileAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798A5CF72945503100EB07B0 /* ProfileAvatar.swift */; };
+		79BEC5C12973967100510748 /* ProfileAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798A5CF72945503100EB07B0 /* ProfileAvatar.swift */; };
 		79D5280E28DD5D990070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
 		79D5281128DD642E0070841D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
 		79D5281228DD642E0070841D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1630428DD5B33009B2AE2 /* API.swift */; };
@@ -1406,6 +1408,7 @@
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
 				32F70ADB26F6090A006E9B05 /* NetworkImage.swift in Sources */,
 				32A26C51285947D3005E890F /* OpenDotaController.swift in Sources */,
+				79BEC5C02973967000510748 /* ProfileAvatar.swift in Sources */,
 				79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
 				32B526CD285C18440099B058 /* RankView.swift in Sources */,
 				79A9891A2931EB49006AC847 /* PlayerCodable.swift in Sources */,
@@ -1464,6 +1467,7 @@
 				32F70B0226F621ED006E9B05 /* D2AWidget.swift in Sources */,
 				32F70B1F26F6295C006E9B05 /* Color.swift in Sources */,
 				79A988F72931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
+				79BEC5C12973967100510748 /* ProfileAvatar.swift in Sources */,
 				79A989102931E8F3006AC847 /* Talent.swift in Sources */,
 				32B526C8285C0BDE0099B058 /* Provider.swift in Sources */,
 				79A9891B2931EB49006AC847 /* PlayerCodable.swift in Sources */,
