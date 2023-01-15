@@ -860,8 +860,8 @@
 			children = (
 				798A5CF529454AEE00EB07B0 /* FavouriteUserListView.swift */,
 				32DE14482845E277006E864E /* HomeView.swift */,
-				7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */,
 				79BEC5BE29736E4900510748 /* LatestRecentMatchView.swift */,
+				7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */,
 				327B8759284D96A600BBE1F8 /* UserProfileRowView.swift */,
 			);
 			path = HomeView;
