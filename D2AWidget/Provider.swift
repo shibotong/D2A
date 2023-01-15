@@ -24,24 +24,17 @@ struct Provider: IntentTimelineProvider {
 
     func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         let user = user(for: configuration)
-        let profiles = persistenceController.fetchFavouriteUserProfiles()
-        if profiles.isEmpty {
-            let entry = SimpleEntry(date: Date(), matches: [], user: user, subscription: true)
-            completion(entry)
-            return
-        }
+        let profile = persistenceController.fetchFirstWidgetUser()
 
-        guard let profile = profiles.first(where: { $0.register }) ?? profiles.first, let userID = profile.id else {
+        guard let profile, let userID = profile.id else {
             let entry = SimpleEntry(date: Date(), matches: [], user: user, subscription: true)
             completion(entry)
             return
         }
         
-        Task {
-            let newMatches = await loadNewMatches(for: userID)
-            let entry = SimpleEntry(date: Date(), matches: newMatches, user: profile, subscription: true)
-            completion(entry)
-        }
+        let matches = RecentMatch.fetch(userID: userID, count: 10)
+        let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: true)
+        completion(entry)
     }
     
 
@@ -64,8 +57,8 @@ struct Provider: IntentTimelineProvider {
             }
         } else {
             // no configuration
-            let userProfiles = persistenceController.fetchFavouriteUserProfiles()
-            guard let profile = userProfiles.first(where: { $0.register }) ?? userProfiles.first, let userID = profile.id else {
+            let profile = persistenceController.fetchFirstWidgetUser()
+            guard let profile, let userID = profile.id else {
                 let entry = SimpleEntry(date: Date(), matches: [], user: selectedProfile, subscription: status)
                 let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
                 let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
@@ -85,7 +78,10 @@ struct Provider: IntentTimelineProvider {
     
     func user(for configuration: DynamicUserSelectionIntent) -> UserProfile? {
         guard let id = configuration.profile?.identifier, let profile = UserProfile.fetch(id: id) else {
-            return nil
+            let fetchRequest = UserProfile.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "register = %d", true)
+            let result = try? persistenceController.container.viewContext.fetch(fetchRequest)
+            return result?.first
         }
         return profile
     }
