@@ -50,15 +50,8 @@ class PersistenceController {
         let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME)!
         let storeURL = containerURL.appendingPathComponent("D2AModel.sqlite")
         let description = NSPersistentStoreDescription(url: storeURL)
-        // Enable persistent store remote change notifications
-        /// - Tag: persistentStoreRemoteChange
-        description.setOption(true as NSNumber,
-                              forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
 
-        // Enable persistent history tracking
-        /// - Tag: persistentHistoryTracking
-        description.setOption(true as NSNumber,
-                              forKey: NSPersistentHistoryTrackingKey)
+        
         container = NSPersistentContainer(name: "D2AModel")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
@@ -83,81 +76,6 @@ class PersistenceController {
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
-        loadHistoryToken()
-        // Observe Core Data remote change notifications on the queue where the changes were made.
-        notificationToken = NotificationCenter.default.addObserver(forName: .NSPersistentStoreRemoteChange, object: nil, queue: nil) { [weak self] note in
-            Task {
-                guard let self = self else { return }
-                await self.fetchPersistentHistory()
-            }
-        }
-    }
-    
-    func fetchPersistentHistory() async {
-        do {
-            try await fetchPersistentHistoryTransactionsAndChanges()
-        } catch {
-           print("\(error.localizedDescription)")
-        }
-    }
-
-    private func fetchPersistentHistoryTransactionsAndChanges() async throws {
-        let taskContext = makeContext()
-        taskContext.name = "persistentHistoryContext"
-        print("Start fetching persistent history changes from the store...")
-
-        try await taskContext.perform { [weak self] in
-            // Execute the persistent history change since the last transaction.
-            /// - Tag: fetchHistory
-            let changeRequest = NSPersistentHistoryChangeRequest.fetchHistory(after: self?.lastToken)
-            let historyResult = try taskContext.execute(changeRequest) as? NSPersistentHistoryResult
-            if let history = historyResult?.result as? [NSPersistentHistoryTransaction],
-               !history.isEmpty {
-                print(history)
-                self?.mergePersistentHistoryChanges(from: history)
-                return
-            }
-            
-            print("No persistent history transactions found.")
-            throw PersistanceError.persistentHistoryChangeError
-        }
-    }
-
-    private func mergePersistentHistoryChanges(from history: [NSPersistentHistoryTransaction]) {
-        print("Received \(history.count) persistent history transactions.")
-        // Update view context with objectIDs from history change request.
-        /// - Tag: mergeChanges
-        let viewContext = container.viewContext
-        viewContext.perform { [weak self] in
-            for transaction in history {
-                viewContext.mergeChanges(fromContextDidSave: transaction.objectIDNotification())
-                self?.storeHistoryToken(transaction.token)
-            }
-        }
-    }
-    
-    /// Save latest history token to disk
-    private func storeHistoryToken(_ token: NSPersistentHistoryToken) {
-        do {
-            let data = try NSKeyedArchiver
-                .archivedData(withRootObject: token, requiringSecureCoding: true)
-            try data.write(to: tokenFileURL)
-            lastToken = token
-        } catch {
-            // log any errors
-        }
-    }
-    
-    /// Load saved history token to decide which part of CoreDate remote change should be fetched
-    private func loadHistoryToken() {
-        do {
-            let tokenData = try Data(contentsOf: tokenFileURL)
-            lastToken = try NSKeyedUnarchiver
-                .unarchivedObject(ofClass: NSPersistentHistoryToken.self, from: tokenData)
-        } catch {
-            print("History Token not exist")
-            // log any errors
-        }
     }
     
     func makeContext(author: String? = nil) -> NSManagedObjectContext {
