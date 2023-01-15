@@ -119,7 +119,7 @@ struct PlayerProfileView: View {
     @ViewBuilder private func buildCompactTopBar(profile: UserProfile) -> some View {
         VStack {
             VStack {
-                ProfileAvartar(profile: profile, cornerRadius: 20)
+                ProfileAvatar(profile: profile, cornerRadius: 20)
                     .frame(width: 150, height: 150)
                 VStack {
                     buildNameBar(profile: profile)
@@ -141,7 +141,7 @@ struct PlayerProfileView: View {
     
     @ViewBuilder private func buildRegularTopBar(profile: UserProfile) -> some View {
         HStack(spacing: 30) {
-            ProfileAvartar(profile: profile, cornerRadius: 20)
+            ProfileAvatar(profile: profile, cornerRadius: 20)
                 .frame(width: 250, height: 250)
             VStack {
                 Spacer()

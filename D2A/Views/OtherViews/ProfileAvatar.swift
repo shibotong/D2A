@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProfileAvartar: View {
+struct ProfileAvatar: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @State var image: UIImage?
