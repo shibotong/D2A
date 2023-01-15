@@ -24,11 +24,13 @@ extension RecentMatch {
         return (results?.first!)!
     }
     
-    static func create(_ match: RecentMatchCodable) throws -> RecentMatch {
+    static func create(_ match: RecentMatchCodable, discardable: Bool = false) throws -> RecentMatch {
         let viewContext = PersistenceController.shared.makeContext(author: "RecentMatch")
         let newRecentMatch = fetch(match.id.description, userID: match.playerId?.description ?? "") ?? RecentMatch(context: viewContext)
         newRecentMatch.update(match)
-        try viewContext.save()
+        if !discardable {
+            try viewContext.save()
+        }
         return newRecentMatch
     }
     
@@ -133,6 +135,21 @@ extension RecentMatch {
         return results?.first
     }
     
+    static func fetch(userID: String, count: Int, viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> [RecentMatch] {
+        let fetchResult: NSFetchRequest<RecentMatch> = RecentMatch.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "startTime", ascending: false)
+        
+        fetchResult.predicate = NSPredicate(format: "playerId = %@", userID)
+        fetchResult.fetchLimit = count
+        do {
+            let result = try viewContext.fetch(fetchResult)
+            return result
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+    
     func update(_ match: RecentMatchCodable) {
         id = match.id.description
         playerId = match.playerId?.description ?? ""
@@ -165,5 +182,9 @@ extension RecentMatch {
     
     var gameLobby: LobbyType {
         return HeroDatabase.shared.fetchLobby(id: Int(lobbyType))
+    }
+    
+    var matchDuration: String {
+        return Int(duration).toDuration
     }
 }
