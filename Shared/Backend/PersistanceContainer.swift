@@ -166,4 +166,16 @@ class PersistenceController {
         privateContext.transactionAuthor = author
         return privateContext
     }
+    
+    func fetchFavouriteUserProfiles() -> [UserProfile] {
+        let fetchRequest = UserProfile.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
+        do {
+            let result = try container.viewContext.fetch(fetchRequest)
+            return result
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
 }
