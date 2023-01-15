@@ -14,12 +14,10 @@ struct ProfileAvartar: View {
     
     let profile: UserProfile
     
-    let sideLength: CGFloat
     let cornerRadius: CGFloat
     
-    init(profile: UserProfile, sideLength: CGFloat, cornerRadius: CGFloat) {
+    init(profile: UserProfile, cornerRadius: CGFloat) {
         self.profile = profile
-        self.sideLength = sideLength
         self.cornerRadius = cornerRadius
     }
     
@@ -29,11 +27,9 @@ struct ProfileAvartar: View {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: sideLength, height: sideLength)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             } else {
                 ProgressView()
-                    .frame(width: sideLength, height: sideLength)
             }
         }
         .task {

@@ -91,7 +91,8 @@ struct SidebarRowView: View {
             Label {
                 Text("\(profile.name ?? profile.personaname ?? "")").lineLimit(1)
             } icon: {
-                ProfileAvartar(profile: profile, sideLength: 30, cornerRadius: 10)
+                ProfileAvartar(profile: profile, cornerRadius: 10)
+                    .frame(width: 30, height: 30)
             }
         } else {
             ProgressView()
