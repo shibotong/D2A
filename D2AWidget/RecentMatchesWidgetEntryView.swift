@@ -28,7 +28,8 @@ struct RecentMatchesWidgetEntryView: View {
         ZStack {
             ZStack {
                 if let user = entry.user {
-                    NetworkImage(urlString: user.avatarfull ?? "").blur(radius: 40)
+                    NetworkImage(profile: user)
+                        .blur(radius: 40)
                     Color.systemBackground.opacity(0.7)
                     GeometryReader { proxy in
                         let avatarSize = { () -> CGFloat in
@@ -59,7 +60,7 @@ struct RecentMatchesWidgetEntryView: View {
         switch self.family {
         case .systemSmall:
             VStack {
-                NetworkImage(urlString: user.avatarfull ?? "")
+                NetworkImage(profile: user)
                     .frame(width: avatarSize, height: avatarSize)
                     .clipShape(Circle())
                 Text("\(user.personaname ?? "")")
@@ -67,7 +68,7 @@ struct RecentMatchesWidgetEntryView: View {
             }
         case .systemMedium:
             HStack {
-                NetworkImage(urlString: user.avatarfull ?? "")
+                NetworkImage(profile: user)
                     .frame(width: avatarSize, height: avatarSize)
                     .clipShape(Circle())
                 VStack(alignment: .leading) {

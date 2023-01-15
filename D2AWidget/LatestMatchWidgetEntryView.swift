@@ -35,7 +35,9 @@ struct LatestMatchWidgetEntryView: View {
                         VStack(spacing: 5) {
                             Link(destination: URL(string: "d2aapp:profile?userid=\(user.id ?? "0")")!) {
                                 HStack {
-                                    NetworkImage(urlString: user.avatarfull ?? "").frame(width: avatarHeight, height: avatarHeight).clipShape(Circle())
+                                    NetworkImage(profile: user)
+                                        .frame(width: avatarHeight, height: avatarHeight)
+                                        .clipShape(Circle())
                                     Text("\(user.personaname ?? "")").font(.caption2).bold()
                                     Spacer()
                                     Text("\(user.id ?? "")")
@@ -86,7 +88,7 @@ struct LatestMatchWidgetEntryView: View {
         let iconSize: CGFloat = cardHeight / 3
         VStack {
             VStack {
-                NetworkImage(urlString: user.avatarfull ?? "")
+                NetworkImage(profile: user)
                     .frame(width: avatarSize, height: avatarSize)
                     .clipShape(Circle())
                 Text(user.personaname ?? "")
