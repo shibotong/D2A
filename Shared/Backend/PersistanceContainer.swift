@@ -167,15 +167,15 @@ class PersistenceController {
         return privateContext
     }
     
-    func fetchFavouriteUserProfiles() -> [UserProfile] {
+    func fetchFirstWidgetUser() -> UserProfile? {
         let fetchRequest = UserProfile.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
         do {
             let result = try container.viewContext.fetch(fetchRequest)
-            return result
+            return result.first(where: { $0.register }) ?? result.first
         } catch {
             print(error.localizedDescription)
-            return []
+            return nil
         }
     }
 }
