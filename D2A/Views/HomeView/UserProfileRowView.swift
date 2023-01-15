@@ -14,7 +14,7 @@ struct UserProfileRowView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                ProfileAvartar(profile: profile, cornerRadius: 25)
+                ProfileAvatar(profile: profile, cornerRadius: 25)
                     .frame(width: 50, height: 50)
                 Spacer().frame(height: 10)
                 HStack(spacing: 0) {

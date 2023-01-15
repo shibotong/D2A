@@ -16,7 +16,7 @@ enum ImageCacheType: String {
 class ImageCache: ObservableObject {
     
     static func readImage(type: ImageCacheType, id: String) -> UIImage? {
-        guard let docDir = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true) else {
+        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
             return nil
         }
         let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).jpg", isDirectory: false)
@@ -25,7 +25,7 @@ class ImageCache: ObservableObject {
     }
     
     static func saveImage(_ image: UIImage, type: ImageCacheType, id: String) {
-        guard let docDir = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true) else {
+        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
             print("save image error")
             return
         }

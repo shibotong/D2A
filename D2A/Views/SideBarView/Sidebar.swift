@@ -91,7 +91,7 @@ struct SidebarRowView: View {
             Label {
                 Text("\(profile.name ?? profile.personaname ?? "")").lineLimit(1)
             } icon: {
-                ProfileAvartar(profile: profile, cornerRadius: 10)
+                ProfileAvatar(profile: profile, cornerRadius: 10)
                     .frame(width: 30, height: 30)
             }
         } else {
