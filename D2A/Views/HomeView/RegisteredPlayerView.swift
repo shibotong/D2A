@@ -62,11 +62,11 @@ struct RegisteredPlayerView: View {
                     
                 }
             }
+            .padding(.horizontal, 15)
             if let userid = profile.id {
                 LatestRecentMatchView(userid: userid)
             }
         }
-        .padding(15)
     }
     
     
@@ -129,9 +129,14 @@ struct EmptyRegistedView: View {
     
     private func registerUser(userid: String) async {
         do {
-            let userCodable = try await OpenDotaController.shared.loadUserData(userid: userid)
-            _ = try UserProfile.create(userCodable, favourite: true, register: true)
-            return
+            if let profile = UserProfile.fetch(id: userid) {
+                profile.favourite = true
+                profile.register = true
+                try viewContext.save()
+            } else {
+                let userCodable = try await OpenDotaController.shared.loadUserData(userid: userid)
+                _ = try UserProfile.create(userCodable, favourite: true, register: true)
+            }
         } catch {
             env.error = true
             env.errorMessage = "Cannot find User"
