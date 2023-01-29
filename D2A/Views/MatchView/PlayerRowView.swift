@@ -41,24 +41,36 @@ struct PlayerRowView: View {
                     KDAView(kills: Int(player.kills), deaths: Int(player.deaths), assists: Int(player.assists), size: .caption)
                 }.frame(minWidth: 0)
                 Spacer()
-//                if let item = player.itemNeutral {
-//                    ItemView(id: Int(item))
-//                        .frame(width: 24, height: 18)
-//                        .clipShape(Circle())
-//                        .frame(width: 8)
-//                }
-//                VStack(spacing: 1) {
-//                    HStack(spacing: 1) {
-//                        ItemView(id: Int(player.item0)).frame(width: 24, height: 18)
-//                        ItemView(id: Int(player.item1)).frame(width: 24, height: 18)
-//                        ItemView(id: Int(player.item2)).frame(width: 24, height: 18)
-//                    }
-//                    HStack(spacing: 1) {
-//                        ItemView(id: Int(player.item3)).frame(width: 24, height: 18)
-//                        ItemView(id: Int(player.item4)).frame(width: 24, height: 18)
-//                        ItemView(id: Int(player.item5)).frame(width: 24, height: 18)
-//                    }
-//                }
+                HStack(spacing: 5) {
+                    let width: CGFloat = 40.0
+                    let height = width * 0.75
+                    if let item = player.itemNeutral {
+                        ItemView(id: Int(item))
+                            .frame(width: width, height: height)
+                            .clipShape(Circle())
+                            .frame(width: height)
+                    }
+                    Group {
+                        ItemView(id: Int(player.item0)).frame(width: width, height: height)
+                        ItemView(id: Int(player.item1)).frame(width: width, height: height)
+                        ItemView(id: Int(player.item2)).frame(width: width, height: height)
+                        ItemView(id: Int(player.item3)).frame(width: width, height: height)
+                        ItemView(id: Int(player.item4)).frame(width: width, height: height)
+                        ItemView(id: Int(player.item5)).frame(width: width, height: height)
+                    }
+                    Spacer().frame(width: 20)
+                    Group {
+                        if let backpack0 = player.backpack0 {
+                            ItemView(id: Int(backpack0)).frame(width: width, height: height)
+                        }
+                        if let backpack1 = player.backpack1 {
+                            ItemView(id: Int(backpack1)).frame(width: width, height: height)
+                        }
+                        if let backpack2 = player.backpack2 {
+                            ItemView(id: Int(backpack2)).frame(width: width, height: height)
+                        }
+                    }
+                }
                 VStack(spacing: 0) {
                     Image("scepter_\(player.hasScepter ? "1" : "0")")
                         .resizable()

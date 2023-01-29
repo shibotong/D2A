@@ -24,7 +24,7 @@ struct MatchView: View {
         buildStack()
             .sheet(item: $selectPlayer, content: { player in
                 PlayerDetailView(player: player)
-                    .environmentObject(env)
+                    .environmentObject(data)
             })
     }
     
@@ -72,13 +72,14 @@ struct MatchView: View {
                 HStack(spacing: 15) {
                     MatchStatCardView(icon: "calendar", title: "Start Time", label: match.startTimeString)
                         .frame(width: 140)
-                    MatchStatCardView(icon: "clock", title: "Duration", label: "\(match.durationString)").colorInvert()
+                    MatchStatCardView(icon: "clock", title: "Duration", label: "\(match.durationString)")
+                        .colorInvert()
                         .frame(width: 140)
                     MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(data.fetchGameMode(id: Int(match.mode)).modeName))
                         .frame(width: 140)
-//                    MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: vm.fetchGameRegion(id: "\(match.region)"))
-//                        .colorInvert()
-//                        .frame(width: 140)
+                    MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: LocalizedStringKey(data.fetchRegion(id: match.region.description)))
+                        .colorInvert()
+                        .frame(width: 140)
                 }.padding(.horizontal)
             }
         }.padding([.top])
@@ -125,27 +126,10 @@ struct AllTeamPlayerView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
-        if horizontalSizeClass == .compact {
-            VStack(alignment: .leading, spacing: 0) {
-                Text("Players").font(.system(size: 20)).bold().padding([.horizontal, .top])
-                TeamView(players: fetchPlayers(isRadiant: true),
-                         isRadiant: true,
-                         score: Int(match.radiantKill),
-                         win: match.radiantWin,
-                         maxDamage: fetchMaxDamage(players: match.allPlayers),
-                         selectedPlayer: $selectedPlayer)
-                TeamView(players: fetchPlayers(isRadiant: false),
-                         isRadiant: false,
-                         score: Int(match.direKill),
-                         win: !match.radiantWin,
-                         maxDamage: fetchMaxDamage(players: match.allPlayers),
-                         selectedPlayer: $selectedPlayer)
-            }
-            .frame(minWidth: 300)
-        } else {
-            VStack(alignment: .leading, spacing: 0) {
-                Text("Players").font(.system(size: 20)).bold().padding([.horizontal, .top])
-                HStack {
+        VStack(alignment: .leading, spacing: 0) {
+            Text("Players").font(.system(size: 20)).bold().padding([.horizontal, .top])
+            ScrollView(.horizontal) {
+                VStack(alignment: .leading, spacing: 0) {
                     TeamView(players: fetchPlayers(isRadiant: true),
                              isRadiant: true,
                              score: Int(match.radiantKill),
@@ -160,7 +144,6 @@ struct AllTeamPlayerView: View {
                              selectedPlayer: $selectedPlayer)
                 }
             }
-            .frame(minWidth: 300)
         }
     }
     
@@ -185,43 +168,6 @@ struct DifferenceView: View {
                 Rectangle().frame(height: 1)
             }
         }
-    }
-}
-
-
-struct ItemView: View {
-    @EnvironmentObject var heroData: HeroDatabase
-    @State var image: UIImage?
-    var id: Int
-    
-    init(id: Int) {
-        self.id = id
-    }
-    
-    var body: some View {
-        ZStack {
-            if let image = image {
-                Image(uiImage: image).resizable()
-            } else {
-                Image("empty_item").resizable()
-            }
-        }
-        .task {
-            await loadImage()
-        }
-    }
-    
-    private func computeURL() -> URL? {
-        guard let item = HeroDatabase.shared.fetchItem(id: id) else {
-            return nil
-        }
-        let url = URL(string: "https://api.opendota.com\(item.img)")
-        return url
-    }
-    
-    private func loadImage() async {
-//        let image = try? await ImageCache.shared.fetchImage(type: .item, id: id, url: computeURL())
-//        self.image = image
     }
 }
 
