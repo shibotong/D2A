@@ -30,10 +30,12 @@ class ProfileViewModel: ObservableObject {
     }
     
     init(profile: UserProfileCodable) {
-        self.profile = try? UserProfile.create(profile)
+        Task {
+            await self.loadProfile(userid: profile.id.description, profileCodable: profile)
+        }
     }
     
-    private func loadProfile(userid: String) async {
+    private func loadProfile(userid: String, profileCodable: UserProfileCodable? = nil) async {
         
         // Check if CoreData has UserProfile
         if let profile = UserProfile.fetch(id: userid) {
@@ -41,6 +43,16 @@ class ProfileViewModel: ObservableObject {
             return
         }
         
+        // Check if passing a profileCodable
+        if let profileCodable {
+            _ = try? UserProfile.create(profileCodable)
+            if let profile = UserProfile.fetch(id: userid) {
+                await setProfile(profile: profile)
+            }
+            return
+        }
+        
+        // Do network request
         await setLoading(true)
         if let profileCodable = try? await OpenDotaController.shared.loadUserData(userid: userid) {
             _ = try? UserProfile.create(profileCodable)
