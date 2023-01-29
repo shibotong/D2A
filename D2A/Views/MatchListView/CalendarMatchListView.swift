@@ -33,7 +33,7 @@ struct CalendarMatchListView: View {
         if vm.isLoading {
             ProgressView()
         } else {
-            if vm.matchesOnDate.isEmpty {
+            if vm.matches.isEmpty {
                 Text("No Result")
                     .foregroundColor(.secondaryLabel)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -41,11 +41,10 @@ struct CalendarMatchListView: View {
             } else {
                 ScrollView {
                     VStack(spacing: 1) {
-                        ForEach(vm.matchesOnDate) { match in
-                            NavigationLink(destination: MatchView(matchid: match.id.description)) {
-//                                MatchListRowView(vm: MatchListRowViewModel(match: match))
-//                                    .background(Color.systemBackground)
-                                Text("123")
+                        ForEach(vm.matches) { match in
+                            NavigationLink(destination: MatchView(matchid: match.id!.description)) {
+                                MatchListRowView(match: match)
+                                    .background(Color.systemBackground)
                             }
                         }
                     }
