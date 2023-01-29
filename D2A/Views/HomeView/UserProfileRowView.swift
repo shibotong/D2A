@@ -12,54 +12,31 @@ struct UserProfileRowView: View {
     var profile: UserProfile
     
     var body: some View {
-        ZStack {
-            VStack(spacing: 0) {
-                ProfileAvatar(profile: profile, cornerRadius: 25)
-                    .frame(width: 50, height: 50)
-                Spacer().frame(height: 10)
-                HStack(spacing: 0) {
-                    if profile.name != nil {
-                        Image(systemName: "checkmark.circle.fill")
-                            .font(.caption2)
-                    }
-                    Text(profile.name ?? profile.personaname ?? "")
-                        .font(.system(size: 12))
-                        .bold()
-                        .lineLimit(1)
-                        .foregroundColor(Color(UIColor.label))
+        VStack(alignment: .leading, spacing: 0) {
+            ProfileAvatar(profile: profile, cornerRadius: 10)
+            Spacer().frame(height: 10)
+            HStack(spacing: 0) {
+                if profile.name != nil {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.caption2)
                 }
-                
-                HStack(spacing: 0) {
-                    Image("rank_\((profile.rank) / 10)")
-                        .resizable()
-                        .frame(width: 15, height: 15)
-                    Text(DataHelper.transferRank(rank: Int(profile.rank)))
-                        .font(.system(size: 10))
-                        .foregroundColor(Color(uiColor: UIColor.secondaryLabel))
-                }
-                Text(profile.id ?? "")
-                    .font(.system(size: 9))
-                    .foregroundColor(Color(uiColor: UIColor.tertiaryLabel))
+                Text(profile.name ?? profile.personaname ?? "")
+                    .font(.system(size: 12))
+                    .foregroundColor(.label)
+                    .lineLimit(1)
             }
-            .padding()
-            HStack {
-                Spacer()
-                VStack {
-                    Button {
-                        profile.favourite = false
-                        try? viewContext.save()
-                    } label: {
-                        Image(systemName: "star.fill")
-                            .foregroundColor(.primaryDota)
-                            .font(.caption)
-                    }
-                    Spacer()
-                }
+            HStack(spacing: 0) {
+                Image("rank_\((profile.rank) / 10)")
+                    .resizable()
+                    .frame(width: 12, height: 12)
+                Text(DataHelper.transferRank(rank: Int(profile.rank)))
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondaryLabel)
             }
-            .padding(6)
-            
+            Text(profile.id ?? "")
+                .font(.system(size: 9))
+                .foregroundColor(.tertiaryLabel)
         }
-        .background(Color(UIColor.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 15))
+        .font(.subheadline)
     }
 }
