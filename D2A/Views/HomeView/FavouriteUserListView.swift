@@ -64,8 +64,9 @@ struct FavouriteUserListView: View {
     }
 }
 
-//struct FavouriteUserListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FavouriteUserListView()
-//    }
-//}
+struct FavouriteUserListView_Previews: PreviewProvider {
+    static var previews: some View {
+        FavouriteUserListView()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+}
