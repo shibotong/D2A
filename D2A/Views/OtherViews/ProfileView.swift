@@ -13,30 +13,31 @@ struct ProfileView: View {
     
     var body: some View {
         if !vm.isloading {
-            if let personaname = vm.personaname {
+            if let profile = vm.profile, let personaname = profile.personaname, let userID = profile.id {
                 HStack {
-//                    ProfileAvartar(userid: Int(vm.userid)!, urlString: vm.urlString ?? "", sideLength: 40, cornerRadius: 5)
+                    ProfileAvatar(profile: profile, cornerRadius: 5)
+                        .frame(width: 40, height: 40)
                     VStack(alignment: .leading) {
                         Text(personaname).bold()
-                        Text("ID: \(vm.userid.description)")
+                        Text("ID: \(userID)")
                             .foregroundColor(.secondaryLabel)
                             .font(.caption)
                     }
                     Spacer()
-//                    if vm.userid.description == env.registerdID {
-//                        Image(systemName: "person.text.rectangle")
-//                            .foregroundColor(.primaryDota)
-//                    }
-//                    if env.userIDs.contains(vm.userid.description) {
-//                        Image(systemName: "star.fill")
-//                            .foregroundColor(.primaryDota)
-//                    }
+                    if profile.register && profile.favourite {
+                        Image(systemName: "person.text.rectangle")
+                            .foregroundColor(.primaryDota)
+                    } else if profile.favourite {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.primaryDota)
+                    }
                 }
             } else {
                 ProfileEmptyView()
             }
         } else {
             ProgressView()
+                .frame(height: 40)
         }
     }
 }
