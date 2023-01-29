@@ -113,6 +113,7 @@ struct RecentMatchesWidgetEntryView: View {
         let matchWidth = width / CGFloat(maxNumberOfMatches)
         HStack(spacing: 0) {
             ForEach(matches) { match in
+                
                 buildMatch(match: match, width: matchWidth)
                     .frame(width: matchWidth)
             }
@@ -125,17 +126,9 @@ struct RecentMatchesWidgetEntryView: View {
         VStack {
             HeroImageView(heroID: Int(match.heroID), type: .icon)
                 .frame(width: imageSize, height: imageSize)
-            buildWL(win: match.playerWin, size: width / 1.5)
+            WinLossView(win: match.playerWin, size: width / 1.5)
         }
         .padding(.horizontal, width / 4)
-    }
-    
-    @ViewBuilder private func buildWL(win: Bool, size: CGFloat = 15) -> some View {
-        ZStack {
-            Rectangle().foregroundColor(win ? Color(.systemGreen) : Color(.systemRed))
-                .frame(width: size, height: size)
-            Text("\(win ? "W" : "L")").font(.caption).bold().foregroundColor(.white)
-        }
     }
 }
 

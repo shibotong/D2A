@@ -257,6 +257,9 @@
 		79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79368C0928E6D8ED009517D2 /* RoleView.swift */; };
 		793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
 		793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
+		794B723D2985D2C9000059E4 /* RecentMatchWinLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794B723C2985D2C9000059E4 /* RecentMatchWinLossView.swift */; };
+		794B723E2985D410000059E4 /* RecentMatchWinLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794B723C2985D2C9000059E4 /* RecentMatchWinLossView.swift */; };
+		794B723F2985D411000059E4 /* RecentMatchWinLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794B723C2985D2C9000059E4 /* RecentMatchWinLossView.swift */; };
 		7965F636293ADE1900922F99 /* RegisteredPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */; };
 		79800DA4294C2E1000662E2F /* NSNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79800DA3294C2E1000662E2F /* NSNumber.swift */; };
 		79800DA5294C2E1000662E2F /* NSNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79800DA3294C2E1000662E2F /* NSNumber.swift */; };
@@ -492,6 +495,7 @@
 		32F70B3726F80AD3006E9B05 /* D2ARelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2ARelease.entitlements; sourceTree = "<group>"; };
 		32F70B3926F80AE4006E9B05 /* D2AWidgetIntentHandlerRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2AWidgetIntentHandlerRelease.entitlements; sourceTree = "<group>"; };
 		79368C0928E6D8ED009517D2 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
+		794B723C2985D2C9000059E4 /* RecentMatchWinLossView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMatchWinLossView.swift; sourceTree = "<group>"; };
 		7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredPlayerView.swift; sourceTree = "<group>"; };
 		79800DA3294C2E1000662E2F /* NSNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNumber.swift; sourceTree = "<group>"; };
 		79837B52294C189200458529 /* PlayerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowView.swift; sourceTree = "<group>"; };
@@ -862,6 +866,7 @@
 				32DE14482845E277006E864E /* HomeView.swift */,
 				79BEC5BE29736E4900510748 /* LatestRecentMatchView.swift */,
 				7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */,
+				794B723C2985D2C9000059E4 /* RecentMatchWinLossView.swift */,
 				327B8759284D96A600BBE1F8 /* UserProfileRowView.swift */,
 			);
 			path = HomeView;
@@ -1369,6 +1374,7 @@
 				7965F636293ADE1900922F99 /* RegisteredPlayerView.swift in Sources */,
 				32D3EB4F26ED7B9B00AA8D8B /* Ability.swift in Sources */,
 				323ADB06272B8D4900253124 /* Patch.swift in Sources */,
+				794B723D2985D2C9000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				798A5CFA2945B3C300EB07B0 /* RecentMatch.swift in Sources */,
 				32B36F2D26C3885A002D427D /* Color.swift in Sources */,
 				32B526C5285C0B730099B058 /* IntentHandler.swift in Sources */,
@@ -1415,6 +1421,7 @@
 				32F70AD526F60364006E9B05 /* HeroCodable.swift in Sources */,
 				32F70AB526F5812B006E9B05 /* LobbyType.swift in Sources */,
 				79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */,
+				794B723E2985D410000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				79A989202931ECBB006AC847 /* Player.swift in Sources */,
 				32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */,
 				32B526C3285C0B380099B058 /* IntentHandler.swift in Sources */,
@@ -1473,6 +1480,7 @@
 				32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */,
 				32F70AFC26F61E52006E9B05 /* UserProfileCodable.swift in Sources */,
 				79E01CA9291E351B0073BF68 /* MatchListRowView.swift in Sources */,
+				794B723F2985D411000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				79A989212931ECBB006AC847 /* Player.swift in Sources */,
 				32B526C4285C0B380099B058 /* IntentHandler.swift in Sources */,
 				32EC7F3828646BAE00A36AF6 /* RecentMatchesWidgetEntryView.swift in Sources */,

@@ -24,6 +24,8 @@ struct D2AApp: App {
     
     var body: some Scene {
         WindowGroup {
+//            LatestRecentMatchView(userid: "preview")
+//                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
             ContentView()
                 .environmentObject(environment)
                 .environmentObject(heroDatabase)

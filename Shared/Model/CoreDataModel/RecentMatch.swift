@@ -138,7 +138,7 @@ extension RecentMatch {
     static func fetch(userID: String, count: Int, viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> [RecentMatch] {
         let fetchResult: NSFetchRequest<RecentMatch> = RecentMatch.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "startTime", ascending: false)
-        
+        fetchResult.sortDescriptors = [sortDescriptor]
         fetchResult.predicate = NSPredicate(format: "playerId = %@", userID)
         fetchResult.fetchLimit = count
         do {

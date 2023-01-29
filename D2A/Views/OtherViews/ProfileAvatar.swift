@@ -28,6 +28,9 @@ struct ProfileAvatar: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: cornerRadius).stroke().foregroundColor(Color(uiColor: .systemGray6))
+                    }
             } else {
                 ProgressView()
             }
