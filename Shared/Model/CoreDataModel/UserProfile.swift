@@ -40,10 +40,13 @@ extension UserProfile {
         return results?.first
     }
     
+    /// Search user saved in CoreData and marked as favourite
     static func fetch(text: String) -> [UserProfile] {
         let viewContext = PersistenceController.shared.container.viewContext
         let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
-        fetchResult.predicate = NSPredicate(format: "personaname CONTAINS[cd] %@", text)
+        let favouritePredicate = NSPredicate(format: "favourite = %d", true)
+        let namePredicate = NSPredicate(format: "personaname CONTAINS[cd] %@", text)
+        fetchResult.predicate = NSCompoundPredicate(type: .and, subpredicates: [favouritePredicate, namePredicate])
         
         let results = try? viewContext.fetch(fetchResult)
         return results ?? []

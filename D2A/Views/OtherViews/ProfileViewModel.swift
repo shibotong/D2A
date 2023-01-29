@@ -10,53 +10,54 @@ import UIKit
 
 class ProfileViewModel: ObservableObject {
     @Published var isloading = false
-
-    @Published var urlString: String?
     
-    @Published var personaname: String?
-
-    var userid: String
+    @Published var profile: UserProfile?
 
     ///Init with userID
     ///- parameter id: Player ID
     init(id: String) {
-        userid = id
         if id != "0" {
             Task {
-                await loadProfile()
+                await self.loadProfile(userid: id)
             }
         }
     }
-
+    
     ///Init with User Profile
     ///- parameter profile: User Profile
     init(profile: UserProfile) {
-        personaname = profile.personaname ?? ""
-        userid = profile.id ?? ""
-        urlString = profile.avatarfull
+        self.profile = profile
     }
     
     init(profile: UserProfileCodable) {
-        personaname = profile.personaname
-        userid = profile.id.description
-        urlString = profile.avatarfull
+        self.profile = try? UserProfile.create(profile)
     }
     
-    func loadProfile() async {
-        isloading = true
-        guard let profile = UserProfile.fetch(id: userid) else {
-            guard let profile = try? await OpenDotaController.shared.loadUserData(userid: userid) else {
-                return
-            }
-            await setProfile(name: profile.personaname, image: profile.avatarfull)
+    private func loadProfile(userid: String) async {
+        
+        // Check if CoreData has UserProfile
+        if let profile = UserProfile.fetch(id: userid) {
+            await setProfile(profile: profile)
             return
         }
-        await setProfile(name: profile.personaname, image: profile.avatarfull)
+        
+        await setLoading(true)
+        if let profileCodable = try? await OpenDotaController.shared.loadUserData(userid: userid) {
+            _ = try? UserProfile.create(profileCodable)
+            if let profile = UserProfile.fetch(id: userid) {
+                await setProfile(profile: profile)
+            }
+        }
+        await setLoading(false)
     }
     
-    @MainActor private func setProfile(name: String?, image: String?) {
-        personaname = name ?? ""
-        urlString = image
-        isloading = false
+    @MainActor
+    private func setProfile(profile: UserProfile) async {
+        self.profile = profile
+    }
+    
+    @MainActor
+    private func setLoading(_ isLoading: Bool) async {
+        isloading = isLoading
     }
 }
