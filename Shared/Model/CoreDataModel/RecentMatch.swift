@@ -150,6 +150,22 @@ extension RecentMatch {
         }
     }
     
+    static func fetch(userID: String, on date: Date, viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> [RecentMatch] {
+        let fetchResult: NSFetchRequest<RecentMatch> = RecentMatch.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "startTime", ascending: false)
+        fetchResult.sortDescriptors = [sortDescriptor]
+        let playerPredicate = NSPredicate(format: "playerId = %@", userID)
+        let datePredicate = NSPredicate(format: "startTime >= %@ AND startTime <= %@", date.startOfDay as CVarArg, date.endOfDay as CVarArg)
+        fetchResult.predicate = NSCompoundPredicate(type: .and, subpredicates: [playerPredicate, datePredicate])
+        do {
+            let result = try viewContext.fetch(fetchResult)
+            return result
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+    
     func update(_ match: RecentMatchCodable) {
         id = match.id.description
         playerId = match.playerId?.description ?? ""
