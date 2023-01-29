@@ -12,7 +12,7 @@ struct HomeView: View {
         ScrollView {
             VStack {
                 RegisteredPlayerView()
-                    .frame(height: 190)
+                    .frame(height: 170)
                     .background(Color.systemBackground)
                 FavouriteUserListView()
                     .padding(.horizontal)

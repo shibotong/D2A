@@ -107,7 +107,7 @@ struct LatestMatchWidgetEntryView: View {
                         }
                     }
                     HStack(spacing: 2) {
-                        buildWL(win: match.playerWin, size: 15)
+                        WinLossView(win: match.playerWin)
                         Text(LocalizedStringKey(match.gameLobby.lobbyName))
                             .font(.caption)
                             .foregroundColor(match.gameLobby.lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
@@ -142,14 +142,6 @@ struct LatestMatchWidgetEntryView: View {
             }
             .font(.caption)
             .foregroundColor(.tertiaryLabel)
-        }
-    }
-    
-    @ViewBuilder private func buildWL(win: Bool, size: CGFloat = 15) -> some View {
-        ZStack {
-            Rectangle().foregroundColor(win ? Color(.systemGreen) : Color(.systemRed))
-                .frame(width: size, height: size)
-            Text("\(win ? "W" : "L")").font(.caption).bold().foregroundColor(.white)
         }
     }
 }
