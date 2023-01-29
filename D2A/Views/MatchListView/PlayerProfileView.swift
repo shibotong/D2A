@@ -17,6 +17,20 @@ struct PlayerProfileView: View {
     @FetchRequest private var profile: FetchedResults<UserProfile>
     @FetchRequest private var matches: FetchedResults<RecentMatch>
     
+    private var steamLink: some View {
+        HStack {
+            Spacer()
+            Image(systemName: "person.fill")
+                .font(Font.system(size: 15, weight: .semibold))
+            Text("Profile")
+                .font(Font.system(size: 15, weight: .semibold))
+            Spacer()
+        }
+        .foregroundColor(.white)
+        .frame(height: 45)
+        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.primaryDota))
+    }
+    
     private var userid: String
     
     init(userid: String) {
@@ -67,6 +81,9 @@ struct PlayerProfileView: View {
                 })
                 .task {
                     await loadMatches()
+                    if let profileLastUpdate = profile.lastUpdate, !profileLastUpdate.isToday {
+                        await refreshUser()
+                    }
                 }
 //                .sheet(isPresented: $isSharePresented, content: {
 //                    ShareActivityView(activityItems: [SharingLink(title: "\(profile.personaname ?? "")", link: "d2aapp://profile?userid=\(profile.id.description)", image: vm.userIcon)])
@@ -202,20 +219,22 @@ struct PlayerProfileView: View {
             }
             if let url = URL(string: profile.profileurl ?? "") {
                 Link(destination: url) {
-                    HStack {
-                        Spacer()
-                        Image(systemName: "person.fill")
-                            .font(Font.system(size: 15, weight: .semibold))
-                        Text("Profile")
-                            .font(Font.system(size: 15, weight: .semibold))
-                        Spacer()
-                    }
-                    .foregroundColor(.white)
-                    .frame(height: 45)
-                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.primaryDota))
+                    steamLink
                 }
+            } else {
+                steamLink
+                    .task {
+                        await refreshUser()
+                    }
             }
         }
+    }
+    
+    private func refreshUser() async {
+        guard let profileCodable = try? await OpenDotaController.shared.loadUserData(userid: userid) else {
+            return
+        }
+        _ = try? UserProfile.create(profileCodable)
     }
     
     private func loadMatches() async {

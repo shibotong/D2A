@@ -27,4 +27,8 @@ extension Date {
         let timeInterval = Int(timeIntervalSince1970)
         return timeInterval.toTime
     }
+    
+    var isToday: Bool {
+        return self.startOfDay == Date().startOfDay
+    }
 }
