@@ -18,6 +18,7 @@ struct PlayerProfileView: View {
     @FetchRequest private var matches: FetchedResults<RecentMatch>
     
     @State private var error: Bool = false
+    @State private var matchLoading = false
     
     private var steamLink: some View {
         HStack {
@@ -118,14 +119,19 @@ struct PlayerProfileView: View {
                 }
             }
             .padding(.horizontal)
+            if matchLoading {
+                ProgressView()
+            }
             VStack(spacing: 2) {
                 ForEach(matches[0..<(matches.count > 10 ? 10 : matches.count)], id: \.id) { match in
-                    NavigationLink(
-                        destination: MatchView(matchid: match.id)
-                    ) {
-                        MatchListRowView(match: match)
-                            .background(Color.systemBackground)
-                    }.listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
+                    if let matchID = match.id {
+                        NavigationLink(
+                            destination: MatchView(matchid: matchID)
+                        ) {
+                            MatchListRowView(match: match)
+                                .background(Color.systemBackground)
+                        }.listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
+                    }
                 }
             }
             .background(Color.secondarySystemBackground)
@@ -251,6 +257,17 @@ struct PlayerProfileView: View {
         guard let userID = profile.first?.id else {
             return
         }
-        await OpenDotaController.shared.loadRecentMatch(userid: userID, lastMatch: matches.first)
+        if let firstMatch = matches.first {
+            await OpenDotaController.shared.loadRecentMatch(userid: userID, lastMatch: firstMatch)
+        } else {
+            await setLoading(true)
+            await OpenDotaController.shared.loadRecentMatch(userid: userID)
+            await setLoading(false)
+        }
+    }
+    
+    @MainActor
+    private func setLoading(_ state: Bool) async {
+        matchLoading = state
     }
 }

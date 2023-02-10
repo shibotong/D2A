@@ -54,6 +54,7 @@ extension Match {
         let matchCoreData = fetch(id: match.id.description) ?? Match(context: viewContext)
         matchCoreData.update(match)
         try viewContext.save()
+        try viewContext.parent?.save()
         print("save match successfully \(matchCoreData.id ?? "nil")")
         return matchCoreData
     }
