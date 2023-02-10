@@ -49,9 +49,9 @@ struct StoreView: View {
     @ViewBuilder private func buildCloseButton() -> some View {
         Button(action: {
             env.subscriptionSheet = false
-        }) {
+        }, label: {
             Image(systemName: "xmark.circle.fill").foregroundColor(.primaryDota)
-        }
+        })
     }
     
     @ViewBuilder private func buildFeature(_ text: LocalizedStringKey) -> some View {
@@ -67,19 +67,19 @@ struct StoreView: View {
                 Task {
                  try await storeManager.purchase()
                 }
-            }) {
+            }, label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 15).foregroundColor(env.subscriptionStatus ? .secondaryDota : .primaryDota)
                     Text(buildSubscribeString()).font(.system(size: 17)).bold().foregroundColor(.white)
                 }.frame(height: 60)
-            }
+            })
             .disabled(env.subscriptionStatus)
             VStack {
                 Button(action: {
                     storeManager.restorePurchase()
-                }) {
+                }, label: {
                     Text("Restore Purchase").font(.system(size: 15)).bold()
-                }
+                })
                 HStack {
                     Link(destination: URL(string: PRIVACY_POLICY)!, label: {
                         Text("Terms of Use").font(.system(size: 15)).bold()

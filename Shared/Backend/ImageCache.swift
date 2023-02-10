@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 
 enum ImageCacheType: String {
-    case item = "item"
-    case avatar = "avatar"
-    case ability = "ability"
+    case item
+    case avatar
+    case ability
 }
 
 class ImageCache: ObservableObject {
