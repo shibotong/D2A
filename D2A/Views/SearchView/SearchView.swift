@@ -96,17 +96,21 @@ struct SearchView: View {
                 Text("hero name and match id")
                 .foregroundColor(.secondaryLabel)
             }
-            NavigationLink(
-                destination: MatchView(matchid: env.selectedMatch ?? ""),
-                isActive: $env.matchActive
-            ) {
-                EmptyView()
+            if let selectedMatch = env.selectedMatch {
+                NavigationLink(
+                    destination: MatchView(matchid: selectedMatch),
+                    isActive: $env.matchActive
+                ) {
+                    EmptyView()
+                }
             }
-            NavigationLink(
-                destination: PlayerProfileView(userid: env.selectedUser ?? ""),
-                isActive: $env.userActive
-            ) {
-                EmptyView()
+            if let selectedUser = env.selectedUser {
+                NavigationLink(
+                    destination: PlayerProfileView(userid: selectedUser),
+                    isActive: $env.userActive
+                ) {
+                    EmptyView()
+                }
             }
         }
     }

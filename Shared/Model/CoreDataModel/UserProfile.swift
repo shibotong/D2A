@@ -28,7 +28,7 @@ extension UserProfile {
         newProfile.register = register
         newProfile.rank = 13
         newProfile.avatarfull = "nil"
-        try! viewContext.save()
+        try? viewContext.save()
     }
     
     static func fetch(id: String) -> UserProfile? {
