@@ -1,10 +1,7 @@
 #!/bin/sh
 
-# Install CocoaPods using Homebrew.
-brew install cocoapods
-
-# Install dependencies you manage with CocoaPods.
-pod install
+# Install SwiftLint using Homebrew.
+brew install swiftlint
 
 # Add Secret
 echo '{ "stratzToken": "'"$STRATZTOKEN"'" }' >> ../Shared/GraphQL/secrets.json
