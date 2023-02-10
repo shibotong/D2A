@@ -9,7 +9,82 @@ import SwiftUI
 
 struct MatchListRowView: View {
     
+    @Environment(\.horizontalSizeClass) var horizontalClass
+    
     var match: RecentMatch
+    
+    private var headingView: some View {
+        Group {
+            if horizontalClass == .compact {
+                VStack(alignment: .leading, spacing: 1) {
+                    HStack {
+                        heroImage
+                        VStack(alignment: .leading) {
+                            kdaView
+                            gameMode
+                        }
+                    }
+                }.padding(.vertical)
+            } else {
+                heroImage
+                kdaView
+                    .frame(maxWidth: 150, alignment: .leading)
+                gameMode
+                    .frame(maxWidth: 100, alignment: .leading)
+            }
+        }
+    }
+    
+    private var trailingView: some View {
+        Group {
+            if horizontalClass == .compact {
+                HStack {
+                    Spacer()
+                    VStack(alignment: .trailing) {
+                        gameLobbyText
+                        if let startTime = match.startTime {
+                            Text(startTime.toTime).bold()
+                        }
+                    }
+                }
+                .font(.caption2)
+                .foregroundColor(.secondaryLabel)
+                .frame(width: 70)
+            } else {
+                HStack {
+                    gameLobbyText
+                        .frame(width: 80, alignment: .leading)
+                    if let startTime = match.startTime {
+                        Text(startTime.toTime).bold().foregroundColor(.secondaryLabel)
+                            .frame(width: 80, alignment: .trailing)
+                    }
+                }.font(.body)
+            }
+        }
+    }
+    
+    private var gameLobbyText: some View {
+        Text(LocalizedStringKey(match.gameLobby.lobbyName))
+            .foregroundColor(match.gameLobby.lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
+    }
+    
+    private var heroImage: some View {
+        HeroImageView(heroID: Int(match.heroID), type: .icon)
+            .frame(width: 30, height: 30)
+    }
+    
+    private var kdaView: some View {
+        KDAView(kills: Int(match.kills),
+                deaths: Int(match.deaths),
+                assists: Int(match.assists),
+                size: horizontalClass == .compact ? .caption : .body)
+    }
+    
+    private var gameMode: some View {
+        Text(LocalizedStringKey(match.gameMode.modeName))
+            .font(horizontalClass == .compact ? .caption2 : .body)
+            .foregroundColor(.secondaryLabel)
+    }
     
     var winLoss: some View {
         Rectangle().frame(width: 15, height: 15).foregroundColor(Color(match.playerWin ? .systemGreen : .systemRed))
@@ -23,36 +98,13 @@ struct MatchListRowView: View {
     var body: some View {
         HStack {
             winLoss
-            VStack(alignment: .leading, spacing: 1) {
-                HStack {
-                    HeroImageView(heroID: Int(match.heroID), type: .icon)
-                        .frame(width: 30, height: 30)
-                    VStack(alignment: .leading) {
-                        KDAView(kills: Int(match.kills),
-                                deaths: Int(match.deaths),
-                                assists: Int(match.assists),
-                                size: .caption)
-                        Text(LocalizedStringKey(match.gameMode.modeName))
-                            .font(.caption2)
-                    }
-                }
-            }.padding(.vertical)
+            headingView
+            Spacer()
             if let size = Int(match.partySize) {
                 buildParty(size: size)
+                    .frame(width: 80)
             }
-            HStack {
-                Spacer()
-                VStack(alignment: .trailing) {
-                    Text(LocalizedStringKey(match.gameLobby.lobbyName))
-                        .foregroundColor(match.gameLobby.lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
-                    if let startTime = match.startTime {
-                        Text(startTime.toTime).bold()
-                    }
-                }
-            }
-            .font(.caption2)
-            .foregroundColor(Color(.secondaryLabel))
-            .frame(width: 70)
+            trailingView
         }
         .padding(.horizontal)
     }
@@ -85,9 +137,18 @@ struct MatchListRowView: View {
 
 struct MatchListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        MatchListRowView(match: RecentMatch.example)
-            .previewLayout(.fixed(width: 375, height: 70))
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        Group {
+            MatchListRowView(match: RecentMatch.example)
+                .previewDevice(.iPad)
+                .previewLayout(.fixed(width: 500, height: 70))
+                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+                .previewDisplayName("iPad")
+            MatchListRowView(match: RecentMatch.example)
+                .previewDevice(.iPhone)
+                .previewLayout(.fixed(width: 375, height: 70))
+                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+                .previewDisplayName("iPhone")
+        }
     }
 }
 
