@@ -31,5 +31,3 @@ struct PlayerListView_Previews: PreviewProvider {
         .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
-
-

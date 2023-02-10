@@ -209,7 +209,6 @@ struct HeroDetailView: View {
         }
     }
     
-    
     @ViewBuilder private func buildRole(role: String, roles: [Role]) -> some View {
         let filterdRole = roles.first { $0.roleId == role.uppercased() }
         RoleView(title: role, level: filterdRole?.level ?? 0.0)
@@ -305,7 +304,6 @@ struct HeroDetailView: View {
                 buildManaHealthBar(total: hero.calculateManaLevel(level: heroLevel), color: Color(UIColor.systemBlue))
             }
             
-            
             HStack {
                 Spacer()
                 HStack {
@@ -375,8 +373,8 @@ struct HeroDetailView: View {
     }
 }
 
-//struct HeroDetailView_Preview: PreviewProvider {
+// struct HeroDetailView_Preview: PreviewProvider {
 //    static var previews: some View {
 //        HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
 //    }
-//}
+// }

@@ -106,15 +106,10 @@ struct StoreView: View {
     }
 }
 
-
-//struct SubscriptionView_Previews: PreviewProvider {
+// struct SubscriptionView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        StoreView()
 //            .environmentObject(DotaEnvironment.shared)
 //            .environmentObject(StoreManager.shared)
 //    }
-//}
-
-
-
-
+// }

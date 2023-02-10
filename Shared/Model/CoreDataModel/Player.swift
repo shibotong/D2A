@@ -151,7 +151,6 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
         personaname = player.personaname
         rank = player.rank ?? 0
         
-        
         // hero data
         heroID = player.heroID
         level = player.level
@@ -168,7 +167,6 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
         backpack1 = player.backpack1
         backpack2 = player.backpack2
         itemNeutral = player.itemNeutral
-        
         
         // KDA
         kills = player.kills
@@ -204,7 +202,7 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
         case backpack0
         case backpack1
         case backpack2
-        //items
+        // items
         case item0
         case item1
         case item2
@@ -313,5 +311,3 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
         self.permanentBuffs = permanentBuffs
     }
 }
-
-

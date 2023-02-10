@@ -135,7 +135,7 @@ struct DecodingService {
             print("Value '\(value)' not found:", context.debugDescription)
             print("codingPath:", context.codingPath)
             throw APIError.decodingError
-        } catch let DecodingError.typeMismatch(type, context)  {
+        } catch let DecodingError.typeMismatch(type, context) {
             print("Type '\(type)' mismatch:", context.debugDescription)
             print("codingPath:", context.codingPath)
             throw APIError.decodingError
@@ -158,7 +158,7 @@ struct DecodingService {
             print("Value '\(value)' not found:", context.debugDescription)
             print("codingPath:", context.codingPath)
             return []
-        } catch let DecodingError.typeMismatch(type, context)  {
+        } catch let DecodingError.typeMismatch(type, context) {
             print("Type '\(type)' mismatch:", context.debugDescription)
             print("codingPath:", context.codingPath)
             return []

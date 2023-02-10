@@ -119,7 +119,7 @@ struct HeroListView: View {
     
     @ViewBuilder private func buildMainPart(heroes: [HeroCodable]) -> some View {
         if vm.gridView {
-            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 130, maximum: 200), spacing: 10, alignment: .leading), count: 1)){
+            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 130, maximum: 200), spacing: 10, alignment: .leading), count: 1)) {
                 ForEach(heroes) { hero in
                     NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
                         buildHero(hero: hero)
@@ -144,7 +144,7 @@ struct HeroListView: View {
             if vm.gridView {
                 ZStack {
                     HeroImageView(heroID: hero.id, type: .full)
-                        .overlay(LinearGradient(colors: [.black.opacity(0),.black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
+                        .overlay(LinearGradient(colors: [.black.opacity(0), .black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                     HStack {
                         VStack {
@@ -177,8 +177,8 @@ struct HeroListView: View {
     }
 }
 
-//struct HeroListView_Previews: PreviewProvider {
+// struct HeroListView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        HeroListView()
 //    }
-//}
+// }

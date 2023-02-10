@@ -30,4 +30,3 @@ struct KDAView: View {
         }
     }
 }
-

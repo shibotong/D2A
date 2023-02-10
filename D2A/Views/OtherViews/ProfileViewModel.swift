@@ -13,8 +13,8 @@ class ProfileViewModel: ObservableObject {
     
     @Published var profile: UserProfile?
 
-    ///Init with userID
-    ///- parameter id: Player ID
+    /// Init with userID
+    /// - parameter id: Player ID
     init(id: String) {
         if id != "0" {
             Task {
@@ -23,8 +23,8 @@ class ProfileViewModel: ObservableObject {
         }
     }
     
-    ///Init with User Profile
-    ///- parameter profile: User Profile
+    /// Init with User Profile
+    /// - parameter profile: User Profile
     init(profile: UserProfile) {
         self.profile = profile
     }

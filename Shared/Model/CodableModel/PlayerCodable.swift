@@ -10,14 +10,14 @@ import Foundation
 struct PlayerCodable: Decodable {
     var accountId: Int?
     var slot: Int
-    var abilityUpgrade: [Int]? //An array describing how abilities were upgraded
+    var abilityUpgrade: [Int]? // An array describing how abilities were upgraded
     
     // backpack
     var backpack0: Int?
     var backpack1: Int?
     var backpack2: Int?
     // item
-    var item0:Int
+    var item0: Int
     var item1: Int
     var item2: Int
     var item3: Int
@@ -64,7 +64,7 @@ struct PlayerCodable: Decodable {
         case backpack0 = "backpack_0"
         case backpack1 = "backpack_1"
         case backpack2 = "backpack_2"
-        //items
+        // items
         case item0 = "item_0"
         case item1 = "item_1"
         case item2 = "item_2"

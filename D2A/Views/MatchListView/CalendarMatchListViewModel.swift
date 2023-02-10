@@ -31,7 +31,7 @@ class CalendarMatchListViewModel: ObservableObject {
             .store(in: &cancellableSet)
     }
     
-    private func filterMatch(on date: Date) -> [RecentMatch]{
+    private func filterMatch(on date: Date) -> [RecentMatch] {
         print("select Date \(date.description)")
         let matches = RecentMatch.fetch(userID: userid, on: date)
         return matches

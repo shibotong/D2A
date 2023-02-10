@@ -44,8 +44,8 @@ final class DotaEnvironment: ObservableObject {
     @Published var selectedTab: TabSelection = .home
     @Published var iPadSelectedTab: TabSelection? = .home
     
-    @Published var selectedUser: String? = nil
-    @Published var selectedMatch: String? = nil
+    @Published var selectedUser: String?
+    @Published var selectedMatch: String?
     @Published var matchActive: Bool = false
     @Published var userActive: Bool = false
 

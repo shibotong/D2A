@@ -21,7 +21,7 @@ class AnalysisViewModel: ObservableObject {
                 return self?.sortPlayer(selection: selection)
                 
             }
-            .sink{ [weak self] sortedPlayer in
+            .sink { [weak self] sortedPlayer in
                 self?.players = sortedPlayer
             }
             .store(in: &cancellableSet)

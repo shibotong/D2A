@@ -8,7 +8,7 @@
 import WidgetKit
 import SwiftUI
 import Intents
-//import App
+// import App
 
 struct Provider: IntentTimelineProvider {
     // Intent configuration of the widget
@@ -22,7 +22,7 @@ struct Provider: IntentTimelineProvider {
         SimpleEntry(date: Date(), matches: [], user: nil, subscription: true)
     }
 
-    func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+    func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (SimpleEntry) -> Void) {
         let user = user(for: configuration)
         let profile = persistenceController.fetchFirstWidgetUser()
 
@@ -37,9 +37,8 @@ struct Provider: IntentTimelineProvider {
         let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: true)
         completion(entry)
     }
-    
 
-    func getTimeline(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
+    func getTimeline(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
         let currentDate = Date()
         let status = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         guard status, let selectedProfile = user(for: configuration) else {

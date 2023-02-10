@@ -180,14 +180,14 @@ struct SearchView: View {
     }
 }
 
-//struct AddAccountView_Previews: PreviewProvider {
+// struct AddAccountView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        NavigationView {
 //            EmptyView()
 //            SearchView()
 //        }.environmentObject(DotaEnvironment.shared)
 //    }
-//}
+// }
 
 struct AbilityImage: View {
     var name: String

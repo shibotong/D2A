@@ -22,7 +22,7 @@ struct LobbyType: Codable {
             return "Tutorial"
         case 4:
             return "Bots"
-        case 5,6,7:
+        case 5, 6, 7:
             return "Ranked"
         case 8:
             return "1v1 mid"

@@ -18,7 +18,6 @@ struct D2AWidget: WidgetBundle {
     }
 }
 
-
 struct RecentMatchesWidget: Widget {
     let kind: String = "D2AWidget"
     var body: some WidgetConfiguration {
@@ -44,13 +43,9 @@ struct LatestMatchWidget: Widget {
     }
 }
 
-
-
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let matches: [RecentMatch]
     let user: UserProfile?
     let subscription: Bool
 }
-
-
