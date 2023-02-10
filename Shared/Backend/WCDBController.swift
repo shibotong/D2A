@@ -5,9 +5,9 @@
 ////  Created by Shibo Tong on 18/8/21.
 ////
 //
-//import Foundation
+// import Foundation
 //
-//class WCDBController {
+// class WCDBController {
 //    static let shared = WCDBController()
 //    var database: Database
 //    
@@ -147,4 +147,4 @@
 //            print("cannot delete userProfile")
 //        }
 //    }
-//}
+// }

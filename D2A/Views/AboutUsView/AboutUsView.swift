@@ -75,7 +75,7 @@ struct AboutUsView: View {
         }
     }
     
-    private func makeButton(image: String, text: LocalizedStringKey, action: @escaping () -> ()) -> some View {
+    private func makeButton(image: String, text: LocalizedStringKey, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             HStack {
                 Image(systemName: image)
@@ -90,9 +90,9 @@ struct AboutUsView: View {
     }
 }
 
-//struct AboutUsView_Previews: PreviewProvider {
+// struct AboutUsView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        AboutUsView()
 //            .environment(\.locale, .init(identifier: "zh-Hans"))
 //    }
-//}
+// }

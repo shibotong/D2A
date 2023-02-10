@@ -120,4 +120,3 @@ struct HeroScepter: Decodable {
         case shardNewSkill = "shard_new_skill"
     }
 }
-

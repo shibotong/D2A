@@ -12,14 +12,14 @@ struct PlayerDetailView: View {
     @EnvironmentObject var heroData: HeroDatabase
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.presentationMode) var present
-    private let itemHeight:CGFloat = 30
+    private let itemHeight: CGFloat = 30
     var body: some View {
         if horizontalSizeClass == .compact {
             VStack(spacing: 0) {
                 profileHost(playerID: player.accountId).padding()
                 Divider()
                 ScrollView {
-                    VStack (alignment: .center, spacing: 5) {
+                    VStack(alignment: .center, spacing: 5) {
                         HeroImageView(heroID: Int(player.heroID), type: .portrait).frame(height: 300)
                         buildHeroName()
                         buildStats()
@@ -92,7 +92,7 @@ struct PlayerDetailView: View {
         let hero = try? heroData.fetchHeroWithID(id: Int(player.heroID))
         HStack {
             HeroImageView(heroID: Int(player.heroID), type: .icon)
-                .frame(width:30, height: 30)
+                .frame(width: 30, height: 30)
             Text(LocalizedStringKey(hero?.localizedName ?? "Unknown Hero \(player.heroID)")).font(.system(size: 30)).bold()
             Spacer()
         }.padding(.horizontal)
@@ -121,7 +121,7 @@ struct PlayerDetailView: View {
                     Text("Damage").foregroundColor(Color(.systemGray))
                 }
                 Spacer()
-                //buildMultiKill
+                // buildMultiKill
             }.padding(.horizontal).font(.system(size: 15))
             Text("LH: \(getPlayerHits(last: true))  DN: \(getPlayerHits(last: false))").font(.system(size: 15)).padding(.horizontal)
         }

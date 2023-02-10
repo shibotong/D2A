@@ -175,8 +175,8 @@ struct PlayerRowView: View {
     }
 }
 
-//struct PlayerRowView_Previews: PreviewProvider {
+// struct PlayerRowView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        PlayerRowView(player: Player(id: "1", slot: 0), isRadiant: true, maxDamage: 1000)
 //    }
-//}
+// }

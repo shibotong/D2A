@@ -30,8 +30,8 @@ struct DamageView: View {
     }
 }
 
-//struct DamageView_Previews: PreviewProvider {
+// struct DamageView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        DamageView(maxDamage: 1000, playerDamage: 900)
 //    }
-//}
+// }

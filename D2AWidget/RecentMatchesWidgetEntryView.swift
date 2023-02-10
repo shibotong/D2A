@@ -85,7 +85,6 @@ struct RecentMatchesWidgetEntryView: View {
         default:
             EmptyView()
         }
-    
         
     }
     

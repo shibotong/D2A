@@ -14,9 +14,9 @@ class AbilityViewModel: ObservableObject {
     @Published var stratzAbility: AbilityQuery.Data.Constant.Ability?
     @Published var opentDotaAbility: Ability?
     
-    @Published var scepterVideo: URL? = nil
-    @Published var shardVideo: URL? = nil
-    @Published var abilityVideo: URL? = nil
+    @Published var scepterVideo: URL?
+    @Published var shardVideo: URL?
+    @Published var abilityVideo: URL?
     
     private var database = HeroDatabase.shared
     
@@ -70,7 +70,7 @@ class AbilityViewModel: ObservableObject {
     func addObserver(player: AVPlayer) {
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
                                                object: player.currentItem,
-                                               queue: nil) { notif in
+                                               queue: nil) { _ in
             player.seek(to: .zero)
             player.play()
         }

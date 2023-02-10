@@ -97,7 +97,7 @@ struct LatestMatchWidgetEntryView: View {
             }
             Spacer()
             ZStack {
-                RoundedRectangle(cornerRadius:10).foregroundColor(.secondarySystemBackground).shadow(radius: 3)
+                RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground).shadow(radius: 3)
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 1) {
                         HeroImageView(heroID: Int(match.heroID), type: .icon)

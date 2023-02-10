@@ -52,7 +52,7 @@ class HeroDetailViewModel: ObservableObject {
                         DispatchQueue.main.async { [weak self] in
                             self?.hero = newHero
                         }
-                    } catch(let error) {
+                    } catch let error {
                         print(error.localizedDescription)
                     }
                 }

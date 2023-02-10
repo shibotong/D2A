@@ -32,8 +32,6 @@ class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
             return
         }
         
-        
-        
         let registerProfile = Profile(identifier: registerUserProfile.id,
                                       display: "\(registerUserProfile.name ?? registerUserProfile.personaname ?? "")",
                                       subtitle: "\(registerUserProfile.id ?? "")",

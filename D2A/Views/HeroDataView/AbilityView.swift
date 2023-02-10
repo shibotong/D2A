@@ -97,7 +97,7 @@ struct AbilityView: View {
     }
     
     @ViewBuilder private func buildStats(ability: Ability) -> some View {
-        LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 100, maximum: 200), spacing: 5), count: 2),alignment: .leading, spacing: 5) {
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 100, maximum: 200), spacing: 5), count: 2), alignment: .leading, spacing: 5) {
             if let behavior = ability.behavior?.transformString() {
                 buildAttributesText(title: "ABILITY:", message: "\(behavior)")
             }
@@ -145,7 +145,7 @@ struct AbilityView: View {
                                                stratz: AbilityQuery.Data.Constant.Ability,
                                                proxy: GeometryProxy) -> some View {
         VStack {
-            let description = stratz.language?.description?.compactMap{ $0 }.joined(separator: "\n") ?? ""
+            let description = stratz.language?.description?.compactMap { $0 }.joined(separator: "\n") ?? ""
             if dataBase.isScepterSkill(ability: ability, heroID: viewModel.heroID) {
                 buildDescription(desc: description, type: .scepter, width: proxy.size.width)
             } else if dataBase.isShardSkill(ability: ability, heroID: viewModel.heroID) {

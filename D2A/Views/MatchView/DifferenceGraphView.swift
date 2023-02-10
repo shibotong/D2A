@@ -73,7 +73,7 @@ struct DifferenceGraphView: View {
         
     }
     
-    private func fetchLargestABS() -> Int{
+    private func fetchLargestABS() -> Int {
         var proxyGold = vm.goldDiff
         var proxyXP = vm.xpDiff
         for index in 0..<proxyGold.count {
@@ -91,10 +91,9 @@ struct DifferenceGraphView: View {
     }
 }
 
-
 struct DifferenceGraphView_Previews: PreviewProvider {
     static var previews: some View {
-        DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: [1,2,3], xpDiff: [4,5,6])).previewLayout(.fixed(width: 375, height: 300))
+        DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: [1, 2, 3], xpDiff: [4, 5, 6])).previewLayout(.fixed(width: 375, height: 300))
     }
 }
 
@@ -103,7 +102,7 @@ struct CurrentPoint: View {
     var max: Int
     var selectedTime: Int
     var body: some View {
-        GeometryReader{ proxy in
+        GeometryReader { proxy in
             Circle()
                 .frame(width: 10, height: 10)
                 .overlay(Circle().stroke(Color.white, lineWidth: 2))

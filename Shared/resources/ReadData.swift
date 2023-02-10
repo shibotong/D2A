@@ -7,7 +7,7 @@
 
 import Foundation
 
-fileprivate func loadFile(filename: String) -> Data? {
+private func loadFile(filename: String) -> Data? {
     if let path = Bundle.main.url(forResource: filename, withExtension: "json") {
         do {
             let data = try Data(contentsOf: path)
@@ -211,7 +211,7 @@ func loadItemIDs() async -> [String: String] {
     if let url = URL(string: urlString) {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-            guard let itemIDs = try JSONSerialization.jsonObject(with: data, options: []) as? [String : String] else {
+            guard let itemIDs = try JSONSerialization.jsonObject(with: data, options: []) as? [String: String] else {
                 return [:]
             }
             return itemIDs

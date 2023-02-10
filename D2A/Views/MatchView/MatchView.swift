@@ -107,7 +107,7 @@ struct MatchStatCardView: View {
     }
 }
 
-//struct MatchView_Previews: PreviewProvider {
+// struct MatchView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        NavigationView {
 //            MatchView(matchid: "123")
@@ -118,7 +118,7 @@ struct MatchStatCardView: View {
 //        .environment(\.locale, .init(identifier: "zh-Hans"))
 //        
 //    }
-//}
+// }
 
 struct AllTeamPlayerView: View {
     var match: Match

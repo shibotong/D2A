@@ -70,8 +70,6 @@ struct RegisteredPlayerView: View {
         }
     }
     
-    
-    
     private func deRegisterUser(user: UserProfile) {
         user.register = false
         user.favourite = false

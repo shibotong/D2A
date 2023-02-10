@@ -10,7 +10,7 @@ import SwiftUI
 struct MainLoadingView: View {
     @Binding var status: LoadingStatus
     
-    var reloadData: () -> () = {
+    var reloadData: () -> Void = {
         print("Button Pressed")
     }
     
@@ -44,7 +44,7 @@ struct MainLoadingView: View {
     }
 }
 
-//struct MainLoadingView_Previews: PreviewProvider {
+// struct MainLoadingView_Previews: PreviewProvider {
 //    @State static var status: LoadingStatus = .error
 //    static var previews: some View {
 //        MainLoadingView(status: $status)
@@ -53,4 +53,4 @@ struct MainLoadingView: View {
 //            .preferredColorScheme(.dark)
 //        
 //    }
-//}
+// }

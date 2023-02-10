@@ -101,8 +101,8 @@ struct SidebarRowView: View {
     
 }
 //
-//struct Sidebar_Previews: PreviewProvider {
+// struct Sidebar_Previews: PreviewProvider {
 //    static var previews: some View {
 //        Text("Hello world")
 //    }
-//}
+// }

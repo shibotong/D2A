@@ -72,7 +72,3 @@ struct HeroImageView: View {
         }
     }
 }
-
-
-
-

@@ -83,13 +83,13 @@ struct ProductSubView: View {
     }
 }
 
-//struct ProductSubView_Previews: PreviewProvider {
+// struct ProductSubView_Previews: PreviewProvider {
 //    @State static var product: SKProduct? = MockSKProduct()
 //    static var previews: some View {
 //        ProductSubView(product: MockSKProduct(), monthlyProduct: MockSKProduct(), selectedProduct: $product)
 //            .previewLayout(.fixed(width: 100, height: 150))
 //    }
-//}
+// }
 
 class MockSKProductSubscriptionPeriod: SKProductSubscriptionPeriod {
     private let _numberOfUnits: Int

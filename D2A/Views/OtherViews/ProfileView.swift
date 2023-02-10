@@ -50,7 +50,7 @@ struct ProfileEmptyView: View {
                 .renderingMode(.original)
                 .scaledToFit()
                 .frame(width: 40, height: 40)
-                .clipShape(RoundedRectangle(cornerRadius:5))
+                .clipShape(RoundedRectangle(cornerRadius: 5))
             VStack(alignment: .leading) {
                 Text("Anonymous").bold()
                 Text(" ").font(.caption)
