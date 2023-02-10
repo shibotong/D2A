@@ -31,8 +31,8 @@ class AbilityViewModel: ObservableObject {
     
     private func buildDetailView(name: String) async {
         let abilityVideo = getVideoURL(name, type: .non)
-        let scepterVideo = getVideoURL(name, type: .Scepter)
-        let shardVideo = getVideoURL(name, type: .Shard)
+        let scepterVideo = getVideoURL(name, type: .scepter)
+        let shardVideo = getVideoURL(name, type: .shard)
         await setVideoURL(ability: abilityVideo, scepter: scepterVideo, shard: shardVideo)
     }
     
@@ -50,9 +50,9 @@ class AbilityViewModel: ObservableObject {
         let baseURL = "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/\(heroName)"
         var url: URL?
         switch type {
-        case .Scepter:
+        case .scepter:
             url = URL(string: "\(baseURL)/\(heroName)_aghanims_scepter.mp4")
-        case .Shard:
+        case .shard:
             url = URL(string: "\(baseURL)/\(heroName)_aghanims_shard.mp4")
         case .non:
             url = URL(string: "\(baseURL)/\(ability).mp4")

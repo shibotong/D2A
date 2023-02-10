@@ -35,6 +35,12 @@ struct MatchView: View {
                 AnalysisView(vm: AnalysisViewModel(player: match.allPlayers))
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
+                if let goldDiff = match.goldDiff, let xpDiff = match.xpDiff {
+                    DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: goldDiff, xpDiff: xpDiff))
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
+                        .frame(height: 300)
+                }
             }
             .listStyle(.plain)
             .navigationTitle("ID: \(match.id ?? "")")

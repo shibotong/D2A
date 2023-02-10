@@ -46,7 +46,9 @@ extension RecentMatch {
             let request = NSBatchInsertRequest(entityName: "RecentMatch", managedObjectHandler: { object in
                 if insertItems < totalItems {
                     let match = matches[insertItems]
-                    let recentMatch = object as! RecentMatch
+                    guard let recentMatch = object as? RecentMatch else {
+                        return false
+                    }
                     recentMatch.update(match)
                     insertItems += 1
                     return false
@@ -98,31 +100,29 @@ extension RecentMatch {
         match.partySize = partySize
         match.skill = skill
         
-        try! viewContext.save()
+        try? viewContext.save()
         return match
     }
     
     func batchInsertItem(amount: Int) async throws -> Bool {
-        // 创建私有上下文
         let context = PersistenceController.shared.container.newBackgroundContext()
         return try await context.perform {
-            // 已添加的记录数量
             var index = 0
-            // 创建 NSBatchInsertRequest ，并声明数据处理闭包。如果 dictionaryHandler 返回 false , Core Data 将继续调用闭包创建数据，直至闭包返回 true 。
             let batchRequest = NSBatchInsertRequest(entityName: "Item", dictionaryHandler: { dict in
                 if index < amount {
-                    // 创建数据。当前的 Item 只有一个属性 timestamp ，类型为 Date
                     let item = ["timestamp": Date().addingTimeInterval(TimeInterval(index))]
                     dict.setDictionary( item )
                     index += 1
-                    return false // 尚未全部完成，仍需继续添加
+                    return false
                 } else {
-                    return true // index == amout , 已添加了指定数量（ amount ）的数据，结束批量添加操作
+                    return true
                 }
             })
             batchRequest.resultType = .statusOnly
-            let result = try context.execute(batchRequest) as! NSBatchInsertResult
-            return result.result as! Bool
+            guard let insertResult = try context.execute(batchRequest) as? NSBatchInsertResult, let result = insertResult.result as? Bool else {
+                throw PersistanceError.insertError
+            }
+            return result
         }
     }
     

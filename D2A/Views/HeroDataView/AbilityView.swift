@@ -9,19 +9,19 @@ import SwiftUI
 import AVKit
 
 enum ScepterType: String {
-    case Scepter
-    case Shard
+    case scepter
+    case shard
     case non
 }
 
 struct AbilityView: View {
     @EnvironmentObject var dataBase: HeroDatabase
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var vm: AbilityViewModel
+    @ObservedObject var viewModel: AbilityViewModel
 
     var body: some View {
-        if let openDotaAbility = vm.opentDotaAbility,
-           let stratzAbility = vm.stratzAbility {
+        if let openDotaAbility = viewModel.opentDotaAbility,
+           let stratzAbility = viewModel.stratzAbility {
             GeometryReader { proxy in
                 ScrollView(.vertical, showsIndicators: false) {
                     buildTitle(openDotaAbility: openDotaAbility,
@@ -146,17 +146,17 @@ struct AbilityView: View {
                                                proxy: GeometryProxy) -> some View {
         VStack {
             let description = stratz.language?.description?.compactMap{ $0 }.joined(separator: "\n") ?? ""
-            if dataBase.isScepterSkill(ability: ability, heroID: vm.heroID) {
-                buildDescription(desc: description, type: .Scepter, width: proxy.size.width)
-            } else if dataBase.isShardSkill(ability: ability, heroID: vm.heroID) {
-                buildDescription(desc: description, type: .Shard, width: proxy.size.width)
+            if dataBase.isScepterSkill(ability: ability, heroID: viewModel.heroID) {
+                buildDescription(desc: description, type: .scepter, width: proxy.size.width)
+            } else if dataBase.isShardSkill(ability: ability, heroID: viewModel.heroID) {
+                buildDescription(desc: description, type: .shard, width: proxy.size.width)
             } else {
                 buildDescription(desc: description, width: proxy.size.width)
                 if let scepterDesc = stratz.language?.aghanimDescription {
-                    buildDescription(desc: scepterDesc, type: .Scepter, width: proxy.size.width)
+                    buildDescription(desc: scepterDesc, type: .scepter, width: proxy.size.width)
                 }
                 if let shardDesc = stratz.language?.shardDescription {
-                    buildDescription(desc: shardDesc, type: .Shard, width: proxy.size.width)
+                    buildDescription(desc: shardDesc, type: .shard, width: proxy.size.width)
                 }
             }
         }
@@ -195,17 +195,17 @@ struct AbilityView: View {
             HStack {
                 Spacer()
                 switch type {
-                case .Scepter:
-                    if let url = vm.scepterVideo {
-                        buildPlayer(player: vm.getPlayer(url: url), width: width)
+                case .scepter:
+                    if let url = viewModel.scepterVideo {
+                        buildPlayer(player: viewModel.getPlayer(url: url), width: width)
                     }
-                case .Shard:
-                    if let url = vm.shardVideo {
-                        buildPlayer(player: vm.getPlayer(url: url), width: width)
+                case .shard:
+                    if let url = viewModel.shardVideo {
+                        buildPlayer(player: viewModel.getPlayer(url: url), width: width)
                     }
                 case .non:
-                    if let url = vm.abilityVideo {
-                        buildPlayer(player: vm.getPlayer(url: url), width: width)
+                    if let url = viewModel.abilityVideo {
+                        buildPlayer(player: viewModel.getPlayer(url: url), width: width)
                     }
                 }
                 Spacer()
@@ -218,9 +218,9 @@ struct AbilityView: View {
 
     private func calculateDescPadding(type: ScepterType) -> CGFloat {
         switch type {
-        case .Scepter:
+        case .scepter:
             return 10
-        case .Shard:
+        case .shard:
             return 10
         case .non:
             return 0
@@ -229,10 +229,10 @@ struct AbilityView: View {
 
     @ViewBuilder private func calculateDescBackground(type: ScepterType) -> some View {
         switch type {
-        case .Scepter:
+        case .scepter:
             RoundedRectangle(cornerRadius: 3)
                 .foregroundColor(Color(UIColor.secondarySystemBackground))
-        case .Shard:
+        case .shard:
             RoundedRectangle(cornerRadius: 3)
                 .foregroundColor(Color(UIColor.secondarySystemBackground))
         case .non:
@@ -246,11 +246,11 @@ struct AbilityView: View {
             .disabled(true)
             .onAppear {
                 player.play()
-                vm.addObserver(player: player)
+                viewModel.addObserver(player: player)
             }
             .onDisappear {
                 player.pause()
-                vm.removeObserver(player: player)
+                viewModel.removeObserver(player: player)
             }
     }
 }

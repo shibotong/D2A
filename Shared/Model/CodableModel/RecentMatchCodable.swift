@@ -60,7 +60,7 @@ class RecentMatchCodable: Decodable, Identifiable {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try! container.decode(Int.self, forKey: .id)
+        id = try container.decode(Int.self, forKey: .id)
         duration = try container.decodeIfPresent(Int.self, forKey: .duration) ?? 0
         mode = try container.decodeIfPresent(Int.self, forKey: .mode) ?? 0
         slot = try container.decodeIfPresent(Int.self, forKey: .slot) ?? 0

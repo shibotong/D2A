@@ -1,0 +1,8 @@
+excluded:
+ - Shared/GraphQL/API.swift
+ - D2ATests
+
+disabled_rules:
+ - trailing_whitespace
+ - line_length
+ - identifier_name
