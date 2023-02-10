@@ -35,13 +35,13 @@ struct PlayerRowView: View {
             if let personaname = player.personaname {
                 HStack(spacing: 2) {
                     Image("rank_\(player.rank / 10)").resizable().frame(width: 18, height: 18)
-                    Text(personaname.description).font(.system(size: 15)).bold().lineLimit(1)
+                    Text(personaname.description).font(.system(size: 15)).bold().lineLimit(1).foregroundColor(.label)
                 }
             } else {
                 Text("Anonymous").font(.system(size: 15)).bold().lineLimit(1)
             }
             KDAView(kills: Int(player.kills), deaths: Int(player.deaths), assists: Int(player.assists), size: .caption)
-        }.frame(width: 200)
+        }.frame(width: 100)
     }
     
     private var itemsView: some View {
@@ -110,7 +110,13 @@ struct PlayerRowView: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 heroIcon
-                leadingView
+                if let playerID = player.accountId {
+                    NavigationLink(destination: PlayerProfileView(userid: playerID)) {
+                        leadingView
+                    }
+                } else {
+                    leadingView
+                }
                 itemsView
                 scepterView
                 VStack(spacing: 0) {

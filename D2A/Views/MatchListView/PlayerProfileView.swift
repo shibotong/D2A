@@ -17,6 +17,8 @@ struct PlayerProfileView: View {
     @FetchRequest private var profile: FetchedResults<UserProfile>
     @FetchRequest private var matches: FetchedResults<RecentMatch>
     
+    @State private var error: Bool = false
+    
     private var steamLink: some View {
         HStack {
             Spacer()
@@ -85,11 +87,15 @@ struct PlayerProfileView: View {
                         await refreshUser()
                     }
                 }
-//                .sheet(isPresented: $isSharePresented, content: {
-//                    ShareActivityView(activityItems: [SharingLink(title: "\(profile.personaname ?? "")", link: "d2aapp://profile?userid=\(profile.id.description)", image: vm.userIcon)])
-//                })
         } else {
-            ProgressView()
+            if error {
+                Text("Error Occured")
+            } else {
+                ProgressView()
+                    .task {
+                        await refreshUser()
+                    }
+            }
         }
     }
 
@@ -232,6 +238,10 @@ struct PlayerProfileView: View {
     
     private func refreshUser() async {
         guard let profileCodable = try? await OpenDotaController.shared.loadUserData(userid: userid) else {
+            DispatchQueue.main.async {
+                env.error = true
+                env.errorMessage = "Oops! An error occured."
+            }
             return
         }
         _ = try? UserProfile.create(profileCodable)
