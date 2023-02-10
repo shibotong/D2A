@@ -13,12 +13,11 @@ class AddAccountViewModel: ObservableObject {
     @Published var searched = false
     @Published var userProfiles: [UserProfileCodable] = []
     @Published var searchedHeroes: [HeroCodable] = []
-    @Published var searchedMatch: Match? = nil
+    @Published var searchedMatch: Match?
     @Published var filterHeroes: [HeroCodable] = []
     
     @Published var isLoading: Bool = false
     @Published var localProfiles: [UserProfile] = []
-    
     
     private var cancellableObject: Set<AnyCancellable> = []
     init() {
@@ -68,9 +67,9 @@ class AddAccountViewModel: ObservableObject {
         }
         async let searchedProfile = OpenDotaController.shared.searchUserByText(text: searchText)
         if Int(searchText) != nil {
-            async let searchedMatchResult = OpenDotaController.shared.loadMatchData(matchid: searchText)
+            async let matchID = OpenDotaController.shared.loadMatchData(matchid: searchText)
             do {
-                searchedMatch = try await searchedMatchResult
+                searchedMatch = try await Match.fetch(id: matchID)
             } catch {
                 print("parse match error")
                 searchedMatch = nil
