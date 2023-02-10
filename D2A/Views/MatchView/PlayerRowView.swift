@@ -41,7 +41,7 @@ struct PlayerRowView: View {
                 Text("Anonymous").font(.system(size: 15)).bold().lineLimit(1)
             }
             KDAView(kills: Int(player.kills), deaths: Int(player.deaths), assists: Int(player.assists), size: .caption)
-        }.frame(width: 100)
+        }.frame(width: 150)
     }
     
     private var itemsView: some View {

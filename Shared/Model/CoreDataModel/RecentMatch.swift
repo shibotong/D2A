@@ -30,6 +30,7 @@ extension RecentMatch {
         newRecentMatch.update(match)
         if !discardable {
             try viewContext.save()
+            try viewContext.parent?.save()
         }
         return newRecentMatch
     }
