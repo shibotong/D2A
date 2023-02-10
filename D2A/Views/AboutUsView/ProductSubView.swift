@@ -117,8 +117,6 @@ class MockSKProduct: SKProduct {
     }
 
     override var subscriptionPeriod: SKProductSubscriptionPeriod? {
-        get {
             _subscriptionPeriod
-        }
     }
 }

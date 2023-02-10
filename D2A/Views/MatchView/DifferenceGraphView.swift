@@ -17,60 +17,49 @@ struct DifferenceGraphView: View {
                 Text("Difference In Gold/XP Earned").font(.system(size: 20)).bold().padding(20)
                 Spacer()
             }
-            if vm.goldDiff == nil {
-                Spacer()
-                HStack {
-                    Spacer()
-                    Text("Gold/XP difference is not available.").foregroundColor(Color(.tertiaryLabel)).font(.system(size: 15))
-                    Spacer()
-                }
-                Spacer()
-            } else {
-                HStack {
-                    VStack(alignment: .leading, spacing: 3) {
-                        Text("\(Int(vm.mins)):00").font(.system(size: 10)).bold().foregroundColor(Color(.secondaryLabel))
-                        HStack {
-                            Circle().frame(width: 10, height: 10).foregroundColor(.yellow)
-                            Text("\(abs(vm.goldDiff[Int(vm.mins)]))").foregroundColor(Color(vm.goldDiff[Int(vm.mins)] >= 0 ? .systemGreen : .systemRed)).font(.system(size: 15)).bold()
-                        }
-                        HStack {
-                            Circle().frame(width: 10, height: 10).foregroundColor(.blue)
-                            Text("\(abs(vm.xpDiff[Int(vm.mins)]))").foregroundColor(Color(vm.xpDiff[Int(vm.mins)] >= 0 ? .systemGreen : .systemRed)).font(.system(size: 15)).bold()
-                        }
+            HStack {
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("\(Int(vm.mins)):00").font(.system(size: 10)).bold().foregroundColor(Color(.secondaryLabel))
+                    HStack {
+                        Circle().frame(width: 10, height: 10).foregroundColor(.yellow)
+                        Text("\(abs(vm.goldDiff[Int(vm.mins)]))").foregroundColor(Color(vm.goldDiff[Int(vm.mins)] >= 0 ? .systemGreen : .systemRed)).font(.system(size: 15)).bold()
                     }
-                    Spacer()
-                }
-                .padding(.leading, 20)
-                .padding(.bottom, -30)
-                Spacer()
-                ZStack {
-                    BackgroundLine(max: fetchLargestABS())
-                    DrawDiffLines(data: vm.xpDiff, max: fetchLargestABS(), selectedTime: vm.goldDiff.count - 1).foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
-                    DrawDiffLines(data: vm.goldDiff, max: fetchLargestABS(), selectedTime: vm.goldDiff.count - 1).foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
-                    DrawDiffLines(data: vm.xpDiff, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.blue).clipped().shadow(radius: 1)
-                    DrawDiffLines(data: vm.goldDiff, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.yellow).clipped().shadow(radius: 1)
-                    
-                    GeometryReader { proxy in
-                        Rectangle()
-                            .foregroundColor(Color(.secondaryLabel).opacity(0.1))
-                            .frame(width: 1)
-                            .offset(x: CGFloat(proxy.size.width) * CGFloat(vm.mins) / CGFloat(vm.goldDiff.count - 1), y: 0)
-                            .animation(.linear(duration: 0.1), value: vm.mins)
+                    HStack {
+                        Circle().frame(width: 10, height: 10).foregroundColor(.blue)
+                        Text("\(abs(vm.xpDiff[Int(vm.mins)]))").foregroundColor(Color(vm.xpDiff[Int(vm.mins)] >= 0 ? .systemGreen : .systemRed)).font(.system(size: 15)).bold()
                     }
-                    CurrentPoint(data: vm.xpDiff, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.blue).animation(.linear(duration: 0.1), value: vm.mins)
-                    CurrentPoint(data: vm.goldDiff, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.yellow).animation(.linear(duration: 0.1), value: vm.mins)
-                    
-                }.frame(maxHeight: 300)
-                HStack {
-                    Text("0:00").font(.system(size: 15)).foregroundColor(Color(.secondaryLabel))
-                    Slider(value: $vm.mins, in: 0...Double(vm.goldDiff.count - 1), step: 1)
-                        .accentColor(.secondaryDota)
-                    Text("\(Int(vm.goldDiff.count - 1)):00").font(.system(size: 15)).foregroundColor(Color(.secondaryLabel))
-                }.padding()
+                }
                 Spacer()
             }
+            .padding(.leading, 20)
+            .padding(.bottom, -30)
+            Spacer()
+            ZStack {
+                BackgroundLine(max: fetchLargestABS())
+                DrawDiffLines(data: vm.xpDiff, max: fetchLargestABS(), selectedTime: vm.goldDiff.count - 1).foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
+                DrawDiffLines(data: vm.goldDiff, max: fetchLargestABS(), selectedTime: vm.goldDiff.count - 1).foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
+                DrawDiffLines(data: vm.xpDiff, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.blue).clipped().shadow(radius: 1)
+                DrawDiffLines(data: vm.goldDiff, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.yellow).clipped().shadow(radius: 1)
+                
+                GeometryReader { proxy in
+                    Rectangle()
+                        .foregroundColor(Color(.secondaryLabel).opacity(0.1))
+                        .frame(width: 1)
+                        .offset(x: CGFloat(proxy.size.width) * CGFloat(vm.mins) / CGFloat(vm.goldDiff.count - 1), y: 0)
+                        .animation(.linear(duration: 0.1), value: vm.mins)
+                }
+                CurrentPoint(data: vm.xpDiff, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.blue).animation(.linear(duration: 0.1), value: vm.mins)
+                CurrentPoint(data: vm.goldDiff, max: fetchLargestABS(), selectedTime: Int(vm.mins)).foregroundColor(.yellow).animation(.linear(duration: 0.1), value: vm.mins)
+                
+            }.frame(maxHeight: 300)
+            HStack {
+                Text("0:00").font(.system(size: 15)).foregroundColor(Color(.secondaryLabel))
+                Slider(value: $vm.mins, in: 0...Double(vm.goldDiff.count - 1), step: 1)
+                    .accentColor(.secondaryDota)
+                Text("\(Int(vm.goldDiff.count - 1)):00").font(.system(size: 15)).foregroundColor(Color(.secondaryLabel))
+            }.padding()
+            Spacer()
         }
-        
     }
     
     private func fetchLargestABS() -> Int {

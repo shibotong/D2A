@@ -85,23 +85,17 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
             return true
         } else {
             let buffs = permanentBuffs
-            for buff in buffs {
-                if buff.buffID == 2 {
-                    return true
-                }
-            }
-            return false
+            return buffs.first { buff in
+                buff.buffID == 2
+            } != nil
         }
     }
     
     var hasShard: Bool {
         let buffs = permanentBuffs
-        for buff in buffs {
-            if buff.buffID == 12 {
-                return true
-            }
-        }
-        return false
+        return buffs.first { buff in
+            buff.buffID == 12
+        } != nil
     }
     
     init(id: String,
