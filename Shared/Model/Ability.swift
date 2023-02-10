@@ -24,6 +24,17 @@ struct Ability: Codable, Identifiable {
     var targetTeam: StringOrArray?
     var targetType: StringOrArray?
     
+    var name: String? {
+        guard let imageURL = img else {
+            return nil
+        }
+        let name = imageURL
+            .replacingOccurrences(of: "/apps/dota2/images/dota_react/abilities/", with: "")
+            .replacingOccurrences(of: "_md", with: "")
+            .replacingOccurrences(of: ".png", with: "")
+        return name
+    }
+    
     enum CodingKeys: String, CodingKey {
         case img = "img"
         case dname

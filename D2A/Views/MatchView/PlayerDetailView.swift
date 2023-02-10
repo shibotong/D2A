@@ -149,9 +149,9 @@ struct PlayerDetailView: View {
     @ViewBuilder private func buildAbility(abilityID: Int) -> some View {
         if let abilityName = HeroDatabase.shared.fetchAbilityName(id: abilityID) {
             if let ability = HeroDatabase.shared.fetchOpenDotaAbility(name: abilityName) {
-                if let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!" {
+                if let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!", let name = ability.name {
                     let parsedimgURL = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 50, cornerRadius: 0)
+                    AbilityImage(name: name, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 50, cornerRadius: 0)
                 } else {
                     // no image
                     if abilityID == 730 {

@@ -11,6 +11,7 @@ import UIKit
 enum ImageCacheType: String {
     case item = "item"
     case avatar = "avatar"
+    case ability = "ability"
 }
 
 class ImageCache: ObservableObject {
