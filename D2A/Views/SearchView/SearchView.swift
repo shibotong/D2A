@@ -27,7 +27,7 @@ struct SearchView: View {
                 if !vm.localProfiles.isEmpty {
                     Section {
                         ForEach(vm.localProfiles) { profile in
-                            ProfileView(vm: ProfileViewModel(profile: profile))
+                            ProfileView(viewModel: ProfileViewModel(profile: profile))
                                 .searchCompletion(profile.id ?? "")
                                 .foregroundColor(.label)
                         }
@@ -138,17 +138,7 @@ struct SearchView: View {
                     Text("Match: \(match.id ?? "")")
                 }
             }
-            if !vm.localProfiles.isEmpty {
-                Section {
-                    ForEach(vm.localProfiles) { profile in
-                        NavigationLink(destination: PlayerProfileView(userid: profile.id ?? "")) {
-                            ProfileView(vm: ProfileViewModel(profile: profile))
-                        }
-                    }
-                } header: {
-                    Text("Favorite Players")
-                }
-            }
+            
             if !vm.filterHeroes.isEmpty {
                 Section {
                     ForEach(vm.filterHeroes) { hero in
@@ -164,11 +154,16 @@ struct SearchView: View {
                     Text("Heroes")
                 }
             }
-            if !vm.userProfiles.isEmpty {
+            if !vm.userProfiles.isEmpty || !vm.localProfiles.isEmpty {
                 Section {
+                    ForEach(vm.localProfiles) { profile in
+                        NavigationLink(destination: PlayerProfileView(userid: profile.id ?? "")) {
+                            ProfileView(viewModel: ProfileViewModel(profile: profile))
+                        }
+                    }
                     ForEach(vm.userProfiles) { profile in
                         NavigationLink(destination: PlayerProfileView(userid: profile.id.description)) {
-                            ProfileView(vm: ProfileViewModel(profile: profile))
+                            ProfileView(viewModel: ProfileViewModel(profile: profile))
                         }
                     }
                 } header: {
