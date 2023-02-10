@@ -11,7 +11,7 @@ import CoreData
 extension UserProfile {
     static func create(_ profile: UserProfileCodable, favourite: Bool = false, register: Bool = false) throws -> UserProfile {
         let viewContext = PersistenceController.shared.makeContext(author: "UserProfile")
-        let newProfile = fetch(id: profile.id.description) ?? UserProfile(context: viewContext)
+        let newProfile = fetch(id: profile.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
         newProfile.update(profile, favourite: favourite, register: register)
         try viewContext.save()
         return newProfile
@@ -31,8 +31,7 @@ extension UserProfile {
         try? viewContext.save()
     }
     
-    static func fetch(id: String) -> UserProfile? {
-        let viewContext = PersistenceController.shared.container.viewContext
+    static func fetch(id: String, viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> UserProfile? {
         let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         fetchResult.predicate = NSPredicate(format: "id == %@", id)
         

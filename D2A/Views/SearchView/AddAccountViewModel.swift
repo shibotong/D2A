@@ -11,12 +11,14 @@ import Combine
 class AddAccountViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var searched = false
-    @Published var userProfiles: [UserProfileCodable] = []
+    
     @Published var searchedHeroes: [HeroCodable] = []
     @Published var searchedMatch: Match?
     @Published var filterHeroes: [HeroCodable] = []
     
     @Published var isLoading: Bool = false
+    
+    @Published var userProfiles: [UserProfileCodable] = []
     @Published var localProfiles: [UserProfile] = []
     
     private var cancellableObject: Set<AnyCancellable> = []
@@ -77,8 +79,21 @@ class AddAccountViewModel: ObservableObject {
         } else {
             searchedMatch = nil
         }
+
+        var cachedProfiles: [UserProfile] = []
+        var notCachedProfiles: [UserProfileCodable] = []
         
-        userProfiles = await searchedProfile
+        for profile in await searchedProfile {
+            if let cachedProfile = UserProfile.fetch(id: profile.id.description) {
+                cachedProfiles.append(cachedProfile)
+            } else {
+                notCachedProfiles.append(profile)
+            }
+        }
+        
+        localProfiles = cachedProfiles
+        userProfiles = notCachedProfiles
+        
         isLoading = false
     }
 }
