@@ -117,9 +117,9 @@ struct SearchView: View {
     
     private var searchedList: some View {
         List {
-            if let match = vm.searchedMatch {
+            if let match = vm.searchedMatch, let matchID = match.id {
                 Section {
-                    NavigationLink(destination: MatchView(matchid: match.id ?? "")) {
+                    NavigationLink(destination: MatchView(matchid: matchID)) {
                         HStack {
                             Image("icon_\(match.radiantWin ? "radiant" : "dire")")
                                 .resizable()

@@ -49,11 +49,11 @@ class OpenDotaController {
         return userCodable
     }
     
-    func loadMatchData(matchid: String) async throws -> Match {
+    func loadMatchData(matchid: String) async throws -> String {
         let data = try await decodingService.loadData("/matches/\(matchid)")
         let matchCodable = try decodingService.decodeMatch(data: data)
-        let match = try Match.create(matchCodable)
-        return match
+        _ = try Match.create(matchCodable)
+        return matchid
     }
     
     func loadRecentMatch(userid: String, lastMatch: RecentMatch? = nil, offset: Int = 0, numbers: Int? = nil) async {
