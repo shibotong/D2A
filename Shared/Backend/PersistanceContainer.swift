@@ -52,6 +52,7 @@ class PersistenceController {
 
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "D2AModel")
+        container.viewContext.automaticallyMergesChangesFromParent = true
         loadContainer(inMemory: inMemory)
     }
     
@@ -60,6 +61,7 @@ class PersistenceController {
         let storeURL = containerURL.appendingPathComponent("D2AModel.sqlite")
         do {
             try FileManager.default.removeItem(at: storeURL)
+            loadContainer()
             print("SQL file remove success")
         } catch {
             DotaEnvironment.shared.error = true
@@ -93,16 +95,15 @@ class PersistenceController {
                  */
                 print("An error occured with persistence store \(error.localizedDescription)")
                 self?.removeContainer()
-                self?.loadContainer(inMemory: inMemory)
             }
         })
-        container.viewContext.automaticallyMergesChangesFromParent = true
     }
     
     func makeContext(author: String? = nil) -> NSManagedObjectContext {
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = container.viewContext
         privateContext.transactionAuthor = author
+        privateContext.automaticallyMergesChangesFromParent = true
         return privateContext
     }
     
