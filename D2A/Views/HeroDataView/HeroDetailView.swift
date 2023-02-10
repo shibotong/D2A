@@ -101,7 +101,7 @@ struct HeroDetailView: View {
                             isPresented.toggle()
                             vm.selectedAbility = abilityName
                         } label: {
-                            AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
+                            AbilityImage(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
                         }
                     }
                 }

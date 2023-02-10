@@ -186,37 +186,53 @@ struct SearchView: View {
 //}
 
 struct AbilityImage: View {
-    var url: String
+    var name: String
+    var urlString: String
     let sideLength: CGFloat
     let cornerRadius: CGFloat
     
+    @State var image: UIImage?
+    
     var body: some View {
-
-        AsyncImage(url: URL(string: url)) { phase in
-            switch phase {
-            case .empty:
-                ProgressView()
-                    .frame(width: sideLength, height: sideLength)
-            case .success(let image):
-                image
+        ZStack {
+            if let image = image {
+                Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: sideLength, height: sideLength)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-            case .failure(_):
+            } else {
                 Image("profile")
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: sideLength, height: sideLength)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-
-            @unknown default:
-                Image("profile")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: sideLength, height: sideLength)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             }
         }
+        .frame(width: sideLength, height: sideLength)
+        .task {
+            await fetchImage()
+        }
+    }
+    
+    private func fetchImage() async {
+        if let cacheImage = ImageCache.readImage(type: .ability, id: name) {
+            print("Ability \(name) exist")
+            Dispatch.DispatchQueue.main.async {
+                image = cacheImage
+            }
+            return
+        }
+        print("Ability \(name) Doesn't exist")
+        guard let newImage = await loadImage() else {
+            return
+        }
+        ImageCache.saveImage(newImage, type: .ability, id: name)
+        DispatchQueue.main.async {
+            image = newImage
+        }
+    }
+    
+    private func loadImage() async -> UIImage? {
+        guard let url = URL(string: urlString),
+              let (newImageData, _) = try? await URLSession.shared.data(from: url),
+              let newImage = UIImage(data: newImageData) else {
+            return nil
+        }
+        return newImage
     }
 }

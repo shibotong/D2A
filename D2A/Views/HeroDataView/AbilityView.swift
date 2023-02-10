@@ -78,7 +78,7 @@ struct AbilityView: View {
     @ViewBuilder private func buildTitle(openDotaAbility: Ability, stratzAbility: AbilityQuery.Data.Constant.Ability) -> some View {
         HStack(alignment: .top, spacing: 10) {
             let parsedimgURL = openDotaAbility.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-            AbilityImage(url: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 70, cornerRadius: 20)
+            AbilityImage(name: openDotaAbility.name ?? "", urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 70, cornerRadius: 20)
             VStack(alignment: .leading) {
                 Text(stratzAbility.language?.displayName ?? "")
                     .font(.system(size: 18))
