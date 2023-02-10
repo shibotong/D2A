@@ -20,7 +20,7 @@ struct WidgetOverlayView: View {
     var widgetType: WidgetOverlayType
     
     private var widgetTitle: String {
-        switch self.widgetType{
+        switch self.widgetType {
         case .subscription:
             return "D2A Pro"
         case .chooseProfile:

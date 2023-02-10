@@ -25,32 +25,34 @@ struct LatestMatchWidgetEntryView: View {
     }
     var body: some View {
         ZStack {
-            if entry.user.id == 0 {
-                WidgetOverlayView(widgetType: .chooseProfile)
-            } else {
+            if let user = entry.user {
                 GeometryReader { proxy in
-                    switch self.family {
+                    switch family {
                     case .systemSmall:
-                        buildBody(cardHeight: proxy.size.height / 3)
+                        buildBody(user: user, cardHeight: proxy.size.height / 3)
                     case .systemMedium, .systemLarge:
                         let avatarHeight: CGFloat = 20
                         VStack(spacing: 5) {
-                            Link(destination: URL(string: "d2aapp:profile?userid=\(entry.user.id)")!) {
+                            Link(destination: URL(string: "d2aapp:profile?userid=\(user.id ?? "0")")!) {
                                 HStack {
-                                    NetworkImage(urlString: entry.user.avatarfull).frame(width: avatarHeight, height: avatarHeight).clipShape(Circle())
-                                    Text("\(entry.user.personaname)").font(.caption2).bold()
+                                    NetworkImage(profile: user)
+                                        .frame(width: avatarHeight, height: avatarHeight)
+                                        .clipShape(Circle())
+                                    Text("\(user.personaname ?? "")").font(.caption2).bold()
                                     Spacer()
-                                    Text("\(entry.user.id.description)")
+                                    Text("\(user.id ?? "")")
                                         .font(.caption2)
                                         .foregroundColor(.secondaryLabel)
                                 }.padding([.top, .horizontal], 10)
                             }
-                            buildMatches(self.maxMatches, height: proxy.size.height - 35)
+                            buildMatches(maxMatches, height: proxy.size.height - 35)
                         }
                     default:
                         EmptyView()
                     }
                 }
+            } else {
+                WidgetOverlayView(widgetType: .chooseProfile)
             }
         }
         .blur(radius: entry.subscription ? 0 : 15)
@@ -62,53 +64,54 @@ struct LatestMatchWidgetEntryView: View {
     }
     
     @ViewBuilder func buildMatches(_ matchNumber: Int, height: CGFloat) -> some View {
-        let matches = Array(entry.matches[0..<matchNumber])
+        let matches: [RecentMatch] = entry.matches.count >= matchNumber
+                                     ? Array(entry.matches[0..<matchNumber])
+                                     : entry.matches
+        
         let rowHeight = height / CGFloat(matchNumber)
         VStack(spacing: 0) {
             ForEach(matches) { match in
-                    Divider()
-                    Link(destination: URL(string: "d2aapp:match?matchid=\(match.id)")!) {
-                        MatchListRowView(vm: MatchListRowViewModel(match: match))
-                            .frame(height: rowHeight)
-                    }
-                    .disabled(!entry.subscription && entry.user.id != 0)
-                
+                Divider()
+                Link(destination: URL(string: "d2aapp:match?matchid=\(match.id!)")!) {
+                    MatchListRowView(match: match)
+                }
+                .frame(height: rowHeight)
+                .disabled(!entry.subscription && entry.user != nil)
             }
         }
     }
     
     @ViewBuilder
-    private func buildBody(cardHeight: CGFloat) -> some View {
+    private func buildBody(user: UserProfile, cardHeight: CGFloat) -> some View {
         let match = entry.matches.first!
-        let user = entry.user
         let avatarSize: CGFloat = cardHeight - 5
         let iconSize: CGFloat = cardHeight / 3
         VStack {
             VStack {
-                NetworkImage(urlString: user.avatarfull)
+                NetworkImage(profile: user)
                     .frame(width: avatarSize, height: avatarSize)
                     .clipShape(Circle())
-                Text(user.personaname)
+                Text(user.personaname ?? "")
                     .lineLimit(1)
                     .font(.caption)
             }
             Spacer()
             ZStack {
-                RoundedRectangle(cornerRadius:10).foregroundColor(.secondarySystemBackground).shadow(radius: 3)
+                RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground).shadow(radius: 3)
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 1) {
-                        HeroImageView(heroID: match.heroID, type: .icon)
+                        HeroImageView(heroID: Int(match.heroID), type: .icon)
                             .frame(width: iconSize, height: iconSize)
                         VStack(alignment: .leading) {
-                            KDAView(kills: match.kills, deaths: match.deaths, assists: match.assists, size: .caption)
+                            KDAView(kills: Int(match.kills), deaths: Int(match.deaths), assists: Int(match.assists), size: .caption)
                         }
                     }
                     HStack(spacing: 2) {
-                        buildWL(win: match.isPlayerWin(), size: 15)
-                        Text(LocalizedStringKey(match.fetchLobby().lobbyName))
+                        WinLossView(win: match.playerWin)
+                        Text(LocalizedStringKey(match.gameLobby.lobbyName))
                             .font(.caption)
-                            .foregroundColor(match.fetchLobby().lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
-                        Text(match.startTime.convertToTime()).font(.caption)
+                            .foregroundColor(match.gameLobby.lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
+                        Text(match.startTime?.toTime ?? Date().toTime).font(.caption)
                             .foregroundColor(.secondaryLabel)
                     }
                 }.padding(5)
@@ -141,25 +144,17 @@ struct LatestMatchWidgetEntryView: View {
             .foregroundColor(.tertiaryLabel)
         }
     }
-    
-    @ViewBuilder private func buildWL(win: Bool, size: CGFloat = 15) -> some View {
-        ZStack {
-            Rectangle().foregroundColor(win ? Color(.systemGreen) : Color(.systemRed))
-                .frame(width: size, height: size)
-            Text("\(win ? "W" : "L")").font(.caption).bold().foregroundColor(.white)
-        }
-    }
 }
 
 struct LatestMatchWidgetEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
+        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: [], user: nil, subscription: false))
 //            .environment(\.widgetFamily, .systemSmall)
             .previewContext(WidgetPreviewContext(family: .systemSmall))
-        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
+        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: [], user: nil, subscription: false))
 //            .environment(\.widgetFamily, .systemMedium)
             .previewContext(WidgetPreviewContext(family: .systemMedium))
-        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
+        LatestMatchWidgetEntryView(entry: SimpleEntry(date: Date(), matches: [], user: nil, subscription: false))
 //            .environment(\.widgetFamily, .systemLarge)
             .previewContext(WidgetPreviewContext(family: .systemLarge))
 //            .previewDevice(PreviewDevice.iPodTouch)

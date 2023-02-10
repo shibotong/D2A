@@ -28,7 +28,7 @@ struct SearchView: View {
                     Section {
                         ForEach(vm.localProfiles) { profile in
                             ProfileView(vm: ProfileViewModel(profile: profile))
-                                .searchCompletion(profile.id.description)
+                                .searchCompletion(profile.id ?? "")
                                 .foregroundColor(.label)
                         }
                     } header: {
@@ -96,56 +96,52 @@ struct SearchView: View {
                 Text("hero name and match id")
                 .foregroundColor(.secondaryLabel)
             }
-            NavigationLink(
-                destination: MatchView(vm: MatchViewModel(matchid: env.selectedMatch)),
-                isActive: $env.matchActive
-            ) {
-                EmptyView()
+            if let selectedMatch = env.selectedMatch {
+                NavigationLink(
+                    destination: MatchView(matchid: selectedMatch),
+                    isActive: $env.matchActive
+                ) {
+                    EmptyView()
+                }
             }
-            NavigationLink(
-                destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: env.selectedUser)),
-                isActive: $env.userActive
-            ) {
-                EmptyView()
+            if let selectedUser = env.selectedUser {
+                NavigationLink(
+                    destination: PlayerProfileView(userid: selectedUser),
+                    isActive: $env.userActive
+                ) {
+                    EmptyView()
+                }
             }
         }
     }
     
     private var searchedList: some View {
         List {
-            if let match = vm.searchedMatch {
+            if let match = vm.searchedMatch, let matchID = match.id {
                 Section {
-                    NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
-                        let iconSize: CGFloat = 30
+                    NavigationLink(destination: MatchView(matchid: matchID)) {
                         HStack {
-                            ForEach(match.fetchPlayers(isRadiant: true), id: \.heroID) { player in
-                                if horizontalSizeClass == .compact {
-                                    HeroImageView(heroID: player.heroID, type: .icon)
-                                } else {
-                                    HeroImageView(heroID: player.heroID, type: .icon)
-                                        .frame(width: iconSize, height: iconSize)
-                                }
-                            }
-                            Text("vs")
-                            ForEach(match.fetchPlayers(isRadiant: false), id: \.heroID) { player in
-                                if horizontalSizeClass == .compact {
-                                    HeroImageView(heroID: player.heroID, type: .icon)
-                                } else {
-                                    HeroImageView(heroID: player.heroID, type: .icon)
-                                        .frame(width: iconSize, height: iconSize)
-                                }
+                            Image("icon_\(match.radiantWin ? "radiant" : "dire")")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .clipShape(RoundedRectangle(cornerRadius: 5))
+                            VStack(alignment: .leading) {
+                                Text("\(match.radiantWin ? "Radiant" : "Dire") Win").bold()
+                                Text(match.startTimeString)
+                                    .foregroundColor(.secondaryLabel)
+                                    .font(.caption)
                             }
                             Spacer()
                         }
                     }
                 } header: {
-                    Text("Match: \(match.id.description)")
+                    Text("Match: \(match.id ?? "")")
                 }
             }
             if !vm.localProfiles.isEmpty {
                 Section {
                     ForEach(vm.localProfiles) { profile in
-                        NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id.description))) {
+                        NavigationLink(destination: PlayerProfileView(userid: profile.id ?? "")) {
                             ProfileView(vm: ProfileViewModel(profile: profile))
                         }
                     }
@@ -171,7 +167,7 @@ struct SearchView: View {
             if !vm.userProfiles.isEmpty {
                 Section {
                     ForEach(vm.userProfiles) { profile in
-                        NavigationLink(destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: profile.id.description))) {
+                        NavigationLink(destination: PlayerProfileView(userid: profile.id.description)) {
                             ProfileView(vm: ProfileViewModel(profile: profile))
                         }
                     }
@@ -184,67 +180,63 @@ struct SearchView: View {
     }
 }
 
-struct AddAccountView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            EmptyView()
-            SearchView()
-        }.environmentObject(DotaEnvironment.shared)
-    }
-}
-
-
-
-struct ProfileAvartar: View {
-    var image: UIImage?
-    let sideLength: CGFloat
-    let cornerRadius: CGFloat
-    var body: some View {
-        if let image = image {
-            Image(uiImage: image)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: sideLength, height: sideLength)
-                .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-        } else {
-            ProgressView()
-                .frame(width: sideLength, height: sideLength)
-        }
-    }
-}
+// struct AddAccountView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            EmptyView()
+//            SearchView()
+//        }.environmentObject(DotaEnvironment.shared)
+//    }
+// }
 
 struct AbilityImage: View {
-    var url: String
+    var name: String
+    var urlString: String
     let sideLength: CGFloat
     let cornerRadius: CGFloat
     
+    @State var image: UIImage?
+    
     var body: some View {
-
-        AsyncImage(url: URL(string: url)) { phase in
-            switch phase {
-            case .empty:
-                ProgressView()
-                    .frame(width: sideLength, height: sideLength)
-            case .success(let image):
-                image
+        ZStack {
+            if let image = image {
+                Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: sideLength, height: sideLength)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-            case .failure(_):
+            } else {
                 Image("profile")
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: sideLength, height: sideLength)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-
-            @unknown default:
-                Image("profile")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: sideLength, height: sideLength)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             }
         }
+        .frame(width: sideLength, height: sideLength)
+        .task {
+            await fetchImage()
+        }
+    }
+    
+    private func fetchImage() async {
+        if let cacheImage = ImageCache.readImage(type: .ability, id: name) {
+            print("Ability \(name) exist")
+            Dispatch.DispatchQueue.main.async {
+                image = cacheImage
+            }
+            return
+        }
+        print("Ability \(name) Doesn't exist")
+        guard let newImage = await loadImage() else {
+            return
+        }
+        ImageCache.saveImage(newImage, type: .ability, id: name)
+        DispatchQueue.main.async {
+            image = newImage
+        }
+    }
+    
+    private func loadImage() async -> UIImage? {
+        guard let url = URL(string: urlString),
+              let (newImageData, _) = try? await URLSession.shared.data(from: url),
+              let newImage = UIImage(data: newImageData) else {
+            return nil
+        }
+        return newImage
     }
 }

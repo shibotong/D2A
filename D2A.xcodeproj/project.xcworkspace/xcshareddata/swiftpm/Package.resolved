@@ -1,39 +1,21 @@
 {
   "pins" : [
     {
-      "identity" : "alamofire",
+      "identity" : "apollo-ios",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "location" : "https://github.com/apollographql/apollo-ios",
       "state" : {
-        "revision" : "f96b619bcb2383b43d898402283924b80e2c4bae",
-        "version" : "5.4.3"
+        "revision" : "42646f765d22dac0f22bfff48590102195c76da4",
+        "version" : "0.53.0"
       }
     },
     {
-      "identity" : "bottom-sheet",
+      "identity" : "sqlite.swift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/weitieda/bottom-sheet",
+      "location" : "https://github.com/stephencelis/SQLite.swift.git",
       "state" : {
-        "revision" : "4e074d49f3148577ac66cf47b85a99d016480d01",
-        "version" : "1.0.10"
-      }
-    },
-    {
-      "identity" : "sdwebimage",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImage.git",
-      "state" : {
-        "revision" : "76dd4b49110b8624317fc128e7fa0d8a252018bc",
-        "version" : "5.11.1"
-      }
-    },
-    {
-      "identity" : "sdwebimageswiftui",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
-      "state" : {
-        "revision" : "cd8625b7cf11a97698e180d28bb7d5d357196678",
-        "version" : "2.0.2"
+        "revision" : "4d543d811ee644fa4cc4bfa0be996b4dd6ba0f54",
+        "version" : "0.13.3"
       }
     }
   ],

@@ -6,24 +6,36 @@
 //
 
 import Intents
-import UIKit
+import CoreData
 
 class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
     
+    private let persistenceController = PersistenceController.shared
+    
     func provideProfileOptionsCollection(for intent: DynamicUserSelectionIntent, with completion: @escaping (INObjectCollection<Profile>?, Error?) -> Void) {
-        print("configuring profile")
-        let registeredID = DotaEnvironment.shared.registerdID
-        let profiles: [Profile] = DotaEnvironment.shared.userIDs.map { id in
-            let profile = WCDBController.shared.fetchUserProfile(userid: id)
-            return Profile(identifier: id, display: "\(profile?.name ?? profile?.personaname ?? "Unknown")", subtitle: "\(id)", image: nil)
-        }
+        let context = persistenceController.container.viewContext
+        let fetchRequest: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
         
-        guard let registeredProfile = WCDBController.shared.fetchUserProfile(userid: registeredID) else {
+        let results = try? context.fetch(fetchRequest)
+
+        let profiles: [Profile] = results?.filter({ !$0.register }).map { userProfile in
+            return Profile(identifier: userProfile.id,
+                           display: "\(userProfile.name ?? userProfile.personaname ?? "Unknown")",
+                           subtitle: "\(userProfile.id?.description ?? "")",
+                           image: nil)
+        } ?? []
+        
+        guard let registerUserProfile = results?.first(where: { $0.register }) else {
             let collection = INObjectCollection(items: profiles)
             completion(collection, nil)
             return
         }
-        let registerProfile = Profile(identifier: registeredProfile.id.description, display: "\(registeredProfile.name ?? registeredProfile.personaname)", subtitle: "\(registeredProfile.id.description)", image: nil)
+        
+        let registerProfile = Profile(identifier: registerUserProfile.id,
+                                      display: "\(registerUserProfile.name ?? registerUserProfile.personaname ?? "")",
+                                      subtitle: "\(registerUserProfile.id ?? "")",
+                                      image: nil)
         let registerSection = INObjectSection(title: "Registered", items: [registerProfile])
         let profileSection = INObjectSection(title: "Favorite Players", items: profiles)
         let collection = INObjectCollection(sections: [registerSection, profileSection])

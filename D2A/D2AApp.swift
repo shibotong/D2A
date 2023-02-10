@@ -7,20 +7,30 @@
 
 import SwiftUI
 import StoreKit
+import CoreData
 
 @main
 struct D2AApp: App {
     @StateObject var environment: DotaEnvironment = DotaEnvironment.shared
     @StateObject var heroDatabase: HeroDatabase = HeroDatabase.shared
     @StateObject var storeManager: StoreManager = StoreManager.shared
+    let persistenceController = PersistenceController.shared
     @AppStorage("selectedMatch") var selectedMatch: String?
     @AppStorage("selectedUser") var selectedUser: String?
+    
+    init() {
+        PlayerTransformer.register()
+    }
+    
     var body: some Scene {
         WindowGroup {
+//            FavouriteUserListView()
+//                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
             ContentView()
                 .environmentObject(environment)
                 .environmentObject(heroDatabase)
                 .environmentObject(storeManager)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onOpenURL { url in
                     print(url.absoluteString)
                     environment.userActive = false
@@ -28,7 +38,7 @@ struct D2AApp: App {
                     guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
                         let params = components.queryItems else {
                             print("Invalid URL or album path missing")
-                            return //false
+                            return
                     }
                     print(params)
                     if let purchase = params.first(where: { $0.name == "purchase" })?.value {
@@ -38,16 +48,13 @@ struct D2AApp: App {
                     }
                     if let userid = params.first(where: { $0.name == "userid" })?.value {
                         if userid != "0" {
-                            environment.selectedTab = .search
-                            environment.iPadSelectedTab = .search
+                            environment.tab = .search
                             environment.userActive = true
                             environment.selectedUser = userid
                         }
                     }
-                    
                     if let matchid = params.first(where: { $0.name == "matchid" })?.value {
-                        environment.selectedTab = .search
-                        environment.iPadSelectedTab = .search
+                        environment.tab = .search
                         environment.matchActive = true
                         environment.selectedMatch = matchid
                     }

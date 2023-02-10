@@ -22,11 +22,11 @@ struct StoreView: View {
             Divider()
             VStack(alignment: .leading, spacing: 25) {
                 Text("Upgrade to D2A Pro")
-                    .font(.custom(fontString, size: 30))
+                    .font(.system(size: 30))
                     .bold()
                     .fixedSize(horizontal: false, vertical: true)
                 Text("Purchase D2A Pro to unlock all features and support us to build a better app.")
-                    .font(.custom(fontString, size: 15))
+                    .font(.system(size: 15))
                     .foregroundColor(Color(.secondaryLabel))
                     .fixedSize(horizontal: false, vertical: true)
                 VStack(alignment: .leading, spacing: 10) {
@@ -41,23 +41,23 @@ struct StoreView: View {
     
     @ViewBuilder private func buildQuestion(question: LocalizedStringKey, answer: LocalizedStringKey) -> some View {
         VStack(alignment: .leading) {
-            Text(question).font(.custom(fontString, size: 18)).bold().foregroundColor(Color(.secondaryLabel))
-            Text(answer).font(.custom(fontString, size: 12)).fixedSize(horizontal: false, vertical: true).foregroundColor(Color(.tertiaryLabel))
+            Text(question).font(.system(size: 18)).bold().foregroundColor(Color(.secondaryLabel))
+            Text(answer).font(.system(size: 12)).fixedSize(horizontal: false, vertical: true).foregroundColor(Color(.tertiaryLabel))
         }
     }
     
     @ViewBuilder private func buildCloseButton() -> some View {
         Button(action: {
             env.subscriptionSheet = false
-        }) {
+        }, label: {
             Image(systemName: "xmark.circle.fill").foregroundColor(.primaryDota)
-        }
+        })
     }
     
     @ViewBuilder private func buildFeature(_ text: LocalizedStringKey) -> some View {
         HStack {
             Image(systemName: "checkmark.circle.fill").foregroundColor(Color(.systemGreen))
-            Text(text).font(.custom(fontString, size: 15))
+            Text(text).font(.system(size: 15))
         }
     }
     
@@ -67,26 +67,26 @@ struct StoreView: View {
                 Task {
                  try await storeManager.purchase()
                 }
-            }) {
+            }, label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 15).foregroundColor(env.subscriptionStatus ? .secondaryDota : .primaryDota)
-                    Text(buildSubscribeString()).font(.custom(fontString, size: 17)).bold().foregroundColor(.white)
+                    Text(buildSubscribeString()).font(.system(size: 17)).bold().foregroundColor(.white)
                 }.frame(height: 60)
-            }
+            })
             .disabled(env.subscriptionStatus)
             VStack {
                 Button(action: {
                     storeManager.restorePurchase()
-                }) {
-                    Text("Restore Purchase").font(.custom(fontString, size: 15)).bold()
-                }
+                }, label: {
+                    Text("Restore Purchase").font(.system(size: 15)).bold()
+                })
                 HStack {
                     Link(destination: URL(string: PRIVACY_POLICY)!, label: {
-                        Text("Terms of Use").font(.custom(fontString, size: 15)).bold()
+                        Text("Terms of Use").font(.system(size: 15)).bold()
                     })
-                    Text("and").font(.custom(fontString, size: 15))
+                    Text("and").font(.system(size: 15))
                     Link(destination: URL(string: TERMS_OF_USE)!, label: {
-                        Text("Privacy Policy").font(.custom(fontString, size: 15)).bold()
+                        Text("Privacy Policy").font(.system(size: 15)).bold()
                     })
                 }
             }
@@ -106,16 +106,10 @@ struct StoreView: View {
     }
 }
 
-
-struct SubscriptionView_Previews: PreviewProvider {
-    static var previews: some View {
-        StoreView()
-            .environmentObject(DotaEnvironment.shared)
-            .environmentObject(StoreManager.shared)
-        //            .environment(\.locale, .init(identifier: "zh-Hans"))
-    }
-}
-
-
-
-
+// struct SubscriptionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        StoreView()
+//            .environmentObject(DotaEnvironment.shared)
+//            .environmentObject(StoreManager.shared)
+//    }
+// }

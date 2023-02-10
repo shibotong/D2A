@@ -10,55 +10,75 @@ import SwiftUI
 struct MatchView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var data: HeroDatabase
-    @StateObject var vm: MatchViewModel
+    @Environment(\.managedObjectContext) var context
+    @FetchRequest var match: FetchedResults<Match>
+    var matchid: String
+    
+    init(matchid: String?) {
+        _match = FetchRequest<Match>(sortDescriptors: [], predicate: NSPredicate(format: "id == %@", matchid ?? "no match id"))
+        self.matchid = matchid ?? "no match id"
+    }
+    
     var body: some View {
         buildStack()
-            .task {
-                await vm.loadMatch()
-            }
     }
     
     @ViewBuilder private func buildStack() -> some View {
-        if vm.match != nil {
+        if let match = match.first {
             List {
-                buildMatchData()
+                buildMatchData(match: match)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
-                AllTeamPlayerView(match: vm.match!)
+                AllTeamPlayerView(match: match, players: match.allPlayers)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
-                AnalysisView(vm: AnalysisViewModel(player: vm.match!.players))
+                AnalysisView(vm: AnalysisViewModel(player: match.allPlayers))
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
-                if vm.match!.goldDiff != nil {
-                    DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: vm.match!.goldDiff, xpDiff: vm.match!.xpDiff))
+                if let goldDiff = match.goldDiff, let xpDiff = match.xpDiff {
+                    DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: goldDiff, xpDiff: xpDiff))
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
                         .frame(height: 300)
                 }
             }
             .listStyle(.plain)
-            .navigationTitle("ID: \(vm.id ?? "")")
+            .navigationTitle("ID: \(match.id ?? "")")
             .navigationBarTitleDisplayMode(.large)
             .refreshable {
-                await vm.refreshMatch()
+                await loadMatch()
             }
         } else {
-            Text("loading...")
+            LoadingView()
+                .onAppear {
+                    Task {
+                        await loadMatch()
+                    }
+                }
         }
     }
     
-    @ViewBuilder private func buildMatchData() -> some View {
+    private func loadMatch() async {
+        do {
+            _ = try await OpenDotaController.shared.loadMatchData(matchid: matchid)
+        } catch {
+            env.errorMessage = error.localizedDescription
+            env.error = true
+        }
+    }
+    
+    @ViewBuilder private func buildMatchData(match: Match) -> some View {
         VStack(spacing: 30) {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 15) {
-                    MatchStatCardView(icon: "calendar", title: "Start Time", label: vm.match!.startTime.convertToTime())
+                    MatchStatCardView(icon: "calendar", title: "Start Time", label: match.startTimeString)
                         .frame(width: 140)
-                    MatchStatCardView(icon: "clock", title: "Duration", label: "\(vm.match!.duration.convertToDuration())").colorInvert()
+                    MatchStatCardView(icon: "clock", title: "Duration", label: "\(match.durationString)")
+                        .colorInvert()
                         .frame(width: 140)
-                    MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(data.fetchGameMode(id: vm.match!.mode).modeName))
+                    MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(data.fetchGameMode(id: Int(match.mode)).modeName))
                         .frame(width: 140)
-                    MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: vm.fetchGameRegion(id: "\(vm.match!.region)"))
+                    MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: LocalizedStringKey(data.fetchRegion(id: match.region.description)))
                         .colorInvert()
                         .frame(width: 140)
                 }.padding(.horizontal)
@@ -78,8 +98,8 @@ struct MatchStatCardView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Image(systemName: icon).font(.title)
                     Spacer()
-                    Text(title).font(.custom(fontString, size: 10)).foregroundColor(Color(.secondaryLabel))
-                    Text(label).font(.custom(fontString, size: 15)).bold().lineLimit(2)
+                    Text(title).font(.system(size: 10)).foregroundColor(Color(.secondaryLabel))
+                    Text(label).font(.system(size: 15)).bold().lineLimit(2)
                 }
                 Spacer()
             }.padding(18)
@@ -87,48 +107,51 @@ struct MatchStatCardView: View {
     }
 }
 
-struct MatchView_Previews: PreviewProvider {
-    static var previews: some View {
-        //        NavigationView {
-        MatchView(vm: MatchViewModel())
-        //        }
-            .environmentObject(HeroDatabase.shared)
-            .environment(\.locale, .init(identifier: "zh-Hans"))
-        
-    }
-}
+// struct MatchView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            MatchView(matchid: "123")
+//        }
+//        .environmentObject(HeroDatabase.shared)
+//        .environmentObject(DotaEnvironment.shared)
+//        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+//        .environment(\.locale, .init(identifier: "zh-Hans"))
+//        
+//    }
+// }
 
 struct AllTeamPlayerView: View {
     var match: Match
-    @State var selectedPlayer: Player?
+    var players: [Player]
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     var body: some View {
-        if horizontalSizeClass == .compact {
-            VStack(alignment: .leading, spacing: 0) {
-                Text("Players").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
-                TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.fetchKill(isRadiant: true), win: match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
-                TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.fetchKill(isRadiant: false), win: !match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
-            }
-            .frame(minWidth: 300)
-        } else {
-            VStack(alignment: .leading, spacing: 0) {
-                Text("Players").font(.custom(fontString, size: 20)).bold().padding([.horizontal, .top])
-                HStack {
-                    TeamView(players: match.fetchPlayers(isRadiant: true), isRadiant: true, score: match.fetchKill(isRadiant: true), win: match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
-                    TeamView(players: match.fetchPlayers(isRadiant: false), isRadiant: false, score: match.fetchKill(isRadiant: false), win: !match.radiantWin, maxDamage: fetchMaxDamage(players: match.players))
+        VStack(alignment: .leading, spacing: 0) {
+            Text("Players").font(.system(size: 20)).bold().padding([.horizontal, .top])
+            ScrollView(.horizontal) {
+                VStack(alignment: .leading, spacing: 0) {
+                    TeamView(players: fetchPlayers(isRadiant: true),
+                             isRadiant: true,
+                             score: Int(match.radiantKill),
+                             win: match.radiantWin,
+                             maxDamage: fetchMaxDamage(players: match.allPlayers))
+                    TeamView(players: fetchPlayers(isRadiant: false),
+                             isRadiant: false,
+                             score: Int(match.direKill),
+                             win: !match.radiantWin,
+                             maxDamage: fetchMaxDamage(players: match.allPlayers))
                 }
             }
-            .frame(minWidth: 300)
         }
     }
     
     func fetchMaxDamage(players: [Player]) -> Int {
-        if players.first!.heroDamage != nil {
-            let sortedPlayers = players.sorted(by: { $0.heroDamage ?? 0 > $1.heroDamage ?? 0})
-            return sortedPlayers.first!.heroDamage!
-        } else {
-            return 0
-        }
+        let sortedPlayers = players.sorted(by: { $0.heroDamage ?? 0 > $1.heroDamage ?? 0 })
+        return Int(sortedPlayers.first?.heroDamage ?? 0)
+    }
+    
+    private func fetchPlayers(isRadiant: Bool) -> [Player] {
+        return players.filter { isRadiant ? $0.slot <= 127 : $0.slot > 127 }
     }
 }
 
@@ -146,117 +169,6 @@ struct DifferenceView: View {
     }
 }
 
-struct PlayerRowView: View {
-    var player: Player
-    var isRadiant: Bool
-    @EnvironmentObject var env: DotaEnvironment
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @State var showPlayer = false
-    var maxDamage: Int
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                HeroImageView(heroID: player.heroID, type: .icon)
-                    .frame(width: 35, height: 35)
-                    .overlay(HStack {
-                        Spacer()
-                        VStack {
-                            Spacer()
-                            Circle()
-                                .frame(width: 15, height: 15)
-                                .overlay(Text("\(player.level)")
-                                            .foregroundColor(Color(.systemBackground))
-                                            .font(.custom(fontString, size: 8)).bold())
-                        }
-                    })
-                VStack(alignment: .leading, spacing: 2) {
-                    if player.personaname != nil {
-                        HStack(spacing: 2) {
-                            Image("rank_\((player.rank ?? 0) / 10)").resizable().frame(width: 18, height: 18)
-                            Text(player.personaname!).font(.custom(fontString, size: 15)).bold().lineLimit(1)
-                        }
-                    } else {
-                        Text("Anonymous").font(.custom(fontString, size: 15)).bold().lineLimit(1)
-                    }
-                    KDAView(kills: player.kills, deaths: player.deaths, assists: player.assists, size: .caption)
-                }.frame(minWidth: 0)
-                Spacer()
-                if let item = player.itemNeutral {
-                    ItemView(id: item)
-                        .frame(width: 24, height: 18)
-                        .clipShape(Circle())
-                        .frame(width: 8)
-                }
-                VStack(spacing: 1) {
-                    HStack(spacing: 1) {
-//                        Spacer().frame(width: 18)
-                        ItemView(id: player.item0).frame(width: 24, height: 18)
-                        ItemView(id: player.item1).frame(width: 24, height: 18)
-                        ItemView(id: player.item2).frame(width: 24, height: 18)
-                    }
-                    HStack(spacing: 1) {
-                        ItemView(id: player.item3).frame(width: 24, height: 18)
-                        ItemView(id: player.item4).frame(width: 24, height: 18)
-                        ItemView(id: player.item5).frame(width: 24, height: 18)
-                    }
-                }
-                VStack(spacing: 0) {
-                    Image("scepter_\(player.hasScepter() ? "1" : "0")")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 24, height: 24)
-                        
-                    Image("shard_\(player.hasShard() ? "1" : "0")")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 24, height: 12)
-                }.frame(width: 10)
-                VStack(spacing: 0) {
-                    HStack(spacing: 3) {
-                        Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
-                        Text("\(player.gpm)").foregroundColor(Color(.systemOrange))
-                    }.frame(width: 40)
-                    HStack(spacing: 3) {
-                        Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
-                        Text("\(player.xpm)").foregroundColor(Color(.systemBlue))
-                    }.frame(width: 40)
-                    DamageView(maxDamage: maxDamage, playerDamage: player.heroDamage ?? 0)
-                }.font(.custom(fontString, size: 10))
-            }.frame(height: 50)
-        }
-        .onTapGesture {
-            showPlayer.toggle()
-        }
-        .sheet(isPresented: $showPlayer) {
-            PlayerDetailView(player: player)
-                .environmentObject(env)
-        }
-    }
-}
-
-struct ItemView: View {
-    @EnvironmentObject var heroData: HeroDatabase
-    var id: Int
-    var body: some View {
-
-        AsyncImage(url: computeURL()) { image in
-            image.resizable().renderingMode(.original)
-        } placeholder: {
-            Image("empty_item").resizable()
-        }
-        
-    }
-    
-    private func computeURL() -> URL? {
-        guard let item = HeroDatabase.shared.fetchItem(id: id) else {
-            return nil
-        }
-        let url = URL(string: "https://api.opendota.com\(item.img)")
-        //        let url = URL(string: "https://steamcdn-a.akamaihd.net\(item.img)")
-        return url
-    }
-}
-
 struct TeamHeaderView: View {
     var isRadiant: Bool
     var score: Int
@@ -265,7 +177,7 @@ struct TeamHeaderView: View {
         HStack {
             HStack {
                 Text(buildTeamString())
-                    .font(.custom(fontString, size: 15))
+                    .font(.system(size: 15))
                     .bold()
                     .foregroundColor(Color(isRadiant ? .systemGreen : .systemRed))
                 Text("\(win ? "🏆" : "")")
@@ -277,7 +189,7 @@ struct TeamHeaderView: View {
                 .scaledToFit()
                 .frame(width: 15, height: 15)
                 .foregroundColor(Color(isRadiant ? .systemGreen : .systemRed))
-            Text("\(score)").font(.custom(fontString, size: 15))
+            Text("\(score)").font(.system(size: 15))
         }
         .padding(.horizontal)
         .padding(.vertical, 5)
@@ -310,28 +222,5 @@ struct TeamView: View {
             }
         }
         
-    }
-}
-
-struct DamageView: View {
-    var maxDamage: Int
-    var playerDamage: Int
-    var body: some View {
-        ZStack {
-            ZStack(alignment: .leading) {
-                RoundedRectangle(cornerRadius: 3).frame(width: 40, height: 10)
-                    .foregroundColor(Color(.secondarySystemBackground))
-                RoundedRectangle(cornerRadius: 3).frame(width: calculateRectangleWidth(), height: 10).foregroundColor(.red.opacity(0.4))
-            }
-            Text("\(playerDamage)").font(.custom(fontString, size: 10))
-        }
-    }
-    
-    private func calculateRectangleWidth() -> CGFloat {
-        if maxDamage == 0 {
-            return 40.0
-        } else {
-            return 40.0 * CGFloat(Double(playerDamage) / Double(maxDamage))
-        }
     }
 }

@@ -6,47 +6,70 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct PlayerProfileView: View {
     @EnvironmentObject var env: DotaEnvironment
-    @StateObject var vm: PlayerProfileViewModel
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-
+    @Environment(\.managedObjectContext) var viewContext
     @State private var isSharePresented: Bool = false
-
-    @ViewBuilder var favoriteButton: some View {
-        if env.registerdID == vm.userid {
-            Image(systemName: "person.text.rectangle")
-                .foregroundColor(.primaryDota)
-        } else {
-            if env.userIDs.contains(vm.userid ?? "0") {
-                Button {
-                    guard let userid = vm.userid else {
-                        return
-                    }
-                    env.delete(userID: userid)
-                } label: {
-                    Image(systemName: "star.fill")
+    
+    @FetchRequest private var profile: FetchedResults<UserProfile>
+    @FetchRequest private var matches: FetchedResults<RecentMatch>
+    
+    @State private var error: Bool = false
+    
+    private var steamLink: some View {
+        HStack {
+            Spacer()
+            Image(systemName: "person.fill")
+                .font(Font.system(size: 15, weight: .semibold))
+            Text("Profile")
+                .font(Font.system(size: 15, weight: .semibold))
+            Spacer()
+        }
+        .foregroundColor(.white)
+        .frame(height: 45)
+        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.primaryDota))
+    }
+    
+    private var userid: String
+    
+    init(userid: String) {
+        _profile = FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "id = %@", userid))
+        let request = NSFetchRequest<RecentMatch>(entityName: "RecentMatch")
+        request.fetchLimit = 10
+        request.fetchBatchSize = 1
+        request.predicate = NSPredicate(format: "playerId = %@", userid)
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \RecentMatch.startTime, ascending: false)]
+        _matches = FetchRequest(fetchRequest: request)
+        self.userid = userid
+    }
+    
+    var favoriteButton: some View {
+        ZStack {
+            if let profile = profile.first {
+                if profile.register {
+                    Image(systemName: "person.text.rectangle")
                         .foregroundColor(.primaryDota)
-                }
-            } else {
-                Button {
-                    guard let userid = vm.userid else {
-                        return
+                } else {
+                    Button {
+                        profile.favourite.toggle()
+                        try? viewContext.save()
+                    } label: {
+                        Image(systemName: profile.favourite ? "star.fill" : "star")
+                            .foregroundColor(profile.favourite ? .primaryDota : .label)
                     }
-                    env.addOrDeleteUser(userid: userid, profile: vm.userProfile)
-                } label: {
-                    Image(systemName: "star")
                 }
             }
         }
     }
 
     var body: some View {
-        if let profile = vm.userProfile {
+        if let profile = profile.first {
             buildProfileView(profile: profile)
                 .listStyle(PlainListStyle())
-                .navigationTitle("\(profile.personaname)")
+                .navigationTitle("\(profile.personaname ?? "")")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar(content: {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -58,18 +81,21 @@ struct PlayerProfileView: View {
 //                        }
                     }
                 })
-                .sheet(isPresented: $isSharePresented, content: {
-                    ShareActivityView(activityItems: [SharingLink(title: "\(profile.personaname)", link: "d2aapp://profile?userid=\(profile.id.description)", image: vm.userIcon!)])
-                })
-                .overlay {
-                    if vm.isLoading {
-                        ProgressView()
-                            .frame(width: 50, height: 50)
-                            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
+                .task {
+                    await loadMatches()
+                    if let profileLastUpdate = profile.lastUpdate, !profileLastUpdate.isToday {
+                        await refreshUser()
                     }
                 }
         } else {
-            ProgressView()
+            if error {
+                Text("Error Occured")
+            } else {
+                ProgressView()
+                    .task {
+                        await refreshUser()
+                    }
+            }
         }
     }
 
@@ -84,20 +110,20 @@ struct PlayerProfileView: View {
             }
             HStack {
                 Text("Recent Matches")
-                    .font(.custom(fontString, size: 20))
+                    .font(.system(size: 20))
                     .bold()
                 Spacer()
-                NavigationLink(destination: CalendarMatchListView(vm: CalendarMatchListViewModel(userid: self.vm.userid!))) {
+                NavigationLink(destination: CalendarMatchListView(vm: CalendarMatchListViewModel(userid: profile.id!))) {
                     Text("All")
                 }
             }
             .padding(.horizontal)
             VStack(spacing: 2) {
-                ForEach(vm.matches, id: \.id) { match in
+                ForEach(matches[0..<(matches.count > 10 ? 10 : matches.count)], id: \.id) { match in
                     NavigationLink(
-                        destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))
+                        destination: MatchView(matchid: match.id)
                     ) {
-                        MatchListRowView(vm: MatchListRowViewModel(match: match))
+                        MatchListRowView(match: match)
                             .background(Color.systemBackground)
                     }.listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
                 }
@@ -107,7 +133,7 @@ struct PlayerProfileView: View {
     }
     
     @ViewBuilder private func buildNameBar(profile: UserProfile) -> some View {
-        Text(profile.name ?? profile.personaname)
+        Text(profile.name ?? profile.personaname ?? "")
             .font(.title2)
             .bold()
             .lineLimit(1)
@@ -116,15 +142,16 @@ struct PlayerProfileView: View {
     @ViewBuilder private func buildCompactTopBar(profile: UserProfile) -> some View {
         VStack {
             VStack {
-                ProfileAvartar(image: vm.userIcon, sideLength: 150, cornerRadius: 20)
+                ProfileAvatar(profile: profile, cornerRadius: 20)
+                    .frame(width: 150, height: 150)
                 VStack {
                     buildNameBar(profile: profile)
                     if profile.name != nil {
-                        Text(profile.personaname)
+                        Text(profile.personaname ?? "")
                             .font(.subheadline)
                             .lineLimit(1)
                     }
-                    Text("id: \(profile.id.description)")
+                    Text("id: \(profile.id ?? "")")
                         .font(.caption)
                         .foregroundColor(.secondaryLabel)
                     buildRank(profile: profile, size: 60)
@@ -137,18 +164,19 @@ struct PlayerProfileView: View {
     
     @ViewBuilder private func buildRegularTopBar(profile: UserProfile) -> some View {
         HStack(spacing: 30) {
-            ProfileAvartar(image: vm.userIcon, sideLength: 250, cornerRadius: 20)
+            ProfileAvatar(profile: profile, cornerRadius: 20)
+                .frame(width: 250, height: 250)
             VStack {
                 Spacer()
                 HStack {
                     VStack(alignment: .leading) {
                         buildNameBar(profile: profile)
                         if profile.name != nil {
-                            Text(profile.personaname)
+                            Text(profile.personaname ?? "")
                                 .font(.subheadline)
                                 .lineLimit(1)
                         }
-                        Text("id: \(profile.id.description)")
+                        Text("id: \(profile.id ?? "")")
                             .font(.caption)
                             .foregroundColor(.secondaryLabel)
                     }
@@ -163,13 +191,13 @@ struct PlayerProfileView: View {
     
     @ViewBuilder private func buildRank(profile: UserProfile, size: CGFloat) -> some View {
         HStack {
-            if profile.isPlus ?? false {
+            if profile.isPlus {
                 Image("dota_plus")
                     .resizable()
                     .padding(size / 10)
                     .frame(width: size, height: size)
             }
-            RankView(rank: profile.rank, leaderboard: profile.leaderboard)
+            RankView(rank: Int(profile.rank), leaderboard: Int(profile.leaderboard))
                 .frame(width: size, height: size)
         }
     }
@@ -177,9 +205,9 @@ struct PlayerProfileView: View {
     @ViewBuilder private func buildButton(profile: UserProfile) -> some View {
         HStack(spacing: 20) {
             Button {
-                if env.canRefresh(userid: vm.userid ?? "") {
+                if env.canRefresh(userid: userid) {
                     Task {
-                        await vm.refreshData(refreshAll: true)
+                        await loadMatches()
                     }
                 }
             } label: {
@@ -197,31 +225,32 @@ struct PlayerProfileView: View {
             }
             if let url = URL(string: profile.profileurl ?? "") {
                 Link(destination: url) {
-                    HStack {
-                        Spacer()
-                        Image(systemName: "person.fill")
-                            .font(Font.system(size: 15, weight: .semibold))
-                        Text("Profile")
-                            .font(Font.system(size: 15, weight: .semibold))
-                        Spacer()
-                    }
-                    .foregroundColor(.white)
-                    .frame(height: 45)
-                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.primaryDota))
+                    steamLink
                 }
+            } else {
+                steamLink
+                    .task {
+                        await refreshUser()
+                    }
             }
         }
     }
-}
-
-
-
-struct MatchListView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            PlayerProfileView(vm: PlayerProfileViewModel())
-                .environmentObject(DotaEnvironment.shared)
-                .environmentObject(HeroDatabase.shared)
+    
+    private func refreshUser() async {
+        guard let profileCodable = try? await OpenDotaController.shared.loadUserData(userid: userid) else {
+            DispatchQueue.main.async {
+                env.error = true
+                env.errorMessage = "Oops! An error occured."
+            }
+            return
         }
+        _ = try? UserProfile.create(profileCodable)
+    }
+    
+    private func loadMatches() async {
+        guard let userID = profile.first?.id else {
+            return
+        }
+        await OpenDotaController.shared.loadRecentMatch(userid: userID, lastMatch: matches.first)
     }
 }

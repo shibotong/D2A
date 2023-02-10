@@ -11,21 +11,10 @@ struct CalendarMatchListView: View {
     @StateObject var vm: CalendarMatchListViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSize
     var body: some View {
-        if horizontalSize == .compact {
-            VStack {
-                DatePicker("Select Date", selection: $vm.selectDate, in: PartialRangeThrough(Date()), displayedComponents: [.date])
-                    .datePickerStyle(.graphical)
-                buildMatches()
-            }
-        } else {
-            HStack {
-                VStack {
-                    DatePicker("Select Date", selection: $vm.selectDate, in: PartialRangeThrough(Date()), displayedComponents: [.date])
-                        .datePickerStyle(.graphical)
-                    Spacer()
-                }
-                buildMatches()
-            }
+        VStack {
+            DatePicker("Select Date", selection: $vm.selectDate, in: PartialRangeThrough(Date()), displayedComponents: [.date])
+                .datePickerStyle(.graphical)
+            buildMatches()
         }
     }
     
@@ -33,7 +22,7 @@ struct CalendarMatchListView: View {
         if vm.isLoading {
             ProgressView()
         } else {
-            if vm.matchesOnDate.isEmpty {
+            if vm.matches.isEmpty {
                 Text("No Result")
                     .foregroundColor(.secondaryLabel)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -41,9 +30,9 @@ struct CalendarMatchListView: View {
             } else {
                 ScrollView {
                     VStack(spacing: 1) {
-                        ForEach(vm.matchesOnDate) { match in
-                            NavigationLink(destination: MatchView(vm: MatchViewModel(matchid: "\(match.id)"))) {
-                                MatchListRowView(vm: MatchListRowViewModel(match: match))
+                        ForEach(vm.matches) { match in
+                            NavigationLink(destination: MatchView(matchid: match.id!.description)) {
+                                MatchListRowView(match: match)
                                     .background(Color.systemBackground)
                             }
                         }
@@ -55,8 +44,8 @@ struct CalendarMatchListView: View {
     }
 }
 
-struct CalendarMatchListView_Previews: PreviewProvider {
-    static var previews: some View {
-        CalendarMatchListView(vm: CalendarMatchListViewModel(userid: "153041957"))
-    }
-}
+// struct CalendarMatchListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CalendarMatchListView(vm: CalendarMatchListViewModel(userid: "153041957"))
+//    }
+// }

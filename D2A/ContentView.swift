@@ -13,8 +13,10 @@ struct ContentView: View {
     @EnvironmentObject var data: HeroDatabase
     @EnvironmentObject var store: StoreManager
     var body: some View {
-        if data.status != .finish {
-            LoadingView(status: $data.status)
+        if data.status != .finish || env.loading == true {
+            MainLoadingView(status: $data.status) {
+                data.loadData()
+            }
         } else {
             NavigationHostView()
                 .sheet(isPresented: $env.subscriptionSheet, content: {
@@ -22,28 +24,20 @@ struct ContentView: View {
                         .environmentObject(env)
                         .environmentObject(store)
                 })
-                .alert(isPresented: $env.exceedLimit, content: {
-                    Alert(title: Text("Slow down"), message: Text("You are so quick!"), dismissButton: .cancel())
-                })
-                .alert(isPresented: $env.invalidID, content: {
-                    Alert(title: Text("Oops!"), message: Text("Invalid Account ID"), dismissButton: .cancel())
-                })
-                .alert(isPresented: $env.cantFindUser, content: {
-                    Alert(title: Text("Error!"), message: Text("Cannot find this account"), dismissButton: .cancel())
+                .alert(isPresented: $env.error, content: {
+                    Alert(title: Text("Error"), message: Text(env.errorMessage), dismissButton: .cancel())
                 })
         }
     }
 }
 
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .environmentObject(DotaEnvironment.shared)
-            .environmentObject(HeroDatabase.preview)
-    }
-}
-
+// struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//            .environmentObject(DotaEnvironment.shared)
+//            .environmentObject(HeroDatabase.preview)
+//    }
+// }
 
 struct NavigationHostView: View {
     @EnvironmentObject var env: DotaEnvironment
@@ -54,7 +48,7 @@ struct NavigationHostView: View {
             if horizontalSizeClass == .compact {
                 TabView(selection: $env.selectedTab) {
                     NavigationView {
-                        PlayerListView()
+                        HomeView()
                     }.tabItem {
                         Image(systemName: "house")
                         Text("Home")
@@ -83,7 +77,7 @@ struct NavigationHostView: View {
             } else {
                 NavigationView {
                     Sidebar()
-                    PlayerListView()
+                    HomeView()
                 }
             }
     }

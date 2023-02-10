@@ -9,13 +9,17 @@ import SwiftUI
 
 struct Sidebar: View {
     @EnvironmentObject var env: DotaEnvironment
-    @EnvironmentObject var data: HeroDatabase
     @AppStorage("selectedUser") var selectedUser: String?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    @FetchRequest(sortDescriptors: [],
+                  predicate: NSPredicate(format: "favourite = %d", true))
+    private var favouritePlayers: FetchedResults<UserProfile>
+    
     var body: some View {
         List {
             NavigationLink(
-                destination: PlayerListView(),
+                destination: HomeView(),
                 tag: TabSelection.home,
                 selection: $env.iPadSelectedTab
             ) {
@@ -36,32 +40,23 @@ struct Sidebar: View {
                 Label("Search", systemImage: "magnifyingglass")
             }
             
-            if env.registerdID != "" || !env.userIDs.isEmpty {
+            if !favouritePlayers.isEmpty {
                 Section {
-                    if env.registerdID != "" {
+                    ForEach(favouritePlayers, id: \.self) { player in
                         NavigationLink(
-                            destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: env.registerdID)),
-                            tag: env.registerdID,
+                            destination: PlayerProfileView(userid: player.id!),
+                            tag: player.id!,
                             selection: $selectedUser
                         ) {
-                            SidebarRowView(vm: SidebarRowViewModel(userid: env.registerdID))
+                            SidebarRowView(userid: player.id!)
                         }.isDetailLink(true)
                     }
-                    ForEach(env.userIDs, id: \.self) { id in
-                        NavigationLink(
-                            destination: PlayerProfileView(vm: PlayerProfileViewModel(userid: id)),
-                            tag: id,
-                            selection: $selectedUser
-                        ) {
-                            SidebarRowView(vm: SidebarRowViewModel(userid: id))
-                        }.isDetailLink(true)
-                    }
-                    .onMove(perform: { indices, newOffset in
-                        env.move(from: indices, to: newOffset)
-                    })
-                    .onDelete(perform: { indexSet in
-                        env.delete(from: indexSet)
-                    })
+//                    .onMove(perform: { indices, newOffset in
+//                        env.move(from: indices, to: newOffset)
+//                    })
+//                    .onDelete(perform: { indexSet in
+//                        env.delete(from: indexSet)
+//                    })
                 } header: {
                     Text("Favorite Players")
                 }
@@ -80,36 +75,34 @@ struct Sidebar: View {
 }
 
 struct SidebarRowView: View {
-    @StateObject var vm: SidebarRowViewModel
+    @FetchRequest var profile: FetchedResults<UserProfile>
+    
+    init(userid: String) {
+        _profile = FetchRequest<UserProfile>(sortDescriptors: [], predicate: NSPredicate(format: "id == %@", userid))
+    }
+    
     var body: some View {
         makeUI()
-            .task {
-                vm.loadProfile()
-            }
     }
     
     @ViewBuilder
     func makeUI() -> some View {
-        if vm.profile != nil {
+        if let profile = profile.first {
             Label {
-                Text("\(vm.profile?.name ?? vm.profile!.personaname)").lineLimit(1)
+                Text("\(profile.name ?? profile.personaname ?? "")").lineLimit(1)
             } icon: {
-                ProfileAvartar(image: vm.userIcon, sideLength: 30, cornerRadius: 10)
+                ProfileAvatar(profile: profile, cornerRadius: 10)
+                    .frame(width: 30, height: 30)
             }
-            
         } else {
             ProgressView()
         }
     }
     
 }
-
-struct Sidebar_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            Sidebar()
-                .environmentObject(DotaEnvironment.preview)
-        }
-        .previewInterfaceOrientation(.landscapeLeft)
-    }
-}
+//
+// struct Sidebar_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Text("Hello world")
+//    }
+// }

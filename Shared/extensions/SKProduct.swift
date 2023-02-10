@@ -35,7 +35,7 @@ extension SKProduct {
         let cost = price
         var months = subscriptionPeriod!.numberOfUnits
         if subscriptionPeriod!.unit == .year {
-            months = months * 12
+            months *= 12
         }
         let monthlyCost = (cost as Decimal / Decimal(months)) as NSNumber
         
@@ -49,15 +49,15 @@ extension SKProduct {
         let cost = price.doubleValue
         var months = subscriptionPeriod!.numberOfUnits
         if subscriptionPeriod!.unit == .year {
-            months = months * 12
+            months *= 12
         }
         let monthlyCost = cost / Double(months)
         return monthlyCost
     }
 
     func getNumberOfUnit() -> Int {
-        let number = self.subscriptionPeriod!.numberOfUnits
-        switch self.subscriptionPeriod!.unit {
+        let number = subscriptionPeriod!.numberOfUnits
+        switch subscriptionPeriod!.unit {
         case .month:
             return number
         case .year:

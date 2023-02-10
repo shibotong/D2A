@@ -26,12 +26,11 @@ struct RecentMatchesWidgetEntryView: View {
     @ViewBuilder
     var body: some View {
         ZStack {
-            NetworkImage(urlString: entry.user.avatarfull).blur(radius: 40)
-            Color.systemBackground.opacity(0.7)
             ZStack {
-                if entry.user.id == 0 {
-                    WidgetOverlayView(widgetType: .chooseProfile)
-                } else {
+                if let user = entry.user {
+                    NetworkImage(profile: user)
+                        .blur(radius: 40)
+                    Color.systemBackground.opacity(0.7)
                     GeometryReader { proxy in
                         let avatarSize = { () -> CGFloat in
                             if self.family == .systemSmall {
@@ -41,15 +40,16 @@ struct RecentMatchesWidgetEntryView: View {
                             }
                         }()
                         VStack(spacing: 0) {
-                            buildProfile(user: entry.user, avatarSize: avatarSize)
+                            buildProfile(user: user, avatarSize: avatarSize)
                                 .frame(height: proxy.size.height / 2)
                             buildMatches(width: proxy.size.width)
                                 .frame(height: proxy.size.height / 2)
                         }
                     }.padding()
+                } else {
+                    WidgetOverlayView(widgetType: .chooseProfile)
                 }
-            }
-            .blur(radius: entry.subscription ? 0 : 15)
+            }.blur(radius: entry.subscription ? 0 : 15)
             if !entry.subscription {
                 WidgetOverlayView(widgetType: .subscription)
             }
@@ -60,44 +60,43 @@ struct RecentMatchesWidgetEntryView: View {
         switch self.family {
         case .systemSmall:
             VStack {
-                NetworkImage(urlString: entry.user.avatarfull)
+                NetworkImage(profile: user)
                     .frame(width: avatarSize, height: avatarSize)
                     .clipShape(Circle())
-                Text("\(entry.user.personaname)")
+                Text("\(user.personaname ?? "")")
                     .font(.caption)
             }
         case .systemMedium:
             HStack {
-                NetworkImage(urlString: entry.user.avatarfull)
+                NetworkImage(profile: user)
                     .frame(width: avatarSize, height: avatarSize)
                     .clipShape(Circle())
                 VStack(alignment: .leading) {
-                    Text("\(entry.user.personaname)")
+                    Text("\(user.personaname ?? "")")
                         .font(.caption)
-                    Text("\(entry.user.id.description)")
+                    Text("\(user.id ?? "")")
                         .font(.caption2)
                         .foregroundColor(.secondaryLabel)
                 }
                 
                 Spacer()
-                buildRank(profile: entry.user, size: avatarSize)
+                buildRank(profile: user, size: avatarSize)
             }
         default:
             EmptyView()
         }
-    
         
     }
     
     @ViewBuilder private func buildRank(profile: UserProfile, size: CGFloat) -> some View {
         HStack {
-            if profile.isPlus ?? false {
+            if profile.isPlus {
                 Image("dota_plus")
                     .resizable()
                     .padding(5)
                     .frame(width: size, height: size)
             }
-            RankView(rank: profile.rank, leaderboard: profile.leaderboard)
+            RankView(rank: Int(profile.rank), leaderboard: Int(profile.leaderboard))
                 .frame(width: size, height: size)
         }
     }
@@ -113,40 +112,31 @@ struct RecentMatchesWidgetEntryView: View {
         let matchWidth = width / CGFloat(maxNumberOfMatches)
         HStack(spacing: 0) {
             ForEach(matches) { match in
+                
                 buildMatch(match: match, width: matchWidth)
                     .frame(width: matchWidth)
             }
         }
-//        .blur(radius: (entry.subscription && entry.user.id != 0) ? 0 : 10)
-//        .padding(.horizontal)
     }
     
     @ViewBuilder private func buildMatch(match: RecentMatch, width: CGFloat) -> some View {
         // MARK: small
         let imageSize = width / 1.2
         VStack {
-            HeroImageView(heroID: match.heroID, type: .icon)
+            HeroImageView(heroID: Int(match.heroID), type: .icon)
                 .frame(width: imageSize, height: imageSize)
-            buildWL(win: match.isPlayerWin(), size: width / 1.5)
+            WinLossView(win: match.playerWin, size: width / 1.5)
         }
         .padding(.horizontal, width / 4)
-    }
-    
-    @ViewBuilder private func buildWL(win: Bool, size: CGFloat = 15) -> some View {
-        ZStack {
-            Rectangle().foregroundColor(win ? Color(.systemGreen) : Color(.systemRed))
-                .frame(width: size, height: size)
-            Text("\(win ? "W" : "L")").font(.caption).bold().foregroundColor(.white)
-        }
     }
 }
 
 struct RecentMatchesWidgetEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
+        RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: [], user: nil, subscription: false))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
         
-        RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: Array(RecentMatch.sample), user: UserProfile.sample, subscription: false))
+        RecentMatchesWidgetEntryView(entry: SimpleEntry(date: Date(), matches: [], user: nil, subscription: false))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
         
     }

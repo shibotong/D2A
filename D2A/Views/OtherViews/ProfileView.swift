@@ -13,33 +13,35 @@ struct ProfileView: View {
     
     var body: some View {
         if !vm.isloading {
-            if let profile = vm.profile {
+            if let profile = vm.profile, let personaname = profile.personaname, let userID = profile.id {
                 HStack {
-                    ProfileAvartar(image: vm.profileIcon, sideLength: 40, cornerRadius: 5)
+                    ProfileAvatar(profile: profile, cornerRadius: 5)
+                        .frame(width: 40, height: 40)
                     VStack(alignment: .leading) {
-                        Text(profile.personaname).bold()
-                        Text("ID: \(profile.id.description)")
+                        Text(personaname).bold()
+                        Text("ID: \(userID)")
                             .foregroundColor(.secondaryLabel)
                             .font(.caption)
                     }
                     Spacer()
-                    if profile.id.description == env.registerdID {
+                    if profile.register && profile.favourite {
                         Image(systemName: "person.text.rectangle")
                             .foregroundColor(.primaryDota)
-                    }
-                    if env.userIDs.contains(profile.id.description) {
+                    } else if profile.favourite {
                         Image(systemName: "star.fill")
                             .foregroundColor(.primaryDota)
                     }
                 }
             } else {
-                EmptyView()
+                ProfileEmptyView()
             }
         } else {
             ProgressView()
+                .frame(height: 40)
         }
     }
 }
+
 struct ProfileEmptyView: View {
     var body: some View {
         HStack {
@@ -48,7 +50,7 @@ struct ProfileEmptyView: View {
                 .renderingMode(.original)
                 .scaledToFit()
                 .frame(width: 40, height: 40)
-                .clipShape(RoundedRectangle(cornerRadius:5))
+                .clipShape(RoundedRectangle(cornerRadius: 5))
             VStack(alignment: .leading) {
                 Text("Anonymous").bold()
                 Text(" ").font(.caption)

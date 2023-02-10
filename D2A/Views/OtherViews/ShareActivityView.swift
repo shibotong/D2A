@@ -10,7 +10,7 @@ import SwiftUI
 struct ShareActivityView: UIViewControllerRepresentable {
 
     var activityItems: [Any]
-    var applicationActivities: [UIActivity]? = nil
+    var applicationActivities: [UIActivity]?
 
     @Environment(\.presentationMode) var presentationMode
 
@@ -23,4 +23,3 @@ struct ShareActivityView: UIViewControllerRepresentable {
 
     }
 }
-

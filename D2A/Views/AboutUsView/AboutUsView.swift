@@ -17,10 +17,10 @@ struct AboutUsView: View {
         List {
             Section(header: Text("Our App")) {
                 makeButton(image: "cart", text: "Unlock All Features") {
-                    self.presentState.wrappedValue.dismiss()
+                    presentState.wrappedValue.dismiss()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                         // show subscription after 0.5s
-                        self.env.subscriptionSheet = true
+                        env.subscriptionSheet = true
                     })
                 }
                 makeRow(image: "chevron.left.slash.chevron.right", text: "Source Code / Report an Issue", link: URL(string: "https://github.com/shibotong/Dota2Armory"))
@@ -34,7 +34,6 @@ struct AboutUsView: View {
                 makeRow(image: "heart.fill", text: "OpenDotaAPI", link: URL(string: "https://www.opendota.com"))
                 makeRow(image: "heart.fill", text: "STRATZ API", link: URL(string: "https://stratz.com/dashboard"))
                 makeRow(image: "heart.fill", text: "Our Loved Dota2", link: URL(string: "https://www.dota2.com/home"))
-                
             }
         }
         .navigationTitle("About")
@@ -76,7 +75,7 @@ struct AboutUsView: View {
         }
     }
     
-    private func makeButton(image: String, text: LocalizedStringKey, action: @escaping () -> ()) -> some View {
+    private func makeButton(image: String, text: LocalizedStringKey, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             HStack {
                 Image(systemName: image)
@@ -91,9 +90,9 @@ struct AboutUsView: View {
     }
 }
 
-struct AboutUsView_Previews: PreviewProvider {
-    static var previews: some View {
-        AboutUsView()
-            .environment(\.locale, .init(identifier: "zh-Hans"))
-    }
-}
+// struct AboutUsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AboutUsView()
+//            .environment(\.locale, .init(identifier: "zh-Hans"))
+//    }
+// }

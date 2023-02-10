@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 
 extension Int {
-    func convertToDuration() -> String {
+    var toDuration: String {
         var min = self / 60
         let sec = self - min * 60
         if min >= 60 {
             let hr = min / 60
-            min = min - hr * 60
-            if min < 10 && sec < 10{
+            min -= hr * 60
+            if min < 10 && sec < 10 {
                 return "\(hr):0\(min):0\(sec)"
             } else if min < 10 {
                 return "\(hr):0\(min):\(sec)"
@@ -33,7 +33,7 @@ extension Int {
         }
     }
     
-    func convertToTime() -> LocalizedStringKey {
+    var toTime: LocalizedStringKey {
         let date = TimeInterval(self)
 //        if Calendar.current.isDateInToday(date) {
 //            let formatter = DateFormatter()
@@ -75,7 +75,7 @@ extension Int {
 
 extension Double {
     /// Rounds the double to decimal places value
-    func rounded(toPlaces places:Int) -> Double {
+    func rounded(toPlaces places: Int) -> Double {
         let divisor = pow(10.0, Double(places))
         return (self * divisor).rounded() / divisor
     }

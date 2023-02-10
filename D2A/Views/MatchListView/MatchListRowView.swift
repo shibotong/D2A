@@ -8,12 +8,92 @@
 import SwiftUI
 
 struct MatchListRowView: View {
-    @ObservedObject var vm: MatchListRowViewModel
+    
+    @Environment(\.horizontalSizeClass) var horizontalClass
+    
+    var match: RecentMatch
+    
+    private var isCompact: Bool {
+        return horizontalClass == .compact || DotaEnvironment.isInWidget()
+    }
+    
+    private var headingView: some View {
+        Group {
+            if isCompact {
+                VStack(alignment: .leading, spacing: 1) {
+                    HStack {
+                        heroImage
+                        VStack(alignment: .leading) {
+                            kdaView
+                            gameMode
+                        }
+                    }
+                }.padding(.vertical)
+            } else {
+                heroImage
+                kdaView
+                    .frame(maxWidth: 150, alignment: .leading)
+                gameMode
+                    .frame(maxWidth: 100, alignment: .leading)
+            }
+        }
+    }
+    
+    private var trailingView: some View {
+        Group {
+            if isCompact {
+                HStack {
+                    Spacer()
+                    VStack(alignment: .trailing) {
+                        gameLobbyText
+                        if let startTime = match.startTime {
+                            Text(startTime.toTime).bold()
+                        }
+                    }
+                }
+                .font(.caption2)
+                .foregroundColor(.secondaryLabel)
+                .frame(width: 70)
+            } else {
+                HStack {
+                    gameLobbyText
+                        .frame(width: 70, alignment: .leading)
+                    if let startTime = match.startTime {
+                        Text(startTime.toTime).bold().foregroundColor(.secondaryLabel)
+                            .frame(width: 70, alignment: .trailing)
+                    }
+                }.font(.body)
+            }
+        }
+    }
+    
+    private var gameLobbyText: some View {
+        Text(LocalizedStringKey(match.gameLobby.lobbyName))
+            .foregroundColor(match.gameLobby.lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
+    }
+    
+    private var heroImage: some View {
+        HeroImageView(heroID: Int(match.heroID), type: .icon)
+            .frame(width: 30, height: 30)
+    }
+    
+    private var kdaView: some View {
+        KDAView(kills: Int(match.kills),
+                deaths: Int(match.deaths),
+                assists: Int(match.assists),
+                size: isCompact ? .caption : .body)
+    }
+    
+    private var gameMode: some View {
+        Text(LocalizedStringKey(match.gameMode.modeName))
+            .font(isCompact ? .caption2 : .body)
+            .foregroundColor(.secondaryLabel)
+    }
     
     var winLoss: some View {
-        Rectangle().frame(width: 15, height: 15).foregroundColor(Color(vm.match.isPlayerWin() ? .systemGreen : .systemRed))
+        Rectangle().frame(width: 15, height: 15).foregroundColor(Color(match.playerWin ? .systemGreen : .systemRed))
             .overlay {
-                Text(vm.match.isPlayerWin() ? "W" : "L")
+                Text(match.playerWin ? "W" : "L")
                     .foregroundColor(.white)
                     .font(.caption2)
             }
@@ -22,33 +102,17 @@ struct MatchListRowView: View {
     var body: some View {
         HStack {
             winLoss
-            VStack(alignment: .leading, spacing: 1) {
-                HStack {
-                    HeroImageView(heroID: vm.match.heroID, type: .icon)
-                        .frame(width: 30, height: 30)
-                    VStack(alignment: .leading) {
-                        KDAView(kills: vm.match.kills, deaths: vm.match.deaths, assists: vm.match.assists, size: .caption)
-                        Text(LocalizedStringKey(vm.match.fetchMode().modeName))
-                            .font(.caption2)
-                    }
-                }
-            }.padding(.vertical)
-            if let size = vm.match.partySize {
+            headingView
+            Spacer()
+            if let size = Int(match.partySize) {
                 buildParty(size: size)
+                    .frame(alignment: .leading)
             }
-            HStack {
-                Spacer()
-                VStack(alignment: .trailing) {
-                    Text(LocalizedStringKey(vm.match.fetchLobby().lobbyName))
-                        .foregroundColor(vm.match.fetchLobby().lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
-                    Text(vm.match.startTime.convertToTime()).bold()
-                }
-            }
-            .font(.caption2)
-            .foregroundColor(Color(.secondaryLabel))
-            .frame(width: 70)
+            Spacer()
+            trailingView
         }
         .padding(.horizontal)
+        .frame(height: 70)
     }
     
     @ViewBuilder private func buildParty(size: Int) -> some View {
@@ -79,9 +143,18 @@ struct MatchListRowView: View {
 
 struct MatchListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        MatchListRowView(vm: MatchListRowViewModel()).previewLayout(.fixed(width: 375, height: 70))
-            .environmentObject(HeroDatabase.shared)
-        MatchListRowEmptyView().previewLayout(.fixed(width: 375, height: 80))
+        Group {
+            MatchListRowView(match: RecentMatch.example)
+                .previewDevice(.iPad)
+                .previewLayout(.fixed(width: 500, height: 70))
+                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+                .previewDisplayName("iPad")
+            MatchListRowView(match: RecentMatch.example)
+                .previewDevice(.iPhone)
+                .previewLayout(.fixed(width: 375, height: 70))
+                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+                .previewDisplayName("iPhone")
+        }
     }
 }
 
@@ -106,7 +179,7 @@ struct MatchListRowEmptyView: View {
         }
         .foregroundColor(loading ? Color(.systemGray6) : Color(.systemGray5))
         .onAppear {
-            self.loading = true
+            loading = true
         }
         .animation(Animation.default.repeatForever(), value: loading)
     }
