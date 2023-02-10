@@ -82,7 +82,7 @@ final class DotaEnvironment: ObservableObject {
         UserDefaults(suiteName: GROUP_NAME)?.set("", forKey: "dotaArmory.registerdID")
         UserDefaults(suiteName: GROUP_NAME)?.set([], forKey: "dotaArmory.userID")
         DispatchQueue.main.async {
-            loading = false
+            self.loading = false
         }
     }
     

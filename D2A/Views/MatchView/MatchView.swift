@@ -45,6 +45,16 @@ struct MatchView: View {
             .listStyle(.plain)
             .navigationTitle("ID: \(match.id ?? "")")
             .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                Button {
+                    Task {
+                        await loadMatch()
+                    }
+                } label: {
+                    Image(systemName: "arrow.counterclockwise")
+                }
+
+            }
         } else {
             LoadingView()
                 .onAppear {
