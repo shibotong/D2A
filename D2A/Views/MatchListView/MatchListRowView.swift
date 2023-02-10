@@ -13,9 +13,13 @@ struct MatchListRowView: View {
     
     var match: RecentMatch
     
+    private var isCompact: Bool {
+        return horizontalClass == .compact || DotaEnvironment.isInWidget()
+    }
+    
     private var headingView: some View {
         Group {
-            if horizontalClass == .compact {
+            if isCompact {
                 VStack(alignment: .leading, spacing: 1) {
                     HStack {
                         heroImage
@@ -37,7 +41,7 @@ struct MatchListRowView: View {
     
     private var trailingView: some View {
         Group {
-            if horizontalClass == .compact {
+            if isCompact {
                 HStack {
                     Spacer()
                     VStack(alignment: .trailing) {
@@ -53,10 +57,10 @@ struct MatchListRowView: View {
             } else {
                 HStack {
                     gameLobbyText
-                        .frame(width: 80, alignment: .leading)
+                        .frame(width: 70, alignment: .leading)
                     if let startTime = match.startTime {
                         Text(startTime.toTime).bold().foregroundColor(.secondaryLabel)
-                            .frame(width: 80, alignment: .trailing)
+                            .frame(width: 70, alignment: .trailing)
                     }
                 }.font(.body)
             }
@@ -77,12 +81,12 @@ struct MatchListRowView: View {
         KDAView(kills: Int(match.kills),
                 deaths: Int(match.deaths),
                 assists: Int(match.assists),
-                size: horizontalClass == .compact ? .caption : .body)
+                size: isCompact ? .caption : .body)
     }
     
     private var gameMode: some View {
         Text(LocalizedStringKey(match.gameMode.modeName))
-            .font(horizontalClass == .compact ? .caption2 : .body)
+            .font(isCompact ? .caption2 : .body)
             .foregroundColor(.secondaryLabel)
     }
     
@@ -102,11 +106,13 @@ struct MatchListRowView: View {
             Spacer()
             if let size = Int(match.partySize) {
                 buildParty(size: size)
-                    .frame(width: 80)
+                    .frame(alignment: .leading)
             }
+            Spacer()
             trailingView
         }
         .padding(.horizontal)
+        .frame(height: 70)
     }
     
     @ViewBuilder private func buildParty(size: Int) -> some View {

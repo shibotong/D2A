@@ -11,21 +11,10 @@ struct CalendarMatchListView: View {
     @StateObject var vm: CalendarMatchListViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSize
     var body: some View {
-        if horizontalSize == .compact {
-            VStack {
-                DatePicker("Select Date", selection: $vm.selectDate, in: PartialRangeThrough(Date()), displayedComponents: [.date])
-                    .datePickerStyle(.graphical)
-                buildMatches()
-            }
-        } else {
-            HStack {
-                VStack {
-                    DatePicker("Select Date", selection: $vm.selectDate, in: PartialRangeThrough(Date()), displayedComponents: [.date])
-                        .datePickerStyle(.graphical)
-                    Spacer()
-                }
-                buildMatches()
-            }
+        VStack {
+            DatePicker("Select Date", selection: $vm.selectDate, in: PartialRangeThrough(Date()), displayedComponents: [.date])
+                .datePickerStyle(.graphical)
+            buildMatches()
         }
     }
     

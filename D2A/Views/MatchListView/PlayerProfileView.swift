@@ -118,7 +118,6 @@ struct PlayerProfileView: View {
                         destination: MatchView(matchid: match.id)
                     ) {
                         MatchListRowView(match: match)
-                            .frame(height: 70)
                             .background(Color.systemBackground)
                     }.listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
                 }
