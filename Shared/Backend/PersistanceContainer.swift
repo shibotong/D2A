@@ -51,18 +51,36 @@ class PersistenceController {
     }()
 
     init(inMemory: Bool = false) {
+        container = NSPersistentContainer(name: "D2AModel")
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        loadContainer(inMemory: inMemory)
+    }
+    
+    private func removeContainer() {
+        let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME)!
+        let storeURL = containerURL.appendingPathComponent("D2AModel.sqlite")
+        do {
+            try FileManager.default.removeItem(at: storeURL)
+            loadContainer()
+            print("SQL file remove success")
+        } catch {
+            DotaEnvironment.shared.error = true
+            DotaEnvironment.shared.errorMessage = "There are some problems with the App. Please delete and reinstall."
+        }
+    }
+    
+    private func loadContainer(inMemory: Bool = false) {
         let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME)!
         let storeURL = containerURL.appendingPathComponent("D2AModel.sqlite")
         let description = NSPersistentStoreDescription(url: storeURL)
         
-        container = NSPersistentContainer(name: "D2AModel")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         } else {
             container.persistentStoreDescriptions = [description]
         }
         
-        container.loadPersistentStores(completionHandler: { (_, error) in
+        container.loadPersistentStores(completionHandler: { [weak self] (_, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -75,16 +93,17 @@ class PersistenceController {
                  * The store could not be migrated to the current model version.
                  Check the error message to determine what the actual problem was.
                  */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                print("An error occured with persistence store \(error.localizedDescription)")
+                self?.removeContainer()
             }
         })
-        container.viewContext.automaticallyMergesChangesFromParent = true
     }
     
     func makeContext(author: String? = nil) -> NSManagedObjectContext {
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = container.viewContext
         privateContext.transactionAuthor = author
+        privateContext.automaticallyMergesChangesFromParent = true
         return privateContext
     }
     

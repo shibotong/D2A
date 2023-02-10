@@ -11,12 +11,12 @@ struct MatchView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var data: HeroDatabase
     @Environment(\.managedObjectContext) var context
-    @FetchRequest var match: FetchedResults<Match>
-    var matchid: String
+    @FetchRequest private var match: FetchedResults<Match>
+    private var matchid: String
     
-    init(matchid: String?) {
-        _match = FetchRequest<Match>(sortDescriptors: [], predicate: NSPredicate(format: "id == %@", matchid ?? "no match id"))
-        self.matchid = matchid ?? "no match id"
+    init(matchid: String) {
+        _match = FetchRequest<Match>(sortDescriptors: [], predicate: NSPredicate(format: "id = %@", matchid))
+        self.matchid = matchid
     }
     
     var body: some View {
@@ -45,8 +45,15 @@ struct MatchView: View {
             .listStyle(.plain)
             .navigationTitle("ID: \(match.id ?? "")")
             .navigationBarTitleDisplayMode(.large)
-            .refreshable {
-                await loadMatch()
+            .toolbar {
+                Button {
+                    Task {
+                        await loadMatch()
+                    }
+                } label: {
+                    Image(systemName: "arrow.counterclockwise")
+                }
+
             }
         } else {
             LoadingView()
@@ -128,7 +135,7 @@ struct AllTeamPlayerView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Players").font(.system(size: 20)).bold().padding([.horizontal, .top])
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     TeamView(players: fetchPlayers(isRadiant: true),
                              isRadiant: true,
@@ -173,16 +180,13 @@ struct TeamHeaderView: View {
     var isRadiant: Bool
     var score: Int
     var win: Bool
+    
+    private var teamString: LocalizedStringKey {
+        return isRadiant ? "Radiant" : "Dire"
+    }
+    
     var body: some View {
         HStack {
-            HStack {
-                Text(buildTeamString())
-                    .font(.system(size: 15))
-                    .bold()
-                    .foregroundColor(Color(isRadiant ? .systemGreen : .systemRed))
-                Text("\(win ? "🏆" : "")")
-            }
-            Spacer()
             Image("battle_icon")
                 .renderingMode(.template)
                 .resizable()
@@ -190,18 +194,18 @@ struct TeamHeaderView: View {
                 .frame(width: 15, height: 15)
                 .foregroundColor(Color(isRadiant ? .systemGreen : .systemRed))
             Text("\(score)").font(.system(size: 15))
+            HStack {
+                Text(teamString)
+                    .font(.system(size: 15))
+                    .bold()
+                    .foregroundColor(Color(isRadiant ? .systemGreen : .systemRed))
+                Text("\(win ? "🏆" : "")")
+            }
+            Spacer()
         }
         .padding(.horizontal)
         .padding(.vertical, 5)
         .background(Color(isRadiant ? .systemGreen : .systemRed).opacity(0.2))
-    }
-    
-    private func buildTeamString() -> LocalizedStringKey {
-        if isRadiant {
-            return "Radiant"
-        } else {
-            return "Dire"
-        }
     }
 }
 

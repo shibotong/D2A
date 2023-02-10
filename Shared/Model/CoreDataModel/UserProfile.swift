@@ -14,6 +14,7 @@ extension UserProfile {
         let newProfile = fetch(id: profile.id.description) ?? UserProfile(context: viewContext)
         newProfile.update(profile, favourite: favourite, register: register)
         try viewContext.save()
+        try viewContext.parent?.save()
         return newProfile
     }
     

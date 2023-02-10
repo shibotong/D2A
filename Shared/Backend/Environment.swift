@@ -81,7 +81,9 @@ final class DotaEnvironment: ObservableObject {
         }
         UserDefaults(suiteName: GROUP_NAME)?.set("", forKey: "dotaArmory.registerdID")
         UserDefaults(suiteName: GROUP_NAME)?.set([], forKey: "dotaArmory.userID")
-        loading = false
+        DispatchQueue.main.async {
+            self.loading = false
+        }
     }
     
     func canRefresh(userid: String) -> Bool {

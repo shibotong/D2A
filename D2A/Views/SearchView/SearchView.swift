@@ -215,13 +215,11 @@ struct AbilityImage: View {
     
     private func fetchImage() async {
         if let cacheImage = ImageCache.readImage(type: .ability, id: name) {
-            print("Ability \(name) exist")
             Dispatch.DispatchQueue.main.async {
                 image = cacheImage
             }
             return
         }
-        print("Ability \(name) Doesn't exist")
         guard let newImage = await loadImage() else {
             return
         }
