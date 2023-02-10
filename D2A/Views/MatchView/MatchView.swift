@@ -45,9 +45,6 @@ struct MatchView: View {
             .listStyle(.plain)
             .navigationTitle("ID: \(match.id ?? "")")
             .navigationBarTitleDisplayMode(.large)
-            .refreshable {
-                await loadMatch()
-            }
         } else {
             LoadingView()
                 .onAppear {
@@ -128,7 +125,7 @@ struct AllTeamPlayerView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Players").font(.system(size: 20)).bold().padding([.horizontal, .top])
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     TeamView(players: fetchPlayers(isRadiant: true),
                              isRadiant: true,
