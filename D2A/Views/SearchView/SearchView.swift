@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
     @EnvironmentObject var env: DotaEnvironment
-    @StateObject var vm: AddAccountViewModel = AddAccountViewModel()
+    @StateObject var vm: SearchViewModel = SearchViewModel()
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
         searchPage

@@ -41,12 +41,17 @@ extension UserProfile {
     }
     
     /// Search user saved in CoreData and marked as favourite
-    static func fetch(text: String) -> [UserProfile] {
+    static func fetch(text: String, favourite: Bool? = nil) -> [UserProfile] {
         let viewContext = PersistenceController.shared.container.viewContext
         let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
-        let favouritePredicate = NSPredicate(format: "favourite = %d", true)
+        var predicates: [NSPredicate] = []
         let namePredicate = NSPredicate(format: "personaname CONTAINS[cd] %@", text)
-        fetchResult.predicate = NSCompoundPredicate(type: .and, subpredicates: [favouritePredicate, namePredicate])
+        predicates.append(namePredicate)
+        if let favourite {
+            let favouritePredicate = NSPredicate(format: "favourite = %d", true)
+            predicates.append(favouritePredicate)
+        }
+        fetchResult.predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
         
         let results = try? viewContext.fetch(fetchResult)
         return results ?? []
