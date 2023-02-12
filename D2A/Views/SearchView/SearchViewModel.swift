@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class AddAccountViewModel: ObservableObject {
+class SearchViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var searched = false
     
@@ -43,7 +43,7 @@ class AddAccountViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .map { text in
                 if !text.isEmpty {
-                    let profiles = UserProfile.fetch(text: text)
+                    let profiles = UserProfile.fetch(text: text, favourite: true)
                     return profiles
                 } else {
                     return []
@@ -68,6 +68,7 @@ class AddAccountViewModel: ObservableObject {
             return hero.heroNameLocalized.lowercased().contains(searchText.lowercased())
         }
         async let searchedProfile = OpenDotaController.shared.searchUserByText(text: searchText)
+        let searchCachedProfile = UserProfile.fetch(text: searchText)
         if Int(searchText) != nil {
             async let matchID = OpenDotaController.shared.loadMatchData(matchid: searchText)
             do {
@@ -80,11 +81,16 @@ class AddAccountViewModel: ObservableObject {
             searchedMatch = nil
         }
 
-        var cachedProfiles: [UserProfile] = []
+        var cachedProfiles: [UserProfile] = searchCachedProfile
         var notCachedProfiles: [UserProfileCodable] = []
         
         for profile in await searchedProfile {
             if let cachedProfile = UserProfile.fetch(id: profile.id.description) {
+                if cachedProfiles.contains(where: { profile in
+                    profile.id == cachedProfile.id
+                }) {
+                    continue
+                }
                 cachedProfiles.append(cachedProfile)
             } else {
                 notCachedProfiles.append(profile)
