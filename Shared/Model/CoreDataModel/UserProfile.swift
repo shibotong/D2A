@@ -48,7 +48,7 @@ extension UserProfile {
         let namePredicate = NSPredicate(format: "personaname CONTAINS[cd] %@", text)
         predicates.append(namePredicate)
         if let favourite {
-            let favouritePredicate = NSPredicate(format: "favourite = %d", true)
+            let favouritePredicate = NSPredicate(format: "favourite = %d", favourite)
             predicates.append(favouritePredicate)
         }
         fetchResult.predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
