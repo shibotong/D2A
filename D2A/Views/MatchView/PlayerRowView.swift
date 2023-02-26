@@ -15,7 +15,7 @@ struct PlayerRowView: View {
     @EnvironmentObject var heroData: HeroDatabase
     
     private var heroIcon: some View {
-        HeroImageView(heroID: Int(player.heroID), type: .icon)
+        HeroImageView(heroID: player.heroID, type: .icon)
             .frame(width: 35, height: 35)
             .overlay(HStack {
                 Spacer()
@@ -23,6 +23,7 @@ struct PlayerRowView: View {
                     Spacer()
                     Circle()
                         .frame(width: 15, height: 15)
+                        .foregroundColor(.label)
                         .overlay(Text("\(player.level)")
                                     .foregroundColor(Color(.systemBackground))
                                     .font(.system(size: 8)).bold())
@@ -109,7 +110,9 @@ struct PlayerRowView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                heroIcon
+                NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: player.heroID))) {
+                    heroIcon
+                }
                 if let playerID = player.accountId {
                     NavigationLink(destination: PlayerProfileView(userid: playerID)) {
                         leadingView
