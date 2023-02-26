@@ -77,7 +77,6 @@ class OpenDotaController {
             } else {
                 await loadRecentMatch(userid: userid, days: nil, offset: offset, numbers: numbers)
             }
-            DotaEnvironment.shared.refreshHandler[userid] = Date().timeIntervalSince1970
         }
     }
     
@@ -95,6 +94,7 @@ class OpenDotaController {
             if !matches.isEmpty {
                 try await RecentMatch.create(matches)
             }
+            DotaEnvironment.shared.refreshHandler[userid] = Date().timeIntervalSince1970
         } catch {
             print("error: ", error)
             return
