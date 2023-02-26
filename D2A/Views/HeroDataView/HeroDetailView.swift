@@ -91,7 +91,7 @@ struct HeroDetailView: View {
                         let ability = vm.fetchAbility(name: abilityName)
                         let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
                         NavigationLink(destination: AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, abilityName: abilityName))) {
-                            AbilityImage(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
+                            AbilityImage(viewModel: AbilityImageViewModel(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10))
                         }
                     }
                 }
