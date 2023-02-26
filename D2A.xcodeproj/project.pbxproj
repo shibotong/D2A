@@ -258,6 +258,7 @@
 		794B723F2985D411000059E4 /* RecentMatchWinLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794B723C2985D2C9000059E4 /* RecentMatchWinLossView.swift */; };
 		794B724329862294000059E4 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794B724229862294000059E4 /* ItemView.swift */; };
 		7965F636293ADE1900922F99 /* RegisteredPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */; };
+		796FE19C29AAF659003379EB /* AbilityImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796FE19B29AAF659003379EB /* AbilityImage.swift */; };
 		79800DA4294C2E1000662E2F /* NSNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79800DA3294C2E1000662E2F /* NSNumber.swift */; };
 		79800DA5294C2E1000662E2F /* NSNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79800DA3294C2E1000662E2F /* NSNumber.swift */; };
 		79800DA6294C2E1000662E2F /* NSNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79800DA3294C2E1000662E2F /* NSNumber.swift */; };
@@ -493,6 +494,7 @@
 		794B723C2985D2C9000059E4 /* RecentMatchWinLossView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMatchWinLossView.swift; sourceTree = "<group>"; };
 		794B724229862294000059E4 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
 		7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredPlayerView.swift; sourceTree = "<group>"; };
+		796FE19B29AAF659003379EB /* AbilityImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityImage.swift; sourceTree = "<group>"; };
 		79800DA3294C2E1000662E2F /* NSNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNumber.swift; sourceTree = "<group>"; };
 		79837B52294C189200458529 /* PlayerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowView.swift; sourceTree = "<group>"; };
 		79837B54294C18FE00458529 /* DamageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageView.swift; sourceTree = "<group>"; };
@@ -869,6 +871,7 @@
 		32EC7F3E286474EB00A36AF6 /* OtherViews */ = {
 			isa = PBXGroup;
 			children = (
+				796FE19B29AAF659003379EB /* AbilityImage.swift */,
 				32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */,
 				794B724229862294000059E4 /* ItemView.swift */,
 				322B893D26CE66F800DF67F9 /* MainLoadingView.swift */,
@@ -1339,6 +1342,7 @@
 				32079DBD28B83F0F0056D19F /* AbilityView.swift in Sources */,
 				32AEEEF926F9B1120088DEC8 /* LocalizableStrings.swift in Sources */,
 				79A989042931E7F1006AC847 /* PermanentBuff.swift in Sources */,
+				796FE19C29AAF659003379EB /* AbilityImage.swift in Sources */,
 				325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */,
 				32B36F3F26C388AD002D427D /* PlayerProfileView.swift in Sources */,
 				32B36F2A26C38852002D427D /* Item.swift in Sources */,
