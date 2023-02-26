@@ -11,17 +11,10 @@ struct HeroDetailView: View {
     @ObservedObject var vm: HeroDetailViewModel
     @EnvironmentObject var heroDatabase: HeroDatabase
     @State var heroLevel = 1.00
-    @State var isPresented = false
     
     var body: some View {
         mainBody
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $isPresented, content: {
-                NavigationView {
-                    AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, abilityName: vm.selectedAbility ?? ""))
-                        .environmentObject(heroDatabase)
-                }
-            })
             .onAppear {
                 vm.loadHero()
             }
@@ -97,10 +90,7 @@ struct HeroDetailView: View {
                     }, id: \.self) { abilityName in
                         let ability = vm.fetchAbility(name: abilityName)
                         let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                        Button {
-                            isPresented.toggle()
-                            vm.selectedAbility = abilityName
-                        } label: {
+                        NavigationLink(destination: AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, abilityName: abilityName))) {
                             AbilityImage(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
                         }
                     }
