@@ -104,7 +104,7 @@ struct MatchListRowView: View {
             winLoss
             headingView
             Spacer()
-            if let size = Int(match.partySize) {
+            if let size = Int(match.partySize), size != 0 {
                 buildParty(size: size)
                     .frame(alignment: .leading)
             }

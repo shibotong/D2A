@@ -20,7 +20,6 @@
 		321D58A726D717900059526B /* sampleMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D58A626D717900059526B /* sampleMatch.json */; };
 		321E3D01285422D00094FB10 /* AbilityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321E3D00285422D00094FB10 /* AbilityViewModel.swift */; };
 		322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B88ED26CCBA1800DF67F9 /* CodingKey.swift */; };
-		322B893426CD425300DF67F9 /* WCDBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893326CD425300DF67F9 /* WCDBController.swift */; };
 		322B893626CD438700DF67F9 /* UserProfileCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893526CD438700DF67F9 /* UserProfileCodable.swift */; };
 		322B893826CD44FE00DF67F9 /* SteamProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893726CD44FE00DF67F9 /* SteamProfile.swift */; };
 		322B893A26CD456400DF67F9 /* RecentMatchCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893926CD456400DF67F9 /* RecentMatchCodable.swift */; };
@@ -164,14 +163,11 @@
 		328D88B5288EB4F700DFD204 /* SharingLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328D88B4288EB4F700DFD204 /* SharingLink.swift */; };
 		3294463826E1A530006E0D06 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294463726E1A530006E0D06 /* ProfileView.swift */; };
 		3294463A26E1A5A5006E0D06 /* sampleProfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 3294463926E1A5A5006E0D06 /* sampleProfile.json */; };
-		3294463F26E1BC8F006E0D06 /* PlayerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294463E26E1BC8F006E0D06 /* PlayerDetailView.swift */; };
 		3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294CF7B288EA87600FDFB8E /* ShareActivityView.swift */; };
 		329849F426DCAEAE00A1032C /* HeroDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* HeroDatabase.swift */; };
 		32985DD3285569D0001869F2 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32985DD2285569D0001869F2 /* RankView.swift */; };
 		32A26C51285947D3005E890F /* OpenDotaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */; };
 		32A26C52285947D4005E890F /* OpenDotaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */; };
-		32A26C53285949FE005E890F /* WCDBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893326CD425300DF67F9 /* WCDBController.swift */; };
-		32A26C54285949FE005E890F /* WCDBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893326CD425300DF67F9 /* WCDBController.swift */; };
 		32A26C5528594A28005E890F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4B26C39C5D002D427D /* Environment.swift */; };
 		32A26C5628594A28005E890F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4B26C39C5D002D427D /* Environment.swift */; };
 		32AEEEF926F9B1120088DEC8 /* LocalizableStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AEEEF826F9B1120088DEC8 /* LocalizableStrings.swift */; };
@@ -377,7 +373,6 @@
 		321D58A626D717900059526B /* sampleMatch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleMatch.json; sourceTree = "<group>"; };
 		321E3D00285422D00094FB10 /* AbilityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityViewModel.swift; sourceTree = "<group>"; };
 		322B88ED26CCBA1800DF67F9 /* CodingKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingKey.swift; sourceTree = "<group>"; };
-		322B893326CD425300DF67F9 /* WCDBController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCDBController.swift; sourceTree = "<group>"; };
 		322B893526CD438700DF67F9 /* UserProfileCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCodable.swift; sourceTree = "<group>"; };
 		322B893726CD44FE00DF67F9 /* SteamProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteamProfile.swift; sourceTree = "<group>"; };
 		322B893926CD456400DF67F9 /* RecentMatchCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMatchCodable.swift; sourceTree = "<group>"; };
@@ -447,7 +442,6 @@
 		328D88B4288EB4F700DFD204 /* SharingLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingLink.swift; sourceTree = "<group>"; };
 		3294463726E1A530006E0D06 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		3294463926E1A5A5006E0D06 /* sampleProfile.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleProfile.json; sourceTree = "<group>"; };
-		3294463E26E1BC8F006E0D06 /* PlayerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailView.swift; sourceTree = "<group>"; };
 		3294CF7B288EA87600FDFB8E /* ShareActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActivityView.swift; sourceTree = "<group>"; };
 		329849F326DCAEAE00A1032C /* HeroDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroDatabase.swift; sourceTree = "<group>"; };
 		32985DD2285569D0001869F2 /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
@@ -671,7 +665,6 @@
 				79837B54294C18FE00458529 /* DamageView.swift */,
 				322B893F26CE696C00DF67F9 /* DifferenceGraphView.swift */,
 				3252859626CB81480030F15B /* DifferenceGraphViewModel.swift */,
-				3294463E26E1BC8F006E0D06 /* PlayerDetailView.swift */,
 				327C033B2716A8F400DAEC42 /* KDAView.swift */,
 			);
 			path = MatchView;
@@ -757,7 +750,6 @@
 				322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */,
 				32B36F4B26C39C5D002D427D /* Environment.swift */,
 				799948BF2932D50000D79055 /* ImageCache.swift */,
-				322B893326CD425300DF67F9 /* WCDBController.swift */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -1321,7 +1313,6 @@
 				32F6A1B026C499E3009C00E1 /* MatchView.swift in Sources */,
 				322B89C726CFD2DE00DF67F9 /* SearchViewModel.swift in Sources */,
 				3252859126C9E8040030F15B /* AnalysisView.swift in Sources */,
-				322B893426CD425300DF67F9 /* WCDBController.swift in Sources */,
 				327C033C2716A8F400DAEC42 /* KDAView.swift in Sources */,
 				3252858F26C949940030F15B /* Date.swift in Sources */,
 				3261C907282F315100D47CDA /* HeroDetailView.swift in Sources */,
@@ -1362,7 +1353,6 @@
 				327772B326D9D735000A0A97 /* GameMode.swift in Sources */,
 				327772AF26D8BE63000A0A97 /* MatchListRowView.swift in Sources */,
 				322B893A26CD456400DF67F9 /* RecentMatchCodable.swift in Sources */,
-				3294463F26E1BC8F006E0D06 /* PlayerDetailView.swift in Sources */,
 				32D1605D26F30B7A00657449 /* StoreManager.swift in Sources */,
 				329849F426DCAEAE00A1032C /* HeroDatabase.swift in Sources */,
 				7985E7ED28E53A40007A43AF /* Role.swift in Sources */,
@@ -1456,7 +1446,6 @@
 				32F70B3026F714FD006E9B05 /* Provider.swift in Sources */,
 				32F70AA226F57F7E006E9B05 /* D2AWidget.swift in Sources */,
 				79A9891C2931EB59006AC847 /* Match.swift in Sources */,
-				32A26C53285949FE005E890F /* WCDBController.swift in Sources */,
 				79E01CAA291E35320073BF68 /* MatchListRowViewModel.swift in Sources */,
 				327B876D2850D9D800BBE1F8 /* ReadData.swift in Sources */,
 				32F70B1A26F6295B006E9B05 /* Color.swift in Sources */,
@@ -1515,7 +1504,6 @@
 				32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */,
 				32EC7F3728646BAC00A36AF6 /* WidgetOverlayView.swift in Sources */,
 				79A9891D2931EB5A006AC847 /* Match.swift in Sources */,
-				32A26C54285949FE005E890F /* WCDBController.swift in Sources */,
 				79E01CAB291E35320073BF68 /* MatchListRowViewModel.swift in Sources */,
 				327B876E2850D9D900BBE1F8 /* ReadData.swift in Sources */,
 				32F70B2126F6295C006E9B05 /* SKProduct.swift in Sources */,
