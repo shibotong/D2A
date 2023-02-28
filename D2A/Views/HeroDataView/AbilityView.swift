@@ -63,13 +63,6 @@ struct AbilityView: View {
             }
             .padding(.horizontal)
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                }
-            }
         } else {
             ProgressView()
         }
