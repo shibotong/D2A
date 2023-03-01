@@ -92,15 +92,24 @@ class HeroDatabase: ObservableObject {
             .CombineLatest($openDotaLoadFinish, $stratzLoadFinish)
             .map({ opendota, stratz in
                 if opendota == .error || stratz == .error {
-                    return .error
+                    return LoadingStatus.error
                 }
                 if opendota == .finish && stratz == .finish {
-                    return .finish
+                    return LoadingStatus.finish
                 }
-                return .loading
+                return LoadingStatus.loading
             })
-            .assign(to: \.status, on: self)
+            .sink { [weak self] status in
+                self?.status = status
+                if status == .finish || status == .error {
+                    self?.removeBinding()
+                }
+            }
             .store(in: &cancellable)
+    }
+    
+    private func removeBinding() {
+        self.cancellable = []
     }
 
     func fetchHeroWithID(id: Int) throws -> HeroCodable {
