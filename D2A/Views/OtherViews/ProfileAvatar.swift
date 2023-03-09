@@ -49,9 +49,6 @@ struct ProfileAvatar: View {
         .task {
             if let cacheImage = await fetchImage(userID: userID) {
                 await setImage(uiImage: cacheImage)
-                guard profile?.lastUpdate?.startOfDay != Date().startOfDay else {
-                    return
-                }
             }
             
             guard let imageURL, let newImage = await loadImage(urlString: imageURL) else {

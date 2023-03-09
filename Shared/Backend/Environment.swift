@@ -72,11 +72,11 @@ final class DotaEnvironment: ObservableObject {
     private func migration(registerID: String, userIDs: [String]) async {
         print("Migrating")
         if let userCodable = try? await OpenDotaController.shared.loadUserData(userid: registerID) {
-            _ = try? UserProfile.create(userCodable, favourite: true, register: true)
+            try? UserProfile.create(userCodable, favourite: true, register: true)
         }
         for userID in userIDs {
             if let userCodable = try? await OpenDotaController.shared.loadUserData(userid: userID) {
-                _ = try? UserProfile.create(userCodable, favourite: true, register: false)
+                try? UserProfile.create(userCodable, favourite: true, register: false)
             }
         }
         UserDefaults(suiteName: GROUP_NAME)?.set("", forKey: "dotaArmory.registerdID")

@@ -9,10 +9,22 @@ import Foundation
 import CoreData
 
 extension UserProfile {
-    static func create(_ profile: UserProfileCodable, favourite: Bool = false, register: Bool = false) throws -> UserProfile {
+    
+    /// Create a new `UserProfile` with favourite and register
+    static func create(_ profile: UserProfileCodable, favourite: Bool, register: Bool) throws {
         let viewContext = PersistenceController.shared.makeContext(author: "UserProfile")
         let newProfile = fetch(id: profile.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
-        newProfile.update(profile, favourite: favourite, register: register)
+        newProfile.update(profile)
+        newProfile.favourite = favourite
+        newProfile.register = register
+        try viewContext.save()
+        try viewContext.parent?.save()
+    }
+    
+    static func create(_ profile: UserProfileCodable) throws -> UserProfile {
+        let viewContext = PersistenceController.shared.makeContext(author: "UserProfile")
+        let newProfile = fetch(id: profile.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
+        newProfile.update(profile)
         try viewContext.save()
         try viewContext.parent?.save()
         return newProfile
@@ -65,7 +77,7 @@ extension UserProfile {
         viewContext.delete(user)
     }
     
-    func update(_ profile: UserProfileCodable, favourite: Bool, register: Bool) {
+    func update(_ profile: UserProfileCodable) {
         id = profile.id.description
         avatarfull = profile.avatarfull
         
@@ -80,9 +92,19 @@ extension UserProfile {
             self.leaderboard = Int16(leaderboard)
         }
         
-        self.favourite = favourite
-        self.register = register
         name = profile.name
         lastUpdate = Date()
+    }
+    
+    func update(favourite: Bool,
+                viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
+        self.favourite = favourite
+        try? viewContext.save()
+    }
+    
+    func update(register: Bool,
+                viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
+        self.register = register
+        try? viewContext.save()
     }
 }
