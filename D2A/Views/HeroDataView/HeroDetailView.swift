@@ -81,13 +81,14 @@ struct HeroDetailView: View {
     @ViewBuilder private func buildAbilities(hero: Hero) -> some View {
         let skillFrame: CGFloat = 30
         if let abilities = hero.abilities {
+            let filterAbilities = abilities.filter { ability in
+                let containHidden = ability.contains("hidden")
+                let containEmpty = ability.contains("empty")
+                return !containHidden && !containEmpty
+            }
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(abilities.filter { ability in
-                        let containHidden = ability.contains("hidden")
-                        let containEmpty = ability.contains("empty")
-                        return !containHidden && !containEmpty
-                    }, id: \.self) { abilityName in
+                    ForEach(filterAbilities, id: \.self) { abilityName in
                         let ability = vm.fetchAbility(name: abilityName)
                         let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
                         NavigationLink(destination: AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, abilityName: abilityName))) {
