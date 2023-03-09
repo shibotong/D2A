@@ -63,6 +63,12 @@ struct AbilityView: View {
             }
             .padding(.horizontal)
             .navigationBarTitleDisplayMode(.inline)
+            .task {
+                await viewModel.buildDetailView()
+            }
+            .onDisappear {
+                viewModel.removeVideos()
+            }
         } else {
             ProgressView()
         }
@@ -189,16 +195,16 @@ struct AbilityView: View {
                 Spacer()
                 switch type {
                 case .scepter:
-                    if let url = viewModel.scepterVideo {
-                        buildPlayer(player: viewModel.getPlayer(url: url), width: width)
+                    if let video = viewModel.scepterVideo {
+                        buildPlayer(asset: video, width: width)
                     }
                 case .shard:
-                    if let url = viewModel.shardVideo {
-                        buildPlayer(player: viewModel.getPlayer(url: url), width: width)
+                    if let video = viewModel.shardVideo {
+                        buildPlayer(asset: video, width: width)
                     }
                 case .non:
-                    if let url = viewModel.abilityVideo {
-                        buildPlayer(player: viewModel.getPlayer(url: url), width: width)
+                    if let video = viewModel.abilityVideo {
+                        buildPlayer(asset: video, width: width)
                     }
                 }
                 Spacer()
@@ -233,13 +239,14 @@ struct AbilityView: View {
         }
     }
     
-    @ViewBuilder private func buildPlayer(player: AVPlayer, width: CGFloat) -> some View {
+    @ViewBuilder private func buildPlayer(asset: AVAsset, width: CGFloat) -> some View {
+        let item = AVPlayerItem(asset: asset)
+        let player = AVPlayer(playerItem: item)
         VideoPlayer(player: player)
             .frame(width: width - 40, height: (width - 40.0) / 16.0 * 9.0)
             .disabled(true)
-            .onAppear {
-                player.play()
-                viewModel.addObserver(player: player)
+            .task {
+                await viewModel.playVideo(item: item, player: player)
             }
             .onDisappear {
                 player.pause()
