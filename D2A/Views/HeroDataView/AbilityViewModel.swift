@@ -14,36 +14,36 @@ class AbilityViewModel: ObservableObject {
     @Published var stratzAbility: AbilityQuery.Data.Constant.Ability?
     @Published var opentDotaAbility: Ability?
     
-    @Published var scepterVideo: URL?
-    @Published var shardVideo: URL?
-    @Published var abilityVideo: URL?
+    @Published var scepterVideo: AVAsset?
+    @Published var shardVideo: AVAsset?
+    @Published var abilityVideo: AVAsset?
     
     private var database = HeroDatabase.shared
-    
+    private var abilityName: String
+        
     init(heroID: Int, abilityName: String) {
+        print("build \(abilityName)")
         stratzAbility = database.fetchStratzAbility(name: abilityName)
         opentDotaAbility = database.fetchOpenDotaAbility(name: abilityName)
         self.heroID = heroID
-        Task {
-            await buildDetailView(name: abilityName)
-        }
+        self.abilityName = abilityName
     }
     
-    private func buildDetailView(name: String) async {
-        let abilityVideo = getVideoURL(name, type: .non)
-        let scepterVideo = getVideoURL(name, type: .scepter)
-        let shardVideo = getVideoURL(name, type: .shard)
+    func buildDetailView() async {
+        let abilityVideo = getVideoURL(abilityName, type: .non)
+        let scepterVideo = getVideoURL(abilityName, type: .scepter)
+        let shardVideo = getVideoURL(abilityName, type: .shard)
         await setVideoURL(ability: abilityVideo, scepter: scepterVideo, shard: shardVideo)
     }
     
     @MainActor
-    private func setVideoURL(ability: URL?, scepter: URL?, shard: URL?) {
+    private func setVideoURL(ability: AVAsset?, scepter: AVAsset?, shard: AVAsset?) {
         abilityVideo = ability
         scepterVideo = scepter
         shardVideo = shard
     }
     
-    private func getVideoURL(_ ability: String, type: ScepterType) -> URL? {
+    private func getVideoURL(_ ability: String, type: ScepterType) -> AVAsset? {
         guard let heroName = try? database.fetchHeroWithID(id: heroID).name.replacingOccurrences(of: "npc_dota_hero_", with: "") else {
             return nil
         }
@@ -58,25 +58,47 @@ class AbilityViewModel: ObservableObject {
             url = URL(string: "\(baseURL)/\(ability).mp4")
         }
         guard let url = url else { return nil }
-        return AVAsset(url: url).isPlayable ? url : nil
+        let asset = AVAsset(url: url)
+        return asset.isPlayable ? asset : nil
     }
     
-    func getPlayer(url: URL) -> AVPlayer {
-        let player = AVPlayer(url: url)
+    func getPlayer(asset: AVAsset) -> AVPlayer {
+        let player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
         player.isMuted = true
         return player
     }
     
-    func addObserver(player: AVPlayer) {
-        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
-                                               object: player.currentItem,
-                                               queue: nil) { _ in
-            player.seek(to: .zero)
-            player.play()
-        }
+    private func addObserver(player: AVPlayer) {
+        NotificationCenter.default.addObserver(
+            forName: .AVPlayerItemDidPlayToEndTime,
+            object: player.currentItem,
+            queue: nil) { _ in
+                player.seek(to: .zero)
+                player.play()
+            }
     }
     
     func removeObserver(player: AVPlayer) {
         NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
+    }
+    
+    func playVideo(item: AVPlayerItem, player: AVPlayer) async {
+        if item.status == .readyToPlay {
+            await player.play()
+            addObserver(player: player)
+        } else {
+            do {
+                try await Task.sleep(nanoseconds: 1_000_000_000)
+                await playVideo(item: item, player: player)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func removeVideos() {
+        abilityVideo = nil
+        shardVideo = nil
+        scepterVideo = nil
     }
 }
