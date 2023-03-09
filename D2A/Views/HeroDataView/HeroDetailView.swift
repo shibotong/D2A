@@ -61,14 +61,16 @@ struct HeroDetailView: View {
                         HStack {
                             ForEach(1..<4) { complexity in
                                 if complexity <= hero.complexity {
-                                    Circle()
-                                        .frame(width: 15)
+                                    RoundedRectangle(cornerRadius: 3)
+                                        .frame(width: 15, height: 15)
                                         .foregroundColor(.white)
+                                        .rotationEffect(.degrees(45))
                                 } else {
-                                    Circle()
+                                    RoundedRectangle(cornerRadius: 3)
                                         .stroke()
                                         .frame(width: 15, height: 15)
                                         .foregroundColor(.white)
+                                        .rotationEffect(.degrees(45))
                                 }
                             }
                         }
