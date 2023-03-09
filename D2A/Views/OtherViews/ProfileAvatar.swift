@@ -79,36 +79,4 @@ struct ProfileAvatar: View {
     private func setImage(uiImage: UIImage) async {
         image = uiImage
     }
-    
-//    private func fetchImage() async {
-//        guard let userid = profile.id else {
-//            return
-//        }
-//        let cacheImage = ImageCache.readImage(type: .avatar, id: userid)
-//        Dispatch.DispatchQueue.main.async {
-//            image = cacheImage
-//        }
-//        guard cacheImage == nil || profile.lastUpdate?.startOfDay != Date().startOfDay else {
-//            return
-//        }
-//        guard let newImage = await loadImage() else {
-//            return
-//        }
-//        ImageCache.saveImage(newImage, type: .avatar, id: userid)
-//        profile.lastUpdate = Date()
-//        try? viewContext.save()
-//        DispatchQueue.main.async {
-//            image = newImage
-//        }
-//    }
-//
-//    private func loadImage() async -> UIImage? {
-//        guard let urlString = profile.avatarfull,
-//              let url = URL(string: urlString),
-//              let (newImageData, _) = try? await URLSession.shared.data(from: url),
-//              let newImage = UIImage(data: newImageData) else {
-//            return nil
-//        }
-//        return newImage
-//    }
 }
