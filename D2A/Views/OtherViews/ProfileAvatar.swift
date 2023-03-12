@@ -51,11 +51,13 @@ struct ProfileAvatar: View {
                 await setImage(uiImage: cacheImage)
             }
             
-            guard let imageURL, let newImage = await loadImage(urlString: imageURL) else {
+            guard let profileLastUpdate = profile?.lastUpdate,
+                  !profileLastUpdate.isToday,
+                  let imageURL,
+                  let newImage = await loadImage(urlString: imageURL) else {
                 return
             }
             ImageCache.saveImage(newImage, type: .avatar, id: userID)
-            profile?.lastUpdate = Date()
             try? viewContext.save()
             await setImage(uiImage: newImage)
         }
