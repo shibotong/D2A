@@ -11,7 +11,7 @@ struct MatchListRowView: View {
     
     @Environment(\.horizontalSizeClass) var horizontalClass
     
-    var match: RecentMatch
+    @ObservedObject var viewModel: MatchListRowViewModel
     
     private var isCompact: Bool {
         return horizontalClass == .compact || DotaEnvironment.isInWidget()
@@ -46,7 +46,7 @@ struct MatchListRowView: View {
                     Spacer()
                     VStack(alignment: .trailing) {
                         gameLobbyText
-                        if let startTime = match.startTime {
+                        if let startTime = viewModel.startTime {
                             Text(startTime.toTime).bold()
                         }
                     }
@@ -58,7 +58,7 @@ struct MatchListRowView: View {
                 HStack {
                     gameLobbyText
                         .frame(width: 70, alignment: .leading)
-                    if let startTime = match.startTime {
+                    if let startTime = viewModel.startTime {
                         Text(startTime.toTime).bold().foregroundColor(.secondaryLabel)
                             .frame(width: 70, alignment: .trailing)
                     }
@@ -68,32 +68,32 @@ struct MatchListRowView: View {
     }
     
     private var gameLobbyText: some View {
-        Text(LocalizedStringKey(match.gameLobby.lobbyName))
-            .foregroundColor(match.gameLobby.lobbyName == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
+        Text(LocalizedStringKey(viewModel.gameLobby))
+            .foregroundColor(viewModel.gameLobby == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
     }
     
     private var heroImage: some View {
-        HeroImageView(heroID: Int(match.heroID), type: .icon)
+        HeroImageView(heroID: Int(viewModel.heroID), type: .icon)
             .frame(width: 30, height: 30)
     }
     
     private var kdaView: some View {
-        KDAView(kills: Int(match.kills),
-                deaths: Int(match.deaths),
-                assists: Int(match.assists),
+        KDAView(kills: viewModel.kills,
+                deaths: viewModel.deaths,
+                assists: viewModel.assists,
                 size: isCompact ? .caption : .body)
     }
     
     private var gameMode: some View {
-        Text(LocalizedStringKey(match.gameMode.modeName))
+        Text(LocalizedStringKey(viewModel.gameMode))
             .font(isCompact ? .caption2 : .body)
             .foregroundColor(.secondaryLabel)
     }
     
     var winLoss: some View {
-        Rectangle().frame(width: 15, height: 15).foregroundColor(Color(match.playerWin ? .systemGreen : .systemRed))
+        Rectangle().frame(width: 15, height: 15).foregroundColor(Color(viewModel.isWin ? .systemGreen : .systemRed))
             .overlay {
-                Text(match.playerWin ? "W" : "L")
+                Text(viewModel.isWin ? "W" : "L")
                     .foregroundColor(.white)
                     .font(.caption2)
             }
@@ -104,7 +104,7 @@ struct MatchListRowView: View {
             winLoss
             headingView
             Spacer()
-            if let size = Int(match.partySize), size != 0 {
+            if let size = viewModel.partySize, size != 0 {
                 buildParty(size: size)
                     .frame(alignment: .leading)
             }
@@ -144,43 +144,34 @@ struct MatchListRowView: View {
 struct MatchListRowView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            MatchListRowView(match: RecentMatch.example)
+            MatchListRowView(
+                viewModel: MatchListRowViewModel(
+                    isWin: true,
+                    heroID: 1,
+                    kills: 10,
+                    deaths: 10,
+                    assists: 10,
+                    partySize: 3,
+                    gameMode: "Ranked",
+                    lobbyName: "Ranked"))
                 .previewDevice(.iPad)
-                .previewLayout(.fixed(width: 500, height: 70))
+                .previewLayout(.fixed(width: 800, height: 70))
                 .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
                 .previewDisplayName("iPad")
-            MatchListRowView(match: RecentMatch.example)
+            MatchListRowView(
+                viewModel: MatchListRowViewModel(
+                    isWin: true,
+                    heroID: 1,
+                    kills: 10,
+                    deaths: 10,
+                    assists: 10,
+                    partySize: 3,
+                    gameMode: "Ranked",
+                    lobbyName: "Ranked"))
                 .previewDevice(.iPhone)
                 .previewLayout(.fixed(width: 375, height: 70))
                 .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
                 .previewDisplayName("iPhone")
         }
-    }
-}
-
-struct MatchListRowEmptyView: View {
-    @State var loading = false
-    var body: some View {
-        HStack {
-            Rectangle().frame(width: 20).padding(.vertical, 1)
-            VStack(alignment: .leading, spacing: 4) {
-                HStack {
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: 25, height: 25)
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: 100, height: 25)
-                }
-                RoundedRectangle(cornerRadius: 5)
-                    .frame(width: 50, height: 20)
-                RoundedRectangle(cornerRadius: 5)
-                    .frame(width: 80, height: 20)
-            }.padding(.vertical, 5)
-            Spacer()
-        }
-        .foregroundColor(loading ? Color(.systemGray6) : Color(.systemGray5))
-        .onAppear {
-            loading = true
-        }
-        .animation(Animation.default.repeatForever(), value: loading)
     }
 }

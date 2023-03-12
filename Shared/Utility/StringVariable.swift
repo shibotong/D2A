@@ -44,7 +44,7 @@ extension PreviewDevice {
     static let iPhoneSE = PreviewDevice("iPhone SE (3rd generation)")
     static let iPodTouch = PreviewDevice("iPod touch (7th generation)")
     static let iPadMini = PreviewDevice("iPad mini (6th generation)")
-    static let iPad = PreviewDevice("iPad (9th generation)")
+    static let iPad = PreviewDevice("iPad (10th generation)")
     static let iPadPro = PreviewDevice("iPad Pro (11-inch) (3rd generation)")
     static let iPadPro12 = PreviewDevice("iPad Pro (12-inch) (5th generation)")
 }
