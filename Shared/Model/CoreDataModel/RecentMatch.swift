@@ -10,20 +10,6 @@ import CoreData
 
 extension RecentMatch {
     
-    // Example movie for Xcode previews
-    static var example: RecentMatch {
-        
-        // Get the first movie from the in-memory Core Data store
-        let context = PersistenceController.preview.container.viewContext
-        
-        let fetchRequest: NSFetchRequest<RecentMatch> = RecentMatch.fetchRequest()
-        fetchRequest.fetchLimit = 1
-        
-        let results = try? context.fetch(fetchRequest)
-        
-        return (results?.first!)!
-    }
-    
     static func create(_ match: RecentMatchCodable, discardable: Bool = false) throws -> RecentMatch {
         let viewContext = PersistenceController.shared.makeContext(author: "RecentMatch")
         let newRecentMatch = fetch(match.id.description, userID: match.playerId?.description ?? "") ?? RecentMatch(context: viewContext)
