@@ -32,7 +32,7 @@ struct CalendarMatchListView: View {
                     VStack(spacing: 1) {
                         ForEach(vm.matches) { match in
                             NavigationLink(destination: MatchView(matchid: match.id!.description)) {
-                                MatchListRowView(match: match)
+                                MatchListRowView(viewModel: MatchListRowViewModel(match: match))
                                     .background(Color.systemBackground)
                             }
                         }

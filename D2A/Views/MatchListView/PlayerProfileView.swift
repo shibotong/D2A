@@ -128,7 +128,7 @@ struct PlayerProfileView: View {
                         NavigationLink(
                             destination: MatchView(matchid: matchID)
                         ) {
-                            MatchListRowView(match: match)
+                            MatchListRowView(viewModel: MatchListRowViewModel(match: match))
                                 .background(Color.systemBackground)
                         }.listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
                     }

@@ -73,7 +73,7 @@ struct LatestMatchWidgetEntryView: View {
             ForEach(matches) { match in
                 Divider()
                 Link(destination: URL(string: "d2aapp:match?matchid=\(match.id!)")!) {
-                    MatchListRowView(match: match)
+                    MatchListRowView(viewModel: MatchListRowViewModel(match: match))
                 }
                 .frame(height: rowHeight)
                 .disabled(!entry.subscription && entry.user != nil)
