@@ -6,7 +6,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.D2A</string>
+		<string>group.com.shibotong.D2A</string>
 	</array>
 	<key>com.apple.security.network.client</key>
 	<true/>

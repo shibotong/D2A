@@ -1818,7 +1818,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
+				DEVELOPMENT_TEAM = MRB66268H7;
 				INFOPLIST_FILE = "$(SRCROOT)/D2AWidget/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1827,7 +1827,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.D2AWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmoryWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -1845,7 +1845,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
+				DEVELOPMENT_TEAM = MRB66268H7;
 				INFOPLIST_FILE = "$(SRCROOT)/D2AWidget/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1854,7 +1854,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.D2AWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmoryWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -1869,7 +1869,7 @@
 				CODE_SIGN_ENTITLEMENTS = D2AWidgetIntentHandler/D2AWidgetIntentHandlerDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
+				DEVELOPMENT_TEAM = MRB66268H7;
 				INFOPLIST_FILE = "$(SRCROOT)/D2AWidgetIntentHandler/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1878,7 +1878,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.D2AWidgetIntentHandler;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmoryWidgetIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -1893,7 +1893,7 @@
 				CODE_SIGN_ENTITLEMENTS = D2AWidgetIntentHandler/D2AWidgetIntentHandlerRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
+				DEVELOPMENT_TEAM = MRB66268H7;
 				INFOPLIST_FILE = "$(SRCROOT)/D2AWidgetIntentHandler/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1902,7 +1902,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.D2AWidgetIntentHandler;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmoryWidgetIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
