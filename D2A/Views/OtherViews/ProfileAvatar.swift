@@ -47,23 +47,23 @@ struct ProfileAvatar: View {
             }
         }
         .task {
-            if let cacheImage = await fetchImage(userID: userID) {
+            let cacheImage = fetchImage(userID: userID)
+            
+            if let cacheImage {
                 await setImage(uiImage: cacheImage)
             }
-            
-            guard let profileLastUpdate = profile?.lastUpdate,
-                  !profileLastUpdate.isToday,
-                  let imageURL,
-                  let newImage = await loadImage(urlString: imageURL) else {
-                return
+        
+            if profile == nil || cacheImage == nil || profile!.shouldUpdate {
+                guard let imageURL, let newImage = await loadImage(urlString: imageURL) else {
+                    return
+                }
+                ImageCache.saveImage(newImage, type: .avatar, id: userID)
+                await setImage(uiImage: newImage)
             }
-            ImageCache.saveImage(newImage, type: .avatar, id: userID)
-            try? viewContext.save()
-            await setImage(uiImage: newImage)
         }
     }
     
-    private func fetchImage(userID: String) async -> UIImage? {
+    private func fetchImage(userID: String) -> UIImage? {
         let cacheImage = ImageCache.readImage(type: .avatar, id: userID)
         return cacheImage
     }
