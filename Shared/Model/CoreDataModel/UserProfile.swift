@@ -10,6 +10,13 @@ import CoreData
 
 extension UserProfile {
     
+    var shouldUpdate: Bool {
+        guard let lastUpdate else {
+            return true
+        }
+        return !lastUpdate.isToday
+    }
+    
     /// Create a new `UserProfile` with favourite and register
     static func create(_ profile: UserProfileCodable, favourite: Bool, register: Bool) throws {
         let viewContext = PersistenceController.shared.makeContext(author: "UserProfile")
