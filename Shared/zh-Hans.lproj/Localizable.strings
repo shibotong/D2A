@@ -345,3 +345,15 @@
 "Marci" = "玛西";
 "Primal Beast" = "兽";
 "Muerta" = "琼英碧灵";
+
+// Ability
+"No" = "否";
+"Yes" = "是";
+"Pure" = "纯粹";
+"Magical" = "魔法";
+"Physical" = "物理";
+"Passive" = "被动";
+"Unit Target" = "单位目标";
+"Enemy Units" = "敌方单位";
+"Point Target" = "点目标";
+"No Target" = "无目标";
