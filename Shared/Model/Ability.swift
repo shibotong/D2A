@@ -104,7 +104,7 @@ enum StringOrArray: Codable {
             guard !array.isEmpty else {
                 return nil
             }
-            return array.joined(separator: "/")
+            return array.joined(separator: " / ")
         }
     }
 }
