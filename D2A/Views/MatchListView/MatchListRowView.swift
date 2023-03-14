@@ -60,7 +60,7 @@ struct MatchListRowView: View {
                         .frame(width: 70, alignment: .leading)
                     if let startTime = viewModel.startTime {
                         Text(startTime.toTime).bold().foregroundColor(.secondaryLabel)
-                            .frame(width: 70, alignment: .trailing)
+                            .frame(width: 100, alignment: .trailing)
                     }
                 }.font(.body)
             }
@@ -152,7 +152,7 @@ struct MatchListRowView_Previews: PreviewProvider {
                     deaths: 10,
                     assists: 10,
                     partySize: 3,
-                    gameMode: "Ranked",
+                    gameMode: "All Pick",
                     lobbyName: "Ranked"))
                 .previewDevice(.iPad)
                 .previewLayout(.fixed(width: 800, height: 70))

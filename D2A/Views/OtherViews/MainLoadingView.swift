@@ -44,13 +44,13 @@ struct MainLoadingView: View {
     }
 }
 
-// struct MainLoadingView_Previews: PreviewProvider {
-//    @State static var status: LoadingStatus = .error
-//    static var previews: some View {
-//        MainLoadingView(status: $status)
-//            .preferredColorScheme(.light)
-//        MainLoadingView(status: $status)
-//            .preferredColorScheme(.dark)
-//        
-//    }
-// }
+ struct MainLoadingView_Previews: PreviewProvider {
+    @State static var status: LoadingStatus = .error
+    static var previews: some View {
+        MainLoadingView(status: $status)
+            .preferredColorScheme(.light)
+        MainLoadingView(status: $status)
+            .preferredColorScheme(.dark)
+        
+    }
+ }
