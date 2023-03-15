@@ -1,0 +1,28 @@
+{
+  "schemaName": "StratzAPI",
+  "input" : {
+    "operationSearchPaths" : [
+      "**/Shared/GraphQL/*.graphql"
+    ],
+    "schemaSearchPaths" : [
+      "**/Shared/GraphQL/*.graphqls"
+    ]
+  },
+  "output" : {
+    "testMocks" : {
+      "none" : {
+      }
+    },
+    "schemaTypes" : {
+      "path" : "./StratzAPI",
+      "moduleType" : {
+        "swiftPackageManager" : {
+        }
+      }
+    },
+    "operations" : {
+      "inSchemaModule" : {
+      }
+    }
+  }
+}

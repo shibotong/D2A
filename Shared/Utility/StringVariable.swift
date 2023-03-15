@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import StratzAPI
 
 let productIDs = ["D2APRO"]// ["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnually"]
 let GROUP_NAME = "group.D2A"
