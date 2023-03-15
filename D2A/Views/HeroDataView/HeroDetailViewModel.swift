@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import CoreData
+import StratzAPI
 
 class HeroDetailViewModel: ObservableObject {
     @Published var hero: Hero?
@@ -16,7 +17,7 @@ class HeroDetailViewModel: ObservableObject {
     private var database: HeroDatabase = HeroDatabase.shared
     
     init(heroID: Int) {
-        hero = Hero.fetchHero(id: Double(heroID))
+        hero = Hero.fetchHero(id: heroID.description)
         self.heroID = heroID
     }
     
@@ -35,7 +36,7 @@ class HeroDetailViewModel: ObservableObject {
     
     /// Download hero from API
     func downloadHero() {
-        Network.shared.apollo.fetch(query: HeroQuery(id: Double(heroID))) { [weak self] result in
+        Network.shared.apollo.fetch(query: HeroQuery(id: heroID.description)) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let graphQLResult):

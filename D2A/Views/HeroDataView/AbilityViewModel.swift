@@ -7,11 +7,12 @@
 
 import Foundation
 import AVFoundation
+import StratzAPI
 
 class AbilityViewModel: ObservableObject {
     let heroID: Int
     
-    @Published var stratzAbility: AbilityQuery.Data.Constant.Ability?
+    @Published var stratzAbility: AbilityQuery.Data.Constants.Ability?
     @Published var opentDotaAbility: Ability?
     
     @Published var scepterVideo: AVAsset?
