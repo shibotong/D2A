@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AVKit
+import StratzAPI
 
 enum ScepterType: String {
     case scepter
@@ -74,7 +75,7 @@ struct AbilityView: View {
         }
     }
     
-    @ViewBuilder private func buildTitle(openDotaAbility: Ability, stratzAbility: AbilityQuery.Data.Constant.Ability) -> some View {
+    @ViewBuilder private func buildTitle(openDotaAbility: Ability, stratzAbility: AbilityQuery.Data.Constants.Ability) -> some View {
         HStack(alignment: .top, spacing: 10) {
             let parsedimgURL = openDotaAbility.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
             AbilityImage(viewModel: AbilityImageViewModel(name: openDotaAbility.name ?? "", urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 70, cornerRadius: 20))
@@ -141,7 +142,7 @@ struct AbilityView: View {
     }
     
     @ViewBuilder private func buildDescription(ability: Ability,
-                                               stratz: AbilityQuery.Data.Constant.Ability,
+                                               stratz: AbilityQuery.Data.Constants.Ability,
                                                proxy: GeometryProxy) -> some View {
         VStack {
             let description = stratz.language?.description?.compactMap { $0 }.joined(separator: "\n") ?? ""

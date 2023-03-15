@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import StratzAPI
 
 extension Hero {
     // MARK: - Error
@@ -15,8 +16,8 @@ extension Hero {
     }
     
     // MARK: - Static func
-    /// Create `Hero` with `HeroModel` and `HeroQuery.Data.Constant.Hero` and save into Core Data
-    static func createHero(_ queryHero: HeroQuery.Data.Constant.Hero, model: HeroCodable, abilities: [String] = []) throws -> Hero {
+    /// Create `Hero` with `HeroModel` and `HeroQuery.Data.Constants.Hero` and save into Core Data
+    static func createHero(_ queryHero: HeroQuery.Data.Constants.Hero, model: HeroCodable, abilities: [String] = []) throws -> Hero {
         let viewContext = PersistenceController.shared.container.viewContext
         
         guard let heroID = queryHero.id,
@@ -26,13 +27,16 @@ extension Hero {
             throw Hero.CoreDataError.decodingError
         }
         let hero = fetchHero(id: heroID) ?? Hero(context: viewContext)
-        
+        guard let heroID = Double(heroID) else {
+            throw CoreDataError.decodingError
+        }
         // data from Stratz
         hero.lastFetch = Date()
         hero.id = heroID
         hero.displayName = queryHero.displayName
         hero.name = queryHero.name
-        hero.complexity = Int16(heroStats.complexity ?? 0)
+        let complexity = Int(heroStats.complexity ?? "1") ?? 1
+        hero.complexity = Int16(complexity)
         hero.visionDaytimeRange = heroStats.visionDaytimeRange ?? 1800
         hero.visionNighttimeRange = heroStats.visionNighttimeRange ?? 800
         hero.roles = NSSet(array: try heroRoles.map({ return try Role.createRole($0) }))
@@ -73,10 +77,13 @@ extension Hero {
     }
     
     /// Fetch `Hero` with `id` in CoreData
-    static func fetchHero(id: Double) -> Hero? {
+    static func fetchHero(id: String) -> Hero? {
+        guard let heroID = Double(id) else {
+            return nil
+        }
         let viewContext = PersistenceController.shared.container.viewContext
         let fetchHero: NSFetchRequest<Hero> = Hero.fetchRequest()
-        fetchHero.predicate = NSPredicate(format: "id == %f", id)
+        fetchHero.predicate = NSPredicate(format: "id == %f", heroID)
         
         let results = try? viewContext.fetch(fetchHero)
         return results?.first
