@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import StratzAPI
 
 extension Role {
     enum CoreDataError: Error {
@@ -13,7 +14,7 @@ extension Role {
         case decodingError
     }
     
-    static func createRole(_ role: HeroQuery.Data.Constant.Hero.Role?) throws -> Role {
+    static func createRole(_ role: HeroQuery.Data.Constants.Hero.Role?) throws -> Role {
         guard let role = role else {
             throw CoreDataError.nilValue
         }
@@ -24,7 +25,7 @@ extension Role {
             throw CoreDataError.decodingError
         }
         newRole.roleId = roleID.rawValue
-        newRole.level = level
+        newRole.level = Double(level) ?? 0
         try viewContext.save()
         return newRole
     }

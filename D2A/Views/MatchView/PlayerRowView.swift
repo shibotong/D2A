@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StratzAPI
 
 struct PlayerRowView: View {
     var player: Player

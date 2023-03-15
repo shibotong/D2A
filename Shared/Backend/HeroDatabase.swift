@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import StratzAPI
 
 enum LoadingStatus {
     case loading, error, finish
@@ -31,7 +32,7 @@ class HeroDatabase: ObservableObject {
     private var heroAbilities = [String: HeroAbility]()
     private var talentData = [String: String]()
     private var scepterData = [HeroScepter]()
-    private var apolloAbilities = [AbilityQuery.Data.Constant.Ability]()
+    private var apolloAbilities = [AbilityQuery.Data.Constants.Ability]()
     
     static var shared = HeroDatabase()
     static var preview: HeroDatabase {
@@ -159,7 +160,7 @@ class HeroDatabase: ObservableObject {
         return abilities[name]
     }
     
-    func fetchStratzAbility(name: String) -> AbilityQuery.Data.Constant.Ability? {
+    func fetchStratzAbility(name: String) -> AbilityQuery.Data.Constants.Ability? {
         let ability = apolloAbilities.first { $0.name == name }
         return ability
     }
@@ -267,7 +268,8 @@ class HeroDatabase: ObservableObject {
     
     // MARK: - private functions
     private func loadStratzAbilities() {
-        Network.shared.apollo.fetch(query: AbilityQuery(language: languageCode)) { [weak self] result in
+        
+        Network.shared.apollo.fetch(query: AbilityQuery(language: GraphQLNullable<GraphQLEnum<Language>>.init(Language(rawValue: languageCode.rawValue) ?? .english))) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
                 if let abilitiesConnection = graphQLResult.data?.constants?.abilities {

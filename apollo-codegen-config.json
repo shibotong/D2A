@@ -1,5 +1,5 @@
 {
-  "schemaName" : "D2A",
+  "schemaName": "StratzAPI",
   "input" : {
     "operationSearchPaths" : [
       "**/Shared/GraphQL/*.graphql"
@@ -14,10 +14,9 @@
       }
     },
     "schemaTypes" : {
-      "path" : "./Shared/GraphQL",
+      "path" : "./StratzAPI",
       "moduleType" : {
-        "embeddedInTarget" : {
-          "name" : "D2A"
+        "swiftPackageManager" : {
         }
       }
     },

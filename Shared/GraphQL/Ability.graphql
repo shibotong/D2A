@@ -4,6 +4,7 @@ query Ability($language: Language) {
       id
       name
       language {
+        displayName
         description
         attributes
         lore
