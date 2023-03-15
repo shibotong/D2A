@@ -1,0 +1,29 @@
+{
+  "schemaName" : "D2A",
+  "input" : {
+    "operationSearchPaths" : [
+      "**/Shared/GraphQL/*.graphql"
+    ],
+    "schemaSearchPaths" : [
+      "**/Shared/GraphQL/*.graphqls"
+    ]
+  },
+  "output" : {
+    "testMocks" : {
+      "none" : {
+      }
+    },
+    "schemaTypes" : {
+      "path" : "./Shared/GraphQL",
+      "moduleType" : {
+        "embeddedInTarget" : {
+          "name" : "D2A"
+        }
+      }
+    },
+    "operations" : {
+      "inSchemaModule" : {
+      }
+    }
+  }
+}

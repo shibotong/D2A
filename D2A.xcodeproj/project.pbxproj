@@ -260,6 +260,17 @@
 		7965F636293ADE1900922F99 /* RegisteredPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */; };
 		796FE19C29AAF659003379EB /* AbilityImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796FE19B29AAF659003379EB /* AbilityImage.swift */; };
 		796FE19E29AB006C003379EB /* AbilityImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796FE19D29AB006C003379EB /* AbilityImageViewModel.swift */; };
+		7977FD9D29C173680034D3EA /* apollo-ios-cli in Frameworks */ = {isa = PBXBuildFile; productRef = 7977FD9C29C173680034D3EA /* apollo-ios-cli */; };
+		7977FD9F29C1736B0034D3EA /* ApolloCodegenLib in Frameworks */ = {isa = PBXBuildFile; productRef = 7977FD9E29C1736B0034D3EA /* ApolloCodegenLib */; };
+		7977FDA129C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
+		7977FDA229C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
+		7977FDA329C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
+		7977FDA529C17A230034D3EA /* Operations in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA429C17A230034D3EA /* Operations */; };
+		7977FDA629C17A230034D3EA /* Operations in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA429C17A230034D3EA /* Operations */; };
+		7977FDA729C17A230034D3EA /* Operations in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA429C17A230034D3EA /* Operations */; };
+		7977FDA929C17A330034D3EA /* Schema in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA829C17A330034D3EA /* Schema */; };
+		7977FDAA29C17A330034D3EA /* Schema in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA829C17A330034D3EA /* Schema */; };
+		7977FDAB29C17A330034D3EA /* Schema in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA829C17A330034D3EA /* Schema */; };
 		79800DA4294C2E1000662E2F /* NSNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79800DA3294C2E1000662E2F /* NSNumber.swift */; };
 		79800DA5294C2E1000662E2F /* NSNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79800DA3294C2E1000662E2F /* NSNumber.swift */; };
 		79800DA6294C2E1000662E2F /* NSNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79800DA3294C2E1000662E2F /* NSNumber.swift */; };
@@ -497,6 +508,9 @@
 		7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredPlayerView.swift; sourceTree = "<group>"; };
 		796FE19B29AAF659003379EB /* AbilityImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityImage.swift; sourceTree = "<group>"; };
 		796FE19D29AB006C003379EB /* AbilityImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityImageViewModel.swift; sourceTree = "<group>"; };
+		7977FDA029C1770B0034D3EA /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		7977FDA429C17A230034D3EA /* Operations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Operations; sourceTree = "<group>"; };
+		7977FDA829C17A330034D3EA /* Schema */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Schema; sourceTree = "<group>"; };
 		79800DA3294C2E1000662E2F /* NSNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNumber.swift; sourceTree = "<group>"; };
 		79837B52294C189200458529 /* PlayerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowView.swift; sourceTree = "<group>"; };
 		79837B54294C18FE00458529 /* DamageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageView.swift; sourceTree = "<group>"; };
@@ -514,7 +528,6 @@
 		79A988FF2931DCE1006AC847 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		79A989032931E7F1006AC847 /* PermanentBuff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentBuff.swift; sourceTree = "<group>"; };
 		79A989262931FA50006AC847 /* D2AProStore.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = D2AProStore.storekit; sourceTree = "<group>"; };
-		79B1630128DD5A08009B2AE2 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		79B1630228DD5A29009B2AE2 /* Ability.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Ability.graphql; sourceTree = "<group>"; };
 		79B1630328DD5A31009B2AE2 /* Hero.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hero.graphql; sourceTree = "<group>"; };
 		79B1630428DD5B33009B2AE2 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -540,7 +553,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
+				7977FD9D29C173680034D3EA /* apollo-ios-cli in Frameworks */,
 				79B162FE28DD596D009B2AE2 /* Apollo in Frameworks */,
+				7977FD9F29C1736B0034D3EA /* ApolloCodegenLib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -967,7 +982,9 @@
 		79B1630028DD59FC009B2AE2 /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				79B1630128DD5A08009B2AE2 /* schema.json */,
+				7977FDA829C17A330034D3EA /* Schema */,
+				7977FDA429C17A230034D3EA /* Operations */,
+				7977FDA029C1770B0034D3EA /* schema.graphqls */,
 				79B1630228DD5A29009B2AE2 /* Ability.graphql */,
 				79B1630328DD5A31009B2AE2 /* Hero.graphql */,
 				79B1630428DD5B33009B2AE2 /* API.swift */,
@@ -1020,6 +1037,8 @@
 			name = D2A;
 			packageProductDependencies = (
 				79B162FD28DD596D009B2AE2 /* Apollo */,
+				7977FD9C29C173680034D3EA /* apollo-ios-cli */,
+				7977FD9E29C1736B0034D3EA /* ApolloCodegenLib */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* D2A.app */;
@@ -1135,6 +1154,7 @@
 				323ADB22272B91F500253124 /* game_mode.json in Resources */,
 				323ADB2E272B91F500253124 /* ancients.json in Resources */,
 				323ADB36272B91F500253124 /* hero_abilities.json in Resources */,
+				7977FDA529C17A230034D3EA /* Operations in Resources */,
 				323ADB31272B91F500253124 /* patchnotes.json in Resources */,
 				323ADB2A272B91F500253124 /* neutral_abilities.json in Resources */,
 				323ADB26272B91F500253124 /* abilities.json in Resources */,
@@ -1155,6 +1175,8 @@
 				323ADB20272B91F500253124 /* item_colors.json in Resources */,
 				32B36F1626C38822002D427D /* Preview Assets.xcassets in Resources */,
 				323ADB25272B91F500253124 /* items.json in Resources */,
+				7977FDA929C17A330034D3EA /* Schema in Resources */,
+				7977FDA129C1770B0034D3EA /* schema.graphqls in Resources */,
 				323ADB23272B91F500253124 /* heroes.json in Resources */,
 				3214C0D426F0E44500C377EF /* terms-of-use.md in Resources */,
 				323ADB29272B91F500253124 /* cluster.json in Resources */,
@@ -1189,12 +1211,14 @@
 				79D5281F28DD73CF0070841D /* secrets.json in Resources */,
 				323ADB64272E03E300253124 /* aghs_desc.json in Resources */,
 				323ADB6A272E03E300253124 /* xp_level.json in Resources */,
+				7977FDA229C1770B0034D3EA /* schema.graphqls in Resources */,
 				323ADB5F272E03E300253124 /* items.json in Resources */,
 				323ADB58272E03E300253124 /* permanent_buffs.json in Resources */,
 				32756CC128535CA800F38B81 /* Localizable.strings in Resources */,
 				327A7B8227152387001F964D /* Assets.xcassets in Resources */,
 				32F70AAE26F5803C006E9B05 /* sampleRecentMatch.json in Resources */,
 				32F70AA426F57F7E006E9B05 /* Assets.xcassets in Resources */,
+				7977FDA629C17A230034D3EA /* Operations in Resources */,
 				32F70B2326F6296C006E9B05 /* sampleMatch.json in Resources */,
 				327B87712850DA6800BBE1F8 /* sampleAbility.json in Resources */,
 				327B876A2850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */,
@@ -1206,6 +1230,7 @@
 				323ADB67272E03E300253124 /* ability_ids.json in Resources */,
 				323ADB62272E03E300253124 /* player_colors.json in Resources */,
 				323ADB5D272E03E300253124 /* hero_abilities.json in Resources */,
+				7977FDAA29C17A330034D3EA /* Schema in Resources */,
 				323ADB70272E03E300253124 /* chat_wheel.json in Resources */,
 				32F70ADF26F60BDA006E9B05 /* sampleProfile.json in Resources */,
 			);
@@ -1217,7 +1242,9 @@
 			files = (
 				327B87702850DA6500BBE1F8 /* sampleHero.json in Resources */,
 				323ADB8A272E03E500253124 /* hero_names.json in Resources */,
+				7977FDA729C17A230034D3EA /* Operations in Resources */,
 				323ADB8B272E03E500253124 /* heroes.json in Resources */,
+				7977FDA329C1770B0034D3EA /* schema.graphqls in Resources */,
 				323ADB96272E03E500253124 /* abilities.json in Resources */,
 				323ADB9D272E03E500253124 /* region.json in Resources */,
 				327B876B2850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */,
@@ -1241,6 +1268,7 @@
 				323ADB9E272E03E500253124 /* patch.json in Resources */,
 				32F70B2426F6296C006E9B05 /* sampleMatch.json in Resources */,
 				79D5282028DD73CF0070841D /* secrets.json in Resources */,
+				7977FDAB29C17A330034D3EA /* Schema in Resources */,
 				323ADB8E272E03E500253124 /* hero_abilities.json in Resources */,
 				32F70B2526F6296F006E9B05 /* sampleProfile.json in Resources */,
 				327A7B8327152388001F964D /* Assets.xcassets in Resources */,
@@ -1973,6 +2001,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7977FD9C29C173680034D3EA /* apollo-ios-cli */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79B162FC28DD596D009B2AE2 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = "apollo-ios-cli";
+		};
+		7977FD9E29C1736B0034D3EA /* ApolloCodegenLib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79B162FC28DD596D009B2AE2 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloCodegenLib;
+		};
 		79B162FD28DD596D009B2AE2 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 79B162FC28DD596D009B2AE2 /* XCRemoteSwiftPackageReference "apollo-ios" */;
