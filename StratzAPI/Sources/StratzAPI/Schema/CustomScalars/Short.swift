@@ -7,4 +7,4 @@
 
 import ApolloAPI
 
-public typealias Short = String
+public typealias Short = Double
