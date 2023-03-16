@@ -88,7 +88,7 @@ struct Provider: IntentTimelineProvider {
     
     private func loadNewMatches(for userID: String) async -> [RecentMatch] {
         let existMatches = RecentMatch.fetch(userID: userID, count: 1)
-        await OpenDotaController.shared.loadRecentMatch(userid: userID, lastMatch: existMatches.first)
+        await OpenDotaController.shared.loadRecentMatch(userid: userID, lastMatchStartTime: existMatches.first?.startTime?.timeIntervalSince1970)
         let newMatches = RecentMatch.fetch(userID: userID, count: 10)
         return newMatches
     }
