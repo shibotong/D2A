@@ -25,7 +25,7 @@ extension Role {
             throw CoreDataError.decodingError
         }
         newRole.roleId = roleID.rawValue
-        newRole.level = Double(level) ?? 0
+        newRole.level = level
         try viewContext.save()
         return newRole
     }
