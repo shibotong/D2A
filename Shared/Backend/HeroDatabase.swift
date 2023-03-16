@@ -300,8 +300,4 @@ class HeroDatabase: ObservableObject {
             }
         }
     }
-    
-    private func networkFetchFinishCheck() {
-        
-    }
 }
