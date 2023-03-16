@@ -292,6 +292,8 @@ class HeroDatabase: ObservableObject {
                 }
             case .failure(let error):
                 print(error.localizedDescription)
+//                DotaEnvironment.shared.error = true
+//                DotaEnvironment.shared.errorMessage = error.localizedDescription
                 DispatchQueue.main.async {
                     self?.stratzLoadFinish = .error
                 }
