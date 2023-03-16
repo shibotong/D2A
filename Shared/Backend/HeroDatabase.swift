@@ -93,6 +93,9 @@ class HeroDatabase: ObservableObject {
             .CombineLatest($openDotaLoadFinish, $stratzLoadFinish)
             .map({ opendota, stratz in
                 if opendota == .error || stratz == .error {
+                    print("Some data not loaded correctly")
+                    print("OpenDota: \(opendota)")
+                    print("Stratz: \(stratz)")
                     return LoadingStatus.error
                 }
                 if opendota == .finish && stratz == .finish {
