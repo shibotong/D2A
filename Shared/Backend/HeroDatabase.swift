@@ -93,9 +93,6 @@ class HeroDatabase: ObservableObject {
             .CombineLatest($openDotaLoadFinish, $stratzLoadFinish)
             .map({ opendota, stratz in
                 if opendota == .error || stratz == .error {
-                    print("Some data not loaded correctly")
-                    print("OpenDota: \(opendota)")
-                    print("Stratz: \(stratz)")
                     return LoadingStatus.error
                 }
                 if opendota == .finish && stratz == .finish {
@@ -271,7 +268,6 @@ class HeroDatabase: ObservableObject {
     
     // MARK: - private functions
     private func loadStratzAbilities() {
-        
         Network.shared.apollo.fetch(query: AbilityQuery(language: GraphQLNullable<GraphQLEnum<Language>>.init(Language(rawValue: languageCode.rawValue) ?? .english))) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
@@ -293,7 +289,7 @@ class HeroDatabase: ObservableObject {
                     print(message)
                 }
             case .failure(let error):
-                print(error)
+                print(error.localizedDescription)
                 DispatchQueue.main.async {
                     self?.stratzLoadFinish = .error
                 }

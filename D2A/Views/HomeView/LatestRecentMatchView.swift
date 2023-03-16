@@ -54,7 +54,7 @@ struct LatestRecentMatchView: View {
         }
         .frame(height: 70)
         .task {
-            await OpenDotaController.shared.loadRecentMatch(userid: userID, lastMatch: latestMatch.first)
+            await OpenDotaController.shared.loadRecentMatch(userid: userID, lastMatchStartTime: latestMatch.first?.startTime?.timeIntervalSince1970)
         }
     }
 }
