@@ -93,8 +93,6 @@ class HeroDatabase: ObservableObject {
             .CombineLatest($openDotaLoadFinish, $stratzLoadFinish)
             .map({ opendota, stratz in
                 if opendota == .error || stratz == .error {
-                    DotaEnvironment.shared.error = true
-                    DotaEnvironment.shared.errorMessage = "Loading Hero Data Failed\nOpenDota:\(opendota) Stratz: \(stratz)"
                     return LoadingStatus.error
                 }
                 if opendota == .finish && stratz == .finish {
@@ -292,8 +290,8 @@ class HeroDatabase: ObservableObject {
                 }
             case .failure(let error):
                 print(error.localizedDescription)
-//                DotaEnvironment.shared.error = true
-//                DotaEnvironment.shared.errorMessage = error.localizedDescription
+                DotaEnvironment.shared.error = true
+                DotaEnvironment.shared.errorMessage = error.localizedDescription
                 DispatchQueue.main.async {
                     self?.stratzLoadFinish = .error
                 }
