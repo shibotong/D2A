@@ -94,7 +94,7 @@ final class DotaEnvironment: ObservableObject {
         }
         
         let distance = currentTime - lastRefresh
-        if distance > 60 {
+        if distance > refreshDistance {
             refreshHandler[userid] = currentTime
             return true
         } else {
