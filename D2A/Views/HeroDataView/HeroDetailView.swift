@@ -142,7 +142,7 @@ struct HeroDetailView: View {
             HStack(spacing: 5) {
                 if let leftSideTalent = talent.first { $0.slot == level * 2 - 1 },
                    let abilityId = leftSideTalent.abilityId {
-                       Text(vm.fetchTalentName(id: Int(abilityId).description))
+                       Text(vm.fetchTalentName(id: abilityId))
                            .font(.system(size: 10))
                            .frame(width: (proxy.size.width - 40) / 2)
                    } else {
@@ -156,7 +156,7 @@ struct HeroDetailView: View {
                     .background(Circle().stroke().foregroundColor(.yellow))
                 if let rightSideTalent = talent.first { $0.slot == level * 2 - 2 },
                 let abilityId = rightSideTalent.abilityId {
-                    Text(vm.fetchTalentName(id: Int(abilityId).description))
+                    Text(vm.fetchTalentName(id: abilityId))
                         .font(.system(size: 10))
                         .frame(width: (proxy.size.width - 30) / 2)
                 } else {
