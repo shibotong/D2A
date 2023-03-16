@@ -32,7 +32,8 @@ extension Hero {
         hero.id = heroID
         hero.displayName = queryHero.displayName
         hero.name = queryHero.name
-        hero.complexity = Int16(heroStats.complexity ?? 0)
+        let complexity = Int(heroStats.complexity ?? "1") ?? 1
+        hero.complexity = Int16(complexity)
         hero.visionDaytimeRange = heroStats.visionDaytimeRange ?? 1800
         hero.visionNighttimeRange = heroStats.visionNighttimeRange ?? 800
         hero.roles = NSSet(array: try heroRoles.map({ return try Role.createRole($0) }))
@@ -73,10 +74,13 @@ extension Hero {
     }
     
     /// Fetch `Hero` with `id` in CoreData
-    static func fetchHero(id: Double) -> Hero? {
+    static func fetchHero(id: String) -> Hero? {
+        guard let heroID = Double(id) else {
+            return nil
+        }
         let viewContext = PersistenceController.shared.container.viewContext
         let fetchHero: NSFetchRequest<Hero> = Hero.fetchRequest()
-        fetchHero.predicate = NSPredicate(format: "id == %f", id)
+        fetchHero.predicate = NSPredicate(format: "id == %f", heroID)
         
         let results = try? viewContext.fetch(fetchHero)
         return results?.first

@@ -24,8 +24,8 @@ extension Talent {
               let slot = talent.slot else {
             throw CoreDataError.decodingError
         }
-        newTalent.abilityId = talentID
-        newTalent.slot = Int32(slot)
+        newTalent.abilityId = Double(talentID) ?? 0
+        newTalent.slot = Int32(slot) ?? 0
         try viewContext.save()
         return newTalent
     }

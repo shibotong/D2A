@@ -18,7 +18,7 @@ class HeroDetailViewModel: ObservableObject {
     private var database: HeroDatabase = HeroDatabase.shared
     
     init(heroID: Int) {
-        hero = Hero.fetchHero(id: Double(heroID))
+        hero = Hero.fetchHero(id: heroID.description)
         self.heroID = heroID
     }
     
