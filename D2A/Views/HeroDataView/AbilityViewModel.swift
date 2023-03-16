@@ -23,7 +23,6 @@ class AbilityViewModel: ObservableObject {
     private var abilityName: String
         
     init(heroID: Int, abilityName: String) {
-        print("build \(abilityName)")
         stratzAbility = database.fetchStratzAbility(name: abilityName)
         opentDotaAbility = database.fetchOpenDotaAbility(name: abilityName)
         self.heroID = heroID

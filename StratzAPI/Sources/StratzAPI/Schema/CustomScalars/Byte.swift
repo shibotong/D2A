@@ -7,4 +7,4 @@
 
 import ApolloAPI
 
-public typealias Byte = String
+public typealias Byte = Int

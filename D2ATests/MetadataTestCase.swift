@@ -7,15 +7,14 @@
 
 @testable import D2A
 import XCTest
+import Combine
 
 class MetadataTestCase: XCTestCase {
+    
+    private var cancellable: AnyCancellable?
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    override func tearDown() {
+        cancellable = nil
     }
 
     func testDecodingHeroAbilities() async {
@@ -36,5 +35,22 @@ class MetadataTestCase: XCTestCase {
     func testHeroScepter() async {
         let scepter = await loadScepter()
         XCTAssertNotEqual(scepter.count, 0)
+    }
+    
+    func testLoadingHeroDatabase() {
+        let expectation = self.expectation(description: "loading hero data")
+        let heroDatabase = HeroDatabase()
+        var databaseStatus: LoadingStatus?
+        cancellable = heroDatabase.$status.sink { status in
+            switch status {
+            case .loading:
+                break
+            default:
+                databaseStatus = status
+                expectation.fulfill()
+            }
+        }
+        waitForExpectations(timeout: 60)
+        XCTAssertEqual(databaseStatus, .finish)
     }
 }
