@@ -35,6 +35,14 @@ let colonLocalize: Character = {
     }
 }()
 
+var refreshDistance: TimeInterval {
+    var refreshTime: TimeInterval = 60
+    #if DEBUG
+    refreshTime = 1
+    #endif
+    return refreshTime
+}
+
 extension PreviewDevice {
 
     static let previewDevices = [PreviewDevice.iPodTouch, PreviewDevice.iPhoneSE, PreviewDevice.iPhoneMini, PreviewDevice.iPhone, PreviewDevice.iPhoneProMax]

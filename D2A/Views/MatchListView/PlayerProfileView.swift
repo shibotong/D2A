@@ -211,10 +211,8 @@ struct PlayerProfileView: View {
     @ViewBuilder private func buildButton(profile: UserProfile) -> some View {
         HStack(spacing: 20) {
             Button {
-                if env.canRefresh(userid: userid) {
-                    Task {
-                        await loadMatches()
-                    }
+                Task {
+                    await loadMatches()
                 }
             } label: {
                 HStack {
