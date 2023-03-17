@@ -67,9 +67,6 @@ struct AbilityView: View {
             .task {
                 await viewModel.buildDetailView()
             }
-            .onDisappear {
-                viewModel.removeVideos()
-            }
         } else {
             ProgressView()
         }
@@ -197,15 +194,15 @@ struct AbilityView: View {
                 switch type {
                 case .scepter:
                     if let video = viewModel.scepterVideo {
-                        buildPlayer(asset: video, width: width)
+                        buildPlayer(player: video, width: width)
                     }
                 case .shard:
                     if let video = viewModel.shardVideo {
-                        buildPlayer(asset: video, width: width)
+                        buildPlayer(player: video, width: width)
                     }
                 case .non:
                     if let video = viewModel.abilityVideo {
-                        buildPlayer(asset: video, width: width)
+                        buildPlayer(player: video, width: width)
                     }
                 }
                 Spacer()
@@ -240,18 +237,24 @@ struct AbilityView: View {
         }
     }
     
-    @ViewBuilder private func buildPlayer(asset: AVAsset, width: CGFloat) -> some View {
-        let item = AVPlayerItem(asset: asset)
-        let player = AVPlayer(playerItem: item)
+    @ViewBuilder private func buildPlayer(player: AVPlayer, width: CGFloat) -> some View {
         VideoPlayer(player: player)
             .frame(width: width - 40, height: (width - 40.0) / 16.0 * 9.0)
             .disabled(true)
-            .task {
-                await viewModel.playVideo(item: item, player: player)
+            .onAppear {
+                player.seek(to: .zero)
+                player.play()
+                NotificationCenter.default.addObserver(
+                    forName: .AVPlayerItemDidPlayToEndTime,
+                    object: player.currentItem,
+                    queue: nil) { _ in
+                        player.seek(to: .zero)
+                        player.play()
+                    }
             }
             .onDisappear {
                 player.pause()
-                viewModel.removeObserver(player: player)
+                NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
             }
     }
 }
