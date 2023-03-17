@@ -29,6 +29,17 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       language = "ja">
       <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "79CF637829C40B6F0072F4C0"
+               BuildableName = "D2AUITests.xctest"
+               BlueprintName = "D2AUITests"
+               ReferencedContainer = "container:D2A.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
