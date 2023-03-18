@@ -10,6 +10,7 @@ import CoreData
 
 extension UserProfile {
     
+    /// If the profile should update. (Last update time is not today)
     var shouldUpdate: Bool {
         guard let lastUpdate else {
             return true
