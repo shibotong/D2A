@@ -63,6 +63,9 @@ class OpenDotaController {
     }
     
     func loadRecentMatch(userid: String, lastMatchStartTime: TimeInterval? = nil, offset: Int = 0, numbers: Int? = nil) async {
+        guard DotaEnvironment.shared.canRefresh(userid: userid) else {
+            return
+        }
         if let lastMatchStartTime {
             let oneDay: Double = 60 * 60 * 24
             
