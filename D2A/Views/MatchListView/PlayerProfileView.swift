@@ -256,7 +256,10 @@ struct PlayerProfileView: View {
             return
         }
         if let firstMatch = matches.first {
-            await OpenDotaController.shared.loadRecentMatch(userid: userID, lastMatchStartTime: firstMatch.startTime?.timeIntervalSinceNow)
+            await OpenDotaController.shared.loadRecentMatch(
+                userid: userID,
+                lastMatchStartTime: firstMatch.startTime?.timeIntervalSinceNow
+            )
         } else {
             await setLoading(true)
             await OpenDotaController.shared.loadRecentMatch(userid: userID)
