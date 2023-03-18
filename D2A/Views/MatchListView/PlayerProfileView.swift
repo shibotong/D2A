@@ -252,8 +252,7 @@ struct PlayerProfileView: View {
     }
     
     private func loadMatches() async {
-        guard let userID = profile.first?.id,
-              env.canRefresh(userid: userID) else {
+        guard let userID = profile.first?.id else {
             return
         }
         if let firstMatch = matches.first {

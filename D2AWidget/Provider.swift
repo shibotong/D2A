@@ -83,13 +83,25 @@ struct Provider: IntentTimelineProvider {
             let result = try? persistenceController.container.viewContext.fetch(fetchRequest)
             return result?.first
         }
+        
         return profile
     }
     
     private func loadNewMatches(for userID: String) async -> [RecentMatch] {
         let existMatches = RecentMatch.fetch(userID: userID, count: 1)
-        await OpenDotaController.shared.loadRecentMatch(userid: userID, lastMatchStartTime: existMatches.first?.startTime?.timeIntervalSince1970)
+        await OpenDotaController.shared.loadRecentMatch(userid: userID, lastMatchStartTime: existMatches.first?.startTime?.timeIntervalSinceNow)
         let newMatches = RecentMatch.fetch(userID: userID, count: 10)
         return newMatches
+    }
+    
+    private func refreshUser(for userID: String) async -> UserProfile? {
+        do {
+            let profileCodable = try await OpenDotaController.shared.loadUserData(userid: userID)
+            _ = try UserProfile.create(profileCodable)
+            let newProfile = UserProfile.fetch(id: userID)
+            return newProfile
+        } catch {
+            return nil
+        }
     }
 }
