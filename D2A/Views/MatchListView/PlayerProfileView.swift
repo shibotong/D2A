@@ -259,16 +259,16 @@ struct PlayerProfileView: View {
         guard let userID = profile.first?.id else {
             return
         }
+        await setLoading(true)
         if let firstMatch = matches.first {
             await OpenDotaController.shared.loadRecentMatch(
                 userid: userID,
                 lastMatchStartTime: firstMatch.startTime?.timeIntervalSinceNow
             )
         } else {
-            await setLoading(true)
             await OpenDotaController.shared.loadRecentMatch(userid: userID)
-            await setLoading(false)
         }
+        await setLoading(false)
     }
     
     @MainActor
