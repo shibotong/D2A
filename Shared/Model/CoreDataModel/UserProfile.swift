@@ -18,6 +18,24 @@ extension UserProfile {
         return !lastUpdate.isToday
     }
     
+    static var canFavourite: Bool {
+        return DotaEnvironment.shared.subscriptionStatus || favouriteUsersCount == 0
+    }
+    
+    private static var favouriteUsersCount: Int {
+        let viewContext = PersistenceController.shared.container.viewContext
+        let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
+        var predicates: [NSPredicate] = []
+        let favouritePredicate = NSPredicate(format: "favourite = %d", true)
+        let registerPredicate = NSPredicate(format: "register = %d", false)
+        predicates.append(favouritePredicate)
+        predicates.append(registerPredicate)
+        fetchResult.predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
+        
+        let results = try? viewContext.fetch(fetchResult)
+        return results?.count ?? 0
+    }
+    
     /// Create a new `UserProfile` with favourite and register
     static func create(_ profile: UserProfileCodable, favourite: Bool, register: Bool) throws {
         let viewContext = PersistenceController.shared.makeContext(author: "UserProfile")
