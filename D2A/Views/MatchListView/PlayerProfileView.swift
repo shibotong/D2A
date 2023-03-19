@@ -55,8 +55,12 @@ struct PlayerProfileView: View {
                         .foregroundColor(.primaryDota)
                 } else {
                     Button {
-                        profile.favourite.toggle()
-                        try? viewContext.save()
+                        if UserProfile.canFavourite {
+                            profile.favourite.toggle()
+                            try? viewContext.save()
+                        } else {
+                            env.subscriptionSheet = true
+                        }
                     } label: {
                         Image(systemName: profile.favourite ? "star.fill" : "star")
                             .foregroundColor(profile.favourite ? .primaryDota : .label)
