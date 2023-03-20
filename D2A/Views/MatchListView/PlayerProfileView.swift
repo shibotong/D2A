@@ -55,8 +55,12 @@ struct PlayerProfileView: View {
                         .foregroundColor(.primaryDota)
                 } else {
                     Button {
-                        profile.favourite.toggle()
-                        try? viewContext.save()
+                        if UserProfile.canFavourite {
+                            profile.favourite.toggle()
+                            try? viewContext.save()
+                        } else {
+                            env.subscriptionSheet = true
+                        }
                     } label: {
                         Image(systemName: profile.favourite ? "star.fill" : "star")
                             .foregroundColor(profile.favourite ? .primaryDota : .label)
@@ -255,16 +259,16 @@ struct PlayerProfileView: View {
         guard let userID = profile.first?.id else {
             return
         }
+        await setLoading(true)
         if let firstMatch = matches.first {
             await OpenDotaController.shared.loadRecentMatch(
                 userid: userID,
                 lastMatchStartTime: firstMatch.startTime?.timeIntervalSinceNow
             )
         } else {
-            await setLoading(true)
             await OpenDotaController.shared.loadRecentMatch(userid: userID)
-            await setLoading(false)
         }
+        await setLoading(false)
     }
     
     @MainActor
