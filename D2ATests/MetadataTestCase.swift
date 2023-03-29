@@ -53,8 +53,4 @@ class MetadataTestCase: XCTestCase {
         waitForExpectations(timeout: 60)
         XCTAssertEqual(databaseStatus, .finish)
     }
-    
-    func testFail() {
-        XCTAssertEqual(1, 2)
-    }
 }
