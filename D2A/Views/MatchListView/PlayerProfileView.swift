@@ -246,10 +246,7 @@ struct PlayerProfileView: View {
     
     private func refreshUser() async {
         guard let profileCodable = try? await OpenDotaController.shared.loadUserData(userid: userid) else {
-            DispatchQueue.main.async {
-                env.error = true
-                env.errorMessage = "Oops! An error occured."
-            }
+            print("cancelled search")
             return
         }
         _ = try? UserProfile.create(profileCodable)
@@ -260,14 +257,7 @@ struct PlayerProfileView: View {
             return
         }
         await setLoading(true)
-        if let firstMatch = matches.first {
-            await OpenDotaController.shared.loadRecentMatch(
-                userid: userID,
-                lastMatchStartTime: firstMatch.startTime?.timeIntervalSinceNow
-            )
-        } else {
-            await OpenDotaController.shared.loadRecentMatch(userid: userID)
-        }
+        await OpenDotaController.shared.loadRecentMatch(userid: userID)
         await setLoading(false)
     }
     
