@@ -59,26 +59,25 @@ class OpenDotaController {
             print("Match created failed")
             throw error
         }
-        
     }
     
-    func loadRecentMatch(userid: String, lastMatchStartTime: TimeInterval? = nil, offset: Int = 0, numbers: Int? = nil) async {
+    func loadRecentMatch(userid: String) async {
         guard DotaEnvironment.shared.canRefresh(userid: userid) else {
             return
         }
-        if let lastMatchStartTime {
+        let latestMatches = RecentMatch.fetch(userID: userid, count: 1)
+        var days: Double?
+        // here should be timeIntervalSinceNow
+        if let lastMatchStartTime = latestMatches.first?.startTime?.timeIntervalSinceNow {
             let oneDay: Double = 60 * 60 * 24
             
             // Decrease 1 sec to avoid adding repeated match
-            let days = -(lastMatchStartTime + 1) / oneDay
-            
-            await loadRecentMatch(userid: userid, days: days, offset: offset, numbers: numbers)
-        } else {
-            await loadRecentMatch(userid: userid, days: nil, offset: offset, numbers: numbers)
+            days = -(lastMatchStartTime + 1) / oneDay
         }
+        await loadRecentMatch(userid: userid, days: days)
     }
     
-    func loadRecentMatch(userid: String, days: Double?, offset: Int, numbers: Int?) async {
+    func loadRecentMatch(userid: String, days: Double?) async {
         var urlString = ""
         if days != nil {
             urlString = "/players/\(userid)/matches/?date=\(days!)&&significant=0"
