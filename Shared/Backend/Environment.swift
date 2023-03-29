@@ -113,7 +113,7 @@ final class DotaEnvironment: ObservableObject {
             }
         }
         UserDefaults(suiteName: GROUP_NAME)?.set("", forKey: "dotaArmory.registerdID")
-        UserDefaults(suiteName: GROUP_NAME)?.set([], forKey: "dotaArmory.userID")
+        UserDefaults(suiteName: GROUP_NAME)?.set([String](), forKey: "dotaArmory.userID")
     }
     
     @MainActor
