@@ -10,16 +10,17 @@ import Combine
 
 class SearchViewModel: ObservableObject {
     @Published var searchText: String = ""
-    @Published var searched = false
-    
-    @Published var searchedHeroes: [HeroCodable] = []
-    @Published var searchedMatch: Match?
-    @Published var filterHeroes: [HeroCodable] = []
-    
     @Published var isLoading: Bool = false
     
+    // suggestion
+    @Published var suggestHeroes: [HeroCodable] = []
+    @Published var suggestLocalProfiles: [UserProfile] = []
+    
+    // search results
     @Published var userProfiles: [UserProfileCodable] = []
-    @Published var localProfiles: [UserProfile] = []
+    @Published var searchLocalProfiles: [UserProfile] = []
+    @Published var searchedMatch: Match?
+    @Published var filterHeroes: [HeroCodable] = []
     
     private var cancellableObject: Set<AnyCancellable> = []
     init() {
@@ -36,7 +37,7 @@ class SearchViewModel: ObservableObject {
                 }
             }
             .sink { [weak self] searchResults in
-                self?.searchedHeroes = searchResults
+                self?.suggestHeroes = searchResults
             }
             .store(in: &cancellableObject)
         $searchText
@@ -50,19 +51,18 @@ class SearchViewModel: ObservableObject {
                 }
             }
             .sink { [weak self] searchProfiles in
-                self?.localProfiles = searchProfiles
+                self?.suggestLocalProfiles = searchProfiles
             }
             .store(in: &cancellableObject)
-    }
-    
-    func searchUserInData(searchText: String) {
-        let profiles = UserProfile.fetch(text: searchText)
-        localProfiles = profiles
     }
     
     @MainActor
     func search(searchText: String) async {
         isLoading = true
+        // set suggestion to empty
+        suggestLocalProfiles = []
+        suggestHeroes = []
+        
         userProfiles = []
         filterHeroes = HeroDatabase.shared.fetchAllHeroes().filter { hero in
             return hero.heroNameLocalized.lowercased().contains(searchText.lowercased())
@@ -97,7 +97,7 @@ class SearchViewModel: ObservableObject {
             }
         }
         
-        localProfiles = cachedProfiles
+        searchLocalProfiles = cachedProfiles
         userProfiles = notCachedProfiles
         
         isLoading = false
