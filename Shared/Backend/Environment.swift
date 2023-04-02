@@ -65,10 +65,10 @@ final class DotaEnvironment: ObservableObject {
             }
             
             // fix duplicated matches
-            let duplicatedMatches = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.duplicateMatches") as? Bool ?? false
-            if !duplicatedMatches {
-                await removeDuplicatedMatches()
-            }
+//            let duplicatedMatches = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.duplicateMatches") as? Bool ?? false
+//            if !duplicatedMatches {
+//                await removeDuplicatedMatches()
+//            }
             DispatchQueue.main.async {
                 self.loading = false
             }

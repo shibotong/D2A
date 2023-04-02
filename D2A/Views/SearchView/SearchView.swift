@@ -12,68 +12,30 @@ struct SearchView: View {
     @StateObject var vm: SearchViewModel = SearchViewModel()
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     var body: some View {
-        if #available(iOS 16.0, *) {
-            searchPage
-                .navigationTitle("Search")
-                .searchable(text: $vm.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Players, Heroes, Matches")
-                .searchSuggestions {
-                    searchSuggestions
+        searchPage
+            .navigationTitle("Search")
+            .searchable(text: $vm.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Players, Heroes, Matches") {
+                searchSuggestions
+            }
+            .disableAutocorrection(true)
+            .onSubmit(of: .search) {
+                Task {
+                    await vm.search(searchText: vm.searchText)
                 }
-                .disableAutocorrection(true)
-                .onSubmit(of: .search) {
-                    Task {
-                        await vm.search(searchText: vm.searchText)
-                    }
-                }
-        } else {
-            searchPage
-                .navigationTitle("Search")
-                .searchable(text: $vm.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Players, Heroes, Matches") {
-                    searchSuggestions
-                }
-                .disableAutocorrection(true)
-                .onSubmit(of: .search) {
-                    Task {
-                        await vm.search(searchText: vm.searchText)
-                    }
-                }
-        }
-        
+            }
     }
     
     private var searchSuggestions: some View {
         Group {
-            if !vm.suggestLocalProfiles.isEmpty {
-                Section {
-                    ForEach(vm.suggestLocalProfiles) { profile in
-                        ProfileView(viewModel: ProfileViewModel(profile: profile))
-                            .searchCompletion(profile.id ?? "")
-                            .foregroundColor(.label)
-                    }
-                } header: {
-                    Text("Favorite Players")
-                        .foregroundColor(.secondaryLabel)
-                        .font(.subheadline)
-                }
+            ForEach(vm.suggestLocalProfiles) { profile in
+                Label("\(profile.personaname ?? "")", systemImage: "person.crop.circle")
+                    .searchCompletion(profile.personaname ?? "")
             }
-            if !vm.suggestHeroes.isEmpty {
-                Section {
-                    ForEach(vm.suggestHeroes) { hero in
-                        HStack {
-                            HeroImageView(heroID: hero.id, type: .icon)
-                                .frame(width: 30, height: 30)
-                            Text(hero.heroNameLocalized)
-                        }
-                        .foregroundColor(.label)
-                        .searchCompletion(hero.heroNameLocalized)
-                    }
-                } header: {
-                    Text("Heroes")
-                        .foregroundColor(.secondaryLabel)
-                        .font(.subheadline)
-                }
+            ForEach(vm.suggestHeroes) { hero in
+                Label("\(hero.heroNameLocalized)", systemImage: "books.vertical.fill")
+                    .searchCompletion(hero.heroNameLocalized)
             }
-        }
+        }.foregroundColor(.label)
     }
     
     private var searchPage: some View {
@@ -84,15 +46,7 @@ struct SearchView: View {
                 if vm.isLoading {
                     ProgressView()
                 } else {
-                    if vm.searchedMatch == nil &&
-                        vm.searchLocalProfiles.isEmpty &&
-                        vm.filterHeroes.isEmpty &&
-                        vm.userProfiles.isEmpty {
-                        Label("Cannot find any player", systemImage: "magnifyingglass")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else {
-                        searchedList
-                    }
+                    searchedList
                 }
             }
         }
@@ -106,7 +60,7 @@ struct SearchView: View {
                 Text("Search with players id or name,")
                     .foregroundColor(.secondaryLabel)
                 Text("hero name and match id")
-                .foregroundColor(.secondaryLabel)
+                    .foregroundColor(.secondaryLabel)
             }
             if let selectedMatch = env.selectedMatch {
                 NavigationLink(
