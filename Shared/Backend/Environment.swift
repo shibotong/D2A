@@ -66,11 +66,11 @@ final class DotaEnvironment: ObservableObject {
             }
             
             // fix duplicated matches
-            let duplicatedMatches = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.duplicateMatches") as? Bool ?? false
+            let duplicatedMatches = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.duplicateMatches2.2.1") as? Bool ?? false
             if !duplicatedMatches {
                 await removeDuplicatedMatches()
             }
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.loading = false
             }
         }
@@ -158,9 +158,11 @@ final class DotaEnvironment: ObservableObject {
                 try moc.save()
                 try moc.parent?.save()
                 finish += 1
-                let percentage = finish/total
                 await setPercent(finish/total)
             }
+            
+            // set key to true
+            UserDefaults(suiteName: GROUP_NAME)?.set(true, forKey: "dotaArmory.duplicateMatches2.2.1")
         } catch {
             print(error.localizedDescription)
         }
