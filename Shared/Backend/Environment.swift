@@ -65,10 +65,10 @@ final class DotaEnvironment: ObservableObject {
             }
             
             // fix duplicated matches
-            let duplicatedMatches = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.duplicateMatches") as? Bool ?? false
-            if !duplicatedMatches {
-                await removeDuplicatedMatches()
-            }
+//            let duplicatedMatches = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.duplicateMatches") as? Bool ?? false
+//            if !duplicatedMatches {
+//                await removeDuplicatedMatches()
+//            }
             DispatchQueue.main.async {
                 self.loading = false
             }
@@ -116,9 +116,8 @@ final class DotaEnvironment: ObservableObject {
         UserDefaults(suiteName: GROUP_NAME)?.set([String](), forKey: "dotaArmory.userID")
     }
     
-    @MainActor
     private func removeDuplicatedMatches() async {
-        let moc = PersistenceController.shared.container.viewContext
+        let moc = PersistenceController.shared.makeContext()
         let fetchRequest = UserProfile.fetchRequest()
         do {
             let players = try moc.fetch(fetchRequest)
@@ -154,6 +153,7 @@ final class DotaEnvironment: ObservableObject {
                     }
                 }
                 try moc.save()
+                try moc.parent?.save()
             }
         } catch {
             print(error.localizedDescription)
