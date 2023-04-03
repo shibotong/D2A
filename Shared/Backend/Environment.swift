@@ -48,27 +48,28 @@ final class DotaEnvironment: ObservableObject {
     @Published var selectedMatch: String?
     @Published var matchActive: Bool = false
     @Published var userActive: Bool = false
+    
+    @Published var percentage: Double = 0.0
 
     init() {
         let userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
         let registerdID = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.registerdID") as? String ?? ""
         subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         tab = .home
-        // migrate from WCDB Database to CoreData
         Task {
             DispatchQueue.main.async {
                 self.loading = true
             }
+            // migrate from WCDB Database to CoreData
             if registerdID != "" || !userIDs.isEmpty {
                 await migration(registerID: registerdID, userIDs: userIDs)
-                
             }
             
             // fix duplicated matches
-//            let duplicatedMatches = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.duplicateMatches") as? Bool ?? false
-//            if !duplicatedMatches {
-//                await removeDuplicatedMatches()
-//            }
+            let duplicatedMatches = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.duplicateMatches") as? Bool ?? false
+            if !duplicatedMatches {
+                await removeDuplicatedMatches()
+            }
             DispatchQueue.main.async {
                 self.loading = false
             }
@@ -121,6 +122,8 @@ final class DotaEnvironment: ObservableObject {
         let fetchRequest = UserProfile.fetchRequest()
         do {
             let players = try moc.fetch(fetchRequest)
+            let total: Double = Double(players.count)
+            var finish: Double = 0
             for player in players {
                 let recentMatchRequest = RecentMatch.fetchRequest()
                 guard let playerID = player.id else {
@@ -154,10 +157,17 @@ final class DotaEnvironment: ObservableObject {
                 }
                 try moc.save()
                 try moc.parent?.save()
+                finish += 1
+                let percentage = finish/total
+                await setPercent(finish/total)
             }
         } catch {
             print(error.localizedDescription)
         }
-        
+    }
+    
+    @MainActor
+    private func setPercent(_ percentage: Double) {
+        self.percentage = percentage
     }
 }
