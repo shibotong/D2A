@@ -11,8 +11,13 @@ struct AboutUsView: View {
     @EnvironmentObject var env: DotaEnvironment
     @Environment(\.presentationMode) var presentState
     private var versionNumber: String {
-        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("Error", comment: "")
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("Error", comment: "Cannot get version number")
     }
+    
+    private var buildNumber: String {
+        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? NSLocalizedString("Error", comment: "Cannot get build number")
+    }
+    
     var body: some View {
         List {
             Section(header: Text("Our App")) {
@@ -28,7 +33,7 @@ struct AboutUsView: View {
                 makeRow(image: "lock", text: "Privacy Policy", link: URL(string: PRIVACY_POLICY))
                 makeRow(image: "person", text: "Terms of Use", link: URL(string: TERMS_OF_USE))
                 
-                makeDetailRow(image: "app.badge", text: "App Version", detail: versionNumber)
+                makeDetailRow(image: "app.badge", text: "App Version", detail: "\(versionNumber)(\(buildNumber))")
             }
             Section(header: Text("Thanks To")) {
                 makeRow(image: "heart.fill", text: "OpenDotaAPI", link: URL(string: "https://www.opendota.com"))

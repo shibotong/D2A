@@ -122,6 +122,10 @@ extension RecentMatch {
         return results?.first
     }
     
+    /// Fetch player matches with count.
+    /// This function fetches user matches from latest
+    /// - parameter userid: Player ID
+    /// - parameter count: The number of matches to fetch
     static func fetch(userID: String, count: Int, viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> [RecentMatch] {
         let fetchResult: NSFetchRequest<RecentMatch> = RecentMatch.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "startTime", ascending: false)
