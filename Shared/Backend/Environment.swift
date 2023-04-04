@@ -60,15 +60,21 @@ final class DotaEnvironment: ObservableObject {
             DispatchQueue.main.async {
                 self.loading = true
             }
-            // migrate from WCDB Database to CoreData
-            if registerdID != "" || !userIDs.isEmpty {
-                await migration(registerID: registerdID, userIDs: userIDs)
-            }
-            
-            // fix duplicated matches
-            let duplicatedMatches = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.duplicateMatches2.2.1") as? Bool ?? false
-            if !duplicatedMatches {
-                removeDuplicatedMatches()
+            if !isTesting {
+                // migrate from WCDB Database to CoreData
+                if registerdID != "" || !userIDs.isEmpty {
+                    await migration(registerID: registerdID, userIDs: userIDs)
+                }
+                
+                // fix duplicated matches
+                let duplicatedMatches = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.duplicateMatches2.2.1") as? Bool ?? false
+                if !duplicatedMatches {
+                    removeDuplicatedMatches()
+                } else {
+                    DispatchQueue.main.async {
+                        self.loading = false
+                    }
+                }
             }
         }
     }
