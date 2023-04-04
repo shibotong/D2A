@@ -71,9 +71,7 @@ final class DotaEnvironment: ObservableObject {
                 if !duplicatedMatches {
                     removeDuplicatedMatches()
                 } else {
-                    DispatchQueue.main.async {
-                        self.loading = false
-                    }
+                    self.finishLoading()
                 }
             }
         }
@@ -124,11 +122,14 @@ final class DotaEnvironment: ObservableObject {
         let moc = PersistenceController.shared.makeContext()
         let fetchRequest = UserProfile.fetchRequest()
         guard let players = try? moc.fetch(fetchRequest) else {
+            self.finishLoading()
             return
         }
         let total: Double = Double(players.count)
         var finish: Double = 0
-        
+        if players.isEmpty {
+            self.finishLoading()
+        }
         for player in players {
             guard let playerID = player.id else {
                 continue
@@ -139,13 +140,17 @@ final class DotaEnvironment: ObservableObject {
                     self?.percentage = finish/total
                     if self?.percentage == 1 {
                         // set key to true when all finish
-                        UserDefaults(suiteName: GROUP_NAME)?.set(true, forKey: "dotaArmory.duplicateMatches2.2.1")
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            self?.loading = false
-                        }
+                        self?.finishLoading()
                     }
                 }
             }
+        }
+    }
+    
+    private func finishLoading() {
+        UserDefaults(suiteName: GROUP_NAME)?.set(true, forKey: "dotaArmory.duplicateMatches2.2.1")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.loading = false
         }
     }
     

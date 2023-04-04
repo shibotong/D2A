@@ -9,7 +9,8 @@ import SwiftUI
 
 struct HeroDetailView: View {
     @ObservedObject var vm: HeroDetailViewModel
-    @State var heroLevel = 1.00
+    @Environment(\.horizontalSizeClass) var horizontal
+    @State private var heroLevel = 1.00
     
     var body: some View {
         mainBody
@@ -22,64 +23,127 @@ struct HeroDetailView: View {
     private var mainBody: some View {
         ZStack {
             if let hero = vm.hero {
-                ScrollView {
-                    buildTitle(hero: hero)
-                    buildAbilities(hero: hero)
-                        .padding(.horizontal, 5)
-                    Divider()
-                    buildHeroDetails(hero: hero)
-                }.navigationTitle(hero.heroNameLocalized)
+                if horizontal == .compact {
+                    buildCompactBody(hero: hero)
+                } else {
+                    buildRegularBody(hero: hero)
+                }
             } else {
                 LoadingView()
             }
         }
     }
-
-    @ViewBuilder private func buildTitle(hero: Hero) -> some View {
-        HeroImageView(heroID: Int(hero.id), type: .full)
-            .overlay(
-                LinearGradient(colors: [Color(.black).opacity(0),
-                                        Color(.black).opacity(1)],
-                               startPoint: .top,
-                               endPoint: .bottom))
-            .overlay(HStack {
-                VStack(alignment: .leading, spacing: 3) {
-                    Spacer()
-                    HStack {
-                        Image("hero_\(hero.primaryAttr ?? "")")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                        Text(LocalizedStringKey(hero.displayName ?? ""))
-                            .font(.system(size: 30))
-                            .bold()
-                            .foregroundColor(.white)
-                        Text("\(Int(hero.id))")
-                            .font(.caption2)
-                            .foregroundColor(.white.opacity(0.5))
-                        Spacer()
-                        HStack {
-                            ForEach(1..<4) { complexity in
-                                if complexity <= hero.complexity {
-                                    RoundedRectangle(cornerRadius: 3)
-                                        .frame(width: 15, height: 15)
-                                        .foregroundColor(.white)
-                                        .rotationEffect(.degrees(45))
-                                } else {
-                                    RoundedRectangle(cornerRadius: 3)
-                                        .stroke()
-                                        .frame(width: 15, height: 15)
-                                        .foregroundColor(.white)
-                                        .rotationEffect(.degrees(45))
-                                }
-                            }
+    
+    @ViewBuilder private func buildRegularBody(hero: Hero) -> some View {
+        VStack {
+            buildTitle(hero: hero)
+            HStack {
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack {
+                        buildAttributes(hero: hero)
+                        Divider()
+                        buildStats(hero: hero)
+                        if let roles = hero.roles?.allObjects as? [Role] {
+                            Divider()
+                            buildRoles(roles: roles)
+                        }
+                        if let talents = hero.talents?.allObjects as? [Talent] {
+                            Divider()
+                            buildTalent(talent: talents)
                         }
                     }
+                    
                 }
-                Spacer()
-            }.padding(.leading))
+                if let selectedAbility = vm.selectedAbility {
+                    AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, abilityName: selectedAbility))
+                } else {
+                    EmptyView()
+                }
+            }
+        }
     }
     
-    @ViewBuilder private func buildAbilities(hero: Hero) -> some View {
+    @ViewBuilder private func buildCompactBody(hero: Hero) -> some View {
+        ScrollView {
+            buildTitle(hero: hero)
+            ScrollView(.horizontal, showsIndicators: false) {
+                buildAbilities(hero: hero, navigation: true)
+            }.padding(.horizontal, 5)
+            Divider()
+            buildHeroDetails(hero: hero)
+        }.navigationTitle(hero.heroNameLocalized)
+    }
+    
+    @ViewBuilder private func buildTitle(hero: Hero) -> some View {
+        if horizontal == .compact {
+            HeroImageView(heroID: Int(hero.id), type: .full)
+                .overlay(
+                    LinearGradient(colors: [Color(.black).opacity(0),
+                                            Color(.black).opacity(1)],
+                                   startPoint: .top,
+                                   endPoint: .bottom))
+                .overlay(HStack {
+                    VStack(alignment: .leading, spacing: 3) {
+                        Spacer()
+                        HStack {
+                            Image("hero_\(hero.primaryAttr ?? "")")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                            Text(LocalizedStringKey(hero.displayName ?? ""))
+                                .font(.system(size: 30))
+                                .bold()
+                                .foregroundColor(.white)
+                            Text("\(Int(hero.id))")
+                                .font(.caption2)
+                                .foregroundColor(.white.opacity(0.5))
+                            Spacer()
+                            buildComplexity(hero.complexity)
+                        }
+                    }
+                    Spacer()
+                }.padding(.leading))
+        } else {
+            HStack {
+                HeroImageView(heroID: Int(hero.id), type: .full)
+                Image("hero_\(hero.primaryAttr ?? "")")
+                    .resizable()
+                    .frame(width: 25, height: 25)
+                Text(LocalizedStringKey(hero.displayName ?? ""))
+                    .font(.body)
+                    .bold()
+                Text("\(Int(hero.id))")
+                    .font(.caption2)
+                    .foregroundColor(.label.opacity(0.5))
+                buildComplexity(hero.complexity)
+                Spacer()
+                buildAbilities(hero: hero, navigation: false)
+            }
+            .frame(height: 50)
+            .padding()
+            .background(Color.secondarySystemBackground)
+        }
+    }
+    
+    @ViewBuilder private func buildComplexity(_ heroComplexity: Int16) -> some View {
+        HStack {
+            ForEach(1..<4) { complexity in
+                if complexity <= heroComplexity {
+                    RoundedRectangle(cornerRadius: 3)
+                        .frame(width: 15, height: 15)
+                        .foregroundColor(.white)
+                        .rotationEffect(.degrees(45))
+                } else {
+                    RoundedRectangle(cornerRadius: 3)
+                        .stroke()
+                        .frame(width: 15, height: 15)
+                        .foregroundColor(.white)
+                        .rotationEffect(.degrees(45))
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder private func buildAbilities(hero: Hero, navigation: Bool) -> some View {
         let skillFrame: CGFloat = 30
         if let abilities = hero.abilities {
             let filterAbilities = abilities.filter { ability in
@@ -87,19 +151,27 @@ struct HeroDetailView: View {
                 let containEmpty = ability.contains("empty")
                 return !containHidden && !containEmpty
             }
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(filterAbilities, id: \.self) { abilityName in
-                        if let ability = vm.fetchAbility(name: abilityName) {
-                            let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+            HStack {
+                ForEach(filterAbilities, id: \.self) { abilityName in
+                    if let ability = vm.fetchAbility(name: abilityName) {
+                        let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+                        if navigation {
                             NavigationLink(destination: AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, abilityName: abilityName))) {
+                                AbilityImage(viewModel: AbilityImageViewModel(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10))
+                            }
+                        } else {
+                            Button {
+                                vm.selectedAbility = abilityName
+                            } label: {
                                 AbilityImage(viewModel: AbilityImageViewModel(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10))
                             }
                         }
                     }
                 }
-                .padding(10)
             }
+            .padding(10)
+        } else {
+            EmptyView()
         }
     }
     
@@ -369,6 +441,9 @@ struct HeroDetailView: View {
 
 struct HeroDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
+        Group {
+            HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
+                .environment(\.horizontalSizeClass, .regular)
+        }
     }
 }

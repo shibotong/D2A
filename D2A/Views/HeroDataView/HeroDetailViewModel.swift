@@ -13,6 +13,7 @@ import Apollo
 
 class HeroDetailViewModel: ObservableObject {
     @Published var hero: Hero?
+    @Published var selectedAbility: String?
     
     let heroID: Int
     private var database: HeroDatabase = HeroDatabase.shared
@@ -20,6 +21,11 @@ class HeroDetailViewModel: ObservableObject {
     init(heroID: Int) {
         hero = Hero.fetchHero(id: Double(heroID))
         self.heroID = heroID
+        $hero
+            .map { hero in
+                return hero?.abilities?.first
+            }
+            .assign(to: &$selectedAbility)
     }
     
     func fetchAbility(name: String) -> Ability? {
