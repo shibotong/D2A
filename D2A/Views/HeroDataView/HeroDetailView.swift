@@ -13,14 +13,6 @@ struct HeroDetailView: View {
     @State private var heroLevel = 1.00
     
     var body: some View {
-        mainBody
-            .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                vm.loadHero()
-            }
-    }
-    
-    private var mainBody: some View {
         ZStack {
             if let hero = vm.hero {
                 if horizontal == .compact {
@@ -31,6 +23,10 @@ struct HeroDetailView: View {
             } else {
                 LoadingView()
             }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            vm.loadHero()
         }
     }
     
@@ -52,12 +48,9 @@ struct HeroDetailView: View {
                             buildTalent(talent: talents)
                         }
                     }
-                    
                 }
                 if let selectedAbility = vm.selectedAbility {
                     AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, abilityName: selectedAbility))
-                } else {
-                    EmptyView()
                 }
             }
         }
@@ -125,18 +118,19 @@ struct HeroDetailView: View {
     }
     
     @ViewBuilder private func buildComplexity(_ heroComplexity: Int16) -> some View {
+        let color: Color = horizontal == .compact ? .white : .label
         HStack {
             ForEach(1..<4) { complexity in
                 if complexity <= heroComplexity {
                     RoundedRectangle(cornerRadius: 3)
                         .frame(width: 15, height: 15)
-                        .foregroundColor(.white)
+                        .foregroundColor(color)
                         .rotationEffect(.degrees(45))
                 } else {
                     RoundedRectangle(cornerRadius: 3)
                         .stroke()
                         .frame(width: 15, height: 15)
-                        .foregroundColor(.white)
+                        .foregroundColor(color)
                         .rotationEffect(.degrees(45))
                 }
             }
@@ -338,72 +332,15 @@ struct HeroDetailView: View {
                     .bold()
                 Spacer()
             }.padding(.bottom)
-            VStack(spacing: 0) {
-                HStack {
-                    Text("Health")
-                        .font(.system(size: 15))
-                        .bold()
-                        .foregroundColor(.secondaryLabel)
-                    Spacer()
-                    Text("\(hero.calculateHPLevel(level: heroLevel))")
-                        .font(.system(size: 15))
-                        .bold()
-                    Text("+ \(hero.calculateHPRegen(level: heroLevel), specifier: "%.1f")")
-                        .font(.system(size: 13))
-                }
-                buildManaHealthBar(total: hero.calculateHPLevel(level: heroLevel), color: Color(UIColor.systemGreen))
-            }
-            VStack(spacing: 0) {
-                HStack {
-                    Text("Mana")
-                        .font(.system(size: 15))
-                        .bold()
-                        .foregroundColor(.secondaryLabel)
-                    Spacer()
-                    Text("\(hero.calculateManaLevel(level: heroLevel))")
-                        .font(.system(size: 15))
-                        .bold()
-                    Text("+ \(hero.calculateMPRegen(level: heroLevel), specifier: "%.1f")")
-                        .font(.system(size: 13))
-                }
-                
-                buildManaHealthBar(total: hero.calculateManaLevel(level: heroLevel), color: Color(UIColor.systemBlue))
-            }
-            
+            buildManaHealthBar(hero: hero, type: .hp)
+            buildManaHealthBar(hero: hero, type: .mana)
             HStack {
                 Spacer()
-                HStack {
-                    Image("hero_str")
-                        .resizable()
-                        .frame(width: 15, height: 15)
-                    Text("\(hero.calculateAttribute(level: heroLevel, attr: .str))")
-                        .font(.system(size: 18))
-                        .bold()
-                    Text("+ \(hero.gainStr, specifier: "%.1f")")
-                        .font(.system(size: 13))
-                }
+                buildStatLevel(hero: hero, type: .str)
                 Spacer()
-                HStack {
-                    Image("hero_agi")
-                        .resizable()
-                        .frame(width: 15, height: 15)
-                    Text("\(hero.calculateAttribute(level: heroLevel, attr: .agi))")
-                        .font(.system(size: 18))
-                        .bold()
-                    Text("+ \(hero.gainAgi, specifier: "%.1f")")
-                        .font(.system(size: 13))
-                }
+                buildStatLevel(hero: hero, type: .agi)
                 Spacer()
-                HStack {
-                    Image("hero_int")
-                        .resizable()
-                        .frame(width: 15, height: 15)
-                    Text("\(hero.calculateAttribute(level: heroLevel, attr: .int))")
-                        .font(.system(size: 18))
-                        .bold()
-                    Text("+ \(hero.gainInt, specifier: "%.1f")")
-                        .font(.system(size: 13))
-                }
+                buildStatLevel(hero: hero, type: .int)
                 Spacer()
             }
             Slider(value: $heroLevel, in: 1...30, step: 1) {
@@ -417,24 +354,54 @@ struct HeroDetailView: View {
         .padding(.horizontal)
     }
     
-    @ViewBuilder private func buildManaHealthBar(total: Int, color: Color) -> some View {
-        GeometryReader { proxy in
-            let rectangles = Double(total) / 250.00
-            let numberOfRect = total / 250
-            let spacer = (total % 250 == 0) ? numberOfRect : numberOfRect + 1
-            let restWidth = proxy.size.width - CGFloat(spacer)
-            let rectWidth = restWidth / rectangles
-            
-            HStack(spacing: 1) {
-                ForEach(0..<numberOfRect, id: \.self) { _ in
-                    Rectangle()
-                        .frame(width: rectWidth)
-                }
-                Rectangle()
+    @ViewBuilder private func buildStatLevel(hero: Hero, type: HeroAttributes) -> some View {
+        let gain = hero.getGain(type: type)
+        HStack {
+            Image("hero_\(type.rawValue)")
+                .resizable()
+                .frame(width: 15, height: 15)
+            Text("\(hero.calculateAttribute(level: heroLevel, attr: type))")
+                .font(.system(size: 18))
+                .bold()
+            Text("+ \(gain, specifier: "%.1f")")
+                .font(.system(size: 13))
+        }
+    }
+    
+    @ViewBuilder private func buildManaHealthBar(hero: Hero, type: Hero.HeroHPMana) -> some View {
+        let total = hero.calculateHPManaByLevel(level: heroLevel, type: type)
+        let barColor = type == .hp ? Color(UIColor.systemGreen) : Color(UIColor.systemBlue)
+        VStack(spacing: 0) {
+            HStack {
+                Text(type.rawValue)
+                    .font(.system(size: 15))
+                    .bold()
+                    .foregroundColor(.secondaryLabel)
+                Spacer()
+                Text("\(total)")
+                    .font(.system(size: 15))
+                    .bold()
+                Text("+ \(hero.calculateHPManaRegenByLevel(level: heroLevel, type: type), specifier: "%.1f")")
+                    .font(.system(size: 13))
             }
-            .frame(height: 10)
-            .foregroundColor(color)
-            .clipShape(Capsule())
+            GeometryReader { proxy in
+                let rectangles = Double(total) / 250.00
+                let numberOfRect = total / 250
+                let spacer = (total % 250 == 0) ? numberOfRect : numberOfRect + 1
+                let restWidth = proxy.size.width - CGFloat(spacer)
+                let rectWidth = restWidth / rectangles
+                
+                HStack(spacing: 1) {
+                    ForEach(0..<numberOfRect, id: \.self) { _ in
+                        Rectangle()
+                            .frame(width: rectWidth)
+                    }
+                    Rectangle()
+                }
+                .frame(height: 10)
+                .foregroundColor(barColor)
+                .clipShape(Capsule())
+            }
         }
     }
 }

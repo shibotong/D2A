@@ -160,26 +160,60 @@ extension Hero {
         }
     }
     
+    enum HeroHPMana: String {
+        case hp = "HP"
+        case mana = "Mana"
+    }
+    
     // MARK: - functions
-    func calculateHPLevel(level: Double) -> Int {
+    
+    /// calculate hero HP or Mana based on Level
+    /// - Parameters:
+    ///    - level: Level of `Hero`
+    ///    - type: `HeroHPMana` type of calculation
+    ///  - return: a `Int` value indicate hp or mana for current level
+    func calculateHPManaByLevel(level: Double, type: HeroHPMana) -> Int {
+        let attr: HeroAttributes = type == .hp ? .str : .int
+        let base = type == .hp ? baseHealth : baseMana
+        let max = type == .hp ? Hero.strMaxHP : Hero.intMaxMP
+        let totalStat = calculateAttribute(level: level, attr: attr)
+        let value = Int(base + totalStat * max)
+        return value
+    }
+    
+    private func calculateHPLevel(level: Double) -> Int {
         let totalStr = calculateAttribute(level: level, attr: .str)
         let hp = Int(baseHealth + totalStr * Hero.strMaxHP)
         return hp
     }
     
-    func calculateManaLevel(level: Double) -> Int {
+    private func calculateManaLevel(level: Double) -> Int {
         let totalInt = calculateAttribute(level: level, attr: .int)
         let hp = Int(baseMana + totalInt * Hero.intMaxMP)
         return hp
     }
     
-    func calculateHPRegen(level: Double) -> Double {
+    /// calculate hero HP or Mana regen based on Level
+    /// - Parameters:
+    ///    - level: Level of `Hero`
+    ///    - type: `HeroHPMana` type of calculation
+    ///  - return: a `Double` value indicate hp or mana regen  for current level
+    func calculateHPManaRegenByLevel(level: Double, type: HeroHPMana) -> Double {
+        let attr: HeroAttributes = type == .hp ? .str : .int
+        let base = type == .hp ? baseHealthRegen : baseManaRegen
+        let regen = type == .hp ? Hero.strHPRegen : Hero.intManaRegen
+        let totalStat = calculateAttribute(level: level, attr: attr)
+        let value = base + Double(totalStat) * regen
+        return value
+    }
+    
+    private func calculateHPRegen(level: Double) -> Double {
         let totalStr = calculateAttribute(level: level, attr: .str)
         let regen = baseHealthRegen + Double(totalStr) * Hero.strHPRegen
         return regen
     }
     
-    func calculateMPRegen(level: Double) -> Double {
+    private func calculateMPRegen(level: Double) -> Double {
         let totalInt = calculateAttribute(level: level, attr: .int)
         let regen = baseManaRegen + Double(totalInt) * Hero.intManaRegen
         return regen
@@ -205,6 +239,19 @@ extension Hero {
         var total = base + Int32((level - 1) * gain)
         total = levelBonusAttribute(base: total, level: level)
         return Int32(total)
+    }
+    
+    func getGain(type: HeroAttributes) -> Double {
+        switch type {
+        case .all:
+            return 0.0
+        case .str:
+            return gainStr
+        case .agi:
+            return gainAgi
+        case .int:
+            return gainInt
+        }
     }
     
     private func levelBonusAttribute(base: Int32, level: Double) -> Int32 {
