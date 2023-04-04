@@ -35,11 +35,6 @@ class HeroDatabase: ObservableObject {
     private var apolloAbilities = [AbilityQuery.Data.Constants.Ability]()
     
     static var shared = HeroDatabase()
-    static var preview: HeroDatabase {
-        let base = HeroDatabase()
-        base.status = .error
-        return base
-    }
     
     @Published private var openDotaLoadFinish: LoadingStatus = .loading
     @Published private var stratzLoadFinish: LoadingStatus = .loading

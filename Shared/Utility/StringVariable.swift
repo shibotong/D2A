@@ -43,6 +43,9 @@ var refreshDistance: TimeInterval {
     return refreshTime
 }
 
+/// True if running tests
+let isTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+
 extension PreviewDevice {
 
     static let previewDevices = [PreviewDevice.iPodTouch, PreviewDevice.iPhoneSE, PreviewDevice.iPhoneMini, PreviewDevice.iPhone, PreviewDevice.iPhoneProMax]
