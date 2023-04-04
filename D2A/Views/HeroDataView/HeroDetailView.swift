@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HeroDetailView: View {
     @ObservedObject var vm: HeroDetailViewModel
-    @EnvironmentObject var heroDatabase: HeroDatabase
     @State var heroLevel = 1.00
     
     var body: some View {
@@ -91,10 +90,11 @@ struct HeroDetailView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(filterAbilities, id: \.self) { abilityName in
-                        let ability = vm.fetchAbility(name: abilityName)
-                        let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                        NavigationLink(destination: AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, abilityName: abilityName))) {
-                            AbilityImage(viewModel: AbilityImageViewModel(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10))
+                        if let ability = vm.fetchAbility(name: abilityName) {
+                            let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+                            NavigationLink(destination: AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, abilityName: abilityName))) {
+                                AbilityImage(viewModel: AbilityImageViewModel(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10))
+                            }
                         }
                     }
                 }
@@ -367,8 +367,8 @@ struct HeroDetailView: View {
     }
 }
 
-// struct HeroDetailView_Preview: PreviewProvider {
-//    static var previews: some View {
-//        HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
-//    }
-// }
+struct HeroDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
+    }
+}

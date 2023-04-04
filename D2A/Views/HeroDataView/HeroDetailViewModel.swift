@@ -22,8 +22,8 @@ class HeroDetailViewModel: ObservableObject {
         self.heroID = heroID
     }
     
-    func fetchAbility(name: String) -> Ability {
-        return database.fetchOpenDotaAbility(name: name)!
+    func fetchAbility(name: String) -> Ability? {
+        return database.fetchOpenDotaAbility(name: name)
     }
     
     /// Load hero
