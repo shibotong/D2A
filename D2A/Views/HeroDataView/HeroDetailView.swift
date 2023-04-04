@@ -31,7 +31,7 @@ struct HeroDetailView: View {
     }
     
     @ViewBuilder private func buildRegularBody(hero: Hero) -> some View {
-        VStack {
+        VStack(spacing: 0) {
             buildTitle(hero: hero)
             HStack {
                 ScrollView(.vertical, showsIndicators: false) {
@@ -47,8 +47,9 @@ struct HeroDetailView: View {
                             Divider()
                             buildTalent(talent: talents)
                         }
-                    }
+                    }.padding()
                 }
+                Divider()
                 if let selectedAbility = vm.selectedAbility {
                     AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, abilityName: selectedAbility))
                 }
