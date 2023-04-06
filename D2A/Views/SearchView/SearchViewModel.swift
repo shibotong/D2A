@@ -22,8 +22,16 @@ class SearchViewModel: ObservableObject {
     @Published var searchedMatch: Match?
     @Published var filterHeroes: [HeroCodable] = []
     
+    @Published var searchHistory: [String] {
+        didSet {
+            UserDefaults.standard.set(searchHistory, forKey: "dotaArmory.searchHistory")
+        }
+    }
+    
     private var cancellableObject: Set<AnyCancellable> = []
     init() {
+        searchHistory = UserDefaults.standard.object(forKey: "dotaArmory.searchHistory") as? [String] ?? []
+        
         $searchText
             .receive(on: RunLoop.main)
             .map { text in
@@ -101,5 +109,15 @@ class SearchViewModel: ObservableObject {
         userProfiles = notCachedProfiles
         
         isLoading = false
+    }
+    
+    func addSearch(_ searchText: String) {
+        guard !searchText.isEmpty, !searchHistory.contains(searchText) else {
+            return
+        }
+        searchHistory.append(searchText)
+        if searchHistory.count >= 15 {
+            searchHistory.remove(at: 0)
+        }
     }
 }
