@@ -10,11 +10,30 @@ import CoreData
 
 extension UserProfile {
     
+    /// If the profile should update. (Last update time is not today)
     var shouldUpdate: Bool {
         guard let lastUpdate else {
             return true
         }
         return !lastUpdate.isToday
+    }
+    
+    static var canFavourite: Bool {
+        return DotaEnvironment.shared.subscriptionStatus || favouriteUsersCount == 0
+    }
+    
+    private static var favouriteUsersCount: Int {
+        let viewContext = PersistenceController.shared.container.viewContext
+        let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
+        var predicates: [NSPredicate] = []
+        let favouritePredicate = NSPredicate(format: "favourite = %d", true)
+        let registerPredicate = NSPredicate(format: "register = %d", false)
+        predicates.append(favouritePredicate)
+        predicates.append(registerPredicate)
+        fetchResult.predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
+        
+        let results = try? viewContext.fetch(fetchResult)
+        return results?.count ?? 0
     }
     
     /// Create a new `UserProfile` with favourite and register

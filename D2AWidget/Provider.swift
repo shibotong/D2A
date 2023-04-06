@@ -23,11 +23,10 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (SimpleEntry) -> Void) {
-        let user = user(for: configuration)
         let profile = persistenceController.fetchFirstWidgetUser()
 
         guard let profile, let userID = profile.id else {
-            let entry = SimpleEntry(date: Date(), matches: [], user: user, subscription: true)
+            let entry = SimpleEntry(date: Date(), matches: [], user: profile, subscription: true)
             completion(entry)
             return
         }
@@ -50,46 +49,46 @@ struct Provider: IntentTimelineProvider {
         if let userID = selectedProfile.id {
             Task {
                 let matches = await loadNewMatches(for: userID)
-                let entry = SimpleEntry(date: Date(), matches: matches, user: selectedProfile, subscription: status)
-                let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
-                let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-                completion(timeline)
-            }
-        } else {
-            // no configuration
-            let profile = persistenceController.fetchFirstWidgetUser()
-            guard let profile, let userID = profile.id else {
-                let entry = SimpleEntry(date: Date(), matches: [], user: selectedProfile, subscription: status)
-                let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
-                let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-                completion(timeline)
-                return
-            }
-            
-            Task {
-                let matches = await loadNewMatches(for: userID)
+                var profile = selectedProfile
+                if selectedProfile.shouldUpdate {
+                    profile = await refreshUser(for: userID) ?? selectedProfile
+                }
                 let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: status)
                 let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
                 let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
                 completion(timeline)
             }
+        } else {
+            // selected profile doesn't have userid \(nearly impossible)
+            let entry = SimpleEntry(date: Date(), matches: [], user: selectedProfile, subscription: status)
+            let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
+            let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+            completion(timeline)
         }
     }
     
-    func user(for configuration: DynamicUserSelectionIntent) -> UserProfile? {
+    private func user(for configuration: DynamicUserSelectionIntent) -> UserProfile? {
         guard let id = configuration.profile?.identifier, let profile = UserProfile.fetch(id: id) else {
-            let fetchRequest = UserProfile.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "register = %d", true)
-            let result = try? persistenceController.container.viewContext.fetch(fetchRequest)
-            return result?.first
+            return persistenceController.fetchFirstWidgetUser()
         }
+        
         return profile
     }
     
     private func loadNewMatches(for userID: String) async -> [RecentMatch] {
-        let existMatches = RecentMatch.fetch(userID: userID, count: 1)
-        await OpenDotaController.shared.loadRecentMatch(userid: userID, lastMatchStartTime: existMatches.first?.startTime?.timeIntervalSince1970)
+        await OpenDotaController.shared.loadRecentMatch(userid: userID)
         let newMatches = RecentMatch.fetch(userID: userID, count: 10)
         return newMatches
+    }
+    
+    private func refreshUser(for userID: String) async -> UserProfile? {
+        do {
+            let profileCodable = try await OpenDotaController.shared.loadUserData(userid: userID)
+            _ = try UserProfile.create(profileCodable)
+            let newProfile = UserProfile.fetch(id: userID)
+            return newProfile
+        } catch {
+            return nil
+        }
     }
 }

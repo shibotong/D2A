@@ -55,8 +55,12 @@ struct PlayerProfileView: View {
                         .foregroundColor(.primaryDota)
                 } else {
                     Button {
-                        profile.favourite.toggle()
-                        try? viewContext.save()
+                        if UserProfile.canFavourite {
+                            profile.favourite.toggle()
+                            try? viewContext.save()
+                        } else {
+                            env.subscriptionSheet = true
+                        }
                     } label: {
                         Image(systemName: profile.favourite ? "star.fill" : "star")
                             .foregroundColor(profile.favourite ? .primaryDota : .label)
@@ -242,10 +246,7 @@ struct PlayerProfileView: View {
     
     private func refreshUser() async {
         guard let profileCodable = try? await OpenDotaController.shared.loadUserData(userid: userid) else {
-            DispatchQueue.main.async {
-                env.error = true
-                env.errorMessage = "Oops! An error occured."
-            }
+            print("cancelled search")
             return
         }
         _ = try? UserProfile.create(profileCodable)
@@ -255,13 +256,9 @@ struct PlayerProfileView: View {
         guard let userID = profile.first?.id else {
             return
         }
-        if let firstMatch = matches.first {
-            await OpenDotaController.shared.loadRecentMatch(userid: userID, lastMatchStartTime: firstMatch.startTime?.timeIntervalSince1970)
-        } else {
-            await setLoading(true)
-            await OpenDotaController.shared.loadRecentMatch(userid: userID)
-            await setLoading(false)
-        }
+        await setLoading(true)
+        await OpenDotaController.shared.loadRecentMatch(userid: userID)
+        await setLoading(false)
     }
     
     @MainActor

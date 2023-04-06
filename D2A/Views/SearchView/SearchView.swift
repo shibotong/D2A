@@ -8,60 +8,42 @@
 import SwiftUI
 
 struct SearchView: View {
-    @EnvironmentObject var env: DotaEnvironment
     @StateObject var vm: SearchViewModel = SearchViewModel()
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     var body: some View {
         searchPage
             .navigationTitle("Search")
             .searchable(text: $vm.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Players, Heroes, Matches") {
-                if !vm.searchText.isEmpty {
-                    Section {
-                        HStack {
-                            Image(systemName: "magnifyingglass")
-                            Text("Search \(vm.searchText)")
-                        }
-                        .foregroundColor(.label)
-                    }
-                }
-                if !vm.localProfiles.isEmpty {
-                    Section {
-                        ForEach(vm.localProfiles) { profile in
-                            ProfileView(viewModel: ProfileViewModel(profile: profile))
-                                .searchCompletion(profile.id ?? "")
-                                .foregroundColor(.label)
-                        }
-                    } header: {
-                        Text("Favorite Players")
-                            .foregroundColor(.secondaryLabel)
-                            .font(.subheadline)
-                    }
-                }
-                if !vm.searchedHeroes.isEmpty {
-                    Section {
-                        ForEach(vm.searchedHeroes) { hero in
-                            HStack {
-                                HeroImageView(heroID: hero.id, type: .icon)
-                                    .frame(width: 30, height: 30)
-                                Text(hero.heroNameLocalized)
-                            }
-                            .foregroundColor(.label)
-                            .searchCompletion(hero.heroNameLocalized)
-                        }
-                    } header: {
-                        Text("Heroes")
-                            .foregroundColor(.secondaryLabel)
-                            .font(.subheadline)
-                    }
-                }
-        }
-        .disableAutocorrection(true)
-        .onSubmit(of: .search) {
-            Task {
-                await vm.search(searchText: vm.searchText)
+                searchSuggestions
             }
-        }
-        
+            .disableAutocorrection(true)
+            .onSubmit(of: .search) {
+                vm.addSearch(vm.searchText)
+                Task {
+                    await vm.search(searchText: vm.searchText)
+                }
+            }
+    }
+    
+    private var searchSuggestions: some View {
+        Group {
+            if vm.searchText.isEmpty {
+                ForEach(vm.searchHistory, id: \.self) { text in
+                    Label("\(text)", systemImage: "magnifyingglass")
+                        .searchCompletion(text)
+                }
+                
+            }
+            ForEach(vm.suggestLocalProfiles) { profile in
+                Label("\(profile.personaname ?? "")", systemImage: "person.crop.circle")
+                    .searchCompletion(profile.personaname ?? "")
+            }
+            ForEach(vm.suggestHeroes) { hero in
+                Label("\(hero.heroNameLocalized)", systemImage: "books.vertical.fill")
+                    .searchCompletion(hero.heroNameLocalized)
+            }
+        }.foregroundColor(.label)
     }
     
     private var searchPage: some View {
@@ -72,15 +54,7 @@ struct SearchView: View {
                 if vm.isLoading {
                     ProgressView()
                 } else {
-                    if vm.searchedMatch == nil &&
-                        vm.localProfiles.isEmpty &&
-                        vm.filterHeroes.isEmpty &&
-                        vm.userProfiles.isEmpty {
-                        Label("Cannot find any player", systemImage: "magnifyingglass")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else {
-                        searchedList
-                    }
+                    searchedList
                 }
             }
         }
@@ -94,25 +68,9 @@ struct SearchView: View {
                 Text("Search with players id or name,")
                     .foregroundColor(.secondaryLabel)
                 Text("hero name and match id")
-                .foregroundColor(.secondaryLabel)
+                    .foregroundColor(.secondaryLabel)
             }
-            if let selectedMatch = env.selectedMatch {
-                NavigationLink(
-                    destination: MatchView(matchid: selectedMatch),
-                    isActive: $env.matchActive
-                ) {
-                    EmptyView()
-                }
-            }
-            if let selectedUser = env.selectedUser {
-                NavigationLink(
-                    destination: PlayerProfileView(userid: selectedUser),
-                    isActive: $env.userActive
-                ) {
-                    EmptyView()
-                }
-            }
-        }
+        }.frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     private var searchedList: some View {
@@ -154,9 +112,9 @@ struct SearchView: View {
                     Text("Heroes")
                 }
             }
-            if !vm.userProfiles.isEmpty || !vm.localProfiles.isEmpty {
+            if !vm.userProfiles.isEmpty || !vm.searchLocalProfiles.isEmpty {
                 Section {
-                    ForEach(vm.localProfiles) { profile in
+                    ForEach(vm.searchLocalProfiles) { profile in
                         NavigationLink(destination: PlayerProfileView(userid: profile.id ?? "")) {
                             ProfileView(viewModel: ProfileViewModel(profile: profile))
                         }
@@ -175,11 +133,11 @@ struct SearchView: View {
     }
 }
 
-// struct AddAccountView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            EmptyView()
-//            SearchView()
-//        }.environmentObject(DotaEnvironment.shared)
-//    }
-// }
+ struct AddAccountView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            EmptyView()
+            SearchView()
+        }
+    }
+ }
