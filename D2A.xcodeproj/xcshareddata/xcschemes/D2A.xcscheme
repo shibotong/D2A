@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1400"
+   LastUpgradeVersion = "1430"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -51,6 +51,17 @@
                BlueprintIdentifier = "3289579827F6609B00BA9847"
                BuildableName = "D2ATests.xctest"
                BlueprintName = "D2ATests"
+               ReferencedContainer = "container:D2A.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "79CF637829C40B6F0072F4C0"
+               BuildableName = "D2AUITests.xctest"
+               BlueprintName = "D2AUITests"
                ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
          </TestableReference>
