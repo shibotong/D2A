@@ -23,6 +23,8 @@ class MatchListRowViewModel: ObservableObject {
     let gameLobby: String
     let startTime: Date?
     
+    let matchID: String
+    
     init(match: RecentMatchCodable) {
         isWin = match.playerWin
         heroID = match.heroID
@@ -33,6 +35,7 @@ class MatchListRowViewModel: ObservableObject {
         partySize = match.partySize
         gameLobby = match.gameLobby.lobbyName
         startTime = Date.init(timeIntervalSince1970: TimeInterval(match.startTime))
+        matchID = match.id.description
     }
     
     init(match: RecentMatch) {
@@ -45,6 +48,7 @@ class MatchListRowViewModel: ObservableObject {
         partySize = Int(match.partySize)
         gameLobby = match.gameLobby.lobbyName
         startTime = match.startTime
+        matchID = match.id ?? ""
     }
     
     init(isWin: Bool,
@@ -55,7 +59,8 @@ class MatchListRowViewModel: ObservableObject {
          partySize: Int?,
          gameMode: String,
          lobbyName: String,
-         startTime: Date = Date()) {
+         startTime: Date = Date(),
+         matchID: String = "0") {
         self.isWin = isWin
         self.heroID = heroID
         
@@ -68,5 +73,6 @@ class MatchListRowViewModel: ObservableObject {
         self.gameMode = gameMode
         self.gameLobby = lobbyName
         self.startTime = startTime
+        self.matchID = matchID
     }
 }

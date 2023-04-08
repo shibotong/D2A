@@ -79,6 +79,7 @@ struct PlayerProfileView: View {
                 .toolbar(content: {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
                         favoriteButton
+                            .accessibilityIdentifier("favourite")
 //                        Button {
 //                            self.isSharePresented = true
 //                        } label: {
