@@ -117,12 +117,13 @@ struct SearchView: View {
                     ForEach(vm.searchLocalProfiles) { profile in
                         NavigationLink(destination: PlayerProfileView(userid: profile.id ?? "")) {
                             ProfileView(viewModel: ProfileViewModel(profile: profile))
+                                .accessibilityIdentifier(profile.id ?? "")
                         }
                     }
                     ForEach(vm.userProfiles) { profile in
                         NavigationLink(destination: PlayerProfileView(userid: profile.id.description)) {
                             ProfileView(viewModel: ProfileViewModel(profile: profile))
-                        }
+                        }.accessibilityIdentifier(profile.id.description)
                     }
                 } header: {
                     Text("Players")

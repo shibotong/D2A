@@ -50,7 +50,7 @@ class PersistenceController {
         return url.appendingPathComponent("token.data", isDirectory: false)
     }()
 
-    init(inMemory: Bool = false) {
+    init(inMemory: Bool = uiTesting ? true : false) {
         container = NSPersistentContainer(name: "D2AModel")
         container.viewContext.automaticallyMergesChangesFromParent = true
         loadContainer(inMemory: inMemory)
