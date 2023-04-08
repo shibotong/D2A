@@ -153,12 +153,14 @@ struct HeroDetailView: View {
                         if navigation {
                             NavigationLink(destination: AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, abilityName: abilityName))) {
                                 AbilityImage(viewModel: AbilityImageViewModel(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10))
+                                    .accessibilityIdentifier(abilityName)
                             }
                         } else {
                             Button {
                                 vm.selectedAbility = abilityName
                             } label: {
                                 AbilityImage(viewModel: AbilityImageViewModel(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10))
+                                    .accessibilityIdentifier(abilityName)
                             }
                         }
                     }

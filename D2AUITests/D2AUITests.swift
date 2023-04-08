@@ -27,7 +27,7 @@ final class D2AUITests: XCTestCase {
     }
 
     /// Test register a player to app
-    func testRegister() throws {
+    func testRegister() {
         let app = startApp()
         let textField = app.textFields["Search ID"]
         textField.tap()
@@ -35,7 +35,25 @@ final class D2AUITests: XCTestCase {
         app.buttons["Register Player"].tap()
         sleep(networkWaiting)
         XCTAssert(app.staticTexts["Mr.BOBOBO"].exists)
-        takeScreenshot()
+        takeScreenshot("Home")
+    }
+    
+    /// Test all hero page
+    func testHeroPage() {
+        let app = startApp()
+        app.buttons["Heroes"].tap()
+        let abaddonButton = app.buttons["Abaddon"]
+        XCTAssert(abaddonButton.exists)
+        takeScreenshot("Hero")
+        abaddonButton.tap()
+        let borrowedTimeButton = app.buttons["abaddon_borrowed_time"]
+        XCTAssert(borrowedTimeButton.exists)
+        takeScreenshot("Hero Detail")
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            borrowedTimeButton.tap()
+            sleep(networkWaiting)
+            takeScreenshot("Ability Detail")
+        }
     }
     
     /// Test searching function of app
@@ -54,7 +72,20 @@ final class D2AUITests: XCTestCase {
         app.keyboards.buttons["search"].tap()
         sleep(networkWaiting)
         XCTAssert(app.staticTexts["Mr.BOBOBO"].exists)
-        takeScreenshot()
+        takeScreenshot("Search")
+        app.buttons["153041957"].tap()
+        sleep(networkWaiting)
+        takeScreenshot("Profile")
+        app.buttons["All"].tap()
+        app.buttons["Month"].tap()
+        let datePicker = app.datePickers
+        datePicker.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "March")
+        datePicker.pickerWheels.element(boundBy: 1).adjust(toPickerWheelValue: "2023")
+        app.buttons["Month"].tap()
+        app.buttons["Thursday, March 30"].tap()
+        app.buttons["7084211966"].tap()
+        sleep(networkWaiting)
+        takeScreenshot("Match Detail")
     }
     
     /// Test app user to favourite to app
@@ -72,7 +103,7 @@ final class D2AUITests: XCTestCase {
         // click enter on software keyboard
         app.keyboards.buttons["search"].tap()
         sleep(networkWaiting)
-        app.buttons["153041957-153041957-153041957"].tap()
+        app.buttons["153041957"].tap()
         sleep(networkWaiting)
         app.buttons["favourite"].tap()
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -81,7 +112,6 @@ final class D2AUITests: XCTestCase {
             app.tabBars["Tab Bar"].buttons["Home"].tap()
         }
         XCTAssert(app.staticTexts["Mr.BOBOBO"].exists)
-        takeScreenshot()
     }
     
     private func startApp() -> XCUIApplication {
@@ -92,9 +122,10 @@ final class D2AUITests: XCTestCase {
         return app
     }
 
-    private func takeScreenshot() {
+    private func takeScreenshot(_ name: String? = nil) {
         let screenshot = XCUIScreen.main.screenshot()
         let attachment = XCTAttachment(screenshot: screenshot)
+        attachment.name = name
         attachment.lifetime = .keepAlways
         add(attachment)
     }

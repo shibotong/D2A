@@ -35,6 +35,7 @@ struct CalendarMatchListView: View {
                                 MatchListRowView(viewModel: MatchListRowViewModel(match: match))
                                     .background(Color.systemBackground)
                             }
+                            .accessibilityIdentifier(match.id!.description)
                         }
                     }
                 }

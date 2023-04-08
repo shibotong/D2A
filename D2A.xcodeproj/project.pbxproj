@@ -309,7 +309,6 @@
 		79A989212931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79BEC5BF29736E4900510748 /* LatestRecentMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BEC5BE29736E4900510748 /* LatestRecentMatchView.swift */; };
 		79CF637C29C40B700072F4C0 /* D2AUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF637B29C40B700072F4C0 /* D2AUITests.swift */; };
-		79CF637E29C40B700072F4C0 /* D2AUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF637D29C40B700072F4C0 /* D2AUITestsLaunchTests.swift */; };
 		79D5280E28DD5D990070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
 		79D5281E28DD73CF0070841D /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.json */; };
 		79D5281F28DD73CF0070841D /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.json */; };
@@ -530,7 +529,6 @@
 		79BEC5BE29736E4900510748 /* LatestRecentMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestRecentMatchView.swift; sourceTree = "<group>"; };
 		79CF637929C40B6F0072F4C0 /* D2AUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = D2AUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79CF637B29C40B700072F4C0 /* D2AUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AUITests.swift; sourceTree = "<group>"; };
-		79CF637D29C40B700072F4C0 /* D2AUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		79D5280D28DD5D990070841D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		79D5281D28DD73CF0070841D /* secrets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = secrets.json; sourceTree = "<group>"; };
 		79D5282128DD74930070841D /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
@@ -1005,7 +1003,6 @@
 			isa = PBXGroup;
 			children = (
 				79CF637B29C40B700072F4C0 /* D2AUITests.swift */,
-				79CF637D29C40B700072F4C0 /* D2AUITestsLaunchTests.swift */,
 			);
 			path = D2AUITests;
 			sourceTree = "<group>";
@@ -1565,7 +1562,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79CF637E29C40B700072F4C0 /* D2AUITestsLaunchTests.swift in Sources */,
 				79CF637C29C40B700072F4C0 /* D2AUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
