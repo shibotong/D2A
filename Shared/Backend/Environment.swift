@@ -71,7 +71,7 @@ final class DotaEnvironment: ObservableObject {
                 if !duplicatedMatches {
                     removeDuplicatedMatches()
                 } else {
-                    self.finishLoading()
+                    finishLoading()
                 }
             }
         }
