@@ -50,6 +50,8 @@ final class DotaEnvironment: ObservableObject {
     @Published var userActive: Bool = false
     
     @Published var percentage: Double = 0.0
+    
+    private let REMOVE_DUPLICATE_KEY = "dotaArmory.duplicateMatches2.2.1"
 
     init() {
         let userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
@@ -65,14 +67,9 @@ final class DotaEnvironment: ObservableObject {
                 if registerdID != "" || !userIDs.isEmpty {
                     await migration(registerID: registerdID, userIDs: userIDs)
                 }
-                
-                // fix duplicated matches
-                let duplicatedMatches = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.duplicateMatches2.2.1") as? Bool ?? false
-                if !duplicatedMatches {
-                    removeDuplicatedMatches()
-                } else {
-                    finishLoading()
-                }
+            }
+            DispatchQueue.main.async {
+                self.loading = false
             }
         }
     }
@@ -118,81 +115,17 @@ final class DotaEnvironment: ObservableObject {
         UserDefaults(suiteName: GROUP_NAME)?.set([String](), forKey: "dotaArmory.userID")
     }
     
-    private func removeDuplicatedMatches() {
+    private func removeNotFavouriteRecentMatches() {
         let moc = PersistenceController.shared.makeContext()
         let fetchRequest = UserProfile.fetchRequest()
+        let notFavouritePredicate = NSPredicate(format: "favourite = %d", false)
+        fetchRequest.predicate = notFavouritePredicate
         guard let players = try? moc.fetch(fetchRequest) else {
-            self.finishLoading()
             return
         }
-        let total: Double = Double(players.count)
-        var finish: Double = 0
-        if players.isEmpty {
-            self.finishLoading()
-        }
-        for player in players {
-            guard let playerID = player.id else {
-                continue
-            }
-            removeDuplicatedByID(playerID: playerID) {
-                finish += 1
-                DispatchQueue.main.async { [weak self] in
-                    self?.percentage = finish/total
-                    if self?.percentage == 1 {
-                        // set key to true when all finish
-                        self?.finishLoading()
-                    }
-                }
-            }
-        }
-    }
-    
-    private func finishLoading() {
-        UserDefaults(suiteName: GROUP_NAME)?.set(true, forKey: "dotaArmory.duplicateMatches2.2.1")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.loading = false
-        }
-    }
-    
-    private func removeDuplicatedByID(playerID: String, completion: @escaping () -> Void) {
-        let moc = PersistenceController.shared.makeContext(author: "\(playerID)")
-        moc.perform {
-            print("start \(playerID)")
-            let recentMatchRequest = RecentMatch.fetchRequest()
-            let predicate = NSPredicate(format: "playerId = %@", playerID)
-            recentMatchRequest.predicate = predicate
-            guard let allRecentMatches = try? moc.fetch(recentMatchRequest) else {
-                return
-            }
-            var duplicatedMatchID = [String]()
-            for match in allRecentMatches {
-                let filter = allRecentMatches.filter { $0.id == match.id }
-                guard let id = match.id else { continue }
-                if filter.count > 1 {
-                    if !duplicatedMatchID.contains(id) {
-                        duplicatedMatchID.append(id)
-                    }
-                }
-            }
-            if !duplicatedMatchID.isEmpty {
-                print("Duplicated IDs \(duplicatedMatchID)")
-            }
-            for id in duplicatedMatchID {
-                let matchPredicate = NSPredicate(format: "id = %@", id)
-                recentMatchRequest.predicate = NSCompoundPredicate(type: .and, subpredicates: [predicate, matchPredicate])
-                guard let matches = try? moc.fetch(recentMatchRequest) else {
-                    continue
-                }
-                if matches.count > 1 {
-                    matches[1..<matches.count].forEach {
-                        moc.delete($0)
-                    }
-                }
-            }
-            try? moc.save()
-            try? moc.parent?.save()
-            print("finish \(playerID)")
-            completion()
+        players.forEach { player in
+            guard let playerID = player.id else { return }
+            PersistenceController.shared.deleteRecentMatchesForUserID(userID: playerID)
         }
     }
     
