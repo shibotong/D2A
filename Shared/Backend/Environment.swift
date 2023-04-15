@@ -50,8 +50,6 @@ final class DotaEnvironment: ObservableObject {
     @Published var userActive: Bool = false
     
     @Published var percentage: Double = 0.0
-    
-    private let REMOVE_DUPLICATE_KEY = "dotaArmory.duplicateMatches2.2.1"
 
     init() {
         let userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
