@@ -20,6 +20,8 @@ struct PlayerProfileView: View {
     @State private var error: Bool = false
     @State private var matchLoading = false
     
+    @State private var refreshID = UUID()
+    
     private var steamLink: some View {
         HStack {
             Spacer()
@@ -140,6 +142,7 @@ struct PlayerProfileView: View {
                 }
             }
             .background(Color.secondarySystemBackground)
+            .id(refreshID)
         }
     }
     
@@ -216,6 +219,7 @@ struct PlayerProfileView: View {
     @ViewBuilder private func buildButton(profile: UserProfile) -> some View {
         HStack(spacing: 20) {
             Button {
+                refreshID = UUID()
                 Task {
                     await loadMatches()
                 }
