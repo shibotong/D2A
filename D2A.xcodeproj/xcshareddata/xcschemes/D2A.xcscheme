@@ -87,13 +87,6 @@
             ReferencedContainer = "container:D2A.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-         <AdditionalOption
-            key = "NSZombieEnabled"
-            value = "YES"
-            isEnabled = "YES">
-         </AdditionalOption>
-      </AdditionalOptions>
       <StoreKitConfigurationFileReference
          identifier = "../../D2AProStore.storekit">
       </StoreKitConfigurationFileReference>
