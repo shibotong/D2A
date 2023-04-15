@@ -48,8 +48,6 @@ final class DotaEnvironment: ObservableObject {
     @Published var selectedMatch: String?
     @Published var matchActive: Bool = false
     @Published var userActive: Bool = false
-    
-    @Published var percentage: Double = 0.0
 
     init() {
         let userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
@@ -125,10 +123,5 @@ final class DotaEnvironment: ObservableObject {
             guard let playerID = player.id else { return }
             PersistenceController.shared.deleteRecentMatchesForUserID(userID: playerID)
         }
-    }
-    
-    @MainActor
-    private func setPercent(_ percentage: Double) {
-        self.percentage = percentage
     }
 }
