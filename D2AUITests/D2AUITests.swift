@@ -129,6 +129,7 @@ final class D2AUITests: XCTestCase {
         datePicker.pickerWheels.element(boundBy: 1).adjust(toPickerWheelValue: "2023")
         app.buttons["Month"].tap()
         app.buttons["Thursday, March 30"].tap()
+        takeScreenshot("Calendar")
         app.buttons["7084211966"].tap()
         sleep(networkWaiting)
         takeScreenshot("Match Detail")
