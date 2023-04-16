@@ -58,6 +58,7 @@ struct FavouriteUserListView: View {
             ForEach(favouritePlayers, id: \.id) { player in
                 NavigationLink(destination: PlayerProfileView(userid: player.id ?? "")) {
                     UserProfileRowView(profile: player)
+                        .accessibilityIdentifier(player.id!.description)
                 }
             }
         }

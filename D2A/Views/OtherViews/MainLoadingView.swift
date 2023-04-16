@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct MainLoadingView: View {
+    
     @Binding var status: LoadingStatus
+    var envLoading: Bool
     
     var reloadData: () -> Void = {
         print("Button Pressed")
@@ -23,7 +25,7 @@ struct MainLoadingView: View {
                     .resizable()
                     .frame(width: 100, height: 100)
                     .clipShape(RoundedRectangle(cornerRadius: 25))
-            } else if status == .error {
+            } else {
                 Button {
                     reloadData()
                 } label: {
@@ -47,10 +49,6 @@ struct MainLoadingView: View {
  struct MainLoadingView_Previews: PreviewProvider {
     @State static var status: LoadingStatus = .error
     static var previews: some View {
-        MainLoadingView(status: $status)
-            .preferredColorScheme(.light)
-        MainLoadingView(status: $status)
-            .preferredColorScheme(.dark)
-        
+        MainLoadingView(status: $status, envLoading: true)
     }
  }

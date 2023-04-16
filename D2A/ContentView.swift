@@ -15,7 +15,8 @@ struct ContentView: View {
     var body: some View {
         Group {
             if data.status != .finish || env.loading == true {
-                MainLoadingView(status: $data.status) {
+                MainLoadingView(status: $data.status,
+                                envLoading: env.loading) {
                     data.loadData()
                 }
             } else {

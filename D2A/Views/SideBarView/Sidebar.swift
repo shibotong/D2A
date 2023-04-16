@@ -51,12 +51,6 @@ struct Sidebar: View {
                             SidebarRowView(userid: player.id!)
                         }.isDetailLink(true)
                     }
-//                    .onMove(perform: { indices, newOffset in
-//                        env.move(from: indices, to: newOffset)
-//                    })
-//                    .onDelete(perform: { indexSet in
-//                        env.delete(from: indexSet)
-//                    })
                 } header: {
                     Text("Favorite Players")
                 }
@@ -100,9 +94,13 @@ struct SidebarRowView: View {
     }
     
 }
-//
-// struct Sidebar_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Text("Hello world")
-//    }
-// }
+
+ struct Sidebar_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            Sidebar()
+            EmptyView()
+        }
+        .environmentObject(DotaEnvironment.shared)
+    }
+ }

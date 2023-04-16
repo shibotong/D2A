@@ -123,6 +123,7 @@ struct HeroListView: View {
                 ForEach(heroes) { hero in
                     NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
                         buildHero(hero: hero)
+                            
                     }
                 }
             }
@@ -140,12 +141,14 @@ struct HeroListView: View {
             HeroImageView(heroID: hero.id, type: .vert)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .opacity(vm.searchResults.contains(where: { $0.id == hero.id }) || vm.searchString.isEmpty ? 1 : 0.2)
+                .accessibilityIdentifier(hero.heroNameLocalized)
         } else {
             if vm.gridView {
                 ZStack {
                     HeroImageView(heroID: hero.id, type: .full)
                         .overlay(LinearGradient(colors: [.black.opacity(0), .black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .accessibilityIdentifier(hero.heroNameLocalized)
                     HStack {
                         VStack {
                             Spacer()

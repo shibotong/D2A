@@ -50,7 +50,7 @@ class PersistenceController {
         return url.appendingPathComponent("token.data", isDirectory: false)
     }()
 
-    init(inMemory: Bool = false) {
+    init(inMemory: Bool = uiTesting ? true : false) {
         container = NSPersistentContainer(name: "D2AModel")
         container.viewContext.automaticallyMergesChangesFromParent = true
         loadContainer(inMemory: inMemory)
@@ -116,6 +116,31 @@ class PersistenceController {
         } catch {
             print(error.localizedDescription)
             return nil
+        }
+    }
+    
+    func deleteRecentMatchesForUserID(userID: String) {
+        let viewContext = makeContext(author: userID)
+        weak var weakContext = viewContext
+        viewContext.perform { [weak self] in
+            print("start removing recent matches for player \(userID)")
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = RecentMatch.fetchRequest()
+            let predicate = NSPredicate(format: "playerId = %@", userID)
+            fetchRequest.predicate = predicate
+            
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            deleteRequest.resultType = .resultTypeObjectIDs
+            
+            guard let strongSelf = self,
+                  let batchDelete = try? weakContext?.execute(deleteRequest) as? NSBatchDeleteResult,
+                  let deleteResult = batchDelete.result as? [NSManagedObjectID] else {
+                print("batch delete error")
+                return
+            }
+            
+            let deletedObjects: [AnyHashable: Any] = [NSDeletedObjectsKey: deleteResult]
+            
+            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: deletedObjects, into: [strongSelf.container.viewContext])
         }
     }
 }

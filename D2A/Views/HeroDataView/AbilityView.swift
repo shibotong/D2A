@@ -25,41 +25,44 @@ struct AbilityView: View {
            let stratzAbility = viewModel.stratzAbility {
             GeometryReader { proxy in
                 ScrollView(.vertical, showsIndicators: false) {
-                    buildTitle(openDotaAbility: openDotaAbility,
-                               stratzAbility: stratzAbility)
-                    buildStats(ability: openDotaAbility)
-                    buildDescription(ability: openDotaAbility,
-                                     stratz: stratzAbility,
-                                     proxy: proxy)
-                    Spacer().frame(height: 10)
-                    if let attributes = stratzAbility.language?.attributes?.compactMap({$0}) {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 5) {
-                                ForEach(attributes, id: \.self) { item in
-                                    let splits = item.split(separator: colonLocalize)
-                                    if splits.count == 2 {
-                                        let header = String(splits.first ?? "")
-                                        let message = String(splits.last ?? "")
-                                        buildAttributesText(title: "\(header):", message: message)
-                                    } else {
-                                        buildAttributesText(title: item, message: "")
+                    VStack {
+                        buildTitle(openDotaAbility: openDotaAbility,
+                                   stratzAbility: stratzAbility)
+                        buildStats(ability: openDotaAbility)
+                        buildDescription(ability: openDotaAbility,
+                                         stratz: stratzAbility,
+                                         proxy: proxy)
+                        Spacer().frame(height: 10)
+                        if let attributes = stratzAbility.language?.attributes?.compactMap({$0}) {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 5) {
+                                    ForEach(attributes, id: \.self) { item in
+                                        let splits = item.split(separator: colonLocalize)
+                                        if splits.count == 2 {
+                                            let header = String(splits.first ?? "")
+                                            let message = String(splits.last ?? "")
+                                            buildAttributesText(title: "\(header):", message: message)
+                                        } else {
+                                            buildAttributesText(title: item, message: "")
+                                        }
                                     }
                                 }
+                                Spacer()
                             }
-                            Spacer()
+                        }
+                        Spacer().frame(height: 10)
+                        if let lore = stratzAbility.language?.lore {
+                            Text(lore)
+                                .font(.system(size: 10))
+                                .padding(8)
+                                .foregroundColor(Color(UIColor.tertiaryLabel))
+                                .background(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .foregroundColor(Color(UIColor.tertiarySystemBackground))
+                                )
                         }
                     }
-                    Spacer().frame(height: 10)
-                    if let lore = stratzAbility.language?.lore {
-                        Text(lore)
-                            .font(.system(size: 10))
-                            .padding(8)
-                            .foregroundColor(Color(UIColor.tertiaryLabel))
-                            .background(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .foregroundColor(Color(UIColor.tertiarySystemBackground))
-                            )
-                    }
+                    .padding(.vertical)
                 }
             }
             .padding(.horizontal)

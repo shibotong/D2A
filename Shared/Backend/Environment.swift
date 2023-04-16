@@ -54,21 +54,16 @@ final class DotaEnvironment: ObservableObject {
         let registerdID = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.registerdID") as? String ?? ""
         subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         tab = .home
-        // migrate from WCDB Database to CoreData
         Task {
             DispatchQueue.main.async {
                 self.loading = true
             }
-            if registerdID != "" || !userIDs.isEmpty {
-                await migration(registerID: registerdID, userIDs: userIDs)
-                
+            if !isTesting {
+                // migrate from WCDB Database to CoreData
+                if registerdID != "" || !userIDs.isEmpty {
+                    await migration(registerID: registerdID, userIDs: userIDs)
+                }
             }
-            
-            // fix duplicated matches
-//            let duplicatedMatches = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.duplicateMatches") as? Bool ?? false
-//            if !duplicatedMatches {
-//                await removeDuplicatedMatches()
-//            }
             DispatchQueue.main.async {
                 self.loading = false
             }
@@ -116,48 +111,17 @@ final class DotaEnvironment: ObservableObject {
         UserDefaults(suiteName: GROUP_NAME)?.set([String](), forKey: "dotaArmory.userID")
     }
     
-    private func removeDuplicatedMatches() async {
+    private func removeNotFavouriteRecentMatches() {
         let moc = PersistenceController.shared.makeContext()
         let fetchRequest = UserProfile.fetchRequest()
-        do {
-            let players = try moc.fetch(fetchRequest)
-            for player in players {
-                let recentMatchRequest = RecentMatch.fetchRequest()
-                guard let playerID = player.id else {
-                    continue
-                }
-                let predicate = NSPredicate(format: "playerId = %@", playerID)
-                recentMatchRequest.predicate = predicate
-                let allRecentMatches = try moc.fetch(recentMatchRequest)
-                var duplicatedMatchID = [String]()
-                for match in allRecentMatches {
-                    let filter = allRecentMatches.filter { $0.id == match.id }
-                    guard let id = match.id else { continue }
-                    if filter.count > 1 {
-                        if !duplicatedMatchID.contains(id) {
-                            duplicatedMatchID.append(id)
-                        }
-                    }
-                }
-                if !duplicatedMatchID.isEmpty {
-                    print("Duplicated IDs \(duplicatedMatchID)")
-                }
-                for id in duplicatedMatchID {
-                    let matchPredicate = NSPredicate(format: "id = %@", id)
-                    recentMatchRequest.predicate = NSCompoundPredicate(type: .and, subpredicates: [predicate, matchPredicate])
-                    let matches = try moc.fetch(recentMatchRequest)
-                    if matches.count > 1 {
-                        matches[1..<matches.count].forEach {
-                            moc.delete($0)
-                        }
-                    }
-                }
-                try moc.save()
-                try moc.parent?.save()
-            }
-        } catch {
-            print(error.localizedDescription)
+        let notFavouritePredicate = NSPredicate(format: "favourite = %d", false)
+        fetchRequest.predicate = notFavouritePredicate
+        guard let players = try? moc.fetch(fetchRequest) else {
+            return
         }
-        
+        players.forEach { player in
+            guard let playerID = player.id else { return }
+            PersistenceController.shared.deleteRecentMatchesForUserID(userID: playerID)
+        }
     }
 }

@@ -51,6 +51,7 @@ struct RankView: View {
                         .font(.title)
                         .bold()
                         .foregroundColor(.white)
+                        .frame(width: 100, height: 100)
                         .frame(width: proxy.size.width, height: proxy.size.height / 6.0)
                         .scaleEffect(proxy.size.height / 200)
                         .offset(y: proxy.size.height * 0.75)
@@ -61,20 +62,25 @@ struct RankView: View {
 }
 
 struct RankView_Previews: PreviewProvider {
+    static let frameLength: CGFloat = 40
     static var previews: some View {
         Group {
-            RankView(rank: 74, leaderboard: nil)
-                .previewLayout(.fixed(width: 100, height: 100))
-            RankView(rank: 80, leaderboard: 1)
-                .previewLayout(.fixed(width: 100, height: 100))
-            RankView(rank: 80, leaderboard: 10)
-                .previewLayout(.fixed(width: 100, height: 100))
-            RankView(rank: 80, leaderboard: 100)
-                .previewLayout(.fixed(width: 100, height: 100))
-            RankView(rank: 0, leaderboard: 0)
-                .previewLayout(.fixed(width: 100, height: 100))
-            RankView(rank: 15, leaderboard: 0)
-                .previewLayout(.fixed(width: 100, height: 100))
+            VStack {
+                ForEach(1..<8) { badge in
+                    HStack {
+                        ForEach(1..<6) { star in
+                            let rank = badge * 10 + star
+                            RankView(rank: rank, leaderboard: nil)
+                                .frame(width: frameLength, height: frameLength)
+                        }
+                    }
+                }
+                RankView(rank: 80, leaderboard: 9999)
+                    .frame(width: 50, height: 50)
+            }
+            .previewLayout(.fixed(width: 400, height: 500))
+            RankView(rank: 80, leaderboard: 9999)
+                .previewLayout(.fixed(width: frameLength, height: frameLength))
         }
     }
 }

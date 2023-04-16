@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct SearchView: View {
-    @EnvironmentObject var env: DotaEnvironment
     @StateObject var vm: SearchViewModel = SearchViewModel()
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     var body: some View {
         searchPage
             .navigationTitle("Search")
@@ -19,6 +19,7 @@ struct SearchView: View {
             }
             .disableAutocorrection(true)
             .onSubmit(of: .search) {
+                vm.addSearch(vm.searchText)
                 Task {
                     await vm.search(searchText: vm.searchText)
                 }
@@ -27,6 +28,13 @@ struct SearchView: View {
     
     private var searchSuggestions: some View {
         Group {
+            if vm.searchText.isEmpty {
+                ForEach(vm.searchHistory, id: \.self) { text in
+                    Label("\(text)", systemImage: "magnifyingglass")
+                        .searchCompletion(text)
+                }
+                
+            }
             ForEach(vm.suggestLocalProfiles) { profile in
                 Label("\(profile.personaname ?? "")", systemImage: "person.crop.circle")
                     .searchCompletion(profile.personaname ?? "")
@@ -62,23 +70,7 @@ struct SearchView: View {
                 Text("hero name and match id")
                     .foregroundColor(.secondaryLabel)
             }
-            if let selectedMatch = env.selectedMatch {
-                NavigationLink(
-                    destination: MatchView(matchid: selectedMatch),
-                    isActive: $env.matchActive
-                ) {
-                    EmptyView()
-                }
-            }
-            if let selectedUser = env.selectedUser {
-                NavigationLink(
-                    destination: PlayerProfileView(userid: selectedUser),
-                    isActive: $env.userActive
-                ) {
-                    EmptyView()
-                }
-            }
-        }
+        }.frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     private var searchedList: some View {
@@ -125,12 +117,12 @@ struct SearchView: View {
                     ForEach(vm.searchLocalProfiles) { profile in
                         NavigationLink(destination: PlayerProfileView(userid: profile.id ?? "")) {
                             ProfileView(viewModel: ProfileViewModel(profile: profile))
-                        }
+                        }.accessibilityIdentifier(profile.id ?? "")
                     }
                     ForEach(vm.userProfiles) { profile in
                         NavigationLink(destination: PlayerProfileView(userid: profile.id.description)) {
                             ProfileView(viewModel: ProfileViewModel(profile: profile))
-                        }
+                        }.accessibilityIdentifier(profile.id.description)
                     }
                 } header: {
                     Text("Players")
@@ -141,11 +133,11 @@ struct SearchView: View {
     }
 }
 
-// struct AddAccountView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            EmptyView()
-//            SearchView()
-//        }.environmentObject(DotaEnvironment.shared)
-//    }
-// }
+ struct AddAccountView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            EmptyView()
+            SearchView()
+        }
+    }
+ }
