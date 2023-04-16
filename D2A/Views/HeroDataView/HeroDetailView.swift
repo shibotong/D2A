@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HeroDetailView: View {
-    @ObservedObject var vm: HeroDetailViewModel
+    @StateObject var vm: HeroDetailViewModel
     @Environment(\.horizontalSizeClass) var horizontal
     @State private var heroLevel = 1.00
     

@@ -16,8 +16,7 @@ struct ContentView: View {
         Group {
             if data.status != .finish || env.loading == true {
                 MainLoadingView(status: $data.status,
-                                envLoading: env.loading,
-                                percentage: env.percentage) {
+                                envLoading: env.loading) {
                     data.loadData()
                 }
             } else {
