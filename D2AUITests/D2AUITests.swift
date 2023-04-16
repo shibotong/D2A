@@ -81,27 +81,6 @@ final class D2AUITests: XCTestCase {
         XCTAssert(app.staticTexts["Mr.BOBOBO"].exists)
     }
     
-    /// Test rank view {
-    func testRankView() {
-        let app = startApp()
-        let playerID = "123278116"
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            app.buttons["Search"].tap()
-        } else {
-            app.tabBars["Tab Bar"].buttons["Search"].tap()
-        }
-        let searchTextField = app.searchFields["Players, Heroes, Matches"]
-        searchTextField.tap()
-        searchTextField.typeText(playerID)
-        sleep(networkWaiting)
-        // click enter on software keyboard
-        app.keyboards.buttons["search"].tap()
-        sleep(networkWaiting)
-        app.buttons[playerID].tap()
-        sleep(networkWaiting)
-        takeScreenshot("Rank View")
-    }
-    
     /// Take screenshots for each devices
     func testCaptureSnapshots() {
         // Take screenshot on home page
