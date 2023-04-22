@@ -128,7 +128,7 @@
 "INTELLIGENCE" = "智力";
 "UNIVERSAL" = "全才";
 "Attributes" = "属性";
-"Health" = "血量";
+"HP" = "血量";
 "Mana" = "魔法";
 "Stats" = "属性";
 "Attack" = "攻击";

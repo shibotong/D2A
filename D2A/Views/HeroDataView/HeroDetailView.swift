@@ -376,7 +376,7 @@ struct HeroDetailView: View {
         let barColor = type == .hp ? Color(UIColor.systemGreen) : Color(UIColor.systemBlue)
         VStack(spacing: 0) {
             HStack {
-                Text(type.rawValue)
+                Text(LocalizedStringKey(type.rawValue))
                     .font(.system(size: 15))
                     .bold()
                     .foregroundColor(.secondaryLabel)

@@ -83,7 +83,7 @@ struct HeroListView: View {
                 Image("attribute_\(attribute.rawValue)")
                     .resizable()
                     .frame(width: 20, height: 20)
-                Text(LocalizedStringKey(attribute.fullName))
+                Text(LocalizedStringKey(attribute.fullName)).bold()
                 Spacer()
             }
         }
