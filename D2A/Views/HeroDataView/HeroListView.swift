@@ -80,8 +80,7 @@ struct HeroListView: View {
             }
         } header: {
             HStack {
-                Image("attribute_\(attribute.rawValue)")
-                    .resizable()
+                AttributeImage(attribute: attribute)
                     .frame(width: 20, height: 20)
                 Text(LocalizedStringKey(attribute.fullName)).bold()
                 Spacer()
@@ -151,7 +150,7 @@ struct HeroListView: View {
                         VStack {
                             Spacer()
                             HStack(spacing: 3) {
-                                Image("attribute_\(hero.primaryAttr)").resizable().frame(width: 15, height: 15)
+                                AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr)).frame(width: 15, height: 15)
                                 Text(hero.heroNameLocalized)
                                     .font(.caption2)
                                     .fontWeight(.black)
