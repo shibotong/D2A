@@ -11,10 +11,9 @@ struct TestCaseString: Decodable {
     let userid: String
     let username: String
     
-    static func load() throws -> Self {
-        let testFile = Bundle.main.url(forResource: "testcase", withExtension: "json")
-        
-        guard let testFile, let fileData = try? Data(contentsOf: testFile) else {
+    static func load(from bundle: Bundle) throws -> Self {
+        let testFileURL = bundle.url(forResource: "testcase", withExtension: "json")
+        guard let testFileURL, let fileData = try? Data(contentsOf: testFileURL) else {
             fatalError("No `testcase.json` file found. Make sure to duplicate `testcase.json.sample` and remove the `.sample` extension.")
         }
         

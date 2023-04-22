@@ -32,11 +32,19 @@ final class D2AUITests: XCTestCase {
     
     private let networkWaiting: UInt32 = 3
     
+    private var userid: String!
+    private var username: String!
+
     override func setUpWithError() throws {
         if UIDevice.current.userInterfaceIdiom == .pad {
             XCUIDevice.shared.orientation = .landscapeRight
         }
+        
         // In UI tests it is usually best to stop immediately when a failure occurs.
+        let bundle = Bundle(for: Self.self)
+        let testCase = try? TestCaseString.load(from: bundle)
+        userid = testCase?.userid
+        username = testCase?.username
         continueAfterFailure = false
     }
     
@@ -49,10 +57,10 @@ final class D2AUITests: XCTestCase {
         let app = startApp()
         let textField = app.textFields["Search ID"]
         textField.tap()
-        textField.typeText("153041957")
+        textField.typeText(userid)
         app.buttons["Register Player"].tap()
         sleep(networkWaiting)
-        XCTAssert(app.staticTexts["Mr.BOBOBO"].exists)
+        XCTAssert(app.staticTexts[username].exists)
     }
     
     /// Test all hero page
@@ -83,12 +91,12 @@ final class D2AUITests: XCTestCase {
         }
         let textField = app.searchFields["Players, Heroes, Matches"]
         textField.tap()
-        textField.typeText("Mr.BOBOBO")
+        textField.typeText(username)
         sleep(networkWaiting)
         // click enter on software keyboard
         app.keyboards.buttons["search"].tap()
         sleep(networkWaiting)
-        app.buttons["153041957"].tap()
+        app.buttons[userid].tap()
         sleep(networkWaiting)
         app.buttons["favourite"].tap()
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -96,6 +104,6 @@ final class D2AUITests: XCTestCase {
         } else {
             app.tabBars["Tab Bar"].buttons["Home"].tap()
         }
-        XCTAssert(app.staticTexts["Mr.BOBOBO"].exists)
+        XCTAssert(app.staticTexts[username].exists)
     }
 }

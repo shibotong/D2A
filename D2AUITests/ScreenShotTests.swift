@@ -10,13 +10,19 @@ import XCTest
 final class ScreenShotTests: XCTestCase {
     
     private let networkWaiting: UInt32 = 3
-
+    private var userid: String!
+    private var username: String!
+    
     override func setUpWithError() throws {
         if UIDevice.current.userInterfaceIdiom == .pad {
             XCUIDevice.shared.orientation = .landscapeRight
         }
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
+        let bundle = Bundle(for: Self.self)
+        let testCase = try? TestCaseString.load(from: bundle)
+        userid = testCase?.userid
+        username = testCase?.username
     }
 
     /// Take screenshots for each devices
@@ -25,7 +31,7 @@ final class ScreenShotTests: XCTestCase {
         let app = startApp()
         let textField = app.textFields["Search ID"]
         textField.tap()
-        textField.typeText("153041957")
+        textField.typeText(userid)
         app.buttons["Register Player"].tap()
         sleep(networkWaiting)
         takeScreenshot("Home")
@@ -51,13 +57,13 @@ final class ScreenShotTests: XCTestCase {
         }
         let searchTextField = app.searchFields["Players, Heroes, Matches"]
         searchTextField.tap()
-        searchTextField.typeText("Mr.BOBOBO")
+        searchTextField.typeText(username)
         sleep(networkWaiting)
         // click enter on software keyboard
         app.keyboards.buttons["search"].tap()
         sleep(networkWaiting)
         takeScreenshot("Search")
-        app.buttons["153041957"].tap()
+        app.buttons[username].tap()
         sleep(networkWaiting)
         takeScreenshot("Profile")
         app.buttons["All"].tap()
@@ -68,6 +74,8 @@ final class ScreenShotTests: XCTestCase {
         app.buttons["Month"].tap()
         app.buttons["Thursday, March 30"].tap()
         takeScreenshot("Calendar")
+        
+        // use a match id on that date
         app.buttons["7084211966"].tap()
         sleep(networkWaiting)
         takeScreenshot("Match Detail")
