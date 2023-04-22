@@ -121,12 +121,20 @@ extension Hero {
     
     var calculatedAttackMin: Int32 {
         let mainAttributes = mainAttributes
-        return baseAttackMin + mainAttributes
+        if primaryAttr == "all" {
+            return baseAttackMin + Int32(Double(mainAttributes) * 0.6)
+        } else {
+            return baseAttackMin + mainAttributes
+        }
     }
     
     var calculatedAttackMax: Int32 {
         let mainAttributes = mainAttributes
-        return baseAttackMax + mainAttributes
+        if primaryAttr == "all" {
+            return baseAttackMax + Int32(Double(mainAttributes) * 0.6)
+        } else {
+            return baseAttackMax + mainAttributes
+        }
     }
     
     var calculateArmor: Double {
@@ -142,6 +150,8 @@ extension Hero {
             return baseAgi
         case "int":
             return baseInt
+        case "all":
+            return baseInt + baseStr + baseAgi
         default:
             return 0
         }

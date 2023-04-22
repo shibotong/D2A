@@ -358,8 +358,7 @@ struct HeroDetailView: View {
     @ViewBuilder private func buildStatLevel(hero: Hero, type: HeroAttribute) -> some View {
         let gain = hero.getGain(type: type)
         HStack {
-            Image("hero_\(type.rawValue)")
-                .resizable()
+            AttributeImage(attribute: type)
                 .frame(width: 15, height: 15)
             Text("\(hero.calculateAttribute(level: heroLevel, attr: type))")
                 .font(.system(size: 18))
