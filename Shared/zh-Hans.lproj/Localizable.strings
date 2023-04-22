@@ -123,9 +123,10 @@
 "Icons" = "图标";
 "List" = "列表";
 "All" = "全部";
-"Strength" = "力量";
-"Agility" = "敏捷";
-"Intelligence" = "智力";
+"STRENGTH" = "力量";
+"AGILITY" = "敏捷";
+"INTELLIGENCE" = "智力";
+"UNIVERSAL" = "全才";
 "Attributes" = "属性";
 "Health" = "血量";
 "Mana" = "魔法";

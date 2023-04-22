@@ -12,9 +12,6 @@ struct HeroListView: View {
     @StateObject var vm = HeroListViewModel()
     @Environment(\.horizontalSizeClass) private var horizontalSize
     
-    private let heroAttributes = ["str", "agi", "int"]
-    private let heroAttributesTitle = ["str": "Strength", "agi": "Agility", "int": "Intelligence"]
-    
     var body: some View {
         buildBody()
             .navigationTitle("Heroes")
@@ -29,10 +26,11 @@ struct HeroListView: View {
                         }
                         
                         Picker("attributes", selection: $vm.attributes) {
-                            Text("All").tag(HeroAttributes.all)
-                            Label("Strength", image: "hero_str").tag(HeroAttributes.str)
-                            Label("Agility", image: "hero_agi").tag(HeroAttributes.agi)
-                            Label("Intelligence", image: "hero_int").tag(HeroAttributes.int)
+                            Text("All").tag(HeroAttribute.whole)
+                            Label("Strength", image: "attribute_str").tag(HeroAttribute.str)
+                            Label("Agility", image: "attribute_agi").tag(HeroAttribute.agi)
+                            Label("Intelligence", image: "attribute_int").tag(HeroAttribute.int)
+                            Label("Universal", image: "attribute_all").tag(HeroAttribute.all)
                         }
                     } label: {
                         if vm.gridView {
@@ -60,18 +58,18 @@ struct HeroListView: View {
             }
         } else {
             ScrollView(.vertical, showsIndicators: false) {
-                ForEach(heroAttributes, id: \.self) { attribute in
+                ForEach(HeroAttribute.allCases, id: \.self) { attribute in
                     let heroes = vm.heroList.filter { hero in
-                        return hero.primaryAttr == attribute
+                        return hero.primaryAttr == attribute.rawValue
                     }
-                    buildHeroGrid(heroes: heroes, title: heroAttributesTitle[attribute]!, icon: attribute)
+                    buildHeroGrid(heroes: heroes, attribute: attribute)
                 }
             }
             .padding(.horizontal)
         }
     }
     
-    @ViewBuilder private func buildHeroGrid(heroes: [HeroCodable], title: String, icon: String) -> some View {
+    @ViewBuilder private func buildHeroGrid(heroes: [HeroCodable], attribute: HeroAttribute) -> some View {
         Section {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading), count: 1)) {
                 ForEach(heroes) { hero in
@@ -82,16 +80,16 @@ struct HeroListView: View {
             }
         } header: {
             HStack {
-                Image("hero_\(icon)")
+                Image("attribute_\(attribute.rawValue)")
                     .resizable()
                     .frame(width: 20, height: 20)
-                Text(LocalizedStringKey(title))
+                Text(LocalizedStringKey(attribute.fullName))
                 Spacer()
             }
         }
     }
     
-    @ViewBuilder private func buildSection(heroes: [HeroCodable], attributes: HeroAttributes) -> some View {
+    @ViewBuilder private func buildSection(heroes: [HeroCodable], attributes: HeroAttribute) -> some View {
         if heroes.count == 0 {
             Text("No Results")
                 .bold()
@@ -101,7 +99,7 @@ struct HeroListView: View {
             Section {
                 buildMainPart(heroes: heroes)
             } header: {
-                if attributes != .all {
+                if attributes != .whole {
                     HStack {
                         Image("hero_\(vm.attributes.rawValue)")
                             .resizable()
@@ -153,7 +151,7 @@ struct HeroListView: View {
                         VStack {
                             Spacer()
                             HStack(spacing: 3) {
-                                Image("hero_\(hero.primaryAttr)").resizable().frame(width: 15, height: 15)
+                                Image("attribute_\(hero.primaryAttr)").resizable().frame(width: 15, height: 15)
                                 Text(hero.heroNameLocalized)
                                     .font(.caption2)
                                     .fontWeight(.black)

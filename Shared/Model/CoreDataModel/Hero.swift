@@ -173,7 +173,7 @@ extension Hero {
     ///    - type: `HeroHPMana` type of calculation
     ///  - return: a `Int` value indicate hp or mana for current level
     func calculateHPManaByLevel(level: Double, type: HeroHPMana) -> Int {
-        let attr: HeroAttributes = type == .hp ? .str : .int
+        let attr: HeroAttribute = type == .hp ? .str : .int
         let base = type == .hp ? baseHealth : baseMana
         let max = type == .hp ? Hero.strMaxHP : Hero.intMaxMP
         let totalStat = calculateAttribute(level: level, attr: attr)
@@ -199,7 +199,7 @@ extension Hero {
     ///    - type: `HeroHPMana` type of calculation
     ///  - return: a `Double` value indicate hp or mana regen  for current level
     func calculateHPManaRegenByLevel(level: Double, type: HeroHPMana) -> Double {
-        let attr: HeroAttributes = type == .hp ? .str : .int
+        let attr: HeroAttribute = type == .hp ? .str : .int
         let base = type == .hp ? baseHealthRegen : baseManaRegen
         let regen = type == .hp ? Hero.strHPRegen : Hero.intManaRegen
         let totalStat = calculateAttribute(level: level, attr: attr)
@@ -219,7 +219,7 @@ extension Hero {
         return regen
     }
     
-    func calculateAttribute(level: Double, attr: HeroAttributes) -> Int32 {
+    func calculateAttribute(level: Double, attr: HeroAttribute) -> Int32 {
         var base: Int32 = 0
         var gain = 0.0
         switch attr {
@@ -235,13 +235,16 @@ extension Hero {
         case .int:
             base = baseInt
             gain = gainInt
+        case .whole:
+            base = 0
+            gain = 0
         }
         var total = base + Int32((level - 1) * gain)
         total = levelBonusAttribute(base: total, level: level)
         return Int32(total)
     }
     
-    func getGain(type: HeroAttributes) -> Double {
+    func getGain(type: HeroAttribute) -> Double {
         switch type {
         case .all:
             return 0.0
@@ -251,6 +254,8 @@ extension Hero {
             return gainAgi
         case .int:
             return gainInt
+        case .whole:
+            return 0.0
         }
     }
     

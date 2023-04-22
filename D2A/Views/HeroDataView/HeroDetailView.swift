@@ -80,7 +80,7 @@ struct HeroDetailView: View {
                     VStack(alignment: .leading, spacing: 3) {
                         Spacer()
                         HStack {
-                            Image("hero_\(hero.primaryAttr ?? "")")
+                            Image("attribute_\(hero.primaryAttr ?? "")")
                                 .resizable()
                                 .frame(width: 25, height: 25)
                             Text(LocalizedStringKey(hero.displayName ?? ""))
@@ -99,7 +99,7 @@ struct HeroDetailView: View {
         } else {
             HStack {
                 HeroImageView(heroID: Int(hero.id), type: .full)
-                Image("hero_\(hero.primaryAttr ?? "")")
+                Image("attribute_\(hero.primaryAttr ?? "")")
                     .resizable()
                     .frame(width: 25, height: 25)
                 Text(LocalizedStringKey(hero.displayName ?? ""))
@@ -357,7 +357,7 @@ struct HeroDetailView: View {
         .padding(.horizontal)
     }
     
-    @ViewBuilder private func buildStatLevel(hero: Hero, type: HeroAttributes) -> some View {
+    @ViewBuilder private func buildStatLevel(hero: Hero, type: HeroAttribute) -> some View {
         let gain = hero.getGain(type: type)
         HStack {
             Image("hero_\(type.rawValue)")
