@@ -288,7 +288,8 @@ struct HeroDetailView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Attack")
                         .font(.system(size: 15))
-                    buildStatDetail(image: "icon_damage", value: "\(hero.calculatedAttackMin)-\(hero.calculatedAttackMax)")
+                    buildStatDetail(image: "icon_damage",
+                                    value: "\(hero.calculateAttackByLevel(level: heroLevel, isMin: true))-\(hero.calculateAttackByLevel(level: heroLevel, isMin: false))")
                     buildStatDetail(image: "icon_attack_time", value: "\(hero.attackRate)")
                     buildStatDetail(image: "icon_attack_range", value: "\(hero.attackRange)")
                     buildStatDetail(image: "icon_projectile_speed", value: "\(hero.projectileSpeed)")
@@ -297,7 +298,7 @@ struct HeroDetailView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Defense")
                         .font(.system(size: 15))
-                    buildStatDetail(image: "icon_armor", value: String(format: "%.1f", hero.calculateArmor))
+                    buildStatDetail(image: "icon_armor", value: String(format: "%.1f", hero.calculateArmorByLevel(level: heroLevel)))
                     buildStatDetail(image: "icon_magic_resist", value: "\(hero.baseMr)%")
                 }
                 Spacer()
