@@ -5,9 +5,8 @@
 //  Created by Shibo Tong on 22/4/2023.
 //
 
-import Foundation
-
 struct TestCaseString {
-    let userid: String = "153041957"
-    let username: String = "Mr.BOBOBO"
+    // TODO: Use your own ID and username here
+    let userid: String = ""
+    let username: String = ""
 }
