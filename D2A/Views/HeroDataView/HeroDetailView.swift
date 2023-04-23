@@ -15,18 +15,45 @@ struct HeroDetailView: View {
     var body: some View {
         ZStack {
             if let hero = vm.hero {
-                if horizontal == .compact {
-                    buildCompactBody(hero: hero)
-                } else {
-                    buildRegularBody(hero: hero)
-                }
+                buildMainBody(hero: hero)
             } else {
                 LoadingView()
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            vm.loadHero()
+        .toolbar {
+            HStack {
+                if let previousID = vm.previousHeroID {
+                    Button {
+                        vm.heroID = previousID
+                    } label: {
+                        HStack(spacing: 0) {
+                            Image(systemName: "chevron.left")
+                            HeroImageView(heroID: previousID, type: .icon)
+                                .frame(width: 25, height: 25)
+                        }
+                    }
+                }
+                if let nextID = vm.nextHeroID {
+                    Button {
+                        vm.heroID = nextID
+                    } label: {
+                        HStack(spacing: 0) {
+                            HeroImageView(heroID: nextID, type: .icon)
+                                .frame(width: 25, height: 25)
+                            Image(systemName: "chevron.right")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder private func buildMainBody(hero: Hero) -> some View {
+        if horizontal == .compact {
+            buildCompactBody(hero: hero)
+        } else {
+            buildRegularBody(hero: hero)
         }
     }
     
@@ -410,8 +437,18 @@ struct HeroDetailView: View {
 struct HeroDetailView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
-                .environment(\.horizontalSizeClass, .regular)
+            NavigationView {
+                HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
+                    .environment(\.horizontalSizeClass, .regular)
+            }
+            .previewDevice(.iPhoneMini)
+            
+            NavigationView {
+                EmptyView()
+                HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
+                    .environment(\.horizontalSizeClass, .regular)
+            }
+            .previewDevice(.iPad)
         }
     }
 }
