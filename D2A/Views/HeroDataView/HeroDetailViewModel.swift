@@ -35,7 +35,6 @@ class HeroDetailViewModel: ObservableObject {
         $heroID
             .map { [weak self] id in
                 let heroid = self?.getNextHeroID(id: id)
-                print("next hero ID \(heroid)")
                 return heroid
             }
             .assign(to: &$nextHeroID)
