@@ -17,12 +17,13 @@ final class ScreenShotTests: XCTestCase {
         if UIDevice.current.userInterfaceIdiom == .pad {
             XCUIDevice.shared.orientation = .landscapeRight
         }
+        
         // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-        let bundle = Bundle(for: Self.self)
-        let testCase = try? TestCaseString.load(from: bundle)
+//        let bundle = Bundle(for: Self.self)
+        let testCase = try? TestCaseString.load()
         userid = testCase?.userid
         username = testCase?.username
+        continueAfterFailure = false
     }
 
     /// Take screenshots for each devices
@@ -79,14 +80,5 @@ final class ScreenShotTests: XCTestCase {
         app.buttons["7084211966"].tap()
         sleep(networkWaiting)
         takeScreenshot("Match Detail")
-    }
-
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
     }
 }

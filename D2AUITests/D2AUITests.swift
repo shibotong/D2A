@@ -41,8 +41,8 @@ final class D2AUITests: XCTestCase {
         }
         
         // In UI tests it is usually best to stop immediately when a failure occurs.
-        let bundle = Bundle(for: Self.self)
-        let testCase = try? TestCaseString.load(from: bundle)
+
+        let testCase = try? TestCaseString.load()
         userid = testCase?.userid
         username = testCase?.username
         continueAfterFailure = false
