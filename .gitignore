@@ -93,4 +93,4 @@ Podfile.lock
 
 .DS_Store
 Shared/GraphQL/secrets.json
-Shared/Utility/testcase.json
+D2AUITests/testcase.json
