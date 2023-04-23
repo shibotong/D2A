@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TestCaseString: Decodable {
+struct TestCaseString {
     let userid: String = "153041957"
     let username: String = "Mr.BOBOBO"
 }
