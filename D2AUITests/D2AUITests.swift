@@ -32,8 +32,8 @@ final class D2AUITests: XCTestCase {
     
     private let networkWaiting: UInt32 = 3
     
-    private var userid: String!
-    private var username: String!
+    private var userID: String = "153041957"
+    private var userName: String = "Mr.BOBOBO"
 
     override func setUpWithError() throws {
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -41,10 +41,6 @@ final class D2AUITests: XCTestCase {
         }
         
         // In UI tests it is usually best to stop immediately when a failure occurs.
-
-        let testCase = TestCaseString()
-        userid = testCase.userid
-        username = testCase.username
         continueAfterFailure = false
     }
     
@@ -57,7 +53,7 @@ final class D2AUITests: XCTestCase {
         let app = startApp()
         let textField = app.textFields["Search ID"]
         textField.tap()
-        textField.typeText(userid)
+        textField.typeText(userID)
         app.buttons["Register Player"].tap()
         sleep(networkWaiting)
         XCTAssert(app.staticTexts[username].exists)
@@ -96,7 +92,7 @@ final class D2AUITests: XCTestCase {
         // click enter on software keyboard
         app.keyboards.buttons["search"].tap()
         sleep(networkWaiting)
-        app.buttons[userid].tap()
+        app.buttons[userID].tap()
         sleep(networkWaiting)
         app.buttons["favourite"].tap()
         if UIDevice.current.userInterfaceIdiom == .pad {

@@ -10,8 +10,8 @@ import XCTest
 final class ScreenShotTests: XCTestCase {
     
     private let networkWaiting: UInt32 = 3
-    private var userid: String!
-    private var username: String!
+    private var userID: String = "153041957"
+    private var userName: String = "Mr.BOBOBO"
     
     override func setUpWithError() throws {
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -19,10 +19,6 @@ final class ScreenShotTests: XCTestCase {
         }
         
         // In UI tests it is usually best to stop immediately when a failure occurs.
-//        let bundle = Bundle(for: Self.self)
-        let testCase = TestCaseString()
-        userid = testCase.userid
-        username = testCase.username
         continueAfterFailure = false
     }
 
@@ -32,7 +28,7 @@ final class ScreenShotTests: XCTestCase {
         let app = startApp()
         let textField = app.textFields["Search ID"]
         textField.tap()
-        textField.typeText(userid)
+        textField.typeText(userID)
         app.buttons["Register Player"].tap()
         sleep(networkWaiting)
         takeScreenshot("Home")
@@ -58,7 +54,7 @@ final class ScreenShotTests: XCTestCase {
         }
         let searchTextField = app.searchFields["Players, Heroes, Matches"]
         searchTextField.tap()
-        searchTextField.typeText(username)
+        searchTextField.typeText(userName)
         sleep(networkWaiting)
         // click enter on software keyboard
         app.keyboards.buttons["search"].tap()
