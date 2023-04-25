@@ -39,7 +39,7 @@ struct Sidebar: View {
                             destination: PlayerProfileView(userid: player.id!)
                         ) {
                             SidebarRowView(userid: player.id!)
-                        }.isDetailLink(true)
+                        }
                     }
                 } header: {
                     Text("Favorite Players")
