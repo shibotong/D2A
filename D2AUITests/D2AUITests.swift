@@ -9,6 +9,24 @@ import XCTest
 
 extension XCTestCase {
     
+    var networkWaiting: UInt32 {
+        return 3
+    }
+    
+    var userID: String {
+        return "153041957"
+    }
+    var userName: String {
+        return "Mr.BOBOBO"
+    }
+    
+    var hero: String {
+        return "Alchemist"
+    }
+    var ability: String {
+        return "alchemist_acid_spray"
+    }
+    
     /// Start App
     func startApp() -> XCUIApplication {
         let app = XCUIApplication()
@@ -29,11 +47,6 @@ extension XCTestCase {
 }
 
 final class D2AUITests: XCTestCase {
-    
-    private let networkWaiting: UInt32 = 3
-    
-    private var userID: String = "153041957"
-    private var userName: String = "Mr.BOBOBO"
 
     override func setUpWithError() throws {
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -63,15 +76,15 @@ final class D2AUITests: XCTestCase {
     func testHeroPage() {
         let app = startApp()
         app.buttons["Heroes"].tap()
-        let abaddonButton = app.buttons["Abaddon"]
-        XCTAssert(abaddonButton.exists)
+        let heroButton = app.buttons[hero]
+        XCTAssert(heroButton.exists)
         takeScreenshot("Hero")
-        abaddonButton.tap()
-        let borrowedTimeButton = app.buttons["abaddon_borrowed_time"]
-        XCTAssert(borrowedTimeButton.exists)
+        heroButton.tap()
+        let abilityButton = app.buttons[ability]
+        XCTAssert(abilityButton.exists)
         takeScreenshot("Hero Detail")
         if UIDevice.current.userInterfaceIdiom == .phone {
-            borrowedTimeButton.tap()
+            abilityButton.tap()
             sleep(networkWaiting)
             takeScreenshot("Ability Detail")
         }

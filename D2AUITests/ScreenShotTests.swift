@@ -9,10 +9,6 @@ import XCTest
 
 final class ScreenShotTests: XCTestCase {
     
-    private let networkWaiting: UInt32 = 3
-    private var userID: String = "153041957"
-    private var userName: String = "Mr.BOBOBO"
-    
     override func setUpWithError() throws {
         if UIDevice.current.userInterfaceIdiom == .pad {
             XCUIDevice.shared.orientation = .landscapeRight
@@ -35,10 +31,10 @@ final class ScreenShotTests: XCTestCase {
         
         // Take screenshot for Hero List
         app.buttons["Heroes"].tap()
-        let abaddonButton = app.buttons["Abaddon"]
+        let abaddonButton = app.buttons[hero]
         takeScreenshot("Hero List")
         abaddonButton.tap()
-        let borrowedTimeButton = app.buttons["abaddon_borrowed_time"]
+        let borrowedTimeButton = app.buttons[ability]
         takeScreenshot("Hero Detail")
         if UIDevice.current.userInterfaceIdiom == .phone {
             borrowedTimeButton.tap()
