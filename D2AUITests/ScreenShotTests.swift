@@ -60,7 +60,7 @@ final class ScreenShotTests: XCTestCase {
         app.keyboards.buttons["search"].tap()
         sleep(networkWaiting)
         takeScreenshot("Search")
-        app.buttons[username].tap()
+        app.buttons[userName].tap()
         sleep(networkWaiting)
         takeScreenshot("Profile")
         app.buttons["All"].tap()

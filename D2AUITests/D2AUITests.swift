@@ -56,7 +56,7 @@ final class D2AUITests: XCTestCase {
         textField.typeText(userID)
         app.buttons["Register Player"].tap()
         sleep(networkWaiting)
-        XCTAssert(app.staticTexts[username].exists)
+        XCTAssert(app.staticTexts[userName].exists)
     }
     
     /// Test all hero page
@@ -87,7 +87,7 @@ final class D2AUITests: XCTestCase {
         }
         let textField = app.searchFields["Players, Heroes, Matches"]
         textField.tap()
-        textField.typeText(username)
+        textField.typeText(userName)
         sleep(networkWaiting)
         // click enter on software keyboard
         app.keyboards.buttons["search"].tap()
@@ -100,6 +100,6 @@ final class D2AUITests: XCTestCase {
         } else {
             app.tabBars["Tab Bar"].buttons["Home"].tap()
         }
-        XCTAssert(app.staticTexts[username].exists)
+        XCTAssert(app.staticTexts[userName].exists)
     }
 }
