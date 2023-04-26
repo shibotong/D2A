@@ -18,7 +18,7 @@ enum ScepterType: String {
 struct AbilityView: View {
     @EnvironmentObject var dataBase: HeroDatabase
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel: AbilityViewModel
+    @StateObject var viewModel: AbilityViewModel
 
     var body: some View {
         if let openDotaAbility = viewModel.opentDotaAbility,

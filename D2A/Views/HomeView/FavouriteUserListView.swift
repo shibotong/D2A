@@ -12,6 +12,9 @@ struct FavouriteUserListView: View {
     @EnvironmentObject var env: DotaEnvironment
     
     @Environment(\.managedObjectContext) var viewContext
+    
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
     @FetchRequest(sortDescriptors: [],
                   predicate: NSPredicate(format: "favourite = %d AND register = %d", true, false))
     private var favouritePlayers: FetchedResults<UserProfile>
@@ -38,17 +41,19 @@ struct FavouriteUserListView: View {
                 .font(.system(size: 13))
             Text("FAVORITESADDSUBTITLE")
                 .font(.system(size: 13))
-            Button {
-                env.tab = .search
-            } label: {
-                HStack {
-                    Spacer()
-                    Text("Search Player")
-                    Spacer()
+            if horizontalSizeClass == .compact {
+                Button {
+                    env.tab = .search
+                } label: {
+                    HStack {
+                        Spacer()
+                        Text("Search Player")
+                        Spacer()
+                    }
                 }
+                .frame(height: 40)
+                .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
             }
-            .frame(height: 40)
-            .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
         }
         .padding(.vertical)
     }

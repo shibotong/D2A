@@ -15,18 +15,45 @@ struct HeroDetailView: View {
     var body: some View {
         ZStack {
             if let hero = vm.hero {
-                if horizontal == .compact {
-                    buildCompactBody(hero: hero)
-                } else {
-                    buildRegularBody(hero: hero)
-                }
+                buildMainBody(hero: hero)
             } else {
                 LoadingView()
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            vm.loadHero()
+        .toolbar {
+            HStack {
+                if let previousID = vm.previousHeroID {
+                    Button {
+                        vm.heroID = previousID
+                    } label: {
+                        HStack(spacing: 0) {
+                            Image(systemName: "chevron.left")
+                            HeroImageView(heroID: previousID, type: .icon)
+                                .frame(width: 25, height: 25)
+                        }
+                    }
+                }
+                if let nextID = vm.nextHeroID {
+                    Button {
+                        vm.heroID = nextID
+                    } label: {
+                        HStack(spacing: 0) {
+                            HeroImageView(heroID: nextID, type: .icon)
+                                .frame(width: 25, height: 25)
+                            Image(systemName: "chevron.right")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder private func buildMainBody(hero: Hero) -> some View {
+        if horizontal == .compact {
+            buildCompactBody(hero: hero)
+        } else {
+            buildRegularBody(hero: hero)
         }
     }
     
@@ -80,8 +107,7 @@ struct HeroDetailView: View {
                     VStack(alignment: .leading, spacing: 3) {
                         Spacer()
                         HStack {
-                            Image("hero_\(hero.primaryAttr ?? "")")
-                                .resizable()
+                            AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr ?? ""))
                                 .frame(width: 25, height: 25)
                             Text(LocalizedStringKey(hero.displayName ?? ""))
                                 .font(.system(size: 30))
@@ -99,8 +125,7 @@ struct HeroDetailView: View {
         } else {
             HStack {
                 HeroImageView(heroID: Int(hero.id), type: .full)
-                Image("hero_\(hero.primaryAttr ?? "")")
-                    .resizable()
+                AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr ?? ""))
                     .frame(width: 25, height: 25)
                 Text(LocalizedStringKey(hero.displayName ?? ""))
                     .font(.body)
@@ -290,7 +315,8 @@ struct HeroDetailView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Attack")
                         .font(.system(size: 15))
-                    buildStatDetail(image: "icon_damage", value: "\(hero.calculatedAttackMin)-\(hero.calculatedAttackMax)")
+                    buildStatDetail(image: "icon_damage",
+                                    value: "\(hero.calculateAttackByLevel(level: heroLevel, isMin: true))-\(hero.calculateAttackByLevel(level: heroLevel, isMin: false))")
                     buildStatDetail(image: "icon_attack_time", value: "\(hero.attackRate)")
                     buildStatDetail(image: "icon_attack_range", value: "\(hero.attackRange)")
                     buildStatDetail(image: "icon_projectile_speed", value: "\(hero.projectileSpeed)")
@@ -299,7 +325,7 @@ struct HeroDetailView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Defense")
                         .font(.system(size: 15))
-                    buildStatDetail(image: "icon_armor", value: String(format: "%.1f", hero.calculateArmor))
+                    buildStatDetail(image: "icon_armor", value: String(format: "%.1f", hero.calculateArmorByLevel(level: heroLevel)))
                     buildStatDetail(image: "icon_magic_resist", value: "\(hero.baseMr)%")
                 }
                 Spacer()
@@ -357,11 +383,10 @@ struct HeroDetailView: View {
         .padding(.horizontal)
     }
     
-    @ViewBuilder private func buildStatLevel(hero: Hero, type: HeroAttributes) -> some View {
+    @ViewBuilder private func buildStatLevel(hero: Hero, type: HeroAttribute) -> some View {
         let gain = hero.getGain(type: type)
         HStack {
-            Image("hero_\(type.rawValue)")
-                .resizable()
+            AttributeImage(attribute: type)
                 .frame(width: 15, height: 15)
             Text("\(hero.calculateAttribute(level: heroLevel, attr: type))")
                 .font(.system(size: 18))
@@ -376,7 +401,7 @@ struct HeroDetailView: View {
         let barColor = type == .hp ? Color(UIColor.systemGreen) : Color(UIColor.systemBlue)
         VStack(spacing: 0) {
             HStack {
-                Text(type.rawValue)
+                Text(LocalizedStringKey(type.rawValue))
                     .font(.system(size: 15))
                     .bold()
                     .foregroundColor(.secondaryLabel)
@@ -412,8 +437,18 @@ struct HeroDetailView: View {
 struct HeroDetailView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
-                .environment(\.horizontalSizeClass, .regular)
+            NavigationView {
+                HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
+                    .environment(\.horizontalSizeClass, .regular)
+            }
+            .previewDevice(.iPhoneMini)
+            
+            NavigationView {
+                EmptyView()
+                HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
+                    .environment(\.horizontalSizeClass, .regular)
+            }
+            .previewDevice(.iPad)
         }
     }
 }
