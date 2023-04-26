@@ -61,8 +61,8 @@ extension UserProfile {
         let viewContext = controller.makeContext(author: "UserProfile")
         let newProfile = UserProfile(context: viewContext)
         newProfile.id = id
-        newProfile.name = "Mr.BOBOBO"
-        newProfile.personaname = "Mr.BOBOBO"
+        newProfile.name = "test name"
+        newProfile.personaname = "test persona"
         newProfile.favourite = favourite
         newProfile.register = register
         newProfile.rank = 13
