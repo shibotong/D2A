@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct Sidebar: View {
-    @EnvironmentObject var env: DotaEnvironment
-    @AppStorage("selectedUser") var selectedUser: String?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     @FetchRequest(sortDescriptors: [],
@@ -19,23 +17,17 @@ struct Sidebar: View {
     var body: some View {
         List {
             NavigationLink(
-                destination: HomeView(),
-                tag: TabSelection.home,
-                selection: $env.iPadSelectedTab
+                destination: HomeView()
             ) {
                 Label("Home", systemImage: "house")
             }
             NavigationLink(
-                destination: HeroListView(),
-                tag: TabSelection.hero,
-                selection: $env.iPadSelectedTab
+                destination: HeroListView()
             ) {
                 Label("Heroes", systemImage: "server.rack")
             }
             NavigationLink(
-                destination: SearchView(),
-                tag: TabSelection.search,
-                selection: $env.iPadSelectedTab
+                destination: SearchView()
             ) {
                 Label("Search", systemImage: "magnifyingglass")
             }
@@ -44,21 +36,17 @@ struct Sidebar: View {
                 Section {
                     ForEach(favouritePlayers, id: \.self) { player in
                         NavigationLink(
-                            destination: PlayerProfileView(userid: player.id!),
-                            tag: player.id!,
-                            selection: $selectedUser
+                            destination: PlayerProfileView(userid: player.id!)
                         ) {
                             SidebarRowView(userid: player.id!)
-                        }.isDetailLink(true)
+                        }
                     }
                 } header: {
                     Text("Favorite Players")
                 }
             }
             NavigationLink(
-                destination: AboutUsView(),
-                tag: TabSelection.setting,
-                selection: $env.iPadSelectedTab
+                destination: AboutUsView()
             ) {
                 Label("About", systemImage: "info.circle")
             }

@@ -37,12 +37,10 @@ final class DotaEnvironment: ObservableObject {
     var tab: TabSelection {
         didSet {
             selectedTab = tab
-            iPadSelectedTab = tab
         }
     }
     
     @Published var selectedTab: TabSelection = .home
-    @Published var iPadSelectedTab: TabSelection? = .home
     
     @Published var selectedUser: String?
     @Published var selectedMatch: String?
