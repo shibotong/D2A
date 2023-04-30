@@ -154,6 +154,8 @@
 "IMMUNITY:" = "无视技能免疫：";
 "DISPELLABLE:" = "可以驱散：";
 "DAMAGE TYPE:" = "伤害类型：";
+"SCEPTER UPGRADE" = "神杖升级";
+"SHARD UPGRADE" = "魔晶升级";
 
 // MARK: - Game Text
 // MARK: Region

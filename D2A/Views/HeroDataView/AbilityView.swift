@@ -13,6 +13,17 @@ enum ScepterType: String {
     case scepter
     case shard
     case non
+    
+    var upgradeString: LocalizedStringKey {
+        switch self {
+        case .scepter:
+            return LocalizedStringKey("SCEPTER UPGRADE")
+        case .shard:
+            return LocalizedStringKey("SHARD UPGRADE")
+        case .non:
+            return LocalizedStringKey("")
+        }
+    }
 }
 
 struct AbilityView: View {
@@ -181,7 +192,7 @@ struct AbilityView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 18, height: 18)
-                    Text("\(type.rawValue.uppercased()) UPGRADE")
+                    Text(type.upgradeString)
                         .font(.system(size: 15))
                         .bold()
                     Spacer()
