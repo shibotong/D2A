@@ -12,9 +12,6 @@ struct HeroListView: View {
     @StateObject var vm = HeroListViewModel()
     @Environment(\.horizontalSizeClass) private var horizontalSize
     
-    private let heroAttributes = ["str", "agi", "int"]
-    private let heroAttributesTitle = ["str": "Strength", "agi": "Agility", "int": "Intelligence"]
-    
     var body: some View {
         buildBody()
             .navigationTitle("Heroes")
@@ -28,11 +25,12 @@ struct HeroListView: View {
                             Label("List", systemImage: "list.bullet").tag(false)
                         }
                         
-                        Picker("attributes", selection: $vm.attributes) {
-                            Text("All").tag(HeroAttributes.all)
-                            Label("Strength", image: "hero_str").tag(HeroAttributes.str)
-                            Label("Agility", image: "hero_agi").tag(HeroAttributes.agi)
-                            Label("Intelligence", image: "hero_int").tag(HeroAttributes.int)
+                        Picker("attributes", selection: $vm.selectedAttribute) {
+                            Text("All").tag(HeroAttribute.whole)
+                            Label("STRENGTH", image: "attribute_str").tag(HeroAttribute.str)
+                            Label("AGILITY", image: "attribute_agi").tag(HeroAttribute.agi)
+                            Label("INTELLIGENCE", image: "attribute_int").tag(HeroAttribute.int)
+                            Label("UNIVERSAL", image: "attribute_all").tag(HeroAttribute.all)
                         }
                     } label: {
                         if vm.gridView {
@@ -49,29 +47,29 @@ struct HeroListView: View {
         if horizontalSize == .compact {
             if vm.gridView {
                 ScrollView(.vertical, showsIndicators: false) {
-                    buildSection(heroes: vm.searchResults, attributes: vm.attributes)
+                    buildSection(heroes: vm.searchResults, attributes: vm.selectedAttribute)
                 }
                 .padding(.horizontal)
             } else {
                 List {
-                    buildSection(heroes: vm.searchResults, attributes: vm.attributes)
+                    buildSection(heroes: vm.searchResults, attributes: vm.selectedAttribute)
                 }
                 .listStyle(PlainListStyle())
             }
         } else {
             ScrollView(.vertical, showsIndicators: false) {
-                ForEach(heroAttributes, id: \.self) { attribute in
+                ForEach(HeroAttribute.allCases, id: \.self) { attribute in
                     let heroes = vm.heroList.filter { hero in
-                        return hero.primaryAttr == attribute
+                        return hero.primaryAttr == attribute.rawValue
                     }
-                    buildHeroGrid(heroes: heroes, title: heroAttributesTitle[attribute]!, icon: attribute)
+                    buildHeroGrid(heroes: heroes, attribute: attribute)
                 }
             }
             .padding(.horizontal)
         }
     }
     
-    @ViewBuilder private func buildHeroGrid(heroes: [HeroCodable], title: String, icon: String) -> some View {
+    @ViewBuilder private func buildHeroGrid(heroes: [HeroCodable], attribute: HeroAttribute) -> some View {
         Section {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading), count: 1)) {
                 ForEach(heroes) { hero in
@@ -82,16 +80,15 @@ struct HeroListView: View {
             }
         } header: {
             HStack {
-                Image("hero_\(icon)")
-                    .resizable()
+                AttributeImage(attribute: attribute)
                     .frame(width: 20, height: 20)
-                Text(LocalizedStringKey(title))
+                Text(LocalizedStringKey(attribute.fullName)).bold()
                 Spacer()
             }
         }
     }
     
-    @ViewBuilder private func buildSection(heroes: [HeroCodable], attributes: HeroAttributes) -> some View {
+    @ViewBuilder private func buildSection(heroes: [HeroCodable], attributes: HeroAttribute) -> some View {
         if heroes.count == 0 {
             Text("No Results")
                 .bold()
@@ -101,12 +98,11 @@ struct HeroListView: View {
             Section {
                 buildMainPart(heroes: heroes)
             } header: {
-                if attributes != .all {
+                if attributes != .whole {
                     HStack {
-                        Image("hero_\(vm.attributes.rawValue)")
-                            .resizable()
+                        AttributeImage(attribute: vm.selectedAttribute)
                             .frame(width: 20, height: 20)
-                        Text("\(attributes.fullName)")
+                        Text(LocalizedStringKey(attributes.fullName))
                             .bold()
                         Spacer()
                     }
@@ -153,7 +149,7 @@ struct HeroListView: View {
                         VStack {
                             Spacer()
                             HStack(spacing: 3) {
-                                Image("hero_\(hero.primaryAttr)").resizable().frame(width: 15, height: 15)
+                                AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr)).frame(width: 15, height: 15)
                                 Text(hero.heroNameLocalized)
                                     .font(.caption2)
                                     .fontWeight(.black)

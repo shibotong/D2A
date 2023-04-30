@@ -8,19 +8,21 @@
 import Foundation
 import Combine
 
-enum HeroAttributes: String {
-    case all, str, agi, int
+enum HeroAttribute: String, CaseIterable {
+    case whole, str, agi, int, all
     
     var fullName: String {
         switch self {
-        case .all:
-            return "All"
         case .str:
-            return "Strength"
+            return "STRENGTH"
         case .agi:
-            return "Agility"
+            return "AGILITY"
         case .int:
-            return "Intelligence"
+            return "INTELLIGENCE"
+        case .all:
+            return "UNIVERSAL"
+        default:
+            return ""
         }
     }
 }
@@ -32,7 +34,7 @@ class HeroListViewModel: ObservableObject {
     
     @Published var searchString: String = ""
     @Published var gridView = true
-    @Published var attributes: HeroAttributes = .all
+    @Published var selectedAttribute: HeroAttribute = .whole
     
     private var subscribers = Set<AnyCancellable>()
     
@@ -40,12 +42,12 @@ class HeroListViewModel: ObservableObject {
         heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
         searchString = ""
         searchResults = []
-        attributes = .all
+        selectedAttribute = .whole
         $searchString
-            .combineLatest($attributes)
+            .combineLatest($selectedAttribute)
             .map { [weak self] searchString, attributes in
                 guard let self = self else { return [] }
-                let filterHeroes = attributes == .all ? self.heroList : self.heroList.filter({ return $0.primaryAttr == attributes.rawValue })
+                let filterHeroes = attributes == .whole ? self.heroList : self.heroList.filter({ return $0.primaryAttr == attributes.rawValue })
                 if searchString.isEmpty {
                     return filterHeroes
                 } else {

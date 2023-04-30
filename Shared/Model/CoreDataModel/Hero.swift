@@ -68,7 +68,6 @@ extension Hero {
         hero.turnRate = model.turnRate ?? 0.6
         
         try viewContext.save()
-        print("save hero successfully \(hero.id)")
         return hero
     }
     
@@ -101,65 +100,6 @@ extension Hero {
         return NSLocalizedString(displayName ?? "no_name", comment: "")
     }
     
-    var calculateHP: Int32 {
-        let hp = baseHealth + baseStr * Hero.strMaxHP
-        return hp
-    }
-    var calculateHPRegen: Double {
-        let regen = baseHealthRegen + Double(baseStr) * Hero.strHPRegen
-        return regen
-    }
-    
-    var calculateMP: Int32 {
-        let mp = baseMana + baseInt * Hero.intMaxMP
-        return mp
-    }
-    var calculateMPRegen: Double {
-        let regen = baseManaRegen + Double(baseInt) * Hero.intManaRegen
-        return regen
-    }
-    
-    var calculatedAttackMin: Int32 {
-        let mainAttributes = mainAttributes
-        return baseAttackMin + mainAttributes
-    }
-    
-    var calculatedAttackMax: Int32 {
-        let mainAttributes = mainAttributes
-        return baseAttackMax + mainAttributes
-    }
-    
-    var calculateArmor: Double {
-        let armor = baseArmor + Hero.agiArmor * Double(baseAgi)
-        return armor
-    }
-    
-    var mainAttributes: Int32 {
-        switch primaryAttr {
-        case "str":
-            return baseStr
-        case "agi":
-            return baseAgi
-        case "int":
-            return baseInt
-        default:
-            return 0
-        }
-    }
-    
-    var mainAttributesGain: Double {
-        switch primaryAttr {
-        case "str":
-            return gainStr
-        case "agi":
-            return gainAgi
-        case "int":
-            return gainInt
-        default:
-            return 0.0
-        }
-    }
-    
     enum HeroHPMana: String {
         case hp = "HP"
         case mana = "Mana"
@@ -173,7 +113,7 @@ extension Hero {
     ///    - type: `HeroHPMana` type of calculation
     ///  - return: a `Int` value indicate hp or mana for current level
     func calculateHPManaByLevel(level: Double, type: HeroHPMana) -> Int {
-        let attr: HeroAttributes = type == .hp ? .str : .int
+        let attr: HeroAttribute = type == .hp ? .str : .int
         let base = type == .hp ? baseHealth : baseMana
         let max = type == .hp ? Hero.strMaxHP : Hero.intMaxMP
         let totalStat = calculateAttribute(level: level, attr: attr)
@@ -199,7 +139,7 @@ extension Hero {
     ///    - type: `HeroHPMana` type of calculation
     ///  - return: a `Double` value indicate hp or mana regen  for current level
     func calculateHPManaRegenByLevel(level: Double, type: HeroHPMana) -> Double {
-        let attr: HeroAttributes = type == .hp ? .str : .int
+        let attr: HeroAttribute = type == .hp ? .str : .int
         let base = type == .hp ? baseHealthRegen : baseManaRegen
         let regen = type == .hp ? Hero.strHPRegen : Hero.intManaRegen
         let totalStat = calculateAttribute(level: level, attr: attr)
@@ -219,13 +159,10 @@ extension Hero {
         return regen
     }
     
-    func calculateAttribute(level: Double, attr: HeroAttributes) -> Int32 {
+    func calculateAttribute(level: Double, attr: HeroAttribute) -> Int32 {
         var base: Int32 = 0
         var gain = 0.0
         switch attr {
-        case .all:
-            base = 0
-            gain = 0
         case .str:
             base = baseStr
             gain = gainStr
@@ -235,13 +172,46 @@ extension Hero {
         case .int:
             base = baseInt
             gain = gainInt
+        default:
+            base = 0
+            gain = 0
         }
         var total = base + Int32((level - 1) * gain)
         total = levelBonusAttribute(base: total, level: level)
         return Int32(total)
     }
     
-    func getGain(type: HeroAttributes) -> Double {
+    /// calculate hero attack  based on Level
+    /// - Parameters:
+    ///    - level: Level of `Hero`
+    ///    - isMin: if the number is min attack or max attack
+    ///  - return: a `Int32` value indicate attack for current level
+    func calculateAttackByLevel(level: Double, isMin: Bool) -> Int32 {
+        let baseAttack = isMin ? baseAttackMin : baseAttackMax
+        var bonusAttack: Int32 = 0
+        switch primaryAttr {
+        case "all":
+            bonusAttack = Int32(Double(calculateAttribute(level: level, attr: .str) +
+                                       calculateAttribute(level: level, attr: .agi) +
+                                       calculateAttribute(level: level, attr: .int)) * 0.6)
+        case "str", "int", "agi":
+            bonusAttack = calculateAttribute(level: level, attr: HeroAttribute(rawValue: primaryAttr!)!)
+        default:
+            bonusAttack = 0
+        }
+        return baseAttack + bonusAttack
+    }
+    
+    /// calculate hero armor based on Level
+    /// - Parameters:
+    ///    - level: Level of `Hero`
+    ///  - return: a `Double` value indicate armor for current level
+    func calculateArmorByLevel(level: Double) -> Double {
+        let armor = baseArmor + Hero.agiArmor * Double(calculateAttribute(level: level, attr: .agi))
+        return armor
+    }
+    
+    func getGain(type: HeroAttribute) -> Double {
         switch type {
         case .all:
             return 0.0
@@ -251,6 +221,8 @@ extension Hero {
             return gainAgi
         case .int:
             return gainInt
+        case .whole:
+            return 0.0
         }
     }
     
