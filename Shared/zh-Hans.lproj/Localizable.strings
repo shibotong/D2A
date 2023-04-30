@@ -157,6 +157,20 @@
 "SCEPTER UPGRADE" = "神杖升级";
 "SHARD UPGRADE" = "魔晶升级";
 
+// Ability
+"No" = "否";
+"Yes" = "是";
+"Pure" = "纯粹";
+"Magical" = "魔法";
+"Physical" = "物理";
+"Passive" = "被动";
+"Unit Target" = "单位目标";
+"Enemy Units" = "敌方单位";
+"Allied Units" = "友方单位";
+"Point Target" = "点目标";
+"No Target" = "无目标";
+"Only Strong Dispels" = "仅强驱散";
+
 // MARK: - Game Text
 // MARK: Region
 "US WEST" = "美国西部";
@@ -348,15 +362,3 @@
 "Marci" = "玛西";
 "Primal Beast" = "兽";
 "Muerta" = "琼英碧灵";
-
-// Ability
-"No" = "否";
-"Yes" = "是";
-"Pure" = "纯粹";
-"Magical" = "魔法";
-"Physical" = "物理";
-"Passive" = "被动";
-"Unit Target" = "单位目标";
-"Enemy Units" = "敌方单位";
-"Point Target" = "点目标";
-"No Target" = "无目标";
