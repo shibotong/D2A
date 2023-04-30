@@ -9,7 +9,11 @@ import Foundation
 import AVFoundation
 import StratzAPI
 
-class AbilityViewModel: ObservableObject {
+class AbilityViewModel: ObservableObject, Equatable {
+    static func == (lhs: AbilityViewModel, rhs: AbilityViewModel) -> Bool {
+        return lhs.heroID == rhs.heroID && lhs.abilityName == rhs.abilityName
+    }
+    
     let heroID: Int
     
     @Published var stratzAbility: AbilityQuery.Data.Constants.Ability?
@@ -27,6 +31,9 @@ class AbilityViewModel: ObservableObject {
         opentDotaAbility = database.fetchOpenDotaAbility(name: abilityName)
         self.heroID = heroID
         self.abilityName = abilityName
+        Task {
+            await buildDetailView()
+        }
     }
     
     func buildDetailView() async {
@@ -69,17 +76,42 @@ class AbilityViewModel: ObservableObject {
             return nil
         }
         let baseURL = "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/\(heroName)"
-        var url: URL?
+        var path = ""
         switch type {
         case .scepter:
-            url = URL(string: "\(baseURL)/\(heroName)_aghanims_scepter.mp4")
+            path = "\(baseURL)/\(heroName)_aghanims_scepter.mp4"
         case .shard:
-            url = URL(string: "\(baseURL)/\(heroName)_aghanims_shard.mp4")
+            path = "\(baseURL)/\(heroName)_aghanims_shard.mp4"
         case .non:
-            url = URL(string: "\(baseURL)/\(ability).mp4")
+            path = "\(baseURL)/\(ability).mp4"
         }
-        guard let url = url else { return nil }
+
+        if let video = CacheVideo.shared.getVideo(key: path) {
+            return video
+        }
+        guard let url = URL(string: path) else { return nil }
         let asset = AVAsset(url: url)
+        CacheVideo.shared.saveVideo(asset, key: path, heroID: heroID)
         return asset.isPlayable ? asset : nil
+    }
+}
+
+private class CacheVideo {
+    private var cache: [String: AVAsset] = [:]
+    private var currentHeroID: Int?
+
+    static let shared = CacheVideo()
+    
+    func saveVideo(_ video: AVAsset, key: String, heroID: Int) {
+        if heroID != currentHeroID {
+            currentHeroID = heroID
+            cache = [:]
+        }
+        cache[key] = video
+    }
+    
+    func getVideo(key: String) -> AVAsset? {
+        let video = cache[key]
+        return video
     }
 }

@@ -68,7 +68,6 @@ extension Hero {
         hero.turnRate = model.turnRate ?? 0.6
         
         try viewContext.save()
-        print("save hero successfully \(hero.id)")
         return hero
     }
     

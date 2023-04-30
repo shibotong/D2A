@@ -80,6 +80,7 @@ final class D2AUITests: XCTestCase {
         XCTAssert(heroButton.exists)
         takeScreenshot("Hero")
         heroButton.tap()
+        sleep(networkWaiting)
         let abilityButton = app.buttons[ability]
         XCTAssert(abilityButton.exists)
         takeScreenshot("Hero Detail")
