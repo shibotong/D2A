@@ -181,7 +181,7 @@ struct AbilityView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 18, height: 18)
-                    Text("\(type.rawValue) Upgrade")
+                    Text("\(type.rawValue.uppercased()) UPGRADE")
                         .font(.system(size: 15))
                         .bold()
                     Spacer()

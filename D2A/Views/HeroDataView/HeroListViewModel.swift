@@ -34,7 +34,7 @@ class HeroListViewModel: ObservableObject {
     
     @Published var searchString: String = ""
     @Published var gridView = true
-    @Published var attributes: HeroAttribute = .whole
+    @Published var selectedAttribute: HeroAttribute = .whole
     
     private var subscribers = Set<AnyCancellable>()
     
@@ -42,9 +42,9 @@ class HeroListViewModel: ObservableObject {
         heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
         searchString = ""
         searchResults = []
-        attributes = .whole
+        selectedAttribute = .whole
         $searchString
-            .combineLatest($attributes)
+            .combineLatest($selectedAttribute)
             .map { [weak self] searchString, attributes in
                 guard let self = self else { return [] }
                 let filterHeroes = attributes == .whole ? self.heroList : self.heroList.filter({ return $0.primaryAttr == attributes.rawValue })
