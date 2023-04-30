@@ -25,12 +25,12 @@ struct HeroListView: View {
                             Label("List", systemImage: "list.bullet").tag(false)
                         }
                         
-                        Picker("attributes", selection: $vm.attributes) {
+                        Picker("attributes", selection: $vm.selectedAttribute) {
                             Text("All").tag(HeroAttribute.whole)
-                            Label("Strength", image: "attribute_str").tag(HeroAttribute.str)
-                            Label("Agility", image: "attribute_agi").tag(HeroAttribute.agi)
-                            Label("Intelligence", image: "attribute_int").tag(HeroAttribute.int)
-                            Label("Universal", image: "attribute_all").tag(HeroAttribute.all)
+                            Label("STRENGTH", image: "attribute_str").tag(HeroAttribute.str)
+                            Label("AGILITY", image: "attribute_agi").tag(HeroAttribute.agi)
+                            Label("INTELLIGENCE", image: "attribute_int").tag(HeroAttribute.int)
+                            Label("UNIVERSAL", image: "attribute_all").tag(HeroAttribute.all)
                         }
                     } label: {
                         if vm.gridView {
@@ -47,12 +47,12 @@ struct HeroListView: View {
         if horizontalSize == .compact {
             if vm.gridView {
                 ScrollView(.vertical, showsIndicators: false) {
-                    buildSection(heroes: vm.searchResults, attributes: vm.attributes)
+                    buildSection(heroes: vm.searchResults, attributes: vm.selectedAttribute)
                 }
                 .padding(.horizontal)
             } else {
                 List {
-                    buildSection(heroes: vm.searchResults, attributes: vm.attributes)
+                    buildSection(heroes: vm.searchResults, attributes: vm.selectedAttribute)
                 }
                 .listStyle(PlainListStyle())
             }
@@ -100,10 +100,9 @@ struct HeroListView: View {
             } header: {
                 if attributes != .whole {
                     HStack {
-                        Image("hero_\(vm.attributes.rawValue)")
-                            .resizable()
+                        AttributeImage(attribute: vm.selectedAttribute)
                             .frame(width: 20, height: 20)
-                        Text("\(attributes.fullName)")
+                        Text(LocalizedStringKey(attributes.fullName))
                             .bold()
                         Spacer()
                     }

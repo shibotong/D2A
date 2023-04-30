@@ -62,7 +62,6 @@ class PersistenceController {
         do {
             try FileManager.default.removeItem(at: storeURL)
             loadContainer()
-            print("SQL file remove success")
         } catch {
             DotaEnvironment.shared.error = true
             DotaEnvironment.shared.errorMessage = "There are some problems with the App. Please delete and reinstall."

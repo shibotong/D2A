@@ -13,12 +13,23 @@ enum ScepterType: String {
     case scepter
     case shard
     case non
+    
+    var upgradeString: LocalizedStringKey {
+        switch self {
+        case .scepter:
+            return LocalizedStringKey("SCEPTER UPGRADE")
+        case .shard:
+            return LocalizedStringKey("SHARD UPGRADE")
+        case .non:
+            return LocalizedStringKey("")
+        }
+    }
 }
 
 struct AbilityView: View {
     @EnvironmentObject var dataBase: HeroDatabase
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: AbilityViewModel
+    @ObservedObject var viewModel: AbilityViewModel
 
     var body: some View {
         if let openDotaAbility = viewModel.opentDotaAbility,
@@ -67,9 +78,6 @@ struct AbilityView: View {
             }
             .padding(.horizontal)
             .navigationBarTitleDisplayMode(.inline)
-            .task {
-                await viewModel.buildDetailView()
-            }
         } else {
             ProgressView()
         }
@@ -99,7 +107,7 @@ struct AbilityView: View {
     @ViewBuilder private func buildStats(ability: Ability) -> some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 100, maximum: 200), spacing: 5), count: 2), alignment: .leading, spacing: 5) {
             if let behavior = ability.behavior?.transformString() {
-                buildAttributesText(title: "ABILITY:", message: "\(behavior)")
+                buildAttributesText(title: "ABILITY:", message: behavior)
             }
             if let targetTeam = ability.targetTeam?.transformString() {
                 switch targetTeam {
@@ -114,19 +122,19 @@ struct AbilityView: View {
                 }
             }
             if let bkbPierce = ability.bkbPierce?.transformString() {
-                buildAttributesText(title: "IMMUNITY:", message: "\(bkbPierce)", color: bkbPierce == "Yes" ? Color.green : Color(uiColor: UIColor.label))
+                buildAttributesText(title: "IMMUNITY:", message: bkbPierce, color: bkbPierce == "Yes" ? Color.green : Color(uiColor: UIColor.label))
             }
             if let dispellable = ability.dispellable {
                 if let dispellableString = dispellable.transformString() {
                     buildAttributesText(title: "DISPELLABLE:",
-                                        message: "\(dispellableString)",
+                                        message: dispellableString,
                                         color: dispellableString == "No" ? .red : Color(uiColor: UIColor.label))
                 } else {
                     buildAttributesText(title: "DISPELLABLE:", message: "Only Strong Dispels", color: .red)
                 }
             }
             if let damageType = ability.damageType?.transformString() {
-                buildAttributesText(title: "DAMAGE TYPE:", message: "\(damageType)", color: {
+                buildAttributesText(title: "DAMAGE TYPE:", message: damageType, color: {
                     if damageType == "Magical" {
                         return Color.blue
                     } else if damageType == "Physical" {
@@ -184,7 +192,7 @@ struct AbilityView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 18, height: 18)
-                    Text("\(type.rawValue) Upgrade")
+                    Text(type.upgradeString)
                         .font(.system(size: 15))
                         .bold()
                     Spacer()
