@@ -67,9 +67,6 @@ struct AbilityView: View {
             }
             .padding(.horizontal)
             .navigationBarTitleDisplayMode(.inline)
-            .task {
-                await viewModel.buildDetailView()
-            }
         } else {
             ProgressView()
         }
