@@ -86,18 +86,15 @@ class AbilityViewModel: ObservableObject, Equatable {
             path = "\(baseURL)/\(ability).mp4"
         }
 
-        if let video = CacheVideo.shared.getVideo(key: path) {
-            return video
+        guard let video = CacheVideo.shared.getVideo(key: path, heroID: heroID) else {
+            return nil
         }
-        guard let url = URL(string: path) else { return nil }
-        let asset = AVAsset(url: url)
-        CacheVideo.shared.saveVideo(asset, key: path, heroID: heroID)
-        return asset.isPlayable ? asset : nil
+        return video.isPlayable ? video: nil
     }
 }
 
 private class CacheVideo {
-    private var cache: [String: AVAsset] = [:]
+    private var cache = NSCache<NSString, AVAsset>()
     private var currentHeroID: Int?
 
     static let shared = CacheVideo()
@@ -105,13 +102,19 @@ private class CacheVideo {
     func saveVideo(_ video: AVAsset, key: String, heroID: Int) {
         if heroID != currentHeroID {
             currentHeroID = heroID
-            cache = [:]
+            cache = NSCache<NSString, AVAsset>()
         }
-        cache[key] = video
+        cache.setObject(video, forKey: key as NSString)
     }
     
-    func getVideo(key: String) -> AVAsset? {
-        let video = cache[key]
-        return video
+    func getVideo(key: String, heroID: Int) -> AVAsset? {
+        if let cacheVideo = cache.object(forKey: key as NSString) {
+            return cacheVideo
+        } else {
+            guard let url = URL(string: key) else { return nil }
+            let asset = AVAsset(url: url)
+            saveVideo(asset, key: key, heroID: heroID)
+            return asset
+        }
     }
 }
