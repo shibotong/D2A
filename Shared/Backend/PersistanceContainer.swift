@@ -92,8 +92,7 @@ class PersistenceController {
                  * The store could not be migrated to the current model version.
                  Check the error message to determine what the actual problem was.
                  */
-                print("An error occured with persistence store \(error.localizedDescription)")
-                self?.removeContainer()
+                fatalError("An error occured with persistence store \(error.localizedDescription)")
             }
         })
     }
