@@ -48,24 +48,8 @@ final class DotaEnvironment: ObservableObject {
     @Published var userActive: Bool = false
 
     init() {
-        let userIDs = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.userID") as? [String] ?? []
-        let registerdID = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.registerdID") as? String ?? ""
         subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         tab = .home
-        Task {
-            DispatchQueue.main.async {
-                self.loading = true
-            }
-            if !isTesting {
-                // migrate from WCDB Database to CoreData
-                if registerdID != "" || !userIDs.isEmpty {
-                    await migration(registerID: registerdID, userIDs: userIDs)
-                }
-            }
-            DispatchQueue.main.async {
-                self.loading = false
-            }
-        }
     }
     
     static func isInWidget() -> Bool {
@@ -93,20 +77,6 @@ final class DotaEnvironment: ObservableObject {
             print("last refresh \(distance)s before, cannot refresh")
             return false
         }
-    }
-    
-    private func migration(registerID: String, userIDs: [String]) async {
-        print("Migrating")
-        if let userCodable = try? await OpenDotaController.shared.loadUserData(userid: registerID) {
-            try? UserProfile.create(userCodable, favourite: true, register: true)
-        }
-        for userID in userIDs {
-            if let userCodable = try? await OpenDotaController.shared.loadUserData(userid: userID) {
-                try? UserProfile.create(userCodable, favourite: true, register: false)
-            }
-        }
-        UserDefaults(suiteName: GROUP_NAME)?.set("", forKey: "dotaArmory.registerdID")
-        UserDefaults(suiteName: GROUP_NAME)?.set([String](), forKey: "dotaArmory.userID")
     }
     
     private func removeNotFavouriteRecentMatches() {
