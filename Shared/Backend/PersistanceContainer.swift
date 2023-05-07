@@ -79,7 +79,7 @@ class PersistenceController {
             container.persistentStoreDescriptions = [description]
         }
         
-        container.loadPersistentStores(completionHandler: { [weak self] (_, error) in
+        container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -92,8 +92,7 @@ class PersistenceController {
                  * The store could not be migrated to the current model version.
                  Check the error message to determine what the actual problem was.
                  */
-                print("An error occured with persistence store \(error.localizedDescription)")
-                self?.removeContainer()
+                fatalError("An error occured with persistence store \(error.localizedDescription)")
             }
         })
     }
