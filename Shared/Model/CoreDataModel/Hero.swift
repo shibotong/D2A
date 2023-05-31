@@ -193,7 +193,7 @@ extension Hero {
         case "all":
             bonusAttack = Int32(Double(calculateAttribute(level: level, attr: .str) +
                                        calculateAttribute(level: level, attr: .agi) +
-                                       calculateAttribute(level: level, attr: .int)) * 0.6)
+                                       calculateAttribute(level: level, attr: .int)) * 0.7)
         case "str", "int", "agi":
             bonusAttack = calculateAttribute(level: level, attr: HeroAttribute(rawValue: primaryAttr!)!)
         default:
