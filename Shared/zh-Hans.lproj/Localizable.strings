@@ -25,6 +25,9 @@
 "Update" = "刷新";
 "Profile" = "Steam资料";
 "Recent Matches" = "最近比赛";
+"Your recent matches" = "你的最近比赛";
+"Latest Match" = "最新比赛";
+"Your latest match" = "你的最新比赛";
 
 // MARK: about us view
 "About" = "关于";
@@ -116,6 +119,7 @@
 "Guardian %@" = "卫士%@";
 "Herald %@" = "先锋%@";
 "Uncalibrated" = "未校准";
+"Unranked" = "未校准";
 
 // MARK: Hero List View
 "Heroes" = "英雄";
