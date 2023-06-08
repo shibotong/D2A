@@ -50,11 +50,11 @@ public class HeroQuery: GraphQLQuery {
 
   public struct Data: StratzAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.DotaQuery }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("constants", Constants?.self)
+      .field("constants", Constants?.self),
     ] }
 
     /// Queries used to query constants in Dota.
@@ -65,11 +65,12 @@ public class HeroQuery: GraphQLQuery {
     /// Parent Type: `ConstantQuery`
     public struct Constants: StratzAPI.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.ConstantQuery }
       public static var __selections: [ApolloAPI.Selection] { [
-        .field("hero", Hero?.self, arguments: ["id": .variable("id")])
+        .field("__typename", String.self),
+        .field("hero", Hero?.self, arguments: ["id": .variable("id")]),
       ] }
 
       public var hero: Hero? { __data["hero"] }
@@ -79,10 +80,11 @@ public class HeroQuery: GraphQLQuery {
       /// Parent Type: `HeroType`
       public struct Hero: StratzAPI.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.HeroType }
         public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .field("id", StratzAPI.Short?.self),
           .field("name", String?.self),
           .field("displayName", String?.self),
@@ -90,7 +92,7 @@ public class HeroQuery: GraphQLQuery {
           .field("aliases", [String?]?.self),
           .field("roles", [Role?]?.self),
           .field("talents", [Talent?]?.self),
-          .field("stats", Stats?.self)
+          .field("stats", Stats?.self),
         ] }
 
         public var id: StratzAPI.Short? { __data["id"] }
@@ -107,12 +109,13 @@ public class HeroQuery: GraphQLQuery {
         /// Parent Type: `HeroRoleType`
         public struct Role: StratzAPI.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.HeroRoleType }
           public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
             .field("roleId", GraphQLEnum<StratzAPI.HeroRoleEnum>?.self),
-            .field("level", StratzAPI.Short?.self)
+            .field("level", StratzAPI.Short?.self),
           ] }
 
           public var roleId: GraphQLEnum<StratzAPI.HeroRoleEnum>? { __data["roleId"] }
@@ -124,12 +127,13 @@ public class HeroQuery: GraphQLQuery {
         /// Parent Type: `HeroTalentType`
         public struct Talent: StratzAPI.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.HeroTalentType }
           public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
             .field("abilityId", StratzAPI.Short?.self),
-            .field("slot", StratzAPI.Byte?.self)
+            .field("slot", StratzAPI.Byte?.self),
           ] }
 
           public var abilityId: StratzAPI.Short? { __data["abilityId"] }
@@ -141,13 +145,14 @@ public class HeroQuery: GraphQLQuery {
         /// Parent Type: `HeroStatType`
         public struct Stats: StratzAPI.SelectionSet {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.HeroStatType }
           public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
             .field("visionDaytimeRange", Double?.self),
             .field("visionNighttimeRange", Double?.self),
-            .field("complexity", StratzAPI.Byte?.self)
+            .field("complexity", StratzAPI.Byte?.self),
           ] }
 
           public var visionDaytimeRange: Double? { __data["visionDaytimeRange"] }

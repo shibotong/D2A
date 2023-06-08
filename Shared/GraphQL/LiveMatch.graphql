@@ -1,0 +1,7 @@
+subscription LiveMatch($matchid: Long!) {
+    matchLive(matchId: $matchid) {
+        matchId
+        radiantScore
+        direScore
+    }
+}
