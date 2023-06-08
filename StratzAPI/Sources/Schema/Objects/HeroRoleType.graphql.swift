@@ -4,8 +4,8 @@
 import ApolloAPI
 
 public extension Objects {
-  static let AbilityType = Object(
-    typename: "AbilityType",
+  static let HeroRoleType = Object(
+    typename: "HeroRoleType",
     implementedInterfaces: []
   )
 }

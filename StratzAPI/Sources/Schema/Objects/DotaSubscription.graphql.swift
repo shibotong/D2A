@@ -4,8 +4,8 @@
 import ApolloAPI
 
 public extension Objects {
-  static let ConstantQuery = Object(
-    typename: "ConstantQuery",
+  static let DotaSubscription = Object(
+    typename: "DotaSubscription",
     implementedInterfaces: []
   )
 }

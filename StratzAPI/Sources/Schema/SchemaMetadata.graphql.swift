@@ -22,6 +22,8 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
 
   public static func objectType(forTypename typename: String) -> Object? {
     switch typename {
+    case "DotaSubscription": return StratzAPI.Objects.DotaSubscription
+    case "MatchLiveType": return StratzAPI.Objects.MatchLiveType
     case "DotaQuery": return StratzAPI.Objects.DotaQuery
     case "ConstantQuery": return StratzAPI.Objects.ConstantQuery
     case "HeroType": return StratzAPI.Objects.HeroType
