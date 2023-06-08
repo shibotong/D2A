@@ -4,8 +4,8 @@
 import ApolloAPI
 
 public extension Objects {
-  static let HeroRoleType = Object(
-    typename: "HeroRoleType",
+  static let ConstantQuery = Object(
+    typename: "ConstantQuery",
     implementedInterfaces: []
   )
 }
