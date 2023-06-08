@@ -10,27 +10,14 @@ import SwiftUI
 
 extension Int {
     var toDuration: String {
-        var min = self / 60
-        let sec = self - min * 60
-        if min >= 60 {
-            let hr = min / 60
-            min -= hr * 60
-            if min < 10 && sec < 10 {
-                return "\(hr):0\(min):0\(sec)"
-            } else if min < 10 {
-                return "\(hr):0\(min):\(sec)"
-            } else if sec < 10 {
-                return "\(hr):\(min):0\(sec)"
-            } else {
-                return "\(hr):\(min):\(sec)"
-            }
-        } else {
-            if sec < 10 {
-                return "\(min):0\(sec)"
-            } else {
-                return "\(min):\(sec)"
-            }
-        }
+        let absoluteSeconds = abs(self) // Convert to absolute value
+        
+        let minutes = absoluteSeconds / 60
+        let remainingSeconds = absoluteSeconds % 60
+        
+        let sign = self >= 0 ? "" : "-" // Determine the sign
+        
+        return "\(sign)\(minutes):\(String(format: "%02d", remainingSeconds))"
     }
     
     var toTime: LocalizedStringKey {

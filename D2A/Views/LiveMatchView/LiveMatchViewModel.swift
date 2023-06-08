@@ -14,8 +14,10 @@ class LiveMatchViewModel: ObservableObject {
     
     private let matchID: Int
     
+    // LiveMatchTimerView
     @Published var radiantScore: Int?
     @Published var direScore: Int?
+    @Published var time: Int?
     
     init(matchID: String) {
         guard let matchID = Int(matchID) else {
@@ -27,12 +29,12 @@ class LiveMatchViewModel: ObservableObject {
     }
     
     func startSubscription() {
-        subscription = Network.shared.apollo.subscribe(subscription: LiveMatchSubscription(matchid: matchID)) { result in
+        subscription = Network.shared.apollo.subscribe(subscription: LiveMatchSubscription(matchid: matchID)) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
-                let radiant = graphQLResult.data?.matchLive?.radiantScore
-                let dire = graphQLResult.data?.matchLive?.direScore
-                print("\(radiant) - \(dire)")
+                self?.radiantScore = graphQLResult.data?.matchLive?.radiantScore
+                self?.direScore = graphQLResult.data?.matchLive?.direScore
+                self?.time = graphQLResult.data?.matchLive?.gameTime
             case .failure(let error):
                 print(error)
             }
