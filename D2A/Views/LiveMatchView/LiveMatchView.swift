@@ -34,13 +34,13 @@ struct LiveMatchView: View {
     @ObservedObject var viewModel: LiveMatchViewModel
     
     var body: some View {
-        VStack {
+        ScrollView {
             Button("Quit match") {
                 viewModel.subscription?.cancel()
                 viewModel.subscription = nil
                 showMatch = false
             }
-            Text("Hello world!")
+            LiveMatchTimerView(radiantScore: viewModel.radiantScore, direScore: viewModel.direScore, time: viewModel.time)
         }
     }
 }
