@@ -61,7 +61,6 @@ class HeroDatabase: ObservableObject {
             async let abilityIDTable = loadAbilityID()
             async let abilities = loadAbilities()
             async let heroAbilities = loadHeroAbilities()
-            async let talentData = loadTalentData()
             async let scepter = loadScepter()
             
             self?.itemIDTable = await idTable
