@@ -20,6 +20,7 @@ class LiveMatchViewModel: ObservableObject {
     @Published var time: Int?
     
     @Published var heroes: [LiveMatchHeroPosition] = []
+    @Published var buildingEvents: [LiveMatchBuildingEvents] = []
     
     init(matchID: String) {
         guard let matchID = Int(matchID) else {
@@ -30,7 +31,7 @@ class LiveMatchViewModel: ObservableObject {
         startSubscription()
     }
     
-    func startSubscription() {
+    private func startSubscription() {
         subscription = Network.shared.apollo.subscribe(subscription: LiveMatchSubscription(matchid: matchID)) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
@@ -56,6 +57,21 @@ class LiveMatchViewModel: ObservableObject {
                 // Towers
                 if let towers = graphQLResult.data?.matchLive?.playbackData?.buildingEvents {
                     print(towers)
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func fetchHistoryData() {
+        Network.shared.apollo.fetch(query: LiveMatchHistoryQuery(matchid: matchID)) { [weak self] result in
+            switch result {
+            case .success(let graphQLResult):
+                // Towers
+                if let buildingEvents = graphQLResult.data?.live?.match?.playbackData?.buildingEvents {
+                    print(buildingEvents)
                 }
                 
             case .failure(let error):

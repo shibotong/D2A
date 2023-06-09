@@ -48,6 +48,22 @@ struct LiveMatchHeroPosition: Identifiable, Equatable {
     
 }
 
+struct LiveMatchBuildingEvents: Identifiable {
+    
+    var id: Int {
+        return indexId
+    }
+    
+    let indexId: Int
+    let time: Int
+    let type: String
+    let isAlive: Bool
+    let xPos: CGFloat
+    let yPos: CGFloat
+    let isRadiant: Bool
+    let npcId: Int
+}
+
 struct LiveMatchMapView_Previews: PreviewProvider {
     static var previews: some View {
         LiveMatchMapView(heroes: [

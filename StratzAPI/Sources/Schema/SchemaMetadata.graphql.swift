@@ -25,7 +25,6 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "DotaQuery": return StratzAPI.Objects.DotaQuery
     case "LiveQuery": return StratzAPI.Objects.LiveQuery
     case "MatchLiveType": return StratzAPI.Objects.MatchLiveType
-    case "TeamType": return StratzAPI.Objects.TeamType
     case "MatchLivePlaybackDataType": return StratzAPI.Objects.MatchLivePlaybackDataType
     case "MatchLiveRoshanDetailType": return StratzAPI.Objects.MatchLiveRoshanDetailType
     case "MatchLiveBuildingDetailType": return StratzAPI.Objects.MatchLiveBuildingDetailType
@@ -35,6 +34,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "MatchLivePlayerPositionDetailType": return StratzAPI.Objects.MatchLivePlayerPositionDetailType
     case "MatchLiveWinRateDetailType": return StratzAPI.Objects.MatchLiveWinRateDetailType
     case "DotaSubscription": return StratzAPI.Objects.DotaSubscription
+    case "TeamType": return StratzAPI.Objects.TeamType
     case "ConstantQuery": return StratzAPI.Objects.ConstantQuery
     case "HeroType": return StratzAPI.Objects.HeroType
     case "HeroRoleType": return StratzAPI.Objects.HeroRoleType
