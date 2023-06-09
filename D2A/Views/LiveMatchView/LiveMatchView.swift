@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct LiveMatchContainerView: View {
-    @State private var matchID: String = ""
+    @State private var matchID: String = "7192620934"
     @State private var showMatch = false
     var body: some View {
         VStack {
             
-            if showMatch {
+//            if showMatch {
                 LiveMatchView(showMatch: $showMatch, viewModel: LiveMatchViewModel(matchID: matchID))
-            } else {
-                Button("Enter Live Match") {
-                    print("match id: \(matchID)")
-                    showMatch = true
-                }
-                TextField("Enter match ID", text: $matchID)
-            }
+//            } else {
+//                Button("Enter Live Match") {
+//                    print("match id: \(matchID)")
+//                    showMatch = true
+//                }
+//                TextField("Enter match ID", text: $matchID)
+//            }
             Spacer()
         }
         
@@ -40,7 +40,11 @@ struct LiveMatchView: View {
                 viewModel.subscription = nil
                 showMatch = false
             }
-            LiveMatchTimerView(radiantScore: viewModel.radiantScore, direScore: viewModel.direScore, time: viewModel.time)
+            VStack(spacing: 0) {
+                LiveMatchTimerView(radiantScore: viewModel.radiantScore, direScore: viewModel.direScore, time: viewModel.time)
+                LiveMatchMapView()
+            }
+            .padding()
         }
     }
 }
