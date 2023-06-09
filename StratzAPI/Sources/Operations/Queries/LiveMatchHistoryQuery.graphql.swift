@@ -13,33 +13,6 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
           __typename
           match(id: $matchid) {
             __typename
-            matchId
-            radiantScore
-            direScore
-            gameTime
-            completed
-            radiantTeamId
-            direTeamId
-            radiantTeam {
-              __typename
-              name
-              tag
-              countryCode
-              url
-              logo
-              baseLogo
-              bannerLogo
-            }
-            direTeam {
-              __typename
-              name
-              tag
-              countryCode
-              url
-              logo
-              baseLogo
-              bannerLogo
-            }
             playbackData {
               __typename
               roshanEvents {
@@ -71,28 +44,6 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
             gameState
             players {
               __typename
-              heroId
-              name
-              playerSlot
-              isRadiant
-              numKills
-              numDeaths
-              numAssists
-              numLastHits
-              numDenies
-              goldPerMinute
-              experiencePerMinute
-              level
-              itemId0
-              itemId1
-              itemId2
-              itemId3
-              itemId4
-              itemId5
-              backpackId0
-              backpackId1
-              backpackId2
-              networth
               playbackData {
                 __typename
                 positionEvents {
@@ -103,7 +54,6 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
                 }
               }
             }
-            winRateValues
             liveWinRateValues {
               __typename
               time
@@ -161,92 +111,16 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
         public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLiveType }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
-          .field("matchId", StratzAPI.Long?.self),
-          .field("radiantScore", StratzAPI.Byte?.self),
-          .field("direScore", StratzAPI.Byte?.self),
-          .field("gameTime", Int?.self),
-          .field("completed", Bool?.self),
-          .field("radiantTeamId", Int?.self),
-          .field("direTeamId", Int?.self),
-          .field("radiantTeam", RadiantTeam?.self),
-          .field("direTeam", DireTeam?.self),
           .field("playbackData", PlaybackData?.self),
           .field("gameState", GraphQLEnum<StratzAPI.MatchLiveGameState>?.self),
           .field("players", [Player?]?.self),
-          .field("winRateValues", [Double?]?.self),
           .field("liveWinRateValues", [LiveWinRateValue?]?.self),
         ] }
 
-        public var matchId: StratzAPI.Long? { __data["matchId"] }
-        public var radiantScore: StratzAPI.Byte? { __data["radiantScore"] }
-        public var direScore: StratzAPI.Byte? { __data["direScore"] }
-        public var gameTime: Int? { __data["gameTime"] }
-        public var completed: Bool? { __data["completed"] }
-        public var radiantTeamId: Int? { __data["radiantTeamId"] }
-        public var direTeamId: Int? { __data["direTeamId"] }
-        public var radiantTeam: RadiantTeam? { __data["radiantTeam"] }
-        public var direTeam: DireTeam? { __data["direTeam"] }
         public var playbackData: PlaybackData? { __data["playbackData"] }
         public var gameState: GraphQLEnum<StratzAPI.MatchLiveGameState>? { __data["gameState"] }
         public var players: [Player?]? { __data["players"] }
-        public var winRateValues: [Double?]? { __data["winRateValues"] }
         public var liveWinRateValues: [LiveWinRateValue?]? { __data["liveWinRateValues"] }
-
-        /// Live.Match.RadiantTeam
-        ///
-        /// Parent Type: `TeamType`
-        public struct RadiantTeam: StratzAPI.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
-
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.TeamType }
-          public static var __selections: [ApolloAPI.Selection] { [
-            .field("__typename", String.self),
-            .field("name", String?.self),
-            .field("tag", String?.self),
-            .field("countryCode", String?.self),
-            .field("url", String?.self),
-            .field("logo", String?.self),
-            .field("baseLogo", String?.self),
-            .field("bannerLogo", String?.self),
-          ] }
-
-          public var name: String? { __data["name"] }
-          public var tag: String? { __data["tag"] }
-          public var countryCode: String? { __data["countryCode"] }
-          public var url: String? { __data["url"] }
-          public var logo: String? { __data["logo"] }
-          public var baseLogo: String? { __data["baseLogo"] }
-          public var bannerLogo: String? { __data["bannerLogo"] }
-        }
-
-        /// Live.Match.DireTeam
-        ///
-        /// Parent Type: `TeamType`
-        public struct DireTeam: StratzAPI.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
-
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.TeamType }
-          public static var __selections: [ApolloAPI.Selection] { [
-            .field("__typename", String.self),
-            .field("name", String?.self),
-            .field("tag", String?.self),
-            .field("countryCode", String?.self),
-            .field("url", String?.self),
-            .field("logo", String?.self),
-            .field("baseLogo", String?.self),
-            .field("bannerLogo", String?.self),
-          ] }
-
-          public var name: String? { __data["name"] }
-          public var tag: String? { __data["tag"] }
-          public var countryCode: String? { __data["countryCode"] }
-          public var url: String? { __data["url"] }
-          public var logo: String? { __data["logo"] }
-          public var baseLogo: String? { __data["baseLogo"] }
-          public var bannerLogo: String? { __data["bannerLogo"] }
-        }
 
         /// Live.Match.PlaybackData
         ///
@@ -352,53 +226,9 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
           public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerType }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
-            .field("heroId", StratzAPI.Short?.self),
-            .field("name", String?.self),
-            .field("playerSlot", StratzAPI.Byte?.self),
-            .field("isRadiant", Bool?.self),
-            .field("numKills", StratzAPI.Byte?.self),
-            .field("numDeaths", StratzAPI.Byte?.self),
-            .field("numAssists", StratzAPI.Byte?.self),
-            .field("numLastHits", StratzAPI.UShort?.self),
-            .field("numDenies", StratzAPI.UShort?.self),
-            .field("goldPerMinute", StratzAPI.UShort?.self),
-            .field("experiencePerMinute", StratzAPI.UShort?.self),
-            .field("level", StratzAPI.Byte?.self),
-            .field("itemId0", StratzAPI.Short?.self),
-            .field("itemId1", StratzAPI.Short?.self),
-            .field("itemId2", StratzAPI.Short?.self),
-            .field("itemId3", StratzAPI.Short?.self),
-            .field("itemId4", StratzAPI.Short?.self),
-            .field("itemId5", StratzAPI.Short?.self),
-            .field("backpackId0", StratzAPI.Short?.self),
-            .field("backpackId1", StratzAPI.Short?.self),
-            .field("backpackId2", StratzAPI.Short?.self),
-            .field("networth", Int?.self),
             .field("playbackData", PlaybackData?.self),
           ] }
 
-          public var heroId: StratzAPI.Short? { __data["heroId"] }
-          public var name: String? { __data["name"] }
-          public var playerSlot: StratzAPI.Byte? { __data["playerSlot"] }
-          public var isRadiant: Bool? { __data["isRadiant"] }
-          public var numKills: StratzAPI.Byte? { __data["numKills"] }
-          public var numDeaths: StratzAPI.Byte? { __data["numDeaths"] }
-          public var numAssists: StratzAPI.Byte? { __data["numAssists"] }
-          public var numLastHits: StratzAPI.UShort? { __data["numLastHits"] }
-          public var numDenies: StratzAPI.UShort? { __data["numDenies"] }
-          public var goldPerMinute: StratzAPI.UShort? { __data["goldPerMinute"] }
-          public var experiencePerMinute: StratzAPI.UShort? { __data["experiencePerMinute"] }
-          public var level: StratzAPI.Byte? { __data["level"] }
-          public var itemId0: StratzAPI.Short? { __data["itemId0"] }
-          public var itemId1: StratzAPI.Short? { __data["itemId1"] }
-          public var itemId2: StratzAPI.Short? { __data["itemId2"] }
-          public var itemId3: StratzAPI.Short? { __data["itemId3"] }
-          public var itemId4: StratzAPI.Short? { __data["itemId4"] }
-          public var itemId5: StratzAPI.Short? { __data["itemId5"] }
-          public var backpackId0: StratzAPI.Short? { __data["backpackId0"] }
-          public var backpackId1: StratzAPI.Short? { __data["backpackId1"] }
-          public var backpackId2: StratzAPI.Short? { __data["backpackId2"] }
-          public var networth: Int? { __data["networth"] }
           public var playbackData: PlaybackData? { __data["playbackData"] }
 
           /// Live.Match.Player.PlaybackData
