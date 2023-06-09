@@ -13,6 +13,9 @@ struct LiveMatchTimerView: View {
     var direScore: Int?
     var time: Int?
     
+    private let imagePadding: CGFloat = 20
+    private let height: CGFloat = 67
+    
     private var isDayTime: Bool {
         guard let time else {
             return true
@@ -40,7 +43,7 @@ struct LiveMatchTimerView: View {
                     Text("--")
                 }
             }
-            .padding(10)
+            .padding(imagePadding)
             Spacer()
             VStack {
                 Image(systemName: isDayTime ? "sun.min.fill" : "moon.fill")
@@ -65,10 +68,10 @@ struct LiveMatchTimerView: View {
                     .aspectRatio(contentMode: .fit)
                     .cornerRadius(5)
             }
-            .padding(10)
+            .padding(imagePadding)
         }
         .background(Color.secondarySystemBackground)
-        .frame(height: 50)
+        .frame(height: height)
     }
 }
 
