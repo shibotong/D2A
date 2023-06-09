@@ -1,0 +1,92 @@
+query LiveMatchHistory($matchid: Long!) {
+    live {
+        match(id: $matchid) {
+            matchId
+            radiantScore
+            direScore
+            gameTime
+            completed
+            radiantTeamId
+            direTeamId
+            radiantTeam {
+                name
+                tag
+                countryCode
+                url
+                logo
+                baseLogo
+                bannerLogo
+            }
+            direTeam {
+                name
+                tag
+                countryCode
+                url
+                logo
+                baseLogo
+                bannerLogo
+            }
+            playbackData {
+                roshanEvents {
+                    time
+                    isAlive
+                    respawnTimer
+                }
+                buildingEvents {
+                    time
+                    indexId
+                    type
+                    isAlive
+                    positionX
+                    positionY
+                    isRadiant
+                    npcId
+                }
+                pickBans {
+                    isPick
+                    heroId
+                    order
+                    bannedHeroId
+                    isRadiant
+                }
+            }
+            gameState
+            players {
+                heroId
+                name
+                playerSlot
+                isRadiant
+                numKills
+                numDeaths
+                numAssists
+                numLastHits
+                numDenies
+                goldPerMinute
+                experiencePerMinute
+                level
+                itemId0
+                itemId1
+                itemId2
+                itemId3
+                itemId4
+                itemId5
+                backpackId0
+                backpackId1
+                backpackId2
+                networth
+                playbackData {
+                    positionEvents {
+                        time
+                        x
+                        y
+                    }
+                }
+            }
+            winRateValues
+            liveWinRateValues {
+                time
+                winRate
+            }
+        }
+    }
+}
