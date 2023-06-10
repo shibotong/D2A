@@ -90,23 +90,6 @@ struct LiveMatchHeroPosition: Identifiable, Equatable {
     
 }
 
-struct LiveMatchBuildingEvents: Identifiable {
-    
-    typealias Building = GraphQLEnum<BuildingType>
-    
-    var id: Int {
-        return indexId
-    }
-    
-    let indexId: Int
-    let time: Int
-    let type: Building
-    let isAlive: Bool
-    let xPos: CGFloat
-    let yPos: CGFloat
-    let isRadiant: Bool
-}
-
 struct LiveMatchMapView_Previews: PreviewProvider {
     static var previews: some View {
         LiveMatchMapView(heroes: [.init(heroID: 1, xPos: 127, yPos: 127)], buildings: [
