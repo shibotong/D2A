@@ -20,7 +20,7 @@ class LiveMatchViewModel: ObservableObject {
     @Published var time: Int?
     
     @Published var heroes: [LiveMatchHeroPosition] = []
-    @Published var buildingEvents: [LiveMatchBuildingEvents] = []
+    @Published var buildingStatus: [LiveMatchBuildingEvents] = []
     
     init(matchID: String) {
         guard let matchID = Int(matchID) else {
@@ -28,6 +28,7 @@ class LiveMatchViewModel: ObservableObject {
             return
         }
         self.matchID = matchID
+        fetchHistoryData()
         startSubscription()
     }
     
@@ -55,8 +56,21 @@ class LiveMatchViewModel: ObservableObject {
                 }
                 
                 // Towers
-                if let towers = graphQLResult.data?.matchLive?.playbackData?.buildingEvents {
-                    print(towers)
+                if let buildingEvents = graphQLResult.data?.matchLive?.playbackData?.buildingEvents {
+                    let events: [LiveMatchBuildingEvents] = buildingEvents.compactMap { event in
+                        guard let event,
+                              let buildingID = event.indexId,
+                              let xPos = event.positionX,
+                              let yPos = event.positionY,
+                              let isRadiant = event.isRadiant,
+                              let type = event.type else {
+                            return nil
+                        }
+                        return LiveMatchBuildingEvents(indexId: buildingID, time: event.time, type: type, isAlive: event.isAlive, xPos: CGFloat(xPos), yPos: CGFloat(yPos), isRadiant: isRadiant)
+                    }
+                    Task { [weak self] in
+                        await self?.processBuildingEvents(events: events)
+                    }
                 }
                 
             case .failure(let error):
@@ -69,13 +83,41 @@ class LiveMatchViewModel: ObservableObject {
         Network.shared.apollo.fetch(query: LiveMatchHistoryQuery(matchid: matchID)) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
+                
                 // Towers
                 if let buildingEvents = graphQLResult.data?.live?.match?.playbackData?.buildingEvents {
-                    print(buildingEvents)
+                    let events: [LiveMatchBuildingEvents] = buildingEvents.compactMap { event in
+                        guard let event,
+                              let buildingID = event.indexId,
+                              let xPos = event.positionX,
+                              let yPos = event.positionY,
+                              let isRadiant = event.isRadiant,
+                              let type = event.type else {
+                            return nil
+                        }
+                        return LiveMatchBuildingEvents(indexId: buildingID, time: event.time, type: type, isAlive: event.isAlive, xPos: CGFloat(xPos), yPos: CGFloat(yPos), isRadiant: isRadiant)
+                    }
+                    Task { [weak self] in
+                        await self?.processBuildingEvents(events: events)
+                    }
                 }
                 
             case .failure(let error):
                 print(error)
+            }
+        }
+    }
+    
+    @MainActor
+    private func processBuildingEvents(events: [LiveMatchBuildingEvents]) async {
+        for event in events {
+            if let index = buildingStatus.firstIndex(where: { $0.indexId == event.indexId }) {
+                let building = buildingStatus[index]
+                if building.isAlive && !event.isAlive {
+                    buildingStatus[index] = event
+                }
+            } else {
+                buildingStatus.append(event)
             }
         }
     }
