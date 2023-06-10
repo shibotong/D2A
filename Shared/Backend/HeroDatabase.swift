@@ -30,7 +30,6 @@ class HeroDatabase: ObservableObject {
     private var abilityIDTable = [String: String]()
     private var abilities = [String: Ability]()
     private var heroAbilities = [String: HeroAbility]()
-    private var talentData = [String: String]()
     private var scepterData = [HeroScepter]()
     private var apolloAbilities = [AbilityQuery.Data.Constants.Ability]()
     
@@ -62,7 +61,6 @@ class HeroDatabase: ObservableObject {
             async let abilityIDTable = loadAbilityID()
             async let abilities = loadAbilities()
             async let heroAbilities = loadHeroAbilities()
-            async let talentData = loadTalentData()
             async let scepter = loadScepter()
             
             self?.itemIDTable = await idTable
@@ -71,7 +69,6 @@ class HeroDatabase: ObservableObject {
             self?.abilityIDTable = await abilityIDTable
             self?.abilities = await abilities
             self?.heroAbilities = await heroAbilities
-            self?.talentData = await talentData
             self?.scepterData = await scepter
             let status: LoadingStatus = self?.abilities.count == 0 ? .error : .finish
             await self?.setStatus(status: status)
