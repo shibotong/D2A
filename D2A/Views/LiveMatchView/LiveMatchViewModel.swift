@@ -9,6 +9,47 @@ import Foundation
 import StratzAPI
 import Apollo
 
+protocol LiveMatchEvent {
+    var id: UUID { get }
+    var time: Int { get }
+}
+
+struct Event {
+    var time: Int
+    var events: [LiveMatchEvent]
+}
+
+struct KillEvent: LiveMatchEvent {
+    var id = UUID()
+    var time: Int
+    var kill: [Int]
+    var died: [Int]
+}
+
+struct PurchaseEvent: LiveMatchEvent {
+    var id = UUID()
+    var time: Int
+    var hero: Int
+    var item: Int
+}
+
+struct LiveMatchBuildingEvents: Identifiable, LiveMatchEvent {
+    
+    typealias Building = GraphQLEnum<BuildingType>
+    
+    var id: Int {
+        return indexId
+    }
+    
+    let indexId: Int
+    let time: Int
+    let type: Building
+    let isAlive: Bool
+    let xPos: CGFloat
+    let yPos: CGFloat
+    let isRadiant: Bool
+}
+
 class LiveMatchViewModel: ObservableObject {
     var subscription: Cancellable?
     
@@ -21,6 +62,7 @@ class LiveMatchViewModel: ObservableObject {
     
     @Published var heroes: [LiveMatchHeroPosition] = []
     @Published var buildingStatus: [LiveMatchBuildingEvents] = []
+    @Published var events: [LiveMatchEvent] = []
     
     init(matchID: String) {
         guard let matchID = Int(matchID) else {
