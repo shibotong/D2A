@@ -101,8 +101,14 @@ enum StringOrArray: Codable {
         case .string(let string):
             return string
         case .array(let array):
-            guard !array.isEmpty else {
-                return nil
+            if array.contains("Point Target") {
+                return "Point Target"
+            }
+            if array.contains("Unit Target") {
+                return "Unit Target"
+            }
+            if array.contains("No Target") {
+                return "No Target"
             }
             return array.joined(separator: " / ")
         }
