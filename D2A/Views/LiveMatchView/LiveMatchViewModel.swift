@@ -34,12 +34,9 @@ struct PurchaseEvent: LiveMatchEvent {
 }
 
 struct LiveMatchBuildingEvents: Identifiable, LiveMatchEvent {
+    var id = UUID()
     
     typealias Building = GraphQLEnum<BuildingType>
-    
-    var id: Int {
-        return indexId
-    }
     
     let indexId: Int
     let time: Int
