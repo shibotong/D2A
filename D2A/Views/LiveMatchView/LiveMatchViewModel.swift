@@ -10,6 +10,9 @@ import StratzAPI
 import Apollo
 
 class LiveMatchViewModel: ObservableObject {
+    
+    typealias GameState = GraphQLEnum<MatchLiveGameState>
+    
     var subscriptions: [Cancellable] = []
     
     private let matchID: Int
@@ -18,12 +21,19 @@ class LiveMatchViewModel: ObservableObject {
     @Published var radiantScore: Int?
     @Published var direScore: Int?
     @Published var time: Int?
+    @Published var radiantTeam: String = ""
+    @Published var direTeam: String = ""
     
+    // LiveMatchMapView
     @Published var heroes: [LiveMatchHeroPosition] = []
     @Published var buildingStatus: [LiveMatchBuildingEvent] = []
+    
+    // LiveMatchEventView
     @Published var events: [any LiveMatchEvent] = []
     
     private var players: LiveMatchPlayers?
+    
+    @Published var status = "Loading..."
     
     init(matchID: String) {
         guard let matchID = Int(matchID) else {
@@ -51,7 +61,16 @@ class LiveMatchViewModel: ObservableObject {
                 self?.radiantScore = graphQLResult.data?.matchLive?.radiantScore
                 self?.direScore = graphQLResult.data?.matchLive?.direScore
                 self?.time = graphQLResult.data?.matchLive?.gameTime
-                
+                if let radiantTeamId = graphQLResult.data?.matchLive?.radiantTeamId, let radiantTeam = self?.radiantTeam, radiantTeam.isEmpty {
+                    self?.radiantTeam = "https://cdn.stratz.com/images/dota2/teams/\(radiantTeamId).png"
+                }
+                if let direTeamId = graphQLResult.data?.matchLive?.direTeamId, let direTeam = self?.direTeam, direTeam.isEmpty {
+                    self?.direTeam = "https://cdn.stratz.com/images/dota2/teams/\(direTeamId).png"
+                }
+                if let statusString = graphQLResult.data?.matchLive?.gameState?.rawValue {
+                    let readableString = statusString.replacingOccurrences(of: "_", with: " ").capitalized
+                    self?.status = readableString
+                }
                 // Players
                 var killEvents: [LiveMatchKillEvent] = []
                 if let liveMatchPlayers = graphQLResult.data?.matchLive?.players {
@@ -65,7 +84,6 @@ class LiveMatchViewModel: ObservableObject {
                         
                         return LiveMatchHeroPosition(heroID: Int(heroID), xPos: CGFloat(xPos), yPos: CGFloat(yPos))
                     }
-                    print("\(heroes.first!.heroID) \(heroes.first!.xPos) \(heroes.first!.yPos)")
                     self?.heroes = heroes
                     
                     var players: [Player] = []
@@ -115,6 +133,12 @@ class LiveMatchViewModel: ObservableObject {
         let subscription = Network.shared.apollo.fetch(query: LiveMatchHistoryQuery(matchid: matchID)) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
+                if let radiantTeamId = graphQLResult.data?.live?.match?.radiantTeamId {
+                    self?.radiantTeam = "https://cdn.stratz.com/images/dota2/teams/\(radiantTeamId).png"
+                }
+                if let direTeamId = graphQLResult.data?.live?.match?.direTeamId {
+                    self?.direTeam = "https://cdn.stratz.com/images/dota2/teams/\(direTeamId).png"
+                }
                 
                 // Building events
                 var buildingEvents: [LiveMatchBuildingEvent] = []
