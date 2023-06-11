@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct LiveMatchContainerView: View {
-    @State private var matchID: String = "7195308350"
+    @State private var matchID: String = "7195385327"
     var body: some View {
         NavigationView {
             LiveMatchView(viewModel: LiveMatchViewModel(matchID: matchID))
-                .navigationTitle("123")
-                .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -24,12 +22,18 @@ struct LiveMatchView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            LiveMatchTimerView(radiantScore: viewModel.radiantScore, direScore: viewModel.direScore, time: viewModel.time)
+            LiveMatchTimerView(radiantScore: viewModel.radiantScore,
+                               direScore: viewModel.direScore,
+                               time: viewModel.time,
+                               radiantTeam: viewModel.radiantTeam,
+                               direTeam: viewModel.direTeam)
             LiveMatchMapView(heroes: viewModel.heroes, buildings: viewModel.buildingStatus)
-                .padding(.horizontal)
             LiveMatchEventListView(events: viewModel.events)
                 .padding()
+                .background(Color.secondarySystemBackground)
         }
+        .navigationTitle("\(viewModel.status)")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

@@ -18,26 +18,6 @@ public class LiveMatchSubscription: GraphQLSubscription {
           completed
           radiantTeamId
           direTeamId
-          radiantTeam {
-            __typename
-            name
-            tag
-            countryCode
-            url
-            logo
-            baseLogo
-            bannerLogo
-          }
-          direTeam {
-            __typename
-            name
-            tag
-            countryCode
-            url
-            logo
-            baseLogo
-            bannerLogo
-          }
           playbackData {
             __typename
             roshanEvents {
@@ -156,8 +136,6 @@ public class LiveMatchSubscription: GraphQLSubscription {
         .field("completed", Bool?.self),
         .field("radiantTeamId", Int?.self),
         .field("direTeamId", Int?.self),
-        .field("radiantTeam", RadiantTeam?.self),
-        .field("direTeam", DireTeam?.self),
         .field("playbackData", PlaybackData?.self),
         .field("gameState", GraphQLEnum<StratzAPI.MatchLiveGameState>?.self),
         .field("players", [Player?]?.self),
@@ -172,69 +150,11 @@ public class LiveMatchSubscription: GraphQLSubscription {
       public var completed: Bool? { __data["completed"] }
       public var radiantTeamId: Int? { __data["radiantTeamId"] }
       public var direTeamId: Int? { __data["direTeamId"] }
-      public var radiantTeam: RadiantTeam? { __data["radiantTeam"] }
-      public var direTeam: DireTeam? { __data["direTeam"] }
       public var playbackData: PlaybackData? { __data["playbackData"] }
       public var gameState: GraphQLEnum<StratzAPI.MatchLiveGameState>? { __data["gameState"] }
       public var players: [Player?]? { __data["players"] }
       public var winRateValues: [Double?]? { __data["winRateValues"] }
       public var liveWinRateValues: [LiveWinRateValue?]? { __data["liveWinRateValues"] }
-
-      /// MatchLive.RadiantTeam
-      ///
-      /// Parent Type: `TeamType`
-      public struct RadiantTeam: StratzAPI.SelectionSet {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
-
-        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.TeamType }
-        public static var __selections: [ApolloAPI.Selection] { [
-          .field("__typename", String.self),
-          .field("name", String?.self),
-          .field("tag", String?.self),
-          .field("countryCode", String?.self),
-          .field("url", String?.self),
-          .field("logo", String?.self),
-          .field("baseLogo", String?.self),
-          .field("bannerLogo", String?.self),
-        ] }
-
-        public var name: String? { __data["name"] }
-        public var tag: String? { __data["tag"] }
-        public var countryCode: String? { __data["countryCode"] }
-        public var url: String? { __data["url"] }
-        public var logo: String? { __data["logo"] }
-        public var baseLogo: String? { __data["baseLogo"] }
-        public var bannerLogo: String? { __data["bannerLogo"] }
-      }
-
-      /// MatchLive.DireTeam
-      ///
-      /// Parent Type: `TeamType`
-      public struct DireTeam: StratzAPI.SelectionSet {
-        public let __data: DataDict
-        public init(_dataDict: DataDict) { __data = _dataDict }
-
-        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.TeamType }
-        public static var __selections: [ApolloAPI.Selection] { [
-          .field("__typename", String.self),
-          .field("name", String?.self),
-          .field("tag", String?.self),
-          .field("countryCode", String?.self),
-          .field("url", String?.self),
-          .field("logo", String?.self),
-          .field("baseLogo", String?.self),
-          .field("bannerLogo", String?.self),
-        ] }
-
-        public var name: String? { __data["name"] }
-        public var tag: String? { __data["tag"] }
-        public var countryCode: String? { __data["countryCode"] }
-        public var url: String? { __data["url"] }
-        public var logo: String? { __data["logo"] }
-        public var baseLogo: String? { __data["baseLogo"] }
-        public var bannerLogo: String? { __data["bannerLogo"] }
-      }
 
       /// MatchLive.PlaybackData
       ///

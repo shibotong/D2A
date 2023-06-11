@@ -13,6 +13,9 @@ struct LiveMatchTimerView: View {
     var direScore: Int?
     var time: Int?
     
+    var radiantTeam: String
+    var direTeam: String
+    
     private let imagePadding: CGFloat = 20
     private let height: CGFloat = 67
     
@@ -32,10 +35,19 @@ struct LiveMatchTimerView: View {
     var body: some View {
         HStack {
             HStack {
-                Image("icon_radiant")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(5)
+                AsyncImage(url: URL(string: radiantTeam)) { result in
+                    switch result {
+                    case .success(let image):
+                        image.resizable()
+                            .aspectRatio(contentMode: .fit)
+                    default:
+                        Image("icon_radiant")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                }
+                .cornerRadius(5)
+                
                 if let radiantScore {
                     Text("\(radiantScore)")
                         .bold()
@@ -63,10 +75,20 @@ struct LiveMatchTimerView: View {
                 } else {
                     Text("--")
                 }
-                Image("icon_dire")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(5)
+                AsyncImage(url: URL(string: direTeam)) { result in
+                    switch result {
+                    case .success(let image):
+                        image.resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .cornerRadius(5)
+                    default:
+                        Image("icon_dire")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .cornerRadius(5)
+                    }
+                }
+                .cornerRadius(5)
             }
             .padding(imagePadding)
         }
@@ -78,13 +100,13 @@ struct LiveMatchTimerView: View {
 struct LiveMatchTimerView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LiveMatchTimerView(radiantScore: 10, direScore: 10, time: -90)
+            LiveMatchTimerView(radiantScore: 10, direScore: 10, time: -90, radiantTeam: "", direTeam: "")
                 .previewLayout(.fixed(width: 300, height: 100))
-            LiveMatchTimerView(radiantScore: 10, direScore: 10, time: 100)
+            LiveMatchTimerView(radiantScore: 10, direScore: 10, time: 100, radiantTeam: "", direTeam: "")
                 .previewLayout(.fixed(width: 300, height: 100))
-            LiveMatchTimerView(radiantScore: 10, direScore: 10, time: 400)
+            LiveMatchTimerView(radiantScore: 10, direScore: 10, time: 400, radiantTeam: "", direTeam: "")
                 .previewLayout(.fixed(width: 300, height: 100))
-            LiveMatchTimerView(radiantScore: nil, direScore: nil, time: nil)
+            LiveMatchTimerView(radiantScore: nil, direScore: nil, time: nil, radiantTeam: "", direTeam: "")
                 .previewLayout(.fixed(width: 300, height: 100))
         }
     }

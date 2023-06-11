@@ -1,6 +1,8 @@
 query LiveMatchHistory($matchid: Long!) {
     live {
         match(id: $matchid) {
+            radiantTeamId
+            direTeamId
             playbackData {
                 roshanEvents {
                     time

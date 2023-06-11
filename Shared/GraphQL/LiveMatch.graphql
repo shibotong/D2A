@@ -7,24 +7,6 @@ subscription LiveMatch($matchid: Long!) {
         completed
         radiantTeamId
         direTeamId
-        radiantTeam {
-            name
-            tag
-            countryCode
-            url
-            logo
-            baseLogo
-            bannerLogo
-        }
-        direTeam {
-            name
-            tag
-            countryCode
-            url
-            logo
-            baseLogo
-            bannerLogo
-        }
         playbackData {
             roshanEvents {
                 time
