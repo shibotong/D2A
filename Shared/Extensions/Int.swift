@@ -22,17 +22,6 @@ extension Int {
     
     var toTime: LocalizedStringKey {
         let date = TimeInterval(self)
-//        if Calendar.current.isDateInToday(date) {
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "HH:mm"
-//            return formatter.string(from: date)
-//        } else if Calendar.current.isDateInYesterday(date){
-//            return "Yesterday"
-//        } else {
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "yyyy. MM. dd"
-//            return formatter.string(from: date)
-//        }
         let today = Date().timeIntervalSince1970
         let oneHour = 3600.0
         let oneDay = 86400.0
