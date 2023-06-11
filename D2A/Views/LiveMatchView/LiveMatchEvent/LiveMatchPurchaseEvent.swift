@@ -11,7 +11,7 @@ import SwiftUI
 struct LiveMatchPurchaseEvent: LiveMatchEvent {
     
     var id = UUID()
-    let time: Int
+    var time: Int
     let heroID: Int
     let isRadiant: Bool
     let itemID: Int

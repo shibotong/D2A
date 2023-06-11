@@ -44,8 +44,20 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
             gameState
             players {
               __typename
+              heroId
+              name
+              playerSlot
+              isRadiant
               playbackData {
                 __typename
+                killEvents {
+                  __typename
+                  time
+                }
+                deathEvents {
+                  __typename
+                  time
+                }
                 positionEvents {
                   __typename
                   time
@@ -226,9 +238,17 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
           public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerType }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
+            .field("heroId", StratzAPI.Short?.self),
+            .field("name", String?.self),
+            .field("playerSlot", StratzAPI.Byte?.self),
+            .field("isRadiant", Bool?.self),
             .field("playbackData", PlaybackData?.self),
           ] }
 
+          public var heroId: StratzAPI.Short? { __data["heroId"] }
+          public var name: String? { __data["name"] }
+          public var playerSlot: StratzAPI.Byte? { __data["playerSlot"] }
+          public var isRadiant: Bool? { __data["isRadiant"] }
           public var playbackData: PlaybackData? { __data["playbackData"] }
 
           /// Live.Match.Player.PlaybackData
@@ -241,10 +261,46 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
             public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchPlayerLivePlaybackDataType }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("__typename", String.self),
+              .field("killEvents", [KillEvent?]?.self),
+              .field("deathEvents", [DeathEvent?]?.self),
               .field("positionEvents", [PositionEvent?]?.self),
             ] }
 
+            public var killEvents: [KillEvent?]? { __data["killEvents"] }
+            public var deathEvents: [DeathEvent?]? { __data["deathEvents"] }
             public var positionEvents: [PositionEvent?]? { __data["positionEvents"] }
+
+            /// Live.Match.Player.PlaybackData.KillEvent
+            ///
+            /// Parent Type: `MatchLivePlayerKillDetailType`
+            public struct KillEvent: StratzAPI.SelectionSet {
+              public let __data: DataDict
+              public init(_dataDict: DataDict) { __data = _dataDict }
+
+              public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerKillDetailType }
+              public static var __selections: [ApolloAPI.Selection] { [
+                .field("__typename", String.self),
+                .field("time", Int.self),
+              ] }
+
+              public var time: Int { __data["time"] }
+            }
+
+            /// Live.Match.Player.PlaybackData.DeathEvent
+            ///
+            /// Parent Type: `MatchLivePlayerDeathDetailType`
+            public struct DeathEvent: StratzAPI.SelectionSet {
+              public let __data: DataDict
+              public init(_dataDict: DataDict) { __data = _dataDict }
+
+              public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerDeathDetailType }
+              public static var __selections: [ApolloAPI.Selection] { [
+                .field("__typename", String.self),
+                .field("time", Int.self),
+              ] }
+
+              public var time: Int { __data["time"] }
+            }
 
             /// Live.Match.Player.PlaybackData.PositionEvent
             ///

@@ -62,6 +62,7 @@ struct LiveMatchEventDetailView: View {
                 itemIcon
                 Text(itemName)
                     .bold()
+                    .lineLimit(1)
             }
         }
     }
@@ -69,8 +70,8 @@ struct LiveMatchEventDetailView: View {
 
 struct LiveMatchEventRowView_Previews: PreviewProvider {
     
-    static let buildingEventRadiant = LiveMatchBuildingEvent(indexId: 28, time: 180, type: .case(.tower), isAlive: false, xPos: 160, yPos: 156, isRadiant: false).generateEvent()
-    static let buildingEventDire = LiveMatchBuildingEvent(indexId: 28, time: 180, type: .case(.barracks), isAlive: false, xPos: 160, yPos: 156, isRadiant: true).generateEvent()
+    static let buildingEventRadiant = LiveMatchBuildingEvent(indexId: 28, time: 180, type: .case(.tower), isAlive: false, isRadiant: false).generateEvent()
+    static let buildingEventDire = LiveMatchBuildingEvent(indexId: 28, time: 180, type: .case(.barracks), isAlive: false, isRadiant: true).generateEvent()
     static let killEvent = LiveMatchKillEvent(time: 100, kill: [1, 2], died: [6, 7], players: .preview).generateEvent()
     static let killEvent2 = LiveMatchKillEvent(time: 100, kill: [1], died: [6, 7, 8, 9, 10], players: .preview, heroDatabase: HeroDatabase(heroes: loadSampleHero()!)).generateEvent()
     static let killEvent3 = LiveMatchKillEvent(time: 100, kill: [7], died: [1, 2, 3, 4, 5], players: .preview, heroDatabase: HeroDatabase(heroes: loadSampleHero()!)).generateEvent()

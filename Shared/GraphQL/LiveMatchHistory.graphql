@@ -27,7 +27,17 @@ query LiveMatchHistory($matchid: Long!) {
             }
             gameState
             players {
+                heroId
+                name
+                playerSlot
+                isRadiant
                 playbackData {
+                    killEvents {
+                        time
+                    }
+                    deathEvents {
+                        time
+                    }
                     positionEvents {
                         time
                         x

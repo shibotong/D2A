@@ -74,6 +74,12 @@ subscription LiveMatch($matchid: Long!) {
             backpackId2
             networth
             playbackData {
+                killEvents {
+                    time
+                }
+                deathEvents {
+                    time
+                }
                 positionEvents {
                     time
                     x
