@@ -171,7 +171,7 @@ func loadSampleItemID() -> [String: String] {
     }
 }
 
-func loadSampleItem() -> [String: String] {
+func loadSampleItem() -> [String: Item] {
     guard let data = loadFile(filename: "sampleItem") else {
         return [:]
     }
