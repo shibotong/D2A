@@ -48,11 +48,3 @@ struct LiveMatchEventDetail: Identifiable {
     }
     
 }
-
-//
-// struct PurchaseEvent: LiveMatchEvent {
-//    var id = UUID()
-//    var time: Int
-//    var hero: Int
-//    var item: Int
-// }
