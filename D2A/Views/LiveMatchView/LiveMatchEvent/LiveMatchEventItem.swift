@@ -10,6 +10,7 @@ import SwiftUI
 
 protocol LiveMatchEvent: Identifiable {
     var id: UUID { get set }
+    var time: Int { get set }
     func generateEvent() -> [LiveMatchEventItem]}
 
 // MARK: LiveMatchEventItem

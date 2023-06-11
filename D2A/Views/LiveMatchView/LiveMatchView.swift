@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct LiveMatchContainerView: View {
-    @State private var matchID: String = "7193432323"
+    @State private var matchID: String = "7195308350"
     var body: some View {
-        VStack {
+        NavigationView {
             LiveMatchView(viewModel: LiveMatchViewModel(matchID: matchID))
-            Spacer()
+                .navigationTitle("123")
+                .navigationBarTitleDisplayMode(.inline)
         }
-        
     }
 }
 
@@ -23,12 +23,13 @@ struct LiveMatchView: View {
     @ObservedObject var viewModel: LiveMatchViewModel
     
     var body: some View {
-            VStack(spacing: 0) {
-                LiveMatchTimerView(radiantScore: viewModel.radiantScore, direScore: viewModel.direScore, time: viewModel.time)
-                LiveMatchMapView(heroes: viewModel.heroes, buildings: viewModel.buildingStatus)
-                LiveMatchEventListView(events: viewModel.events)
-            }
-            .padding()
+        VStack(spacing: 0) {
+            LiveMatchTimerView(radiantScore: viewModel.radiantScore, direScore: viewModel.direScore, time: viewModel.time)
+            LiveMatchMapView(heroes: viewModel.heroes, buildings: viewModel.buildingStatus)
+                .padding(.horizontal)
+            LiveMatchEventListView(events: viewModel.events)
+                .padding()
+        }
     }
 }
 

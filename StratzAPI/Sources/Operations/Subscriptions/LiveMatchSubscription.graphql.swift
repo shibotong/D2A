@@ -93,6 +93,14 @@ public class LiveMatchSubscription: GraphQLSubscription {
             networth
             playbackData {
               __typename
+              killEvents {
+                __typename
+                time
+              }
+              deathEvents {
+                __typename
+                time
+              }
               positionEvents {
                 __typename
                 time
@@ -391,10 +399,46 @@ public class LiveMatchSubscription: GraphQLSubscription {
           public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchPlayerLivePlaybackDataType }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
+            .field("killEvents", [KillEvent?]?.self),
+            .field("deathEvents", [DeathEvent?]?.self),
             .field("positionEvents", [PositionEvent?]?.self),
           ] }
 
+          public var killEvents: [KillEvent?]? { __data["killEvents"] }
+          public var deathEvents: [DeathEvent?]? { __data["deathEvents"] }
           public var positionEvents: [PositionEvent?]? { __data["positionEvents"] }
+
+          /// MatchLive.Player.PlaybackData.KillEvent
+          ///
+          /// Parent Type: `MatchLivePlayerKillDetailType`
+          public struct KillEvent: StratzAPI.SelectionSet {
+            public let __data: DataDict
+            public init(_dataDict: DataDict) { __data = _dataDict }
+
+            public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerKillDetailType }
+            public static var __selections: [ApolloAPI.Selection] { [
+              .field("__typename", String.self),
+              .field("time", Int.self),
+            ] }
+
+            public var time: Int { __data["time"] }
+          }
+
+          /// MatchLive.Player.PlaybackData.DeathEvent
+          ///
+          /// Parent Type: `MatchLivePlayerDeathDetailType`
+          public struct DeathEvent: StratzAPI.SelectionSet {
+            public let __data: DataDict
+            public init(_dataDict: DataDict) { __data = _dataDict }
+
+            public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerDeathDetailType }
+            public static var __selections: [ApolloAPI.Selection] { [
+              .field("__typename", String.self),
+              .field("time", Int.self),
+            ] }
+
+            public var time: Int { __data["time"] }
+          }
 
           /// MatchLive.Player.PlaybackData.PositionEvent
           ///
