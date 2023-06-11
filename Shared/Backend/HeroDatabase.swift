@@ -47,6 +47,10 @@ class HeroDatabase: ObservableObject {
         loadData()
     }
     
+    init(heroes: [String: HeroCodable]) {
+        self.heroes = heroes
+    }
+    
     func loadData() {
         status = .loading
         gameModes = loadGameModes()

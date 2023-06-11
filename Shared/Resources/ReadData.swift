@@ -141,14 +141,14 @@ func loadProfile() -> UserProfileCodable? {
     }
 }
 
-func loadSampleHero() -> HeroCodable? {
+func loadSampleHero() -> [String: HeroCodable]? {
     guard let data = loadFile(filename: "sampleHero") else {
         return nil
     }
     
     do {
         let decoder = JSONDecoder()
-        let jsonData = try decoder.decode(HeroCodable.self, from: data)
+        let jsonData = try decoder.decode([String: HeroCodable].self, from: data)
         return jsonData
     } catch {
         print("Cannot parse json data")

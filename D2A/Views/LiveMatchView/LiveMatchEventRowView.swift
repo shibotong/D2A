@@ -26,7 +26,7 @@ struct LiveMatchEventRowView: View {
     }
     
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             if !event.isRadiantEvent {
                 timeLabel
                 Spacer()
@@ -34,7 +34,7 @@ struct LiveMatchEventRowView: View {
             if event.isRadiantEvent {
                 icon
             }
-            VStack {
+            VStack(alignment: .leading, spacing: 1) {
                 ForEach(event.events) { event in
                     LiveMatchEventDetailView(eventDetail: event)
                 }
@@ -56,9 +56,6 @@ struct LiveMatchEventDetailView: View {
     
     var body: some View {
         HStack(spacing: 5) {
-            if let eventIcon = eventDetail.eventIcon {
-                eventIcon
-            }
             Text(eventDetail.eventDescription)
             if let itemIcon = eventDetail.itemIcon,
                let itemName = eventDetail.itemName {
@@ -74,6 +71,9 @@ struct LiveMatchEventRowView_Previews: PreviewProvider {
     
     static let buildingEventRadiant = LiveMatchBuildingEvent(indexId: 28, time: 180, type: .case(.tower), isAlive: false, xPos: 160, yPos: 156, isRadiant: false).generateEvent()
     static let buildingEventDire = LiveMatchBuildingEvent(indexId: 28, time: 180, type: .case(.barracks), isAlive: false, xPos: 160, yPos: 156, isRadiant: true).generateEvent()
+    static let killEvent = LiveMatchKillEvent(time: 100, kill: [1, 2], died: [6, 7], players: .preview).generateEvent()
+    static let killEvent2 = LiveMatchKillEvent(time: 100, kill: [1], died: [6, 7, 8, 9, 10], players: .preview, heroDatabase: HeroDatabase(heroes: loadSampleHero()!)).generateEvent()
+    static let killEvent3 = LiveMatchKillEvent(time: 100, kill: [7], died: [1, 2, 3, 4, 5], players: .preview, heroDatabase: HeroDatabase(heroes: loadSampleHero()!)).generateEvent()
     
     static var previews: some View {
         VStack {
@@ -83,7 +83,17 @@ struct LiveMatchEventRowView_Previews: PreviewProvider {
             ForEach(buildingEventDire) { event in
                 LiveMatchEventRowView(event: event)
             }
+            ForEach(killEvent) { event in
+                LiveMatchEventRowView(event: event)
+            }
+            ForEach(killEvent2) { event in
+                LiveMatchEventRowView(event: event)
+            }
+            ForEach(killEvent3) { event in
+                LiveMatchEventRowView(event: event)
+            }
         }
+        .padding()
         .previewLayout(.fixed(width: 400, height: 100))
     }
 }
