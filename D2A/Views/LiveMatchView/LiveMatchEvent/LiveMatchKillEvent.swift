@@ -28,16 +28,15 @@ struct LiveMatchPlayers {
 
 struct LiveMatchKillEvent: LiveMatchEvent {
     var id = UUID()
-    var time: Int
-    var kill: [Int]
-    var died: [Int]
+    let time: Int
+    let kill: [Int]
+    let died: [Int]
     
     let players: LiveMatchPlayers
     
     private let heroDatabase: HeroDatabase
     
-    init(id: UUID = UUID(), time: Int, kill: [Int], died: [Int], players: LiveMatchPlayers, heroDatabase: HeroDatabase = HeroDatabase.shared) {
-        self.id = id
+    init(time: Int, kill: [Int], died: [Int], players: LiveMatchPlayers, heroDatabase: HeroDatabase = HeroDatabase.shared) {
         self.time = time
         self.kill = kill
         self.died = died
