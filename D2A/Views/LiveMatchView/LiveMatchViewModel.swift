@@ -140,6 +140,11 @@ class LiveMatchViewModel: ObservableObject {
                     self?.direTeam = "https://cdn.stratz.com/images/dota2/teams/\(direTeamId).png"
                 }
                 
+                // Draft
+                if let draftData = graphQLResult.data?.live?.match?.playbackData?.pickBans {
+//                    print(draftData)
+                }
+                
                 // Building events
                 var buildingEvents: [LiveMatchBuildingEvent] = []
                 if let buildingEventsData = graphQLResult.data?.live?.match?.playbackData?.buildingEvents {
