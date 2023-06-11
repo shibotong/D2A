@@ -15,12 +15,30 @@ struct LiveMatchDraftView: View {
     
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
+    @State var showDetail = true
+    private let opacity: CGFloat = 0.5
+    
     var body: some View {
-        if horizontalSizeClass == .compact {
-            verticalView
-        } else {
-            horizontalView
+        VStack {
+            Button(action: { showDetail.toggle() }, label: {
+                HStack {
+                    Text("Draft").bold()
+                        .foregroundColor(.label)
+                    Spacer()
+                    Text(showDetail ? "-" : "+").bold()
+                        .foregroundColor(.label)
+                }
+            })
+            if showDetail {
+                if horizontalSizeClass == .compact {
+                    verticalView
+                } else {
+                    horizontalView
+                }
+            }
         }
+        .padding()
+        .background(Color.secondarySystemBackground)
     }
     
     private var horizontalView: some View {
@@ -54,7 +72,7 @@ struct LiveMatchDraftView: View {
                                 .scaledToFit()
                                 .frame(height: 50)
                                 .cornerRadius(5)
-                                .foregroundColor(.green.opacity(0.8))
+                                .foregroundColor(.green.opacity(opacity))
                             Spacer()
                         }
                         .background(Color.secondarySystemBackground)
@@ -85,7 +103,7 @@ struct LiveMatchDraftView: View {
                                 .scaledToFit()
                                 .frame(height: 50)
                                 .cornerRadius(5)
-                                .foregroundColor(.red.opacity(0.8))
+                                .foregroundColor(.red.opacity(opacity))
                         }
                         .background(Color.secondarySystemBackground)
                         .cornerRadius(5)
@@ -129,7 +147,7 @@ struct LiveMatchDraftView: View {
                             .resizable()
                             .scaledToFit()
                             .cornerRadius(5)
-                            .foregroundColor(.green.opacity(0.8))
+                            .foregroundColor(.green.opacity(opacity))
                     }
                 }
             }
@@ -145,7 +163,7 @@ struct LiveMatchDraftView: View {
                             .resizable()
                             .scaledToFit()
                             .cornerRadius(5)
-                            .foregroundColor(.red.opacity(0.8))
+                            .foregroundColor(.red.opacity(opacity))
                     }
                 }
             }
@@ -167,6 +185,6 @@ struct LiveMatchDraftView: View {
 
 struct LiveMatchDraftView_Previews: PreviewProvider {
     static var previews: some View {
-        LiveMatchDraftView(radiantPick: [1, 2, 3, 4], radiantBan: [6, 7, 8, 9, 10, 11, 12], direPick: [13, 14, 15], direBan: [18, 19, 20, 21, 22, 23])
+        LiveMatchDraftView(radiantPick: [1, 2, 3, 4], radiantBan: [6, 7, 8, 9, 10, 11, 12], direPick: [13, 14, 15], direBan: [18, 19, 20, 21, 22, 23], showDetail: true)
     }
 }
