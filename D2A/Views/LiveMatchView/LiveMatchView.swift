@@ -23,13 +23,12 @@ struct LiveMatchView: View {
     @ObservedObject var viewModel: LiveMatchViewModel
     
     var body: some View {
-        ScrollView {
             VStack(spacing: 0) {
                 LiveMatchTimerView(radiantScore: viewModel.radiantScore, direScore: viewModel.direScore, time: viewModel.time)
                 LiveMatchMapView(heroes: viewModel.heroes, buildings: viewModel.buildingStatus)
+                LiveMatchEventListView(events: viewModel.events)
             }
             .padding()
-        }
     }
 }
 

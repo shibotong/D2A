@@ -8,10 +8,9 @@
 import Foundation
 import SwiftUI
 
-protocol LiveMatchEvent {
+protocol LiveMatchEvent: Identifiable {
     var id: UUID { get set }
-    func generateEvent() -> [LiveMatchEventItem]
-}
+    func generateEvent() -> [LiveMatchEventItem]}
 
 // MARK: LiveMatchEventItem
 struct LiveMatchEventItem: Identifiable {
