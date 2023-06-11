@@ -47,8 +47,12 @@ class HeroDatabase: ObservableObject {
         loadData()
     }
     
-    init(heroes: [String: HeroCodable]) {
+    init(heroes: [String: HeroCodable] = [:],
+         itemID: [String: String] = [:],
+         items: [String: Item] = [:]) {
         self.heroes = heroes
+        self.itemIDTable = itemID
+        self.items = items
     }
     
     func loadData() {
