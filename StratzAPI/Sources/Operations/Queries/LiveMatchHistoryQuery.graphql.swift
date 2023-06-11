@@ -13,6 +13,8 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
           __typename
           match(id: $matchid) {
             __typename
+            radiantTeamId
+            direTeamId
             playbackData {
               __typename
               roshanEvents {
@@ -136,12 +138,16 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
         public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLiveType }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
+          .field("radiantTeamId", Int?.self),
+          .field("direTeamId", Int?.self),
           .field("playbackData", PlaybackData?.self),
           .field("gameState", GraphQLEnum<StratzAPI.MatchLiveGameState>?.self),
           .field("players", [Player?]?.self),
           .field("liveWinRateValues", [LiveWinRateValue?]?.self),
         ] }
 
+        public var radiantTeamId: Int? { __data["radiantTeamId"] }
+        public var direTeamId: Int? { __data["direTeamId"] }
         public var playbackData: PlaybackData? { __data["playbackData"] }
         public var gameState: GraphQLEnum<StratzAPI.MatchLiveGameState>? { __data["gameState"] }
         public var players: [Player?]? { __data["players"] }
