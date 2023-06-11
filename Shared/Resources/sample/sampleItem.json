@@ -1,0 +1,20 @@
+{
+    "blink": {
+        "hint": [
+            "Active: Blink Teleport to a target point up to 1200 units away. \n\nBlink Dagger cannot be used for 3 seconds after taking damage from an enemy hero or Roshan."
+        ],
+        "id": 1,
+        "img": "/apps/dota2/images/dota_react/items/blink.png?t=1593393829403",
+        "dname": "Blink Dagger",
+        "qual": "component",
+        "cost": 2250,
+        "notes": "Self-casting will cause you to teleport in the direction of your team's fountain.\nIf you used Blink to teleport to a distance over the maximum range, you'll be teleported 4/5 of the maximum range instead.",
+        "attrib": [],
+        "mc": false,
+        "cd": 15,
+        "lore": "The fabled dagger used by the fastest assassin ever to walk the lands.",
+        "components": null,
+        "created": false,
+        "charges": false
+    }
+}
