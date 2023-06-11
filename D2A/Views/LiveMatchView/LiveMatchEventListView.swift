@@ -20,7 +20,7 @@ struct LiveMatchEventListView: View {
     }
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
+        VStack {
             ForEach(0...latestEventTime5Minute, id: \.self) { each5Mins in
                 let seconds = (latestEventTime5Minute - each5Mins) * 300
                 buildTimeSection(time: seconds)

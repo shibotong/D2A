@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LiveMatchContainerView: View {
-    @State private var matchID: String = "7195385327"
+    @State private var matchID: String = "7195467820"
     var body: some View {
         NavigationView {
             LiveMatchView(viewModel: LiveMatchViewModel(matchID: matchID))
@@ -27,10 +27,19 @@ struct LiveMatchView: View {
                                time: viewModel.time,
                                radiantTeam: viewModel.radiantTeam,
                                direTeam: viewModel.direTeam)
-            LiveMatchMapView(heroes: viewModel.heroes, buildings: viewModel.buildingStatus)
-            LiveMatchEventListView(events: viewModel.events)
-                .padding()
-                .background(Color.secondarySystemBackground)
+            ScrollView {
+                VStack {
+                    LiveMatchDraftView(radiantPick: viewModel.radiantPick,
+                                       radiantBan: viewModel.radiantBan,
+                                       direPick: viewModel.direPick,
+                                       direBan: viewModel.direBan,
+                                       showDetail: viewModel.status == "Hero Selection")
+                    LiveMatchMapView(heroes: viewModel.heroes, buildings: viewModel.buildingStatus)
+                    
+                    LiveMatchEventListView(events: viewModel.events)
+                        .padding()
+                }
+            }
         }
         .navigationTitle("\(viewModel.status)")
         .navigationBarTitleDisplayMode(.inline)
