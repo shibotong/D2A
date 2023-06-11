@@ -72,11 +72,15 @@ struct LiveMatchEventDetailView: View {
 
 struct LiveMatchEventRowView_Previews: PreviewProvider {
     
-    static let buildingEvent = LiveMatchBuildingEvent(indexId: 28, time: 180, type: .case(.tower), isAlive: false, xPos: 160, yPos: 156, isRadiant: false).generateEvent()
+    static let buildingEventRadiant = LiveMatchBuildingEvent(indexId: 28, time: 180, type: .case(.tower), isAlive: false, xPos: 160, yPos: 156, isRadiant: false).generateEvent()
+    static let buildingEventDire = LiveMatchBuildingEvent(indexId: 28, time: 180, type: .case(.barracks), isAlive: false, xPos: 160, yPos: 156, isRadiant: true).generateEvent()
     
     static var previews: some View {
         VStack {
-            ForEach(buildingEvent) { event in
+            ForEach(buildingEventRadiant) { event in
+                LiveMatchEventRowView(event: event)
+            }
+            ForEach(buildingEventDire) { event in
                 LiveMatchEventRowView(event: event)
             }
         }
