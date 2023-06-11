@@ -156,6 +156,36 @@ func loadSampleHero() -> [String: HeroCodable]? {
     }
 }
 
+func loadSampleItemID() -> [String: String] {
+    guard let data = loadFile(filename: "sampleItemID") else {
+        return [:]
+    }
+    
+    do {
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode([String: String].self, from: data)
+        return jsonData
+    } catch {
+        print("Cannot parse json data")
+        return [:]
+    }
+}
+
+func loadSampleItem() -> [String: String] {
+    guard let data = loadFile(filename: "sampleItem") else {
+        return [:]
+    }
+    
+    do {
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode([String: Item].self, from: data)
+        return jsonData
+    } catch {
+        print("Cannot parse json data")
+        return [:]
+    }
+}
+
 func loadAbilityID() async -> [String: String] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/ability_ids.json"
     if let url = URL(string: urlString) {
