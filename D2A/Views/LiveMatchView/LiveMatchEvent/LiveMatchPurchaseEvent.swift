@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LiveMatchPurchaseEvent: LiveMatchEvent {
     
-    let id = UUID()
+    var id = UUID()
     let time: Int
     let heroID: Int
     let isRadiant: Bool
