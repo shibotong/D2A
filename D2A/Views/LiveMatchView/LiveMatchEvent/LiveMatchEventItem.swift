@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 protocol LiveMatchEvent {
+    var id: UUID { get set }
     func generateEvent() -> [LiveMatchEventItem]
 }
 
