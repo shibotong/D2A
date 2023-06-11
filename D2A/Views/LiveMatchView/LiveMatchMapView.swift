@@ -12,7 +12,7 @@ struct LiveMatchMapView: View {
     
     var heroes: [LiveMatchHeroPosition]
     
-    var buildings: [LiveMatchBuildingEvents]
+    var buildings: [LiveMatchBuildingEvent]
     
     var body: some View {
         Image("live_map")
