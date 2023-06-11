@@ -28,9 +28,9 @@ struct LiveMatchPlayers {
 
 struct LiveMatchKillEvent: LiveMatchEvent {
     var id = UUID()
-    let time: Int
-    let kill: [Int]
-    let died: [Int]
+    var time: Int
+    var kill: [Int]
+    var died: [Int]
     
     let players: LiveMatchPlayers
     
@@ -52,15 +52,17 @@ struct LiveMatchKillEvent: LiveMatchEvent {
                   let isRadiant = players.heroIDisRadiant(killHero) else {
                 return []
             }
-            let details = died.map { heroID in
+            let details: [LiveMatchEventDetail] = died.compactMap { heroID in
+                guard let diedHeroIsRadiant = players.heroIDisRadiant(heroID), diedHeroIsRadiant != isRadiant else {
+                    return nil
+                }
                 let heroName = try? heroDatabase.fetchHeroWithID(id: heroID).heroNameLocalized
                 return LiveMatchEventDetail(type: .killDied, itemName: heroName, itemIcon: AnyView(
                     HeroImageView(heroID: heroID, type: .icon)
                         .frame(width: 15, height: 15)
                 ))
             }
-            
-            return [LiveMatchEventItem(time: time, isRadiantEvent: isRadiant, icon: "\(killHero)_icon", events: details)]
+            return details.isEmpty ? [] : [LiveMatchEventItem(time: time, isRadiantEvent: isRadiant, icon: "\(killHero)_icon", events: details)]
         } else if kill.count == 2 && players.heroIDisRadiant(kill.first!) != players.heroIDisRadiant(kill.last!) {
             
             // Can determine which hero kills which hero
@@ -76,7 +78,7 @@ struct LiveMatchKillEvent: LiveMatchEvent {
                             .frame(width: 15, height: 15)
                     ))
                 }
-                return LiveMatchEventItem(time: time, isRadiantEvent: isRadiant, icon: "\(killHeroID)_icon", events: details)
+                return details.isEmpty ? nil : LiveMatchEventItem(time: time, isRadiantEvent: isRadiant, icon: "\(killHeroID)_icon", events: details)
             }
             return eventItems
         } else if !died.isEmpty {
