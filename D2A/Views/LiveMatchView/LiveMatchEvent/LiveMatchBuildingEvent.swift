@@ -9,7 +9,7 @@ import Foundation
 import StratzAPI
 import SwiftUI
 
-struct LiveMatchBuildingEvent: Identifiable, LiveMatchEvent {
+struct LiveMatchBuildingEvent: LiveMatchEvent {
     typealias Building = GraphQLEnum<BuildingType>
     
     var id = UUID()

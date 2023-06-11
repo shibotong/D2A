@@ -21,7 +21,7 @@ class LiveMatchViewModel: ObservableObject {
     
     @Published var heroes: [LiveMatchHeroPosition] = []
     @Published var buildingStatus: [LiveMatchBuildingEvent] = []
-    @Published var events: [LiveMatchEvent] = []
+    @Published var events: [any LiveMatchEvent] = []
     
     init(matchID: String) {
         guard let matchID = Int(matchID) else {
