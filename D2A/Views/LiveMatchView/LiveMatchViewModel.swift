@@ -31,6 +31,12 @@ class LiveMatchViewModel: ObservableObject {
     // LiveMatchEventView
     @Published var events: [any LiveMatchEvent] = []
     
+    // LiveMatchDraftView
+    @Published var radiantPick: [Int] = []
+    @Published var direPick: [Int] = []
+    @Published var radiantBan: [Int] = []
+    @Published var direBan: [Int] = []
+    
     private var players: LiveMatchPlayers?
     
     @Published var status = "Loading..."
@@ -71,6 +77,52 @@ class LiveMatchViewModel: ObservableObject {
                     let readableString = statusString.replacingOccurrences(of: "_", with: " ").capitalized
                     self?.status = readableString
                 }
+                
+                // Draft
+                var radiantPick: [Int] = []
+                var direPick: [Int] = []
+                var radiantBan: [Int] = []
+                var direBan: [Int] = []
+                if let draftData = graphQLResult.data?.matchLive?.playbackData?.pickBans,
+                   let selfRadiantPick = self?.radiantPick,
+                   let selfDirePick = self?.direPick,
+                   selfRadiantPick.count < 5,
+                   selfDirePick.count < 5 {
+                    for data in draftData {
+                        guard let data, let isRadiant = data.isRadiant else {
+                            continue
+                        }
+                        if isRadiant && data.isPick {
+                            guard let heroID = data.heroId else {
+                                continue
+                            }
+                            radiantPick.append(Int(heroID))
+                        }
+                        if isRadiant && !data.isPick {
+                            guard let heroID = data.bannedHeroId else {
+                                continue
+                            }
+                            radiantBan.append(Int(heroID))
+                        }
+                        if !isRadiant && data.isPick {
+                            guard let heroID = data.heroId else {
+                                continue
+                            }
+                            direPick.append(Int(heroID))
+                        }
+                        if !isRadiant && !data.isPick {
+                            guard let heroID = data.bannedHeroId else {
+                                continue
+                            }
+                            direBan.append(Int(heroID))
+                        }
+                    }
+                    self?.radiantPick.append(contentsOf: radiantPick)
+                    self?.radiantBan.append(contentsOf: radiantBan)
+                    self?.direPick.append(contentsOf: direPick)
+                    self?.direBan.append(contentsOf: direBan)
+                }
+                
                 // Players
                 var killEvents: [LiveMatchKillEvent] = []
                 if let liveMatchPlayers = graphQLResult.data?.matchLive?.players {
@@ -138,11 +190,6 @@ class LiveMatchViewModel: ObservableObject {
                 }
                 if let direTeamId = graphQLResult.data?.live?.match?.direTeamId {
                     self?.direTeam = "https://cdn.stratz.com/images/dota2/teams/\(direTeamId).png"
-                }
-                
-                // Draft
-                if let draftData = graphQLResult.data?.live?.match?.playbackData?.pickBans {
-//                    print(draftData)
                 }
                 
                 // Building events
