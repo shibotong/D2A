@@ -75,6 +75,8 @@ struct LiveMatchEventRowView_Previews: PreviewProvider {
     static let killEvent2 = LiveMatchKillEvent(time: 100, kill: [1], died: [6, 7, 8, 9, 10], players: .preview, heroDatabase: HeroDatabase(heroes: loadSampleHero()!)).generateEvent()
     static let killEvent3 = LiveMatchKillEvent(time: 100, kill: [7], died: [1, 2, 3, 4, 5], players: .preview, heroDatabase: HeroDatabase(heroes: loadSampleHero()!)).generateEvent()
     
+    static let purchaseEvent = LiveMatchPurchaseEvent(time: 100, heroID: 1, isRadiant: true, itemID: 1, heroDatabase: HeroDatabase(itemID: loadSampleItemID(), items: loadSampleItem())).generateEvent()
+    
     static var previews: some View {
         VStack {
             ForEach(buildingEventRadiant) { event in
@@ -90,6 +92,9 @@ struct LiveMatchEventRowView_Previews: PreviewProvider {
                 LiveMatchEventRowView(event: event)
             }
             ForEach(killEvent3) { event in
+                LiveMatchEventRowView(event: event)
+            }
+            ForEach(purchaseEvent) { event in
                 LiveMatchEventRowView(event: event)
             }
         }
