@@ -64,6 +64,19 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
                   x
                   y
                 }
+                inventoryEvents {
+                  __typename
+                  time
+                  itemId0
+                  itemId1
+                  itemId2
+                  itemId3
+                  itemId4
+                  itemId5
+                  backpackId0
+                  backpackId1
+                  backpackId2
+                }
               }
             }
             liveWinRateValues {
@@ -264,11 +277,13 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
               .field("killEvents", [KillEvent?]?.self),
               .field("deathEvents", [DeathEvent?]?.self),
               .field("positionEvents", [PositionEvent?]?.self),
+              .field("inventoryEvents", [InventoryEvent?]?.self),
             ] }
 
             public var killEvents: [KillEvent?]? { __data["killEvents"] }
             public var deathEvents: [DeathEvent?]? { __data["deathEvents"] }
             public var positionEvents: [PositionEvent?]? { __data["positionEvents"] }
+            public var inventoryEvents: [InventoryEvent?]? { __data["inventoryEvents"] }
 
             /// Live.Match.Player.PlaybackData.KillEvent
             ///
@@ -320,6 +335,40 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
               public var time: Int { __data["time"] }
               public var x: Int { __data["x"] }
               public var y: Int { __data["y"] }
+            }
+
+            /// Live.Match.Player.PlaybackData.InventoryEvent
+            ///
+            /// Parent Type: `MatchLivePlayerInventoryDetailType`
+            public struct InventoryEvent: StratzAPI.SelectionSet {
+              public let __data: DataDict
+              public init(_dataDict: DataDict) { __data = _dataDict }
+
+              public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerInventoryDetailType }
+              public static var __selections: [ApolloAPI.Selection] { [
+                .field("__typename", String.self),
+                .field("time", Int.self),
+                .field("itemId0", StratzAPI.Short?.self),
+                .field("itemId1", StratzAPI.Short?.self),
+                .field("itemId2", StratzAPI.Short?.self),
+                .field("itemId3", StratzAPI.Short?.self),
+                .field("itemId4", StratzAPI.Short?.self),
+                .field("itemId5", StratzAPI.Short?.self),
+                .field("backpackId0", StratzAPI.Short?.self),
+                .field("backpackId1", StratzAPI.Short?.self),
+                .field("backpackId2", StratzAPI.Short?.self),
+              ] }
+
+              public var time: Int { __data["time"] }
+              public var itemId0: StratzAPI.Short? { __data["itemId0"] }
+              public var itemId1: StratzAPI.Short? { __data["itemId1"] }
+              public var itemId2: StratzAPI.Short? { __data["itemId2"] }
+              public var itemId3: StratzAPI.Short? { __data["itemId3"] }
+              public var itemId4: StratzAPI.Short? { __data["itemId4"] }
+              public var itemId5: StratzAPI.Short? { __data["itemId5"] }
+              public var backpackId0: StratzAPI.Short? { __data["backpackId0"] }
+              public var backpackId1: StratzAPI.Short? { __data["backpackId1"] }
+              public var backpackId2: StratzAPI.Short? { __data["backpackId2"] }
             }
           }
         }
