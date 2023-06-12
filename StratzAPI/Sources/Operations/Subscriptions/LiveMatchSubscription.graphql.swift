@@ -54,6 +54,20 @@ public class LiveMatchSubscription: GraphQLSubscription {
             __typename
             heroId
             name
+            steamAccountId
+            steamAccount {
+              __typename
+              name
+              realName
+              avatar
+              rankShift
+              seasonRank
+              proSteamAccount {
+                __typename
+                name
+                realName
+              }
+            }
             playerSlot
             isRadiant
             numKills
@@ -74,6 +88,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
             backpackId1
             backpackId2
             networth
+            heroDamage
             playbackData {
               __typename
               killEvents {
@@ -271,6 +286,8 @@ public class LiveMatchSubscription: GraphQLSubscription {
           .field("__typename", String.self),
           .field("heroId", StratzAPI.Short?.self),
           .field("name", String?.self),
+          .field("steamAccountId", StratzAPI.Long?.self),
+          .field("steamAccount", SteamAccount?.self),
           .field("playerSlot", StratzAPI.Byte?.self),
           .field("isRadiant", Bool?.self),
           .field("numKills", StratzAPI.Byte?.self),
@@ -291,11 +308,14 @@ public class LiveMatchSubscription: GraphQLSubscription {
           .field("backpackId1", StratzAPI.Short?.self),
           .field("backpackId2", StratzAPI.Short?.self),
           .field("networth", Int?.self),
+          .field("heroDamage", Int?.self),
           .field("playbackData", PlaybackData?.self),
         ] }
 
         public var heroId: StratzAPI.Short? { __data["heroId"] }
         public var name: String? { __data["name"] }
+        public var steamAccountId: StratzAPI.Long? { __data["steamAccountId"] }
+        public var steamAccount: SteamAccount? { __data["steamAccount"] }
         public var playerSlot: StratzAPI.Byte? { __data["playerSlot"] }
         public var isRadiant: Bool? { __data["isRadiant"] }
         public var numKills: StratzAPI.Byte? { __data["numKills"] }
@@ -316,7 +336,52 @@ public class LiveMatchSubscription: GraphQLSubscription {
         public var backpackId1: StratzAPI.Short? { __data["backpackId1"] }
         public var backpackId2: StratzAPI.Short? { __data["backpackId2"] }
         public var networth: Int? { __data["networth"] }
+        public var heroDamage: Int? { __data["heroDamage"] }
         public var playbackData: PlaybackData? { __data["playbackData"] }
+
+        /// MatchLive.Player.SteamAccount
+        ///
+        /// Parent Type: `SteamAccountType`
+        public struct SteamAccount: StratzAPI.SelectionSet {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.SteamAccountType }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
+            .field("name", String?.self),
+            .field("realName", String?.self),
+            .field("avatar", String?.self),
+            .field("rankShift", StratzAPI.Short?.self),
+            .field("seasonRank", StratzAPI.Byte?.self),
+            .field("proSteamAccount", ProSteamAccount?.self),
+          ] }
+
+          public var name: String? { __data["name"] }
+          public var realName: String? { __data["realName"] }
+          public var avatar: String? { __data["avatar"] }
+          public var rankShift: StratzAPI.Short? { __data["rankShift"] }
+          public var seasonRank: StratzAPI.Byte? { __data["seasonRank"] }
+          public var proSteamAccount: ProSteamAccount? { __data["proSteamAccount"] }
+
+          /// MatchLive.Player.SteamAccount.ProSteamAccount
+          ///
+          /// Parent Type: `ProSteamAccountType`
+          public struct ProSteamAccount: StratzAPI.SelectionSet {
+            public let __data: DataDict
+            public init(_dataDict: DataDict) { __data = _dataDict }
+
+            public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.ProSteamAccountType }
+            public static var __selections: [ApolloAPI.Selection] { [
+              .field("__typename", String.self),
+              .field("name", String?.self),
+              .field("realName", String?.self),
+            ] }
+
+            public var name: String? { __data["name"] }
+            public var realName: String? { __data["realName"] }
+          }
+        }
 
         /// MatchLive.Player.PlaybackData
         ///

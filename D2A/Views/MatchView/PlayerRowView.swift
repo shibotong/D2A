@@ -9,10 +9,8 @@ import SwiftUI
 import StratzAPI
 
 struct PlayerRowView: View {
-    var isRadiant: Bool
     var maxDamage: Int
     @ObservedObject var viewModel: PlayerRowViewModel
-    
     @EnvironmentObject var heroData: HeroDatabase
     
     private var heroIcon: some View {

@@ -35,10 +35,18 @@ struct LiveMatchView: View {
     
     private var horizontalView: some View {
         HStack(spacing: 20) {
-            VStack {
-                draftView
-                Spacer()
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
+                    draftView
+                    Spacer()
+                        .frame(height: 20)
+                    playerView
+                        .padding()
+                        .background(Color.secondarySystemBackground)
+                    Spacer()
+                }
             }
+            
             VStack(spacing: 0) {
                 timerView
                 mapView
@@ -48,8 +56,7 @@ struct LiveMatchView: View {
                     eventView
                         .padding(.vertical)
                 }.background(Color.secondarySystemBackground)
-            }
-            .frame(minWidth: 300, maxWidth: 400)
+            }.frame(minWidth: 300, maxWidth: 400)
         }
         .padding()
     }
@@ -64,6 +71,19 @@ struct LiveMatchView: View {
                     eventView
                 }
                 .padding(.vertical, 9)
+            }
+        }
+    }
+    
+    private var playerView: some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text("Players").bold()
+                    .foregroundColor(.label)
+                Spacer()
+            }
+            ScrollView(.horizontal, showsIndicators: false) {
+                LiveMatchPlayerView(players: viewModel.matchPlayers)
             }
         }
     }
@@ -103,5 +123,6 @@ struct LiveMatchView_Previews: PreviewProvider {
             EmptyView()
             LiveMatchContainerView()
         }
+        .previewInterfaceOrientation(.landscapeLeft)
     }
 }

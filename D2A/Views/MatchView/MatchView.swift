@@ -221,7 +221,7 @@ struct TeamView: View {
         VStack(spacing: 0) {
             TeamHeaderView(isRadiant: isRadiant, score: score, win: win)
             ForEach(players, id: \.heroID) { player in
-                PlayerRowView(isRadiant: isRadiant, maxDamage: maxDamage, viewModel: PlayerRowViewModel(player: player))
+                PlayerRowView(maxDamage: maxDamage, viewModel: PlayerRowViewModel(player: player))
                     .padding(.horizontal)
             }
         }

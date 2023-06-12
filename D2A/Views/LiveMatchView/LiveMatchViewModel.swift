@@ -38,6 +38,9 @@ class LiveMatchViewModel: ObservableObject {
     @Published var direBan: [Int] = []
     @Published var draftWinRate: Double = 50.0
     
+    // LiveMatchPlayerView
+    @Published var matchPlayers: [PlayerRowViewModel] = []
+    
     private var players: LiveMatchPlayers?
     
     @Published var status = "Loading..."
@@ -93,7 +96,6 @@ class LiveMatchViewModel: ObservableObject {
                         guard let data, let isRadiant = data.isRadiant else {
                             continue
                         }
-                        print("\(data.order): \(data.isPick) \(data.heroId) \(data.letter)")
                         if let winRate = data.adjustedWinRate, self?.draftWinRate != winRate {
                             self?.draftWinRate = winRate
                         }
@@ -144,6 +146,7 @@ class LiveMatchViewModel: ObservableObject {
                     self?.heroes = heroes
                     
                     var players: [Player] = []
+                    var matchPlayers: [PlayerRowViewModel] = []
                     for player in liveMatchPlayers {
                         guard let player,
                               let heroID = player.heroId,
@@ -152,8 +155,12 @@ class LiveMatchViewModel: ObservableObject {
                         }
                         let deathEvent: [Int] = player.playbackData?.deathEvents?.compactMap { $0?.time } ?? []
                         let killEvent: [Int] = player.playbackData?.killEvents?.compactMap { $0?.time } ?? []
+                        
+                        let playerRowViewModel = PlayerRowViewModel(player: player)
                         players.append(Player(heroID: Int(heroID), isRadiant: isRadiant, deathEvents: deathEvent, killEvents: killEvent))
+                        matchPlayers.append(playerRowViewModel)
                     }
+                    self?.matchPlayers = matchPlayers
                     self?.updatePlayersData(players: players)
                     killEvents = self?.processKillEvents(players: players) ?? []
                 }

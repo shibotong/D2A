@@ -6,8 +6,11 @@
 //
 
 import Foundation
+import StratzAPI
 
 class PlayerRowViewModel: ObservableObject {
+    
+    typealias LiveMatchPlayer = LiveMatchSubscription.Data.MatchLive.Player
     
     @Published var accountID: String?
     
@@ -67,6 +70,36 @@ class PlayerRowViewModel: ObservableObject {
         
         self.xpm = player.xpm
         self.gpm = player.gpm
+        self.heroDamage = player.heroDamage
+    }
+    
+    init(player: LiveMatchPlayer) {
+        self.accountID = player.steamAccountId?.description
+        self.heroID = Int(player.heroId ?? 0)
+        self.level = player.level ?? 0
+        self.personaname = player.steamAccount?.proSteamAccount?.name
+        self.rank = player.steamAccount?.seasonRank ?? 0
+        self.kills = player.numKills ?? 0
+        self.deaths = player.numDeaths ?? 0
+        self.assists = player.numAssists ?? 0
+        
+        self.item0 = Int(player.itemId0 ?? 0)
+        self.item1 = Int(player.itemId1 ?? 0)
+        self.item2 = Int(player.itemId2 ?? 0)
+        self.item3 = Int(player.itemId3 ?? 0)
+        self.item4 = Int(player.itemId4 ?? 0)
+        self.item5 = Int(player.itemId5 ?? 0)
+        self.backpack0 = Int(player.backpackId0 ?? 0)
+        self.backpack1 = Int(player.backpackId1 ?? 0)
+        self.backpack2 = Int(player.backpackId2 ?? 0)
+        
+        self.hasScepter = {
+            return player.itemId0 == 108 || player.itemId1 == 108 || player.itemId2 == 108 || player.itemId3 == 108 || player.itemId4 == 108 || player.itemId5 == 108
+        }()
+        
+        self.hasShard = false
+        self.xpm = Int(player.experiencePerMinute ?? "0") ?? 0
+        self.gpm = Int(player.goldPerMinute ?? "0") ?? 0
         self.heroDamage = player.heroDamage
     }
 }
