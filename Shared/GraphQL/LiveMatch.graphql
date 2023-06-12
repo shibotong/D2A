@@ -38,6 +38,18 @@ subscription LiveMatch($matchid: Long!) {
         players {
             heroId
             name
+            steamAccountId
+            steamAccount {
+                name
+                realName
+                avatar
+                rankShift
+                seasonRank
+                proSteamAccount {
+                    name
+                    realName
+                }
+            }
             playerSlot
             isRadiant
             numKills
@@ -58,6 +70,7 @@ subscription LiveMatch($matchid: Long!) {
             backpackId1
             backpackId2
             networth
+            heroDamage
             playbackData {
                 killEvents {
                     time
