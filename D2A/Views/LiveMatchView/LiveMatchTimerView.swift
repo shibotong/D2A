@@ -17,7 +17,6 @@ struct LiveMatchTimerView: View {
     var direTeam: String
     
     private let imagePadding: CGFloat = 20
-    private let height: CGFloat = 67
     
     private var isDayTime: Bool {
         guard let time else {
@@ -93,7 +92,6 @@ struct LiveMatchTimerView: View {
             .padding(imagePadding)
         }
         .background(Color.secondarySystemBackground)
-        .frame(height: height)
     }
 }
 

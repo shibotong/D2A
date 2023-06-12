@@ -29,15 +29,18 @@ struct LiveMatchDraftView: View {
                         .foregroundColor(.label)
                 }
             })
+            .frame(height: 67)
+            .padding(.horizontal)
             if showDetail {
                 if horizontalSizeClass == .compact {
                     verticalView
+                        .padding([.horizontal, .bottom])
                 } else {
                     horizontalView
+                        .padding([.horizontal, .bottom])
                 }
             }
         }
-        .padding()
         .background(Color.secondarySystemBackground)
     }
     
@@ -60,7 +63,7 @@ struct LiveMatchDraftView: View {
                             .cornerRadius(5)
                         Spacer()
                     }
-                    .background(Color.secondarySystemBackground)
+                    .background(Color.tertiarySystemBackground)
                     .cornerRadius(5)
                 }
                 if radiantPick.count < 5 {
@@ -75,13 +78,13 @@ struct LiveMatchDraftView: View {
                                 .foregroundColor(.green.opacity(opacity))
                             Spacer()
                         }
-                        .background(Color.secondarySystemBackground)
+                        .background(Color.tertiarySystemBackground)
                         .cornerRadius(5)
                     }
                 }
             }
             Spacer()
-                .frame(width: 40)
+                .frame(width: 20)
             VStack {
                 ForEach(direPick, id: \.self) { heroID in
                     HStack {
@@ -90,7 +93,7 @@ struct LiveMatchDraftView: View {
                             .frame(height: 50)
                             .cornerRadius(5)
                     }
-                    .background(Color.secondarySystemBackground)
+                    .background(Color.tertiarySystemBackground)
                     .cornerRadius(5)
                 }
                 if direPick.count < 5 {
@@ -105,7 +108,7 @@ struct LiveMatchDraftView: View {
                                 .cornerRadius(5)
                                 .foregroundColor(.red.opacity(opacity))
                         }
-                        .background(Color.secondarySystemBackground)
+                        .background(Color.tertiarySystemBackground)
                         .cornerRadius(5)
                     }
                 }
@@ -186,5 +189,6 @@ struct LiveMatchDraftView: View {
 struct LiveMatchDraftView_Previews: PreviewProvider {
     static var previews: some View {
         LiveMatchDraftView(radiantPick: [1, 2, 3, 4], radiantBan: [6, 7, 8, 9, 10, 11, 12], direPick: [13, 14, 15], direBan: [18, 19, 20, 21, 22, 23], showDetail: true)
+            .preferredColorScheme(.dark)
     }
 }
