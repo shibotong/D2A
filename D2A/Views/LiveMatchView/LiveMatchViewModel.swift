@@ -186,6 +186,9 @@ class LiveMatchViewModel: ObservableObject {
                     await self?.updateEvents(events: events)
                 }
                 
+                print(graphQLResult.data?.matchLive?.winRateValues)
+                print(graphQLResult.data?.matchLive?.liveWinRateValues)
+                
             case .failure(let error):
                 print(error)
             }
