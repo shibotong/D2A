@@ -29,6 +29,9 @@ subscription LiveMatch($matchid: Long!) {
                 order
                 bannedHeroId
                 isRadiant
+                letter
+                baseWinRate
+                adjustedWinRate
             }
         }
         gameState

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LiveMatchContainerView: View {
-    @State private var matchID: String = "7196512086"
+    @State private var matchID: String = "7196570714"
     var body: some View {
         LiveMatchView(viewModel: LiveMatchViewModel(matchID: matchID))
     }
@@ -91,6 +91,7 @@ struct LiveMatchView: View {
                            radiantBan: viewModel.radiantBan,
                            direPick: viewModel.direPick,
                            direBan: viewModel.direBan,
+                           winRate: viewModel.draftWinRate,
                            showDetail: viewModel.status == "Hero Selection")
         
     }
