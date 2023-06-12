@@ -44,6 +44,9 @@ public class LiveMatchSubscription: GraphQLSubscription {
               order
               bannedHeroId
               isRadiant
+              letter
+              baseWinRate
+              adjustedWinRate
             }
           }
           gameState
@@ -240,6 +243,9 @@ public class LiveMatchSubscription: GraphQLSubscription {
             .field("order", Int?.self),
             .field("bannedHeroId", StratzAPI.Short?.self),
             .field("isRadiant", Bool?.self),
+            .field("letter", GraphQLEnum<StratzAPI.PlusLetterType>?.self),
+            .field("baseWinRate", Double?.self),
+            .field("adjustedWinRate", Double?.self),
           ] }
 
           public var isPick: Bool { __data["isPick"] }
@@ -247,6 +253,9 @@ public class LiveMatchSubscription: GraphQLSubscription {
           public var order: Int? { __data["order"] }
           public var bannedHeroId: StratzAPI.Short? { __data["bannedHeroId"] }
           public var isRadiant: Bool? { __data["isRadiant"] }
+          public var letter: GraphQLEnum<StratzAPI.PlusLetterType>? { __data["letter"] }
+          public var baseWinRate: Double? { __data["baseWinRate"] }
+          public var adjustedWinRate: Double? { __data["adjustedWinRate"] }
         }
       }
 
