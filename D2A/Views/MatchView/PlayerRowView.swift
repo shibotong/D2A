@@ -9,14 +9,14 @@ import SwiftUI
 import StratzAPI
 
 struct PlayerRowView: View {
-    var player: Player
     var isRadiant: Bool
     var maxDamage: Int
+    @ObservedObject var viewModel: PlayerRowViewModel
     
     @EnvironmentObject var heroData: HeroDatabase
     
     private var heroIcon: some View {
-        HeroImageView(heroID: player.heroID, type: .icon)
+        HeroImageView(heroID: viewModel.heroID, type: .icon)
             .frame(width: 35, height: 35)
             .overlay(HStack {
                 Spacer()
@@ -25,7 +25,7 @@ struct PlayerRowView: View {
                     Circle()
                         .frame(width: 15, height: 15)
                         .foregroundColor(.label)
-                        .overlay(Text("\(player.level)")
+                        .overlay(Text("\(viewModel.level)")
                                     .foregroundColor(Color(.systemBackground))
                                     .font(.system(size: 8)).bold())
                 }
@@ -34,15 +34,15 @@ struct PlayerRowView: View {
     
     private var leadingView: some View {
         VStack(alignment: .leading, spacing: 2) {
-            if let personaname = player.personaname {
+            if let personaname = viewModel.personaname {
                 HStack(spacing: 2) {
-                    Image("rank_\(player.rank / 10)").resizable().frame(width: 18, height: 18)
+                    Image("rank_\(viewModel.rank / 10)").resizable().frame(width: 18, height: 18)
                     Text(personaname.description).font(.system(size: 15)).bold().lineLimit(1).foregroundColor(.label)
                 }
             } else {
                 Text("Anonymous").font(.system(size: 15)).bold().lineLimit(1)
             }
-            KDAView(kills: Int(player.kills), deaths: Int(player.deaths), assists: Int(player.assists), size: .caption)
+            KDAView(kills: viewModel.kills, deaths: viewModel.deaths, assists: viewModel.assists, size: .caption)
         }.frame(width: 150)
     }
     
@@ -50,30 +50,30 @@ struct PlayerRowView: View {
         HStack(spacing: 5) {
             let width: CGFloat = 40.0
             let height = width * 0.75
-            if let item = player.itemNeutral {
-                ItemView(id: Int(item))
+            if let item = viewModel.itemNeutral {
+                ItemView(id: item)
                     .frame(width: width, height: height)
                     .clipShape(Circle())
                     .frame(width: height)
             }
             Group {
-                ItemView(id: Int(player.item0)).frame(width: width, height: height)
-                ItemView(id: Int(player.item1)).frame(width: width, height: height)
-                ItemView(id: Int(player.item2)).frame(width: width, height: height)
-                ItemView(id: Int(player.item3)).frame(width: width, height: height)
-                ItemView(id: Int(player.item4)).frame(width: width, height: height)
-                ItemView(id: Int(player.item5)).frame(width: width, height: height)
+                ItemView(id: viewModel.item0).frame(width: width, height: height)
+                ItemView(id: viewModel.item1).frame(width: width, height: height)
+                ItemView(id: viewModel.item2).frame(width: width, height: height)
+                ItemView(id: viewModel.item3).frame(width: width, height: height)
+                ItemView(id: viewModel.item4).frame(width: width, height: height)
+                ItemView(id: viewModel.item5).frame(width: width, height: height)
             }
             Spacer().frame(width: 20)
             Group {
-                if let backpack0 = player.backpack0 {
-                    ItemView(id: Int(backpack0)).frame(width: width, height: height)
+                if let backpack0 = viewModel.backpack0 {
+                    ItemView(id: backpack0).frame(width: width, height: height)
                 }
-                if let backpack1 = player.backpack1 {
-                    ItemView(id: Int(backpack1)).frame(width: width, height: height)
+                if let backpack1 = viewModel.backpack1 {
+                    ItemView(id: backpack1).frame(width: width, height: height)
                 }
-                if let backpack2 = player.backpack2 {
-                    ItemView(id: Int(backpack2)).frame(width: width, height: height)
+                if let backpack2 = viewModel.backpack2 {
+                    ItemView(id: backpack2).frame(width: width, height: height)
                 }
             }
         }
@@ -81,12 +81,12 @@ struct PlayerRowView: View {
     
     private var scepterView: some View {
         VStack(spacing: 0) {
-            Image("scepter_\(player.hasScepter ? "1" : "0")")
+            Image("scepter_\(viewModel.hasScepter ? "1" : "0")")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 24, height: 24)
                 
-            Image("shard_\(player.hasShard ? "1" : "0")")
+            Image("shard_\(viewModel.hasShard ? "1" : "0")")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 24, height: 12)
@@ -95,8 +95,8 @@ struct PlayerRowView: View {
     
     private var abilityView: some View {
         HStack(spacing: 1) {
-            ForEach(0..<player.abilityUpgrade.count, id: \.self) { index in
-                buildAbility(abilityID: player.abilityUpgrade[index])
+            ForEach(0..<viewModel.abilityUpgrade.count, id: \.self) { index in
+                buildAbility(abilityID: viewModel.abilityUpgrade[index])
                     .overlay(HStack {
                         Spacer()
                         VStack {
@@ -111,10 +111,10 @@ struct PlayerRowView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: player.heroID))) {
+                NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: viewModel.heroID))) {
                     heroIcon
                 }
-                if let playerID = player.accountId {
+                if let playerID = viewModel.accountID {
                     NavigationLink(destination: PlayerProfileView(userid: playerID)) {
                         leadingView
                     }
@@ -126,13 +126,13 @@ struct PlayerRowView: View {
                 VStack(spacing: 0) {
                     HStack(spacing: 3) {
                         Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
-                        Text("\(player.gpm)").foregroundColor(Color(.systemOrange))
+                        Text("\(viewModel.gpm)").foregroundColor(Color(.systemOrange))
                     }.frame(width: 40)
                     HStack(spacing: 3) {
                         Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
-                        Text("\(player.xpm)").foregroundColor(Color(.systemBlue))
+                        Text("\(viewModel.xpm)").foregroundColor(Color(.systemBlue))
                     }.frame(width: 40)
-                    DamageView(maxDamage: maxDamage, playerDamage: Int(player.heroDamage ?? 0))
+                    DamageView(maxDamage: maxDamage, playerDamage: Int(viewModel.heroDamage ?? 0))
                 }.font(.system(size: 10))
                 abilityView
                 Spacer()

@@ -32,10 +32,11 @@ class LiveMatchViewModel: ObservableObject {
     @Published var events: [any LiveMatchEvent] = []
     
     // LiveMatchDraftView
-    @Published var radiantPick: [Int] = []
-    @Published var direPick: [Int] = []
+    @Published var radiantPick: [LiveMatchPickHero] = []
+    @Published var direPick: [LiveMatchPickHero] = []
     @Published var radiantBan: [Int] = []
     @Published var direBan: [Int] = []
+    @Published var draftWinRate: Double = 50.0
     
     private var players: LiveMatchPlayers?
     
@@ -79,8 +80,8 @@ class LiveMatchViewModel: ObservableObject {
                 }
                 
                 // Draft
-                var radiantPick: [Int] = []
-                var direPick: [Int] = []
+                var radiantPick: [LiveMatchPickHero] = []
+                var direPick: [LiveMatchPickHero] = []
                 var radiantBan: [Int] = []
                 var direBan: [Int] = []
                 if let draftData = graphQLResult.data?.matchLive?.playbackData?.pickBans,
@@ -92,11 +93,15 @@ class LiveMatchViewModel: ObservableObject {
                         guard let data, let isRadiant = data.isRadiant else {
                             continue
                         }
+                        print("\(data.order): \(data.isPick) \(data.heroId) \(data.letter)")
+                        if let winRate = data.adjustedWinRate, self?.draftWinRate != winRate {
+                            self?.draftWinRate = winRate
+                        }
                         if isRadiant && data.isPick {
                             guard let heroID = data.heroId else {
                                 continue
                             }
-                            radiantPick.append(Int(heroID))
+                            radiantPick.append(.init(heroID: Int(heroID), pickLevel: data.letter?.rawValue ?? ""))
                         }
                         if isRadiant && !data.isPick {
                             guard let heroID = data.bannedHeroId else {
@@ -108,7 +113,7 @@ class LiveMatchViewModel: ObservableObject {
                             guard let heroID = data.heroId else {
                                 continue
                             }
-                            direPick.append(Int(heroID))
+                            direPick.append(.init(heroID: Int(heroID), pickLevel: data.letter?.rawValue ?? " "))
                         }
                         if !isRadiant && !data.isPick {
                             guard let heroID = data.bannedHeroId else {
