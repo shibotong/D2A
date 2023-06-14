@@ -45,14 +45,19 @@ class LiveMatchViewModel: ObservableObject {
     
     private var players: LiveMatchPlayers?
     
+    private var setDraftState = false
+    
     @Published var status = "Loading..." {
         didSet {
-            let showDraft = status == "Init" ||
-            status == "Wait For Players To Load" ||
-            status == "Hero Selection" ||
-            status == "Strategy Time" ||
-            status == "Pre Game"
-            self.showDraft = showDraft
+            if !setDraftState {
+                setDraftState = true
+                let showDraft = status == "Init" ||
+                status == "Wait For Players To Load" ||
+                status == "Hero Selection" ||
+                status == "Strategy Time" ||
+                status == "Pre Game"
+                self.showDraft = showDraft
+            }
         }
     }
     
@@ -222,7 +227,6 @@ class LiveMatchViewModel: ObservableObject {
             switch result {
             case .success(let graphQLResult):
                 if let gameMode = graphQLResult.data?.live?.match?.gameMode, (gameMode == .captainsMode || gameMode == .captainsDraft) {
-                    print(gameMode)
                     self?.hasBan = true
                 } else {
                     self?.hasBan = false

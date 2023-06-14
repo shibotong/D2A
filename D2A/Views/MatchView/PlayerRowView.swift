@@ -41,7 +41,7 @@ struct PlayerRowView: View {
                 Text("Anonymous").font(.system(size: 15)).bold().lineLimit(1)
             }
             KDAView(kills: viewModel.kills, deaths: viewModel.deaths, assists: viewModel.assists, size: .caption)
-        }.frame(width: 150)
+        }.frame(width: 120)
     }
     
     private var itemsView: some View {
@@ -119,21 +119,25 @@ struct PlayerRowView: View {
                 } else {
                     leadingView
                 }
-                itemsView
-                scepterView
                 VStack(spacing: 0) {
-                    HStack(spacing: 3) {
-                        Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
-                        Text("\(viewModel.gpm)").foregroundColor(Color(.systemOrange))
-                    }.frame(width: 40)
-                    HStack(spacing: 3) {
-                        Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
-                        Text("\(viewModel.xpm)").foregroundColor(Color(.systemBlue))
-                    }.frame(width: 40)
+                    if viewModel.gpm != 0 {
+                        HStack(spacing: 3) {
+                            Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
+                            Text("\(viewModel.gpm)").foregroundColor(Color(.systemOrange))
+                        }.frame(width: 40)
+                    }
+                    if viewModel.xpm != 0 {
+                        HStack(spacing: 3) {
+                            Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
+                            Text("\(viewModel.xpm)").foregroundColor(Color(.systemBlue))
+                        }.frame(width: 40)
+                    }
                     if maxDamage != 0 {
                         DamageView(maxDamage: maxDamage, playerDamage: Int(viewModel.heroDamage ?? 0))
                     }
                 }.font(.system(size: 10))
+                itemsView
+                scepterView
                 abilityView
                 Spacer()
             }.frame(height: 50)
