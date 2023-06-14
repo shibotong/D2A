@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-struct LiveMatchContainerView: View {
-    @State private var matchID: String = "7199653917"
-    var body: some View {
-        LiveMatchView(viewModel: LiveMatchViewModel(matchID: matchID))
-    }
-}
-
 struct LiveMatchView: View {
 
     @ObservedObject var viewModel: LiveMatchViewModel
@@ -32,6 +25,10 @@ struct LiveMatchView: View {
         }
         .navigationTitle("\(viewModel.status)")
         .navigationBarTitleDisplayMode(.inline)
+        .task {
+            viewModel.startFetching()
+        }
+        .onDisappear(perform: viewModel.removeSubscription)
     }
     
     private var horizontalView: some View {
@@ -132,11 +129,5 @@ struct LiveMatchView: View {
                            showDetail: $viewModel.showDraft)
         .background(Color.systemBackground)
         
-    }
-}
-
-struct LiveMatchView_Previews: PreviewProvider {
-    static var previews: some View {
-            LiveMatchContainerView()
     }
 }
