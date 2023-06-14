@@ -25,6 +25,8 @@ struct LiveMatchEventListView: View {
                 let seconds = (latestEventTime5Minute - each5Mins) * 300
                 buildTimeSection(time: seconds)
             }
+            Spacer()
+                .frame(height: 200)
         }
     }
     
