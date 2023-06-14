@@ -59,7 +59,7 @@ struct LiveMatchKillEvent: LiveMatchEvent {
                 let heroName = try? heroDatabase.fetchHeroWithID(id: heroID).heroNameLocalized
                 return LiveMatchEventDetail(type: .killDied, itemName: heroName, itemIcon: AnyView(
                     HeroImageView(heroID: heroID, type: .icon)
-                        .frame(width: 15, height: 15)
+                        .frame(width: 20, height: 20)
                 ))
             }
             return details.isEmpty ? [] : [LiveMatchEventItem(time: time, isRadiantEvent: isRadiant, icon: "\(killHero)_icon", events: details)]
@@ -75,7 +75,7 @@ struct LiveMatchKillEvent: LiveMatchEvent {
                     let heroName = try? heroDatabase.fetchHeroWithID(id: heroID).heroNameLocalized
                     return LiveMatchEventDetail(type: .killDied, itemName: heroName, itemIcon: AnyView(
                         HeroImageView(heroID: heroID, type: .icon)
-                            .frame(width: 15, height: 15)
+                            .frame(width: 20, height: 20)
                     ))
                 }
                 return details.isEmpty ? nil : LiveMatchEventItem(time: time, isRadiantEvent: isRadiant, icon: "\(killHeroID)_icon", events: details)

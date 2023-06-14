@@ -37,6 +37,8 @@ class LiveMatchViewModel: ObservableObject {
     @Published var radiantBan: [Int] = []
     @Published var direBan: [Int] = []
     @Published var draftWinRate: Double = 50.0
+    @Published var showDraft: Bool = false
+    @Published var hasBan: Bool = false
     
     // LiveMatchPlayerView
     @Published var matchPlayers: [PlayerRowViewModel] = []
@@ -53,8 +55,6 @@ class LiveMatchViewModel: ObservableObject {
             self.showDraft = showDraft
         }
     }
-    
-    @Published var showDraft: Bool = false
     
     init(matchID: String) {
         guard let matchID = Int(matchID) else {
@@ -221,6 +221,13 @@ class LiveMatchViewModel: ObservableObject {
         let subscription = Network.shared.apollo.fetch(query: LiveMatchHistoryQuery(matchid: matchID)) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
+                if let gameMode = graphQLResult.data?.live?.match?.gameMode, (gameMode == .captainsMode || gameMode == .captainsDraft) {
+                    print(gameMode)
+                    self?.hasBan = true
+                } else {
+                    self?.hasBan = false
+                }
+                
                 if let radiantTeamId = graphQLResult.data?.live?.match?.radiantTeamId {
                     self?.radiantTeam = "https://cdn.stratz.com/images/dota2/teams/\(radiantTeamId).png"
                 }

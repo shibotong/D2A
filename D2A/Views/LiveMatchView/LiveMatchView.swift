@@ -126,6 +126,7 @@ struct LiveMatchView: View {
                            direPick: viewModel.direPick,
                            direBan: viewModel.direBan,
                            winRate: viewModel.draftWinRate,
+                           hasBan: viewModel.hasBan,
                            showDetail: $viewModel.showDraft)
         .background(Color.systemBackground)
         

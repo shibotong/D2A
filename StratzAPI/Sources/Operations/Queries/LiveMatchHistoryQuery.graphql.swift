@@ -15,6 +15,7 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
             __typename
             radiantTeamId
             direTeamId
+            gameMode
             playbackData {
               __typename
               roshanEvents {
@@ -140,6 +141,7 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
           .field("__typename", String.self),
           .field("radiantTeamId", Int?.self),
           .field("direTeamId", Int?.self),
+          .field("gameMode", GraphQLEnum<StratzAPI.GameModeEnumType>?.self),
           .field("playbackData", PlaybackData?.self),
           .field("gameState", GraphQLEnum<StratzAPI.MatchLiveGameState>?.self),
           .field("players", [Player?]?.self),
@@ -148,6 +150,7 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
 
         public var radiantTeamId: Int? { __data["radiantTeamId"] }
         public var direTeamId: Int? { __data["direTeamId"] }
+        public var gameMode: GraphQLEnum<StratzAPI.GameModeEnumType>? { __data["gameMode"] }
         public var playbackData: PlaybackData? { __data["playbackData"] }
         public var gameState: GraphQLEnum<StratzAPI.MatchLiveGameState>? { __data["gameState"] }
         public var players: [Player?]? { __data["players"] }

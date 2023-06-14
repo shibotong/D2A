@@ -111,7 +111,7 @@ struct LiveMatchBuildingEvent: LiveMatchEvent {
     }
     
     private var buildingName: String {
-        return "\(teamString)\(lane)\(buildingPosition)\(buildingType)"
+        return "\(lane)\(buildingPosition)\(buildingType)"
     }
     
     private var teamString: String {
