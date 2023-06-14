@@ -45,66 +45,67 @@ struct LiveMatchKillEvent: LiveMatchEvent {
     }
     
     func generateEvent() -> [LiveMatchEventItem] {
-        if kill.count == 1 && !died.isEmpty {
-            
-            // Only one hero kill others
-            guard let killHero = kill.first,
-                  let isRadiant = players.heroIDisRadiant(killHero) else {
-                return []
+        var events: [LiveMatchEventItem] = []
+        // radiant killer
+        let radiantKillers = kill.filter { id in
+            return players.heroIDisRadiant(id) ?? false
+        }
+        
+        // dire killer
+        let direKillers = kill.filter { id in
+            guard let isRadiant = players.heroIDisRadiant(id) else {
+                return false
             }
-            let details: [LiveMatchEventDetail] = died.compactMap { heroID in
-                guard let diedHeroIsRadiant = players.heroIDisRadiant(heroID), diedHeroIsRadiant != isRadiant else {
-                    return nil
-                }
-                let heroName = try? heroDatabase.fetchHeroWithID(id: heroID).heroNameLocalized
-                return LiveMatchEventDetail(type: .killDied, itemName: heroName, itemIcon: AnyView(
+            return !isRadiant
+        }
+        
+        let radiantDied = died.filter { id in
+            return players.heroIDisRadiant(id) ?? false
+        }
+        
+        let direDied = died.filter { id in
+            guard let isRadiant = players.heroIDisRadiant(id) else {
+                return false
+            }
+            return !isRadiant
+        }
+        
+        let radiantKillEvents = generateEventForKiller(killer: radiantKillers, died: direDied, isRadiant: true)
+        let direKillEvents = generateEventForKiller(killer: direKillers, died: radiantDied, isRadiant: false)
+        
+        events.append(contentsOf: radiantKillEvents)
+        events.append(contentsOf: direKillEvents)
+        return events
+    }
+    
+    private func generateEventForKiller(killer: [Int], died: [Int], isRadiant: Bool) -> [LiveMatchEventItem] {
+        if killer.count == 1 && !died.isEmpty {
+            let details: [LiveMatchEventDetail] = died.map { heroID in
+                let heroIcon = AnyView(
                     HeroImageView(heroID: heroID, type: .icon)
                         .frame(width: 20, height: 20)
-                ))
+                )
+                let heroName = try? heroDatabase.fetchHeroWithID(id: heroID).heroNameLocalized
+                return LiveMatchEventDetail(type: .killDied, itemName: heroName, itemIcon: heroIcon)
             }
-            return details.isEmpty ? [] : [LiveMatchEventItem(time: time, isRadiantEvent: isRadiant, icon: "\(killHero)_icon", events: details)]
-        } else if kill.count == 2 && players.heroIDisRadiant(kill.first!) != players.heroIDisRadiant(kill.last!) {
-            
-            // Can determine which hero kills which hero
-            let eventItems: [LiveMatchEventItem] = kill.compactMap { killHeroID in
-                guard let isRadiant = players.heroIDisRadiant(killHeroID) else {
-                    return nil
-                }
-                let enemyHero = fetchEnemyHero(killHero: killHeroID)
-                let details = enemyHero.map { heroID in
-                    let heroName = try? heroDatabase.fetchHeroWithID(id: heroID).heroNameLocalized
-                    return LiveMatchEventDetail(type: .killDied, itemName: heroName, itemIcon: AnyView(
-                        HeroImageView(heroID: heroID, type: .icon)
-                            .frame(width: 20, height: 20)
-                    ))
-                }
-                return details.isEmpty ? nil : LiveMatchEventItem(time: time, isRadiantEvent: isRadiant, icon: "\(killHeroID)_icon", events: details)
+            return [LiveMatchEventItem(time: time, isRadiantEvent: isRadiant, icon: "\(killer)_icon", events: details)]
+        } else {
+            if died.isEmpty {
+                return []
             }
-            return eventItems
-        } else if !died.isEmpty {
-            
-            // Can't determine which hero kills which hero
-            let killEvents: [LiveMatchEventItem] = kill.compactMap { heroID in
-                guard let isRadiant = players.heroIDisRadiant(heroID) else {
-                    return nil
-                }
+            let killEvents: [LiveMatchEventItem] = killer.compactMap { heroID in
                 let detail = LiveMatchEventDetail(type: .kill, itemName: nil, itemIcon: nil)
                 return LiveMatchEventItem(time: time, isRadiantEvent: isRadiant, icon: "\(heroID)_icon", events: [detail])
             }
             
             let diedEvents: [LiveMatchEventItem] = died.compactMap { heroID in
-                guard let isRadiant = players.heroIDisRadiant(heroID) else {
-                    return nil
-                }
                 let detail = LiveMatchEventDetail(type: .died, itemName: nil, itemIcon: nil)
                 return LiveMatchEventItem(time: time, isRadiantEvent: isRadiant, icon: "\(heroID)_icon", events: [detail])
             }
-            var events: [LiveMatchEventItem] = []
-            events.append(contentsOf: killEvents)
+            var events = killEvents
             events.append(contentsOf: diedEvents)
             return events
         }
-        return []
     }
     
     private func fetchEnemyHero(killHero: Int) -> [Int] {
