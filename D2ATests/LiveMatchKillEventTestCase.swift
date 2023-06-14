@@ -17,7 +17,7 @@ final class LiveMatchKillEventTestCase: XCTestCase {
     }
 
     func testGenerateSingleKillEvent() {
-        let killEvent = LiveMatchKillEvent(time: 0, kill: [1], died: [2, 3], players: players)
+        let killEvent = LiveMatchKillEvent(time: 0, kill: [1], died: [6, 7], players: players)
         let events = killEvent.generateEvent()
         XCTAssertEqual(events.count, 1)
         
@@ -44,25 +44,17 @@ final class LiveMatchKillEventTestCase: XCTestCase {
     }
     
     func testGenerateMultipleKillEvent() {
-        let killEvent = LiveMatchKillEvent(time: 0, kill: [1, 2], died: [6, 7, 8], players: players)
+        let killEvent = LiveMatchKillEvent(time: 0, kill: [1, 2, 6], died: [1, 6, 7, 8], players: players)
         let events = killEvent.generateEvent()
         
-        XCTAssertEqual(events.count, 5)
+        XCTAssertEqual(events.count, 6)
         let radiantEvents = events.filter({ $0.isRadiantEvent })
         let direEvents = events.filter({ !$0.isRadiantEvent })
-        XCTAssertEqual(radiantEvents.count, 2)
-        XCTAssertEqual(direEvents.count, 3)
-        
-        events.forEach { event in
-            XCTAssertEqual(event.events.count, 1)
-        }
-        
-        radiantEvents.forEach { event in
-            XCTAssertEqual(event.events.first!.type, .kill)
-        }
+        XCTAssertEqual(radiantEvents.count, 5)
+        XCTAssertEqual(direEvents.count, 1)
         
         direEvents.forEach { event in
-            XCTAssertEqual(event.events.first!.type, .died)
+            XCTAssertEqual(event.events.first!.type, .killDied)
         }
     }
 
