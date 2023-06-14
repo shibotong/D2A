@@ -13,9 +13,41 @@ struct LiveMatchPlayerView: View {
     
     var body: some View {
         VStack {
-            ForEach(players, id: \.accountID) { player in
-                PlayerRowView(maxDamage: 100, viewModel: player)
+            if players.isEmpty {
+                ForEach(0...9, id: \.self) { _ in
+                    PlayerRowEmptyView()
+                }
+            } else {
+                ForEach(players, id: \.accountID) { player in
+                    PlayerRowView(maxDamage: 100, viewModel: player)
+                }
             }
         }
     }
 }
+
+struct PlayerRowEmptyView: View {
+    
+    private let foregroundColor: Color = .black.opacity(0.3)
+    
+    var body: some View {
+        HStack {
+            Circle()
+                .foregroundColor(foregroundColor)
+                .frame(width: 35, height: 35)
+            RoundedRectangle(cornerRadius: 5)
+                .frame(width: 500, height: 30)
+                .foregroundColor(foregroundColor)
+                .frame(height: 50)
+        }
+    }
+}
+
+ struct LiveMatchPlayerView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            
+            LiveMatchPlayerView(players: [])
+        }
+    }
+ }

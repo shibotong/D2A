@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LiveMatchContainerView: View {
-    @State private var matchID: String = "7196570714"
+    @State private var matchID: String = "7199605260"
     var body: some View {
         LiveMatchView(viewModel: LiveMatchViewModel(matchID: matchID))
     }
@@ -34,31 +34,35 @@ struct LiveMatchView: View {
     }
     
     private var horizontalView: some View {
-        HStack(spacing: 20) {
+        HStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     draftView
                     Spacer()
                         .frame(height: 20)
                     playerView
-                        .padding()
-                        .background(Color.secondarySystemBackground)
+                        .background(Color.systemBackground)
                     Spacer()
                 }
+                .padding()
             }
             
             VStack(spacing: 0) {
                 timerView
+                    .background(Color.systemBackground)
                 mapView
                 Spacer()
                     .frame(height: 20)
                 ScrollView {
                     eventView
                         .padding(.vertical)
-                }.background(Color.secondarySystemBackground)
-            }.frame(minWidth: 300, maxWidth: 400)
+                }.background(Color.systemBackground)
+            }
+            .frame(minWidth: 300, maxWidth: 400)
+            .padding()
+            
         }
-        .padding()
+        .background(Color.secondarySystemBackground)
     }
     
     private var verticalView: some View {
@@ -82,8 +86,10 @@ struct LiveMatchView: View {
                     .foregroundColor(.label)
                 Spacer()
             }
+            .padding()
             ScrollView(.horizontal, showsIndicators: false) {
                 LiveMatchPlayerView(players: viewModel.matchPlayers)
+                    .padding()
             }
         }
     }
@@ -103,7 +109,7 @@ struct LiveMatchView: View {
     }
     
     private var mapView: some View {
-        LiveMatchMapView(heroes: viewModel.heroes, buildings: viewModel.buildingStatus)
+        LiveMatchMapView(heroes: viewModel.heroesPosition, buildings: viewModel.buildingStatus)
     }
     
     private var draftView: some View {
@@ -112,7 +118,8 @@ struct LiveMatchView: View {
                            direPick: viewModel.direPick,
                            direBan: viewModel.direBan,
                            winRate: viewModel.draftWinRate,
-                           showDetail: viewModel.status == "Hero Selection")
+                           showDetail: $viewModel.showDraft)
+        .background(Color.systemBackground)
         
     }
 }
@@ -120,9 +127,7 @@ struct LiveMatchView: View {
 struct LiveMatchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            EmptyView()
             LiveMatchContainerView()
         }
-        .previewInterfaceOrientation(.landscapeLeft)
     }
 }
