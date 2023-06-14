@@ -19,7 +19,7 @@ struct LiveMatchPlayerView: View {
                 }
             } else {
                 ForEach(players, id: \.accountID) { player in
-                    PlayerRowView(maxDamage: 100, viewModel: player)
+                    PlayerRowView(maxDamage: 0, viewModel: player)
                 }
             }
         }

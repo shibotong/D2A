@@ -40,8 +40,7 @@ struct LiveMatchDraftView: View {
                         .foregroundColor(.label)
                 }
             })
-            .frame(height: 67)
-            .padding(.horizontal)
+            .padding()
             if showDetail {
                 winRateView
                 if horizontalSizeClass == .compact {
