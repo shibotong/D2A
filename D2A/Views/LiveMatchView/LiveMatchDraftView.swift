@@ -21,6 +21,7 @@ struct LiveMatchDraftView: View {
     let direPick: [LiveMatchPickHero]
     let direBan: [Int]
     let winRate: Double
+    let hasBan: Bool
     @Binding var showDetail: Bool
     
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -77,12 +78,18 @@ struct LiveMatchDraftView: View {
     
     private var horizontalView: some View {
         HStack {
-            if radiantBan.count > 0 {
+            if hasBan {
                 VStack {
                     ForEach(radiantBan, id: \.self) { heroID in
                         HeroImageView(heroID: heroID, type: .icon)
                             .frame(width: horizontalBanIconHeight)
                             .grayscale(1)
+                    }
+                    if radiantBan.count < 7 {
+                        ForEach(0...(6 - radiantBan.count), id: \.self) { _ in
+                            HeroImageView(heroID: 0, type: .icon)
+                                .frame(width: horizontalBanIconHeight)
+                        }
                     }
                 }
             }
@@ -162,12 +169,18 @@ struct LiveMatchDraftView: View {
                     }
                 }
             }
-            if direBan.count > 0 {
+            if hasBan {
                 VStack {
                     ForEach(direBan, id: \.self) { heroID in
                         HeroImageView(heroID: heroID, type: .icon)
                             .frame(width: horizontalBanIconHeight)
                             .grayscale(1)
+                    }
+                    if direBan.count < 7 {
+                        ForEach(0...(6 - radiantBan.count), id: \.self) { _ in
+                            HeroImageView(heroID: 0, type: .icon)
+                                .frame(width: horizontalBanIconHeight)
+                        }
                     }
                 }
             }
@@ -176,7 +189,7 @@ struct LiveMatchDraftView: View {
     
     private var verticalView: some View {
         VStack {
-            if radiantBan.count > 0 {
+            if hasBan {
                 HStack {
                     ForEach(radiantBan, id: \.self) { heroID in
                         Spacer()
@@ -184,6 +197,14 @@ struct LiveMatchDraftView: View {
                             .frame(width: 40)
                             .grayscale(1)
                         Spacer()
+                    }
+                    if radiantBan.count < 7 {
+                        ForEach(0...(6 - radiantBan.count), id: \.self) { _ in
+                            Spacer()
+                            HeroImageView(heroID: 0, type: .icon)
+                                .frame(width: 40)
+                            Spacer()
+                        }
                     }
                 }
             }
@@ -219,7 +240,7 @@ struct LiveMatchDraftView: View {
                     }
                 }
             }
-            if direBan.count > 0 {
+            if hasBan {
                 HStack {
                     ForEach(direBan, id: \.self) { heroID in
                         Spacer()
@@ -227,6 +248,14 @@ struct LiveMatchDraftView: View {
                             .frame(width: 40)
                             .grayscale(1)
                         Spacer()
+                    }
+                    if direBan.count < 7 {
+                        ForEach(0...(6 - direBan.count), id: \.self) { _ in
+                            Spacer()
+                            HeroImageView(heroID: 0, type: .icon)
+                                .frame(width: 40)
+                            Spacer()
+                        }
                     }
                 }
             }
@@ -265,7 +294,7 @@ struct LiveMatchDraftView_Previews: PreviewProvider {
                            radiantBan: [6, 7, 8, 9, 10, 11, 12],
                            direPick: [],
                            direBan: [18, 19, 20, 21, 22, 23],
-                           winRate: 50, showDetail: $showDetail)
+                           winRate: 50, hasBan: true, showDetail: $showDetail)
         .previewLayout(.fixed(width: 700, height: 500))
         .preferredColorScheme(.dark)
     }

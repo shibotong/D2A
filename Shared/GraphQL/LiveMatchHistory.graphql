@@ -3,6 +3,7 @@ query LiveMatchHistory($matchid: Long!) {
         match(id: $matchid) {
             radiantTeamId
             direTeamId
+            gameMode
             playbackData {
                 roshanEvents {
                     time
