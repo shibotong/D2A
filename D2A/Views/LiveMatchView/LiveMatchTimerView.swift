@@ -91,7 +91,6 @@ struct LiveMatchTimerView: View {
             }
             .padding(imagePadding)
         }
-        .background(Color.secondarySystemBackground)
     }
 }
 
