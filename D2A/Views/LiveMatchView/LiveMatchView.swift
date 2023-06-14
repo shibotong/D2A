@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LiveMatchContainerView: View {
-    @State private var matchID: String = "7199605260"
+    @State private var matchID: String = "7199653917"
     var body: some View {
         LiveMatchView(viewModel: LiveMatchViewModel(matchID: matchID))
     }
@@ -17,6 +17,7 @@ struct LiveMatchContainerView: View {
 struct LiveMatchView: View {
 
     @ObservedObject var viewModel: LiveMatchViewModel
+    @State var showActivity = false
     
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
@@ -34,14 +35,22 @@ struct LiveMatchView: View {
     }
     
     private var horizontalView: some View {
-        HStack {
+        HStack(spacing: 0) {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     draftView
                     Spacer()
                         .frame(height: 20)
-                    playerView
-                        .background(Color.systemBackground)
+                    VStack {
+                        HStack {
+                            Text("Players").bold()
+                                .foregroundColor(.label)
+                            Spacer()
+                        }
+                        .padding()
+                        playerView
+                            .padding([.horizontal, .bottom])
+                    }.background(Color.systemBackground)
                     Spacer()
                 }
                 .padding()
@@ -59,7 +68,7 @@ struct LiveMatchView: View {
                 }.background(Color.systemBackground)
             }
             .frame(minWidth: 300, maxWidth: 400)
-            .padding()
+            .padding([.vertical, .trailing])
             
         }
         .background(Color.secondarySystemBackground)
@@ -70,27 +79,29 @@ struct LiveMatchView: View {
             timerView
             ScrollView {
                 VStack {
-                    draftView
                     mapView
-                    eventView
+                    draftView
+                    Picker("What is your favorite color?", selection: $showActivity) {
+                        Text("Players").tag(false)
+                        Text("Events").tag(true)
+                    }
+                    .pickerStyle(.segmented)
+                    if showActivity {
+                        eventView
+                    } else {
+                        playerView
+                    }
                 }
-                .padding(.vertical, 9)
             }
+            .background(Color.systemBackground)
         }
+        .background(Color.secondarySystemBackground)
     }
     
     private var playerView: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Text("Players").bold()
-                    .foregroundColor(.label)
-                Spacer()
-            }
-            .padding()
-            ScrollView(.horizontal, showsIndicators: false) {
-                LiveMatchPlayerView(players: viewModel.matchPlayers)
-                    .padding()
-            }
+        ScrollView(.horizontal, showsIndicators: false) {
+            LiveMatchPlayerView(players: viewModel.matchPlayers)
+                .padding(.horizontal)
         }
     }
     
@@ -126,8 +137,6 @@ struct LiveMatchView: View {
 
 struct LiveMatchView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
             LiveMatchContainerView()
-        }
     }
 }
