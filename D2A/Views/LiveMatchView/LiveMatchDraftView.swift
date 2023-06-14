@@ -21,10 +21,10 @@ struct LiveMatchDraftView: View {
     let direPick: [LiveMatchPickHero]
     let direBan: [Int]
     let winRate: Double
+    @Binding var showDetail: Bool
     
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
-    @State var showDetail = true
     private let opacity: CGFloat = 0.5
     private let horizontalIconHeight: CGFloat = 40
     private let horizontalBanIconHeight: CGFloat = 25
@@ -53,7 +53,6 @@ struct LiveMatchDraftView: View {
                 }
             }
         }
-        .background(Color.secondarySystemBackground)
     }
     
     private var winRateView: some View {
@@ -256,6 +255,7 @@ struct LiveMatchDraftView: View {
 }
 
 struct LiveMatchDraftView_Previews: PreviewProvider {
+    @State static var showDetail = true
     static var previews: some View {
         LiveMatchDraftView(radiantPick: [
             .init(heroID: 1, pickLevel: "A"),
@@ -266,7 +266,7 @@ struct LiveMatchDraftView_Previews: PreviewProvider {
                            radiantBan: [6, 7, 8, 9, 10, 11, 12],
                            direPick: [],
                            direBan: [18, 19, 20, 21, 22, 23],
-                           winRate: 50, showDetail: true)
+                           winRate: 50, showDetail: $showDetail)
         .previewLayout(.fixed(width: 700, height: 500))
         .preferredColorScheme(.dark)
     }

@@ -25,7 +25,7 @@ class LiveMatchViewModel: ObservableObject {
     @Published var direTeam: String = ""
     
     // LiveMatchMapView
-    @Published var heroes: [LiveMatchHeroPosition] = []
+    @Published var heroesPosition: [LiveMatchHeroPosition] = []
     @Published var buildingStatus: [LiveMatchBuildingEvent] = []
     
     // LiveMatchEventView
@@ -43,7 +43,20 @@ class LiveMatchViewModel: ObservableObject {
     
     private var players: LiveMatchPlayers?
     
-    @Published var status = "Loading..."
+    @Published var status = "Loading..." {
+        didSet {
+            print("update show draft")
+            let showDraft = status == "Init" ||
+            status == "Wait For Players To Load" ||
+            status == "Hero Selection" ||
+            status == "Strategy Time" ||
+            status == "Pre Game"
+            print(showDraft)
+            self.showDraft = showDraft
+        }
+    }
+    
+    @Published var showDraft: Bool = false
     
     init(matchID: String) {
         guard let matchID = Int(matchID) else {
@@ -137,13 +150,14 @@ class LiveMatchViewModel: ObservableObject {
                         guard let player,
                               let heroID = player.heroId,
                               let xPos = player.playbackData?.positionEvents?.first??.x,
-                              let yPos = player.playbackData?.positionEvents?.first??.y else {
+                              let yPos = player.playbackData?.positionEvents?.first??.y,
+                              heroID != 0 else {
                             return nil
                         }
-                        
                         return LiveMatchHeroPosition(heroID: Int(heroID), xPos: CGFloat(xPos), yPos: CGFloat(yPos))
                     }
-                    self?.heroes = heroes
+                    print(heroes)
+                    self?.heroesPosition = heroes
                     
                     var players: [Player] = []
                     var matchPlayers: [PlayerRowViewModel] = []
@@ -185,9 +199,6 @@ class LiveMatchViewModel: ObservableObject {
                 Task { [weak self, events] in
                     await self?.updateEvents(events: events)
                 }
-                
-                print(graphQLResult.data?.matchLive?.winRateValues)
-                print(graphQLResult.data?.matchLive?.liveWinRateValues)
                 
             case .failure(let error):
                 print(error)

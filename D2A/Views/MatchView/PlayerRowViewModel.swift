@@ -74,10 +74,13 @@ class PlayerRowViewModel: ObservableObject {
     }
     
     init(player: LiveMatchPlayer) {
-        self.accountID = player.steamAccountId?.description
+        let playerName = player.steamAccount?.proSteamAccount?.name ?? player.steamAccount?.name
+        if playerName != nil {
+            self.accountID = player.steamAccountId?.description
+        }
         self.heroID = Int(player.heroId ?? 0)
         self.level = player.level ?? 0
-        self.personaname = player.steamAccount?.proSteamAccount?.name
+        self.personaname = playerName
         self.rank = player.steamAccount?.seasonRank ?? 0
         self.kills = player.numKills ?? 0
         self.deaths = player.numDeaths ?? 0
