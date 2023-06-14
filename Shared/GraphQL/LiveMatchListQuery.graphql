@@ -1,0 +1,7 @@
+query LiveMatchListQuery($request: MatchLiveRequestType) {
+    live {
+        matches(request: $request) {
+            matchId
+        }
+    }
+}

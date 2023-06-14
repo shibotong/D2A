@@ -45,13 +45,11 @@ class LiveMatchViewModel: ObservableObject {
     
     @Published var status = "Loading..." {
         didSet {
-            print("update show draft")
             let showDraft = status == "Init" ||
             status == "Wait For Players To Load" ||
             status == "Hero Selection" ||
             status == "Strategy Time" ||
             status == "Pre Game"
-            print(showDraft)
             self.showDraft = showDraft
         }
     }
@@ -64,6 +62,19 @@ class LiveMatchViewModel: ObservableObject {
             return
         }
         self.matchID = matchID
+//        fetchHistoryData()
+//        startSubscription()
+    }
+    
+    deinit {
+        subscriptions = []
+    }
+    
+    func removeSubscription() {
+        subscriptions = []
+    }
+    
+    func startFetching() {
         fetchHistoryData()
         startSubscription()
     }
@@ -156,7 +167,6 @@ class LiveMatchViewModel: ObservableObject {
                         }
                         return LiveMatchHeroPosition(heroID: Int(heroID), xPos: CGFloat(xPos), yPos: CGFloat(yPos))
                     }
-                    print(heroes)
                     self?.heroesPosition = heroes
                     
                     var players: [Player] = []
