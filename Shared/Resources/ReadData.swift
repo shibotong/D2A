@@ -31,7 +31,7 @@ func loadRecentMatches() -> [RecentMatchCodable]? {
         return jsonData
     } catch {
         // handle error
-        print("Cannot parse json data")
+        debugPrint(error)
         return nil
     }
 
@@ -46,7 +46,7 @@ func loadLobby() -> [String: LobbyType]? {
         let jsonData = try decoder.decode([String: LobbyType].self, from: data)
         return jsonData
     } catch {
-        print("Cannot parse Lobby data")
+        debugPrint(error)
         return nil
     }
 }
@@ -61,7 +61,7 @@ func loadScepter() async -> [HeroScepter] {
             let jsonData = try decoder.decode([HeroScepter].self, from: data)
             return jsonData
         } catch {
-            print(error.localizedDescription)
+            debugPrint(error)
             return []
         }
     } else {
@@ -79,7 +79,7 @@ func loadHeroes() async -> [String: HeroCodable] {
             let jsonData = try decoder.decode([String: HeroCodable].self, from: data)
             return jsonData
         } catch {
-            print(error.localizedDescription)
+            debugPrint(error)
             return [:]
         }
     } else {
@@ -97,7 +97,7 @@ func loadHeroAbilities() async -> [String: HeroAbility] {
             let jsonData = try decoder.decode([String: HeroAbility].self, from: data)
             return jsonData
         } catch {
-            print(error.localizedDescription)
+            debugPrint(error)
             return [:]
         }
     } else {
@@ -118,7 +118,7 @@ func loadProfile() -> UserProfileCodable? {
         return userprofile
     } catch {
         // handle error
-        print("Cannot parse json data")
+        debugPrint(error)
         return nil
     }
 }
@@ -133,7 +133,7 @@ func loadSampleHero() -> [String: HeroCodable]? {
         let jsonData = try decoder.decode([String: HeroCodable].self, from: data)
         return jsonData
     } catch {
-        print("Cannot parse json data")
+        debugPrint(error)
         return nil
     }
 }
@@ -148,7 +148,7 @@ func loadSampleItemID() -> [String: String] {
         let jsonData = try decoder.decode([String: String].self, from: data)
         return jsonData
     } catch {
-        print("Cannot parse json data")
+        debugPrint(error)
         return [:]
     }
 }
@@ -163,7 +163,7 @@ func loadSampleItem() -> [String: Item] {
         let jsonData = try decoder.decode([String: Item].self, from: data)
         return jsonData
     } catch {
-        print("Cannot parse json data")
+        debugPrint(error)
         return [:]
     }
 }
@@ -194,7 +194,7 @@ func loadAbilities() async -> [String: Ability] {
             let jsonData = try decoder.decode([String: Ability].self, from: data)
             return jsonData
         } catch {
-            print("Cannot parse Lobby data")
+            debugPrint(error)
             return [:]
         }
     } else {
@@ -212,7 +212,7 @@ func loadMatch() -> MatchCodable? {
         let jsonData = try decoder.decode(MatchCodable.self, from: data)
         return jsonData
     } catch {
-        print("Cannot parse json data")
+        debugPrint(error)
         return nil
     }
 
@@ -228,7 +228,7 @@ func loadItemIDs() async -> [String: String] {
             }
             return itemIDs
         } catch {
-            print(error.localizedDescription)
+            debugPrint(error)
             return [:]
         }
     } else {
@@ -246,7 +246,7 @@ func loadItems() async -> [String: Item] {
             let jsonData = try decoder.decode([String: Item].self, from: data)
             return jsonData
         } catch {
-            print(error.localizedDescription)
+            debugPrint(error)
             return [:]
         }
     } else {
@@ -263,7 +263,7 @@ func loadGameModes() -> [String: GameMode] {
         let modes = try decoder.decode([String: GameMode].self, from: data)
         return modes
     } catch {
-        print(error.localizedDescription)
+        debugPrint(error)
         return [:]
     }
 }
