@@ -34,19 +34,7 @@ struct LiveMatchTimerView: View {
     var body: some View {
         HStack {
             HStack {
-                AsyncImage(url: URL(string: radiantTeam)) { result in
-                    switch result {
-                    case .success(let image):
-                        image.resizable()
-                            .aspectRatio(contentMode: .fit)
-                    default:
-                        Image("icon_radiant")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    }
-                }
-                .cornerRadius(5)
-                
+                LiveMatchTeamIconView(url: radiantTeam, isRadiant: true)
                 if let radiantScore {
                     Text("\(radiantScore)")
                         .bold()
@@ -74,20 +62,7 @@ struct LiveMatchTimerView: View {
                 } else {
                     Text("--")
                 }
-                AsyncImage(url: URL(string: direTeam)) { result in
-                    switch result {
-                    case .success(let image):
-                        image.resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .cornerRadius(5)
-                    default:
-                        Image("icon_dire")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .cornerRadius(5)
-                    }
-                }
-                .cornerRadius(5)
+                LiveMatchTeamIconView(url: direTeam, isRadiant: false)
             }
             .padding(imagePadding)
         }

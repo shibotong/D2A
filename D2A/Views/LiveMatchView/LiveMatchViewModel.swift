@@ -8,6 +8,7 @@
 import Foundation
 import StratzAPI
 import Apollo
+import ActivityKit
 
 class LiveMatchViewModel: ObservableObject {
     
@@ -61,6 +62,9 @@ class LiveMatchViewModel: ObservableObject {
         }
     }
     
+    @available(iOS 16.1, *)
+    static var activity: Activity<LiveMatchActivityAttributes>?
+    
     init(matchID: String) {
         guard let matchID = Int(matchID) else {
             self.matchID = 0
@@ -76,12 +80,59 @@ class LiveMatchViewModel: ObservableObject {
     }
     
     func removeSubscription() {
+        print("remove subscription")
         subscriptions = []
+        endActivity()
     }
     
     func startFetching() {
         fetchHistoryData()
         startSubscription()
+        startActivity()
+    }
+    
+    private func startActivity() {
+        if #available(iOS 16.1, *) {
+            guard ActivityAuthorizationInfo().areActivitiesEnabled else {
+                print("Activities are not enabled")
+                return
+            }
+            // Here is your code
+            let attributes = LiveMatchActivityAttributes(numberOfPizzas: 1, totalAmount: "10", orderNumber: "123")
+            print("radiant \(radiantTeam)")
+            print("dire \(direTeam)")
+            let contentState = LiveMatchActivityAttributes.ContentState(radiantScore: radiantScore ?? 0, direScore: direScore ?? 0, radiantTeam: radiantTeam, direTeam: direTeam, time: time ?? 0)
+            do {
+                let activity = try Activity<LiveMatchActivityAttributes>.request(
+                    attributes: attributes,
+                    contentState: contentState
+                )
+                Self.activity = activity
+                print("start live activity")
+            } catch {
+                print("LiveActivityManager: Error in LiveActivityManager: \(error.localizedDescription)")
+            }
+        } else {
+            // Fallback on earlier versions
+            return
+        }
+    }
+    
+    private func endActivity() {
+        if #available(iOS 16.1, *) {
+            Task {
+                await Self.activity?.end(dismissalPolicy: .immediate)
+            }
+        }
+    }
+    
+    private func updateActivity() {
+        if #available(iOS 16.1, *) {
+            let contentState = LiveMatchActivityAttributes.ContentState(radiantScore: radiantScore ?? 0, direScore: direScore ?? 0, radiantTeam: radiantTeam, direTeam: direTeam, time: time ?? 0)
+            Task {
+                await Self.activity?.update(using: contentState)
+            }
+        }
     }
     
     // MARK: Player
@@ -213,8 +264,9 @@ class LiveMatchViewModel: ObservableObject {
                 events.append(contentsOf: killEvents)
                 Task { [weak self, events] in
                     await self?.updateEvents(events: events)
+                    
                 }
-                
+                self?.updateActivity()
             case .failure(let error):
                 print(error)
             }

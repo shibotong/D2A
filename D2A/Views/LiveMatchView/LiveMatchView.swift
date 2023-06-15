@@ -21,7 +21,6 @@ struct LiveMatchView: View {
             } else {
                 horizontalView
             }
-            
         }
         .navigationTitle("\(viewModel.status)")
         .navigationBarTitleDisplayMode(.inline)
