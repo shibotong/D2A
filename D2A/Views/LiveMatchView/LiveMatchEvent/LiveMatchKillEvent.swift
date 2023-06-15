@@ -70,17 +70,20 @@ struct LiveMatchKillEvent: LiveMatchEvent {
             return !isRadiant
         }
         
-        let radiantKillEvents = generateEventForKiller(killer: radiantKillers, died: direDied, isRadiant: true)
-        let direKillEvents = generateEventForKiller(killer: direKillers, died: radiantDied, isRadiant: false)
+        let radiantKillEvents = generateEventForKiller(killers: radiantKillers, deads: direDied, isRadiant: true)
+        let direKillEvents = generateEventForKiller(killers: direKillers, deads: radiantDied, isRadiant: false)
         
         events.append(contentsOf: radiantKillEvents)
         events.append(contentsOf: direKillEvents)
         return events
     }
     
-    private func generateEventForKiller(killer: [Int], died: [Int], isRadiant: Bool) -> [LiveMatchEventItem] {
-        if killer.count == 1 && !died.isEmpty {
-            let details: [LiveMatchEventDetail] = died.map { heroID in
+    private func generateEventForKiller(killers: [Int], deads: [Int], isRadiant: Bool) -> [LiveMatchEventItem] {
+        if killers.count == 1 && !deads.isEmpty {
+            guard let killer = killers.first else {
+                return []
+            }
+            let details: [LiveMatchEventDetail] = deads.map { heroID in
                 let heroIcon = AnyView(
                     HeroImageView(heroID: heroID, type: .icon)
                         .frame(width: 20, height: 20)
@@ -88,17 +91,18 @@ struct LiveMatchKillEvent: LiveMatchEvent {
                 let heroName = try? heroDatabase.fetchHeroWithID(id: heroID).heroNameLocalized
                 return LiveMatchEventDetail(type: .killDied, itemName: heroName, itemIcon: heroIcon)
             }
+            
             return [LiveMatchEventItem(time: time, isRadiantEvent: isRadiant, icon: "\(killer)_icon", events: details)]
         } else {
-            if died.isEmpty {
+            if deads.isEmpty {
                 return []
             }
-            let killEvents: [LiveMatchEventItem] = killer.compactMap { heroID in
+            let killEvents: [LiveMatchEventItem] = killers.compactMap { heroID in
                 let detail = LiveMatchEventDetail(type: .kill, itemName: nil, itemIcon: nil)
                 return LiveMatchEventItem(time: time, isRadiantEvent: isRadiant, icon: "\(heroID)_icon", events: [detail])
             }
             
-            let diedEvents: [LiveMatchEventItem] = died.compactMap { heroID in
+            let diedEvents: [LiveMatchEventItem] = deads.compactMap { heroID in
                 let detail = LiveMatchEventDetail(type: .died, itemName: nil, itemIcon: nil)
                 return LiveMatchEventItem(time: time, isRadiantEvent: isRadiant, icon: "\(heroID)_icon", events: [detail])
             }
