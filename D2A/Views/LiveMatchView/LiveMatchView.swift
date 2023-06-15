@@ -32,43 +32,47 @@ struct LiveMatchView: View {
     }
     
     private var horizontalView: some View {
-        HStack(spacing: 0) {
-            ScrollView(showsIndicators: false) {
+        GeometryReader { proxy in
+            HStack(spacing: 0) {
+                
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        draftView
+                        Spacer()
+                            .frame(height: 20)
+                        VStack {
+                            HStack {
+                                Text("Players").bold()
+                                    .foregroundColor(.label)
+                                Spacer()
+                            }
+                            .padding()
+                            playerView
+                                .padding([.horizontal, .bottom])
+                        }.background(Color.systemBackground)
+                        Spacer()
+                    }
+                    .padding()
+                }
+                .frame(width: proxy.size.width * 2 / 3)
+                
                 VStack(spacing: 0) {
-                    draftView
+                    timerView
+                        .background(Color.systemBackground)
+                    mapView
                     Spacer()
                         .frame(height: 20)
-                    VStack {
-                        HStack {
-                            Text("Players").bold()
-                                .foregroundColor(.label)
-                            Spacer()
-                        }
-                        .padding()
-                        playerView
-                            .padding([.horizontal, .bottom])
+                    ScrollView {
+                        eventView
+                            .padding(.vertical)
                     }.background(Color.systemBackground)
-                    Spacer()
                 }
-                .padding()
+                .frame(width: proxy.size.width / 3)
+                .padding([.vertical, .trailing])
+                
             }
-            
-            VStack(spacing: 0) {
-                timerView
-                    .background(Color.systemBackground)
-                mapView
-                Spacer()
-                    .frame(height: 20)
-                ScrollView {
-                    eventView
-                        .padding(.vertical)
-                }.background(Color.systemBackground)
-            }
-            .frame(minWidth: 300, maxWidth: 400)
-            .padding([.vertical, .trailing])
-            
+            .background(Color.secondarySystemBackground)
         }
-        .background(Color.secondarySystemBackground)
     }
     
     private var verticalView: some View {
