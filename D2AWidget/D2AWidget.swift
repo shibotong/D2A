@@ -15,6 +15,10 @@ struct D2AWidget: WidgetBundle {
     var body: some Widget {
         RecentMatchesWidget()
         LatestMatchWidget()
+        
+        if #available(iOS 16.1, *) {
+            LiveMatchActivityWidget()
+        }
     }
 }
 
