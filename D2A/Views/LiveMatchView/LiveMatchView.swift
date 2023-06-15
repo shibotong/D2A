@@ -32,46 +32,41 @@ struct LiveMatchView: View {
     }
     
     private var horizontalView: some View {
-        GeometryReader { proxy in
-            HStack(spacing: 0) {
+        HStack(spacing: 10) {
+            VStack(spacing: 0) {
+                draftView
+                    .background(Color.secondarySystemBackground)
+                Spacer()
+                    .frame(height: 10)
                 
-                ScrollView(showsIndicators: false) {
-                    VStack(spacing: 0) {
-                        draftView
-                        Spacer()
-                            .frame(height: 20)
-                        VStack {
-                            HStack {
-                                Text("Players").bold()
-                                    .foregroundColor(.label)
-                                Spacer()
-                            }
-                            .padding()
-                            playerView
-                                .padding([.horizontal, .bottom])
-                        }.background(Color.systemBackground)
+                VStack {
+                    HStack {
+                        Text("Players").bold()
+                            .foregroundColor(.label)
                         Spacer()
                     }
                     .padding()
-                }
-                .frame(width: proxy.size.width * 2 / 3)
-                
-                VStack(spacing: 0) {
-                    timerView
-                        .background(Color.systemBackground)
-                    mapView
-                    Spacer()
-                        .frame(height: 20)
-                    ScrollView {
-                        eventView
-                            .padding(.vertical)
-                    }.background(Color.systemBackground)
-                }
-                .frame(width: proxy.size.width / 3)
-                .padding([.vertical, .trailing])
-                
+                    ScrollView(showsIndicators: false) {
+                        playerView
+                            .padding([.horizontal, .bottom])
+                        Spacer()
+                    }
+                }.background(Color.secondarySystemBackground)
             }
-            .background(Color.secondarySystemBackground)
+            .padding(.top)
+            
+            VStack(spacing: 0) {
+                timerView
+                    .background(Color.secondarySystemBackground)
+                mapView
+                    .frame(height: 300)
+                ScrollView {
+                    eventView
+                        .padding(.vertical)
+                }.background(Color.secondarySystemBackground)
+            }
+            .frame(width: 300)
+            .padding(.top)
         }
     }
     
@@ -82,6 +77,7 @@ struct LiveMatchView: View {
                 VStack {
                     mapView
                     draftView
+                        .background(Color.systemBackground)
                     Picker("What is your favorite color?", selection: $showActivity) {
                         Text("Players").tag(false)
                         Text("Events").tag(true)
@@ -132,7 +128,5 @@ struct LiveMatchView: View {
                            winRate: viewModel.draftWinRate,
                            hasBan: viewModel.hasBan,
                            showDetail: $viewModel.showDraft)
-        .background(Color.systemBackground)
-        
     }
 }
