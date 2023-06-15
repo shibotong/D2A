@@ -82,13 +82,13 @@ struct LiveMatchDraftView: View {
                 VStack {
                     ForEach(radiantBan, id: \.self) { heroID in
                         HeroImageView(heroID: heroID, type: .icon)
-                            .frame(width: horizontalBanIconHeight)
+                            .frame(width: horizontalBanIconHeight, height: horizontalBanIconHeight)
                             .grayscale(1)
                     }
                     if radiantBan.count < 7 {
                         ForEach(0...(6 - radiantBan.count), id: \.self) { _ in
                             HeroImageView(heroID: 0, type: .icon)
-                                .frame(width: horizontalBanIconHeight)
+                                .frame(width: horizontalBanIconHeight, height: horizontalBanIconHeight)
                         }
                     }
                 }
@@ -173,13 +173,13 @@ struct LiveMatchDraftView: View {
                 VStack {
                     ForEach(direBan, id: \.self) { heroID in
                         HeroImageView(heroID: heroID, type: .icon)
-                            .frame(width: horizontalBanIconHeight)
+                            .frame(width: horizontalBanIconHeight, height: horizontalBanIconHeight)
                             .grayscale(1)
                     }
                     if direBan.count < 7 {
                         ForEach(0...(6 - radiantBan.count), id: \.self) { _ in
                             HeroImageView(heroID: 0, type: .icon)
-                                .frame(width: horizontalBanIconHeight)
+                                .frame(width: horizontalBanIconHeight, height: horizontalBanIconHeight)
                         }
                     }
                 }
