@@ -16,6 +16,4 @@ struct LiveMatchActivityAttributes: ActivityAttributes {
         var direScore: Int
         var time: Int
     }
-    var radiantTeam: String?
-    var direTeam: String?
 }
