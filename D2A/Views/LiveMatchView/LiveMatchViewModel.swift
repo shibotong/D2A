@@ -62,17 +62,12 @@ class LiveMatchViewModel: ObservableObject {
         }
     }
     
-    @available(iOS 16.1, *)
-    static var activity: Activity<LiveMatchActivityAttributes>?
-    
     init(matchID: String) {
         guard let matchID = Int(matchID) else {
             self.matchID = 0
             return
         }
         self.matchID = matchID
-//        fetchHistoryData()
-//        startSubscription()
     }
     
     deinit {
@@ -88,49 +83,35 @@ class LiveMatchViewModel: ObservableObject {
     func startFetching() {
         fetchHistoryData()
         startSubscription()
-        startActivity()
     }
     
-    private func startActivity() {
+    @MainActor
+    private func executeActivity() {
         if #available(iOS 16.1, *) {
-            guard ActivityAuthorizationInfo().areActivitiesEnabled else {
-                print("Activities are not enabled")
-                return
-            }
             // Here is your code
-            let attributes = LiveMatchActivityAttributes(numberOfPizzas: 1, totalAmount: "10", orderNumber: "123")
-            print("radiant \(radiantTeam)")
-            print("dire \(direTeam)")
-            let contentState = LiveMatchActivityAttributes.ContentState(radiantScore: radiantScore ?? 0, direScore: direScore ?? 0, radiantTeam: radiantTeam, direTeam: direTeam, time: time ?? 0)
-            do {
-                let activity = try Activity<LiveMatchActivityAttributes>.request(
-                    attributes: attributes,
-                    contentState: contentState
+            if LiveMatchActivity.shared.activityState() == .active {
+                Task {
+                    await LiveMatchActivity.shared.updateActivity(radiantScore: radiantScore ?? 0,
+                                                                  direScore: direScore ?? 0,
+                                                                  time: time ?? 0)
+                }
+            } else {
+                
+                LiveMatchActivity.shared.startActivity(
+                    radiantScore: radiantScore ?? 0,
+                    direScore: direScore ?? 0,
+                    time: time ?? 0,
+                    radiantIcon: radiantTeam,
+                    direIcon: direTeam
                 )
-                Self.activity = activity
-                print("start live activity")
-            } catch {
-                print("LiveActivityManager: Error in LiveActivityManager: \(error.localizedDescription)")
             }
-        } else {
-            // Fallback on earlier versions
-            return
         }
     }
     
     private func endActivity() {
         if #available(iOS 16.1, *) {
             Task {
-                await Self.activity?.end(dismissalPolicy: .immediate)
-            }
-        }
-    }
-    
-    private func updateActivity() {
-        if #available(iOS 16.1, *) {
-            let contentState = LiveMatchActivityAttributes.ContentState(radiantScore: radiantScore ?? 0, direScore: direScore ?? 0, radiantTeam: radiantTeam, direTeam: direTeam, time: time ?? 0)
-            Task {
-                await Self.activity?.update(using: contentState)
+                await LiveMatchActivity.shared.endActivity()
             }
         }
     }
@@ -152,10 +133,10 @@ class LiveMatchViewModel: ObservableObject {
                 self?.direScore = graphQLResult.data?.matchLive?.direScore
                 self?.time = graphQLResult.data?.matchLive?.gameTime
                 if let radiantTeamId = graphQLResult.data?.matchLive?.radiantTeamId, let radiantTeam = self?.radiantTeam, radiantTeam.isEmpty {
-                    self?.radiantTeam = "https://cdn.stratz.com/images/dota2/teams/\(radiantTeamId).png"
+                    self?.radiantTeam = radiantTeamId.description
                 }
                 if let direTeamId = graphQLResult.data?.matchLive?.direTeamId, let direTeam = self?.direTeam, direTeam.isEmpty {
-                    self?.direTeam = "https://cdn.stratz.com/images/dota2/teams/\(direTeamId).png"
+                    self?.direTeam = direTeamId.description
                 }
                 if let statusString = graphQLResult.data?.matchLive?.gameState?.rawValue {
                     let readableString = statusString.replacingOccurrences(of: "_", with: " ").capitalized
@@ -264,9 +245,9 @@ class LiveMatchViewModel: ObservableObject {
                 events.append(contentsOf: killEvents)
                 Task { [weak self, events] in
                     await self?.updateEvents(events: events)
-                    
+                    await self?.executeActivity()
                 }
-                self?.updateActivity()
+                
             case .failure(let error):
                 print(error)
             }
@@ -282,13 +263,6 @@ class LiveMatchViewModel: ObservableObject {
                     self?.hasBan = true
                 } else {
                     self?.hasBan = false
-                }
-                
-                if let radiantTeamId = graphQLResult.data?.live?.match?.radiantTeamId {
-                    self?.radiantTeam = "https://cdn.stratz.com/images/dota2/teams/\(radiantTeamId).png"
-                }
-                if let direTeamId = graphQLResult.data?.live?.match?.direTeamId {
-                    self?.direTeam = "https://cdn.stratz.com/images/dota2/teams/\(direTeamId).png"
                 }
                 
                 // Building events
@@ -426,5 +400,25 @@ class LiveMatchViewModel: ObservableObject {
             let newEvents = events.sorted(by: { $0.time > $1.time })
             self.events.insert(contentsOf: newEvents, at: 0)
         }
+    }
+    
+    private func downloadImage(from urlString: String) async throws -> URL? {
+        
+        guard var destination = FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: GROUP_NAME),
+              let url = URL(string: urlString)
+        else { return nil }
+        
+        destination = destination.appendingPathComponent(url.lastPathComponent)
+        
+        guard !FileManager.default.fileExists(atPath: destination.path) else {
+            print("No need to download \(url.lastPathComponent) as it already exists.")
+            return destination
+        }
+        
+        let (source, _) = try await URLSession.shared.download(from: url)
+        try FileManager.default.moveItem(at: source, to: destination)
+        print("Done downloading \(url.lastPathComponent)!")
+        return destination
     }
 }
