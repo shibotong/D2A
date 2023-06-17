@@ -17,7 +17,17 @@ public class LiveMatchSubscription: GraphQLSubscription {
           gameTime
           completed
           radiantTeamId
+          radiantTeam {
+            __typename
+            logo
+            tag
+          }
           direTeamId
+          direTeam {
+            __typename
+            logo
+            tag
+          }
           playbackData {
             __typename
             roshanEvents {
@@ -153,7 +163,9 @@ public class LiveMatchSubscription: GraphQLSubscription {
         .field("gameTime", Int?.self),
         .field("completed", Bool?.self),
         .field("radiantTeamId", Int?.self),
+        .field("radiantTeam", RadiantTeam?.self),
         .field("direTeamId", Int?.self),
+        .field("direTeam", DireTeam?.self),
         .field("playbackData", PlaybackData?.self),
         .field("gameState", GraphQLEnum<StratzAPI.MatchLiveGameState>?.self),
         .field("players", [Player?]?.self),
@@ -167,12 +179,50 @@ public class LiveMatchSubscription: GraphQLSubscription {
       public var gameTime: Int? { __data["gameTime"] }
       public var completed: Bool? { __data["completed"] }
       public var radiantTeamId: Int? { __data["radiantTeamId"] }
+      public var radiantTeam: RadiantTeam? { __data["radiantTeam"] }
       public var direTeamId: Int? { __data["direTeamId"] }
+      public var direTeam: DireTeam? { __data["direTeam"] }
       public var playbackData: PlaybackData? { __data["playbackData"] }
       public var gameState: GraphQLEnum<StratzAPI.MatchLiveGameState>? { __data["gameState"] }
       public var players: [Player?]? { __data["players"] }
       public var winRateValues: [Double?]? { __data["winRateValues"] }
       public var liveWinRateValues: [LiveWinRateValue?]? { __data["liveWinRateValues"] }
+
+      /// MatchLive.RadiantTeam
+      ///
+      /// Parent Type: `TeamType`
+      public struct RadiantTeam: StratzAPI.SelectionSet {
+        public let __data: DataDict
+        public init(_dataDict: DataDict) { __data = _dataDict }
+
+        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.TeamType }
+        public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
+          .field("logo", String?.self),
+          .field("tag", String?.self),
+        ] }
+
+        public var logo: String? { __data["logo"] }
+        public var tag: String? { __data["tag"] }
+      }
+
+      /// MatchLive.DireTeam
+      ///
+      /// Parent Type: `TeamType`
+      public struct DireTeam: StratzAPI.SelectionSet {
+        public let __data: DataDict
+        public init(_dataDict: DataDict) { __data = _dataDict }
+
+        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.TeamType }
+        public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
+          .field("logo", String?.self),
+          .field("tag", String?.self),
+        ] }
+
+        public var logo: String? { __data["logo"] }
+        public var tag: String? { __data["tag"] }
+      }
 
       /// MatchLive.PlaybackData
       ///

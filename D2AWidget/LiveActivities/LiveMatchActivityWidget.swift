@@ -11,6 +11,10 @@ import WidgetKit
 @available(iOS 16.1, *)
 @available(iOSApplicationExtension 16.1, *)
 struct LiveMatchActivityWidget: Widget {
+    
+    private let iconSmallSize: CGFloat = 34
+    private let iconExpandSize: CGFloat = 75
+    
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: LiveMatchActivityAttributes.self) { context in
             // Create the presentation that appears on the Lock Screen and as a
@@ -24,18 +28,24 @@ struct LiveMatchActivityWidget: Widget {
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
                     HStack {
-                        NetworkImage(teamID: context.attributes.radiantTeam ?? "", isRadiant: true)
+                        LiveMatchActivityTeamIconView(isRadiant: true)
+                            .frame(width: iconExpandSize)
                         Text("\(context.state.radiantScore)")
+                            .font(.title)
+                            .bold()
                     }
                 }
                 DynamicIslandExpandedRegion(.trailing) {
                     HStack {
                         Text("\(context.state.direScore)")
-                        NetworkImage(teamID: context.attributes.direTeam ?? "", isRadiant: false)
+                            .font(.title)
+                            .bold()
+                        LiveMatchActivityTeamIconView(isRadiant: false)
+                            .frame(width: iconExpandSize)
                     }
                 }
                 DynamicIslandExpandedRegion(.center) {
-                    VStack {
+                    HStack {
                         let time = context.state.time
                         Image(systemName: time.isDotaDayTime ? "sun.min.fill" : "moon.fill")
                             .foregroundColor(time.isDotaDayTime ? .orange : .blue)
@@ -44,18 +54,46 @@ struct LiveMatchActivityWidget: Widget {
                 }
             } compactLeading: {
                 HStack {
-                    NetworkImage(teamID: context.attributes.radiantTeam ?? "", isRadiant: true)
+                    LiveMatchActivityTeamIconView(isRadiant: true)
                     Text("\(context.state.radiantScore)")
                 }
             } compactTrailing: {
                 HStack {
                     Text("\(context.state.direScore)")
-                    NetworkImage(teamID: context.attributes.direTeam ?? "", isRadiant: false)
+                    LiveMatchActivityTeamIconView(isRadiant: false)
                 }
             } minimal: {
                 Text("minimal")
             }
         }
+    }
+}
+
+struct LiveMatchActivityTeamIconView: View {
+    let isRadiant: Bool
+    
+    private var key: String {
+        isRadiant ? "radiantTeam" : "direTeam"
+    }
+    
+    private var iconName: String {
+        isRadiant ? "icon_radiant" : "icon_dire"
+    }
+    
+    var body: some View {
+        ZStack {
+            let data = UserDefaults(suiteName: GROUP_NAME)?.data(forKey: key)
+            if data != nil {
+                Image(uiImage: UIImage(data: data!)!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            } else {
+                Image(iconName)
+                    .resizable()
+                    .scaledToFit()
+            }
+        }
+        .clipShape(Circle())
     }
 }
 
@@ -66,9 +104,36 @@ struct LockScreenLiveActivityView: View {
     
     var body: some View {
         HStack {
-            Text("Hello")
+            LiveMatchActivityTeamIconView(isRadiant: true)
         }
         .activitySystemActionForegroundColor(.indigo)
         .activityBackgroundTint(.cyan)
+    }
+}
+
+@available(iOS 16.2, *)
+@available(iOSApplicationExtension 16.2, *)
+struct LiveMatchActivityWidget_Previews: PreviewProvider {
+    static let activityState = LiveMatchActivityAttributes.ContentState(radiantScore: 0, direScore: 0, time: 0)
+    
+    static let activityAttributes = LiveMatchActivityAttributes()
+    
+    static var previews: some View {
+        activityAttributes
+            .previewContext(activityState, viewKind: .content)
+            .previewDisplayName("Notification")
+        
+        activityAttributes
+            .previewContext(activityState, viewKind: .dynamicIsland(.compact))
+            .previewDisplayName("Compact")
+        
+        activityAttributes
+            .previewContext(activityState, viewKind: .dynamicIsland(.expanded))
+            .previewDisplayName("Expanded")
+        
+        activityAttributes
+            .previewContext(activityState, viewKind: .dynamicIsland(.minimal))
+            .previewDisplayName("Minimal")
+        
     }
 }

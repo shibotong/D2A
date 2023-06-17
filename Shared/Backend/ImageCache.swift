@@ -53,4 +53,11 @@ class ImageCache: ObservableObject {
             // log any errors
         }
     }
+    
+    static func docDir(type: ImageCacheType) -> URL? {
+        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+            return nil
+        }
+        return docDir.appendingPathComponent(type.rawValue)
+    }
 }

@@ -5,8 +5,20 @@ subscription LiveMatch($matchid: Long!) {
         direScore
         gameTime
         completed
+        league {
+            name
+            banner
+        }
         radiantTeamId
+        radiantTeam {
+            logo
+            tag
+        }
         direTeamId
+        direTeam {
+            logo
+            tag
+        }
         playbackData {
             roshanEvents {
                 time

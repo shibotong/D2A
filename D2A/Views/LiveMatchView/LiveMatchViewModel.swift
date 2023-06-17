@@ -48,6 +48,9 @@ class LiveMatchViewModel: ObservableObject {
     
     private var setDraftState = false
     
+    private var radiantLogo: String?
+    private var direLogo: String?
+    
     @Published var status = "Loading..." {
         didSet {
             if !setDraftState {
@@ -88,22 +91,19 @@ class LiveMatchViewModel: ObservableObject {
     @MainActor
     private func executeActivity() {
         if #available(iOS 16.1, *) {
-            // Here is your code
             if LiveMatchActivity.shared.activityState() == .active {
-                Task {
-                    await LiveMatchActivity.shared.updateActivity(radiantScore: radiantScore ?? 0,
-                                                                  direScore: direScore ?? 0,
-                                                                  time: time ?? 0)
-                }
-            } else {
                 
-                LiveMatchActivity.shared.startActivity(
-                    radiantScore: radiantScore ?? 0,
-                    direScore: direScore ?? 0,
-                    time: time ?? 0,
-                    radiantIcon: radiantTeam,
-                    direIcon: direTeam
-                )
+            } else {
+                // Here is your code
+                Task {
+                   await LiveMatchActivity.shared.startActivity(
+                        radiantScore: radiantScore ?? 0,
+                        direScore: direScore ?? 0,
+                        time: time ?? 0,
+                        radiantIcon: radiantLogo,
+                        direIcon: direLogo
+                    )
+                }
             }
         }
     }
@@ -141,6 +141,12 @@ class LiveMatchViewModel: ObservableObject {
                 if let statusString = graphQLResult.data?.matchLive?.gameState?.rawValue {
                     let readableString = statusString.replacingOccurrences(of: "_", with: " ").capitalized
                     self?.status = readableString
+                }
+                if let radiantLogoURL = graphQLResult.data?.matchLive?.radiantTeam?.logo {
+                    self?.radiantLogo = radiantLogoURL
+                }
+                if let direLogoURL = graphQLResult.data?.matchLive?.direTeam?.logo {
+                    self?.direLogo = direLogoURL
                 }
                 
                 // Draft
@@ -185,10 +191,10 @@ class LiveMatchViewModel: ObservableObject {
                             direBan.append(Int(heroID))
                         }
                     }
-                    self?.radiantPick.append(contentsOf: radiantPick)
-                    self?.radiantBan.append(contentsOf: radiantBan)
-                    self?.direPick.append(contentsOf: direPick)
-                    self?.direBan.append(contentsOf: direBan)
+                    self?.radiantPick = radiantPick
+                    self?.radiantBan = radiantBan
+                    self?.direPick = direPick
+                    self?.direBan = direBan
                 }
                 
                 // Players
@@ -400,25 +406,5 @@ class LiveMatchViewModel: ObservableObject {
             let newEvents = events.sorted(by: { $0.time > $1.time })
             self.events.insert(contentsOf: newEvents, at: 0)
         }
-    }
-    
-    private func downloadImage(from urlString: String) async throws -> URL? {
-        
-        guard var destination = FileManager.default.containerURL(
-            forSecurityApplicationGroupIdentifier: GROUP_NAME),
-              let url = URL(string: urlString)
-        else { return nil }
-        
-        destination = destination.appendingPathComponent(url.lastPathComponent)
-        
-        guard !FileManager.default.fileExists(atPath: destination.path) else {
-            print("No need to download \(url.lastPathComponent) as it already exists.")
-            return destination
-        }
-        
-        let (source, _) = try await URLSession.shared.download(from: url)
-        try FileManager.default.moveItem(at: source, to: destination)
-        print("Done downloading \(url.lastPathComponent)!")
-        return destination
     }
 }
