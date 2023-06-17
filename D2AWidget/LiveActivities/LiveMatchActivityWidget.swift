@@ -9,6 +9,7 @@ import SwiftUI
 import WidgetKit
 
 @available(iOS 16.1, *)
+@available(iOSApplicationExtension 16.1, *)
 struct LiveMatchActivityWidget: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: LiveMatchActivityAttributes.self) { context in
@@ -23,14 +24,14 @@ struct LiveMatchActivityWidget: Widget {
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
                     HStack {
-                        LiveMatchTeamIconView(url: context.state.radiantTeam, isRadiant: true)
+                        NetworkImage(teamID: context.attributes.radiantTeam ?? "", isRadiant: true)
                         Text("\(context.state.radiantScore)")
                     }
                 }
                 DynamicIslandExpandedRegion(.trailing) {
                     HStack {
                         Text("\(context.state.direScore)")
-                        LiveMatchTeamIconView(url: context.state.direTeam, isRadiant: false)
+                        NetworkImage(teamID: context.attributes.direTeam ?? "", isRadiant: false)
                     }
                 }
                 DynamicIslandExpandedRegion(.center) {
@@ -43,13 +44,13 @@ struct LiveMatchActivityWidget: Widget {
                 }
             } compactLeading: {
                 HStack {
-                    LiveMatchTeamIconView(url: context.state.radiantTeam, isRadiant: true)
+                    NetworkImage(teamID: context.attributes.radiantTeam ?? "", isRadiant: true)
                     Text("\(context.state.radiantScore)")
                 }
             } compactTrailing: {
                 HStack {
                     Text("\(context.state.direScore)")
-                    LiveMatchTeamIconView(url: context.state.direTeam, isRadiant: false)
+                    NetworkImage(teamID: context.attributes.direTeam ?? "", isRadiant: false)
                 }
             } minimal: {
                 Text("minimal")
@@ -64,9 +65,8 @@ struct LockScreenLiveActivityView: View {
     let context: ActivityViewContext<LiveMatchActivityAttributes>
     
     var body: some View {
-        VStack {
-            Text("Dyanmic String: (context.state.dynamicStringValue))")
-            Text("Static String: (context.staticStringValue))")
+        HStack {
+            Text("Hello")
         }
         .activitySystemActionForegroundColor(.indigo)
         .activityBackgroundTint(.cyan)

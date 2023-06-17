@@ -14,12 +14,8 @@ struct LiveMatchActivityAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
         var radiantScore: Int
         var direScore: Int
-        var radiantTeam: String
-        var direTeam: String
         var time: Int
     }
-
-    var numberOfPizzas: Int
-    var totalAmount: String
-    var orderNumber: String
+    var radiantTeam: String?
+    var direTeam: String?
 }
