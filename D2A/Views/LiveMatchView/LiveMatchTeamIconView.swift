@@ -8,26 +8,21 @@
 import SwiftUI
 
 struct LiveMatchTeamIconView: View {
-    let url: String
-    let isRadiant: Bool
+    
+    @ObservedObject var viewModel: LiveMatchTeamIconViewModel
+    
     var body: some View {
-        AsyncImage(url: URL(string: url)) { result in
-            switch result {
-            case .success(let image):
-                image.resizable()
-                    .aspectRatio(contentMode: .fit)
-            default:
-                Image("icon_\(isRadiant ? "radiant" : "dire")")
+        ZStack {
+            if let image = viewModel.image {
+                Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .scaledToFit()
+            } else {
+                Image("icon_\(viewModel.isRadiant ? "radiant" : "dire")")
+                    .resizable()
+                    .scaledToFit()
             }
         }
         .cornerRadius(5)
-    }
-}
-
-struct LiveMatchTeamIconView_Previews: PreviewProvider {
-    static var previews: some View {
-        LiveMatchTeamIconView(url: "", isRadiant: true)
     }
 }

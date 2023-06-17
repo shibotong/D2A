@@ -34,7 +34,7 @@ struct LiveMatchTimerView: View {
     var body: some View {
         HStack {
             HStack {
-                LiveMatchTeamIconView(url: radiantTeam, isRadiant: true)
+                LiveMatchTeamIconView(viewModel: LiveMatchTeamIconViewModel(teamID: radiantTeam, isRadiant: true))
                 if let radiantScore {
                     Text("\(radiantScore)")
                         .bold()
@@ -62,7 +62,7 @@ struct LiveMatchTimerView: View {
                 } else {
                     Text("--")
                 }
-                LiveMatchTeamIconView(url: direTeam, isRadiant: false)
+                LiveMatchTeamIconView(viewModel: LiveMatchTeamIconViewModel(teamID: direTeam, isRadiant: false))
             }
             .padding(imagePadding)
         }

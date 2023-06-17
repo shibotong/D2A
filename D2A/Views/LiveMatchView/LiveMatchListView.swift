@@ -45,7 +45,16 @@ class LiveMatchListViewModel: ObservableObject {
     
     func fetchMatches(existItems: Int) {
         print("start query")
-        let fetchQuery = MatchLiveRequestType(skip: GraphQLNullable<Int>(integerLiteral: existItems))
+        let fetchQuery = MatchLiveRequestType(
+            gameStates: [
+                .case(.teamShowcase),
+                .case(.gameInProgress),
+                .case(.heroSelection),
+                .case(.preGame),
+                .case(.strategyTime)
+            ],
+            skip: GraphQLNullable<Int>(integerLiteral: existItems)
+        )
         Network.shared.apollo.fetch(query: LiveMatchListQuery(request: .init(fetchQuery))) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
