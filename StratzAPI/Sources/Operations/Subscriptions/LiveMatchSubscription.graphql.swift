@@ -16,6 +16,11 @@ public class LiveMatchSubscription: GraphQLSubscription {
           direScore
           gameTime
           completed
+          league {
+            __typename
+            id
+            displayName
+          }
           radiantTeamId
           radiantTeam {
             __typename
@@ -162,6 +167,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
         .field("direScore", StratzAPI.Byte?.self),
         .field("gameTime", Int?.self),
         .field("completed", Bool?.self),
+        .field("league", League?.self),
         .field("radiantTeamId", Int?.self),
         .field("radiantTeam", RadiantTeam?.self),
         .field("direTeamId", Int?.self),
@@ -178,6 +184,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
       public var direScore: StratzAPI.Byte? { __data["direScore"] }
       public var gameTime: Int? { __data["gameTime"] }
       public var completed: Bool? { __data["completed"] }
+      public var league: League? { __data["league"] }
       public var radiantTeamId: Int? { __data["radiantTeamId"] }
       public var radiantTeam: RadiantTeam? { __data["radiantTeam"] }
       public var direTeamId: Int? { __data["direTeamId"] }
@@ -187,6 +194,24 @@ public class LiveMatchSubscription: GraphQLSubscription {
       public var players: [Player?]? { __data["players"] }
       public var winRateValues: [Double?]? { __data["winRateValues"] }
       public var liveWinRateValues: [LiveWinRateValue?]? { __data["liveWinRateValues"] }
+
+      /// MatchLive.League
+      ///
+      /// Parent Type: `LeagueType`
+      public struct League: StratzAPI.SelectionSet {
+        public let __data: DataDict
+        public init(_dataDict: DataDict) { __data = _dataDict }
+
+        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.LeagueType }
+        public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
+          .field("id", Int?.self),
+          .field("displayName", String?.self),
+        ] }
+
+        public var id: Int? { __data["id"] }
+        public var displayName: String? { __data["displayName"] }
+      }
 
       /// MatchLive.RadiantTeam
       ///

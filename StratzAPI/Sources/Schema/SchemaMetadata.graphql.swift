@@ -37,6 +37,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "MatchLivePlayerInventoryDetailType": return StratzAPI.Objects.MatchLivePlayerInventoryDetailType
     case "MatchLiveWinRateDetailType": return StratzAPI.Objects.MatchLiveWinRateDetailType
     case "DotaSubscription": return StratzAPI.Objects.DotaSubscription
+    case "LeagueType": return StratzAPI.Objects.LeagueType
     case "TeamType": return StratzAPI.Objects.TeamType
     case "SteamAccountType": return StratzAPI.Objects.SteamAccountType
     case "ProSteamAccountType": return StratzAPI.Objects.ProSteamAccountType

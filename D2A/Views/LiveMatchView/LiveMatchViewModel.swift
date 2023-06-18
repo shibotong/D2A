@@ -50,6 +50,8 @@ class LiveMatchViewModel: ObservableObject {
     
     private var radiantLogo: String?
     private var direLogo: String?
+    private var leagueId: String?
+    private var leagueName: String?
     
     @Published var status = "Loading..." {
         didSet {
@@ -101,7 +103,9 @@ class LiveMatchViewModel: ObservableObject {
                         direScore: direScore ?? 0,
                         time: time ?? 0,
                         radiantIcon: radiantLogo,
-                        direIcon: direLogo
+                        direIcon: direLogo,
+                        league: leagueId,
+                        leagueName: leagueName
                     )
                 }
             }
@@ -147,6 +151,11 @@ class LiveMatchViewModel: ObservableObject {
                 }
                 if let direLogoURL = graphQLResult.data?.matchLive?.direTeam?.logo {
                     self?.direLogo = direLogoURL
+                }
+                if let leagueId = graphQLResult.data?.matchLive?.league?.id,
+                   let leagueName = graphQLResult.data?.matchLive?.league?.displayName {
+                    self?.leagueId = leagueId.description
+                    self?.leagueName = leagueName
                 }
                 
                 // Draft
