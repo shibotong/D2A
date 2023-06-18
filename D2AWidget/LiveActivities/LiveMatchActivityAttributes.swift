@@ -16,4 +16,6 @@ struct LiveMatchActivityAttributes: ActivityAttributes {
         var direScore: Int
         var time: Int
     }
+    
+    var leagueName: String?
 }

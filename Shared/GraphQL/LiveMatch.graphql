@@ -6,8 +6,8 @@ subscription LiveMatch($matchid: Long!) {
         gameTime
         completed
         league {
-            name
-            banner
+            id
+            displayName
         }
         radiantTeamId
         radiantTeam {
