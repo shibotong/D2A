@@ -52,6 +52,24 @@ struct LiveMatchActivityWidget: Widget {
                         Text("\(context.state.time.toDuration)")
                     }
                 }
+                
+                DynamicIslandExpandedRegion(.bottom) {
+                    HStack {
+                        if let leagueName = context.attributes.leagueName {
+                            let data = UserDefaults(suiteName: GROUP_NAME)?.data(forKey: "liveActivity.league")
+                            if data != nil {
+                                Image(uiImage: UIImage(data: data!)!)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(height: 20)
+                                    .cornerRadius(5)
+                            }
+                            Text(leagueName)
+                                .font(.caption)
+                                .lineLimit(1)
+                        }
+                    }
+                }
             } compactLeading: {
                 HStack {
                     LiveMatchActivityTeamIconView(isRadiant: true)
@@ -73,7 +91,7 @@ struct LiveMatchActivityTeamIconView: View {
     let isRadiant: Bool
     
     private var key: String {
-        isRadiant ? "radiantTeam" : "direTeam"
+        isRadiant ? "liveActivity.radiantTeam" : "liveActivity.direTeam"
     }
     
     private var iconName: String {
@@ -103,11 +121,35 @@ struct LockScreenLiveActivityView: View {
     let context: ActivityViewContext<LiveMatchActivityAttributes>
     
     var body: some View {
-        HStack {
-            LiveMatchActivityTeamIconView(isRadiant: true)
+        VStack {
+            if let leagueName = context.attributes.leagueName,
+               let data = UserDefaults(suiteName: GROUP_NAME)?.data(forKey: "liveActivity.league") {
+                HStack {
+                    Image(uiImage: UIImage(data: data)!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 20)
+                        .cornerRadius(5)
+                    Text(leagueName)
+                        .font(.caption)
+                        .lineLimit(1)
+                }
+            }
+            
+            HStack {
+                LiveMatchActivityTeamIconView(isRadiant: true)
+                Text(context.state.radiantScore.description)
+                VStack {
+                    let time = context.state.time
+                    Image(systemName: time.isDotaDayTime ? "sun.min.fill" : "moon.fill")
+                        .foregroundColor(time.isDotaDayTime ? .orange : .blue)
+                    Text("\(context.state.time.toDuration)")
+                }
+                Text(context.state.direScore.description)
+                LiveMatchActivityTeamIconView(isRadiant: false)
+            }
         }
-        .activitySystemActionForegroundColor(.indigo)
-        .activityBackgroundTint(.cyan)
+        .padding()
     }
 }
 

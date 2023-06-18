@@ -24,10 +24,16 @@ class LiveMatchActivity {
                        direScore: Int,
                        time: Int,
                        radiantIcon: String?,
-                       direIcon: String?) async {
-        
-        await loadTeamIcon(iconURL: radiantIcon, isRadiant: true)
-        await loadTeamIcon(iconURL: direIcon, isRadiant: false)
+                       direIcon: String?,
+                       league: String?,
+                       leagueName: String?) async {
+        await loadTeamIcon(iconURL: radiantIcon, key: "liveActivity.radiantTeam")
+        await loadTeamIcon(iconURL: direIcon, key: "liveActivity.direTeam")
+        if let league {
+            await loadTeamIcon(iconURL: "https://cdn.stratz.com/images/dota2/leagues/\(league).png", key: "liveActivity.league")
+        } else {
+            await loadTeamIcon(iconURL: nil, key: "liveActivity.league")
+        }
     
         guard ActivityAuthorizationInfo().areActivitiesEnabled else {
             print("Activities are not enabled")
@@ -35,7 +41,7 @@ class LiveMatchActivity {
         }
         // Here is your code
         do {
-            let attributes = LiveMatchActivityAttributes()
+            let attributes = LiveMatchActivityAttributes(leagueName: leagueName)
             let contentState = LiveMatchActivityAttributes.ContentState(radiantScore: 0, direScore: 0, time: 0)
             let activity = try Activity<LiveMatchActivityAttributes>.request(
                 attributes: attributes,
@@ -67,8 +73,7 @@ class LiveMatchActivity {
         return currentActivity?.activityState
     }
     
-    private func loadTeamIcon(iconURL: String?, isRadiant: Bool) async {
-        let key = isRadiant ? "radiantTeam" : "direTeam"
+    private func loadTeamIcon(iconURL: String?, key: String) async {
         if let iconURL {
             let url = URL(string: iconURL)!
             do {
