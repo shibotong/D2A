@@ -2,6 +2,34 @@ query LiveMatchListQuery($request: MatchLiveRequestType) {
     live {
         matches(request: $request) {
             matchId
+            radiantScore
+            direScore
+            leagueId
+            league {
+                id
+                displayName
+            }
+            averageRank
+            gameTime
+            radiantTeamId
+            direTeamId
+            players {
+                heroId
+                steamAccountId
+                steamAccount {
+                    name
+                    realName
+                    avatar
+                    rankShift
+                    seasonRank
+                    proSteamAccount {
+                        name
+                        realName
+                    }
+                }
+                playerSlot
+                isRadiant
+            }
         }
     }
 }

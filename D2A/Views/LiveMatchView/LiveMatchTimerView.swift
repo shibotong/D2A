@@ -15,6 +15,8 @@ struct LiveMatchTimerView: View {
     
     var radiantTeam: String
     var direTeam: String
+    var radiantTeamName: String?
+    var direTeamName: String?
     
     private let imagePadding: CGFloat = 20
     
@@ -33,13 +35,22 @@ struct LiveMatchTimerView: View {
     
     var body: some View {
         HStack {
+            Spacer()
             HStack {
-                LiveMatchTeamIconView(viewModel: LiveMatchTeamIconViewModel(teamID: radiantTeam, isRadiant: true))
+                VStack {
+                    LiveMatchTeamIconView(viewModel: LiveMatchTeamIconViewModel(teamID: radiantTeam, isRadiant: true))
+                        .frame(maxWidth: 100, maxHeight: 100)
+                    if let radiantTeamName {
+                        Text(radiantTeamName)
+                    }
+                }
                 if let radiantScore {
                     Text("\(radiantScore)")
                         .bold()
+                        .font(.title)
                 } else {
                     Text("--")
+                        .font(.title)
                 }
             }
             .padding(imagePadding)
@@ -59,21 +70,35 @@ struct LiveMatchTimerView: View {
                 if let direScore {
                     Text("\(direScore)")
                         .bold()
+                        .font(.title)
                 } else {
                     Text("--")
+                        .font(.title)
                 }
-                LiveMatchTeamIconView(viewModel: LiveMatchTeamIconViewModel(teamID: direTeam, isRadiant: false))
+                VStack {
+                    LiveMatchTeamIconView(viewModel: LiveMatchTeamIconViewModel(teamID: direTeam, isRadiant: false))
+                        .frame(maxWidth: 100, maxHeight: 100)
+                    if let direTeamName {
+                        Text(direTeamName)
+                    }
+                }
             }
             .padding(imagePadding)
+            Spacer()
         }
+        .background(
+            LinearGradient(colors: [Color(UIColor.systemGreen), Color(UIColor.systemRed)], startPoint: .leading, endPoint: .trailing)
+                .opacity(0.3)
+                
+        )
     }
 }
 
 struct LiveMatchTimerView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LiveMatchTimerView(radiantScore: 10, direScore: 10, time: -90, radiantTeam: "", direTeam: "")
-                .previewLayout(.fixed(width: 300, height: 100))
+            LiveMatchTimerView(radiantScore: 10, direScore: 10, time: -90, radiantTeam: "", direTeam: "", radiantTeamName: "PSG.LGD", direTeamName: "Aster")
+                .previewLayout(.fixed(width: 375, height: 200))
             LiveMatchTimerView(radiantScore: 10, direScore: 10, time: 100, radiantTeam: "", direTeam: "")
                 .previewLayout(.fixed(width: 300, height: 100))
             LiveMatchTimerView(radiantScore: 10, direScore: 10, time: 400, radiantTeam: "", direTeam: "")

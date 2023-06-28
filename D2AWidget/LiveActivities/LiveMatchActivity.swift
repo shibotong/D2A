@@ -74,8 +74,7 @@ class LiveMatchActivity {
     }
     
     private func loadTeamIcon(iconURL: String?, key: String) async {
-        if let iconURL {
-            let url = URL(string: iconURL)!
+        if let iconURL, let url = URL(string: iconURL) {
             do {
                 let (data, _) = try await URLSession.shared.data(from: url)
                 guard let image = UIImage(data: data), let imageData = image.pngData() else {
