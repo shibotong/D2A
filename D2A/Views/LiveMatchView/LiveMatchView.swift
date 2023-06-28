@@ -11,6 +11,7 @@ struct LiveMatchView: View {
 
     @ObservedObject var viewModel: LiveMatchViewModel
     @State var showActivity = false
+    @State var showPlayer = false
     
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
@@ -31,42 +32,53 @@ struct LiveMatchView: View {
     }
     
     private var horizontalView: some View {
-        HStack(spacing: 10) {
-            VStack(spacing: 0) {
-                draftView
-                    .background(Color.secondarySystemBackground)
-                Spacer()
-                    .frame(height: 10)
-                
-                VStack {
+        VStack(spacing: 0) {
+            timerView
+            GeometryReader { proxy in
+                let width = proxy.size.width
+                if width >= 600 {
                     HStack {
-                        Text("Players").bold()
-                            .foregroundColor(.label)
-                        Spacer()
+                        ScrollView {
+                            draftView
+                            mapView
+                        }
+                        ScrollView {
+                            eventView
+                                .padding(.vertical)
+                        }
+                        ScrollView {
+                            playerView
+                                .padding(.vertical)
+                        }
                     }
-                    .padding()
-                    ScrollView(showsIndicators: false) {
-                        playerView
-                            .padding([.horizontal, .bottom])
-                        Spacer()
+                } else {
+                    HStack {
+                        ScrollView {
+                            draftView
+                            mapView
+                        }
+                        VStack {
+                            Picker("ShowPlayer", selection: $showPlayer) {
+                                Text("Events")
+                                    .tag(false)
+                                Text("Players")
+                                    .tag(true)
+                            }
+                            .pickerStyle(.segmented)
+                            ScrollView {
+                                if showPlayer {
+                                    playerView
+                                } else {
+                                    eventView
+                                }
+                            }
+                        }
+                        .padding(.top)
                     }
-                }.background(Color.secondarySystemBackground)
+                }
             }
-            .padding(.top)
-            
-            VStack(spacing: 0) {
-                timerView
-                    .background(Color.secondarySystemBackground)
-                mapView
-                    .frame(height: 300)
-                ScrollView {
-                    eventView
-                        .padding(.vertical)
-                }.background(Color.secondarySystemBackground)
-            }
-            .frame(width: 300)
-            .padding(.top)
         }
+        .background(Color.secondarySystemBackground)
     }
     
     private var verticalView: some View {
@@ -107,7 +119,6 @@ struct LiveMatchView: View {
                            time: viewModel.time,
                            radiantTeam: viewModel.radiantTeam,
                            direTeam: viewModel.direTeam)
-        .frame(height: 67)
     }
     
     private var eventView: some View {
@@ -127,5 +138,14 @@ struct LiveMatchView: View {
                            winRate: viewModel.draftWinRate,
                            hasBan: viewModel.hasBan,
                            showDetail: $viewModel.showDraft)
+    }
+}
+
+struct LiveMatchView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            EmptyView()
+            LiveMatchView(viewModel: .init(matchID: "7219319154"))
+        }
     }
 }

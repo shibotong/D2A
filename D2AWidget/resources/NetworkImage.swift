@@ -25,6 +25,8 @@ struct NetworkImage: View {
             return "ability_slot"
         case .teamIcon:
             return "icon_\(isRadiant ? "radiant" : "dire")"
+        case .league:
+            return "league_template"
         }
     }
     

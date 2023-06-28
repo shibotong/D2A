@@ -12,27 +12,72 @@ struct LiveMatchListView: View {
     
     @StateObject private var viewModel: LiveMatchListViewModel = .init()
     
+    private let gridItems = [GridItem(.adaptive(minimum: 300, maximum: 400))]
+    
     var body: some View {
-        List {
-            ForEach(viewModel.matches, id: \.self) { id in
-                NavigationLink(destination: LiveMatchView(viewModel: LiveMatchViewModel(matchID: id.description))) {
-                    Text(id.description)
+        ScrollView {
+            LazyVGrid(columns: gridItems) {
+                ForEach(viewModel.matches) { match in
+                    NavigationLink(destination: LiveMatchView(viewModel: LiveMatchViewModel(matchID: match.matchId.description))) {
+                        LiveMatchListRowView(radiantScore: match.radiantScore,
+                                             direScore: match.direScore,
+                                             radiantHeroes: match.radiantPlayers,
+                                             direHeroes: match.direPlayers,
+                                             radiantTeam: match.radiantTeam?.description,
+                                             direTeam: match.direTeam?.description,
+                                             averageRank: match.averageRank,
+                                             leagueID: match.leagueId,
+                                             leagueName: match.leagueName)
+                        .padding(5)
+                    }
                 }
             }
+            .padding()
             Button {
                 viewModel.loadMore()
             } label: {
                 Text("Load more")
             }
         }
-        .refreshable {
-            viewModel.fetchMatches(existItems: 0)
-        }
+        .navigationTitle("Live")
+        
+//        List {
+//            ForEach(viewModel.matches) { id in
+//                NavigationLink(destination: LiveMatchView(viewModel: LiveMatchViewModel(matchID: id.matchId.description))) {
+//                    Text(id.matchId.description)
+//                }
+//            }
+//            Button {
+//                viewModel.loadMore()
+//            } label: {
+//                Text("Load more")
+//            }
+//        }
+//        .refreshable {
+//            viewModel.fetchMatches(existItems: 0)
+//        }
     }
 }
 
 class LiveMatchListViewModel: ObservableObject {
-    @Published var matches: [Int] = []
+    @Published var matches: [LiveMatch] = []
+    
+    struct LiveMatch: Identifiable {
+        var id: Int {
+            return matchId
+        }
+        let matchId: Int
+        var radiantScore: Int
+        let direScore: Int
+        let leagueId: Int?
+        let leagueName: String?
+        let averageRank: Int
+        let gameTime: Int
+        let radiantTeam: Int?
+        let direTeam: Int?
+        let radiantPlayers: [LiveMatchRowPlayer]
+        let direPlayers: [LiveMatchRowPlayer]
+    }
     
     init() {
         self.fetchMatches(existItems: 0)
@@ -61,13 +106,47 @@ class LiveMatchListViewModel: ObservableObject {
                 guard let matches = graphQLResult.data?.live?.matches, let self else {
                     return
                 }
-                let newMatches = matches.map { id in
-                    return id?.matchId ?? 0
+                let newMatches: [LiveMatch] = matches.map { matchData in
+                    var radiantPlayers: [LiveMatchRowPlayer] = []
+                    var direPlayers: [LiveMatchRowPlayer] = []
+                    if let players = matchData?.players {
+                        radiantPlayers = players.filter { player in
+                            guard let player else {
+                                return false
+                            }
+                            return player.isRadiant ?? false
+                        }.map { player in
+                            return LiveMatchRowPlayer(heroID: Int(player?.heroId ?? 0), playerName: player?.steamAccount?.proSteamAccount?.name ?? player?.steamAccount?.name, slot: player?.playerSlot ?? 0)
+                        }
+                        direPlayers = players.filter { player in
+                            guard let player else {
+                                return false
+                            }
+                            
+                            return !(player.isRadiant ?? true)
+                        }.map { player in
+                            return LiveMatchRowPlayer(heroID: Int(player?.heroId ?? 0), playerName: player?.steamAccount?.proSteamAccount?.name ?? player?.steamAccount?.name, slot: player?.playerSlot ?? 0)
+                        }
+                    }
+                    
+                    let match = LiveMatch(
+                        matchId: matchData?.matchId ?? 0,
+                        radiantScore: matchData?.radiantScore ?? 0,
+                        direScore: matchData?.direScore ?? 0,
+                        leagueId: matchData?.leagueId,
+                        leagueName: matchData?.league?.displayName,
+                        averageRank: matchData?.averageRank ?? 0,
+                        gameTime: matchData?.gameTime ?? 0,
+                        radiantTeam: matchData?.radiantTeamId,
+                        direTeam: matchData?.direTeamId,
+                        radiantPlayers: radiantPlayers,
+                        direPlayers: direPlayers)
+                    return match
                 }
                 if existItems == 0 {
                     self.matches = []
                 }
-                for match in newMatches where !self.matches.contains(match) {
+                for match in newMatches where !self.matches.contains(where: { $0.matchId == match.matchId }) {
                     self.matches.append(match)
                 }
             case .failure(let error):
