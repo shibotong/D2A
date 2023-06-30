@@ -53,6 +53,8 @@ class LiveMatchViewModel: ObservableObject {
     private var leagueId: String?
     private var leagueName: String?
     
+    private var historyFetched = false
+    
     @Published var status = "Loading..." {
         didSet {
             if !setDraftState {
@@ -271,9 +273,13 @@ class LiveMatchViewModel: ObservableObject {
     }
     
     private func fetchHistoryData() {
+        guard !historyFetched else {
+            return
+        }
         let subscription = Network.shared.apollo.fetch(query: LiveMatchHistoryQuery(matchid: matchID)) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
+                self?.historyFetched = true
                 if let gameMode = graphQLResult.data?.live?.match?.gameMode, (gameMode == .captainsMode || gameMode == .captainsDraft) {
                     self?.hasBan = true
                 } else {
