@@ -84,6 +84,7 @@ struct LiveMatchView: View {
     private var verticalView: some View {
         VStack(spacing: 0) {
             timerView
+                .frame(height: 80)
             ScrollView {
                 VStack {
                     mapView
@@ -144,8 +145,7 @@ struct LiveMatchView: View {
 struct LiveMatchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            EmptyView()
-            LiveMatchView(viewModel: .init(matchID: "7219319154"))
+            LiveMatchView(viewModel: .init(matchID: "7223482365"))
         }
     }
 }
