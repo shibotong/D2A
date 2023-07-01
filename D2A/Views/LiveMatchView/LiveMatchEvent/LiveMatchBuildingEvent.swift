@@ -20,87 +20,45 @@ struct LiveMatchBuildingEvent: LiveMatchEvent {
     let type: Building
     let isAlive: Bool
     
-    var xPos: CGFloat {
+    var position: CGPoint {
         switch indexId {
-        case 0: return 79
-        case 1: return 80
-        case 2: return 77
-        case 3: return 117
-        case 4: return 103
-        case 5: return 92
-        case 6: return 165
-        case 7: return 125
-        case 8: return 97
-        case 9: return 83
-        case 10: return 87
-        case 11: return 79
-        case 12: return 75
-        case 13: return 91
-        case 14: return 89
-        case 15: return 94
-        case 16: return 94
-        case 17: return 83
-        case 18: return 91
-        case 19: return 126
-        case 20: return 154
-        case 21: return 132
-        case 22: return 145
-        case 23: return 160
-        case 24: return 175
-        case 25: return 177
-        case 26: return 175
-        case 27: return 165
-        case 28: return 169
-        case 29: return 157
-        case 30: return 157
-        case 31: return 163
-        case 32: return 161
-        case 33: return 177
-        case 34: return 173
-        case 35: return 169
-        default: return 0
-        }
-    }
-    
-    var yPos: CGFloat {
-        switch indexId {
-        case 0: return 140
-        case 1: return 120
-        case 2: return 101
-        case 3: return 117
-        case 4: return 104
-        case 5: return 95
-        case 6: return 81
-        case 7: return 80
-        case 8: return 81
-        case 9: return 90
-        case 10: return 86
-        case 11: return 98
-        case 12: return 98
-        case 13: return 92
-        case 14: return 94
-        case 15: return 79
-        case 16: return 83
-        case 17: return 86
-        case 18: return 172
-        case 19: return 173
-        case 20: return 170
-        case 21: return 133
-        case 22: return 144
-        case 23: return 156
-        case 24: return 110
-        case 25: return 131
-        case 26: return 149
-        case 27: return 165
-        case 28: return 161
-        case 29: return 168
-        case 30: return 172
-        case 31: return 157
-        case 32: return 159
-        case 33: return 152
-        case 34: return 152
-        case 35: return 165
-        default: return 0
+        case 0: return .init(x: 87, y: 140)
+        case 1: return .init(x: 88, y: 123)
+        case 2: return .init(x: 86, y: 108)
+        case 3: return .init(x: 117, y: 120)
+        case 4: return .init(x: 106, y: 112)
+        case 5: return .init(x: 98, y: 103)
+        case 6: return .init(x: 158, y: 92)
+        case 7: return .init(x: 125, y: 90)
+        case 8: return .init(x: 102, y: 91)
+        case 9: return .init(x: 91, y: 99)
+        case 10: return .init(x: 93, y: 97)
+        case 11: return .init(x: 87, y: 106)
+        case 12: return .init(x: 84, y: 106)
+        case 13: return .init(x: 98, y: 101)
+        case 14: return .init(x: 95, y: 103)
+        case 15: return .init(x: 100, y: 90)
+        case 16: return .init(x: 100, y: 93)
+        case 17: return .init(x: 90, y: 96)
+        case 18: return .init(x: 98, y: 165)
+        case 19: return .init(x: 126, y: 165)
+        case 20: return .init(x: 149, y: 164)
+        case 21: return .init(x: 130, y: 133)
+        case 22: return .init(x: 143, y: 141)
+        case 23: return .init(x: 154, y: 151)
+        case 24: return .init(x: 166, y: 115)
+        case 25: return .init(x: 167, y: 131)
+        case 26: return .init(x: 167, y: 147)
+        case 27: return .init(x: 158, y: 158)
+        case 28: return .init(x: 160, y: 156)
+        case 29: return .init(x: 151, y: 162)
+        case 30: return .init(x: 151, y: 165)
+        case 31: return .init(x: 156, y: 152)
+        case 32: return .init(x: 154, y: 154)
+        case 33: return .init(x: 168, y: 149)
+        case 34: return .init(x: 165, y: 149)
+        case 35: return .init(x: 162, y: 159)
+        default: return .init(x: 0, y: 0)
         }
     }
     
