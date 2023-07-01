@@ -25,8 +25,8 @@ struct LiveMatchMapView: View {
                         let sideLength = proxy.size.width
                         
                         ForEach(buildings) { building in
-                            let xPos = calculatePosition(totalLength: sideLength, position: building.xPos, isX: true)
-                            let yPos = calculatePosition(totalLength: sideLength, position: building.yPos, isX: false)
+                            let xPos = calculatePosition(totalLength: sideLength, position: building.position.x, isX: true)
+                            let yPos = calculatePosition(totalLength: sideLength, position: building.position.y, isX: false)
                             let forgroundColor: Color = building.isAlive ? building.isRadiant ? .green : .red : .black
                             ZStack {
                                 if building.type == .case(.tower) {
@@ -51,7 +51,7 @@ struct LiveMatchMapView: View {
                             let xPos = calculatePosition(totalLength: sideLength, position: hero.xPos, isX: true)
                             let yPos = calculatePosition(totalLength: sideLength, position: hero.yPos, isX: false)
                             HeroImageView(heroID: hero.heroID, type: .icon)
-                                .frame(width: sideLength / 11)
+                                .frame(width: sideLength / 15)
                                 .position(x: xPos, y: yPos)
                                 .animation(.linear, value: hero)
                         }
@@ -63,11 +63,11 @@ struct LiveMatchMapView: View {
     private func calculatePosition(totalLength: CGFloat, position: CGFloat, isX: Bool) -> CGFloat {
         let midPoint: CGFloat = 127
         
-        let xStartPoint: CGFloat = 64
+        let xStartPoint: CGFloat = 76
         let xEndPoint = midPoint - xStartPoint + midPoint
         let xLength = xEndPoint - xStartPoint
         
-        let yStartPoint: CGFloat = 64
+        let yStartPoint: CGFloat = 76
         let yEndPoint = midPoint - yStartPoint + midPoint
         let yLength = yEndPoint - yStartPoint
         
