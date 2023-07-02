@@ -121,7 +121,6 @@ struct LiveMatchView: View {
 struct LiveMatchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            EmptyView()
             LiveMatchView(viewModel: .init(matchID: "7224708614"))
         }
     }

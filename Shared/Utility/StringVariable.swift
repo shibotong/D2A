@@ -49,17 +49,22 @@ let isTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath
 /// True is running UITest
 let uiTesting = ProcessInfo.processInfo.arguments.contains("uitest")
 
-extension PreviewDevice {
+extension PreviewDevice: Identifiable {
+    
+    public var id: String {
+        return rawValue
+    }
 
-    static let previewDevices = [PreviewDevice.iPodTouch, PreviewDevice.iPhoneSE, PreviewDevice.iPhoneMini, PreviewDevice.iPhone, PreviewDevice.iPhoneProMax]
+    static let iPhoneDevices = [PreviewDevice.iPhoneSE, PreviewDevice.iPhoneMini, PreviewDevice.iPhone, PreviewDevice.iPhoneProMax]
 
+    static let iPadDevies = [PreviewDevice.iPadMini, PreviewDevice.iPad]
+    
     static let iPhoneMini = PreviewDevice("iPhone 13 mini")
-    static let iPhone = PreviewDevice("iPhone 13")
-    static let iPhoneProMax = PreviewDevice("iPhone 13 Pro Max")
+    static let iPhone = PreviewDevice("iPhone 14")
+    static let iPhoneProMax = PreviewDevice("iPhone 14 Pro Max")
     static let iPhoneSE = PreviewDevice("iPhone SE (3rd generation)")
-    static let iPodTouch = PreviewDevice("iPod touch (7th generation)")
     static let iPadMini = PreviewDevice("iPad mini (6th generation)")
     static let iPad = PreviewDevice("iPad (10th generation)")
-    static let iPadPro = PreviewDevice("iPad Pro (11-inch) (3rd generation)")
-    static let iPadPro12 = PreviewDevice("iPad Pro (12-inch) (5th generation)")
+    static let iPadPro = PreviewDevice("iPad Pro (11-inch)")
+    static let iPadPro12 = PreviewDevice("iPad Pro (12.9-inch) (6th generation")
 }
