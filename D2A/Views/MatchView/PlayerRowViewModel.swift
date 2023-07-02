@@ -8,41 +8,41 @@
 import Foundation
 import StratzAPI
 
-class PlayerRowViewModel: ObservableObject {
+class PlayerRowViewModel {
     
     typealias LiveMatchPlayer = LiveMatchSubscription.Data.MatchLive.Player
     
-    @Published var accountID: String?
+    var accountID: String?
     
-    @Published var heroID: Int
-    @Published var level: Int
-    @Published var personaname: String?
-    @Published var rank: Int
+    var heroID: Int
+    var level: Int
+    var personaname: String?
+    var rank: Int
     
-    @Published var kills: Int
-    @Published var deaths: Int
-    @Published var assists: Int
+    var kills: Int
+    var deaths: Int
+    var assists: Int
     
-    @Published var itemNeutral: Int?
-    @Published var item0: Int
-    @Published var item1: Int
-    @Published var item2: Int
-    @Published var item3: Int
-    @Published var item4: Int
-    @Published var item5: Int
-    @Published var backpack0: Int?
-    @Published var backpack1: Int?
-    @Published var backpack2: Int?
+    var itemNeutral: Int?
+    var item0: Int
+    var item1: Int
+    var item2: Int
+    var item3: Int
+    var item4: Int
+    var item5: Int
+    var backpack0: Int?
+    var backpack1: Int?
+    var backpack2: Int?
     
-    @Published var hasScepter: Bool
-    @Published var hasShard: Bool
+    var hasScepter: Bool
+    var hasShard: Bool
     
-    @Published var abilityUpgrade: [Int] = []
-    @Published var xpm: Int
-    @Published var gpm: Int
-    @Published var heroDamage: Int?
+    var abilityUpgrade: [Int] = []
+    var xpm: Int
+    var gpm: Int
+    var heroDamage: Int?
     
-    @Published var slot: Int
+    var slot: Int
     
     var isRadiant: Bool {
         return slot < 127
