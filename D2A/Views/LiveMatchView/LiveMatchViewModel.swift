@@ -53,7 +53,7 @@ class LiveMatchViewModel: ObservableObject {
     private var leagueId: String?
     private var leagueName: String?
     
-    private var historyFetched = false
+    private var lastFetchTime: Int = 0
     
     @Published var status = "Loading..." {
         didSet {
@@ -83,12 +83,16 @@ class LiveMatchViewModel: ObservableObject {
     
     func removeSubscription() {
         print("remove subscription")
+        subscriptions.forEach { cancellable in
+            cancellable.cancel()
+        }
         subscriptions = []
         endActivity()
     }
     
     func startFetching() {
-        fetchHistoryData()
+        print("start subscription")
+        fetchHistoryData(lastFetchTime: lastFetchTime)
         startSubscription()
     }
     
@@ -138,6 +142,9 @@ class LiveMatchViewModel: ObservableObject {
                 self?.radiantScore = graphQLResult.data?.matchLive?.radiantScore
                 self?.direScore = graphQLResult.data?.matchLive?.direScore
                 self?.time = graphQLResult.data?.matchLive?.gameTime
+                if let time = graphQLResult.data?.matchLive?.gameTime {
+                    self?.lastFetchTime = time
+                }
                 if let radiantTeamId = graphQLResult.data?.matchLive?.radiantTeamId, let radiantTeam = self?.radiantTeam, radiantTeam.isEmpty {
                     self?.radiantTeam = radiantTeamId.description
                 }
@@ -272,14 +279,10 @@ class LiveMatchViewModel: ObservableObject {
         subscriptions.append(subscription)
     }
     
-    private func fetchHistoryData() {
-        guard !historyFetched else {
-            return
-        }
+    private func fetchHistoryData(lastFetchTime: Int) {
         let subscription = Network.shared.apollo.fetch(query: LiveMatchHistoryQuery(matchid: matchID)) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
-                self?.historyFetched = true
                 if let gameMode = graphQLResult.data?.live?.match?.gameMode, (gameMode == .captainsMode || gameMode == .captainsDraft) {
                     self?.hasBan = true
                 } else {
@@ -293,7 +296,7 @@ class LiveMatchViewModel: ObservableObject {
                         guard let event,
                               let buildingID = event.indexId,
                               let isRadiant = event.isRadiant,
-                              let type = event.type else {
+                              let type = event.type, event.time > lastFetchTime else {
                             return nil
                         }
                         return LiveMatchBuildingEvent(indexId: buildingID, time: event.time, type: type, isAlive: event.isAlive, isRadiant: isRadiant)
@@ -311,8 +314,8 @@ class LiveMatchViewModel: ObservableObject {
                               let isRadiant = player.isRadiant else {
                             continue
                         }
-                        let deathEvent: [Int] = player.playbackData?.deathEvents?.compactMap { $0?.time } ?? []
-                        let killEvent: [Int] = player.playbackData?.killEvents?.compactMap { $0?.time } ?? []
+                        let deathEvent: [Int] = player.playbackData?.deathEvents?.compactMap { $0?.time }.filter { $0 > lastFetchTime } ?? []
+                        let killEvent: [Int] = player.playbackData?.killEvents?.compactMap { $0?.time }.filter { $0 > lastFetchTime} ?? []
                         players.append(Player(heroID: Int(heroID), isRadiant: isRadiant, deathEvents: deathEvent, killEvents: killEvent))
                     }
                     self?.updatePlayersData(players: players)

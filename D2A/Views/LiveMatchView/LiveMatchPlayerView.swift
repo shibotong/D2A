@@ -9,7 +9,8 @@ import SwiftUI
 
 struct LiveMatchPlayerView: View {
     
-    let players: [PlayerRowViewModel]
+    var players: [PlayerRowViewModel]
+    var shortVersion = true
     
     var body: some View {
         VStack {
@@ -19,8 +20,9 @@ struct LiveMatchPlayerView: View {
                 }
             } else {
                 ForEach(players, id: \.accountID) { player in
-                    PlayerRowView(maxDamage: 0, viewModel: player)
+                    PlayerRowView(maxDamage: 0, viewModel: player, shortVersion: shortVersion, showAbility: false)
                 }
+                
             }
         }
     }
@@ -36,7 +38,7 @@ struct PlayerRowEmptyView: View {
                 .foregroundColor(foregroundColor)
                 .frame(width: 35, height: 35)
             RoundedRectangle(cornerRadius: 5)
-                .frame(width: 500, height: 30)
+                .frame(height: 30)
                 .foregroundColor(foregroundColor)
                 .frame(height: 50)
         }
@@ -47,7 +49,7 @@ struct PlayerRowEmptyView: View {
     static var previews: some View {
         VStack {
             
-            LiveMatchPlayerView(players: [])
+            LiveMatchPlayerView(players: [.init(heroID: 1), .init(heroID: 2), .init(heroID: 3)])
         }
     }
  }

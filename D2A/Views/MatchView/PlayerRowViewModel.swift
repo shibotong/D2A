@@ -42,6 +42,12 @@ class PlayerRowViewModel: ObservableObject {
     @Published var gpm: Int
     @Published var heroDamage: Int?
     
+    @Published var slot: Int
+    
+    var isRadiant: Bool {
+        return slot < 127
+    }
+    
     init(player: Player) {
         self.heroID = player.heroID
         self.level = player.level
@@ -71,6 +77,8 @@ class PlayerRowViewModel: ObservableObject {
         self.xpm = player.xpm
         self.gpm = player.gpm
         self.heroDamage = player.heroDamage
+        
+        self.slot = player.slot
     }
     
     init(player: LiveMatchPlayer) {
@@ -104,5 +112,33 @@ class PlayerRowViewModel: ObservableObject {
         self.xpm = Int(player.experiencePerMinute ?? "0") ?? 0
         self.gpm = Int(player.goldPerMinute ?? "0") ?? 0
         self.heroDamage = player.heroDamage
+        self.slot = player.playerSlot ?? 0
+    }
+    
+    init(heroID: Int, abilities: [Int] = []) {
+        self.personaname = "AME"
+        self.heroID = heroID
+        self.level = 10
+        self.rank = 0
+        self.kills = 1
+        self.deaths = 1
+        self.assists = 1
+        self.item0 = 1
+        self.item1 = 1
+        self.item2 = 1
+        self.item3 = 1
+        self.item4 = 1
+        self.item5 = 1
+        self.backpack0 = 1
+        self.backpack1 = 1
+        self.backpack2 = 1
+        
+        self.xpm = 100
+        self.gpm = 100
+        self.heroDamage = 10000
+        self.hasScepter = true
+        self.hasShard = true
+        self.slot = 0
+        self.abilityUpgrade = abilities
     }
 }
