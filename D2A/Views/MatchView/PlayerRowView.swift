@@ -10,7 +10,7 @@ import StratzAPI
 
 struct PlayerRowView: View {
     var maxDamage: Int
-    @ObservedObject var viewModel: PlayerRowViewModel
+    var viewModel: PlayerRowViewModel
     @EnvironmentObject var heroData: HeroDatabase
     
     var shortVersion: Bool = false
