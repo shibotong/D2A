@@ -57,14 +57,14 @@ struct PlayerRowView: View {
 
             VStack(spacing: 1) {
                 ItemView(id: viewModel.item0).frame(width: width, height: height)
-                ItemView(id: viewModel.item1).frame(width: width, height: height)
-            }
-            VStack(spacing: 1) {
-                ItemView(id: viewModel.item2).frame(width: width, height: height)
                 ItemView(id: viewModel.item3).frame(width: width, height: height)
             }
             VStack(spacing: 1) {
+                ItemView(id: viewModel.item1).frame(width: width, height: height)
                 ItemView(id: viewModel.item4).frame(width: width, height: height)
+            }
+            VStack(spacing: 1) {
+                ItemView(id: viewModel.item2).frame(width: width, height: height)
                 ItemView(id: viewModel.item5).frame(width: width, height: height)
             }
             itemStackBackPackView

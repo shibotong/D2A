@@ -61,7 +61,7 @@ func loadScepter() async -> [HeroScepter] {
             let jsonData = try decoder.decode([HeroScepter].self, from: data)
             return jsonData
         } catch {
-            debugPrint(error)
+            debugPrint("Load Scepter", error)
             return []
         }
     } else {
@@ -79,7 +79,7 @@ func loadHeroes() async -> [String: HeroCodable] {
             let jsonData = try decoder.decode([String: HeroCodable].self, from: data)
             return jsonData
         } catch {
-            debugPrint(error)
+            debugPrint("Load Heroes", error)
             return [:]
         }
     } else {
@@ -97,7 +97,7 @@ func loadHeroAbilities() async -> [String: HeroAbility] {
             let jsonData = try decoder.decode([String: HeroAbility].self, from: data)
             return jsonData
         } catch {
-            debugPrint(error)
+            debugPrint("Load Abilities", error)
             return [:]
         }
     } else {
@@ -177,6 +177,7 @@ func loadAbilityID() async -> [String: String] {
             let jsonData = try decoder.decode([String: String].self, from: data)
             return jsonData
         } catch {
+            debugPrint("Load Ability ID", error)
             return [:]
         }
     } else {
@@ -194,7 +195,7 @@ func loadAbilities() async -> [String: Ability] {
             let jsonData = try decoder.decode([String: Ability].self, from: data)
             return jsonData
         } catch {
-            debugPrint(error)
+            debugPrint("Load Abilities", error)
             return [:]
         }
     } else {
@@ -228,7 +229,7 @@ func loadItemIDs() async -> [String: String] {
             }
             return itemIDs
         } catch {
-            debugPrint(error)
+            debugPrint("Load Item IDs", error)
             return [:]
         }
     } else {
@@ -246,7 +247,7 @@ func loadItems() async -> [String: Item] {
             let jsonData = try decoder.decode([String: Item].self, from: data)
             return jsonData
         } catch {
-            debugPrint(error)
+            debugPrint("Load Items", error)
             return [:]
         }
     } else {
