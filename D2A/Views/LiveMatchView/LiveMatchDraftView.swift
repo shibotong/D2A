@@ -190,23 +190,7 @@ struct LiveMatchDraftView: View {
     private var verticalView: some View {
         VStack {
             if hasBan {
-                HStack {
-                    ForEach(radiantBan, id: \.self) { heroID in
-                        Spacer()
-                        HeroImageView(heroID: heroID, type: .icon)
-                            .frame(width: 40)
-                            .grayscale(1)
-                        Spacer()
-                    }
-                    if radiantBan.count < 7 {
-                        ForEach(0...(6 - radiantBan.count), id: \.self) { _ in
-                            Spacer()
-                            HeroImageView(heroID: 0, type: .icon)
-                                .frame(width: 40)
-                            Spacer()
-                        }
-                    }
-                }
+                buildBanHero(heroes: radiantBan)
             }
             HStack {
                 ForEach(radiantPick) { hero in
@@ -241,21 +225,26 @@ struct LiveMatchDraftView: View {
                 }
             }
             if hasBan {
-                HStack {
-                    ForEach(direBan, id: \.self) { heroID in
+                buildBanHero(heroes: direBan)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func buildBanHero(heroes: [Int]) -> some View {
+        if horizontalSizeClass == .compact {
+            HStack {
+                ForEach(heroes, id: \.self) { heroID in
+                    Spacer()
+                    HeroImageView(heroID: heroID, type: .icon)
+                        .grayscale(1)
+                    Spacer()
+                }
+                if heroes.count < 7 {
+                    ForEach(0...(6 - direBan.count), id: \.self) { _ in
                         Spacer()
-                        HeroImageView(heroID: heroID, type: .icon)
-                            .frame(width: 40)
-                            .grayscale(1)
+                        HeroImageView(heroID: 0, type: .icon)
                         Spacer()
-                    }
-                    if direBan.count < 7 {
-                        ForEach(0...(6 - direBan.count), id: \.self) { _ in
-                            Spacer()
-                            HeroImageView(heroID: 0, type: .icon)
-                                .frame(width: 40)
-                            Spacer()
-                        }
                     }
                 }
             }
@@ -285,17 +274,12 @@ struct LiveMatchDraftView: View {
 struct LiveMatchDraftView_Previews: PreviewProvider {
     @State static var showDetail = true
     static var previews: some View {
-        LiveMatchDraftView(radiantPick: [
-            .init(heroID: 1, pickLevel: "A"),
-            .init(heroID: 2, pickLevel: "S"),
-            .init(heroID: 3, pickLevel: "C"),
-            .init(heroID: 4, pickLevel: "D"),
-            .init(heroID: 5, pickLevel: "F")],
-                           radiantBan: [6, 7, 8, 9, 10, 11, 12],
-                           direPick: [],
-                           direBan: [18, 19, 20, 21, 22, 23],
-                           winRate: 50, hasBan: true, showDetail: $showDetail)
-        .previewLayout(.fixed(width: 700, height: 500))
-        .preferredColorScheme(.dark)
+        Group {
+            ForEach(PreviewDevice.iPhoneDevices) { device in
+                LiveMatchDraftView(radiantPick: [.init(heroID: 1, pickLevel: "A")], radiantBan: [], direPick: [], direBan: [], winRate: 0.5, hasBan: true, showDetail: $showDetail)
+                    .previewDevice(device)
+                    .previewDisplayName(device.rawValue)
+            }
+        }
     }
 }
