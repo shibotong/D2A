@@ -6,25 +6,48 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ItemView: View {
     @EnvironmentObject var heroData: HeroDatabase
     @State var image: UIImage?
+    
     var id: Int
     
     init(id: Int) {
+        print("init \(id)")
         self.id = id
+        updateUI()
+    }
+    
+    func updateUI() {
+        Task {
+            await fetchImage()
+        }
     }
     
     var body: some View {
         ZStack {
             if let image = image {
-                Image(uiImage: image).resizable()
+                Image(uiImage: self.image!)
+                    .resizable()
             } else {
-                Image("empty_item").resizable()
+                Image("empty_item")
+                    .resizable()
             }
         }
         .task {
+            await fetchImage()
+        }
+//        .onChange(of: id) { _ in
+//            Task {
+//                await fetchImage()
+//            }
+//        }
+    }
+    
+    private func startLoadingImage() {
+        Task {
             await fetchImage()
         }
     }
@@ -38,8 +61,9 @@ struct ItemView: View {
     }
     
     private func fetchImage() async {
+        print("fetch image \(id)")
         if let cacheImage = ImageCache.readImage(type: .item, id: id.description) {
-            Dispatch.DispatchQueue.main.async {
+            DispatchQueue.main.async {
                 image = cacheImage
             }
             return
