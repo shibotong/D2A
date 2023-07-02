@@ -13,6 +13,9 @@ struct PlayerRowView: View {
     @ObservedObject var viewModel: PlayerRowViewModel
     @EnvironmentObject var heroData: HeroDatabase
     
+    var shortVersion: Bool = false
+    var showAbility: Bool = true
+    
     private var heroIcon: some View {
         HeroImageView(heroID: viewModel.heroID, type: .icon)
             .frame(width: 35, height: 35)
@@ -31,17 +34,57 @@ struct PlayerRowView: View {
     }
     
     private var leadingView: some View {
-        VStack(alignment: .leading, spacing: 2) {
-            if let personaname = viewModel.personaname {
-                HStack(spacing: 2) {
-                    Image("rank_\(viewModel.rank / 10)").resizable().frame(width: 18, height: 18)
-                    Text(personaname.description).font(.system(size: 15)).bold().lineLimit(1).foregroundColor(.label)
+        HStack {
+            VStack(alignment: .leading, spacing: 2) {
+                if let personaname = viewModel.personaname {
+                    HStack(spacing: 2) {
+                        Image("rank_\(viewModel.rank / 10)").resizable().frame(width: 18, height: 18)
+                        Text(personaname.description).font(.system(size: 15)).bold().lineLimit(1).foregroundColor(.label)
+                    }
+                } else {
+                    Text("Anonymous").font(.system(size: 15)).bold().lineLimit(1)
                 }
-            } else {
-                Text("Anonymous").font(.system(size: 15)).bold().lineLimit(1)
+                KDAView(kills: viewModel.kills, deaths: viewModel.deaths, assists: viewModel.assists, size: .caption)
             }
-            KDAView(kills: viewModel.kills, deaths: viewModel.deaths, assists: viewModel.assists, size: .caption)
+            Spacer()
         }.frame(width: 120)
+    }
+    
+    private var itemsStackView: some View {
+        HStack(spacing: 1) {
+            let width: CGFloat = 30.0
+            let height = width * 0.75
+
+            VStack(spacing: 1) {
+                ItemView(id: viewModel.item0).frame(width: width, height: height)
+                ItemView(id: viewModel.item1).frame(width: width, height: height)
+            }
+            VStack(spacing: 1) {
+                ItemView(id: viewModel.item2).frame(width: width, height: height)
+                ItemView(id: viewModel.item3).frame(width: width, height: height)
+            }
+            VStack(spacing: 1) {
+                ItemView(id: viewModel.item4).frame(width: width, height: height)
+                ItemView(id: viewModel.item5).frame(width: width, height: height)
+            }
+            itemStackBackPackView
+        }
+    }
+    
+    private var itemStackBackPackView: some View {
+        VStack(spacing: 1) {
+            let backPackWidth: CGFloat = 30.0 * 2 / 3
+            let backPachHeight = backPackWidth * 0.75
+            if let backpack0 = viewModel.backpack0 {
+                ItemView(id: backpack0).frame(width: backPackWidth, height: backPachHeight)
+            }
+            if let backpack1 = viewModel.backpack1 {
+                ItemView(id: backpack1).frame(width: backPackWidth, height: backPachHeight)
+            }
+            if let backpack2 = viewModel.backpack2 {
+                ItemView(id: backpack2).frame(width: backPackWidth, height: backPachHeight)
+            }
+        }
     }
     
     private var itemsView: some View {
@@ -107,40 +150,66 @@ struct PlayerRowView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: viewModel.heroID))) {
-                    heroIcon
-                }
-                if let playerID = viewModel.accountID {
-                    NavigationLink(destination: PlayerProfileView(userid: playerID)) {
+        if shortVersion {
+            shortPlayerView
+        } else {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: viewModel.heroID))) {
+                        heroIcon
+                    }
+                    if let playerID = viewModel.accountID {
+                        NavigationLink(destination: PlayerProfileView(userid: playerID)) {
+                            leadingView
+                        }
+                    } else {
                         leadingView
                     }
-                } else {
-                    leadingView
-                }
-                VStack(spacing: 0) {
-                    if viewModel.gpm != 0 {
-                        HStack(spacing: 3) {
-                            Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
-                            Text("\(viewModel.gpm)").foregroundColor(Color(.systemOrange))
-                        }.frame(width: 40)
+                    if !showAbility {
+                        Spacer()
                     }
-                    if viewModel.xpm != 0 {
-                        HStack(spacing: 3) {
-                            Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
-                            Text("\(viewModel.xpm)").foregroundColor(Color(.systemBlue))
-                        }.frame(width: 40)
+                    gpmxpmView
+                    itemsView
+                    scepterView
+                    if !showAbility {
+                        Spacer().frame(width: 10)
                     }
-                    if maxDamage != 0 {
-                        DamageView(maxDamage: maxDamage, playerDamage: Int(viewModel.heroDamage ?? 0))
+                    if showAbility {
+                        abilityView
+                        Spacer()
                     }
-                }.font(.system(size: 10))
-                itemsView
-                scepterView
-                abilityView
-                Spacer()
-            }.frame(height: 50)
+                }.frame(height: 50)
+            }
+        }
+    }
+    
+    private var gpmxpmView: some View {
+        VStack(spacing: 0) {
+            if viewModel.gpm != 0 {
+                HStack(spacing: 3) {
+                    Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
+                    Text("\(viewModel.gpm)").foregroundColor(Color(.systemOrange))
+                }.frame(width: 40)
+            }
+            if viewModel.xpm != 0 {
+                HStack(spacing: 3) {
+                    Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
+                    Text("\(viewModel.xpm)").foregroundColor(Color(.systemBlue))
+                }.frame(width: 40)
+            }
+            if maxDamage != 0 {
+                DamageView(maxDamage: maxDamage, playerDamage: Int(viewModel.heroDamage ?? 0))
+            }
+        }.font(.system(size: 10))
+    }
+    
+    private var shortPlayerView: some View {
+        HStack {
+            heroIcon
+            leadingView
+            Spacer()
+            gpmxpmView
+            itemsStackView
         }
     }
     
@@ -183,8 +252,20 @@ struct PlayerRowView: View {
     }
 }
 
-// struct PlayerRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PlayerRowView(player: Player(id: "1", slot: 0), isRadiant: true, maxDamage: 1000)
-//    }
-// }
+ struct PlayerRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 2), shortVersion: true)
+                .environmentObject(HeroDatabase.shared)
+            ScrollView(.horizontal) {
+                PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 2, abilities: [1123]))
+                    .environmentObject(HeroDatabase.shared)
+                PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 3, abilities: [1123, 1124]))
+                    .environmentObject(HeroDatabase.shared)
+            }
+                PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 3), showAbility: false)
+                    .environmentObject(HeroDatabase.shared)
+        }
+        .previewLayout(.fixed(width: 800, height: 300))
+    }
+ }
