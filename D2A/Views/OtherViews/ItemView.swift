@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 struct ItemView: View {
     @EnvironmentObject var heroData: HeroDatabase
@@ -39,11 +38,6 @@ struct ItemView: View {
         .task {
             await fetchImage()
         }
-//        .onChange(of: id) { _ in
-//            Task {
-//                await fetchImage()
-//            }
-//        }
     }
     
     private func startLoadingImage() {
@@ -85,5 +79,34 @@ struct ItemView: View {
             return nil
         }
         return newImage
+    }
+}
+
+struct ItemViewContainer: View {
+    @State var itemID = 1
+    
+    var body: some View {
+        ItemView(id: itemID)
+            .task {
+                await changeItem()
+            }
+    }
+    
+    private func changeItem() async {
+        for _ in 0...4 {
+            if #available(iOS 16.0, *) {
+                try? await Task.sleep(for: .seconds(3))
+            }
+            itemID += 1
+        }
+    }
+}
+
+struct ItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            ItemViewContainer()
+        }
+        
     }
 }

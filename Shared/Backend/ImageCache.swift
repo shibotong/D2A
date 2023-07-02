@@ -27,6 +27,14 @@ class ImageCache: ObservableObject {
         return newImage
     }
     
+    static func fetchImagePath(type: ImageCacheType, id: String, fileExtension: String = "jpg") -> String? {
+        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+            return nil
+        }
+        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
+        return imageURL.path
+    }
+    
     static func saveImage(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: String = "jpg") {
         guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
             print("save image error")
