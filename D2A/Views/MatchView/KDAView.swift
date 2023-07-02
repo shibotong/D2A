@@ -18,7 +18,6 @@ struct KDAView: View {
             Text("/\(deaths)").lineLimit(1).foregroundColor(Color(.systemRed))
             Text("/\(assists)").lineLimit(1)
             Text(" (\(calculateKDA().rounded(toPlaces: 1).description))").bold().foregroundColor(Color(.systemGray))
-            Spacer()
         }.font(size).foregroundColor(.label)
     }
     

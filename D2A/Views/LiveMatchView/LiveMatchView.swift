@@ -34,51 +34,29 @@ struct LiveMatchView: View {
     private var horizontalView: some View {
         VStack(spacing: 0) {
             timerView
-            GeometryReader { proxy in
-                let width = proxy.size.width
-                if width >= 600 {
-                    HStack {
-                        ScrollView {
-                            draftView
-                            mapView
-                        }
-                        ScrollView {
-                            eventView
-                                .padding(.vertical)
-                        }
-                        ScrollView {
-                            playerView
-                                .padding(.vertical)
-                        }
-                    }
-                } else {
-                    HStack {
-                        ScrollView {
-                            draftView
-                            mapView
-                        }
-                        VStack {
-                            Picker("ShowPlayer", selection: $showPlayer) {
-                                Text("Events")
-                                    .tag(false)
-                                Text("Players")
-                                    .tag(true)
-                            }
-                            .pickerStyle(.segmented)
-                            ScrollView {
-                                if showPlayer {
-                                    playerView
-                                } else {
-                                    eventView
-                                }
-                            }
-                        }
-                        .padding(.top)
-                    }
+                .frame(height: 100)
+            HStack(spacing: 16) {
+                ScrollView(showsIndicators: false) {
+                    VStack {
+                        draftView
+                            .background(Color.secondarySystemBackground)
+                        buildPlayerView()
+                            .background(Color.secondarySystemBackground)
+                    }.padding(.top)
                 }
+                ScrollView(showsIndicators: false) {
+                    VStack {
+                        mapView
+                        eventView
+                            .padding(.vertical)
+                            .background(Color.secondarySystemBackground)
+                    }.padding(.top)
+                }
+                .frame(width: 350)
             }
+            .padding([.horizontal])
         }
-        .background(Color.secondarySystemBackground)
+        .background(Color.systemBackground)
     }
     
     private var verticalView: some View {
@@ -98,20 +76,13 @@ struct LiveMatchView: View {
                     if showActivity {
                         eventView
                     } else {
-                        playerView
+                        buildPlayerView()
                     }
                 }
             }
             .background(Color.systemBackground)
         }
         .background(Color.secondarySystemBackground)
-    }
-    
-    private var playerView: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LiveMatchPlayerView(players: viewModel.matchPlayers)
-                .padding(.horizontal)
-        }
     }
     
     private var timerView: some View {
@@ -140,12 +111,18 @@ struct LiveMatchView: View {
                            hasBan: viewModel.hasBan,
                            showDetail: $viewModel.showDraft)
     }
+    
+    @ViewBuilder private func buildPlayerView() -> some View {
+        LiveMatchPlayerView(players: viewModel.matchPlayers)
+            .padding()
+    }
 }
 
 struct LiveMatchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            LiveMatchView(viewModel: .init(matchID: "7223482365"))
+            EmptyView()
+            LiveMatchView(viewModel: .init(matchID: "7224708614"))
         }
     }
 }
