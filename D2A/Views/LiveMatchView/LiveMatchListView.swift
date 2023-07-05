@@ -48,7 +48,7 @@ struct LiveMatchListView: View {
             .buttonStyle(.bordered)
         }
         .refreshable {
-            viewModel.fetchMatches(existItems: 0)
+            await viewModel.fetchMatchesAsync(existItems: 0)
         }
         .navigationTitle("Live")
     }
@@ -83,7 +83,16 @@ class LiveMatchListViewModel: ObservableObject {
         fetchMatches(existItems: currentItems)
     }
     
-    func fetchMatches(existItems: Int) {
+    func fetchMatchesAsync(existItems: Int) async {
+        await withCheckedContinuation({ checked in
+            fetchMatches(existItems: existItems) {
+                print("completion")
+                checked.resume()
+            }
+        })
+    }
+    
+    func fetchMatches(existItems: Int, completion: (() -> Void)? = nil) {
         let fetchQuery = MatchLiveRequestType(
             gameStates: [
                 .case(.teamShowcase),
@@ -143,8 +152,10 @@ class LiveMatchListViewModel: ObservableObject {
                 for match in newMatches where !self.matches.contains(where: { $0.matchId == match.matchId }) {
                     self.matches.append(match)
                 }
+                completion?()
             case .failure(let error):
-                print(error)
+                print(error.localizedDescription)
+                completion?()
             }
         }
     }
