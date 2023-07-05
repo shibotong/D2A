@@ -116,7 +116,7 @@ class PlayerRowViewModel: ObservableObject {
     }
     
     init(heroID: Int, abilities: [Int] = []) {
-        self.personaname = "AME"
+        self.personaname = "Longest Name Longest Name"
         self.heroID = heroID
         self.level = 10
         self.rank = 0

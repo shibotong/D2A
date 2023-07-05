@@ -16,6 +16,44 @@ struct PlayerRowView: View {
     var shortVersion: Bool = false
     var showAbility: Bool = true
     
+    var body: some View {
+        if shortVersion {
+            shortPlayerView
+        } else {
+            longPlayerView
+        }
+    }
+    
+    private var longPlayerView: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: viewModel.heroID))) {
+                    heroIcon
+                }
+                if let playerID = viewModel.accountID {
+                    NavigationLink(destination: PlayerProfileView(userid: playerID)) {
+                        leadingViewContainer
+                    }
+                } else {
+                    leadingViewContainer
+                }
+                if !showAbility {
+                    Spacer()
+                }
+                gpmxpmView
+                itemsView
+                scepterView
+                if !showAbility {
+                    Spacer().frame(width: 10)
+                }
+                if showAbility {
+                    abilityView
+                    Spacer()
+                }
+            }.frame(height: 50)
+        }
+    }
+    
     private var heroIcon: some View {
         HeroImageView(heroID: viewModel.heroID, type: .icon)
             .frame(width: 35, height: 35)
@@ -33,6 +71,16 @@ struct PlayerRowView: View {
             })
     }
     
+    private var leadingViewContainer: some View {
+        ZStack {
+            if showAbility {
+                leadingView.frame(width: 120)
+            } else {
+                leadingView
+            }
+        }
+    }
+    
     private var leadingView: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
@@ -47,7 +95,7 @@ struct PlayerRowView: View {
                 KDAView(kills: viewModel.kills, deaths: viewModel.deaths, assists: viewModel.assists, size: .caption)
             }
             Spacer()
-        }.frame(width: 120)
+        }
     }
     
     private var itemsStackView: some View {
@@ -75,13 +123,13 @@ struct PlayerRowView: View {
         VStack(spacing: 1) {
             let backPackWidth: CGFloat = 30.0 * 2 / 3
             let backPachHeight = backPackWidth * 0.75
-            if let backpack0 = viewModel.backpack0 {
+            if viewModel.backpack0 != nil {
                 ItemView(id: $viewModel.backpack0).frame(width: backPackWidth, height: backPachHeight)
             }
-            if let backpack1 = viewModel.backpack1 {
+            if viewModel.backpack1 != nil {
                 ItemView(id: $viewModel.backpack1).frame(width: backPackWidth, height: backPachHeight)
             }
-            if let backpack2 = viewModel.backpack2 {
+            if viewModel.backpack2 != nil {
                 ItemView(id: $viewModel.backpack2).frame(width: backPackWidth, height: backPachHeight)
             }
         }
@@ -91,7 +139,7 @@ struct PlayerRowView: View {
         HStack(spacing: 5) {
             let width: CGFloat = 40.0
             let height = width * 0.75
-            if let item = viewModel.itemNeutral {
+            if viewModel.itemNeutral != nil {
                 ItemView(id: $viewModel.itemNeutral)
                     .frame(width: width, height: height)
                     .clipShape(Circle())
@@ -149,40 +197,6 @@ struct PlayerRowView: View {
         }
     }
     
-    var body: some View {
-        if shortVersion {
-            shortPlayerView
-        } else {
-            VStack(alignment: .leading, spacing: 0) {
-                HStack {
-                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: viewModel.heroID))) {
-                        heroIcon
-                    }
-                    if let playerID = viewModel.accountID {
-                        NavigationLink(destination: PlayerProfileView(userid: playerID)) {
-                            leadingView
-                        }
-                    } else {
-                        leadingView
-                    }
-                    if !showAbility {
-                        Spacer()
-                    }
-                    gpmxpmView
-                    itemsView
-                    scepterView
-                    if !showAbility {
-                        Spacer().frame(width: 10)
-                    }
-                    if showAbility {
-                        abilityView
-                        Spacer()
-                    }
-                }.frame(height: 50)
-            }
-        }
-    }
-    
     private var gpmxpmView: some View {
         VStack(spacing: 0) {
             if viewModel.gpm != 0 {
@@ -206,7 +220,7 @@ struct PlayerRowView: View {
     private var shortPlayerView: some View {
         HStack {
             heroIcon
-            leadingView
+            leadingViewContainer
             Spacer()
             gpmxpmView
             itemsStackView
@@ -255,7 +269,7 @@ struct PlayerRowView: View {
  struct PlayerRowView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 2), shortVersion: true)
+            PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 2), shortVersion: true, showAbility: false)
                 .environmentObject(HeroDatabase.shared)
             ScrollView(.horizontal) {
                 PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 2, abilities: [1123]))
