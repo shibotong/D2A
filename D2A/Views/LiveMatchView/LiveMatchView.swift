@@ -36,13 +36,16 @@ struct LiveMatchView: View {
             timerView
                 .frame(height: 100)
             HStack(spacing: 16) {
-                ScrollView(showsIndicators: false) {
-                    VStack {
-                        draftView
-                            .background(Color.secondarySystemBackground)
-                        buildPlayerView()
-                            .background(Color.secondarySystemBackground)
-                    }.padding(.top)
+                GeometryReader { proxy in
+                    let shortVersion = proxy.size.width <= 450
+                    ScrollView(showsIndicators: false) {
+                        VStack {
+                            draftView
+                                .background(Color.secondarySystemBackground)
+                            buildPlayerView(short: shortVersion)
+                                .background(Color.secondarySystemBackground)
+                        }.padding(.top)
+                    }
                 }
                 ScrollView(showsIndicators: false) {
                     VStack {
@@ -112,8 +115,8 @@ struct LiveMatchView: View {
                            showDetail: $viewModel.showDraft)
     }
     
-    @ViewBuilder private func buildPlayerView() -> some View {
-        LiveMatchPlayerView(players: viewModel.matchPlayers)
+    @ViewBuilder private func buildPlayerView(short: Bool = true) -> some View {
+        LiveMatchPlayerView(players: viewModel.matchPlayers, shortVersion: short)
             .padding()
     }
 }
