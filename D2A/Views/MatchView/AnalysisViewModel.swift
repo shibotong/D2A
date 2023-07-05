@@ -9,11 +9,11 @@ import Foundation
 import Combine
 
 class AnalysisViewModel: ObservableObject {
-    @Published var players: [Player]?
-    private var storedPlayers: [Player]
+    @Published var players: [PlayerRowViewModel] = []
+    private var storedPlayers: [PlayerRowViewModel]
     @Published var selection: AnalysisType = .kills
     private var cancellableSet: Set<AnyCancellable> = []
-    init(player: [Player]) {
+    init(player: [PlayerRowViewModel]) {
         storedPlayers = player
         $selection
             .receive(on: RunLoop.main)
@@ -22,51 +22,70 @@ class AnalysisViewModel: ObservableObject {
                 
             }
             .sink { [weak self] sortedPlayer in
-                self?.players = sortedPlayer
+                guard let self, let sortedPlayer else { return }
+                self.players = sortedPlayer
             }
             .store(in: &cancellableSet)
     }
     
-    func sortPlayer(selection: AnalysisType) -> [Player]? {
+    func sortPlayer(selection: AnalysisType) -> [PlayerRowViewModel]? {
         switch selection {
+        case .kills:
+            return storedPlayers.sorted(by: { $0.kdaCalculate >= $1.kdaCalculate })
+        case .level:
+            return storedPlayers.sorted(by: { $0.level >= $1.level})
+        case .xpm:
+            return storedPlayers.sorted(by: { $0.xpm >= $1.xpm})
+        case .gpm:
+            return storedPlayers.sorted(by: { $0.gpm >= $1.gpm})
         case .golds:
-            return storedPlayers.sorted(by: { $0.netWorth ?? 0 >= $1.netWorth ?? 0 })
+            return storedPlayers.sorted(by: { $0.netWorth >= $1.netWorth})
         case .heroDamage:
             return storedPlayers.sorted(by: { $0.heroDamage ?? 0 >= $1.heroDamage ?? 0 })
-        case .kills:
-            return storedPlayers.sorted(by: { $0.kills >= $1.kills })
-        case .towerDamage:
-            return storedPlayers.sorted(by: { $0.towerDamage ?? 0 >= $1.towerDamage ?? 0 })
+        case .lastHitsDenies:
+            return storedPlayers.sorted(by: { $0.level >= $1.level})
         }
     }
     
-    func fetchPlayerValue(player: Player) -> Int {
+    func fetchPlayerValue(player: PlayerRowViewModel) -> Int {
         switch selection {
-        case .golds:
-            return Int(player.netWorth ?? 0)
-        case .heroDamage:
-            return Int(player.heroDamage ?? 0)
         case .kills:
-            return Int(player.kills)
-        case .towerDamage:
-            return Int(player.towerDamage ?? 0)
+            return player.kills
+        case .level:
+            return player.level
+        case .xpm:
+            return player.xpm
+        case .gpm:
+            return player.gpm
+        case .golds:
+            return player.netWorth
+        case .heroDamage:
+            return player.heroDamage ?? 0
+        case .lastHitsDenies:
+            return 0
         }
     }
     
-    func calculatePercentage(player: Player) -> Double {
+    func calculatePercentage(player: PlayerRowViewModel) -> Double {
         return Double(fetchPlayerValue(player: player)) / Double(fetchMaxValue())
     }
     
     private func fetchMaxValue() -> Int {
         switch selection {
-        case .golds:
-            return Int(players?.first?.netWorth ?? 0)
-        case .heroDamage:
-            return Int(players?.first?.heroDamage ?? 0)
         case .kills:
-            return Int(players?.first?.kills ?? 0)
-        case .towerDamage:
-            return Int(players?.first?.towerDamage ?? 0)
+            return players.first?.kills ?? 0
+        case .level:
+            return players.first?.level ?? 0
+        case .xpm:
+            return players.first?.xpm ?? 0
+        case .gpm:
+            return players.first?.gpm ?? 0
+        case .golds:
+            return players.first?.netWorth ?? 0
+        case .heroDamage:
+            return players.first?.heroDamage ?? 0
+        case .lastHitsDenies:
+            return 0
         }
     }
 }
