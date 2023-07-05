@@ -44,8 +44,14 @@ class PlayerRowViewModel: ObservableObject {
     
     var slot: Int
     
+    var netWorth: Int
+    
     var isRadiant: Bool {
         return slot < 127
+    }
+    
+    var kdaCalculate: Int {
+        return kills * 10000 - deaths * 100 + assists
     }
     
     init(player: Player) {
@@ -77,7 +83,7 @@ class PlayerRowViewModel: ObservableObject {
         self.xpm = player.xpm
         self.gpm = player.gpm
         self.heroDamage = player.heroDamage
-        
+        self.netWorth = player.netWorth ?? 0
         self.slot = player.slot
     }
     
@@ -112,6 +118,7 @@ class PlayerRowViewModel: ObservableObject {
         self.xpm = Int(player.experiencePerMinute ?? "0") ?? 0
         self.gpm = Int(player.goldPerMinute ?? "0") ?? 0
         self.heroDamage = player.heroDamage
+        self.netWorth = player.networth ?? 0
         self.slot = player.playerSlot ?? 0
     }
     
@@ -140,5 +147,6 @@ class PlayerRowViewModel: ObservableObject {
         self.hasShard = true
         self.slot = 0
         self.abilityUpgrade = abilities
+        self.netWorth = 100
     }
 }
