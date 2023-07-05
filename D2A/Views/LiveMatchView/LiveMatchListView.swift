@@ -17,18 +17,25 @@ struct LiveMatchListView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: gridItems) {
-                ForEach(viewModel.matches) { match in
-                    NavigationLink(destination: LiveMatchView(viewModel: LiveMatchViewModel(matchID: match.matchId.description))) {
-                        LiveMatchListRowView(radiantScore: match.radiantScore,
-                                             direScore: match.direScore,
-                                             radiantHeroes: match.radiantPlayers,
-                                             direHeroes: match.direPlayers,
-                                             radiantTeam: match.radiantTeam?.description,
-                                             direTeam: match.direTeam?.description,
-                                             averageRank: match.averageRank,
-                                             leagueID: match.leagueId,
-                                             leagueName: match.leagueName)
-                        .padding(5)
+                if viewModel.matches.isEmpty {
+                    ForEach(0...20, id: \.self) { _ in
+                        LiveMatchListRowEmptyView()
+                            .padding(5)
+                    }
+                } else {
+                    ForEach(viewModel.matches) { match in
+                        NavigationLink(destination: LiveMatchView(viewModel: LiveMatchViewModel(matchID: match.matchId.description))) {
+                            LiveMatchListRowView(radiantScore: match.radiantScore,
+                                                 direScore: match.direScore,
+                                                 radiantHeroes: match.radiantPlayers,
+                                                 direHeroes: match.direPlayers,
+                                                 radiantTeam: match.radiantTeam?.description,
+                                                 direTeam: match.direTeam?.description,
+                                                 averageRank: match.averageRank,
+                                                 leagueID: match.leagueId,
+                                                 leagueName: match.leagueName)
+                            .padding(5)
+                        }
                     }
                 }
             }
@@ -77,7 +84,6 @@ class LiveMatchListViewModel: ObservableObject {
     }
     
     func fetchMatches(existItems: Int) {
-        print("start query")
         let fetchQuery = MatchLiveRequestType(
             gameStates: [
                 .case(.teamShowcase),
