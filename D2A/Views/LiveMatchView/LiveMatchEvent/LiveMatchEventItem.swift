@@ -29,18 +29,18 @@ struct LiveMatchEventDetail: Identifiable {
     let itemName: String?
     let itemIcon: AnyView?
     
-    var eventDescription: String {
+    var eventDescription: LocalizedStringKey {
         switch type {
         case .tower:
-            return "destroyed"
+            return LocalizedStringKey("destroyed")
         case .kill:
-            return "killed a hero"
+            return LocalizedStringKey("killed a hero")
         case .purchase:
-            return "purchased"
+            return LocalizedStringKey("purchased")
         case .died:
-            return "has died"
+            return LocalizedStringKey("has died")
         case .killDied:
-            return "killed"
+            return LocalizedStringKey("killed")
         }
     }
     

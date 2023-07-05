@@ -29,6 +29,14 @@
 "Latest Match" = "最新比赛";
 "Your latest match" = "你的最新比赛";
 
+// MARK: Live Match View
+"Draft" = "阵容";
+"destroyed" = "摧毁了";
+"killed" = "击杀了";
+"killed a hero" = "击杀了英雄";
+"has died" = "死亡了";
+"%@ average MMR" = "%@平均MMR";
+
 // MARK: about us view
 "About" = "关于";
 "Our App" = "应用";
