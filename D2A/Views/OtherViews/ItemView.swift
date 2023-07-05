@@ -11,13 +11,7 @@ struct ItemView: View {
     @EnvironmentObject var heroData: HeroDatabase
     @State var image: UIImage?
     
-    var id: Int
-    
-    init(id: Int) {
-        print("init \(id)")
-        self.id = id
-        updateUI()
-    }
+    @Binding var id: Int?
     
     func updateUI() {
         Task {
@@ -28,14 +22,14 @@ struct ItemView: View {
     var body: some View {
         ZStack {
             if let image = image {
-                Image(uiImage: self.image!)
+                Image(uiImage: image)
                     .resizable()
             } else {
                 Image("empty_item")
                     .resizable()
             }
         }
-        .task {
+        .task(id: id) {
             await fetchImage()
         }
     }
@@ -47,7 +41,7 @@ struct ItemView: View {
     }
     
     private func computeURL() -> URL? {
-        guard let item = HeroDatabase.shared.fetchItem(id: id) else {
+        guard let id, let item = HeroDatabase.shared.fetchItem(id: id) else {
             return nil
         }
         let url = URL(string: "https://api.opendota.com\(item.img)")
@@ -55,15 +49,14 @@ struct ItemView: View {
     }
     
     private func fetchImage() async {
-        print("fetch image \(id)")
-        if let cacheImage = ImageCache.readImage(type: .item, id: id.description) {
+        if let id, let cacheImage = ImageCache.readImage(type: .item, id: id.description) {
             DispatchQueue.main.async {
                 image = cacheImage
             }
             return
         }
         
-        guard let newImage = await loadImage() else {
+        guard let newImage = await loadImage(), let id else {
             return
         }
         ImageCache.saveImage(newImage, type: .item, id: id.description)
@@ -83,10 +76,10 @@ struct ItemView: View {
 }
 
 struct ItemViewContainer: View {
-    @State var itemID = 1
+    @State var itemID: Int? = 1
     
     var body: some View {
-        ItemView(id: itemID)
+        ItemView(id: $itemID)
             .task {
                 await changeItem()
             }
@@ -97,7 +90,7 @@ struct ItemViewContainer: View {
             if #available(iOS 16.0, *) {
                 try? await Task.sleep(for: .seconds(3))
             }
-            itemID += 1
+            itemID! += 1
         }
     }
 }

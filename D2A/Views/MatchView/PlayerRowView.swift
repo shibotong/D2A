@@ -10,7 +10,7 @@ import StratzAPI
 
 struct PlayerRowView: View {
     var maxDamage: Int
-    var viewModel: PlayerRowViewModel
+    @ObservedObject var viewModel: PlayerRowViewModel
     @EnvironmentObject var heroData: HeroDatabase
     
     var shortVersion: Bool = false
@@ -56,16 +56,16 @@ struct PlayerRowView: View {
             let height = width * 0.75
 
             VStack(spacing: 1) {
-                ItemView(id: viewModel.item0).frame(width: width, height: height)
-                ItemView(id: viewModel.item3).frame(width: width, height: height)
+                ItemView(id: $viewModel.item0).frame(width: width, height: height)
+                ItemView(id: $viewModel.item3).frame(width: width, height: height)
             }
             VStack(spacing: 1) {
-                ItemView(id: viewModel.item1).frame(width: width, height: height)
-                ItemView(id: viewModel.item4).frame(width: width, height: height)
+                ItemView(id: $viewModel.item1).frame(width: width, height: height)
+                ItemView(id: $viewModel.item4).frame(width: width, height: height)
             }
             VStack(spacing: 1) {
-                ItemView(id: viewModel.item2).frame(width: width, height: height)
-                ItemView(id: viewModel.item5).frame(width: width, height: height)
+                ItemView(id: $viewModel.item2).frame(width: width, height: height)
+                ItemView(id: $viewModel.item5).frame(width: width, height: height)
             }
             itemStackBackPackView
         }
@@ -76,13 +76,13 @@ struct PlayerRowView: View {
             let backPackWidth: CGFloat = 30.0 * 2 / 3
             let backPachHeight = backPackWidth * 0.75
             if let backpack0 = viewModel.backpack0 {
-                ItemView(id: backpack0).frame(width: backPackWidth, height: backPachHeight)
+                ItemView(id: $viewModel.backpack0).frame(width: backPackWidth, height: backPachHeight)
             }
             if let backpack1 = viewModel.backpack1 {
-                ItemView(id: backpack1).frame(width: backPackWidth, height: backPachHeight)
+                ItemView(id: $viewModel.backpack1).frame(width: backPackWidth, height: backPachHeight)
             }
             if let backpack2 = viewModel.backpack2 {
-                ItemView(id: backpack2).frame(width: backPackWidth, height: backPachHeight)
+                ItemView(id: $viewModel.backpack2).frame(width: backPackWidth, height: backPachHeight)
             }
         }
     }
@@ -92,29 +92,29 @@ struct PlayerRowView: View {
             let width: CGFloat = 40.0
             let height = width * 0.75
             if let item = viewModel.itemNeutral {
-                ItemView(id: item)
+                ItemView(id: $viewModel.itemNeutral)
                     .frame(width: width, height: height)
                     .clipShape(Circle())
                     .frame(width: height)
             }
             Group {
-                ItemView(id: viewModel.item0).frame(width: width, height: height)
-                ItemView(id: viewModel.item1).frame(width: width, height: height)
-                ItemView(id: viewModel.item2).frame(width: width, height: height)
-                ItemView(id: viewModel.item3).frame(width: width, height: height)
-                ItemView(id: viewModel.item4).frame(width: width, height: height)
-                ItemView(id: viewModel.item5).frame(width: width, height: height)
+                ItemView(id: $viewModel.item0).frame(width: width, height: height)
+                ItemView(id: $viewModel.item1).frame(width: width, height: height)
+                ItemView(id: $viewModel.item2).frame(width: width, height: height)
+                ItemView(id: $viewModel.item3).frame(width: width, height: height)
+                ItemView(id: $viewModel.item4).frame(width: width, height: height)
+                ItemView(id: $viewModel.item5).frame(width: width, height: height)
             }
             Spacer().frame(width: 20)
             Group {
-                if let backpack0 = viewModel.backpack0 {
-                    ItemView(id: backpack0).frame(width: width, height: height)
+                if viewModel.backpack0 != nil {
+                    ItemView(id: $viewModel.backpack0).frame(width: width, height: height)
                 }
-                if let backpack1 = viewModel.backpack1 {
-                    ItemView(id: backpack1).frame(width: width, height: height)
+                if viewModel.backpack1 != nil {
+                    ItemView(id: $viewModel.backpack1).frame(width: width, height: height)
                 }
-                if let backpack2 = viewModel.backpack2 {
-                    ItemView(id: backpack2).frame(width: width, height: height)
+                if viewModel.backpack2 != nil {
+                    ItemView(id: $viewModel.backpack2).frame(width: width, height: height)
                 }
             }
         }
