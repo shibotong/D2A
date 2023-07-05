@@ -297,7 +297,6 @@ class LiveMatchViewModel: ObservableObject {
                               let type = event.type, event.time > lastFetchTime else {
                             return nil
                         }
-                        print(event.isAlive)
                         return LiveMatchBuildingEvent(indexId: buildingID, time: event.time, type: type, isAlive: event.isAlive, isRadiant: isRadiant)
                     }
                     buildingEvents = self?.processBuildingEvents(events: events) ?? []
