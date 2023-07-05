@@ -53,7 +53,7 @@ class LiveMatchViewModel: ObservableObject {
     private var leagueId: String?
     private var leagueName: String?
     
-    private var lastFetchTime: Int = 0
+    private var lastFetchTime: Int = -100
     
     @Published var status = "Loading..." {
         didSet {
@@ -297,6 +297,7 @@ class LiveMatchViewModel: ObservableObject {
                               let type = event.type, event.time > lastFetchTime else {
                             return nil
                         }
+                        print(event.isAlive)
                         return LiveMatchBuildingEvent(indexId: buildingID, time: event.time, type: type, isAlive: event.isAlive, isRadiant: isRadiant)
                     }
                     buildingEvents = self?.processBuildingEvents(events: events) ?? []

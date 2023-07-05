@@ -79,19 +79,7 @@ struct LiveMatchDraftView: View {
     private var horizontalView: some View {
         HStack {
             if hasBan {
-                VStack {
-                    ForEach(radiantBan, id: \.self) { heroID in
-                        HeroImageView(heroID: heroID, type: .icon)
-                            .frame(width: horizontalBanIconHeight, height: horizontalBanIconHeight)
-                            .grayscale(1)
-                    }
-                    if radiantBan.count < 7 {
-                        ForEach(0...(6 - radiantBan.count), id: \.self) { _ in
-                            HeroImageView(heroID: 0, type: .icon)
-                                .frame(width: horizontalBanIconHeight, height: horizontalBanIconHeight)
-                        }
-                    }
-                }
+                buildBanHero(heroes: radiantBan)
             }
             VStack {
                 ForEach(radiantPick) { hero in
@@ -170,19 +158,7 @@ struct LiveMatchDraftView: View {
                 }
             }
             if hasBan {
-                VStack {
-                    ForEach(direBan, id: \.self) { heroID in
-                        HeroImageView(heroID: heroID, type: .icon)
-                            .frame(width: horizontalBanIconHeight, height: horizontalBanIconHeight)
-                            .grayscale(1)
-                    }
-                    if direBan.count < 7 {
-                        ForEach(0...(6 - radiantBan.count), id: \.self) { _ in
-                            HeroImageView(heroID: 0, type: .icon)
-                                .frame(width: horizontalBanIconHeight, height: horizontalBanIconHeight)
-                        }
-                    }
-                }
+                buildBanHero(heroes: direBan)
             }
         }
     }
@@ -245,6 +221,20 @@ struct LiveMatchDraftView: View {
                         Spacer()
                         HeroImageView(heroID: 0, type: .icon)
                         Spacer()
+                    }
+                }
+            }
+        } else {
+            VStack {
+                ForEach(heroes, id: \.self) { heroID in
+                    HeroImageView(heroID: heroID, type: .icon)
+                        .frame(width: horizontalBanIconHeight, height: horizontalBanIconHeight)
+                        .grayscale(1)
+                }
+                if heroes.count < 7 {
+                    ForEach(0...(6 - heroes.count), id: \.self) { _ in
+                        HeroImageView(heroID: 0, type: .icon)
+                            .frame(width: horizontalBanIconHeight, height: horizontalBanIconHeight)
                     }
                 }
             }
