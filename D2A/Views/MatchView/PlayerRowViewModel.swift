@@ -8,7 +8,7 @@
 import Foundation
 import StratzAPI
 
-class PlayerRowViewModel {
+class PlayerRowViewModel: ObservableObject {
     
     typealias LiveMatchPlayer = LiveMatchSubscription.Data.MatchLive.Player
     
@@ -24,15 +24,15 @@ class PlayerRowViewModel {
     var assists: Int
     
     var itemNeutral: Int?
-    var item0: Int
-    var item1: Int
-    var item2: Int
-    var item3: Int
-    var item4: Int
-    var item5: Int
-    var backpack0: Int?
-    var backpack1: Int?
-    var backpack2: Int?
+    @Published var item0: Int?
+    @Published var item1: Int?
+    @Published var item2: Int?
+    @Published var item3: Int?
+    @Published var item4: Int?
+    @Published var item5: Int?
+    @Published var backpack0: Int?
+    @Published var backpack1: Int?
+    @Published var backpack2: Int?
     
     var hasScepter: Bool
     var hasShard: Bool
@@ -124,14 +124,14 @@ class PlayerRowViewModel {
         self.deaths = 1
         self.assists = 1
         self.item0 = 1
-        self.item1 = 1
-        self.item2 = 1
-        self.item3 = 1
-        self.item4 = 1
-        self.item5 = 1
-        self.backpack0 = 1
-        self.backpack1 = 1
-        self.backpack2 = 1
+        self.item1 = 2
+        self.item2 = 3
+        self.item3 = 4
+        self.item4 = 5
+        self.item5 = 6
+        self.backpack0 = nil
+        self.backpack1 = nil
+        self.backpack2 = nil
         
         self.xpm = 100
         self.gpm = 100
