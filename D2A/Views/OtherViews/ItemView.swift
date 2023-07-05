@@ -10,27 +10,38 @@ import SwiftUI
 struct ItemView: View {
     @EnvironmentObject var heroData: HeroDatabase
     @State var image: UIImage?
-    var id: Int
     
-    init(id: Int) {
-        self.id = id
+    @Binding var id: Int?
+    
+    func updateUI() {
+        Task {
+            await fetchImage()
+        }
     }
     
     var body: some View {
         ZStack {
             if let image = image {
-                Image(uiImage: image).resizable()
+                Image(uiImage: image)
+                    .resizable()
             } else {
-                Image("empty_item").resizable()
+                Image("empty_item")
+                    .resizable()
             }
         }
-        .task {
+        .task(id: id) {
+            await fetchImage()
+        }
+    }
+    
+    private func startLoadingImage() {
+        Task {
             await fetchImage()
         }
     }
     
     private func computeURL() -> URL? {
-        guard let item = HeroDatabase.shared.fetchItem(id: id) else {
+        guard let id, let item = HeroDatabase.shared.fetchItem(id: id) else {
             return nil
         }
         let url = URL(string: "https://api.opendota.com\(item.img)")
@@ -38,14 +49,14 @@ struct ItemView: View {
     }
     
     private func fetchImage() async {
-        if let cacheImage = ImageCache.readImage(type: .item, id: id.description) {
-            Dispatch.DispatchQueue.main.async {
+        if let id, let cacheImage = ImageCache.readImage(type: .item, id: id.description) {
+            DispatchQueue.main.async {
                 image = cacheImage
             }
             return
         }
         
-        guard let newImage = await loadImage() else {
+        guard let newImage = await loadImage(), let id else {
             return
         }
         ImageCache.saveImage(newImage, type: .item, id: id.description)
@@ -61,5 +72,34 @@ struct ItemView: View {
             return nil
         }
         return newImage
+    }
+}
+
+struct ItemViewContainer: View {
+    @State var itemID: Int? = 1
+    
+    var body: some View {
+        ItemView(id: $itemID)
+            .task {
+                await changeItem()
+            }
+    }
+    
+    private func changeItem() async {
+        for _ in 0...4 {
+            if #available(iOS 16.0, *) {
+                try? await Task.sleep(for: .seconds(3))
+            }
+            itemID! += 1
+        }
+    }
+}
+
+struct ItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            ItemViewContainer()
+        }
+        
     }
 }

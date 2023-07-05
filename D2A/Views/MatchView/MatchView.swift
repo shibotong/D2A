@@ -32,7 +32,7 @@ struct MatchView: View {
                 AllTeamPlayerView(match: match, players: match.allPlayers)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
-                AnalysisView(vm: AnalysisViewModel(player: match.allPlayers))
+                AnalysisView(players: match.players?.map { PlayerRowViewModel(player: $0) } ?? [])
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
                 if let goldDiff = match.goldDiff, let xpDiff = match.xpDiff {
@@ -221,7 +221,7 @@ struct TeamView: View {
         VStack(spacing: 0) {
             TeamHeaderView(isRadiant: isRadiant, score: score, win: win)
             ForEach(players, id: \.heroID) { player in
-                PlayerRowView(player: player, isRadiant: isRadiant, maxDamage: maxDamage)
+                PlayerRowView(maxDamage: maxDamage, viewModel: PlayerRowViewModel(player: player))
                     .padding(.horizontal)
             }
         }

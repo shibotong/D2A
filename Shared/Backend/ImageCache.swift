@@ -12,20 +12,30 @@ enum ImageCacheType: String {
     case item
     case avatar
     case ability
+    case teamIcon
+    case league
 }
 
 class ImageCache: ObservableObject {
     
-    static func readImage(type: ImageCacheType, id: String) -> UIImage? {
+    static func readImage(type: ImageCacheType, id: String, fileExtension: String = "jpg") -> UIImage? {
         guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
             return nil
         }
-        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).jpg", isDirectory: false)
+        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
         let newImage = UIImage(contentsOfFile: imageURL.path)
         return newImage
     }
     
-    static func saveImage(_ image: UIImage, type: ImageCacheType, id: String) {
+    static func fetchImagePath(type: ImageCacheType, id: String, fileExtension: String = "jpg") -> String? {
+        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+            return nil
+        }
+        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
+        return imageURL.path
+    }
+    
+    static func saveImage(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: String = "jpg") {
         guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
             print("save image error")
             return
@@ -38,12 +48,25 @@ class ImageCache: ObservableObject {
                     at: imageFolder,
                     withIntermediateDirectories: true,
                     attributes: nil)
-            let imageURL = imageFolder.appendingPathComponent("\(id).jpg", isDirectory: false)
-            let imageData = image.jpegData(compressionQuality: 1.0)
+            let imageURL = imageFolder.appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
+            var imageData: Data?
+            if fileExtension == "jpg" {
+                imageData = image.jpegData(compressionQuality: 1.0)
+            }
+            if fileExtension == "png" {
+                imageData = image.pngData()
+            }
             try imageData?.write(to: imageURL)
         } catch {
             print(error)
             // log any errors
         }
+    }
+    
+    static func docDir(type: ImageCacheType) -> URL? {
+        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+            return nil
+        }
+        return docDir.appendingPathComponent(type.rawValue)
     }
 }

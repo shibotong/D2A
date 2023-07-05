@@ -27,6 +27,11 @@ struct Sidebar: View {
                 Label("Heroes", systemImage: "server.rack")
             }
             NavigationLink(
+                destination: LiveMatchListView()
+            ) {
+                Label("Live", systemImage: "gamecontroller.fill")
+            }
+            NavigationLink(
                 destination: SearchView()
             ) {
                 Label("Search", systemImage: "magnifyingglass")

@@ -10,7 +10,7 @@ import Foundation
 struct Item: Identifiable, Codable {
     var id: Int
     var img: String
-//    var dname: String
+    var dname: String?
 //    var cost: Int
 //    var notes: String
 //    var attrib: [[String: String]]

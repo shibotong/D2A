@@ -18,9 +18,14 @@ struct HeroImageView: View {
     
     var body: some View {
         if type == .icon || type == .full || type == .vert {
-            Image(searchHeroImage())
-                .resizable()
-                .aspectRatio(contentMode: .fit)
+            if heroID == 0 && type == .icon {
+                Circle()
+                    .foregroundColor(Color.label.opacity(0.3))
+            } else {
+                Image(searchHeroImage())
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
         } else {
             AsyncImage(url: computeURL()) { phase in
                 if let image = phase.image {

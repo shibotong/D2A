@@ -41,8 +41,6 @@ class HeroCodable: Identifiable, Decodable {
     var cmEnabled: Bool
     var turnRate: Double?
     
-    static let sample = loadSampleHero()!
-    
     var heroNameLowerCase: String {
         return name.replacingOccurrences(of: "npc_dota_hero_", with: "")
     }
