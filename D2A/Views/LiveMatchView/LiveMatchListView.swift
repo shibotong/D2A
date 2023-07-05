@@ -38,24 +38,12 @@ struct LiveMatchListView: View {
             } label: {
                 Text("Load more")
             }
+            .buttonStyle(.bordered)
+        }
+        .refreshable {
+            viewModel.fetchMatches(existItems: 0)
         }
         .navigationTitle("Live")
-        
-//        List {
-//            ForEach(viewModel.matches) { id in
-//                NavigationLink(destination: LiveMatchView(viewModel: LiveMatchViewModel(matchID: id.matchId.description))) {
-//                    Text(id.matchId.description)
-//                }
-//            }
-//            Button {
-//                viewModel.loadMore()
-//            } label: {
-//                Text("Load more")
-//            }
-//        }
-//        .refreshable {
-//            viewModel.fetchMatches(existItems: 0)
-//        }
     }
 }
 
