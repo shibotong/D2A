@@ -35,7 +35,8 @@
 "killed" = "击杀了";
 "killed a hero" = "击杀了英雄";
 "has died" = "死亡了";
-"%@ average MMR" = "%@平均MMR";
+"%lld average MMR" = "%lld平均MMR";
+"Live" = "比赛";
 
 // MARK: about us view
 "About" = "关于";
