@@ -37,14 +37,16 @@ struct LiveMatchView: View {
                 .frame(height: 100)
             HStack(spacing: 16) {
                 GeometryReader { proxy in
-                    let shortVersion = proxy.size.width <= 450
-                    ScrollView(showsIndicators: false) {
-                        VStack {
-                            draftView
-                                .background(Color.secondarySystemBackground)
-                            buildPlayerView(short: shortVersion)
-                                .background(Color.secondarySystemBackground)
-                        }.padding(.top)
+                    HStack {
+                        let shortVersion = proxy.size.width <= 450
+                        ScrollView(showsIndicators: false) {
+                            VStack {
+                                draftView
+                                    .background(Color.secondarySystemBackground)
+                                buildPlayerView(short: shortVersion)
+                                    .background(Color.secondarySystemBackground)
+                            }.padding(.top)
+                        }
                     }
                 }
                 ScrollView(showsIndicators: false) {
