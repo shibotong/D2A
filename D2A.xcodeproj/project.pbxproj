@@ -1048,12 +1048,12 @@
 			isa = PBXGroup;
 			children = (
 				79266DA62A31B0FD002FEF0F /* LiveMatchView.swift */,
+				79CB52452A31B38200C5D1C6 /* LiveMatchViewModel.swift */,
 				79645CC22A39D1610004EF50 /* LiveMatchListView.swift */,
 				79BD872D2A4C2F1400964814 /* LiveMatchListRowView.swift */,
 				79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */,
 				79CB52472A31C11F00C5D1C6 /* LiveMatchTimerView.swift */,
 				795860402A335D69006DDA21 /* LiveMatchMapView.swift */,
-				79CB52452A31B38200C5D1C6 /* LiveMatchViewModel.swift */,
 				790266452A35454500CE54DF /* LiveMatchEventListView.swift */,
 				790266482A35478D00CE54DF /* LiveMatchEventRowView.swift */,
 				79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */,
