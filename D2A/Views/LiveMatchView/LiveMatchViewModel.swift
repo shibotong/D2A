@@ -87,7 +87,6 @@ class LiveMatchViewModel: ObservableObject {
             cancellable.cancel()
         }
         subscriptions = []
-        endActivity()
     }
     
     func startFetching() {
@@ -96,35 +95,35 @@ class LiveMatchViewModel: ObservableObject {
         startSubscription()
     }
     
-    @MainActor
-    private func executeActivity() {
-        if #available(iOS 16.1, *) {
-            if LiveMatchActivity.shared.activityState() == .active {
-                
-            } else {
-                // Here is your code
-                Task {
-                   await LiveMatchActivity.shared.startActivity(
-                        radiantScore: radiantScore ?? 0,
-                        direScore: direScore ?? 0,
-                        time: time ?? 0,
-                        radiantIcon: radiantLogo,
-                        direIcon: direLogo,
-                        league: leagueId,
-                        leagueName: leagueName
-                    )
-                }
-            }
-        }
-    }
+//    @MainActor
+//    private func executeActivity() {
+//        if #available(iOS 16.1, *) {
+//            if LiveMatchActivity.shared.activityState() == .active {
+//
+//            } else {
+//                // Here is your code
+//                Task {
+//                   await LiveMatchActivity.shared.startActivity(
+//                        radiantScore: radiantScore ?? 0,
+//                        direScore: direScore ?? 0,
+//                        time: time ?? 0,
+//                        radiantIcon: radiantLogo,
+//                        direIcon: direLogo,
+//                        league: leagueId,
+//                        leagueName: leagueName
+//                    )
+//                }
+//            }
+//        }
+//    }
     
-    private func endActivity() {
-        if #available(iOS 16.1, *) {
-            Task {
-                await LiveMatchActivity.shared.endActivity()
-            }
-        }
-    }
+//    private func endActivity() {
+//        if #available(iOS 16.1, *) {
+//            Task {
+//                await LiveMatchActivity.shared.endActivity()
+//            }
+//        }
+//    }
     
     // MARK: Player
     private struct Player {
@@ -269,7 +268,6 @@ class LiveMatchViewModel: ObservableObject {
                 events.append(contentsOf: killEvents)
                 Task { [weak self, events] in
                     await self?.updateEvents(events: events)
-                    await self?.executeActivity()
                 }
                 
             case .failure(let error):

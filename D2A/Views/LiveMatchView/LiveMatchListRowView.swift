@@ -115,15 +115,72 @@ struct LiveMatchRowPlayer: Identifiable {
                                                  .init(heroID: 10, playerName: "y", slot: 10)]
 }
 
+struct LiveMatchListRowEmptyView: View {
+    private let teamIconLength: CGFloat = 50
+    var body: some View {
+        VStack {
+            HStack {
+                Spacer()
+                RoundedRectangle(cornerRadius: 3)
+                    .frame(width: 100, height: 15)
+            }
+            HStack {
+                Spacer()
+                RoundedRectangle(cornerRadius: 10)
+                    .frame(width: teamIconLength, height: teamIconLength)
+                Spacer()
+                RoundedRectangle(cornerRadius: 5)
+                    .frame(width: 70, height: 20)
+                Spacer()
+                RoundedRectangle(cornerRadius: 10)
+                    .cornerRadius(10)
+                    .frame(width: teamIconLength, height: teamIconLength)
+                Spacer()
+            }
+//            HStack {
+//                buildHeroes(heroes: radiantHeroes, isRadiant: true)
+//                Spacer()
+//                buildHeroes(heroes: direHeroes, isRadiant: false)
+//            }
+        }
+        .foregroundColor(.tertiaryLabel)
+        .padding()
+        .background(Color.secondarySystemBackground)
+        .cornerRadius(15)
+    }
+    
+    private func buildEmptyHero(isRadiant: Bool) -> some View {
+        VStack(alignment: isRadiant ? .leading : .trailing) {
+            ForEach(heroes) { _ in
+                HStack {
+                    if !isRadiant {
+                        RoundedRectangle(cornerRadius: 5)
+                            .frame(width: 100, height: 20)
+                    }
+                    HeroImageView(heroID: 0, type: .icon)
+                        .frame(height: 30)
+                    if isRadiant {
+                        RoundedRectangle(cornerRadius: 5)
+                            .frame(width: 100, height: 20)
+                    }
+                }
+            }
+        }
+    }
+}
+
 struct LiveMatchListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        LiveMatchListRowView(radiantScore: 1,
-                             direScore: 1,
-                             radiantHeroes: LiveMatchRowPlayer.stubRadiant,
-                             direHeroes: LiveMatchRowPlayer.stubDire,
-                             radiantTeam: nil,
-                             direTeam: nil,
-        averageRank: 1000, leagueID: nil, leagueName: nil)
+        VStack {
+            LiveMatchListRowView(radiantScore: 1,
+                                 direScore: 1,
+                                 radiantHeroes: LiveMatchRowPlayer.stubRadiant,
+                                 direHeroes: LiveMatchRowPlayer.stubDire,
+                                 radiantTeam: nil,
+                                 direTeam: nil,
+                                 averageRank: 1000, leagueID: nil, leagueName: nil)
+            LiveMatchListRowEmptyView()
+        }
         LiveMatchListRowView(radiantScore: 1,
                              direScore: 1,
                              radiantHeroes: LiveMatchRowPlayer.stubRadiant,

@@ -20,6 +20,7 @@ class LiveMatchActivity {
         
     }
     
+    // swiftlint:disable all
     func startActivity(radiantScore: Int,
                        direScore: Int,
                        time: Int,
@@ -53,6 +54,7 @@ class LiveMatchActivity {
             print("LiveActivityManager: Error in LiveActivityManager: \(error.localizedDescription)")
         }
     }
+    // swiftlint:enable all
     
     @MainActor
     func updateActivity(radiantScore: Int,
