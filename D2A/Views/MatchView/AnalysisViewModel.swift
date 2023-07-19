@@ -66,6 +66,25 @@ class AnalysisViewModel: ObservableObject {
         }
     }
     
+    func fetchPlayerValueString(player: PlayerRowViewModel) -> String {
+        switch selection {
+        case .kills:
+            return "\(player.kills) / \(player.deaths) / \(player.assists)"
+        case .level:
+            return player.level.description
+        case .xpm:
+            return player.xpm.description
+        case .gpm:
+            return player.gpm.description
+        case .golds:
+            return player.netWorth.description
+        case .heroDamage:
+            return player.heroDamage?.description ?? ""
+        case .lastHitsDenies:
+            return ""
+        }
+    }
+    
     func calculatePercentage(player: PlayerRowViewModel) -> Double {
         return Double(fetchPlayerValue(player: player)) / Double(fetchMaxValue())
     }
