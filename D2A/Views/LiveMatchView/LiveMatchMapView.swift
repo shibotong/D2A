@@ -52,8 +52,10 @@ struct LiveMatchMapView: View {
                             let yPos = calculatePosition(totalLength: sideLength, position: hero.yPos, isX: false)
                             HeroImageView(heroID: hero.heroID, type: .icon)
                                 .frame(width: sideLength / 15)
+                                .shadow(color: hero.isRadiant ? .green : .red, radius: 5, x: 0, y: 0)
                                 .position(x: xPos, y: yPos)
                                 .animation(.linear, value: hero)
+                                
                         }
                     }
                 }
@@ -85,6 +87,7 @@ struct LiveMatchHeroPosition: Identifiable, Equatable {
     }
     
     let heroID: Int
+    let isRadiant: Bool
     let xPos: CGFloat
     let yPos: CGFloat
     
@@ -92,6 +95,6 @@ struct LiveMatchHeroPosition: Identifiable, Equatable {
 
 struct LiveMatchMapView_Previews: PreviewProvider {
     static var previews: some View {
-        LiveMatchMapView(heroes: [.init(heroID: 1, xPos: 127, yPos: 127)], buildings: [])
+        LiveMatchMapView(heroes: [.init(heroID: 1, isRadiant: true, xPos: 127, yPos: 127)], buildings: [])
     }
 }

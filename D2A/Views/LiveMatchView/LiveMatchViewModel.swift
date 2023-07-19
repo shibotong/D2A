@@ -222,10 +222,11 @@ class LiveMatchViewModel: ObservableObject {
                               let heroID = player.heroId,
                               let xPos = player.playbackData?.positionEvents?.first??.x,
                               let yPos = player.playbackData?.positionEvents?.first??.y,
+                              let heroIsRadiant = player.isRadiant,
                               heroID != 0 else {
                             return nil
                         }
-                        return LiveMatchHeroPosition(heroID: Int(heroID), xPos: CGFloat(xPos), yPos: CGFloat(yPos))
+                        return LiveMatchHeroPosition(heroID: Int(heroID), isRadiant: heroIsRadiant, xPos: CGFloat(xPos), yPos: CGFloat(yPos))
                     }
                     self?.heroesPosition = heroes
                     
