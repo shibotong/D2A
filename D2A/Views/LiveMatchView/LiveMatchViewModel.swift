@@ -278,7 +278,7 @@ class LiveMatchViewModel: ObservableObject {
     }
     
     private func fetchHistoryData(lastFetchTime: Int) {
-        let subscription = Network.shared.apollo.fetch(query: LiveMatchHistoryQuery(matchid: matchID)) { [weak self] result in
+        let subscription = Network.shared.apollo.fetch(query: LiveMatchHistoryQuery(matchid: matchID), cachePolicy: .fetchIgnoringCacheCompletely) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
                 if let gameMode = graphQLResult.data?.live?.match?.gameMode, (gameMode == .captainsMode || gameMode == .captainsDraft) {

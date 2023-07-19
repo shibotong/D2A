@@ -40,7 +40,7 @@ struct AnalysisView: View {
             }
             VStack(spacing: 0) {
                 ForEach(viewModel.players, id: \.slot) { player in
-                    PlayerAnalysisRowView(player: player, value: viewModel.fetchPlayerValue(player: player), percentage: viewModel.calculatePercentage(player: player))
+                    PlayerAnalysisRowView(player: player, value: viewModel.fetchPlayerValueString(player: player), percentage: viewModel.calculatePercentage(player: player))
                 }
             }
         }.padding(20)
@@ -83,14 +83,14 @@ enum AnalysisType: LocalizedStringKey, Identifiable {
 
 struct PlayerAnalysisRowView: View {
     var player: PlayerRowViewModel
-    var value: Int
+    var value: String
     var percentage: Double
     
     var body: some View {
         HStack {
             HeroImageView(heroID: Int(player.heroID), type: .icon).frame(width: 35, height: 35)
             VStack(alignment: .leading, spacing: 0) {
-                ProgressView("\(Int(value))", value: percentage > 1 ? 1 : percentage, total: 1)
+                ProgressView(value, value: percentage > 1 ? 1 : percentage, total: 1)
                     .accentColor(Color(player.slot <= 127 ? .systemGreen : .systemRed).opacity(0.8))
                     .progressViewStyle(LinearProgressViewStyle())
                     
