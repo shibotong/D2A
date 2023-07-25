@@ -65,6 +65,17 @@
                ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "79BE5D6E2A6FC9F300DF74E7"
+               BuildableName = "StratzGraphQLTests.xctest"
+               BlueprintName = "StratzGraphQLTests"
+               ReferencedContainer = "container:D2A.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

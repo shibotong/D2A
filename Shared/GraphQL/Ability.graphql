@@ -12,6 +12,10 @@ query Ability($language: Language) {
         shardDescription
         notes
       }
+      attributes {
+        name
+        value
+      }
     }
   }
 }
