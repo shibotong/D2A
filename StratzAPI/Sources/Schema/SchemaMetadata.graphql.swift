@@ -48,6 +48,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "HeroStatType": return StratzAPI.Objects.HeroStatType
     case "AbilityType": return StratzAPI.Objects.AbilityType
     case "AbilityLanguageType": return StratzAPI.Objects.AbilityLanguageType
+    case "AbilityAttributeType": return StratzAPI.Objects.AbilityAttributeType
     default: return nil
     }
   }

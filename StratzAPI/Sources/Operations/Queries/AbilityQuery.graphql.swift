@@ -25,6 +25,11 @@ public class AbilityQuery: GraphQLQuery {
               shardDescription
               notes
             }
+            attributes {
+              __typename
+              name
+              value
+            }
           }
         }
       }
@@ -80,11 +85,13 @@ public class AbilityQuery: GraphQLQuery {
           .field("id", StratzAPI.Short?.self),
           .field("name", String?.self),
           .field("language", Language?.self),
+          .field("attributes", [Attribute?]?.self),
         ] }
 
         public var id: StratzAPI.Short? { __data["id"] }
         public var name: String? { __data["name"] }
         public var language: Language? { __data["language"] }
+        public var attributes: [Attribute?]? { __data["attributes"] }
 
         /// Constants.Ability.Language
         ///
@@ -112,6 +119,24 @@ public class AbilityQuery: GraphQLQuery {
           public var aghanimDescription: String? { __data["aghanimDescription"] }
           public var shardDescription: String? { __data["shardDescription"] }
           public var notes: [String?]? { __data["notes"] }
+        }
+
+        /// Constants.Ability.Attribute
+        ///
+        /// Parent Type: `AbilityAttributeType`
+        public struct Attribute: StratzAPI.SelectionSet {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.AbilityAttributeType }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
+            .field("name", String?.self),
+            .field("value", String?.self),
+          ] }
+
+          public var name: String? { __data["name"] }
+          public var value: String? { __data["value"] }
         }
       }
     }
