@@ -10,27 +10,32 @@ import SwiftUI
 struct ItemView: View {
     @EnvironmentObject var heroData: HeroDatabase
     @State var image: UIImage?
-    var id: Int
     
-    init(id: Int) {
-        self.id = id
+    @Binding var id: Int?
+    
+    func updateUI() {
+        Task {
+            await fetchImage()
+        }
     }
     
     var body: some View {
         ZStack {
             if let image = image {
-                Image(uiImage: image).resizable()
+                Image(uiImage: image)
+                    .resizable()
             } else {
-                Image("empty_item").resizable()
+                Image("empty_item")
+                    .resizable()
             }
         }
-        .task {
+        .task(id: id) {
             await fetchImage()
         }
     }
     
     private func computeURL() -> URL? {
-        guard let item = HeroDatabase.shared.fetchItem(id: id) else {
+        guard let id, let item = HeroDatabase.shared.fetchItem(id: id) else {
             return nil
         }
         let url = URL(string: "https://api.opendota.com\(item.img)")
@@ -38,20 +43,22 @@ struct ItemView: View {
     }
     
     private func fetchImage() async {
+        guard let id else {
+            setImage(nil)
+            return
+        }
+        
         if let cacheImage = ImageCache.readImage(type: .item, id: id.description) {
-            Dispatch.DispatchQueue.main.async {
-                image = cacheImage
-            }
+            setImage(cacheImage)
             return
         }
         
         guard let newImage = await loadImage() else {
+            setImage(nil)
             return
         }
         ImageCache.saveImage(newImage, type: .item, id: id.description)
-        DispatchQueue.main.async {
-            image = newImage
-        }
+        setImage(newImage)
     }
     
     private func loadImage() async -> UIImage? {
@@ -61,5 +68,20 @@ struct ItemView: View {
             return nil
         }
         return newImage
+    }
+    
+    @MainActor
+    private func setImage(_ image: UIImage?) {
+        self.image = image
+    }
+}
+
+struct ItemView_Previews: PreviewProvider {
+    @State static var id: Int? = 1
+    static var previews: some View {
+        VStack {
+            ItemView(id: $id)
+        }
+        
     }
 }

@@ -44,18 +44,11 @@ struct AbilityView: View {
                                          stratz: stratzAbility,
                                          proxy: proxy)
                         Spacer().frame(height: 10)
-                        if let attributes = stratzAbility.language?.attributes?.compactMap({$0}) {
+                        if let attributes = stratzAbility.localizedAttributes {
                             HStack {
                                 VStack(alignment: .leading, spacing: 5) {
                                     ForEach(attributes, id: \.self) { item in
-                                        let splits = item.split(separator: colonLocalize)
-                                        if splits.count == 2 {
-                                            let header = String(splits.first ?? "")
-                                            let message = String(splits.last ?? "")
-                                            buildAttributesText(title: "\(header):", message: message)
-                                        } else {
-                                            buildAttributesText(title: item, message: "")
-                                        }
+                                        buildAttributesText(title: item.name, message: item.description)
                                     }
                                 }
                                 Spacer()
@@ -267,5 +260,9 @@ struct AbilityView: View {
                 player.pause()
                 NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
             }
+    }
+    
+    private func fetchAttributeValue(message: String) -> String {
+        return "temp string"
     }
 }

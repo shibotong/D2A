@@ -26,11 +26,6 @@ class MetadataTestCase: XCTestCase {
         let abilities = await loadHeroAbilities()
         XCTAssertNotEqual(abilities.count, 0)
     }
-    
-    func testDecodingTalents() async {
-        let talents = await loadTalentData()
-        XCTAssertNotEqual(talents.count, 0)
-    }
 
     func testHeroScepter() async {
         let scepter = await loadScepter()

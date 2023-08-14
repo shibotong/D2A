@@ -9,7 +9,15 @@ import SwiftUI
 import Combine
 
 struct AnalysisView: View {
-    @ObservedObject var vm: AnalysisViewModel
+    @ObservedObject var viewModel: AnalysisViewModel
+    
+    private let selections: [AnalysisType]
+    
+    init(players: [PlayerRowViewModel], selections: [AnalysisType] = [.heroDamage, .golds, .kills]) {
+        self.viewModel = AnalysisViewModel(player: players)
+        self.selections = selections
+    }
+    
     var body: some View {
         VStack {
             HStack {
@@ -17,92 +25,82 @@ struct AnalysisView: View {
                 Spacer()
                 HStack {
                     Menu {
-                        Picker("picker", selection: $vm.selection) {
-                            Text("Tower Damage").tag(AnalysisType.towerDamage)
-                            Text("Hero Damage").tag(AnalysisType.heroDamage)
-                            Text("Net Worth").tag(AnalysisType.golds)
-                            Text("Kills").tag(AnalysisType.kills)
+                        Picker("picker", selection: $viewModel.selection) {
+                            ForEach(selections) { selection in
+                                Text(selection.rawValue).tag(selection)
+                            }
                         }
                     } label: {
-                        Label(vm.selection.rawValue, systemImage: "chevron.down")
+                        Label(viewModel.selection.rawValue, systemImage: "chevron.down")
                     }
                 }.font(.system(size: 15)).foregroundColor(Color(.secondaryLabel))
                 .padding(.horizontal)
                 .padding(.vertical, 10)
                 .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.secondarySystemBackground)))
             }
-            if vm.players == nil {
-                Text("\(vm.selection.localized) is not available").font(.system(size: 15)).frame(height: 300).foregroundColor(Color(.tertiaryLabel))
-            } else {
-//                GeometryReader { proxy in
-//                    if proxy.size.width > 400 {
-//                        HStack {
-//                            VStack {
-//                                ForEach(vm.players!.filter {$0.slot < 128}, id:\.heroID) { player in
-//                                    PlayerAnalysisRowView(player: player, value: vm.fetchPlayerValue(player: player), percentage: vm.calculatePercentage(player: player))
-//                                }
-//                            }
-//                            VStack {
-//                                ForEach(vm.players!.filter {$0.slot >= 128}, id:\.heroID) { player in
-//                                    PlayerAnalysisRowView(player: player, value: vm.fetchPlayerValue(player: player), percentage: vm.calculatePercentage(player: player))
-//                                }
-//                            }
-//                        }
-//                    } else {
-                        VStack(spacing: 0) {
-                            ForEach(vm.players!, id: \.heroID) { player in
-                                PlayerAnalysisRowView(player: player, value: vm.fetchPlayerValue(player: player), percentage: vm.calculatePercentage(player: player))
-                            }
-                        }
-//                    }
-//                }.frame(height: 500)
+            VStack(spacing: 0) {
+                ForEach(viewModel.players, id: \.slot) { player in
+                    PlayerAnalysisRowView(player: player, value: viewModel.fetchPlayerValueString(player: player), percentage: viewModel.calculatePercentage(player: player))
+                }
             }
         }.padding(20)
     }
 }
 
-// struct AnalysisView_Preview: PreviewProvider {
-//    static var previews: some View {
-//        AnalysisView(vm: AnalysisViewModel(player: []))
-//            .environment(\.locale, .init(identifier: "zh-Hans"))
-//    }
-// }
-
-enum AnalysisType: LocalizedStringKey {
-    case kills = "Kills"
+enum AnalysisType: LocalizedStringKey, Identifiable {
+    
+    var id: AnalysisType {
+        return self
+    }
+    
+    case kills = "KDA"
+    case level = "Level"
+    case xpm = "XPM"
+    case gpm = "GPM"
     case golds = "Net Worth"
     case heroDamage = "Hero Damage"
-    case towerDamage = "Tower Damage"
+    case lastHitsDenies = "LH/DN"
     
     var localized: String {
         switch self {
         case .kills:
             return LocalizableStrings.kills
-        case .golds:
+        case .level:
             return LocalizableStrings.gold
-        case .heroDamage:
+        case .xpm:
             return LocalizableStrings.heroDamage
-        case .towerDamage:
+        case .gpm:
             return LocalizableStrings.towerDamage
+        case .golds:
+            return ""
+        case .heroDamage:
+            return ""
+        case .lastHitsDenies:
+            return ""
         }
     }
-    
 }
 
 struct PlayerAnalysisRowView: View {
-    var player: Player
-    var value: Int
+    var player: PlayerRowViewModel
+    var value: String
     var percentage: Double
     
     var body: some View {
         HStack {
             HeroImageView(heroID: Int(player.heroID), type: .icon).frame(width: 35, height: 35)
             VStack(alignment: .leading, spacing: 0) {
-                ProgressView("\(Int(value))", value: percentage > 1 ? 1 : percentage, total: 1)
+                ProgressView(value, value: percentage > 1 ? 1 : percentage, total: 1)
                     .accentColor(Color(player.slot <= 127 ? .systemGreen : .systemRed).opacity(0.8))
                     .progressViewStyle(LinearProgressViewStyle())
                     
             }
         }.frame(height: 50)
+    }
+}
+
+struct AnalysisView_Previews: PreviewProvider {
+    static var previews: some View {
+        AnalysisView(players: [.init(heroID: 2), .init(heroID: 1), .init(heroID: 3)])
     }
 }

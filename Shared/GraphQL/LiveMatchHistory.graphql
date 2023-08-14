@@ -1,0 +1,69 @@
+query LiveMatchHistory($matchid: Long!) {
+    live {
+        match(id: $matchid) {
+            radiantTeamId
+            direTeamId
+            gameMode
+            playbackData {
+                roshanEvents {
+                    time
+                    isAlive
+                    respawnTimer
+                }
+                buildingEvents {
+                    time
+                    indexId
+                    type
+                    isAlive
+                    positionX
+                    positionY
+                    isRadiant
+                    npcId
+                }
+                pickBans {
+                    isPick
+                    heroId
+                    order
+                    bannedHeroId
+                    isRadiant
+                }
+            }
+            gameState
+            players {
+                heroId
+                name
+                playerSlot
+                isRadiant
+                playbackData {
+                    killEvents {
+                        time
+                    }
+                    deathEvents {
+                        time
+                    }
+                    positionEvents {
+                        time
+                        x
+                        y
+                    }
+                    inventoryEvents {
+                        time
+                        itemId0
+                        itemId1
+                        itemId2
+                        itemId3
+                        itemId4
+                        itemId5
+                        backpackId0
+                        backpackId1
+                        backpackId2
+                    }
+                }
+            }
+            liveWinRateValues {
+                time
+                winRate
+            }
+        }
+    }
+}
