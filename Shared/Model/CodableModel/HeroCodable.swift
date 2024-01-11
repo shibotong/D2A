@@ -15,7 +15,7 @@ class HeroCodable: Identifiable, Decodable {
     var primaryAttr: String
     var attackType: String
     var roles: [String]
-    var legs: Int
+    var legs: Int?
     var img: String
     var icon: String
     
