@@ -16,8 +16,11 @@ struct HeroDetailView: View {
         ZStack {
             if let hero = vm.hero {
                 buildMainBody(hero: hero)
-            } else {
+            } else if vm.loadingHero {
                 LoadingView()
+            } else {
+                Text("Cannot find hero")
+                    .font(.caption)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
