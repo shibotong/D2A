@@ -64,6 +64,11 @@
                BlueprintName = "D2AUITests"
                ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "ScreenShotTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
          <TestableReference
             skipped = "NO"
