@@ -75,6 +75,10 @@ final class D2AUITests: XCTestCase {
     /// Test all hero page
     func testHeroPage() {
         let app = startApp()
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            XCUIDevice.shared.orientation = UIDeviceOrientation.landscapeLeft
+            sleep(1)
+        }
         app.buttons["Heroes"].tap()
         let heroButton = app.buttons[hero]
         XCTAssert(heroButton.exists)
