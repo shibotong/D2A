@@ -35,6 +35,15 @@ struct Ability: Codable, Identifiable {
         return name
     }
     
+    var imageURL: String? {
+        guard let imageURL = img?
+            .replacingOccurrences(of: "_md", with: "")
+            .replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities") else {
+            return nil
+        }
+        return "https://cdn.cloudflare.steamstatic.com\(imageURL)"
+    }
+    
     enum CodingKeys: String, CodingKey {
         case img = "img"
         case dname
