@@ -232,7 +232,8 @@ struct PlayerRowView: View {
             if let ability = HeroDatabase.shared.fetchOpenDotaAbility(name: abilityName) {
                 if let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!" {
                     let parsedimgURL = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                    AbilityImage(viewModel: AbilityImageViewModel(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: 40, cornerRadius: 0))
+                    AbilityImage(viewModel: AbilityImageViewModel(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
+                        .frame(width: 40, height: 40)
                 } else {
                     // no image
                     if abilityID == 730 {
