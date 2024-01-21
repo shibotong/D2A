@@ -55,12 +55,11 @@ extension PreviewDevice: Identifiable {
         return rawValue
     }
 
-    static let iPhoneDevices = [PreviewDevice.iPhoneSE, PreviewDevice.iPhoneMini, PreviewDevice.iPhone, PreviewDevice.iPhoneProMax]
+    static let iPhoneDevices = [PreviewDevice.iPhoneSE, PreviewDevice.iPhone, PreviewDevice.iPhoneProMax]
 
     static let iPadDevies = [PreviewDevice.iPadMini, PreviewDevice.iPad]
     
-    static let iPhoneMini = PreviewDevice("iPhone 13 mini")
-    static let iPhone = PreviewDevice("iPhone 14")
+    static let iPhone = PreviewDevice("iPhone 15")
     static let iPhoneProMax = PreviewDevice("iPhone 14 Pro Max")
     static let iPhoneSE = PreviewDevice("iPhone SE (3rd generation)")
     static let iPadMini = PreviewDevice("iPad mini (6th generation)")

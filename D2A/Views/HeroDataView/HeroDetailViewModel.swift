@@ -13,17 +13,22 @@ import Apollo
 
 class HeroDetailViewModel: ObservableObject {
     @Published var hero: Hero?
-    @Published var selectedAbility: String?
+    @Published var selectedAbility: Ability?
     
     @Published var heroID: Int
     
     @Published var previousHeroID: Int?
     @Published var nextHeroID: Int?
     
+    @Published var loadingHero: Bool
+    
+    @Published var abilities: [Ability] = []
+    
     private var database: HeroDatabase = HeroDatabase.shared
     
     init(heroID: Int) {
         self.heroID = heroID
+        loadingHero = false
         $heroID
             .map { [weak self] heroID in
                 let cachedHero = Hero.fetchHero(id: Double(heroID))
@@ -34,26 +39,32 @@ class HeroDetailViewModel: ObservableObject {
         
         $heroID
             .map { [weak self] id in
-                let heroid = self?.getNextHeroID(id: id)
-                return heroid
+                return self?.getRelateHeroID(id: id, isPrevious: false)
             }
             .assign(to: &$nextHeroID)
         
         $heroID
             .map { [weak self] id in
-                return self?.getPreviousHeroID(id: id)
+                return self?.getRelateHeroID(id: id, isPrevious: true)
             }
             .assign(to: &$previousHeroID)
         
         $hero
-            .map { hero in
-                return hero?.abilities?.first
+            .map { [weak self] hero in
+                guard let abilityNames = hero?.abilities else {
+                    return []
+                }
+                let abilities = abilityNames.filter { ability in
+                    let containHidden = ability.contains("hidden")
+                    let containEmpty = ability.contains("empty")
+                    return !containHidden && !containEmpty
+                }.compactMap { [weak self] abilityName in
+                    self?.database.fetchOpenDotaAbility(name: abilityName)
+                }
+                self?.selectedAbility = abilities.first
+                return abilities
             }
-            .assign(to: &$selectedAbility)
-    }
-    
-    func fetchAbility(name: String) -> Ability? {
-        return database.fetchOpenDotaAbility(name: name)
+            .assign(to: &$abilities)
     }
     
     /// Load hero
@@ -67,6 +78,7 @@ class HeroDetailViewModel: ObservableObject {
     
     /// Download hero from API
     func downloadHero(heroID: Int) {
+        loadingHero = true
         Network.shared.apollo.fetch(query: HeroQuery(id: Double(heroID))) { [weak self] (result: Result<GraphQLResult<HeroQuery.Data>, Error>) in
             guard let self = self else { return }
             switch result {
@@ -97,6 +109,8 @@ class HeroDetailViewModel: ObservableObject {
             case .failure(let error):
                 print(error.localizedDescription)
             }
+            
+            loadingHero = false
         }
     }
     
@@ -104,27 +118,56 @@ class HeroDetailViewModel: ObservableObject {
         return database.getTalentDisplayName(id: id)
     }
     
-    func getNextHeroID(id: Int) -> Int {
+    func getRelateHeroID(id: Int, isPrevious: Bool) -> Int? {
         let heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
         let heroIndex = heroList.firstIndex { $0.id == id } ?? 0
-        var nextIndex = heroIndex + 1
-        if nextIndex == heroList.endIndex {
-            nextIndex = 0
+        var index = 0
+        if isPrevious {
+            index = heroIndex + 1
+            if heroIndex == heroList.endIndex {
+                index = heroList.startIndex
+            }
+        } else {
+            index = heroIndex - 1
+            if heroIndex == heroList.startIndex {
+                index = heroList.endIndex
+            }
         }
-        let nextHero = heroList[nextIndex]
+        guard index >= 0 && index < heroList.count else {
+            return nil
+        }
+        let nextHero = heroList[index]
         let nextHeroID = nextHero.id
         return nextHeroID
     }
     
-    func getPreviousHeroID(id: Int) -> Int {
-        let heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
-        let heroIndex = heroList.firstIndex { $0.id == id } ?? 0
-        var previousIndex = heroIndex - 1
-        if heroIndex == heroList.startIndex {
-            previousIndex = heroList.endIndex - 1
-        }
-        let previousHero = heroList[previousIndex]
-        let previousHeroID = previousHero.id
-        return previousHeroID
-    }
+//    func getNextHeroID(id: Int) -> Int? {
+//        let heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
+//        let heroIndex = heroList.firstIndex { $0.id == id } ?? 0
+//        var nextIndex = heroIndex + 1
+//        if nextIndex == heroList.endIndex {
+//            nextIndex = 0
+//        }
+//        guard nextIndex >= 0 && nextIndex < heroList.count else {
+//            return nil
+//        }
+//        let nextHero = heroList[nextIndex]
+//        let nextHeroID = nextHero.id
+//        return nextHeroID
+//    }
+//    
+//    func getPreviousHeroID(id: Int) -> Int? {
+//        let heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
+//        let heroIndex = heroList.firstIndex { $0.id == id } ?? 0
+//        var previousIndex = heroIndex - 1
+//        if heroIndex == heroList.startIndex {
+//            previousIndex = heroList.endIndex - 1
+//        }
+//        guard previousIndex >= 0 && previousIndex < heroList.count else {
+//            return nil
+//        }
+//        let previousHero = heroList[previousIndex]
+//        let previousHeroID = previousHero.id
+//        return previousHeroID
+//    }
 }

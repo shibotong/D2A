@@ -11,27 +11,32 @@ import UIKit
 class AbilityImageViewModel: ObservableObject {
     @Published var image: UIImage?
     
-    var name: String
-    var urlString: String
-    let sideLength: CGFloat
-    let cornerRadius: CGFloat
+    var name: String?
+    var urlString: String?
     
-    init(name: String, urlString: String, sideLength: CGFloat, cornerRadius: CGFloat) {
+    init(name: String?, urlString: String?) {
         self.name = name
         self.urlString = urlString
-        self.sideLength = sideLength
-        self.cornerRadius = cornerRadius
-        self.image = ImageCache.readImage(type: .ability, id: name)
-        Task {
-            await fetchImage()
+        if let name, let urlString {
+            self.image = ImageCache.readImage(type: .ability, id: name)
+            Task {
+                await fetchImage()
+            }
         }
+    }
+    
+    init() {
+        name = "Acid Spray"
+        urlString = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_acid_spray.png"
+        image = UIImage(named: "ability_slot")
     }
     
     private func fetchImage() async {
         if image != nil {
             return
         }
-        guard let newImage = await loadImage() else {
+        guard let name,
+              let newImage = await loadImage() else {
             return
         }
         ImageCache.saveImage(newImage, type: .ability, id: name)
@@ -39,7 +44,8 @@ class AbilityImageViewModel: ObservableObject {
     }
     
     private func loadImage() async -> UIImage? {
-        guard let url = URL(string: urlString),
+        guard let urlString,
+              let url = URL(string: urlString),
               let (newImageData, _) = try? await URLSession.shared.data(from: url),
               let newImage = UIImage(data: newImageData) else {
             return nil

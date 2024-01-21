@@ -62,8 +62,9 @@ final class ScreenShotTests: XCTestCase {
         app.buttons["All"].tap()
         app.buttons["Month"].tap()
         let datePicker = app.datePickers
-        datePicker.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "March")
         datePicker.pickerWheels.element(boundBy: 1).adjust(toPickerWheelValue: "2023")
+        sleep(1)
+        datePicker.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "March")
         app.buttons["Month"].tap()
         app.buttons["Thursday, March 30"].tap()
         takeScreenshot("Calendar")
