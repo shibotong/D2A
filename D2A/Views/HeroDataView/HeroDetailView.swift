@@ -81,7 +81,7 @@ struct HeroDetailView: View {
                 }
                 Divider()
                 if let selectedAbility = vm.selectedAbility {
-                    AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, abilityName: selectedAbility))
+                    AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: selectedAbility))
                 }
             }
         }
@@ -91,7 +91,7 @@ struct HeroDetailView: View {
         ScrollView {
             buildTitle(hero: hero)
             ScrollView(.horizontal, showsIndicators: false) {
-                buildAbilities(hero: hero, navigation: true)
+                buildAbilities(navigation: true)
             }.padding(.horizontal, 5)
             Divider()
             buildHeroDetails(hero: hero)
@@ -138,7 +138,7 @@ struct HeroDetailView: View {
                     .foregroundColor(.label.opacity(0.5))
                 buildComplexity(hero.complexity)
                 Spacer()
-                buildAbilities(hero: hero, navigation: false)
+                buildAbilities(navigation: false)
             }
             .frame(height: 50)
             .padding()
@@ -166,38 +166,27 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildAbilities(hero: Hero, navigation: Bool) -> some View {
-        let skillFrame: CGFloat = 30
-        if let abilities = hero.abilities {
-            let filterAbilities = abilities.filter { ability in
-                let containHidden = ability.contains("hidden")
-                let containEmpty = ability.contains("empty")
-                return !containHidden && !containEmpty
-            }
-            HStack {
-                ForEach(filterAbilities, id: \.self) { abilityName in
-                    if let ability = vm.fetchAbility(name: abilityName) {
-                        let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                        if navigation {
-                            NavigationLink(destination: AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, abilityName: abilityName))) {
-                                AbilityImage(viewModel: AbilityImageViewModel(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10))
-                                    .accessibilityIdentifier(abilityName)
-                            }
-                        } else {
-                            Button {
-                                vm.selectedAbility = abilityName
-                            } label: {
-                                AbilityImage(viewModel: AbilityImageViewModel(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10))
-                                    .accessibilityIdentifier(abilityName)
-                            }
-                        }
+    @ViewBuilder private func buildAbilities(navigation: Bool) -> some View {
+        HStack {
+            ForEach(vm.abilities) { ability in
+                if navigation {
+                    NavigationLink(destination: AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: ability))) {
+                        AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
+                            .frame(width: 30, height: 30)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                } else {
+                    Button {
+                        vm.selectedAbility = ability
+                    } label: {
+                        AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
+                            .frame(width: 30, height: 30)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
                 }
             }
-            .padding(10)
-        } else {
-            EmptyView()
         }
+        .padding(10)
     }
     
     @ViewBuilder private func buildHeroDetails(hero: Hero) -> some View {
