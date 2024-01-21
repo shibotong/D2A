@@ -13,7 +13,7 @@ import Apollo
 
 class HeroDetailViewModel: ObservableObject {
     @Published var hero: Hero?
-    @Published var selectedAbility: String?
+    @Published var selectedAbility: Ability?
     
     @Published var heroID: Int
     
@@ -21,6 +21,8 @@ class HeroDetailViewModel: ObservableObject {
     @Published var nextHeroID: Int?
     
     @Published var loadingHero: Bool
+    
+    @Published var abilities: [Ability] = []
     
     private var database: HeroDatabase = HeroDatabase.shared
     
@@ -49,13 +51,18 @@ class HeroDetailViewModel: ObservableObject {
         
         $hero
             .map { hero in
-                return hero?.abilities?.first
+                guard let abilities = hero?.abilities else {
+                    return []
+                }
+                return abilities.filter { ability in
+                    let containHidden = ability.contains("hidden")
+                    let containEmpty = ability.contains("empty")
+                    return !containHidden && !containEmpty
+                }.compactMap { [weak self] abilityName in
+                    self?.database.fetchOpenDotaAbility(name: abilityName)
+                }
             }
-            .assign(to: &$selectedAbility)
-    }
-    
-    func fetchAbility(name: String) -> Ability? {
-        return database.fetchOpenDotaAbility(name: name)
+            .assign(to: &$abilities)
     }
     
     /// Load hero
