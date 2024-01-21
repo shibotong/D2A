@@ -35,13 +35,20 @@ class HeroDatabase: ObservableObject {
     
     static var shared = HeroDatabase()
     
+    static var preview = HeroDatabase(preview: true)
+    
     @Published private var openDotaLoadFinish: LoadingStatus = .loading
     @Published private var stratzLoadFinish: LoadingStatus = .loading
     private var cancellable = Set<AnyCancellable>()
     
     let url = "https://api.opendota.com/api/herostats"
     
-    init() {
+    init(preview: Bool = false) {
+        guard !preview else {
+            self.heroes = loadSampleHero() ?? [:]
+            self.abilities = loadSampleAbilities() ?? [:]
+            return
+        }
         setupBinding()
         loadData()
     }

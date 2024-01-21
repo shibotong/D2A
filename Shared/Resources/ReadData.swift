@@ -123,6 +123,20 @@ func loadProfile() -> UserProfileCodable? {
     }
 }
 
+func loadSampleAbilities() -> [String: Ability]? {
+    guard let data = loadFile(filename: "sampleAbility") else {
+        return nil
+    }
+    do {
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode([String: Ability].self, from: data)
+        return jsonData
+    } catch {
+        debugPrint(error)
+        return nil
+    }
+}
+
 func loadSampleHero() -> [String: HeroCodable]? {
     guard let data = loadFile(filename: "sampleHero") else {
         return nil

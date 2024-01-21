@@ -14,7 +14,6 @@ struct AbilityImage: View {
     
     var body: some View {
         ZStack {
-            EmptyView()
             if let image = viewModel.image {
                 Image(uiImage: image)
                     .resizable()
@@ -25,7 +24,9 @@ struct AbilityImage: View {
                     .foregroundColor(.label)
             }
         }
-        .frame(width: viewModel.sideLength, height: viewModel.sideLength)
-        .cornerRadius(viewModel.cornerRadius)
     }
+}
+
+#Preview {
+    AbilityImage(viewModel: .init())
 }
