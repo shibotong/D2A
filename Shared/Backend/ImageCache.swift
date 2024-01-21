@@ -18,7 +18,9 @@ enum ImageCacheType: String {
 
 class ImageCache: ObservableObject {
     
-    static func readImage(type: ImageCacheType, id: String, fileExtension: String = "jpg") -> UIImage? {
+    static func readImage(type: ImageCacheType, 
+                          id: String,
+                          fileExtension: String = "jpg") -> UIImage? {
         guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
             return nil
         }
