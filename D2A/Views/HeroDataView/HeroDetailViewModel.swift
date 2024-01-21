@@ -50,17 +50,19 @@ class HeroDetailViewModel: ObservableObject {
             .assign(to: &$previousHeroID)
         
         $hero
-            .map { hero in
-                guard let abilities = hero?.abilities else {
+            .map { [weak self] hero in
+                guard let abilityNames = hero?.abilities else {
                     return []
                 }
-                return abilities.filter { ability in
+                let abilities = abilityNames.filter { ability in
                     let containHidden = ability.contains("hidden")
                     let containEmpty = ability.contains("empty")
                     return !containHidden && !containEmpty
                 }.compactMap { [weak self] abilityName in
                     self?.database.fetchOpenDotaAbility(name: abilityName)
                 }
+                self?.selectedAbility = abilities.first
+                return abilities
             }
             .assign(to: &$abilities)
     }
