@@ -444,7 +444,7 @@ struct HeroDetailView_Previews: PreviewProvider {
                 HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
                     .environment(\.horizontalSizeClass, .regular)
             }
-            .previewDevice(.iPhoneMini)
+            .previewDevice(.iPhone)
             
             NavigationView {
                 EmptyView()
