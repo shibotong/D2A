@@ -13,14 +13,16 @@ struct AbilityTitleView: View {
     @State var cd: String?
     @State var mc: String?
     
-    @State var name: String
-    @State var url: String
+    @State var name: String?
+    @State var url: String?
     
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
-            AbilityImage(viewModel: AbilityImageViewModel(name: name, urlString: url))
-                .frame(width: 70, height: 70)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
+            if let name, let url {
+                AbilityImage(viewModel: AbilityImageViewModel(name: name, urlString: url))
+                    .frame(width: 70, height: 70)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+            }
             VStack(alignment: .leading) {
                 Text(displayName)
                     .font(.system(size: 18))
