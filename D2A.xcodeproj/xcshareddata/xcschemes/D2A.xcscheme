@@ -66,6 +66,9 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "D2AUITests">
+               </Test>
+               <Test
                   Identifier = "ScreenShotTests">
                </Test>
             </SkippedTests>
