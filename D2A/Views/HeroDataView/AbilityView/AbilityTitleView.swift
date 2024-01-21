@@ -9,12 +9,12 @@
 
 struct AbilityTitleView: View {
     
-    @State var displayName: String
-    @State var cd: String?
-    @State var mc: String?
+    let displayName: String
+    let cd: String?
+    let mc: String?
     
-    @State var name: String?
-    @State var url: String?
+    let name: String?
+    let url: String?
     
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
