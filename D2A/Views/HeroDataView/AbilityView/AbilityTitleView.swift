@@ -38,6 +38,7 @@ struct AbilityTitleView: View {
                         .foregroundColor(.secondaryLabel)
                 }
             }
+            Spacer()
         }
     }
 }

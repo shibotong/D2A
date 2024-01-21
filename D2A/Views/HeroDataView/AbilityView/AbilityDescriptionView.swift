@@ -35,27 +35,25 @@ struct AbilityDescriptionView: View {
             if let player {
                 HStack {
                     Spacer()
-                    GeometryReader(content: { _ in
-                        VideoPlayer(player: player)
-                            .frame(width: width - 40,
-                                   height: (width - 40.0) / 16.0 * 9.0)
-                            .disabled(true)
-                            .onAppear {
-                                player.seek(to: .zero)
-                                player.play()
-                                NotificationCenter.default.addObserver(
-                                    forName: .AVPlayerItemDidPlayToEndTime,
-                                    object: player.currentItem,
-                                    queue: nil) { _ in
-                                        player.seek(to: .zero)
-                                        player.play()
-                                    }
-                            }
-                            .onDisappear {
-                                player.pause()
-                                NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
-                            }
-                    })
+                    VideoPlayer(player: player)
+                        .frame(width: width - 40,
+                               height: (width - 40.0) / 16.0 * 9.0)
+                        .disabled(true)
+                        .onAppear {
+                            player.seek(to: .zero)
+                            player.play()
+                            NotificationCenter.default.addObserver(
+                                forName: .AVPlayerItemDidPlayToEndTime,
+                                object: player.currentItem,
+                                queue: nil) { _ in
+                                    player.seek(to: .zero)
+                                    player.play()
+                                }
+                        }
+                        .onDisappear {
+                            player.pause()
+                            NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+                        }
                     Spacer()
                 }
             }

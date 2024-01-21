@@ -6,40 +6,110 @@
 //
 
 import Foundation
+import Combine
 import AVFoundation
 import StratzAPI
+import UIKit
 
-class AbilityViewModel: ObservableObject, Equatable {
-    static func == (lhs: AbilityViewModel, rhs: AbilityViewModel) -> Bool {
-        return lhs.heroID == rhs.heroID && lhs.abilityName == rhs.abilityName
-    }
+class AbilityViewModel: ObservableObject {
     
     let heroID: Int
     
-    @Published var stratzAbility: AbilityQuery.Data.Constants.Ability?
-    @Published var opentDotaAbility: Ability?
+    // AbilityTitleView
+    @Published var displayName: String = ""
+    @Published var cd: String?
+    @Published var mc: String?
+    @Published var abilityImageURL: String?
+    @Published var abilityID: String?
     
+    // AbilityStatsView
+    @Published var behavior: String?
+    @Published var targetTeam: String?
+    @Published var bkbPierce: String?
+    @Published var dispellable: String?
+    @Published var damageType: String?
+    
+    // AbilityDescriptionView
     @Published var scepterVideo: AVPlayer?
     @Published var shardVideo: AVPlayer?
     @Published var abilityVideo: AVPlayer?
     
+    @Published var lore: String?
+    
+    // Ability Data
+    @Published var stratzAbility: AbilityQuery.Data.Constants.Ability?
+    @Published var opentDotaAbility: Ability?
+    
     private var database = HeroDatabase.shared
-    private var abilityName: String
+    
+    private var cancellables = Set<AnyCancellable>()
         
-    init(heroID: Int, abilityName: String) {
-        stratzAbility = database.fetchStratzAbility(name: abilityName)
-        opentDotaAbility = database.fetchOpenDotaAbility(name: abilityName)
+    init(heroID: Int, ability: Ability?) {
         self.heroID = heroID
-        self.abilityName = abilityName
+        self.opentDotaAbility = ability
+        setupBinding()
+        if let abilityName = ability?.name {
+            stratzAbility = database.fetchStratzAbility(name: abilityName)
+        }
+        
         Task {
             await buildDetailView()
         }
+    }
+    
+    init(scepter: String, shard: String, ability: String) {
+        heroID = 0
+        guard let scepterURL = URL(string: scepter),
+              let shardURL = URL(string: shard),
+              let abilityURL = URL(string: ability) else {
+            return
+        }
+        scepterVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: scepterURL)))
+        shardVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: shardURL)))
+        abilityVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: abilityURL)))
+        database = HeroDatabase.preview
+    }
+    
+    private func setupBinding() {
+        $stratzAbility
+            .sink(receiveValue: { [weak self] ability in
+                self?.displayName = ability?.language?.displayName ?? ""
+                self?.lore = ability?.language?.lore
+            })
+            .store(in: &cancellables)
+        
+        $opentDotaAbility
+            .sink { [weak self] ability in
+                // AbilityTitleView
+                self?.cd = ability?.coolDown?.transformString()
+                self?.mc = ability?.manaCost?.transformString()
+                
+                self?.abilityID = ability?.name ?? ""
+                guard let parsedImageURL = ability?
+                    .img?
+                    .replacingOccurrences(of: "_md", with: "")
+                    .replacingOccurrences(of: "images/abilities",
+                                          with: "images/dota_react/abilities") else {
+                    return
+                }
+                let urlString = "https://cdn.cloudflare.steamstatic.com\(parsedImageURL)"
+                self?.abilityImageURL = urlString
+                
+                // AbilityStatsView
+                self?.behavior = ability?.behavior?.transformString()
+                self?.targetTeam = ability?.targetTeam?.transformString()
+                self?.bkbPierce = ability?.bkbPierce?.transformString()
+                self?.dispellable = ability?.dispellable?.transformString()
+                self?.damageType = ability?.damageType?.transformString()
+            }
+            .store(in: &cancellables)
     }
     
     func buildDetailView() async {
         var ability: AVAsset?
         var scepter: AVAsset?
         var shard: AVAsset?
+        guard let abilityName = opentDotaAbility?.name else { return }
         if abilityVideo == nil {
             ability = getVideoURL(abilityName, type: .non)
         }
