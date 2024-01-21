@@ -51,6 +51,17 @@
                ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7930699A2B5D323100A5CF5D"
+               BuildableName = "D2ADataLoadingTests.xctest"
+               BlueprintName = "D2ADataLoadingTests"
+               ReferencedContainer = "container:D2A.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
