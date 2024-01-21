@@ -11,15 +11,17 @@ import UIKit
 class AbilityImageViewModel: ObservableObject {
     @Published var image: UIImage?
     
-    var name: String
-    var urlString: String
+    var name: String?
+    var urlString: String?
     
-    init(name: String, urlString: String) {
+    init(name: String?, urlString: String?) {
         self.name = name
         self.urlString = urlString
-        self.image = ImageCache.readImage(type: .ability, id: name)
-        Task {
-            await fetchImage()
+        if let name, let urlString {
+            self.image = ImageCache.readImage(type: .ability, id: name)
+            Task {
+                await fetchImage()
+            }
         }
     }
     
@@ -33,7 +35,8 @@ class AbilityImageViewModel: ObservableObject {
         if image != nil {
             return
         }
-        guard let newImage = await loadImage() else {
+        guard let name,
+              let newImage = await loadImage() else {
             return
         }
         ImageCache.saveImage(newImage, type: .ability, id: name)
@@ -41,7 +44,8 @@ class AbilityImageViewModel: ObservableObject {
     }
     
     private func loadImage() async -> UIImage? {
-        guard let url = URL(string: urlString),
+        guard let urlString,
+              let url = URL(string: urlString),
               let (newImageData, _) = try? await URLSession.shared.data(from: url),
               let newImage = UIImage(data: newImageData) else {
             return nil
