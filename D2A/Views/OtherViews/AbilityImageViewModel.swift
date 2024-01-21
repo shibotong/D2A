@@ -13,18 +13,20 @@ class AbilityImageViewModel: ObservableObject {
     
     var name: String
     var urlString: String
-    let sideLength: CGFloat
-    let cornerRadius: CGFloat
     
-    init(name: String, urlString: String, sideLength: CGFloat, cornerRadius: CGFloat) {
+    init(name: String, urlString: String) {
         self.name = name
         self.urlString = urlString
-        self.sideLength = sideLength
-        self.cornerRadius = cornerRadius
         self.image = ImageCache.readImage(type: .ability, id: name)
         Task {
             await fetchImage()
         }
+    }
+    
+    init() {
+        name = "Acid Spray"
+        urlString = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_acid_spray.png"
+        image = UIImage(named: "ability_slot")
     }
     
     private func fetchImage() async {
