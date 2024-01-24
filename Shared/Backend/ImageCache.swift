@@ -71,4 +71,13 @@ class ImageCache: ObservableObject {
         }
         return docDir.appendingPathComponent(type.rawValue)
     }
+    
+    static func loadImage(urlString: String) async -> UIImage? {
+        guard let url = URL(string: urlString),
+              let (newImageData, _) = try? await URLSession.shared.data(from: url),
+              let newImage = UIImage(data: newImageData) else {
+            return nil
+        }
+        return newImage
+    }
 }
