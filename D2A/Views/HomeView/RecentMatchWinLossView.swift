@@ -40,12 +40,17 @@ struct WinLossView: View {
             .bold()
             .foregroundColor(.white)
             .padding(3)
-            .background(Rectangle().foregroundColor(win ? Color(.systemGreen) : Color(.systemRed)))
+            .background(Rectangle()
+                .frame(width: 20, height: 20)
+                .foregroundColor(win ? Color(.systemGreen) : Color(.systemRed)))
     }
 }
 
 struct RecentMatchWinLossView_Previews: PreviewProvider {
     static var previews: some View {
-        RecentMatchWinLossView(heroID: 1, playerWin: true)
+        HStack {
+            RecentMatchWinLossView(heroID: 1, playerWin: true)
+            RecentMatchWinLossView(heroID: 1, playerWin: false)
+        }
     }
 }
