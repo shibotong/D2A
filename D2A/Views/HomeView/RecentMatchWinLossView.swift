@@ -11,39 +11,36 @@ struct RecentMatchWinLossView: View {
     
     let heroID: Int
     let playerWin: Bool
-    let size: CGFloat
     
-    init(heroID: Int, playerWin: Bool, size: CGFloat = 15) {
+    init(heroID: Int, playerWin: Bool) {
         self.heroID = heroID
         self.playerWin = playerWin
-        self.size = size
     }
     
     var body: some View {
         VStack {
             HeroImageView(heroID: heroID, type: .icon)
-                .frame(width: size, height: size)
-            WinLossView(win: playerWin, size: size * 0.75)
+            WinLossView(win: playerWin)
         }
+        .frame(width: 25)
     }
 }
 
 struct WinLossView: View {
     
     let win: Bool
-    let size: CGFloat
     
-    init(win: Bool, size: CGFloat = 15) {
+    init(win: Bool) {
         self.win = win
-        self.size = size
     }
     
     var body: some View {
-        ZStack {
-            Rectangle().foregroundColor(win ? Color(.systemGreen) : Color(.systemRed))
-                .frame(width: size, height: size)
-            Text("\(win ? "W" : "L")").font(.caption).bold().foregroundColor(.white)
-        }
+        Text("\(win ? "W" : "L")")
+            .font(.caption)
+            .bold()
+            .foregroundColor(.white)
+            .padding(3)
+            .background(Rectangle().foregroundColor(win ? Color(.systemGreen) : Color(.systemRed)))
     }
 }
 
