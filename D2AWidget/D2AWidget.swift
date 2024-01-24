@@ -60,6 +60,36 @@ struct D2AWidgetUser {
     let userName: String
     let image: UIImage?
     let matches: [RecentMatch]
+    let isPlus: Bool
+    let rank: Int?
+    let leaderboard: Int?
     
-    static let sampleUser = D2AWidgetUser(userID: "1234567", userName: "Test User", image: UIImage(named: "profile") ?? nil, matches: [])
+    static let sampleUser = D2AWidgetUser(userID: "1234567",
+                                          userName: "Test User",
+                                          image: UIImage(named: "profile") ?? nil,
+                                          matches: [],
+                                          isPlus: true,
+                                          rank: 11,
+                                          leaderboard: nil)
+    
+    init?(_ profile: UserProfile, image: UIImage?, matches: [RecentMatch]) {
+        guard let userID = profile.id,
+              let userName = profile.name else {
+                  return nil
+              }        
+        self.init(userID: userID, userName: userName,
+                  image: image, matches: matches,
+                  isPlus: profile.isPlus, rank: Int(profile.rank),
+                  leaderboard: Int(profile.leaderboard))
+    }
+    
+    init(userID: String, userName: String, image: UIImage?, matches: [RecentMatch], isPlus: Bool, rank: Int?, leaderboard: Int?) {
+        self.userID = userID
+        self.userName = userName
+        self.image = image
+        self.matches = matches
+        self.isPlus = isPlus
+        self.rank = rank
+        self.leaderboard = leaderboard
+    }
 }
