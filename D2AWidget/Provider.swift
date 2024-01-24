@@ -35,7 +35,7 @@ struct Provider: IntentTimelineProvider {
         let matches = RecentMatch.fetch(userID: userID, count: 10)
         let userAvatar = ImageCache.readImage(type: .avatar, id: userID)
         
-        let user = D2AWidgetUser(userID: userID, userName: profile.name ?? "", image: userAvatar, matches: matches)
+        let user = D2AWidgetUser(profile, image: userAvatar, matches: matches)
         let entry = D2AWidgetUserEntry(date: Date(), user: user, subscription: true)
         completion(entry)
     }
@@ -64,7 +64,7 @@ struct Provider: IntentTimelineProvider {
                     ImageCache.saveImage(newImage, type: .avatar, id: userID)
             }
             
-            let user = D2AWidgetUser(userID: userID, userName: profile.name ?? "", image: image, matches: matches)
+            let user = D2AWidgetUser(profile, image: image, matches: matches)
             let entry = D2AWidgetUserEntry(date: Date(), user: user, subscription: status)
             let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
             let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
