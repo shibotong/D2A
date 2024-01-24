@@ -52,6 +52,7 @@ struct LatestMatchWidget: Widget {
 struct D2AWidgetUserEntry: TimelineEntry {
     let date: Date
     let user: D2AWidgetUser?
+    let subscription: Bool
 }
 
 struct D2AWidgetUser {
@@ -59,7 +60,6 @@ struct D2AWidgetUser {
     let userName: String
     let image: UIImage?
     let matches: [RecentMatch]
-    let subscription: Bool
     
-    static let sampleUser = D2AWidgetUser(userID: "1234567", userName: "Test User", image: UIImage(named: "profile") ?? nil, matches: [], subscription: true)
+    static let sampleUser = D2AWidgetUser(userID: "1234567", userName: "Test User", image: UIImage(named: "profile") ?? nil, matches: [])
 }
