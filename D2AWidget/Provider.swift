@@ -19,7 +19,7 @@ struct Provider: IntentTimelineProvider {
     private let persistenceController = PersistenceController.shared
     
     func placeholder(in context: Context) -> D2AWidgetUserEntry {
-        D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.sampleUser, subscription: true)
+        D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
     }
 
     func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (D2AWidgetUserEntry) -> Void) {
