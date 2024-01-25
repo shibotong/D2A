@@ -26,6 +26,7 @@ struct RecentMatchesWidgetEntryView: View {
     var body: some View {
         ZStack {
             mainBody
+                .blur(radius: entry.subscription ? 0 : 15)
             if !entry.subscription {
                 WidgetOverlayView(widgetType: .subscription)
             }
@@ -51,7 +52,7 @@ struct RecentMatchesWidgetEntryView: View {
             } else {
                 WidgetOverlayView(widgetType: .chooseProfile)
             }
-        }.blur(radius: entry.subscription ? 0 : 15)
+        }
     }
     
     private var matches: [D2AWidgetMatch] {
