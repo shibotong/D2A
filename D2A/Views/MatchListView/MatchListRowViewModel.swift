@@ -25,30 +25,43 @@ class MatchListRowViewModel: ObservableObject {
     
     let matchID: String
     
-    init(match: RecentMatchCodable) {
-        isWin = match.playerWin
-        heroID = match.heroID
-        kills = match.kills
-        deaths = match.deaths
-        assists = match.assists
-        gameMode = match.gameMode.modeName
-        partySize = match.partySize
-        gameLobby = match.gameLobby.lobbyName
-        startTime = Date.init(timeIntervalSince1970: TimeInterval(match.startTime))
-        matchID = match.id.description
+    convenience init(match: RecentMatchCodable) {
+        self.init(isWin: match.playerWin,
+                  heroID: match.heroID,
+                  kills: match.kills,
+                  deaths: match.deaths,
+                  assists: match.assists,
+                  partySize: match.partySize,
+                  gameMode: match.gameMode.modeName,
+                  lobbyName: match.gameLobby.lobbyName,
+                  startTime: Date.init(timeIntervalSince1970: TimeInterval(match.startTime)),
+                  matchID: match.id.description)
     }
     
-    init(match: RecentMatch) {
-        isWin = match.playerWin
-        heroID = Int(match.heroID)
-        kills = Int(match.kills)
-        deaths = Int(match.deaths)
-        assists = Int(match.assists)
-        gameMode = match.gameMode.modeName
-        partySize = Int(match.partySize)
-        gameLobby = match.gameLobby.lobbyName
-        startTime = match.startTime
-        matchID = match.id ?? ""
+    convenience init(match: RecentMatch) {
+        self.init(isWin: match.playerWin,
+                  heroID: Int(match.heroID),
+                  kills: Int(match.kills),
+                  deaths: Int(match.deaths),
+                  assists: Int(match.assists),
+                  partySize: Int(match.partySize),
+                  gameMode: match.gameMode.modeName,
+                  lobbyName: match.gameLobby.lobbyName,
+                  startTime: match.startTime ?? Date(),
+                  matchID: match.id ?? "")
+    }
+    
+    convenience init(match: D2AWidgetMatch) {
+        self.init(isWin: match.win,
+                  heroID: match.heroID,
+                  kills: match.kills,
+                  deaths: match.deaths,
+                  assists: match.assists,
+                  partySize: match.partySize,
+                  gameMode: match.gameMode.modeName,
+                  lobbyName: match.lobby.lobbyName,
+                  startTime: match.startTime ?? Date(),
+                  matchID: match.id)
     }
     
     init(isWin: Bool,
