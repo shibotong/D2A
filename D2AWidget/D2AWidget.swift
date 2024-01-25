@@ -30,7 +30,8 @@ struct RecentMatchesWidget: Widget {
         .configurationDisplayName("Recent Matches")
         .description("Your recent matches.")
         .supportedFamilies([.systemSmall, .systemMedium])
-        .containerBackgroundRemovable(true)
+//        .containerBackgroundRemovable(true)
+        .contentMarginsDisabled()
     }
 }
 
@@ -42,7 +43,7 @@ struct LatestMatchWidget: Widget {
         }
         .configurationDisplayName("Latest Match")
         .description("Your latest match.")
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .supportedFamilies([.systemMedium, .systemLarge])
         .containerBackgroundRemovable(true)
         
     }
