@@ -41,8 +41,12 @@ struct LatestMatchWidgetEntryView: View {
             switch family {
             case .systemMedium, .systemLarge:
                 mediumView
+                    .blur(radius: entry.subscription ? 0 : 15)
             default:
                 EmptyView()
+            }
+            if !entry.subscription {
+                WidgetOverlayView(widgetType: .subscription)
             }
         }
         .widgetBackground(Color.systemBackground)
@@ -78,6 +82,8 @@ struct LatestMatchWidgetEntryView: View {
                         }
                     }
                 }
+            } else {
+                WidgetOverlayView(widgetType: .chooseProfile)
             }
         }
     }
