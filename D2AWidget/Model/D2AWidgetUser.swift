@@ -17,30 +17,16 @@ struct D2AWidgetUser {
     let leaderboard: Int?
     
     static let preview = D2AWidgetUser(userID: "1234567",
-                                          userName: "Test User",
+                                          userName: "D2A",
                                           image: UIImage(named: "profile")!,
-                                          matches: [
-                                            .init(matchID: "1", heroID: 1, win: true),
-                                            .init(matchID: "2", heroID: 2, win: false),
-                                            .init(matchID: "3", heroID: 1, win: true),
-                                            .init(matchID: "4", heroID: 2, win: false),
-                                            .init(matchID: "5", heroID: 1, win: true),
-                                            .init(matchID: "6", heroID: 2, win: false),
-                                            .init(matchID: "7", heroID: 1, win: true),
-                                            .init(matchID: "8", heroID: 2, win: false),
-                                            .init(matchID: "9", heroID: 1, win: true),
-                                            .init(matchID: "10", heroID: 2, win: false),
-                                            .init(matchID: "11", heroID: 1, win: true),
-                                            .init(matchID: "12", heroID: 2, win: false),
-                                            .init(matchID: "13", heroID: 1, win: true)
-                                          ],
+                                          matches: previewMatches,
                                           isPlus: true,
                                           rank: 11,
                                           leaderboard: nil)
     
     init?(_ profile: UserProfile, image: UIImage?, matches: [RecentMatch]) {
         guard let userID = profile.id,
-              let userName = profile.name else {
+              let userName = profile.personaname else {
                   return nil
               }
         let widgetMatches = matches.map { D2AWidgetMatch($0) }
@@ -58,5 +44,20 @@ struct D2AWidgetUser {
         self.isPlus = isPlus
         self.rank = rank
         self.leaderboard = leaderboard
+    }
+    
+    private static var randomHeroID: Int {
+        Int.random(in: 1..<100)
+    }
+    
+    private static var randomWinLoss: Bool {
+        return Int.random(in: 0...1) == 0
+    }
+    
+    private static var previewMatches: [D2AWidgetMatch] {
+        let matches = (1...10).map { id in
+            D2AWidgetMatch(matchID: id.description, heroID: randomHeroID, win: randomWinLoss)
+        }
+        return  matches
     }
 }
