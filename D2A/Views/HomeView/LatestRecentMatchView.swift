@@ -43,7 +43,7 @@ struct LatestRecentMatchView: View {
                     HStack {
                         let fetchedMatches = matches.count >= 25 ? Array(matches[0..<25]) : Array(matches)
                         ForEach(fetchedMatches) { match in
-                            RecentMatchWinLossView(heroID: Int(match.heroID), playerWin: match.playerWin, size: 25)
+                            RecentMatchWinLossView(heroID: Int(match.heroID), playerWin: match.playerWin)
                         }
                     }
                     .padding(.leading)
