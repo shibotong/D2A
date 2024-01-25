@@ -18,11 +18,10 @@ struct RecentMatchWinLossView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 5) {
             HeroImageView(heroID: heroID, type: .icon)
             WinLossView(win: playerWin)
         }
-        .frame(width: 25)
     }
 }
 
@@ -35,14 +34,17 @@ struct WinLossView: View {
     }
     
     var body: some View {
-        Text("\(win ? "W" : "L")")
-            .font(.caption)
-            .bold()
-            .foregroundColor(.white)
-            .padding(3)
-            .background(Rectangle()
-                .frame(width: 20, height: 20)
-                .foregroundColor(win ? Color(.systemGreen) : Color(.systemRed)))
+        GeometryReader { proxy in
+            let sideLength = proxy.size.width * 5 / 6
+            Text("\(win ? "W" : "L")")
+                .font(.caption2)
+                .bold()
+                .foregroundColor(.white)
+                .background(Rectangle()
+                    .frame(width: sideLength, height: sideLength, alignment: .center)
+                    .foregroundColor(win ? Color(.systemGreen) : Color(.systemRed)))
+                .frame(width: proxy.size.width, height: proxy.size.width)
+        }
     }
 }
 
@@ -50,7 +52,9 @@ struct RecentMatchWinLossView_Previews: PreviewProvider {
     static var previews: some View {
         HStack {
             RecentMatchWinLossView(heroID: 1, playerWin: true)
+                .frame(width: 10)
             RecentMatchWinLossView(heroID: 1, playerWin: false)
+                .frame(width: 20)
         }
     }
 }
