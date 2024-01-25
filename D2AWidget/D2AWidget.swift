@@ -60,7 +60,7 @@ struct D2AWidgetUserEntry: TimelineEntry {
 struct D2AWidgetUser {
     let userID: String
     let userName: String
-    let image: UIImage?
+    let image: UIImage
     let matches: [D2AWidgetMatch]
     let isPlus: Bool
     let rank: Int?
@@ -68,7 +68,7 @@ struct D2AWidgetUser {
     
     static let preview = D2AWidgetUser(userID: "1234567",
                                           userName: "Test User",
-                                          image: UIImage(named: "profile") ?? nil,
+                                          image: UIImage(named: "profile")!,
                                           matches: [
                                             .init(matchID: "1", heroID: 1, win: true),
                                             .init(matchID: "2", heroID: 2, win: false),
@@ -95,12 +95,12 @@ struct D2AWidgetUser {
               }        
         let widgetMatches = matches.map { D2AWidgetMatch($0) }
         self.init(userID: userID, userName: userName,
-                  image: image, matches: widgetMatches,
+                  image: image ?? UIImage(named: "profile")!, matches: widgetMatches,
                   isPlus: profile.isPlus, rank: Int(profile.rank),
                   leaderboard: Int(profile.leaderboard))
     }
     
-    init(userID: String, userName: String, image: UIImage?, matches: [D2AWidgetMatch], isPlus: Bool, rank: Int?, leaderboard: Int?) {
+    init(userID: String, userName: String, image: UIImage, matches: [D2AWidgetMatch], isPlus: Bool, rank: Int?, leaderboard: Int?) {
         self.userID = userID
         self.userName = userName
         self.image = image
@@ -116,14 +116,39 @@ struct D2AWidgetMatch: Identifiable {
     let heroID: Int
     let win: Bool
     
+    let kills: Int
+    let deaths: Int
+    let assists: Int
+    
+    let startTime: Date?
+    let lobby: LobbyType
+    
     init(_ match: RecentMatch) {
-        
-        self.init(matchID: match.id ?? "0", heroID: Int(match.heroID), win: match.playerWin)
+        self.init(matchID: match.id ?? "0",
+                  heroID: Int(match.heroID),
+                  win: match.playerWin,
+                  kills: Int(match.kills),
+                  deaths: Int(match.deaths),
+                  assists: Int(match.assists),
+                  startTime: match.startTime,
+                  lobby: match.gameLobby)
     }
     
-    init(matchID: String, heroID: Int, win: Bool) {
+    init(matchID: String,
+         heroID: Int,
+         win: Bool,
+         kills: Int = 0,
+         deaths: Int = 0,
+         assists: Int = 0,
+         startTime: Date? = nil,
+         lobby: LobbyType = .init(id: 1, name: "lobby")) {
         id = matchID
         self.heroID = heroID
         self.win = win
+        self.kills = kills
+        self.deaths = deaths
+        self.assists = assists
+        self.startTime = startTime
+        self.lobby = lobby
     }
 }
