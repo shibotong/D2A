@@ -25,7 +25,7 @@ struct Provider: IntentTimelineProvider {
         let profile = persistenceController.fetchFirstWidgetUser()
         
         guard let profile, let userID = profile.id else {
-            let entry = D2AWidgetUserEntry(date: Date(), user: nil, subscription: true)
+            let entry = D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
             completion(entry)
             return
         }

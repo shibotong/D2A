@@ -55,7 +55,7 @@ struct LatestMatchWidgetEntryView: View {
     private var mediumView: some View {
         ZStack {
             if let user = entry.user {
-                VStack {
+                VStack(spacing: 0) {
                     Link(destination: URL(string: "d2aapp:profile?userid=\(user.userID)")!, label: {
                         HStack {
                             Image(uiImage: user.image)
@@ -71,6 +71,7 @@ struct LatestMatchWidgetEntryView: View {
                                 .font(.caption2)
                                 .foregroundColor(.secondaryLabel)
                         }
+                        .padding(10)
                     })
                     GeometryReader { proxy in
                         VStack(spacing: 0) {
