@@ -53,6 +53,8 @@ struct D2AWidgetUserEntry: TimelineEntry {
     let date: Date
     let user: D2AWidgetUser?
     let subscription: Bool
+    
+    static let preview = D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
 }
 
 struct D2AWidgetUser {
@@ -64,7 +66,7 @@ struct D2AWidgetUser {
     let rank: Int?
     let leaderboard: Int?
     
-    static let sampleUser = D2AWidgetUser(userID: "1234567",
+    static let preview = D2AWidgetUser(userID: "1234567",
                                           userName: "Test User",
                                           image: UIImage(named: "profile") ?? nil,
                                           matches: [
