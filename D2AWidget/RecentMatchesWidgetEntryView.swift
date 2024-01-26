@@ -176,7 +176,7 @@ struct RecentMatchesWidgetEntryView_Previews: PreviewProvider {
             RecentMatchesWidgetEntryView(entry: D2AWidgetUserEntry(date: Date(),
                                                                    user: D2AWidgetUser.preview,
                                                                    subscription: true))
-            .environment(\.widgetFamily, family)
+//            .environment(\.widgetFamily, family)
             .previewContext(WidgetPreviewContext(family: family))
             .previewDisplayName(family.description)
         }
