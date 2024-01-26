@@ -18,7 +18,7 @@ struct D2AWidgetUser {
     
     static let preview = D2AWidgetUser(userID: "1234567",
                                           userName: "D2A",
-                                          image: UIImage(named: "profile")!,
+                                          image: randomAvatar,
                                           matches: previewMatches,
                                           isPlus: true,
                                           rank: 11,
@@ -47,11 +47,23 @@ struct D2AWidgetUser {
     }
     
     private static var randomHeroID: Int {
-        Int.random(in: 1..<100)
+        random(from: 1, to: 100)
     }
     
     private static var randomWinLoss: Bool {
-        return Int.random(in: 0...1) == 0
+        random(from: 0, to: 1) == 0
+    }
+    
+    private static var randomAvatar: UIImage {
+        let avatar = random(from: 1, to: 5)
+        return UIImage(named: "avatar\(avatar)")!
+    }
+    
+    private static func random(from a: Int, to b: Int) -> Int {
+        guard a < b else {
+            return -1
+        }
+        return Int.random(in: a...b)
     }
     
     private static var previewMatches: [D2AWidgetMatch] {
