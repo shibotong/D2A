@@ -11,19 +11,16 @@ struct RecentMatchWinLossView: View {
     
     let heroID: Int
     let playerWin: Bool
-    let size: CGFloat
     
-    init(heroID: Int, playerWin: Bool, size: CGFloat = 15) {
+    init(heroID: Int, playerWin: Bool) {
         self.heroID = heroID
         self.playerWin = playerWin
-        self.size = size
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 5) {
             HeroImageView(heroID: heroID, type: .icon)
-                .frame(width: size, height: size)
-            WinLossView(win: playerWin, size: size * 0.75)
+            WinLossView(win: playerWin)
         }
     }
 }
@@ -31,24 +28,33 @@ struct RecentMatchWinLossView: View {
 struct WinLossView: View {
     
     let win: Bool
-    let size: CGFloat
     
-    init(win: Bool, size: CGFloat = 15) {
+    init(win: Bool) {
         self.win = win
-        self.size = size
     }
     
     var body: some View {
-        ZStack {
-            Rectangle().foregroundColor(win ? Color(.systemGreen) : Color(.systemRed))
-                .frame(width: size, height: size)
-            Text("\(win ? "W" : "L")").font(.caption).bold().foregroundColor(.white)
+        GeometryReader { proxy in
+            let sideLength = proxy.size.width * 5 / 6
+            Text("\(win ? "W" : "L")")
+                .font(.caption2)
+                .bold()
+                .foregroundColor(.white)
+                .background(Rectangle()
+                    .frame(width: sideLength, height: sideLength, alignment: .center)
+                    .foregroundColor(win ? Color(.systemGreen) : Color(.systemRed)))
+                .frame(width: proxy.size.width, height: proxy.size.width)
         }
     }
 }
 
 struct RecentMatchWinLossView_Previews: PreviewProvider {
     static var previews: some View {
-        RecentMatchWinLossView(heroID: 1, playerWin: true)
+        HStack {
+            RecentMatchWinLossView(heroID: 1, playerWin: true)
+                .frame(width: 10)
+            RecentMatchWinLossView(heroID: 1, playerWin: false)
+                .frame(width: 20)
+        }
     }
 }

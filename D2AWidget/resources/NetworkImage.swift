@@ -38,6 +38,14 @@ struct NetworkImage: View {
         image = ImageCache.readImage(type: .avatar, id: userID)
     }
     
+    init(userID: String, urlString: String, image: UIImage) {
+        self.userID = userID
+        self.urlString = urlString
+        imageType = .avatar
+        isRadiant = true
+        self.image = image
+    }
+    
     init(teamID: String, isRadiant: Bool) {
         self.urlString = "https://cdn.stratz.com/images/dota2/teams/\(teamID).png"
         self.userID = teamID

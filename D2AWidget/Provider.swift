@@ -8,60 +8,64 @@
 import WidgetKit
 import SwiftUI
 import Intents
-// import App
 
 struct Provider: IntentTimelineProvider {
     // Intent configuration of the widget
     typealias Intent = DynamicUserSelectionIntent
     
-    public typealias Entry = SimpleEntry
+    public typealias Entry = D2AWidgetUserEntry
     
     private let persistenceController = PersistenceController.shared
     
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), matches: [], user: nil, subscription: true)
+    func placeholder(in context: Context) -> D2AWidgetUserEntry {
+        D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
     }
 
-    func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (SimpleEntry) -> Void) {
+    func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (D2AWidgetUserEntry) -> Void) {
         let profile = persistenceController.fetchFirstWidgetUser()
-
+        
         guard let profile, let userID = profile.id else {
-            let entry = SimpleEntry(date: Date(), matches: [], user: profile, subscription: true)
+            let entry = D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
             completion(entry)
             return
         }
         
         // Use matches on device to load snapshot
         let matches = RecentMatch.fetch(userID: userID, count: 10)
-        let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: true)
+        let userAvatar = ImageCache.readImage(type: .avatar, id: userID)
+        
+        let user = D2AWidgetUser(profile, image: userAvatar, matches: matches)
+        let entry = D2AWidgetUserEntry(date: Date(), user: user, subscription: true)
         completion(entry)
     }
 
-    func getTimeline(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
+    func getTimeline(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (Timeline<D2AWidgetUserEntry>) -> Void) {
         let currentDate = Date()
         let status = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
-        guard status, let selectedProfile = user(for: configuration) else {
-            let entry = SimpleEntry(date: Date(), matches: [], user: nil, subscription: status)
+        guard status, let selectedProfile = user(for: configuration), let userID = selectedProfile.id else {
+            let entry = D2AWidgetUserEntry(date: Date(), user: nil, subscription: status)
             let timeline = Timeline(entries: [entry], policy: .never)
             completion(timeline)
             return
         }
-        if let userID = selectedProfile.id {
-            Task {
-                let matches = await loadNewMatches(for: userID)
-                var profile = selectedProfile
-                if selectedProfile.shouldUpdate {
-                    profile = await refreshUser(for: userID) ?? selectedProfile
-                }
-                let entry = SimpleEntry(date: Date(), matches: matches, user: profile, subscription: status)
-                let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
-                let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-                completion(timeline)
+        Task {
+            let matches = await loadNewMatches(for: userID)
+            var profile = selectedProfile
+            if selectedProfile.shouldUpdate {
+                profile = await refreshUser(for: userID) ?? selectedProfile
             }
-        } else {
-            // selected profile doesn't have userid \(nearly impossible)
-            let entry = SimpleEntry(date: Date(), matches: [], user: selectedProfile, subscription: status)
-            let refreshDate = Calendar.current.date(byAdding: .minute, value: 10, to: currentDate)!
+            
+            var image = ImageCache.readImage(type: .avatar, id: userID)
+            
+            if let urlString = profile.avatarfull, image == nil,
+               let newImage = await ImageCache.loadImage(urlString: urlString) {
+                    image = newImage
+                    ImageCache.saveImage(newImage, type: .avatar, id: userID)
+            }
+            
+            let user = D2AWidgetUser(profile, image: image, matches: matches)
+            let entry = D2AWidgetUserEntry(date: Date(), user: user, subscription: status)
+            let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
             let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
             completion(timeline)
         }
