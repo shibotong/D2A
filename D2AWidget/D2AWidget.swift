@@ -7,7 +7,6 @@
 
 import WidgetKit
 import SwiftUI
-import Intents
 
 @main
 struct D2AWidget: WidgetBundle {
@@ -31,6 +30,8 @@ struct RecentMatchesWidget: Widget {
         .configurationDisplayName("Recent Matches")
         .description("Your recent matches.")
         .supportedFamilies([.systemSmall, .systemMedium])
+//        .containerBackgroundRemovable(true)
+        
     }
 }
 
@@ -42,14 +43,9 @@ struct LatestMatchWidget: Widget {
         }
         .configurationDisplayName("Latest Match")
         .description("Your latest match.")
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .supportedFamilies([.systemMedium, .systemLarge])
+//        .containerBackgroundRemovable(true)
+        .contentMarginsDisabled()
         
     }
-}
-
-struct SimpleEntry: TimelineEntry {
-    let date: Date
-    let matches: [RecentMatch]
-    let user: UserProfile?
-    let subscription: Bool
 }
