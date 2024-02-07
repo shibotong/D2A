@@ -12,7 +12,7 @@ class AbilityImageViewModel: ObservableObject {
     @Published var image: UIImage?
     
     var name: String?
-    var urlString: String?
+    let urlString: String?
     
     init(name: String?, urlString: String?) {
         self.name = name
