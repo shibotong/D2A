@@ -23,7 +23,7 @@ struct LiveMatchView: View {
                 horizontalView
             }
         }
-        .navigationTitle("\(viewModel.status)")
+        .navigationTitle(LocalizedStringKey(viewModel.status))
         .navigationBarTitleDisplayMode(.inline)
         .task {
             viewModel.startFetching()
@@ -73,7 +73,7 @@ struct LiveMatchView: View {
                     mapView
                     draftView
                         .background(Color.systemBackground)
-                    Picker("What is your favorite color?", selection: $showActivity) {
+                    Picker("", selection: $showActivity) {
                         Text("Players").tag(false)
                         Text("Events").tag(true)
                     }
