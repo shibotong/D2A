@@ -13,7 +13,7 @@ final class LiveMatchKillEventTestCase: XCTestCase {
     private var players: LiveMatchPlayers!
 
     override func setUp() {
-        players = .init(radiant: [1,2,3,4,5], dire: [6,7,8,9,10])
+        players = .init(radiant: [1, 2, 3, 4, 5], dire: [6, 7, 8, 9, 10])
     }
 
     func testGenerateSingleKillEvent() {
