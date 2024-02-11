@@ -9,9 +9,8 @@ import Foundation
 import SwiftUI
 import StratzAPI
 
-let productIDs = ["D2APRO"]// ["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnually"]
 let GROUP_NAME = "group.D2A"
-let imagePrefixURL = "https://cdn.cloudflare.steamstatic.com"
+let IMAGE_PREFIX = "https://cdn.cloudflare.steamstatic.com"
 
 fileprivate let currentLanguage: String = Locale.current.languageCode ?? "en"
 
