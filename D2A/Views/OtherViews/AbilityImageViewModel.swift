@@ -17,7 +17,7 @@ class AbilityImageViewModel: ObservableObject {
     init(name: String?, urlString: String?) {
         self.name = name
         self.urlString = urlString
-        if let name, let urlString {
+        if let name {
             self.image = ImageCache.readImage(type: .ability, id: name)
             Task {
                 await fetchImage()
