@@ -41,7 +41,7 @@ struct Ability: Codable, Identifiable {
             .replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities") else {
             return nil
         }
-        return "\(StringVariable.imagePrefixURL)\(imageURL)"
+        return "\(imagePrefixURL)\(imageURL)"
     }
     
     enum CodingKeys: String, CodingKey {
