@@ -46,6 +46,14 @@ final class DotaEnvironment: ObservableObject {
     @Published var selectedMatch: String?
     @Published var matchActive: Bool = false
     @Published var userActive: Bool = false
+    
+    private var refreshDistance: TimeInterval {
+        var refreshTime: TimeInterval = 60
+        #if DEBUG
+        refreshTime = 1
+        #endif
+        return refreshTime
+    }
 
     init() {
         subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
