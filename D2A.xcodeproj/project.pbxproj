@@ -247,7 +247,6 @@
 		32F70B2526F6296F006E9B05 /* sampleProfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 3294463926E1A5A5006E0D06 /* sampleProfile.json */; };
 		32F70B2626F62971006E9B05 /* sampleRecentMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 327772AC26D8BD47000A0A97 /* sampleRecentMatch.json */; };
 		32F70B3026F714FD006E9B05 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2F26F714FD006E9B05 /* Provider.swift */; };
-		32F70B3626F72D74006E9B05 /* ProductSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B3526F72D74006E9B05 /* ProductSubView.swift */; };
 		790102B829F4099D00E8A320 /* AttributeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790102B729F4099D00E8A320 /* AttributeImage.swift */; };
 		790102C029F40F7B00E8A320 /* secrets.json.sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 790102BF29F40F7B00E8A320 /* secrets.json.sample.json */; };
 		790102C129F40F8100E8A320 /* secrets.json.sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 790102BF29F40F7B00E8A320 /* secrets.json.sample.json */; };
@@ -572,7 +571,6 @@
 		32F70B2726F62B09006E9B05 /* D2ADebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2ADebug.entitlements; sourceTree = "<group>"; };
 		32F70B2926F62B77006E9B05 /* D2AWidgetIntentHandlerDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2AWidgetIntentHandlerDebug.entitlements; sourceTree = "<group>"; };
 		32F70B2F26F714FD006E9B05 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
-		32F70B3526F72D74006E9B05 /* ProductSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSubView.swift; sourceTree = "<group>"; };
 		32F70B3726F80AD3006E9B05 /* D2ARelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2ARelease.entitlements; sourceTree = "<group>"; };
 		32F70B3926F80AE4006E9B05 /* D2AWidgetIntentHandlerRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2AWidgetIntentHandlerRelease.entitlements; sourceTree = "<group>"; };
 		790102B729F4099D00E8A320 /* AttributeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeImage.swift; sourceTree = "<group>"; };
@@ -1012,7 +1010,6 @@
 			children = (
 				321D589F26D234A90059526B /* AboutUsView.swift */,
 				32D1605926F304DC00657449 /* StoreView.swift */,
-				32F70B3526F72D74006E9B05 /* ProductSubView.swift */,
 			);
 			path = AboutUsView;
 			sourceTree = "<group>";
@@ -1722,7 +1719,6 @@
 				327B87782852263300BBE1F8 /* HeroListViewModel.swift in Sources */,
 				79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
-				32F70B3626F72D74006E9B05 /* ProductSubView.swift in Sources */,
 				32079DBF28B843360056D19F /* String.swift in Sources */,
 				790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */,
 				79D5280E28DD5D990070841D /* Network.swift in Sources */,
