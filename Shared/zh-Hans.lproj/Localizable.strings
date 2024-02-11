@@ -39,6 +39,10 @@
 "Live" = "比赛";
 "Events" = "事件";
 "Game In Progress" = "比赛进行中";
+"Hero Selection" = "英雄选择";
+"Strategy Time" = "策略时间";
+"Pre Game" = "赛前";
+"Post Game" = "赛后";
 
 
 // MARK: about us view
