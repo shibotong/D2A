@@ -92,7 +92,7 @@ class AbilityViewModel: ObservableObject {
                                           with: "images/dota_react/abilities") else {
                     return
                 }
-                let urlString = "\(StringVariable.imagePrefixURL)\(parsedImageURL)"
+                let urlString = "\(imagePrefixURL)\(parsedImageURL)"
                 self?.abilityImageURL = urlString
                 
                 // AbilityStatsView
@@ -145,7 +145,7 @@ class AbilityViewModel: ObservableObject {
         guard let heroName = try? database.fetchHeroWithID(id: heroID).name.replacingOccurrences(of: "npc_dota_hero_", with: "") else {
             return nil
         }
-        let baseURL = "\(StringVariable.imagePrefixURL)/apps/dota2/videos/dota_react/abilities/\(heroName)"
+        let baseURL = "\(imagePrefixURL)/apps/dota2/videos/dota_react/abilities/\(heroName)"
         var path = ""
         switch type {
         case .scepter:

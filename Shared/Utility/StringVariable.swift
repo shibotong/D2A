@@ -9,6 +9,12 @@ import Foundation
 import SwiftUI
 import StratzAPI
 
+let productIDs = ["D2APRO"]// ["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnually"]
+let GROUP_NAME = "group.D2A"
+let imagePrefixURL = "https://cdn.cloudflare.steamstatic.com"
+
+fileprivate let currentLanguage: String = Locale.current.languageCode ?? "en"
+
 var refreshDistance: TimeInterval {
     var refreshTime: TimeInterval = 60
     #if DEBUG
@@ -24,7 +30,7 @@ let isTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath
 let uiTesting = ProcessInfo.processInfo.arguments.contains("uitest")
 
 let languageCode: Language = {
-    switch StringVariable.currentLanguage {
+    switch currentLanguage {
     case "en":
         return .english
     case "zh":
@@ -35,7 +41,7 @@ let languageCode: Language = {
 }()
 
 let colonLocalize: Character = {
-    switch StringVariable.currentLanguage {
+    switch currentLanguage {
     case "en":
         return ":"
     case "zh":
@@ -44,15 +50,6 @@ let colonLocalize: Character = {
         return ":"
     }
 }()
-
-struct StringVariable {
-    static let productIDs = ["D2APRO"]// ["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnually"]
-    static let GROUP_NAME = "group.D2A"
-    static let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/terms-of-use.md"
-    static let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/privacy-policy.md"
-    static let currentLanguage: String = Locale.current.languageCode ?? "en"
-    static let imagePrefixURL = "https://cdn.cloudflare.steamstatic.com"
-}
 
 extension PreviewDevice: Identifiable {
     

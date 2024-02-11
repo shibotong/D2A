@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+fileprivate let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/privacy-policy.md"
+fileprivate let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/terms-of-use.md"
+
 struct AboutUsView: View {
     @EnvironmentObject var env: DotaEnvironment
     @Environment(\.presentationMode) var presentState
