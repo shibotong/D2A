@@ -49,19 +49,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3289579827F6609B00BA9847"
-               BuildableName = "D2ATests.xctest"
-               BlueprintName = "D2ATests"
-               ReferencedContainer = "container:D2A.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "YES"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "79CF637829C40B6F0072F4C0"
-               BuildableName = "D2AUITests.xctest"
-               BlueprintName = "D2AUITests"
+               BuildableName = "Unit Tests.xctest"
+               BlueprintName = "Unit Tests"
                ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -70,9 +59,9 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "79BE5D6E2A6FC9F300DF74E7"
-               BuildableName = "StratzGraphQLTests.xctest"
-               BlueprintName = "StratzGraphQLTests"
+               BlueprintIdentifier = "79CF637829C40B6F0072F4C0"
+               BuildableName = "UI Tests.xctest"
+               BlueprintName = "UI Tests"
                ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -82,19 +71,19 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7930699A2B5D323100A5CF5D"
-               BuildableName = "D2ADataLoadingTests.xctest"
-               BlueprintName = "D2ADataLoadingTests"
+               BuildableName = "DataLoadingTests.xctest"
+               BlueprintName = "DataLoadingTests"
                ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO"
+            skipped = "YES"
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7942FD002B706B49008CE4B0"
-               BuildableName = "D2AUIScreenshotTests.xctest"
-               BlueprintName = "D2AUIScreenshotTests"
+               BuildableName = "UIScreenshotTests.xctest"
+               BlueprintName = "UIScreenshotTests"
                ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
          </TestableReference>

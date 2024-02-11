@@ -19,8 +19,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7930699A2B5D323100A5CF5D"
-               BuildableName = "D2ADataLoadingTests.xctest"
-               BlueprintName = "D2ADataLoadingTests"
+               BuildableName = "DataLoadingTests.xctest"
+               BlueprintName = "DataLoadingTests"
                ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
          </TestableReference>

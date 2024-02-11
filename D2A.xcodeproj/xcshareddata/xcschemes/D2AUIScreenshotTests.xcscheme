@@ -19,8 +19,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7942FD002B706B49008CE4B0"
-               BuildableName = "D2AUIScreenshotTests.xctest"
-               BlueprintName = "D2AUIScreenshotTests"
+               BuildableName = "UIScreenshotTests.xctest"
+               BlueprintName = "UIScreenshotTests"
                ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
          </TestableReference>
