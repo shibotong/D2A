@@ -41,7 +41,7 @@ struct Ability: Codable, Identifiable {
             .replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities") else {
             return nil
         }
-        return "https://cdn.cloudflare.steamstatic.com\(imageURL)"
+        return "\(IMAGE_PREFIX)\(imageURL)"
     }
     
     enum CodingKeys: String, CodingKey {

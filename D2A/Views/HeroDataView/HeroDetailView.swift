@@ -174,6 +174,7 @@ struct HeroDetailView: View {
                         AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
                             .frame(width: 30, height: 30)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .accessibilityIdentifier(ability.name ?? "")
                     }
                 } else {
                     Button {
@@ -182,7 +183,7 @@ struct HeroDetailView: View {
                         AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
                             .frame(width: 30, height: 30)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
-                    }
+                    }.accessibilityIdentifier(ability.name ?? "")
                 }
             }
         }

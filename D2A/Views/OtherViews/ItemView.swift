@@ -38,7 +38,7 @@ struct ItemView: View {
         guard let id, let item = HeroDatabase.shared.fetchItem(id: id) else {
             return nil
         }
-        let url = URL(string: "https://api.opendota.com\(item.img)")
+        let url = URL(string: "\(IMAGE_PREFIX)\(item.img)")
         return url
     }
     

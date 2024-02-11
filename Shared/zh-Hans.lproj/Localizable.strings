@@ -37,6 +37,13 @@
 "has died" = "死亡了";
 "%lld average MMR" = "%lld平均MMR";
 "Live" = "比赛";
+"Events" = "事件";
+"Game In Progress" = "比赛进行中";
+"Hero Selection" = "英雄选择";
+"Strategy Time" = "策略时间";
+"Pre Game" = "赛前";
+"Post Game" = "赛后";
+
 
 // MARK: about us view
 "About" = "关于";
@@ -64,7 +71,7 @@
 "Unlimit Following Users" = "解锁关注用户数量限制";
 "Unlock Widgets" = "解锁桌面小组件";
 "Select your subscription" = "选择你的订阅方式";
-"Loading..." = "加载中";
+"Loading..." = "加载中...";
 "Unlocked" = "已解锁";
 "SubscriptionButtonDescription %@" = "解锁D2A Pro %@";
 "Restore Purchase" = "恢复购买";

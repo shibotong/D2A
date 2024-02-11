@@ -7,45 +7,6 @@
 
 import XCTest
 
-extension XCTestCase {
-    
-    var networkWaiting: UInt32 {
-        return 3
-    }
-    
-    var userID: String {
-        return "153041957"
-    }
-    var userName: String {
-        return "Mr.BOBOBO"
-    }
-    
-    var hero: String {
-        return "Alchemist"
-    }
-    var ability: String {
-        return "alchemist_acid_spray"
-    }
-    
-    /// Start App
-    func startApp() -> XCUIApplication {
-        let app = XCUIApplication()
-        app.launchArguments = ["uitest"]
-        app.launch()
-        sleep(5)
-        return app
-    }
-    
-    // Capture Screenshot
-    func takeScreenshot(_ name: String? = nil) {
-        let screenshot = XCUIScreen.main.screenshot()
-        let attachment = XCTAttachment(screenshot: screenshot)
-        attachment.name = name
-        attachment.lifetime = .keepAlways
-        add(attachment)
-    }
-}
-
 final class D2AUITests: XCTestCase {
 
     override func setUpWithError() throws {
@@ -70,26 +31,6 @@ final class D2AUITests: XCTestCase {
         app.buttons["Register Player"].tap()
         sleep(networkWaiting)
         XCTAssert(app.staticTexts[userName].exists)
-    }
-    
-    /// Test all hero page
-    func testHeroPage() {
-        let app = startApp()
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            XCUIDevice.shared.orientation = UIDeviceOrientation.landscapeLeft
-            sleep(1)
-        }
-        app.buttons["Heroes"].tap()
-        let heroButton = app.buttons[hero]
-        XCTAssert(heroButton.exists)
-        heroButton.tap()
-        sleep(networkWaiting)
-        let abilityButton = app.buttons[ability]
-        XCTAssert(abilityButton.exists)
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            abilityButton.tap()
-            sleep(networkWaiting)
-        }
     }
     
     /// Test app user to favourite to app

@@ -35,8 +35,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "79CF637829C40B6F0072F4C0"
-               BuildableName = "D2AUITests.xctest"
-               BlueprintName = "D2AUITests"
+               BuildableName = "UI Tests.xctest"
+               BlueprintName = "UI Tests"
                ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -57,8 +57,19 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7930699A2B5D323100A5CF5D"
-               BuildableName = "D2ADataLoadingTests.xctest"
-               BlueprintName = "D2ADataLoadingTests"
+               BuildableName = "DataLoadingTests.xctest"
+               BlueprintName = "DataLoadingTests"
+               ReferencedContainer = "container:D2A.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7942FD002B706B49008CE4B0"
+               BuildableName = "UIScreenshotTests.xctest"
+               BlueprintName = "UIScreenshotTests"
                ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
          </TestableReference>

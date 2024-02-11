@@ -12,12 +12,12 @@ class AbilityImageViewModel: ObservableObject {
     @Published var image: UIImage?
     
     var name: String?
-    var urlString: String?
+    let urlString: String?
     
     init(name: String?, urlString: String?) {
         self.name = name
         self.urlString = urlString
-        if let name, let urlString {
+        if let name {
             self.image = ImageCache.readImage(type: .ability, id: name)
             Task {
                 await fetchImage()

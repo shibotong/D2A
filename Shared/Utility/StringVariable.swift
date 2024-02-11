@@ -9,11 +9,19 @@ import Foundation
 import SwiftUI
 import StratzAPI
 
-let productIDs = ["D2APRO"]// ["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnually"]
 let GROUP_NAME = "group.D2A"
-let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/documents/terms-of-use.md"
-let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/documents/privacy-policy.md"
-let currentLanguage: String = Locale.current.languageCode ?? "en"
+let IMAGE_PREFIX = "https://cdn.cloudflare.steamstatic.com"
+let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/privacy-policy.md"
+let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/terms-of-use.md"
+
+private let currentLanguage: String = Locale.current.languageCode ?? "en"
+
+/// True if running tests
+let isTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+
+/// True is running UITest
+let uiTesting = ProcessInfo.processInfo.arguments.contains("uitest")
+
 let languageCode: Language = {
     switch currentLanguage {
     case "en":
@@ -24,6 +32,7 @@ let languageCode: Language = {
         return .english
     }
 }()
+
 let colonLocalize: Character = {
     switch currentLanguage {
     case "en":
@@ -34,20 +43,6 @@ let colonLocalize: Character = {
         return ":"
     }
 }()
-
-var refreshDistance: TimeInterval {
-    var refreshTime: TimeInterval = 60
-    #if DEBUG
-    refreshTime = 1
-    #endif
-    return refreshTime
-}
-
-/// True if running tests
-let isTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
-
-/// True is running UITest
-let uiTesting = ProcessInfo.processInfo.arguments.contains("uitest")
 
 extension PreviewDevice: Identifiable {
     
