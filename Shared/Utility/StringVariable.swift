@@ -14,14 +14,6 @@ let IMAGE_PREFIX = "https://cdn.cloudflare.steamstatic.com"
 
 fileprivate let currentLanguage: String = Locale.current.languageCode ?? "en"
 
-var refreshDistance: TimeInterval {
-    var refreshTime: TimeInterval = 60
-    #if DEBUG
-    refreshTime = 1
-    #endif
-    return refreshTime
-}
-
 /// True if running tests
 let isTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
 
