@@ -883,10 +883,10 @@
 			children = (
 				32F70B3726F80AD3006E9B05 /* D2ARelease.entitlements */,
 				32F70B2726F62B09006E9B05 /* D2ADebug.entitlements */,
-				32D1605B26F30B5F00657449 /* Subscription */,
 				32B36F0E26C38821002D427D /* D2AApp.swift */,
 				32B36F1026C38821002D427D /* ContentView.swift */,
 				32B36F3D26C38894002D427D /* Views */,
+				32D1605B26F30B5F00657449 /* Subscription */,
 				32B36F1726C38822002D427D /* Info.plist */,
 				32B36F1426C38822002D427D /* Preview Content */,
 				32AEEEF826F9B1120088DEC8 /* LocalizableStrings.swift */,
