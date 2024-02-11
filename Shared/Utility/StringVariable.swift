@@ -11,8 +11,10 @@ import StratzAPI
 
 let GROUP_NAME = "group.D2A"
 let IMAGE_PREFIX = "https://cdn.cloudflare.steamstatic.com"
+let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/privacy-policy.md"
+let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/terms-of-use.md"
 
-fileprivate let currentLanguage: String = Locale.current.languageCode ?? "en"
+private let currentLanguage: String = Locale.current.languageCode ?? "en"
 
 /// True if running tests
 let isTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
