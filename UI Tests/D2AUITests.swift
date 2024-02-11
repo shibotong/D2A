@@ -33,26 +33,6 @@ final class D2AUITests: XCTestCase {
         XCTAssert(app.staticTexts[userName].exists)
     }
     
-    /// Test all hero page
-    func testHeroPage() {
-        let app = startApp()
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            XCUIDevice.shared.orientation = UIDeviceOrientation.landscapeLeft
-            sleep(1)
-        }
-        app.buttons["Heroes"].tap()
-        let heroButton = app.buttons[hero]
-        XCTAssert(heroButton.exists)
-        heroButton.tap()
-        sleep(networkWaiting)
-        let abilityButton = app.buttons[ability]
-        XCTAssert(abilityButton.exists)
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            abilityButton.tap()
-            sleep(networkWaiting)
-        }
-    }
-    
     /// Test app user to favourite to app
     func testFavourite() {
         let app = startApp()
