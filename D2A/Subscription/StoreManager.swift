@@ -9,6 +9,8 @@ import Foundation
 import StoreKit
 import WidgetKit
 
+fileprivate let productIDs = ["D2APRO"]// ["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnually"]
+
 public enum StoreError: Error {
     case failedVerification
 }
