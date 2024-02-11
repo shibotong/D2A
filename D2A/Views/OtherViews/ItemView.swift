@@ -38,7 +38,7 @@ struct ItemView: View {
         guard let id, let item = HeroDatabase.shared.fetchItem(id: id) else {
             return nil
         }
-        let url = URL(string: "\(StringVariable.imagePrefixURL)\(item.img)")
+        let url = URL(string: "\(imagePrefixURL)\(item.img)")
         return url
     }
     
