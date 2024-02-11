@@ -68,7 +68,7 @@ struct HeroImageView: View {
             return url
         case .portrait:
             let name = hero.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
-            let url = URL(string: "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/\(name).png")
+            let url = URL(string: "\(StringVariable.imagePrefixURL)/apps/dota2/videos/dota_react/heroes/renders/\(name).png")
             return url
         case .full:
             return nil

@@ -9,32 +9,6 @@ import Foundation
 import SwiftUI
 import StratzAPI
 
-let productIDs = ["D2APRO"]// ["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnually"]
-let GROUP_NAME = "group.D2A"
-let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/terms-of-use.md"
-let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/privacy-policy.md"
-let currentLanguage: String = Locale.current.languageCode ?? "en"
-let languageCode: Language = {
-    switch currentLanguage {
-    case "en":
-        return .english
-    case "zh":
-        return .sChinese
-    default:
-        return .english
-    }
-}()
-let colonLocalize: Character = {
-    switch currentLanguage {
-    case "en":
-        return ":"
-    case "zh":
-        return "："
-    default:
-        return ":"
-    }
-}()
-
 var refreshDistance: TimeInterval {
     var refreshTime: TimeInterval = 60
     #if DEBUG
@@ -48,6 +22,37 @@ let isTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath
 
 /// True is running UITest
 let uiTesting = ProcessInfo.processInfo.arguments.contains("uitest")
+
+let languageCode: Language = {
+    switch StringVariable.currentLanguage {
+    case "en":
+        return .english
+    case "zh":
+        return .sChinese
+    default:
+        return .english
+    }
+}()
+
+let colonLocalize: Character = {
+    switch StringVariable.currentLanguage {
+    case "en":
+        return ":"
+    case "zh":
+        return "："
+    default:
+        return ":"
+    }
+}()
+
+struct StringVariable {
+    static let productIDs = ["D2APRO"]// ["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnually"]
+    static let GROUP_NAME = "group.D2A"
+    static let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/terms-of-use.md"
+    static let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/privacy-policy.md"
+    static let currentLanguage: String = Locale.current.languageCode ?? "en"
+    static let imagePrefixURL = "https://cdn.cloudflare.steamstatic.com"
+}
 
 extension PreviewDevice: Identifiable {
     
