@@ -269,9 +269,10 @@ struct PlayerRowView: View {
 
  struct PlayerRowView_Previews: PreviewProvider {
     static var previews: some View {
-        VStack {
+        Group {
             PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 2), shortVersion: true, showAbility: false)
                 .environmentObject(HeroDatabase.shared)
+                .previewLayout(.fixed(width: 375, height: 500))
             ScrollView(.horizontal) {
                 PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 2, abilities: [1123]))
                     .environmentObject(HeroDatabase.shared)
