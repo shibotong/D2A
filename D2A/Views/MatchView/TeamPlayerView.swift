@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TeamView: View {
-    var players: [Player]
+    var players: [PlayerRowViewModel]
     var isRadiant: Bool
     var score: Int
     var win: Bool
@@ -19,7 +19,7 @@ struct TeamView: View {
         VStack {
             TeamHeaderView(isRadiant: isRadiant, win: win)
             ForEach(players, id: \.slot) { player in
-                PlayerRowView(maxDamage: maxDamage, viewModel: PlayerRowViewModel(player: player))
+                PlayerRowView(maxDamage: maxDamage, viewModel: player)
                     .padding(.horizontal)
             }
         }
@@ -29,7 +29,7 @@ struct TeamView: View {
 
 #Preview {
     TeamView(players: [
-        .init(id: "1", slot: 1, heroID: 2),
-        .init(id: "2", slot: 2)
+        .init(player: .init(id: "1", slot: 1)),
+        .init(player: .init(id: "2", slot: 2))
     ], isRadiant: true, score: 10, win: true, maxDamage: 2000)
 }

@@ -60,8 +60,8 @@ extension Match {
     }
     
     /// Fetch `Match` with `id` in CoreData
-    static func fetch(id: String) -> Match? {
-        let viewContext = PersistenceController.shared.container.viewContext
+    static func fetch(id: String, controller: PersistenceController = PersistenceController.shared) -> Match? {
+        let viewContext = controller.container.viewContext
         let fetchMatch: NSFetchRequest<Match> = Match.fetchRequest()
         let predicate = NSPredicate(format: "id == %@", id)
         fetchMatch.predicate = predicate

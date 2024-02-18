@@ -77,7 +77,9 @@ struct SearchView: View {
         List {
             if let match = vm.searchedMatch, let matchID = match.id {
                 Section {
-                    NavigationLink(destination: MatchView(matchid: matchID)) {
+                    NavigationLink(
+                        destination: MatchView(viewModel: MatchViewModel(matchID: matchID))
+                    ) {
                         HStack {
                             Image("icon_\(match.radiantWin ? "radiant" : "dire")")
                                 .resizable()

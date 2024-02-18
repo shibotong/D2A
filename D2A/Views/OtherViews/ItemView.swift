@@ -29,6 +29,7 @@ struct ItemView: View {
                     .resizable()
             }
         }
+        .scaledToFit()
         .task(id: id) {
             await fetchImage()
         }

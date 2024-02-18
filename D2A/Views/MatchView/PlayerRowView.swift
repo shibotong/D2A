@@ -43,7 +43,7 @@ struct PlayerRowView: View {
         VStack {
             HStack {
                 heroIcon
-                leadingView
+                leadingViewContainer
                 Spacer()
                 gpmxpmView
                 scepterView
@@ -54,9 +54,7 @@ struct PlayerRowView: View {
                     Image(systemName: showUpgrade ? "chevron.up" : "chevron.down")
                 }
             }
-            HStack {
-                itemsView
-            }
+            itemsView
             if showUpgrade && !viewModel.abilityUpgrade.isEmpty {
                 gridAbilityView
                     .transition(.asymmetric(
@@ -107,26 +105,30 @@ struct PlayerRowView: View {
     }
     
     private var heroIcon: some View {
-        HeroImageView(heroID: viewModel.heroID, type: .icon)
-            .frame(width: 35, height: 35)
-            .overlay(HStack {
-                Spacer()
-                VStack {
+        NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: viewModel.heroID))) {
+            HeroImageView(heroID: viewModel.heroID, type: .icon)
+                .frame(width: 35, height: 35)
+                .overlay(HStack {
                     Spacer()
-                    Circle()
-                        .frame(width: 15, height: 15)
-                        .foregroundColor(.label)
-                        .overlay(Text("\(viewModel.level)")
-                                    .foregroundColor(Color(.systemBackground))
-                                    .font(.system(size: 8)).bold())
-                }
-            })
+                    VStack {
+                        Spacer()
+                        Circle()
+                            .frame(width: 15, height: 15)
+                            .foregroundColor(.label)
+                            .overlay(Text("\(viewModel.level)")
+                                .foregroundColor(Color(.systemBackground))
+                                .font(.system(size: 8)).bold())
+                    }
+                })
+        }
     }
     
     private var leadingViewContainer: some View {
         ZStack {
-            if showAbility {
-                leadingView.frame(width: 120)
+            if let playerID = viewModel.accountID {
+                NavigationLink(destination: PlayerProfileView(userid: playerID)) {
+                    leadingView
+                }
             } else {
                 leadingView
             }
@@ -188,7 +190,7 @@ struct PlayerRowView: View {
     }
     
     private var itemsView: some View {
-        HStack(spacing: 5) {
+        HStack(spacing: 1) {
             if viewModel.itemNeutral != nil {
                 ItemView(id: $viewModel.itemNeutral)
                     .clipShape(Circle())
@@ -201,7 +203,7 @@ struct PlayerRowView: View {
                 ItemView(id: $viewModel.item4)
                 ItemView(id: $viewModel.item5)
             }
-            Spacer().frame(width: 5)
+            Spacer().frame(width: 3)
             Group {
                 if viewModel.backpack0 != nil {
                     ItemView(id: $viewModel.backpack0)
@@ -213,7 +215,7 @@ struct PlayerRowView: View {
                     ItemView(id: $viewModel.backpack2)
                 }
             }
-        }.scaledToFit()
+        }
     }
     
     private var scepterView: some View {
@@ -339,10 +341,16 @@ struct PlayerRowView: View {
 struct PlayerRowView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            PlayerRowView(maxDamage: 200, viewModel: .init(heroID: 2, abilities: []), shortVersion: true, showAbility: false)
-                .padding(.horizontal)
-                .environmentObject(HeroDatabase.shared)
-                .previewLayout(.fixed(width: 375, height: 500))
+            VStack {
+                PlayerRowView(maxDamage: 200, viewModel: .init(heroID: 2, abilities: [1111, 1102, 1103]), shortVersion: true, showAbility: false)
+                    .padding(.horizontal)
+                    .environmentObject(HeroDatabase.shared)
+                    .previewLayout(.fixed(width: 375, height: 500))
+                PlayerRowView(maxDamage: 200, viewModel: .init(heroID: 2, abilities: [1111, 1102, 1103]), shortVersion: true, showAbility: false)
+                    .padding(.horizontal)
+                    .environmentObject(HeroDatabase.shared)
+                    .previewLayout(.fixed(width: 375, height: 500))
+            }
         }
         .previewLayout(.fixed(width: 800, height: 300))
     }

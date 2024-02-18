@@ -141,16 +141,4 @@ class PersistenceController {
             NSManagedObjectContext.mergeChanges(fromRemoteContextSave: deletedObjects, into: [strongSelf.container.viewContext])
         }
     }
-    
-    func fetchMatchWithID(id: String) -> Match? {
-        let fetchRequest = Match.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id = %d", id)
-        do {
-            let result = try container.viewContext.fetch(fetchRequest)
-            return result.first
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
-    }
 }

@@ -133,7 +133,7 @@ struct PlayerProfileView: View {
                 ForEach(matches[0..<(matches.count > 10 ? 10 : matches.count)], id: \.id) { match in
                     if let matchID = match.id {
                         NavigationLink(
-                            destination: MatchView(matchid: matchID)
+                            destination: MatchView(viewModel: MatchViewModel(matchID: matchID))
                         ) {
                             MatchListRowView(viewModel: MatchListRowViewModel(match: match))
                                 .background(Color.systemBackground)
