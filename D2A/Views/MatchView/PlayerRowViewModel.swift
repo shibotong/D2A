@@ -136,9 +136,10 @@ class PlayerRowViewModel: ObservableObject {
         self.item3 = 4
         self.item4 = 5
         self.item5 = 6
-        self.backpack0 = nil
-        self.backpack1 = nil
-        self.backpack2 = nil
+        self.backpack0 = 3
+        self.backpack1 = 4
+        self.backpack2 = 5
+        self.itemNeutral = 1
         
         self.xpm = 100
         self.gpm = 100
