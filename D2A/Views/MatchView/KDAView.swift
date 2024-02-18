@@ -29,3 +29,9 @@ struct KDAView: View {
         }
     }
 }
+
+struct KDAView_Previews: PreviewProvider {
+    static var previews: some View {
+        KDAView(kills: 10, deaths: 10, assists: 10, size: .body)
+    }
+}
