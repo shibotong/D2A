@@ -10,18 +10,23 @@ import SwiftUI
 struct MatchView: View {
     @ObservedObject var viewModel: MatchViewModel
     
+    @State private var clipboardAlert = false
+    
     var body: some View {
         buildStack()
             .task {
                 await viewModel.loadMatch()
             }
+            .alert(isPresented: $clipboardAlert) {
+                Alert(title: Text("Copied to clipboard"), dismissButton: .default(Text("OK")))
+            }
     }
     
     @ViewBuilder private func buildStack() -> some View {
         ScrollView {
+            MatchHeadingView(radiantHeroes: viewModel.playerRowViewModels.filter { $0.isRadiant }.map { $0.heroID },
+                             direHeroes: viewModel.playerRowViewModels.filter { !$0.isRadiant }.map { $0.heroID })
             buildMatchData()
-                .listRowSeparator(.hidden)
-                .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
             playersView
                 .listRowSeparator(.hidden)
                 .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
@@ -35,7 +40,7 @@ struct MatchView: View {
                     .frame(height: 300)
             }
         }
-        .navigationTitle("ID: \(viewModel.matchID ?? "")")
+        .navigationTitle("\(viewModel.radiantWin ? "Radiant" : "Dire") Victory")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
             Button {
@@ -68,65 +73,59 @@ struct MatchView: View {
     }
     
     @ViewBuilder private func buildMatchData() -> some View {
-        VStack(spacing: 30) {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 15) {
-                    MatchStatCardView(icon: "calendar",
-                                      title: "Start Time",
-                                      label: viewModel.startTime)
-                    .frame(width: 140)
-                    MatchStatCardView(icon: "clock",
-                                      title: "Duration",
-                                      label: viewModel.duration)
-                    .colorInvert()
-                    .frame(width: 140)
-                    MatchStatCardView(icon: "rosette",
-                                      title: "Game Mode",
-                                      label: viewModel.mode)
-                    .frame(width: 140)
-                    MatchStatCardView(icon: "mappin.and.ellipse",
-                                      title: "Region",
-                                      label: viewModel.region)
-                    .colorInvert()
-                    .frame(width: 140)
-                }.padding(.horizontal)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 15) {
+                Button {
+                    guard let matchID = viewModel.matchID else {
+                        return
+                    }
+                    let pasteboard = UIPasteboard.general
+                    pasteboard.string = matchID
+                    clipboardAlert = true
+                } label: {
+                    MatchStatCardView(icon: "doc.on.doc.fill",
+                                      label: "\(viewModel.matchID ?? "")")
+                }
+                
+                MatchStatCardView(icon: "calendar",
+                                  label: viewModel.startTime)
+                MatchStatCardView(icon: "clock",
+                                  label: viewModel.duration)
+                MatchStatCardView(icon: "rosette",
+                                  label: viewModel.mode)
+                MatchStatCardView(icon: "mappin.and.ellipse",
+                                  label: viewModel.region)
             }
-        }.padding([.top])
+            .padding(.horizontal)
+        }
     }
 }
 
 struct MatchStatCardView: View {
     var icon: String
-    var title: LocalizedStringKey
     var label: LocalizedStringKey
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15.0).foregroundColor(Color(.secondarySystemBackground))
-            HStack {
-                VStack(alignment: .leading, spacing: 5) {
-                    Image(systemName: icon).font(.title)
-                    Spacer()
-                    Text(title).font(.system(size: 10)).foregroundColor(Color(.secondaryLabel))
-                    Text(label).font(.system(size: 15)).bold().lineLimit(2)
-                }
-                Spacer()
-            }.padding(18)
+        HStack {
+            Image(systemName: icon)
+            Text(label).lineLimit(1)
         }
+        .padding(7)
+        .background(Color.secondarySystemBackground)
+        .clipShape(RoundedRectangle(cornerRadius: 4))
+        .foregroundStyle(Color.label)
+        .font(.caption)
     }
 }
-//
-// struct MatchView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            MatchView(matchid: "7434967285")
-//        }
-//        .environmentObject(HeroDatabase.shared)
-//        .environmentObject(DotaEnvironment.shared)
-//        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-//        .environment(\.locale, .init(identifier: "zh-Hans"))
-//        
-//    }
-// }
+
+ struct MatchView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            MatchView(viewModel: MatchViewModel(matchID: "7434967285"))
+        }
+        .environment(\.locale, .init(identifier: "zh-Hans"))
+        
+    }
+ }
 
 struct DifferenceView: View {
     var body: some View {
