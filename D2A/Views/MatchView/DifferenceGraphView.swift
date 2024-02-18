@@ -82,7 +82,7 @@ struct DifferenceGraphView: View {
 
 struct DifferenceGraphView_Previews: PreviewProvider {
     static var previews: some View {
-        DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: [1, 2, 3], xpDiff: [4, 5, 6])).previewLayout(.fixed(width: 375, height: 300))
+        DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: [100, 200, 3000], xpDiff: [400, 5000, 8000])).previewLayout(.fixed(width: 375, height: 300))
     }
 }
 
@@ -132,7 +132,7 @@ struct DrawDiffLines: View {
                     }
                 }
             }
-            .stroke(lineWidth: 3)
+            .stroke(lineWidth: 1)
         }
         
     }
@@ -142,14 +142,9 @@ struct BackgroundLine: View {
     var max: Int
     var body: some View {
         VStack {
-            //            Rectangle()
-            //                .frame(height: 1)
-            //                .foregroundColor(Color(.systemGreen).opacity(0.2))
             Spacer()
             Rectangle().frame(height: 1).foregroundColor(Color(.secondaryLabel).opacity(0.2))
             Spacer()
-            //            Rectangle().frame(height: 1)
-            //                .foregroundColor(Color(.systemRed).opacity(0.2))
         }
     }
     
