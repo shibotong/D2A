@@ -22,7 +22,7 @@ struct DamageView: View {
     }
     
     private func calculateRectangleWidth() -> CGFloat {
-        if maxDamage == 0 {
+        if maxDamage == 0 || maxDamage <= playerDamage {
             return 40.0
         } else {
             return 40.0 * CGFloat(Double(playerDamage) / Double(maxDamage))
@@ -32,6 +32,10 @@ struct DamageView: View {
 
 struct DamageView_Previews: PreviewProvider {
     static var previews: some View {
-        DamageView(maxDamage: 5000, playerDamage: 2500)
+        VStack {
+            DamageView(maxDamage: 10, playerDamage: 12500)
+            DamageView(maxDamage: 0, playerDamage: 0)
+            DamageView(maxDamage: 100, playerDamage: 50)
+        }
     }
 }
