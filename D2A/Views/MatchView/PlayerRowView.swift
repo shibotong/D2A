@@ -57,7 +57,7 @@ struct PlayerRowView: View {
             HStack {
                 itemsView
             }
-            if showUpgrade {
+            if showUpgrade && !viewModel.abilityUpgrade.isEmpty {
                 gridAbilityView
                     .transition(.asymmetric(
                         insertion: .move(edge: .bottom).combined(with: .opacity),
@@ -263,20 +263,29 @@ struct PlayerRowView: View {
         VStack(spacing: 0) {
             if viewModel.gpm != 0 {
                 HStack(spacing: 3) {
-                    Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemYellow))
-                    Text("\(viewModel.gpm)").foregroundColor(Color(.systemOrange))
-                }.frame(width: 40)
+                    Circle()
+                        .frame(width: 8, height: 8)
+                        .foregroundColor(Color(.systemYellow))
+                    Text("\(viewModel.gpm)")
+                        .foregroundColor(Color(.systemOrange))
+                }
             }
             if viewModel.xpm != 0 {
                 HStack(spacing: 3) {
-                    Circle().frame(width: 8, height: 8).foregroundColor(Color(.systemBlue))
-                    Text("\(viewModel.xpm)").foregroundColor(Color(.systemBlue))
-                }.frame(width: 40)
+                    Circle()
+                        .frame(width: 8, height: 8)
+                        .foregroundColor(Color(.systemBlue))
+                    Text("\(viewModel.xpm)")
+                        .foregroundColor(Color(.systemBlue))
+                }
             }
             if maxDamage != 0 {
-                DamageView(maxDamage: maxDamage, playerDamage: Int(viewModel.heroDamage ?? 0))
+                DamageView(maxDamage: maxDamage, 
+                           playerDamage: Int(viewModel.heroDamage ?? 0))
             }
-        }.font(.system(size: 10))
+        }
+        .font(.system(size: 10))
+        .frame(width: 40)
     }
     
     private var shortPlayerView: some View {
@@ -330,7 +339,7 @@ struct PlayerRowView: View {
 struct PlayerRowView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 2, abilities: [1123, 1124, 1125, 1126, 1127, 1128, 1129, 1130, 1131]), shortVersion: true, showAbility: false)
+            PlayerRowView(maxDamage: 200, viewModel: .init(heroID: 2, abilities: []), shortVersion: true, showAbility: false)
                 .padding(.horizontal)
                 .environmentObject(HeroDatabase.shared)
                 .previewLayout(.fixed(width: 375, height: 500))
