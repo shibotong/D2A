@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MatchView: View {
     @ObservedObject var viewModel: MatchViewModel
+    @Environment(\.horizontalSizeClass) var sizeClass
     
     @State private var clipboardAlert = false
     
@@ -57,17 +58,32 @@ struct MatchView: View {
     private var playersView: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Players").font(.system(size: 20)).bold().padding([.horizontal, .top])
-            VStack(alignment: .leading, spacing: 0) {
-                TeamView(players: viewModel.playerRowViewModels.filter({ $0.isRadiant }),
-                         isRadiant: true,
-                         score: viewModel.radiantKill,
-                         win: viewModel.radiantWin,
-                         maxDamage: viewModel.maxDamage)
-                TeamView(players: viewModel.playerRowViewModels.filter({ !$0.isRadiant }),
-                         isRadiant: false,
-                         score: viewModel.direKill,
-                         win: !viewModel.radiantWin,
-                         maxDamage: viewModel.maxDamage)
+            if sizeClass == .compact {
+                VStack(alignment: .leading, spacing: 0) {
+                    TeamView(players: viewModel.playerRowViewModels.filter({ $0.isRadiant }),
+                             isRadiant: true,
+                             score: viewModel.radiantKill,
+                             win: viewModel.radiantWin,
+                             maxDamage: viewModel.maxDamage)
+                    TeamView(players: viewModel.playerRowViewModels.filter({ !$0.isRadiant }),
+                             isRadiant: false,
+                             score: viewModel.direKill,
+                             win: !viewModel.radiantWin,
+                             maxDamage: viewModel.maxDamage)
+                }
+            } else {
+                HStack {
+                    TeamView(players: viewModel.playerRowViewModels.filter({ $0.isRadiant }),
+                             isRadiant: true,
+                             score: viewModel.radiantKill,
+                             win: viewModel.radiantWin,
+                             maxDamage: viewModel.maxDamage)
+                    TeamView(players: viewModel.playerRowViewModels.filter({ !$0.isRadiant }),
+                             isRadiant: false,
+                             score: viewModel.direKill,
+                             win: !viewModel.radiantWin,
+                             maxDamage: viewModel.maxDamage)
+                }
             }
         }
     }
@@ -120,6 +136,7 @@ struct MatchStatCardView: View {
  struct MatchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
+            EmptyView()
             MatchView(viewModel: MatchViewModel(matchID: "7434967285"))
         }
         .environment(\.locale, .init(identifier: "zh-Hans"))

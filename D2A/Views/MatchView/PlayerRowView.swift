@@ -21,11 +21,7 @@ struct PlayerRowView: View {
     @State private var showUpgrade = false
     
     var body: some View {
-        if sizeClass == .compact {
-            iPhoneView
-        } else {
-            iPadView
-        }
+        iPhoneView
     }
     
     private var iPadView: some View {
