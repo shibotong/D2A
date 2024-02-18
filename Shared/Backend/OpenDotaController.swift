@@ -52,13 +52,8 @@ class OpenDotaController {
     func loadMatchData(matchid: String) async throws -> String {
         let data = try await decodingService.loadData("/matches/\(matchid)")
         let matchCodable = try decodingService.decodeMatch(data: data)
-        do {
-            _ = try Match.create(matchCodable)
-            return matchid
-        } catch {
-            print("Match created failed")
-            throw error
-        }
+        _ = try Match.create(matchCodable)
+        return matchid
     }
     
     func loadRecentMatch(userid: String) async {
