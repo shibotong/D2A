@@ -15,9 +15,6 @@ struct PlayerRowView: View {
     
     @Environment(\.horizontalSizeClass) var sizeClass
     
-    var shortVersion: Bool = false
-    var showAbility: Bool = true
-    
     @State private var showUpgrade = false
     
     var body: some View {
@@ -33,10 +30,12 @@ struct PlayerRowView: View {
                 gpmxpmView
                 scepterView
                 Spacer().frame(width: 20)
-                Button {
-                    showUpgrade.toggle()
-                } label: {
-                    Image(systemName: showUpgrade ? "chevron.up" : "chevron.down")
+                if !viewModel.abilityUpgrade.isEmpty {
+                    Button {
+                        showUpgrade.toggle()
+                    } label: {
+                        Image(systemName: showUpgrade ? "chevron.up" : "chevron.down")
+                    }
                 }
             }
             itemsView
@@ -57,36 +56,6 @@ struct PlayerRowView: View {
         LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 40, maximum: 50)), count: 1), content: {
             abilityIterator
         })
-    }
-    
-    private var longPlayerView: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: viewModel.heroID))) {
-                    heroIcon
-                }
-                if let playerID = viewModel.accountID {
-                    NavigationLink(destination: PlayerProfileView(userid: playerID)) {
-                        leadingViewContainer
-                    }
-                } else {
-                    leadingViewContainer
-                }
-                if !showAbility {
-                    Spacer()
-                }
-                gpmxpmView
-                itemsView
-                scepterView
-                if !showAbility {
-                    Spacer().frame(width: 10)
-                }
-                if showAbility {
-                    abilityView
-                    Spacer()
-                }
-            }.frame(height: 50)
-        }
     }
     
     private var heroIcon: some View {
@@ -137,43 +106,6 @@ struct PlayerRowView: View {
         }
     }
     
-    private var itemsStackView: some View {
-        HStack(spacing: 1) {
-            let width: CGFloat = 30.0
-            let height = width * 0.75
-
-            VStack(spacing: 1) {
-                ItemView(id: $viewModel.item0).frame(width: width, height: height)
-                ItemView(id: $viewModel.item3).frame(width: width, height: height)
-            }
-            VStack(spacing: 1) {
-                ItemView(id: $viewModel.item1).frame(width: width, height: height)
-                ItemView(id: $viewModel.item4).frame(width: width, height: height)
-            }
-            VStack(spacing: 1) {
-                ItemView(id: $viewModel.item2).frame(width: width, height: height)
-                ItemView(id: $viewModel.item5).frame(width: width, height: height)
-            }
-            itemStackBackPackView
-        }
-    }
-    
-    private var itemStackBackPackView: some View {
-        VStack(spacing: 1) {
-            let backPackWidth: CGFloat = 30.0 * 2 / 3
-            let backPachHeight = backPackWidth * 0.75
-            if viewModel.backpack0 != nil {
-                ItemView(id: $viewModel.backpack0).frame(width: backPackWidth, height: backPachHeight)
-            }
-            if viewModel.backpack1 != nil {
-                ItemView(id: $viewModel.backpack1).frame(width: backPackWidth, height: backPachHeight)
-            }
-            if viewModel.backpack2 != nil {
-                ItemView(id: $viewModel.backpack2).frame(width: backPackWidth, height: backPachHeight)
-            }
-        }
-    }
-    
     private var itemsView: some View {
         HStack(spacing: 1) {
             if viewModel.itemNeutral != nil {
@@ -215,21 +147,6 @@ struct PlayerRowView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 24, height: 12)
         }.frame(width: 10)
-    }
-    
-    private var abilityView: some View {
-        HStack(spacing: 1) {
-            ForEach(0..<viewModel.abilityUpgrade.count, id: \.self) { index in
-                buildAbility(abilityID: viewModel.abilityUpgrade[index])
-                    .overlay(HStack {
-                        Spacer()
-                        VStack {
-                            Spacer()
-                            Text("\(index + 1)").font(.system(size: 10)).foregroundColor(Color(.systemBackground)).background(Color(.label))
-                        }
-                    })
-            }
-        }
     }
     
     private var abilityIterator: some View {
@@ -275,16 +192,6 @@ struct PlayerRowView: View {
         .frame(width: 40)
     }
     
-    private var shortPlayerView: some View {
-        HStack {
-            heroIcon
-            leadingViewContainer
-            Spacer()
-            gpmxpmView
-            itemsStackView
-        }
-    }
-    
     @ViewBuilder private func buildAbility(abilityID: Int) -> some View {
         if let abilityName = HeroDatabase.shared.fetchAbilityName(id: abilityID) {
             if let ability = HeroDatabase.shared.fetchOpenDotaAbility(name: abilityName) {
@@ -327,11 +234,11 @@ struct PlayerRowView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             VStack {
-                PlayerRowView(maxDamage: 200, viewModel: .init(heroID: 2, abilities: [1111, 1102, 1103]), shortVersion: true, showAbility: false)
+                PlayerRowView(maxDamage: 200, viewModel: .init(heroID: 2, abilities: [1111, 1102, 1103]))
                     .padding(.horizontal)
                     .environmentObject(HeroDatabase.shared)
                     .previewLayout(.fixed(width: 375, height: 500))
-                PlayerRowView(maxDamage: 200, viewModel: .init(heroID: 2, abilities: [1111, 1102, 1103]), shortVersion: true, showAbility: false)
+                PlayerRowView(maxDamage: 200, viewModel: .init(heroID: 2, abilities: [1111, 1102, 1103]))
                     .padding(.horizontal)
                     .environmentObject(HeroDatabase.shared)
                     .previewLayout(.fixed(width: 375, height: 500))
