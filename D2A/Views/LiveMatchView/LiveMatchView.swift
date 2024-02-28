@@ -43,7 +43,7 @@ struct LiveMatchView: View {
                             VStack {
                                 draftView
                                     .background(Color.secondarySystemBackground)
-                                buildPlayerView(short: shortVersion)
+                                buildPlayerView()
                                     .background(Color.secondarySystemBackground)
                             }.padding(.top)
                         }
@@ -117,9 +117,8 @@ struct LiveMatchView: View {
                            showDetail: $viewModel.showDraft)
     }
     
-    @ViewBuilder private func buildPlayerView(short: Bool = true) -> some View {
-        LiveMatchPlayerView(players: viewModel.matchPlayers, shortVersion: short)
-            .padding()
+    @ViewBuilder private func buildPlayerView() -> some View {
+        LiveMatchPlayerView(players: viewModel.matchPlayers)
     }
 }
 

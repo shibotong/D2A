@@ -10,7 +10,6 @@ import SwiftUI
 struct LiveMatchPlayerView: View {
     
     var players: [PlayerRowViewModel]
-    var shortVersion = true
     
     var body: some View {
         VStack {
@@ -22,7 +21,6 @@ struct LiveMatchPlayerView: View {
                 ForEach(players, id: \.accountID) { player in
                     PlayerRowView(maxDamage: 0, viewModel: player)
                 }
-                
             }
         }
     }
@@ -48,7 +46,6 @@ struct PlayerRowEmptyView: View {
  struct LiveMatchPlayerView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            
             LiveMatchPlayerView(players: [.init(heroID: 1), .init(heroID: 2), .init(heroID: 3)])
         }
     }
