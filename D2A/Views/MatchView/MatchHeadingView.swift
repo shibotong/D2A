@@ -14,14 +14,27 @@ struct MatchHeadingView: View {
     
     private let iconWidth: CGFloat = 30
     
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
     var body: some View {
-        VStack {
-            buildHeroRow(heroes: radiantHeroes)
-            
-            Text("vs")
-                .bold()
-            
-            buildHeroRow(heroes: direHeroes)
+        ZStack {
+            if horizontalSizeClass == .regular {
+                HStack(spacing: 20) {
+                    buildHeroRow(heroes: radiantHeroes)
+                    Text("vs")
+                        .bold()
+                    buildHeroRow(heroes: direHeroes)
+                }
+            } else {
+                VStack {
+                    buildHeroRow(heroes: radiantHeroes)
+                    
+                    Text("vs")
+                        .bold()
+                    
+                    buildHeroRow(heroes: direHeroes)
+                }
+            }
         }
         .padding()
         .background(Color.secondarySystemBackground)

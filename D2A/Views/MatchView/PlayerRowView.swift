@@ -24,17 +24,6 @@ struct PlayerRowView: View {
         iPhoneView
     }
     
-    private var iPadView: some View {
-        VStack {
-            HStack {
-                heroIcon
-                leadingView
-                Spacer()
-                itemsStackView
-            }
-        }
-    }
-    
     private var iPhoneView: some View {
         VStack {
             HStack {

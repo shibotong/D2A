@@ -72,7 +72,7 @@ struct MatchView: View {
                              maxDamage: viewModel.maxDamage)
                 }
             } else {
-                HStack {
+                HStack(alignment: .top) {
                     TeamView(players: viewModel.playerRowViewModels.filter({ $0.isRadiant }),
                              isRadiant: true,
                              score: viewModel.radiantKill,
