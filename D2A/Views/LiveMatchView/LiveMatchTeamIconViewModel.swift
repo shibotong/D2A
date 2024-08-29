@@ -11,35 +11,46 @@ import UIKit
 class LiveMatchTeamIconViewModel: ObservableObject {
     @Published var image: UIImage?
     
-    var teamID: String?
-    var urlString: String = ""
     var isRadiant: Bool
+    
+    var team: Team?
     
     init(teamID: String?, isRadiant: Bool) {
         self.isRadiant = isRadiant
-        self.teamID = teamID
         guard let teamID else {
             return
         }
-        self.urlString = "https://cdn.stratz.com/images/dota2/teams/\(teamID).png"
-        self.image = ImageCache.readImage(type: .teamIcon, id: teamID, fileExtension: "png")
+        team = Team.fetchTeam(id: teamID)
+        if team == nil {
+            team = try? Team.createTeam(id: teamID)
+        }
+        self.image = team?.teamIcon
         Task {
             await fetchImage()
         }
     }
     
     private func fetchImage() async {
-        if image != nil {
+        guard let team, let teamID = team.teamID, !teamID.isEmpty else {
             return
         }
-        guard let newImage = await loadImage(), let teamID else {
+        
+        if image != nil && !team.shouldUpdate {
+            return
+        }
+        
+        print("team should update \(teamID)")
+        
+        guard let newImage = await loadImage(urlString: team.teamIconURL) else {
             return
         }
         ImageCache.saveImage(newImage, type: .teamIcon, id: teamID, fileExtension: "png")
+        // update team refresh date
+        _ = try? Team.createTeam(id: teamID)
         await setImage(newImage)
     }
     
-    private func loadImage() async -> UIImage? {
+    private func loadImage(urlString: String) async -> UIImage? {
         guard let url = URL(string: urlString),
               let (newImageData, _) = try? await URLSession.shared.data(from: url),
               let newImage = UIImage(data: newImageData) else {

@@ -333,6 +333,9 @@
 		799948C02932D50000D79055 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageCache.swift */; };
 		799948C12932D50000D79055 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageCache.swift */; };
 		799948C22932D50000D79055 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageCache.swift */; };
+		799F119E2B8F4FF5008BC764 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799F119D2B8F4FF5008BC764 /* Team.swift */; };
+		799F119F2B8F4FF5008BC764 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799F119D2B8F4FF5008BC764 /* Team.swift */; };
+		799F11A02B8F4FF5008BC764 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799F119D2B8F4FF5008BC764 /* Team.swift */; };
 		79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */; };
 		79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */; };
 		79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
@@ -628,6 +631,8 @@
 		7990E71B2B822E2E005500FC /* MatchHeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchHeadingView.swift; sourceTree = "<group>"; };
 		799948BD2932423800D79055 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		799948BF2932D50000D79055 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		799F119C2B8F4FBA008BC764 /* Backend 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 2.xcdatamodel"; sourceTree = "<group>"; };
+		799F119D2B8F4FF5008BC764 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityStatsView.swift; sourceTree = "<group>"; };
 		79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityDescriptionView.swift; sourceTree = "<group>"; };
 		79A988F82931D400006AC847 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
@@ -1211,6 +1216,7 @@
 				79A988FC2931D6FF006AC847 /* Player.swift */,
 				7985E7EC28E53A40007A43AF /* Role.swift */,
 				7985E7EE28E53E47007A43AF /* Talent.swift */,
+				799F119D2B8F4FF5008BC764 /* Team.swift */,
 				79A988FF2931DCE1006AC847 /* UserProfile.swift */,
 				798A5CF92945B3C300EB07B0 /* RecentMatch.swift */,
 			);
@@ -1765,6 +1771,7 @@
 				32D1606126F3753900657449 /* SKProduct.swift in Sources */,
 				799948BE2932423800D79055 /* LoadingView.swift in Sources */,
 				7965F636293ADE1900922F99 /* RegisteredPlayerView.swift in Sources */,
+				799F119E2B8F4FF5008BC764 /* Team.swift in Sources */,
 				7990E7182B821C23005500FC /* TeamPlayerView.swift in Sources */,
 				796FE19E29AB006C003379EB /* AbilityImageViewModel.swift in Sources */,
 				798C42912A35581900BDC470 /* LiveMatchKillEvent.swift in Sources */,
@@ -1804,6 +1811,7 @@
 				32F70B1926F6295B006E9B05 /* Date.swift in Sources */,
 				3270271D285C08C200927426 /* HeroDatabase.swift in Sources */,
 				799948C12932D50000D79055 /* ImageCache.swift in Sources */,
+				799F119F2B8F4FF5008BC764 /* Team.swift in Sources */,
 				32079DC028B843360056D19F /* String.swift in Sources */,
 				793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
 				327B87732850DA7800BBE1F8 /* Ability.swift in Sources */,
@@ -1867,6 +1875,7 @@
 				32A26C52285947D4005E890F /* OpenDotaController.swift in Sources */,
 				32079DC128B843360056D19F /* String.swift in Sources */,
 				799948C22932D50000D79055 /* ImageCache.swift in Sources */,
+				799F11A02B8F4FF5008BC764 /* Team.swift in Sources */,
 				32F70B1826F6294E006E9B05 /* MatchCodable.swift in Sources */,
 				793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
 				32B526D5285C1DBC0099B058 /* Extension.swift in Sources */,
@@ -2616,9 +2625,10 @@
 		79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				799F119C2B8F4FBA008BC764 /* Backend 2.xcdatamodel */,
 				79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */,
 			);
-			currentVersion = 79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */;
+			currentVersion = 799F119C2B8F4FBA008BC764 /* Backend 2.xcdatamodel */;
 			path = D2AModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

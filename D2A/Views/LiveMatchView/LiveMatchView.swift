@@ -36,9 +36,8 @@ struct LiveMatchView: View {
             timerView
                 .frame(height: 100)
             HStack(spacing: 16) {
-                GeometryReader { proxy in
+                GeometryReader { _ in
                     HStack {
-                        let shortVersion = proxy.size.width <= 450
                         ScrollView(showsIndicators: false) {
                             VStack {
                                 draftView
