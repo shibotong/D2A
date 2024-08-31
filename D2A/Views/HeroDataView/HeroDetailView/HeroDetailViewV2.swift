@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct HeroDetailViewV2: View {
+    
+    @State private var heroLevel = 1.00
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Slider(value: $heroLevel, in: 1...30, step: 1) {
+            Text("Level \(Int(heroLevel))")
+        } minimumValueLabel: {
+            Text("\(Int(heroLevel))")
+        } maximumValueLabel: {
+            Text("30")
+        }
     }
 }
 
-#Preview {
-    HeroDetailViewV2()
-}
+ #Preview {
+     HeroDetailViewV2()
+ }

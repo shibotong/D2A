@@ -8,11 +8,35 @@
 import SwiftUI
 
 struct HeroComplexityView: View {
+    
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
+    private var color: Color {
+        horizontalSizeClass == .compact ? .white : .label
+    }
+    
+    let heroComplexity: Int
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            ForEach(1..<4) { complexity in
+                if complexity <= heroComplexity {
+                    RoundedRectangle(cornerRadius: 3)
+                        .frame(width: 15, height: 15)
+                        .foregroundColor(color)
+                        .rotationEffect(.degrees(45))
+                } else {
+                    RoundedRectangle(cornerRadius: 3)
+                        .stroke()
+                        .frame(width: 15, height: 15)
+                        .foregroundColor(color)
+                        .rotationEffect(.degrees(45))
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    HeroComplexityView()
+    HeroComplexityView(heroComplexity: 1)
 }
