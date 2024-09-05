@@ -98,8 +98,8 @@ class HeroDatabase: ObservableObject {
         abilityData?.bkbPierce = ability.bkbPierce?.transformString()
         abilityData?.dispellable = ability.dispellable?.transformString()
 
-        let attributes: [AbilityAttributeV2] = ability.attributes?.map {
-            let attribute = AbilityAttributeV2(attribute: $0)
+        let attributes: [AbilityV2Attribute] = ability.attributes?.map {
+            let attribute = AbilityV2Attribute(attribute: $0)
             attribute.ability = abilityData
             return attribute
         } ?? []
@@ -107,7 +107,7 @@ class HeroDatabase: ObservableObject {
         
         let stratzAbility = fetchStratzAbility(name: abilityName)
         let languageCode = currentLanguage
-        let abilityLocalisation = AbilityLocalisation(localisation: languageCode)
+        let abilityLocalisation = AbilityV2Localisation(localisation: languageCode)
         abilityLocalisation.displayName = stratzAbility?.language?.displayName ?? ""
         abilityLocalisation.lore = stratzAbility?.language?.lore
         if isScepterSkill(dname: ability.dname) {

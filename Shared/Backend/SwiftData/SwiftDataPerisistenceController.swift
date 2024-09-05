@@ -19,7 +19,7 @@ class SwiftDataPerisistenceController {
     
     init(configuration: ModelConfiguration = .init(isStoredInMemoryOnly: false)) {
         do {
-            container = try ModelContainer(for: AbilityV2.self, AbilityAttributeV2.self, configurations: configuration)
+            container = try ModelContainer(for: HeroV2.self, HeroV2Localisation.self, RoleV2.self, AbilityV2.self, AbilityV2Attribute.self, AbilityV2Localisation.self, configurations: configuration)
         } catch {
             fatalError("Create container failed")
         }

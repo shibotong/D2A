@@ -56,13 +56,13 @@ class HeroV2 {
     @Relationship(deleteRule: .cascade, inverse: \HeroV2Localisation.hero)
     var localisations: [HeroV2Localisation] = []
     
-    @Relationship(deleteRule: .cascade, inverse: \HeroV2Role.hero)
-    var roles: [HeroV2Role] = []
+    @Relationship(deleteRule: .cascade, inverse: \RoleV2.hero)
+    var roles: [RoleV2] = []
     
     @Relationship(deleteRule: .cascade, inverse: \AbilityV2.hero)
     var abilities: [AbilityV2] = []
     
-    init(id: Int, name: String, primaryAttribute: String, attackType: String, baseHealth: Int, baseHealthRegen: Int, baseMana: Int, baseManaRegen: Int, baseArmor: Int, baseMr: Int, baseAttackMin: Int, baseAttackMax: Int, baseStr: Int, baseAgi: Int, baseInt: Int, gainStr: Double, gainAgi: Double, gainInt: Double, attackRange: Int, projectileSpeed: Int, attackRate: Double, baseAttackTime: Int, attackPoint: Double, moveSpeed: Int, turnRate: Double, cmEnabled: Bool, legs: Int, dayVision: Int, nightVision: Int, localisations: [HeroV2Localisation], roles: [HeroV2Role], abilities: [AbilityV2]) {
+    init(id: Int, name: String, primaryAttribute: String, attackType: String, baseHealth: Int, baseHealthRegen: Int, baseMana: Int, baseManaRegen: Int, baseArmor: Int, baseMr: Int, baseAttackMin: Int, baseAttackMax: Int, baseStr: Int, baseAgi: Int, baseInt: Int, gainStr: Double, gainAgi: Double, gainInt: Double, attackRange: Int, projectileSpeed: Int, attackRate: Double, baseAttackTime: Int, attackPoint: Double, moveSpeed: Int, turnRate: Double, cmEnabled: Bool, legs: Int, dayVision: Int, nightVision: Int, localisations: [HeroV2Localisation], roles: [RoleV2], abilities: [AbilityV2]) {
         self.id = id
         self.name = name
         self.primaryAttribute = primaryAttribute
