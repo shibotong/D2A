@@ -376,8 +376,6 @@
 		79AF2AA92C8A7186004D2146 /* HeroV2Localisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF2AA82C8A7186004D2146 /* HeroV2Localisation.swift */; };
 		79AF2AAB2C8A7202004D2146 /* HeroV2Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF2AAA2C8A7202004D2146 /* HeroV2Role.swift */; };
 		79AF2AAF2C8A7391004D2146 /* HeroV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF2AAE2C8A7391004D2146 /* HeroV2.swift */; };
-		79AF2AB02C8A7AA7004D2146 /* HeroV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF2AAE2C8A7391004D2146 /* HeroV2.swift */; };
-		79AF2AB12C8A7AA7004D2146 /* HeroV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF2AAE2C8A7391004D2146 /* HeroV2.swift */; };
 		79BD872E2A4C2F1400964814 /* LiveMatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872D2A4C2F1400964814 /* LiveMatchListRowView.swift */; };
 		79BD87302A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */; };
 		79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */; };
@@ -1204,7 +1202,6 @@
 		792E97762C83FADF00234038 /* SwiftData */ = {
 			isa = PBXGroup;
 			children = (
-				79AF2AAE2C8A7391004D2146 /* HeroV2.swift */,
 				792E977B2C84479F00234038 /* SwiftDataPerisistenceController.swift */,
 			);
 			path = SwiftData;
@@ -1347,6 +1344,7 @@
 		79AF2AA52C8A700D004D2146 /* Hero */ = {
 			isa = PBXGroup;
 			children = (
+				79AF2AAE2C8A7391004D2146 /* HeroV2.swift */,
 				79AF2AA82C8A7186004D2146 /* HeroV2Localisation.swift */,
 				79AF2AAA2C8A7202004D2146 /* HeroV2Role.swift */,
 			);
@@ -1962,7 +1960,6 @@
 				32F70ADC26F60B30006E9B05 /* StringVariable.swift in Sources */,
 				32B526CB285C0CE40099B058 /* RecentMatchesWidgetEntryView.swift in Sources */,
 				79D5282328DD74930070841D /* Secret.swift in Sources */,
-				79AF2AB02C8A7AA7004D2146 /* HeroV2.swift in Sources */,
 				790FBB3129C18ABC00E27106 /* Network.swift in Sources */,
 				32B526D4285C1DBC0099B058 /* Extension.swift in Sources */,
 				32F70B1726F6294D006E9B05 /* MatchCodable.swift in Sources */,
@@ -2030,7 +2027,6 @@
 				32F70B0F26F622C0006E9B05 /* LobbyType.swift in Sources */,
 				79D5282428DD74930070841D /* Secret.swift in Sources */,
 				32F70B1026F622C2006E9B05 /* GameMode.swift in Sources */,
-				79AF2AB12C8A7AA7004D2146 /* HeroV2.swift in Sources */,
 				790FBB3229C18ABC00E27106 /* Network.swift in Sources */,
 				327B87742850DA7900BBE1F8 /* Ability.swift in Sources */,
 				32F70B2026F6295C006E9B05 /* Int.swift in Sources */,
