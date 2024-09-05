@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HeroDetailViewV2: View {
     
+    @State var hero: Hero?
+    
     @State private var heroLevel = 1.00
     
     var body: some View {
@@ -22,6 +24,6 @@ struct HeroDetailViewV2: View {
     }
 }
 
- #Preview {
-     HeroDetailViewV2()
- }
+// #Preview {
+//     HeroDetailViewV2(hero: <#Hero#>)
+// }

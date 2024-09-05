@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 import StratzAPI
+import SwiftData
 
 enum LoadingStatus {
     case loading, error, finish
@@ -61,6 +62,91 @@ class HeroDatabase: ObservableObject {
         self.items = items
     }
     
+    @available(iOS 17, *)
+    private func saveAbilities(container: ModelContainer = SwiftDataPerisistenceController.shared.container) async {
+        for (abilityIDString, abilityName) in abilityIDTable {
+            guard let ability = abilities[abilityName], let abilityID = Int(abilityIDString) else {
+                continue
+            }
+            Task {
+                await saveAbility(abilityID: abilityID, abilityName: abilityName, ability: ability, container: container)
+            }
+        }
+    }
+    
+    @available(iOS 17, *)
+    private func saveAbility(abilityID: Int, abilityName: String, ability: Ability, container: ModelContainer) async {
+        let context = ModelContext(container)
+        var fetchDescriptor = FetchDescriptor<AbilityV2>(
+            predicate: #Predicate { $0.abilityID == abilityID }
+        )
+        fetchDescriptor.fetchLimit = 1
+        var abilityData = try? context.fetch(fetchDescriptor).first
+        if abilityData == nil {
+            abilityData = AbilityV2(abilityID: abilityID, name: abilityName)
+            context.insert(abilityData!)
+        }
+        
+        abilityData?.dname = ability.dname
+        abilityData?.imageURL = nil
+        abilityData?.behaviour = ability.behavior?.transformString()
+        abilityData?.targetTeam = ability.targetTeam?.transformString()
+        abilityData?.targetType = ability.targetType?.transformString()
+        abilityData?.dmgType = ability.damageType?.transformString()
+        abilityData?.mc = ability.manaCost?.transformString()
+        abilityData?.cd = ability.coolDown?.transformString()
+        abilityData?.bkbPierce = ability.bkbPierce?.transformString()
+        abilityData?.dispellable = ability.dispellable?.transformString()
+
+        let attributes: [AbilityAttributeV2] = ability.attributes?.map {
+            let attribute = AbilityAttributeV2(attribute: $0)
+            attribute.ability = abilityData
+            return attribute
+        } ?? []
+        attributes.forEach { context.insert($0) }
+        
+        let stratzAbility = fetchStratzAbility(name: abilityName)
+        let languageCode = currentLanguage
+        let abilityLocalisation = AbilityLocalisation(localisation: languageCode)
+        abilityLocalisation.displayName = stratzAbility?.language?.displayName ?? ""
+        abilityLocalisation.lore = stratzAbility?.language?.lore
+        if isScepterSkill(dname: ability.dname) {
+            abilityLocalisation.scepterDescription = stratzAbility?.language?.aghanimDescription
+        } else if isShardSkill(dname: ability.dname) {
+            abilityLocalisation.shardDescription = stratzAbility?.language?.shardDescription
+        } else {
+            abilityLocalisation.scepterDescription = stratzAbility?.language?.aghanimDescription
+            abilityLocalisation.shardDescription = stratzAbility?.language?.shardDescription
+            abilityLocalisation.abilityDescription = stratzAbility?.language?.description?.compactMap { $0 }.joined(separator: "\n")
+        }
+        
+        abilityLocalisation.ability = abilityData
+        
+        context.insert(abilityLocalisation)
+    }
+    
+    @available(iOS 17, *)
+    private func isScepterSkill(dname: String?) -> Bool {
+        guard let hero = scepterData.filter({ scepter in
+            scepter.scepterSkillName == dname
+        }).first else {
+            return false
+        }
+        
+        return hero.scepterNewSkill
+    }
+    
+    @available(iOS 17, *)
+    private func isShardSkill(dname: String?) -> Bool {
+        guard let hero = scepterData.filter({ scepter in
+            scepter.shardSkillName == dname
+        }).first else {
+            return false
+        }
+        
+        return hero.shardNewSkill
+    }
+    
     func loadData() {
         status = .loading
         gameModes = loadGameModes()
@@ -107,8 +193,20 @@ class HeroDatabase: ObservableObject {
                 }
                 return LoadingStatus.loading
             })
-            .sink { [weak self] status in
+            .sink { [weak self] (status: LoadingStatus) in
                 self?.status = status
+                if status == .finish {
+                    self?.removeBinding()
+                    if #available(iOS 17, *) {
+                        Task { [weak self] in
+                            await self?.saveAbilities()
+                        }
+                    }
+                }
+                
+                if status == .error {
+                    self?.removeBinding()
+                }
                 if status == .finish || status == .error {
                     self?.removeBinding()
                 }
