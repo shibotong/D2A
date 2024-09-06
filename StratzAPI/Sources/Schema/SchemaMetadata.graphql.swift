@@ -3,8 +3,6 @@
 
 import ApolloAPI
 
-public typealias ID = String
-
 public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
 where Schema == StratzAPI.SchemaMetadata {}
 
@@ -18,9 +16,9 @@ public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI
 where Schema == StratzAPI.SchemaMetadata {}
 
 public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
-  public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
+  public static let configuration: any ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
 
-  public static func objectType(forTypename typename: String) -> Object? {
+  public static func objectType(forTypename typename: String) -> ApolloAPI.Object? {
     switch typename {
     case "DotaQuery": return StratzAPI.Objects.DotaQuery
     case "LiveQuery": return StratzAPI.Objects.LiveQuery

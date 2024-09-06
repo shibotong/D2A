@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public extension Objects {
-  static let DotaQuery = Object(
+  static let DotaQuery = ApolloAPI.Object(
     typename: "DotaQuery",
     implementedInterfaces: []
   )

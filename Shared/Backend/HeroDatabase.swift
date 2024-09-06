@@ -325,9 +325,9 @@ class HeroDatabase: ObservableObject {
 // MARK: - Core Data
 extension HeroDatabase {
     private func saveHeroes(heroes: [String: HeroCodable]) async {
-        for (heroID, heroCodable) in 1..<150 {
-            
-        }
+//        for (heroID, heroCodable) in 1..<150 {
+//            
+//        }
     }
 }
 

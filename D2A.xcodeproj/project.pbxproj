@@ -622,6 +622,7 @@
 		792E978C2C84629600234038 /* HeroListViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListViewV2.swift; sourceTree = "<group>"; };
 		7930699B2B5D323100A5CF5D /* DataLoadingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataLoadingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79368C0928E6D8ED009517D2 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
+		79373F472C8AC57400D77251 /* apollo-codegen-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "apollo-codegen-config.json"; sourceTree = "<group>"; };
 		7942FD012B706B49008CE4B0 /* UIScreenshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIScreenshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
 		794838642A3D2C0800A447DA /* LiveMatchActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivity.swift; sourceTree = "<group>"; };
@@ -881,6 +882,7 @@
 		32B36F0226C38821002D427D = {
 			isa = PBXGroup;
 			children = (
+				79373F472C8AC57400D77251 /* apollo-codegen-config.json */,
 				798A1D1729C183B500E443A6 /* StratzAPI */,
 				79A989262931FA50006AC847 /* D2AProStore.storekit */,
 				32C606CB286479F7007AD14B /* ci_scripts */,

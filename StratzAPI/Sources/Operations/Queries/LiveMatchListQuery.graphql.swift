@@ -5,51 +5,9 @@
 
 public class LiveMatchListQuery: GraphQLQuery {
   public static let operationName: String = "LiveMatchListQuery"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      query LiveMatchListQuery($request: MatchLiveRequestType) {
-        live {
-          __typename
-          matches(request: $request) {
-            __typename
-            matchId
-            radiantScore
-            direScore
-            leagueId
-            league {
-              __typename
-              id
-              displayName
-            }
-            averageRank
-            gameTime
-            radiantTeamId
-            direTeamId
-            players {
-              __typename
-              heroId
-              steamAccountId
-              steamAccount {
-                __typename
-                name
-                realName
-                avatar
-                rankShift
-                seasonRank
-                proSteamAccount {
-                  __typename
-                  name
-                  realName
-                }
-              }
-              playerSlot
-              isRadiant
-            }
-          }
-        }
-      }
-      """#
+      #"query LiveMatchListQuery($request: MatchLiveRequestType) { live { __typename matches(request: $request) { __typename matchId radiantScore direScore leagueId league { __typename id displayName } averageRank gameTime radiantTeamId direTeamId players { __typename heroId steamAccountId steamAccount { __typename name realName avatar rankShift seasonRank proSteamAccount { __typename name realName } } playerSlot isRadiant } } } }"#
     ))
 
   public var request: GraphQLNullable<MatchLiveRequestType>
@@ -64,7 +22,7 @@ public class LiveMatchListQuery: GraphQLQuery {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.DotaQuery }
+    public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.DotaQuery }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("live", Live?.self),
     ] }
@@ -79,7 +37,7 @@ public class LiveMatchListQuery: GraphQLQuery {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.LiveQuery }
+      public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.LiveQuery }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("matches", [Match?]?.self, arguments: ["request": .variable("request")]),
@@ -95,7 +53,7 @@ public class LiveMatchListQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLiveType }
+        public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.MatchLiveType }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("matchId", StratzAPI.Long?.self),
@@ -128,7 +86,7 @@ public class LiveMatchListQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.LeagueType }
+          public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.LeagueType }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
             .field("id", Int?.self),
@@ -146,7 +104,7 @@ public class LiveMatchListQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerType }
+          public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerType }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
             .field("heroId", StratzAPI.Short?.self),
@@ -169,7 +127,7 @@ public class LiveMatchListQuery: GraphQLQuery {
             public let __data: DataDict
             public init(_dataDict: DataDict) { __data = _dataDict }
 
-            public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.SteamAccountType }
+            public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.SteamAccountType }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("__typename", String.self),
               .field("name", String?.self),
@@ -194,7 +152,7 @@ public class LiveMatchListQuery: GraphQLQuery {
               public let __data: DataDict
               public init(_dataDict: DataDict) { __data = _dataDict }
 
-              public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.ProSteamAccountType }
+              public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.ProSteamAccountType }
               public static var __selections: [ApolloAPI.Selection] { [
                 .field("__typename", String.self),
                 .field("name", String?.self),

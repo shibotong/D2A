@@ -5,35 +5,9 @@
 
 public class AbilityQuery: GraphQLQuery {
   public static let operationName: String = "Ability"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      query Ability($language: Language) {
-        constants {
-          __typename
-          abilities(language: $language) {
-            __typename
-            id
-            name
-            language {
-              __typename
-              displayName
-              description
-              attributes
-              lore
-              aghanimDescription
-              shardDescription
-              notes
-            }
-            attributes {
-              __typename
-              name
-              value
-            }
-          }
-        }
-      }
-      """#
+      #"query Ability($language: Language) { constants { __typename abilities(language: $language) { __typename id name language { __typename displayName description attributes lore aghanimDescription shardDescription notes } attributes { __typename name value } } } }"#
     ))
 
   public var language: GraphQLNullable<GraphQLEnum<Language>>
@@ -48,7 +22,7 @@ public class AbilityQuery: GraphQLQuery {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.DotaQuery }
+    public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.DotaQuery }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("constants", Constants?.self),
     ] }
@@ -63,7 +37,7 @@ public class AbilityQuery: GraphQLQuery {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.ConstantQuery }
+      public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.ConstantQuery }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("abilities", [Ability?]?.self, arguments: ["language": .variable("language")]),
@@ -79,7 +53,7 @@ public class AbilityQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.AbilityType }
+        public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.AbilityType }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("id", StratzAPI.Short?.self),
@@ -100,7 +74,7 @@ public class AbilityQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.AbilityLanguageType }
+          public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.AbilityLanguageType }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
             .field("displayName", String?.self),
@@ -128,7 +102,7 @@ public class AbilityQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.AbilityAttributeType }
+          public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.AbilityAttributeType }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
             .field("name", String?.self),

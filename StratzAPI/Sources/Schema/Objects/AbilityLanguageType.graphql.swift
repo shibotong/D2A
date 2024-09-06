@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public extension Objects {
-  static let AbilityLanguageType = Object(
+  static let AbilityLanguageType = ApolloAPI.Object(
     typename: "AbilityLanguageType",
     implementedInterfaces: []
   )

@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public extension Objects {
-  static let HeroRoleType = Object(
+  static let HeroRoleType = ApolloAPI.Object(
     typename: "HeroRoleType",
     implementedInterfaces: []
   )

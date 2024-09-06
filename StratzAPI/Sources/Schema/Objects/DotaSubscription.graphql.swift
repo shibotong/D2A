@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public extension Objects {
-  static let DotaSubscription = Object(
+  static let DotaSubscription = ApolloAPI.Object(
     typename: "DotaSubscription",
     implementedInterfaces: []
   )

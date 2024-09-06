@@ -5,132 +5,9 @@
 
 public class LiveMatchSubscription: GraphQLSubscription {
   public static let operationName: String = "LiveMatch"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      subscription LiveMatch($matchid: Long!) {
-        matchLive(matchId: $matchid) {
-          __typename
-          matchId
-          radiantScore
-          direScore
-          gameTime
-          completed
-          league {
-            __typename
-            id
-            displayName
-          }
-          radiantTeamId
-          radiantTeam {
-            __typename
-            logo
-            tag
-          }
-          direTeamId
-          direTeam {
-            __typename
-            logo
-            tag
-          }
-          playbackData {
-            __typename
-            roshanEvents {
-              __typename
-              time
-              isAlive
-              respawnTimer
-            }
-            buildingEvents {
-              __typename
-              time
-              indexId
-              type
-              isAlive
-              positionX
-              positionY
-              isRadiant
-              npcId
-            }
-            pickBans {
-              __typename
-              isPick
-              heroId
-              order
-              bannedHeroId
-              isRadiant
-              letter
-              baseWinRate
-              adjustedWinRate
-            }
-          }
-          gameState
-          players {
-            __typename
-            heroId
-            name
-            steamAccountId
-            steamAccount {
-              __typename
-              name
-              realName
-              avatar
-              rankShift
-              seasonRank
-              proSteamAccount {
-                __typename
-                name
-                realName
-              }
-            }
-            playerSlot
-            isRadiant
-            numKills
-            numDeaths
-            numAssists
-            numLastHits
-            numDenies
-            goldPerMinute
-            experiencePerMinute
-            level
-            itemId0
-            itemId1
-            itemId2
-            itemId3
-            itemId4
-            itemId5
-            backpackId0
-            backpackId1
-            backpackId2
-            networth
-            heroDamage
-            playbackData {
-              __typename
-              killEvents {
-                __typename
-                time
-              }
-              deathEvents {
-                __typename
-                time
-              }
-              positionEvents {
-                __typename
-                time
-                x
-                y
-              }
-            }
-          }
-          winRateValues
-          liveWinRateValues {
-            __typename
-            time
-            winRate
-          }
-        }
-      }
-      """#
+      #"subscription LiveMatch($matchid: Long!) { matchLive(matchId: $matchid) { __typename matchId radiantScore direScore gameTime completed league { __typename id displayName } radiantTeamId radiantTeam { __typename logo tag } direTeamId direTeam { __typename logo tag } playbackData { __typename roshanEvents { __typename time isAlive respawnTimer } buildingEvents { __typename time indexId type isAlive positionX positionY isRadiant npcId } pickBans { __typename isPick heroId order bannedHeroId isRadiant letter baseWinRate adjustedWinRate } } gameState players { __typename heroId name steamAccountId steamAccount { __typename name realName avatar rankShift seasonRank proSteamAccount { __typename name realName } } playerSlot isRadiant numKills numDeaths numAssists numLastHits numDenies goldPerMinute experiencePerMinute level itemId0 itemId1 itemId2 itemId3 itemId4 itemId5 backpackId0 backpackId1 backpackId2 networth heroDamage playbackData { __typename killEvents { __typename time } deathEvents { __typename time } positionEvents { __typename time x y } } } winRateValues liveWinRateValues { __typename time winRate } } }"#
     ))
 
   public var matchid: Long
@@ -145,7 +22,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
     public let __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
-    public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.DotaSubscription }
+    public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.DotaSubscription }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("matchLive", MatchLive?.self, arguments: ["matchId": .variable("matchid")]),
     ] }
@@ -159,7 +36,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLiveType }
+      public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.MatchLiveType }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("matchId", StratzAPI.Long?.self),
@@ -202,7 +79,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.LeagueType }
+        public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.LeagueType }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("id", Int?.self),
@@ -220,7 +97,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.TeamType }
+        public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.TeamType }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("logo", String?.self),
@@ -238,7 +115,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.TeamType }
+        public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.TeamType }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("logo", String?.self),
@@ -256,7 +133,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlaybackDataType }
+        public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlaybackDataType }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("roshanEvents", [RoshanEvent?]?.self),
@@ -275,7 +152,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLiveRoshanDetailType }
+          public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.MatchLiveRoshanDetailType }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
             .field("time", Int?.self),
@@ -295,7 +172,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLiveBuildingDetailType }
+          public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.MatchLiveBuildingDetailType }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
             .field("time", Int.self),
@@ -325,7 +202,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePickBanType }
+          public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePickBanType }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
             .field("isPick", Bool.self),
@@ -356,7 +233,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerType }
+        public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerType }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("heroId", StratzAPI.Short?.self),
@@ -421,7 +298,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.SteamAccountType }
+          public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.SteamAccountType }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
             .field("name", String?.self),
@@ -446,7 +323,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
             public let __data: DataDict
             public init(_dataDict: DataDict) { __data = _dataDict }
 
-            public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.ProSteamAccountType }
+            public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.ProSteamAccountType }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("__typename", String.self),
               .field("name", String?.self),
@@ -465,7 +342,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchPlayerLivePlaybackDataType }
+          public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.MatchPlayerLivePlaybackDataType }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
             .field("killEvents", [KillEvent?]?.self),
@@ -484,7 +361,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
             public let __data: DataDict
             public init(_dataDict: DataDict) { __data = _dataDict }
 
-            public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerKillDetailType }
+            public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerKillDetailType }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("__typename", String.self),
               .field("time", Int.self),
@@ -500,7 +377,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
             public let __data: DataDict
             public init(_dataDict: DataDict) { __data = _dataDict }
 
-            public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerDeathDetailType }
+            public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerDeathDetailType }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("__typename", String.self),
               .field("time", Int.self),
@@ -516,7 +393,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
             public let __data: DataDict
             public init(_dataDict: DataDict) { __data = _dataDict }
 
-            public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerPositionDetailType }
+            public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.MatchLivePlayerPositionDetailType }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("__typename", String.self),
               .field("time", Int.self),
@@ -538,7 +415,7 @@ public class LiveMatchSubscription: GraphQLSubscription {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLiveWinRateDetailType }
+        public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.MatchLiveWinRateDetailType }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("time", Int.self),
