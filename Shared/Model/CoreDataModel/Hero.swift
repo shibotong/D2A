@@ -17,26 +17,16 @@ extension Hero {
     
     // MARK: - Static func
     /// Create `Hero` with `HeroModel` and `HeroQuery.Data.Constants.Hero` and save into Core Data
-    static func createHero(_ queryHero: HeroQuery.Data.Constants.Hero, model: HeroCodable, abilities: [String] = []) throws -> Hero {
+    static func createHero(_ queryHero: HeroQuery.Data.Constants.Hero? = nil, model: HeroCodable, abilities: [String] = []) throws -> Hero {
         let viewContext = PersistenceController.shared.container.viewContext
         
-        guard let heroID = queryHero.id,
-              let heroTalents = queryHero.talents,
-              let heroRoles = queryHero.roles,
-              let heroStats = queryHero.stats else {
-            throw Hero.CoreDataError.decodingError
-        }
+        let heroID = Double(model.id)
         let hero = fetchHero(id: heroID) ?? Hero(context: viewContext)
         // data from Stratz
         hero.lastFetch = Date()
         hero.id = heroID
-        hero.displayName = queryHero.displayName
-        hero.name = queryHero.name
-        hero.complexity = Int16(heroStats.complexity ?? 0)
-        hero.visionDaytimeRange = heroStats.visionDaytimeRange ?? 1800
-        hero.visionNighttimeRange = heroStats.visionNighttimeRange ?? 800
-        hero.roles = NSSet(array: try heroRoles.map({ return try Role.createRole($0) }))
-        hero.talents = NSSet(array: try heroTalents.map({ return try Talent.createTalent($0) }))
+        hero.displayName = model.localizedName
+        hero.name = model.name
         
         // data from OpenDota
         hero.abilities = abilities
@@ -67,6 +57,17 @@ extension Hero {
         hero.moveSpeed = model.moveSpeed
         hero.turnRate = model.turnRate ?? 0.6
         
+        if let query = queryHero,
+           let heroTalents = query.talents,
+           let heroRoles = query.roles,
+           let heroStats = query.stats {
+            hero.complexity = Int16(heroStats.complexity ?? 0)
+            hero.visionDaytimeRange = heroStats.visionDaytimeRange ?? 1800
+            hero.visionNighttimeRange = heroStats.visionNighttimeRange ?? 800
+            hero.roles = NSSet(array: try heroRoles.map({ return try Role.createRole($0) }))
+            hero.talents = NSSet(array: try heroTalents.map({ return try Talent.createTalent($0) }))
+        }
+
         try viewContext.save()
         return hero
     }

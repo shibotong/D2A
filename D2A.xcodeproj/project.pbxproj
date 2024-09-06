@@ -951,9 +951,9 @@
 		32B36F1D26C38834002D427D /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				329849F326DCAEAE00A1032C /* HeroDatabase.swift */,
 				792E97762C83FADF00234038 /* SwiftData */,
 				792E97752C83FAD200234038 /* Core Data */,
-				329849F326DCAEAE00A1032C /* HeroDatabase.swift */,
 				322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */,
 				32B36F4B26C39C5D002D427D /* Environment.swift */,
 				799948BF2932D50000D79055 /* ImageCache.swift */,
