@@ -95,3 +95,4 @@ Podfile.lock
 Shared/GraphQL/secrets.json
 D2AUITests/testcase.json
 D2AUITests/TestCaseString.swift
+apollo-ios-cli
