@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import CoreData
+import StratzAPI
 import Apollo
 import ApolloWebSocket
 
-class Network {
-    static let shared = Network()
+class StratzController {
+    static let shared = StratzController()
     private(set) lazy var apollo: ApolloClient = {
         let token: String = {
             let token = try? Secrets.load().stratzToken
@@ -37,4 +39,27 @@ class Network {
         
         return ApolloClient(networkTransport: splitTransport, store: store)
     }()
+    
+    private var language: GraphQLNullable<GraphQLEnum<Language>>
+    
+    init(language: Language = languageCode) {
+        self.language = .init(Language(rawValue: language.rawValue) ?? .english)
+    }
+    
+    func loadLocalisation() async -> LocaliseQuery.Data.Constants? {
+        return await withCheckedContinuation { continuation in
+            apollo.fetch(query: LocaliseQuery(language: language)) { result in
+                switch result {
+                case .success(let graphQLResult):
+                    guard let constants = graphQLResult.data?.constants else {
+                        return
+                    }
+                    continuation.resume(returning: constants)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    continuation.resume(returning: nil)
+                }
+            }
+        }
+    }
 }

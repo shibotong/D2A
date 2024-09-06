@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Ability: Codable, Identifiable {
+struct AbilityCodable: Codable, Identifiable {
     var id = UUID()
     
     var img: String?
@@ -126,7 +126,7 @@ enum StringOrArray: Codable {
 
 struct AbilityContainer: Identifiable {
     var id = UUID()
-    var ability: Ability
+    var ability: AbilityCodable
     var heroID: Int
     var abilityName: String
 }

@@ -10,6 +10,7 @@ import SwiftUI
 import Combine
 import StratzAPI
 import SwiftData
+import CoreData
 
 enum LoadingStatus {
     case loading, error, finish
@@ -29,10 +30,9 @@ class HeroDatabase: ObservableObject {
     private var items = [String: Item]()
     private var itemIDTable = [String: String]()
     private var abilityIDTable = [String: String]()
-    private var abilities = [String: Ability]()
+    private var abilities = [String: AbilityCodable]()
     private var heroAbilities = [String: HeroAbility]()
     private var scepterData = [HeroScepter]()
-    private var apolloAbilities = [AbilityQuery.Data.Constants.Ability]()
     
     static var shared = HeroDatabase()
     
@@ -68,8 +68,6 @@ class HeroDatabase: ObservableObject {
         regions = loadRegion()!
         lobbyTypes = loadLobby()!
         
-        loadStratzAbilities()
-        
         Task { [weak self] in
             async let idTable = loadItemIDs()
             async let items = loadItems()
@@ -88,8 +86,6 @@ class HeroDatabase: ObservableObject {
             self?.scepterData = await scepter
             let status: LoadingStatus = self?.abilities.count == 0 ? .error : .finish
             await self?.setStatus(status: status)
-            
-            await self?.saveHeroes(heroes: heroes)
         }
     }
     
@@ -178,7 +174,7 @@ class HeroDatabase: ObservableObject {
         return abilityName
     }
     
-    func fetchOpenDotaAbility(name: String) -> Ability? {
+    func fetchOpenDotaAbility(name: String) -> AbilityCodable? {
         return abilities[name]
     }
     
@@ -210,7 +206,7 @@ class HeroDatabase: ObservableObject {
         return []
     }
     
-    func getAbilityScepterDesc(ability: Ability, heroID: Int) -> String? {
+    func getAbilityScepterDesc(ability: AbilityCodable, heroID: Int) -> String? {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -223,7 +219,7 @@ class HeroDatabase: ObservableObject {
         return nil
     }
     
-    func isScepterSkill(ability: Ability, heroID: Int) -> Bool {
+    func isScepterSkill(ability: AbilityCodable, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -233,7 +229,7 @@ class HeroDatabase: ObservableObject {
         return ability.dname == hero.scepterSkillName && hero.scepterNewSkill
     }
     
-    func isShardSkill(ability: Ability, heroID: Int) -> Bool {
+    func isShardSkill(ability: AbilityCodable, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -243,7 +239,7 @@ class HeroDatabase: ObservableObject {
         return ability.dname == hero.shardSkillName && hero.shardNewSkill
     }
     
-    func hasScepter(ability: Ability, heroID: Int) -> Bool {
+    func hasScepter(ability: AbilityCodable, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -253,7 +249,7 @@ class HeroDatabase: ObservableObject {
         return ability.dname == hero.scepterSkillName
     }
     
-    func hasShard(ability: Ability, heroID: Int) -> Bool {
+    func hasShard(ability: AbilityCodable, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -267,7 +263,7 @@ class HeroDatabase: ObservableObject {
         }
     }
     
-    func getAbilityShardDesc(ability: Ability, heroID: Int) -> String? {
+    func getAbilityShardDesc(ability: AbilityCodable, heroID: Int) -> String? {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -290,7 +286,7 @@ class HeroDatabase: ObservableObject {
     
     // MARK: - private functions
     private func loadStratzAbilities() {
-        Network.shared.apollo.fetch(query: AbilityQuery(language: GraphQLNullable<GraphQLEnum<Language>>.init(Language(rawValue: languageCode.rawValue) ?? .english))) { [weak self] result in
+        StratzController.shared.apollo.fetch(query: AbilityQuery(language: GraphQLNullable<GraphQLEnum<Language>>.init(Language(rawValue: languageCode.rawValue) ?? .english))) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
                 if let abilitiesConnection = graphQLResult.data?.constants?.abilities {
@@ -324,11 +320,16 @@ class HeroDatabase: ObservableObject {
 
 // MARK: - Core Data
 extension HeroDatabase {
-    private func saveHeroes(heroes: [String: HeroCodable]) async {
-//        for (heroID, heroCodable) in 1..<150 {
-//            
+//    private func saveHeroes(opendotaHeroes: [String: HeroCodable], stratzHeroes: [HeroesQuery.Data.Constants.Hero]) async {
+//        for (heroIDString, heroCodable) in opendotaHeroes {
+//            guard let heroID = Double(heroIDString), let stratzHero = stratzHeroes.first(where: { $0.id == heroID }) else {
+//                continue
+//            }
+//            Hero.createHero(model: <#T##HeroCodable#>)
 //        }
-    }
+//    }
+    
+    private func saveAbilities(viewContext: NSManagedObjectContext = PersistenceController.shared.makeContext())
 }
 
 // MARK: - Swift Data
@@ -346,7 +347,7 @@ extension HeroDatabase {
     }
     
     @available(iOS 17, *)
-    private func saveAbility(abilityID: Int, abilityName: String, ability: Ability, container: ModelContainer) async {
+    private func saveAbility(abilityID: Int, abilityName: String, ability: AbilityCodable, container: ModelContainer) async {
         let context = ModelContext(container)
         var fetchDescriptor = FetchDescriptor<AbilityV2>(
             predicate: #Predicate { $0.abilityID == abilityID }

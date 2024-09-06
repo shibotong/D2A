@@ -13,7 +13,7 @@ import Apollo
 
 class HeroDetailViewModel: ObservableObject {
     @Published var hero: Hero?
-    @Published var selectedAbility: Ability?
+    @Published var selectedAbility: AbilityCodable?
     
     @Published var heroID: Int
     
@@ -22,7 +22,7 @@ class HeroDetailViewModel: ObservableObject {
     
     @Published var loadingHero: Bool
     
-    @Published var abilities: [Ability] = []
+    @Published var abilities: [AbilityCodable] = []
     
     private var database: HeroDatabase = HeroDatabase.shared
     
@@ -79,7 +79,7 @@ class HeroDetailViewModel: ObservableObject {
     /// Download hero from API
     func downloadHero(heroID: Int) {
         loadingHero = true
-        Network.shared.apollo.fetch(query: HeroQuery(id: Double(heroID), language: .init(Language(rawValue: languageCode.rawValue) ?? .english))) { [weak self] (result: Result<GraphQLResult<HeroQuery.Data>, Error>) in
+        StratzController.shared.apollo.fetch(query: HeroQuery(id: Double(heroID), language: .init(Language(rawValue: languageCode.rawValue) ?? .english))) { [weak self] (result: Result<GraphQLResult<HeroQuery.Data>, Error>) in
             guard let self = self else { return }
             switch result {
             case .success(let graphQLResult):

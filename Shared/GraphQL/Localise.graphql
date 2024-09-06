@@ -1,5 +1,21 @@
-query Ability($language: Language) {
+query Localise($language: Language) {
   constants {
+    heroes(language: $language) {
+      id
+      roles {
+        roleId
+        level
+      }
+      talents {
+        abilityId
+        slot
+      }
+      stats {
+        visionDaytimeRange
+        visionNighttimeRange
+        complexity
+      }
+    }
     abilities(language: $language) {
       id
       name

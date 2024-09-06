@@ -21,6 +21,14 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
   public static func objectType(forTypename typename: String) -> ApolloAPI.Object? {
     switch typename {
     case "DotaQuery": return StratzAPI.Objects.DotaQuery
+    case "ConstantQuery": return StratzAPI.Objects.ConstantQuery
+    case "HeroType": return StratzAPI.Objects.HeroType
+    case "HeroRoleType": return StratzAPI.Objects.HeroRoleType
+    case "HeroTalentType": return StratzAPI.Objects.HeroTalentType
+    case "HeroStatType": return StratzAPI.Objects.HeroStatType
+    case "AbilityType": return StratzAPI.Objects.AbilityType
+    case "AbilityLanguageType": return StratzAPI.Objects.AbilityLanguageType
+    case "AbilityAttributeType": return StratzAPI.Objects.AbilityAttributeType
     case "LiveQuery": return StratzAPI.Objects.LiveQuery
     case "MatchLiveType": return StratzAPI.Objects.MatchLiveType
     case "LeagueType": return StratzAPI.Objects.LeagueType
@@ -39,14 +47,6 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "MatchLiveWinRateDetailType": return StratzAPI.Objects.MatchLiveWinRateDetailType
     case "DotaSubscription": return StratzAPI.Objects.DotaSubscription
     case "TeamType": return StratzAPI.Objects.TeamType
-    case "ConstantQuery": return StratzAPI.Objects.ConstantQuery
-    case "HeroType": return StratzAPI.Objects.HeroType
-    case "HeroRoleType": return StratzAPI.Objects.HeroRoleType
-    case "HeroTalentType": return StratzAPI.Objects.HeroTalentType
-    case "HeroStatType": return StratzAPI.Objects.HeroStatType
-    case "AbilityType": return StratzAPI.Objects.AbilityType
-    case "AbilityLanguageType": return StratzAPI.Objects.AbilityLanguageType
-    case "AbilityAttributeType": return StratzAPI.Objects.AbilityAttributeType
     default: return nil
     }
   }

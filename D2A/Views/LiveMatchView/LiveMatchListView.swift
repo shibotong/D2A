@@ -121,7 +121,7 @@ class LiveMatchListViewModel: ObservableObject {
             ],
             skip: GraphQLNullable<Int>(integerLiteral: existItems)
         )
-        Network.shared.apollo.fetch(query: LiveMatchListQuery(request: .init(fetchQuery)), cachePolicy: .fetchIgnoringCacheCompletely) { [weak self] result in
+        StratzController.shared.apollo.fetch(query: LiveMatchListQuery(request: .init(fetchQuery)), cachePolicy: .fetchIgnoringCacheCompletely) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
                 guard let matches = graphQLResult.data?.live?.matches else {
