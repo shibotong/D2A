@@ -673,6 +673,7 @@
 		79A988FF2931DCE1006AC847 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		79A989032931E7F1006AC847 /* PermanentBuff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentBuff.swift; sourceTree = "<group>"; };
 		79A989262931FA50006AC847 /* D2AProStore.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = D2AProStore.storekit; sourceTree = "<group>"; };
+		79AA77642C8A7D490057CDE5 /* Backend 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 2.xcdatamodel"; sourceTree = "<group>"; };
 		79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchDraftView.swift; sourceTree = "<group>"; };
 		79AF2AA82C8A7186004D2146 /* HeroV2Localisation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroV2Localisation.swift; sourceTree = "<group>"; };
 		79AF2AAA2C8A7202004D2146 /* RoleV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleV2.swift; sourceTree = "<group>"; };
@@ -2800,9 +2801,10 @@
 		79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				79AA77642C8A7D490057CDE5 /* Backend 2.xcdatamodel */,
 				79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */,
 			);
-			currentVersion = 79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */;
+			currentVersion = 79AA77642C8A7D490057CDE5 /* Backend 2.xcdatamodel */;
 			path = D2AModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
