@@ -7,7 +7,7 @@
 
 import Foundation
 import Apollo
-//import ApolloWebSocket
+import ApolloWebSocket
 
 class Network {
     static let shared = Network()
@@ -24,21 +24,17 @@ class Network {
         let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                      endpointURL: url,
                                                      additionalHeaders: additionalHeaders)
-        return ApolloClient(networkTransport: transport, store: store)
         
+        let webSocket = WebSocket(
+            url: URL(string: "wss://api.stratz.com/graphql?jwt=\(token)")!,
+            protocol: .graphql_ws
+        )
+        let webSocketTransport = WebSocketTransport(websocket: webSocket)
+        let splitTransport = SplitNetworkTransport(
+            uploadingNetworkTransport: transport,
+            webSocketNetworkTransport: webSocketTransport
+        )
         
-//        let webSocket = WebSocket(
-//            url: URL(string: "wss://api.stratz.com/graphql?jwt=\(token)")!,
-//            protocol: .graphql_ws
-//        )
-//        
-//        let webSocketTransport = WebSocketTransport(websocket: webSocket)
-//        
-//        let splitTransport = SplitNetworkTransport(
-//            uploadingNetworkTransport: transport,
-//            webSocketNetworkTransport: webSocketTransport
-//        )
-        
-//        return ApolloClient(networkTransport: splitTransport, store: store)
+        return ApolloClient(networkTransport: splitTransport, store: store)
     }()
 }
