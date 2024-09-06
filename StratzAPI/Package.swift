@@ -14,13 +14,13 @@ let package = Package(
     .library(name: "StratzAPI", targets: ["StratzAPI"]),
   ],
   dependencies: [
-    .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0"),
+    .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.15.1"),
   ],
   targets: [
     .target(
       name: "StratzAPI",
       dependencies: [
-        .product(name: "ApolloAPI", package: "apollo-ios"),
+        .product(name: "Apollo", package: "apollo-ios"),
       ],
       path: "./Sources"
     ),
