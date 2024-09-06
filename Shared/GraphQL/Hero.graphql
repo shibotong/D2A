@@ -1,6 +1,6 @@
-query Hero($id: Short!) {
+query Hero($id: Short!, $language: Language!) {
   constants {
-    hero(id: $id) {
+    hero(id: $id, language: $language) {
       id
       name
       displayName

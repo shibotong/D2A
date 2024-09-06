@@ -7,16 +7,24 @@ public class HeroQuery: GraphQLQuery {
   public static let operationName: String = "Hero"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query Hero($id: Short!) { constants { __typename hero(id: $id) { __typename id name displayName shortName aliases roles { __typename roleId level } talents { __typename abilityId slot } stats { __typename visionDaytimeRange visionNighttimeRange complexity } } } }"#
+      #"query Hero($id: Short!, $language: Language!) { constants { __typename hero(id: $id, language: $language) { __typename id name displayName shortName aliases roles { __typename roleId level } talents { __typename abilityId slot } stats { __typename visionDaytimeRange visionNighttimeRange complexity } } } }"#
     ))
 
   public var id: Short
+  public var language: GraphQLEnum<Language>
 
-  public init(id: Short) {
+  public init(
+    id: Short,
+    language: GraphQLEnum<Language>
+  ) {
     self.id = id
+    self.language = language
   }
 
-  public var __variables: Variables? { ["id": id] }
+  public var __variables: Variables? { [
+    "id": id,
+    "language": language
+  ] }
 
   public struct Data: StratzAPI.SelectionSet {
     public let __data: DataDict
@@ -40,7 +48,10 @@ public class HeroQuery: GraphQLQuery {
       public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.ConstantQuery }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
-        .field("hero", Hero?.self, arguments: ["id": .variable("id")]),
+        .field("hero", Hero?.self, arguments: [
+          "id": .variable("id"),
+          "language": .variable("language")
+        ]),
       ] }
 
       public var hero: Hero? { __data["hero"] }
