@@ -18,6 +18,8 @@ enum LoadingStatus {
 
 class HeroDatabase: ObservableObject {
     
+    typealias Localisation = LocaliseQuery.Data.Constants
+    
     enum HeroDataError: Error {
         case heroNotFound
     }
@@ -33,6 +35,8 @@ class HeroDatabase: ObservableObject {
     private var abilities = [String: AbilityCodable]()
     private var heroAbilities = [String: HeroAbility]()
     private var scepterData = [HeroScepter]()
+    
+    private var localisation: Localisation?
     
     static var shared = HeroDatabase()
     
@@ -84,8 +88,11 @@ class HeroDatabase: ObservableObject {
             self?.abilities = await abilities
             self?.heroAbilities = await heroAbilities
             self?.scepterData = await scepter
+            self?.localisation = await StratzController.shared.loadLocalisation()
             let status: LoadingStatus = self?.abilities.count == 0 ? .error : .finish
             await self?.setStatus(status: status)
+            await self?.saveAbilities()
+            await self?.saveHeroes()
         }
     }
     
@@ -178,8 +185,8 @@ class HeroDatabase: ObservableObject {
         return abilities[name]
     }
     
-    func fetchStratzAbility(name: String) -> AbilityQuery.Data.Constants.Ability? {
-        let ability = apolloAbilities.first { $0.name == name }
+    func fetchStratzAbility(name: String) -> LocaliseQuery.Data.Constants.Ability? {
+        guard let ability = localisation?.abilities?.first(where: { $0?.name == name }) else { return nil }
         return ability
     }
     
@@ -278,64 +285,108 @@ class HeroDatabase: ObservableObject {
     }
     
     func getTalentDisplayName(id: Short) -> String {
-        let talent = apolloAbilities.first { ability in
-            return ability.id == id
+        guard let talent = localisation?.abilities?.first(where: { $0?.id == id }) else {
+            return "Fetch String Error"
         }
         return talent?.language?.displayName ?? "Fetch String Error"
     }
     
-    // MARK: - private functions
-    private func loadStratzAbilities() {
-        StratzController.shared.apollo.fetch(query: AbilityQuery(language: GraphQLNullable<GraphQLEnum<Language>>.init(Language(rawValue: languageCode.rawValue) ?? .english))) { [weak self] result in
-            switch result {
-            case .success(let graphQLResult):
-                if let abilitiesConnection = graphQLResult.data?.constants?.abilities {
-                    let abilities = abilitiesConnection.compactMap({ $0 })
-                    self?.apolloAbilities = abilities
-                    DispatchQueue.main.async {
-                        self?.stratzLoadFinish = .finish
-                    }
+    /// Save Heroes
+    private func saveHeroes() async {
+        if #available(iOS 17, *) {
+            await saveAbilitiesSwiftData()
+        } else {
+            await saveHeroes()
+        }
+    }
+    
+    /// Save abilities
+    private func saveAbilities() async {
+        if #available(iOS 17, *) {
+            await saveAbilitiesSwiftData()
+        } else {
+            await saveAbilitiesCoreData()
+        }
+    }
+    
+    private func isScepterSkill(dname: String?) -> Bool {
+        guard let hero = scepterData.filter({ scepter in
+            scepter.scepterSkillName == dname
+        }).first else {
+            return false
+        }
+        
+        return hero.scepterNewSkill
+    }
+    
+    private func isShardSkill(dname: String?) -> Bool {
+        guard let hero = scepterData.filter({ scepter in
+            scepter.shardSkillName == dname
+        }).first else {
+            return false
+        }
+        
+        return hero.shardNewSkill
+    }
+}
+
+// MARK: - Core Data
+extension HeroDatabase {
+    
+    private func saveHeroesCoreData(container: PersistenceController = PersistenceController.shared) async {
+        await withTaskGroup(of: Void.self) { taskGroup in
+            for (heroIDString, heroData) in heroes {
+                guard let localisation = localisation?.heroes?.compactMap({ $0 }).first(where: { $0.id == Double(heroIDString) }) else {
+                    continue
                 }
                 
-                if let errors = graphQLResult.errors {
-                    let message = errors
-                        .map { $0.localizedDescription }
-                        .joined(separator: "\n")
-                    DispatchQueue.main.async {
-                        self?.stratzLoadFinish = .error
-                    }
-                    print(message)
+                taskGroup.addTask { [weak self] in
+                    let context = container.makePrivateContext()
+                    let abilityNames = self?.fetchHeroAbility(name: heroData.name) ?? []
+                    try? Hero.save(heroData: heroData,
+                                   abilityNames: abilityNames,
+                                   localisation: localisation,
+                                   context: context)
                 }
-            case .failure(let error):
-                print(error.localizedDescription)
-                DotaEnvironment.shared.error = true
-                DotaEnvironment.shared.errorMessage = error.localizedDescription
-                DispatchQueue.main.async {
-                    self?.stratzLoadFinish = .error
+            }
+        }
+    }
+    
+    private func saveAbilitiesCoreData(container: PersistenceController = PersistenceController.shared) async {
+        await withTaskGroup(of: Void.self) { taskGroup in
+            for (abilityIDString, abilityName) in abilityIDTable {
+                guard let ability = abilities[abilityName],
+                      let abilityID = Int(abilityIDString),
+                      let localisation = localisation?.abilities?.compactMap({ $0 }).first(where: { $0.name == abilityName }) else {
+                    continue
+                }
+                
+                taskGroup.addTask { [weak self] in
+                    var abilityType = AbilityType.none
+                    if self?.isScepterSkill(dname: abilityName) ?? false {
+                        abilityType = .scepter
+                    }
+                    
+                    if self?.isShardSkill(dname: abilityName) ?? false {
+                        abilityType = .shared
+                    }
+                    let context = container.makePrivateContext()
+                    try? Ability.save(abilityID: abilityID, 
+                                      abilityName: abilityName,
+                                      ability: ability,
+                                      localisation: localisation,
+                                      type: abilityType,
+                                      context: context)
                 }
             }
         }
     }
 }
 
-// MARK: - Core Data
-extension HeroDatabase {
-//    private func saveHeroes(opendotaHeroes: [String: HeroCodable], stratzHeroes: [HeroesQuery.Data.Constants.Hero]) async {
-//        for (heroIDString, heroCodable) in opendotaHeroes {
-//            guard let heroID = Double(heroIDString), let stratzHero = stratzHeroes.first(where: { $0.id == heroID }) else {
-//                continue
-//            }
-//            Hero.createHero(model: <#T##HeroCodable#>)
-//        }
-//    }
-    
-    private func saveAbilities(viewContext: NSManagedObjectContext = PersistenceController.shared.makeContext())
-}
-
 // MARK: - Swift Data
 extension HeroDatabase {
     @available(iOS 17, *)
-    private func saveAbilities(container: ModelContainer = SwiftDataPerisistenceController.shared.container) async {
+    private func saveAbilitiesSwiftData(container: ModelContainer = SwiftDataPerisistenceController.shared.container) async {
         for (abilityIDString, abilityName) in abilityIDTable {
             guard let ability = abilities[abilityName], let abilityID = Int(abilityIDString) else {
                 continue
@@ -395,27 +446,5 @@ extension HeroDatabase {
         abilityLocalisation.ability = abilityData
         
         context.insert(abilityLocalisation)
-    }
-    
-    @available(iOS 17, *)
-    private func isScepterSkill(dname: String?) -> Bool {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.scepterSkillName == dname
-        }).first else {
-            return false
-        }
-        
-        return hero.scepterNewSkill
-    }
-    
-    @available(iOS 17, *)
-    private func isShardSkill(dname: String?) -> Bool {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.shardSkillName == dname
-        }).first else {
-            return false
-        }
-        
-        return hero.shardNewSkill
     }
 }

@@ -38,7 +38,7 @@ extension UserProfile {
     
     /// Create a new `UserProfile` with favourite and register
     static func create(_ profile: UserProfileCodable, favourite: Bool, register: Bool) throws {
-        let viewContext = PersistenceController.shared.makeContext(author: "UserProfile")
+        let viewContext = PersistenceController.shared.makePrivateContext(author: "UserProfile")
         let newProfile = fetch(id: profile.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
         newProfile.update(profile)
         newProfile.favourite = favourite
@@ -48,7 +48,7 @@ extension UserProfile {
     }
     
     static func create(_ profile: UserProfileCodable) throws -> UserProfile {
-        let viewContext = PersistenceController.shared.makeContext(author: "UserProfile")
+        let viewContext = PersistenceController.shared.makePrivateContext(author: "UserProfile")
         let newProfile = fetch(id: profile.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
         newProfile.update(profile)
         try viewContext.save()
@@ -58,7 +58,7 @@ extension UserProfile {
     
     /// Create a UserProfile object in CoreData for testing purpose
     static func create(id: String, favourite: Bool = false, register: Bool = false, controller: PersistenceController = PersistenceController.shared) {
-        let viewContext = controller.makeContext(author: "UserProfile")
+        let viewContext = controller.makePrivateContext(author: "UserProfile")
         let newProfile = UserProfile(context: viewContext)
         newProfile.id = id
         newProfile.name = "test name"

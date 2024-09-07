@@ -13,7 +13,7 @@ struct AbilityCodable: Codable, Identifiable {
     var img: String?
     var dname: String?
     var desc: String?
-    var attributes: [AbilityAttribute]?
+    var attributes: [AbilityCodableAttribute]?
     var behavior: StringOrArray?
     var damageType: StringOrArray?
     var bkbPierce: StringOrArray?
@@ -61,7 +61,7 @@ struct AbilityCodable: Codable, Identifiable {
     }
 }
 
-struct AbilityAttribute: Codable, Hashable {
+struct AbilityCodableAttribute: Codable, Hashable {
     
     var key: String?
     var header: String?
@@ -75,7 +75,7 @@ struct AbilityAttribute: Codable, Hashable {
         case generated
     }
     
-    static func == (lhs: AbilityAttribute, rhs: AbilityAttribute) -> Bool {
+    static func == (lhs: AbilityCodableAttribute, rhs: AbilityCodableAttribute) -> Bool {
         return lhs.key == rhs.key
     }
     

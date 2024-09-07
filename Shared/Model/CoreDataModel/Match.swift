@@ -22,7 +22,7 @@ extension Match {
                        radiantWin: Bool = true,
                        startTime: Date = Date(),
                        controller: PersistenceController = PersistenceController.shared) {
-        let viewContext = controller.makeContext(author: "Match")
+        let viewContext = controller.makePrivateContext(author: "Match")
         let matchCoreData = fetch(id: id) ?? Match(context: viewContext)
         matchCoreData.id = id
         matchCoreData.lobbyType = lobbyType
@@ -50,7 +50,7 @@ extension Match {
     }
     
     static func create(_ match: MatchCodable) throws -> Match {
-        let viewContext = PersistenceController.shared.makeContext(author: "Match")
+        let viewContext = PersistenceController.shared.makePrivateContext(author: "Match")
         let matchCoreData = fetch(id: match.id.description) ?? Match(context: viewContext)
         matchCoreData.update(match)
         try viewContext.save()

@@ -25,7 +25,7 @@ class AbilityV2Attribute {
         self.generated = generated
     }
     
-    convenience init(attribute: AbilityAttribute) {
+    convenience init(attribute: AbilityCodableAttribute) {
         self.init(key: attribute.key ?? "", header: attribute.header ?? "", value: attribute.value?.transformString() ?? "", generated: attribute.generated)
     }
 }

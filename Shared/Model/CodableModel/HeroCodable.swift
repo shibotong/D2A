@@ -41,6 +41,9 @@ class HeroCodable: Identifiable, Decodable {
     var cmEnabled: Bool
     var turnRate: Double?
     
+    var visionDay: Int
+    var visionNight: Int
+    
     var heroNameLowerCase: String {
         return name.replacingOccurrences(of: "npc_dota_hero_", with: "")
     }
@@ -90,6 +93,9 @@ class HeroCodable: Identifiable, Decodable {
         case moveSpeed = "move_speed"
         case cmEnabled = "cm_enabled"
         case turnRate = "turn_rate"
+        
+        case visionDay = "day_vision"
+        case visionNight = "night_vision"
     }
     
     required init(from decoder: any Decoder) throws {
@@ -124,6 +130,10 @@ class HeroCodable: Identifiable, Decodable {
         self.moveSpeed = (try? container.decode(Int32.self, forKey: .moveSpeed)) ?? 0
         self.cmEnabled = (try? container.decode(Bool.self, forKey: .cmEnabled)) ?? false
         self.turnRate = try? container.decodeIfPresent(Double.self, forKey: .turnRate)
+        
+        self.visionDay = (try? container.decodeIfPresent(Int.self, forKey: .visionDay)) ?? 1800
+        
+        self.visionNight = (try? container.decodeIfPresent(Int.self, forKey: .visionNight)) ?? 800
     }
 }
 

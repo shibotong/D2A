@@ -97,7 +97,7 @@ class PersistenceController {
         })
     }
     
-    func makeContext(author: String? = nil) -> NSManagedObjectContext {
+    func makePrivateContext(author: String? = nil) -> NSManagedObjectContext {
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = container.viewContext
         privateContext.transactionAuthor = author
@@ -118,7 +118,7 @@ class PersistenceController {
     }
     
     func deleteRecentMatchesForUserID(userID: String) {
-        let viewContext = makeContext(author: userID)
+        let viewContext = makePrivateContext(author: userID)
         weak var weakContext = viewContext
         viewContext.perform { [weak self] in
             print("start removing recent matches for player \(userID)")

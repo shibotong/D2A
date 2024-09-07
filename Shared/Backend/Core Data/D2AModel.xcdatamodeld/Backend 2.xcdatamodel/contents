@@ -14,7 +14,8 @@
         <attribute name="targetType" optional="YES" attributeType="String"/>
         <relationship name="attributes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AbilityAttribute" inverseName="ability" inverseEntity="AbilityAttribute"/>
         <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="abilities" inverseEntity="Hero"/>
-        <relationship name="localisations" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="AbilityLocalisation" inverseName="ability" inverseEntity="AbilityLocalisation"/>
+        <relationship name="localisations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AbilityLocalisation" inverseName="ability" inverseEntity="AbilityLocalisation"/>
+        <relationship name="talent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Talent" inverseName="ability" inverseEntity="Talent"/>
     </entity>
     <entity name="AbilityAttribute" representedClassName="AbilityAttribute" syncable="YES" codeGenerationType="class">
         <attribute name="generated" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -28,7 +29,7 @@
         <attribute name="descriptionScepter" optional="YES" attributeType="String"/>
         <attribute name="descriptionShard" optional="YES" attributeType="String"/>
         <attribute name="displayName" attributeType="String"/>
-        <attribute name="localisation" attributeType="String"/>
+        <attribute name="language" attributeType="String"/>
         <attribute name="lore" optional="YES" attributeType="String"/>
         <relationship name="ability" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="localisations" inverseEntity="Ability"/>
     </entity>
@@ -55,14 +56,13 @@
         <attribute name="icon" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="img" optional="YES" attributeType="String"/>
-        <attribute name="lastFetch" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="moveSpeed" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="primaryAttr" attributeType="String" defaultValueString="str"/>
         <attribute name="projectileSpeed" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="turnRate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="visionDaytimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="visionNighttimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="visionDaytimeRange" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="visionNighttimeRange" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="abilities" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Ability" inverseName="hero" inverseEntity="Ability"/>
         <relationship name="localisations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HeroLocalisation" inverseName="hero" inverseEntity="HeroLocalisation"/>
         <relationship name="roles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Role" inverseName="hero" inverseEntity="Role"/>
@@ -108,9 +108,9 @@
         <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="roles" inverseEntity="Hero"/>
     </entity>
     <entity name="Talent" representedClassName="Talent" syncable="YES" codeGenerationType="class">
-        <attribute name="abilityId" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="slot" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="talents" inverseEntity="Hero"/>
+        <attribute name="slot" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="ability" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="talent" inverseEntity="Ability"/>
+        <relationship name="hero" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="talents" inverseEntity="Hero"/>
     </entity>
     <entity name="UserProfile" representedClassName="UserProfile" syncable="YES" codeGenerationType="class">
         <attribute name="avatarfull" attributeType="String"/>

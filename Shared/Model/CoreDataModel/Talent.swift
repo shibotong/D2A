@@ -14,7 +14,7 @@ extension Talent {
         case decodingError
     }
     
-    static func createTalent(_ talent: HeroQuery.Data.Constants.Hero.Talent?) throws -> Talent {
+    static func createTalent(_ talent: LocaliseQuery.Data.Constants.Hero.Talent?) throws -> Talent {
         guard let talent = talent else {
             throw CoreDataError.nilValue
         }

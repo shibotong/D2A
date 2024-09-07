@@ -267,6 +267,12 @@
 		790FBB3229C18ABC00E27106 /* StratzController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* StratzController.swift */; };
 		7912B6E32B5D022C00AE1947 /* AbilityTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7912B6E22B5D022C00AE1947 /* AbilityTitleView.swift */; };
 		79266DA72A31B0FD002FEF0F /* LiveMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79266DA62A31B0FD002FEF0F /* LiveMatchView.swift */; };
+		792BFC3C2C8C4BAA003C4129 /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BFC3B2C8C4BAA003C4129 /* Ability.swift */; };
+		792BFC3D2C8C4BAA003C4129 /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BFC3B2C8C4BAA003C4129 /* Ability.swift */; };
+		792BFC3E2C8C4BAA003C4129 /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BFC3B2C8C4BAA003C4129 /* Ability.swift */; };
+		792BFC442C8C7FA2003C4129 /* AbilityAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BFC432C8C7FA2003C4129 /* AbilityAttribute.swift */; };
+		792BFC452C8C7FA2003C4129 /* AbilityAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BFC432C8C7FA2003C4129 /* AbilityAttribute.swift */; };
+		792BFC462C8C7FA2003C4129 /* AbilityAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BFC432C8C7FA2003C4129 /* AbilityAttribute.swift */; };
 		792E97662C81A4F300234038 /* HeroDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792E97652C81A4F300234038 /* HeroDetailHeaderView.swift */; };
 		792E97682C81A5E200234038 /* HeroComplexityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792E97672C81A5E200234038 /* HeroComplexityView.swift */; };
 		792E976A2C81C85900234038 /* HeroAbilitiesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792E97692C81C85900234038 /* HeroAbilitiesScrollView.swift */; };
@@ -612,6 +618,8 @@
 		79091DFB2A3B36310093EEE4 /* LiveMatchTeamIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchTeamIconView.swift; sourceTree = "<group>"; };
 		7912B6E22B5D022C00AE1947 /* AbilityTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityTitleView.swift; sourceTree = "<group>"; };
 		79266DA62A31B0FD002FEF0F /* LiveMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchView.swift; sourceTree = "<group>"; };
+		792BFC3B2C8C4BAA003C4129 /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
+		792BFC432C8C7FA2003C4129 /* AbilityAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityAttribute.swift; sourceTree = "<group>"; };
 		792E97652C81A4F300234038 /* HeroDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailHeaderView.swift; sourceTree = "<group>"; };
 		792E97672C81A5E200234038 /* HeroComplexityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroComplexityView.swift; sourceTree = "<group>"; };
 		792E97692C81C85900234038 /* HeroAbilitiesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroAbilitiesScrollView.swift; sourceTree = "<group>"; };
@@ -1325,6 +1333,7 @@
 			isa = PBXGroup;
 			children = (
 				7985E7EA28E53919007A43AF /* Hero.swift */,
+				792BFC3B2C8C4BAA003C4129 /* Ability.swift */,
 				79A988F82931D400006AC847 /* Match.swift */,
 				79A989032931E7F1006AC847 /* PermanentBuff.swift */,
 				79A988FC2931D6FF006AC847 /* Player.swift */,
@@ -1332,6 +1341,7 @@
 				7985E7EE28E53E47007A43AF /* Talent.swift */,
 				79A988FF2931DCE1006AC847 /* UserProfile.swift */,
 				798A5CF92945B3C300EB07B0 /* RecentMatch.swift */,
+				792BFC432C8C7FA2003C4129 /* AbilityAttribute.swift */,
 			);
 			path = CoreDataModel;
 			sourceTree = "<group>";
@@ -1847,6 +1857,7 @@
 				79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */,
 				792E977E2C844D8100234038 /* AbilityV2Localisation.swift in Sources */,
 				79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */,
+				792BFC3C2C8C4BAA003C4129 /* Ability.swift in Sources */,
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
 				792E976C2C82954600234038 /* HeroTalentView.swift in Sources */,
 				79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */,
@@ -1901,6 +1912,7 @@
 				79837B55294C18FE00458529 /* DamageView.swift in Sources */,
 				79A989002931DCE1006AC847 /* UserProfile.swift in Sources */,
 				79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
+				792BFC442C8C7FA2003C4129 /* AbilityAttribute.swift in Sources */,
 				792E978D2C84629600234038 /* HeroListViewV2.swift in Sources */,
 				32B36F0F26C38821002D427D /* D2AApp.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
@@ -2002,12 +2014,14 @@
 				3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				79091DF52A3B2E2C0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32F70B3026F714FD006E9B05 /* Provider.swift in Sources */,
+				792BFC3D2C8C4BAA003C4129 /* Ability.swift in Sources */,
 				32F70AA226F57F7E006E9B05 /* D2AWidget.swift in Sources */,
 				7983DA712B63086700C42F87 /* D2AWidgetUserEntry.swift in Sources */,
 				79A9891C2931EB59006AC847 /* Match.swift in Sources */,
 				79E01CAA291E35320073BF68 /* MatchListRowViewModel.swift in Sources */,
 				327B876D2850D9D800BBE1F8 /* ReadData.swift in Sources */,
 				32F70B1A26F6295B006E9B05 /* Color.swift in Sources */,
+				792BFC452C8C7FA2003C4129 /* AbilityAttribute.swift in Sources */,
 				79091DF62A3B2E2F0093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 				79AA77622C8A7BC80057CDE5 /* RoleV2.swift in Sources */,
 				327B87752850DA9E00BBE1F8 /* Item.swift in Sources */,
@@ -2072,12 +2086,14 @@
 				327C033E2716A92500DAEC42 /* KDAView.swift in Sources */,
 				79091DF72A3B2FBD0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */,
+				792BFC3E2C8C4BAA003C4129 /* Ability.swift in Sources */,
 				32EC7F3728646BAC00A36AF6 /* WidgetOverlayView.swift in Sources */,
 				7983DA722B63086700C42F87 /* D2AWidgetUserEntry.swift in Sources */,
 				79A9891D2931EB5A006AC847 /* Match.swift in Sources */,
 				79E01CAB291E35320073BF68 /* MatchListRowViewModel.swift in Sources */,
 				327B876E2850D9D900BBE1F8 /* ReadData.swift in Sources */,
 				32F70B2126F6295C006E9B05 /* SKProduct.swift in Sources */,
+				792BFC462C8C7FA2003C4129 /* AbilityAttribute.swift in Sources */,
 				79091DF82A3B2FC00093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 				79AA77632C8A7BC90057CDE5 /* RoleV2.swift in Sources */,
 				327B87762850DA9F00BBE1F8 /* Item.swift in Sources */,

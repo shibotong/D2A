@@ -11,7 +11,7 @@ import CoreData
 extension RecentMatch {
     
     static func create(_ match: RecentMatchCodable, discardable: Bool = false) throws -> RecentMatch {
-        let viewContext = PersistenceController.shared.makeContext(author: "RecentMatch")
+        let viewContext = PersistenceController.shared.makePrivateContext(author: "RecentMatch")
         let newRecentMatch = fetch(match.id.description, userID: match.playerId?.description ?? "") ?? RecentMatch(context: viewContext)
         newRecentMatch.update(match)
         if !discardable {
@@ -22,7 +22,7 @@ extension RecentMatch {
     }
     
     static func create(_ matches: [RecentMatchCodable]) async throws {
-        let viewContext = PersistenceController.shared.makeContext(author: "RecentMatch")
+        let viewContext = PersistenceController.shared.makePrivateContext(author: "RecentMatch")
         weak var weakContext = viewContext
         try await viewContext.perform {
             guard let strongContext = weakContext else {
@@ -69,7 +69,7 @@ extension RecentMatch {
                        partySize: Int16 = 5,
                        skill: Int16 = 0,
                        controller: PersistenceController = PersistenceController.shared) -> RecentMatch {
-        let viewContext = controller.makeContext(author: "RecentMatch")
+        let viewContext = controller.makePrivateContext(author: "RecentMatch")
         let match = RecentMatch(context: viewContext)
         match.playerId = userID
         match.id = matchID

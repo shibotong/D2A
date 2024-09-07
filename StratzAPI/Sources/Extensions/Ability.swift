@@ -19,7 +19,7 @@ fileprivate let colonLocalize: Character = {
     }
 }()
 
-extension AbilityQuery.Data.Constants.Ability {
+extension LocaliseQuery.Data.Constants.Ability {
     public var localizedAttributes: [StratzAttribute]? {
         guard let localizedString = language?.attributes?.compactMap({ $0 }) else {
             return nil

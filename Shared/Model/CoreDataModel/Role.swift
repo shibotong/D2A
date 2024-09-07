@@ -14,7 +14,7 @@ extension Role {
         case decodingError
     }
     
-    static func createRole(_ role: HeroQuery.Data.Constants.Hero.Role?) throws -> Role {
+    static func createRole(_ role: LocaliseQuery.Data.Constants.Hero.Role?) throws -> Role {
         guard let role = role else {
             throw CoreDataError.nilValue
         }

@@ -46,7 +46,7 @@ struct AbilityView: View {
                                      dispellable: viewModel.dispellable,
                                      damageType: viewModel.damageType)
                     if let openDota = viewModel.opentDotaAbility,
-                       let stratz = viewModel.stratzAbility {
+                       let stratz = $viewModel.stratzAbility {
                         buildDescription(ability: openDota,
                                          stratz: stratz,
                                          proxy: proxy)
@@ -83,7 +83,7 @@ struct AbilityView: View {
     }
     
     @ViewBuilder private func buildDescription(ability: AbilityCodable,
-                                               stratz: AbilityQuery.Data.Constants.Ability,
+                                               stratz: LocaliseQuery.Data.Constants.Ability,
                                                proxy: GeometryProxy) -> some View {
         VStack {
             let description = stratz.language?.description?.compactMap { $0 }.joined(separator: "\n") ?? ""
