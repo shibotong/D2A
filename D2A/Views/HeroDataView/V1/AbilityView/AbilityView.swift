@@ -45,12 +45,12 @@ struct AbilityView: View {
                                      bkbPierce: viewModel.bkbPierce, 
                                      dispellable: viewModel.dispellable,
                                      damageType: viewModel.damageType)
-                    if let openDota = viewModel.opentDotaAbility,
-                       let stratz = $viewModel.stratzAbility {
-                        buildDescription(ability: openDota,
-                                         stratz: stratz,
-                                         proxy: proxy)
-                    }
+//                    if let openDota = viewModel.opentDotaAbility,
+//                       let stratz = $viewModel.stratzAbility {
+//                        buildDescription(ability: openDota,
+//                                         stratz: stratz,
+//                                         proxy: proxy)
+//                    }
                     
                     Spacer().frame(height: 10)
                     if let attributes = viewModel.stratzAbility?.localizedAttributes {

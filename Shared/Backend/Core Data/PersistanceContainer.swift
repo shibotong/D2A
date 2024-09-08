@@ -25,6 +25,9 @@ class PersistenceController {
         UserProfile.create(id: "preview 3", favourite: true, controller: result)
         UserProfile.create(id: "preview 4", favourite: true, controller: result)
         _ = RecentMatch.create(userID: previewID, matchID: previewID, controller: result)
+        
+        let heroCodable = loadSampleHero()
+        try? Hero.save(heroData: heroCodable!["1"]!, abilityNames: [], context: viewContext)
         return result
     }()
 

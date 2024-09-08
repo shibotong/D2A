@@ -273,6 +273,14 @@
 		792BFC442C8C7FA2003C4129 /* AbilityAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BFC432C8C7FA2003C4129 /* AbilityAttribute.swift */; };
 		792BFC452C8C7FA2003C4129 /* AbilityAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BFC432C8C7FA2003C4129 /* AbilityAttribute.swift */; };
 		792BFC462C8C7FA2003C4129 /* AbilityAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BFC432C8C7FA2003C4129 /* AbilityAttribute.swift */; };
+		792BFC472C8D21FF003C4129 /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E7EA28E53919007A43AF /* Hero.swift */; };
+		792BFC482C8D21FF003C4129 /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E7EA28E53919007A43AF /* Hero.swift */; };
+		792BFC4E2C8D22EA003C4129 /* HeroAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BFC4D2C8D22EA003C4129 /* HeroAttribute.swift */; };
+		792BFC4F2C8D22EA003C4129 /* HeroAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BFC4D2C8D22EA003C4129 /* HeroAttribute.swift */; };
+		792BFC502C8D22EA003C4129 /* HeroAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BFC4D2C8D22EA003C4129 /* HeroAttribute.swift */; };
+		792BFC512C8D22F9003C4129 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E7EC28E53A40007A43AF /* Role.swift */; };
+		792BFC522C8D22FA003C4129 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E7EC28E53A40007A43AF /* Role.swift */; };
+		792BFC542C8DCA8E003C4129 /* HeroListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792BFC532C8DCA8E003C4129 /* HeroListCellView.swift */; };
 		792E97662C81A4F300234038 /* HeroDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792E97652C81A4F300234038 /* HeroDetailHeaderView.swift */; };
 		792E97682C81A5E200234038 /* HeroComplexityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792E97672C81A5E200234038 /* HeroComplexityView.swift */; };
 		792E976A2C81C85900234038 /* HeroAbilitiesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792E97692C81C85900234038 /* HeroAbilitiesScrollView.swift */; };
@@ -620,6 +628,8 @@
 		79266DA62A31B0FD002FEF0F /* LiveMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchView.swift; sourceTree = "<group>"; };
 		792BFC3B2C8C4BAA003C4129 /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
 		792BFC432C8C7FA2003C4129 /* AbilityAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityAttribute.swift; sourceTree = "<group>"; };
+		792BFC4D2C8D22EA003C4129 /* HeroAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroAttribute.swift; sourceTree = "<group>"; };
+		792BFC532C8DCA8E003C4129 /* HeroListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListCellView.swift; sourceTree = "<group>"; };
 		792E97652C81A4F300234038 /* HeroDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailHeaderView.swift; sourceTree = "<group>"; };
 		792E97672C81A5E200234038 /* HeroComplexityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroComplexityView.swift; sourceTree = "<group>"; };
 		792E97692C81C85900234038 /* HeroAbilitiesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroAbilitiesScrollView.swift; sourceTree = "<group>"; };
@@ -829,6 +839,7 @@
 				792E978A2C84626800234038 /* V2 */,
 				792E97892C84625800234038 /* V1 */,
 				79368C0928E6D8ED009517D2 /* RoleView.swift */,
+				792BFC532C8DCA8E003C4129 /* HeroListCellView.swift */,
 			);
 			path = HeroDataView;
 			sourceTree = "<group>";
@@ -1225,6 +1236,7 @@
 			children = (
 				796BF20329F5536000555C64 /* HeroListView.swift */,
 				327B87772852263300BBE1F8 /* HeroListViewModel.swift */,
+				792BFC4D2C8D22EA003C4129 /* HeroAttribute.swift */,
 			);
 			path = HeroListView;
 			sourceTree = "<group>";
@@ -1865,6 +1877,7 @@
 				322B893E26CE66F800DF67F9 /* MainLoadingView.swift in Sources */,
 				32079DBD28B83F0F0056D19F /* AbilityView.swift in Sources */,
 				32AEEEF926F9B1120088DEC8 /* LocalizableStrings.swift in Sources */,
+				792BFC542C8DCA8E003C4129 /* HeroListCellView.swift in Sources */,
 				79A989042931E7F1006AC847 /* PermanentBuff.swift in Sources */,
 				798C428D2A35572400BDC470 /* LiveMatchEventItem.swift in Sources */,
 				798C428F2A35579200BDC470 /* LiveMatchBuildingEvent.swift in Sources */,
@@ -1905,6 +1918,7 @@
 				792E97782C83FAED00234038 /* AbilityV2.swift in Sources */,
 				79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
+				792BFC4E2C8D22EA003C4129 /* HeroAttribute.swift in Sources */,
 				32079DBF28B843360056D19F /* String.swift in Sources */,
 				790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */,
 				79D5280E28DD5D990070841D /* StratzController.swift in Sources */,
@@ -1974,9 +1988,12 @@
 				32B526CB285C0CE40099B058 /* RecentMatchesWidgetEntryView.swift in Sources */,
 				79D5282328DD74930070841D /* Secret.swift in Sources */,
 				79AA775E2C8A7BC10057CDE5 /* HeroV2.swift in Sources */,
+				792BFC4F2C8D22EA003C4129 /* HeroAttribute.swift in Sources */,
 				790FBB3129C18ABC00E27106 /* StratzController.swift in Sources */,
 				32B526D4285C1DBC0099B058 /* Extension.swift in Sources */,
 				32F70B1726F6294D006E9B05 /* MatchCodable.swift in Sources */,
+				792BFC472C8D21FF003C4129 /* Hero.swift in Sources */,
+				792BFC512C8D22F9003C4129 /* Role.swift in Sources */,
 				79AA77602C8A7BC50057CDE5 /* HeroV2Localisation.swift in Sources */,
 				32F70ADD26F60B8D006E9B05 /* SteamProfile.swift in Sources */,
 				327C033D2716A90400DAEC42 /* KDAView.swift in Sources */,
@@ -2046,9 +2063,12 @@
 				79D5282428DD74930070841D /* Secret.swift in Sources */,
 				32F70B1026F622C2006E9B05 /* GameMode.swift in Sources */,
 				79AA775F2C8A7BC10057CDE5 /* HeroV2.swift in Sources */,
+				792BFC502C8D22EA003C4129 /* HeroAttribute.swift in Sources */,
 				790FBB3229C18ABC00E27106 /* StratzController.swift in Sources */,
 				327B87742850DA7900BBE1F8 /* AbilityCodable.swift in Sources */,
 				32F70B2026F6295C006E9B05 /* Int.swift in Sources */,
+				792BFC482C8D21FF003C4129 /* Hero.swift in Sources */,
+				792BFC522C8D22FA003C4129 /* Role.swift in Sources */,
 				79AA77612C8A7BC60057CDE5 /* HeroV2Localisation.swift in Sources */,
 				3270271E285C08C300927426 /* HeroDatabase.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,

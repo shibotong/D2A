@@ -49,70 +49,70 @@ class HeroDetailViewModel: ObservableObject {
             }
             .assign(to: &$previousHeroID)
         
-        $hero
-            .map { [weak self] hero in
-                guard let abilityNames = hero?.abilities else {
-                    return []
-                }
-                let abilities = abilityNames.filter { ability in
-                    let containHidden = ability.contains("hidden")
-                    let containEmpty = ability.contains("empty")
-                    return !containHidden && !containEmpty
-                }.compactMap { [weak self] abilityName in
-                    self?.database.fetchOpenDotaAbility(name: abilityName)
-                }
-                self?.selectedAbility = abilities.first
-                return abilities
-            }
-            .assign(to: &$abilities)
+//        $hero
+//            .map { [weak self] hero in
+//                guard let abilityNames = hero?.abilities else {
+//                    return []
+//                }
+//                let abilities = abilityNames.filter { ability in
+//                    let containHidden = ability.contains("hidden")
+//                    let containEmpty = ability.contains("empty")
+//                    return !containHidden && !containEmpty
+//                }.compactMap { [weak self] abilityName in
+//                    self?.database.fetchOpenDotaAbility(name: abilityName)
+//                }
+//                self?.selectedAbility = abilities.first
+//                return abilities
+//            }
+//            .assign(to: &$abilities)
     }
     
     /// Load hero
     func loadHero(hero: Hero?, id: Int) {
-        if let lastFetch = hero?.lastFetch, lastFetch.startOfDay == Date().startOfDay {
-            // if hero exist and already fetched today, dont download hero
-            return
-        }
-        downloadHero(heroID: id)
+//        if let lastFetch = hero?.lastFetch, lastFetch.startOfDay == Date().startOfDay {
+//            // if hero exist and already fetched today, dont download hero
+//            return
+//        }
+//        downloadHero(heroID: id)
     }
     
     /// Download hero from API
-    func downloadHero(heroID: Int) {
-        loadingHero = true
-        StratzController.shared.apollo.fetch(query: HeroQuery(id: Double(heroID), language: .init(Language(rawValue: languageCode.rawValue) ?? .english))) { [weak self] (result: Result<GraphQLResult<HeroQuery.Data>, Error>) in
-            guard let self = self else { return }
-            switch result {
-            case .success(let graphQLResult):
-                if let hero = graphQLResult.data?.constants?.hero {
-                    do {
-                        let model = try self.database.fetchHeroWithID(id: self.heroID)
-                        let abilities = self.database
-                            .fetchHeroAbility(name: model.name)
-                            .filter { ability in
-                            return !ability.contains("hidden") && !ability.contains("empty")
-                        }
-                        let newHero = try Hero.createHero(hero, model: model, abilities: abilities)
-                        DispatchQueue.main.async { [weak self] in
-                            self?.hero = newHero
-                        }
-                    } catch let error {
-                        print(error.localizedDescription)
-                    }
-                }
-                
-                if let errors = graphQLResult.errors {
-                    let message = errors
-                        .map { $0.localizedDescription }
-                        .joined(separator: "\n")
-                    print(message)
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-            
-            loadingHero = false
-        }
-    }
+//    func downloadHero(heroID: Int) {
+//        loadingHero = true
+//        StratzController.shared.apollo.fetch(query: HeroQuery(id: Double(heroID), language: .init(Language(rawValue: languageCode.rawValue) ?? .english))) { [weak self] (result: Result<GraphQLResult<HeroQuery.Data>, Error>) in
+//            guard let self = self else { return }
+//            switch result {
+//            case .success(let graphQLResult):
+//                if let hero = graphQLResult.data?.constants?.hero {
+//                    do {
+//                        let model = try self.database.fetchHeroWithID(id: self.heroID)
+//                        let abilities = self.database
+//                            .fetchHeroAbility(name: model.name)
+//                            .filter { ability in
+//                            return !ability.contains("hidden") && !ability.contains("empty")
+//                        }
+//                        let newHero = try Hero.createHero(hero, model: model, abilities: abilities)
+//                        DispatchQueue.main.async { [weak self] in
+//                            self?.hero = newHero
+//                        }
+//                    } catch let error {
+//                        print(error.localizedDescription)
+//                    }
+//                }
+//                
+//                if let errors = graphQLResult.errors {
+//                    let message = errors
+//                        .map { $0.localizedDescription }
+//                        .joined(separator: "\n")
+//                    print(message)
+//                }
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//            
+//            loadingHero = false
+//        }
+//    }
     
     func fetchTalentName(id: Short) -> String {
         return database.getTalentDisplayName(id: id)

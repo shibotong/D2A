@@ -8,24 +8,7 @@
 import Foundation
 import Combine
 
-enum HeroAttribute: String, CaseIterable {
-    case whole, str, agi, int, all
-    
-    var fullName: String {
-        switch self {
-        case .str:
-            return "STRENGTH"
-        case .agi:
-            return "AGILITY"
-        case .int:
-            return "INTELLIGENCE"
-        case .all:
-            return "UNIVERSAL"
-        default:
-            return ""
-        }
-    }
-}
+
 
 class HeroListViewModel: ObservableObject {
     let heroList: [HeroCodable]

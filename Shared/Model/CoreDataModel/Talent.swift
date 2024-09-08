@@ -15,17 +15,17 @@ extension Talent {
     }
     
     static func createTalent(_ talent: LocaliseQuery.Data.Constants.Hero.Talent?) throws -> Talent {
-        guard let talent = talent else {
+        guard let talent else {
             throw CoreDataError.nilValue
         }
         let viewContext = PersistenceController.shared.container.viewContext
         let newTalent = Talent(context: viewContext)
-        guard let talentID = talent.abilityId,
-              let slot = talent.slot else {
-            throw CoreDataError.decodingError
-        }
-        newTalent.abilityId = talentID
-        newTalent.slot = Int32(slot)
+//        guard let talentID = talent.abilityId,
+//              let slot = talent.slot else {
+//            throw CoreDataError.decodingError
+//        }
+//        newTalent.abilityId = talentID
+//        newTalent.slot = Int32(slot)
         try viewContext.save()
         return newTalent
     }

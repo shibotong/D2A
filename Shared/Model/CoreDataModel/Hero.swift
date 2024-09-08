@@ -22,7 +22,7 @@ extension Hero {
     
     static func save(heroData: HeroCodable, 
                      abilityNames: [String],
-                     localisation: Localisation,
+                     localisation: Localisation? = nil,
                      context: NSManagedObjectContext) throws {
         let heroID = Double(heroData.id)
         let hero = fetchHero(id: heroID) ?? Hero(context: context)
@@ -53,7 +53,7 @@ extension Hero {
         hero.gainAgi = heroData.agiGain
         hero.gainInt = heroData.intGain
         
-        hero.complexity = Int16(localisation.stats?.complexity ?? 0)
+        hero.complexity = Int16(localisation?.stats?.complexity ?? 0)
         
         hero.attackRange = heroData.attackRange
         hero.projectileSpeed = heroData.projectileSpeed
@@ -64,8 +64,8 @@ extension Hero {
         hero.visionDaytimeRange = Int16(heroData.visionDay)
         hero.visionNighttimeRange = Int16(heroData.visionNight)
         
-        let roles = localisation.roles?.compactMap { $0 } ?? []
-        let talents = localisation.talents?.compactMap { $0 } ?? []
+        let roles = localisation?.roles?.compactMap { $0 } ?? []
+        let talents = localisation?.talents?.compactMap { $0 } ?? []
         
         hero.updateRoles(roles, context: context)
         hero.updateTalents(talents, context: context)
@@ -125,8 +125,8 @@ extension Hero {
            let heroRoles = query.roles,
            let heroStats = query.stats {
             hero.complexity = Int16(heroStats.complexity ?? 0)
-            hero.visionDaytimeRange = heroStats.visionDaytimeRange ?? 1800
-            hero.visionNighttimeRange = heroStats.visionNighttimeRange ?? 800
+            hero.visionDaytimeRange = Int16(heroStats.visionDaytimeRange ?? 1800)
+            hero.visionNighttimeRange = Int16(heroStats.visionNighttimeRange ?? 800)
             hero.roles = NSSet(array: try heroRoles.map({ return try Role.createRole($0) }))
             hero.talents = NSSet(array: try heroTalents.map({ return try Talent.createTalent($0) }))
         }
