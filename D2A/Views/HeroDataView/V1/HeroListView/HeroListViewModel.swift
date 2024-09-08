@@ -7,13 +7,12 @@
 
 import Foundation
 import Combine
-
-
+import CoreData
 
 class HeroListViewModel: ObservableObject {
-    let heroList: [HeroCodable]
+    let heroList: [Hero]
     
-    @Published var searchResults: [HeroCodable]
+    @Published var searchResults: [Hero]
     
     @Published var searchString: String = ""
     @Published var gridView = true
@@ -21,8 +20,8 @@ class HeroListViewModel: ObservableObject {
     
     private var subscribers = Set<AnyCancellable>()
     
-    init() {
-        heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
+    init(viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
+        heroList = Hero.fetchAllHeroes(viewContext: viewContext)
         searchString = ""
         searchResults = []
         selectedAttribute = .whole
@@ -35,9 +34,10 @@ class HeroListViewModel: ObservableObject {
                     return filterHeroes
                 } else {
                     let searchedHeroes = filterHeroes.filter({ hero in
-                        let originalName = hero.localizedName.lowercased().contains(searchString.lowercased())
+//                        let originalName = hero.localizedName.lowercased().contains(searchString.lowercased())
                         let localizedName = hero.heroNameLocalized.lowercased().contains(searchString.lowercased())
-                        return originalName || localizedName
+//                        return originalName || localizedName
+                        return localizedName
                     })
                     return searchedHeroes
                 }

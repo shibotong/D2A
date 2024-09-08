@@ -194,87 +194,30 @@ extension Hero {
             newTalent.ability = ability
         }
     }
-
-
-//    static func createHero(_ queryHero: HeroesQuery.Data.Constants.Hero, model: HeroCodable, abilities: [String] = []) throws -> Hero {
-//        let viewContext = PersistenceController.shared.container.viewContext
-//        
-//        let heroID = Double(model.id)
-//        let hero = fetchHero(id: heroID) ?? Hero(context: viewContext)
-//        // data from Stratz
-//        hero.lastFetch = Date()
-//        hero.id = heroID
-//        hero.displayName = model.localizedName
-//        hero.name = model.name
-//        
-//        // data from OpenDota
-//        hero.primaryAttr = model.primaryAttr
-//        hero.attackType = model.attackType
-//        hero.img = model.img
-//        hero.icon = model.icon
-//        
-//        hero.baseHealth = model.baseHealth
-//        hero.baseHealthRegen = model.baseHealthRegen
-//        hero.baseMana = model.baseMana
-//        hero.baseManaRegen = model.baseManaRegen
-//        hero.baseArmor = model.baseArmor
-//        hero.baseMr = model.baseMr
-//        hero.baseAttackMin = model.baseAttackMin
-//        hero.baseAttackMax = model.baseAttackMax
-//        
-//        hero.baseStr = model.baseStr
-//        hero.baseAgi = model.baseAgi
-//        hero.baseInt = model.baseInt
-//        hero.gainStr = model.strGain
-//        hero.gainAgi = model.agiGain
-//        hero.gainInt = model.intGain
-//        
-//        hero.attackRange = model.attackRange
-//        hero.projectileSpeed = model.projectileSpeed
-//        hero.attackRate = model.attackRate
-//        hero.moveSpeed = model.moveSpeed
-//        hero.turnRate = model.turnRate ?? 0.6
-//        
-//        if let heroStats = queryHero.stats, 
-//            let heroRoles = queryHero.roles,
-//           let heroTalents = queryHero.talents
-//        {
-//            hero.complexity = Int16(heroStats.complexity ?? 0)
-//            hero.visionDaytimeRange = heroStats.visionDaytimeRange ?? 1800
-//            hero.visionNighttimeRange = heroStats.visionNighttimeRange ?? 800
-//            
-//            for role in heroRoles {
-//                guard let role, let roleID = role.roleId?.rawValue, let level = role.level else { continue }
-//                if let roles = hero.roles?.allObjects as? [Role],
-//                   let heroRole = roles.first(where: { $0.roleId == roleID }) {
-//                    heroRole.level = level
-//                } else {
-//                    let newRole = Role(context: viewContext)
-//                    newRole.roleId = roleID
-//                    newRole.level = level
-//                    newRole.hero = hero
-//                }
-//            }
-//            
-//            for talent in heroTalents {
-//                guard let talent, let talentSlot = talent.slot, talent
-//            }
-//            hero.talents = NSSet(array: try heroTalents.map({ return try Talent.createTalent($0) }))
-//        }
-//        
-//        try viewContext.save()
-//        return hero
-//    }
     
     /// Fetch `Hero` with `id` in CoreData
-    static func fetchHero(id: Double) -> Hero? {
-        let viewContext = PersistenceController.shared.container.viewContext
-        let fetchHero: NSFetchRequest<Hero> = Hero.fetchRequest()
-        fetchHero.predicate = NSPredicate(format: "id == %f", id)
-        
-        let results = try? viewContext.fetch(fetchHero)
-        return results?.first
+    static func fetchHero(id: Double, viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> Hero? {
+        let predicate = NSPredicate(format: "id == %f", id)
+        return runQuery(viewContext: viewContext, predicate: predicate).first
     }
+    
+    static func fetchAllHeroes(viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> [Hero] {
+        runQuery(viewContext: viewContext)
+    }
+    
+    static func runQuery(viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext,
+                         predicate: NSPredicate? = nil) -> [Hero] {
+        let fetchRequest = Hero.fetchRequest()
+        fetchRequest.predicate = predicate
+        do {
+            let results = try viewContext.fetch(fetchRequest)
+            return results
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+    
     
     // MARK: - Static let
     static let strMaxHP: Int32 = 20

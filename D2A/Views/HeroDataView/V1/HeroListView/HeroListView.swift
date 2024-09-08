@@ -11,12 +11,7 @@ import CryptoKit
 struct HeroListView: View {
     
     @Environment(\.horizontalSizeClass) private var horizontalSize
-    @FetchRequest(sortDescriptors: []) var heroes: FetchedResults<Hero>
-    
-    @State var gridView = true
-    @State var selectedAttribute: HeroAttribute = .whole
-    @State var searchString: String = ""
-    @State var searchResults: [Hero] = []
+    @StateObject var viewModel = HeroListViewModel()
     
     var body: some View {
         Group {
@@ -29,7 +24,7 @@ struct HeroListView: View {
             }
         }
         .navigationTitle("Heroes")
-        .searchable(text: $searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
+        .searchable(text: $viewModel.searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
         .disableAutocorrection(true)
         .toolbar {
             if horizontalSize == .compact {
@@ -40,14 +35,14 @@ struct HeroListView: View {
     
     private var iPhone: some View {
         Group {
-            if gridView {
+            if viewModel.gridView {
                 ScrollView(.vertical, showsIndicators: false) {
-                    buildSection(heroes: searchResults, attributes: selectedAttribute)
+                    buildSection(heroes: viewModel.searchResults, attributes: viewModel.selectedAttribute)
                 }
                 .padding(.horizontal)
             } else {
                 List {
-                    buildSection(heroes: searchResults, attributes: selectedAttribute)
+                    buildSection(heroes: viewModel.searchResults, attributes: viewModel.selectedAttribute)
                 }
                 .listStyle(PlainListStyle())
             }
@@ -57,7 +52,7 @@ struct HeroListView: View {
     private var iPad: some View {
         ScrollView(.vertical, showsIndicators: false) {
             ForEach(HeroAttribute.allCases, id: \.self) { attribute in
-                let heroes = heroes.filter { hero in
+                let heroes = viewModel.searchResults.filter { hero in
                     return hero.primaryAttr == attribute.rawValue
                 }
                 buildHeroGrid(heroes: heroes, attribute: attribute)
@@ -68,12 +63,12 @@ struct HeroListView: View {
     
     private var toolBar: some View {
         Menu {
-            Picker("picker", selection: $gridView) {
+            Picker("picker", selection: $viewModel.gridView) {
                 Label("Icons", systemImage: "square.grid.2x2").tag(true)
                 Label("List", systemImage: "list.bullet").tag(false)
             }
             
-            Picker("attributes", selection: $selectedAttribute) {
+            Picker("attributes", selection: $viewModel.selectedAttribute) {
                 Text("All").tag(HeroAttribute.whole)
                 Label("STRENGTH", image: "attribute_str").tag(HeroAttribute.str)
                 Label("AGILITY", image: "attribute_agi").tag(HeroAttribute.agi)
@@ -81,7 +76,7 @@ struct HeroListView: View {
                 Label("UNIVERSAL", image: "attribute_all").tag(HeroAttribute.all)
             }
         } label: {
-            if gridView {
+            if viewModel.gridView {
                 Image(systemName: "square.grid.2x2")
             } else {
                 Image(systemName: "list.bullet")
@@ -120,7 +115,7 @@ struct HeroListView: View {
             } header: {
                 if attributes != .whole {
                     HStack {
-                        AttributeImage(attribute: selectedAttribute)
+                        AttributeImage(attribute: viewModel.selectedAttribute)
                             .frame(width: 20, height: 20)
                         Text(LocalizedStringKey(attributes.fullName))
                             .bold()
@@ -134,9 +129,9 @@ struct HeroListView: View {
     }
     
     @ViewBuilder private func buildMainPart(heroes: [Hero]) -> some View {
-        if gridView {
+        if viewModel.gridView {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 130, maximum: 200), spacing: 10, alignment: .leading), count: 1)) {
-                ForEach(self.heroes) { hero in
+                ForEach(viewModel.searchResults) { hero in
                     NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: Int(hero.id)))) {
                         buildHero(hero: hero)
                     }
@@ -155,14 +150,13 @@ struct HeroListView: View {
         HeroListCellView(heroName: hero.heroNameLocalized,
                          heroID: Int(hero.id),
                          attribute: HeroAttribute(rawValue: hero.primaryAttr ?? "") ?? .agi,
-                         isGrid: gridView,
-                         isHighlighted: searchResults.contains(where: { $0.id == hero.id }) || searchString.isEmpty)
+                         isGrid: viewModel.gridView,
+                         isHighlighted: viewModel.searchResults.contains(where: { $0.id == hero.id }) || viewModel.searchString.isEmpty)
     }
 }
 
 struct HeroListView_Previews: PreviewProvider {
     static var previews: some View {
-        HeroListView()
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        HeroListView(viewModel: HeroListViewModel(viewContext: PersistenceController.preview.container.viewContext))
     }
 }
