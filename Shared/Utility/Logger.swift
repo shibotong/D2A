@@ -33,11 +33,23 @@ enum LoggingLevel: Int, CaseIterable {
     }
 }
 
+fileprivate let LOGGER_SAVE_KEY = "dotaArmory.logging"
+
 class Logger {
     
     static let shared = Logger()
     
-    var loggingLevel: LoggingLevel = .error
+    var loggingLevel: LoggingLevel {
+        didSet {
+            log(level: .verbose, message: "Set logging level \(loggingLevel.name)")
+            UserDefaults.standard.set(loggingLevel.rawValue, forKey: LOGGER_SAVE_KEY)
+        }
+    }
+    
+    init() {
+        let level = UserDefaults.standard.integer(forKey: LOGGER_SAVE_KEY)
+        loggingLevel = LoggingLevel(rawValue: level) ?? .error
+    }
     
     func log(level: LoggingLevel, message: String) {
         guard level.rawValue >= loggingLevel.rawValue else {

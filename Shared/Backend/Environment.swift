@@ -34,7 +34,7 @@ final class DotaEnvironment: ObservableObject {
     // migration loading
     @Published var loading = false
     
-    @Published var loggingLevel: LoggingLevel = .error
+    @Published var loggingLevel: LoggingLevel = Logger.shared.loggingLevel
     
     // tab selections
     var tab: TabSelection {
