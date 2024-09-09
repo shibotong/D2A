@@ -136,19 +136,39 @@ extension Hero {
     }
     
     private func updateAbilities(_ abilityNames: [String], context: NSManagedObjectContext) {
-        self.abilities?.allObjects.forEach {
-            guard let object = $0 as? NSManagedObject else {
-                return
-            }
-            context.delete(object)
+        guard let savedAbilities = abilities?.allObjects as? [Ability] else {
+            addingAbilitiesToHero(names: abilityNames, context: context)
+            return
         }
         
-        for name in abilityNames {
-            guard let ability = Ability.fetchAbility(name: name) else {
+        var newAbilities: [String] = []
+        var abilitiesToRemove: [Ability] = []
+        
+        for ability in savedAbilities {
+            guard let abilityName = ability.name,
+                  !abilityNames.contains(abilityName) else {
                 continue
             }
-            ability.hero = self
+            abilitiesToRemove.append(ability)
         }
+        
+        Logger.shared.log(level: .verbose, message: "\(abilitiesToRemove.map { $0.name }) don't exist for hero \(name ?? "ERROR") anymore")
+        removeFromAbilities(NSSet(array: abilitiesToRemove))
+        
+        for abilityName in abilityNames {
+            if savedAbilities.contains(where: { $0.name == abilityName }) {
+                continue
+            }
+            newAbilities.append(abilityName)
+        }
+        
+        addingAbilitiesToHero(names: newAbilities, context: context)
+    }
+    
+    private func addingAbilitiesToHero(names: [String], context: NSManagedObjectContext) {
+        let abilities = Ability.fetchAbilities(names: names, viewContext: context)
+        addToAbilities(NSSet(array: abilities))
+        Logger.shared.log(level: .verbose, message: "Save abilities to hero \(id), \(abilities.map { $0.name })")
     }
     
     private func updateRoles(_ roles: [StratzRole],
@@ -169,7 +189,7 @@ extension Hero {
             let newRole = Role(context: context)
             newRole.roleId = roleID
             newRole.level = level
-            newRole.hero = self
+            addToRoles(newRole)
         }
     }
     
@@ -180,7 +200,7 @@ extension Hero {
     private func updateTalent(_ talent: StratzTalent, context: NSManagedObjectContext) {
         guard let talentSlot = talent.slot,
         let abilityID = talent.abilityId,
-        let ability = Ability.fetchAbility(id: Int(abilityID), context: context) else {
+        let ability = Ability.fetchAbility(id: Int(abilityID), viewContext: context) else {
             return
         }
         
