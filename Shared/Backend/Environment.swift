@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import UIKit
+import Combine
 
 enum TabSelection {
     case home, hero, search, setting, live
@@ -33,6 +34,8 @@ final class DotaEnvironment: ObservableObject {
     // migration loading
     @Published var loading = false
     
+    @Published var loggingLevel: LoggingLevel = .error
+    
     // tab selections
     var tab: TabSelection {
         didSet {
@@ -47,6 +50,8 @@ final class DotaEnvironment: ObservableObject {
     @Published var matchActive: Bool = false
     @Published var userActive: Bool = false
     
+    private var cancellable: Set<AnyCancellable> = []
+    
     private var refreshDistance: TimeInterval {
         var refreshTime: TimeInterval = 60
         #if DEBUG
@@ -58,6 +63,10 @@ final class DotaEnvironment: ObservableObject {
     init() {
         subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         tab = .home
+        
+        $loggingLevel
+            .assign(to: \.loggingLevel, on: Logger.shared)
+            .store(in: &cancellable)
     }
     
     static func isInWidget() -> Bool {
