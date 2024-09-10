@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23G93" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Ability" representedClassName="Ability" syncable="YES" codeGenerationType="class">
         <attribute name="abilityID" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="attributes" optional="YES" attributeType="Transformable" valueTransformerName="AbilityAttributeTransformer" customClassName="[AbilityAttribute]"/>
         <attribute name="behaviour" optional="YES" attributeType="String"/>
         <attribute name="bkbPierce" optional="YES" attributeType="String"/>
         <attribute name="cd" optional="YES" attributeType="String"/>
@@ -12,17 +13,9 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="targetTeam" optional="YES" attributeType="String"/>
         <attribute name="targetType" optional="YES" attributeType="String"/>
-        <relationship name="attributes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AbilityAttribute" inverseName="ability" inverseEntity="AbilityAttribute"/>
         <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="abilities" inverseEntity="Hero"/>
         <relationship name="localisations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AbilityLocalisation" inverseName="ability" inverseEntity="AbilityLocalisation"/>
         <relationship name="talent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Talent" inverseName="ability" inverseEntity="Talent"/>
-    </entity>
-    <entity name="AbilityAttribute" representedClassName="AbilityAttribute" syncable="YES" codeGenerationType="class">
-        <attribute name="generated" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="header" attributeType="String"/>
-        <attribute name="key" attributeType="String"/>
-        <attribute name="value" attributeType="String"/>
-        <relationship name="ability" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="attributes" inverseEntity="Ability"/>
     </entity>
     <entity name="AbilityLocalisation" representedClassName="AbilityLocalisation" syncable="YES" codeGenerationType="class">
         <attribute name="descriptionAbility" optional="YES" attributeType="String"/>
