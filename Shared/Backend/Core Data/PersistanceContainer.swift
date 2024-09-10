@@ -59,18 +59,6 @@ class PersistenceController {
         loadContainer(inMemory: inMemory)
     }
     
-    private func removeContainer() {
-        let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME)!
-        let storeURL = containerURL.appendingPathComponent("D2AModel.sqlite")
-        do {
-            try FileManager.default.removeItem(at: storeURL)
-            loadContainer()
-        } catch {
-            DotaEnvironment.shared.error = true
-            DotaEnvironment.shared.errorMessage = "There are some problems with the App. Please delete and reinstall."
-        }
-    }
-    
     private func loadContainer(inMemory: Bool = false) {
         let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME)!
         let storeURL = containerURL.appendingPathComponent("D2AModel.sqlite")

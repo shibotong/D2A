@@ -9,22 +9,13 @@
         <attribute name="dispellable" optional="YES" attributeType="String"/>
         <attribute name="dmgType" optional="YES" attributeType="String"/>
         <attribute name="dname" optional="YES" attributeType="String"/>
+        <attribute name="localisations" optional="YES" attributeType="Transformable" valueTransformerName="AbilityLocalisationTransformer" customClassName="[AbilityLocalisation]"/>
         <attribute name="mc" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="targetTeam" optional="YES" attributeType="String"/>
         <attribute name="targetType" optional="YES" attributeType="String"/>
         <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="abilities" inverseEntity="Hero"/>
-        <relationship name="localisations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AbilityLocalisation" inverseName="ability" inverseEntity="AbilityLocalisation"/>
         <relationship name="talent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Talent" inverseName="ability" inverseEntity="Talent"/>
-    </entity>
-    <entity name="AbilityLocalisation" representedClassName="AbilityLocalisation" syncable="YES" codeGenerationType="class">
-        <attribute name="descriptionAbility" optional="YES" attributeType="String"/>
-        <attribute name="descriptionScepter" optional="YES" attributeType="String"/>
-        <attribute name="descriptionShard" optional="YES" attributeType="String"/>
-        <attribute name="displayName" attributeType="String"/>
-        <attribute name="language" attributeType="String"/>
-        <attribute name="lore" optional="YES" attributeType="String"/>
-        <relationship name="ability" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="localisations" inverseEntity="Ability"/>
     </entity>
     <entity name="Hero" representedClassName="Hero" syncable="YES" codeGenerationType="class">
         <attribute name="attackRange" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>

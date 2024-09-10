@@ -209,9 +209,9 @@ extension Hero {
             savedTalent.ability = ability
         } else {
             let newTalent = Talent(context: context)
-            newTalent.hero = self
             newTalent.slot = Int16(talentSlot)
             newTalent.ability = ability
+            addToTalents(newTalent)
         }
     }
     

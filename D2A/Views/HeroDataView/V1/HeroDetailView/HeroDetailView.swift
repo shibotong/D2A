@@ -168,6 +168,7 @@ struct HeroDetailView: View {
     
     @ViewBuilder private func buildAbilities(navigation: Bool) -> some View {
         HStack {
+            Text(vm.hero?.abilities?.count.description ?? "ERROR")
             ForEach(vm.abilities) { ability in
                 if navigation {
                     NavigationLink(destination: AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: ability))) {

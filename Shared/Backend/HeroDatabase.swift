@@ -90,15 +90,16 @@ class HeroDatabase: ObservableObject {
             self?.scepterData = await scepter
             self?.localisation = await StratzController.shared.loadLocalisation()
             let status: LoadingStatus = self?.abilities.count == 0 ? .error : .finish
-            await self?.setStatus(status: status)
+            await self?.setStatus(status: status, stratz: .finish)
             await self?.saveAbilities()
-            await self?.saveHeroes()
+//            await self?.saveHeroes()
         }
     }
     
     @MainActor
-    private func setStatus(status: LoadingStatus) {
+    private func setStatus(status: LoadingStatus, stratz: LoadingStatus) {
         openDotaLoadFinish = status
+        stratzLoadFinish = stratz
     }
     
     private func setupBinding() {
@@ -117,11 +118,6 @@ class HeroDatabase: ObservableObject {
                 self?.status = status
                 if status == .finish {
                     self?.removeBinding()
-                    if #available(iOS 17, *) {
-                        Task { [weak self] in
-                            await self?.saveAbilities()
-                        }
-                    }
                 }
                 
                 if status == .error {
@@ -293,20 +289,17 @@ class HeroDatabase: ObservableObject {
     
     /// Save Heroes
     private func saveHeroes() async {
-        if #available(iOS 17, *) {
-            await saveAbilitiesSwiftData()
-        } else {
-            await saveHeroes()
-        }
+        await saveHeroesCoreData()
     }
     
     /// Save abilities
     private func saveAbilities() async {
-        if #available(iOS 17, *) {
-            await saveAbilitiesSwiftData()
-        } else {
-            await saveAbilitiesCoreData()
-        }
+//        if #available(iOS 17, *) {
+//            await saveAbilitiesSwiftData()
+//        } else {
+//            await saveAbilitiesCoreData()
+//        }
+        await saveAbilitiesCoreData()
     }
     
     private func isScepterSkill(dname: String?) -> Bool {
@@ -333,53 +326,114 @@ class HeroDatabase: ObservableObject {
 // MARK: - Core Data
 extension HeroDatabase {
     
-    private func saveHeroesCoreData(container: PersistenceController = PersistenceController.shared) async {
-        await withTaskGroup(of: Void.self) { taskGroup in
-            for (heroIDString, heroData) in heroes {
-                guard let localisation = localisation?.heroes?.compactMap({ $0 }).first(where: { $0.id == Double(heroIDString) }) else {
-                    continue
-                }
-                
-                taskGroup.addTask { [weak self] in
-                    let context = container.makePrivateContext()
-                    let abilityNames = self?.fetchHeroAbility(name: heroData.name) ?? []
-                    try? Hero.save(heroData: heroData,
-                                   abilityNames: abilityNames,
-                                   localisation: localisation,
-                                   context: context)
-                }
+    private func saveHeroesCoreData(container: NSPersistentContainer = PersistenceController.shared.container) async {
+        for (heroIDString, heroData) in heroes {
+            guard let localisation = localisation?.heroes?.compactMap({ $0 }).first(where: { $0.id == Double(heroIDString) }) else {
+                continue
+            }
+            
+            let context = container.newBackgroundContext()
+            let abilityNames = self.fetchHeroAbility(name: heroData.name)
+            do {
+                try Hero.save(heroData: heroData,
+                              abilityNames: abilityNames,
+                              localisation: localisation,
+                              context: context)
+                print("Save hero \(heroIDString) success")
+            } catch {
+                print("Save hero error \(error.localizedDescription)")
             }
         }
     }
     
-    private func saveAbilitiesCoreData(container: PersistenceController = PersistenceController.shared) async {
-        await withTaskGroup(of: Void.self) { taskGroup in
-            for (abilityIDString, abilityName) in abilityIDTable {
-                guard let ability = abilities[abilityName],
-                      let abilityID = Int(abilityIDString),
-                      let localisation = localisation?.abilities?.compactMap({ $0 }).first(where: { $0.name == abilityName }) else {
-                    continue
-                }
-                
-                taskGroup.addTask { [weak self] in
-                    var abilityType = AbilityType.none
-                    if self?.isScepterSkill(dname: abilityName) ?? false {
-                        abilityType = .scepter
-                    }
-                    
-                    if self?.isShardSkill(dname: abilityName) ?? false {
-                        abilityType = .shared
-                    }
-                    let context = container.makePrivateContext()
-                    try? Ability.save(abilityID: abilityID, 
-                                      abilityName: abilityName,
-                                      ability: ability,
-                                      localisation: localisation,
-                                      type: abilityType,
-                                      context: context)
-                }
+    private func saveAbilitiesCoreData(container: NSPersistentContainer = PersistenceController.shared.container) async {
+        let context = container.newBackgroundContext()
+//        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+//        if !Ability.abilitiesInserted(viewContext: context) {
+//            self.saveAbilitiesCoreDataBatch(context: context)
+//        }
+        
+        for (abilityIDString, abilityName) in abilityIDTable {
+            guard let ability = abilities[abilityName],
+                  let abilityID = Int(abilityIDString),
+                  let localisation = localisation?.abilities?.compactMap({ $0 }).first(where: { $0.name == abilityName }) else {
+                continue
+            }
+            
+            var abilityType = AbilityType.none
+            if isScepterSkill(dname: abilityName) {
+                abilityType = .scepter
+            }
+            
+            if isShardSkill(dname: abilityName) {
+                abilityType = .shared
+            }
+//            let context = container.newBackgroundContext()
+            do {
+                try Ability.save(abilityID: abilityID,
+                                 abilityName: abilityName,
+                                 ability: ability,
+                                 localisation: localisation,
+                                 type: abilityType,
+                                 context: context)
+            } catch {
+                Logger.shared.log(level: .error, message: "Error occured on saving ability \(abilityName), \(error.localizedDescription)")
             }
         }
+    }
+    
+    private func saveAbilitiesCoreDataBatch(context: NSManagedObjectContext) {
+        let keys = Array(abilityIDTable.keys) as [String]
+        let amount = keys.count
+        var index = 0
+        let insertRequest = createBatchInsertRequest(abilityIDTable: abilityIDTable, abilities: abilities, localisations: localisation?.abilities ?? [])
+        
+        insertRequest.resultType = .statusOnly
+        
+        if let result = try? context.execute(insertRequest),
+           let insertResult = result as? NSBatchInsertResult,
+           let success = insertResult.result as? Bool, success {
+            return
+        }
+        Logger.shared.log(level: .error, message: "insert abilities error")
+    }
+    
+    func createBatchInsertRequest(abilityIDTable: [String: String],
+                                  abilities: [String: AbilityCodable],
+                                  localisations: [Localisation.Ability?]) -> NSBatchInsertRequest {
+        let keys = Array(abilityIDTable.keys) as [String]
+        let amount = keys.count
+        var index = 0
+        let batchInsertRequest = NSBatchInsertRequest(entity: Ability.entity(), managedObjectHandler: { [weak self] object in
+            guard index < amount else { return true }
+            guard let object = object as? Ability else { return false }
+            let abilityIDString = keys[index]
+            guard let abilityName = abilityIDTable[abilityIDString],
+                  let ability = abilities[abilityName],
+                  let abilityID = Int(abilityIDString),
+                  let localisation = self?.localisation?.abilities?.compactMap({ $0 }).first(where: { $0.name == abilityName }) else {
+                return false
+            }
+            var abilityType = AbilityType.none
+            if self?.isScepterSkill(dname: abilityName) ?? false {
+                abilityType = .scepter
+            }
+            
+            if self?.isShardSkill(dname: abilityName) ?? false {
+                abilityType = .shared
+            }
+            
+            object.updateValues(abilityID: abilityID,
+                                abilityName: abilityName,
+                                ability: ability,
+                                type: abilityType,
+                                localisation: localisation)
+            print(object)
+            index += 1
+            Logger.shared.log(level: .verbose, message: "ability insert \(abilityName)")
+            return false
+        })
+        return batchInsertRequest
     }
 }
 

@@ -40,6 +40,22 @@ struct AboutUsView: View {
                 makeRow(image: "heart.fill", text: "STRATZ API", link: URL(string: "https://stratz.com/dashboard"))
                 makeRow(image: "heart.fill", text: "Our Loved Dota2", link: URL(string: "https://www.dota2.com/home"))
             }
+            
+            #if DEBUG
+            Section(header: Text("Developer")) {
+                HStack {
+                    Image(systemName: "apple.terminal.fill")
+                        .imageScale(.medium)
+                        .foregroundColor(.primaryDota)
+                        .frame(width: 30)
+                    Picker("Logger", selection: $env.loggingLevel) {
+                        ForEach(LoggingLevel.allCases, id: \.icon) { level in
+                            Text("\(level.icon) \(level.name)").tag(level)
+                        }
+                    }
+                }
+            }
+            #endif
         }
         .navigationTitle("About")
         .listStyle(InsetGroupedListStyle())
@@ -62,7 +78,9 @@ struct AboutUsView: View {
                 }
             }
             Spacer()
-            Image(systemName: "chevron.right").imageScale(.medium)
+            if link != nil {
+                Image(systemName: "chevron.right").imageScale(.medium)
+            }
         }
     }
     
@@ -99,5 +117,6 @@ struct AboutUsView: View {
     static var previews: some View {
         AboutUsView()
             .environment(\.locale, .init(identifier: "zh-Hans"))
+            .environmentObject(DotaEnvironment.shared)
     }
  }

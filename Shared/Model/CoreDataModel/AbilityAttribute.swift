@@ -9,14 +9,14 @@ import Foundation
 
 final public class AbilityAttribute: NSObject, NSSecureCoding {
     
-    var key: String
-    var header: String
-    var value: String
-    var generated: Bool?
+    let key: String
+    let header: String
+    let value: String
+    let generated: Bool
     
     public static var supportsSecureCoding: Bool = true
     
-    enum Key: String {
+    enum Key: String, CodingKey {
         case key, header, value, generated
     }
     
@@ -28,17 +28,17 @@ final public class AbilityAttribute: NSObject, NSSecureCoding {
     }
     
     convenience required public init?(coder: NSCoder) {
-        guard let key = coder.decodeObject(forKey: Key.key.rawValue) as? String,
-              let header = coder.decodeObject(forKey: Key.header.rawValue) as? String,
-              let value = coder.decodeObject(forKey: Key.value.rawValue) as? String else {
+        guard let key = coder.decodeObject(of: NSString.self, forKey: Key.key.rawValue) as? String,
+              let header = coder.decodeObject(of: NSString.self, forKey: Key.header.rawValue) as? String,
+              let value = coder.decodeObject(of: NSString.self, forKey: Key.value.rawValue) as? String else {
             return nil
         }
-        let generated = coder.decodeBool(forKey: "generated")
+        let generated = coder.decodeBool(forKey: Key.generated.rawValue) as? Bool ?? false
         
         self.init(key: key, header: header, value: value, generated: generated)
     }
     
-    init(key: String, header: String, value: String, generated: Bool? = nil) {
+    init(key: String, header: String, value: String, generated: Bool) {
         self.key = key
         self.header = header
         self.value = value
@@ -53,7 +53,7 @@ final public class AbilityAttribute: NSObject, NSSecureCoding {
         self.init(key: key,
                   header: header,
                   value: value,
-                  generated: attribute.generated)
+                  generated: attribute.generated ?? false)
     }
 }
 

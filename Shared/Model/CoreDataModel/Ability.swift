@@ -17,6 +17,12 @@ extension Ability {
     
     typealias Localisation = LocaliseQuery.Data.Constants.Ability
     
+    static func abilitiesInserted(viewContext: NSManagedObjectContext) -> Bool {
+        let request = Ability.fetchRequest()
+        let numberOfItems = (try? viewContext.count(for: request)) ?? 0
+        return numberOfItems > 0
+    }
+    
     /// Fetch `Ability` with `id` in `CoreData`
     static func fetchAbility(id: Int, viewContext: NSManagedObjectContext) -> Ability? {
         let request = Ability.fetchRequest()
@@ -68,16 +74,20 @@ extension Ability {
         let abilityData = Ability.fetchAbility(id: abilityID, viewContext: context) ?? Ability(context: context)
         abilityData.updateValues(abilityID: abilityID,
                                  abilityName: abilityName,
-                                 ability: ability)
-        
-        abilityData.updateLocalisation(localisation, type: type, context: context)
+                                 ability: ability,
+                                 type: type,
+                                 localisation: localisation)
         
         try context.save()
     }
     
+
+    
     func updateValues(abilityID: Int,
                       abilityName: String,
-                      ability: AbilityCodable) {
+                      ability: AbilityCodable,
+                      type: AbilityType,
+                      localisation: Localisation) {
         self.abilityID = Int32(abilityID)
         self.name = abilityName
         self.dname = ability.dname
@@ -90,59 +100,68 @@ extension Ability {
         self.cd = ability.coolDown?.transformString()
         self.bkbPierce = ability.bkbPierce?.transformString()
         self.dispellable = ability.dispellable?.transformString()
-        
-        self.attributes = ability.attributes?.compactMap { AbilityAttribute(attribute: $0) }
+        if let attributes = ability.attributes {
+            let newAttributes = attributes.compactMap { AbilityAttribute(attribute: $0) }
+            self.attributes = newAttributes
+        }
+//        self.attributes = ability.attributes?.compactMap { AbilityAttribute(attribute: $0) }
+//        if let languageLocalisation = localisation.language,
+//           let localisation = AbilityLocalisation(localisation: languageLocalisation, language: languageCode.rawValue, type: type) {
+//            if localisations == nil {
+//                localisations = [localisation]
+//            } else {
+//                localisations?.removeAll(where: { $0.language == languageCode.rawValue })
+//                localisations?.append(localisation)
+//            }
+//        }
     }
     
     // Update localisation
     private func updateLocalisation(_ localisationData: Localisation,
-                                    type: AbilityType,
-                                    context: NSManagedObjectContext) {
-        let localisation = fetchLocalisation(language: languageCode, context: context)
-        localisation.lore = localisationData.language?.lore
-        localisation.displayName = localisationData.language?.displayName ?? ""
-        
-        switch type {
-        case .scepter:
-            localisation.descriptionScepter = localisationData.language?.aghanimDescription
-            localisation.descriptionShard = nil
-            localisation.descriptionAbility = nil
-        case .shared:
-            localisation.descriptionShard = localisationData.language?.shardDescription
-            localisation.descriptionScepter = nil
-            localisation.descriptionAbility = nil
-        case .none:
-            localisation.descriptionScepter = localisationData.language?.aghanimDescription
-            localisation.descriptionShard = localisationData.language?.shardDescription
-            localisation.descriptionAbility = localisationData.language?.description?.compactMap{ $0 }.joined(separator: "\n")
+                                    type: AbilityType) {
+        if let localisation = localisations?.first(where: { $0.language == languageCode.rawValue }) {
+            localisation.lore = localisationData.language?.lore
+            localisation.displayName = localisationData.language?.displayName ?? ""
+            
+            switch type {
+            case .scepter:
+                localisation.scepter = localisationData.language?.aghanimDescription
+                localisation.shard = nil
+                localisation.abilityDescription = nil
+            case .shared:
+                localisation.shard = localisationData.language?.shardDescription
+                localisation.scepter = nil
+                localisation.abilityDescription = nil
+            case .none:
+                localisation.scepter = localisationData.language?.aghanimDescription
+                localisation.shard = localisationData.language?.shardDescription
+                localisation.abilityDescription = localisationData.language?.description?.compactMap{ $0 }.joined(separator: "\n")
+            }
+            Logger.shared.log(level: .verbose, message: "Update \(languageCode.rawValue) for \(abilityID)")
+        } else {
+            let localisation = AbilityLocalisation(language: languageCode.rawValue, displayName: localisationData.language?.displayName ?? "")
+            localisation.lore = localisationData.language?.lore
+            
+            switch type {
+            case .scepter:
+                localisation.scepter = localisationData.language?.aghanimDescription
+                localisation.shard = nil
+                localisation.abilityDescription = nil
+            case .shared:
+                localisation.shard = localisationData.language?.shardDescription
+                localisation.scepter = nil
+                localisation.abilityDescription = nil
+            case .none:
+                localisation.scepter = localisationData.language?.aghanimDescription
+                localisation.shard = localisationData.language?.shardDescription
+                localisation.abilityDescription = localisationData.language?.description?.compactMap{ $0 }.joined(separator: "\n")
+            }
+            if localisations == nil {
+                localisations = [localisation]
+            } else {
+                localisations?.append(localisation)
+            }
+            Logger.shared.log(level: .verbose, message: "Insert \(languageCode.rawValue) for \(abilityID)")
         }
-    }
-    
-    private func updateAttributes(_ attributes: [AbilityCodableAttribute]) {
-        
-//        if let savedAttributes = self.attributes {
-//            removeFromAttributes(savedAttributes)
-//        }
-//        
-//        let attributes: [AbilityAttribute] = attributes.map {
-//            let attribute = AbilityAttribute(context: context)
-//            attribute.update($0)
-//            attribute.ability = self
-//            return attribute
-//        }
-//        
-//        addToAttributes(NSSet(array: attributes))
-    }
-    
-    private func fetchLocalisation(language: Language, context: NSManagedObjectContext) -> AbilityLocalisation {
-        guard let localisations = localisations?.allObjects as? [AbilityLocalisation],
-              let savedLocalisation = localisations.first(where: { $0.language == language.rawValue }) else {
-            let newLocalisation = AbilityLocalisation(context: context)
-            newLocalisation.language = language.rawValue
-            addToLocalisations(newLocalisation)
-            return newLocalisation
-        }
-        
-        return savedLocalisation
     }
 }
