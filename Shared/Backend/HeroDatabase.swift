@@ -316,11 +316,22 @@ class HeroDatabase: ObservableObject {
         
         return hero.shardNewSkill
     }
+    
+    private func abilityType(dname: String?) -> AbilityType {
+        var abilityType = AbilityType.none
+        if isScepterSkill(dname: dname) {
+            abilityType = .scepter
+        }
+        
+        if isShardSkill(dname: dname) {
+            abilityType = .shared
+        }
+        return abilityType
+    }
 }
 
 // MARK: - Core Data
 extension HeroDatabase {
-    
     private func saveHeroesCoreData(container: NSPersistentContainer = PersistenceController.shared.container) async {
         for (heroIDString, heroData) in heroes {
             guard let localisation = localisation?.heroes?.compactMap({ $0 }).first(where: { $0.id == Double(heroIDString) }) else {
@@ -345,6 +356,29 @@ extension HeroDatabase {
         let context = container.newBackgroundContext()
         if !Ability.abilitiesInserted(viewContext: context) {
             self.saveAbilitiesCoreDataBatch(context: context)
+        } else {
+            updateAbilities(viewContext: context)
+        }
+    }
+    
+    private func updateAbilities(viewContext: NSManagedObjectContext) {
+        let abilityFetching = AbilityInsertFetching(abilityIDTable: abilityIDTable, 
+                                                    abilities: abilities,
+                                                    localisations: localisation?.abilities ?? [])
+        
+        while let abilityData = abilityFetching.next() {
+            do {
+                let abilityType = abilityType(dname: abilityData.abilityName)
+                try Ability.save(abilityID: abilityData.abilityID,
+                                 abilityName: abilityData.abilityName,
+                                 ability: abilityData.ability,
+                                 localisation: abilityData.localisation,
+                                 type: abilityType,
+                                 context: viewContext)
+                Logger.shared.log(level: .verbose, message: "Update ability success \(abilityData.abilityName)")
+            } catch {
+                Logger.shared.log(level: .error, message: "Error occured when saving ability \(abilityData.abilityName).", error: error)
+            }
         }
     }
     
@@ -357,32 +391,24 @@ extension HeroDatabase {
             let result = try context.execute(insertRequest)
             let insertResult = result as? NSBatchInsertResult
             let amountInserted = insertResult?.result as? Int
-            Logger.shared.log(level: .verbose, message: "Save \(amountInserted) abilities to coredata")
+            Logger.shared.log(level: .verbose, message: "Save \(String(describing: amountInserted)) abilities to coredata")
         } catch {
-            Logger.shared.log(level: .error, message: "Error occured on batch saving ability \(error.localizedDescription)")
+            Logger.shared.log(level: .error, message: "Error occured on batch saving ability", error: error)
         }
     }
     
-    func createBatchInsertRequest(abilityIDTable: [String: String],
+    private func createBatchInsertRequest(abilityIDTable: [String: String],
                                   abilities: [String: AbilityCodable],
                                   localisations: [Localisation.Ability?]) -> NSBatchInsertRequest {
         let abilityFetching = AbilityInsertFetching(abilityIDTable: abilityIDTable,
                                                     abilities: abilities,
                                                     localisations: localisations)
-        
         let batchInsertRequest = NSBatchInsertRequest(entity: Ability.entity(), managedObjectHandler: { [weak self] object in
             guard let object = object as? Ability else { return false }
             guard let abilityData = abilityFetching.next() else {
                 return true
             }
-            var abilityType = AbilityType.none
-            if self?.isScepterSkill(dname: abilityData.abilityName) ?? false {
-                abilityType = .scepter
-            }
-            
-            if self?.isShardSkill(dname: abilityData.abilityName) ?? false {
-                abilityType = .shared
-            }
+            let abilityType = self?.abilityType(dname: abilityData.abilityName) ?? .none
             
             object.updateValues(abilityID: abilityData.abilityID,
                                 abilityName: abilityData.abilityName,

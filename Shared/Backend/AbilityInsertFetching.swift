@@ -45,7 +45,6 @@ class AbilityInsertFetching {
                            abilityID: abilityID,
                            localisation: localisation)
     }
-
 }
 
 struct AbilityData {
