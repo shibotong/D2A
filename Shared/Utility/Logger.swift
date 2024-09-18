@@ -55,7 +55,8 @@ class Logger {
         guard level.rawValue >= loggingLevel.rawValue else {
             return
         }
-        var message: String = "\(level.icon) [\(file) line: \(line)] \(message)"
+        let fileName = file.components(separatedBy: "/").last ?? file
+        var message: String = "\(level.icon) [\(fileName) line: \(line)] \(message)"
         if let error {
             message += " Error: \(error.localizedDescription)"
         }
