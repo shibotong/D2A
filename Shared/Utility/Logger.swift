@@ -51,10 +51,15 @@ class Logger {
         loggingLevel = LoggingLevel(rawValue: level) ?? .error
     }
     
-    func log(level: LoggingLevel, message: String, file: String = #file, line: Int = #line) {
+    func log(level: LoggingLevel, message: String, error: Error? = nil, file: String = #file, line: Int = #line) {
         guard level.rawValue >= loggingLevel.rawValue else {
             return
         }
-        print("\(level.icon) [\(file) line: \(line)] \(message)")
+        var message: String = "\(level.icon) [\(file) line: \(line)] \(message)"
+        if let error {
+            message += " Error: \(error.localizedDescription)"
+        }
+        
+        print(message)
     }
 }
