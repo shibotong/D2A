@@ -294,11 +294,6 @@ class HeroDatabase: ObservableObject {
     
     /// Save abilities
     private func saveAbilities() async {
-//        if #available(iOS 17, *) {
-//            await saveAbilitiesSwiftData()
-//        } else {
-//            await saveAbilitiesCoreData()
-//        }
         await saveAbilitiesCoreData()
     }
     
@@ -348,89 +343,53 @@ extension HeroDatabase {
     
     private func saveAbilitiesCoreData(container: NSPersistentContainer = PersistenceController.shared.container) async {
         let context = container.newBackgroundContext()
-//        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-//        if !Ability.abilitiesInserted(viewContext: context) {
-//            self.saveAbilitiesCoreDataBatch(context: context)
-//        }
-        
-        for (abilityIDString, abilityName) in abilityIDTable {
-            guard let ability = abilities[abilityName],
-                  let abilityID = Int(abilityIDString),
-                  let localisation = localisation?.abilities?.compactMap({ $0 }).first(where: { $0.name == abilityName }) else {
-                continue
-            }
-            
-            var abilityType = AbilityType.none
-            if isScepterSkill(dname: abilityName) {
-                abilityType = .scepter
-            }
-            
-            if isShardSkill(dname: abilityName) {
-                abilityType = .shared
-            }
-//            let context = container.newBackgroundContext()
-            do {
-                try Ability.save(abilityID: abilityID,
-                                 abilityName: abilityName,
-                                 ability: ability,
-                                 localisation: localisation,
-                                 type: abilityType,
-                                 context: context)
-            } catch {
-                Logger.shared.log(level: .error, message: "Error occured on saving ability \(abilityName), \(error.localizedDescription)")
-            }
+        if !Ability.abilitiesInserted(viewContext: context) {
+            self.saveAbilitiesCoreDataBatch(context: context)
         }
     }
     
     private func saveAbilitiesCoreDataBatch(context: NSManagedObjectContext) {
-        let keys = Array(abilityIDTable.keys) as [String]
-        let amount = keys.count
-        var index = 0
         let insertRequest = createBatchInsertRequest(abilityIDTable: abilityIDTable, abilities: abilities, localisations: localisation?.abilities ?? [])
         
-        insertRequest.resultType = .statusOnly
+        insertRequest.resultType = .count
         
-        if let result = try? context.execute(insertRequest),
-           let insertResult = result as? NSBatchInsertResult,
-           let success = insertResult.result as? Bool, success {
-            return
+        do {
+            let result = try context.execute(insertRequest)
+            let insertResult = result as? NSBatchInsertResult
+            let amountInserted = insertResult?.result as? Int
+            Logger.shared.log(level: .verbose, message: "Save \(amountInserted) abilities to coredata")
+        } catch {
+            Logger.shared.log(level: .error, message: "Error occured on batch saving ability \(error.localizedDescription)")
         }
-        Logger.shared.log(level: .error, message: "insert abilities error")
     }
     
     func createBatchInsertRequest(abilityIDTable: [String: String],
                                   abilities: [String: AbilityCodable],
                                   localisations: [Localisation.Ability?]) -> NSBatchInsertRequest {
-        let keys = Array(abilityIDTable.keys) as [String]
-        let amount = keys.count
-        var index = 0
+        let abilityFetching = AbilityInsertFetching(abilityIDTable: abilityIDTable,
+                                                    abilities: abilities,
+                                                    localisations: localisations)
+        
         let batchInsertRequest = NSBatchInsertRequest(entity: Ability.entity(), managedObjectHandler: { [weak self] object in
-            guard index < amount else { return true }
             guard let object = object as? Ability else { return false }
-            let abilityIDString = keys[index]
-            guard let abilityName = abilityIDTable[abilityIDString],
-                  let ability = abilities[abilityName],
-                  let abilityID = Int(abilityIDString),
-                  let localisation = self?.localisation?.abilities?.compactMap({ $0 }).first(where: { $0.name == abilityName }) else {
-                return false
+            guard let abilityData = abilityFetching.next() else {
+                return true
             }
             var abilityType = AbilityType.none
-            if self?.isScepterSkill(dname: abilityName) ?? false {
+            if self?.isScepterSkill(dname: abilityData.abilityName) ?? false {
                 abilityType = .scepter
             }
             
-            if self?.isShardSkill(dname: abilityName) ?? false {
+            if self?.isShardSkill(dname: abilityData.abilityName) ?? false {
                 abilityType = .shared
             }
             
-            object.updateValues(abilityID: abilityID,
-                                abilityName: abilityName,
-                                ability: ability,
+            object.updateValues(abilityID: abilityData.abilityID,
+                                abilityName: abilityData.abilityName,
+                                ability: abilityData.ability,
                                 type: abilityType,
-                                localisation: localisation)
-            print(object)
-            index += 1
-            Logger.shared.log(level: .verbose, message: "ability insert \(abilityName)")
+                                localisation: abilityData.localisation)
+            Logger.shared.log(level: .verbose, message: "ability insert \(abilityData.abilityName)")
             return false
         })
         return batchInsertRequest

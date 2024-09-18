@@ -46,7 +46,9 @@ final public class AbilityAttribute: NSObject, NSSecureCoding {
     }
     
     convenience init?(attribute: AbilityCodableAttribute) {
-        guard let key = attribute.key, let header = attribute.header, let value = attribute.value?.transformString() else {
+        guard let key = attribute.key, 
+                let header = attribute.header,
+              let value = attribute.value?.transformString() else {
             Logger.shared.log(level: .error, message: "Missing value for ability attribute \(attribute)")
             return nil
         }
@@ -62,7 +64,7 @@ final class AbilityAttributeTransformer: NSSecureUnarchiveFromDataTransformer {
     static let name = NSValueTransformerName(rawValue: String(describing: AbilityAttributeTransformer.self))
     
     override static var allowedTopLevelClasses: [AnyClass] {
-        return [AbilityAttribute.self]
+        return [NSArray.self, AbilityAttribute.self]
     }
     
     static func register() {

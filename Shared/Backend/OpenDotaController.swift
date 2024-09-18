@@ -16,6 +16,95 @@ class OpenDotaController {
     
     let decodingService = DecodingService()
     
+    func loadScepter() async -> [HeroScepter] {
+        let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/aghs_desc.json"
+        if let url = URL(string: urlString) {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode([HeroScepter].self, from: data)
+                return jsonData
+            } catch {
+                debugPrint("Load Scepter", error)
+                return []
+            }
+        } else {
+            return []
+        }
+    }
+    
+    func loadHeroAbilities() async -> [String: HeroAbility] {
+        let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/hero_abilities.json"
+        if let url = URL(string: urlString) {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode([String: HeroAbility].self, from: data)
+                return jsonData
+            } catch {
+                debugPrint("Load Abilities", error)
+                return [:]
+            }
+        } else {
+            return [:]
+        }
+    }
+    
+    func loadAbilities() async -> [String: AbilityCodable] {
+        let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/abilities.json"
+        if let url = URL(string: urlString) {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode([String: AbilityCodable].self, from: data)
+                return jsonData
+            } catch {
+                debugPrint("Load Abilities", error)
+                return [:]
+            }
+        } else {
+            return [:]
+        }
+    }
+    
+    func loadAbilityID() async -> [String: String] {
+        let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/ability_ids.json"
+        if let url = URL(string: urlString) {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode([String: String].self, from: data)
+                return jsonData
+            } catch {
+                debugPrint("Load Ability ID", error)
+                return [:]
+            }
+        } else {
+            return [:]
+        }
+    }
+    
+    func loadHeroes() async -> [String: HeroCodable] {
+        let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/heroes.json"
+        if let url = URL(string: urlString) {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode([String: HeroCodable].self, from: data)
+                return jsonData
+            } catch {
+                debugPrint("Load Heroes", error)
+                return [:]
+            }
+        } else {
+            return [:]
+        }
+    }
+    
     func searchUserByText(text: String) async -> [UserProfileCodable] {
         let urlString = "\(baseURL)/api/search/?q=\(text)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: urlString)

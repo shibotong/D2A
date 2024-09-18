@@ -38,6 +38,23 @@ extension Ability {
         }
     }
     
+    /// Fetch `Ability` with `id` in `CoreData`
+    static func fetchAbilityAsync(id: Int, viewContext: NSManagedObjectContext) async -> Ability? {
+        await viewContext.perform {
+            let request = Ability.fetchRequest()
+            
+            request.predicate = NSPredicate(format: "abilityID == %f", Double(id))
+            request.fetchLimit = 1
+            do {
+                let results = try viewContext.fetch(request)
+                return results.first
+            } catch {
+                print(error.localizedDescription)
+                return nil
+            }
+        }
+    }
+    
     /// Fetch `Ability` with `name` in `CoreData`
     static func fetchAbility(name: String, viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> Ability? {
         let request = Ability.fetchRequest()
@@ -87,7 +104,7 @@ extension Ability {
                       abilityName: String,
                       ability: AbilityCodable,
                       type: AbilityType,
-                      localisation: Localisation) {
+                      localisation: Localisation?) {
         self.abilityID = Int32(abilityID)
         self.name = abilityName
         self.dname = ability.dname
