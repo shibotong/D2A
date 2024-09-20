@@ -64,7 +64,7 @@ final class AbilityAttributeTransformer: NSSecureUnarchiveFromDataTransformer {
     static let name = NSValueTransformerName(rawValue: String(describing: AbilityAttributeTransformer.self))
     
     override static var allowedTopLevelClasses: [AnyClass] {
-        return [NSArray.self, AbilityAttribute.self]
+        return [NSArray.self, AbilityAttribute.self, NSString.self]
     }
     
     static func register() {

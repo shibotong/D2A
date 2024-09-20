@@ -43,7 +43,7 @@ final class HeroRoleTransformer: NSSecureUnarchiveFromDataTransformer {
     static let name = NSValueTransformerName(rawValue: String(describing: HeroRoleTransformer.self))
     
     override static var allowedTopLevelClasses: [AnyClass] {
-        return [HeroRole.self, NSArray.self]
+        return [HeroRole.self, NSArray.self, NSString.self]
     }
     
     static func register() {

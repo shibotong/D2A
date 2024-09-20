@@ -94,7 +94,7 @@ final class AbilityLocalisationTransformer: NSSecureUnarchiveFromDataTransformer
     static let name = NSValueTransformerName(rawValue: String(describing: AbilityLocalisationTransformer.self))
     
     override static var allowedTopLevelClasses: [AnyClass] {
-        return [AbilityLocalisation.self]
+        return [AbilityLocalisation.self, NSString.self, NSArray.self]
     }
     
     static func register() {
