@@ -33,7 +33,7 @@ final public class AbilityAttribute: NSObject, NSSecureCoding {
               let value = coder.decodeObject(of: NSString.self, forKey: Key.value.rawValue) as? String else {
             return nil
         }
-        let generated = coder.decodeBool(forKey: Key.generated.rawValue) as? Bool ?? false
+        let generated = coder.decodeBool(forKey: Key.generated.rawValue)
         
         self.init(key: key, header: header, value: value, generated: generated)
     }
