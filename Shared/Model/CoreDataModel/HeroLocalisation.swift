@@ -17,21 +17,17 @@ final public class HeroLocalisation: NSObject, NSSecureCoding {
     var language: String
     var displayName: String
     var lore: String?
-    var abilityDescription: String?
-    var scepter: String?
-    var shard: String?
+    var hype: String?
     
     enum Key: String {
-        case language, displayName, lore, ability, scepter, shard
+        case language, displayName, lore, hype
     }
     
     public func encode(with coder: NSCoder) {
         coder.encode(language, forKey: Key.language.rawValue)
         coder.encode(displayName, forKey: Key.displayName.rawValue)
         coder.encode(lore, forKey: Key.lore.rawValue)
-        coder.encode(abilityDescription, forKey: Key.ability.rawValue)
-        coder.encode(scepter, forKey: Key.scepter.rawValue)
-        coder.encode(shard, forKey: Key.shard.rawValue)
+        coder.encode(hype, forKey: Key.hype.rawValue)
     }
     
     convenience required public init?(coder: NSCoder) {
@@ -40,65 +36,43 @@ final public class HeroLocalisation: NSObject, NSSecureCoding {
             return nil
         }
         let lore = coder.decodeObject(forKey: Key.lore.rawValue) as? String
-        let description = coder.decodeObject(forKey: Key.ability.rawValue) as? String
-        let scepter = coder.decodeObject(forKey: Key.scepter.rawValue) as? String
-        let shard = coder.decodeObject(forKey: Key.shard.rawValue) as? String
+        let hype = coder.decodeObject(forKey: Key.hype.rawValue) as? String
         
         self.init(language: language,
                   displayName: displayName,
                   lore: lore,
-                  description: description,
-                  scepter: scepter,
-                  shard: shard)
+                  hype: hype)
     }
     
-    init(language: String, displayName: String, lore: String? = nil, description: String? = nil, scepter: String? = nil, shard: String? = nil) {
+    init(language: String, displayName: String, lore: String? = nil, hype: String? = nil) {
         self.language = language
         self.displayName = displayName
         self.lore = lore
-        self.abilityDescription = description
-        self.scepter = scepter
-        self.shard = shard
+        self.hype = hype
     }
     
-    convenience init?(localisation: Localisation, language: String, type: AbilityType) {
+    convenience init?(localisation: Localisation, language: String) {
         guard let displayName = localisation.displayName else {
             return nil
-        }
-        var description: String? = nil
-        var shard: String? = nil
-        var scepter: String? = nil
-        
-        switch type {
-        case .scepter:
-            scepter = localisation.aghanimDescription
-        case .shared:
-            shard = localisation.shardDescription
-        case .none:
-            scepter = localisation.aghanimDescription
-            shard = localisation.shardDescription
-            description = localisation.description?.compactMap { $0 }.joined(separator: "\n")
         }
         
         self.init(language: language,
                   displayName: displayName,
                   lore: localisation.lore,
-                  description: description,
-                  scepter: scepter,
-                  shard: shard)
+                  hype: localisation.hype)
     }
 }
 
-@objc(AbilityLocalisationTransformer)
-final class AbilityLocalisationTransformer: NSSecureUnarchiveFromDataTransformer {
-    static let name = NSValueTransformerName(rawValue: String(describing: AbilityLocalisationTransformer.self))
+@objc(HeroLocalisationTransformer)
+final class HeroLocalisationTransformer: NSSecureUnarchiveFromDataTransformer {
+    static let name = NSValueTransformerName(rawValue: String(describing: HeroLocalisationTransformer.self))
     
     override static var allowedTopLevelClasses: [AnyClass] {
-        return [AbilityLocalisation.self]
+        return [HeroLocalisationTransformer.self, NSArray.self]
     }
     
     static func register() {
-        let transformer = AbilityLocalisationTransformer()
+        let transformer = HeroLocalisationTransformer()
         ValueTransformer.setValueTransformer(transformer, forName: name)
     }
 }
