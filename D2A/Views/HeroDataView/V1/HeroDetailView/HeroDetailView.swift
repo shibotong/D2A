@@ -69,11 +69,9 @@ struct HeroDetailView: View {
                         buildAttributes(hero: hero)
                         Divider()
                         buildStats(hero: hero)
-                        if let roles = hero.roles?.allObjects as? [Role] {
-                            Divider()
-                            buildRoles(roles: roles)
-                        }
-                        if let talents = hero.talents?.allObjects as? [Talent] {
+                        Divider()
+                        buildRoles(roles: hero.roles ?? [])
+                        if let talents = hero.talents {
                             Divider()
                             buildTalent(talent: talents)
                         }
@@ -195,19 +193,19 @@ struct HeroDetailView: View {
         VStack {
             buildAttributes(hero: hero)
             Divider()
-            if let roles = hero.roles?.allObjects as? [Role] {
+            if let roles = hero.roles {
                 buildRoles(roles: roles)
                 Divider()
             }
             buildStats(hero: hero)
             Divider()
-            if let talents = hero.talents?.allObjects as? [Talent] {
+            if let talents = hero.talents {
                 buildTalent(talent: talents)
             }
         }
     }
     
-    @ViewBuilder private func buildTalent(talent: [Talent]) -> some View {
+    @ViewBuilder private func buildTalent(talent: [HeroTalent]) -> some View {
         VStack {
             HStack {
                 Text("Talents")
@@ -225,7 +223,7 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildLevelTalent(talent: [Talent], level: Int) -> some View {
+    @ViewBuilder private func buildLevelTalent(talent: [HeroTalent], level: Int) -> some View {
         Text("Placeholder")
 //        GeometryReader { proxy in
 //            HStack(spacing: 5) {
@@ -257,7 +255,7 @@ struct HeroDetailView: View {
 //        .padding(.horizontal)
     }
     
-    @ViewBuilder private func buildRoles(roles: [Role]) -> some View {
+    @ViewBuilder private func buildRoles(roles: [HeroRole]) -> some View {
         VStack {
             HStack {
                 Text("Roles")
@@ -292,9 +290,9 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildRole(role: String, roles: [Role]) -> some View {
+    @ViewBuilder private func buildRole(role: String, roles: [HeroRole]) -> some View {
         let filterdRole = roles.first { $0.roleId == role.uppercased() }
-        RoleView(title: role, level: filterdRole?.level ?? 0.0)
+        RoleView(title: role, level: filterdRole?.level ?? 0)
     }
     
     @ViewBuilder private func buildStats(hero: Hero) -> some View {

@@ -22,6 +22,10 @@ struct D2AApp: App {
         PlayerTransformer.register()
         AbilityAttributeTransformer.register()
         AbilityLocalisationTransformer.register()
+        
+        HeroLocalisationTransformer.register()
+        HeroRoleTransformer.register()
+        HeroTalentTransformer.register()
     }
     
     var body: some Scene {

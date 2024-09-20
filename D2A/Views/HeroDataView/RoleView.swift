@@ -9,12 +9,12 @@ import SwiftUI
 
 struct RoleView: View {
     var title: String
-    var level: Double
+    var level: Int
     var body: some View {
         VStack(alignment: .leading, spacing: 1) {
             Text(LocalizedStringKey(title))
                 .font(.system(size: 15))
-            ProgressView(value: Float(level / 3.0))
+            ProgressView(value: Float(level / 3))
                 .progressViewStyle(.linear)
         }
     }

@@ -12,7 +12,7 @@ final public class HeroTalent: NSObject, NSSecureCoding {
     public static var supportsSecureCoding: Bool = true
     
     var slot: Int
-    var abilityID: String
+    var abilityID: Int
     
     enum Key: String {
         case slot, abilityID
@@ -24,15 +24,13 @@ final public class HeroTalent: NSObject, NSSecureCoding {
     }
     
     convenience required public init?(coder: NSCoder) {
-        guard let abilityID = coder.decodeObject(forKey: Key.abilityID.rawValue) as? String else {
-            return nil
-        }
+        let abilityID = coder.decodeInteger(forKey: Key.abilityID.rawValue)
         let slot = coder.decodeInteger(forKey: Key.slot.rawValue)
         
         self.init(slot: slot, abilityID: abilityID)
     }
     
-    init(slot: Int, abilityID: String) {
+    init(slot: Int, abilityID: Int) {
         self.slot = slot
         self.abilityID = abilityID
     }

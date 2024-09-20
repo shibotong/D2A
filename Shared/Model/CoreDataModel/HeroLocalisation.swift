@@ -68,7 +68,7 @@ final class HeroLocalisationTransformer: NSSecureUnarchiveFromDataTransformer {
     static let name = NSValueTransformerName(rawValue: String(describing: HeroLocalisationTransformer.self))
     
     override static var allowedTopLevelClasses: [AnyClass] {
-        return [HeroLocalisationTransformer.self, NSArray.self]
+        return [HeroLocalisation.self, NSArray.self]
     }
     
     static func register() {

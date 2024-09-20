@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HeroRoleView: View {
     
-    let roles: [Role]
+    let roles: [HeroRole]
     
     var body: some View {
         VStack {
@@ -48,15 +48,6 @@ struct HeroRoleView: View {
     
     @ViewBuilder private func buildRole(role: String) -> some View {
         let filterdRole = roles.first { $0.roleId == role.uppercased() }
-        RoleView(title: role, level: filterdRole?.level ?? 0.0)
+        RoleView(title: role, level: (filterdRole?.level ?? 0))
     }
-}
-
-#Preview {
-    let context = PersistenceController.preview.container.viewContext
-    let role = Role(context: context)
-    role.roleId = "CARRY"
-    role.level = 2
-    try? context.save()
-    return HeroRoleView(roles: [role])
 }

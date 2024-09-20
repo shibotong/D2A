@@ -81,9 +81,23 @@ extension Hero {
         
         let roles = localisation?.roles?.compactMap { $0 } ?? []
         let talents = localisation?.talents?.compactMap { $0 } ?? []
+       
+        hero.talents = talents.compactMap { talent in
+            guard let slot = talent.slot,
+                  let abilityIDDouble = talent.abilityId else {
+                return nil
+            }
+            
+            return HeroTalent(slot: slot, abilityID: Int(abilityIDDouble))
+        }
         
-        hero.updateRoles(roles, context: context)
-        hero.updateTalents(talents, context: context)
+        hero.roles = roles.compactMap { role in
+            guard let roleId = role.roleId,
+                  let level = role.level else {
+                return nil
+            }
+            return HeroRole(level: Int(level), roleId: roleId.rawValue)
+        }
         
         let filteredAbilities = abilityNames.filter { ability in
             let containHidden = ability.contains("hidden")
@@ -91,6 +105,9 @@ extension Hero {
             return !containHidden && !containEmpty
         }
         hero.updateAbilities(filteredAbilities, context: context)
+        if let localisation {
+            hero.updateLocalisation(localisationData: localisation)
+        }
         
         try context.save()
     }
@@ -142,8 +159,6 @@ extension Hero {
             hero.complexity = Int16(heroStats.complexity ?? 0)
             hero.visionDaytimeRange = Int16(heroStats.visionDaytimeRange ?? 1800)
             hero.visionNighttimeRange = Int16(heroStats.visionNighttimeRange ?? 800)
-            hero.roles = NSSet(array: try heroRoles.map({ return try Role.createRole($0) }))
-            hero.talents = NSSet(array: try heroTalents.map({ return try Talent.createTalent($0) }))
         }
 
         try viewContext.save()
@@ -180,54 +195,30 @@ extension Hero {
         addingAbilitiesToHero(names: newAbilities, context: context)
     }
     
+    func updateLocalisation(localisationData: Localisation) {
+        if let localisation = localisations?.first(where: { $0.language == languageCode.rawValue }) {
+            localisation.lore = localisationData.language?.lore
+            localisation.displayName = localisationData.language?.displayName ?? ""
+            localisation.hype = localisationData.language?.hype
+
+            Logger.shared.log(level: .verbose, message: "Update \(languageCode.rawValue) for \(id)")
+        } else {
+            let localisation = HeroLocalisation(language: languageCode.rawValue, displayName: localisationData.language?.displayName ?? "")
+            localisation.lore = localisationData.language?.lore
+            
+            if localisations == nil {
+                localisations = [localisation]
+            } else {
+                localisations?.append(localisation)
+            }
+            Logger.shared.log(level: .verbose, message: "Insert \(languageCode.rawValue) for \(id)")
+        }
+    }
+    
     private func addingAbilitiesToHero(names: [String], context: NSManagedObjectContext) {
         let abilities = Ability.fetchAbilities(names: names, viewContext: context)
         addToAbilities(NSSet(array: abilities))
         Logger.shared.log(level: .verbose, message: "Save abilities to hero \(id), \(abilities.map { $0.name })")
-    }
-    
-    private func updateRoles(_ roles: [StratzRole],
-                             context: NSManagedObjectContext) {
-        roles.forEach { updateRole($0, context: context) }
-    }
-    
-    private func updateRole(_ role: StratzRole, context: NSManagedObjectContext) {
-        guard let roleID = role.roleId?.rawValue,
-              let level = role.level else {
-            return
-        }
-        
-        if let roles = roles?.allObjects as? [Role],
-           let savedRole = roles.first(where: { $0.roleId == roleID }) {
-            savedRole.level = level
-        } else {
-            let newRole = Role(context: context)
-            newRole.roleId = roleID
-            newRole.level = level
-            addToRoles(newRole)
-        }
-    }
-    
-    private func updateTalents(_ talents: [StratzTalent], context: NSManagedObjectContext) {
-        talents.forEach { updateTalent($0, context: context) }
-    }
-    
-    private func updateTalent(_ talent: StratzTalent, context: NSManagedObjectContext) {
-        guard let talentSlot = talent.slot,
-        let abilityID = talent.abilityId,
-        let ability = Ability.fetchAbility(id: Int(abilityID), viewContext: context) else {
-            return
-        }
-        
-        if let talents = talents?.allObjects as? [Talent],
-           let savedTalent = talents.first(where: { $0.slot == talentSlot }) {
-            savedTalent.ability = ability
-        } else {
-            let newTalent = Talent(context: context)
-            newTalent.slot = Int16(talentSlot)
-            newTalent.ability = ability
-            addToTalents(newTalent)
-        }
     }
     
     /// Fetch `Hero` with `id` in CoreData
