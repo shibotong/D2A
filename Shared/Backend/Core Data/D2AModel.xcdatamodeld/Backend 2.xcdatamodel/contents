@@ -15,7 +15,6 @@
         <attribute name="targetTeam" optional="YES" attributeType="String"/>
         <attribute name="targetType" optional="YES" attributeType="String"/>
         <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="abilities" inverseEntity="Hero"/>
-        <relationship name="talent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Talent" inverseName="ability" inverseEntity="Talent"/>
     </entity>
     <entity name="Hero" representedClassName="Hero" syncable="YES" codeGenerationType="class">
         <attribute name="attackRange" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -40,17 +39,17 @@
         <attribute name="icon" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="img" optional="YES" attributeType="String"/>
-        <attribute name="localisations" optional="YES"/>
+        <attribute name="localisations" optional="YES" attributeType="Transformable" valueTransformerName="HeroLocalisationTransformer" customClassName="[HeroLocalisation]"/>
         <attribute name="moveSpeed" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="primaryAttr" attributeType="String" defaultValueString="str"/>
         <attribute name="projectileSpeed" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="roles" optional="YES" attributeType="Transformable" valueTransformerName="HeroRoleTransformer" customClassName="[HeroRole]"/>
+        <attribute name="talents" optional="YES" attributeType="Transformable" valueTransformerName="HeroTalentTransformer" customClassName="[HeroTalent]"/>
         <attribute name="turnRate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionDaytimeRange" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionNighttimeRange" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="abilities" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Ability" inverseName="hero" inverseEntity="Ability"/>
-        <relationship name="roles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Role" inverseName="hero" inverseEntity="Role"/>
-        <relationship name="talents" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Talent" inverseName="hero" inverseEntity="Talent"/>
     </entity>
     <entity name="Match" representedClassName="Match" syncable="YES" codeGenerationType="class">
         <attribute name="direKill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -82,16 +81,6 @@
         <attribute name="skill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="slot" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startTime" attributeType="Date" defaultDateTimeInterval="-31644000" usesScalarValueType="NO"/>
-    </entity>
-    <entity name="Role" representedClassName="Role" syncable="YES" codeGenerationType="class">
-        <attribute name="level" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="roleId" optional="YES" attributeType="String"/>
-        <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="roles" inverseEntity="Hero"/>
-    </entity>
-    <entity name="Talent" representedClassName="Talent" syncable="YES" codeGenerationType="class">
-        <attribute name="slot" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="ability" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="talent" inverseEntity="Ability"/>
-        <relationship name="hero" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="talents" inverseEntity="Hero"/>
     </entity>
     <entity name="UserProfile" representedClassName="UserProfile" syncable="YES" codeGenerationType="class">
         <attribute name="avatarfull" attributeType="String"/>
