@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AboutUsView: View {
     @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var db: HeroDatabase
     @Environment(\.presentationMode) var presentState
     private var versionNumber: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("Error", comment: "Cannot get version number")
@@ -53,6 +54,9 @@ struct AboutUsView: View {
                             Text("\(level.icon) \(level.name)").tag(level)
                         }
                     }
+                }
+                makeButton(image: "", text: "Delete Hero Data and refresh") {
+                    db
                 }
             }
             #endif
@@ -118,5 +122,6 @@ struct AboutUsView: View {
         AboutUsView()
             .environment(\.locale, .init(identifier: "zh-Hans"))
             .environmentObject(DotaEnvironment.shared)
+            .environmentObject(HeroDatabase.preview)
     }
  }

@@ -66,6 +66,11 @@ class HeroDatabase: ObservableObject {
         self.items = items
     }
     
+    func reloadData(container: NSPersistentContainer = PersistenceController.shared.container) async {
+        let context = container.newBackgroundContext()
+        let result = try? await Hero.deleteAllHeroes(context: context)
+    }
+    
     func loadData() {
         status = .loading
         gameModes = loadGameModes()
@@ -92,7 +97,7 @@ class HeroDatabase: ObservableObject {
             let status: LoadingStatus = self?.abilities.count == 0 ? .error : .finish
             await self?.setStatus(status: status, stratz: .finish)
             await self?.saveAbilities()
-//            await self?.saveHeroes()
+            await self?.saveHeroes()
         }
     }
     

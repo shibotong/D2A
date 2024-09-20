@@ -23,6 +23,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "DotaQuery": return StratzAPI.Objects.DotaQuery
     case "ConstantQuery": return StratzAPI.Objects.ConstantQuery
     case "HeroType": return StratzAPI.Objects.HeroType
+    case "HeroLanguageType": return StratzAPI.Objects.HeroLanguageType
     case "HeroRoleType": return StratzAPI.Objects.HeroRoleType
     case "HeroTalentType": return StratzAPI.Objects.HeroTalentType
     case "HeroStatType": return StratzAPI.Objects.HeroStatType

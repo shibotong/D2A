@@ -20,7 +20,22 @@ extension Hero {
         case decodingError
     }
     
-    static func save(heroData: HeroCodable, 
+    static func deleteAllHeroes(context: NSManagedObjectContext) async throws -> Bool {
+        let heroes = fetchAllHeroes(viewContext: context)
+        let result = try await deleteHero(heroes: heroes, context: context)
+        return result
+    }
+    
+    static func deleteHero(heroes: [Hero], context: NSManagedObjectContext) async throws -> Bool {
+        return try await context.perform {
+            let batchDeleteRequest = NSBatchDeleteRequest(objectIDs: heroes.map(\.objectID))
+            batchDeleteRequest.resultType = .resultTypeStatusOnly
+            let result = try context.execute(batchDeleteRequest) as! NSBatchDeleteResult
+            return result.result as! Bool
+        }
+    }
+    
+    static func save(heroData: HeroCodable,
                      abilityNames: [String],
                      localisation: Localisation? = nil,
                      context: NSManagedObjectContext) throws {
@@ -221,14 +236,16 @@ extension Hero {
         return runQuery(viewContext: viewContext, predicate: predicate).first
     }
     
-    static func fetchAllHeroes(viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) -> [Hero] {
-        runQuery(viewContext: viewContext)
+    static func fetchAllHeroes(viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext, sortDescriptors: [NSSortDescriptor] = []) -> [Hero] {
+        runQuery(viewContext: viewContext, sortDescriptors: sortDescriptors)
     }
     
     static func runQuery(viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext,
-                         predicate: NSPredicate? = nil) -> [Hero] {
+                         predicate: NSPredicate? = nil,
+                         sortDescriptors: [NSSortDescriptor] = []) -> [Hero] {
         let fetchRequest = Hero.fetchRequest()
         fetchRequest.predicate = predicate
+        fetchRequest.sortDescriptors = sortDescriptors
         do {
             let results = try viewContext.fetch(fetchRequest)
             return results

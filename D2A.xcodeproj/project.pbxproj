@@ -385,6 +385,9 @@
 		79A9891F2931ECAF006AC847 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistenceController.swift */; };
 		79A989202931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79A989212931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
+		79AA09472C9D97F90019CAE2 /* HeroLocalisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA09462C9D97F90019CAE2 /* HeroLocalisation.swift */; };
+		79AA09482C9D97F90019CAE2 /* HeroLocalisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA09462C9D97F90019CAE2 /* HeroLocalisation.swift */; };
+		79AA09492C9D97F90019CAE2 /* HeroLocalisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA09462C9D97F90019CAE2 /* HeroLocalisation.swift */; };
 		79AA775E2C8A7BC10057CDE5 /* HeroV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF2AAE2C8A7391004D2146 /* HeroV2.swift */; };
 		79AA775F2C8A7BC10057CDE5 /* HeroV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF2AAE2C8A7391004D2146 /* HeroV2.swift */; };
 		79AA77602C8A7BC50057CDE5 /* HeroV2Localisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF2AA82C8A7186004D2146 /* HeroV2Localisation.swift */; };
@@ -424,7 +427,6 @@
 		79EEF8C32C8FDB800084858F /* AbilityLocalisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EEF8C22C8FDB800084858F /* AbilityLocalisation.swift */; };
 		79EEF8C42C8FDE640084858F /* AbilityLocalisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EEF8C22C8FDB800084858F /* AbilityLocalisation.swift */; };
 		79EEF8C52C8FDE650084858F /* AbilityLocalisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EEF8C22C8FDB800084858F /* AbilityLocalisation.swift */; };
-		79EEF8D22C90210A0084858F /* PersistenceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EEF8D12C90210A0084858F /* PersistenceTestCase.swift */; };
 		79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79F5B5D428E3B8D900FB67E5 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistenceController.swift */; };
 /* End PBXBuildFile section */
@@ -700,6 +702,7 @@
 		79A988FF2931DCE1006AC847 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		79A989032931E7F1006AC847 /* PermanentBuff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentBuff.swift; sourceTree = "<group>"; };
 		79A989262931FA50006AC847 /* D2AProStore.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = D2AProStore.storekit; sourceTree = "<group>"; };
+		79AA09462C9D97F90019CAE2 /* HeroLocalisation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroLocalisation.swift; sourceTree = "<group>"; };
 		79AA77642C8A7D490057CDE5 /* Backend 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 2.xcdatamodel"; sourceTree = "<group>"; };
 		79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchDraftView.swift; sourceTree = "<group>"; };
 		79ABFA352C9A52F500DEB6E3 /* AbilityInsertFetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityInsertFetching.swift; sourceTree = "<group>"; };
@@ -722,7 +725,6 @@
 		79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchPlayerView.swift; sourceTree = "<group>"; };
 		79EEF8BE2C8FAD990084858F /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		79EEF8C22C8FDB800084858F /* AbilityLocalisation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityLocalisation.swift; sourceTree = "<group>"; };
-		79EEF8D12C90210A0084858F /* PersistenceTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTestCase.swift; sourceTree = "<group>"; };
 		79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Backend.xcdatamodel; sourceTree = "<group>"; };
 		79F5B5D328E3B8D900FB67E5 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -878,7 +880,6 @@
 			isa = PBXGroup;
 			children = (
 				328957A227F660D400BA9847 /* DecodingTestCase.swift */,
-				79EEF8D12C90210A0084858F /* PersistenceTestCase.swift */,
 				798C42922A3565BA00BDC470 /* LiveMatchKillEventTestCase.swift */,
 			);
 			path = "Unit Tests";
@@ -1362,6 +1363,7 @@
 			isa = PBXGroup;
 			children = (
 				7985E7EA28E53919007A43AF /* Hero.swift */,
+				79AA09462C9D97F90019CAE2 /* HeroLocalisation.swift */,
 				79A988F82931D400006AC847 /* Match.swift */,
 				79A989032931E7F1006AC847 /* PermanentBuff.swift */,
 				79A988FC2931D6FF006AC847 /* Player.swift */,
@@ -1840,7 +1842,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				798C42932A3565BA00BDC470 /* LiveMatchKillEventTestCase.swift in Sources */,
-				79EEF8D22C90210A0084858F /* PersistenceTestCase.swift in Sources */,
 				327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				328957A327F660D400BA9847 /* DecodingTestCase.swift in Sources */,
 			);
@@ -1943,6 +1944,7 @@
 				32079DBF28B843360056D19F /* String.swift in Sources */,
 				790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */,
 				79D5280E28DD5D990070841D /* StratzController.swift in Sources */,
+				79AA09472C9D97F90019CAE2 /* HeroLocalisation.swift in Sources */,
 				79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */,
 				79837B55294C18FE00458529 /* DamageView.swift in Sources */,
 				79A989002931DCE1006AC847 /* UserProfile.swift in Sources */,
@@ -1997,6 +1999,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79EEF8C42C8FDE640084858F /* AbilityLocalisation.swift in Sources */,
+				79AA09482C9D97F90019CAE2 /* HeroLocalisation.swift in Sources */,
 				79800DA5294C2E1000662E2F /* NSNumber.swift in Sources */,
 				32F70AB426F58125006E9B05 /* GameMode.swift in Sources */,
 				79A989062931E8EB006AC847 /* UserProfile.swift in Sources */,
@@ -2075,6 +2078,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79EEF8C52C8FDE650084858F /* AbilityLocalisation.swift in Sources */,
+				79AA09492C9D97F90019CAE2 /* HeroLocalisation.swift in Sources */,
 				79800DA6294C2E1000662E2F /* NSNumber.swift in Sources */,
 				32F70B0426F6226D006E9B05 /* SteamProfile.swift in Sources */,
 				327B8762284D9FA100BBE1F8 /* DataHelper.swift in Sources */,

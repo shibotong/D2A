@@ -40,6 +40,7 @@
         <attribute name="icon" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="img" optional="YES" attributeType="String"/>
+        <attribute name="localisations" optional="YES"/>
         <attribute name="moveSpeed" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="primaryAttr" attributeType="String" defaultValueString="str"/>
@@ -48,12 +49,8 @@
         <attribute name="visionDaytimeRange" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionNighttimeRange" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="abilities" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Ability" inverseName="hero" inverseEntity="Ability"/>
-        <relationship name="localisations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HeroLocalisation" inverseName="hero" inverseEntity="HeroLocalisation"/>
         <relationship name="roles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Role" inverseName="hero" inverseEntity="Role"/>
         <relationship name="talents" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Talent" inverseName="hero" inverseEntity="Talent"/>
-    </entity>
-    <entity name="HeroLocalisation" representedClassName="HeroLocalisation" syncable="YES" codeGenerationType="class">
-        <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="localisations" inverseEntity="Hero"/>
     </entity>
     <entity name="Match" representedClassName="Match" syncable="YES" codeGenerationType="class">
         <attribute name="direKill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

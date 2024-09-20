@@ -21,7 +21,10 @@ class HeroListViewModel: ObservableObject {
     private var subscribers = Set<AnyCancellable>()
     
     init(viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
-        heroList = Hero.fetchAllHeroes(viewContext: viewContext)
+        let heroes = Hero.fetchAllHeroes(viewContext: viewContext)
+        let sortedHeroes = heroes.sorted { hero1, hero2 in
+            let hero1Localisation = hero1.localisations
+        }
         searchString = ""
         searchResults = []
         selectedAttribute = .whole

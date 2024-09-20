@@ -7,7 +7,7 @@ public class LocaliseQuery: GraphQLQuery {
   public static let operationName: String = "Localise"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query Localise($language: Language) { constants { __typename heroes(language: $language) { __typename id roles { __typename roleId level } talents { __typename abilityId slot } stats { __typename visionDaytimeRange visionNighttimeRange complexity } } abilities(language: $language) { __typename id name language { __typename displayName description attributes lore aghanimDescription shardDescription notes } attributes { __typename name value } } } }"#
+      #"query Localise($language: Language) { constants { __typename heroes(language: $language) { __typename id language { __typename displayName lore hype } roles { __typename roleId level } talents { __typename abilityId slot } stats { __typename visionDaytimeRange visionNighttimeRange complexity } } abilities(language: $language) { __typename id name language { __typename displayName description attributes lore aghanimDescription shardDescription notes } attributes { __typename name value } } } }"#
     ))
 
   public var language: GraphQLNullable<GraphQLEnum<Language>>
@@ -59,15 +59,37 @@ public class LocaliseQuery: GraphQLQuery {
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("id", StratzAPI.Short?.self),
+          .field("language", Language?.self),
           .field("roles", [Role?]?.self),
           .field("talents", [Talent?]?.self),
           .field("stats", Stats?.self),
         ] }
 
         public var id: StratzAPI.Short? { __data["id"] }
+        public var language: Language? { __data["language"] }
         public var roles: [Role?]? { __data["roles"] }
         public var talents: [Talent?]? { __data["talents"] }
         public var stats: Stats? { __data["stats"] }
+
+        /// Constants.Hero.Language
+        ///
+        /// Parent Type: `HeroLanguageType`
+        public struct Language: StratzAPI.SelectionSet {
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public static var __parentType: any ApolloAPI.ParentType { StratzAPI.Objects.HeroLanguageType }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
+            .field("displayName", String?.self),
+            .field("lore", String?.self),
+            .field("hype", String?.self),
+          ] }
+
+          public var displayName: String? { __data["displayName"] }
+          public var lore: String? { __data["lore"] }
+          public var hype: String? { __data["hype"] }
+        }
 
         /// Constants.Hero.Role
         ///

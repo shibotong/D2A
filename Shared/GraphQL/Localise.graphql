@@ -2,6 +2,11 @@ query Localise($language: Language) {
   constants {
     heroes(language: $language) {
       id
+      language {
+        displayName
+        lore
+        hype
+      }
       roles {
         roleId
         level
