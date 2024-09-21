@@ -11,6 +11,7 @@ import CryptoKit
 struct HeroListView: View {
     
     @Environment(\.horizontalSizeClass) private var horizontalSize
+    
     @StateObject var viewModel = HeroListViewModel()
     
     var body: some View {
@@ -37,7 +38,8 @@ struct HeroListView: View {
         Group {
             if viewModel.gridView {
                 ScrollView(.vertical, showsIndicators: false) {
-                    buildSection(heroes: viewModel.searchResults, attributes: viewModel.selectedAttribute)
+//                    buildSection(heroes: viewModel.searchResults, attributes: viewModel.selectedAttribute)
+//                    buildSection(heroes: (heroes as [Hero]), attributes: viewModel.selectedAttribute)
                 }
                 .padding(.horizontal)
             } else {

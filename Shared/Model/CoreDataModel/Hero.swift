@@ -263,7 +263,13 @@ extension Hero {
     }
 
     var heroNameLocalized: String {
-        return NSLocalizedString(displayName ?? "no_name", comment: "")
+        currentLocalisation?.displayName ?? "no_name"
+    }
+    
+    var currentLocalisation: HeroLocalisation? {
+        localisations?.first(where: { localisation in
+            localisation.language == languageCode.rawValue
+        })
     }
     
     enum HeroHPMana: String {
