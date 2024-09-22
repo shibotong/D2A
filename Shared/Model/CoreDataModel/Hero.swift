@@ -428,4 +428,13 @@ extension Hero {
         }
         return base + bonus
     }
+    
+    func fetchRole(role: String) -> HeroRole {
+        let roleName = role.uppercased()
+        if let searchedRole = roles?.first(where: { $0.roleId == roleName }) {
+            return searchedRole
+        } else {
+            return HeroRole(level: 0, roleId: role)
+        }
+    }
 }

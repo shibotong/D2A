@@ -27,7 +27,7 @@ struct HeroDetailViewV3: View {
             Divider()
             stats
             Divider()
-            
+            talents
         }
     }
     
@@ -113,19 +113,19 @@ struct HeroDetailViewV3: View {
                 let width = (proxy.size.width - horizontalSpacing * 4) / 3
                 HStack(spacing: horizontalSpacing) {
                     VStack(alignment: .leading, spacing: verticalSpacing) {
-                        buildRole(role: "Carry", roles: hero.roles ?? [])
-                        buildRole(role: "Disabler", roles: hero.roles ?? [])
-                        buildRole(role: "Escape", roles: hero.roles ?? [])
+                        buildRole(name: "Carry")
+                        buildRole(name: "Disabler")
+                        buildRole(name: "Escape")
                     }.frame(width: width)
                     VStack(alignment: .leading, spacing: verticalSpacing) {
-                        buildRole(role: "Support", roles: hero.roles ?? [])
-                        buildRole(role: "Jungler", roles: hero.roles ?? [])
-                        buildRole(role: "Pusher", roles: hero.roles ?? [])
+                        buildRole(name: "Support")
+                        buildRole(name: "Jungler")
+                        buildRole(name: "Pusher")
                     }.frame(width: width)
                     VStack(alignment: .leading, spacing: verticalSpacing) {
-                        buildRole(role: "Nuker", roles: hero.roles ?? [])
-                        buildRole(role: "Durable", roles: hero.roles ?? [])
-                        buildRole(role: "Initiator", roles: hero.roles ?? [])
+                        buildRole(name: "Nuker")
+                        buildRole(name: "Durable")
+                        buildRole(name: "Initiator")
                     }.frame(width: width)
                 }
                 .padding(.horizontal, horizontalSpacing)
@@ -222,9 +222,9 @@ struct HeroDetailViewV3: View {
     }
     
     @ViewBuilder 
-    private func buildRole(role: String, roles: [HeroRole]) -> some View {
-        let filterdRole = roles.first { $0.roleId == role.uppercased() }
-        RoleView(title: role, level: filterdRole?.level ?? 0)
+    private func buildRole(name: String) -> some View {
+        let role = hero.fetchRole(role: name)
+        RoleView(title: name, level: role.level)
     }
     
     @ViewBuilder

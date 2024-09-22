@@ -14,7 +14,7 @@ struct RoleView: View {
         VStack(alignment: .leading, spacing: 1) {
             Text(LocalizedStringKey(title))
                 .font(.system(size: 15))
-            ProgressView(value: Float(level / 3))
+            ProgressView(value: Float(level) / 3)
                 .progressViewStyle(.linear)
         }
     }
