@@ -181,7 +181,7 @@ struct HeroDetailViewV3: View {
                     HStack {
                         AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr ?? ""))
                             .frame(width: 25, height: 25)
-                        Text(LocalizedStringKey(hero.displayName ?? ""))
+                        Text(hero.heroNameLocalized)
                             .font(.system(size: 30))
                             .bold()
                             .foregroundColor(.white)

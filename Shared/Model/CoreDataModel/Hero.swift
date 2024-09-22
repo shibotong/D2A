@@ -207,9 +207,13 @@ extension Hero {
     }
     
     var currentLocalisation: HeroLocalisation? {
-        localisations?.first(where: { localisation in
+        if let localisation = localisations?.first(where: { localisation in
             localisation.language == languageCode.rawValue
-        })
+        }) {
+            return localisation
+        } else {
+            return localisations?.first
+        }
     }
     
     var allAbilities: [Ability] {
