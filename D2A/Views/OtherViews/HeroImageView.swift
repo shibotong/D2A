@@ -16,28 +16,40 @@ struct HeroImageView: View {
     let heroID: Int
     let type: HeroImageType
     
+    @State private var image: UIImage?
+    
+    init(heroID: Int, type: HeroImageType) {
+        self.heroID = heroID
+        self.type = type
+        image = ImageCache.readImage(type: .hero, id: searchHeroImage())
+    }
+    
     var body: some View {
-        if type == .icon || type == .full || type == .vert {
-            if heroID == 0 && type == .icon {
-                Circle()
-                    .foregroundColor(Color.label.opacity(0.3))
-            } else {
-                Image(searchHeroImage())
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            }
-        } else {
-            AsyncImage(url: computeURL()) { phase in
-                if let image = phase.image {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)// Displays the loaded image.
-                } else if phase.error != nil {
-                    ProgressView()// Indicates an error.
+        ZStack {
+            if type == .icon || type == .vert {
+                if heroID == 0 && type == .icon {
+                    Circle()
+                        .foregroundColor(Color.label.opacity(0.3))
                 } else {
-                    ProgressView() // Acts as a placeholder.
+                    Image(searchHeroImage())
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
+            } else {
+                if let image = image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                } else {
+                    Image("1_full")
+                        .renderingMode(.template)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                 }
             }
+        }
+        .task(id: heroID) {
+            await fetchImage()
         }
     }
     
@@ -58,20 +70,46 @@ struct HeroImageView: View {
         }
     }
     
+    private func fetchImage() async {
+        guard image == nil else { return }
+        
+        guard let newImage = await loadImage() else {
+            setImage(nil)
+            return
+        }
+        ImageCache.saveImage(newImage, type: .item, id: searchHeroImage())
+        setImage(newImage)
+    }
+    
+    private func loadImage() async -> UIImage? {
+        guard let url = computeURL(),
+              let (newImageData, _) = try? await URLSession.shared.data(from: url),
+              let newImage = UIImage(data: newImageData) else {
+            return nil
+        }
+        return newImage
+    }
+    
+    @MainActor
+    private func setImage(_ image: UIImage?) {
+        self.image = image
+    }
+    
     private func computeURL() -> URL? {
         guard let hero = try? heroData.fetchHeroWithID(id: heroID) else {
             return nil
         }
+        let name = hero.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
         switch type {
         case .icon:
             let url = URL(string: "https://api.opendota.com\(hero.icon)")
             return url
         case .portrait:
-            let name = hero.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
             let url = URL(string: "\(IMAGE_PREFIX)/apps/dota2/videos/dota_react/heroes/renders/\(name).png")
             return url
         case .full:
-            return nil
+            let url = URL(string: "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/\(name).png")
+            return url
         case .vert:
             return nil
         }

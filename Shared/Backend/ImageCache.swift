@@ -14,6 +14,7 @@ enum ImageCacheType: String {
     case ability
     case teamIcon
     case league
+    case hero
 }
 
 class ImageCache: ObservableObject {
