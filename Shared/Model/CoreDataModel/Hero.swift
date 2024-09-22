@@ -272,6 +272,10 @@ extension Hero {
         })
     }
     
+    var allAbilities: [Ability] {
+        abilities?.allObjects as? [Ability] ?? []
+    }
+    
     enum HeroHPMana: String {
         case hp = "HP"
         case mana = "Mana"

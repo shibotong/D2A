@@ -405,6 +405,7 @@
 		79BD87302A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */; };
 		79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */; };
 		79BEC5BF29736E4900510748 /* LatestRecentMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BEC5BE29736E4900510748 /* LatestRecentMatchView.swift */; };
+		79C9D46E2C9FD94F003A7923 /* HeroDetailViewV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C9D46D2C9FD94F003A7923 /* HeroDetailViewV3.swift */; };
 		79CB52462A31B38200C5D1C6 /* LiveMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CB52452A31B38200C5D1C6 /* LiveMatchViewModel.swift */; };
 		79CB52482A31C11F00C5D1C6 /* LiveMatchTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CB52472A31C11F00C5D1C6 /* LiveMatchTimerView.swift */; };
 		79CF637C29C40B700072F4C0 /* D2AUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF637B29C40B700072F4C0 /* D2AUITests.swift */; };
@@ -714,6 +715,7 @@
 		79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconViewModel.swift; sourceTree = "<group>"; };
 		79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconView.swift; sourceTree = "<group>"; };
 		79BEC5BE29736E4900510748 /* LatestRecentMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestRecentMatchView.swift; sourceTree = "<group>"; };
+		79C9D46D2C9FD94F003A7923 /* HeroDetailViewV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewV3.swift; sourceTree = "<group>"; };
 		79CB52452A31B38200C5D1C6 /* LiveMatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchViewModel.swift; sourceTree = "<group>"; };
 		79CB52472A31C11F00C5D1C6 /* LiveMatchTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchTimerView.swift; sourceTree = "<group>"; };
 		79CF637929C40B6F0072F4C0 /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1193,10 +1195,10 @@
 		7912B6E12B5D021700AE1947 /* AbilityView */ = {
 			isa = PBXGroup;
 			children = (
+				79AA095A2C9F85140019CAE2 /* AbilityView.swift */,
 				7912B6E22B5D022C00AE1947 /* AbilityTitleView.swift */,
 				79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */,
 				79AA095C2C9FBCB30019CAE2 /* AbilityDescriptionView.swift */,
-				79AA095A2C9F85140019CAE2 /* AbilityView.swift */,
 			);
 			path = AbilityView;
 			sourceTree = "<group>";
@@ -1291,6 +1293,7 @@
 			isa = PBXGroup;
 			children = (
 				3261C906282F315100D47CDA /* HeroDetailView.swift */,
+				79C9D46D2C9FD94F003A7923 /* HeroDetailViewV3.swift */,
 				3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */,
 			);
 			path = HeroDetailView;
@@ -1890,6 +1893,7 @@
 				79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */,
 				792E977E2C844D8100234038 /* AbilityV2Localisation.swift in Sources */,
 				79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */,
+				79C9D46E2C9FD94F003A7923 /* HeroDetailViewV3.swift in Sources */,
 				792BFC3C2C8C4BAA003C4129 /* Ability.swift in Sources */,
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
 				792E976C2C82954600234038 /* HeroTalentView.swift in Sources */,

@@ -90,7 +90,7 @@ struct HeroListView: View {
         Section {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading), count: 1)) {
                 ForEach(heroes) { hero in
-                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: Int(hero.id)))) {
+                    NavigationLink(destination: HeroDetailViewV3(hero: hero)) {
                         buildHero(hero: hero)
                     }
                 }
@@ -134,14 +134,14 @@ struct HeroListView: View {
         if viewModel.gridView {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 130, maximum: 200), spacing: 10, alignment: .leading), count: 1)) {
                 ForEach(viewModel.searchResults) { hero in
-                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: Int(hero.id)))) {
+                    NavigationLink(destination: HeroDetailViewV3(hero: hero)) {
                         buildHero(hero: hero)
                     }
                 }
             }
         } else {
             ForEach(heroes) { hero in
-                NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: Int(hero.id)))) {
+                NavigationLink(destination: HeroDetailViewV3(hero: hero)) {
                     buildHero(hero: hero)
                 }
             }
