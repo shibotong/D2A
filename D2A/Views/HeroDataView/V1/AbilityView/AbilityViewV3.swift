@@ -38,6 +38,7 @@ struct AbilityViewV3: View {
                         )
                 }
             }
+            .padding(.horizontal)
         }
     }
     
