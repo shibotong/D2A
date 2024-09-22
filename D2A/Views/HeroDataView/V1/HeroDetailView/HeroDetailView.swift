@@ -1,227 +1,83 @@
 //
-//  HeroDetailView.swift
-//  App
+//  HeroDetailViewV3.swift
+//  D2A
 //
-//  Created by Shibo Tong on 14/5/2022.
+//  Created by Shibo Tong on 22/9/2024.
 //
 
 import SwiftUI
 
 struct HeroDetailView: View {
-    @StateObject var vm: HeroDetailViewModel
+    
+    @Environment(\.managedObjectContext) var context
     @Environment(\.horizontalSizeClass) var horizontal
-    @State private var heroLevel = 1.00
+    
+    let hero: Hero
+    @State private var heroLevel: Double = 1
+    @State private var selectedAbility: Ability?
+    @State private var talentAbilities: [Ability] = []
     
     var body: some View {
-        ZStack {
-            if let hero = vm.hero {
-                buildMainBody(hero: hero)
-            } else if vm.loadingHero {
-                LoadingView()
+        Group {
+            if horizontal == .compact {
+                iPhone
             } else {
-                Text("Cannot find hero")
-                    .font(.caption)
+                iPad
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            HStack {
-                if let previousID = vm.previousHeroID {
-                    Button {
-                        vm.heroID = previousID
-                    } label: {
-                        HStack(spacing: 0) {
-                            Image(systemName: "chevron.left")
-                            HeroImageView(heroID: previousID, type: .icon)
-                                .frame(width: 25, height: 25)
-                        }
-                    }
-                }
-                if let nextID = vm.nextHeroID {
-                    Button {
-                        vm.heroID = nextID
-                    } label: {
-                        HStack(spacing: 0) {
-                            HeroImageView(heroID: nextID, type: .icon)
-                                .frame(width: 25, height: 25)
-                            Image(systemName: "chevron.right")
-                        }
-                    }
-                }
+        .navigationTitle(hero.heroNameLocalized)
+        .onAppear {
+            selectedAbility = hero.allAbilities.first
+        }
+        .task {
+            guard let talentIDs = hero.talents?.map({ $0.abilityID }) else { return }
+            talentAbilities = Ability.fetchAbilities(ids: talentIDs, viewContext: context)
+        }
+    }
+    
+    private var iPhone: some View {
+        ScrollView {
+            titleiPhone
+            ScrollView(.horizontal, showsIndicators: false) {
+                abilities
             }
+            Divider()
+            attributes
+            Divider()
+            roles
+            Divider()
+            stats
+            Divider()
+            talents
         }
     }
     
-    @ViewBuilder private func buildMainBody(hero: Hero) -> some View {
-        if horizontal == .compact {
-            buildCompactBody(hero: hero)
-        } else {
-            buildRegularBody(hero: hero)
-        }
-    }
-    
-    @ViewBuilder private func buildRegularBody(hero: Hero) -> some View {
+    private var iPad: some View {
         VStack(spacing: 0) {
-            buildTitle(hero: hero)
+            titleiPad
             HStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
-                        buildAttributes(hero: hero)
+                        attributes
                         Divider()
-                        buildStats(hero: hero)
+                        roles
                         Divider()
-                        buildRoles(roles: hero.roles ?? [])
-                        if let talents = hero.talents {
-                            Divider()
-                            buildTalent(talent: talents)
-                        }
+                        stats
+                        Divider()
+                        talents
                     }.padding()
                 }
                 Divider()
-                if let selectedAbility = vm.selectedAbility {
+                if let selectedAbility {
                     AbilityView(ability: selectedAbility,
-                                  heroName: vm.hero?.heroNameLowerCase ?? "")
+                                heroName: hero.heroNameLowerCase)
                 }
             }
         }
     }
     
-    @ViewBuilder private func buildCompactBody(hero: Hero) -> some View {
-        ScrollView {
-            buildTitle(hero: hero)
-            ScrollView(.horizontal, showsIndicators: false) {
-                buildAbilitiesV2()
-//                buildAbilities(navigation: true)
-            }.padding(.horizontal, 5)
-            Divider()
-            buildHeroDetails(hero: hero)
-        }.navigationTitle(hero.heroNameLocalized)
-    }
-    
-    @ViewBuilder private func buildTitle(hero: Hero) -> some View {
-        if horizontal == .compact {
-            HeroImageView(heroID: Int(hero.id), type: .full)
-                .overlay(
-                    LinearGradient(colors: [Color(.black).opacity(0),
-                                            Color(.black).opacity(1)],
-                                   startPoint: .top,
-                                   endPoint: .bottom))
-                .overlay(HStack {
-                    VStack(alignment: .leading, spacing: 3) {
-                        Spacer()
-                        HStack {
-                            AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr ?? ""))
-                                .frame(width: 25, height: 25)
-                            Text(LocalizedStringKey(hero.displayName ?? ""))
-                                .font(.system(size: 30))
-                                .bold()
-                                .foregroundColor(.white)
-                            Text("\(Int(hero.id))")
-                                .font(.caption2)
-                                .foregroundColor(.white.opacity(0.5))
-                            Spacer()
-                            buildComplexity(hero.complexity)
-                        }
-                    }
-                    Spacer()
-                }.padding(.leading))
-        } else {
-            HStack {
-                HeroImageView(heroID: Int(hero.id), type: .full)
-                AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr ?? ""))
-                    .frame(width: 25, height: 25)
-                Text(LocalizedStringKey(hero.displayName ?? ""))
-                    .font(.body)
-                    .bold()
-                Text("\(Int(hero.id))")
-                    .font(.caption2)
-                    .foregroundColor(.label.opacity(0.5))
-                buildComplexity(hero.complexity)
-                Spacer()
-                buildAbilities(navigation: false)
-            }
-            .frame(height: 50)
-            .padding()
-            .background(Color.secondarySystemBackground)
-        }
-    }
-    
-    @ViewBuilder private func buildComplexity(_ heroComplexity: Int16) -> some View {
-        let color: Color = horizontal == .compact ? .white : .label
-        HStack {
-            ForEach(1..<4) { complexity in
-                if complexity <= heroComplexity {
-                    RoundedRectangle(cornerRadius: 3)
-                        .frame(width: 15, height: 15)
-                        .foregroundColor(color)
-                        .rotationEffect(.degrees(45))
-                } else {
-                    RoundedRectangle(cornerRadius: 3)
-                        .stroke()
-                        .frame(width: 15, height: 15)
-                        .foregroundColor(color)
-                        .rotationEffect(.degrees(45))
-                }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private func buildAbilitiesV2() -> some View {
-        HStack {
-            ForEach(vm.abilities) { ability in
-                NavigationLink(destination: AbilityView(ability: ability, heroName: vm.hero?.heroNameLowerCase ?? "")) {
-                    AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
-                        .frame(width: 30, height: 30)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .accessibilityIdentifier(ability.name ?? "")
-                }
-            }
-        }
-    }
-    
-    @ViewBuilder private func buildAbilities(navigation: Bool) -> some View {
-        HStack {
-            ForEach(vm.abilities) { ability in
-                if navigation {
-                    NavigationLink(destination: AbilityView(ability: ability,
-                                                              heroName: vm.hero?.heroNameLowerCase ?? "")) {
-                        AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
-                            .frame(width: 30, height: 30)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                            .accessibilityIdentifier(ability.name ?? "")
-                    }
-                } else {
-                    Button {
-                        vm.selectedAbility = ability
-                    } label: {
-                        AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
-                            .frame(width: 30, height: 30)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                    }.accessibilityIdentifier(ability.name ?? "")
-                }
-            }
-        }
-        .padding(10)
-    }
-    
-    @ViewBuilder private func buildHeroDetails(hero: Hero) -> some View {
-        VStack {
-            buildAttributes(hero: hero)
-            Divider()
-            if let roles = hero.roles {
-                buildRoles(roles: roles)
-                Divider()
-            }
-            buildStats(hero: hero)
-            Divider()
-            if let talents = hero.talents {
-                buildTalent(talent: talents)
-            }
-        }
-    }
-    
-    @ViewBuilder private func buildTalent(talent: [HeroTalent]) -> some View {
+    private var talents: some View {
         VStack {
             HStack {
                 Text("Talents")
@@ -229,89 +85,28 @@ struct HeroDetailView: View {
                     .bold()
                 Spacer()
             }.padding(.leading)
-            buildLevelTalent(talent: talent, level: 4)
+            buildLevelTalent(talent: hero.talents ?? [], level: 4)
             Divider()
-            buildLevelTalent(talent: talent, level: 3)
+            buildLevelTalent(talent: hero.talents ?? [], level: 3)
             Divider()
-            buildLevelTalent(talent: talent, level: 2)
+            buildLevelTalent(talent: hero.talents ?? [], level: 2)
             Divider()
-            buildLevelTalent(talent: talent, level: 1)
+            buildLevelTalent(talent: hero.talents ?? [], level: 1)
         }
     }
     
-    @ViewBuilder private func buildLevelTalent(talent: [HeroTalent], level: Int) -> some View {
-        Text("Placeholder")
-//        GeometryReader { proxy in
-//            HStack(spacing: 5) {
-//                if let leftSideTalent = talent.first(where: { $0.slot == level * 2 - 1 }) {
-//                    let abilityId = leftSideTalent.abilityId
-//                    Text(vm.fetchTalentName(id: abilityId))
-//                        .font(.system(size: 10))
-//                        .frame(width: (proxy.size.width - 40) / 2)
-//                } else {
-//                    Text("No Talent")
-//                }
-//                Text("\(5 + 5 * level)")
-//                    .font(.system(size: 10))
-//                    .bold()
-//                    .padding(5)
-//                    .frame(width: 30, height: 30)
-//                    .background(Circle().stroke().foregroundColor(.yellow))
-//                if let rightSideTalent = talent.first(where: { $0.slot == level * 2 - 2 }) {
-//                    let abilityId = rightSideTalent.abilityId
-//                    Text(vm.fetchTalentName(id: abilityId))
-//                        .font(.system(size: 10))
-//                        .frame(width: (proxy.size.width - 30) / 2)
-//                } else {
-//                    Text("No Talent")
-//                }
-//            }
-//        }
-//        .frame(height: 30)
-//        .padding(.horizontal)
-    }
-    
-    @ViewBuilder private func buildRoles(roles: [HeroRole]) -> some View {
-        VStack {
-            HStack {
-                Text("Roles")
-                    .font(.system(size: 15))
-                    .bold()
-                Spacer()
-            }.padding(.leading)
-            GeometryReader { proxy in
-                let horizontalSpacing: CGFloat = 32
-                let verticalSpacing: CGFloat = 8
-                let width = (proxy.size.width - horizontalSpacing * 4) / 3
-                HStack(spacing: horizontalSpacing) {
-                    VStack(alignment: .leading, spacing: verticalSpacing) {
-                        buildRole(role: "Carry", roles: roles)
-                        buildRole(role: "Disabler", roles: roles)
-                        buildRole(role: "Escape", roles: roles)
-                    }.frame(width: width)
-                    VStack(alignment: .leading, spacing: verticalSpacing) {
-                        buildRole(role: "Support", roles: roles)
-                        buildRole(role: "Jungler", roles: roles)
-                        buildRole(role: "Pusher", roles: roles)
-                    }.frame(width: width)
-                    VStack(alignment: .leading, spacing: verticalSpacing) {
-                        buildRole(role: "Nuker", roles: roles)
-                        buildRole(role: "Durable", roles: roles)
-                        buildRole(role: "Initiator", roles: roles)
-                    }.frame(width: width)
-                }
-                .padding(.horizontal, horizontalSpacing)
-            }
-            .frame(height: 120)
+    private var slider: some View {
+        Slider(value: $heroLevel, in: 1...30, step: 1) {
+            Text("Level \(Int(heroLevel))")
+        } minimumValueLabel: {
+            Text("\(Int(heroLevel))")
+        } maximumValueLabel: {
+            Text("30")
         }
+        .padding(.horizontal)
     }
     
-    @ViewBuilder private func buildRole(role: String, roles: [HeroRole]) -> some View {
-        let filterdRole = roles.first { $0.roleId == role.uppercased() }
-        RoleView(title: role, level: filterdRole?.level ?? 0)
-    }
-    
-    @ViewBuilder private func buildStats(hero: Hero) -> some View {
+    private var stats: some View {
         VStack {
             HStack {
                 Text("Stats")
@@ -350,19 +145,42 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildStatDetail(image: String, value: String) -> some View {
-        HStack {
-            Image(image)
-                .renderingMode(.template)
-                .resizable()
-                .frame(width: 15, height: 15)
-                .foregroundColor(Color(uiColor: UIColor.label))
-            Text(value)
-                .font(.system(size: 15))
+    private var roles: some View {
+        VStack {
+            HStack {
+                Text("Roles")
+                    .font(.system(size: 15))
+                    .bold()
+                Spacer()
+            }.padding(.leading)
+            GeometryReader { proxy in
+                let horizontalSpacing: CGFloat = 32
+                let verticalSpacing: CGFloat = 8
+                let width = (proxy.size.width - horizontalSpacing * 4) / 3
+                HStack(spacing: horizontalSpacing) {
+                    VStack(alignment: .leading, spacing: verticalSpacing) {
+                        buildRole(name: "Carry")
+                        buildRole(name: "Disabler")
+                        buildRole(name: "Escape")
+                    }.frame(width: width)
+                    VStack(alignment: .leading, spacing: verticalSpacing) {
+                        buildRole(name: "Support")
+                        buildRole(name: "Jungler")
+                        buildRole(name: "Pusher")
+                    }.frame(width: width)
+                    VStack(alignment: .leading, spacing: verticalSpacing) {
+                        buildRole(name: "Nuker")
+                        buildRole(name: "Durable")
+                        buildRole(name: "Initiator")
+                    }.frame(width: width)
+                }
+                .padding(.horizontal, horizontalSpacing)
+            }
+            .frame(height: 120)
         }
     }
     
-    @ViewBuilder private func buildAttributes(hero: Hero) -> some View {
+    private var attributes: some View {
         VStack {
             HStack {
                 Text("Attributes")
@@ -370,43 +188,123 @@ struct HeroDetailView: View {
                     .bold()
                 Spacer()
             }.padding(.bottom)
-            buildManaHealthBar(hero: hero, type: .hp)
-            buildManaHealthBar(hero: hero, type: .mana)
+            buildBar(type: .hp)
+            buildBar(type: .mana)
             HStack {
                 Spacer()
-                buildStatLevel(hero: hero, type: .str)
+                buildAttribute(type: .str)
                 Spacer()
-                buildStatLevel(hero: hero, type: .agi)
+                buildAttribute(type: .agi)
                 Spacer()
-                buildStatLevel(hero: hero, type: .int)
+                buildAttribute(type: .int)
                 Spacer()
             }
-            Slider(value: $heroLevel, in: 1...30, step: 1) {
-                Text("Level \(Int(heroLevel))")
-            } minimumValueLabel: {
-                Text("\(Int(heroLevel))")
-            } maximumValueLabel: {
-                Text("30")
-            }
+            slider
         }
         .padding(.horizontal)
     }
     
-    @ViewBuilder private func buildStatLevel(hero: Hero, type: HeroAttribute) -> some View {
-        let gain = hero.getGain(type: type)
+    private var titleiPad: some View {
         HStack {
-            AttributeImage(attribute: type)
-                .frame(width: 15, height: 15)
-            Text("\(hero.calculateAttribute(level: heroLevel, attr: type))")
-                .font(.system(size: 18))
+            HeroImageView(heroID: Int(hero.id), type: .full)
+            AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr ?? ""))
+                .frame(width: 25, height: 25)
+            Text(LocalizedStringKey(hero.displayName ?? ""))
+                .font(.body)
                 .bold()
-            Text("+ \(gain, specifier: "%.1f")")
-                .font(.system(size: 13))
+            Text("\(Int(hero.id))")
+                .font(.caption2)
+                .foregroundColor(.label.opacity(0.5))
+            complexity
+            Spacer()
+            abilities
+        }
+        .frame(height: 50)
+        .padding()
+        .background(Color.secondarySystemBackground)
+    }
+    
+    private var titleiPhone: some View {
+        HeroImageView(heroID: Int(hero.id), type: .full)
+            .overlay(
+                LinearGradient(colors: [Color(.black).opacity(0),
+                                        Color(.black).opacity(1)],
+                               startPoint: .top,
+                               endPoint: .bottom))
+            .overlay(HStack {
+                VStack(alignment: .leading, spacing: 3) {
+                    Spacer()
+                    HStack {
+                        AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr ?? ""))
+                            .frame(width: 25, height: 25)
+                        Text(hero.heroNameLocalized)
+                            .font(.system(size: 30))
+                            .bold()
+                            .foregroundColor(.white)
+                        Text("\(Int(hero.id))")
+                            .font(.caption2)
+                            .foregroundColor(.white.opacity(0.5))
+                        Spacer()
+                        complexity
+                    }
+                }
+                Spacer()
+            }.padding(.leading))
+    }
+    
+    private var abilities: some View {
+        HStack {
+            ForEach(hero.allAbilities) { ability in
+                if horizontal == .compact {
+                    NavigationLink(destination: AbilityView(ability: ability, heroName: hero.heroNameLowerCase)) {
+                        AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
+                            .frame(width: 30, height: 30)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .accessibilityIdentifier(ability.name ?? "")
+                    }
+                } else {
+                    Button {
+                        selectedAbility = ability
+                    } label: {
+                        AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
+                            .frame(width: 30, height: 30)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .accessibilityIdentifier(ability.name ?? "")
+                    }
+                }
+            }
+        }
+        .padding(.horizontal, 4)
+    }
+    
+    private var complexity: some View {
+        HStack {
+            ForEach(1..<4) { complexity in
+                Group {
+                    if complexity <= hero.complexity {
+                        RoundedRectangle(cornerRadius: 3)
+                    } else {
+                        RoundedRectangle(cornerRadius: 3)
+                            .stroke()
+                    }
+                }
+                
+                .frame(width: 15, height: 15)
+                .foregroundColor(horizontal == .compact ? .white : .label)
+                .rotationEffect(.degrees(45))
+            }
         }
     }
     
-    @ViewBuilder private func buildManaHealthBar(hero: Hero, type: Hero.HeroHPMana) -> some View {
-        let total = hero.calculateHPManaByLevel(level: heroLevel, type: type)
+    @ViewBuilder 
+    private func buildRole(name: String) -> some View {
+        let role = hero.fetchRole(role: name)
+        RoleView(title: name, level: role.level)
+    }
+    
+    @ViewBuilder
+    private func buildBar(type: Hero.HeroHPMana) -> some View {
+        let total = hero.calculateHPManaByLevel(level: 1, type: type)
         let barColor = type == .hp ? Color(UIColor.systemGreen) : Color(UIColor.systemBlue)
         VStack(spacing: 0) {
             HStack {
@@ -441,23 +339,105 @@ struct HeroDetailView: View {
             }
         }
     }
-}
-
-struct HeroDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            NavigationView {
-                HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
-                    .environment(\.horizontalSizeClass, .regular)
-            }
-            .previewDevice(.iPhone)
-            
-            NavigationView {
-                EmptyView()
-                HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
-                    .environment(\.horizontalSizeClass, .regular)
-            }
-            .previewDevice(.iPad)
+    
+    @ViewBuilder 
+    private func buildAttribute(type: HeroAttribute) -> some View {
+        let gain = hero.getGain(type: type)
+        HStack {
+            AttributeImage(attribute: type)
+                .frame(width: 15, height: 15)
+            Text("\(hero.calculateAttribute(level: heroLevel, attr: type))")
+                .font(.system(size: 18))
+                .bold()
+            Text("+ \(gain, specifier: "%.1f")")
+                .font(.system(size: 13))
         }
     }
+    
+    @ViewBuilder 
+    private func buildStatDetail(image: String, value: String) -> some View {
+        HStack {
+            Image(image)
+                .renderingMode(.template)
+                .resizable()
+                .frame(width: 15, height: 15)
+                .foregroundColor(Color(uiColor: UIColor.label))
+            Text(value)
+                .font(.system(size: 15))
+        }
+    }
+    
+    @ViewBuilder 
+    private func buildLevelTalent(talent: [HeroTalent], level: Int) -> some View {
+        GeometryReader { proxy in
+            HStack(spacing: 5) {
+                if let leftSideTalent = talent.first(where: { $0.slot == level * 2 - 1 }) {
+                    talentText(talent: leftSideTalent)
+                        .font(.system(size: 10))
+                        .frame(width: (proxy.size.width - 30) / 2)
+                } else {
+                    Text("No Talent")
+                }
+                Text("\(5 + 5 * level)")
+                    .font(.system(size: 10))
+                    .bold()
+                    .padding(5)
+                    .frame(width: 30, height: 30)
+                    .background(Circle().stroke().foregroundColor(.yellow))
+                if let rightSideTalent = talent.first(where: { $0.slot == level * 2 - 2 }) {
+                    talentText(talent: rightSideTalent)
+                        .font(.system(size: 10))
+                        .frame(width: (proxy.size.width - 30) / 2)
+                } else {
+                    Text("No Talent")
+                }
+            }
+        }
+        .frame(height: 30)
+        .padding(.horizontal)
+    }
+    
+    @ViewBuilder
+    private func talentText(talent: HeroTalent) -> some View {
+        if let talentAbility = talentAbilities.first(where: { $0.abilityID == talent.abilityID }),
+           let talentDisplayName = talentAbility.localisation()?.displayName {
+            Text(talentDisplayName)
+        } else {
+            Text("No Talent")
+        }
+    }
+}
+
+#Preview {
+    let previewContext = PersistenceController.preview.container.viewContext
+    let hero = Hero(context: previewContext)
+    hero.attackRange = 1800
+    hero.attackRate = 1
+    hero.attackType = "Melee"
+    hero.baseAgi = 1
+    hero.baseInt = 1
+    hero.baseStr = 1
+    hero.baseArmor = 1
+    hero.baseAttackMax = 10
+    hero.baseAttackMin = 5
+    hero.baseHealth = 10
+    hero.baseHealthRegen = 10
+    hero.baseMana = 100
+    hero.baseManaRegen = 100
+    hero.baseMr = 25
+    hero.complexity = 3
+    hero.displayName = "Antimage"
+    hero.gainAgi = 2
+    hero.gainInt = 2
+    hero.gainStr = 2
+    hero.id = 1
+    let ability = Ability(context: previewContext)
+    ability.name = "antimage_mana_break"
+    ability.abilityID = 1
+    ability.mc = "10"
+    
+    let localisation = AbilityLocalisation(language: "ENGLISH", displayName: "Antimage Mana Break", lore: "A modified technique of the Turstarkuri monks' peaceful ways is to turn magical energies on their owner.", description: "Burns an opponent's mana on each attack and deals damage equal to a percentage of the mana burnt. Enemies with no mana left are temporarily slowed.")
+    ability.localisations = [localisation]
+    hero.addToAbilities(ability)
+    return HeroDetailView(hero: hero)
 }

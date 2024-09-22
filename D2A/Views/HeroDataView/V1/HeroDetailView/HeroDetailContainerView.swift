@@ -23,7 +23,7 @@ struct HeroDetailContainerView: View {
     
     var body: some View {
         if let hero {
-            HeroDetailViewV3(hero: hero)
+            HeroDetailView(hero: hero)
         } else {
             Text("Cannot find hero")
                 .font(.caption)
