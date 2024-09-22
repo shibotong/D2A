@@ -89,7 +89,8 @@ struct HeroDetailView: View {
         ScrollView {
             buildTitle(hero: hero)
             ScrollView(.horizontal, showsIndicators: false) {
-                buildAbilities(navigation: true)
+                buildAbilitiesV2()
+//                buildAbilities(navigation: true)
             }.padding(.horizontal, 5)
             Divider()
             buildHeroDetails(hero: hero)
@@ -164,9 +165,22 @@ struct HeroDetailView: View {
         }
     }
     
+    @ViewBuilder
+    private func buildAbilitiesV2() -> some View {
+        HStack {
+            ForEach(vm.heroAbilities) { ability in
+                NavigationLink(destination: AbilityViewV3(ability: ability, heroName: vm.hero?.heroNameLowerCase ?? "")) {
+                    AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
+                        .frame(width: 30, height: 30)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .accessibilityIdentifier(ability.name ?? "")
+                }
+            }
+        }
+    }
+    
     @ViewBuilder private func buildAbilities(navigation: Bool) -> some View {
         HStack {
-            Text(vm.hero?.abilities?.count.description ?? "ERROR")
             ForEach(vm.abilities) { ability in
                 if navigation {
                     NavigationLink(destination: AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: ability))) {

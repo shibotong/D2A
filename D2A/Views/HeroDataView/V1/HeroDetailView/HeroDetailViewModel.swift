@@ -24,6 +24,8 @@ class HeroDetailViewModel: ObservableObject {
     
     @Published var abilities: [AbilityCodable] = []
     
+    @Published var heroAbilities: [Ability] = []
+    
     private var database: HeroDatabase = HeroDatabase.shared
     
     init(heroID: Int) {
@@ -49,22 +51,14 @@ class HeroDetailViewModel: ObservableObject {
             }
             .assign(to: &$previousHeroID)
         
-//        $hero
-//            .map { [weak self] hero in
-//                guard let abilityNames = hero?.abilities else {
-//                    return []
-//                }
-//                let abilities = abilityNames.filter { ability in
-//                    let containHidden = ability.contains("hidden")
-//                    let containEmpty = ability.contains("empty")
-//                    return !containHidden && !containEmpty
-//                }.compactMap { [weak self] abilityName in
-//                    self?.database.fetchOpenDotaAbility(name: abilityName)
-//                }
-//                self?.selectedAbility = abilities.first
-//                return abilities
-//            }
-//            .assign(to: &$abilities)
+        $hero
+            .map { hero in
+                guard let abilities = hero?.abilities?.allObjects as? [Ability] else {
+                    return []
+                }
+                return abilities
+            }
+            .assign(to: &$heroAbilities)
     }
     
     /// Load hero

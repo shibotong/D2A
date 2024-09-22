@@ -389,6 +389,8 @@
 		79AA09502C9D9FA60019CAE2 /* HeroTalent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA094E2C9D9FA60019CAE2 /* HeroTalent.swift */; };
 		79AA09512C9D9FA60019CAE2 /* HeroTalent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA094E2C9D9FA60019CAE2 /* HeroTalent.swift */; };
 		79AA09572C9DAA320019CAE2 /* HeroListViewV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA09562C9DAA320019CAE2 /* HeroListViewV3.swift */; };
+		79AA095B2C9F85140019CAE2 /* AbilityViewV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA095A2C9F85140019CAE2 /* AbilityViewV3.swift */; };
+		79AA095D2C9FBCB30019CAE2 /* AbilityDescriptionViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA095C2C9FBCB30019CAE2 /* AbilityDescriptionViewV2.swift */; };
 		79AA775E2C8A7BC10057CDE5 /* HeroV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF2AAE2C8A7391004D2146 /* HeroV2.swift */; };
 		79AA775F2C8A7BC10057CDE5 /* HeroV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF2AAE2C8A7391004D2146 /* HeroV2.swift */; };
 		79AA77602C8A7BC50057CDE5 /* HeroV2Localisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF2AA82C8A7186004D2146 /* HeroV2Localisation.swift */; };
@@ -705,6 +707,8 @@
 		79AA094A2C9D9E650019CAE2 /* HeroRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroRole.swift; sourceTree = "<group>"; };
 		79AA094E2C9D9FA60019CAE2 /* HeroTalent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroTalent.swift; sourceTree = "<group>"; };
 		79AA09562C9DAA320019CAE2 /* HeroListViewV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListViewV3.swift; sourceTree = "<group>"; };
+		79AA095A2C9F85140019CAE2 /* AbilityViewV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityViewV3.swift; sourceTree = "<group>"; };
+		79AA095C2C9FBCB30019CAE2 /* AbilityDescriptionViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityDescriptionViewV2.swift; sourceTree = "<group>"; };
 		79AA77642C8A7D490057CDE5 /* Backend 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 2.xcdatamodel"; sourceTree = "<group>"; };
 		79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchDraftView.swift; sourceTree = "<group>"; };
 		79ABFA352C9A52F500DEB6E3 /* AbilityInsertFetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityInsertFetching.swift; sourceTree = "<group>"; };
@@ -1200,6 +1204,8 @@
 				7912B6E22B5D022C00AE1947 /* AbilityTitleView.swift */,
 				79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */,
 				79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */,
+				79AA095C2C9FBCB30019CAE2 /* AbilityDescriptionViewV2.swift */,
+				79AA095A2C9F85140019CAE2 /* AbilityViewV3.swift */,
 			);
 			path = AbilityView;
 			sourceTree = "<group>";
@@ -1859,6 +1865,7 @@
 				79F5B5D428E3B8D900FB67E5 /* PersistenceController.swift in Sources */,
 				32B36F4A26C39242002D427D /* StringVariable.swift in Sources */,
 				7985E7EB28E53919007A43AF /* Hero.swift in Sources */,
+				79AA095B2C9F85140019CAE2 /* AbilityViewV3.swift in Sources */,
 				798A5CF82945503100EB07B0 /* ProfileAvatar.swift in Sources */,
 				32F6A1B026C499E3009C00E1 /* MatchView.swift in Sources */,
 				322B89C726CFD2DE00DF67F9 /* SearchViewModel.swift in Sources */,
@@ -1909,6 +1916,7 @@
 				79091DF92A3B32140093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 				79AF2AAF2C8A7391004D2146 /* HeroV2.swift in Sources */,
 				796FE19C29AAF659003379EB /* AbilityImage.swift in Sources */,
+				79AA095D2C9FBCB30019CAE2 /* AbilityDescriptionViewV2.swift in Sources */,
 				792E97702C82978A00234038 /* HeroStatsView.swift in Sources */,
 				325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */,
 				32B36F3F26C388AD002D427D /* PlayerProfileView.swift in Sources */,

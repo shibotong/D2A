@@ -98,7 +98,9 @@ extension Ability {
         try context.save()
     }
     
-
+    var imageURL: String {
+        "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/\(name ?? "").png"
+    }
     
     func updateValues(abilityID: Int,
                       abilityName: String,
@@ -121,16 +123,16 @@ extension Ability {
             let newAttributes = attributes.compactMap { AbilityAttribute(attribute: $0) }
             self.attributes = newAttributes
         }
-//        self.attributes = ability.attributes?.compactMap { AbilityAttribute(attribute: $0) }
-//        if let languageLocalisation = localisation.language,
-//           let localisation = AbilityLocalisation(localisation: languageLocalisation, language: languageCode.rawValue, type: type) {
-//            if localisations == nil {
-//                localisations = [localisation]
-//            } else {
-//                localisations?.removeAll(where: { $0.language == languageCode.rawValue })
-//                localisations?.append(localisation)
-//            }
-//        }
+        self.attributes = ability.attributes?.compactMap { AbilityAttribute(attribute: $0) }
+        if let languageLocalisation = localisation?.language,
+           let localisation = AbilityLocalisation(localisation: languageLocalisation, language: languageCode.rawValue, type: type) {
+            if localisations == nil {
+                localisations = [localisation]
+            } else {
+                localisations?.removeAll(where: { $0.language == languageCode.rawValue })
+                localisations?.append(localisation)
+            }
+        }
     }
     
     // Update localisation
@@ -180,5 +182,9 @@ extension Ability {
             }
             Logger.shared.log(level: .verbose, message: "Insert \(languageCode.rawValue) for \(abilityID)")
         }
+    }
+    
+    func localisation(language: String = languageCode.rawValue) -> AbilityLocalisation? {
+        return localisations?.first(where: { $0.language == language })
     }
 }
