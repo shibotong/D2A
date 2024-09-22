@@ -9,11 +9,19 @@ import SwiftUI
 
 struct HeroDetailViewV3: View {
     
+    @Environment(\.managedObjectContext) var context
+    
     @State var hero: Hero
     @State private var heroLevel: Double = 1
     
+    @State private var talentAbilities: [Ability] = []
+    
     var body: some View {
         iPhone
+            .task {
+                guard let talentIDs = hero.talents?.map({ $0.abilityID }) else { return }
+                talentAbilities = Ability.fetchAbilities(ids: talentIDs, viewContext: context)
+            }
     }
     
     private var iPhone: some View {
@@ -297,10 +305,9 @@ struct HeroDetailViewV3: View {
         GeometryReader { proxy in
             HStack(spacing: 5) {
                 if let leftSideTalent = talent.first(where: { $0.slot == level * 2 - 1 }) {
-//                    let abilityId = leftSideTalent.abilityId
-                    Text(leftSideTalent.abilityID.description)
+                    talentText(talent: leftSideTalent)
                         .font(.system(size: 10))
-                        .frame(width: (proxy.size.width - 40) / 2)
+                        .frame(width: (proxy.size.width - 30) / 2)
                 } else {
                     Text("No Talent")
                 }
@@ -311,8 +318,7 @@ struct HeroDetailViewV3: View {
                     .frame(width: 30, height: 30)
                     .background(Circle().stroke().foregroundColor(.yellow))
                 if let rightSideTalent = talent.first(where: { $0.slot == level * 2 - 2 }) {
-//                    let abilityId = rightSideTalent.abilityId
-                    Text(rightSideTalent.abilityID.description)
+                    talentText(talent: rightSideTalent)
                         .font(.system(size: 10))
                         .frame(width: (proxy.size.width - 30) / 2)
                 } else {
@@ -322,6 +328,17 @@ struct HeroDetailViewV3: View {
         }
         .frame(height: 30)
         .padding(.horizontal)
+    }
+    
+    @ViewBuilder
+    private func talentText(talent: HeroTalent) -> some View {
+        if let talentAbility = talentAbilities.first(where: { $0.abilityID == talent.abilityID }),
+           let talentDisplayName = talentAbility.localisation()?.displayName {
+            Text(talentDisplayName)
+        } else {
+            Text("No Talent")
+        }
+        
     }
 }
 

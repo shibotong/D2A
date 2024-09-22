@@ -38,6 +38,19 @@ extension Ability {
         }
     }
     
+    static func fetchAbilities(ids: [Int], viewContext: NSManagedObjectContext) -> [Ability] {
+        let request = Ability.fetchRequest()
+
+        request.predicate = NSPredicate(format: "ANY abilityID IN %@", ids)
+        do {
+            let results = try viewContext.fetch(request)
+            return results
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+    
     /// Fetch `Ability` with `id` in `CoreData`
     static func fetchAbilityAsync(id: Int, viewContext: NSManagedObjectContext) async -> Ability? {
         await viewContext.perform {
