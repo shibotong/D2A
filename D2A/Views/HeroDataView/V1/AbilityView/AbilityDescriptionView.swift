@@ -78,24 +78,8 @@ struct AbilityDescriptionView: View {
             }
         }
         .padding(10)
-        .background(background.padding(2))
         .task {
             await loadVideo()
-        }
-    }
-    
-    private var background: some View {
-        Group {
-            switch type {
-            case .scepter:
-                RoundedRectangle(cornerRadius: 3)
-                    .foregroundColor(Color(UIColor.secondarySystemBackground))
-            case .shard:
-                RoundedRectangle(cornerRadius: 3)
-                    .foregroundColor(Color(UIColor.secondarySystemBackground))
-            case .non:
-                EmptyView()
-            }
         }
     }
     

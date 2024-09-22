@@ -55,7 +55,7 @@ struct AbilityView: View {
                         )
                 }
             }
-            .padding(.horizontal)
+            .padding()
         }
     }
     
@@ -82,10 +82,12 @@ struct AbilityView: View {
             }
             
             if let scepter = localisation?.scepter {
+                Divider()
                 AbilityDescriptionView(type: .scepter, description: scepter, name: ability.name, heroName: heroName)
             }
             
             if let shard = localisation?.shard {
+                Divider()
                 AbilityDescriptionView(type: .shard, description: shard, name: ability.name, heroName: heroName)
             }
         }

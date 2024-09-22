@@ -10,26 +10,38 @@ import SwiftUI
 struct HeroDetailViewV3: View {
     
     @Environment(\.managedObjectContext) var context
+    @Environment(\.horizontalSizeClass) var horizontal
     
-    @State var hero: Hero
+    let hero: Hero
     @State private var heroLevel: Double = 1
-    
+    @State private var selectedAbility: Ability?
     @State private var talentAbilities: [Ability] = []
     
     var body: some View {
-        iPhone
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(hero.heroNameLocalized)
-            .task {
-                guard let talentIDs = hero.talents?.map({ $0.abilityID }) else { return }
-                talentAbilities = Ability.fetchAbilities(ids: talentIDs, viewContext: context)
+        Group {
+            if horizontal == .compact {
+                iPhone
+            } else {
+                iPad
             }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(hero.heroNameLocalized)
+        .onAppear {
+            selectedAbility = hero.allAbilities.first
+        }
+        .task {
+            guard let talentIDs = hero.talents?.map({ $0.abilityID }) else { return }
+            talentAbilities = Ability.fetchAbilities(ids: talentIDs, viewContext: context)
+        }
     }
     
     private var iPhone: some View {
         ScrollView {
-            title
-            abilities
+            titleiPhone
+            ScrollView(.horizontal, showsIndicators: false) {
+                abilities
+            }
             Divider()
             attributes
             Divider()
@@ -38,6 +50,30 @@ struct HeroDetailViewV3: View {
             stats
             Divider()
             talents
+        }
+    }
+    
+    private var iPad: some View {
+        VStack(spacing: 0) {
+            titleiPad
+            HStack {
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack {
+                        attributes
+                        Divider()
+                        roles
+                        Divider()
+                        stats
+                        Divider()
+                        talents
+                    }.padding()
+                }
+                Divider()
+                if let selectedAbility {
+                    AbilityView(ability: selectedAbility,
+                                heroName: hero.heroNameLowerCase)
+                }
+            }
         }
     }
     
@@ -168,7 +204,27 @@ struct HeroDetailViewV3: View {
         .padding(.horizontal)
     }
     
-    private var title: some View {
+    private var titleiPad: some View {
+        HStack {
+            HeroImageView(heroID: Int(hero.id), type: .full)
+            AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr ?? ""))
+                .frame(width: 25, height: 25)
+            Text(LocalizedStringKey(hero.displayName ?? ""))
+                .font(.body)
+                .bold()
+            Text("\(Int(hero.id))")
+                .font(.caption2)
+                .foregroundColor(.label.opacity(0.5))
+            complexity
+            Spacer()
+            abilities
+        }
+        .frame(height: 50)
+        .padding()
+        .background(Color.secondarySystemBackground)
+    }
+    
+    private var titleiPhone: some View {
         HeroImageView(heroID: Int(hero.id), type: .full)
             .overlay(
                 LinearGradient(colors: [Color(.black).opacity(0),
@@ -197,10 +253,19 @@ struct HeroDetailViewV3: View {
     }
     
     private var abilities: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(hero.allAbilities) { ability in
+        HStack {
+            ForEach(hero.allAbilities) { ability in
+                if horizontal == .compact {
                     NavigationLink(destination: AbilityView(ability: ability, heroName: hero.heroNameLowerCase)) {
+                        AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
+                            .frame(width: 30, height: 30)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .accessibilityIdentifier(ability.name ?? "")
+                    }
+                } else {
+                    Button {
+                        selectedAbility = ability
+                    } label: {
                         AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
                             .frame(width: 30, height: 30)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -208,25 +273,25 @@ struct HeroDetailViewV3: View {
                     }
                 }
             }
-            .padding(.horizontal, 4)
         }
+        .padding(.horizontal, 4)
     }
     
     private var complexity: some View {
         HStack {
             ForEach(1..<4) { complexity in
-                if complexity <= hero.complexity {
-                    RoundedRectangle(cornerRadius: 3)
-                        .frame(width: 15, height: 15)
-                        .foregroundColor(.white)
-                        .rotationEffect(.degrees(45))
-                } else {
-                    RoundedRectangle(cornerRadius: 3)
-                        .stroke()
-                        .frame(width: 15, height: 15)
-                        .foregroundColor(.white)
-                        .rotationEffect(.degrees(45))
+                Group {
+                    if complexity <= hero.complexity {
+                        RoundedRectangle(cornerRadius: 3)
+                    } else {
+                        RoundedRectangle(cornerRadius: 3)
+                            .stroke()
+                    }
                 }
+                
+                .frame(width: 15, height: 15)
+                .foregroundColor(horizontal == .compact ? .white : .label)
+                .rotationEffect(.degrees(45))
             }
         }
     }
@@ -340,7 +405,6 @@ struct HeroDetailViewV3: View {
         } else {
             Text("No Talent")
         }
-        
     }
 }
 

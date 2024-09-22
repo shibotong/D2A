@@ -48,11 +48,10 @@ extension UserProfile {
     }
     
     static func create(_ profile: UserProfileCodable) throws -> UserProfile {
-        let viewContext = PersistenceController.shared.makePrivateContext(author: "UserProfile")
+        let viewContext = PersistenceController.shared.container.viewContext
         let newProfile = fetch(id: profile.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
         newProfile.update(profile)
         try viewContext.save()
-        try viewContext.parent?.save()
         return newProfile
     }
     
