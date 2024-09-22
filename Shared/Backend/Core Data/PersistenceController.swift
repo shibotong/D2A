@@ -96,6 +96,12 @@ class PersistenceController {
         return privateContext
     }
     
+    func makeBackgroundContext() -> NSManagedObjectContext {
+        let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateContext.persistentStoreCoordinator = container.viewContext.persistentStoreCoordinator
+        return privateContext
+    }
+    
     func fetchFirstWidgetUser() -> UserProfile? {
         let fetchRequest = UserProfile.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)

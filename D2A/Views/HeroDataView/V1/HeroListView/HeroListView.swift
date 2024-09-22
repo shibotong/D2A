@@ -39,7 +39,6 @@ struct HeroListView: View {
             if viewModel.gridView {
                 ScrollView(.vertical, showsIndicators: false) {
                     buildSection(heroes: viewModel.searchResults, attributes: viewModel.selectedAttribute)
-//                    buildSection(heroes: (heroes as [Hero]), attributes: viewModel.selectedAttribute)
                 }
                 .padding(.horizontal)
             } else {

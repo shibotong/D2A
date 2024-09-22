@@ -20,6 +20,8 @@ extension Hero {
         case decodingError
     }
     
+    // MARK: - Static func
+    
     static func deleteAllHeroes(context: NSManagedObjectContext) async throws -> Bool {
         let heroes = fetchAllHeroes(viewContext: context)
         let result = try await deleteHero(heroes: heroes, context: context)
@@ -35,49 +37,50 @@ extension Hero {
         }
     }
     
+    /// Create `Hero` with `HeroModel` and `HeroQuery.Data.Constants.Hero` and save into Core Data
     static func save(heroData: HeroCodable,
                      abilityNames: [String],
                      localisation: Localisation? = nil,
-                     context: NSManagedObjectContext) throws {
+                     context: NSManagedObjectContext) {
         let heroID = Double(heroData.id)
         let hero = fetchHero(id: heroID) ?? Hero(context: context)
         // data from Stratz
-        hero.id = heroID
-        hero.displayName = heroData.localizedName
-        hero.name = heroData.name
+        setIfNotEqual(entity: hero, path: \.id, value: heroID)
+        setIfNotEqual(entity: hero, path: \.displayName, value: heroData.localizedName)
+        setIfNotEqual(entity: hero, path: \.name, value: heroData.name)
         
         // data from OpenDota
-        hero.primaryAttr = heroData.primaryAttr
-        hero.attackType = heroData.attackType
-        hero.img = heroData.img
-        hero.icon = heroData.icon
+        setIfNotEqual(entity: hero, path: \.primaryAttr, value: heroData.primaryAttr)
+        setIfNotEqual(entity: hero, path: \.attackType, value: heroData.attackType)
+        setIfNotEqual(entity: hero, path: \.img, value: heroData.img)
+        setIfNotEqual(entity: hero, path: \.icon, value: heroData.icon)
         
-        hero.baseHealth = heroData.baseHealth
-        hero.baseHealthRegen = heroData.baseHealthRegen
-        hero.baseMana = heroData.baseMana
-        hero.baseManaRegen = heroData.baseManaRegen
-        hero.baseArmor = heroData.baseArmor
-        hero.baseMr = heroData.baseMr
-        hero.baseAttackMin = heroData.baseAttackMin
-        hero.baseAttackMax = heroData.baseAttackMax
+        setIfNotEqual(entity: hero, path: \.baseHealth, value: heroData.baseHealth)
+        setIfNotEqual(entity: hero, path: \.baseHealthRegen, value: heroData.baseHealthRegen)
+        setIfNotEqual(entity: hero, path: \.baseMana, value: heroData.baseMana)
+        setIfNotEqual(entity: hero, path: \.baseManaRegen, value: heroData.baseManaRegen)
+        setIfNotEqual(entity: hero, path: \.baseArmor, value: heroData.baseArmor)
+        setIfNotEqual(entity: hero, path: \.baseMr, value: heroData.baseMr)
+        setIfNotEqual(entity: hero, path: \.baseAttackMin, value: heroData.baseAttackMin)
+        setIfNotEqual(entity: hero, path: \.baseAttackMax, value: heroData.baseAttackMax)
         
-        hero.baseStr = heroData.baseStr
-        hero.baseAgi = heroData.baseAgi
-        hero.baseInt = heroData.baseInt
-        hero.gainStr = heroData.strGain
-        hero.gainAgi = heroData.agiGain
-        hero.gainInt = heroData.intGain
+        setIfNotEqual(entity: hero, path: \.baseStr, value: heroData.baseStr)
+        setIfNotEqual(entity: hero, path: \.baseAgi, value: heroData.baseAgi)
+        setIfNotEqual(entity: hero, path: \.baseInt, value: heroData.baseInt)
+        setIfNotEqual(entity: hero, path: \.gainStr, value: heroData.strGain)
+        setIfNotEqual(entity: hero, path: \.gainAgi, value: heroData.agiGain)
+        setIfNotEqual(entity: hero, path: \.gainInt, value: heroData.intGain)
         
-        hero.complexity = Int16(localisation?.stats?.complexity ?? 0)
+        setIfNotEqual(entity: hero, path: \.complexity, value: Int16(localisation?.stats?.complexity ?? 0))
         
-        hero.attackRange = heroData.attackRange
-        hero.projectileSpeed = heroData.projectileSpeed
-        hero.attackRate = heroData.attackRate
-        hero.moveSpeed = heroData.moveSpeed
-        hero.turnRate = heroData.turnRate ?? 0.6
+        setIfNotEqual(entity: hero, path: \.attackRange, value: heroData.attackRange)
+        setIfNotEqual(entity: hero, path: \.projectileSpeed, value: heroData.projectileSpeed)
+        setIfNotEqual(entity: hero, path: \.attackRate, value: heroData.attackRate)
+        setIfNotEqual(entity: hero, path: \.moveSpeed, value: heroData.moveSpeed)
+        setIfNotEqual(entity: hero, path: \.turnRate, value: heroData.turnRate ?? 0.6)
         
-        hero.visionDaytimeRange = Int16(heroData.visionDay)
-        hero.visionNighttimeRange = Int16(heroData.visionNight)
+        setIfNotEqual(entity: hero, path: \.visionDaytimeRange, value: Int16(heroData.visionDay))
+        setIfNotEqual(entity: hero, path: \.visionNighttimeRange, value: Int16(heroData.visionNight))
         
         let roles = localisation?.roles?.compactMap { $0 } ?? []
         let talents = localisation?.talents?.compactMap { $0 } ?? []
@@ -108,61 +111,6 @@ extension Hero {
         if let localisation {
             hero.updateLocalisation(localisationData: localisation)
         }
-        
-        try context.save()
-    }
-    
-    // MARK: - Static func
-    /// Create `Hero` with `HeroModel` and `HeroQuery.Data.Constants.Hero` and save into Core Data
-    static func createHero(_ queryHero: LocaliseQuery.Data.Constants.Hero? = nil, model: HeroCodable) throws -> Hero {
-        let viewContext = PersistenceController.shared.container.viewContext
-        
-        let heroID = Double(model.id)
-        let hero = fetchHero(id: heroID) ?? Hero(context: viewContext)
-        // data from Stratz
-        hero.id = heroID
-        hero.displayName = model.localizedName
-        hero.name = model.name
-        
-        // data from OpenDota
-        hero.primaryAttr = model.primaryAttr
-        hero.attackType = model.attackType
-        hero.img = model.img
-        hero.icon = model.icon
-        
-        hero.baseHealth = model.baseHealth
-        hero.baseHealthRegen = model.baseHealthRegen
-        hero.baseMana = model.baseMana
-        hero.baseManaRegen = model.baseManaRegen
-        hero.baseArmor = model.baseArmor
-        hero.baseMr = model.baseMr
-        hero.baseAttackMin = model.baseAttackMin
-        hero.baseAttackMax = model.baseAttackMax
-        
-        hero.baseStr = model.baseStr
-        hero.baseAgi = model.baseAgi
-        hero.baseInt = model.baseInt
-        hero.gainStr = model.strGain
-        hero.gainAgi = model.agiGain
-        hero.gainInt = model.intGain
-        
-        hero.attackRange = model.attackRange
-        hero.projectileSpeed = model.projectileSpeed
-        hero.attackRate = model.attackRate
-        hero.moveSpeed = model.moveSpeed
-        hero.turnRate = model.turnRate ?? 0.6
-        
-        if let query = queryHero,
-           let heroTalents = query.talents,
-           let heroRoles = query.roles,
-           let heroStats = query.stats {
-            hero.complexity = Int16(heroStats.complexity ?? 0)
-            hero.visionDaytimeRange = Int16(heroStats.visionDaytimeRange ?? 1800)
-            hero.visionNighttimeRange = Int16(heroStats.visionNighttimeRange ?? 800)
-        }
-
-        try viewContext.save()
-        return hero
     }
     
     private func updateAbilities(_ abilityNames: [String], context: NSManagedObjectContext) {
@@ -181,9 +129,9 @@ extension Hero {
             }
             abilitiesToRemove.append(ability)
         }
-        
-        Logger.shared.log(level: .verbose, message: "\(abilitiesToRemove.map { $0.name }) don't exist for hero \(name ?? "ERROR") anymore")
-        removeFromAbilities(NSSet(array: abilitiesToRemove))
+        if !abilitiesToRemove.isEmpty {
+            removeFromAbilities(NSSet(array: abilitiesToRemove))
+        }
         
         for abilityName in abilityNames {
             if savedAbilities.contains(where: { $0.name == abilityName }) {
@@ -191,34 +139,26 @@ extension Hero {
             }
             newAbilities.append(abilityName)
         }
-        
+        guard !newAbilities.isEmpty else { return }
         addingAbilitiesToHero(names: newAbilities, context: context)
     }
     
     func updateLocalisation(localisationData: Localisation) {
-        if let localisation = localisations?.first(where: { $0.language == languageCode.rawValue }) {
-            localisation.lore = localisationData.language?.lore
-            localisation.displayName = localisationData.language?.displayName ?? ""
-            localisation.hype = localisationData.language?.hype
-
-            Logger.shared.log(level: .verbose, message: "Update \(languageCode.rawValue) for \(id)")
+        let localisation = HeroLocalisation(language: languageCode.rawValue,
+                                            displayName: localisationData.language?.displayName ?? "",
+                                            lore: localisationData.language?.lore,
+                                            hype: localisationData.language?.hype)
+        if localisations == nil {
+            localisations = [localisation]
         } else {
-            let localisation = HeroLocalisation(language: languageCode.rawValue, displayName: localisationData.language?.displayName ?? "")
-            localisation.lore = localisationData.language?.lore
-            
-            if localisations == nil {
-                localisations = [localisation]
-            } else {
-                localisations?.append(localisation)
-            }
-            Logger.shared.log(level: .verbose, message: "Insert \(languageCode.rawValue) for \(id)")
+            localisations?.removeAll(where: { $0.language == languageCode.rawValue })
+            localisations?.append(localisation)
         }
     }
     
     private func addingAbilitiesToHero(names: [String], context: NSManagedObjectContext) {
         let abilities = Ability.fetchAbilities(names: names, viewContext: context)
         addToAbilities(NSSet(array: abilities))
-        Logger.shared.log(level: .verbose, message: "Save abilities to hero \(id), \(abilities.map { $0.name })")
     }
     
     /// Fetch `Hero` with `id` in CoreData

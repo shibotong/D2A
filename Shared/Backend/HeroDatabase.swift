@@ -96,8 +96,7 @@ class HeroDatabase: ObservableObject {
             self?.localisation = await StratzController.shared.loadLocalisation()
             let status: LoadingStatus = self?.abilities.count == 0 ? .error : .finish
             await self?.setStatus(status: status, stratz: .finish)
-            await self?.saveAbilities()
-            await self?.saveHeroes()
+            await self?.saveData()
         }
     }
     
@@ -292,14 +291,11 @@ class HeroDatabase: ObservableObject {
         return talent?.language?.displayName ?? "Fetch String Error"
     }
     
-    /// Save Heroes
-    private func saveHeroes() async {
-        await saveHeroesCoreData()
-    }
-    
-    /// Save abilities
-    private func saveAbilities() async {
-        await saveAbilitiesCoreData()
+    private func saveData() async {
+        let context = PersistenceController.shared.makeBackgroundContext()
+        await saveAbilitiesCoreData(context: context)
+        await saveHeroesCoreData(context: context)
+        NotificationCenter.default.post(Notification(name: .dataDidSave))
     }
     
     private func isScepterSkill(dname: String?) -> Bool {
@@ -337,54 +333,57 @@ class HeroDatabase: ObservableObject {
 
 // MARK: - Core Data
 extension HeroDatabase {
-    private func saveHeroesCoreData(container: NSPersistentContainer = PersistenceController.shared.container) async {
+    private func saveHeroesCoreData(context: NSManagedObjectContext) async {
         for (heroIDString, heroData) in heroes {
             guard let localisation = localisation?.heroes?.compactMap({ $0 }).first(where: { $0.id == Double(heroIDString) }) else {
                 continue
             }
             
-            let context = container.newBackgroundContext()
             let abilityNames = self.fetchHeroAbility(name: heroData.name)
-            do {
-                try Hero.save(heroData: heroData,
+            await context.perform {
+                do {
+                    Hero.save(heroData: heroData,
                               abilityNames: abilityNames,
                               localisation: localisation,
                               context: context)
-                print("Save hero \(heroIDString) success")
-            } catch {
-                print("Save hero error \(error.localizedDescription)")
+                    try context.save()
+                } catch {
+                    Logger.shared.log(level: .warning, message: "Error occured saving hero", error: error)
+                }
             }
         }
     }
     
-    private func saveAbilitiesCoreData(container: NSPersistentContainer = PersistenceController.shared.container) async {
-        let context = container.newBackgroundContext()
+    private func saveAbilitiesCoreData(context: NSManagedObjectContext) async {
         if !Ability.abilitiesInserted(viewContext: context) {
             self.saveAbilitiesCoreDataBatch(context: context)
         } else {
-            updateAbilities(viewContext: context)
+            await updateAbilities(viewContext: context)
         }
     }
     
-    private func updateAbilities(viewContext: NSManagedObjectContext) {
-        let abilityFetching = AbilityInsertFetching(abilityIDTable: abilityIDTable, 
+    private func updateAbilities(viewContext: NSManagedObjectContext) async {
+        let abilityFetching = AbilityInsertFetching(abilityIDTable: abilityIDTable,
                                                     abilities: abilities,
                                                     localisations: localisation?.abilities ?? [])
         
         while let abilityData = abilityFetching.next() {
-            do {
-                let abilityType = abilityType(dname: abilityData.abilityName)
-                try Ability.save(abilityID: abilityData.abilityID,
+            let abilityType = abilityType(dname: abilityData.abilityName)
+            await viewContext.perform {
+                do {
+                    Ability.save(abilityID: abilityData.abilityID,
                                  abilityName: abilityData.abilityName,
                                  ability: abilityData.ability,
                                  localisation: abilityData.localisation,
                                  type: abilityType,
                                  context: viewContext)
-                Logger.shared.log(level: .verbose, message: "Update ability success \(abilityData.abilityName)")
-            } catch {
-                Logger.shared.log(level: .error, message: "Error occured when saving ability \(abilityData.abilityName).", error: error)
+                    try viewContext.save()
+                } catch {
+                    Logger.shared.log(level: .error, message: "Error occured when saving ability.", error: error)
+                }
             }
         }
+        
     }
     
     private func saveAbilitiesCoreDataBatch(context: NSManagedObjectContext) {

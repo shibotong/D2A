@@ -100,7 +100,7 @@ extension Ability {
                      ability: AbilityCodable,
                      localisation: Localisation,
                      type: AbilityType,
-                     context: NSManagedObjectContext) throws {
+                     context: NSManagedObjectContext) {
         let abilityData = Ability.fetchAbility(id: abilityID, viewContext: context) ?? Ability(context: context)
         abilityData.updateValues(abilityID: abilityID,
                                  abilityName: abilityName,
@@ -108,7 +108,6 @@ extension Ability {
                                  type: type,
                                  localisation: localisation)
         
-        try context.save()
     }
     
     var imageURL: String {
@@ -120,18 +119,18 @@ extension Ability {
                       ability: AbilityCodable,
                       type: AbilityType,
                       localisation: Localisation?) {
-        self.abilityID = Int32(abilityID)
-        self.name = abilityName
-        self.dname = ability.dname
-        //        abilityData.imageURL = nil
-        self.behaviour = ability.behavior?.transformString()
-        self.targetTeam = ability.targetTeam?.transformString()
-        self.targetType = ability.targetType?.transformString()
-        self.dmgType = ability.damageType?.transformString()
-        self.mc = ability.manaCost?.transformString()
-        self.cd = ability.coolDown?.transformString()
-        self.bkbPierce = ability.bkbPierce?.transformString()
-        self.dispellable = ability.dispellable?.transformString()
+        setIfNotEqual(entity: self, path: \.abilityID, value: Int32(abilityID))
+        setIfNotEqual(entity: self, path: \.name, value: abilityName)
+        setIfNotEqual(entity: self, path: \.dname, value: ability.dname)
+        setIfNotEqual(entity: self, path: \.behaviour, value: ability.behavior?.transformString())
+        setIfNotEqual(entity: self, path: \.targetTeam, value: ability.targetTeam?.transformString())
+        
+        setIfNotEqual(entity: self, path: \.targetType, value: ability.targetType?.transformString())
+        setIfNotEqual(entity: self, path: \.dmgType, value: ability.damageType?.transformString())
+        setIfNotEqual(entity: self, path: \.mc, value: ability.manaCost?.transformString())
+        setIfNotEqual(entity: self, path: \.cd, value: ability.coolDown?.transformString())
+        setIfNotEqual(entity: self, path: \.bkbPierce, value: ability.bkbPierce?.transformString())
+        setIfNotEqual(entity: self, path: \.dispellable, value: ability.dispellable?.transformString())
         if let attributes = ability.attributes {
             let newAttributes = attributes.compactMap { AbilityAttribute(attribute: $0) }
             self.attributes = newAttributes

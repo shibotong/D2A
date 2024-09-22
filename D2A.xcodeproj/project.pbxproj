@@ -406,6 +406,12 @@
 		79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */; };
 		79BEC5BF29736E4900510748 /* LatestRecentMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BEC5BE29736E4900510748 /* LatestRecentMatchView.swift */; };
 		79C9D46E2C9FD94F003A7923 /* HeroDetailViewV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C9D46D2C9FD94F003A7923 /* HeroDetailViewV3.swift */; };
+		79C9D4742C9FF377003A7923 /* SetIfNotEqual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C9D4732C9FF377003A7923 /* SetIfNotEqual.swift */; };
+		79C9D4752C9FF377003A7923 /* SetIfNotEqual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C9D4732C9FF377003A7923 /* SetIfNotEqual.swift */; };
+		79C9D4762C9FF377003A7923 /* SetIfNotEqual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C9D4732C9FF377003A7923 /* SetIfNotEqual.swift */; };
+		79C9D47C2C9FF6ED003A7923 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C9D47B2C9FF6ED003A7923 /* NotificationName.swift */; };
+		79C9D47D2C9FF6ED003A7923 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C9D47B2C9FF6ED003A7923 /* NotificationName.swift */; };
+		79C9D47E2C9FF6ED003A7923 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C9D47B2C9FF6ED003A7923 /* NotificationName.swift */; };
 		79CB52462A31B38200C5D1C6 /* LiveMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CB52452A31B38200C5D1C6 /* LiveMatchViewModel.swift */; };
 		79CB52482A31C11F00C5D1C6 /* LiveMatchTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CB52472A31C11F00C5D1C6 /* LiveMatchTimerView.swift */; };
 		79CF637C29C40B700072F4C0 /* D2AUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF637B29C40B700072F4C0 /* D2AUITests.swift */; };
@@ -716,6 +722,8 @@
 		79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconView.swift; sourceTree = "<group>"; };
 		79BEC5BE29736E4900510748 /* LatestRecentMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestRecentMatchView.swift; sourceTree = "<group>"; };
 		79C9D46D2C9FD94F003A7923 /* HeroDetailViewV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewV3.swift; sourceTree = "<group>"; };
+		79C9D4732C9FF377003A7923 /* SetIfNotEqual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetIfNotEqual.swift; sourceTree = "<group>"; };
+		79C9D47B2C9FF6ED003A7923 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		79CB52452A31B38200C5D1C6 /* LiveMatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchViewModel.swift; sourceTree = "<group>"; };
 		79CB52472A31C11F00C5D1C6 /* LiveMatchTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchTimerView.swift; sourceTree = "<group>"; };
 		79CF637929C40B6F0072F4C0 /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1060,6 +1068,7 @@
 				32B36F4926C39242002D427D /* StringVariable.swift */,
 				327B875F284D9FA100BBE1F8 /* DataHelper.swift */,
 				79EEF8BE2C8FAD990084858F /* Logger.swift */,
+				79C9D47B2C9FF6ED003A7923 /* NotificationName.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -1238,6 +1247,7 @@
 			children = (
 				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
 				79F5B5D328E3B8D900FB67E5 /* PersistenceController.swift */,
+				79C9D4732C9FF377003A7923 /* SetIfNotEqual.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -1886,6 +1896,7 @@
 				79CB52482A31C11F00C5D1C6 /* LiveMatchTimerView.swift in Sources */,
 				322B894026CE696C00DF67F9 /* DifferenceGraphView.swift in Sources */,
 				79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */,
+				79C9D4742C9FF377003A7923 /* SetIfNotEqual.swift in Sources */,
 				79A988FD2931D6FF006AC847 /* Player.swift in Sources */,
 				79837B53294C189200458529 /* PlayerRowView.swift in Sources */,
 				79D5282228DD74930070841D /* Secret.swift in Sources */,
@@ -1953,6 +1964,7 @@
 				79A989002931DCE1006AC847 /* UserProfile.swift in Sources */,
 				79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				792BFC442C8C7FA2003C4129 /* AbilityAttribute.swift in Sources */,
+				79C9D47C2C9FF6ED003A7923 /* NotificationName.swift in Sources */,
 				792E978D2C84629600234038 /* HeroListViewV2.swift in Sources */,
 				32B36F0F26C38821002D427D /* D2AApp.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
@@ -2018,6 +2030,7 @@
 				32B526CB285C0CE40099B058 /* RecentMatchesWidgetEntryView.swift in Sources */,
 				79D5282328DD74930070841D /* Secret.swift in Sources */,
 				79AA775E2C8A7BC10057CDE5 /* HeroV2.swift in Sources */,
+				79C9D4752C9FF377003A7923 /* SetIfNotEqual.swift in Sources */,
 				792BFC4F2C8D22EA003C4129 /* HeroAttribute.swift in Sources */,
 				790FBB3129C18ABC00E27106 /* StratzController.swift in Sources */,
 				79ABFA372C9A52F500DEB6E3 /* AbilityInsertFetching.swift in Sources */,
@@ -2034,6 +2047,7 @@
 				793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
 				327B87732850DA7800BBE1F8 /* AbilityCodable.swift in Sources */,
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
+				79C9D47D2C9FF6ED003A7923 /* NotificationName.swift in Sources */,
 				32F70ADB26F6090A006E9B05 /* NetworkImage.swift in Sources */,
 				32A26C51285947D3005E890F /* OpenDotaController.swift in Sources */,
 				79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
@@ -2097,6 +2111,7 @@
 				79AA09512C9D9FA60019CAE2 /* HeroTalent.swift in Sources */,
 				79D5282428DD74930070841D /* Secret.swift in Sources */,
 				32F70B1026F622C2006E9B05 /* GameMode.swift in Sources */,
+				79C9D4762C9FF377003A7923 /* SetIfNotEqual.swift in Sources */,
 				79AA775F2C8A7BC10057CDE5 /* HeroV2.swift in Sources */,
 				792BFC502C8D22EA003C4129 /* HeroAttribute.swift in Sources */,
 				790FBB3229C18ABC00E27106 /* StratzController.swift in Sources */,
@@ -2113,6 +2128,7 @@
 				32F70B1826F6294E006E9B05 /* MatchCodable.swift in Sources */,
 				793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
 				32B526D5285C1DBC0099B058 /* Extension.swift in Sources */,
+				79C9D47E2C9FF6ED003A7923 /* NotificationName.swift in Sources */,
 				32F70B0226F621ED006E9B05 /* D2AWidget.swift in Sources */,
 				32F70B1F26F6295C006E9B05 /* Color.swift in Sources */,
 				79A988F72931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,

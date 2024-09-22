@@ -18,6 +18,8 @@ struct HeroDetailViewV3: View {
     
     var body: some View {
         iPhone
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(hero.heroNameLocalized)
             .task {
                 guard let talentIDs = hero.talents?.map({ $0.abilityID }) else { return }
                 talentAbilities = Ability.fetchAbilities(ids: talentIDs, viewContext: context)

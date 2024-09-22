@@ -10,21 +10,39 @@ import Combine
 import CoreData
 
 class HeroListViewModel: ObservableObject {
-    let heroList: [Hero]
+    @Published var heroList: [Hero]
     
     @Published var searchResults: [Hero]
     
     @Published var searchString: String = ""
     @Published var gridView = true
     @Published var selectedAttribute: HeroAttribute = .whole
+    let viewContext: NSManagedObjectContext
     
     private var subscribers = Set<AnyCancellable>()
     
     init(viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
-        heroList = Hero.fetchAllHeroes(viewContext: viewContext)
+        heroList = []
+        self.viewContext = viewContext
         searchString = ""
         searchResults = []
         selectedAttribute = .whole
+        registerNotification()
+        fetchAllHeroes()
+    }
+    
+    private func fetchAllHeroes() {
+        heroList = Hero.fetchAllHeroes(viewContext: viewContext, sortDescriptors: [NSSortDescriptor(keyPath: \Hero.id, ascending: true)])
+    }
+    
+    private func registerNotification() {
+        NotificationCenter.default.publisher(for: .dataDidSave)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.fetchAllHeroes()
+            }
+            .store(in: &subscribers)
+        
         $searchString
             .combineLatest($selectedAttribute)
             .map { [weak self] searchString, attributes in
@@ -34,9 +52,7 @@ class HeroListViewModel: ObservableObject {
                     return filterHeroes
                 } else {
                     let searchedHeroes = filterHeroes.filter({ hero in
-//                        let originalName = hero.localizedName.lowercased().contains(searchString.lowercased())
                         let localizedName = hero.heroNameLocalized.lowercased().contains(searchString.lowercased())
-//                        return originalName || localizedName
                         return localizedName
                     })
                     return searchedHeroes
@@ -46,5 +62,8 @@ class HeroListViewModel: ObservableObject {
                 self?.searchResults = results
             }
             .store(in: &subscribers)
+        
+        $heroList
+            .assign(to: &$searchResults)
     }
 }
