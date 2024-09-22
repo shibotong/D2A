@@ -21,27 +21,22 @@ struct HeroImageView: View {
     init(heroID: Int, type: HeroImageType) {
         self.heroID = heroID
         self.type = type
-        image = ImageCache.readImage(type: .hero, id: searchHeroImage())
+        image = ImageCache.readImage(type: .hero, id: searchHeroImage(heroID: heroID))
     }
     
     var body: some View {
         ZStack {
-            if type == .icon || type == .vert {
-                if heroID == 0 && type == .icon {
-                    Circle()
-                        .foregroundColor(Color.label.opacity(0.3))
-                } else {
-                    Image(searchHeroImage())
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                }
+            if type == .vert {
+                Image(searchHeroImage(heroID: heroID))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
             } else {
                 if let image = image {
                     Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 } else {
-                    Image("1_full")
+                    Image(searchHeroImage(heroID: 1))
                         .renderingMode(.template)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -53,7 +48,7 @@ struct HeroImageView: View {
         }
     }
     
-    private func searchHeroImage() -> String {
+    private func searchHeroImage(heroID: Int) -> String {
         switch type {
         case .icon:
             let filename = "\(heroID.description)_icon"
@@ -77,7 +72,7 @@ struct HeroImageView: View {
             setImage(nil)
             return
         }
-        ImageCache.saveImage(newImage, type: .item, id: searchHeroImage())
+        ImageCache.saveImage(newImage, type: .item, id: searchHeroImage(heroID: heroID))
         setImage(newImage)
     }
     
@@ -102,7 +97,7 @@ struct HeroImageView: View {
         let name = hero.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
         switch type {
         case .icon:
-            let url = URL(string: "https://api.opendota.com\(hero.icon)")
+            let url = URL(string: "https://cdn.stratz.com/images/dota2/heroes/\(name)_icon.png")
             return url
         case .portrait:
             let url = URL(string: "\(IMAGE_PREFIX)/apps/dota2/videos/dota_react/heroes/renders/\(name).png")
