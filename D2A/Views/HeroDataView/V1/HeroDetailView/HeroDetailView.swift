@@ -79,7 +79,8 @@ struct HeroDetailView: View {
                 }
                 Divider()
                 if let selectedAbility = vm.selectedAbility {
-                    AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: selectedAbility))
+                    AbilityView(ability: selectedAbility,
+                                  heroName: vm.hero?.heroNameLowerCase ?? "")
                 }
             }
         }
@@ -168,8 +169,8 @@ struct HeroDetailView: View {
     @ViewBuilder
     private func buildAbilitiesV2() -> some View {
         HStack {
-            ForEach(vm.heroAbilities) { ability in
-                NavigationLink(destination: AbilityViewV3(ability: ability, heroName: vm.hero?.heroNameLowerCase ?? "")) {
+            ForEach(vm.abilities) { ability in
+                NavigationLink(destination: AbilityView(ability: ability, heroName: vm.hero?.heroNameLowerCase ?? "")) {
                     AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
                         .frame(width: 30, height: 30)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -183,7 +184,8 @@ struct HeroDetailView: View {
         HStack {
             ForEach(vm.abilities) { ability in
                 if navigation {
-                    NavigationLink(destination: AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: ability))) {
+                    NavigationLink(destination: AbilityView(ability: ability,
+                                                              heroName: vm.hero?.heroNameLowerCase ?? "")) {
                         AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
                             .frame(width: 30, height: 30)
                             .clipShape(RoundedRectangle(cornerRadius: 10))

@@ -107,12 +107,12 @@ struct AbilityViewV2: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    @ViewBuilder
-    private func buildDescription(description: String, type: ScepterType, proxy: GeometryProxy) -> some View {
-        VStack {
-            AbilityDescriptionView(width: proxy.size.width, type: type, description: description)
-        }
-    }
+//    @ViewBuilder
+//    private func buildDescription(description: String, type: ScepterType, proxy: GeometryProxy) -> some View {
+//        VStack {
+//            AbilityDescriptionView(type: type, description: description)
+//        }
+//    }
 }
 
 @available(iOS 17, *)

@@ -1,13 +1,11 @@
 //
-//  AbilityView.swift
-//  App
+//  AbilityViewV2.swift
+//  D2A
 //
-//  Created by Shibo Tong on 26/8/2022.
+//  Created by Shibo Tong on 22/9/2024.
 //
 
 import SwiftUI
-import AVKit
-import StratzAPI
 
 enum ScepterType: String {
     case scepter
@@ -27,92 +25,81 @@ enum ScepterType: String {
 }
 
 struct AbilityView: View {
-    @EnvironmentObject var dataBase: HeroDatabase
-    @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel: AbilityViewModel
-
-    var body: some View {
-        GeometryReader { proxy in
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack {
-                    AbilityTitleView(displayName: viewModel.displayName,
-                                     cd: viewModel.cd,
-                                     mc: viewModel.mc,
-                                     name: viewModel.abilityID,
-                                     url: viewModel.abilityImageURL)
-                    AbilityStatsView(behavior: viewModel.behavior,
-                                     targetTeam: viewModel.targetTeam,
-                                     bkbPierce: viewModel.bkbPierce, 
-                                     dispellable: viewModel.dispellable,
-                                     damageType: viewModel.damageType)
-//                    if let openDota = viewModel.opentDotaAbility,
-//                       let stratz = $viewModel.stratzAbility {
-//                        buildDescription(ability: openDota,
-//                                         stratz: stratz,
-//                                         proxy: proxy)
-//                    }
-                    
-                    Spacer().frame(height: 10)
-                    if let attributes = viewModel.stratzAbility?.localizedAttributes {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 5) {
-                                ForEach(attributes, id: \.self) { item in
-                                    AbilityStatsTextView(title: item.name, message: item.description)
-                                }
-                            }
-                            Spacer()
-                        }
-                    }
-                    Spacer().frame(height: 10)
-                    if let lore = viewModel.stratzAbility?.language?.lore {
-                        Text(lore)
-                            .font(.system(size: 10))
-                            .padding(8)
-                            .foregroundColor(Color(UIColor.tertiaryLabel))
-                            .background(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .foregroundColor(Color(UIColor.tertiarySystemBackground))
-                            )
-                    }
-                }
-                .padding(.vertical)
-            }
-        }
-        .padding(.horizontal)
-        .navigationBarTitleDisplayMode(.inline)
+    
+    private let ability: Ability
+    private let localisation: AbilityLocalisation?
+    private let heroName: String
+    
+    init(ability: Ability,
+         language: String = languageCode.rawValue,
+         heroName: String) {
+        self.ability = ability
+        self.localisation = ability.localisation(language: language)
+        self.heroName = heroName
     }
     
-    @ViewBuilder private func buildDescription(ability: AbilityCodable,
-                                               stratz: LocaliseQuery.Data.Constants.Ability,
-                                               proxy: GeometryProxy) -> some View {
+    var body: some View {
+        ScrollView {
+            VStack {
+                title
+                stats
+                descriptions
+                if let lore = localisation?.lore {
+                    Text(lore)
+                        .font(.system(size: 10))
+                        .padding(8)
+                        .foregroundColor(Color(UIColor.tertiaryLabel))
+                        .background(
+                            RoundedRectangle(cornerRadius: 5)
+                                .foregroundColor(Color(UIColor.tertiarySystemBackground))
+                        )
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+    
+    private var title: some View {
+        AbilityTitleView(displayName: localisation?.displayName ?? "",
+                         cd: ability.cd,
+                         mc: ability.mc,
+                         name: ability.name,
+                         url: ability.imageURL)
+    }
+    
+    private var stats: some View {
+        AbilityStatsView(behavior: ability.behaviour,
+                         targetTeam: ability.targetTeam,
+                         bkbPierce: ability.bkbPierce,
+                         dispellable: ability.dispellable,
+                         damageType: ability.dmgType)
+    }
+    
+    private var descriptions: some View {
         VStack {
-            let description = stratz.language?.description?.compactMap { $0 }.joined(separator: "\n") ?? ""
-            if dataBase.isScepterSkill(ability: ability, heroID: viewModel.heroID) {
-                AbilityDescriptionView(width: proxy.size.width, type: .scepter, description: description, player: viewModel.scepterVideo)
-            } else if dataBase.isShardSkill(ability: ability, heroID: viewModel.heroID) {
-                AbilityDescriptionView(width: proxy.size.width, type: .shard, description: description, player: viewModel.shardVideo)
-            } else {
-                AbilityDescriptionView(width: proxy.size.width, type: .non, description: description, player: viewModel.abilityVideo)
-                if let scepterDesc = stratz.language?.aghanimDescription {
-                    AbilityDescriptionView(width: proxy.size.width, type: .scepter, description: scepterDesc, player: viewModel.scepterVideo)
-                }
-                if let shardDesc = stratz.language?.shardDescription {
-                    AbilityDescriptionView(width: proxy.size.width, type: .shard, description: shardDesc, player: viewModel.shardVideo)
-                }
+            if let description = localisation?.abilityDescription {
+                AbilityDescriptionView(type: .non, description: description, name: ability.name, heroName: heroName)
+            }
+            
+            if let scepter = localisation?.scepter {
+                AbilityDescriptionView(type: .scepter, description: scepter, name: ability.name, heroName: heroName)
+            }
+            
+            if let shard = localisation?.shard {
+                AbilityDescriptionView(type: .shard, description: shard, name: ability.name, heroName: heroName)
             }
         }
     }
 }
 
-struct AbilityView_Previews: PreviewProvider {
-    static let ability = HeroDatabase.preview.fetchOpenDotaAbility(name: "antimage_name_break")
-    static var previews: some View {
-        Group {
-            NavigationView {
-                AbilityView(viewModel: AbilityViewModel(heroID: 1, ability: ability))
-                    .environmentObject(HeroDatabase.preview)
-            }
-            .previewDevice(.iPhone)
-        }
-    }
+#Preview {
+    let previewContext = PersistenceController.preview.container.viewContext
+    let ability = Ability(context: previewContext)
+    ability.name = "antimage_mana_break"
+    ability.abilityID = 1
+    ability.mc = "10"
+    
+    let localisation = AbilityLocalisation(language: "ENGLISH", displayName: "Antimage Mana Break", lore: "A modified technique of the Turstarkuri monks' peaceful ways is to turn magical energies on their owner.", description: "Burns an opponent's mana on each attack and deals damage equal to a percentage of the mana burnt. Enemies with no mana left are temporarily slowed.")
+    ability.localisations = [localisation]
+    return AbilityView(ability: ability, language: "ENGLISH", heroName: "antimage")
 }
