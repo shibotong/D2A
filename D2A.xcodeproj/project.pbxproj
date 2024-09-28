@@ -383,7 +383,6 @@
 		79AA094F2C9D9FA60019CAE2 /* HeroTalent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA094E2C9D9FA60019CAE2 /* HeroTalent.swift */; };
 		79AA09502C9D9FA60019CAE2 /* HeroTalent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA094E2C9D9FA60019CAE2 /* HeroTalent.swift */; };
 		79AA09512C9D9FA60019CAE2 /* HeroTalent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA094E2C9D9FA60019CAE2 /* HeroTalent.swift */; };
-		79AA09572C9DAA320019CAE2 /* HeroListViewV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA09562C9DAA320019CAE2 /* HeroListViewV3.swift */; };
 		79AA095B2C9F85140019CAE2 /* AbilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA095A2C9F85140019CAE2 /* AbilityView.swift */; };
 		79AA095D2C9FBCB30019CAE2 /* AbilityDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA095C2C9FBCB30019CAE2 /* AbilityDescriptionView.swift */; };
 		79AA775E2C8A7BC10057CDE5 /* HeroV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF2AAE2C8A7391004D2146 /* HeroV2.swift */; };
@@ -704,7 +703,6 @@
 		79AA09462C9D97F90019CAE2 /* HeroLocalisation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroLocalisation.swift; sourceTree = "<group>"; };
 		79AA094A2C9D9E650019CAE2 /* HeroRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroRole.swift; sourceTree = "<group>"; };
 		79AA094E2C9D9FA60019CAE2 /* HeroTalent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroTalent.swift; sourceTree = "<group>"; };
-		79AA09562C9DAA320019CAE2 /* HeroListViewV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListViewV3.swift; sourceTree = "<group>"; };
 		79AA095A2C9F85140019CAE2 /* AbilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityView.swift; sourceTree = "<group>"; };
 		79AA095C2C9FBCB30019CAE2 /* AbilityDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityDescriptionView.swift; sourceTree = "<group>"; };
 		79AA77642C8A7D490057CDE5 /* Backend 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -1262,7 +1260,6 @@
 			isa = PBXGroup;
 			children = (
 				796BF20329F5536000555C64 /* HeroListView.swift */,
-				79AA09562C9DAA320019CAE2 /* HeroListViewV3.swift */,
 				327B87772852263300BBE1F8 /* HeroListViewModel.swift */,
 				792BFC4D2C8D22EA003C4129 /* HeroAttribute.swift */,
 			);
@@ -1978,7 +1975,6 @@
 				32B36F2926C38852002D427D /* MatchCodable.swift in Sources */,
 				32D1605A26F304DC00657449 /* StoreView.swift in Sources */,
 				794B724329862294000059E4 /* ItemView.swift in Sources */,
-				79AA09572C9DAA320019CAE2 /* HeroListViewV3.swift in Sources */,
 				3201BC3F26F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */,
 				79800DA4294C2E1000662E2F /* NSNumber.swift in Sources */,

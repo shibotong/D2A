@@ -26,11 +26,6 @@ struct HeroImageView: View {
     
     var body: some View {
         ZStack {
-            if type == .vert {
-                Image(searchHeroImage(heroID: heroID))
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            } else {
                 if let image = image {
                     Image(uiImage: image)
                         .resizable()
@@ -41,7 +36,6 @@ struct HeroImageView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 }
-            }
         }
         .task(id: heroID) {
             await fetchImage()
@@ -106,7 +100,8 @@ struct HeroImageView: View {
             let url = URL(string: "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/\(name).png")
             return url
         case .vert:
-            return nil
+            let url = URL(string: "https://cdn.stratz.com/images/dota2/heroes/\(name)_vert.png")
+            return url
         }
     }
 }
