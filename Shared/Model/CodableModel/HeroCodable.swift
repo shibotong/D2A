@@ -91,6 +91,40 @@ class HeroCodable: Identifiable, Decodable {
         case cmEnabled = "cm_enabled"
         case turnRate = "turn_rate"
     }
+    
+    required init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(Int.self, forKey: .id)
+        
+        self.name = (try? container.decode(String.self, forKey: .name)) ?? ""
+        self.localizedName = (try? container.decode(String.self, forKey: .localizedName)) ?? ""
+        self.primaryAttr = (try? container.decode(String.self, forKey: .primaryAttr)) ?? ""
+        self.attackType = (try? container.decode(String.self, forKey: .attackType)) ?? ""
+        self.roles = (try? container.decode([String].self, forKey: .roles)) ?? []
+        self.legs = (try? container.decodeIfPresent(Int.self, forKey: .legs)) ?? 0
+        self.img = (try? container.decode(String.self, forKey: .img)) ?? ""
+        self.icon = (try? container.decode(String.self, forKey: .icon)) ?? ""
+        self.baseHealth = (try? container.decode(Int32.self, forKey: .baseHealth)) ?? 0
+        self.baseHealthRegen = (try? container.decode(Double.self, forKey: .baseHealthRegen)) ?? 0
+        self.baseMana = (try? container.decode(Int32.self, forKey: .baseMana)) ?? 0
+        self.baseManaRegen = (try? container.decode(Double.self, forKey: .baseManaRegen)) ?? 0
+        self.baseArmor = (try? container.decode(Double.self, forKey: .baseArmor)) ?? 0
+        self.baseMr = (try? container.decode(Int32.self, forKey: .baseMr)) ?? 0
+        self.baseAttackMin = (try? container.decode(Int32.self, forKey: .baseAttackMin)) ?? 0
+        self.baseAttackMax = (try? container.decode(Int32.self, forKey: .baseAttackMax)) ?? 0
+        self.baseStr = (try? container.decode(Int32.self, forKey: .baseStr)) ?? 0
+        self.baseAgi = (try? container.decode(Int32.self, forKey: .baseAgi)) ?? 0
+        self.baseInt = (try? container.decode(Int32.self, forKey: .baseInt)) ?? 0
+        self.strGain = (try? container.decode(Double.self, forKey: .strGain)) ?? 0
+        self.agiGain = (try? container.decode(Double.self, forKey: .agiGain)) ?? 0
+        self.intGain = (try? container.decode(Double.self, forKey: .intGain)) ?? 0
+        self.attackRange = (try? container.decode(Int32.self, forKey: .attackRange)) ?? 0
+        self.projectileSpeed = (try? container.decode(Int32.self, forKey: .projectileSpeed)) ?? 0
+        self.attackRate = (try? container.decode(Double.self, forKey: .attackRate)) ?? 0
+        self.moveSpeed = (try? container.decode(Int32.self, forKey: .moveSpeed)) ?? 0
+        self.cmEnabled = (try? container.decode(Bool.self, forKey: .cmEnabled)) ?? false
+        self.turnRate = try? container.decodeIfPresent(Double.self, forKey: .turnRate)
+    }
 }
 
 class HeroAbility: Decodable {
