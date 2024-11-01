@@ -20,6 +20,7 @@ public struct MatchLiveRequestType: InputObject {
     tiers: GraphQLNullable<[GraphQLEnum<LeagueTier>?]> = nil,
     lastPlaybackEventOnly: GraphQLNullable<Bool> = nil,
     orderBy: GraphQLNullable<GraphQLEnum<MatchLiveRequestOrderBy>> = nil,
+    isLeague: GraphQLNullable<Bool> = nil,
     take: GraphQLNullable<Int> = nil,
     skip: GraphQLNullable<Int> = nil
   ) {
@@ -33,6 +34,7 @@ public struct MatchLiveRequestType: InputObject {
       "tiers": tiers,
       "lastPlaybackEventOnly": lastPlaybackEventOnly,
       "orderBy": orderBy,
+      "isLeague": isLeague,
       "take": take,
       "skip": skip
     ])
@@ -90,6 +92,12 @@ public struct MatchLiveRequestType: InputObject {
   public var orderBy: GraphQLNullable<GraphQLEnum<MatchLiveRequestOrderBy>> {
     get { __data["orderBy"] }
     set { __data["orderBy"] = newValue }
+  }
+
+  /// Whether the match is a league match or not.
+  public var isLeague: GraphQLNullable<Bool> {
+    get { __data["isLeague"] }
+    set { __data["isLeague"] = newValue }
   }
 
   /// The amount to have returned in your query. The maximum of this is always dynamic. Limit : 

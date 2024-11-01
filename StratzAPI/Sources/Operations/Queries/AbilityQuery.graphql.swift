@@ -8,7 +8,7 @@ public class AbilityQuery: GraphQLQuery {
   public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(
       #"""
-      query Ability($language: Language) {
+      query Ability($language: LanguageEnum) {
         constants {
           __typename
           abilities(language: $language) {
@@ -36,9 +36,9 @@ public class AbilityQuery: GraphQLQuery {
       """#
     ))
 
-  public var language: GraphQLNullable<GraphQLEnum<Language>>
+  public var language: GraphQLNullable<GraphQLEnum<LanguageEnum>>
 
-  public init(language: GraphQLNullable<GraphQLEnum<Language>>) {
+  public init(language: GraphQLNullable<GraphQLEnum<LanguageEnum>>) {
     self.language = language
   }
 
