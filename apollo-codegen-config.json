@@ -1,28 +1,40 @@
 {
   "schemaName": "StratzAPI",
-  "input" : {
-    "operationSearchPaths" : [
+  "input": {
+    "operationSearchPaths": [
       "**/Shared/GraphQL/*.graphql"
     ],
-    "schemaSearchPaths" : [
+    "schemaSearchPaths": [
       "**/Shared/GraphQL/*.graphqls"
     ]
   },
-  "output" : {
-    "testMocks" : {
-      "none" : {
+  "output": {
+    "testMocks": {
+      "none": {}
+    },
+    "schemaTypes": {
+      "path": "./StratzAPI",
+      "moduleType": {
+        "swiftPackageManager": {}
       }
     },
-    "schemaTypes" : {
-      "path" : "./StratzAPI",
-      "moduleType" : {
-        "swiftPackageManager" : {
-        }
-      }
-    },
-    "operations" : {
-      "inSchemaModule" : {
-      }
+    "operations": {
+      "inSchemaModule": {}
     }
+  },
+  "schemaDownloadConfiguration": {
+    "downloadMethod": {
+      "introspection": {
+        "endpointURL": "https://api.stratz.com/graphql",
+        "httpMethod": {
+          "POST": {}
+        },
+        "includeDeprecatedInputValues": false,
+        "outputFormat": "SDL"
+      }
+    },
+    "downloadTimeout": 60,
+    "headers": [],
+    "outputPath": "./Shared/GraphQL/schema.graphqls"
   }
 }
