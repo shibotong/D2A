@@ -1,4 +1,4 @@
-query Ability($language: Language) {
+query Ability($language: LanguageEnum) {
   constants {
     abilities(language: $language) {
       id

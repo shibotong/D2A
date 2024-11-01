@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public enum Language: String, EnumType {
+public enum LanguageEnum: String, EnumType {
   case english = "ENGLISH"
   case brazilian = "BRAZILIAN"
   case bulgarian = "BULGARIAN"

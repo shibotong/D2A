@@ -29,4 +29,5 @@ public enum GameModeEnumType: String, EnumType {
   case allPickRanked = "ALL_PICK_RANKED"
   case turbo = "TURBO"
   case mutation = "MUTATION"
+  case unknown = "UNKNOWN"
 }
