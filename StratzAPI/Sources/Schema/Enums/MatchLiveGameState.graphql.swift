@@ -15,5 +15,7 @@ public enum MatchLiveGameState: String, EnumType {
   case teamShowcase = "TEAM_SHOWCASE"
   case customGameSetup = "CUSTOM_GAME_SETUP"
   case waitForMapToLoad = "WAIT_FOR_MAP_TO_LOAD"
+  case scenarioSetup = "SCENARIO_SETUP"
+  case playerDraft = "PLAYER_DRAFT"
   case last = "LAST"
 }
