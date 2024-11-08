@@ -22,7 +22,7 @@ let isTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath
 /// True is running UITest
 let uiTesting = ProcessInfo.processInfo.arguments.contains("uitest")
 
-let languageCode: Language = {
+let languageCode: StratzAPI.LanguageEnum = {
     switch currentLanguage {
     case "en":
         return .english

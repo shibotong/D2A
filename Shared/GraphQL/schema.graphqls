@@ -4,6 +4,11 @@ schema {
   subscription: DotaSubscription
 }
 
+"""
+A directive used by the Apollo iOS client to annotate operations or fragments that should be used exclusively for generating local cache mutations instead of as standard operations.
+"""
+directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
+
 type DotaQuery {
   """Find match details by the match id. id is a required input field."""
   match(
@@ -176,6 +181,7 @@ type MatchType {
   bottomLaneOutcome: LaneOutcomeEnums
   midLaneOutcome: LaneOutcomeEnums
   topLaneOutcome: LaneOutcomeEnums
+  didRequestDownload: Boolean
 }
 
 scalar Long
@@ -223,6 +229,7 @@ enum GameModeEnumType {
   ALL_PICK_RANKED
   TURBO
   MUTATION
+  UNKNOWN
 }
 
 type LeagueType {
@@ -270,6 +277,11 @@ type LeagueType {
     When searching for league matches, an array of the stage type ids the match must be in. Stages: Open Qualifers = 1, Closed Qualifers = 2, Champions Qualifers = 3, Group Stage = 4, Main Event = 5
     """
     leagueStageTypeIds: [LeagueStage]
+
+    """
+    A series id to include in this query, excluding all results that do not have this series id.
+    """
+    seriesId: Int
 
     """
     A team id to include in this query, excluding all results that do not have this team id.
@@ -383,6 +395,7 @@ enum LeagueNodeGroupTypeEnum {
   BRACKET_DOUBLE_ALL_WINNER
   SHOWMATCH
   GSL
+  PLACEMENT
 }
 
 type LeagueNodeType {
@@ -507,6 +520,8 @@ type SteamAccountType {
   lastMatchDateTime: Long
   lastMatchRegionId: Byte
   battlepass: [SteamAccountBattlePassType]
+  guild: GuildMemberType
+  isCaster: Boolean
 }
 
 type ProSteamAccountType {
@@ -521,7 +536,7 @@ type ProSteamAccountType {
   totalEarnings: Int!
   birthday: Long
   romanizedRealName: String
-  roles: Byte
+  roles: Short
   aliases: [String]
   statuses: Byte
   twitterLink: String
@@ -568,11 +583,59 @@ type SteamAccountBattlePassType {
   level: Int
 }
 
+type GuildMemberType {
+  guildId: Int
+  steamAccountId: Int
+  joinDateTime: Long
+  guild: GuildType
+  steamAccount: SteamAccountType
+  matchCount: Int
+  winCount: Int
+  imp: Int
+}
+
+type GuildType {
+  id: Int
+  motd: String
+  name: String
+  tag: String
+  createdDateTime: Long
+  language: Byte
+  flags: Int
+  logo: String
+  region: Byte
+  description: String
+  requiredRank: Byte
+  primaryColor: Byte
+  secondaryColor: Byte
+  pattern: Byte
+  points: Int
+  pastWeeklyRank: Int
+  pastWeeklyPercentile: Byte
+  currentPercentile: Byte
+  lastUpdateDateTime: Long
+  members: [GuildMemberType]
+  matches(
+    """
+    The amount of data to skip before collecting your query. This is useful for Paging.
+    """
+    skip: Int
+
+    """
+    The amount to have returned in your query. The maximum of this is always dynamic. Limit : 
+    """
+    take: Int
+  ): [MatchType]
+  memberCount: Byte
+  totalBattlePassLevels: Int
+  rank: Byte
+}
+
 input TeamMatchesRequestType {
   """
   The steam account id to include in this query, excluding all results that do not have this steam account id.
   """
-  steamAccountId: Byte
+  steamAccountId: Long
 
   """An array of Dota match ids to include in this query."""
   matchIds: [Long]
@@ -698,7 +761,7 @@ enum FindMatchPlayerList {
 
 type SeriesType {
   id: Long!
-  type: Series
+  type: SeriesEnum
   teamOneId: Int
   teamTwoId: Int
   leagueId: Int
@@ -713,7 +776,7 @@ type SeriesType {
   node: LeagueNodeType
 }
 
-enum Series {
+enum SeriesEnum {
   BEST_OF_ONE
   BEST_OF_THREE
   BEST_OF_FIVE
@@ -867,6 +930,8 @@ type CaptainJackIdentityPublicProfileType {
   twitch: String
   youTube: String
   isAdmin: Boolean
+  steamAccountId: Long
+  steamAccount: SteamAccountType
 }
 
 scalar Guid
@@ -881,9 +946,16 @@ type SteamAccountSeasonRankType {
 type SteamAccountSeasonLeaderBoardRankType {
   steamAccountId: Long
   seasonRankId: Byte
-  actionsPerMinute: [Int]
-  seasonLeaderBoardDivisionId: Byte
+  asOfDateTime: Long
+  seasonLeaderBoardDivisionId: LeaderboardDivision
   rank: Short
+}
+
+enum LeaderboardDivision {
+  AMERICAS
+  SE_ASIA
+  EUROPE
+  CHINA
 }
 
 type PlayerBadgeType {
@@ -895,54 +967,6 @@ type PlayerBadgeType {
 type SteamAccountNameType {
   name: String
   lastSeenDateTime: Long
-}
-
-type GuildMemberType {
-  guildId: Int
-  steamAccountId: Int
-  joinDateTime: Long
-  guild: GuildType
-  steamAccount: SteamAccountType
-  matchCount: Int
-  winCount: Int
-  imp: Int
-}
-
-type GuildType {
-  id: Int
-  motd: String
-  name: String
-  tag: String
-  createdDateTime: Long
-  language: Byte
-  flags: Int
-  logo: String
-  region: Byte
-  description: String
-  requiredRank: Byte
-  primaryColor: Byte
-  secondaryColor: Byte
-  pattern: Byte
-  points: Int
-  pastWeeklyRank: Int
-  pastWeeklyPercentile: Byte
-  currentPercentile: Byte
-  lastUpdateDateTime: Long
-  members: [GuildMemberType]
-  matches(
-    """
-    The amount of data to skip before collecting your query. This is useful for Paging.
-    """
-    skip: Int
-
-    """
-    The amount to have returned in your query. The maximum of this is always dynamic. Limit : 
-    """
-    take: Int
-  ): [MatchType]
-  memberCount: Byte
-  totalBattlePassLevels: Int
-  rank: Byte
 }
 
 type PlayerCardHoverType {
@@ -1011,10 +1035,17 @@ type PlayerPerformanceCompositionHeroType {
 }
 
 type PlayerPerformancePositionType {
-  roleType: Byte
+  roleType: MatchPlayerRoleType
   roleMatchCount: Int!
   roleWinCount: Int!
   lanes: [PlayerPerformancePositionObjectType]
+}
+
+enum MatchPlayerRoleType {
+  CORE
+  LIGHT_SUPPORT
+  HARD_SUPPORT
+  UNKNOWN
 }
 
 type PlayerPerformancePositionObjectType {
@@ -1036,6 +1067,11 @@ input PlayerHeroPerformanceMatchesRequestType {
   A league id to include in this query, excluding all results that do not have this league id.
   """
   leagueId: Int
+
+  """
+  An array of league ids to include in this query, excluding all results that do not include one of these leagues.
+  """
+  leagueIds: [Int]
 
   """
   A series id to include in this query, excluding all results that do not have this series id.
@@ -1165,9 +1201,27 @@ input PlayerHeroPerformanceMatchesRequestType {
   withFriendSteamAccountIds: [Long]
 
   """
+  An array of steam account ids found on the enemy team to include in this query, excluding all results that do not include one of these steam accounts found on the enemy team.
+  """
+  withEnemySteamAccountIds: [Long]
+
+  """
   An array of hero ids found on your team to include in this query, excluding all results that do not include one of these heroes found on your team.
   """
   withFriendHeroIds: [Int]
+
+  """
+  An array of hero ids found against your team to include in this query, excluding all results that do not include one of these heroes found against team.
+  """
+  withEnemyHeroIds: [Int]
+
+  """The amount of matches to have returned in your query. Max : """
+  take: Int
+
+  """
+  The amount of matches to skip before collecting your query. Hint: Paging
+  """
+  skip: Int
 }
 
 enum FilterMatchGroupOrderByEnum {
@@ -1209,6 +1263,7 @@ type HeroType {
   roles: [HeroRoleType]
   language: HeroLanguageType
   talents: [HeroTalentType]
+  facets: [HeroFacetType]
   stats: HeroStatType
 }
 
@@ -1216,7 +1271,12 @@ type HeroAbilityType {
   slot: Byte!
   gameVersionId: Short!
   abilityId: Short!
-  ability: AbilityType
+  ability(
+    """
+    The language id to include in this query, excluding all results that do not have this language.
+    """
+    language: LanguageEnum
+  ): AbilityType
 }
 
 type AbilityType {
@@ -1271,9 +1331,11 @@ type AbilityStatType {
   duration: String
   charges: String
   chargeRestoreTime: String
+  hasShardUpgrade: Boolean
   isGrantedByShard: Boolean
   dispellable: AbilityDispellEnum
   linkedAbilityId: Short
+  isInnate: Boolean
 }
 
 enum AbilityDispellEnum {
@@ -1288,6 +1350,36 @@ type AbilityAttributeType {
   value: String
   linkedSpecialBonusAbilityId: Short
   requiresScepter: Boolean
+}
+
+enum LanguageEnum {
+  ENGLISH
+  BRAZILIAN
+  BULGARIAN
+  CZECH
+  DANISH
+  DUTCH
+  FINNISH
+  FRENCH
+  GERMAN
+  GREEK
+  HUNGARIAN
+  ITALIAN
+  JAPANESE
+  KOREAN
+  KOREANA
+  NORWEGIAN
+  POLISH
+  PORTUGUESE
+  ROMANIAN
+  RUSSIAN
+  S_CHINESE
+  SPANISH
+  SWEDISH
+  T_CHINESE
+  THAI
+  TURKISH
+  UKRAINIAN
 }
 
 type HeroRoleType {
@@ -1315,6 +1407,12 @@ type HeroLanguageType {
 
 type HeroTalentType {
   abilityId: Short
+  slot: Byte
+}
+
+type HeroFacetType {
+  abilityId: Short
+  facetId: Short
   slot: Byte
 }
 
@@ -1348,6 +1446,14 @@ type HeroStatType {
   visionDaytimeRange: Float
   visionNighttimeRange: Float
   complexity: Byte
+  primaryAttributeEnum: HeroPrimaryAttributeType
+}
+
+enum HeroPrimaryAttributeType {
+  STR
+  AGI
+  INT
+  ALL
 }
 
 type PlayerHeroesPerformanceScoreType {
@@ -1366,6 +1472,11 @@ input PlayerMatchesRequestType {
   A league id to include in this query, excluding all results that do not have this league id.
   """
   leagueId: Int
+
+  """
+  A league id to include in this query, excluding all results that do not have this league id.
+  """
+  leagueIds: [Int]
 
   """
   A series id to include in this query, excluding all results that do not have this series id.
@@ -1481,6 +1592,17 @@ input PlayerMatchesRequestType {
   withFriendHeroIds: [Int]
 
   """
+  An array of hero ids found against your team to include in this query, excluding all results that do not include one of these heroes found against team.
+  """
+  withEnemyHeroIds: [Int]
+
+  """Whether the match was a victory or not for the specified player."""
+  isVictory: Boolean
+
+  """Whether the specified player was on Radiant or not."""
+  isRadiant: Boolean
+
+  """
   Requests matches where the match is at least than this input.  See GameVersion API call for a list of patch ids. Default is null and there is no minimum.
   """
   minGameVersionId: Int
@@ -1489,6 +1611,12 @@ input PlayerMatchesRequestType {
   Requests matches where the match is lower than this input.  See GameVersion API call for a list of patch ids. Default is null and there is no maximum.
   """
   maxGameVersionId: Int
+
+  """Player must have at least this IMP for the Match to show."""
+  minImp: Int
+
+  """Player must have less than this IMP for the Match to show."""
+  maxImp: Int
 
   """
   Determines if you want a single player returned, only the player by SteamAccountId, or if you want all 10 players in the match.
@@ -1513,7 +1641,7 @@ input PlayerMatchesRequestType {
   orderBy: FindMatchPlayerOrderBy
 }
 
-union MatchGroupByType = MatchGroupByHeroType | MatchGroupByFactionType | MatchGroupByKillsType | MatchGroupByDeathsType | MatchGroupByAssistsType | MatchGroupByIsLeaverType | MatchGroupByLevelType | MatchGroupByIsPartyType | MatchGroupByIsRandomType | MatchGroupByLaneType | MatchGroupByRoleType | MatchGroupByIsIntentionalFeedingType | MatchGroupByAwardType | MatchGroupByRoamLaneType | MatchGroupByIsVictoryType | MatchGroupByDurationMinutesType | MatchGroupByClusterType | MatchGroupByRegionType | MatchGroupByLobbyTypeType | MatchGroupByIsLeagueType | MatchGroupByIsSeriesType | MatchGroupByGameModeType | MatchGroupByIsStatsType | MatchGroupByGameVersionType | MatchGroupByTeamType | MatchGroupByHeroPerformanceType | MatchGroupBySteamAccountIdType | MatchGroupBySteamAccountIdHeroIdType | MatchGroupBySteamAccountIdWithTeamType | MatchGroupBySteamAccountIdHeroIdWithTeamType | MatchGroupBySteamAccountIdAgainstTeamType | MatchGroupBySteamAccountIdHeroIdAgainstTeamType | MatchGroupByLeagueIdType | MatchGroupByPositionType | MatchGroupByDateDayType | MatchGroupByTotalKillsType | MatchGroupByGoldPerMinuteType
+union MatchGroupByType = MatchGroupByHeroType | MatchGroupByFactionType | MatchGroupByKillsType | MatchGroupByDeathsType | MatchGroupByAssistsType | MatchGroupByIsLeaverType | MatchGroupByLevelType | MatchGroupByIsPartyType | MatchGroupByIsRandomType | MatchGroupByLaneType | MatchGroupByRoleType | MatchGroupByIsIntentionalFeedingType | MatchGroupByAwardType | MatchGroupByRoamLaneType | MatchGroupByIsVictoryType | MatchGroupByDurationMinutesType | MatchGroupByClusterType | MatchGroupByRegionType | MatchGroupByLobbyTypeType | MatchGroupByIsLeagueType | MatchGroupByIsSeriesType | MatchGroupByGameModeType | MatchGroupByIsStatsType | MatchGroupByGameVersionType | MatchGroupByTeamType | MatchGroupByHeroPerformanceType | MatchGroupBySteamAccountIdType | MatchGroupBySteamAccountIdHeroIdType | MatchGroupBySteamAccountIdWithTeamType | MatchGroupBySteamAccountIdHeroIdWithTeamType | MatchGroupBySteamAccountIdAgainstTeamType | MatchGroupBySteamAccountIdHeroIdAgainstTeamType | MatchGroupByLeagueIdType | MatchGroupByPositionType | MatchGroupByDateDayType | MatchGroupByDateDayHeroType | MatchGroupByTotalKillsType | MatchGroupByGoldPerMinuteType | MatchGroupByHourType
 
 type MatchGroupByHeroType {
   heroId: Long
@@ -1532,6 +1660,7 @@ type MatchGroupByHeroType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1547,6 +1676,7 @@ type MatchGroupByFactionType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1562,6 +1692,7 @@ type MatchGroupByKillsType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1577,6 +1708,7 @@ type MatchGroupByDeathsType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1592,6 +1724,7 @@ type MatchGroupByAssistsType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1607,6 +1740,7 @@ type MatchGroupByIsLeaverType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1622,6 +1756,7 @@ type MatchGroupByLevelType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1637,6 +1772,7 @@ type MatchGroupByIsPartyType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1652,6 +1788,7 @@ type MatchGroupByIsRandomType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1667,6 +1804,7 @@ type MatchGroupByLaneType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1691,15 +1829,9 @@ type MatchGroupByRoleType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
-}
-
-enum MatchPlayerRoleType {
-  CORE
-  LIGHT_SUPPORT
-  HARD_SUPPORT
-  UNKNOWN
 }
 
 type MatchGroupByIsIntentionalFeedingType {
@@ -1713,6 +1845,7 @@ type MatchGroupByIsIntentionalFeedingType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1728,6 +1861,7 @@ type MatchGroupByAwardType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1750,6 +1884,7 @@ type MatchGroupByRoamLaneType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1765,6 +1900,7 @@ type MatchGroupByIsVictoryType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1780,6 +1916,7 @@ type MatchGroupByDurationMinutesType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1795,6 +1932,7 @@ type MatchGroupByClusterType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1810,6 +1948,7 @@ type MatchGroupByRegionType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1825,6 +1964,7 @@ type MatchGroupByLobbyTypeType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1840,6 +1980,7 @@ type MatchGroupByIsLeagueType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1855,6 +1996,7 @@ type MatchGroupByIsSeriesType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1870,6 +2012,7 @@ type MatchGroupByGameModeType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1885,6 +2028,7 @@ type MatchGroupByIsStatsType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1900,6 +2044,7 @@ type MatchGroupByGameVersionType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1916,12 +2061,14 @@ type MatchGroupByTeamType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
 
 type MatchGroupByHeroPerformanceType {
-  heroPeroformance: Long
+  heroId: Short
+  position: MatchPlayerPositionType
   matchCount: Int
   winCount: Int
   avgImp: Int
@@ -1931,6 +2078,7 @@ type MatchGroupByHeroPerformanceType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1947,6 +2095,7 @@ type MatchGroupBySteamAccountIdType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1970,6 +2119,7 @@ type MatchGroupBySteamAccountIdHeroIdType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -1986,6 +2136,7 @@ type MatchGroupBySteamAccountIdWithTeamType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -2009,6 +2160,7 @@ type MatchGroupBySteamAccountIdHeroIdWithTeamType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -2025,6 +2177,7 @@ type MatchGroupBySteamAccountIdAgainstTeamType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -2048,6 +2201,7 @@ type MatchGroupBySteamAccountIdHeroIdAgainstTeamType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -2064,6 +2218,7 @@ type MatchGroupByLeagueIdType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -2079,6 +2234,7 @@ type MatchGroupByPositionType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -2094,6 +2250,30 @@ type MatchGroupByDateDayType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
+  lastMatchDateTime: Long
+  firstMatchDateTime: Long
+}
+
+type MatchGroupByDateDayHeroType {
+  dateDay: Long
+  heroId: Long
+  hero(
+    """
+    The game version id to include in this query, excluding all results that do not have this game version.
+    """
+    gameVersionId: Short!
+  ): HeroType
+  matchCount: Int
+  winCount: Int
+  avgImp: Int
+  avgGoldPerMinute: Int
+  avgExperiencePerMinute: Int
+  avgKDA: Float
+  avgKills: Float
+  avgDeaths: Float
+  avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -2109,6 +2289,7 @@ type MatchGroupByTotalKillsType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
@@ -2124,11 +2305,33 @@ type MatchGroupByGoldPerMinuteType {
   avgKills: Float
   avgDeaths: Float
   avgAssists: Float
+  avgTowerDamage: Float
+  lastMatchDateTime: Long
+  firstMatchDateTime: Long
+}
+
+type MatchGroupByHourType {
+  hour: Short
+  matchCount: Int
+  winCount: Int
+  avgImp: Int
+  avgGoldPerMinute: Int
+  avgExperiencePerMinute: Int
+  avgKDA: Float
+  avgKills: Float
+  avgDeaths: Float
+  avgAssists: Float
+  avgTowerDamage: Float
   lastMatchDateTime: Long
   firstMatchDateTime: Long
 }
 
 input PlayerMatchesGroupByRequestType {
+  """
+  Determines if you want a single player returned, only the player by SteamAccountId, or if you want all 10 players in the match.
+  """
+  playerList: FindMatchPlayerList!
+
   """
   Only used when doing matchesGroupBy endpoint.  This is how the data will be grouped and makes your return Id field.
   """
@@ -2141,6 +2344,11 @@ input PlayerMatchesGroupByRequestType {
   A league id to include in this query, excluding all results that do not have this league id.
   """
   leagueId: Int
+
+  """
+  A league id to include in this query, excluding all results that do not have this league id.
+  """
+  leagueIds: [Int]
 
   """
   A series id to include in this query, excluding all results that do not have this series id.
@@ -2166,6 +2374,9 @@ input PlayerMatchesGroupByRequestType {
   The end DateTime of the Dota match(es) to include in this query, represented in unix seconds.
   """
   endDateTime: Long
+
+  """Whether the match is a league match or not."""
+  isLeague: Boolean
 
   """
   An array of game mode ids to include in this query, excluding all results that do not include one of these game modes.
@@ -2230,6 +2441,12 @@ input PlayerMatchesGroupByRequestType {
   """Include all matches that are party games, excluding all others."""
   isParty: Boolean
 
+  """Whether the match was a victory or not for the specified player."""
+  isVictory: Boolean
+
+  """Whether the specified player was on Radiant or not."""
+  isRadiant: Boolean
+
   """
   STRATZ gives 3 players in each game an award for playing well. MVP, Top Core, Top Support (enum MatchPlayerAwardType). If you include a query of 'steamAccountId' then it will require that player to have gotten at least 1 of these awards for each match result.
   """
@@ -2241,9 +2458,19 @@ input PlayerMatchesGroupByRequestType {
   withFriendSteamAccountIds: [Long]
 
   """
+  An array of steam account ids found on the enemy team to include in this query, excluding all results that do not include one of these steam accounts found on the enemy team.
+  """
+  withEnemySteamAccountIds: [Long]
+
+  """
   An array of hero ids found on your team to include in this query, excluding all results that do not include one of these heroes found on your team.
   """
   withFriendHeroIds: [Int]
+
+  """
+  An array of hero ids found against your team to include in this query, excluding all results that do not include one of these heroes found against team.
+  """
+  withEnemyHeroIds: [Int]
 
   """
   Requests matches where the match is at least than this input.  See GameVersion API call for a list of patch ids. Default is null and there is no minimum.
@@ -2255,13 +2482,8 @@ input PlayerMatchesGroupByRequestType {
   """
   maxGameVersionId: Int
 
-  """
-  Determines if you want a single player returned, only the player by SteamAccountId, or if you want all 10 players in the match.
-  """
-  playerList: FindMatchPlayerList!
-
   """The amount of matches to have returned in your query. Max : """
-  take: Int!
+  take: Int
 
   """
   The amount of matches to skip before collecting your query. Hint: Paging
@@ -2307,6 +2529,8 @@ enum FindMatchPlayerGroupBy {
   DATE_DAY
   TOTAL_KILLS
   GOLD_PER_MINUTE
+  DATE_DAY_HERO
+  HOUR
 }
 
 type HeroDotaPlusLeaderboardRankType {
@@ -2325,7 +2549,7 @@ type PlayerHeroPerformanceLongestStreakType {
 }
 
 type FeatType {
-  type: Feat
+  type: FeatEnum!
   value: Int
   heroId: Int
   hero: HeroType
@@ -2333,7 +2557,7 @@ type FeatType {
   match: MatchType
 }
 
-enum Feat {
+enum FeatEnum {
   RAMPAGE
   WIN_STREAK
   HIGH_IMP
@@ -2468,41 +2692,11 @@ input HeroPickBanRequestType {
 
 type LeagueStreamType {
   id: Int
-  languageId: Language
+  languageId: LanguageEnum
   name: String
   broadcastProvider: Byte
   streamUrl: String
   vodUrl: String
-}
-
-enum Language {
-  ENGLISH
-  BRAZILIAN
-  BULGARIAN
-  CZECH
-  DANISH
-  DUTCH
-  FINNISH
-  FRENCH
-  GERMAN
-  GREEK
-  HUNGARIAN
-  ITALIAN
-  JAPANESE
-  KOREAN
-  KOREANA
-  NORWEGIAN
-  POLISH
-  PORTUGUESE
-  ROMANIAN
-  RUSSIAN
-  S_CHINESE
-  SPANISH
-  SWEDISH
-  T_CHINESE
-  THAI
-  TURKISH
-  UKRAINIAN
 }
 
 type MatchLiveType {
@@ -2616,6 +2810,8 @@ enum MatchLiveGameState {
   TEAM_SHOWCASE
   CUSTOM_GAME_SETUP
   WAIT_FOR_MAP_TO_LOAD
+  SCENARIO_SETUP
+  PLAYER_DRAFT
   LAST
 }
 
@@ -2960,7 +3156,7 @@ type LeagueTableHeroType {
   heroId: Short
   overview: LeagueTableHeroOverviewType
   stats: LeagueTableHeroStatsType
-  heroes: [LeagueTableHeroStatsType]
+  heroes: [LeagueTableHeroPlayersObjectType]
   lanes: [LeagueTableHeroLanesObjectType]
 }
 
@@ -2977,6 +3173,23 @@ type LeagueTableHeroOverviewType {
 }
 
 type LeagueTableHeroStatsType {
+  kills: Float!
+  deaths: Float!
+  assists: Float!
+  cs: Float!
+  gpm: Float!
+  xpm: Float!
+  heal: Float!
+  heroDamage: Float!
+  towerDamage: Float!
+  killContribution: Float!
+}
+
+type LeagueTableHeroPlayersObjectType {
+  steamId: Long!
+  matchCount: Int!
+  matchWins: Int!
+  imp: Float!
   kills: Float!
   deaths: Float!
   assists: Float!
@@ -3150,6 +3363,7 @@ type MatchPlayerType {
   ): [PlayerAbilityType]
   invisibleSeconds: Int
   dotaPlusHeroXp: Int
+  variant: Byte
 }
 
 enum LeaverStatusEnum {
@@ -3291,6 +3505,7 @@ type MatchPlayerStatsAllTalkEventType {
 type MatchPlayerStatsChatWheelEventType {
   time: Int!
   chatWheelId: Short
+  pauseTick: Int
 }
 
 type MatchPlayerStatsActionReportType {
@@ -3349,6 +3564,8 @@ enum RuneEnums {
   BOUNTY
   ARCANE
   WATER
+  WISDOM
+  SHIELD
 }
 
 enum RuneAction {
@@ -3494,6 +3711,7 @@ type MatchPlayerPlaybackDataType {
   purchaseEvents: [ItemPurchaseType]
   buyBackEvents: [BuyBackDetailType]
   streakEvents: [StreakEventType]
+  runeEvents: [PlayerRuneDetailType]
   spiritBearInventoryEvents: [SpiritBearInventoryType]
 }
 
@@ -3688,6 +3906,7 @@ enum GoldReason {
   BOUNTY
   DOOM_DEVOURER
   WARD_DESTRUCTION
+  COURIERS_2
 }
 
 type ExperienceDetailType {
@@ -3795,6 +4014,15 @@ enum Streak {
   KILL_STREAK
 }
 
+type PlayerRuneDetailType {
+  time: Int!
+  rune: RuneEnums
+  action: RuneAction
+  gold: Int
+  positionX: Int
+  positionY: Int
+}
+
 type SpiritBearInventoryType {
   time: Int!
   item0: SpiritBearInventoryObjectType
@@ -3848,6 +4076,7 @@ type HeroPositionTimeDetailType {
   ultraKill: Decimal
   rampage: Decimal
   godLike: Decimal
+  goldPerMinute: Decimal
   disableCount: Decimal
   disableDuration: Decimal
   stunCount: Decimal
@@ -3877,6 +4106,7 @@ type HeroPositionTimeDetailType {
   xpFed: Decimal
   pureDamageReceived: Decimal
   attackDamage: Decimal
+  attackCount: Decimal
   castDamage: Decimal
   damageReceived: Decimal
   damage: Decimal
@@ -3934,12 +4164,12 @@ type PlayerAbilityType {
 type MatchStatsPickBanType {
   isPick: Boolean!
   heroId: Short
-  team: Int
   order: Int
   bannedHeroId: Short
   isRadiant: Boolean
   playerIndex: Int
   wasBannedSuccessfully: Boolean
+  isCaptain: Boolean
   baseWinRate: Byte
   adjustedWinRate: Byte
   letter: Int
@@ -4004,10 +4234,8 @@ type MatchPlaybackDataType {
   buildingEvents: [MatchPlaybackDataBuildingEventType]
   towerDeathEvents: [MatchPlaybackDataTowerDeathEventType]
   roshanEvents: [MatchPlaybackDataRoshanEventType]
-  radiantCaptainSteamAccountId: Long
-  radiantCaptainSteamAccount: SteamAccountType
-  direCaptainSteamAccountId: Long
-  direCaptainSteamAccount: SteamAccountType
+  radiantCaptainHeroId: Long
+  direCaptainHeroId: Long
 }
 
 type MatchPlaybackDataCourierEventType {
@@ -4038,7 +4266,6 @@ type MatchPlaybackDataRuneEventType {
   time: Int!
   positionX: Int!
   positionY: Int!
-  fromPlayer: Int!
   location: Int!
   rune: Int!
   action: Int!
@@ -4442,7 +4669,7 @@ input FilterMatchReplayUploadRequestType {
   withEnemyHeroId: [Short]
   withFriendBannedHeroId: [Short]
   withEnemyBannedHeroId: [Short]
-  byMatchId: Long
+  byMatchId: String
   byMatchIds: [Long]
   byMatchUploadFileName: String
   byMatchUploadUploaderCaptainJackId: Guid
@@ -4450,7 +4677,7 @@ input FilterMatchReplayUploadRequestType {
   bySteamAccountIds: [Long]
   byHeroId: [Short]
   byLeagueId: Int
-  bySeriesId: Int
+  bySeriesId: String
   bySeriesIds: [Long]
   byTeamId: Int
   byGameMode: [Int]
@@ -4467,10 +4694,10 @@ input FilterMatchReplayUploadRequestType {
   filterPositionOrder: [MatchPlayerTeamPickOrderType]
   isRadiantFirstPick: Boolean
   firstPick: Boolean
-  minDuration: Int
-  maxDuration: Int
-  minGameVersionId: Int
-  maxGameVersionId: Int
+  minDuration: String
+  maxDuration: String
+  minGameVersionId: String
+  maxGameVersionId: String
   startDateTime: Long
   endDateTime: Long
 
@@ -4852,6 +5079,7 @@ type UserType {
 type CaptainJackIdentityPrivateProfileType {
   captainJackIdentityId: Guid
   name: String
+  email: String
   twitter: String
   facebook: String
   twitch: String
@@ -4879,6 +5107,44 @@ type CaptainJackIdentityPrivateProfileType {
   lastProCircuitDailyEmail: Long
   unsubscribeCode: String
   lastSeen: Long
+  steamAccountId: Long
+  steamAccount: SteamAccountType
+  rosh(request: ROSHMatchesRequestType): [ROSHCaptainJackIdentityStatDifficultyType]
+}
+
+type ROSHCaptainJackIdentityStatDifficultyType {
+  difficulty: ROSHDifficultyEnum
+  matchCount: Int
+  winCount: Int
+  maxScore: Float
+}
+
+enum ROSHDifficultyEnum {
+  EASY
+  MEDIUM
+  HARD
+  EXPERT
+  ALPHA
+}
+
+input ROSHMatchesRequestType {
+  """
+  The start DateTime of the Dota match(es) to include in this query, represented in unix seconds.
+  """
+  startDateTime: Long
+
+  """
+  The end DateTime of the Dota match(es) to include in this query, represented in unix seconds.
+  """
+  endDateTime: Long
+  isUserActionFirst: Boolean
+  isRadiant: Boolean
+
+  """
+  An array of rank ids to include in this query, excluding all results that do not include one of these ranks. The value ranges from 0-8 with 0 being unknown MMR and 1-8 is low to high MMR brackets. Example 7 is Divine.
+  """
+  bracketIds: [Int]
+  isCompleted: Boolean
 }
 
 type CaptainJackIdentityApiApplicationType {
@@ -5200,7 +5466,9 @@ type HomepageHeroDryadType {
 
 type FollowerType {
   captainJackIdentityId: Guid
+  captainJackIdentityProfile: CaptainJackIdentityPublicProfileType
   steamAccountId: Long
+  steamAccount: SteamAccountType
   feedLevel: Byte
   emailLevel: Byte
   dailyEmail: Boolean
@@ -5209,15 +5477,6 @@ type FollowerType {
   isFavorite: Boolean
   lastEmail: Long
   didManualUpdate: Boolean!
-  steamAccount: SteamAccountType
-  captainJackIdentity: CaptainJackIdentityType
-}
-
-type CaptainJackIdentityType {
-  id: Guid
-  steamAccountId: Long
-  steamAccount: SteamAccountType
-  profile: CaptainJackIdentityPublicProfileType
 }
 
 type FeedResponseType {
@@ -5273,6 +5532,7 @@ type PageQuery {
 
   """Endpoints for the battlepass data."""
   battlePass: PageBattlepassQuery
+  rosh: RoshQuery
 }
 
 type PagePlayerQuery {
@@ -5412,7 +5672,7 @@ input PlayerPerformanceMatchesRequestType {
   """
   When searching for a league, the tier the league must be in. Tiers: Amateur = 1, Professional = 2, Premium = 3, Pro Circuit = 4, Main Event = 5
   """
-  tier: [Int]
+  tier: LeagueTier
 
   """
   An array of region ids to include in this query, excluding all results that do not include one of these regions.
@@ -5611,9 +5871,27 @@ input PlayerHeroesPerformanceMatchesRequestType {
   withFriendSteamAccountIds: [Long]
 
   """
+  An array of steam account ids found on the enemy team to include in this query, excluding all results that do not include one of these steam accounts found on the enemy team.
+  """
+  withEnemySteamAccountIds: [Long]
+
+  """
   An array of hero ids found on your team to include in this query, excluding all results that do not include one of these heroes found on your team.
   """
   withFriendHeroIds: [Int]
+
+  """
+  An array of hero ids found against your team to include in this query, excluding all results that do not include one of these heroes found against team.
+  """
+  withEnemyHeroIds: [Int]
+
+  """The amount of matches to have returned in your query. Max : """
+  take: Int
+
+  """
+  The amount of matches to skip before collecting your query. Hint: Paging
+  """
+  skip: Int
 }
 
 type PlayerPlayedWithProType {
@@ -5836,7 +6114,7 @@ input PlayerTeammatesGroupByRequestType {
   matchGroupOrderBy: FilterMatchGroupOrderByEnum!
 
   """If the return should be ordered by Ascending or Desending order."""
-  orderBy: FindMatchPlayerOrderBy!
+  orderBy: FindMatchPlayerOrderBy
 
   """An array of Dota match ids to include in this query."""
   matchIds: [Long]
@@ -5845,6 +6123,11 @@ input PlayerTeammatesGroupByRequestType {
   A league id to include in this query, excluding all results that do not have this league id.
   """
   leagueId: Int
+
+  """
+  An array of league ids to include in this query, excluding all results that do not include one of these leagues.
+  """
+  leagueIds: [Int]
 
   """
   A series id to include in this query, excluding all results that do not have this series id.
@@ -5998,7 +6281,12 @@ type PagePlayersQuery {
   """
   Endpoint which breaks down all the SteamAccounts in the database by their current season rank.
   """
-  steamAccountByRank: [SteamAccountByRankType]
+  steamAccountByRank(
+    """
+    The week to include in this query, excluding all results that do not include this week. The value is an epoc TimeStamp of the week of data you want. Leaving null gives the current week.
+    """
+    week: Long
+  ): [SteamAccountByRankType]
 }
 
 type SteamAccountByRankType {
@@ -7091,6 +7379,17 @@ type BattlepassPredictionIdValueType {
   matchCount: Int
 }
 
+type RoshQuery {
+  stats(request: ROSHMatchesRequestType): [ROSHGlobalStatType]
+}
+
+type ROSHGlobalStatType {
+  difficulty: ROSHDifficultyEnum
+  matchCount: Int
+  winCount: Int
+  maxScore: Float
+}
+
 type NewsItemType {
   id: Long
   title: String!
@@ -7161,7 +7460,7 @@ input FilterSearchRequestType {
   """
   Searching our entire database can take time. If you already know what your searching for you, you can limit the query down to a set of specific types. (0 - Playuers, 1 - Matches, 2 - Leagues, 3 - Teams, 4 - ProPlayers, 5 - Casters). Default is all types.
   """
-  searchType: [Search]
+  searchType: [SearchEnum]
 
   """
   The minimum rank a player must have to be allowed inside the search query.
@@ -7199,7 +7498,7 @@ input FilterSearchRequestType {
   take: Int
 }
 
-enum Search {
+enum SearchEnum {
   PLAYERS
   MATCHES
   LEAGUES
@@ -7254,6 +7553,11 @@ type HeroStatsQuery {
     The hero id to include in this query, excluding all results that do not include this hero.
     """
     heroId: Short
+
+    """
+    An array of hero ids to include in this query, excluding all results that do not include one of these heroes.
+    """
+    heroIds: [Short]
 
     """
     The week to include in this query, excluding all results that do not include this week. The value is an epoc TimeStamp of the week of data you want. Leaving null gives the current week.
@@ -7402,7 +7706,7 @@ type HeroStatsQuery {
     """
     The hero id to include in this query, excluding all results that do not include this hero.
     """
-    heroId: Short!
+    heroId: Short
 
     """
     The lane outcomes are split into with heroes and against. Send false if you want lane matchups against the heroid. Send true if you want friendly.
@@ -7498,6 +7802,11 @@ type HeroStatsQuery {
     take: Int
 
     """
+    The amount of data to skip before collecting your query. This is useful for Paging.
+    """
+    skip: Int
+
+    """
     An array of rank ids to include in this query, excluding all results that do not include one of these ranks. The value ranges from 0-8 with 0 being unknown MMR and 1-8 is low to high MMR brackets. Example 7 is Divine.
     """
     bracketIds: [RankBracket]
@@ -7538,6 +7847,11 @@ type HeroStatsQuery {
     take: Int
 
     """
+    The amount of data to skip before collecting your query. This is useful for Paging.
+    """
+    skip: Int
+
+    """
     An array of rank ids to include in this query, excluding all results that do not include one of these ranks. The value ranges from 0-8 with 0 being unknown MMR and 1-8 is low to high MMR brackets. Example 7 is Divine.
     """
     bracketIds: [RankBracket]
@@ -7576,6 +7890,11 @@ type HeroStatsQuery {
     The amount to have returned in your query. The maximum of this is always dynamic. Limit : 
     """
     take: Int
+
+    """
+    The amount of data to skip before collecting your query. This is useful for Paging.
+    """
+    skip: Int
 
     """
     An array of rank ids to include in this query, excluding all results that do not include one of these ranks. The value ranges from 0-8 with 0 being unknown MMR and 1-8 is low to high MMR brackets. Example 7 is Divine.
@@ -7922,10 +8241,91 @@ type HeroNeutralItemType {
   bracketBasicIds: RankBracketBasicEnum
   position: MatchPlayerPositionType
   itemId: Int
+  item: ItemType
   matchCount: Long
   winCount: Long
   equippedMatchCount: Long
   equippedMatchWinCount: Long
+}
+
+type ItemType {
+  id: Short
+  name: String
+  displayName: String
+  shortName: String
+  isSupportFullItem: Boolean
+  language: ItemLanguageType
+  stat: ItemStatType
+  attributes: [ItemAttributeType]
+  components: [ItemComponentType]
+  image: String
+}
+
+type ItemLanguageType {
+  displayName: String
+  description: String
+  lore: [String]
+  notes: [String]
+  attributes: [String]
+}
+
+type ItemStatType {
+  behavior: Long
+  unitTargetType: Long
+  unitTargetTeam: Long
+  unitTargetFlags: Long
+  fightRecapLevel: Byte
+  castRange: [Int]
+  castPoint: [Float]
+  manaCost: [Float]
+  channelTime: [Float]
+  sharedCooldown: String
+  cost: Int
+  shopTags: String
+  aliases: String
+  quality: String
+  isSellable: Boolean
+  isDroppable: Boolean
+  isPurchasable: Boolean
+  isSideShop: Boolean
+  isStackable: Boolean
+  isPermanent: Boolean
+  isHideCharges: Boolean
+  isRequiresCharges: Boolean
+  isDisplayCharges: Boolean
+  isSupport: Boolean
+  isAlertable: Boolean
+  isTempestDoubleClonable: Boolean
+  stockMax: Short
+  initialCharges: Short
+  initialStock: Short
+  stockTime: Int
+  initialStockTime: Short
+  isRecipe: Boolean
+  needsComponents: Boolean
+  upgradeItem: Short
+  upgradeRecipe: Short
+  itemResult: Short
+  neutralItemDropTime: Short
+  neutralItemTier: NeutralItemTierEnum
+}
+
+enum NeutralItemTierEnum {
+  TIER_1
+  TIER_2
+  TIER_3
+  TIER_4
+  TIER_5
+}
+
+type ItemAttributeType {
+  name: String
+  value: String
+}
+
+type ItemComponentType {
+  index: Byte
+  componentId: Short
 }
 
 type HeroLaneOutcomeType {
@@ -7939,6 +8339,8 @@ type HeroLaneOutcomeType {
   lossCount: Long
   stompWinCount: Long
   stompLossCount: Long
+  matchWinCount: Long
+  csCount: Long
   heroId2: Short!
 }
 
@@ -7972,6 +8374,7 @@ enum FilterHeroWinRequestGroupBy {
   ALL
   HERO_ID_DURATION_MINUTES
   TIME
+  HERO_ID_POSITION_BRACKET
 }
 
 type HeroWinDayType {
@@ -8057,7 +8460,7 @@ input FilterHeroRampageType {
   """
   The hero id to include in this query, excluding all results that do not include this hero.
   """
-  heroId: Short
+  heroId: Short!
 
   """
   An array of rank ids to include in this query, excluding all results that do not include one of these ranks. The value ranges from 0-8 with 0 being unknown MMR and 1-8 is low to high MMR brackets. Example 7 is Divine.
@@ -8121,7 +8524,7 @@ type ConstantQuery {
     """
     The language id to include in this query, excluding all results that do not have this language.
     """
-    language: Language
+    language: LanguageEnum
   ): HeroType
   heroes(
     """
@@ -8132,7 +8535,7 @@ type ConstantQuery {
     """
     The language id to include in this query, excluding all results that do not have this language.
     """
-    language: Language
+    language: LanguageEnum
   ): [HeroType]
 
   """List of all the roles types for heroes."""
@@ -8153,7 +8556,7 @@ type ConstantQuery {
     """
     The language id to include in this query, excluding all results that do not have this language.
     """
-    language: Language
+    language: LanguageEnum
   ): ItemType
 
   """Find item details by item id. id is a required input field."""
@@ -8166,7 +8569,7 @@ type ConstantQuery {
     """
     The language id to include in this query, excluding all results that do not have this language.
     """
-    language: Language
+    language: LanguageEnum
   ): [ItemType]
 
   """Find ability details by ability id. id is a required input field."""
@@ -8184,7 +8587,7 @@ type ConstantQuery {
     """
     The language id to include in this query, excluding all results that do not have this language.
     """
-    language: Language
+    language: LanguageEnum
   ): AbilityType
 
   """Find ability details."""
@@ -8197,7 +8600,7 @@ type ConstantQuery {
     """
     The language id to include in this query, excluding all results that do not have this language.
     """
-    language: Language
+    language: LanguageEnum
   ): [AbilityType]
 
   """
@@ -8259,7 +8662,12 @@ type ConstantQuery {
     """
     The language id to include in this query, excluding all results that do not have this language.
     """
-    languageId: Language
+    languageId: LanguageEnum
+
+    """
+    The game version id to include in this query, excluding all results that do not have this game version.
+    """
+    gameVersionId: Short
   ): [PatchNoteLanguageType]
 
   """
@@ -8269,7 +8677,7 @@ type ConstantQuery {
     """
     The language id to include in this query, excluding all results that do not have this language.
     """
-    languageId: Language
+    languageId: LanguageEnum
   ): [AbilityCustomGameType]
 
   """
@@ -8292,92 +8700,23 @@ type ConstantQuery {
   popularTeamIds: [TeamType]
   casters: [SteamAccountType]
   tiWinners: [SteamAccountType]
+  facets(
+    """
+    The game version id to include in this query, excluding all results that do not have this game version.
+    """
+    gameVersionId: Short
+
+    """
+    The language id to include in this query, excluding all results that do not have this language.
+    """
+    language: LanguageEnum
+  ): [FacetType]
 }
 
 type RoleType {
   roleId: Short
   name: String
   langKey: String
-}
-
-type ItemType {
-  id: Short
-  name: String
-  displayName: String
-  shortName: String
-  isSupportFullItem: Boolean
-  language: ItemLanguageType
-  stat: ItemStatType
-  attributes: [ItemAttributeType]
-  components: [ItemComponentType]
-  image: String
-}
-
-type ItemLanguageType {
-  displayName: String
-  description: [String]
-  lore: [String]
-  notes: [String]
-  attributes: [String]
-}
-
-type ItemStatType {
-  behavior: Long
-  unitTargetType: Long
-  unitTargetTeam: Long
-  unitTargetFlags: Long
-  fightRecapLevel: Byte
-  castRange: [Int]
-  castPoint: [Float]
-  manaCost: [Float]
-  channelTime: [Float]
-  sharedCooldown: String
-  cost: Int
-  shopTags: String
-  aliases: String
-  quality: String
-  isSellable: Boolean
-  isDroppable: Boolean
-  isPurchasable: Boolean
-  isSideShop: Boolean
-  isStackable: Boolean
-  isPermanent: Boolean
-  isHideCharges: Boolean
-  isRequiresCharges: Boolean
-  isDisplayCharges: Boolean
-  isSupport: Boolean
-  isAlertable: Boolean
-  isTempestDoubleClonable: Boolean
-  stockMax: Short
-  initialCharges: Short
-  initialStock: Short
-  stockTime: Int
-  initialStockTime: Short
-  isRecipe: Boolean
-  needsComponents: Boolean
-  upgradeItem: Short
-  upgradeRecipe: Short
-  itemResult: Short
-  neutralItemDropTime: Short
-  neutralItemTier: NeutralItemTierEnum
-}
-
-enum NeutralItemTierEnum {
-  TIER_1
-  TIER_2
-  TIER_3
-  TIER_4
-  TIER_5
-}
-
-type ItemAttributeType {
-  name: String
-  value: String
-}
-
-type ItemComponentType {
-  index: Byte
-  componentId: Short
 }
 
 type GameModeType {
@@ -8506,6 +8845,20 @@ type ModifierType {
   isBanished: Boolean
 }
 
+type FacetType {
+  id: Short
+  name: String
+  color: String
+  icon: String
+  gradientId: Short
+  language: FacetLanguageType
+}
+
+type FacetLanguageType {
+  displayName: String
+  description: String
+}
+
 type LeaderboardQuery {
   """Returns the list of the current season leaderboard."""
   season(request: FilterSeasonLeaderboardRequestType): SteamAccountSeasonActiveLeaderboardType
@@ -8556,6 +8909,7 @@ type LeaderboardQuery {
   battlePassGroupBy(
     """The Event Id Assigned by Valve.  22 is TI8, 25 is TI9."""
     groupBy: PlayerBattlePassGroupByEnum!
+    playerCountAt: Int!
 
     """The Event Id Assigned by Valve.  22 is TI8, 25 is TI9."""
     eventId: Byte
@@ -8610,13 +8964,6 @@ type SteamAccountSeasonActiveLeaderboardRankType {
   winRate: Byte
 }
 
-enum LeaderboardDivision {
-  AMERICAS
-  SE_ASIA
-  EUROPE
-  CHINA
-}
-
 type SteamAccountSeasonActiveLeaderboardCountryDataType {
   countryCode: String
   playerCount: Int
@@ -8662,6 +9009,8 @@ type HeroDotaPlusLeaderboardRankTopType {
 
 type PlayerBattlePassResponseType {
   players(
+    minimumLevel: Int
+
     """
     The amount to have returned in your query. The maximum of this is always dynamic. Limit : 
     """
@@ -8685,7 +9034,7 @@ type PlayerBattlePassGroupByType {
   id: String
   playerCount: Long
   sumLevels: Long
-  playerCountAt1000: Long
+  playerCountAt: Long
 }
 
 enum PlayerBattlePassGroupByEnum {
@@ -8866,6 +9215,9 @@ input MatchLiveRequestType {
   """The order in which the data returned will be sorted by."""
   orderBy: MatchLiveRequestOrderBy
 
+  """Whether the match is a league match or not."""
+  isLeague: Boolean
+
   """
   The amount to have returned in your query. The maximum of this is always dynamic. Limit : 
   """
@@ -9009,6 +9361,13 @@ type DotaMutation {
   yogurt: YogurtMutation
   user: DotaUserMutation
   admin: AdminMutation
+  rosh: ROSHMutation
+  retryMatchDownload(
+    """
+    The id of the Dota match to include in this query, excluding all results that do not include this id.
+    """
+    matchId: Long!
+  ): Boolean
 }
 
 type YogurtMutation {
@@ -9231,18 +9590,36 @@ type YogurtMutation {
 }
 
 input UpdateMatchReplayUploadObjectType {
-  matchReplayUploadTeamId: Int!
-  matchId: Long
-  leagueId: Int
-  radiantTeamId: Int
-  direTeamId: Int
+  """FieldDescription"""
+  matchReplayUploadTeamId: Long!
+
+  """FieldDescription"""
+  matchId: Long!
+
+  """FieldDescription"""
+  leagueId: Long
+
+  """FieldDescription"""
+  radiantTeamId: Long
+
+  """FieldDescription"""
+  direTeamId: Long
+
+  """FieldDescription"""
   isActive: Boolean
+
+  """FieldDescription"""
   notes: String
+
+  """FieldDescription"""
   players: [UpdateMatchReplayMatchUploadPlayerObjectType]
 }
 
 input UpdateMatchReplayMatchUploadPlayerObjectType {
+  """FieldDescription"""
   steamAccountId: Long!
+
+  """FieldDescription"""
   position: MatchPlayerPositionType
 }
 
@@ -9267,7 +9644,7 @@ type DotaUserMutation {
   ): Boolean
 
   """Update your user to unsubscribe from Stratz emails."""
-  unsubscribeEmail(code: Guid!): UserHomepageType
+  unsubscribeEmail(code: Guid!): Boolean
 
   """Updates the logged in user information profile."""
   updateProfile(
@@ -9358,27 +9735,61 @@ type DotaUserMutation {
 }
 
 input CaptainJackIdentityProfileUpdateRequestType {
+  """The user's email."""
   email: String
+
+  """The user's feed level."""
   feedLevel: Byte
+
+  """The user's email level."""
   emailLevel: Byte
+
+  """Whether daily emails are enabled for the user."""
   dailyEmail: Boolean
+
+  """Whether weekly emails are enabled for the user."""
   weeklyEmail: Boolean
+
+  """Whether monthly emails are enabled for the user."""
   monthlyEmail: Boolean
+
+  """The user's pro circuit feed level."""
   proCircuitFeedLevel: Byte
+
+  """The user's pro circuit email level."""
   proCircuitEmailLevel: Byte
+
+  """The user's theme type."""
   themeType: Byte
-  language: Language
+
+  """The user's preferred language."""
+  language: LanguageEnum
+
+  """The user's preferred email hour."""
   emailHour: Byte
+
+  """Whether the user's Stratz profile is public."""
   isStratzPublic: Boolean
 }
 
 input UpdateFollowerRequestType {
+  """FieldDescription"""
   feedLevel: Byte
+
+  """FieldDescription"""
   emailLevel: Byte
+
+  """FieldDescription"""
   dailyEmail: Boolean
+
+  """FieldDescription"""
   weeklyEmail: Boolean
+
+  """FieldDescription"""
   monthlyEmail: Boolean
-  overrideAllUsers: Boolean!
+
+  """FieldDescription"""
+  overrideAllUsers: Boolean
 }
 
 type AdminMutation {
@@ -9396,6 +9807,11 @@ input DeleteProSteamAccountRequestType {
   steamAccountId: Long
   name: String
   realName: String
+}
+
+type ROSHMutation {
+  create(difficulty: ROSHDifficultyEnum!, bracket: RankBracket!, isUserRadiant: Boolean!, isRadiantFirstPick: Boolean!): Long
+  update(matchId: Long!, score: Float!, didUserWin: Boolean!): Boolean
 }
 
 type DotaSubscription {
