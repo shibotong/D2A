@@ -100,7 +100,7 @@ struct HeroDetailView: View {
     
     @ViewBuilder private func buildTitle(hero: Hero) -> some View {
         if horizontal == .compact {
-            HeroImageView(heroID: Int(hero.id), type: .full)
+            HeroImageView(heroID: Int(hero.heroID), type: .full)
                 .overlay(
                     LinearGradient(colors: [Color(.black).opacity(0),
                                             Color(.black).opacity(1)],
@@ -116,7 +116,7 @@ struct HeroDetailView: View {
                                 .font(.system(size: 30))
                                 .bold()
                                 .foregroundColor(.white)
-                            Text("\(Int(hero.id))")
+                            Text("\(hero.heroID)")
                                 .font(.caption2)
                                 .foregroundColor(.white.opacity(0.5))
                             Spacer()
@@ -127,13 +127,13 @@ struct HeroDetailView: View {
                 }.padding(.leading))
         } else {
             HStack {
-                HeroImageView(heroID: Int(hero.id), type: .full)
+                HeroImageView(heroID: Int(hero.heroID), type: .full)
                 AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr ?? ""))
                     .frame(width: 25, height: 25)
                 Text(LocalizedStringKey(hero.displayName ?? ""))
                     .font(.body)
                     .bold()
-                Text("\(Int(hero.id))")
+                Text("\(hero.heroID)")
                     .font(.caption2)
                     .foregroundColor(.label.opacity(0.5))
                 buildComplexity(hero.complexity)

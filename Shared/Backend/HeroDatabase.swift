@@ -53,20 +53,22 @@ class HeroDatabase: ObservableObject {
         loadData()
     }
     
-    private func downloadHeroes() async {
-        let heroData = await loadHeroes()
-        var heroID = 1
-        PersistenceController.shared.batchInsert(entity: Hero.self) { object in
-            let hero = object as Hero
-            
-            guard let (id, model) = fetchNextHero(heroID: heroID, heroData: heroData) else {
-                return true
-            }
-            heroID = id + 1
-            hero.updateHero(model: model)
-            return false
-        }
-    }
+//    private func downloadHeroes() async {
+//        let heroData = await loadHeroes()
+//        var heroID = 1
+//        PersistenceController.shared.batchInsert(entity: Hero.self) { object in
+//            guard let hero = object as? Hero else {
+//                return true
+//            }
+//            
+//            guard let (id, model) = fetchNextHero(heroID: heroID, heroData: heroData) else {
+//                return true
+//            }
+//            heroID = id + 1
+//            hero.updateHero(model: model)
+//            return false
+//        }
+//    }
     
     private func fetchNextHero(heroID: Int = 1, heroData: [String: HeroCodable]) -> (Int, HeroCodable?) {
         guard heroID < 200 else {
@@ -114,7 +116,7 @@ class HeroDatabase: ObservableObject {
             let status: LoadingStatus = self?.abilities.count == 0 ? .error : .finish
             await self?.setStatus(status: status)
             
-            await downloadHeroes()
+//            await downloadHeroes()
         }
     }
     

@@ -21,8 +21,8 @@
         <attribute name="gainAgi" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="gainInt" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="gainStr" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="heroID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="icon" optional="YES" attributeType="String"/>
-        <attribute name="id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="img" optional="YES" attributeType="String"/>
         <attribute name="lastFetch" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="moveSpeed" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>

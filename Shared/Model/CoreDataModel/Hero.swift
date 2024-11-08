@@ -29,7 +29,7 @@ extension Hero {
         let hero = fetchHero(id: heroID) ?? Hero(context: viewContext)
         // data from Stratz
         hero.lastFetch = Date()
-        hero.id = heroID
+        hero.heroID = Int16(heroID)
         hero.displayName = queryHero.displayName
         hero.name = queryHero.name
         hero.complexity = Int16(heroStats.complexity ?? 0)
@@ -254,7 +254,7 @@ extension Hero {
     }
     
     func updateHero(model: HeroCodable) {
-        id = model.id
+        heroID = Int16(model.id)
         primaryAttr = model.primaryAttr
         attackType = model.attackType
         

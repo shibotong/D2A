@@ -8,11 +8,6 @@
 import Foundation
 
 #if DEBUG
-
-protocol Logging {
-    func log(_ message: String, level: LoggerLevel, filePath: String, line: UInt)
-}
-
 enum LoggerLevel: Int {
     case debug, info, warning, error
     
@@ -30,7 +25,7 @@ enum LoggerLevel: Int {
     }
 }
 
-class D2ALogger: Logging {
+class D2ALogger {
     
     static let shared = D2ALogger(.error)
     

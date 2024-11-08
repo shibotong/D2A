@@ -142,7 +142,7 @@ class PersistenceController {
         }
     }
     
-    func batchInsert<T: NSManagedObject>(entity: T, objectHandler: @escaping (NSManagedObject) -> Bool) throws {
+    func batchInsert<T: NSManagedObject>(entity: T.Type, objectHandler: @escaping (NSManagedObject) -> Bool) throws {
         /// Create Batch Insert Request
         let insertRequest = NSBatchInsertRequest(entity: T.entity(), managedObjectHandler: objectHandler)
         
