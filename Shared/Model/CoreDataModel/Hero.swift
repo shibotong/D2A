@@ -252,4 +252,32 @@ extension Hero {
         }
         return base + bonus
     }
+    
+    func updateHero(model: HeroCodable) {
+        id = model.id
+        primaryAttr = model.primaryAttr
+        attackType = model.attackType
+        
+        baseHealth = model.baseHealth
+        baseHealthRegen = model.baseHealthRegen
+        baseMana = model.baseMana
+        baseManaRegen = model.baseManaRegen
+        baseArmor = model.baseArmor
+        baseMr = model.baseMr
+        baseAttackMin = model.baseAttackMin
+        baseAttackMax = model.baseAttackMax
+        
+        baseStr = model.baseStr
+        baseAgi = model.baseAgi
+        baseInt = model.baseInt
+        gainStr = model.strGain
+        gainAgi = model.agiGain
+        gainInt = model.intGain
+        
+        attackRange = model.attackRange
+        projectileSpeed = model.projectileSpeed
+        attackRate = model.attackRate
+        moveSpeed = model.moveSpeed
+        turnRate = model.turnRate ?? 0.6
+    }
 }

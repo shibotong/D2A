@@ -141,4 +141,22 @@ class PersistenceController {
             NSManagedObjectContext.mergeChanges(fromRemoteContextSave: deletedObjects, into: [strongSelf.container.viewContext])
         }
     }
+    
+    func batchInsert<T: NSManagedObject>(entity: T, objectHandler: @escaping (NSManagedObject) -> Bool) throws {
+        /// Create Batch Insert Request
+        let insertRequest = NSBatchInsertRequest(entity: T.entity(), managedObjectHandler: objectHandler)
+        
+        let privateContext = container.newBackgroundContext()
+
+        /// Set the Result Type, in our case we need object IDs
+        insertRequest.resultType = .statusOnly
+        /// Execute the request using the background context already created.
+        let result = try privateContext.execute(insertRequest) as! NSBatchInsertResult
+        /// Finally we merge using the objectIDs we got from the results.
+        if let objectIDs = result.result as? [NSManagedObjectID], !objectIDs.isEmpty {
+            let save = [NSInsertedObjectsKey: objectIDs]
+            
+//            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: save, into: [mainContext])
+        }
+    }
 }
