@@ -9,15 +9,12 @@ import Foundation
 import UIKit
 
 class HeroCodable: Identifiable, Decodable {
-    var id: Int
+    var heroID: Int
     var name: String
     var localizedName: String
     var primaryAttr: String
     var attackType: String
-    var roles: [String]
     var legs: Int?
-    var img: String
-    var icon: String
     
     var baseHealth: Int32
     var baseHealthRegen: Double
@@ -59,15 +56,13 @@ class HeroCodable: Identifiable, Decodable {
     static let intManaRegen = 0.05
 
     enum CodingKeys: String, CodingKey {
-        case id
+        case heroID = "id"
         case name
         case localizedName = "localized_name"
         case primaryAttr = "primary_attr"
         case attackType = "attack_type"
         case roles
         case legs
-        case img
-        case icon
         
         case baseHealth = "base_health"
         case baseHealthRegen = "base_health_regen"
@@ -94,16 +89,12 @@ class HeroCodable: Identifiable, Decodable {
     
     required init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(Int.self, forKey: .id)
-        
+        self.heroID = try container.decode(Int.self, forKey: .heroID)
         self.name = (try? container.decode(String.self, forKey: .name)) ?? ""
         self.localizedName = (try? container.decode(String.self, forKey: .localizedName)) ?? ""
         self.primaryAttr = (try? container.decode(String.self, forKey: .primaryAttr)) ?? ""
         self.attackType = (try? container.decode(String.self, forKey: .attackType)) ?? ""
-        self.roles = (try? container.decode([String].self, forKey: .roles)) ?? []
         self.legs = (try? container.decodeIfPresent(Int.self, forKey: .legs)) ?? 0
-        self.img = (try? container.decode(String.self, forKey: .img)) ?? ""
-        self.icon = (try? container.decode(String.self, forKey: .icon)) ?? ""
         self.baseHealth = (try? container.decode(Int32.self, forKey: .baseHealth)) ?? 0
         self.baseHealthRegen = (try? container.decode(Double.self, forKey: .baseHealthRegen)) ?? 0
         self.baseMana = (try? container.decode(Int32.self, forKey: .baseMana)) ?? 0
@@ -124,6 +115,35 @@ class HeroCodable: Identifiable, Decodable {
         self.moveSpeed = (try? container.decode(Int32.self, forKey: .moveSpeed)) ?? 0
         self.cmEnabled = (try? container.decode(Bool.self, forKey: .cmEnabled)) ?? false
         self.turnRate = try? container.decodeIfPresent(Double.self, forKey: .turnRate)
+    }
+    
+    init(heroID: Int = 0, name: String = "", localizedName: String = "", primaryAttr: String = "", attackType: String = "", legs: Int = 0, baseHealth: Int32 = 0, baseHealthRegen: Double = 0, baseMana: Int32 = 0, baseManaRegen: Double = 0, baseArmor: Double = 0, baseMr: Int32 = 0, baseAttackMin: Int32 = 0, baseAttackMax: Int32 = 0, baseStr: Int32 = 0, baseAgi: Int32 = 0, baseInt: Int32 = 0, strGain: Double = 0, agiGain: Double = 0, intGain: Double = 0, attackRange: Int32 = 0, projectileSpeed: Int32 = 0, attackRate: Double = 0, moveSpeed: Int32 = 0, cmEnabled: Bool = false, turnRate: Double = 0) {
+        self.heroID = heroID
+        self.name = name
+        self.localizedName = localizedName
+        self.primaryAttr = primaryAttr
+        self.attackType = attackType
+        self.legs = legs
+        self.baseHealth = baseHealth
+        self.baseHealthRegen = baseHealthRegen
+        self.baseMana = baseMana
+        self.baseManaRegen = baseManaRegen
+        self.baseArmor = baseArmor
+        self.baseMr = baseMr
+        self.baseAttackMin = baseAttackMin
+        self.baseAttackMax = baseAttackMax
+        self.baseStr = baseStr
+        self.baseAgi = baseAgi
+        self.baseInt = baseInt
+        self.strGain = strGain
+        self.agiGain = agiGain
+        self.intGain = intGain
+        self.attackRange = attackRange
+        self.projectileSpeed = projectileSpeed
+        self.attackRate = attackRate
+        self.moveSpeed = moveSpeed
+        self.cmEnabled = cmEnabled
+        self.turnRate = turnRate
     }
 }
 

@@ -100,9 +100,9 @@ struct SearchView: View {
             if !vm.filterHeroes.isEmpty {
                 Section {
                     ForEach(vm.filterHeroes) { hero in
-                        NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                        NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.heroID))) {
                             HStack {
-                                HeroImageView(heroID: hero.id, type: .icon)
+                                HeroImageView(heroID: hero.heroID, type: .icon)
                                     .frame(width: 30, height: 30)
                                 Text(hero.heroNameLocalized)
                             }

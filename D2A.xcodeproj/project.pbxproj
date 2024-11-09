@@ -255,6 +255,19 @@
 		6B8E85672CDF553D0040432B /* d2a-secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B8E85662CDF553D0040432B /* d2a-secrets.json */; };
 		6B8E85682CDF553D0040432B /* d2a-secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B8E85662CDF553D0040432B /* d2a-secrets.json */; };
 		6B8E85692CDF553D0040432B /* d2a-secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B8E85662CDF553D0040432B /* d2a-secrets.json */; };
+		6B8E856B2CDF55D70040432B /* DotaConstantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E856A2CDF55CB0040432B /* DotaConstantController.swift */; };
+		6B8E856C2CDF55D70040432B /* DotaConstantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E856A2CDF55CB0040432B /* DotaConstantController.swift */; };
+		6B8E856D2CDF55D70040432B /* DotaConstantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E856A2CDF55CB0040432B /* DotaConstantController.swift */; };
+		6B8E85702CDF599B0040432B /* D2ADataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E856E2CDF599B0040432B /* D2ADataController.swift */; };
+		6B8E85772CDF66310040432B /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E85762CDF66310040432B /* CoreDataHelper.swift */; };
+		6B8E85782CDF66310040432B /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E85762CDF66310040432B /* CoreDataHelper.swift */; };
+		6B8E85792CDF66310040432B /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E85762CDF66310040432B /* CoreDataHelper.swift */; };
+		6B8E857A2CDF66310040432B /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E85762CDF66310040432B /* CoreDataHelper.swift */; };
+		6B8E857E2CDF686D0040432B /* PersistanceControllerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E857D2CDF686D0040432B /* PersistanceControllerTestCase.swift */; };
+		6B8E857F2CDF6BD70040432B /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
+		6B8E85802CDF6BD70040432B /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
+		6B8E85832CDF6BFE0040432B /* HeroListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B87772852263300BBE1F8 /* HeroListViewModel.swift */; };
+		6B8E85842CDF6BFE0040432B /* HeroListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B87772852263300BBE1F8 /* HeroListViewModel.swift */; };
 		790102B829F4099D00E8A320 /* AttributeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790102B729F4099D00E8A320 /* AttributeImage.swift */; };
 		790266462A35454500CE54DF /* LiveMatchEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790266452A35454500CE54DF /* LiveMatchEventListView.swift */; };
 		790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790266482A35478D00CE54DF /* LiveMatchEventRowView.swift */; };
@@ -353,8 +366,6 @@
 		79A9891B2931EB49006AC847 /* PlayerCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FA2931D6D7006AC847 /* PlayerCodable.swift */; };
 		79A9891C2931EB59006AC847 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988F82931D400006AC847 /* Match.swift */; };
 		79A9891D2931EB5A006AC847 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988F82931D400006AC847 /* Match.swift */; };
-		79A9891E2931ECAE006AC847 /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
-		79A9891F2931ECAF006AC847 /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
 		79A989202931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79A989212931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79ABE8FA2A35C3CF00EE9EF9 /* LiveMatchDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */; };
@@ -579,6 +590,10 @@
 		32F70B3926F80AE4006E9B05 /* D2AWidgetIntentHandlerRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2AWidgetIntentHandlerRelease.entitlements; sourceTree = "<group>"; };
 		6B8E85622CDF55340040432B /* d2a-secrets.json.sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "d2a-secrets.json.sample.json"; sourceTree = "<group>"; };
 		6B8E85662CDF553D0040432B /* d2a-secrets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "d2a-secrets.json"; sourceTree = "<group>"; };
+		6B8E856A2CDF55CB0040432B /* DotaConstantController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotaConstantController.swift; sourceTree = "<group>"; };
+		6B8E856E2CDF599B0040432B /* D2ADataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ADataController.swift; sourceTree = "<group>"; };
+		6B8E85762CDF66310040432B /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		6B8E857D2CDF686D0040432B /* PersistanceControllerTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceControllerTestCase.swift; sourceTree = "<group>"; };
 		790102B729F4099D00E8A320 /* AttributeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeImage.swift; sourceTree = "<group>"; };
 		790102B929F40C4600E8A320 /* ScreenShotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotTests.swift; sourceTree = "<group>"; };
 		790266452A35454500CE54DF /* LiveMatchEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchEventListView.swift; sourceTree = "<group>"; };
@@ -810,6 +825,7 @@
 			children = (
 				328957A227F660D400BA9847 /* DecodingTestCase.swift */,
 				798C42922A3565BA00BDC470 /* LiveMatchKillEventTestCase.swift */,
+				6B8E857D2CDF686D0040432B /* PersistanceControllerTestCase.swift */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -913,6 +929,8 @@
 			children = (
 				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
 				79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */,
+				6B8E856A2CDF55CB0040432B /* DotaConstantController.swift */,
+				6B8E856E2CDF599B0040432B /* D2ADataController.swift */,
 				329849F326DCAEAE00A1032C /* HeroDatabase.swift */,
 				322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */,
 				32B36F4B26C39C5D002D427D /* Environment.swift */,
@@ -983,6 +1001,7 @@
 				32B36F4926C39242002D427D /* StringVariable.swift */,
 				327B875F284D9FA100BBE1F8 /* DataHelper.swift */,
 				798519AB2CDB842500292837 /* D2ALogger.swift */,
+				6B8E85762CDF66310040432B /* CoreDataHelper.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -1643,6 +1662,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B8E85782CDF66310040432B /* CoreDataHelper.swift in Sources */,
+				6B8E857E2CDF686D0040432B /* PersistanceControllerTestCase.swift in Sources */,
 				798C42932A3565BA00BDC470 /* LiveMatchKillEventTestCase.swift in Sources */,
 				798519AC2CDB842500292837 /* D2ALogger.swift in Sources */,
 				327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
@@ -1692,6 +1713,7 @@
 				79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */,
 				79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */,
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
+				6B8E85772CDF66310040432B /* CoreDataHelper.swift in Sources */,
 				79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */,
 				3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */,
 				322B893E26CE66F800DF67F9 /* MainLoadingView.swift in Sources */,
@@ -1716,8 +1738,10 @@
 				790266462A35454500CE54DF /* LiveMatchEventListView.swift in Sources */,
 				322B893626CD438700DF67F9 /* UserProfileCodable.swift in Sources */,
 				322B89BF26CE788900DF67F9 /* AnalysisViewModel.swift in Sources */,
+				6B8E856D2CDF55D70040432B /* DotaConstantController.swift in Sources */,
 				3252859726CB81480030F15B /* DifferenceGraphViewModel.swift in Sources */,
 				79645CC32A39D1610004EF50 /* LiveMatchListView.swift in Sources */,
+				6B8E85702CDF599B0040432B /* D2ADataController.swift in Sources */,
 				327772B326D9D735000A0A97 /* GameMode.swift in Sources */,
 				327772AF26D8BE63000A0A97 /* MatchListRowView.swift in Sources */,
 				322B893A26CD456400DF67F9 /* RecentMatchCodable.swift in Sources */,
@@ -1779,6 +1803,7 @@
 			files = (
 				79800DA5294C2E1000662E2F /* NSNumber.swift in Sources */,
 				32F70AB426F58125006E9B05 /* GameMode.swift in Sources */,
+				6B8E85792CDF66310040432B /* CoreDataHelper.swift in Sources */,
 				79A989062931E8EB006AC847 /* UserProfile.swift in Sources */,
 				32EC7F35286464C300A36AF6 /* WidgetOverlayView.swift in Sources */,
 				794838662A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
@@ -1787,6 +1812,7 @@
 				32F70AAC26F58006006E9B05 /* RecentMatchCodable.swift in Sources */,
 				32F70B1B26F6295B006E9B05 /* Int.swift in Sources */,
 				79A989172931E8F3006AC847 /* Talent.swift in Sources */,
+				6B8E857F2CDF6BD70040432B /* PersistanceContainer.swift in Sources */,
 				32F70ADC26F60B30006E9B05 /* StringVariable.swift in Sources */,
 				32B526CB285C0CE40099B058 /* RecentMatchesWidgetEntryView.swift in Sources */,
 				79D5282328DD74930070841D /* Secret.swift in Sources */,
@@ -1811,7 +1837,6 @@
 				79837B50294C181200458529 /* RecentMatch.swift in Sources */,
 				32F70B1C26F6295B006E9B05 /* SKProduct.swift in Sources */,
 				7983DA752B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
-				79A9891E2931ECAE006AC847 /* PersistanceContainer.swift in Sources */,
 				7983DA6B2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
 				32F70AD526F60364006E9B05 /* HeroCodable.swift in Sources */,
 				32F70AB526F5812B006E9B05 /* LobbyType.swift in Sources */,
@@ -1820,6 +1845,7 @@
 				79A989202931ECBB006AC847 /* Player.swift in Sources */,
 				32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */,
 				32B526C3285C0B380099B058 /* IntentHandler.swift in Sources */,
+				6B8E85832CDF6BFE0040432B /* HeroListViewModel.swift in Sources */,
 				32A26C5528594A28005E890F /* Environment.swift in Sources */,
 				32F70ADE26F60B95006E9B05 /* UserProfileCodable.swift in Sources */,
 				797776D22B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
@@ -1827,6 +1853,7 @@
 				79091DF52A3B2E2C0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32F70B3026F714FD006E9B05 /* Provider.swift in Sources */,
 				32F70AA226F57F7E006E9B05 /* D2AWidget.swift in Sources */,
+				6B8E856B2CDF55D70040432B /* DotaConstantController.swift in Sources */,
 				7983DA712B63086700C42F87 /* D2AWidgetUserEntry.swift in Sources */,
 				79A9891C2931EB59006AC847 /* Match.swift in Sources */,
 				79E01CAA291E35320073BF68 /* MatchListRowViewModel.swift in Sources */,
@@ -1843,6 +1870,7 @@
 			files = (
 				79800DA6294C2E1000662E2F /* NSNumber.swift in Sources */,
 				32F70B0426F6226D006E9B05 /* SteamProfile.swift in Sources */,
+				6B8E857A2CDF66310040432B /* CoreDataHelper.swift in Sources */,
 				327B8762284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				3270271C285C088300927426 /* HeroImageView.swift in Sources */,
 				794838672A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
@@ -1851,6 +1879,7 @@
 				79A989112931E8F3006AC847 /* UserProfile.swift in Sources */,
 				32F70B2226F6295C006E9B05 /* CodingKey.swift in Sources */,
 				32F70B1126F622C5006E9B05 /* HeroCodable.swift in Sources */,
+				6B8E85802CDF6BD70040432B /* PersistanceContainer.swift in Sources */,
 				32F70B0F26F622C0006E9B05 /* LobbyType.swift in Sources */,
 				79D5282428DD74930070841D /* Secret.swift in Sources */,
 				32F70B1026F622C2006E9B05 /* GameMode.swift in Sources */,
@@ -1875,7 +1904,6 @@
 				79837B51294C181200458529 /* RecentMatch.swift in Sources */,
 				32F70B0326F62268006E9B05 /* RecentMatchCodable.swift in Sources */,
 				7983DA762B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
-				79A9891F2931ECAF006AC847 /* PersistanceContainer.swift in Sources */,
 				7983DA6C2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
 				32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */,
 				32F70AFC26F61E52006E9B05 /* UserProfileCodable.swift in Sources */,
@@ -1884,6 +1912,7 @@
 				79A989212931ECBB006AC847 /* Player.swift in Sources */,
 				32B526C4285C0B380099B058 /* IntentHandler.swift in Sources */,
 				32EC7F3828646BAE00A36AF6 /* RecentMatchesWidgetEntryView.swift in Sources */,
+				6B8E85842CDF6BFE0040432B /* HeroListViewModel.swift in Sources */,
 				32A26C5628594A28005E890F /* Environment.swift in Sources */,
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				797776D32B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
@@ -1891,6 +1920,7 @@
 				79091DF72A3B2FBD0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */,
 				32EC7F3728646BAC00A36AF6 /* WidgetOverlayView.swift in Sources */,
+				6B8E856C2CDF55D70040432B /* DotaConstantController.swift in Sources */,
 				7983DA722B63086700C42F87 /* D2AWidgetUserEntry.swift in Sources */,
 				79A9891D2931EB5A006AC847 /* Match.swift in Sources */,
 				79E01CAB291E35320073BF68 /* MatchListRowViewModel.swift in Sources */,

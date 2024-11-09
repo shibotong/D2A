@@ -64,7 +64,7 @@ struct HeroImageView: View {
         }
         switch type {
         case .icon:
-            let url = URL(string: "https://api.opendota.com\(hero.icon)")
+            let url = URL(string: "https://api.opendota.com/abc")
             return url
         case .portrait:
             let name = hero.name.replacingOccurrences(of: "npc_dota_hero_", with: "")

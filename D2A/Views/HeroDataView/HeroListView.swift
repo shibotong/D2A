@@ -73,7 +73,7 @@ struct HeroListView: View {
         Section {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading), count: 1)) {
                 ForEach(heroes) { hero in
-                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.heroID))) {
                         buildHero(hero: hero)
                     }
                 }
@@ -117,7 +117,7 @@ struct HeroListView: View {
         if vm.gridView {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 130, maximum: 200), spacing: 10, alignment: .leading), count: 1)) {
                 ForEach(heroes) { hero in
-                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.heroID))) {
                         buildHero(hero: hero)
                             
                     }
@@ -125,7 +125,7 @@ struct HeroListView: View {
             }
         } else {
             ForEach(heroes) { hero in
-                NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.heroID))) {
                     buildHero(hero: hero)
                 }
             }
@@ -134,14 +134,14 @@ struct HeroListView: View {
     
     @ViewBuilder private func buildHero(hero: HeroCodable) -> some View {
         if horizontalSize == .regular {
-            HeroImageView(heroID: hero.id, type: .vert)
+            HeroImageView(heroID: hero.heroID, type: .vert)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .opacity(vm.searchResults.contains(where: { $0.id == hero.id }) || vm.searchString.isEmpty ? 1 : 0.2)
                 .accessibilityIdentifier(hero.heroNameLocalized)
         } else {
             if vm.gridView {
                 ZStack {
-                    HeroImageView(heroID: hero.id, type: .full)
+                    HeroImageView(heroID: hero.heroID, type: .full)
                         .overlay(LinearGradient(colors: [.black.opacity(0), .black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .accessibilityIdentifier(hero.heroNameLocalized)
@@ -162,7 +162,7 @@ struct HeroListView: View {
                 }
             } else {
                 HStack {
-                    HeroImageView(heroID: hero.id, type: .full)
+                    HeroImageView(heroID: hero.heroID, type: .full)
                         .frame(width: 70)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     Text(hero.heroNameLocalized)

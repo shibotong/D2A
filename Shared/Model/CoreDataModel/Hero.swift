@@ -42,8 +42,6 @@ extension Hero {
         hero.abilities = abilities
         hero.primaryAttr = model.primaryAttr
         hero.attackType = model.attackType
-        hero.img = model.img
-        hero.icon = model.icon
         
         hero.baseHealth = model.baseHealth
         hero.baseHealthRegen = model.baseHealthRegen
@@ -95,7 +93,7 @@ extension Hero {
     var heroNameLowerCase: String {
         return name?.replacingOccurrences(of: "npc_dota_hero_", with: "") ?? "no_name"
     }
-
+    
     var heroNameLocalized: String {
         return NSLocalizedString(displayName ?? "no_name", comment: "")
     }
@@ -254,30 +252,29 @@ extension Hero {
     }
     
     func updateHero(model: HeroCodable) {
-        heroID = Int16(model.id)
-        primaryAttr = model.primaryAttr
-        attackType = model.attackType
+        updateIfNotEqual(entity: self, path: \.heroID, value: Int16(model.heroID))
+        updateIfNotEqual(entity: self, path: \.primaryAttr, value: model.primaryAttr)
+        updateIfNotEqual(entity: self, path: \.attackType, value: model.attackType)
+        updateIfNotEqual(entity: self, path: \.baseHealth, value: model.baseHealth)
+        updateIfNotEqual(entity: self, path: \.baseHealthRegen, value: model.baseHealthRegen)
+        updateIfNotEqual(entity: self, path: \.baseMana, value: model.baseMana)
+        updateIfNotEqual(entity: self, path: \.baseManaRegen, value: model.baseManaRegen)
+        updateIfNotEqual(entity: self, path: \.baseArmor, value: model.baseArmor)
+        updateIfNotEqual(entity: self, path: \.baseMr, value: model.baseMr)
+        updateIfNotEqual(entity: self, path: \.baseAttackMin, value: model.baseAttackMin)
+        updateIfNotEqual(entity: self, path: \.baseAttackMax, value: model.baseAttackMax)
         
-        baseHealth = model.baseHealth
-        baseHealthRegen = model.baseHealthRegen
-        baseMana = model.baseMana
-        baseManaRegen = model.baseManaRegen
-        baseArmor = model.baseArmor
-        baseMr = model.baseMr
-        baseAttackMin = model.baseAttackMin
-        baseAttackMax = model.baseAttackMax
+        updateIfNotEqual(entity: self, path: \.baseStr, value: model.baseStr)
+        updateIfNotEqual(entity: self, path: \.baseAgi, value: model.baseAgi)
+        updateIfNotEqual(entity: self, path: \.baseInt, value: model.baseInt)
+        updateIfNotEqual(entity: self, path: \.gainStr, value: model.strGain)
+        updateIfNotEqual(entity: self, path: \.gainAgi, value: model.agiGain)
+        updateIfNotEqual(entity: self, path: \.gainInt, value: model.intGain)
         
-        baseStr = model.baseStr
-        baseAgi = model.baseAgi
-        baseInt = model.baseInt
-        gainStr = model.strGain
-        gainAgi = model.agiGain
-        gainInt = model.intGain
-        
-        attackRange = model.attackRange
-        projectileSpeed = model.projectileSpeed
-        attackRate = model.attackRate
-        moveSpeed = model.moveSpeed
-        turnRate = model.turnRate ?? 0.6
+        updateIfNotEqual(entity: self, path: \.attackRange, value: model.attackRange)
+        updateIfNotEqual(entity: self, path: \.projectileSpeed, value: model.projectileSpeed)
+        updateIfNotEqual(entity: self, path: \.attackRate, value: model.attackRate)
+        updateIfNotEqual(entity: self, path: \.moveSpeed, value: model.moveSpeed)
+        updateIfNotEqual(entity: self, path: \.turnRate, value: model.turnRate ?? 0.6)
     }
 }

@@ -12,7 +12,14 @@ enum PersistanceError: Error {
     case persistentHistoryChangeError
 }
 
-class PersistenceController {
+protocol CoreDataController {
+    
+    func insertHeroes(heroes: [HeroCodable]) throws
+    
+//    func batchInsert<T: NSManagedObject>(entity: T.Type, objectHandler: @escaping (NSManagedObject) -> Bool) throws
+}
+
+class PersistenceController: CoreDataController {
     static let shared = PersistenceController()
 
     static var preview: PersistenceController = {
@@ -140,6 +147,49 @@ class PersistenceController {
             
             NSManagedObjectContext.mergeChanges(fromRemoteContextSave: deletedObjects, into: [strongSelf.container.viewContext])
         }
+    }
+    
+    func insertHeroes(heroes: [HeroCodable]) throws {
+        // check hero entity has data
+        let privateContext = container.newBackgroundContext()
+        
+        let heroCounts = try countEntity(for: Hero.self, context: privateContext)
+        if heroCounts == 0 {
+            D2ALogger.shared.log("No hero data, do batch insert.", level: .info)
+            var heroCount = 0
+            try batchInsert(entity: Hero.self) { object in
+                guard let hero = object as? Hero else {
+                    return true
+                }
+                
+                let heroData = heroes[heroCount]
+//                hero.updateHero(model: heroData)
+                return false
+            }
+        } else {
+            D2ALogger.shared.log("Hero data already inserted, insert new hero or update existing ones.", level: .info)
+            for heroData in heroes {
+                let predicate = NSPredicate(format: "%K = %K", #keyPath(Hero.heroID), heroData.heroID)
+                var hero: Hero = fetchOne(for: Hero.self, predicate: predicate, context: privateContext) ?? Hero(context: privateContext)
+//                hero.updateHero(model: heroData)
+            }
+            try privateContext.save()
+        }
+    }
+    
+    
+    private func fetchOne<T: NSManagedObject>(for entity: T.Type, predicate: NSPredicate?, context: NSManagedObjectContext) -> T? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
+        fetchRequest.entity = entity.entity()
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = predicate
+        return try? context.fetch(fetchRequest).first as? T
+    }
+    
+    private func countEntity<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) throws -> Int {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
+        fetchRequest.entity = entity.entity()
+        return try context.count(for: fetchRequest)
     }
     
     func batchInsert<T: NSManagedObject>(entity: T.Type, objectHandler: @escaping (NSManagedObject) -> Bool) throws {

@@ -120,7 +120,7 @@ class HeroDetailViewModel: ObservableObject {
     
     func getRelateHeroID(id: Int, isPrevious: Bool) -> Int? {
         let heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
-        let heroIndex = heroList.firstIndex { $0.id == id } ?? 0
+        let heroIndex = heroList.firstIndex { $0.heroID == id } ?? 0
         var index = 0
         if isPrevious {
             index = heroIndex + 1
@@ -137,7 +137,7 @@ class HeroDetailViewModel: ObservableObject {
             return nil
         }
         let nextHero = heroList[index]
-        let nextHeroID = nextHero.id
+        let nextHeroID = nextHero.heroID
         return nextHeroID
     }
     
