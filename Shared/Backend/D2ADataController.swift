@@ -20,12 +20,20 @@ class D2ADataController {
     }
     
     func downloadHeroData() async {
-        let heroData = await constantsController.getHeroConstants()
+        guard let heroData = await constantsController.loadData(urlPath: .hero, decodable: [HeroCodable].self) else {
+            return
+        }
         do {
             try await coreDataController.insertHeroes(heroes: heroData)
             D2ALogger.shared.log("insert heroes successfully", level: .info)
         } catch {
             D2ALogger.shared.log("Insert hero data failed. Error: \(error.localizedDescription)", level: .error)
+        }
+    }
+    
+    func downloadAbilityData() async {
+        guard let abilityData = await constantsController.loadData(urlPath: .ability, decodable: [String: AbilityCodable].self) else {
+            return
         }
     }
 }

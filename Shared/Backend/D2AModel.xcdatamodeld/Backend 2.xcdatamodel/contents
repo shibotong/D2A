@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23507" systemVersion="24B83" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Ability" representedClassName="Ability" syncable="YES" codeGenerationType="class">
+        <attribute name="abilityID" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="behavior" optional="YES" attributeType="String"/>
+        <attribute name="bkbPierce" optional="YES" attributeType="String"/>
+        <attribute name="coolDown" optional="YES" attributeType="String"/>
+        <attribute name="damageType" optional="YES" attributeType="String"/>
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="dispellable" optional="YES" attributeType="String"/>
+        <attribute name="dname" optional="YES" attributeType="String"/>
+        <attribute name="lore" optional="YES" attributeType="String"/>
+        <attribute name="manaCost" optional="YES" attributeType="String"/>
+        <attribute name="targetTeam" optional="YES" attributeType="String"/>
+        <attribute name="targetType" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="Hero" representedClassName="Hero" syncable="YES" codeGenerationType="class">
         <attribute name="attackRange" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="attackRate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>

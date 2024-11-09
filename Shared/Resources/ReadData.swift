@@ -123,13 +123,13 @@ func loadProfile() -> UserProfileCodable? {
     }
 }
 
-func loadSampleAbilities() -> [String: Ability]? {
+func loadSampleAbilities() -> [String: AbilityCodable]? {
     guard let data = loadFile(filename: "sampleAbility") else {
         return nil
     }
     do {
         let decoder = JSONDecoder()
-        let jsonData = try decoder.decode([String: Ability].self, from: data)
+        let jsonData = try decoder.decode([String: AbilityCodable].self, from: data)
         return jsonData
     } catch {
         debugPrint(error)
@@ -199,14 +199,14 @@ func loadAbilityID() async -> [String: String] {
     }
 }
 
-func loadAbilities() async -> [String: Ability] {
+func loadAbilities() async -> [String: AbilityCodable] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/abilities.json"
     if let url = URL(string: urlString) {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             
             let decoder = JSONDecoder()
-            let jsonData = try decoder.decode([String: Ability].self, from: data)
+            let jsonData = try decoder.decode([String: AbilityCodable].self, from: data)
             return jsonData
         } catch {
             debugPrint("Load Abilities", error)

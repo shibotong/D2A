@@ -28,7 +28,7 @@ class HeroDatabase: ObservableObject {
     private var items = [String: Item]()
     private var itemIDTable = [String: String]()
     private var abilityIDTable = [String: String]()
-    private var abilities = [String: Ability]()
+    private var abilities = [String: AbilityCodable]()
     private var heroAbilities = [String: HeroAbility]()
     private var scepterData = [HeroScepter]()
     private var apolloAbilities = [AbilityQuery.Data.Constants.Ability]()
@@ -52,23 +52,6 @@ class HeroDatabase: ObservableObject {
         setupBinding()
         loadData()
     }
-    
-//    private func downloadHeroes() async {
-//        let heroData = await loadHeroes()
-//        var heroID = 1
-//        PersistenceController.shared.batchInsert(entity: Hero.self) { object in
-//            guard let hero = object as? Hero else {
-//                return true
-//            }
-//            
-//            guard let (id, model) = fetchNextHero(heroID: heroID, heroData: heroData) else {
-//                return true
-//            }
-//            heroID = id + 1
-//            hero.updateHero(model: model)
-//            return false
-//        }
-//    }
     
     private func fetchNextHero(heroID: Int = 1, heroData: [String: HeroCodable]) -> (Int, HeroCodable?) {
         guard heroID < 200 else {
@@ -193,7 +176,7 @@ class HeroDatabase: ObservableObject {
         return abilityName
     }
     
-    func fetchOpenDotaAbility(name: String) -> Ability? {
+    func fetchOpenDotaAbility(name: String) -> AbilityCodable? {
         return abilities[name]
     }
     
@@ -225,7 +208,7 @@ class HeroDatabase: ObservableObject {
         return []
     }
     
-    func getAbilityScepterDesc(ability: Ability, heroID: Int) -> String? {
+    func getAbilityScepterDesc(ability: AbilityCodable, heroID: Int) -> String? {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -238,7 +221,7 @@ class HeroDatabase: ObservableObject {
         return nil
     }
     
-    func isScepterSkill(ability: Ability, heroID: Int) -> Bool {
+    func isScepterSkill(ability: AbilityCodable, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -248,7 +231,7 @@ class HeroDatabase: ObservableObject {
         return ability.dname == hero.scepterSkillName && hero.scepterNewSkill
     }
     
-    func isShardSkill(ability: Ability, heroID: Int) -> Bool {
+    func isShardSkill(ability: AbilityCodable, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -258,7 +241,7 @@ class HeroDatabase: ObservableObject {
         return ability.dname == hero.shardSkillName && hero.shardNewSkill
     }
     
-    func hasScepter(ability: Ability, heroID: Int) -> Bool {
+    func hasScepter(ability: AbilityCodable, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -268,7 +251,7 @@ class HeroDatabase: ObservableObject {
         return ability.dname == hero.scepterSkillName
     }
     
-    func hasShard(ability: Ability, heroID: Int) -> Bool {
+    func hasShard(ability: AbilityCodable, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -282,7 +265,7 @@ class HeroDatabase: ObservableObject {
         }
     }
     
-    func getAbilityShardDesc(ability: Ability, heroID: Int) -> String? {
+    func getAbilityShardDesc(ability: AbilityCodable, heroID: Int) -> String? {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
