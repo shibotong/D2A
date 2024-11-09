@@ -249,10 +249,13 @@
 		32F70B3026F714FD006E9B05 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2F26F714FD006E9B05 /* Provider.swift */; };
 		6B8E855F2CDF53F50040432B /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B8E855E2CDF53F50040432B /* StratzAPI */; };
 		6B8E85612CDF54000040432B /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B8E85602CDF54000040432B /* StratzAPI */; };
+		6B8E85632CDF55340040432B /* d2a-secrets.json.sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B8E85622CDF55340040432B /* d2a-secrets.json.sample.json */; };
+		6B8E85642CDF55340040432B /* d2a-secrets.json.sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B8E85622CDF55340040432B /* d2a-secrets.json.sample.json */; };
+		6B8E85652CDF55340040432B /* d2a-secrets.json.sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B8E85622CDF55340040432B /* d2a-secrets.json.sample.json */; };
+		6B8E85672CDF553D0040432B /* d2a-secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B8E85662CDF553D0040432B /* d2a-secrets.json */; };
+		6B8E85682CDF553D0040432B /* d2a-secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B8E85662CDF553D0040432B /* d2a-secrets.json */; };
+		6B8E85692CDF553D0040432B /* d2a-secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B8E85662CDF553D0040432B /* d2a-secrets.json */; };
 		790102B829F4099D00E8A320 /* AttributeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790102B729F4099D00E8A320 /* AttributeImage.swift */; };
-		790102C029F40F7B00E8A320 /* secrets.json.sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 790102BF29F40F7B00E8A320 /* secrets.json.sample.json */; };
-		790102C129F40F8100E8A320 /* secrets.json.sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 790102BF29F40F7B00E8A320 /* secrets.json.sample.json */; };
-		790102C229F40F8200E8A320 /* secrets.json.sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 790102BF29F40F7B00E8A320 /* secrets.json.sample.json */; };
 		790266462A35454500CE54DF /* LiveMatchEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790266452A35454500CE54DF /* LiveMatchEventListView.swift */; };
 		790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790266482A35478D00CE54DF /* LiveMatchEventRowView.swift */; };
 		79091DF52A3B2E2C0093EEE4 /* LiveMatchActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */; };
@@ -364,9 +367,6 @@
 		79CF637C29C40B700072F4C0 /* D2AUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF637B29C40B700072F4C0 /* D2AUITests.swift */; };
 		79D1043729E2991E00BC04B3 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79D1043629E2991E00BC04B3 /* Apollo */; };
 		79D5280E28DD5D990070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
-		79D5281E28DD73CF0070841D /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.json */; };
-		79D5281F28DD73CF0070841D /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.json */; };
-		79D5282028DD73CF0070841D /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.json */; };
 		79D5282228DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
 		79D5282328DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
 		79D5282428DD74930070841D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5282128DD74930070841D /* Secret.swift */; };
@@ -577,9 +577,10 @@
 		32F70B2F26F714FD006E9B05 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		32F70B3726F80AD3006E9B05 /* D2ARelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2ARelease.entitlements; sourceTree = "<group>"; };
 		32F70B3926F80AE4006E9B05 /* D2AWidgetIntentHandlerRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2AWidgetIntentHandlerRelease.entitlements; sourceTree = "<group>"; };
+		6B8E85622CDF55340040432B /* d2a-secrets.json.sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "d2a-secrets.json.sample.json"; sourceTree = "<group>"; };
+		6B8E85662CDF553D0040432B /* d2a-secrets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "d2a-secrets.json"; sourceTree = "<group>"; };
 		790102B729F4099D00E8A320 /* AttributeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeImage.swift; sourceTree = "<group>"; };
 		790102B929F40C4600E8A320 /* ScreenShotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotTests.swift; sourceTree = "<group>"; };
-		790102BF29F40F7B00E8A320 /* secrets.json.sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = secrets.json.sample.json; sourceTree = "<group>"; };
 		790266452A35454500CE54DF /* LiveMatchEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchEventListView.swift; sourceTree = "<group>"; };
 		790266482A35478D00CE54DF /* LiveMatchEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchEventRowView.swift; sourceTree = "<group>"; };
 		79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityAttributes.swift; sourceTree = "<group>"; };
@@ -646,7 +647,6 @@
 		79CF637929C40B6F0072F4C0 /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79CF637B29C40B700072F4C0 /* D2AUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AUITests.swift; sourceTree = "<group>"; };
 		79D5280D28DD5D990070841D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		79D5281D28DD73CF0070841D /* secrets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = secrets.json; sourceTree = "<group>"; };
 		79D5282128DD74930070841D /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowViewModel.swift; sourceTree = "<group>"; };
 		79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchPlayerView.swift; sourceTree = "<group>"; };
@@ -1220,8 +1220,8 @@
 				79B1630328DD5A31009B2AE2 /* Hero.graphql */,
 				79D5280D28DD5D990070841D /* Network.swift */,
 				79D5282128DD74930070841D /* Secret.swift */,
-				79D5281D28DD73CF0070841D /* secrets.json */,
-				790102BF29F40F7B00E8A320 /* secrets.json.sample.json */,
+				6B8E85662CDF553D0040432B /* d2a-secrets.json */,
+				6B8E85622CDF55340040432B /* d2a-secrets.json.sample.json */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -1463,7 +1463,7 @@
 				323ADB27272B91F500253124 /* aghs_desc.json in Resources */,
 				323ADB28272B91F500253124 /* hero_names.json in Resources */,
 				323ADB37272B91F500253124 /* item_ids.json in Resources */,
-				79D5281E28DD73CF0070841D /* secrets.json in Resources */,
+				6B8E85632CDF55340040432B /* d2a-secrets.json.sample.json in Resources */,
 				3214C0D226F0E1AF00C377EF /* privacy-policy.md in Resources */,
 				798C42992A356FAC00BDC470 /* sampleItem.json in Resources */,
 				798C42972A356F4A00BDC470 /* sampleItemID.json in Resources */,
@@ -1473,7 +1473,6 @@
 				323ADB31272B91F500253124 /* patchnotes.json in Resources */,
 				323ADB2A272B91F500253124 /* neutral_abilities.json in Resources */,
 				323ADB26272B91F500253124 /* abilities.json in Resources */,
-				790102C029F40F7B00E8A320 /* secrets.json.sample.json in Resources */,
 				321D58A726D717900059526B /* sampleMatch.json in Resources */,
 				323ADB33272B91F500253124 /* countries.json in Resources */,
 				323ADB21272B91F500253124 /* ability_ids.json in Resources */,
@@ -1498,6 +1497,7 @@
 				327B87692850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */,
 				323ADB32272B91F500253124 /* chat_wheel.json in Resources */,
 				323ADB2B272B91F500253124 /* order_types.json in Resources */,
+				6B8E85692CDF553D0040432B /* d2a-secrets.json in Resources */,
 				323ADB30272B91F500253124 /* region.json in Resources */,
 				32B36F1326C38822002D427D /* Assets.xcassets in Resources */,
 				323ADB38272B91F500253124 /* patch.json in Resources */,
@@ -1519,13 +1519,14 @@
 				323ADB68272E03E300253124 /* skillshots.json in Resources */,
 				327B876F2850DA6500BBE1F8 /* sampleHero.json in Resources */,
 				323ADB6D272E03E300253124 /* patch.json in Resources */,
+				6B8E85642CDF55340040432B /* d2a-secrets.json.sample.json in Resources */,
 				323ADB69272E03E300253124 /* game_mode.json in Resources */,
 				323ADB5B272E03E300253124 /* ancients.json in Resources */,
 				323ADB6E272E03E300253124 /* order_types.json in Resources */,
 				323ADB59272E03E300253124 /* hero_names.json in Resources */,
-				79D5281F28DD73CF0070841D /* secrets.json in Resources */,
 				323ADB64272E03E300253124 /* aghs_desc.json in Resources */,
 				323ADB6A272E03E300253124 /* xp_level.json in Resources */,
+				6B8E85672CDF553D0040432B /* d2a-secrets.json in Resources */,
 				7977FDA229C1770B0034D3EA /* schema.graphqls in Resources */,
 				323ADB5F272E03E300253124 /* items.json in Resources */,
 				323ADB58272E03E300253124 /* permanent_buffs.json in Resources */,
@@ -1542,7 +1543,6 @@
 				323ADB5C272E03E300253124 /* item_colors.json in Resources */,
 				323ADB5E272E03E300253124 /* countries.json in Resources */,
 				323ADB67272E03E300253124 /* ability_ids.json in Resources */,
-				790102C129F40F8100E8A320 /* secrets.json.sample.json in Resources */,
 				323ADB62272E03E300253124 /* player_colors.json in Resources */,
 				323ADB5D272E03E300253124 /* hero_abilities.json in Resources */,
 				323ADB70272E03E300253124 /* chat_wheel.json in Resources */,
@@ -1557,9 +1557,9 @@
 				327B87702850DA6500BBE1F8 /* sampleHero.json in Resources */,
 				323ADB8A272E03E500253124 /* hero_names.json in Resources */,
 				323ADB8B272E03E500253124 /* heroes.json in Resources */,
+				6B8E85652CDF55340040432B /* d2a-secrets.json.sample.json in Resources */,
 				7977FDA329C1770B0034D3EA /* schema.graphqls in Resources */,
 				323ADB96272E03E500253124 /* abilities.json in Resources */,
-				790102C229F40F8200E8A320 /* secrets.json.sample.json in Resources */,
 				323ADB9D272E03E500253124 /* region.json in Resources */,
 				327B876B2850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */,
 				323ADB90272E03E500253124 /* items.json in Resources */,
@@ -1581,9 +1581,9 @@
 				323ADB92272E03E500253124 /* patchnotes.json in Resources */,
 				323ADB9E272E03E500253124 /* patch.json in Resources */,
 				32F70B2426F6296C006E9B05 /* sampleMatch.json in Resources */,
-				79D5282028DD73CF0070841D /* secrets.json in Resources */,
 				323ADB8E272E03E500253124 /* hero_abilities.json in Resources */,
 				32F70B2526F6296F006E9B05 /* sampleProfile.json in Resources */,
+				6B8E85682CDF553D0040432B /* d2a-secrets.json in Resources */,
 				327A7B8327152388001F964D /* Assets.xcassets in Resources */,
 				323ADBA0272E03E500253124 /* neutral_abilities.json in Resources */,
 				323ADB91272E03E500253124 /* cluster.json in Resources */,

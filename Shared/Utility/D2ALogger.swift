@@ -40,7 +40,7 @@ class D2ALogger {
         
         let fileName = filePath.split(separator: "/").last!
         
-        print("\(level.icon)[\(fileName)] \(message)")
+        print("\(level.icon)[\(fileName): \(line)] \(message)")
     }
 }
 #endif
