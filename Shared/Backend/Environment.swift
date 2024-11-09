@@ -47,6 +47,8 @@ final class DotaEnvironment: ObservableObject {
     @Published var matchActive: Bool = false
     @Published var userActive: Bool = false
     
+    private let dataController: D2ADataController = .shared
+    
     private var refreshDistance: TimeInterval {
         var refreshTime: TimeInterval = 60
         #if DEBUG
@@ -99,5 +101,9 @@ final class DotaEnvironment: ObservableObject {
             guard let playerID = player.id else { return }
             PersistenceController.shared.deleteRecentMatchesForUserID(userID: playerID)
         }
+    }
+    
+    func fetchingConstantData() async {
+        await dataController.downloadHeroData()
     }
 }

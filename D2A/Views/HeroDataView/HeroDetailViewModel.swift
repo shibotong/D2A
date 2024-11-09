@@ -51,29 +51,29 @@ class HeroDetailViewModel: ObservableObject {
         
         $hero
             .map { [weak self] hero in
-                guard let abilityNames = hero?.abilities else {
+//                guard let abilityNames = hero?.abilities else {
                     return []
-                }
-                let abilities = abilityNames.filter { ability in
-                    let containHidden = ability.contains("hidden")
-                    let containEmpty = ability.contains("empty")
-                    return !containHidden && !containEmpty
-                }.compactMap { [weak self] abilityName in
-                    self?.database.fetchOpenDotaAbility(name: abilityName)
-                }
-                self?.selectedAbility = abilities.first
-                return abilities
+//                }
+//                let abilities = abilityNames.filter { ability in
+//                    let containHidden = ability.contains("hidden")
+//                    let containEmpty = ability.contains("empty")
+//                    return !containHidden && !containEmpty
+//                }.compactMap { [weak self] abilityName in
+//                    self?.database.fetchOpenDotaAbility(name: abilityName)
+//                }
+//                self?.selectedAbility = abilities.first
+//                return abilities
             }
             .assign(to: &$abilities)
     }
     
     /// Load hero
     func loadHero(hero: Hero?, id: Int) {
-        if let lastFetch = hero?.lastFetch, lastFetch.startOfDay == Date().startOfDay {
-            // if hero exist and already fetched today, dont download hero
-            return
-        }
-        downloadHero(heroID: id)
+//        if let lastFetch = hero?.lastFetch, lastFetch.startOfDay == Date().startOfDay {
+//            // if hero exist and already fetched today, dont download hero
+//            return
+//        }
+//        downloadHero(heroID: id)
     }
     
     /// Download hero from API

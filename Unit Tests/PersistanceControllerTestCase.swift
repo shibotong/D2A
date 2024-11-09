@@ -10,15 +10,21 @@ import XCTest
 
 final class PersistanceControllerTestCase: XCTestCase {
     
-    var persistenceController: PersistenceController
+    var persistenceController: PersistenceController!
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         persistenceController = PersistenceController(inMemory: true)
     }
 
-    func testInsertHero() throws {
-        let hero = HeroCodable(id: 1, name: "Test", description: "Test")
+    func testInsertHero() async throws {
+        let hero = HeroCodable(heroID: 1, name: "Test Hero")
+        try await persistenceController.insertHeroes(heroes: [hero])
+        let predicate = NSPredicate(format: "%K = %K", #keyPath(Hero.heroID), 1)
+        let context = persistenceController.container.viewContext
+        let savedHero = persistenceController.fetchOne(for: Hero.self, predicate: predicate, context: context)
+        XCTAssertEqual(savedHero?.heroID, 1)
+        XCTAssertEqual(savedHero?.name, "Test Hero")
     }
 
     func testPerformanceExample() throws {

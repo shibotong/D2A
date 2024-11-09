@@ -28,7 +28,7 @@ extension Hero {
         }
         let hero = fetchHero(id: heroID) ?? Hero(context: viewContext)
         // data from Stratz
-        hero.lastFetch = Date()
+//        hero.lastFetch = Date()
         hero.heroID = Int16(heroID)
         hero.displayName = queryHero.displayName
         hero.name = queryHero.name
@@ -39,7 +39,7 @@ extension Hero {
         hero.talents = NSSet(array: try heroTalents.map({ return try Talent.createTalent($0) }))
         
         // data from OpenDota
-        hero.abilities = abilities
+//        hero.abilities = abilities
         hero.primaryAttr = model.primaryAttr
         hero.attackType = model.attackType
         

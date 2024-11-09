@@ -19,13 +19,13 @@ class D2ADataController {
         coreDataController = persistanceController
     }
     
-    private func downloadHeroData() async {
+    func downloadHeroData() async {
         let heroData = await constantsController.getHeroConstants()
         do {
-            try coreDataController.insertHeroes(heroes: heroData)
+            try await coreDataController.insertHeroes(heroes: heroData)
             D2ALogger.shared.log("insert heroes successfully", level: .info)
         } catch {
-            D2ALogger.shared.log("Insert hero data failed \(error.localizedDescription)", level: .error)
+            D2ALogger.shared.log("Insert hero data failed. Error: \(error.localizedDescription)", level: .error)
         }
     }
 }

@@ -14,7 +14,7 @@ enum PersistanceError: Error {
 
 protocol CoreDataController {
     
-    func insertHeroes(heroes: [HeroCodable]) throws
+    func insertHeroes(heroes: [HeroCodable]) async throws
     
 //    func batchInsert<T: NSManagedObject>(entity: T.Type, objectHandler: @escaping (NSManagedObject) -> Bool) throws
 }
@@ -149,21 +149,24 @@ class PersistenceController: CoreDataController {
         }
     }
     
-    func insertHeroes(heroes: [HeroCodable]) throws {
+    func insertHeroes(heroes: [HeroCodable]) async throws {
         // check hero entity has data
         let privateContext = container.newBackgroundContext()
         
-        let heroCounts = try countEntity(for: Hero.self, context: privateContext)
+        let heroCounts = try await countEntity(for: Hero.self, context: privateContext)
         if heroCounts == 0 {
             D2ALogger.shared.log("No hero data, do batch insert.", level: .info)
             var heroCount = 0
-            try batchInsert(entity: Hero.self) { object in
-                guard let hero = object as? Hero else {
+            try batchInsert(entity: Hero.self, privateContext: privateContext) { object in
+                guard let hero = object as? Hero, heroCount < heroes.count else {
                     return true
                 }
                 
                 let heroData = heroes[heroCount]
-//                hero.updateHero(model: heroData)
+               
+                //                hero.updateHero(model: heroData)
+                self.updateHero(object: hero, model: heroData)
+                heroCount += 1
                 return false
             }
         } else {
@@ -171,14 +174,44 @@ class PersistenceController: CoreDataController {
             for heroData in heroes {
                 let predicate = NSPredicate(format: "%K = %K", #keyPath(Hero.heroID), heroData.heroID)
                 var hero: Hero = fetchOne(for: Hero.self, predicate: predicate, context: privateContext) ?? Hero(context: privateContext)
-//                hero.updateHero(model: heroData)
+                //                hero.updateHero(model: heroData)
+                updateHero(object: hero, model: heroData)
             }
             try privateContext.save()
         }
     }
     
+    func updateHero(object: Hero, model: HeroCodable) {
+        updateIfNotEqual(entity: object, path: \.heroID, value: Int16(model.heroID))
+        updateIfNotEqual(entity: object, path: \.name, value: model.name)
+        updateIfNotEqual(entity: object, path: \.displayName, value: model.localizedName)
+        updateIfNotEqual(entity: object, path: \.primaryAttr, value: model.primaryAttr)
+        updateIfNotEqual(entity: object, path: \.attackType, value: model.attackType)
+        updateIfNotEqual(entity: object, path: \.baseHealth, value: model.baseHealth)
+        updateIfNotEqual(entity: object, path: \.baseHealthRegen, value: model.baseHealthRegen)
+        updateIfNotEqual(entity: object, path: \.baseMana, value: model.baseMana)
+        updateIfNotEqual(entity: object, path: \.baseManaRegen, value: model.baseManaRegen)
+        updateIfNotEqual(entity: object, path: \.baseArmor, value: model.baseArmor)
+        updateIfNotEqual(entity: object, path: \.baseMr, value: model.baseMr)
+        updateIfNotEqual(entity: object, path: \.baseAttackMin, value: model.baseAttackMin)
+        updateIfNotEqual(entity: object, path: \.baseAttackMax, value: model.baseAttackMax)
+        
+        updateIfNotEqual(entity: object, path: \.baseStr, value: model.baseStr)
+        updateIfNotEqual(entity: object, path: \.baseAgi, value: model.baseAgi)
+        updateIfNotEqual(entity: object, path: \.baseInt, value: model.baseInt)
+        updateIfNotEqual(entity: object, path: \.gainStr, value: model.strGain)
+        updateIfNotEqual(entity: object, path: \.gainAgi, value: model.agiGain)
+        updateIfNotEqual(entity: object, path: \.gainInt, value: model.intGain)
+        
+        updateIfNotEqual(entity: object, path: \.attackRange, value: model.attackRange)
+        updateIfNotEqual(entity: object, path: \.projectileSpeed, value: model.projectileSpeed)
+        updateIfNotEqual(entity: object, path: \.attackRate, value: model.attackRate)
+        updateIfNotEqual(entity: object, path: \.moveSpeed, value: model.moveSpeed)
+        updateIfNotEqual(entity: object, path: \.turnRate, value: model.turnRate ?? 0.6)
+    }
     
-    private func fetchOne<T: NSManagedObject>(for entity: T.Type, predicate: NSPredicate?, context: NSManagedObjectContext) -> T? {
+    
+    func fetchOne<T: NSManagedObject>(for entity: T.Type, predicate: NSPredicate?, context: NSManagedObjectContext) -> T? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
         fetchRequest.entity = entity.entity()
         fetchRequest.fetchLimit = 1
@@ -186,27 +219,25 @@ class PersistenceController: CoreDataController {
         return try? context.fetch(fetchRequest).first as? T
     }
     
-    private func countEntity<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) throws -> Int {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
-        fetchRequest.entity = entity.entity()
-        return try context.count(for: fetchRequest)
+    private func countEntity<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) async throws -> Int {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: entity))
+        return try await context.perform {
+            try context.count(for: fetchRequest)
+        }
     }
     
-    func batchInsert<T: NSManagedObject>(entity: T.Type, objectHandler: @escaping (NSManagedObject) -> Bool) throws {
+    func batchInsert<T: NSManagedObject>(entity: T.Type, privateContext: NSManagedObjectContext, objectHandler: @escaping (NSManagedObject) -> Bool) throws {
         /// Create Batch Insert Request
-        let insertRequest = NSBatchInsertRequest(entity: T.entity(), managedObjectHandler: objectHandler)
-        
-        let privateContext = container.newBackgroundContext()
+        let insertRequest = NSBatchInsertRequest(entityName: String(describing: entity), managedObjectHandler: objectHandler)
 
         /// Set the Result Type, in our case we need object IDs
-        insertRequest.resultType = .statusOnly
+        insertRequest.resultType = .objectIDs
         /// Execute the request using the background context already created.
         let result = try privateContext.execute(insertRequest) as! NSBatchInsertResult
         /// Finally we merge using the objectIDs we got from the results.
         if let objectIDs = result.result as? [NSManagedObjectID], !objectIDs.isEmpty {
             let save = [NSInsertedObjectsKey: objectIDs]
-            
-//            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: save, into: [mainContext])
+            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: save, into: [container.viewContext])
         }
     }
 }

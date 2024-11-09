@@ -31,6 +31,9 @@ struct ContentView: View {
         .alert(isPresented: $env.error, content: {
             Alert(title: Text("Error"), message: Text(env.errorMessage), dismissButton: .cancel())
         })
+        .task {
+            await env.fetchingConstantData()
+        }
     }
 }
 

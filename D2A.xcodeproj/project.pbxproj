@@ -268,6 +268,8 @@
 		6B8E85802CDF6BD70040432B /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
 		6B8E85832CDF6BFE0040432B /* HeroListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B87772852263300BBE1F8 /* HeroListViewModel.swift */; };
 		6B8E85842CDF6BFE0040432B /* HeroListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B87772852263300BBE1F8 /* HeroListViewModel.swift */; };
+		6B8E85852CDF74BB0040432B /* D2ADataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E856E2CDF599B0040432B /* D2ADataController.swift */; };
+		6B8E85862CDF74BB0040432B /* D2ADataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E856E2CDF599B0040432B /* D2ADataController.swift */; };
 		790102B829F4099D00E8A320 /* AttributeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790102B729F4099D00E8A320 /* AttributeImage.swift */; };
 		790266462A35454500CE54DF /* LiveMatchEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790266452A35454500CE54DF /* LiveMatchEventListView.swift */; };
 		790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790266482A35478D00CE54DF /* LiveMatchEventRowView.swift */; };
@@ -1844,6 +1846,7 @@
 				794B723E2985D410000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				79A989202931ECBB006AC847 /* Player.swift in Sources */,
 				32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */,
+				6B8E85852CDF74BB0040432B /* D2ADataController.swift in Sources */,
 				32B526C3285C0B380099B058 /* IntentHandler.swift in Sources */,
 				6B8E85832CDF6BFE0040432B /* HeroListViewModel.swift in Sources */,
 				32A26C5528594A28005E890F /* Environment.swift in Sources */,
@@ -1911,6 +1914,7 @@
 				794B723F2985D411000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				79A989212931ECBB006AC847 /* Player.swift in Sources */,
 				32B526C4285C0B380099B058 /* IntentHandler.swift in Sources */,
+				6B8E85862CDF74BB0040432B /* D2ADataController.swift in Sources */,
 				32EC7F3828646BAE00A36AF6 /* RecentMatchesWidgetEntryView.swift in Sources */,
 				6B8E85842CDF6BFE0040432B /* HeroListViewModel.swift in Sources */,
 				32A26C5628594A28005E890F /* Environment.swift in Sources */,
