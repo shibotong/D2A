@@ -272,9 +272,15 @@
 		6B8E85882CDF7B240040432B /* InsertCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E85872CDF7B240040432B /* InsertCodable.swift */; };
 		6B8E85892CDF7B240040432B /* InsertCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E85872CDF7B240040432B /* InsertCodable.swift */; };
 		6B8E858A2CDF7B240040432B /* InsertCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E85872CDF7B240040432B /* InsertCodable.swift */; };
-		6B8E858D2CE020E90040432B /* SaveHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E858C2CE020E90040432B /* SaveHero.swift */; };
-		6B8E858E2CE020E90040432B /* SaveHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E858C2CE020E90040432B /* SaveHero.swift */; };
-		6B8E858F2CE020E90040432B /* SaveHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E858C2CE020E90040432B /* SaveHero.swift */; };
+		6B8E858D2CE020E90040432B /* Hero+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E858C2CE020E90040432B /* Hero+CoreData.swift */; };
+		6B8E858E2CE020E90040432B /* Hero+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E858C2CE020E90040432B /* Hero+CoreData.swift */; };
+		6B8E858F2CE020E90040432B /* Hero+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E858C2CE020E90040432B /* Hero+CoreData.swift */; };
+		6B8E85912CE0270C0040432B /* PersistanceController+D2AData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E85902CE0270C0040432B /* PersistanceController+D2AData.swift */; };
+		6B8E85922CE0270C0040432B /* PersistanceController+D2AData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E85902CE0270C0040432B /* PersistanceController+D2AData.swift */; };
+		6B8E85932CE0270C0040432B /* PersistanceController+D2AData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E85902CE0270C0040432B /* PersistanceController+D2AData.swift */; };
+		6B8E85952CE02AE00040432B /* Ability+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E85942CE02AE00040432B /* Ability+CoreData.swift */; };
+		6B8E85962CE02AE00040432B /* Ability+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E85942CE02AE00040432B /* Ability+CoreData.swift */; };
+		6B8E85972CE02AE00040432B /* Ability+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8E85942CE02AE00040432B /* Ability+CoreData.swift */; };
 		790102B829F4099D00E8A320 /* AttributeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790102B729F4099D00E8A320 /* AttributeImage.swift */; };
 		790266462A35454500CE54DF /* LiveMatchEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790266452A35454500CE54DF /* LiveMatchEventListView.swift */; };
 		790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790266482A35478D00CE54DF /* LiveMatchEventRowView.swift */; };
@@ -601,7 +607,9 @@
 		6B8E856E2CDF599B0040432B /* D2ADataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ADataController.swift; sourceTree = "<group>"; };
 		6B8E85762CDF66310040432B /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		6B8E85872CDF7B240040432B /* InsertCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertCodable.swift; sourceTree = "<group>"; };
-		6B8E858C2CE020E90040432B /* SaveHero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveHero.swift; sourceTree = "<group>"; };
+		6B8E858C2CE020E90040432B /* Hero+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hero+CoreData.swift"; sourceTree = "<group>"; };
+		6B8E85902CE0270C0040432B /* PersistanceController+D2AData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistanceController+D2AData.swift"; sourceTree = "<group>"; };
+		6B8E85942CE02AE00040432B /* Ability+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ability+CoreData.swift"; sourceTree = "<group>"; };
 		790102B729F4099D00E8A320 /* AttributeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeImage.swift; sourceTree = "<group>"; };
 		790102B929F40C4600E8A320 /* ScreenShotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotTests.swift; sourceTree = "<group>"; };
 		790266452A35454500CE54DF /* LiveMatchEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchEventListView.swift; sourceTree = "<group>"; };
@@ -936,6 +944,7 @@
 			children = (
 				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
 				79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */,
+				6B8E85902CE0270C0040432B /* PersistanceController+D2AData.swift */,
 				6B8E858B2CDF7EF10040432B /* OpenDota */,
 				6B8E856E2CDF599B0040432B /* D2ADataController.swift */,
 				329849F326DCAEAE00A1032C /* HeroDatabase.swift */,
@@ -1235,8 +1244,9 @@
 		79A989022931DF61006AC847 /* CoreDataModel */ = {
 			isa = PBXGroup;
 			children = (
+				6B8E85942CE02AE00040432B /* Ability+CoreData.swift */,
 				7985E7EA28E53919007A43AF /* Hero.swift */,
-				6B8E858C2CE020E90040432B /* SaveHero.swift */,
+				6B8E858C2CE020E90040432B /* Hero+CoreData.swift */,
 				79A988F82931D400006AC847 /* Match.swift */,
 				79A989032931E7F1006AC847 /* PermanentBuff.swift */,
 				79A988FC2931D6FF006AC847 /* Player.swift */,
@@ -1743,6 +1753,7 @@
 				796FE19C29AAF659003379EB /* AbilityImage.swift in Sources */,
 				325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */,
 				798519AF2CDB842500292837 /* D2ALogger.swift in Sources */,
+				6B8E85972CE02AE00040432B /* Ability+CoreData.swift in Sources */,
 				32B36F3F26C388AD002D427D /* PlayerProfileView.swift in Sources */,
 				32B36F2A26C38852002D427D /* Item.swift in Sources */,
 				3261C90B2830721500D47CDA /* HeroDetailViewModel.swift in Sources */,
@@ -1768,7 +1779,7 @@
 				322B89C526CFAC1000DF67F9 /* SearchView.swift in Sources */,
 				799948C02932D50000D79055 /* ImageCache.swift in Sources */,
 				327B87782852263300BBE1F8 /* HeroListViewModel.swift in Sources */,
-				6B8E858D2CE020E90040432B /* SaveHero.swift in Sources */,
+				6B8E858D2CE020E90040432B /* Hero+CoreData.swift in Sources */,
 				79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
 				32079DBF28B843360056D19F /* String.swift in Sources */,
@@ -1792,6 +1803,7 @@
 				32D1605A26F304DC00657449 /* StoreView.swift in Sources */,
 				794B724329862294000059E4 /* ItemView.swift in Sources */,
 				3201BC3F26F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
+				6B8E85912CE0270C0040432B /* PersistanceController+D2AData.swift in Sources */,
 				32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */,
 				79800DA4294C2E1000662E2F /* NSNumber.swift in Sources */,
 				323BCBA3285584D90061F937 /* CalendarMatchListView.swift in Sources */,
@@ -1849,7 +1861,7 @@
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
 				32F70ADB26F6090A006E9B05 /* NetworkImage.swift in Sources */,
 				32A26C51285947D3005E890F /* OpenDotaController.swift in Sources */,
-				6B8E858F2CE020E90040432B /* SaveHero.swift in Sources */,
+				6B8E858F2CE020E90040432B /* Hero+CoreData.swift in Sources */,
 				79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
 				32B526CD285C18440099B058 /* RankView.swift in Sources */,
 				798519AE2CDB842500292837 /* D2ALogger.swift in Sources */,
@@ -1870,10 +1882,12 @@
 				32A26C5528594A28005E890F /* Environment.swift in Sources */,
 				32F70ADE26F60B95006E9B05 /* UserProfileCodable.swift in Sources */,
 				797776D22B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
+				6B8E85952CE02AE00040432B /* Ability+CoreData.swift in Sources */,
 				3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				79091DF52A3B2E2C0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32F70B3026F714FD006E9B05 /* Provider.swift in Sources */,
 				32F70AA226F57F7E006E9B05 /* D2AWidget.swift in Sources */,
+				6B8E85922CE0270C0040432B /* PersistanceController+D2AData.swift in Sources */,
 				6B8E856B2CDF55D70040432B /* DotaConstantController.swift in Sources */,
 				7983DA712B63086700C42F87 /* D2AWidgetUserEntry.swift in Sources */,
 				79A9891C2931EB59006AC847 /* Match.swift in Sources */,
@@ -1919,7 +1933,7 @@
 				32F70B0226F621ED006E9B05 /* D2AWidget.swift in Sources */,
 				32F70B1F26F6295C006E9B05 /* Color.swift in Sources */,
 				79A988F72931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
-				6B8E858E2CE020E90040432B /* SaveHero.swift in Sources */,
+				6B8E858E2CE020E90040432B /* Hero+CoreData.swift in Sources */,
 				79A989102931E8F3006AC847 /* Talent.swift in Sources */,
 				32B526C8285C0BDE0099B058 /* Provider.swift in Sources */,
 				798519AD2CDB842500292837 /* D2ALogger.swift in Sources */,
@@ -1940,10 +1954,12 @@
 				32A26C5628594A28005E890F /* Environment.swift in Sources */,
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				797776D32B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
+				6B8E85962CE02AE00040432B /* Ability+CoreData.swift in Sources */,
 				327C033E2716A92500DAEC42 /* KDAView.swift in Sources */,
 				79091DF72A3B2FBD0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */,
 				32EC7F3728646BAC00A36AF6 /* WidgetOverlayView.swift in Sources */,
+				6B8E85932CE0270C0040432B /* PersistanceController+D2AData.swift in Sources */,
 				6B8E856C2CDF55D70040432B /* DotaConstantController.swift in Sources */,
 				7983DA722B63086700C42F87 /* D2AWidgetUserEntry.swift in Sources */,
 				79A9891D2931EB5A006AC847 /* Match.swift in Sources */,

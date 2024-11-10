@@ -12,8 +12,9 @@ protocol ConstantController {
 }
 
 enum DataPath: String {
-    case hero = "https: //api.opendota.com/api/herostats"
+    case hero = "https://api.opendota.com/api/herostats"
     case ability = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/abilities.json"
+    case abilityID = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/ability_ids.json"
 }
 
 class DotaConstantController: ConstantController {

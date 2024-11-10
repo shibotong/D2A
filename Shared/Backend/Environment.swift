@@ -104,6 +104,6 @@ final class DotaEnvironment: ObservableObject {
     }
     
     func fetchingConstantData() async {
-        await dataController.downloadHeroData()
+        await dataController.downloadData()
     }
 }

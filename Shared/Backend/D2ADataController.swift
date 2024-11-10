@@ -19,21 +19,32 @@ class D2ADataController {
         coreDataController = persistanceController
     }
     
-    func downloadHeroData() async {
+    func downloadData() async {
+        await downloadHeroData()
+        await downloadAbilityData()
+    }
+    
+    private func downloadHeroData() async {
         guard let heroData = await constantsController.loadData(urlPath: .hero, decodable: [HeroCodable].self) else {
             return
         }
         do {
             try await coreDataController.insertHeroes(heroes: heroData)
-            D2ALogger.shared.log("insert heroes successfully", level: .info)
         } catch {
             D2ALogger.shared.log("Insert hero data failed. Error: \(error.localizedDescription)", level: .error)
         }
     }
     
-    func downloadAbilityData() async {
-        guard let abilityData = await constantsController.loadData(urlPath: .ability, decodable: [String: AbilityCodable].self) else {
+    private func downloadAbilityData() async {
+        async let abilitiesDataFetch = constantsController.loadData(urlPath: .ability, decodable: [String: AbilityCodable].self)
+        async let abilitiesIDFetch = constantsController.loadData(urlPath: .abilityID, decodable: [String: String].self)
+        guard let abilitiesData = await abilitiesDataFetch, let abilitiesID = await abilitiesIDFetch else {
             return
+        }
+        do {
+            try await coreDataController.insertAbilities(abilities: abilitiesData, idTable: abilitiesID)
+        } catch {
+            D2ALogger.shared.log("Insert ability data failed. Error: \(error.localizedDescription)", level: .error)
         }
     }
 }

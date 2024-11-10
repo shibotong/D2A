@@ -105,7 +105,7 @@ enum StringOrArray: Codable {
         case couldNotFindStringOrArray
     }
     
-    func transformString() -> String? {
+    func transformString() -> String {
         switch self {
         case .string(let string):
             return string

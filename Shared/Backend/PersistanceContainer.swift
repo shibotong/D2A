@@ -12,14 +12,7 @@ enum PersistanceError: Error {
     case persistentHistoryChangeError
 }
 
-protocol CoreDataController {
-    
-    func insertHeroes(heroes: [HeroCodable]) async throws
-    func insertAbilities(abilities: [AbilityCodable]) async throws
-
-}
-
-class PersistenceController: CoreDataController {
+class PersistenceController {
     static let shared = PersistenceController()
 
     static var preview: PersistenceController = {
@@ -149,39 +142,6 @@ class PersistenceController: CoreDataController {
         }
     }
     
-    func insertHeroes(heroes: [HeroCodable]) async throws {
-        // check hero entity has data
-        let privateContext = container.newBackgroundContext()
-        
-        let heroCounts = try await countEntity(for: Hero.self, context: privateContext)
-        if heroCounts == 0 {
-            D2ALogger.shared.log("No hero data, do batch insert.", level: .info)
-            var heroCount = 0
-            try batchInsert(entity: Hero.self, privateContext: privateContext) { object in
-                guard let hero = object as? Hero, heroCount < heroes.count else {
-                    return true
-                }
-                
-                let heroData = heroes[heroCount]
-                hero.updateHero(model: heroData)
-                heroCount += 1
-                return false
-            }
-        } else {
-            D2ALogger.shared.log("Hero data already inserted, insert new hero or update existing ones.", level: .info)
-            for heroData in heroes {
-                let predicate = NSPredicate(format: "%K = %K", #keyPath(Hero.heroID), heroData.heroID)
-                let hero: Hero = fetchOne(for: Hero.self, predicate: predicate, context: privateContext) ?? Hero(context: privateContext)
-                hero.updateHero(model: heroData)
-            }
-            try privateContext.save()
-        }
-    }
-    
-    func insertAbilities(abilities: [AbilityCodable]) async throws {
-        <#code#>
-    }
-    
     func fetchOne<T: NSManagedObject>(for entity: T.Type, predicate: NSPredicate?, context: NSManagedObjectContext) -> T? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
         fetchRequest.entity = entity.entity()
@@ -190,7 +150,7 @@ class PersistenceController: CoreDataController {
         return try? context.fetch(fetchRequest).first as? T
     }
     
-    private func countEntity<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) async throws -> Int {
+    func countEntity<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) async throws -> Int {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: entity))
         return try await context.perform {
             try context.count(for: fetchRequest)

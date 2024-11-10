@@ -11,6 +11,7 @@
         <attribute name="dname" optional="YES" attributeType="String"/>
         <attribute name="lore" optional="YES" attributeType="String"/>
         <attribute name="manaCost" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="targetTeam" optional="YES" attributeType="String"/>
         <attribute name="targetType" optional="YES" attributeType="String"/>
     </entity>

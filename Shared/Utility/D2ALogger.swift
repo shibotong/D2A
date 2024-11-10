@@ -27,7 +27,7 @@ enum LoggerLevel: Int {
 
 class D2ALogger {
     
-    static let shared = D2ALogger(.error)
+    static let shared = D2ALogger(.info)
     
     var loggingLevel: LoggerLevel
     
