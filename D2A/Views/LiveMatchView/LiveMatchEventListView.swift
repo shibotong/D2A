@@ -55,7 +55,7 @@ struct LiveMatchEventListView: View {
 struct LiveMatchEventListView_Previews: PreviewProvider {
     
     static let buildingEvent = LiveMatchBuildingEvent(indexId: 28, time: 180, type: .case(.tower), isAlive: false, isRadiant: false)
-    static let killEvent = LiveMatchKillEvent(time: 100, kill: [1], died: [6, 7, 8, 9, 10], players: .preview, heroDatabase: HeroDatabase(heroes: loadSampleHero()!))
+    static let killEvent = LiveMatchKillEvent(time: 100, kill: [1], died: [6, 7, 8, 9, 10], players: .preview, heroDatabase: HeroDatabase.preview)
     
     static var previews: some View {
         LiveMatchEventListView(events: [buildingEvent, killEvent])

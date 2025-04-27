@@ -7,10 +7,11 @@
 
 import Foundation
 
-class MockOpenDotaConstantProviding: OpenDotaConstantProviding {
+class MockOpenDotaConstantProvider: OpenDotaConstantProviding {
+    
     func loadHeroes() async -> [String: HeroCodable] {
         guard let data = loadFile(filename: "sampleHero") else {
-            return nil
+            return [:]
         }
         
         do {
@@ -19,7 +20,7 @@ class MockOpenDotaConstantProviding: OpenDotaConstantProviding {
             return jsonData
         } catch {
             debugPrint(error)
-            return nil
+            return [:]
         }
     }
     

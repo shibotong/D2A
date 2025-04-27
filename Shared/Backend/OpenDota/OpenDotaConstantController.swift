@@ -14,7 +14,7 @@ class OpenDotaConstantController: OpenDotaConstantProviding {
     
     static let shared = OpenDotaConstantController()
     
-    func loadHeroes() async -> [String : HeroCodable] {
+    func loadHeroes() async -> [String: HeroCodable] {
         let heroURL = OpenDotaConstantService.heroes.serviceURL
         do {
             let heroes = try await D2ANetwork.default.dataTask(heroURL, as: [String: HeroCodable].self)
@@ -25,7 +25,7 @@ class OpenDotaConstantController: OpenDotaConstantProviding {
         }
     }
     
-    func loadItemIDs() async -> [String : String] {
+    func loadItemIDs() async -> [String: String] {
         let itemIDURL = OpenDotaConstantService.itemIDs.serviceURL
         do {
             let itemIDs = try await D2ANetwork.default.dataTask(itemIDURL, as: [String: String].self)

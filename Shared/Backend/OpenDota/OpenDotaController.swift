@@ -8,11 +8,9 @@
 import Foundation
 import WidgetKit
 
-
-
 class OpenDotaController {
     
-    private let baseURL = "https://api.opendota.com"
+    let baseURL = "https://api.opendota.com"
     
     static let shared = OpenDotaController()
     
@@ -111,6 +109,9 @@ class OpenDotaController {
 }
 
 struct DecodingService {
+    
+    private let baseURL = OpenDotaController.shared.baseURL
+    
     func decodeMatch(data: Data) throws -> MatchCodable {
         do {
             let decoder = JSONDecoder()
