@@ -14,7 +14,7 @@ struct D2AApp: App {
     @StateObject var environment: DotaEnvironment = DotaEnvironment.shared
     @StateObject var heroDatabase: HeroDatabase = HeroDatabase.shared
     @StateObject var storeManager: StoreManager = StoreManager.shared
-    let persistenceController = PersistenceController.shared
+    let persistenceController = PersistanceController.shared
     @AppStorage("selectedMatch") var selectedMatch: String?
     @AppStorage("selectedUser") var selectedUser: String?
     

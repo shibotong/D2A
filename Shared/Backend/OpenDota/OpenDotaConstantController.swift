@@ -14,10 +14,22 @@ class OpenDotaConstantController: OpenDotaConstantProviding {
     
     static let shared = OpenDotaConstantController()
     
+    private let maxHeroID = 150
+    
     func loadHeroes() async -> [String: HeroCodable] {
         let heroURL = OpenDotaConstantService.heroes.serviceURL
         do {
             let heroes = try await D2ANetwork.default.dataTask(heroURL, as: [String: HeroCodable].self)
+            
+            var allHeroes: [HeroCodable] = []
+            for i in 1...maxHeroID {
+                let heroIDString = "\(i)"
+                if let heroCodable = heroes[heroIDString] {
+                    allHeroes.append(heroCodable)
+                }
+            }
+            
+            saveHeroes(heroes: allHeroes)
             return heroes
         } catch {
             logWarn("Loading heroes from OpenDotaConstantController failed: \(error.localizedDescription)", category: .opendotaConstant)
@@ -33,6 +45,17 @@ class OpenDotaConstantController: OpenDotaConstantProviding {
         } catch {
             logWarn("Loading itemIDs from OpenDotaConstantController failed: \(error.localizedDescription)", category: .opendotaConstant)
             return [:]
+        }
+    }
+    
+    private func saveHeroes(heroes: [HeroCodable]) {
+        for hero in heroes {
+            do {
+                _ = try Hero.saveData(model: hero, viewContext: PersistanceController.shared.container.viewContext)
+                logDebug("Save hero \(hero.id) successfully", category: .coredata)
+            } catch {
+                logWarn("Save hero \(hero.id) failed. \(error.localizedDescription)", category: .coredata)
+            }
         }
     }
 }

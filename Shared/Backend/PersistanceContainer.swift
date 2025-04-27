@@ -12,21 +12,8 @@ enum PersistanceError: Error {
     case persistentHistoryChangeError
 }
 
-class PersistenceController {
-    static let shared = PersistenceController()
-
-    static var preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
-        let viewContext = result.container.viewContext
-        let previewID = "preview"
-        UserProfile.create(id: previewID, favourite: true, register: true, controller: result)
-        UserProfile.create(id: "preview 1", favourite: true, controller: result)
-        UserProfile.create(id: "preview 2", favourite: true, controller: result)
-        UserProfile.create(id: "preview 3", favourite: true, controller: result)
-        UserProfile.create(id: "preview 4", favourite: true, controller: result)
-        _ = RecentMatch.create(userID: previewID, matchID: previewID, controller: result)
-        return result
-    }()
+class PersistanceController {
+    static let shared = PersistanceController()
 
     let container: NSPersistentContainer
     private var notificationToken: NSObjectProtocol?

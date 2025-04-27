@@ -50,6 +50,9 @@ struct HeroListView: View {
                     }
                 }
             }
+            .onAppear {
+                filteredHeroes = Array(heroes).sorted(by: { $0.displayName ?? "" < $1.displayName ?? "" })
+            }
     }
     
     @ViewBuilder private func buildBody() -> some View {
@@ -189,5 +192,6 @@ struct HeroListView: View {
  struct HeroListView_Previews: PreviewProvider {
     static var previews: some View {
         HeroListView()
+            .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
     }
  }

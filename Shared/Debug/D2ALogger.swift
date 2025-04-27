@@ -9,6 +9,7 @@ import Foundation
 
 enum D2AServiceCategory: String {
     case opendotaConstant
+    case coredata
 }
 
 enum LoggingLevel: Int {
@@ -42,7 +43,7 @@ class D2ALogger: ObservableObject {
     
     static let shared = D2ALogger()
     
-    @Published var loggingLevel: LoggingLevel = .warn
+    @Published var loggingLevel: LoggingLevel = .debug
     
     func log(level: LoggingLevel, message: String, category: D2AServiceCategory) {
         guard level.rawValue >= loggingLevel.rawValue else {

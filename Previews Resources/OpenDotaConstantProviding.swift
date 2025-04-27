@@ -10,18 +10,7 @@ import Foundation
 class MockOpenDotaConstantProvider: OpenDotaConstantProviding {
     
     func loadHeroes() async -> [String: HeroCodable] {
-        guard let data = loadFile(filename: "sampleHero") else {
-            return [:]
-        }
-        
-        do {
-            let decoder = JSONDecoder()
-            let jsonData = try decoder.decode([String: HeroCodable].self, from: data)
-            return jsonData
-        } catch {
-            debugPrint(error)
-            return [:]
-        }
+        return loadSampleHeroes()
     }
     
     func loadItemIDs() async -> [String: String] {
@@ -32,6 +21,21 @@ class MockOpenDotaConstantProvider: OpenDotaConstantProviding {
         do {
             let decoder = JSONDecoder()
             let jsonData = try decoder.decode([String: String].self, from: data)
+            return jsonData
+        } catch {
+            debugPrint(error)
+            return [:]
+        }
+    }
+    
+    func loadSampleHeroes() -> [String: HeroCodable] {
+        guard let data = loadFile(filename: "sampleHero") else {
+            return [:]
+        }
+        
+        do {
+            let decoder = JSONDecoder()
+            let jsonData = try decoder.decode([String: HeroCodable].self, from: data)
             return jsonData
         } catch {
             debugPrint(error)

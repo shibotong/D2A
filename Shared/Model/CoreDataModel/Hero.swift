@@ -17,8 +17,7 @@ extension Hero {
     
     // MARK: - Static func
     /// Create `Hero` with `HeroModel` and `HeroQuery.Data.Constants.Hero` and save into Core Data
-    static func createHero(_ queryHero: HeroQuery.Data.Constants.Hero, model: HeroCodable, abilities: [String] = []) throws -> Hero {
-        let viewContext = PersistenceController.shared.container.viewContext
+    static func createHero(_ queryHero: HeroQuery.Data.Constants.Hero, model: HeroCodable, abilities: [String] = [], viewContext: NSManagedObjectContext = PersistanceController.shared.container.viewContext) throws -> Hero {
         
         guard let heroID = queryHero.id,
               let heroTalents = queryHero.talents,
@@ -71,9 +70,50 @@ extension Hero {
         return hero
     }
     
+    static func saveData(model: HeroCodable, abilities: [String] = [], viewContext: NSManagedObjectContext) throws -> Hero {
+        let hero = fetchHero(id: Double(model.id)) ?? Hero(context: viewContext)
+        hero.id = Double(model.id)
+        hero.displayName = model.localizedName
+        hero.name = model.name
+        hero.primaryAttr = model.primaryAttr
+        hero.attackType = model.attackType
+        hero.img = model.img
+        hero.icon = model.icon
+
+        hero.abilities = abilities
+        hero.primaryAttr = model.primaryAttr
+        hero.attackType = model.attackType
+        hero.img = model.img
+        hero.icon = model.icon
+        
+        hero.baseHealth = model.baseHealth
+        hero.baseHealthRegen = model.baseHealthRegen
+        hero.baseMana = model.baseMana
+        hero.baseManaRegen = model.baseManaRegen
+        hero.baseArmor = model.baseArmor
+        hero.baseMr = model.baseMr
+        hero.baseAttackMin = model.baseAttackMin
+        hero.baseAttackMax = model.baseAttackMax
+        
+        hero.baseStr = model.baseStr
+        hero.baseAgi = model.baseAgi
+        hero.baseInt = model.baseInt
+        hero.gainStr = model.strGain
+        hero.gainAgi = model.agiGain
+        hero.gainInt = model.intGain
+        
+        hero.attackRange = model.attackRange
+        hero.projectileSpeed = model.projectileSpeed
+        hero.attackRate = model.attackRate
+        hero.moveSpeed = model.moveSpeed
+        hero.turnRate = model.turnRate ?? 0.6
+        try viewContext.save()
+        return hero
+    }
+    
     /// Fetch `Hero` with `id` in CoreData
     static func fetchHero(id: Double) -> Hero? {
-        let viewContext = PersistenceController.shared.container.viewContext
+        let viewContext = PersistanceController.shared.container.viewContext
         let fetchHero: NSFetchRequest<Hero> = Hero.fetchRequest()
         fetchHero.predicate = NSPredicate(format: "id == %f", id)
         
