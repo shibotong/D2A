@@ -14,6 +14,7 @@ struct D2AApp: App {
     @StateObject var environment: DotaEnvironment = DotaEnvironment.shared
     @StateObject var heroDatabase: HeroDatabase = HeroDatabase.shared
     @StateObject var storeManager: StoreManager = StoreManager.shared
+    @StateObject var fileController: FileController = FileController.shared
     let persistenceController = PersistanceController.shared
     @AppStorage("selectedMatch") var selectedMatch: String?
     @AppStorage("selectedUser") var selectedUser: String?
@@ -28,6 +29,7 @@ struct D2AApp: App {
                 .environmentObject(environment)
                 .environmentObject(heroDatabase)
                 .environmentObject(storeManager)
+                .environmentObject(fileController)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onOpenURL { url in
                     print(url.absoluteString)

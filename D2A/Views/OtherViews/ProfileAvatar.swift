@@ -57,14 +57,14 @@ struct ProfileAvatar: View {
                 guard let imageURL, let newImage = await loadImage(urlString: imageURL) else {
                     return
                 }
-                ImageCache.saveImage(newImage, type: .avatar, id: userID)
+                ImageCache.shared.saveImage(newImage, type: .avatar, id: userID)
                 await setImage(uiImage: newImage)
             }
         }
     }
     
     private func fetchImage(userID: String) -> UIImage? {
-        let cacheImage = ImageCache.readImage(type: .avatar, id: userID)
+        let cacheImage = ImageCache.shared.readImage(type: .avatar, id: userID)
         return cacheImage
     }
     

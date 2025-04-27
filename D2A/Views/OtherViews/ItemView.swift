@@ -48,7 +48,7 @@ struct ItemView: View {
             return
         }
         
-        if let cacheImage = ImageCache.readImage(type: .item, id: id.description) {
+        if let cacheImage = ImageCache.shared.readImage(type: .item, id: id.description) {
             setImage(cacheImage)
             return
         }
@@ -57,7 +57,7 @@ struct ItemView: View {
             setImage(nil)
             return
         }
-        ImageCache.saveImage(newImage, type: .item, id: id.description)
+        ImageCache.shared.saveImage(newImage, type: .item, id: id.description)
         setImage(newImage)
     }
     

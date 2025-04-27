@@ -18,7 +18,7 @@ class AbilityImageViewModel: ObservableObject {
         self.name = name
         self.urlString = urlString
         if let name {
-            self.image = ImageCache.readImage(type: .ability, id: name)
+            self.image = ImageCache.shared.readImage(type: .ability, id: name)
             Task {
                 await fetchImage()
             }
@@ -39,7 +39,7 @@ class AbilityImageViewModel: ObservableObject {
               let newImage = await loadImage() else {
             return
         }
-        ImageCache.saveImage(newImage, type: .ability, id: name)
+        ImageCache.shared.saveImage(newImage, type: .ability, id: name)
         await setImage(newImage)
     }
     

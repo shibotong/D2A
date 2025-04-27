@@ -16,6 +16,8 @@ enum TabSelection {
 final class DotaEnvironment: ObservableObject {
     static var shared = DotaEnvironment()
     
+    private let imageProvider: any ImageProviding
+    
     var refreshHandler: [String: TimeInterval] = [:]
     
     // MARK: Errors
@@ -55,9 +57,10 @@ final class DotaEnvironment: ObservableObject {
         return refreshTime
     }
 
-    init() {
+    init(imageProvider: ImageProviding = ImageCache.shared) {
         subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         tab = .home
+        self.imageProvider = imageProvider
     }
     
     static func isInWidget() -> Bool {

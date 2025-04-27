@@ -26,20 +26,24 @@ enum HeroImageType {
 
 struct HeroImageView: View {
     @EnvironmentObject var heroData: HeroDatabase
+    
+    private let imageProvider: ImageProviding
 
     let heroID: Int
     let type: HeroImageType
 
     @State private var image: UIImage?
     
-    init(hero: Hero, type: HeroImageType) {
+    init(hero: Hero,
+         type: HeroImageType,
+         imageProvider: ImageProviding = ImageCache.shared) {
         self.init(heroID: Int(hero.id), type: type)
     }
     
-    init(heroID: Int, type: HeroImageType) {
-        image = ImageCache.readImage(type: type.cacheType, id: "\(heroID)")
+    init(heroID: Int, type: HeroImageType, imageProvider: ImageProviding = ImageCache.shared) {
         self.heroID = heroID
         self.type = type
+        self.imageProvider = imageProvider
     }
     
     var body: some View {
@@ -70,16 +74,17 @@ struct HeroImageView: View {
     
     @MainActor
     private func fetchImage() async {
+        let image = imageProvider.readImage(type: type.cacheType, id: "\(heroID)")
         guard let url = computeURL() else {
             return
         }
         
-        guard let image = await ImageCache.loadImage(urlString: url) else {
+        guard let image = await imageProvider.loadImage(urlString: url) else {
             return
         }
         
         self.image = image
-        ImageCache.saveImage(image, type: type.cacheType, id: "\(heroID)")
+        imageProvider.saveImage(image, type: type.cacheType, id: "\(heroID)")
     }
     
     private func searchHeroImage() -> String {
@@ -115,4 +120,9 @@ struct HeroImageView: View {
             return nil
         }
     }
+}
+
+#Preview {
+    HeroImageView(heroID: 1, type: .full, imageProvider: MockImageProvider())
+        .environmentObject(HeroDatabase.preview)
 }

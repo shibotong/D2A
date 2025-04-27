@@ -22,7 +22,7 @@ class LiveMatchTeamIconViewModel: ObservableObject {
             return
         }
         self.urlString = "https://cdn.stratz.com/images/dota2/teams/\(teamID).png"
-        self.image = ImageCache.readImage(type: .teamIcon, id: teamID, fileExtension: "png")
+        self.image = ImageCache.shared.readImage(type: .teamIcon, id: teamID, fileExtension: "png")
         Task {
             await fetchImage()
         }
@@ -35,7 +35,7 @@ class LiveMatchTeamIconViewModel: ObservableObject {
         guard let newImage = await loadImage(), let teamID else {
             return
         }
-        ImageCache.saveImage(newImage, type: .teamIcon, id: teamID, fileExtension: "png")
+        ImageCache.shared.saveImage(newImage, type: .teamIcon, id: teamID, fileExtension: "png")
         await setImage(newImage)
     }
     

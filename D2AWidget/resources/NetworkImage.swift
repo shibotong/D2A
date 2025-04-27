@@ -43,7 +43,7 @@ struct NetworkImage: View {
         urlString = profile.avatarfull!
         imageType = .avatar
         isRadiant = true
-        image = ImageCache.readImage(type: .avatar, id: userID)
+        image = ImageCache.shared.readImage(type: .avatar, id: userID)
     }
     
     init(userID: String, urlString: String, image: UIImage) {
@@ -61,7 +61,7 @@ struct NetworkImage: View {
         imageType = .teamIcon
         print(teamID)
         if !teamID.isEmpty {
-            image = ImageCache.readImage(type: .teamIcon, id: teamID, fileExtension: "png")
+            image = ImageCache.shared.readImage(type: .teamIcon, id: teamID, fileExtension: "png")
         } else {
             image = nil
         }

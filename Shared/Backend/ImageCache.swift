@@ -8,6 +8,12 @@
 import Foundation
 import UIKit
 
+protocol ImageProviding {
+    func readImage(type: ImageCacheType, id: String) -> UIImage?
+    func saveImage(_ image: UIImage, type: ImageCacheType, id: String)
+    func loadImage(urlString: String) async -> UIImage?
+}
+
 enum ImageCacheType: String {
     case item
     case avatar
@@ -22,11 +28,21 @@ enum ImageCacheType: String {
     case heroPortrait
 }
 
-class ImageCache {
+class ImageCache: ImageProviding {
     
-    static func readImage(type: ImageCacheType, 
-                          id: String,
-                          fileExtension: String = "jpg") -> UIImage? {
+    static let shared = ImageCache()
+    
+    func readImage(type: ImageCacheType, id: String) -> UIImage? {
+        readImage(type: type, id: id, fileExtension: "jpg")
+    }
+    
+    func saveImage(_ image: UIImage, type: ImageCacheType, id: String) {
+        saveImage(image, type: type, id: id, fileExtension: "jpg")
+    }
+    
+    func readImage(type: ImageCacheType,
+                   id: String,
+                   fileExtension: String = "jpg") -> UIImage? {
         guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
             return nil
         }
@@ -35,15 +51,7 @@ class ImageCache {
         return newImage
     }
     
-    static func fetchImagePath(type: ImageCacheType, id: String, fileExtension: String = "jpg") -> String? {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
-            return nil
-        }
-        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
-        return imageURL.path
-    }
-    
-    static func saveImage(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: String = "jpg") {
+    func saveImage(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: String = "jpg") {
         guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
             print("save image error")
             return
@@ -71,19 +79,27 @@ class ImageCache {
         }
     }
     
-    static func docDir(type: ImageCacheType) -> URL? {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
-            return nil
-        }
-        return docDir.appendingPathComponent(type.rawValue)
-    }
-    
-    static func loadImage(urlString: String) async -> UIImage? {
+    func loadImage(urlString: String) async -> UIImage? {
         guard let url = URL(string: urlString),
               let (newImageData, _) = try? await URLSession.shared.data(from: url),
               let newImage = UIImage(data: newImageData) else {
             return nil
         }
         return newImage
+    }
+    
+    private func fetchImagePath(type: ImageCacheType, id: String, fileExtension: String = "jpg") -> String? {
+        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+            return nil
+        }
+        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
+        return imageURL.path
+    }
+    
+    private func docDir(type: ImageCacheType) -> URL? {
+        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+            return nil
+        }
+        return docDir.appendingPathComponent(type.rawValue)
     }
 }
