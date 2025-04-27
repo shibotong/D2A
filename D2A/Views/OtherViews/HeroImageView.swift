@@ -26,22 +26,24 @@ enum HeroImageType {
 
 struct HeroImageView: View {
     @EnvironmentObject var heroData: HeroDatabase
+
     let heroID: Int
     let type: HeroImageType
-    
+
     @State private var image: UIImage?
     
+    init(hero: Hero, type: HeroImageType) {
+        self.init(heroID: Int(hero.id), type: type)
+    }
+    
     init(heroID: Int, type: HeroImageType) {
-        image = ImageCache.readImage(type: type.cacheType, id: "heroID")
+        image = ImageCache.readImage(type: type.cacheType, id: "\(heroID)")
         self.heroID = heroID
         self.type = type
     }
     
     var body: some View {
         imageBody
-            .onAppear {
-                
-            }
     }
     
     private var imageBody: some View {

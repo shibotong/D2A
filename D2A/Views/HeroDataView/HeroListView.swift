@@ -147,14 +147,14 @@ struct HeroListView: View {
     @ViewBuilder
     private func buildHero(hero: Hero) -> some View {
         if horizontalSize == .regular {
-            HeroImageView(heroID: Int(hero.id), type: .vert)
+            HeroImageView(hero: hero, type: .vert)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .opacity(filteredHeroes.contains(where: { $0.id == hero.id }) || searchString.isEmpty ? 1 : 0.2)
                 .accessibilityIdentifier(hero.heroNameLocalized)
         } else {
             if isGridView {
                 ZStack {
-                    HeroImageView(heroID: Int(hero.id), type: .full)
+                    HeroImageView(hero: hero, type: .full)
                         .overlay(LinearGradient(colors: [.black.opacity(0), .black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .accessibilityIdentifier(hero.heroNameLocalized)
@@ -175,7 +175,7 @@ struct HeroListView: View {
                 }
             } else {
                 HStack {
-                    HeroImageView(heroID: Int(hero.id), type: .full)
+                    HeroImageView(hero: hero, type: .full)
                         .frame(width: 70)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     Text(hero.heroNameLocalized)
@@ -192,6 +192,7 @@ struct HeroListView: View {
  struct HeroListView_Previews: PreviewProvider {
     static var previews: some View {
         HeroListView()
+            .environmentObject(HeroDatabase.preview)
             .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
     }
  }
