@@ -66,7 +66,7 @@ class HeroDatabase: ObservableObject {
         
         loadStratzAbilities()
         
-        async let idTable = loadItemIDs()
+        async let idTable = opendota.loadItemIDs()
         async let items = loadItems()
         async let heroes = opendota.loadHeroes()
         async let abilityIDTable = loadAbilityID()
