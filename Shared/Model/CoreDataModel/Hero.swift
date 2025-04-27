@@ -221,8 +221,6 @@ extension Hero {
             return gainAgi
         case .int:
             return gainInt
-        case .whole:
-            return 0.0
         }
     }
     

@@ -110,7 +110,7 @@ struct HeroDetailView: View {
                     VStack(alignment: .leading, spacing: 3) {
                         Spacer()
                         HStack {
-                            AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr ?? ""))
+                            AttributeImage(attribute: AttributeSelection(rawValue: hero.primaryAttr ?? ""))
                                 .frame(width: 25, height: 25)
                             Text(LocalizedStringKey(hero.displayName ?? ""))
                                 .font(.system(size: 30))
@@ -128,7 +128,7 @@ struct HeroDetailView: View {
         } else {
             HStack {
                 HeroImageView(heroID: Int(hero.id), type: .full)
-                AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr ?? ""))
+                AttributeImage(attribute: AttributeSelection(rawValue: hero.primaryAttr ?? ""))
                     .frame(width: 25, height: 25)
                 Text(LocalizedStringKey(hero.displayName ?? ""))
                     .font(.body)

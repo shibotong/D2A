@@ -9,7 +9,15 @@ import SwiftUI
 
 struct AttributeImage: View {
     
-    let attribute: HeroAttribute?
+    let attribute: AttributeSelection?
+    
+    init(attribute: AttributeSelection?) {
+        self.attribute = attribute
+    }
+    
+    init(attribute: HeroAttribute) {
+        self.attribute = attribute.selection
+    }
     
     var body: some View {
         if let attribute, attribute != .whole {
@@ -24,7 +32,7 @@ struct AttributeImage: View {
 struct AttributeImage_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ForEach(HeroAttribute.allCases, id: \.self) { attribute in
+            ForEach(AttributeSelection.allCases, id: \.self) { attribute in
                 AttributeImage(attribute: attribute)
                     .previewLayout(.fixed(width: 20, height: 20))
             }
