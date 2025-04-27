@@ -49,9 +49,11 @@ class OpenDotaConstantController: OpenDotaConstantProviding {
     }
     
     private func saveHeroes(heroes: [HeroCodable]) {
+        
+        let viewContext = PersistanceController.shared.container.newBackgroundContext()
         for hero in heroes {
             do {
-                _ = try Hero.saveData(model: hero, viewContext: PersistanceController.shared.container.viewContext)
+                _ = try Hero.saveData(model: hero, viewContext: viewContext)
                 logDebug("Save hero \(hero.id) successfully", category: .coredata)
             } catch {
                 logWarn("Save hero \(hero.id) failed. \(error.localizedDescription)", category: .coredata)

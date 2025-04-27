@@ -270,7 +270,7 @@ class HeroDatabase: ObservableObject {
     
     // MARK: - private functions
     private func loadStratzAbilities() {
-        Network.shared.apollo.fetch(query: AbilityQuery(language: .init(languageCode))) { [weak self] result in
+        ApolloNetwork.shared.apollo.fetch(query: AbilityQuery(language: .init(languageCode))) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
                 if let abilitiesConnection = graphQLResult.data?.constants?.abilities {

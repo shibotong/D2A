@@ -1,5 +1,5 @@
 //
-//  Network.swift
+//  ApolloNetwork.swift
 //  D2A
 //
 //  Created by Shibo Tong on 23/9/2022.
@@ -9,8 +9,8 @@ import Foundation
 import Apollo
 import ApolloWebSocket
 
-class Network {
-    static let shared = Network()
+class ApolloNetwork {
+    static let shared = ApolloNetwork()
     private(set) lazy var apollo: ApolloClient = {
         let token: String = {
             let token = try? Secrets.load().stratzToken
