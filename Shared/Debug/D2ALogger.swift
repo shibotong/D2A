@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum D2AServiceCategory: String {
+    case opendotaConstant
+}
+
 enum LoggingLevel: Int {
     case debug, warn, error
     
@@ -22,16 +26,16 @@ enum LoggingLevel: Int {
     }
 }
 
-func logDebug(_ message: String) {
-    D2ALogger.shared.log(level: .debug, message: message)
+func logDebug(_ message: String, category: D2AServiceCategory) {
+    D2ALogger.shared.log(level: .debug, message: message, category: category)
 }
 
-func logWarn(_ message: String) {
-    D2ALogger.shared.log(level: .warn, message: message)
+func logWarn(_ message: String, category: D2AServiceCategory) {
+    D2ALogger.shared.log(level: .warn, message: message, category: category)
 }
 
-func logError(_ message: String) {
-    D2ALogger.shared.log(level: .error, message: message)
+func logError(_ message: String, category: D2AServiceCategory) {
+    D2ALogger.shared.log(level: .error, message: message, category: category)
 }
 
 class D2ALogger: ObservableObject {
@@ -40,10 +44,10 @@ class D2ALogger: ObservableObject {
     
     @Published var loggingLevel: LoggingLevel = .warn
     
-    func log(level: LoggingLevel, message: String) {
+    func log(level: LoggingLevel, message: String, category: D2AServiceCategory) {
         guard level.rawValue >= loggingLevel.rawValue else {
             return
         }
-        print("\(level.icon) \(message)")
+        print("\(level.icon) [\(category.rawValue)] \(message)")
     }
 }

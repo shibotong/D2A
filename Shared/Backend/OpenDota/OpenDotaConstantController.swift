@@ -7,6 +7,7 @@
 
 protocol OpenDotaConstantProviding {
     func loadHeroes() async -> [String: HeroCodable]
+    func loadItemIDs() async -> [String: String]
 }
 
 class OpenDotaConstantController: OpenDotaConstantProviding {
@@ -19,10 +20,19 @@ class OpenDotaConstantController: OpenDotaConstantProviding {
             let heroes = try await D2ANetwork.default.dataTask(heroURL, as: [String: HeroCodable].self)
             return heroes
         } catch {
-            logWarn("Loading heroes from OpenDotaConstantController failed: \(error.localizedDescription)")
+            logWarn("Loading heroes from OpenDotaConstantController failed: \(error.localizedDescription)", category: .opendotaConstant)
+            return [:]
+        }
+    }
+    
+    func loadItemIDs() async -> [String : String] {
+        let itemIDURL = OpenDotaConstantService.itemIDs.serviceURL
+        do {
+            let itemIDs = try await D2ANetwork.default.dataTask(itemIDURL, as: [String: String].self)
+            return itemIDs
+        } catch {
+            logWarn("Loading itemIDs from OpenDotaConstantController failed: \(error.localizedDescription)", category: .opendotaConstant)
             return [:]
         }
     }
 }
-
-class MockOpenDotaConstantProvider: OpenDotaConstantProviding
