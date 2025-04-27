@@ -146,46 +146,7 @@ struct HeroListView: View {
     
     @ViewBuilder
     private func buildHero(hero: Hero) -> some View {
-        if horizontalSize == .regular {
-            HeroImageView(hero: hero, type: .vert)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .opacity(filteredHeroes.contains(where: { $0.id == hero.id }) || searchString.isEmpty ? 1 : 0.2)
-                .accessibilityIdentifier(hero.heroNameLocalized)
-        } else {
-            if isGridView {
-                ZStack {
-                    HeroImageView(hero: hero, type: .full)
-                        .overlay(LinearGradient(colors: [.black.opacity(0), .black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .accessibilityIdentifier(hero.heroNameLocalized)
-                    HStack {
-                        VStack {
-                            Spacer()
-                            HStack(spacing: 3) {
-                                AttributeImage(attribute: AttributeSelection(rawValue: hero.primaryAttr!)).frame(width: 15, height: 15)
-                                Text(hero.heroNameLocalized)
-                                    .font(.caption2)
-                                    .fontWeight(.black)
-                                    .foregroundColor(.white)
-                            }
-                        }
-                        Spacer()
-                    }
-                    .padding(5)
-                }
-            } else {
-                HStack {
-                    HeroImageView(hero: hero, type: .full)
-                        .frame(width: 70)
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                    Text(hero.heroNameLocalized)
-                    Spacer()
-                    Image("hero_\(hero.primaryAttr!)")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                }
-            }
-        }
+        HeroCellView(hero: hero, isGrid: isGridView)
     }
 }
 
@@ -193,6 +154,7 @@ struct HeroListView: View {
     static var previews: some View {
         HeroListView()
             .environmentObject(HeroDatabase.preview)
+            .environmentObject(FileController.preview)
             .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
     }
  }
