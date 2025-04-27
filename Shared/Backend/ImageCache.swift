@@ -14,9 +14,15 @@ enum ImageCacheType: String {
     case ability
     case teamIcon
     case league
+    
+    // Hero Images
+    case heroFull
+    case heroVert
+    case heroIcon
+    case heroPortrait
 }
 
-class ImageCache: ObservableObject {
+class ImageCache {
     
     static func readImage(type: ImageCacheType, 
                           id: String,

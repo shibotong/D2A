@@ -53,8 +53,11 @@ class OpenDotaConstantController: OpenDotaConstantProviding {
         let viewContext = PersistanceController.shared.container.newBackgroundContext()
         for hero in heroes {
             do {
-                _ = try Hero.saveData(model: hero, viewContext: viewContext)
-                logDebug("Save hero \(hero.id) successfully", category: .coredata)
+                try viewContext.performAndWait {
+                    _ = try Hero.saveData(model: hero, viewContext: viewContext)
+                    logDebug("Save hero \(hero.id) successfully", category: .coredata)
+                }
+                
             } catch {
                 logWarn("Save hero \(hero.id) failed. \(error.localizedDescription)", category: .coredata)
             }

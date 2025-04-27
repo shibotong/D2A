@@ -9,6 +9,19 @@ import SwiftUI
 
 enum HeroImageType {
     case icon, portrait, full, vert
+    
+    var cacheType: ImageCacheType {
+        switch self {
+        case .icon:
+                .heroIcon
+        case .portrait:
+                .heroPortrait
+        case .full:
+                .heroFull
+        case .vert:
+                .heroVert
+        }
+    }
 }
 
 struct HeroImageView: View {
@@ -16,29 +29,55 @@ struct HeroImageView: View {
     let heroID: Int
     let type: HeroImageType
     
+    @State private var image: UIImage?
+    
+    init(heroID: Int, type: HeroImageType) {
+        image = ImageCache.readImage(type: type.cacheType, id: "heroID")
+        self.heroID = heroID
+        self.type = type
+    }
+    
     var body: some View {
-        if type == .icon || type == .full || type == .vert {
-            if heroID == 0 && type == .icon {
-                Circle()
-                    .foregroundColor(Color.label.opacity(0.3))
-            } else {
-                Image(searchHeroImage())
+        imageBody
+            .onAppear {
+                
+            }
+    }
+    
+    private var imageBody: some View {
+        Group {
+            if let image {
+                Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-            }
-        } else {
-            AsyncImage(url: computeURL()) { phase in
-                if let image = phase.image {
-                    image
+            } else {
+                if type == .icon {
+                    Circle()
+                        .foregroundColor(Color.label.opacity(0.3))
+                } else if type == .full {
+                    Image("1_full")
                         .resizable()
-                        .aspectRatio(contentMode: .fit)// Displays the loaded image.
-                } else if phase.error != nil {
-                    ProgressView()// Indicates an error.
-                } else {
-                    ProgressView() // Acts as a placeholder.
+                        .aspectRatio(contentMode: .fit)
+                        .task {
+                            await fetchImage()
+                        }
                 }
             }
         }
+    }
+    
+    @MainActor
+    private func fetchImage() async {
+        guard let url = computeURL() else {
+            return
+        }
+        
+        guard let image = await ImageCache.loadImage(urlString: url) else {
+            return
+        }
+        
+        self.image = image
+        ImageCache.saveImage(image, type: type.cacheType, id: "\(heroID)")
     }
     
     private func searchHeroImage() -> String {
@@ -58,20 +97,18 @@ struct HeroImageView: View {
         }
     }
     
-    private func computeURL() -> URL? {
+    private func computeURL() -> String? {
         guard let hero = try? heroData.fetchHeroWithID(id: heroID) else {
             return nil
         }
+        let name = hero.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
         switch type {
         case .icon:
-            let url = URL(string: "https://api.opendota.com\(hero.icon)")
-            return url
+            return "https://api.opendota.com\(hero.icon)"
         case .portrait:
-            let name = hero.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
-            let url = URL(string: "\(IMAGE_PREFIX)/apps/dota2/videos/dota_react/heroes/renders/\(name).png")
-            return url
+            return "\(IMAGE_PREFIX)/apps/dota2/videos/dota_react/heroes/renders/\(name).png"
         case .full:
-            return nil
+            return "\(IMAGE_PREFIX)/apps/dota2/images/dota_react/heroes/\(name).png"
         case .vert:
             return nil
         }

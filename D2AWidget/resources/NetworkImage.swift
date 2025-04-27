@@ -27,6 +27,14 @@ struct NetworkImage: View {
             return "icon_\(isRadiant ? "radiant" : "dire")"
         case .league:
             return "league_template"
+        case .heroFull:
+            return ""
+        case .heroVert:
+            return ""
+        case .heroIcon:
+            return ""
+        case .heroPortrait:
+            return ""
         }
     }
     

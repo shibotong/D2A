@@ -354,6 +354,9 @@
 		7998211F2DBE34D30096DE85 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 7998211E2DBE34D30096DE85 /* StratzAPI */; };
 		799821212DBE34E00096DE85 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 799821202DBE34E00096DE85 /* StratzAPI */; };
 		799821232DBE34ED0096DE85 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 799821222DBE34ED0096DE85 /* StratzAPI */; };
+		799821252DBE40330096DE85 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799821242DBE40330096DE85 /* NSManagedObject.swift */; };
+		799821262DBE40330096DE85 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799821242DBE40330096DE85 /* NSManagedObject.swift */; };
+		799821272DBE40330096DE85 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799821242DBE40330096DE85 /* NSManagedObject.swift */; };
 		799948BE2932423800D79055 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BD2932423800D79055 /* LoadingView.swift */; };
 		799948C02932D50000D79055 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageCache.swift */; };
 		799948C12932D50000D79055 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageCache.swift */; };
@@ -655,6 +658,7 @@
 		799821062DBE1C970096DE85 /* OpenDotaConstantProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantProviding.swift; sourceTree = "<group>"; };
 		7998210B2DBE28470096DE85 /* AttributeSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeSelection.swift; sourceTree = "<group>"; };
 		7998210D2DBE29FF0096DE85 /* PersistantContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistantContainer.swift; sourceTree = "<group>"; };
+		799821242DBE40330096DE85 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
 		799948BD2932423800D79055 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		799948BF2932D50000D79055 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityStatsView.swift; sourceTree = "<group>"; };
@@ -976,6 +980,7 @@
 			isa = PBXGroup;
 			children = (
 				32B36F2C26C3885A002D427D /* Color.swift */,
+				799821242DBE40330096DE85 /* NSManagedObject.swift */,
 				32897B0726C4EFF1008D3CC8 /* Int.swift */,
 				3252858E26C949940030F15B /* Date.swift */,
 				322B88ED26CCBA1800DF67F9 /* CodingKey.swift */,
@@ -1801,6 +1806,7 @@
 				327B87782852263300BBE1F8 /* HeroListViewModel.swift in Sources */,
 				79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
+				799821262DBE40330096DE85 /* NSManagedObject.swift in Sources */,
 				32079DBF28B843360056D19F /* String.swift in Sources */,
 				790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */,
 				79D5280E28DD5D990070841D /* ApolloNetwork.swift in Sources */,
@@ -1864,6 +1870,7 @@
 				794838662A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				327B8761284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				3270271B285C088300927426 /* HeroImageView.swift in Sources */,
+				799821252DBE40330096DE85 /* NSManagedObject.swift in Sources */,
 				32F70AAC26F58006006E9B05 /* RecentMatchCodable.swift in Sources */,
 				799821152DBE2CE60096DE85 /* AttributeSelection.swift in Sources */,
 				32F70B1B26F6295B006E9B05 /* Int.swift in Sources */,
@@ -1937,6 +1944,7 @@
 				794838672A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				32B526CE285C18450099B058 /* RankView.swift in Sources */,
 				32F70B0E26F622AE006E9B05 /* StringVariable.swift in Sources */,
+				799821272DBE40330096DE85 /* NSManagedObject.swift in Sources */,
 				79A989112931E8F3006AC847 /* UserProfile.swift in Sources */,
 				799821162DBE2CE60096DE85 /* AttributeSelection.swift in Sources */,
 				32F70B2226F6295C006E9B05 /* CodingKey.swift in Sources */,

@@ -73,40 +73,40 @@ extension Hero {
     static func saveData(model: HeroCodable, abilities: [String] = [], viewContext: NSManagedObjectContext) throws -> Hero {
         let hero = fetchHero(id: Double(model.id)) ?? Hero(context: viewContext)
         hero.id = Double(model.id)
-        hero.displayName = model.localizedName
-        hero.name = model.name
-        hero.primaryAttr = model.primaryAttr
-        hero.attackType = model.attackType
-        hero.img = model.img
-        hero.icon = model.icon
+        setIfNotEqual(entity: hero, path: \.displayName, value: model.localizedName)
+        setIfNotEqual(entity: hero, path: \.name, value: model.name)
+        setIfNotEqual(entity: hero, path: \.primaryAttr, value: model.primaryAttr)
+        setIfNotEqual(entity: hero, path: \.attackType, value: model.attackType)
+        setIfNotEqual(entity: hero, path: \.img, value: model.img)
+        setIfNotEqual(entity: hero, path: \.icon, value: model.icon)
 
-        hero.abilities = abilities
-        hero.primaryAttr = model.primaryAttr
-        hero.attackType = model.attackType
-        hero.img = model.img
-        hero.icon = model.icon
+        setIfNotEqual(entity: hero, path: \.abilities, value: abilities)
+        setIfNotEqual(entity: hero, path: \.primaryAttr, value: model.primaryAttr)
+        setIfNotEqual(entity: hero, path: \.attackType, value: model.attackType)
+        setIfNotEqual(entity: hero, path: \.img, value: model.img)
+        setIfNotEqual(entity: hero, path: \.icon, value: model.icon)
         
-        hero.baseHealth = model.baseHealth
-        hero.baseHealthRegen = model.baseHealthRegen
-        hero.baseMana = model.baseMana
-        hero.baseManaRegen = model.baseManaRegen
-        hero.baseArmor = model.baseArmor
-        hero.baseMr = model.baseMr
-        hero.baseAttackMin = model.baseAttackMin
-        hero.baseAttackMax = model.baseAttackMax
+        setIfNotEqual(entity: hero, path: \.baseHealth, value: model.baseHealth)
+        setIfNotEqual(entity: hero, path: \.baseHealthRegen, value: model.baseHealthRegen)
+        setIfNotEqual(entity: hero, path: \.baseMana, value: model.baseMana)
+        setIfNotEqual(entity: hero, path: \.baseManaRegen, value: model.baseManaRegen)
+        setIfNotEqual(entity: hero, path: \.baseArmor, value: model.baseArmor)
+        setIfNotEqual(entity: hero, path: \.baseMr, value: model.baseMr)
+        setIfNotEqual(entity: hero, path: \.baseAttackMin, value: model.baseAttackMin)
+        setIfNotEqual(entity: hero, path: \.baseAttackMax, value: model.baseAttackMax)
         
-        hero.baseStr = model.baseStr
-        hero.baseAgi = model.baseAgi
-        hero.baseInt = model.baseInt
-        hero.gainStr = model.strGain
-        hero.gainAgi = model.agiGain
-        hero.gainInt = model.intGain
+        setIfNotEqual(entity: hero, path: \.baseStr, value: model.baseStr)
+        setIfNotEqual(entity: hero, path: \.baseAgi, value: model.baseAgi)
+        setIfNotEqual(entity: hero, path: \.baseInt, value: model.baseInt)
+        setIfNotEqual(entity: hero, path: \.gainStr, value: model.strGain)
+        setIfNotEqual(entity: hero, path: \.gainAgi, value: model.agiGain)
+        setIfNotEqual(entity: hero, path: \.gainInt, value: model.intGain)
         
-        hero.attackRange = model.attackRange
-        hero.projectileSpeed = model.projectileSpeed
-        hero.attackRate = model.attackRate
-        hero.moveSpeed = model.moveSpeed
-        hero.turnRate = model.turnRate ?? 0.6
+        setIfNotEqual(entity: hero, path: \.attackRange, value: model.attackRange)
+        setIfNotEqual(entity: hero, path: \.projectileSpeed, value: model.projectileSpeed)
+        setIfNotEqual(entity: hero, path: \.attackRate, value: model.attackRate)
+        setIfNotEqual(entity: hero, path: \.moveSpeed, value: model.moveSpeed)
+        setIfNotEqual(entity: hero, path: \.turnRate, value: model.turnRate ?? 0.6)
         try viewContext.save()
         return hero
     }
