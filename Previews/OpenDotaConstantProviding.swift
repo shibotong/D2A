@@ -22,4 +22,19 @@ class MockOpenDotaConstantProviding: OpenDotaConstantProviding {
             return nil
         }
     }
+    
+    func loadItemIDs() async -> [String: String] {
+        guard let data = loadFile(filename: "sampleItemID") else {
+            return [:]
+        }
+        
+        do {
+            let decoder = JSONDecoder()
+            let jsonData = try decoder.decode([String: String].self, from: data)
+            return jsonData
+        } catch {
+            debugPrint(error)
+            return [:]
+        }
+    }
 }

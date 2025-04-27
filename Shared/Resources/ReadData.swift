@@ -137,21 +137,6 @@ func loadSampleAbilities() -> [String: Ability]? {
     }
 }
 
-func loadSampleItemID() -> [String: String] {
-    guard let data = loadFile(filename: "sampleItemID") else {
-        return [:]
-    }
-    
-    do {
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode([String: String].self, from: data)
-        return jsonData
-    } catch {
-        debugPrint(error)
-        return [:]
-    }
-}
-
 func loadSampleItem() -> [String: Item] {
     guard let data = loadFile(filename: "sampleItem") else {
         return [:]
