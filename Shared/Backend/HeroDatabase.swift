@@ -35,33 +35,30 @@ class HeroDatabase: ObservableObject {
     
     static var shared = HeroDatabase()
     
-    static var preview = HeroDatabase(preview: true)
+    static var preview = HeroDatabase(opendota: MockOpenDotaConstantProvider())
     
     @Published private var openDotaLoadFinish: LoadingStatus = .loading
     @Published private var stratzLoadFinish: LoadingStatus = .loading
+    
+    private let opendota: OpenDotaConstantProviding
+    
     private var cancellable = Set<AnyCancellable>()
     
     let url = "https://api.opendota.com/api/herostats"
     
-    init(preview: Bool = false) {
-        guard !preview else {
-            self.heroes = loadSampleHero() ?? [:]
-            self.abilities = loadSampleAbilities() ?? [:]
-            return
-        }
+    init(opendota: OpenDotaConstantProviding = OpenDotaConstantController.shared) {
+        self.opendota = opendota
         setupBinding()
         loadData()
     }
     
-    init(heroes: [String: HeroCodable] = [:],
-         itemID: [String: String] = [:],
-         items: [String: Item] = [:]) {
-        self.heroes = heroes
-        self.itemIDTable = itemID
-        self.items = items
+    func loadData() {
+        Task {
+            await loadDataAsync()
+        }
     }
     
-    func loadData() {
+    func loadDataAsync() async {
         status = .loading
         gameModes = loadGameModes()
         regions = loadRegion()!
@@ -69,25 +66,23 @@ class HeroDatabase: ObservableObject {
         
         loadStratzAbilities()
         
-        Task { [weak self] in
-            async let idTable = loadItemIDs()
-            async let items = loadItems()
-            async let heroes = loadHeroes()
-            async let abilityIDTable = loadAbilityID()
-            async let abilities = loadAbilities()
-            async let heroAbilities = loadHeroAbilities()
-            async let scepter = loadScepter()
-            
-            self?.itemIDTable = await idTable
-            self?.items = await items
-            self?.heroes = await heroes
-            self?.abilityIDTable = await abilityIDTable
-            self?.abilities = await abilities
-            self?.heroAbilities = await heroAbilities
-            self?.scepterData = await scepter
-            let status: LoadingStatus = self?.abilities.count == 0 ? .error : .finish
-            await self?.setStatus(status: status)
-        }
+        async let idTable = loadItemIDs()
+        async let items = loadItems()
+        async let heroes = opendota.loadHeroes()
+        async let abilityIDTable = loadAbilityID()
+        async let abilities = loadAbilities()
+        async let heroAbilities = loadHeroAbilities()
+        async let scepter = loadScepter()
+        
+        self.itemIDTable = await idTable
+        self.items = await items
+        self.heroes = await heroes
+        self.abilityIDTable = await abilityIDTable
+        self.abilities = await abilities
+        self.heroAbilities = await heroAbilities
+        self.scepterData = await scepter
+        let status: LoadingStatus = self.abilities.count == 0 ? .error : .finish
+        await setStatus(status: status)
     }
     
     @MainActor

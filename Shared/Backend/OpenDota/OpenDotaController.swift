@@ -8,9 +8,11 @@
 import Foundation
 import WidgetKit
 
-let baseURL = "https://api.opendota.com"
+
 
 class OpenDotaController {
+    
+    private let baseURL = "https://api.opendota.com"
     
     static let shared = OpenDotaController()
     

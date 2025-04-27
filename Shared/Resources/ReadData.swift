@@ -2,12 +2,12 @@
 //  ReadData.swift
 //  Dota Portfolio
 //
-//  Created by 佟诗博 on 4/7/21.
+//  Created by Shibo Tong on 4/7/21.
 //
 
 import Foundation
 
-private func loadFile(filename: String) -> Data? {
+func loadFile(filename: String) -> Data? {
     if let path = Bundle.main.url(forResource: filename, withExtension: "json") {
         do {
             let data = try Data(contentsOf: path)
@@ -130,21 +130,6 @@ func loadSampleAbilities() -> [String: Ability]? {
     do {
         let decoder = JSONDecoder()
         let jsonData = try decoder.decode([String: Ability].self, from: data)
-        return jsonData
-    } catch {
-        debugPrint(error)
-        return nil
-    }
-}
-
-func loadSampleHero() -> [String: HeroCodable]? {
-    guard let data = loadFile(filename: "sampleHero") else {
-        return nil
-    }
-    
-    do {
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode([String: HeroCodable].self, from: data)
         return jsonData
     } catch {
         debugPrint(error)
