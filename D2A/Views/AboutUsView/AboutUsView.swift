@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AboutUsView: View {
     @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var logger: D2ALogger
     @Environment(\.presentationMode) var presentState
     private var versionNumber: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("Error", comment: "Cannot get version number")
@@ -20,6 +21,14 @@ struct AboutUsView: View {
     
     var body: some View {
         List {
+            #if DEBUG
+            Section(header: Text("DEBUG")) {
+                NavigationLink(destination: DebugView()) {
+                    makeDetailRow(image: "chevron.left.slash.chevron.right", text: "Console Logging", detail: logger.loggingLevel.icon)
+                }
+            }
+            #endif
+            
             Section(header: Text("Our App")) {
                 makeButton(image: "cart", text: "Unlock All Features") {
                     presentState.wrappedValue.dismiss()
@@ -99,5 +108,6 @@ struct AboutUsView: View {
     static var previews: some View {
         AboutUsView()
             .environment(\.locale, .init(identifier: "zh-Hans"))
+            .environmentObject(D2ALogger())
     }
  }

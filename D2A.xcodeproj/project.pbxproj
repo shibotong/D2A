@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -357,6 +357,20 @@
 		79BEC5BF29736E4900510748 /* LatestRecentMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BEC5BE29736E4900510748 /* LatestRecentMatchView.swift */; };
 		79CB52462A31B38200C5D1C6 /* LiveMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CB52452A31B38200C5D1C6 /* LiveMatchViewModel.swift */; };
 		79CB52482A31C11F00C5D1C6 /* LiveMatchTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CB52472A31C11F00C5D1C6 /* LiveMatchTimerView.swift */; };
+		79CF375C2DC0F8F800207CB8 /* D2AError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF375B2DC0F8F500207CB8 /* D2AError.swift */; };
+		79CF375D2DC0F8F800207CB8 /* D2AError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF375B2DC0F8F500207CB8 /* D2AError.swift */; };
+		79CF375E2DC0F8F800207CB8 /* D2AError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF375B2DC0F8F500207CB8 /* D2AError.swift */; };
+		79CF375F2DC0F8F800207CB8 /* D2AError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF375B2DC0F8F500207CB8 /* D2AError.swift */; };
+		79CF37622DC0F93600207CB8 /* D2ALogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF37612DC0F93200207CB8 /* D2ALogger.swift */; };
+		79CF37632DC0F93600207CB8 /* D2ALogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF37612DC0F93200207CB8 /* D2ALogger.swift */; };
+		79CF37642DC0F93600207CB8 /* D2ALogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF37612DC0F93200207CB8 /* D2ALogger.swift */; };
+		79CF37662DC0F96100207CB8 /* D2AServiceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF37652DC0F95800207CB8 /* D2AServiceCategory.swift */; };
+		79CF37672DC0F96100207CB8 /* D2AServiceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF37652DC0F95800207CB8 /* D2AServiceCategory.swift */; };
+		79CF37682DC0F96100207CB8 /* D2AServiceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF37652DC0F95800207CB8 /* D2AServiceCategory.swift */; };
+		79CF376B2DC0F9CE00207CB8 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79CF376A2DC0F9CE00207CB8 /* StratzAPI */; };
+		79CF376D2DC0FA5E00207CB8 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF376C2DC0FA5C00207CB8 /* DebugView.swift */; };
+		79CF376E2DC0FA5E00207CB8 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF376C2DC0FA5C00207CB8 /* DebugView.swift */; };
+		79CF376F2DC0FA5E00207CB8 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF376C2DC0FA5C00207CB8 /* DebugView.swift */; };
 		79CF637C29C40B700072F4C0 /* D2AUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF637B29C40B700072F4C0 /* D2AUITests.swift */; };
 		79D1043729E2991E00BC04B3 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79D1043629E2991E00BC04B3 /* Apollo */; };
 		79D5280E28DD5D990070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
@@ -637,6 +651,10 @@
 		79BEC5BE29736E4900510748 /* LatestRecentMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestRecentMatchView.swift; sourceTree = "<group>"; };
 		79CB52452A31B38200C5D1C6 /* LiveMatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchViewModel.swift; sourceTree = "<group>"; };
 		79CB52472A31C11F00C5D1C6 /* LiveMatchTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchTimerView.swift; sourceTree = "<group>"; };
+		79CF375B2DC0F8F500207CB8 /* D2AError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AError.swift; sourceTree = "<group>"; };
+		79CF37612DC0F93200207CB8 /* D2ALogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ALogger.swift; sourceTree = "<group>"; };
+		79CF37652DC0F95800207CB8 /* D2AServiceCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AServiceCategory.swift; sourceTree = "<group>"; };
+		79CF376C2DC0FA5C00207CB8 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		79CF637929C40B6F0072F4C0 /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79CF637B29C40B700072F4C0 /* D2AUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AUITests.swift; sourceTree = "<group>"; };
 		79D5280D28DD5D990070841D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
@@ -664,6 +682,7 @@
 				79266DA42A31B078002FEF0F /* ApolloWebSocket in Frameworks */,
 				790FBB2429C186AE00E27106 /* Apollo in Frameworks */,
 				790FBB2A29C1876D00E27106 /* StratzAPI in Frameworks */,
+				79CF376B2DC0F9CE00207CB8 /* StratzAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -786,6 +805,7 @@
 		3266081C27CED53C00D9A204 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				79CF37602DC0F92E00207CB8 /* Debug */,
 				32B36F1226C38822002D427D /* Assets.xcassets */,
 				32B36F1D26C38834002D427D /* Backend */,
 				3214C0D026F0E19A00C377EF /* Documents */,
@@ -975,6 +995,7 @@
 			isa = PBXGroup;
 			children = (
 				32B36F4926C39242002D427D /* StringVariable.swift */,
+				79CF375B2DC0F8F500207CB8 /* D2AError.swift */,
 				327B875F284D9FA100BBE1F8 /* DataHelper.swift */,
 			);
 			path = Utility;
@@ -1219,6 +1240,16 @@
 			path = GraphQL;
 			sourceTree = "<group>";
 		};
+		79CF37602DC0F92E00207CB8 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				79CF376C2DC0FA5C00207CB8 /* DebugView.swift */,
+				79CF37612DC0F93200207CB8 /* D2ALogger.swift */,
+				79CF37652DC0F95800207CB8 /* D2AServiceCategory.swift */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
 		79CF637A29C40B700072F4C0 /* UI Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1271,6 +1302,7 @@
 				790FBB2329C186AE00E27106 /* Apollo */,
 				790FBB2929C1876D00E27106 /* StratzAPI */,
 				79266DA32A31B078002FEF0F /* ApolloWebSocket */,
+				79CF376A2DC0F9CE00207CB8 /* StratzAPI */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* D2A.app */;
@@ -1423,6 +1455,7 @@
 			mainGroup = 32B36F0226C38821002D427D;
 			packageReferences = (
 				790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				79CF37692DC0F9CE00207CB8 /* XCLocalSwiftPackageReference "StratzAPI" */,
 			);
 			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
 			projectDirPath = "";
@@ -1637,6 +1670,7 @@
 			files = (
 				798C42932A3565BA00BDC470 /* LiveMatchKillEventTestCase.swift in Sources */,
 				327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
+				79CF375C2DC0F8F800207CB8 /* D2AError.swift in Sources */,
 				328957A327F660D400BA9847 /* DecodingTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1694,6 +1728,7 @@
 				79091DF92A3B32140093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 				796FE19C29AAF659003379EB /* AbilityImage.swift in Sources */,
 				325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */,
+				79CF37672DC0F96100207CB8 /* D2AServiceCategory.swift in Sources */,
 				32B36F3F26C388AD002D427D /* PlayerProfileView.swift in Sources */,
 				32B36F2A26C38852002D427D /* Item.swift in Sources */,
 				3261C90B2830721500D47CDA /* HeroDetailViewModel.swift in Sources */,
@@ -1707,6 +1742,7 @@
 				322B893626CD438700DF67F9 /* UserProfileCodable.swift in Sources */,
 				322B89BF26CE788900DF67F9 /* AnalysisViewModel.swift in Sources */,
 				3252859726CB81480030F15B /* DifferenceGraphViewModel.swift in Sources */,
+				79CF375E2DC0F8F800207CB8 /* D2AError.swift in Sources */,
 				79645CC32A39D1610004EF50 /* LiveMatchListView.swift in Sources */,
 				327772B326D9D735000A0A97 /* GameMode.swift in Sources */,
 				327772AF26D8BE63000A0A97 /* MatchListRowView.swift in Sources */,
@@ -1723,6 +1759,7 @@
 				790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */,
 				79D5280E28DD5D990070841D /* Network.swift in Sources */,
 				79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */,
+				79CF376F2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				79837B55294C18FE00458529 /* DamageView.swift in Sources */,
 				79A989002931DCE1006AC847 /* UserProfile.swift in Sources */,
 				79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
@@ -1736,6 +1773,7 @@
 				795860412A335D69006DDA21 /* LiveMatchMapView.swift in Sources */,
 				321D58A026D234A90059526B /* AboutUsView.swift in Sources */,
 				32985DD3285569D0001869F2 /* RankView.swift in Sources */,
+				79CF37632DC0F93600207CB8 /* D2ALogger.swift in Sources */,
 				32B36F2926C38852002D427D /* MatchCodable.swift in Sources */,
 				32D1605A26F304DC00657449 /* StoreView.swift in Sources */,
 				794B724329862294000059E4 /* ItemView.swift in Sources */,
@@ -1783,6 +1821,7 @@
 				790FBB3129C18ABC00E27106 /* Network.swift in Sources */,
 				32B526D4285C1DBC0099B058 /* Extension.swift in Sources */,
 				32F70B1726F6294D006E9B05 /* MatchCodable.swift in Sources */,
+				79CF375F2DC0F8F800207CB8 /* D2AError.swift in Sources */,
 				32F70ADD26F60B8D006E9B05 /* SteamProfile.swift in Sources */,
 				327C033D2716A90400DAEC42 /* KDAView.swift in Sources */,
 				32F70B1926F6295B006E9B05 /* Date.swift in Sources */,
@@ -1802,6 +1841,7 @@
 				7983DA752B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
 				79A9891E2931ECAE006AC847 /* PersistanceContainer.swift in Sources */,
 				7983DA6B2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
+				79CF376D2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				32F70AD526F60364006E9B05 /* HeroCodable.swift in Sources */,
 				32F70AB526F5812B006E9B05 /* LobbyType.swift in Sources */,
 				79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */,
@@ -1815,6 +1855,8 @@
 				3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				79091DF52A3B2E2C0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32F70B3026F714FD006E9B05 /* Provider.swift in Sources */,
+				79CF37682DC0F96100207CB8 /* D2AServiceCategory.swift in Sources */,
+				79CF37622DC0F93600207CB8 /* D2ALogger.swift in Sources */,
 				32F70AA226F57F7E006E9B05 /* D2AWidget.swift in Sources */,
 				7983DA712B63086700C42F87 /* D2AWidgetUserEntry.swift in Sources */,
 				79A9891C2931EB59006AC847 /* Match.swift in Sources */,
@@ -1846,6 +1888,7 @@
 				790FBB3229C18ABC00E27106 /* Network.swift in Sources */,
 				327B87742850DA7900BBE1F8 /* Ability.swift in Sources */,
 				32F70B2026F6295C006E9B05 /* Int.swift in Sources */,
+				79CF375D2DC0F8F800207CB8 /* D2AError.swift in Sources */,
 				3270271E285C08C300927426 /* HeroDatabase.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,
 				32A26C52285947D4005E890F /* OpenDotaController.swift in Sources */,
@@ -1865,6 +1908,7 @@
 				7983DA762B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
 				79A9891F2931ECAF006AC847 /* PersistanceContainer.swift in Sources */,
 				7983DA6C2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
+				79CF376E2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */,
 				32F70AFC26F61E52006E9B05 /* UserProfileCodable.swift in Sources */,
 				79E01CA9291E351B0073BF68 /* MatchListRowView.swift in Sources */,
@@ -1878,6 +1922,8 @@
 				327C033E2716A92500DAEC42 /* KDAView.swift in Sources */,
 				79091DF72A3B2FBD0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */,
+				79CF37662DC0F96100207CB8 /* D2AServiceCategory.swift in Sources */,
+				79CF37642DC0F93600207CB8 /* D2ALogger.swift in Sources */,
 				32EC7F3728646BAC00A36AF6 /* WidgetOverlayView.swift in Sources */,
 				7983DA722B63086700C42F87 /* D2AWidgetUserEntry.swift in Sources */,
 				79A9891D2931EB5A006AC847 /* Match.swift in Sources */,
@@ -2540,6 +2586,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		79CF37692DC0F9CE00207CB8 /* XCLocalSwiftPackageReference "StratzAPI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = StratzAPI;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -2588,6 +2641,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloWebSocket;
+		};
+		79CF376A2DC0F9CE00207CB8 /* StratzAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StratzAPI;
 		};
 		79D1043629E2991E00BC04B3 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
