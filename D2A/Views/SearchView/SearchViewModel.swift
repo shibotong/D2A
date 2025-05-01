@@ -13,14 +13,14 @@ class SearchViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     
     // suggestion
-    @Published var suggestHeroes: [HeroCodable] = []
+    @Published var suggestHeroes: [ODHero] = []
     @Published var suggestLocalProfiles: [UserProfile] = []
     
     // search results
     @Published var userProfiles: [UserProfileCodable] = []
     @Published var searchLocalProfiles: [UserProfile] = []
     @Published var searchedMatch: Match?
-    @Published var filterHeroes: [HeroCodable] = []
+    @Published var filterHeroes: [ODHero] = []
     
     @Published var searchHistory: [String] {
         didSet {
