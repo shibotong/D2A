@@ -7,8 +7,8 @@
 
 import Foundation
 import SwiftUI
-import Combine
 import StratzAPI
+import CoreData
 
 enum LoadingStatus {
     case loading, error, finish
@@ -226,5 +226,44 @@ class HeroDatabase: ObservableObject {
             return ability.id == talentID
         }
         return talent?.language?.displayName ?? "Fetch String Error"
+    }
+    
+    private func saveODHeroes(heroes: [ODHero]) async {
+        let viewContext = PersistanceController.shared.container.newBackgroundContext()
+        if await hasHeroData(context: viewContext) {
+            return
+        } else {
+            await batchInsertHeroes(heroes: heroes, context: viewContext)
+        }
+    }
+    
+    private func batchInsertHeroes(heroes: [ODHero], context: NSManagedObjectContext) async {
+        let insertRequest = NSBatchInsertRequest(entityName: "Hero", objects: heroes.map { $0.dictionaries })
+        insertRequest.resultType = .count
+        await context.perform {
+            do {
+                let fetchResult = try context.execute(insertRequest)
+                if let batchInsertResult = fetchResult as? NSBatchInsertResult,
+                   let success = batchInsertResult.result as? Bool {
+                    return
+                }
+            } catch {
+                logError("An error occured in batch insertint heroes \(error.localizedDescription)", category: .coredata)
+            }
+        }
+    }
+    
+    private func hasHeroData(context: NSManagedObjectContext) async -> Bool {
+        let request = Hero.fetchRequest()
+        request.fetchLimit = 1
+        return await context.perform {
+            do {
+                let count = try context.count(for: request)
+                return count > 0
+            } catch {
+                logError("Cannot count number of heroes saved in Core Data", category: .coredata)
+                return true
+            }
+        }
     }
 }

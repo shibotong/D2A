@@ -57,6 +57,38 @@ class ODHero: Identifiable, Decodable {
     
     static let intMaxMP: Int32 = 12
     static let intManaRegen = 0.05
+    
+    var dictionaries: [String: Any] {
+        return [
+            "id": Double(id),
+            "name": name,
+            "displayName": localizedName,
+            "primaryAttr": primaryAttr,
+            "attackType": attackType,
+            "img": img,
+            "icon": icon,
+            "baseHealth": baseHealth,
+            "baseHealthRegen": baseHealthRegen,
+            "baseMana": baseMana,
+            "baseManaRegen": baseManaRegen,
+            "baseArmor": baseArmor,
+            "baseMr": baseMr,
+            "baseAttackMin": baseAttackMin,
+            "baseAttackMax": baseAttackMax,
+            "baseStr": baseStr,
+            "baseAgi": baseAgi,
+            "baseInt": baseInt,
+            "strGain": strGain,
+            "agiGain": agiGain,
+            "intGain": intGain,
+            "attackRange": attackRange,
+            "projectileSpeed": projectileSpeed,
+            "attackRate": attackRate,
+            "moveSpeed": moveSpeed,
+            "cmEnabled": cmEnabled,
+            "turnRate": turnRate ?? 0
+        ]
+    }
 
     enum CodingKeys: String, CodingKey {
         case id
