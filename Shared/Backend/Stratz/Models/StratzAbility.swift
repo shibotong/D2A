@@ -8,10 +8,8 @@
 import StratzAPI
 
 struct StratzAbility {
-    
     var id: Int
     var name: String
     var language: Language?
     var attributes: [Attribute]
-    
 }

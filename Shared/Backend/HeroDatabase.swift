@@ -20,7 +20,6 @@ class HeroDatabase: ObservableObject {
         case heroNotFound
     }
     
-    @Published var status: LoadingStatus = .loading
     private var heroes = [String: HeroCodable]()
     private var gameModes = [String: GameMode]()
     private var lobbyTypes = [String: LobbyType]()
@@ -37,9 +36,6 @@ class HeroDatabase: ObservableObject {
     
     static var preview = HeroDatabase()
     
-    @Published private var openDotaLoadFinish: LoadingStatus = .loading
-    private var cancellable = Set<AnyCancellable>()
-    
     let url = "https://api.opendota.com/api/herostats"
     
     private let stratzProvider: StratzProviding
@@ -50,7 +46,6 @@ class HeroDatabase: ObservableObject {
     }
     
     func loadData() {
-        status = .loading
         gameModes = loadGameModes()
         regions = loadRegion()!
         lobbyTypes = loadLobby()!
@@ -73,38 +68,7 @@ class HeroDatabase: ObservableObject {
             self?.heroAbilities = await heroAbilities
             self?.scepterData = await scepter
             self?.apolloAbilities = await stratzAbilities ?? []
-            let status: LoadingStatus = self?.abilities.count == 0 ? .error : .finish
-            await self?.setStatus(status: status)
         }
-    }
-    
-    @MainActor
-    private func setStatus(status: LoadingStatus) {
-        openDotaLoadFinish = status
-    }
-    
-    private func setupBinding() {
-        $openDotaLoadFinish
-            .map({ opendota in
-                if opendota == .error {
-                    return LoadingStatus.error
-                }
-                if opendota == .finish {
-                    return LoadingStatus.finish
-                }
-                return LoadingStatus.loading
-            })
-            .sink { [weak self] status in
-                self?.status = status
-                if status == .finish || status == .error {
-                    self?.removeBinding()
-                }
-            }
-            .store(in: &cancellable)
-    }
-    
-    private func removeBinding() {
-        self.cancellable = []
     }
 
     func fetchHeroWithID(id: Int) throws -> HeroCodable {

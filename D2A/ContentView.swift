@@ -14,19 +14,12 @@ struct ContentView: View {
     @EnvironmentObject var store: StoreManager
     var body: some View {
         Group {
-            if data.status != .finish || env.loading == true {
-                MainLoadingView(status: $data.status,
-                                envLoading: env.loading) {
-                    data.loadData()
-                }
-            } else {
-                NavigationHostView()
-                    .sheet(isPresented: $env.subscriptionSheet, content: {
-                        StoreView()
-                            .environmentObject(env)
-                            .environmentObject(store)
-                    })
-            }
+            NavigationHostView()
+                .sheet(isPresented: $env.subscriptionSheet, content: {
+                    StoreView()
+                        .environmentObject(env)
+                        .environmentObject(store)
+                })
         }
         .alert(isPresented: $env.error, content: {
             Alert(title: Text("Error"), message: Text(env.errorMessage), dismissButton: .cancel())
