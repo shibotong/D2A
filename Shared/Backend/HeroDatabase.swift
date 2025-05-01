@@ -20,7 +20,6 @@ class HeroDatabase: ObservableObject {
         case heroNotFound
     }
     
-    @Published var status: LoadingStatus = .loading
     private var heroes = [String: HeroCodable]()
     private var gameModes = [String: GameMode]()
     private var lobbyTypes = [String: LobbyType]()
@@ -31,43 +30,25 @@ class HeroDatabase: ObservableObject {
     private var abilities = [String: Ability]()
     private var heroAbilities = [String: HeroAbility]()
     private var scepterData = [HeroScepter]()
-    private var apolloAbilities = [AbilityQuery.Data.Constants.Ability]()
+    private var apolloAbilities = [StratzAbility]()
     
     static var shared = HeroDatabase()
     
-    static var preview = HeroDatabase(preview: true)
-    
-    @Published private var openDotaLoadFinish: LoadingStatus = .loading
-    @Published private var stratzLoadFinish: LoadingStatus = .loading
-    private var cancellable = Set<AnyCancellable>()
+    static var preview = HeroDatabase()
     
     let url = "https://api.opendota.com/api/herostats"
     
-    init(preview: Bool = false) {
-        guard !preview else {
-            self.heroes = loadSampleHero() ?? [:]
-            self.abilities = loadSampleAbilities() ?? [:]
-            return
-        }
-        setupBinding()
+    private let stratzProvider: StratzProviding
+    
+    init(stratzProvider: StratzProviding = StratzController.shared) {
+        self.stratzProvider = stratzProvider
         loadData()
     }
     
-    init(heroes: [String: HeroCodable] = [:],
-         itemID: [String: String] = [:],
-         items: [String: Item] = [:]) {
-        self.heroes = heroes
-        self.itemIDTable = itemID
-        self.items = items
-    }
-    
     func loadData() {
-        status = .loading
         gameModes = loadGameModes()
         regions = loadRegion()!
         lobbyTypes = loadLobby()!
-        
-        loadStratzAbilities()
         
         Task { [weak self] in
             async let idTable = loadItemIDs()
@@ -77,6 +58,7 @@ class HeroDatabase: ObservableObject {
             async let abilities = loadAbilities()
             async let heroAbilities = loadHeroAbilities()
             async let scepter = loadScepter()
+            async let stratzAbilities = self?.stratzProvider.loadAbilities()
             
             self?.itemIDTable = await idTable
             self?.items = await items
@@ -85,39 +67,8 @@ class HeroDatabase: ObservableObject {
             self?.abilities = await abilities
             self?.heroAbilities = await heroAbilities
             self?.scepterData = await scepter
-            let status: LoadingStatus = self?.abilities.count == 0 ? .error : .finish
-            await self?.setStatus(status: status)
+            self?.apolloAbilities = await stratzAbilities ?? []
         }
-    }
-    
-    @MainActor
-    private func setStatus(status: LoadingStatus) {
-        openDotaLoadFinish = status
-    }
-    
-    private func setupBinding() {
-        Publishers
-            .CombineLatest($openDotaLoadFinish, $stratzLoadFinish)
-            .map({ opendota, stratz in
-                if opendota == .error || stratz == .error {
-                    return LoadingStatus.error
-                }
-                if opendota == .finish && stratz == .finish {
-                    return LoadingStatus.finish
-                }
-                return LoadingStatus.loading
-            })
-            .sink { [weak self] status in
-                self?.status = status
-                if status == .finish || status == .error {
-                    self?.removeBinding()
-                }
-            }
-            .store(in: &cancellable)
-    }
-    
-    private func removeBinding() {
-        self.cancellable = []
     }
 
     func fetchHeroWithID(id: Int) throws -> HeroCodable {
@@ -167,7 +118,7 @@ class HeroDatabase: ObservableObject {
         return abilities[name]
     }
     
-    func fetchStratzAbility(name: String) -> AbilityQuery.Data.Constants.Ability? {
+    func fetchStratzAbility(name: String) -> StratzAbility? {
         let ability = apolloAbilities.first { $0.name == name }
         return ability
     }
@@ -267,42 +218,13 @@ class HeroDatabase: ObservableObject {
     }
     
     func getTalentDisplayName(id: Short) -> String {
-        let talent = apolloAbilities.first { ability in
-            return ability.id == id
-        }
-        return talent?.language?.displayName ?? "Fetch String Error"
+        return getTalentDisplayName(talentID: Int(id))
     }
     
-    // MARK: - private functions
-    private func loadStratzAbilities() {
-        Network.shared.apollo.fetch(query: AbilityQuery(language: .init(languageCode))) { [weak self] result in
-            switch result {
-            case .success(let graphQLResult):
-                if let abilitiesConnection = graphQLResult.data?.constants?.abilities {
-                    let abilities = abilitiesConnection.compactMap({ $0 })
-                    self?.apolloAbilities = abilities
-                    DispatchQueue.main.async {
-                        self?.stratzLoadFinish = .finish
-                    }
-                }
-                
-                if let errors = graphQLResult.errors {
-                    let message = errors
-                        .map { $0.localizedDescription }
-                        .joined(separator: "\n")
-                    DispatchQueue.main.async {
-                        self?.stratzLoadFinish = .error
-                    }
-                    print(message)
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-                DotaEnvironment.shared.error = true
-                DotaEnvironment.shared.errorMessage = error.localizedDescription
-                DispatchQueue.main.async {
-                    self?.stratzLoadFinish = .error
-                }
-            }
+    private func getTalentDisplayName(talentID: Int) -> String {
+        let talent = apolloAbilities.first { ability in
+            return ability.id == talentID
         }
+        return talent?.language?.displayName ?? "Fetch String Error"
     }
 }

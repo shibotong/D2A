@@ -83,10 +83,10 @@ struct AbilityView: View {
     }
     
     @ViewBuilder private func buildDescription(ability: Ability,
-                                               stratz: AbilityQuery.Data.Constants.Ability,
+                                               stratz: StratzAbility,
                                                proxy: GeometryProxy) -> some View {
         VStack {
-            let description = stratz.language?.description?.compactMap { $0 }.joined(separator: "\n") ?? ""
+            let description = stratz.language?.description.compactMap { $0 }.joined(separator: "\n") ?? ""
             if dataBase.isScepterSkill(ability: ability, heroID: viewModel.heroID) {
                 AbilityDescriptionView(width: proxy.size.width, type: .scepter, description: description, player: viewModel.scepterVideo)
             } else if dataBase.isShardSkill(ability: ability, heroID: viewModel.heroID) {

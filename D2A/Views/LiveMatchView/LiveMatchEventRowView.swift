@@ -68,33 +68,33 @@ struct LiveMatchEventDetailView: View {
     }
 }
 
-struct LiveMatchEventRowView_Previews: PreviewProvider {
-    
-    static let buildingEventRadiant = LiveMatchBuildingEvent(indexId: 28, time: 180, type: .case(.tower), isAlive: false, isRadiant: false).generateEvent()
-    static let buildingEventDire = LiveMatchBuildingEvent(indexId: 28, time: 180, type: .case(.barracks), isAlive: false, isRadiant: true).generateEvent()
-    static let killEvent = LiveMatchKillEvent(time: 100, kill: [1, 2], died: [6, 7], players: .preview).generateEvent()
-    static let killEvent2 = LiveMatchKillEvent(time: 100, kill: [1], died: [6, 7, 8, 9, 10], players: .preview, heroDatabase: HeroDatabase(heroes: loadSampleHero()!)).generateEvent()
-    static let killEvent3 = LiveMatchKillEvent(time: 100, kill: [7], died: [1, 2, 3, 4, 5], players: .preview, heroDatabase: HeroDatabase(heroes: loadSampleHero()!)).generateEvent()
-    
-    static var previews: some View {
-        VStack {
-            ForEach(buildingEventRadiant) { event in
-                LiveMatchEventRowView(event: event)
-            }
-            ForEach(buildingEventDire) { event in
-                LiveMatchEventRowView(event: event)
-            }
-            ForEach(killEvent) { event in
-                LiveMatchEventRowView(event: event)
-            }
-            ForEach(killEvent2) { event in
-                LiveMatchEventRowView(event: event)
-            }
-            ForEach(killEvent3) { event in
-                LiveMatchEventRowView(event: event)
-            }
-        }
-        .padding()
-        .previewLayout(.fixed(width: 400, height: 100))
-    }
-}
+// struct LiveMatchEventRowView_Previews: PreviewProvider {
+//    
+//    static let buildingEventRadiant = LiveMatchBuildingEvent(indexId: 28, time: 180, type: .case(.tower), isAlive: false, isRadiant: false).generateEvent()
+//    static let buildingEventDire = LiveMatchBuildingEvent(indexId: 28, time: 180, type: .case(.barracks), isAlive: false, isRadiant: true).generateEvent()
+//    static let killEvent = LiveMatchKillEvent(time: 100, kill: [1, 2], died: [6, 7], players: .preview).generateEvent()
+//    static let killEvent2 = LiveMatchKillEvent(time: 100, kill: [1], died: [6, 7, 8, 9, 10], players: .preview, heroDatabase: HeroDatabase(heroes: loadSampleHero()!)).generateEvent()
+//    static let killEvent3 = LiveMatchKillEvent(time: 100, kill: [7], died: [1, 2, 3, 4, 5], players: .preview, heroDatabase: HeroDatabase(heroes: loadSampleHero()!)).generateEvent()
+//    
+//    static var previews: some View {
+//        VStack {
+//            ForEach(buildingEventRadiant) { event in
+//                LiveMatchEventRowView(event: event)
+//            }
+//            ForEach(buildingEventDire) { event in
+//                LiveMatchEventRowView(event: event)
+//            }
+//            ForEach(killEvent) { event in
+//                LiveMatchEventRowView(event: event)
+//            }
+//            ForEach(killEvent2) { event in
+//                LiveMatchEventRowView(event: event)
+//            }
+//            ForEach(killEvent3) { event in
+//                LiveMatchEventRowView(event: event)
+//            }
+//        }
+//        .padding()
+//        .previewLayout(.fixed(width: 400, height: 100))
+//    }
+// }

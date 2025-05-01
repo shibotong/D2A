@@ -37,7 +37,7 @@ class AbilityViewModel: ObservableObject {
     @Published var lore: String?
     
     // Ability Data
-    @Published var stratzAbility: AbilityQuery.Data.Constants.Ability?
+    @Published var stratzAbility: StratzAbility?
     @Published var opentDotaAbility: Ability?
     
     private var database = HeroDatabase.shared
