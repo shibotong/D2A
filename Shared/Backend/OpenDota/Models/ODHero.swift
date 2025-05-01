@@ -1,5 +1,5 @@
 //
-//  HeroCodable.swift
+//  ODHero.swift
 //  Dota Portfolio
 //
 //  Created by Shibo Tong on 5/7/21.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HeroCodable: Identifiable, Decodable {
+class ODHero: Identifiable, Decodable {
     var id: Int
     var name: String
     var localizedName: String

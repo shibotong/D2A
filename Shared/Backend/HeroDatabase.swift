@@ -20,7 +20,7 @@ class HeroDatabase: ObservableObject {
         case heroNotFound
     }
     
-    private var heroes = [String: HeroCodable]()
+    private var heroes = [String: ODHero]()
     private var gameModes = [String: GameMode]()
     private var lobbyTypes = [String: LobbyType]()
     private var regions = [String: String]()
@@ -71,7 +71,7 @@ class HeroDatabase: ObservableObject {
         }
     }
 
-    func fetchHeroWithID(id: Int) throws -> HeroCodable {
+    func fetchHeroWithID(id: Int) throws -> ODHero {
         guard let hero = heroes["\(id)"] else {
             throw HeroDataError.heroNotFound
         }
@@ -128,8 +128,8 @@ class HeroDatabase: ObservableObject {
         return abilities ?? []
     }
     
-    func fetchAllHeroes() -> [HeroCodable] {
-        var sortedHeroes = [HeroCodable]()
+    func fetchAllHeroes() -> [ODHero] {
+        var sortedHeroes = [ODHero]()
         for i in 1..<150 {
             if let hero = heroes["\(i)"] {
                 sortedHeroes.append(hero)
@@ -142,7 +142,7 @@ class HeroDatabase: ObservableObject {
         return sortedHeroes
     }
     
-    func fetchSearchedHeroes(text: String) -> [HeroCodable] {
+    func fetchSearchedHeroes(text: String) -> [ODHero] {
         return []
     }
     

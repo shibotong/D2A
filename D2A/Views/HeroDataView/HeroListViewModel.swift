@@ -28,9 +28,9 @@ enum HeroAttribute: String, CaseIterable {
 }
 
 class HeroListViewModel: ObservableObject {
-    let heroList: [HeroCodable]
+    let heroList: [ODHero]
     
-    @Published var searchResults: [HeroCodable]
+    @Published var searchResults: [ODHero]
     
     @Published var searchString: String = ""
     @Published var gridView = true
