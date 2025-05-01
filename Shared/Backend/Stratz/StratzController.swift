@@ -12,9 +12,10 @@ class StratzController {
     
     func loadAbilities() async -> [StratzAbility] {
         do {
-            return try loadStratzAbilities()
+            return try await loadStratzAbilities()
         } catch {
-            D2ALogger
+            logError(error.localizedDescription, category: .stratz)
+            return []
         }
     }
     

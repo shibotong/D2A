@@ -351,6 +351,18 @@
 		79A989202931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79A989212931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79ABE8FA2A35C3CF00EE9EF9 /* LiveMatchDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */; };
+		79B870992DC38A150090CAB8 /* StratzController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870972DC38A150090CAB8 /* StratzController.swift */; };
+		79B8709A2DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870952DC38A150090CAB8 /* StratzAbility+StratzAPI.swift */; };
+		79B8709B2DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870942DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift */; };
+		79B8709C2DC38A150090CAB8 /* StratzAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870932DC38A150090CAB8 /* StratzAbility.swift */; };
+		79B8709D2DC38A150090CAB8 /* StratzController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870972DC38A150090CAB8 /* StratzController.swift */; };
+		79B8709E2DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870952DC38A150090CAB8 /* StratzAbility+StratzAPI.swift */; };
+		79B8709F2DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870942DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift */; };
+		79B870A02DC38A150090CAB8 /* StratzAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870932DC38A150090CAB8 /* StratzAbility.swift */; };
+		79B870A12DC38A150090CAB8 /* StratzController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870972DC38A150090CAB8 /* StratzController.swift */; };
+		79B870A22DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870952DC38A150090CAB8 /* StratzAbility+StratzAPI.swift */; };
+		79B870A32DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870942DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift */; };
+		79B870A42DC38A150090CAB8 /* StratzAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870932DC38A150090CAB8 /* StratzAbility.swift */; };
 		79BD872E2A4C2F1400964814 /* LiveMatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872D2A4C2F1400964814 /* LiveMatchListRowView.swift */; };
 		79BD87302A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */; };
 		79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */; };
@@ -645,6 +657,10 @@
 		79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchDraftView.swift; sourceTree = "<group>"; };
 		79B1630228DD5A29009B2AE2 /* Ability.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Ability.graphql; sourceTree = "<group>"; };
 		79B1630328DD5A31009B2AE2 /* Hero.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hero.graphql; sourceTree = "<group>"; };
+		79B870932DC38A150090CAB8 /* StratzAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratzAbility.swift; sourceTree = "<group>"; };
+		79B870942DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StratzAbility+Language+Attribute.swift"; sourceTree = "<group>"; };
+		79B870952DC38A150090CAB8 /* StratzAbility+StratzAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StratzAbility+StratzAPI.swift"; sourceTree = "<group>"; };
+		79B870972DC38A150090CAB8 /* StratzController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratzController.swift; sourceTree = "<group>"; };
 		79BD872D2A4C2F1400964814 /* LiveMatchListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchListRowView.swift; sourceTree = "<group>"; };
 		79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconViewModel.swift; sourceTree = "<group>"; };
 		79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconView.swift; sourceTree = "<group>"; };
@@ -925,6 +941,7 @@
 		32B36F1D26C38834002D427D /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				79B870982DC38A150090CAB8 /* Stratz */,
 				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
 				79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */,
 				329849F326DCAEAE00A1032C /* HeroDatabase.swift */,
@@ -1238,6 +1255,25 @@
 				790102BF29F40F7B00E8A320 /* secrets.json.sample.json */,
 			);
 			path = GraphQL;
+			sourceTree = "<group>";
+		};
+		79B870962DC38A150090CAB8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				79B870932DC38A150090CAB8 /* StratzAbility.swift */,
+				79B870942DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift */,
+				79B870952DC38A150090CAB8 /* StratzAbility+StratzAPI.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		79B870982DC38A150090CAB8 /* Stratz */ = {
+			isa = PBXGroup;
+			children = (
+				79B870962DC38A150090CAB8 /* Models */,
+				79B870972DC38A150090CAB8 /* StratzController.swift */,
+			);
+			path = Stratz;
 			sourceTree = "<group>";
 		};
 		79CF37602DC0F92E00207CB8 /* Debug */ = {
@@ -1752,6 +1788,10 @@
 				7985E7ED28E53A40007A43AF /* Role.swift in Sources */,
 				322B89C526CFAC1000DF67F9 /* SearchView.swift in Sources */,
 				799948C02932D50000D79055 /* ImageCache.swift in Sources */,
+				79B8709D2DC38A150090CAB8 /* StratzController.swift in Sources */,
+				79B8709E2DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */,
+				79B8709F2DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift in Sources */,
+				79B870A02DC38A150090CAB8 /* StratzAbility.swift in Sources */,
 				327B87782852263300BBE1F8 /* HeroListViewModel.swift in Sources */,
 				79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
@@ -1832,6 +1872,10 @@
 				327B87732850DA7800BBE1F8 /* Ability.swift in Sources */,
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
 				32F70ADB26F6090A006E9B05 /* NetworkImage.swift in Sources */,
+				79B870A12DC38A150090CAB8 /* StratzController.swift in Sources */,
+				79B870A22DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */,
+				79B870A32DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift in Sources */,
+				79B870A42DC38A150090CAB8 /* StratzAbility.swift in Sources */,
 				32A26C51285947D3005E890F /* OpenDotaController.swift in Sources */,
 				79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
 				32B526CD285C18440099B058 /* RankView.swift in Sources */,
@@ -1899,6 +1943,10 @@
 				32B526D5285C1DBC0099B058 /* Extension.swift in Sources */,
 				32F70B0226F621ED006E9B05 /* D2AWidget.swift in Sources */,
 				32F70B1F26F6295C006E9B05 /* Color.swift in Sources */,
+				79B870992DC38A150090CAB8 /* StratzController.swift in Sources */,
+				79B8709A2DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */,
+				79B8709B2DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift in Sources */,
+				79B8709C2DC38A150090CAB8 /* StratzAbility.swift in Sources */,
 				79A988F72931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
 				79A989102931E8F3006AC847 /* Talent.swift in Sources */,
 				32B526C8285C0BDE0099B058 /* Provider.swift in Sources */,

@@ -8,6 +8,7 @@
 enum D2AServiceCategory: String {
     case opendotaConstant
     case coredata
+    case stratz
 }
 
 enum LoggingLevel: Int {
