@@ -130,8 +130,4 @@ class PersistanceController {
             NSManagedObjectContext.mergeChanges(fromRemoteContextSave: deletedObjects, into: [strongSelf.container.viewContext])
         }
     }
-    
-    func saveODHeroes(heroes: [ODHero], context: NSManagedObjectContext) {
-        
-    }
 }
