@@ -231,6 +231,7 @@ class HeroDatabase: ObservableObject {
     private func saveODHeroes(heroes: [ODHero]) async {
         let viewContext = PersistanceController.shared.container.newBackgroundContext()
         if await hasHeroData(context: viewContext) {
+            // TODO: save hero data one by one
             return
         } else {
             await batchInsertHeroes(heroes: heroes, context: viewContext)

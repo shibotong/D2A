@@ -372,6 +372,9 @@
 		79B870BE2DC394D30090CAB8 /* D2ANetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870BC2DC394D30090CAB8 /* D2ANetwork.swift */; };
 		79B870BF2DC394D30090CAB8 /* D2ANetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870BC2DC394D30090CAB8 /* D2ANetwork.swift */; };
 		79B870C02DC394D30090CAB8 /* D2ANetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870BC2DC394D30090CAB8 /* D2ANetwork.swift */; };
+		79B870C72DC39C970090CAB8 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870C62DC39C930090CAB8 /* NSManagedObject.swift */; };
+		79B870C82DC39C970090CAB8 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870C62DC39C930090CAB8 /* NSManagedObject.swift */; };
+		79B870C92DC39C970090CAB8 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870C62DC39C930090CAB8 /* NSManagedObject.swift */; };
 		79BD872E2A4C2F1400964814 /* LiveMatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872D2A4C2F1400964814 /* LiveMatchListRowView.swift */; };
 		79BD87302A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */; };
 		79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */; };
@@ -673,6 +676,7 @@
 		79B870B32DC394C10090CAB8 /* OpenDotaConstantProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantProvider.swift; sourceTree = "<group>"; };
 		79B870B42DC394C10090CAB8 /* OpenDotaConstantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantService.swift; sourceTree = "<group>"; };
 		79B870BC2DC394D30090CAB8 /* D2ANetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ANetwork.swift; sourceTree = "<group>"; };
+		79B870C62DC39C930090CAB8 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
 		79BD872D2A4C2F1400964814 /* LiveMatchListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchListRowView.swift; sourceTree = "<group>"; };
 		79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconViewModel.swift; sourceTree = "<group>"; };
 		79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconView.swift; sourceTree = "<group>"; };
@@ -985,6 +989,7 @@
 		32B36F2B26C3885A002D427D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				79B870C62DC39C930090CAB8 /* NSManagedObject.swift */,
 				32B36F2C26C3885A002D427D /* Color.swift */,
 				32897B0726C4EFF1008D3CC8 /* Int.swift */,
 				3252858E26C949940030F15B /* Date.swift */,
@@ -1765,6 +1770,7 @@
 				79B870BE2DC394D30090CAB8 /* D2ANetwork.swift in Sources */,
 				3252859126C9E8040030F15B /* AnalysisView.swift in Sources */,
 				327C033C2716A8F400DAEC42 /* KDAView.swift in Sources */,
+				79B870C92DC39C970090CAB8 /* NSManagedObject.swift in Sources */,
 				796BF20429F5536000555C64 /* HeroListView.swift in Sources */,
 				3252858F26C949940030F15B /* Date.swift in Sources */,
 				3261C907282F315100D47CDA /* HeroDetailView.swift in Sources */,
@@ -1912,6 +1918,7 @@
 				799948C12932D50000D79055 /* ImageCache.swift in Sources */,
 				32079DC028B843360056D19F /* String.swift in Sources */,
 				793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
+				79B870C82DC39C970090CAB8 /* NSManagedObject.swift in Sources */,
 				327B87732850DA7800BBE1F8 /* Ability.swift in Sources */,
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
 				32F70ADB26F6090A006E9B05 /* NetworkImage.swift in Sources */,
@@ -1986,6 +1993,7 @@
 				799948C22932D50000D79055 /* ImageCache.swift in Sources */,
 				32F70B1826F6294E006E9B05 /* MatchCodable.swift in Sources */,
 				793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
+				79B870C72DC39C970090CAB8 /* NSManagedObject.swift in Sources */,
 				32B526D5285C1DBC0099B058 /* Extension.swift in Sources */,
 				32F70B0226F621ED006E9B05 /* D2AWidget.swift in Sources */,
 				32F70B1F26F6295C006E9B05 /* Color.swift in Sources */,
