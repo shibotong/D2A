@@ -56,8 +56,6 @@ class HeroDatabase: ObservableObject {
         regions = loadRegion()!
         lobbyTypes = loadLobby()!
         
-        
-        
         Task { [weak self] in
             async let idTable = loadItemIDs()
             async let items = loadItems()
@@ -158,7 +156,7 @@ class HeroDatabase: ObservableObject {
         return abilities[name]
     }
     
-    func fetchStratzAbility(name: String) -> AbilityQuery.Data.Constants.Ability? {
+    func fetchStratzAbility(name: String) -> StratzAbility? {
         let ability = apolloAbilities.first { $0.name == name }
         return ability
     }
@@ -258,42 +256,13 @@ class HeroDatabase: ObservableObject {
     }
     
     func getTalentDisplayName(id: Short) -> String {
-        let talent = apolloAbilities.first { ability in
-            return ability.id == id
-        }
-        return talent?.language?.displayName ?? "Fetch String Error"
+        return getTalentDisplayName(talentID: Int(id))
     }
     
-    // MARK: - private functions
-    private func loadStratzAbilities() {
-        Network.shared.apollo.fetch(query: AbilityQuery(language: .init(languageCode))) { [weak self] result in
-            switch result {
-            case .success(let graphQLResult):
-                if let abilitiesConnection = graphQLResult.data?.constants?.abilities {
-                    let abilities = abilitiesConnection.compactMap({ $0 })
-                    self?.apolloAbilities = abilities
-                    DispatchQueue.main.async {
-                        self?.stratzLoadFinish = .finish
-                    }
-                }
-                
-                if let errors = graphQLResult.errors {
-                    let message = errors
-                        .map { $0.localizedDescription }
-                        .joined(separator: "\n")
-                    DispatchQueue.main.async {
-                        self?.stratzLoadFinish = .error
-                    }
-                    print(message)
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-                DotaEnvironment.shared.error = true
-                DotaEnvironment.shared.errorMessage = error.localizedDescription
-                DispatchQueue.main.async {
-                    self?.stratzLoadFinish = .error
-                }
-            }
+    private func getTalentDisplayName(talentID: Int) -> String {
+        let talent = apolloAbilities.first { ability in
+            return ability.id == talentID
         }
+        return talent?.language?.displayName ?? "Fetch String Error"
     }
 }

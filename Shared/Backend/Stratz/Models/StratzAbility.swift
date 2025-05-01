@@ -15,4 +15,3 @@ struct StratzAbility {
     var attributes: [Attribute]
     
 }
-
