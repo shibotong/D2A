@@ -67,7 +67,7 @@ class HeroDatabase: ObservableObject {
         regions = loadRegion()!
         lobbyTypes = loadLobby()!
         
-        loadStratzAbilities()
+//        loadStratzAbilities()
         
         Task { [weak self] in
             async let idTable = loadItemIDs()
