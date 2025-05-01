@@ -38,7 +38,6 @@ class HeroDatabase: ObservableObject {
     static var preview = HeroDatabase()
     
     @Published private var openDotaLoadFinish: LoadingStatus = .loading
-    @Published private var stratzLoadFinish: LoadingStatus = .loading
     private var cancellable = Set<AnyCancellable>()
     
     let url = "https://api.opendota.com/api/herostats"
@@ -85,13 +84,12 @@ class HeroDatabase: ObservableObject {
     }
     
     private func setupBinding() {
-        Publishers
-            .CombineLatest($openDotaLoadFinish, $stratzLoadFinish)
-            .map({ opendota, stratz in
-                if opendota == .error || stratz == .error {
+        $openDotaLoadFinish
+            .map({ opendota in
+                if opendota == .error {
                     return LoadingStatus.error
                 }
-                if opendota == .finish && stratz == .finish {
+                if opendota == .finish {
                     return LoadingStatus.finish
                 }
                 return LoadingStatus.loading
