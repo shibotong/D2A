@@ -9,9 +9,16 @@ import StratzAPI
 
 extension StratzAbility {
     init?(ability: AbilityQuery.Data.Constants.Ability?) {
-        guard let ability, let id = ability.id, let name = ability.name else {
+        guard let ability, let id = ability.id else {
+            logWarn("\(String(describing: ability?.id)) has something error, Please check", category: .stratz)
             return nil
         }
+        
+        guard let name = ability.name else {
+            logDebug("Ability \(id) doesn't have name", category: .stratz)
+            return nil
+        }
+        
         self.id = Int(id)
         self.name = name
         language = Language(language: ability.language)

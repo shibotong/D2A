@@ -24,12 +24,13 @@ func logDebug(_ message: String, category: D2AServiceCategory) {
 
      static let shared = D2ALogger()
 
-     @Published var logging: Double = 1
+     @Published var logging: Double
      
      private var cancellable: AnyCancellable?
-    var loggingLevel: LoggingLevel = .warn
+     var loggingLevel: LoggingLevel = .debug
      
      init() {
+         logging = Double(loggingLevel.rawValue)
          setupBinding()
      }
      
