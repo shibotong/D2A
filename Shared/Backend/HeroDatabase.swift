@@ -31,11 +31,11 @@ class HeroDatabase: ObservableObject {
     private var abilities = [String: Ability]()
     private var heroAbilities = [String: HeroAbility]()
     private var scepterData = [HeroScepter]()
-    private var apolloAbilities = [AbilityQuery.Data.Constants.Ability]()
+    private var apolloAbilities = [StratzAbility]()
     
     static var shared = HeroDatabase()
     
-    static var preview = HeroDatabase(preview: true)
+    static var preview = HeroDatabase()
     
     @Published private var openDotaLoadFinish: LoadingStatus = .loading
     @Published private var stratzLoadFinish: LoadingStatus = .loading
@@ -43,22 +43,11 @@ class HeroDatabase: ObservableObject {
     
     let url = "https://api.opendota.com/api/herostats"
     
-    init(preview: Bool = false) {
-        guard !preview else {
-            self.heroes = loadSampleHero() ?? [:]
-            self.abilities = loadSampleAbilities() ?? [:]
-            return
-        }
-        setupBinding()
-        loadData()
-    }
+    private let stratzProvider: StratzProviding
     
-    init(heroes: [String: HeroCodable] = [:],
-         itemID: [String: String] = [:],
-         items: [String: Item] = [:]) {
-        self.heroes = heroes
-        self.itemIDTable = itemID
-        self.items = items
+    init(stratzProvider: StratzProviding = StratzController.shared) {
+        self.stratzProvider = stratzProvider
+        loadData()
     }
     
     func loadData() {
@@ -67,7 +56,7 @@ class HeroDatabase: ObservableObject {
         regions = loadRegion()!
         lobbyTypes = loadLobby()!
         
-//        loadStratzAbilities()
+        
         
         Task { [weak self] in
             async let idTable = loadItemIDs()
@@ -77,6 +66,7 @@ class HeroDatabase: ObservableObject {
             async let abilities = loadAbilities()
             async let heroAbilities = loadHeroAbilities()
             async let scepter = loadScepter()
+            async let stratzAbilities = self?.stratzProvider.loadAbilities()
             
             self?.itemIDTable = await idTable
             self?.items = await items
@@ -85,6 +75,7 @@ class HeroDatabase: ObservableObject {
             self?.abilities = await abilities
             self?.heroAbilities = await heroAbilities
             self?.scepterData = await scepter
+            self?.apolloAbilities = await stratzAbilities ?? []
             let status: LoadingStatus = self?.abilities.count == 0 ? .error : .finish
             await self?.setStatus(status: status)
         }

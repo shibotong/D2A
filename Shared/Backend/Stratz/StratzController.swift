@@ -8,7 +8,13 @@
 import StratzAPI
 import Combine
 
-class StratzController {
+protocol StratzProviding {
+    func loadAbilities() async -> [StratzAbility]
+}
+
+class StratzController: StratzProviding {
+    
+    static let shared = StratzController()
     
     func loadAbilities() async -> [StratzAbility] {
         do {
