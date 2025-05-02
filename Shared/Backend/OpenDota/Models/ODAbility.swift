@@ -8,8 +8,9 @@
 import Foundation
 
 struct ODAbility: Codable, Identifiable {
-    var id = UUID()
+    var id: Int?
     
+    var name: String?
     var img: String?
     var dname: String?
     var desc: String?
@@ -23,17 +24,6 @@ struct ODAbility: Codable, Identifiable {
     var coolDown: StringOrArray?  // CD can be String or [String]
     var targetTeam: StringOrArray?
     var targetType: StringOrArray?
-    
-    var name: String? {
-        guard let imageURL = img else {
-            return nil
-        }
-        let name = imageURL
-            .replacingOccurrences(of: "/apps/dota2/images/dota_react/abilities/", with: "")
-            .replacingOccurrences(of: "_md", with: "")
-            .replacingOccurrences(of: ".png", with: "")
-        return name
-    }
     
     var imageURL: String? {
         guard let imageURL = img?

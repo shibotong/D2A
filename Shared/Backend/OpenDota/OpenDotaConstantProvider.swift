@@ -9,6 +9,7 @@ import Foundation
 protocol OpenDotaConstantProviding {
     func loadHeroes() async -> [String: ODHero]
     func loadItemIDs() async -> [String: String]
+    func loadAbilities() async -> [ODAbility]
 }
 
 class OpenDotaConstantProvider: OpenDotaConstantProviding {
@@ -26,6 +27,37 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
         } catch {
             logWarn("Loading heroes from OpenDotaConstantController failed: \(error.localizedDescription)", category: .opendotaConstant)
             return [:]
+        }
+    }
+    
+    func loadAbilities() async -> [ODAbility] {
+        let abilityURL = OpenDotaConstantService.abilities.serviceURL
+        let abilityIDURL = OpenDotaConstantService.abilityIDs.serviceURL
+        
+        do {
+            let abilityDict = try await D2ANetwork.default.dataTask(abilityURL, as: [String: ODAbility].self)
+            let abilityIDs = try await D2ANetwork.default.dataTask(abilityIDURL, as: [String: String].self)
+            
+            var abilities: [ODAbility] = []
+            
+            for (abilityIDString, name) in abilityIDs {
+                guard var ability = abilityDict[name] else {
+                    logWarn("\(name) cannot be found", category: .opendotaConstant)
+                    continue
+                }
+                guard let abilityID = Int(abilityIDString) else {
+                    logWarn("\(abilityIDString) abilityID is not a number", category: .opendotaConstant)
+                    continue
+                }
+                
+                ability.id = abilityID
+                ability.name = name
+                abilities.append(ability)
+            }
+            return abilities
+        } catch {
+            logWarn("Loading abilities from OpenDotaConstantController failed: \(error.localizedDescription)", category: .opendotaConstant)
+            return []
         }
     }
     
