@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Ability: Codable, Identifiable {
+struct ODAbility: Codable, Identifiable {
     var id = UUID()
     
     var img: String?
     var dname: String?
     var desc: String?
-    var attributes: [AbilityAttribute]?
+    var attributes: [Attribute]?
     var behavior: StringOrArray?
     var damageType: StringOrArray?
     var bkbPierce: StringOrArray?
@@ -61,29 +61,6 @@ struct Ability: Codable, Identifiable {
     }
 }
 
-struct AbilityAttribute: Codable, Hashable {
-    
-    var key: String?
-    var header: String?
-    var value: StringOrArray?
-    var generated: Bool?
-    
-    enum CodingKeys: String, CodingKey {
-        case key
-        case header
-        case value
-        case generated
-    }
-    
-    static func == (lhs: AbilityAttribute, rhs: AbilityAttribute) -> Bool {
-        return lhs.key == rhs.key
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(key)
-    }
-}
-
 enum StringOrArray: Codable {
     case string(String)
     case array([String])
@@ -126,7 +103,7 @@ enum StringOrArray: Codable {
 
 struct AbilityContainer: Identifiable {
     var id = UUID()
-    var ability: Ability
+    var ability: ODAbility
     var heroID: Int
     var abilityName: String
 }

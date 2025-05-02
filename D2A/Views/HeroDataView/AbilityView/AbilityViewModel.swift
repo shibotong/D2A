@@ -38,13 +38,13 @@ class AbilityViewModel: ObservableObject {
     
     // Ability Data
     @Published var stratzAbility: StratzAbility?
-    @Published var opentDotaAbility: Ability?
+    @Published var opentDotaAbility: ODAbility?
     
     private var database = HeroDatabase.shared
     
     private var cancellables = Set<AnyCancellable>()
         
-    init(heroID: Int, ability: Ability?) {
+    init(heroID: Int, ability: ODAbility?) {
         self.heroID = heroID
         self.opentDotaAbility = ability
         setupBinding()

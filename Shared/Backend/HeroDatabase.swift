@@ -27,7 +27,7 @@ class HeroDatabase: ObservableObject {
     private var items = [String: Item]()
     private var itemIDTable = [String: String]()
     private var abilityIDTable = [String: String]()
-    private var abilities = [String: Ability]()
+    private var abilities = [String: ODAbility]()
     private var heroAbilities = [String: HeroAbility]()
     private var scepterData = [HeroScepter]()
     private var apolloAbilities = [StratzAbility]()
@@ -119,7 +119,7 @@ class HeroDatabase: ObservableObject {
         return abilityName
     }
     
-    func fetchOpenDotaAbility(name: String) -> Ability? {
+    func fetchOpenDotaAbility(name: String) -> ODAbility? {
         return abilities[name]
     }
     
@@ -151,7 +151,7 @@ class HeroDatabase: ObservableObject {
         return []
     }
     
-    func getAbilityScepterDesc(ability: Ability, heroID: Int) -> String? {
+    func getAbilityScepterDesc(ability: ODAbility, heroID: Int) -> String? {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -164,7 +164,7 @@ class HeroDatabase: ObservableObject {
         return nil
     }
     
-    func isScepterSkill(ability: Ability, heroID: Int) -> Bool {
+    func isScepterSkill(ability: ODAbility, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -174,7 +174,7 @@ class HeroDatabase: ObservableObject {
         return ability.dname == hero.scepterSkillName && hero.scepterNewSkill
     }
     
-    func isShardSkill(ability: Ability, heroID: Int) -> Bool {
+    func isShardSkill(ability: ODAbility, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -184,7 +184,7 @@ class HeroDatabase: ObservableObject {
         return ability.dname == hero.shardSkillName && hero.shardNewSkill
     }
     
-    func hasScepter(ability: Ability, heroID: Int) -> Bool {
+    func hasScepter(ability: ODAbility, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -194,7 +194,7 @@ class HeroDatabase: ObservableObject {
         return ability.dname == hero.scepterSkillName
     }
     
-    func hasShard(ability: Ability, heroID: Int) -> Bool {
+    func hasShard(ability: ODAbility, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -208,7 +208,7 @@ class HeroDatabase: ObservableObject {
         }
     }
     
-    func getAbilityShardDesc(ability: Ability, heroID: Int) -> String? {
+    func getAbilityShardDesc(ability: ODAbility, heroID: Int) -> String? {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {

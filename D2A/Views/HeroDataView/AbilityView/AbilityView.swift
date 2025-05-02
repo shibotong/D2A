@@ -82,7 +82,7 @@ struct AbilityView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    @ViewBuilder private func buildDescription(ability: Ability,
+    @ViewBuilder private func buildDescription(ability: ODAbility,
                                                stratz: StratzAbility,
                                                proxy: GeometryProxy) -> some View {
         VStack {
