@@ -49,7 +49,9 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
                     logWarn("\(abilityIDString) abilityID is not a number", category: .opendotaConstant)
                     continue
                 }
-                
+                guard let dname = ability.dname, !dname.isEmpty else {
+                    continue
+                }
                 ability.id = abilityID
                 ability.name = name
                 abilities.append(ability)

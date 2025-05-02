@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct ODAbility: Codable, Identifiable {
+struct ODAbility: Codable, Identifiable, D2ABatchInsertable {
+    
     var id: Int?
     
     var name: String?
@@ -48,6 +49,51 @@ struct ODAbility: Codable, Identifiable {
         case coolDown = "cd"
         case targetTeam = "target_team"
         case targetType = "target_type"
+    }
+    
+    var dictionaries: [String: Any] {
+        guard let id, let name, let dname else {
+            return [:]
+        }
+        var result: [String: Any] = [:]
+        result["id"] = id
+        result["name"] = name
+        result["displayName"] = dname
+        if let img = img {
+            result["img"] = img
+        }
+        if let desc = desc {
+            result["desc"] = desc
+        }
+        if let targetType = targetType?.transformString() {
+            result["targetType"] = targetType
+        }
+        if let behavior = behavior?.transformString() {
+            result["behavior"] = behavior
+        }
+        if let bkbPierce = bkbPierce?.transformString() {
+            result["bkbPierce"] = bkbPierce
+        }
+        if let dispellable = dispellable?.transformString() {
+            result["dispellable"] = dispellable
+        }
+        if let manaCost = manaCost?.transformString() {
+            result["manaCost"] = manaCost
+        }
+        if let coolDown = coolDown?.transformString() {
+            result["coolDown"] = coolDown
+        }
+        if let targetTeam = targetTeam?.transformString() {
+            result["targetTeam"] = targetTeam
+        }
+        if let lore {
+            result["lore"] = lore
+        }
+        
+//        if let attributes {
+//            result["attributes"] = attributes.map { $0.dictionaries }
+//        }
+        return result
     }
 }
 

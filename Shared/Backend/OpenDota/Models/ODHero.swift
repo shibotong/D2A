@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ODHero: Identifiable, Decodable {
+class ODHero: Identifiable, Decodable, D2ABatchInsertable {
     var id: Int
     var name: String
     var localizedName: String

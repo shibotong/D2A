@@ -72,7 +72,7 @@ class HeroDatabase: ObservableObject {
             self?.scepterData = await scepter
             self?.apolloAbilities = await stratzAbilities ?? []
             
-            await self?.loadODHeroes()
+            await self?.loadConstantData()
         }
     }
 
@@ -233,21 +233,44 @@ class HeroDatabase: ObservableObject {
         return talent?.language?.displayName ?? "Fetch String Error"
     }
     
-    private func loadODHeroes() async {
+    // MARK: - Save Constant Data
+    private func loadConstantData() async {
+        let context = PersistanceController.shared.container.newBackgroundContext()
+        await loadODHeroes(context: context)
+        await loadODAbilities(context: context)
+    }
+    
+    // MARK: - Save Abilities
+    
+    private func loadODAbilities(context: NSManagedObjectContext) async {
+        let abilities = await openDotaProvider.loadAbilities()
+        await saveODAbilities(abilities: abilities, context: context)
+    }
+    
+    private func saveODAbilities(abilities: [ODAbility], context: NSManagedObjectContext) async {
+        if await hasData(for: Ability.self, context: context) {
+            
+        } else {
+            await batchInsertData(abilities, into: Ability.entity(), context: context)
+        }
+    }
+    
+    // MARK: - Save Heroes
+    
+    private func loadODHeroes(context: NSManagedObjectContext) async {
         let heroes = await openDotaProvider.loadHeroes()
         var heroesArray: [ODHero] = []
         for (_, value) in heroes {
             heroesArray.append(value)
         }
-        await saveODHeroes(heroes: heroesArray)
+        await saveODHeroes(heroes: heroesArray, viewContext: context)
     }
     
-    private func saveODHeroes(heroes: [ODHero]) async {
-        let viewContext = PersistanceController.shared.container.newBackgroundContext()
-        if await hasHeroData(context: viewContext) {
+    private func saveODHeroes(heroes: [ODHero], viewContext: NSManagedObjectContext) async {
+        if await hasData(for: Hero.self, context: viewContext) {
             await updateHeroesData(heroes: heroes, context: viewContext)
         } else {
-            await batchInsertHeroes(heroes: heroes, context: viewContext)
+            await batchInsertData(heroes, into: Hero.entity(), context: viewContext)
         }
     }
     
@@ -296,28 +319,30 @@ class HeroDatabase: ObservableObject {
         }
     }
     
-    private func batchInsertHeroes(heroes: [ODHero], context: NSManagedObjectContext) async {
-        let insertRequest = NSBatchInsertRequest(entityName: "Hero", objects: heroes.map { $0.dictionaries })
-        insertRequest.resultType = .count
+    private func batchInsertData<T: D2ABatchInsertable, V: NSEntityDescription>(_ data: [T], into entity: V, context: NSManagedObjectContext) async {
+        let insertRequest = NSBatchInsertRequest(entity: entity, objects: data.map { $0.dictionaries })
+        insertRequest.resultType = .statusOnly
         await context.perform {
             do {
                 let fetchResult = try context.execute(insertRequest)
                 if let batchInsertResult = fetchResult as? NSBatchInsertResult,
                    let success = batchInsertResult.result as? Bool {
                     if !success {
-                        logError("Failed to batch insert heroes", category: .coredata)
+                        logError("Failed to insert data in \(entity.name ?? "Unknown entity")", category: .coredata)
                     } else {
-                        return
+                        logDebug("Insert data in \(entity.name ?? "Unknown entity") success", category: .coredata)
                     }
+                } else {
+                    logWarn("Cast NSBatchInsertResult failed", category: .coredata)
                 }
             } catch {
-                logError("An error occured in batch insert heroes \(error)", category: .coredata)
+                logError("An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)", category: .coredata)
             }
         }
     }
     
-    private func hasHeroData(context: NSManagedObjectContext) async -> Bool {
-        let request = Hero.fetchRequest()
+    private func hasData<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) async -> Bool {
+        let request = T.fetchRequest()
         request.fetchLimit = 1
         return await context.perform {
             do {
@@ -332,14 +357,20 @@ class HeroDatabase: ObservableObject {
     
     func resetHeroData(context: NSManagedObjectContext) async {
         await context.perform {
-            guard let heroes = try? context.fetch(Hero.fetchRequest()) else {
-                return
+            do {
+                let heroes = try context.fetch(Hero.fetchRequest())
+                let abilities = try context.fetch(Ability.fetchRequest())
+                for hero in heroes {
+                    context.delete(hero)
+                }
+                for ability in abilities {
+                    context.delete(ability)
+                }
+                try context.save()
+            } catch {
+                logError("Reset failed: \(error)", category: .coredata)
             }
-            for hero in heroes {
-                context.delete(hero)
-            }
-            try? context.save()
         }
-        await loadODHeroes()
+        await loadConstantData()
     }
 }
