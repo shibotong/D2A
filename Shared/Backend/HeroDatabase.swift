@@ -231,10 +231,54 @@ class HeroDatabase: ObservableObject {
     private func saveODHeroes(heroes: [ODHero]) async {
         let viewContext = PersistanceController.shared.container.newBackgroundContext()
         if await hasHeroData(context: viewContext) {
-            // TODO: save hero data one by one
-            return
+            await updateHeroesData(heroes: heroes, context: viewContext)
         } else {
             await batchInsertHeroes(heroes: heroes, context: viewContext)
+        }
+    }
+    
+    private func updateHeroesData(heroes: [ODHero], context: NSManagedObjectContext) async {
+        for openDotaHero in heroes {
+            var hero = await Hero.fetch(id: Double(openDotaHero.id), context: context) ?? Hero(context: context)
+            await context.perform {
+                setIfNotEqual(entity: hero, path: \.id, value: Double(openDotaHero.id))
+                setIfNotEqual(entity: hero, path: \.displayName, value: openDotaHero.localizedName)
+                setIfNotEqual(entity: hero, path: \.primaryAttr, value: openDotaHero.primaryAttr)
+                setIfNotEqual(entity: hero, path: \.attackType, value: openDotaHero.attackType)
+                setIfNotEqual(entity: hero, path: \.img, value: openDotaHero.img)
+                setIfNotEqual(entity: hero, path: \.icon, value: openDotaHero.icon)
+                
+                setIfNotEqual(entity: hero, path: \.baseHealth, value: openDotaHero.baseHealth)
+                setIfNotEqual(entity: hero, path: \.baseHealthRegen, value: openDotaHero.baseHealthRegen)
+                setIfNotEqual(entity: hero, path: \.baseMana, value: openDotaHero.baseMana)
+                setIfNotEqual(entity: hero, path: \.baseManaRegen, value: openDotaHero.baseManaRegen)
+                setIfNotEqual(entity: hero, path: \.baseArmor, value: openDotaHero.baseArmor)
+                setIfNotEqual(entity: hero, path: \.baseMr, value: openDotaHero.baseMr)
+                setIfNotEqual(entity: hero, path: \.baseAttackMin, value: openDotaHero.baseAttackMin)
+                setIfNotEqual(entity: hero, path: \.baseAttackMax, value: openDotaHero.baseAttackMax)
+                
+                setIfNotEqual(entity: hero, path: \.baseStr, value: openDotaHero.baseStr)
+                setIfNotEqual(entity: hero, path: \.baseAgi, value: openDotaHero.baseAgi)
+                setIfNotEqual(entity: hero, path: \.baseInt, value: openDotaHero.baseInt)
+                setIfNotEqual(entity: hero, path: \.gainStr, value: openDotaHero.strGain)
+                setIfNotEqual(entity: hero, path: \.gainAgi, value: openDotaHero.agiGain)
+                setIfNotEqual(entity: hero, path: \.gainInt, value: openDotaHero.intGain)
+                
+                setIfNotEqual(entity: hero, path: \.attackRange, value: openDotaHero.attackRange)
+                setIfNotEqual(entity: hero, path: \.projectileSpeed, value: openDotaHero.projectileSpeed)
+                setIfNotEqual(entity: hero, path: \.attackRate, value: openDotaHero.attackRate)
+                setIfNotEqual(entity: hero, path: \.moveSpeed, value: openDotaHero.moveSpeed)
+                setIfNotEqual(entity: hero, path: \.turnRate, value: openDotaHero.turnRate ?? 0.6)
+                
+                if hero.hasChanges {
+                    do {
+                        try context.save()
+                        logDebug("Save hero \(openDotaHero.id) success", category: .coredata)
+                    } catch {
+                        logError("\(openDotaHero.id) save failed. \(error)", category: .coredata)
+                    }
+                }
+            }
         }
     }
     
