@@ -39,9 +39,12 @@ class HeroDatabase: ObservableObject {
     let url = "https://api.opendota.com/api/herostats"
     
     private let stratzProvider: StratzProviding
+    private let openDotaProvider: OpenDotaConstantProviding
     
-    init(stratzProvider: StratzProviding = StratzController.shared) {
+    init(stratzProvider: StratzProviding = StratzController.shared,
+         openDotaProvider: OpenDotaConstantProviding = OpenDotaConstantProvider.shared) {
         self.stratzProvider = stratzProvider
+        self.openDotaProvider = openDotaProvider
         loadData()
     }
     
@@ -68,6 +71,8 @@ class HeroDatabase: ObservableObject {
             self?.heroAbilities = await heroAbilities
             self?.scepterData = await scepter
             self?.apolloAbilities = await stratzAbilities ?? []
+            
+            await self?.loadODHeroes()
         }
     }
 
@@ -226,6 +231,15 @@ class HeroDatabase: ObservableObject {
             return ability.id == talentID
         }
         return talent?.language?.displayName ?? "Fetch String Error"
+    }
+    
+    private func loadODHeroes() async {
+        let heroes = await openDotaProvider.loadHeroes()
+        var heroesArray: [ODHero] = []
+        for (key, value) in heroes {
+            heroesArray.append(value)
+        }
+        await saveODHeroes(heroes: heroesArray)
     }
     
     private func saveODHeroes(heroes: [ODHero]) async {

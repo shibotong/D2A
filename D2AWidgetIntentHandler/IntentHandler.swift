@@ -10,10 +10,10 @@ import CoreData
 
 class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
     
-    private let persistenceController = PersistenceController.shared
+    private let PersistanceController = PersistanceController.shared
     
     func provideProfileOptionsCollection(for intent: DynamicUserSelectionIntent, with completion: @escaping (INObjectCollection<Profile>?, Error?) -> Void) {
-        let context = persistenceController.container.viewContext
+        let context = PersistanceController.container.viewContext
         let fetchRequest: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
         

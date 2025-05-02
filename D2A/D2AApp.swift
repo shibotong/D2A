@@ -17,7 +17,7 @@ struct D2AApp: App {
     #if DEBUG
     @StateObject var logger: D2ALogger = D2ALogger()
     #endif
-    let persistenceController = PersistenceController.shared
+    let PersistanceController = PersistanceController.shared
     @AppStorage("selectedMatch") var selectedMatch: String?
     @AppStorage("selectedUser") var selectedUser: String?
     
@@ -34,7 +34,7 @@ struct D2AApp: App {
             #if DEBUG
                 .environmentObject(logger)
             #endif
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, PersistanceController.container.viewContext)
                 .onOpenURL { url in
                     print(url.absoluteString)
                     environment.userActive = false
