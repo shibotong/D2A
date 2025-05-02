@@ -10,6 +10,12 @@ import SwiftUI
 struct AboutUsView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var logger: D2ALogger
+    
+    #if DEBUG
+    @EnvironmentObject var heroData: HeroDatabase
+    @Environment(\.managedObjectContext) var context
+    #endif
+    
     @Environment(\.presentationMode) var presentState
     private var versionNumber: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("Error", comment: "Cannot get version number")
@@ -25,6 +31,11 @@ struct AboutUsView: View {
             Section(header: Text("DEBUG")) {
                 NavigationLink(destination: DebugView()) {
                     makeDetailRow(image: "chevron.left.slash.chevron.right", text: "Console Logging", detail: logger.loggingLevel.icon)
+                }
+                makeButton(image: "trash", text: "Clear cache") {
+                    Task {
+                        await heroData.resetHeroData(context: context)
+                    }
                 }
             }
             #endif
@@ -108,6 +119,9 @@ struct AboutUsView: View {
     static var previews: some View {
         AboutUsView()
             .environment(\.locale, .init(identifier: "zh-Hans"))
+            .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
             .environmentObject(D2ALogger())
+            .environmentObject(HeroDatabase.preview)
+            
     }
  }

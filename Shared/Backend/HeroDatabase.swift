@@ -236,7 +236,7 @@ class HeroDatabase: ObservableObject {
     private func loadODHeroes() async {
         let heroes = await openDotaProvider.loadHeroes()
         var heroesArray: [ODHero] = []
-        for (key, value) in heroes {
+        for (_, value) in heroes {
             heroesArray.append(value)
         }
         await saveODHeroes(heroes: heroesArray)
@@ -253,7 +253,7 @@ class HeroDatabase: ObservableObject {
     
     private func updateHeroesData(heroes: [ODHero], context: NSManagedObjectContext) async {
         for openDotaHero in heroes {
-            var hero = await Hero.fetch(id: Double(openDotaHero.id), context: context) ?? Hero(context: context)
+            let hero = await Hero.fetch(id: Double(openDotaHero.id), context: context) ?? Hero(context: context)
             await context.perform {
                 setIfNotEqual(entity: hero, path: \.id, value: Double(openDotaHero.id))
                 setIfNotEqual(entity: hero, path: \.displayName, value: openDotaHero.localizedName)
@@ -304,10 +304,14 @@ class HeroDatabase: ObservableObject {
                 let fetchResult = try context.execute(insertRequest)
                 if let batchInsertResult = fetchResult as? NSBatchInsertResult,
                    let success = batchInsertResult.result as? Bool {
-                    return
+                    if !success {
+                        logError("Failed to batch insert heroes", category: .coredata)
+                    } else {
+                        return
+                    }
                 }
             } catch {
-                logError("An error occured in batch insertint heroes \(error.localizedDescription)", category: .coredata)
+                logError("An error occured in batch insert heroes \(error)", category: .coredata)
             }
         }
     }
@@ -324,5 +328,18 @@ class HeroDatabase: ObservableObject {
                 return true
             }
         }
+    }
+    
+    func resetHeroData(context: NSManagedObjectContext) async {
+        await context.perform {
+            guard let heroes = try? context.fetch(Hero.fetchRequest()) else {
+                return
+            }
+            for hero in heroes {
+                context.delete(hero)
+            }
+            try? context.save()
+        }
+        await loadODHeroes()
     }
 }

@@ -78,14 +78,13 @@ class ODHero: Identifiable, Decodable {
             "baseStr": baseStr,
             "baseAgi": baseAgi,
             "baseInt": baseInt,
-            "strGain": strGain,
-            "agiGain": agiGain,
-            "intGain": intGain,
+            "gainStr": strGain,
+            "gainAgi": agiGain,
+            "gainInt": intGain,
             "attackRange": attackRange,
             "projectileSpeed": projectileSpeed,
             "attackRate": attackRate,
             "moveSpeed": moveSpeed,
-            "cmEnabled": cmEnabled,
             "turnRate": turnRate ?? 0
         ]
     }
