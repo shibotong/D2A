@@ -21,16 +21,7 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
         let heroURL = OpenDotaConstantService.heroes.serviceURL
         do {
             let heroes = try await D2ANetwork.default.dataTask(heroURL, as: [String: ODHero].self)
-            
-            var allHeroes: [ODHero] = []
-            for i in 1...maxHeroID {
-                let heroIDString = "\(i)"
-                if let ODHero = heroes[heroIDString] {
-                    allHeroes.append(ODHero)
-                }
-            }
-            
-            saveHeroes(heroes: allHeroes)
+
             return heroes
         } catch {
             logWarn("Loading heroes from OpenDotaConstantController failed: \(error.localizedDescription)", category: .opendotaConstant)

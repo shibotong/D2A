@@ -15,14 +15,14 @@ struct Provider: IntentTimelineProvider {
     
     public typealias Entry = D2AWidgetUserEntry
     
-    private let PersistanceController = PersistanceController.shared
+    private let persistanceController = PersistanceController.shared
     
     func placeholder(in context: Context) -> D2AWidgetUserEntry {
         D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
     }
 
     func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (D2AWidgetUserEntry) -> Void) {
-        let profile = PersistanceController.fetchFirstWidgetUser()
+        let profile = persistanceController.fetchFirstWidgetUser()
         
         guard let profile, let userID = profile.id else {
             let entry = D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
@@ -73,7 +73,7 @@ struct Provider: IntentTimelineProvider {
     
     private func user(for configuration: DynamicUserSelectionIntent) -> UserProfile? {
         guard let id = configuration.profile?.identifier, let profile = UserProfile.fetch(id: id) else {
-            return PersistanceController.fetchFirstWidgetUser()
+            return persistanceController.fetchFirstWidgetUser()
         }
         
         return profile
