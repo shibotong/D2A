@@ -39,6 +39,5 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
             return [:]
         }
     }
-    
 
 }
