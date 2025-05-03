@@ -42,7 +42,7 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
             
             for (abilityIDString, name) in abilityIDs {
                 guard var ability = abilityDict[name] else {
-                    logWarn("\(name) cannot be found", category: .opendotaConstant)
+                    logDebug("\(name) cannot be found", category: .opendotaConstant)
                     continue
                 }
                 guard let abilityID = Int(abilityIDString) else {

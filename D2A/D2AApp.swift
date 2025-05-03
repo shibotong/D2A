@@ -15,7 +15,7 @@ struct D2AApp: App {
     @StateObject var heroDatabase: HeroDatabase = HeroDatabase.shared
     @StateObject var storeManager: StoreManager = StoreManager.shared
     #if DEBUG
-    @StateObject var logger: D2ALogger = D2ALogger()
+    @StateObject var logger: D2ALogger = D2ALogger.shared
     #endif
     let persistanceController = PersistanceController.shared
     @AppStorage("selectedMatch") var selectedMatch: String?

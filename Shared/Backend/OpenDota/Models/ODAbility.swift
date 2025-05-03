@@ -90,9 +90,9 @@ struct ODAbility: Codable, Identifiable, D2ABatchInsertable {
             result["lore"] = lore
         }
         
-//        if let attributes {
-//            result["attributes"] = attributes.map { $0.dictionaries }
-//        }
+        if let attributes {
+            result["attributes"] = attributes.map { $0.dictionaries }
+        }
         return result
     }
 }
