@@ -40,9 +40,15 @@ class PersistanceController {
     }()
 
     init(inMemory: Bool = uiTesting ? true : false) {
+        Self.registerClasses()
         container = NSPersistentContainer(name: "D2AModel")
         container.viewContext.automaticallyMergesChangesFromParent = true
         loadContainer(inMemory: inMemory)
+    }
+    
+    static func registerClasses() {
+        // Register the transformer with the exact name used in the Core Data model
+        ArrayValueTransformer<AbilityAttribute>.registerTransformer(with: .abilityAttribute)
     }
     
     private func removeContainer() {

@@ -10,6 +10,7 @@ protocol OpenDotaConstantProviding {
     func loadHeroes() async -> [String: ODHero]
     func loadItemIDs() async -> [String: String]
     func loadAbilities() async -> [ODAbility]
+    func loadAbilitiesForHeroes() async -> [String: [Int]]
 }
 
 class OpenDotaConstantProvider: OpenDotaConstantProviding {

@@ -12,10 +12,30 @@ public class AbilityAttribute: NSObject, NSSecureCoding {
     
     public static var supportsSecureCoding: Bool = true
     
-    public var key: String?
-    public var header: String?
-    public var value: String?
+    public var key: String
+    public var header: String
+    public var value: String
     public var generated: Bool?
+    
+    init?(attribute: ODAbility.Attribute) {
+        guard let key = attribute.key, let header = attribute.header, let value = attribute.value?.transformString() else {
+            logWarn("Failed to initialize AbilityAttribute with attribute: \(attribute)", category: .opendotaConstant)
+            return nil
+        }
+        self.key = key
+        self.header = header
+        self.value = value
+        self.generated = attribute.generated
+        super.init()
+    }
+    
+    init(key: String, header: String, value: String, generated: Bool?) {
+        self.key = key
+        self.header = header
+        self.value = value
+        self.generated = generated
+        super.init()
+    }
     
     public func encode(with coder: NSCoder) {
         coder.encode(key, forKey: "key")
@@ -25,27 +45,15 @@ public class AbilityAttribute: NSObject, NSSecureCoding {
     }
     
     required public init?(coder: NSCoder) {
-        self.key = coder.decodeObject(forKey: "key") as? String
-        self.header = coder.decodeObject(forKey: "header") as? String
-        self.value = coder.decodeObject(forKey: "value") as? String
-        self.generated = coder.decodeObject(forKey: "generated") as? Bool
+        guard let key = coder.decodeObject(of: NSString.self, forKey: "key") as? String,
+        let header = coder.decodeObject(of: NSString.self, forKey: "header") as? String,
+        let value = coder.decodeObject(of: NSString.self, forKey: "value") as? String else {
+            logError("Failed to decode AbilityAttribute", category: .coredata)
+            return nil
+        }
+        self.key = key
+        self.header = header
+        self.value = value
+        self.generated = coder.decodeObject(of: NSNumber.self, forKey: "generated") as? Bool
     }
-}
-
-@objc(AbilityAttributeTransformer)
-final class AbilityAttributeTransformer: NSSecureUnarchiveFromDataTransformer {
-
-   // The name of the transformer. This is what we will use to register the transformer `ValueTransformer.setValueTrandformer(_"forName:)`.
-   static let name = NSValueTransformerName(rawValue: "AbilityAttributeTransformer")
-
-   // Our class `Test` should in the allowed class list. (This is what the unarchiver uses to check for the right class)
-   override static var allowedTopLevelClasses: [AnyClass] {
-       return [NSArray.self, AbilityAttribute.self]
-   }
-
-   /// Registers the transformer.
-   public static func register() {
-       let transformer = AbilityAttributeTransformer()
-       ValueTransformer.setValueTransformer(transformer, forName: name)
-   }
 }

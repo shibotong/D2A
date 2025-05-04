@@ -158,9 +158,7 @@ class ODHero: Identifiable, Decodable, D2ABatchInsertable {
     }
 }
 
-class HeroAbility: Decodable {
-    var abilities: [String]
-}
+
 
 struct HeroScepter: Decodable {
     var name: String

@@ -91,7 +91,7 @@ struct ODAbility: Codable, Identifiable, D2ABatchInsertable {
         }
         
         if let attributes {
-            result["attributes"] = attributes.map { $0.dictionaries }
+            result["attributes"] = attributes.map { AbilityAttribute(attribute: $0) }
         }
         return result
     }

@@ -6,23 +6,7 @@
 //
 
 extension ODAbility {
-    struct Attribute: Codable, Hashable, D2ABatchInsertable {
-        var dictionaries: [String: Any] {
-            var result: [String: Any] = [:]
-            if let key = key {
-                result["key"] = key
-            }
-            if let header = header {
-                result["header"] = header
-            }
-            if let value = value {
-                result["value"] = value.transformString()
-            }
-            if let generated = generated {
-                result["generated"] = generated
-            }
-            return result
-        }
+    struct Attribute: Codable, Hashable {
         
         var key: String?
         var header: String?
