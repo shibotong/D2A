@@ -17,6 +17,20 @@ extension Ability {
             return results?.first
         }
     }
+    
+    static func fetchByNames(names: [String], context: NSManagedObjectContext) async -> [Ability] {
+        let request = Self.fetchRequest()
+        request.predicate = NSPredicate(format: "name IN %@", names)
+        return await context.perform {
+            do {
+                let results = try context.fetch(request)
+                return results
+            } catch {
+                logError("Fetch abilities in \(names) failed: \(error)", category: .coredata)
+                return []
+            }
+        }
+    }
 }
 
 @objcMembers

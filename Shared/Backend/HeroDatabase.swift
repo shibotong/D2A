@@ -238,14 +238,46 @@ class HeroDatabase: ObservableObject {
         let context = PersistanceController.shared.container.newBackgroundContext()
         await loadODHeroes(context: context)
         await loadODAbilities(context: context)
+        await saveAbilitiesToHero(context: context)
     }
     
     // MARK: - Save abilities to heroes
     
     private func saveAbilitiesToHero(context: NSManagedObjectContext) async {
         let heroAbilities = await openDotaProvider.loadAbilitiesForHeroes()
-        for (name, abilities) in heroAbilities {
+        for (name, heroAbility) in heroAbilities {
+            guard let hero = await Hero.fetchByName(name: name, context: context) else {
+                logError("Cannot find hero: \(name)", category: .coredata)
+                continue
+            }
+            let abilityNames = heroAbility.abilities
             
+            if let currentAbilities = hero.abilities?.compactMap({ ($0 as? Ability) }) {
+                guard currentAbilities.compactMap(\.name) != abilityNames else {
+                    continue
+                }
+                await context.perform {
+                    for ability in currentAbilities {
+                        hero.removeFromAbilities(ability)
+                    }
+                }
+            }
+            
+            let abilities = await Ability.fetchByNames(names: abilityNames, context: context)
+            
+            await context.perform {
+                for ability in abilities {
+                    hero.addToAbilities(ability)
+                }
+                if hero.hasChanges {
+                    do {
+                        try context.save()
+                        logDebug("Save hero ability \(hero.id) success", category: .coredata)
+                    } catch {
+                        logError("\(hero.id) abilities save failed. \(error)", category: .coredata)
+                    }
+                }
+            }
         }
     }
     

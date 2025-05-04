@@ -49,22 +49,22 @@ class HeroDetailViewModel: ObservableObject {
             }
             .assign(to: &$previousHeroID)
         
-        $hero
-            .map { [weak self] hero in
-                guard let abilityNames = hero?.abilities else {
-                    return []
-                }
-                let abilities = abilityNames.filter { ability in
-                    let containHidden = ability.contains("hidden")
-                    let containEmpty = ability.contains("empty")
-                    return !containHidden && !containEmpty
-                }.compactMap { [weak self] abilityName in
-                    self?.database.fetchOpenDotaAbility(name: abilityName)
-                }
-                self?.selectedAbility = abilities.first
-                return abilities
-            }
-            .assign(to: &$abilities)
+//        $hero
+//            .map { [weak self] hero in
+//                guard let abilityNames = hero?.abilities else {
+//                    return []
+//                }
+//                let abilities = abilityNames.filter { ability in
+//                    let containHidden = ability.contains("hidden")
+//                    let containEmpty = ability.contains("empty")
+//                    return !containHidden && !containEmpty
+//                }.compactMap { [weak self] abilityName in
+//                    self?.database.fetchOpenDotaAbility(name: abilityName)
+//                }
+//                self?.selectedAbility = abilities.first
+//                return abilities
+//            }
+//            .assign(to: &$abilities)
     }
     
     /// Load hero

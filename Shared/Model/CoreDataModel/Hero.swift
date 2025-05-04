@@ -39,7 +39,6 @@ extension Hero {
         hero.talents = NSSet(array: try heroTalents.map({ return try Talent.createTalent($0) }))
         
         // data from OpenDota
-        hero.abilities = abilities
         hero.primaryAttr = model.primaryAttr
         hero.attackType = model.attackType
         hero.img = model.img
