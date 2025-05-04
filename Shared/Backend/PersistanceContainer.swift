@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import Combine
 
 enum PersistanceError: Error {
     case insertError
@@ -38,12 +39,20 @@ class PersistanceController {
         }
         return url.appendingPathComponent("token.data", isDirectory: false)
     }()
+    
+    private var cancellable: AnyCancellable?
 
     init(inMemory: Bool = uiTesting ? true : false) {
         Self.registerClasses()
         container = NSPersistentContainer(name: "D2AModel")
         container.viewContext.automaticallyMergesChangesFromParent = true
         loadContainer(inMemory: inMemory)
+        cancellable = NotificationCenter.default.publisher(for: .NSPersistentStoreRemoteChange)
+            .sink { [weak self] _ in
+                Task {
+                    await self?.fetchPersistentHistory()
+                }
+            }
     }
     
     static func registerClasses() {
@@ -136,4 +145,58 @@ class PersistanceController {
             NSManagedObjectContext.mergeChanges(fromRemoteContextSave: deletedObjects, into: [strongSelf.container.viewContext])
         }
     }
+    
+    private func fetchPersistentHistory() async {
+        do {
+            try await fetchPersistentHistoryTransactionsAndChanges()
+        } catch {
+            logWarn("\(error)", category: .coredata)
+        }
+    }
+    
+    /// Creates and configures a private queue context.
+    private func newTaskContext() -> NSManagedObjectContext {
+        // Create a private queue context.
+        /// - Tag: newBackgroundContext
+        let taskContext = container.newBackgroundContext()
+        taskContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        // Set unused undoManager to nil for macOS (it is nil by default on iOS)
+        // to reduce resource requirements.
+        taskContext.undoManager = nil
+        return taskContext
+    }
+
+    private func fetchPersistentHistoryTransactionsAndChanges() async throws {
+        let taskContext = newTaskContext()
+        taskContext.name = "persistentHistoryContext"
+        logDebug("Start fetching persistent history changes from the store...", category: .coredata)
+
+        try await taskContext.perform {
+            // Execute the persistent history change since the last transaction.
+            /// - Tag: fetchHistory
+            let changeRequest = NSPersistentHistoryChangeRequest.fetchHistory(after: self.lastToken)
+            let historyResult = try taskContext.execute(changeRequest) as? NSPersistentHistoryResult
+            if let history = historyResult?.result as? [NSPersistentHistoryTransaction],
+               !history.isEmpty {
+                self.mergePersistentHistoryChanges(from: history)
+                return
+            }
+
+            logDebug("No persistent history transactions found.", category: .coredata)
+            throw D2AError(message: "Persistent History Change Error")
+        }
+    }
+
+    private func mergePersistentHistoryChanges(from history: [NSPersistentHistoryTransaction]) {
+        // Update view context with objectIDs from history change request.
+        /// - Tag: mergeChanges
+        let viewContext = container.viewContext
+        viewContext.perform {
+            for transaction in history {
+                viewContext.mergeChanges(fromContextDidSave: transaction.objectIDNotification())
+                self.lastToken = transaction.token
+            }
+        }
+    }
+      
 }

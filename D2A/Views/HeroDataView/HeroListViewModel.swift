@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 import Combine
 
 enum HeroAttribute: String, CaseIterable {
