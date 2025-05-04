@@ -27,18 +27,15 @@ struct ContentView: View {
     }
 }
 
-// struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//            .environmentObject(DotaEnvironment.shared)
-//            .environmentObject(HeroDatabase.preview)
-//    }
-// }
-
 struct NavigationHostView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var data: HeroDatabase
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    @FetchRequest(sortDescriptors: [
+        NSSortDescriptor(keyPath: \Hero.id, ascending: true)
+    ])
+    private var heroes: FetchedResults<Hero>
     
     var body: some View {
             if horizontalSizeClass == .compact {
@@ -50,7 +47,7 @@ struct NavigationHostView: View {
                         Text("Home")
                     }.tag(TabSelection.home).navigationViewStyle(.stack)
                     NavigationView {
-                        HeroListView()
+                        HeroListView(heroes: Array(heroes))
                     }.tabItem {
                         Image(systemName: "server.rack")
                         Text("Heroes")
