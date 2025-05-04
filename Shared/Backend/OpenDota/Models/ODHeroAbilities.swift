@@ -23,7 +23,15 @@ class ODHeroAbilities: Decodable {
         var gradientID: Int
         var title: String
         var description: String
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case name
+            case icon
+            case color
+            case gradientID = "gradient_id"
+            case title
+            case description
+        }
     }
 }
-
-

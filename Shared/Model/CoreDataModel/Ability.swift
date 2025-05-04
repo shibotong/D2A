@@ -8,6 +8,18 @@
 import Foundation
 import CoreData
 
+extension Ability {
+    static func fetch(id: Int, context: NSManagedObjectContext) async -> Ability? {
+        let fetchAbility: NSFetchRequest<Ability> = Ability.fetchRequest()
+        fetchAbility.predicate = NSPredicate(format: "id == %d", id)
+        return await context.perform {
+            let results = try? context.fetch(fetchAbility)
+            return results?.first
+        }
+    }
+}
+
+@objcMembers
 public class AbilityAttribute: NSObject, NSSecureCoding {
     
     public static var supportsSecureCoding: Bool = true

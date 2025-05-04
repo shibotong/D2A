@@ -158,8 +158,6 @@ class ODHero: Identifiable, Decodable, D2ABatchInsertable {
     }
 }
 
-
-
 struct HeroScepter: Decodable {
     var name: String
     var id: Int

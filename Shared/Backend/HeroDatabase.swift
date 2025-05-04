@@ -28,7 +28,7 @@ class HeroDatabase: ObservableObject {
     private var itemIDTable = [String: String]()
     private var abilityIDTable = [String: String]()
     private var abilities = [String: ODAbility]()
-    private var heroAbilities = [String: HeroAbility]()
+    private var heroAbilities = [String: ODHeroAbilities]()
     private var scepterData = [HeroScepter]()
     private var apolloAbilities = [StratzAbility]()
     
@@ -249,9 +249,43 @@ class HeroDatabase: ObservableObject {
     
     private func saveODAbilities(abilities: [ODAbility], context: NSManagedObjectContext) async {
         if await hasData(for: Ability.self, context: context) {
-            
+            await updateAbilitiesData(abilities: abilities, context: context)
         } else {
             await batchInsertData(abilities, into: Ability.entity(), context: context)
+        }
+    }
+    
+    private func updateAbilitiesData(abilities: [ODAbility], context: NSManagedObjectContext) async {
+        for openDotaAbility in abilities {
+            guard let abilityID = openDotaAbility.id else {
+                continue
+            }
+            let ability = await Ability.fetch(id: abilityID, context: context) ?? Ability(context: context)
+            await context.perform {
+                setIfNotEqual(entity: ability, path: \.id, value: Int32(abilityID))
+                setIfNotEqual(entity: ability, path: \.name, value: openDotaAbility.name)
+                setIfNotEqual(entity: ability, path: \.behavior, value: openDotaAbility.behavior?.transformString())
+                setIfNotEqual(entity: ability, path: \.bkbPierce, value: openDotaAbility.bkbPierce?.transformString())
+                setIfNotEqual(entity: ability, path: \.coolDown, value: openDotaAbility.coolDown?.transformString())
+                setIfNotEqual(entity: ability, path: \.damageType, value: openDotaAbility.damageType?.transformString())
+                setIfNotEqual(entity: ability, path: \.desc, value: openDotaAbility.desc)
+                setIfNotEqual(entity: ability, path: \.dispellable, value: openDotaAbility.dispellable?.transformString())
+                setIfNotEqual(entity: ability, path: \.displayName, value: openDotaAbility.dname)
+                setIfNotEqual(entity: ability, path: \.img, value: openDotaAbility.img)
+                setIfNotEqual(entity: ability, path: \.lore, value: openDotaAbility.lore)
+                setIfNotEqual(entity: ability, path: \.manaCost, value: openDotaAbility.manaCost?.transformString())
+                setIfNotEqual(entity: ability, path: \.targetTeam, value: openDotaAbility.targetTeam?.transformString())
+                setIfNotEqual(entity: ability, path: \.targetType, value: openDotaAbility.targetType?.transformString())
+                setIfNotEqual(entity: ability, path: \.attributes, value: openDotaAbility.attributes?.compactMap { AbilityAttribute(attribute: $0) })
+                if ability.hasChanges {
+                    do {
+                        try context.save()
+                        logDebug("Save ability \(ability.id) success", category: .coredata)
+                    } catch {
+                        logError("\(ability.id) save failed. \(error)", category: .coredata)
+                    }
+                }
+            }
         }
     }
     
