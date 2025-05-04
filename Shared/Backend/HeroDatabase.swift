@@ -240,6 +240,15 @@ class HeroDatabase: ObservableObject {
         await loadODAbilities(context: context)
     }
     
+    // MARK: - Save abilities to heroes
+    
+    private func saveAbilitiesToHero(context: NSManagedObjectContext) async {
+        let heroAbilities = await openDotaProvider.loadAbilitiesForHeroes()
+        for (name, abilities) in heroAbilities {
+            
+        }
+    }
+    
     // MARK: - Save Abilities
     
     private func loadODAbilities(context: NSManagedObjectContext) async {

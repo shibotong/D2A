@@ -82,11 +82,29 @@ extension Hero {
     }
     
     static func fetch(id: Double, context: NSManagedObjectContext) async -> Hero? {
-        let fetchHero: NSFetchRequest<Hero> = Hero.fetchRequest()
-        fetchHero.predicate = NSPredicate(format: "id == %f", id)
+        let predicate = NSPredicate(format: "id == %f", id)
+        return await fetchOne(predicate: predicate, context: context)
+    }
+    
+    static func fetchByName(name: String, context: NSManagedObjectContext) async -> Hero? {
+        let predicate = NSPredicate(format: "name == %@", name)
+        return await fetchOne(predicate: predicate, context: context)
+    }
+    
+    static func fetchOne(predicate: NSPredicate, context: NSManagedObjectContext) async -> Hero? {
+        let request = Self.fetchRequest()
+        request.predicate = predicate
         return await context.perform {
-            let results = try? context.fetch(fetchHero)
-            return results?.first
+            do {
+                guard let result = try context.fetch(request).first else {
+                    logError("Failed to fetch Hero with predicate \(predicate.predicateFormat)", category: .coredata)
+                    return nil
+                }
+                return result
+            } catch {
+                logError("Failed to fetch Hero: \(error)", category: .coredata)
+                return nil
+            }
         }
     }
     
