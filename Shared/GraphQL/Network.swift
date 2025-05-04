@@ -37,6 +37,6 @@ class Network {
             webSocketNetworkTransport: webSocketTransport
         )
         
-        return ApolloClient(networkTransport: splitTransport, store: store)
+        return ApolloClient(networkTransport: transport, store: store)
     }()
 }
