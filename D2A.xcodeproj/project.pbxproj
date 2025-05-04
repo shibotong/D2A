@@ -426,6 +426,9 @@
 		79EB3EFC2DC4B8F8008C4F6D /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */; };
 		79EB3EFD2DC4B8F8008C4F6D /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */; };
 		79EB3EFE2DC4B8F8008C4F6D /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */; };
+		79EB3F002DC6E6CC008C4F6D /* NSKeyedUnarchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3EFF2DC6E6B9008C4F6D /* NSKeyedUnarchiver.swift */; };
+		79EB3F012DC6E6CC008C4F6D /* NSKeyedUnarchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3EFF2DC6E6B9008C4F6D /* NSKeyedUnarchiver.swift */; };
+		79EB3F022DC6E6CC008C4F6D /* NSKeyedUnarchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3EFF2DC6E6B9008C4F6D /* NSKeyedUnarchiver.swift */; };
 		79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
 /* End PBXBuildFile section */
@@ -713,6 +716,7 @@
 		79EB3EF22DC4B0B4008C4F6D /* ODAbility+Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ODAbility+Attribute.swift"; sourceTree = "<group>"; };
 		79EB3EF62DC4B5D2008C4F6D /* D2ABatchInsertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ABatchInsertable.swift; sourceTree = "<group>"; };
 		79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
+		79EB3EFF2DC6E6B9008C4F6D /* NSKeyedUnarchiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSKeyedUnarchiver.swift; sourceTree = "<group>"; };
 		79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Backend.xcdatamodel; sourceTree = "<group>"; };
 		79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1269,6 +1273,7 @@
 			isa = PBXGroup;
 			children = (
 				79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */,
+				79EB3EFF2DC6E6B9008C4F6D /* NSKeyedUnarchiver.swift */,
 				7985E7EA28E53919007A43AF /* Hero.swift */,
 				79A988F82931D400006AC847 /* Match.swift */,
 				79A989032931E7F1006AC847 /* PermanentBuff.swift */,
@@ -1826,6 +1831,7 @@
 				3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */,
 				322B893E26CE66F800DF67F9 /* MainLoadingView.swift in Sources */,
 				32079DBD28B83F0F0056D19F /* AbilityView.swift in Sources */,
+				79EB3F002DC6E6CC008C4F6D /* NSKeyedUnarchiver.swift in Sources */,
 				32AEEEF926F9B1120088DEC8 /* LocalizableStrings.swift in Sources */,
 				79A989042931E7F1006AC847 /* PermanentBuff.swift in Sources */,
 				798C428D2A35572400BDC470 /* LiveMatchEventItem.swift in Sources */,
@@ -1943,6 +1949,7 @@
 				32F70B1926F6295B006E9B05 /* Date.swift in Sources */,
 				3270271D285C08C200927426 /* HeroDatabase.swift in Sources */,
 				799948C12932D50000D79055 /* ImageCache.swift in Sources */,
+				79EB3F012DC6E6CC008C4F6D /* NSKeyedUnarchiver.swift in Sources */,
 				32079DC028B843360056D19F /* String.swift in Sources */,
 				793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
 				79B870C82DC39C970090CAB8 /* NSManagedObject.swift in Sources */,
@@ -2024,6 +2031,7 @@
 				32A26C52285947D4005E890F /* OpenDotaController.swift in Sources */,
 				32079DC128B843360056D19F /* String.swift in Sources */,
 				799948C22932D50000D79055 /* ImageCache.swift in Sources */,
+				79EB3F022DC6E6CC008C4F6D /* NSKeyedUnarchiver.swift in Sources */,
 				32F70B1826F6294E006E9B05 /* MatchCodable.swift in Sources */,
 				793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
 				79B870C72DC39C970090CAB8 /* NSManagedObject.swift in Sources */,

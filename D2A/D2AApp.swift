@@ -23,7 +23,7 @@ struct D2AApp: App {
     
     init() {
         PlayerTransformer.register()
-        AbilityAttributeTransformer.register()
+        NSKeyedUnarchiver.registerClasses()
     }
     
     var body: some Scene {
