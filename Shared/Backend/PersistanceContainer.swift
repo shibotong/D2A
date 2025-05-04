@@ -16,8 +16,6 @@ enum PersistanceError: Error {
 class PersistanceController {
     static let shared = PersistanceController()
 
-    static let preview = PersistanceController()
-
     let container: NSPersistentContainer
     private var notificationToken: NSObjectProtocol?
     

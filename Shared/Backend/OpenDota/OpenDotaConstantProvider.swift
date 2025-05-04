@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 protocol OpenDotaConstantProviding {
     func loadHeroes() async -> [String: ODHero]
     func loadItemIDs() async -> [String: String]

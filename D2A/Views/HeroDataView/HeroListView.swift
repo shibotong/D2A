@@ -9,23 +9,32 @@ import SwiftUI
 import CryptoKit
 
 struct HeroListView: View {
-    @StateObject var vm = HeroListViewModel()
+    
+    @FetchRequest(sortDescriptors: [])
+    var heroes: FetchedResults<Hero>
+    
+    @State private var filteredHeroes: [Hero] = []
+    
+    @State private var searchString: String = ""
+    @State private var gridView: Bool = true
+    @State private var selectedAttribute: HeroAttribute = .whole
+
     @Environment(\.horizontalSizeClass) private var horizontalSize
     
     var body: some View {
         buildBody()
             .navigationTitle("Heroes")
-            .searchable(text: $vm.searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
+            .searchable(text: $searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
             .disableAutocorrection(true)
             .toolbar {
                 if horizontalSize == .compact {
                     Menu {
-                        Picker("picker", selection: $vm.gridView) {
+                        Picker("picker", selection: $gridView) {
                             Label("Icons", systemImage: "square.grid.2x2").tag(true)
                             Label("List", systemImage: "list.bullet").tag(false)
                         }
                         
-                        Picker("attributes", selection: $vm.selectedAttribute) {
+                        Picker("attributes", selection: $selectedAttribute) {
                             Text("All").tag(HeroAttribute.whole)
                             Label("STRENGTH", image: "attribute_str").tag(HeroAttribute.str)
                             Label("AGILITY", image: "attribute_agi").tag(HeroAttribute.agi)
@@ -33,7 +42,7 @@ struct HeroListView: View {
                             Label("UNIVERSAL", image: "attribute_all").tag(HeroAttribute.all)
                         }
                     } label: {
-                        if vm.gridView {
+                        if gridView {
                             Image(systemName: "square.grid.2x2")
                         } else {
                             Image(systemName: "list.bullet")
@@ -43,23 +52,24 @@ struct HeroListView: View {
             }
     }
     
-    @ViewBuilder private func buildBody() -> some View {
+    @ViewBuilder
+    private func buildBody() -> some View {
         if horizontalSize == .compact {
-            if vm.gridView {
+            if gridView {
                 ScrollView(.vertical, showsIndicators: false) {
-                    buildSection(heroes: vm.searchResults, attributes: vm.selectedAttribute)
+                    buildSection(heroes: filteredHeroes, attributes: selectedAttribute)
                 }
                 .padding(.horizontal)
             } else {
                 List {
-                    buildSection(heroes: vm.searchResults, attributes: vm.selectedAttribute)
+                    buildSection(heroes: filteredHeroes, attributes: selectedAttribute)
                 }
                 .listStyle(PlainListStyle())
             }
         } else {
             ScrollView(.vertical, showsIndicators: false) {
                 ForEach(HeroAttribute.allCases, id: \.self) { attribute in
-                    let heroes = vm.heroList.filter { hero in
+                    let heroes = heroes.filter { hero in
                         return hero.primaryAttr == attribute.rawValue
                     }
                     buildHeroGrid(heroes: heroes, attribute: attribute)
@@ -69,11 +79,12 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildHeroGrid(heroes: [ODHero], attribute: HeroAttribute) -> some View {
+    @ViewBuilder
+    private func buildHeroGrid(heroes: [Hero], attribute: HeroAttribute) -> some View {
         Section {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading), count: 1)) {
                 ForEach(heroes) { hero in
-                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: Int(hero.id)))) {
                         buildHero(hero: hero)
                     }
                 }
@@ -88,7 +99,8 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildSection(heroes: [ODHero], attributes: HeroAttribute) -> some View {
+    @ViewBuilder
+    private func buildSection(heroes: [Hero], attributes: HeroAttribute) -> some View {
         if heroes.count == 0 {
             Text("No Results")
                 .bold()
@@ -100,7 +112,7 @@ struct HeroListView: View {
             } header: {
                 if attributes != .whole {
                     HStack {
-                        AttributeImage(attribute: vm.selectedAttribute)
+                        AttributeImage(attribute: selectedAttribute)
                             .frame(width: 20, height: 20)
                         Text(LocalizedStringKey(attributes.fullName))
                             .bold()
@@ -113,11 +125,12 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildMainPart(heroes: [ODHero]) -> some View {
-        if vm.gridView {
+    @ViewBuilder
+    private func buildMainPart(heroes: [Hero]) -> some View {
+        if gridView {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 130, maximum: 200), spacing: 10, alignment: .leading), count: 1)) {
                 ForEach(heroes) { hero in
-                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: Int(hero.id)))) {
                         buildHero(hero: hero)
                             
                     }
@@ -125,23 +138,24 @@ struct HeroListView: View {
             }
         } else {
             ForEach(heroes) { hero in
-                NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: Int(hero.id)))) {
                     buildHero(hero: hero)
                 }
             }
         }
     }
     
-    @ViewBuilder private func buildHero(hero: ODHero) -> some View {
+    @ViewBuilder
+    private func buildHero(hero: Hero) -> some View {
         if horizontalSize == .regular {
-            HeroImageView(heroID: hero.id, type: .vert)
+            HeroImageView(heroID: Int(hero.id), type: .vert)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-                .opacity(vm.searchResults.contains(where: { $0.id == hero.id }) || vm.searchString.isEmpty ? 1 : 0.2)
+                .opacity(filteredHeroes.contains(where: { $0.id == hero.id }) || searchString.isEmpty ? 1 : 0.2)
                 .accessibilityIdentifier(hero.heroNameLocalized)
         } else {
-            if vm.gridView {
+            if gridView {
                 ZStack {
-                    HeroImageView(heroID: hero.id, type: .full)
+                    HeroImageView(heroID: Int(hero.id), type: .full)
                         .overlay(LinearGradient(colors: [.black.opacity(0), .black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .accessibilityIdentifier(hero.heroNameLocalized)
@@ -149,7 +163,7 @@ struct HeroListView: View {
                         VStack {
                             Spacer()
                             HStack(spacing: 3) {
-                                AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr)).frame(width: 15, height: 15)
+                                AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr ?? "str")).frame(width: 15, height: 15)
                                 Text(hero.heroNameLocalized)
                                     .font(.caption2)
                                     .fontWeight(.black)
@@ -162,7 +176,7 @@ struct HeroListView: View {
                 }
             } else {
                 HStack {
-                    HeroImageView(heroID: hero.id, type: .full)
+                    HeroImageView(heroID: Int(hero.id), type: .full)
                         .frame(width: 70)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     Text(hero.heroNameLocalized)
@@ -176,8 +190,9 @@ struct HeroListView: View {
     }
 }
 
-// struct HeroListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HeroListView()
-//    }
-// }
+ struct HeroListView_Previews: PreviewProvider {
+    static var previews: some View {
+        HeroListView()
+            .environment(\.managedObjectContext, PersistanceController.previewContext)
+    }
+ }
