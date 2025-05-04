@@ -13,8 +13,7 @@ struct HeroListView: View {
     @ObservedObject var viewModel: HeroListViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSize
     
-    init(context: NSManagedObjectContext = PersistanceController.shared.container.viewContext) {
-        viewModel = .init(context: context)
+    init(heroes: [Hero] = []) {
     }
     
     var body: some View {
@@ -189,7 +188,7 @@ struct HeroListView: View {
  struct HeroListView_Previews: PreviewProvider {
      static var previews: some View {
          NavigationView {
-             HeroListView(context: PersistanceController.previewContext)
+             HeroListView(heroes: PersistanceController.previewHeroes)
          }
      }
  }
