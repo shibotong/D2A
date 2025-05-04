@@ -14,6 +14,7 @@ struct HeroListView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSize
     
     init(heroes: [Hero] = []) {
+        viewModel = .init(heroes: heroes)
     }
     
     var body: some View {
