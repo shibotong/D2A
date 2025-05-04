@@ -29,18 +29,18 @@ enum HeroAttribute: String, CaseIterable {
 }
 
 class HeroListViewModel: ObservableObject {
-    let heroList: [ODHero]
+    let heroes: [Hero]
     
-    @Published var searchResults: [ODHero]
+    @Published var filteredHeroes: [Hero]
     
     @Published var searchString: String = ""
-    @Published var gridView = true
+    @Published var isGridView = true
     @Published var selectedAttribute: HeroAttribute = .whole
     
     private var subscribers = Set<AnyCancellable>()
     
-    init() {
-        heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
+    init(context: NSManagedObjectContext) {
+        heroes = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
         searchString = ""
         searchResults = []
         selectedAttribute = .whole

@@ -6,35 +6,31 @@
 //
 
 import SwiftUI
-import CryptoKit
+import CoreData
 
 struct HeroListView: View {
-    
-    @FetchRequest(sortDescriptors: [])
-    var heroes: FetchedResults<Hero>
-    
-    @State private var filteredHeroes: [Hero] = []
-    
-    @State private var searchString: String = ""
-    @State private var gridView: Bool = true
-    @State private var selectedAttribute: HeroAttribute = .whole
 
+    @ObservedObject var viewModel: HeroListViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSize
+    
+    init(context: NSManagedObjectContext = PersistanceController.shared.container.viewContext) {
+        viewModel = .init(context: context)
+    }
     
     var body: some View {
         buildBody()
             .navigationTitle("Heroes")
-            .searchable(text: $searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
+            .searchable(text: $viewModel.searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
             .disableAutocorrection(true)
             .toolbar {
                 if horizontalSize == .compact {
                     Menu {
-                        Picker("picker", selection: $gridView) {
+                        Picker("picker", selection: $viewModel.isGridView) {
                             Label("Icons", systemImage: "square.grid.2x2").tag(true)
                             Label("List", systemImage: "list.bullet").tag(false)
                         }
                         
-                        Picker("attributes", selection: $selectedAttribute) {
+                        Picker("attributes", selection: $viewModel.selectedAttribute) {
                             Text("All").tag(HeroAttribute.whole)
                             Label("STRENGTH", image: "attribute_str").tag(HeroAttribute.str)
                             Label("AGILITY", image: "attribute_agi").tag(HeroAttribute.agi)
@@ -42,7 +38,7 @@ struct HeroListView: View {
                             Label("UNIVERSAL", image: "attribute_all").tag(HeroAttribute.all)
                         }
                     } label: {
-                        if gridView {
+                        if viewModel.isGridView {
                             Image(systemName: "square.grid.2x2")
                         } else {
                             Image(systemName: "list.bullet")
@@ -55,21 +51,21 @@ struct HeroListView: View {
     @ViewBuilder
     private func buildBody() -> some View {
         if horizontalSize == .compact {
-            if gridView {
+            if viewModel.isGridView {
                 ScrollView(.vertical, showsIndicators: false) {
-                    buildSection(heroes: filteredHeroes, attributes: selectedAttribute)
+                    buildSection(heroes: viewModel.filteredHeroes, attributes: viewModel.selectedAttribute)
                 }
                 .padding(.horizontal)
             } else {
                 List {
-                    buildSection(heroes: filteredHeroes, attributes: selectedAttribute)
+                    buildSection(heroes: viewModel.filteredHeroes, attributes: viewModel.selectedAttribute)
                 }
                 .listStyle(PlainListStyle())
             }
         } else {
             ScrollView(.vertical, showsIndicators: false) {
                 ForEach(HeroAttribute.allCases, id: \.self) { attribute in
-                    let heroes = heroes.filter { hero in
+                    let heroes = viewModel.heroes.filter { hero in
                         return hero.primaryAttr == attribute.rawValue
                     }
                     buildHeroGrid(heroes: heroes, attribute: attribute)
@@ -112,7 +108,7 @@ struct HeroListView: View {
             } header: {
                 if attributes != .whole {
                     HStack {
-                        AttributeImage(attribute: selectedAttribute)
+                        AttributeImage(attribute: viewModel.selectedAttribute)
                             .frame(width: 20, height: 20)
                         Text(LocalizedStringKey(attributes.fullName))
                             .bold()
@@ -127,7 +123,7 @@ struct HeroListView: View {
     
     @ViewBuilder
     private func buildMainPart(heroes: [Hero]) -> some View {
-        if gridView {
+        if viewModel.isGridView {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 130, maximum: 200), spacing: 10, alignment: .leading), count: 1)) {
                 ForEach(heroes) { hero in
                     NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: Int(hero.id)))) {
@@ -150,10 +146,10 @@ struct HeroListView: View {
         if horizontalSize == .regular {
             HeroImageView(heroID: Int(hero.id), type: .vert)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-                .opacity(filteredHeroes.contains(where: { $0.id == hero.id }) || searchString.isEmpty ? 1 : 0.2)
+                .opacity(viewModel.filteredHeroes.contains(where: { $0.id == hero.id }) || viewModel.searchString.isEmpty ? 1 : 0.2)
                 .accessibilityIdentifier(hero.heroNameLocalized)
         } else {
-            if gridView {
+            if viewModel.isGridView {
                 ZStack {
                     HeroImageView(heroID: Int(hero.id), type: .full)
                         .overlay(LinearGradient(colors: [.black.opacity(0), .black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
@@ -191,8 +187,9 @@ struct HeroListView: View {
 }
 
  struct HeroListView_Previews: PreviewProvider {
-    static var previews: some View {
-        HeroListView()
-            .environment(\.managedObjectContext, PersistanceController.previewContext)
-    }
+     static var previews: some View {
+         NavigationView {
+             HeroListView(context: PersistanceController.previewContext)
+         }
+     }
  }
