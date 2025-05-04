@@ -80,30 +80,28 @@ extension Hero {
         return results?.first
     }
     
-    static func fetch(id: Double, context: NSManagedObjectContext) async -> Hero? {
+    static func fetch(id: Double, context: NSManagedObjectContext) -> Hero? {
         let predicate = NSPredicate(format: "id == %f", id)
-        return await fetchOne(predicate: predicate, context: context)
+        return fetchOne(predicate: predicate, context: context)
     }
     
-    static func fetchByName(name: String, context: NSManagedObjectContext) async -> Hero? {
+    static func fetchByName(name: String, context: NSManagedObjectContext) -> Hero? {
         let predicate = NSPredicate(format: "name == %@", name)
-        return await fetchOne(predicate: predicate, context: context)
+        return fetchOne(predicate: predicate, context: context)
     }
     
-    static func fetchOne(predicate: NSPredicate, context: NSManagedObjectContext) async -> Hero? {
+    static func fetchOne(predicate: NSPredicate, context: NSManagedObjectContext) -> Hero? {
         let request = Self.fetchRequest()
         request.predicate = predicate
-        return await context.perform {
-            do {
-                guard let result = try context.fetch(request).first else {
-                    logError("Failed to fetch Hero with predicate \(predicate.predicateFormat)", category: .coredata)
-                    return nil
-                }
-                return result
-            } catch {
-                logError("Failed to fetch Hero: \(error)", category: .coredata)
+        do {
+            guard let result = try context.fetch(request).first else {
+                logError("Failed to fetch Hero with predicate \(predicate.predicateFormat)", category: .coredata)
                 return nil
             }
+            return result
+        } catch {
+            logError("Failed to fetch Hero: \(error)", category: .coredata)
+            return nil
         }
     }
     
