@@ -7,8 +7,8 @@
 
 import Foundation
 import SwiftUI
-import Combine
 import StratzAPI
+import CoreData
 
 enum LoadingStatus {
     case loading, error, finish
@@ -20,15 +20,15 @@ class HeroDatabase: ObservableObject {
         case heroNotFound
     }
     
-    private var heroes = [String: HeroCodable]()
+    private var heroes = [String: ODHero]()
     private var gameModes = [String: GameMode]()
     private var lobbyTypes = [String: LobbyType]()
     private var regions = [String: String]()
     private var items = [String: Item]()
     private var itemIDTable = [String: String]()
     private var abilityIDTable = [String: String]()
-    private var abilities = [String: Ability]()
-    private var heroAbilities = [String: HeroAbility]()
+    private var abilities = [String: ODAbility]()
+    private var heroAbilities = [String: ODHeroAbilities]()
     private var scepterData = [HeroScepter]()
     private var apolloAbilities = [StratzAbility]()
     
@@ -39,9 +39,12 @@ class HeroDatabase: ObservableObject {
     let url = "https://api.opendota.com/api/herostats"
     
     private let stratzProvider: StratzProviding
+    private let openDotaProvider: OpenDotaConstantProviding
     
-    init(stratzProvider: StratzProviding = StratzController.shared) {
+    init(stratzProvider: StratzProviding = StratzController.shared,
+         openDotaProvider: OpenDotaConstantProviding = OpenDotaConstantProvider.shared) {
         self.stratzProvider = stratzProvider
+        self.openDotaProvider = openDotaProvider
         loadData()
     }
     
@@ -68,10 +71,12 @@ class HeroDatabase: ObservableObject {
             self?.heroAbilities = await heroAbilities
             self?.scepterData = await scepter
             self?.apolloAbilities = await stratzAbilities ?? []
+            
+            await self?.loadConstantData()
         }
     }
 
-    func fetchHeroWithID(id: Int) throws -> HeroCodable {
+    func fetchHeroWithID(id: Int) throws -> ODHero {
         guard let hero = heroes["\(id)"] else {
             throw HeroDataError.heroNotFound
         }
@@ -114,7 +119,7 @@ class HeroDatabase: ObservableObject {
         return abilityName
     }
     
-    func fetchOpenDotaAbility(name: String) -> Ability? {
+    func fetchOpenDotaAbility(name: String) -> ODAbility? {
         return abilities[name]
     }
     
@@ -128,8 +133,8 @@ class HeroDatabase: ObservableObject {
         return abilities ?? []
     }
     
-    func fetchAllHeroes() -> [HeroCodable] {
-        var sortedHeroes = [HeroCodable]()
+    func fetchAllHeroes() -> [ODHero] {
+        var sortedHeroes = [ODHero]()
         for i in 1..<150 {
             if let hero = heroes["\(i)"] {
                 sortedHeroes.append(hero)
@@ -142,11 +147,11 @@ class HeroDatabase: ObservableObject {
         return sortedHeroes
     }
     
-    func fetchSearchedHeroes(text: String) -> [HeroCodable] {
+    func fetchSearchedHeroes(text: String) -> [ODHero] {
         return []
     }
     
-    func getAbilityScepterDesc(ability: Ability, heroID: Int) -> String? {
+    func getAbilityScepterDesc(ability: ODAbility, heroID: Int) -> String? {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -159,7 +164,7 @@ class HeroDatabase: ObservableObject {
         return nil
     }
     
-    func isScepterSkill(ability: Ability, heroID: Int) -> Bool {
+    func isScepterSkill(ability: ODAbility, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -169,7 +174,7 @@ class HeroDatabase: ObservableObject {
         return ability.dname == hero.scepterSkillName && hero.scepterNewSkill
     }
     
-    func isShardSkill(ability: Ability, heroID: Int) -> Bool {
+    func isShardSkill(ability: ODAbility, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -179,7 +184,7 @@ class HeroDatabase: ObservableObject {
         return ability.dname == hero.shardSkillName && hero.shardNewSkill
     }
     
-    func hasScepter(ability: Ability, heroID: Int) -> Bool {
+    func hasScepter(ability: ODAbility, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -189,7 +194,7 @@ class HeroDatabase: ObservableObject {
         return ability.dname == hero.scepterSkillName
     }
     
-    func hasShard(ability: Ability, heroID: Int) -> Bool {
+    func hasShard(ability: ODAbility, heroID: Int) -> Bool {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -203,7 +208,7 @@ class HeroDatabase: ObservableObject {
         }
     }
     
-    func getAbilityShardDesc(ability: Ability, heroID: Int) -> String? {
+    func getAbilityShardDesc(ability: ODAbility, heroID: Int) -> String? {
         guard let hero = scepterData.filter({ scepter in
             scepter.id == heroID
         }).first else {
@@ -226,5 +231,221 @@ class HeroDatabase: ObservableObject {
             return ability.id == talentID
         }
         return talent?.language?.displayName ?? "Fetch String Error"
+    }
+    
+    // MARK: - Save Constant Data
+    private func loadConstantData() async {
+        let context = PersistanceController.shared.container.newBackgroundContext()
+        await loadODHeroes(context: context)
+        await loadODAbilities(context: context)
+        await saveAbilitiesToHero(context: context)
+    }
+    
+    // MARK: - Save abilities to heroes
+    
+    private func saveAbilitiesToHero(context: NSManagedObjectContext) async {
+        let heroAbilities = await openDotaProvider.loadAbilitiesForHeroes()
+        for (name, heroAbility) in heroAbilities {
+            guard let hero = await Hero.fetchByName(name: name, context: context) else {
+                logError("Cannot find hero: \(name)", category: .coredata)
+                continue
+            }
+            let abilityNames = heroAbility.abilities
+            
+            if let currentAbilities = hero.abilities?.compactMap({ ($0 as? Ability) }) {
+                guard currentAbilities.compactMap(\.name) != abilityNames else {
+                    continue
+                }
+                await context.perform {
+                    for ability in currentAbilities {
+                        hero.removeFromAbilities(ability)
+                    }
+                }
+            }
+            
+            let abilities = await Ability.fetchByNames(names: abilityNames, context: context)
+            
+            await context.perform {
+                for ability in abilities {
+                    hero.addToAbilities(ability)
+                }
+                if hero.hasChanges {
+                    do {
+                        try context.save()
+                        logDebug("Save hero ability \(hero.id) success", category: .coredata)
+                    } catch {
+                        logError("\(hero.id) abilities save failed. \(error)", category: .coredata)
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Save Abilities
+    
+    private func loadODAbilities(context: NSManagedObjectContext) async {
+        let abilities = await openDotaProvider.loadAbilities()
+        await saveODAbilities(abilities: abilities, context: context)
+    }
+    
+    private func saveODAbilities(abilities: [ODAbility], context: NSManagedObjectContext) async {
+        if await hasData(for: Ability.self, context: context) {
+            await updateAbilitiesData(abilities: abilities, context: context)
+        } else {
+            await batchInsertData(abilities, into: Ability.entity(), context: context)
+        }
+    }
+    
+    private func updateAbilitiesData(abilities: [ODAbility], context: NSManagedObjectContext) async {
+        for openDotaAbility in abilities {
+            guard let abilityID = openDotaAbility.id else {
+                continue
+            }
+            let ability = await Ability.fetch(id: abilityID, context: context) ?? Ability(context: context)
+            await context.perform {
+                setIfNotEqual(entity: ability, path: \.id, value: Int32(abilityID))
+                setIfNotEqual(entity: ability, path: \.name, value: openDotaAbility.name)
+                setIfNotEqual(entity: ability, path: \.behavior, value: openDotaAbility.behavior?.transformString())
+                setIfNotEqual(entity: ability, path: \.bkbPierce, value: openDotaAbility.bkbPierce?.transformString())
+                setIfNotEqual(entity: ability, path: \.coolDown, value: openDotaAbility.coolDown?.transformString())
+                setIfNotEqual(entity: ability, path: \.damageType, value: openDotaAbility.damageType?.transformString())
+                setIfNotEqual(entity: ability, path: \.desc, value: openDotaAbility.desc)
+                setIfNotEqual(entity: ability, path: \.dispellable, value: openDotaAbility.dispellable?.transformString())
+                setIfNotEqual(entity: ability, path: \.displayName, value: openDotaAbility.dname)
+                setIfNotEqual(entity: ability, path: \.img, value: openDotaAbility.img)
+                setIfNotEqual(entity: ability, path: \.lore, value: openDotaAbility.lore)
+                setIfNotEqual(entity: ability, path: \.manaCost, value: openDotaAbility.manaCost?.transformString())
+                setIfNotEqual(entity: ability, path: \.targetTeam, value: openDotaAbility.targetTeam?.transformString())
+                setIfNotEqual(entity: ability, path: \.targetType, value: openDotaAbility.targetType?.transformString())
+                setIfNotEqual(entity: ability, path: \.attributes, value: openDotaAbility.attributes?.compactMap { AbilityAttribute(attribute: $0) })
+                if ability.hasChanges {
+                    do {
+                        try context.save()
+                        logDebug("Save ability \(ability.id) success", category: .coredata)
+                    } catch {
+                        logError("\(ability.id) save failed. \(error)", category: .coredata)
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Save Heroes
+    
+    private func loadODHeroes(context: NSManagedObjectContext) async {
+        let heroes = await openDotaProvider.loadHeroes()
+        var heroesArray: [ODHero] = []
+        for (_, value) in heroes {
+            heroesArray.append(value)
+        }
+        await saveODHeroes(heroes: heroesArray, viewContext: context)
+    }
+    
+    private func saveODHeroes(heroes: [ODHero], viewContext: NSManagedObjectContext) async {
+        if await hasData(for: Hero.self, context: viewContext) {
+            await updateHeroesData(heroes: heroes, context: viewContext)
+        } else {
+            await batchInsertData(heroes, into: Hero.entity(), context: viewContext)
+        }
+    }
+    
+    private func updateHeroesData(heroes: [ODHero], context: NSManagedObjectContext) async {
+        for openDotaHero in heroes {
+            let hero = await Hero.fetch(id: Double(openDotaHero.id), context: context) ?? Hero(context: context)
+            await context.perform {
+                setIfNotEqual(entity: hero, path: \.id, value: Double(openDotaHero.id))
+                setIfNotEqual(entity: hero, path: \.displayName, value: openDotaHero.localizedName)
+                setIfNotEqual(entity: hero, path: \.primaryAttr, value: openDotaHero.primaryAttr)
+                setIfNotEqual(entity: hero, path: \.attackType, value: openDotaHero.attackType)
+                setIfNotEqual(entity: hero, path: \.img, value: openDotaHero.img)
+                setIfNotEqual(entity: hero, path: \.icon, value: openDotaHero.icon)
+                
+                setIfNotEqual(entity: hero, path: \.baseHealth, value: openDotaHero.baseHealth)
+                setIfNotEqual(entity: hero, path: \.baseHealthRegen, value: openDotaHero.baseHealthRegen)
+                setIfNotEqual(entity: hero, path: \.baseMana, value: openDotaHero.baseMana)
+                setIfNotEqual(entity: hero, path: \.baseManaRegen, value: openDotaHero.baseManaRegen)
+                setIfNotEqual(entity: hero, path: \.baseArmor, value: openDotaHero.baseArmor)
+                setIfNotEqual(entity: hero, path: \.baseMr, value: openDotaHero.baseMr)
+                setIfNotEqual(entity: hero, path: \.baseAttackMin, value: openDotaHero.baseAttackMin)
+                setIfNotEqual(entity: hero, path: \.baseAttackMax, value: openDotaHero.baseAttackMax)
+                
+                setIfNotEqual(entity: hero, path: \.baseStr, value: openDotaHero.baseStr)
+                setIfNotEqual(entity: hero, path: \.baseAgi, value: openDotaHero.baseAgi)
+                setIfNotEqual(entity: hero, path: \.baseInt, value: openDotaHero.baseInt)
+                setIfNotEqual(entity: hero, path: \.gainStr, value: openDotaHero.strGain)
+                setIfNotEqual(entity: hero, path: \.gainAgi, value: openDotaHero.agiGain)
+                setIfNotEqual(entity: hero, path: \.gainInt, value: openDotaHero.intGain)
+                
+                setIfNotEqual(entity: hero, path: \.attackRange, value: openDotaHero.attackRange)
+                setIfNotEqual(entity: hero, path: \.projectileSpeed, value: openDotaHero.projectileSpeed)
+                setIfNotEqual(entity: hero, path: \.attackRate, value: openDotaHero.attackRate)
+                setIfNotEqual(entity: hero, path: \.moveSpeed, value: openDotaHero.moveSpeed)
+                setIfNotEqual(entity: hero, path: \.turnRate, value: openDotaHero.turnRate ?? 0.6)
+                
+                if hero.hasChanges {
+                    do {
+                        try context.save()
+                        logDebug("Save hero \(openDotaHero.id) success", category: .coredata)
+                    } catch {
+                        logError("\(openDotaHero.id) save failed. \(error)", category: .coredata)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func batchInsertData<T: D2ABatchInsertable, V: NSEntityDescription>(_ data: [T], into entity: V, context: NSManagedObjectContext) async {
+        let insertRequest = NSBatchInsertRequest(entity: entity, objects: data.map { $0.dictionaries })
+        insertRequest.resultType = .statusOnly
+        await context.perform {
+            do {
+                let fetchResult = try context.execute(insertRequest)
+                if let batchInsertResult = fetchResult as? NSBatchInsertResult,
+                   let success = batchInsertResult.result as? Bool {
+                    if !success {
+                        logError("Failed to insert data in \(entity.name ?? "Unknown entity")", category: .coredata)
+                    } else {
+                        logDebug("Insert data in \(entity.name ?? "Unknown entity") success", category: .coredata)
+                    }
+                } else {
+                    logWarn("Cast NSBatchInsertResult failed", category: .coredata)
+                }
+            } catch {
+                logError("An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)", category: .coredata)
+            }
+        }
+    }
+    
+    private func hasData<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) async -> Bool {
+        let request = T.fetchRequest()
+        request.fetchLimit = 1
+        return await context.perform {
+            do {
+                let count = try context.count(for: request)
+                return count > 0
+            } catch {
+                logError("Cannot count number of heroes saved in Core Data", category: .coredata)
+                return true
+            }
+        }
+    }
+    
+    func resetHeroData(context: NSManagedObjectContext) async {
+        await context.perform {
+            do {
+                let heroes = try context.fetch(Hero.fetchRequest())
+                let abilities = try context.fetch(Ability.fetchRequest())
+                for hero in heroes {
+                    context.delete(hero)
+                }
+                for ability in abilities {
+                    context.delete(ability)
+                }
+                try context.save()
+            } catch {
+                logError("Reset failed: \(error)", category: .coredata)
+            }
+        }
+        await loadConstantData()
     }
 }

@@ -7,13 +7,15 @@
 
 import Foundation
 
-struct Ability: Codable, Identifiable {
-    var id = UUID()
+struct ODAbility: Codable, Identifiable, D2ABatchInsertable {
     
+    var id: Int?
+    
+    var name: String?
     var img: String?
     var dname: String?
     var desc: String?
-    var attributes: [AbilityAttribute]?
+    var attributes: [Attribute]?
     var behavior: StringOrArray?
     var damageType: StringOrArray?
     var bkbPierce: StringOrArray?
@@ -23,17 +25,6 @@ struct Ability: Codable, Identifiable {
     var coolDown: StringOrArray?  // CD can be String or [String]
     var targetTeam: StringOrArray?
     var targetType: StringOrArray?
-    
-    var name: String? {
-        guard let imageURL = img else {
-            return nil
-        }
-        let name = imageURL
-            .replacingOccurrences(of: "/apps/dota2/images/dota_react/abilities/", with: "")
-            .replacingOccurrences(of: "_md", with: "")
-            .replacingOccurrences(of: ".png", with: "")
-        return name
-    }
     
     var imageURL: String? {
         guard let imageURL = img?
@@ -59,28 +50,50 @@ struct Ability: Codable, Identifiable {
         case targetTeam = "target_team"
         case targetType = "target_type"
     }
-}
-
-struct AbilityAttribute: Codable, Hashable {
     
-    var key: String?
-    var header: String?
-    var value: StringOrArray?
-    var generated: Bool?
-    
-    enum CodingKeys: String, CodingKey {
-        case key
-        case header
-        case value
-        case generated
-    }
-    
-    static func == (lhs: AbilityAttribute, rhs: AbilityAttribute) -> Bool {
-        return lhs.key == rhs.key
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(key)
+    var dictionaries: [String: Any] {
+        guard let id, let name, let dname else {
+            return [:]
+        }
+        var result: [String: Any] = [:]
+        result["id"] = id
+        result["name"] = name
+        result["displayName"] = dname
+        if let img = img {
+            result["img"] = img
+        }
+        if let desc = desc {
+            result["desc"] = desc
+        }
+        if let targetType = targetType?.transformString() {
+            result["targetType"] = targetType
+        }
+        if let behavior = behavior?.transformString() {
+            result["behavior"] = behavior
+        }
+        if let bkbPierce = bkbPierce?.transformString() {
+            result["bkbPierce"] = bkbPierce
+        }
+        if let dispellable = dispellable?.transformString() {
+            result["dispellable"] = dispellable
+        }
+        if let manaCost = manaCost?.transformString() {
+            result["manaCost"] = manaCost
+        }
+        if let coolDown = coolDown?.transformString() {
+            result["coolDown"] = coolDown
+        }
+        if let targetTeam = targetTeam?.transformString() {
+            result["targetTeam"] = targetTeam
+        }
+        if let lore {
+            result["lore"] = lore
+        }
+        
+        if let attributes {
+            result["attributes"] = attributes.map { AbilityAttribute(attribute: $0) }
+        }
+        return result
     }
 }
 
@@ -126,7 +139,7 @@ enum StringOrArray: Codable {
 
 struct AbilityContainer: Identifiable {
     var id = UUID()
-    var ability: Ability
+    var ability: ODAbility
     var heroID: Int
     var abilityName: String
 }

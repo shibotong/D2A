@@ -15,9 +15,9 @@ struct D2AApp: App {
     @StateObject var heroDatabase: HeroDatabase = HeroDatabase.shared
     @StateObject var storeManager: StoreManager = StoreManager.shared
     #if DEBUG
-    @StateObject var logger: D2ALogger = D2ALogger()
+    @StateObject var logger: D2ALogger = D2ALogger.shared
     #endif
-    let persistenceController = PersistenceController.shared
+    let persistanceController = PersistanceController.shared
     @AppStorage("selectedMatch") var selectedMatch: String?
     @AppStorage("selectedUser") var selectedUser: String?
     
@@ -34,7 +34,7 @@ struct D2AApp: App {
             #if DEBUG
                 .environmentObject(logger)
             #endif
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, persistanceController.container.viewContext)
                 .onOpenURL { url in
                     print(url.absoluteString)
                     environment.userActive = false

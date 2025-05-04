@@ -12,21 +12,10 @@ enum PersistanceError: Error {
     case persistentHistoryChangeError
 }
 
-class PersistenceController {
-    static let shared = PersistenceController()
+class PersistanceController {
+    static let shared = PersistanceController()
 
-    static var preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
-        let viewContext = result.container.viewContext
-        let previewID = "preview"
-        UserProfile.create(id: previewID, favourite: true, register: true, controller: result)
-        UserProfile.create(id: "preview 1", favourite: true, controller: result)
-        UserProfile.create(id: "preview 2", favourite: true, controller: result)
-        UserProfile.create(id: "preview 3", favourite: true, controller: result)
-        UserProfile.create(id: "preview 4", favourite: true, controller: result)
-        _ = RecentMatch.create(userID: previewID, matchID: previewID, controller: result)
-        return result
-    }()
+    static let preview = PersistanceController()
 
     let container: NSPersistentContainer
     private var notificationToken: NSObjectProtocol?
@@ -51,9 +40,15 @@ class PersistenceController {
     }()
 
     init(inMemory: Bool = uiTesting ? true : false) {
+        Self.registerClasses()
         container = NSPersistentContainer(name: "D2AModel")
         container.viewContext.automaticallyMergesChangesFromParent = true
         loadContainer(inMemory: inMemory)
+    }
+    
+    static func registerClasses() {
+        // Register the transformer with the exact name used in the Core Data model
+        ArrayValueTransformer<AbilityAttribute>.registerTransformer(with: .abilityAttribute)
     }
     
     private func removeContainer() {

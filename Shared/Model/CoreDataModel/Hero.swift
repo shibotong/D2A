@@ -17,8 +17,8 @@ extension Hero {
     
     // MARK: - Static func
     /// Create `Hero` with `HeroModel` and `HeroQuery.Data.Constants.Hero` and save into Core Data
-    static func createHero(_ queryHero: HeroQuery.Data.Constants.Hero, model: HeroCodable, abilities: [String] = []) throws -> Hero {
-        let viewContext = PersistenceController.shared.container.viewContext
+    static func createHero(_ queryHero: HeroQuery.Data.Constants.Hero, model: ODHero, abilities: [String] = []) throws -> Hero {
+        let viewContext = PersistanceController.shared.container.viewContext
         
         guard let heroID = queryHero.id,
               let heroTalents = queryHero.talents,
@@ -39,7 +39,6 @@ extension Hero {
         hero.talents = NSSet(array: try heroTalents.map({ return try Talent.createTalent($0) }))
         
         // data from OpenDota
-        hero.abilities = abilities
         hero.primaryAttr = model.primaryAttr
         hero.attackType = model.attackType
         hero.img = model.img
@@ -73,12 +72,37 @@ extension Hero {
     
     /// Fetch `Hero` with `id` in CoreData
     static func fetchHero(id: Double) -> Hero? {
-        let viewContext = PersistenceController.shared.container.viewContext
+        let viewContext = PersistanceController.shared.container.viewContext
         let fetchHero: NSFetchRequest<Hero> = Hero.fetchRequest()
         fetchHero.predicate = NSPredicate(format: "id == %f", id)
         
         let results = try? viewContext.fetch(fetchHero)
         return results?.first
+    }
+    
+    static func fetch(id: Double, context: NSManagedObjectContext) -> Hero? {
+        let predicate = NSPredicate(format: "id == %f", id)
+        return fetchOne(predicate: predicate, context: context)
+    }
+    
+    static func fetchByName(name: String, context: NSManagedObjectContext) -> Hero? {
+        let predicate = NSPredicate(format: "name == %@", name)
+        return fetchOne(predicate: predicate, context: context)
+    }
+    
+    static func fetchOne(predicate: NSPredicate, context: NSManagedObjectContext) -> Hero? {
+        let request = Self.fetchRequest()
+        request.predicate = predicate
+        do {
+            guard let result = try context.fetch(request).first else {
+                logError("Failed to fetch Hero with predicate \(predicate.predicateFormat)", category: .coredata)
+                return nil
+            }
+            return result
+        } catch {
+            logError("Failed to fetch Hero: \(error)", category: .coredata)
+            return nil
+        }
     }
     
     // MARK: - Static let

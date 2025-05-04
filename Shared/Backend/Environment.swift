@@ -88,7 +88,7 @@ final class DotaEnvironment: ObservableObject {
     }
     
     private func removeNotFavouriteRecentMatches() {
-        let moc = PersistenceController.shared.makeContext()
+        let moc = PersistanceController.shared.makeContext()
         let fetchRequest = UserProfile.fetchRequest()
         let notFavouritePredicate = NSPredicate(format: "favourite = %d", false)
         fetchRequest.predicate = notFavouritePredicate
@@ -97,7 +97,7 @@ final class DotaEnvironment: ObservableObject {
         }
         players.forEach { player in
             guard let playerID = player.id else { return }
-            PersistenceController.shared.deleteRecentMatchesForUserID(userID: playerID)
+            PersistanceController.shared.deleteRecentMatchesForUserID(userID: playerID)
         }
     }
 }

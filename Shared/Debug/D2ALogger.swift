@@ -27,7 +27,7 @@ func logDebug(_ message: String, category: D2AServiceCategory) {
      @Published var logging: Double
      
      private var cancellable: AnyCancellable?
-     var loggingLevel: LoggingLevel = .debug
+     var loggingLevel: LoggingLevel = .warn
      
      init() {
          logging = Double(loggingLevel.rawValue)

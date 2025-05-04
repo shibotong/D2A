@@ -18,7 +18,7 @@ extension Talent {
         guard let talent = talent else {
             throw CoreDataError.nilValue
         }
-        let viewContext = PersistenceController.shared.container.viewContext
+        let viewContext = PersistanceController.shared.container.viewContext
         let newTalent = Talent(context: viewContext)
         guard let talentID = talent.abilityId,
               let slot = talent.slot else {

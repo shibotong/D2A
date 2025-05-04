@@ -13,7 +13,7 @@ import Apollo
 
 class HeroDetailViewModel: ObservableObject {
     @Published var hero: Hero?
-    @Published var selectedAbility: Ability?
+    @Published var selectedAbility: ODAbility?
     
     @Published var heroID: Int
     
@@ -22,7 +22,7 @@ class HeroDetailViewModel: ObservableObject {
     
     @Published var loadingHero: Bool
     
-    @Published var abilities: [Ability] = []
+    @Published var abilities: [ODAbility] = []
     
     private var database: HeroDatabase = HeroDatabase.shared
     
@@ -49,22 +49,22 @@ class HeroDetailViewModel: ObservableObject {
             }
             .assign(to: &$previousHeroID)
         
-        $hero
-            .map { [weak self] hero in
-                guard let abilityNames = hero?.abilities else {
-                    return []
-                }
-                let abilities = abilityNames.filter { ability in
-                    let containHidden = ability.contains("hidden")
-                    let containEmpty = ability.contains("empty")
-                    return !containHidden && !containEmpty
-                }.compactMap { [weak self] abilityName in
-                    self?.database.fetchOpenDotaAbility(name: abilityName)
-                }
-                self?.selectedAbility = abilities.first
-                return abilities
-            }
-            .assign(to: &$abilities)
+//        $hero
+//            .map { [weak self] hero in
+//                guard let abilityNames = hero?.abilities else {
+//                    return []
+//                }
+//                let abilities = abilityNames.filter { ability in
+//                    let containHidden = ability.contains("hidden")
+//                    let containEmpty = ability.contains("empty")
+//                    return !containHidden && !containEmpty
+//                }.compactMap { [weak self] abilityName in
+//                    self?.database.fetchOpenDotaAbility(name: abilityName)
+//                }
+//                self?.selectedAbility = abilities.first
+//                return abilities
+//            }
+//            .assign(to: &$abilities)
     }
     
     /// Load hero
