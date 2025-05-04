@@ -131,6 +131,37 @@ extension Hero {
     
     // MARK: - functions
     
+    func saveHeroToCoreData(context: NSManagedObjectContext, openDotaHero: ODHero) {
+        setIfNotEqual(entity: self, path: \.id, value: Double(openDotaHero.id))
+        setIfNotEqual(entity: self, path: \.displayName, value: openDotaHero.localizedName)
+        setIfNotEqual(entity: self, path: \.primaryAttr, value: openDotaHero.primaryAttr)
+        setIfNotEqual(entity: self, path: \.attackType, value: openDotaHero.attackType)
+        setIfNotEqual(entity: self, path: \.img, value: openDotaHero.img)
+        setIfNotEqual(entity: self, path: \.icon, value: openDotaHero.icon)
+        
+        setIfNotEqual(entity: self, path: \.baseHealth, value: openDotaHero.baseHealth)
+        setIfNotEqual(entity: self, path: \.baseHealthRegen, value: openDotaHero.baseHealthRegen)
+        setIfNotEqual(entity: self, path: \.baseMana, value: openDotaHero.baseMana)
+        setIfNotEqual(entity: self, path: \.baseManaRegen, value: openDotaHero.baseManaRegen)
+        setIfNotEqual(entity: self, path: \.baseArmor, value: openDotaHero.baseArmor)
+        setIfNotEqual(entity: self, path: \.baseMr, value: openDotaHero.baseMr)
+        setIfNotEqual(entity: self, path: \.baseAttackMin, value: openDotaHero.baseAttackMin)
+        setIfNotEqual(entity: self, path: \.baseAttackMax, value: openDotaHero.baseAttackMax)
+        
+        setIfNotEqual(entity: self, path: \.baseStr, value: openDotaHero.baseStr)
+        setIfNotEqual(entity: self, path: \.baseAgi, value: openDotaHero.baseAgi)
+        setIfNotEqual(entity: self, path: \.baseInt, value: openDotaHero.baseInt)
+        setIfNotEqual(entity: self, path: \.gainStr, value: openDotaHero.strGain)
+        setIfNotEqual(entity: self, path: \.gainAgi, value: openDotaHero.agiGain)
+        setIfNotEqual(entity: self, path: \.gainInt, value: openDotaHero.intGain)
+        
+        setIfNotEqual(entity: self, path: \.attackRange, value: openDotaHero.attackRange)
+        setIfNotEqual(entity: self, path: \.projectileSpeed, value: openDotaHero.projectileSpeed)
+        setIfNotEqual(entity: self, path: \.attackRate, value: openDotaHero.attackRate)
+        setIfNotEqual(entity: self, path: \.moveSpeed, value: openDotaHero.moveSpeed)
+        setIfNotEqual(entity: self, path: \.turnRate, value: openDotaHero.turnRate ?? 0.6)
+    }
+    
     /// calculate hero HP or Mana based on Level
     /// - Parameters:
     ///    - level: Level of `Hero`
