@@ -149,6 +149,6 @@ struct EmptyRegistedView: View {
 struct RegisteredPlayerView_Previews: PreviewProvider {
     static var previews: some View {
         RegisteredPlayerView()
-            .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
+            .environment(\.managedObjectContext, PersistanceController.previewContext)
     }
 }

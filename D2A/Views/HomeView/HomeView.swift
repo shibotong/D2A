@@ -28,6 +28,6 @@ struct PlayerListView_Previews: PreviewProvider {
         NavigationView {
             HomeView()
         }
-        .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
+        .environment(\.managedObjectContext, PersistanceController.previewContext)
     }
 }

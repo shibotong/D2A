@@ -156,7 +156,7 @@ struct MatchListRowView_Previews: PreviewProvider {
                     lobbyName: "Ranked"))
                 .previewDevice(.iPad)
                 .previewLayout(.fixed(width: 800, height: 70))
-                .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
+                .environment(\.managedObjectContext, PersistanceController.previewContext)
                 .previewDisplayName("iPad")
             MatchListRowView(
                 viewModel: MatchListRowViewModel(
@@ -170,7 +170,7 @@ struct MatchListRowView_Previews: PreviewProvider {
                     lobbyName: "Ranked"))
                 .previewDevice(.iPhone)
                 .previewLayout(.fixed(width: 375, height: 70))
-                .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
+                .environment(\.managedObjectContext, PersistanceController.previewContext)
                 .previewDisplayName("iPhone")
         }
     }
