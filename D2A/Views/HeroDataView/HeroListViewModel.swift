@@ -40,6 +40,7 @@ class HeroListViewModel: ObservableObject {
     init(heroes: [Hero]) {
         self.heroes = heroes
         filteredHeroes = heroes
+        setupBinding()
     }
     
     private func setupBinding() {
