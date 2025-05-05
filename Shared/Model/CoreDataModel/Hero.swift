@@ -36,7 +36,7 @@ extension Hero {
         hero.complexity = Int16(heroStats.complexity ?? 0)
         hero.visionDaytimeRange = heroStats.visionDaytimeRange ?? 1800
         hero.visionNighttimeRange = heroStats.visionNighttimeRange ?? 800
-        hero.roles = NSSet(array: try heroRoles.map({ return try Role.createRole($0) }))
+//        hero.roles = NSSet(array: try heroRoles.map({ return try Role.createRole($0) }))
         hero.talents = NSSet(array: try heroTalents.map({ return try Talent.createTalent($0) }))
         
         // data from OpenDota

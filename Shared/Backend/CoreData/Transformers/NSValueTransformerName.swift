@@ -9,4 +9,5 @@ import Foundation
 
 extension NSValueTransformerName {
     static let abilityAttribute = NSValueTransformerName("AbilityAttributeTransformer")
+    static let role = NSValueTransformerName("RoleTransformer")
 }

@@ -739,6 +739,7 @@
 		79E09FDC2DC8D8540086E80D /* HeroAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroAttribute.swift; sourceTree = "<group>"; };
 		79E09FE02DC8DB520086E80D /* AttributesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesView.swift; sourceTree = "<group>"; };
 		79E09FE42DC8E0CA0086E80D /* AttributeStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeStatsView.swift; sourceTree = "<group>"; };
+		79E09FEC2DC8F1D00086E80D /* Backend 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 2.xcdatamodel"; sourceTree = "<group>"; };
 		79EB3EF22DC4B0B4008C4F6D /* ODAbility+Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ODAbility+Attribute.swift"; sourceTree = "<group>"; };
 		79EB3EF62DC4B5D2008C4F6D /* D2ABatchInsertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ABatchInsertable.swift; sourceTree = "<group>"; };
 		79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
@@ -1311,12 +1312,10 @@
 		79A989022931DF61006AC847 /* CoreDataModel */ = {
 			isa = PBXGroup;
 			children = (
-				79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */,
 				7985E7EA28E53919007A43AF /* Hero.swift */,
 				79A988F82931D400006AC847 /* Match.swift */,
 				79A989032931E7F1006AC847 /* PermanentBuff.swift */,
 				79A988FC2931D6FF006AC847 /* Player.swift */,
-				7985E7EC28E53A40007A43AF /* Role.swift */,
 				7985E7EE28E53E47007A43AF /* Talent.swift */,
 				79A988FF2931DCE1006AC847 /* UserProfile.swift */,
 				798A5CF92945B3C300EB07B0 /* RecentMatch.swift */,
@@ -1417,9 +1416,19 @@
 			path = HeroDetailView;
 			sourceTree = "<group>";
 		};
+		79E09FED2DC8F2430086E80D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */,
+				7985E7EC28E53A40007A43AF /* Role.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		79EB3F7B2DC6EF41008C4F6D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				79E09FED2DC8F2430086E80D /* Models */,
 				79EB3F7C2DC6EF46008C4F6D /* Transformers */,
 			);
 			path = CoreData;
@@ -2869,9 +2878,10 @@
 		79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				79E09FEC2DC8F1D00086E80D /* Backend 2.xcdatamodel */,
 				79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */,
 			);
-			currentVersion = 79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */;
+			currentVersion = 79E09FEC2DC8F1D00086E80D /* Backend 2.xcdatamodel */;
 			path = D2AModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
