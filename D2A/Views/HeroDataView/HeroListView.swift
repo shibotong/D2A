@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct HeroListView: View {
-
+    
     @ObservedObject var viewModel: HeroListViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSize
     
@@ -18,7 +18,7 @@ struct HeroListView: View {
     }
     
     var body: some View {
-        buildBody()
+        mainBody
             .navigationTitle("Heroes")
             .searchable(text: $viewModel.searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
             .disableAutocorrection(true)
@@ -49,7 +49,7 @@ struct HeroListView: View {
     }
     
     @ViewBuilder
-    private func buildBody() -> some View {
+    private var mainBody: some View {
         if horizontalSize == .compact {
             if viewModel.isGridView {
                 ScrollView(.vertical, showsIndicators: false) {
@@ -128,7 +128,7 @@ struct HeroListView: View {
                 ForEach(heroes) { hero in
                     NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: Int(hero.id)))) {
                         buildHero(hero: hero)
-                            
+                        
                     }
                 }
             }
@@ -177,7 +177,7 @@ struct HeroListView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     Text(hero.heroNameLocalized)
                     Spacer()
-                    Image("hero_\(hero.primaryAttr)")
+                    Image("hero_\(hero.primaryAttr ?? "str")")
                         .resizable()
                         .frame(width: 20, height: 20)
                 }
@@ -186,10 +186,10 @@ struct HeroListView: View {
     }
 }
 
- struct HeroListView_Previews: PreviewProvider {
-     static var previews: some View {
-         NavigationView {
-             HeroListView(heroes: PersistanceController.previewHeroes)
-         }
-     }
- }
+struct HeroListView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            HeroListView(heroes: PersistanceController.previewHeroes)
+        }
+    }
+}
