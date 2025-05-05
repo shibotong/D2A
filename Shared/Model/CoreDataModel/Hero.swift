@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 import StratzAPI
+import SwiftUI
 
 extension Hero {
     // MARK: - Error
@@ -124,9 +125,18 @@ extension Hero {
         return NSLocalizedString(displayName ?? "no_name", comment: "")
     }
     
-    enum HeroHPMana: String {
+    enum HeroHPMana: String, CaseIterable {
         case hp = "HP"
         case mana = "Mana"
+        
+        var color: Color {
+            switch self {
+            case .hp:
+                return Color(UIColor.systemGreen)
+            case .mana:
+                return Color(UIColor.systemBlue)
+            }
+        }
     }
     
     // MARK: - functions
@@ -174,18 +184,6 @@ extension Hero {
         let totalStat = calculateAttribute(level: level, attr: attr)
         let value = Int(base + totalStat * max)
         return value
-    }
-    
-    private func calculateHPLevel(level: Double) -> Int {
-        let totalStr = calculateAttribute(level: level, attr: .str)
-        let hp = Int(baseHealth + totalStr * Hero.strMaxHP)
-        return hp
-    }
-    
-    private func calculateManaLevel(level: Double) -> Int {
-        let totalInt = calculateAttribute(level: level, attr: .int)
-        let hp = Int(baseMana + totalInt * Hero.intMaxMP)
-        return hp
     }
     
     /// calculate hero HP or Mana regen based on Level

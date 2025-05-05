@@ -52,7 +52,18 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildMainBody(hero: Hero) -> some View {
+    private var levelSlider: some View {
+        Slider(value: $heroLevel, in: 1...30, step: 1) {
+            Text("Level \(Int(heroLevel))")
+        } minimumValueLabel: {
+            Text("\(Int(heroLevel))")
+        } maximumValueLabel: {
+            Text("30")
+        }
+    }
+    
+    @ViewBuilder
+    private func buildMainBody(hero: Hero) -> some View {
         if horizontal == .compact {
             buildCompactBody(hero: hero)
         } else {
@@ -60,13 +71,14 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildRegularBody(hero: Hero) -> some View {
+    @ViewBuilder
+    private func buildRegularBody(hero: Hero) -> some View {
         VStack(spacing: 0) {
             buildTitle(hero: hero)
             HStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
-                        buildAttributes(hero: hero)
+                        AttributesView(hero: hero, level: Int(heroLevel))
                         Divider()
                         buildStats(hero: hero)
                         if let roles = hero.roles?.allObjects as? [Role] {
@@ -87,8 +99,10 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildCompactBody(hero: Hero) -> some View {
+    @ViewBuilder
+    private func buildCompactBody(hero: Hero) -> some View {
         ScrollView {
+            
             buildTitle(hero: hero)
             ScrollView(.horizontal, showsIndicators: false) {
                 buildAbilities(navigation: true)
@@ -98,7 +112,8 @@ struct HeroDetailView: View {
         }.navigationTitle(hero.heroNameLocalized)
     }
     
-    @ViewBuilder private func buildTitle(hero: Hero) -> some View {
+    @ViewBuilder
+    private func buildTitle(hero: Hero) -> some View {
         if horizontal == .compact {
             HeroImageView(heroID: Int(hero.id), type: .full)
                 .overlay(
@@ -146,7 +161,8 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildComplexity(_ heroComplexity: Int16) -> some View {
+    @ViewBuilder
+    private func buildComplexity(_ heroComplexity: Int16) -> some View {
         let color: Color = horizontal == .compact ? .white : .label
         HStack {
             ForEach(1..<4) { complexity in
@@ -166,7 +182,8 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildAbilities(navigation: Bool) -> some View {
+    @ViewBuilder
+    private func buildAbilities(navigation: Bool) -> some View {
         HStack {
             ForEach(vm.abilities) { ability in
                 if navigation {
@@ -190,9 +207,10 @@ struct HeroDetailView: View {
         .padding(10)
     }
     
-    @ViewBuilder private func buildHeroDetails(hero: Hero) -> some View {
+    @ViewBuilder
+    private func buildHeroDetails(hero: Hero) -> some View {
         VStack {
-            buildAttributes(hero: hero)
+            AttributesView(hero: hero, level: Int(heroLevel))
             Divider()
             if let roles = hero.roles?.allObjects as? [Role] {
                 buildRoles(roles: roles)
@@ -206,7 +224,8 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildTalent(talent: [Talent]) -> some View {
+    @ViewBuilder
+    private func buildTalent(talent: [Talent]) -> some View {
         VStack {
             HStack {
                 Text("Talents")
@@ -224,7 +243,8 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildLevelTalent(talent: [Talent], level: Int) -> some View {
+    @ViewBuilder
+    private func buildLevelTalent(talent: [Talent], level: Int) -> some View {
         GeometryReader { proxy in
             HStack(spacing: 5) {
                 if let leftSideTalent = talent.first(where: { $0.slot == level * 2 - 1 }) {
@@ -255,7 +275,8 @@ struct HeroDetailView: View {
         .padding(.horizontal)
     }
     
-    @ViewBuilder private func buildRoles(roles: [Role]) -> some View {
+    @ViewBuilder
+    private func buildRoles(roles: [Role]) -> some View {
         VStack {
             HStack {
                 Text("Roles")
@@ -290,12 +311,14 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildRole(role: String, roles: [Role]) -> some View {
+    @ViewBuilder
+    private func buildRole(role: String, roles: [Role]) -> some View {
         let filterdRole = roles.first { $0.roleId == role.uppercased() }
         RoleView(title: role, level: filterdRole?.level ?? 0.0)
     }
     
-    @ViewBuilder private func buildStats(hero: Hero) -> some View {
+    @ViewBuilder
+    private func buildStats(hero: Hero) -> some View {
         VStack {
             HStack {
                 Text("Stats")
@@ -334,7 +357,8 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildStatDetail(image: String, value: String) -> some View {
+    @ViewBuilder
+    private func buildStatDetail(image: String, value: String) -> some View {
         HStack {
             Image(image)
                 .renderingMode(.template)
@@ -346,37 +370,8 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildAttributes(hero: Hero) -> some View {
-        VStack {
-            HStack {
-                Text("Attributes")
-                    .font(.system(size: 15))
-                    .bold()
-                Spacer()
-            }.padding(.bottom)
-            buildManaHealthBar(hero: hero, type: .hp)
-            buildManaHealthBar(hero: hero, type: .mana)
-            HStack {
-                Spacer()
-                buildStatLevel(hero: hero, type: .str)
-                Spacer()
-                buildStatLevel(hero: hero, type: .agi)
-                Spacer()
-                buildStatLevel(hero: hero, type: .int)
-                Spacer()
-            }
-            Slider(value: $heroLevel, in: 1...30, step: 1) {
-                Text("Level \(Int(heroLevel))")
-            } minimumValueLabel: {
-                Text("\(Int(heroLevel))")
-            } maximumValueLabel: {
-                Text("30")
-            }
-        }
-        .padding(.horizontal)
-    }
-    
-    @ViewBuilder private func buildStatLevel(hero: Hero, type: HeroAttribute) -> some View {
+    @ViewBuilder
+    private func buildStatLevel(hero: Hero, type: HeroAttribute) -> some View {
         let gain = hero.getGain(type: type)
         HStack {
             AttributeImage(attribute: type)
@@ -388,60 +383,17 @@ struct HeroDetailView: View {
                 .font(.system(size: 13))
         }
     }
-    
-    @ViewBuilder private func buildManaHealthBar(hero: Hero, type: Hero.HeroHPMana) -> some View {
-        let total = hero.calculateHPManaByLevel(level: heroLevel, type: type)
-        let barColor = type == .hp ? Color(UIColor.systemGreen) : Color(UIColor.systemBlue)
-        VStack(spacing: 0) {
-            HStack {
-                Text(LocalizedStringKey(type.rawValue))
-                    .font(.system(size: 15))
-                    .bold()
-                    .foregroundColor(.secondaryLabel)
-                Spacer()
-                Text("\(total)")
-                    .font(.system(size: 15))
-                    .bold()
-                Text("+ \(hero.calculateHPManaRegenByLevel(level: heroLevel, type: type), specifier: "%.1f")")
-                    .font(.system(size: 13))
-            }
-            GeometryReader { proxy in
-                let rectangles = Double(total) / 250.00
-                let numberOfRect = total / 250
-                let spacer = (total % 250 == 0) ? numberOfRect : numberOfRect + 1
-                let restWidth = proxy.size.width - CGFloat(spacer)
-                let rectWidth = restWidth / rectangles
-                
-                HStack(spacing: 1) {
-                    ForEach(0..<numberOfRect, id: \.self) { _ in
-                        Rectangle()
-                            .frame(width: rectWidth)
-                    }
-                    Rectangle()
-                }
-                .frame(height: 10)
-                .foregroundColor(barColor)
-                .clipShape(Capsule())
-            }
-        }
+}
+
+#Preview {
+    NavigationView {
+        HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
     }
 }
 
-struct HeroDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            NavigationView {
-                HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
-                    .environment(\.horizontalSizeClass, .regular)
-            }
-            .previewDevice(.iPhone)
-            
-            NavigationView {
-                EmptyView()
-                HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
-                    .environment(\.horizontalSizeClass, .regular)
-            }
-            .previewDevice(.iPad)
-        }
+#Preview {
+    NavigationView {
+        EmptyView()
+        HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
     }
 }
