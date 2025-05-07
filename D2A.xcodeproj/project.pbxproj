@@ -293,6 +293,7 @@
 		794FDF832DC73F3F00FB541D /* MockOpenDotaConstantProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794FDF7E2DC73E8200FB541D /* MockOpenDotaConstantProviding.swift */; };
 		794FDF842DC73F3F00FB541D /* MockOpenDotaConstantProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794FDF7E2DC73E8200FB541D /* MockOpenDotaConstantProviding.swift */; };
 		795860412A335D69006DDA21 /* LiveMatchMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795860402A335D69006DDA21 /* LiveMatchMapView.swift */; };
+		796448D12DC8F3CD00EAD049 /* RolesSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796448D02DC8F3CB00EAD049 /* RolesSectionView.swift */; };
 		79645CC32A39D1610004EF50 /* LiveMatchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79645CC22A39D1610004EF50 /* LiveMatchListView.swift */; };
 		7965F636293ADE1900922F99 /* RegisteredPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */; };
 		796BF20429F5536000555C64 /* HeroListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796BF20329F5536000555C64 /* HeroListView.swift */; };
@@ -671,6 +672,7 @@
 		794FDF7D2DC73E2500FB541D /* PersistanceController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistanceController+Preview.swift"; sourceTree = "<group>"; };
 		794FDF7E2DC73E8200FB541D /* MockOpenDotaConstantProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockOpenDotaConstantProviding.swift; sourceTree = "<group>"; };
 		795860402A335D69006DDA21 /* LiveMatchMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchMapView.swift; sourceTree = "<group>"; };
+		796448D02DC8F3CB00EAD049 /* RolesSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolesSectionView.swift; sourceTree = "<group>"; };
 		79645CC22A39D1610004EF50 /* LiveMatchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchListView.swift; sourceTree = "<group>"; };
 		7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredPlayerView.swift; sourceTree = "<group>"; };
 		796BF20329F5536000555C64 /* HeroListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroListView.swift; sourceTree = "<group>"; };
@@ -880,7 +882,6 @@
 				79E09FD92DC8D75A0086E80D /* HeroDetailView */,
 				796BF20329F5536000555C64 /* HeroListView.swift */,
 				327B87772852263300BBE1F8 /* HeroListViewModel.swift */,
-				79368C0928E6D8ED009517D2 /* RoleView.swift */,
 				7912B6E12B5D021700AE1947 /* AbilityView */,
 			);
 			path = HeroDataView;
@@ -1407,6 +1408,8 @@
 		79E09FD92DC8D75A0086E80D /* HeroDetailView */ = {
 			isa = PBXGroup;
 			children = (
+				79368C0928E6D8ED009517D2 /* RoleView.swift */,
+				796448D02DC8F3CB00EAD049 /* RolesSectionView.swift */,
 				79E09FE02DC8DB520086E80D /* AttributesView.swift */,
 				79E09FDA2DC8D7650086E80D /* HealthManaView.swift */,
 				79E09FE42DC8E0CA0086E80D /* AttributeStatsView.swift */,
@@ -1898,6 +1901,7 @@
 				796FE19C29AAF659003379EB /* AbilityImage.swift in Sources */,
 				325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */,
 				79B870BA2DC394C10090CAB8 /* OpenDotaConstantService.swift in Sources */,
+				796448D12DC8F3CD00EAD049 /* RolesSectionView.swift in Sources */,
 				79EB3EF52DC4B0BB008C4F6D /* ODAbility+Attribute.swift in Sources */,
 				79B870BB2DC394C10090CAB8 /* OpenDotaConstantProvider.swift in Sources */,
 				79CF37672DC0F96100207CB8 /* D2AServiceCategory.swift in Sources */,
