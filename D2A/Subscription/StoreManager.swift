@@ -32,13 +32,12 @@ class StoreManager: NSObject, ObservableObject {
         }
     }
     
+    @MainActor
     func requestProducts() async {
         do {
             // Request products from the App Store using the identifiers defined in the Products.plist file.
             let storeProducts = try await Product.products(for: productIDs)
-            DispatchQueue.main.async { [weak self] in
-                self?.products = storeProducts
-            }
+            products = storeProducts
         } catch {
             print("Failed product request: \(error)")
         }
