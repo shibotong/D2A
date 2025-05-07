@@ -78,7 +78,7 @@ struct HeroDetailView: View {
             HStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
-                        AttributesView(hero: hero, level: Int(heroLevel))
+                        AttributesSectionView(hero: hero, level: Int(heroLevel))
                         Divider()
                         buildStats(hero: hero)
 //                        if let roles = hero.roles?.allObjects as? [Role] {
@@ -210,7 +210,7 @@ struct HeroDetailView: View {
     @ViewBuilder
     private func buildHeroDetails(hero: Hero) -> some View {
         VStack {
-            AttributesView(hero: hero, level: Int(heroLevel))
+            AttributesSectionView(hero: hero, level: Int(heroLevel))
             Divider()
 //            if let roles = hero.roles?.allObjects as? [Role] {
 //                buildRoles(roles: roles)

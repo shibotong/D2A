@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AttributesView: View {
+struct AttributesSectionView: View {
     
     let hero: Hero
     let level: Int
@@ -28,5 +28,5 @@ struct AttributesView: View {
 }
 
 #Preview {
-    AttributesView(hero: PersistanceController.previewHeroes.first!, level: 1)
+    AttributesSectionView(hero: PersistanceController.previewHeroes.first!, level: 1)
 }
