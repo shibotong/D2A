@@ -45,35 +45,36 @@ class HeroDatabase: ObservableObject {
          openDotaProvider: OpenDotaConstantProviding = OpenDotaConstantProvider.shared) {
         self.stratzProvider = stratzProvider
         self.openDotaProvider = openDotaProvider
-        loadData()
+        Task {
+            await loadData()
+        }
     }
     
-    func loadData() {
+    @MainActor
+    func loadData() async {
         gameModes = loadGameModes()
         regions = loadRegion()!
         lobbyTypes = loadLobby()!
         
-        Task { [weak self] in
-            async let idTable = loadItemIDs()
-            async let items = loadItems()
-            async let heroes = loadHeroes()
-            async let abilityIDTable = loadAbilityID()
-            async let abilities = loadAbilities()
-            async let heroAbilities = loadHeroAbilities()
-            async let scepter = loadScepter()
-            async let stratzAbilities = self?.stratzProvider.loadAbilities()
-            
-            self?.itemIDTable = await idTable
-            self?.items = await items
-            self?.heroes = await heroes
-            self?.abilityIDTable = await abilityIDTable
-            self?.abilities = await abilities
-            self?.heroAbilities = await heroAbilities
-            self?.scepterData = await scepter
-            self?.apolloAbilities = await stratzAbilities ?? []
-            
-            await self?.loadConstantData()
-        }
+        async let idTable = loadItemIDs()
+        async let items = loadItems()
+        async let heroes = loadHeroes()
+        async let abilityIDTable = loadAbilityID()
+        async let abilities = loadAbilities()
+        async let heroAbilities = loadHeroAbilities()
+        async let scepter = loadScepter()
+        async let stratzAbilities = stratzProvider.loadAbilities()
+        
+        self.itemIDTable = await idTable
+        self.items = await items
+        self.heroes = await heroes
+        self.abilityIDTable = await abilityIDTable
+        self.abilities = await abilities
+        self.heroAbilities = await heroAbilities
+        self.scepterData = await scepter
+        self.apolloAbilities = await stratzAbilities
+        
+        await loadConstantData()
     }
 
     func fetchHeroWithID(id: Int) throws -> ODHero {
@@ -246,7 +247,7 @@ class HeroDatabase: ObservableObject {
     private func saveAbilitiesToHero(context: NSManagedObjectContext) async {
         let heroAbilities = await openDotaProvider.loadAbilitiesForHeroes()
         for (name, heroAbility) in heroAbilities {
-            guard let hero = await Hero.fetchByName(name: name, context: context) else {
+            guard let hero = Hero.fetchByName(name: name, context: context) else {
                 logError("Cannot find hero: \(name)", category: .coredata)
                 continue
             }
