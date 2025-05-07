@@ -212,10 +212,6 @@ struct HeroDetailView: View {
         VStack {
             AttributesSectionView(hero: hero, level: Int(heroLevel))
             Divider()
-//            if let roles = hero.roles?.allObjects as? [Role] {
-//                buildRoles(roles: roles)
-//                Divider()
-//            }
             buildStats(hero: hero)
             Divider()
             if let talents = hero.talents?.allObjects as? [Talent] {
@@ -274,48 +270,6 @@ struct HeroDetailView: View {
         .frame(height: 30)
         .padding(.horizontal)
     }
-    
-//    @ViewBuilder
-//    private func buildRoles(roles: [Role]) -> some View {
-//        VStack {
-//            HStack {
-//                Text("Roles")
-//                    .font(.system(size: 15))
-//                    .bold()
-//                Spacer()
-//            }.padding(.leading)
-//            GeometryReader { proxy in
-//                let horizontalSpacing: CGFloat = 32
-//                let verticalSpacing: CGFloat = 8
-//                let width = (proxy.size.width - horizontalSpacing * 4) / 3
-//                HStack(spacing: horizontalSpacing) {
-//                    VStack(alignment: .leading, spacing: verticalSpacing) {
-//                        buildRole(role: "Carry", roles: roles)
-//                        buildRole(role: "Disabler", roles: roles)
-//                        buildRole(role: "Escape", roles: roles)
-//                    }.frame(width: width)
-//                    VStack(alignment: .leading, spacing: verticalSpacing) {
-//                        buildRole(role: "Support", roles: roles)
-//                        buildRole(role: "Jungler", roles: roles)
-//                        buildRole(role: "Pusher", roles: roles)
-//                    }.frame(width: width)
-//                    VStack(alignment: .leading, spacing: verticalSpacing) {
-//                        buildRole(role: "Nuker", roles: roles)
-//                        buildRole(role: "Durable", roles: roles)
-//                        buildRole(role: "Initiator", roles: roles)
-//                    }.frame(width: width)
-//                }
-//                .padding(.horizontal, horizontalSpacing)
-//            }
-//            .frame(height: 120)
-//        }
-//    }
-    
-//    @ViewBuilder
-//    private func buildRole(role: String, roles: [Role]) -> some View {
-//        let filterdRole = roles.first { $0.roleId == role.uppercased() }
-//        RoleView(title: role, level: filterdRole?.level ?? 0.0)
-//    }
     
     @ViewBuilder
     private func buildStats(hero: Hero) -> some View {
