@@ -298,15 +298,15 @@
 		7977FDA129C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
 		7977FDA229C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
 		7977FDA329C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
-		797C88B62DCB5F2200D4CDD1 /* HealthManaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B52DCB5F1D00D4CDD1 /* HealthManaView.swift */; };
-		797C88BA2DCB75A300D4CDD1 /* Hero+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */; };
-		797C88BD2DCB75AE00D4CDD1 /* PersistanceController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B82DCB750E00D4CDD1 /* PersistanceController+Preview.swift */; };
 		797C88AD2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88AC2DCB59B700D4CDD1 /* UserDefaults.swift */; };
 		797C88AE2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88AC2DCB59B700D4CDD1 /* UserDefaults.swift */; };
 		797C88AF2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88AC2DCB59B700D4CDD1 /* UserDefaults.swift */; };
 		797C88B12DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B02DCB5B8900D4CDD1 /* NotificationCenter.swift */; };
 		797C88B22DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B02DCB5B8900D4CDD1 /* NotificationCenter.swift */; };
 		797C88B32DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B02DCB5B8900D4CDD1 /* NotificationCenter.swift */; };
+		797C88B62DCB5F2200D4CDD1 /* HealthManaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B52DCB5F1D00D4CDD1 /* HealthManaView.swift */; };
+		797C88BA2DCB75A300D4CDD1 /* Hero+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */; };
+		797C88BD2DCB75AE00D4CDD1 /* PersistanceController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B82DCB750E00D4CDD1 /* PersistanceController+Preview.swift */; };
 		79837B50294C181200458529 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798A5CF92945B3C300EB07B0 /* RecentMatch.swift */; };
 		79837B51294C181200458529 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798A5CF92945B3C300EB07B0 /* RecentMatch.swift */; };
 		79837B53294C189200458529 /* PlayerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79837B52294C189200458529 /* PlayerRowView.swift */; };
@@ -674,11 +674,11 @@
 		796FE19D29AB006C003379EB /* AbilityImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityImageViewModel.swift; sourceTree = "<group>"; };
 		797776D02B60C5E6000E6C3B /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		7977FDA029C1770B0034D3EA /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		797C88AC2DCB59B700D4CDD1 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		797C88B02DCB5B8900D4CDD1 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		797C88B52DCB5F1D00D4CDD1 /* HealthManaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManaView.swift; sourceTree = "<group>"; };
 		797C88B82DCB750E00D4CDD1 /* PersistanceController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistanceController+Preview.swift"; sourceTree = "<group>"; };
 		797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hero+Preview.swift"; sourceTree = "<group>"; };
-		797C88AC2DCB59B700D4CDD1 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
-		797C88B02DCB5B8900D4CDD1 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		79837B52294C189200458529 /* PlayerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowView.swift; sourceTree = "<group>"; };
 		79837B54294C18FE00458529 /* DamageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageView.swift; sourceTree = "<group>"; };
 		7983DA6A2B63083E00C42F87 /* D2AWidgetMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AWidgetMatch.swift; sourceTree = "<group>"; };
@@ -1257,15 +1257,15 @@
 			path = UIScreenshotTests;
 			sourceTree = "<group>";
 		};
-		797C88B42DCB5EFE00D4CDD1 /* HeroDetailView */ = {
+		797C88B42DCB5EFE00D4CDD1 /* HeroDetail */ = {
 			isa = PBXGroup;
 			children = (
-				79C538102DCB776800B5920A /* SectionTitle.swift */,
 				79C5380D2DCB771A00B5920A /* Attribute */,
+				79C538102DCB776800B5920A /* SectionTitle.swift */,
 				3261C906282F315100D47CDA /* HeroDetailView.swift */,
 				3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */,
 			);
-			path = HeroDetailView;
+			path = HeroDetail;
 			sourceTree = "<group>";
 		};
 		797C88B72DCB74E100D4CDD1 /* Previews */ = {
@@ -1405,7 +1405,7 @@
 		79C5380A2DCB76B200B5920A /* Hero */ = {
 			isa = PBXGroup;
 			children = (
-				797C88B42DCB5EFE00D4CDD1 /* HeroDetailView */,
+				797C88B42DCB5EFE00D4CDD1 /* HeroDetail */,
 				796BF20329F5536000555C64 /* HeroListView.swift */,
 				327B87772852263300BBE1F8 /* HeroListViewModel.swift */,
 				79368C0928E6D8ED009517D2 /* RoleView.swift */,
