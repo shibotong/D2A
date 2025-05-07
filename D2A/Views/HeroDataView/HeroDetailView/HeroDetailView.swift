@@ -81,10 +81,10 @@ struct HeroDetailView: View {
                         AttributesSectionView(hero: hero, level: Int(heroLevel))
                         Divider()
                         buildStats(hero: hero)
-//                        if let roles = hero.roles?.allObjects as? [Role] {
-//                            Divider()
-//                            buildRoles(roles: roles)
-//                        }
+                        if let roles = hero.roles {
+                            Divider()
+                            RolesSectionView(roles: roles)
+                        }
                         if let talents = hero.talents?.allObjects as? [Talent] {
                             Divider()
                             buildTalent(talent: talents)
