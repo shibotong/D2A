@@ -350,9 +350,9 @@ class HeroDatabase: ObservableObject {
     }
     
     private func updateHeroesData(heroes: [ODHero], context: NSManagedObjectContext) async {
-        for openDotaHero in heroes {
-            let hero = Hero.fetch(id: Double(openDotaHero.id), context: context) ?? Hero(context: context)
-            await context.perform {
+        await context.perform {
+            for openDotaHero in heroes {
+                let hero = Hero.fetch(id: Double(openDotaHero.id), context: context) ?? Hero(context: context)
                 hero.saveHeroToCoreData(context: context, openDotaHero: openDotaHero)
                 if hero.hasChanges {
                     do {
