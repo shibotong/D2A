@@ -253,6 +253,9 @@
 		790102C229F40F8200E8A320 /* secrets.json.sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 790102BF29F40F7B00E8A320 /* secrets.json.sample.json */; };
 		790266462A35454500CE54DF /* LiveMatchEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790266452A35454500CE54DF /* LiveMatchEventListView.swift */; };
 		790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790266482A35478D00CE54DF /* LiveMatchEventRowView.swift */; };
+		79046E722DCB7FA00006FB86 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79046E712DCB7F9D0006FB86 /* AVAsset.swift */; };
+		79046E732DCB7FA00006FB86 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79046E712DCB7F9D0006FB86 /* AVAsset.swift */; };
+		79046E742DCB7FA00006FB86 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79046E712DCB7F9D0006FB86 /* AVAsset.swift */; };
 		79091DF52A3B2E2C0093EEE4 /* LiveMatchActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */; };
 		79091DF62A3B2E2F0093EEE4 /* LiveMatchActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */; };
 		79091DF72A3B2FBD0093EEE4 /* LiveMatchActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */; };
@@ -648,6 +651,7 @@
 		790102BF29F40F7B00E8A320 /* secrets.json.sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = secrets.json.sample.json; sourceTree = "<group>"; };
 		790266452A35454500CE54DF /* LiveMatchEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchEventListView.swift; sourceTree = "<group>"; };
 		790266482A35478D00CE54DF /* LiveMatchEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchEventRowView.swift; sourceTree = "<group>"; };
+		79046E712DCB7F9D0006FB86 /* AVAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAsset.swift; sourceTree = "<group>"; };
 		79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityAttributes.swift; sourceTree = "<group>"; };
 		79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityWidget.swift; sourceTree = "<group>"; };
 		79091DFB2A3B36310093EEE4 /* LiveMatchTeamIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchTeamIconView.swift; sourceTree = "<group>"; };
@@ -1030,6 +1034,7 @@
 		32B36F2B26C3885A002D427D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				79046E712DCB7F9D0006FB86 /* AVAsset.swift */,
 				797C88B02DCB5B8900D4CDD1 /* NotificationCenter.swift */,
 				797C88AC2DCB59B700D4CDD1 /* UserDefaults.swift */,
 				79B870C62DC39C930090CAB8 /* NSManagedObject.swift */,
@@ -1840,6 +1845,7 @@
 				322B894026CE696C00DF67F9 /* DifferenceGraphView.swift in Sources */,
 				79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */,
 				79A988FD2931D6FF006AC847 /* Player.swift in Sources */,
+				79046E742DCB7FA00006FB86 /* AVAsset.swift in Sources */,
 				79837B53294C189200458529 /* PlayerRowView.swift in Sources */,
 				79D5282228DD74930070841D /* Secret.swift in Sources */,
 				32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */,
@@ -2026,6 +2032,7 @@
 				79091DF62A3B2E2F0093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 				327B87752850DA9E00BBE1F8 /* Item.swift in Sources */,
 				79EB3EEC2DC4ACA0008C4F6D /* Hero.swift in Sources */,
+				79046E732DCB7FA00006FB86 /* AVAsset.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2112,6 +2119,7 @@
 				79091DF82A3B2FC00093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 				327B87762850DA9F00BBE1F8 /* Item.swift in Sources */,
 				79EB3EED2DC4ACA0008C4F6D /* Hero.swift in Sources */,
+				79046E722DCB7FA00006FB86 /* AVAsset.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

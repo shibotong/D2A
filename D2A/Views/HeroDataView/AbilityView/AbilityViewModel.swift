@@ -111,13 +111,13 @@ class AbilityViewModel: ObservableObject {
         var shard: AVAsset?
         guard let abilityName = opentDotaAbility?.name else { return }
         if abilityVideo == nil {
-            ability = getVideoURL(abilityName, type: .non)
+            ability = await getVideoURL(abilityName, type: .non)
         }
         if scepterVideo == nil {
-            scepter = getVideoURL(abilityName, type: .scepter)
+            scepter = await getVideoURL(abilityName, type: .scepter)
         }
         if shardVideo == nil {
-            shard = getVideoURL(abilityName, type: .shard)
+            shard = await getVideoURL(abilityName, type: .shard)
         }
         await setVideoURL(ability: ability, scepter: scepter, shard: shard)
     }
@@ -141,7 +141,7 @@ class AbilityViewModel: ObservableObject {
         }
     }
     
-    private func getVideoURL(_ ability: String, type: ScepterType) -> AVAsset? {
+    private func getVideoURL(_ ability: String, type: ScepterType) async -> AVAsset? {
         guard let heroName = try? database.fetchHeroWithID(id: heroID).name.replacingOccurrences(of: "npc_dota_hero_", with: "") else {
             return nil
         }
@@ -159,7 +159,9 @@ class AbilityViewModel: ObservableObject {
         guard let video = CacheVideo.shared.getVideo(key: path, heroID: heroID) else {
             return nil
         }
-        return video.isPlayable ? video: nil
+        let isPlayable = await video.isPlayable()
+        
+        return isPlayable ? video : nil
     }
 }
 
