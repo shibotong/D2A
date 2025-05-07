@@ -351,8 +351,8 @@ class HeroDatabase: ObservableObject {
     
     private func updateHeroesData(heroes: [ODHero], context: NSManagedObjectContext) async {
         for openDotaHero in heroes {
-            let hero = await Hero.fetch(id: Double(openDotaHero.id), context: context) ?? Hero(context: context)
             await context.perform {
+                let hero = Hero.fetch(id: Double(openDotaHero.id), context: context) ?? Hero(context: context)
                 setIfNotEqual(entity: hero, path: \.id, value: Double(openDotaHero.id))
                 setIfNotEqual(entity: hero, path: \.displayName, value: openDotaHero.localizedName)
                 setIfNotEqual(entity: hero, path: \.primaryAttr, value: openDotaHero.primaryAttr)
