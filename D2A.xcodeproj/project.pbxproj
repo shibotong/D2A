@@ -298,6 +298,12 @@
 		7977FDA129C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
 		7977FDA229C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
 		7977FDA329C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
+		797C88AD2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88AC2DCB59B700D4CDD1 /* UserDefaults.swift */; };
+		797C88AE2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88AC2DCB59B700D4CDD1 /* UserDefaults.swift */; };
+		797C88AF2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88AC2DCB59B700D4CDD1 /* UserDefaults.swift */; };
+		797C88B12DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B02DCB5B8900D4CDD1 /* NotificationCenter.swift */; };
+		797C88B22DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B02DCB5B8900D4CDD1 /* NotificationCenter.swift */; };
+		797C88B32DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B02DCB5B8900D4CDD1 /* NotificationCenter.swift */; };
 		79837B50294C181200458529 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798A5CF92945B3C300EB07B0 /* RecentMatch.swift */; };
 		79837B51294C181200458529 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798A5CF92945B3C300EB07B0 /* RecentMatch.swift */; };
 		79837B53294C189200458529 /* PlayerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79837B52294C189200458529 /* PlayerRowView.swift */; };
@@ -662,6 +668,8 @@
 		796FE19D29AB006C003379EB /* AbilityImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityImageViewModel.swift; sourceTree = "<group>"; };
 		797776D02B60C5E6000E6C3B /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		7977FDA029C1770B0034D3EA /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		797C88AC2DCB59B700D4CDD1 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		797C88B02DCB5B8900D4CDD1 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		79837B52294C189200458529 /* PlayerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowView.swift; sourceTree = "<group>"; };
 		79837B54294C18FE00458529 /* DamageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageView.swift; sourceTree = "<group>"; };
 		7983DA6A2B63083E00C42F87 /* D2AWidgetMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AWidgetMatch.swift; sourceTree = "<group>"; };
@@ -1020,6 +1028,8 @@
 		32B36F2B26C3885A002D427D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				797C88B02DCB5B8900D4CDD1 /* NotificationCenter.swift */,
+				797C88AC2DCB59B700D4CDD1 /* UserDefaults.swift */,
 				79B870C62DC39C930090CAB8 /* NSManagedObject.swift */,
 				32B36F2C26C3885A002D427D /* Color.swift */,
 				32897B0726C4EFF1008D3CC8 /* Int.swift */,
@@ -1793,6 +1803,7 @@
 				32B526D3285C1DBC0099B058 /* Extension.swift in Sources */,
 				32B36F2726C38852002D427D /* ODHero.swift in Sources */,
 				79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */,
+				797C88B32DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */,
 				32B36F4A26C39242002D427D /* StringVariable.swift in Sources */,
 				7985E7EB28E53919007A43AF /* Hero.swift in Sources */,
 				798A5CF82945503100EB07B0 /* ProfileAvatar.swift in Sources */,
@@ -1921,6 +1932,7 @@
 				323ADB06272B8D4900253124 /* Patch.swift in Sources */,
 				794B723D2985D2C9000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				7912B6E32B5D022C00AE1947 /* AbilityTitleView.swift in Sources */,
+				797C88AD2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */,
 				798A5CFA2945B3C300EB07B0 /* RecentMatch.swift in Sources */,
 				32B36F2D26C3885A002D427D /* Color.swift in Sources */,
 				32B526C5285C0B730099B058 /* IntentHandler.swift in Sources */,
@@ -1941,6 +1953,7 @@
 				32F70B1B26F6295B006E9B05 /* Int.swift in Sources */,
 				79A989172931E8F3006AC847 /* Talent.swift in Sources */,
 				32F70ADC26F60B30006E9B05 /* StringVariable.swift in Sources */,
+				797C88B22DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */,
 				32B526CB285C0CE40099B058 /* RecentMatchesWidgetEntryView.swift in Sources */,
 				79D5282328DD74930070841D /* Secret.swift in Sources */,
 				790FBB3129C18ABC00E27106 /* Network.swift in Sources */,
@@ -1987,6 +2000,7 @@
 				79A989202931ECBB006AC847 /* Player.swift in Sources */,
 				32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */,
 				32B526C3285C0B380099B058 /* IntentHandler.swift in Sources */,
+				797C88AF2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */,
 				32A26C5528594A28005E890F /* Environment.swift in Sources */,
 				32F70ADE26F60B95006E9B05 /* UserProfileCodable.swift in Sources */,
 				797776D22B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
@@ -2025,6 +2039,7 @@
 				32F70B2226F6295C006E9B05 /* CodingKey.swift in Sources */,
 				32F70B1126F622C5006E9B05 /* ODHero.swift in Sources */,
 				32F70B0F26F622C0006E9B05 /* LobbyType.swift in Sources */,
+				797C88B12DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */,
 				79D5282428DD74930070841D /* Secret.swift in Sources */,
 				32F70B1026F622C2006E9B05 /* GameMode.swift in Sources */,
 				790FBB3229C18ABC00E27106 /* Network.swift in Sources */,
@@ -2071,6 +2086,7 @@
 				79A989212931ECBB006AC847 /* Player.swift in Sources */,
 				32B526C4285C0B380099B058 /* IntentHandler.swift in Sources */,
 				32EC7F3828646BAE00A36AF6 /* RecentMatchesWidgetEntryView.swift in Sources */,
+				797C88AE2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */,
 				32A26C5628594A28005E890F /* Environment.swift in Sources */,
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				797776D32B60C5E6000E6C3B /* ViewExtension.swift in Sources */,

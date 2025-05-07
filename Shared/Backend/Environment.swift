@@ -26,7 +26,7 @@ final class DotaEnvironment: ObservableObject {
     
     @Published var subscriptionStatus: Bool {
         didSet {
-            UserDefaults(suiteName: GROUP_NAME)!.set(subscriptionStatus, forKey: UserDefaults.subscription)
+            UserDefaults.group.set(subscriptionStatus, forKey: UserDefaults.subscription)
         }
     }
     

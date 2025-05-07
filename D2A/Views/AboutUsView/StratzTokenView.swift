@@ -9,7 +9,12 @@ import SwiftUI
 
 struct StratzTokenView: View {
     
-    @AppStorage(UserDefaults.stratzToken, store: UserDefaults(suiteName: GROUP_NAME)) private var stratzToken: String = ""
+    @AppStorage(UserDefaults.stratzToken, store: UserDefaults.group) 
+    private var stratzToken: String = ""
+    
+    @State private var editToken: String = ""
+    
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ScrollView {
@@ -20,7 +25,7 @@ struct StratzTokenView: View {
                         .bold()
                     Spacer()
                 }
-                TextField("Stratz Token", text: $stratzToken)
+                TextField("Stratz Token", text: $editToken)
                     .padding()
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .background(RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(.primaryDota))
@@ -30,6 +35,18 @@ struct StratzTokenView: View {
             .background(Color.systemBackground)
         }
         .navigationTitle("Stratz Token")
+        .task {
+            editToken = stratzToken
+        }
+        .toolbar {
+            ToolbarItem {
+                Button("Save") {
+                    stratzToken = editToken
+                    NotificationCenter.stratzToken.send(stratzToken)
+                    dismiss()
+                }
+            }
+        }
     }
 }
 
