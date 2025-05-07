@@ -95,7 +95,6 @@ struct LatestMatchWidgetEntryView_Previews: PreviewProvider {
     static var previews: some View {
         ForEach(widgetFamilies, id: \.rawValue) { family in
             LatestMatchWidgetEntryView(entry: D2AWidgetUserEntry.preview)
-//                .environment(\.widgetFamily, family)
                 .previewContext(WidgetPreviewContext(family: family))
         }
         

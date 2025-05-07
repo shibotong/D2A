@@ -50,12 +50,7 @@ let colonLocalize: Character = {
     }
 }()
 
-extension PreviewDevice: Identifiable {
-    
-    public var id: String {
-        return rawValue
-    }
-
+extension PreviewDevice {
     static let iPhoneDevices = [PreviewDevice.iPhoneSE, PreviewDevice.iPhone, PreviewDevice.iPhoneProMax]
 
     static let iPadDevies = [PreviewDevice.iPadMini, PreviewDevice.iPad]
