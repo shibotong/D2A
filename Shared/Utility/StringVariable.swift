@@ -44,11 +44,6 @@ let colonLocalize: Character = {
     }
 }()
 
-extension UserDefaults {
-    static let stratzToken = "stratzToken"
-    static let subscription = "dotaArmory.subscription"
-}
-
 extension PreviewDevice: Identifiable {
     
     public var id: String {
