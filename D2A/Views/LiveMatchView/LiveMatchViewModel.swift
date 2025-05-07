@@ -92,7 +92,7 @@ class LiveMatchViewModel: ObservableObject {
     func startFetching() {
         print("start subscription")
         fetchHistoryData(lastFetchTime: lastFetchTime)
-        startSubscription()
+//        startSubscription()
     }
     
 //    @MainActor
