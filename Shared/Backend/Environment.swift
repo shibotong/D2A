@@ -26,7 +26,7 @@ final class DotaEnvironment: ObservableObject {
     
     @Published var subscriptionStatus: Bool {
         didSet {
-            UserDefaults(suiteName: GROUP_NAME)!.set(subscriptionStatus, forKey: "dotaArmory.subscription")
+            UserDefaults(suiteName: GROUP_NAME)!.set(subscriptionStatus, forKey: UserDefaults.subscription)
         }
     }
     
@@ -56,7 +56,7 @@ final class DotaEnvironment: ObservableObject {
     }
 
     init() {
-        subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
+        subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: UserDefaults.subscription) as? Bool ?? false
         tab = .home
     }
     

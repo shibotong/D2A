@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StratzTokenView: View {
     
-    @AppStorage("stratzToken") private var stratzToken: String = ""
+    @AppStorage(UserDefaults.stratzToken, store: UserDefaults(suiteName: GROUP_NAME)) private var stratzToken: String = ""
     
     var body: some View {
         ScrollView {
