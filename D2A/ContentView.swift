@@ -41,46 +41,60 @@ struct NavigationHostView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {
-            if horizontalSizeClass == .compact {
-                TabView(selection: $env.selectedTab) {
-                    NavigationView {
-                        HomeView()
-                    }.tabItem {
-                        Image(systemName: "house")
-                        Text("Home")
-                    }.tag(TabSelection.home).navigationViewStyle(.stack)
-                    NavigationView {
-                        HeroListView()
-                    }.tabItem {
-                        Image(systemName: "server.rack")
-                        Text("Heroes")
-                    }.tag(TabSelection.hero).navigationViewStyle(.stack)
-                    NavigationView {
-                        LiveMatchListView()
-                    }.tabItem {
-                        Image(systemName: "gamecontroller.fill")
-                        Text("Live")
-                    }.tag(TabSelection.live).navigationViewStyle(.stack)
-                    NavigationView {
-                        SearchView()
-                    }
-                    .tabItem {
-                        Image(systemName: "magnifyingglass")
-                        Text("Search")
-                    }.tag(TabSelection.search).navigationViewStyle(.stack)
-                    NavigationView {
-                        AboutUsView()
-                    }
-                    .tabItem {
-                        Image(systemName: "ellipsis")
-                        Text("More")
-                    }.tag(TabSelection.setting).navigationViewStyle(.stack)
-                }
-            } else {
-                NavigationView {
-                    Sidebar()
+        if horizontalSizeClass == .compact {
+            TabView(selection: $env.selectedTab) {
+                D2ANavigationStack {
                     HomeView()
                 }
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
+                }
+                .tag(TabSelection.home)
+                
+                D2ANavigationStack {
+                    HeroListView()
+                }
+                .tabItem {
+                    Image(systemName: "server.rack")
+                    Text("Heroes")
+                }
+                .tag(TabSelection.hero)
+                
+                D2ANavigationStack {
+                    LiveMatchListView()
+                }
+                .tabItem {
+                    Image(systemName: "gamecontroller.fill")
+                    Text("Live")
+                }
+                .tag(TabSelection.live)
+                
+                D2ANavigationStack {
+                    SearchView()
+                }
+                .tabItem {
+                    Image(systemName: "magnifyingglass")
+                    Text("Search")
+                }
+                .tag(TabSelection.search)
+                
+                D2ANavigationStack {
+                    AboutUsView()
+                }
+                .tabItem {
+                    Image(systemName: "ellipsis")
+                    Text("More")
+                }
+                .tag(TabSelection.setting)
             }
+        } else {
+            D2ANavigationSplitView {
+                Sidebar()
+            } detail: {
+                HomeView()
+            }
+
+        }
     }
 }
