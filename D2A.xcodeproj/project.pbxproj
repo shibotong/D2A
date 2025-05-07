@@ -436,6 +436,7 @@
 		79EB3F882DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */; };
 		79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
+		79F5F5B22DCB461F00194FD5 /* StratzTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5F5B12DCB461700194FD5 /* StratzTokenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -726,6 +727,7 @@
 		79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODHeroAbilities.swift; sourceTree = "<group>"; };
 		79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Backend.xcdatamodel; sourceTree = "<group>"; };
 		79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceContainer.swift; sourceTree = "<group>"; };
+		79F5F5B12DCB461700194FD5 /* StratzTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratzTokenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1095,6 +1097,7 @@
 			isa = PBXGroup;
 			children = (
 				321D589F26D234A90059526B /* AboutUsView.swift */,
+				79F5F5B12DCB461700194FD5 /* StratzTokenView.swift */,
 				32D1605926F304DC00657449 /* StoreView.swift */,
 			);
 			path = AboutUsView;
@@ -1890,6 +1893,7 @@
 				322B89C926D0F61900DF67F9 /* ProfileViewModel.swift in Sources */,
 				79EB3EF92DC4B5D8008C4F6D /* D2ABatchInsertable.swift in Sources */,
 				79BD87302A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift in Sources */,
+				79F5F5B22DCB461F00194FD5 /* StratzTokenView.swift in Sources */,
 				79CB52462A31B38200C5D1C6 /* LiveMatchViewModel.swift in Sources */,
 				328D88B5288EB4F700DFD204 /* SharingLink.swift in Sources */,
 				795860412A335D69006DDA21 /* LiveMatchMapView.swift in Sources */,

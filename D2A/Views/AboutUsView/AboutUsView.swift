@@ -54,6 +54,10 @@ struct AboutUsView: View {
                 makeRow(image: "person", text: "Terms of Use", link: URL(string: TERMS_OF_USE))
                 
                 makeDetailRow(image: "app.badge", text: "App Version", detail: "\(versionNumber)(\(buildNumber))")
+                NavigationLink(destination: StratzTokenView()) {
+                    makeDetailRow(image: "chevron.left.slash.chevron.right", text: "Stratz Token", detail: "")
+                }
+                
             }
             Section(header: Text("Thanks To")) {
                 makeRow(image: "heart.fill", text: "OpenDotaAPI", link: URL(string: "https://www.opendota.com"))
