@@ -298,6 +298,9 @@
 		7977FDA129C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
 		7977FDA229C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
 		7977FDA329C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
+		797C88B62DCB5F2200D4CDD1 /* HealthManaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B52DCB5F1D00D4CDD1 /* HealthManaView.swift */; };
+		797C88BA2DCB75A300D4CDD1 /* Hero+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */; };
+		797C88BD2DCB75AE00D4CDD1 /* PersistanceController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B82DCB750E00D4CDD1 /* PersistanceController+Preview.swift */; };
 		79837B50294C181200458529 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798A5CF92945B3C300EB07B0 /* RecentMatch.swift */; };
 		79837B51294C181200458529 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798A5CF92945B3C300EB07B0 /* RecentMatch.swift */; };
 		79837B53294C189200458529 /* PlayerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79837B52294C189200458529 /* PlayerRowView.swift */; };
@@ -662,6 +665,9 @@
 		796FE19D29AB006C003379EB /* AbilityImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityImageViewModel.swift; sourceTree = "<group>"; };
 		797776D02B60C5E6000E6C3B /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		7977FDA029C1770B0034D3EA /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		797C88B52DCB5F1D00D4CDD1 /* HealthManaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManaView.swift; sourceTree = "<group>"; };
+		797C88B82DCB750E00D4CDD1 /* PersistanceController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistanceController+Preview.swift"; sourceTree = "<group>"; };
+		797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hero+Preview.swift"; sourceTree = "<group>"; };
 		79837B52294C189200458529 /* PlayerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowView.swift; sourceTree = "<group>"; };
 		79837B54294C18FE00458529 /* DamageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageView.swift; sourceTree = "<group>"; };
 		7983DA6A2B63083E00C42F87 /* D2AWidgetMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AWidgetMatch.swift; sourceTree = "<group>"; };
@@ -855,10 +861,9 @@
 		323ADB39272B92AD00253124 /* HeroDataView */ = {
 			isa = PBXGroup;
 			children = (
+				797C88B42DCB5EFE00D4CDD1 /* HeroDetailView */,
 				796BF20329F5536000555C64 /* HeroListView.swift */,
 				327B87772852263300BBE1F8 /* HeroListViewModel.swift */,
-				3261C906282F315100D47CDA /* HeroDetailView.swift */,
-				3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */,
 				79368C0928E6D8ED009517D2 /* RoleView.swift */,
 				7912B6E12B5D021700AE1947 /* AbilityView */,
 			);
@@ -938,6 +943,7 @@
 				32B36F0D26C38821002D427D /* D2A */,
 				32F70AA026F57F7E006E9B05 /* D2AWidget */,
 				32F70AE926F61836006E9B05 /* D2AWidgetIntentHandler */,
+				797C88B72DCB74E100D4CDD1 /* Previews */,
 				3266081C27CED53C00D9A204 /* Shared */,
 				3289579A27F6609B00BA9847 /* Unit Tests */,
 				79CF637A29C40B700072F4C0 /* UI Tests */,
@@ -1245,6 +1251,25 @@
 				790102B929F40C4600E8A320 /* ScreenShotTests.swift */,
 			);
 			path = UIScreenshotTests;
+			sourceTree = "<group>";
+		};
+		797C88B42DCB5EFE00D4CDD1 /* HeroDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				797C88B52DCB5F1D00D4CDD1 /* HealthManaView.swift */,
+				3261C906282F315100D47CDA /* HeroDetailView.swift */,
+				3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */,
+			);
+			path = HeroDetailView;
+			sourceTree = "<group>";
+		};
+		797C88B72DCB74E100D4CDD1 /* Previews */ = {
+			isa = PBXGroup;
+			children = (
+				797C88B82DCB750E00D4CDD1 /* PersistanceController+Preview.swift */,
+				797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */,
+			);
+			path = Previews;
 			sourceTree = "<group>";
 		};
 		7983DA6E2B63085C00C42F87 /* Model */ = {
@@ -1886,6 +1911,7 @@
 				79CF376F2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				79837B55294C18FE00458529 /* DamageView.swift in Sources */,
 				79A989002931DCE1006AC847 /* UserProfile.swift in Sources */,
+				797C88BA2DCB75A300D4CDD1 /* Hero+Preview.swift in Sources */,
 				79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32B36F0F26C38821002D427D /* D2AApp.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
@@ -1906,6 +1932,7 @@
 				3201BC3F26F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */,
 				323BCBA3285584D90061F937 /* CalendarMatchListView.swift in Sources */,
+				797C88B62DCB5F2200D4CDD1 /* HealthManaView.swift in Sources */,
 				790102B829F4099D00E8A320 /* AttributeImage.swift in Sources */,
 				79DEA8432A36A3060009A414 /* PlayerRowViewModel.swift in Sources */,
 				3252859E26CB9FDC0030F15B /* Sidebar.swift in Sources */,
@@ -1920,6 +1947,7 @@
 				32D3EB4F26ED7B9B00AA8D8B /* ODAbility.swift in Sources */,
 				323ADB06272B8D4900253124 /* Patch.swift in Sources */,
 				794B723D2985D2C9000059E4 /* RecentMatchWinLossView.swift in Sources */,
+				797C88BD2DCB75AE00D4CDD1 /* PersistanceController+Preview.swift in Sources */,
 				7912B6E32B5D022C00AE1947 /* AbilityTitleView.swift in Sources */,
 				798A5CFA2945B3C300EB07B0 /* RecentMatch.swift in Sources */,
 				32B36F2D26C3885A002D427D /* Color.swift in Sources */,
