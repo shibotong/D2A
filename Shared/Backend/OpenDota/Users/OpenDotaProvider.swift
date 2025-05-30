@@ -29,11 +29,8 @@ class OpenDotaProvider: OpenDotaProviding {
     }
     
     func getRecentMatches(userid: String) async -> [RecentMatchCodable] {
-        let url = URL(string: "\(baseURL)/api/players/\(userid)/recentMatches")
         do {
-            let (data, _) = try await URLSession.shared.data(from: url!)
-            let decoder = JSONDecoder()
-            let recentMatches = try decoder.decode([RecentMatchCodable].self, from: data)
+            let recentMatches = try await loadData("/players/\(userid)/recentMatches", as: [RecentMatchCodable].self)
             return recentMatches
         } catch {
             print(error.localizedDescription)
@@ -105,6 +102,7 @@ class OpenDotaProvider: OpenDotaProviding {
         }
     }
     
+    /// Load data with path `\(baseURL)/api`
     private func loadData<T: Decodable>(_ path: String, as type: T.Type) async throws -> T {
         let urlString = "\(baseURL)/api\(path)"
         return try await D2ANetwork.default.dataTask(urlString, as: T.self)
