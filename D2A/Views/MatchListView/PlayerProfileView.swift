@@ -250,7 +250,7 @@ struct PlayerProfileView: View {
     }
     
     private func refreshUser() async {
-        guard let profileCodable = try? await OpenDotaController.shared.loadUserData(userid: userid) else {
+        guard let profileCodable = try? await OpenDotaProvider.shared.loadUserData(userid: userid) else {
             print("cancelled search")
             return
         }
@@ -262,7 +262,7 @@ struct PlayerProfileView: View {
             return
         }
         await setLoading(true)
-        await OpenDotaController.shared.loadRecentMatch(userid: userID)
+        await OpenDotaProvider.shared.loadRecentMatch(userid: userID)
         await setLoading(false)
     }
     

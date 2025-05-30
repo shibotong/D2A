@@ -80,14 +80,14 @@ struct Provider: IntentTimelineProvider {
     }
     
     private func loadNewMatches(for userID: String) async -> [RecentMatch] {
-        await OpenDotaController.shared.loadRecentMatch(userid: userID)
+        await OpenDotaProvider.shared.loadRecentMatch(userid: userID)
         let newMatches = RecentMatch.fetch(userID: userID, count: 10)
         return newMatches
     }
     
     private func refreshUser(for userID: String) async -> UserProfile? {
         do {
-            let profileCodable = try await OpenDotaController.shared.loadUserData(userid: userID)
+            let profileCodable = try await OpenDotaProvider.shared.loadUserData(userid: userID)
             _ = try UserProfile.create(profileCodable)
             let newProfile = UserProfile.fetch(id: userID)
             return newProfile

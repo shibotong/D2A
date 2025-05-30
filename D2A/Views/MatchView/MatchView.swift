@@ -67,7 +67,7 @@ struct MatchView: View {
     
     private func loadMatch() async {
         do {
-            _ = try await OpenDotaController.shared.loadMatchData(matchid: matchid)
+            _ = try await OpenDotaProvider.shared.loadMatchData(matchid: matchid)
         } catch {
             env.errorMessage = error.localizedDescription
             env.error = true
