@@ -11,7 +11,7 @@ import CoreData
 extension RecentMatch {
     
     static func create(_ match: RecentMatchCodable, discardable: Bool = false) throws -> RecentMatch {
-        let viewContext = PersistanceController.shared.makeContext(author: "RecentMatch")
+        let viewContext = PersistanceProvider.shared.makeContext(author: "RecentMatch")
         let newRecentMatch = fetch(match.id.description, userID: match.playerId?.description ?? "") ?? RecentMatch(context: viewContext)
         newRecentMatch.update(match)
         if !discardable {
@@ -22,7 +22,7 @@ extension RecentMatch {
     }
     
     static func create(_ matches: [RecentMatchCodable]) async throws {
-        let viewContext = PersistanceController.shared.makeContext(author: "RecentMatch")
+        let viewContext = PersistanceProvider.shared.makeContext(author: "RecentMatch")
         weak var weakContext = viewContext
         try await viewContext.perform {
             guard let strongContext = weakContext else {
@@ -47,7 +47,7 @@ extension RecentMatch {
             if let result = try strongContext.execute(request) as? NSBatchInsertResult,
                let objs = result.result as? [NSManagedObjectID] {
                 let changes: [AnyHashable: Any] = [NSInsertedObjectIDsKey: objs]
-                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [PersistanceController.shared.container.viewContext])
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [PersistanceProvider.shared.container.viewContext])
                 return
             }
             throw PersistanceError.insertError
@@ -68,7 +68,7 @@ extension RecentMatch {
                        startTime: Date = Date(),
                        partySize: Int16 = 5,
                        skill: Int16 = 0,
-                       controller: PersistanceController = PersistanceController.shared) -> RecentMatch {
+                       controller: PersistanceProvider = PersistanceProvider.shared) -> RecentMatch {
         let viewContext = controller.makeContext(author: "RecentMatch")
         let match = RecentMatch(context: viewContext)
         match.playerId = userID
@@ -92,7 +92,7 @@ extension RecentMatch {
     }
     
     func batchInsertItem(amount: Int) async throws -> Bool {
-        let context = PersistanceController.shared.container.newBackgroundContext()
+        let context = PersistanceProvider.shared.container.newBackgroundContext()
         return try await context.perform {
             var index = 0
             let batchRequest = NSBatchInsertRequest(entityName: "Item", dictionaryHandler: { dict in
@@ -114,7 +114,7 @@ extension RecentMatch {
     }
     
     static func fetch(_ matchID: String, userID: String) -> RecentMatch? {
-        let viewContext = PersistanceController.shared.container.viewContext
+        let viewContext = PersistanceProvider.shared.container.viewContext
         let fetchResult: NSFetchRequest<RecentMatch> = RecentMatch.fetchRequest()
         fetchResult.predicate = NSPredicate(format: "id = %@ AND playerId = %@", matchID, userID)
         
@@ -126,7 +126,7 @@ extension RecentMatch {
     /// This function fetches user matches from latest
     /// - parameter userid: Player ID
     /// - parameter count: The number of matches to fetch
-    static func fetch(userID: String, count: Int, viewContext: NSManagedObjectContext = PersistanceController.shared.container.viewContext) -> [RecentMatch] {
+    static func fetch(userID: String, count: Int, viewContext: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext) -> [RecentMatch] {
         let fetchResult: NSFetchRequest<RecentMatch> = RecentMatch.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "startTime", ascending: false)
         fetchResult.sortDescriptors = [sortDescriptor]
@@ -141,7 +141,7 @@ extension RecentMatch {
         }
     }
     
-    static func fetch(userID: String, on date: Date, viewContext: NSManagedObjectContext = PersistanceController.shared.container.viewContext) -> [RecentMatch] {
+    static func fetch(userID: String, on date: Date, viewContext: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext) -> [RecentMatch] {
         let fetchResult: NSFetchRequest<RecentMatch> = RecentMatch.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "startTime", ascending: false)
         fetchResult.sortDescriptors = [sortDescriptor]

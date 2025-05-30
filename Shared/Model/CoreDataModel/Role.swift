@@ -18,7 +18,7 @@ extension Role {
         guard let role = role else {
             throw CoreDataError.nilValue
         }
-        let viewContext = PersistanceController.shared.container.viewContext
+        let viewContext = PersistanceProvider.shared.container.viewContext
         let newRole = Role(context: viewContext)
         guard let roleID = role.roleId,
               let level = role.level else {

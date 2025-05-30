@@ -123,7 +123,7 @@ struct AboutUsView: View {
     static var previews: some View {
         AboutUsView()
             .environment(\.locale, .init(identifier: "zh-Hans"))
-            .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
+            .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
             .environmentObject(D2ALogger())
             .environmentObject(HeroDatabase.preview)
             

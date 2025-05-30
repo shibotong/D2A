@@ -7,15 +7,22 @@
 
 import CoreData
 
+protocol PersistanceProviding {
+    func saveODHeroes(heroes: [ODHero]) async
+    func saveODAbilities(abilities: [ODAbility]) async
+    func saveAbilitiesToHero(heroAbilities: [String: ODHeroAbilities]) async
+}
+
 enum PersistanceError: Error {
     case insertError
     case persistentHistoryChangeError
 }
 
-class PersistanceController {
-    static let shared = PersistanceController()
+class PersistanceProvider: PersistanceProviding {
+    
+    static let shared = PersistanceProvider()
 
-    static let preview = PersistanceController()
+    static let preview = PersistanceProvider()
 
     let container: NSPersistentContainer
     private var notificationToken: NSObjectProtocol?
@@ -134,6 +141,117 @@ class PersistanceController {
             let deletedObjects: [AnyHashable: Any] = [NSDeletedObjectsKey: deleteResult]
             
             NSManagedObjectContext.mergeChanges(fromRemoteContextSave: deletedObjects, into: [strongSelf.container.viewContext])
+        }
+    }
+    
+    
+    // MARK: - Save constant data
+    func saveODHeroes(heroes: [ODHero]) async {
+        let viewContext = container.newBackgroundContext()
+        if await hasData(for: Hero.self, context: viewContext) {
+            await updateData(data: heroes, context: viewContext)
+        } else {
+            await batchInsertData(heroes, into: Hero.entity(), context: viewContext)
+        }
+    }
+    
+    func saveODAbilities(abilities: [ODAbility]) async {
+        let context = container.newBackgroundContext()
+        if await hasData(for: Ability.self, context: context) {
+            await updateData(data: abilities, context: context)
+        } else {
+            await batchInsertData(abilities, into: Ability.entity(), context: context)
+        }
+    }
+    
+    func saveAbilitiesToHero(heroAbilities: [String : ODHeroAbilities]) async {
+        let context = container.newBackgroundContext()
+        for (name, heroAbility) in heroAbilities {
+            guard let hero = Hero.fetchByName(name: name, context: context) else {
+                logError("Cannot find hero: \(name)", category: .coredata)
+                continue
+            }
+            let abilityNames = heroAbility.abilities
+            
+            if let currentAbilities = hero.abilities?.compactMap({ ($0 as? Ability) }) {
+                guard currentAbilities.compactMap(\.name) != abilityNames else {
+                    continue
+                }
+                await context.perform {
+                    for ability in currentAbilities {
+                        hero.removeFromAbilities(ability)
+                    }
+                }
+            }
+            
+            let abilities = Ability.fetchByNames(names: abilityNames, context: context)
+            
+            await context.perform {
+                for ability in abilities {
+                    hero.addToAbilities(ability)
+                }
+                if hero.hasChanges {
+                    do {
+                        try context.save()
+                        logDebug("Save hero ability \(hero.id) success", category: .coredata)
+                    } catch {
+                        logError("\(hero.id) abilities save failed. \(error)", category: .coredata)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func updateData(data: [PersistanceModel], context: NSManagedObjectContext) async {
+        for object in data {
+            await context.perform {
+                do {
+                    let newObject = try object.update(context: context)
+                    guard newObject.hasChanges else {
+                        return
+                    }
+                    try context.save()
+                } catch {
+                    logError("An error occured when updating data in Core Data \(error.localizedDescription)", category: .coredata)
+                }
+            }
+        }
+    }
+    
+    /// Check if there is any data saved in core data
+    private func hasData<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) async -> Bool {
+        let request = T.fetchRequest()
+        request.fetchLimit = 1
+        return await context.perform {
+            do {
+                let count = try context.count(for: request)
+                return count > 0
+            } catch {
+                logError("Cannot count number of heroes saved in Core Data", category: .coredata)
+                return true
+            }
+        }
+    }
+    
+    private func batchInsertData<T: PersistanceModel, V: NSEntityDescription>(_ data: [T], into entity: V, context: NSManagedObjectContext) async {
+        let insertRequest = NSBatchInsertRequest(entity: entity, objects: data.map { $0.dictionaries })
+        insertRequest.resultType = .statusOnly
+        await context.perform {
+            do {
+                let fetchResult = try context.execute(insertRequest)
+                if let batchInsertResult = fetchResult as? NSBatchInsertResult,
+                   let success = batchInsertResult.result as? Bool {
+                    if !success {
+                        logError("Failed to insert data in \(entity.name ?? "Unknown entity")", category: .coredata)
+                    } else {
+                        logDebug("Insert data in \(entity.name ?? "Unknown entity") success", category: .coredata)
+                    }
+                } else {
+                    logWarn("Cast NSBatchInsertResult failed", category: .coredata)
+                }
+            } catch {
+                logError("An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)", category: .coredata)
+            }
         }
     }
 }
