@@ -21,7 +21,7 @@ extension Match {
                        radiantKill: Int16 = 20,
                        radiantWin: Bool = true,
                        startTime: Date = Date(),
-                       controller: PersistanceController = PersistanceController.shared) {
+                       controller: PersistanceProvider = PersistanceProvider.shared) {
         let viewContext = controller.makeContext(author: "Match")
         let matchCoreData = fetch(id: id) ?? Match(context: viewContext)
         matchCoreData.id = id
@@ -50,7 +50,7 @@ extension Match {
     }
     
     static func create(_ match: MatchCodable) throws -> Match {
-        let viewContext = PersistanceController.shared.makeContext(author: "Match")
+        let viewContext = PersistanceProvider.shared.makeContext(author: "Match")
         let matchCoreData = fetch(id: match.id.description) ?? Match(context: viewContext)
         matchCoreData.update(match)
         try viewContext.save()
@@ -61,7 +61,7 @@ extension Match {
     
     /// Fetch `Match` with `id` in CoreData
     static func fetch(id: String) -> Match? {
-        let viewContext = PersistanceController.shared.container.viewContext
+        let viewContext = PersistanceProvider.shared.container.viewContext
         let fetchMatch: NSFetchRequest<Match> = Match.fetchRequest()
         let predicate = NSPredicate(format: "id == %@", id)
         fetchMatch.predicate = predicate
@@ -74,7 +74,7 @@ extension Match {
         guard let match = fetch(id: id) else {
             return
         }
-        let viewContext = PersistanceController.shared.container.viewContext
+        let viewContext = PersistanceProvider.shared.container.viewContext
         viewContext.delete(match)
         print("delete \(id) success")
     }

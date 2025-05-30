@@ -18,12 +18,11 @@ enum PersistanceError: Error {
     case persistentHistoryChangeError
 }
 
-class PersistanceController: PersistanceProviding {
+class PersistanceProvider: PersistanceProviding {
     
-    
-    static let shared = PersistanceController()
+    static let shared = PersistanceProvider()
 
-    static let preview = PersistanceController()
+    static let preview = PersistanceProvider()
 
     let container: NSPersistentContainer
     private var notificationToken: NSObjectProtocol?

@@ -7,7 +7,7 @@
 
 extension Hero {
     static let previewHeroes: [Hero] = {
-        let heroes = try? PersistanceController.previewContext.fetch(Hero.fetchRequest())
+        let heroes = try? PersistanceProvider.previewContext.fetch(Hero.fetchRequest())
         return heroes ?? []
     }()
         

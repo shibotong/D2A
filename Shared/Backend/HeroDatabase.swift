@@ -44,7 +44,7 @@ class HeroDatabase: ObservableObject {
     
     init(stratzProvider: StratzProviding = StratzController.shared,
          openDotaProvider: OpenDotaConstantProviding = OpenDotaConstantProvider.shared,
-         persistanceProvider: PersistanceProviding = PersistanceController.shared) {
+         persistanceProvider: PersistanceProviding = PersistanceProvider.shared) {
         self.stratzProvider = stratzProvider
         self.openDotaProvider = openDotaProvider
         self.persistanceProvider = persistanceProvider

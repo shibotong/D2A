@@ -23,7 +23,7 @@ extension UserProfile {
     }
     
     private static var favouriteUsersCount: Int {
-        let viewContext = PersistanceController.shared.container.viewContext
+        let viewContext = PersistanceProvider.shared.container.viewContext
         let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         var predicates: [NSPredicate] = []
         let favouritePredicate = NSPredicate(format: "favourite = %d", true)
@@ -38,7 +38,7 @@ extension UserProfile {
     
     /// Create a new `UserProfile` with favourite and register
     static func create(_ profile: UserProfileCodable, favourite: Bool, register: Bool) throws {
-        let viewContext = PersistanceController.shared.makeContext(author: "UserProfile")
+        let viewContext = PersistanceProvider.shared.makeContext(author: "UserProfile")
         let newProfile = fetch(id: profile.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
         newProfile.update(profile)
         newProfile.favourite = favourite
@@ -48,7 +48,7 @@ extension UserProfile {
     }
     
     static func create(_ profile: UserProfileCodable) throws -> UserProfile {
-        let viewContext = PersistanceController.shared.makeContext(author: "UserProfile")
+        let viewContext = PersistanceProvider.shared.makeContext(author: "UserProfile")
         let newProfile = fetch(id: profile.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
         newProfile.update(profile)
         try viewContext.save()
@@ -57,7 +57,7 @@ extension UserProfile {
     }
     
     /// Create a UserProfile object in CoreData for testing purpose
-    static func create(id: String, favourite: Bool = false, register: Bool = false, controller: PersistanceController = PersistanceController.shared) {
+    static func create(id: String, favourite: Bool = false, register: Bool = false, controller: PersistanceProvider = PersistanceProvider.shared) {
         let viewContext = controller.makeContext(author: "UserProfile")
         let newProfile = UserProfile(context: viewContext)
         newProfile.id = id
@@ -70,7 +70,7 @@ extension UserProfile {
         try? viewContext.save()
     }
     
-    static func fetch(id: String, viewContext: NSManagedObjectContext = PersistanceController.shared.container.viewContext) -> UserProfile? {
+    static func fetch(id: String, viewContext: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext) -> UserProfile? {
         let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         fetchResult.predicate = NSPredicate(format: "id == %@", id)
         
@@ -80,7 +80,7 @@ extension UserProfile {
     
     /// Search user saved in CoreData and marked as favourite
     static func fetch(text: String, favourite: Bool? = nil) -> [UserProfile] {
-        let viewContext = PersistanceController.shared.container.viewContext
+        let viewContext = PersistanceProvider.shared.container.viewContext
         let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         var predicates: [NSPredicate] = []
         let namePredicate = NSPredicate(format: "personaname CONTAINS[cd] %@", text)
@@ -99,7 +99,7 @@ extension UserProfile {
         guard let user = fetch(id: id) else {
             return
         }
-        let viewContext = PersistanceController.shared.container.viewContext
+        let viewContext = PersistanceProvider.shared.container.viewContext
         viewContext.delete(user)
     }
     
@@ -123,13 +123,13 @@ extension UserProfile {
     }
     
     func update(favourite: Bool,
-                viewContext: NSManagedObjectContext = PersistanceController.shared.container.viewContext) {
+                viewContext: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext) {
         self.favourite = favourite
         try? viewContext.save()
     }
     
     func update(register: Bool,
-                viewContext: NSManagedObjectContext = PersistanceController.shared.container.viewContext) {
+                viewContext: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext) {
         self.register = register
         try? viewContext.save()
     }

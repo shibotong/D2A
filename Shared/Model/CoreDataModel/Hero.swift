@@ -19,7 +19,7 @@ extension Hero {
     // MARK: - Static func
     /// Create `Hero` with `HeroModel` and `HeroQuery.Data.Constants.Hero` and save into Core Data
     static func createHero(_ queryHero: HeroQuery.Data.Constants.Hero, model: ODHero, abilities: [String] = []) throws -> Hero {
-        let viewContext = PersistanceController.shared.container.viewContext
+        let viewContext = PersistanceProvider.shared.container.viewContext
         
         guard let heroID = queryHero.id,
               let heroTalents = queryHero.talents,
@@ -73,7 +73,7 @@ extension Hero {
     
     /// Fetch `Hero` with `id` in CoreData
     static func fetchHero(id: Double) -> Hero? {
-        let viewContext = PersistanceController.shared.container.viewContext
+        let viewContext = PersistanceProvider.shared.container.viewContext
         let fetchHero: NSFetchRequest<Hero> = Hero.fetchRequest()
         fetchHero.predicate = NSPredicate(format: "id == %f", id)
         

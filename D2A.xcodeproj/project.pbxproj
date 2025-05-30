@@ -349,8 +349,8 @@
 		79A9891B2931EB49006AC847 /* PlayerCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FA2931D6D7006AC847 /* PlayerCodable.swift */; };
 		79A9891C2931EB59006AC847 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988F82931D400006AC847 /* Match.swift */; };
 		79A9891D2931EB5A006AC847 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988F82931D400006AC847 /* Match.swift */; };
-		79A9891E2931ECAE006AC847 /* PersistanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceController.swift */; };
-		79A9891F2931ECAF006AC847 /* PersistanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceController.swift */; };
+		79A9891E2931ECAE006AC847 /* PersistanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceProvider.swift */; };
+		79A9891F2931ECAF006AC847 /* PersistanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceProvider.swift */; };
 		79A989202931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79A989212931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79ABE8FA2A35C3CF00EE9EF9 /* LiveMatchDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */; };
@@ -442,7 +442,7 @@
 		79EB3F872DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */; };
 		79EB3F882DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */; };
 		79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
-		79F5B5D428E3B8D900FB67E5 /* PersistanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceController.swift */; };
+		79F5B5D428E3B8D900FB67E5 /* PersistanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceProvider.swift */; };
 		79F5F5B22DCB461F00194FD5 /* StratzTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5F5B12DCB461700194FD5 /* StratzTokenView.swift */; };
 /* End PBXBuildFile section */
 
@@ -740,7 +740,7 @@
 		79EB3F812DC6EFA7008C4F6D /* NSSecureCodingValueTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSecureCodingValueTransformer.swift; sourceTree = "<group>"; };
 		79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODHeroAbilities.swift; sourceTree = "<group>"; };
 		79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Backend.xcdatamodel; sourceTree = "<group>"; };
-		79F5B5D328E3B8D900FB67E5 /* PersistanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceController.swift; sourceTree = "<group>"; };
+		79F5B5D328E3B8D900FB67E5 /* PersistanceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceProvider.swift; sourceTree = "<group>"; };
 		79F5F5B12DCB461700194FD5 /* StratzTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratzTokenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1438,7 +1438,7 @@
 		79EB3F7B2DC6EF41008C4F6D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				79F5B5D328E3B8D900FB67E5 /* PersistanceController.swift */,
+				79F5B5D328E3B8D900FB67E5 /* PersistanceProvider.swift */,
 				79EB3F7C2DC6EF46008C4F6D /* Transformers */,
 			);
 			path = CoreData;
@@ -1847,7 +1847,7 @@
 				79C538112DCB776F00B5920A /* SectionTitle.swift in Sources */,
 				32B526D3285C1DBC0099B058 /* Extension.swift in Sources */,
 				32B36F2726C38852002D427D /* ODHero.swift in Sources */,
-				79F5B5D428E3B8D900FB67E5 /* PersistanceController.swift in Sources */,
+				79F5B5D428E3B8D900FB67E5 /* PersistanceProvider.swift in Sources */,
 				797C88B32DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */,
 				32B36F4A26C39242002D427D /* StringVariable.swift in Sources */,
 				79E4AED02DCB79EA008BBF6D /* D2ANavigationStack.swift in Sources */,
@@ -2039,7 +2039,7 @@
 				79837B50294C181200458529 /* RecentMatch.swift in Sources */,
 				32F70B1C26F6295B006E9B05 /* SKProduct.swift in Sources */,
 				7983DA752B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
-				79A9891E2931ECAE006AC847 /* PersistanceController.swift in Sources */,
+				79A9891E2931ECAE006AC847 /* PersistanceProvider.swift in Sources */,
 				7983DA6B2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
 				79CF376D2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				32F70AD526F60364006E9B05 /* ODHero.swift in Sources */,
@@ -2125,7 +2125,7 @@
 				79837B51294C181200458529 /* RecentMatch.swift in Sources */,
 				32F70B0326F62268006E9B05 /* RecentMatchCodable.swift in Sources */,
 				7983DA762B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
-				79A9891F2931ECAF006AC847 /* PersistanceController.swift in Sources */,
+				79A9891F2931ECAF006AC847 /* PersistanceProvider.swift in Sources */,
 				7983DA6C2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
 				79CF376E2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */,

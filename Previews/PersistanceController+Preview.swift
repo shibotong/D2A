@@ -7,9 +7,9 @@
 
 import CoreData
 
-extension PersistanceController {
+extension PersistanceProvider {
     static let previewContext: NSManagedObjectContext = {
-        let controller = PersistanceController(inMemory: true)
+        let controller = PersistanceProvider(inMemory: true)
         let heroes = loadSampleHero() ?? [:]
         
         let context = controller.container.viewContext

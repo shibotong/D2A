@@ -17,7 +17,7 @@ struct D2AApp: App {
     #if DEBUG
     @StateObject var logger: D2ALogger = D2ALogger.shared
     #endif
-    let persistanceController = PersistanceController.shared
+    let persistanceController = PersistanceProvider.shared
     @AppStorage("selectedMatch") var selectedMatch: String?
     @AppStorage("selectedUser") var selectedUser: String?
     
