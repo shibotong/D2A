@@ -14,7 +14,13 @@ let IMAGE_PREFIX = "https://cdn.cloudflare.steamstatic.com"
 let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/privacy-policy.md"
 let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/terms-of-use.md"
 
-private let currentLanguage: String = Locale.current.languageCode ?? "en"
+private let currentLanguage: String = {
+    if #available(iOS 16.0, *) {
+        Locale.current.language.languageCode?.identifier ?? "en"
+    } else {
+        Locale.current.languageCode ?? "en"
+    }
+}()
 
 /// True if running tests
 let isTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
@@ -44,12 +50,7 @@ let colonLocalize: Character = {
     }
 }()
 
-extension PreviewDevice: Identifiable {
-    
-    public var id: String {
-        return rawValue
-    }
-
+extension PreviewDevice {
     static let iPhoneDevices = [PreviewDevice.iPhoneSE, PreviewDevice.iPhone, PreviewDevice.iPhoneProMax]
 
     static let iPadDevies = [PreviewDevice.iPadMini, PreviewDevice.iPad]

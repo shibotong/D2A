@@ -52,6 +52,16 @@ struct HeroDetailView: View {
         }
     }
     
+    private var levelSlider: some View {
+        Slider(value: $heroLevel, in: 1...30, step: 1) {
+            Text("Level \(Int(heroLevel))")
+        } minimumValueLabel: {
+            Text("\(Int(heroLevel))")
+        } maximumValueLabel: {
+            Text("30")
+        }
+    }
+    
     @ViewBuilder private func buildMainBody(hero: Hero) -> some View {
         if horizontal == .compact {
             buildCompactBody(hero: hero)
@@ -66,7 +76,7 @@ struct HeroDetailView: View {
             HStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack {
-                        buildAttributes(hero: hero)
+                        AttributesSectionView(hero: hero, level: Int(heroLevel))
                         Divider()
                         buildStats(hero: hero)
                         if let roles = hero.roles?.allObjects as? [Role] {
@@ -192,7 +202,7 @@ struct HeroDetailView: View {
     
     @ViewBuilder private func buildHeroDetails(hero: Hero) -> some View {
         VStack {
-            buildAttributes(hero: hero)
+            AttributesSectionView(hero: hero, level: Int(heroLevel))
             Divider()
             if let roles = hero.roles?.allObjects as? [Role] {
                 buildRoles(roles: roles)
@@ -343,86 +353,6 @@ struct HeroDetailView: View {
                 .foregroundColor(Color(uiColor: UIColor.label))
             Text(value)
                 .font(.system(size: 15))
-        }
-    }
-    
-    @ViewBuilder private func buildAttributes(hero: Hero) -> some View {
-        VStack {
-            HStack {
-                Text("Attributes")
-                    .font(.system(size: 15))
-                    .bold()
-                Spacer()
-            }.padding(.bottom)
-            buildManaHealthBar(hero: hero, type: .hp)
-            buildManaHealthBar(hero: hero, type: .mana)
-            HStack {
-                Spacer()
-                buildStatLevel(hero: hero, type: .str)
-                Spacer()
-                buildStatLevel(hero: hero, type: .agi)
-                Spacer()
-                buildStatLevel(hero: hero, type: .int)
-                Spacer()
-            }
-            Slider(value: $heroLevel, in: 1...30, step: 1) {
-                Text("Level \(Int(heroLevel))")
-            } minimumValueLabel: {
-                Text("\(Int(heroLevel))")
-            } maximumValueLabel: {
-                Text("30")
-            }
-        }
-        .padding(.horizontal)
-    }
-    
-    @ViewBuilder private func buildStatLevel(hero: Hero, type: HeroAttribute) -> some View {
-        let gain = hero.getGain(type: type)
-        HStack {
-            AttributeImage(attribute: type)
-                .frame(width: 15, height: 15)
-            Text("\(hero.calculateAttribute(level: heroLevel, attr: type))")
-                .font(.system(size: 18))
-                .bold()
-            Text("+ \(gain, specifier: "%.1f")")
-                .font(.system(size: 13))
-        }
-    }
-    
-    @ViewBuilder private func buildManaHealthBar(hero: Hero, type: Hero.HeroHPMana) -> some View {
-        let total = hero.calculateHPManaByLevel(level: heroLevel, type: type)
-        let barColor = type == .hp ? Color(UIColor.systemGreen) : Color(UIColor.systemBlue)
-        VStack(spacing: 0) {
-            HStack {
-                Text(LocalizedStringKey(type.rawValue))
-                    .font(.system(size: 15))
-                    .bold()
-                    .foregroundColor(.secondaryLabel)
-                Spacer()
-                Text("\(total)")
-                    .font(.system(size: 15))
-                    .bold()
-                Text("+ \(hero.calculateHPManaRegenByLevel(level: heroLevel, type: type), specifier: "%.1f")")
-                    .font(.system(size: 13))
-            }
-            GeometryReader { proxy in
-                let rectangles = Double(total) / 250.00
-                let numberOfRect = total / 250
-                let spacer = (total % 250 == 0) ? numberOfRect : numberOfRect + 1
-                let restWidth = proxy.size.width - CGFloat(spacer)
-                let rectWidth = restWidth / rectangles
-                
-                HStack(spacing: 1) {
-                    ForEach(0..<numberOfRect, id: \.self) { _ in
-                        Rectangle()
-                            .frame(width: rectWidth)
-                    }
-                    Rectangle()
-                }
-                .frame(height: 10)
-                .foregroundColor(barColor)
-                .clipShape(Capsule())
-            }
         }
     }
 }

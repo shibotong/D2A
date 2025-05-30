@@ -265,7 +265,7 @@ struct LiveMatchDraftView_Previews: PreviewProvider {
     @State static var showDetail = true
     static var previews: some View {
         Group {
-            ForEach(PreviewDevice.iPhoneDevices) { device in
+            ForEach(PreviewDevice.iPhoneDevices, id: \.rawValue) { device in
                 LiveMatchDraftView(radiantPick: [.init(heroID: 1, pickLevel: "A")], radiantBan: [], direPick: [], direBan: [], winRate: 0.5, hasBan: true, showDetail: $showDetail)
                     .previewDevice(device)
                     .previewDisplayName(device.rawValue)

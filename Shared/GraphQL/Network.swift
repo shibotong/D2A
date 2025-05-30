@@ -55,13 +55,13 @@ extension Network {
             url: URL(string: "wss://api.stratz.com/graphql?jwt=\(token)")!,
             protocol: .graphql_ws
         )
+        // TODO: Comment out websocket temporary
+//        let webSocketTransport = WebSocketTransport(websocket: webSocket)
         
-        let webSocketTransport = WebSocketTransport(websocket: webSocket)
-        
-        let splitTransport = SplitNetworkTransport(
-            uploadingNetworkTransport: transport,
-            webSocketNetworkTransport: webSocketTransport
-        )
+//        let splitTransport = SplitNetworkTransport(
+//            uploadingNetworkTransport: transport,
+//            webSocketNetworkTransport: webSocketTransport
+//        )
         return ApolloClient(networkTransport: transport, store: store)
     }
 }
