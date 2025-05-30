@@ -9,26 +9,23 @@ import Foundation
 import CoreData
 
 extension Ability {
-    static func fetch(id: Int, context: NSManagedObjectContext) async -> Ability? {
+    
+    static func fetch(id: Int, context: NSManagedObjectContext) -> Ability? {
         let fetchAbility: NSFetchRequest<Ability> = Ability.fetchRequest()
         fetchAbility.predicate = NSPredicate(format: "id == %d", id)
-        return await context.perform {
-            let results = try? context.fetch(fetchAbility)
-            return results?.first
-        }
+        let results = try? context.fetch(fetchAbility)
+        return results?.first
     }
     
-    static func fetchByNames(names: [String], context: NSManagedObjectContext) async -> [Ability] {
+    static func fetchByNames(names: [String], context: NSManagedObjectContext) -> [Ability] {
         let request = Self.fetchRequest()
         request.predicate = NSPredicate(format: "name IN %@", names)
-        return await context.perform {
-            do {
-                let results = try context.fetch(request)
-                return results
-            } catch {
-                logError("Fetch abilities in \(names) failed: \(error)", category: .coredata)
-                return []
-            }
+        do {
+            let results = try context.fetch(request)
+            return results
+        } catch {
+            logError("Fetch abilities in \(names) failed: \(error)", category: .coredata)
+            return []
         }
     }
 }
@@ -72,8 +69,8 @@ public class AbilityAttribute: NSObject, NSSecureCoding {
     
     required public init?(coder: NSCoder) {
         guard let key = coder.decodeObject(of: NSString.self, forKey: "key") as? String,
-        let header = coder.decodeObject(of: NSString.self, forKey: "header") as? String,
-        let value = coder.decodeObject(of: NSString.self, forKey: "value") as? String else {
+              let header = coder.decodeObject(of: NSString.self, forKey: "header") as? String,
+              let value = coder.decodeObject(of: NSString.self, forKey: "value") as? String else {
             logError("Failed to decode AbilityAttribute", category: .coredata)
             return nil
         }

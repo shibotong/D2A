@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import CoreData
 
-struct ODAbility: Codable, Identifiable, D2ABatchInsertable {
+struct ODAbility: Codable, Identifiable, PersistanceModel {
     
     var id: Int?
     
@@ -94,6 +95,29 @@ struct ODAbility: Codable, Identifiable, D2ABatchInsertable {
             result["attributes"] = attributes.map { AbilityAttribute(attribute: $0) }
         }
         return result
+    }
+    
+    func update(context: NSManagedObjectContext) throws -> NSManagedObject {
+        guard let abilityID = id else {
+            throw D2AError(message: "No ability ID for \(self)")
+        }
+        let ability = Ability.fetch(id: abilityID, context: context) ?? Ability(context: context)
+        setIfNotEqual(entity: ability, path: \.id, value: Int32(abilityID))
+        setIfNotEqual(entity: ability, path: \.name, value: name)
+        setIfNotEqual(entity: ability, path: \.behavior, value: behavior?.transformString())
+        setIfNotEqual(entity: ability, path: \.bkbPierce, value: bkbPierce?.transformString())
+        setIfNotEqual(entity: ability, path: \.coolDown, value: coolDown?.transformString())
+        setIfNotEqual(entity: ability, path: \.damageType, value: damageType?.transformString())
+        setIfNotEqual(entity: ability, path: \.desc, value: desc)
+        setIfNotEqual(entity: ability, path: \.dispellable, value: dispellable?.transformString())
+        setIfNotEqual(entity: ability, path: \.displayName, value: dname)
+        setIfNotEqual(entity: ability, path: \.img, value: img)
+        setIfNotEqual(entity: ability, path: \.lore, value: lore)
+        setIfNotEqual(entity: ability, path: \.manaCost, value: manaCost?.transformString())
+        setIfNotEqual(entity: ability, path: \.targetTeam, value: targetTeam?.transformString())
+        setIfNotEqual(entity: ability, path: \.targetType, value: targetType?.transformString())
+        setIfNotEqual(entity: ability, path: \.attributes, value: attributes?.compactMap { AbilityAttribute(attribute: $0) })
+        return ability
     }
 }
 

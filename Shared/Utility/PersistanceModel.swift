@@ -5,6 +5,9 @@
 //  Created by Shibo Tong on 2/5/2025.
 //
 
-protocol D2ABatchInsertable {
+import CoreData
+
+protocol PersistanceModel {
     var dictionaries: [String: Any] { get }
+    func update(context: NSManagedObjectContext) throws -> NSManagedObject
 }
