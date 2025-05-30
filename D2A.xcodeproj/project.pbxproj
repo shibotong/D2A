@@ -304,7 +304,7 @@
 		797C88B32DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B02DCB5B8900D4CDD1 /* NotificationCenter.swift */; };
 		797C88B62DCB5F2200D4CDD1 /* HealthManaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B52DCB5F1D00D4CDD1 /* HealthManaView.swift */; };
 		797C88BA2DCB75A300D4CDD1 /* Hero+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */; };
-		797C88BD2DCB75AE00D4CDD1 /* PersistanceController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B82DCB750E00D4CDD1 /* PersistanceController+Preview.swift */; };
+		797C88BD2DCB75AE00D4CDD1 /* PersistanceProvider+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */; };
 		79837B50294C181200458529 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798A5CF92945B3C300EB07B0 /* RecentMatch.swift */; };
 		79837B51294C181200458529 /* RecentMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798A5CF92945B3C300EB07B0 /* RecentMatch.swift */; };
 		79837B53294C189200458529 /* PlayerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79837B52294C189200458529 /* PlayerRowView.swift */; };
@@ -672,7 +672,7 @@
 		797C88AC2DCB59B700D4CDD1 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		797C88B02DCB5B8900D4CDD1 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		797C88B52DCB5F1D00D4CDD1 /* HealthManaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManaView.swift; sourceTree = "<group>"; };
-		797C88B82DCB750E00D4CDD1 /* PersistanceController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistanceController+Preview.swift"; sourceTree = "<group>"; };
+		797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistanceProvider+Preview.swift"; sourceTree = "<group>"; };
 		797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hero+Preview.swift"; sourceTree = "<group>"; };
 		79837B52294C189200458529 /* PlayerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowView.swift; sourceTree = "<group>"; };
 		79837B54294C18FE00458529 /* DamageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageView.swift; sourceTree = "<group>"; };
@@ -1266,7 +1266,7 @@
 		797C88B72DCB74E100D4CDD1 /* Previews */ = {
 			isa = PBXGroup;
 			children = (
-				797C88B82DCB750E00D4CDD1 /* PersistanceController+Preview.swift */,
+				797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */,
 				797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */,
 			);
 			path = Previews;
@@ -1981,7 +1981,7 @@
 				32D3EB4F26ED7B9B00AA8D8B /* ODAbility.swift in Sources */,
 				323ADB06272B8D4900253124 /* Patch.swift in Sources */,
 				794B723D2985D2C9000059E4 /* RecentMatchWinLossView.swift in Sources */,
-				797C88BD2DCB75AE00D4CDD1 /* PersistanceController+Preview.swift in Sources */,
+				797C88BD2DCB75AE00D4CDD1 /* PersistanceProvider+Preview.swift in Sources */,
 				7912B6E32B5D022C00AE1947 /* AbilityTitleView.swift in Sources */,
 				797C88AD2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */,
 				798A5CFA2945B3C300EB07B0 /* RecentMatch.swift in Sources */,
