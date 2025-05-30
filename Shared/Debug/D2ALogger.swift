@@ -8,16 +8,16 @@
 import Foundation
 import Combine
 
-func logDebug(_ message: String, category: D2AServiceCategory) {
-     D2ALogger.shared.log(level: .debug, message: message, category: category)
+func logDebug(_ message: String, category: D2AServiceCategory, file: String = #file, function: String = #function, line: Int = #line) {
+     D2ALogger.shared.log(level: .debug, message: message, category: category, file: file, function: function, line: line)
  }
 
- func logWarn(_ message: String, category: D2AServiceCategory) {
-     D2ALogger.shared.log(level: .warn, message: message, category: category)
+ func logWarn(_ message: String, category: D2AServiceCategory, file: String = #file, function: String = #function, line: Int = #line) {
+     D2ALogger.shared.log(level: .warn, message: message, category: category, file: file, function: function, line: line)
  }
 
- func logError(_ message: String, category: D2AServiceCategory) {
-     D2ALogger.shared.log(level: .error, message: message, category: category)
+ func logError(_ message: String, category: D2AServiceCategory, file: String = #file, function: String = #function, line: Int = #line) {
+     D2ALogger.shared.log(level: .error, message: message, category: category, file: file, function: function, line: line)
  }
 
  class D2ALogger: ObservableObject {
@@ -43,12 +43,15 @@ func logDebug(_ message: String, category: D2AServiceCategory) {
          }
      }
      
-     func log(level: LoggingLevel, message: String, category: D2AServiceCategory) {
+     func log(level: LoggingLevel, message: String, category: D2AServiceCategory, file: String, function: String, line: Int) {
          #if DEBUG
          guard level.rawValue >= loggingLevel.rawValue else {
              return
          }
-         print("\(level.icon) [\(category.rawValue)] \(message)")
+         
+         let fileName = file.components(separatedBy: "/").last ?? file
+         
+         print("\(level.icon) [\(category.rawValue)] [\(fileName): \(line) \(function)]: \(message)")
          #endif
      }
  }
