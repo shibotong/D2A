@@ -9,7 +9,14 @@ import Foundation
 import WidgetKit
 
 protocol OpenDotaProviding {
+    func searchUserByText(text: String) async -> [ODUserProfile]
     func loadUserData(userid: String) async throws -> ODUserProfile
+    
+    func getRecentMatches(userid: String) async -> [RecentMatchCodable]
+    func loadMatchData(matchid: String) async throws -> String
+    func loadRecentMatch(userid: String) async
+    func loadRecentMatch(userid: String, days: Double?) async
+    func loadRecentMatches(userid: String) async -> [RecentMatchCodable]
 }
 
 class OpenDotaProvider: OpenDotaProviding {
@@ -28,6 +35,14 @@ class OpenDotaProvider: OpenDotaProviding {
         }
     }
     
+    func loadUserData(userid: String) async throws -> ODUserProfile {
+        let user = try await loadData("/players/\(userid)", as: SteamProfile.self)
+        var userProfile = user.profile
+        userProfile.rank = user.rank
+        userProfile.leaderboard = user.leaderboard
+        return userProfile
+    }
+    
     func getRecentMatches(userid: String) async -> [RecentMatchCodable] {
         do {
             let recentMatches = try await loadData("/players/\(userid)/recentMatches", as: [RecentMatchCodable].self)
@@ -36,14 +51,6 @@ class OpenDotaProvider: OpenDotaProviding {
             print(error.localizedDescription)
             return []
         }
-    }
-    
-    func loadUserData(userid: String) async throws -> ODUserProfile {
-        let user = try await loadData("/players/\(userid)", as: SteamProfile.self)
-        var userProfile = user.profile
-        userProfile.rank = user.rank
-        userProfile.leaderboard = user.leaderboard
-        return userProfile
     }
     
     func loadMatchData(matchid: String) async throws -> String {
@@ -107,12 +114,4 @@ class OpenDotaProvider: OpenDotaProviding {
         let urlString = "\(baseURL)/api\(path)"
         return try await D2ANetwork.default.dataTask(urlString, as: T.self)
     }
-}
-
-enum APIError: LocalizedError {
-    case urlError
-    case decodingError
-    case networkError
-    case accessError
-    case invalidError
 }
