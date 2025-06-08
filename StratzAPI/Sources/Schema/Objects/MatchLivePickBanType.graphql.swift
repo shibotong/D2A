@@ -3,8 +3,8 @@
 
 import ApolloAPI
 
-public extension Objects {
-  static let MatchLivePickBanType = Object(
+extension Objects {
+  public static let MatchLivePickBanType = Object(
     typename: "MatchLivePickBanType",
     implementedInterfaces: []
   )

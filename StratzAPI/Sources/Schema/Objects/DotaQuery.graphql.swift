@@ -3,8 +3,8 @@
 
 import ApolloAPI
 
-public extension Objects {
-  static let DotaQuery = Object(
+extension Objects {
+  public static let DotaQuery = Object(
     typename: "DotaQuery",
     implementedInterfaces: []
   )

@@ -9,5 +9,5 @@ import Combine
 import Foundation
 
 extension NotificationCenter {
-    static let stratzToken = PassthroughSubject<String, Never>()
+  static let stratzToken = PassthroughSubject<String, Never>()
 }

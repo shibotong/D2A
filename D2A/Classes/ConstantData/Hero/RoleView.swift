@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct RoleView: View {
-    var title: String
-    var level: Double
-    var body: some View {
-        VStack(alignment: .leading, spacing: 1) {
-            Text(LocalizedStringKey(title))
-                .font(.system(size: 15))
-            ProgressView(value: Float(level / 3.0))
-                .progressViewStyle(.linear)
-        }
+  var title: String
+  var level: Double
+  var body: some View {
+    VStack(alignment: .leading, spacing: 1) {
+      Text(LocalizedStringKey(title))
+        .font(.system(size: 15))
+      ProgressView(value: Float(level / 3.0))
+        .progressViewStyle(.linear)
     }
+  }
 }
 
 struct RoleView_Previews: PreviewProvider {
-    static var previews: some View {
-        RoleView(title: "Carry", level: 1)
-    }
+  static var previews: some View {
+    RoleView(title: "Carry", level: 1)
+  }
 }
