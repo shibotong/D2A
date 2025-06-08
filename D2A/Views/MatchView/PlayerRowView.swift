@@ -11,7 +11,7 @@ import StratzAPI
 struct PlayerRowView: View {
     var maxDamage: Int
     @ObservedObject var viewModel: PlayerRowViewModel
-    @EnvironmentObject var heroData: HeroDatabase
+    @EnvironmentObject var heroData: ConstantProvider
     
     var shortVersion: Bool = false
     var showAbility: Bool = true
@@ -228,8 +228,8 @@ struct PlayerRowView: View {
     }
     
     @ViewBuilder private func buildAbility(abilityID: Int) -> some View {
-        if let abilityName = HeroDatabase.shared.fetchAbilityName(id: abilityID) {
-            if let ability = HeroDatabase.shared.fetchOpenDotaAbility(name: abilityName) {
+        if let abilityName = ConstantProvider.shared.fetchAbilityName(id: abilityID) {
+            if let ability = ConstantProvider.shared.fetchOpenDotaAbility(name: abilityName) {
                 if let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!" {
                     let parsedimgURL = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
                     AbilityImage(viewModel: AbilityImageViewModel(name: abilityName, urlString: "\(IMAGE_PREFIX)\(parsedimgURL)"))
@@ -271,15 +271,15 @@ struct PlayerRowView: View {
     static var previews: some View {
         VStack {
             PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 2), shortVersion: true, showAbility: false)
-                .environmentObject(HeroDatabase.shared)
+                .environmentObject(ConstantProvider.shared)
             ScrollView(.horizontal) {
                 PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 2, abilities: [1123]))
-                    .environmentObject(HeroDatabase.shared)
+                    .environmentObject(ConstantProvider.shared)
                 PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 3, abilities: [1123, 1124]))
-                    .environmentObject(HeroDatabase.shared)
+                    .environmentObject(ConstantProvider.shared)
             }
                 PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 3), showAbility: false)
-                    .environmentObject(HeroDatabase.shared)
+                    .environmentObject(ConstantProvider.shared)
         }
         .previewLayout(.fixed(width: 800, height: 300))
     }

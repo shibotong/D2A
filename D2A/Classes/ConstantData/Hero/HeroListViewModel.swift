@@ -39,7 +39,7 @@ class HeroListViewModel: ObservableObject {
     private var subscribers = Set<AnyCancellable>()
     
     init() {
-        heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
+        heroList = ConstantProvider.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
         searchString = ""
         searchResults = []
         selectedAttribute = .whole

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MatchView: View {
     @EnvironmentObject var env: DotaEnvironment
-    @EnvironmentObject var data: HeroDatabase
+    @EnvironmentObject var data: ConstantProvider
     @Environment(\.managedObjectContext) var context
     @FetchRequest private var match: FetchedResults<Match>
     private var matchid: String

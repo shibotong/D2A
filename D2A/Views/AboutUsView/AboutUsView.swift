@@ -12,7 +12,7 @@ struct AboutUsView: View {
     @EnvironmentObject var logger: D2ALogger
     
     #if DEBUG
-    @EnvironmentObject var heroData: HeroDatabase
+    @EnvironmentObject var heroData: ConstantProvider
     @Environment(\.managedObjectContext) var context
     #endif
     
@@ -125,7 +125,7 @@ struct AboutUsView: View {
             .environment(\.locale, .init(identifier: "zh-Hans"))
             .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
             .environmentObject(D2ALogger())
-            .environmentObject(HeroDatabase.preview)
+            .environmentObject(ConstantProvider.preview)
             
     }
  }

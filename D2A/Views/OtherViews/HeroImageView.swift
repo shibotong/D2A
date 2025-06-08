@@ -12,7 +12,7 @@ enum HeroImageType {
 }
 
 struct HeroImageView: View {
-    @EnvironmentObject var heroData: HeroDatabase
+    @EnvironmentObject var heroData: ConstantProvider
     let heroID: Int
     let type: HeroImageType
     

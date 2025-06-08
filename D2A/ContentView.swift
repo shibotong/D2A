@@ -10,7 +10,7 @@ import StoreKit
 
 struct ContentView: View {
     @EnvironmentObject var env: DotaEnvironment
-    @EnvironmentObject var data: HeroDatabase
+    @EnvironmentObject var data: ConstantProvider
     @EnvironmentObject var store: StoreManager
     var body: some View {
         Group {
@@ -37,7 +37,7 @@ struct ContentView: View {
 
 struct NavigationHostView: View {
     @EnvironmentObject var env: DotaEnvironment
-    @EnvironmentObject var data: HeroDatabase
+    @EnvironmentObject var data: ConstantProvider
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     var body: some View {

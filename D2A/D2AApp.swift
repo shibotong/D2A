@@ -12,7 +12,7 @@ import CoreData
 @main
 struct D2AApp: App {
     @StateObject var environment: DotaEnvironment = DotaEnvironment.shared
-    @StateObject var heroDatabase: HeroDatabase = HeroDatabase.shared
+    @StateObject var heroDatabase: ConstantProvider = ConstantProvider.shared
     @StateObject var storeManager: StoreManager = StoreManager.shared
     #if DEBUG
     @StateObject var logger: D2ALogger = D2ALogger.shared

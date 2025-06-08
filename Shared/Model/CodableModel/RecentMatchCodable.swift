@@ -34,11 +34,11 @@ class RecentMatchCodable: Decodable, Identifiable {
     }
     
     var gameMode: GameMode {
-        return HeroDatabase.shared.fetchGameMode(id: Int(mode))
+        return ConstantProvider.shared.fetchGameMode(id: Int(mode))
     }
     
     var gameLobby: LobbyType {
-        return HeroDatabase.shared.fetchLobby(id: Int(lobbyType))
+        return ConstantProvider.shared.fetchLobby(id: Int(lobbyType))
     }
     
     enum CodingKeys: String, CodingKey {

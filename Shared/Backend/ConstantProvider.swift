@@ -14,7 +14,7 @@ enum LoadingStatus {
     case loading, error, finish
 }
 
-class HeroDatabase: ObservableObject {
+class ConstantProvider: ObservableObject {
     
     enum HeroDataError: Error {
         case heroNotFound
@@ -32,9 +32,9 @@ class HeroDatabase: ObservableObject {
     private var scepterData = [HeroScepter]()
     private var apolloAbilities = [StratzAbility]()
     
-    static var shared = HeroDatabase()
+    static var shared = ConstantProvider()
     
-    static var preview = HeroDatabase()
+    static var preview = ConstantProvider()
     
     let url = "https://api.opendota.com/api/herostats"
     

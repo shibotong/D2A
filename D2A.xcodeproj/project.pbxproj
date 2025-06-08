@@ -120,8 +120,8 @@
 		3261C90F2830765300D47CDA /* sampleAbility.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90E2830765300D47CDA /* sampleAbility.json */; };
 		3270271B285C088300927426 /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */; };
 		3270271C285C088300927426 /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */; };
-		3270271D285C08C200927426 /* HeroDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* HeroDatabase.swift */; };
-		3270271E285C08C300927426 /* HeroDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* HeroDatabase.swift */; };
+		3270271D285C08C200927426 /* ConstantProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* ConstantProvider.swift */; };
+		3270271E285C08C300927426 /* ConstantProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* ConstantProvider.swift */; };
 		32756CC128535CA800F38B81 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3251C8F126F97C9500C826BD /* Localizable.strings */; };
 		32756CC228535CA900F38B81 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3251C8F126F97C9500C826BD /* Localizable.strings */; };
 		327772AD26D8BD47000A0A97 /* sampleRecentMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 327772AC26D8BD47000A0A97 /* sampleRecentMatch.json */; };
@@ -162,7 +162,7 @@
 		3294463826E1A530006E0D06 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294463726E1A530006E0D06 /* ProfileView.swift */; };
 		3294463A26E1A5A5006E0D06 /* sampleProfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 3294463926E1A5A5006E0D06 /* sampleProfile.json */; };
 		3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294CF7B288EA87600FDFB8E /* ShareActivityView.swift */; };
-		329849F426DCAEAE00A1032C /* HeroDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* HeroDatabase.swift */; };
+		329849F426DCAEAE00A1032C /* ConstantProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* ConstantProvider.swift */; };
 		32985DD3285569D0001869F2 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32985DD2285569D0001869F2 /* RankView.swift */; };
 		32A26C51285947D3005E890F /* OpenDotaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */; };
 		32A26C52285947D4005E890F /* OpenDotaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */; };
@@ -598,7 +598,7 @@
 		3294463726E1A530006E0D06 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		3294463926E1A5A5006E0D06 /* sampleProfile.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleProfile.json; sourceTree = "<group>"; };
 		3294CF7B288EA87600FDFB8E /* ShareActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActivityView.swift; sourceTree = "<group>"; };
-		329849F326DCAEAE00A1032C /* HeroDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroDatabase.swift; sourceTree = "<group>"; };
+		329849F326DCAEAE00A1032C /* ConstantProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstantProvider.swift; sourceTree = "<group>"; };
 		32985DD2285569D0001869F2 /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
 		32AEEEF826F9B1120088DEC8 /* LocalizableStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableStrings.swift; sourceTree = "<group>"; };
 		32B36F0B26C38821002D427D /* D2A.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = D2A.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -996,7 +996,7 @@
 				79B870B52DC394C10090CAB8 /* OpenDota */,
 				79B870982DC38A150090CAB8 /* Stratz */,
 				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
-				329849F326DCAEAE00A1032C /* HeroDatabase.swift */,
+				329849F326DCAEAE00A1032C /* ConstantProvider.swift */,
 				322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */,
 				32B36F4B26C39C5D002D427D /* Environment.swift */,
 				799948BF2932D50000D79055 /* ImageCache.swift */,
@@ -1923,7 +1923,7 @@
 				327772AF26D8BE63000A0A97 /* MatchListRowView.swift in Sources */,
 				322B893A26CD456400DF67F9 /* RecentMatchCodable.swift in Sources */,
 				32D1605D26F30B7A00657449 /* StoreManager.swift in Sources */,
-				329849F426DCAEAE00A1032C /* HeroDatabase.swift in Sources */,
+				329849F426DCAEAE00A1032C /* ConstantProvider.swift in Sources */,
 				7985E7ED28E53A40007A43AF /* Role.swift in Sources */,
 				79EB3F842DC6EFAA008C4F6D /* NSSecureCodingValueTransformer.swift in Sources */,
 				79EB3F802DC6EF54008C4F6D /* ArraySecureCodingValueTransformer.swift in Sources */,
@@ -2016,7 +2016,7 @@
 				327C033D2716A90400DAEC42 /* KDAView.swift in Sources */,
 				79EB3F052DC6EE86008C4F6D /* NSValueTransformerName.swift in Sources */,
 				32F70B1926F6295B006E9B05 /* Date.swift in Sources */,
-				3270271D285C08C200927426 /* HeroDatabase.swift in Sources */,
+				3270271D285C08C200927426 /* ConstantProvider.swift in Sources */,
 				799948C12932D50000D79055 /* ImageCache.swift in Sources */,
 				32079DC028B843360056D19F /* String.swift in Sources */,
 				793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
@@ -2097,7 +2097,7 @@
 				32F70B2026F6295C006E9B05 /* Int.swift in Sources */,
 				79CF375D2DC0F8F800207CB8 /* D2AError.swift in Sources */,
 				79EB3EF82DC4B5D8008C4F6D /* PersistanceModel.swift in Sources */,
-				3270271E285C08C300927426 /* HeroDatabase.swift in Sources */,
+				3270271E285C08C300927426 /* ConstantProvider.swift in Sources */,
 				79B870BF2DC394D30090CAB8 /* D2ANetwork.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,
 				79EB3F042DC6EE86008C4F6D /* NSValueTransformerName.swift in Sources */,

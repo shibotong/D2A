@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ItemView: View {
-    @EnvironmentObject var heroData: HeroDatabase
+    @EnvironmentObject var heroData: ConstantProvider
     @State var image: UIImage?
     
     @Binding var id: Int?
@@ -35,7 +35,7 @@ struct ItemView: View {
     }
     
     private func computeURL() -> URL? {
-        guard let id, let item = HeroDatabase.shared.fetchItem(id: id) else {
+        guard let id, let item = ConstantProvider.shared.fetchItem(id: id) else {
             return nil
         }
         let url = URL(string: "\(IMAGE_PREFIX)\(item.img)")

@@ -34,9 +34,9 @@ struct LiveMatchKillEvent: LiveMatchEvent {
     
     let players: LiveMatchPlayers
     
-    private let heroDatabase: HeroDatabase
+    private let heroDatabase: ConstantProvider
     
-    init(time: Int, kill: [Int], died: [Int], players: LiveMatchPlayers, heroDatabase: HeroDatabase = HeroDatabase.shared) {
+    init(time: Int, kill: [Int], died: [Int], players: LiveMatchPlayers, heroDatabase: ConstantProvider = ConstantProvider.shared) {
         self.time = time
         self.kill = kill
         self.died = died

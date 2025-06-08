@@ -24,7 +24,7 @@ class HeroDetailViewModel: ObservableObject {
     
     @Published var abilities: [ODAbility] = []
     
-    private var database: HeroDatabase = HeroDatabase.shared
+    private var database: ConstantProvider = ConstantProvider.shared
     
     init(heroID: Int) {
         self.heroID = heroID
@@ -119,7 +119,7 @@ class HeroDetailViewModel: ObservableObject {
     }
     
     func getRelateHeroID(id: Int, isPrevious: Bool) -> Int? {
-        let heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
+        let heroList = ConstantProvider.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
         let heroIndex = heroList.firstIndex { $0.id == id } ?? 0
         var index = 0
         if isPrevious {

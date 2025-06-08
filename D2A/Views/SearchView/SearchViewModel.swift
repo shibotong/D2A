@@ -36,7 +36,7 @@ class SearchViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .map { text in
                 if !text.isEmpty {
-                    let heroes = HeroDatabase.shared.fetchAllHeroes().filter({
+                    let heroes = ConstantProvider.shared.fetchAllHeroes().filter({
                         return $0.heroNameLocalized.lowercased().contains(text.lowercased())
                     })
                     return heroes
@@ -72,7 +72,7 @@ class SearchViewModel: ObservableObject {
         suggestHeroes = []
         
         userProfiles = []
-        filterHeroes = HeroDatabase.shared.fetchAllHeroes().filter { hero in
+        filterHeroes = ConstantProvider.shared.fetchAllHeroes().filter { hero in
             return hero.heroNameLocalized.lowercased().contains(searchText.lowercased())
         }
         async let searchedProfile = OpenDotaController.shared.searchUserByText(text: searchText)
