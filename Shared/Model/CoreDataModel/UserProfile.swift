@@ -37,7 +37,7 @@ extension UserProfile {
     }
     
     /// Create a new `UserProfile` with favourite and register
-    static func create(_ profile: UserProfileCodable, favourite: Bool, register: Bool) throws {
+    static func create(_ profile: ODUserProfile, favourite: Bool, register: Bool) throws {
         let viewContext = PersistanceProvider.shared.makeContext(author: "UserProfile")
         let newProfile = fetch(id: profile.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
         newProfile.update(profile)
@@ -47,7 +47,7 @@ extension UserProfile {
         try viewContext.parent?.save()
     }
     
-    static func create(_ profile: UserProfileCodable) throws -> UserProfile {
+    static func create(_ profile: ODUserProfile) throws -> UserProfile {
         let viewContext = PersistanceProvider.shared.makeContext(author: "UserProfile")
         let newProfile = fetch(id: profile.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
         newProfile.update(profile)
@@ -103,7 +103,7 @@ extension UserProfile {
         viewContext.delete(user)
     }
     
-    func update(_ profile: UserProfileCodable) {
+    func update(_ profile: ODUserProfile) {
         id = profile.id.description
         avatarfull = profile.avatarfull
         

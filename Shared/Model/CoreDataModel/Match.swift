@@ -49,7 +49,7 @@ extension Match {
         try? viewContext.save()
     }
     
-    static func create(_ match: MatchCodable) throws -> Match {
+    static func create(_ match: ODMatch) throws -> Match {
         let viewContext = PersistanceProvider.shared.makeContext(author: "Match")
         let matchCoreData = fetch(id: match.id.description) ?? Match(context: viewContext)
         matchCoreData.update(match)
@@ -99,7 +99,7 @@ extension Match {
         return filteredPlayers
     }
     
-    func update(_ match: MatchCodable) {
+    func update(_ match: ODMatch) {
         id = match.id.description
         
         // Match data

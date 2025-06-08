@@ -25,7 +25,7 @@ class ProfileViewModel: ObservableObject {
         avatarfull = profile.avatarfull ?? ""
     }
     
-    init(profile: UserProfileCodable) {
+    init(profile: ODUserProfile) {
         personaname = profile.personaname
         userID = profile.id.description
         avatarfull = profile.avatarfull
