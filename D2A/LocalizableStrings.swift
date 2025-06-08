@@ -8,8 +8,8 @@
 import Foundation
 
 struct LocalizableStrings {
-    static let kills = NSLocalizedString("Kills", comment: "")
-    static let towerDamage = NSLocalizedString("Tower Damage", comment: "")
-    static let heroDamage = NSLocalizedString("Hero Damage", comment: "")
-    static let gold = NSLocalizedString("Net Worth", comment: "")
+  static let kills = NSLocalizedString("Kills", comment: "")
+  static let towerDamage = NSLocalizedString("Tower Damage", comment: "")
+  static let heroDamage = NSLocalizedString("Hero Damage", comment: "")
+  static let gold = NSLocalizedString("Net Worth", comment: "")
 }

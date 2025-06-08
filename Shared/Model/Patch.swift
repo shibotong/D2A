@@ -8,7 +8,7 @@
 import Foundation
 
 struct Patch {
-    var general: [String]
-    var items: [String: [String]]
-    var heroes: [String: [String]]
+  var general: [String]
+  var items: [String: [String]]
+  var heroes: [String: [String]]
 }

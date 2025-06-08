@@ -8,18 +8,21 @@
 import Foundation
 
 struct SteamProfile: Decodable {
-    var rank: Int?
-    var profile: ODUserProfile
-    var leaderboard: Int?
-    
-    enum CodingKeys: String, CodingKey {
-        case profile
-        case rank = "rank_tier"
-        case leaderboard = "leaderboard_rank"
-    }
-    
-    static let sample = loadProfile()!
-    
-    static let anonymous = SteamProfile(rank: 0, profile: ODUserProfile(id: 0, avatarfull: "", lastLogin: "", countryCode: "", personaname: "Anonymous", isPlus: false, profileurl: "", rank: 0, leaderboard: nil), leaderboard: nil)
+  var rank: Int?
+  var profile: ODUserProfile
+  var leaderboard: Int?
+
+  enum CodingKeys: String, CodingKey {
+    case profile
+    case rank = "rank_tier"
+    case leaderboard = "leaderboard_rank"
+  }
+
+  static let sample = loadProfile()!
+
+  static let anonymous = SteamProfile(
+    rank: 0,
+    profile: ODUserProfile(
+      id: 0, avatarfull: "", lastLogin: "", countryCode: "", personaname: "Anonymous",
+      isPlus: false, profileurl: "", rank: 0, leaderboard: nil), leaderboard: nil)
 }
-      

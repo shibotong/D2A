@@ -3,8 +3,8 @@
 
 import ApolloAPI
 
-public extension Objects {
-  static let ConstantQuery = Object(
+extension Objects {
+  public static let ConstantQuery = Object(
     typename: "ConstantQuery",
     implementedInterfaces: []
   )

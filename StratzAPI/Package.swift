@@ -11,18 +11,18 @@ let package = Package(
     .watchOS(.v5),
   ],
   products: [
-    .library(name: "StratzAPI", targets: ["StratzAPI"]),
+    .library(name: "StratzAPI", targets: ["StratzAPI"])
   ],
   dependencies: [
-    .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0"),
+    .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0")
   ],
   targets: [
     .target(
       name: "StratzAPI",
       dependencies: [
-        .product(name: "ApolloAPI", package: "apollo-ios"),
+        .product(name: "ApolloAPI", package: "apollo-ios")
       ],
       path: "./Sources"
-    ),
+    )
   ]
 )
