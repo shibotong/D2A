@@ -206,7 +206,9 @@ public class LiveMatchSubscription: GraphQLSubscription {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.LeagueType }
+        public static var __parentType: ApolloAPI.ParentType {
+          StratzAPI.Objects.LeagueType
+        }
         public static var __selections: [ApolloAPI.Selection] {
           [
             .field("__typename", String.self),

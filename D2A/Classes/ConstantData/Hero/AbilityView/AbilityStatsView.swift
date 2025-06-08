@@ -38,7 +38,8 @@ struct AbilityStatsView: View {
       }
       if let bkbPierce {
         AbilityStatsTextView(
-          title: "IMMUNITY:", message: bkbPierce, color: bkbPierce == "Yes" ? .green : .label)
+          title: "IMMUNITY:", message: bkbPierce,
+          color: bkbPierce == "Yes" ? .green : .label)
       }
       if let dispellable {
         AbilityStatsTextView(

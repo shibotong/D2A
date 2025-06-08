@@ -25,10 +25,12 @@ struct StoreView: View {
           .font(.system(size: 30))
           .bold()
           .fixedSize(horizontal: false, vertical: true)
-        Text("Purchase D2A Pro to unlock all features and support us to build a better app.")
-          .font(.system(size: 15))
-          .foregroundColor(Color(.secondaryLabel))
-          .fixedSize(horizontal: false, vertical: true)
+        Text(
+          "Purchase D2A Pro to unlock all features and support us to build a better app."
+        )
+        .font(.system(size: 15))
+        .foregroundColor(Color(.secondaryLabel))
+        .fixedSize(horizontal: false, vertical: true)
         VStack(alignment: .leading, spacing: 10) {
           buildFeature("Unlimit Following Users")
           buildFeature("Unlock Widgets")
@@ -39,7 +41,9 @@ struct StoreView: View {
     }
   }
 
-  @ViewBuilder private func buildQuestion(question: LocalizedStringKey, answer: LocalizedStringKey)
+  @ViewBuilder private func buildQuestion(
+    question: LocalizedStringKey, answer: LocalizedStringKey
+  )
     -> some View
   {
     VStack(alignment: .leading) {
@@ -78,7 +82,8 @@ struct StoreView: View {
           ZStack {
             RoundedRectangle(cornerRadius: 15).foregroundColor(
               env.subscriptionStatus ? .secondaryDota : .primaryDota)
-            Text(buildSubscribeString()).font(.system(size: 17)).bold().foregroundColor(.white)
+            Text(buildSubscribeString()).font(.system(size: 17)).bold().foregroundColor(
+              .white)
           }.frame(height: 60)
         }
       )

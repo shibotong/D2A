@@ -56,7 +56,8 @@ struct LiveMatchActivityWidget: Widget {
         DynamicIslandExpandedRegion(.bottom) {
           HStack {
             if let leagueName = context.attributes.leagueName {
-              let data = UserDefaults(suiteName: GROUP_NAME)?.data(forKey: "liveActivity.league")
+              let data = UserDefaults(suiteName: GROUP_NAME)?.data(
+                forKey: "liveActivity.league")
               if data != nil {
                 Image(uiImage: UIImage(data: data!)!)
                   .resizable()

@@ -11,7 +11,8 @@ extension StratzAbility {
   init?(ability: AbilityQuery.Data.Constants.Ability?) {
     guard let ability, let id = ability.id else {
       logWarn(
-        "\(String(describing: ability?.id)) has something error, Please check", category: .stratz)
+        "\(String(describing: ability?.id)) has something error, Please check",
+        category: .stratz)
       return nil
     }
 

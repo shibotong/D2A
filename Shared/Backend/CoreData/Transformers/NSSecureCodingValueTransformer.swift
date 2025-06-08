@@ -17,7 +17,8 @@ final class NSSecureCodingValueTransformer<T: NSObject & NSSecureCoding>: ValueT
     }
 
     do {
-      return try NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: true)
+      return try NSKeyedArchiver.archivedData(
+        withRootObject: value, requiringSecureCoding: true)
     } catch {
       logError("Failed to archive value: \(value) with error: \(error)", category: .coredata)
       return nil
@@ -33,7 +34,8 @@ final class NSSecureCodingValueTransformer<T: NSObject & NSSecureCoding>: ValueT
       return try NSKeyedUnarchiver.unarchivedObject(ofClass: T.self, from: data)
     } catch {
       logError(
-        "Failed to unarchive data: \(data.count) bytes with error: \(error)", category: .coredata)
+        "Failed to unarchive data: \(data.count) bytes with error: \(error)",
+        category: .coredata)
       return nil
     }
   }

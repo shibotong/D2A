@@ -51,11 +51,15 @@ struct LiveMatchMapView: View {
             }
 
             ForEach(heroes) { hero in
-              let xPos = calculatePosition(totalLength: sideLength, position: hero.xPos, isX: true)
-              let yPos = calculatePosition(totalLength: sideLength, position: hero.yPos, isX: false)
+              let xPos = calculatePosition(
+                totalLength: sideLength, position: hero.xPos, isX: true)
+              let yPos = calculatePosition(
+                totalLength: sideLength, position: hero.yPos, isX: false)
               HeroImageView(heroID: hero.heroID, type: .icon)
                 .frame(width: sideLength / 15)
-                .shadow(color: hero.isRadiant ? .green : .red, radius: 5, x: 0, y: 0)
+                .shadow(
+                  color: hero.isRadiant ? .green : .red, radius: 5, x: 0, y: 0
+                )
                 .position(x: xPos, y: yPos)
                 .animation(.linear, value: hero)
 

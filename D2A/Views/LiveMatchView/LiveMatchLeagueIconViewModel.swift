@@ -33,7 +33,8 @@ class LiveMatchLeagueIconViewModel: ObservableObject {
     guard let newImage = await loadImage() else {
       return
     }
-    ImageCache.saveImage(newImage, type: imageType, id: leagueID.description, fileExtension: "png")
+    ImageCache.saveImage(
+      newImage, type: imageType, id: leagueID.description, fileExtension: "png")
     await setImage(newImage)
   }
 

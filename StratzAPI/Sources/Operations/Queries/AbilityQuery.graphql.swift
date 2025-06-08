@@ -69,7 +69,9 @@ public class AbilityQuery: GraphQLQuery {
       public static var __selections: [ApolloAPI.Selection] {
         [
           .field("__typename", String.self),
-          .field("abilities", [Ability?]?.self, arguments: ["language": .variable("language")]),
+          .field(
+            "abilities", [Ability?]?.self,
+            arguments: ["language": .variable("language")]),
         ]
       }
 
@@ -83,7 +85,9 @@ public class AbilityQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.AbilityType }
+        public static var __parentType: ApolloAPI.ParentType {
+          StratzAPI.Objects.AbilityType
+        }
         public static var __selections: [ApolloAPI.Selection] {
           [
             .field("__typename", String.self),

@@ -13,7 +13,8 @@ extension AVAsset {
       do {
         return try await load(.isPlayable)
       } catch {
-        logError("An error thrown when checking video is playable: \(error)", category: .video)
+        logError(
+          "An error thrown when checking video is playable: \(error)", category: .video)
         return false
       }
     } else {

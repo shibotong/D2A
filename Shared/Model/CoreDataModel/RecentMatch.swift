@@ -53,7 +53,8 @@ extension RecentMatch {
       {
         let changes: [AnyHashable: Any] = [NSInsertedObjectIDsKey: objs]
         NSManagedObjectContext.mergeChanges(
-          fromRemoteContextSave: changes, into: [PersistanceProvider.shared.container.viewContext])
+          fromRemoteContextSave: changes,
+          into: [PersistanceProvider.shared.container.viewContext])
         return
       }
       throw PersistanceError.insertError

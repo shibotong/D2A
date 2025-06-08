@@ -15,8 +15,10 @@ struct DamageView: View {
       ZStack(alignment: .leading) {
         RoundedRectangle(cornerRadius: 3).frame(width: 40, height: 10)
           .foregroundColor(Color(.secondarySystemBackground))
-        RoundedRectangle(cornerRadius: 3).frame(width: calculateRectangleWidth(), height: 10)
-          .foregroundColor(.red.opacity(0.4))
+        RoundedRectangle(cornerRadius: 3).frame(
+          width: calculateRectangleWidth(), height: 10
+        )
+        .foregroundColor(.red.opacity(0.4))
       }
       Text("\(playerDamage)").font(.system(size: 10))
     }

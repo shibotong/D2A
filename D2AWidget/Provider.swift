@@ -28,7 +28,8 @@ struct Provider: IntentTimelineProvider {
     let profile = persistanceController.fetchFirstWidgetUser()
 
     guard let profile, let userID = profile.id else {
-      let entry = D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
+      let entry = D2AWidgetUserEntry(
+        date: Date(), user: D2AWidgetUser.preview, subscription: true)
       completion(entry)
       return
     }
@@ -50,7 +51,8 @@ struct Provider: IntentTimelineProvider {
     let status =
       UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool
       ?? false
-    guard status, let selectedProfile = user(for: configuration), let userID = selectedProfile.id
+    guard status, let selectedProfile = user(for: configuration),
+      let userID = selectedProfile.id
     else {
       let entry = D2AWidgetUserEntry(date: Date(), user: nil, subscription: status)
       let timeline = Timeline(entries: [entry], policy: .never)
@@ -82,7 +84,8 @@ struct Provider: IntentTimelineProvider {
   }
 
   private func user(for configuration: DynamicUserSelectionIntent) -> UserProfile? {
-    guard let id = configuration.profile?.identifier, let profile = UserProfile.fetch(id: id) else {
+    guard let id = configuration.profile?.identifier, let profile = UserProfile.fetch(id: id)
+    else {
       return persistanceController.fetchFirstWidgetUser()
     }
 

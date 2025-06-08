@@ -37,7 +37,8 @@ struct AnalysisView: View {
           .padding(.horizontal)
           .padding(.vertical, 10)
           .background(
-            RoundedRectangle(cornerRadius: 10).foregroundColor(Color(.secondarySystemBackground)))
+            RoundedRectangle(cornerRadius: 10).foregroundColor(
+              Color(.secondarySystemBackground)))
       }
       VStack(spacing: 0) {
         ForEach(viewModel.players, id: \.slot) { player in

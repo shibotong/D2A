@@ -55,7 +55,8 @@ struct AboutUsView: View {
             })
         }
         makeRow(
-          image: "chevron.left.slash.chevron.right", text: "Source Code / Report an Issue",
+          image: "chevron.left.slash.chevron.right",
+          text: "Source Code / Report an Issue",
           link: URL(string: "https://github.com/shibotong/Dota2Armory"))
         makeRow(
           image: "star", text: "Rate the app on App Store",
@@ -64,17 +65,21 @@ struct AboutUsView: View {
         makeRow(image: "person", text: "Terms of Use", link: URL(string: TERMS_OF_USE))
 
         makeDetailRow(
-          image: "app.badge", text: "App Version", detail: "\(versionNumber)(\(buildNumber))")
+          image: "app.badge", text: "App Version",
+          detail: "\(versionNumber)(\(buildNumber))")
         NavigationLink(destination: StratzTokenView()) {
-          makeDetailRow(image: "chevron.left.slash.chevron.right", text: "Stratz Token", detail: "")
+          makeDetailRow(
+            image: "chevron.left.slash.chevron.right", text: "Stratz Token", detail: "")
         }
 
       }
       Section(header: Text("Thanks To")) {
         makeRow(
-          image: "heart.fill", text: "OpenDotaAPI", link: URL(string: "https://www.opendota.com"))
+          image: "heart.fill", text: "OpenDotaAPI",
+          link: URL(string: "https://www.opendota.com"))
         makeRow(
-          image: "heart.fill", text: "STRATZ API", link: URL(string: "https://stratz.com/dashboard")
+          image: "heart.fill", text: "STRATZ API",
+          link: URL(string: "https://stratz.com/dashboard")
         )
         makeRow(
           image: "heart.fill", text: "Our Loved Dota2",

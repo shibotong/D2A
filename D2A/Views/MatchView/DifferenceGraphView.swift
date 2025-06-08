@@ -41,8 +41,10 @@ struct DifferenceGraphView: View {
       Spacer()
       ZStack {
         BackgroundLine(max: fetchLargestABS())
-        DrawDiffLines(data: vm.xpDiff, max: fetchLargestABS(), selectedTime: vm.goldDiff.count - 1)
-          .foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
+        DrawDiffLines(
+          data: vm.xpDiff, max: fetchLargestABS(), selectedTime: vm.goldDiff.count - 1
+        )
+        .foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
         DrawDiffLines(
           data: vm.goldDiff, max: fetchLargestABS(), selectedTime: vm.goldDiff.count - 1
         ).foregroundColor(Color(.secondaryLabel).opacity(0.1)).clipped()
@@ -56,7 +58,8 @@ struct DifferenceGraphView: View {
             .foregroundColor(Color(.secondaryLabel).opacity(0.1))
             .frame(width: 1)
             .offset(
-              x: CGFloat(proxy.size.width) * CGFloat(vm.mins) / CGFloat(vm.goldDiff.count - 1), y: 0
+              x: CGFloat(proxy.size.width) * CGFloat(vm.mins)
+                / CGFloat(vm.goldDiff.count - 1), y: 0
             )
             .animation(.linear(duration: 0.1), value: vm.mins)
         }
@@ -113,8 +116,10 @@ struct CurrentPoint: View {
         .overlay(Circle().stroke(Color.white, lineWidth: 2))
         .shadow(radius: 1)
         .offset(
-          x: CGFloat(proxy.size.width) * CGFloat(selectedTime) / CGFloat(data.count - 1) - 5,
-          y: proxy.size.height * CGFloat(CGFloat(max - data[selectedTime]) / CGFloat(max * 2)) - 5)
+          x: CGFloat(proxy.size.width) * CGFloat(selectedTime) / CGFloat(data.count - 1)
+            - 5,
+          y: proxy.size.height
+            * CGFloat(CGFloat(max - data[selectedTime]) / CGFloat(max * 2)) - 5)
 
     }
   }
@@ -131,7 +136,8 @@ struct DrawDiffLines: View {
         path.move(
           to: CGPoint(
             x: 0,
-            y: CGFloat(CGFloat(max - showedData[0]) / CGFloat(max * 2)) * CGFloat(proxy.size.height)
+            y: CGFloat(CGFloat(max - showedData[0]) / CGFloat(max * 2))
+              * CGFloat(proxy.size.height)
           ))
         let halfStep = proxy.size.width / CGFloat(data.count - 1) / 2.0
         showedData.enumerated().forEach { index, item in
@@ -140,7 +146,8 @@ struct DrawDiffLines: View {
           } else if index == 0 {
             // first element
             let m2 = (showedData[index] + showedData[index + 1]) / 2
-            let x = (proxy.size.width * CGFloat(index) / CGFloat(data.count - 1)) + halfStep
+            let x =
+              (proxy.size.width * CGFloat(index) / CGFloat(data.count - 1)) + halfStep
             let y = (CGFloat(max - m2) / CGFloat(max * 2)) * CGFloat(proxy.size.height)
             path.addLine(to: CGPoint(x: x, y: y))
           } else if index == showedData.count - 1 {
@@ -148,16 +155,20 @@ struct DrawDiffLines: View {
             path.addLine(
               to: CGPoint(
                 x: (proxy.size.width * CGFloat(index) / CGFloat(data.count - 1)),
-                y: CGFloat(CGFloat(max - item) / CGFloat(max * 2)) * CGFloat(proxy.size.height)))
+                y: CGFloat(CGFloat(max - item) / CGFloat(max * 2))
+                  * CGFloat(proxy.size.height)))
           } else {
             let m2 = (showedData[index] + showedData[index + 1]) / 2
-            let x = (proxy.size.width * CGFloat(index) / CGFloat(data.count - 1)) + halfStep
+            let x =
+              (proxy.size.width * CGFloat(index) / CGFloat(data.count - 1)) + halfStep
             let y = (CGFloat(max - m2) / CGFloat(max * 2)) * CGFloat(proxy.size.height)
             path.addQuadCurve(
               to: CGPoint(x: x, y: y),
               control: CGPoint(
-                x: CGFloat(proxy.size.width * CGFloat(index) / CGFloat(data.count - 1)),
-                y: CGFloat(CGFloat(max - item) / CGFloat(max * 2)) * CGFloat(proxy.size.height)))
+                x: CGFloat(
+                  proxy.size.width * CGFloat(index) / CGFloat(data.count - 1)),
+                y: CGFloat(CGFloat(max - item) / CGFloat(max * 2))
+                  * CGFloat(proxy.size.height)))
           }
         }
       }

@@ -117,7 +117,9 @@ public class HeroQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.HeroRoleType }
+          public static var __parentType: ApolloAPI.ParentType {
+            StratzAPI.Objects.HeroRoleType
+          }
           public static var __selections: [ApolloAPI.Selection] {
             [
               .field("__typename", String.self),
@@ -137,7 +139,9 @@ public class HeroQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.HeroTalentType }
+          public static var __parentType: ApolloAPI.ParentType {
+            StratzAPI.Objects.HeroTalentType
+          }
           public static var __selections: [ApolloAPI.Selection] {
             [
               .field("__typename", String.self),
@@ -157,7 +161,9 @@ public class HeroQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.HeroStatType }
+          public static var __parentType: ApolloAPI.ParentType {
+            StratzAPI.Objects.HeroStatType
+          }
           public static var __selections: [ApolloAPI.Selection] {
             [
               .field("__typename", String.self),

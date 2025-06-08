@@ -278,7 +278,8 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
     accountId =
       coder.decodeObject(of: NSString.self, forKey: CodingKeys.accountId.rawValue) as? String
     personaname =
-      coder.decodeObject(of: NSString.self, forKey: CodingKeys.personaname.rawValue) as? String
+      coder.decodeObject(of: NSString.self, forKey: CodingKeys.personaname.rawValue)
+      as? String
     rank = coder.decodeInteger(forKey: CodingKeys.rank.rawValue)
 
     heroID = coder.decodeInteger(forKey: CodingKeys.heroID.rawValue)

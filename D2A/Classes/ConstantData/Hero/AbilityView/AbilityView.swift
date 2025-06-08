@@ -61,7 +61,8 @@ struct AbilityView: View {
             HStack {
               VStack(alignment: .leading, spacing: 5) {
                 ForEach(attributes, id: \.self) { item in
-                  AbilityStatsTextView(title: item.name, message: item.description)
+                  AbilityStatsTextView(
+                    title: item.name, message: item.description)
                 }
               }
               Spacer()
@@ -92,7 +93,8 @@ struct AbilityView: View {
     proxy: GeometryProxy
   ) -> some View {
     VStack {
-      let description = stratz.language?.description.compactMap { $0 }.joined(separator: "\n") ?? ""
+      let description =
+        stratz.language?.description.compactMap { $0 }.joined(separator: "\n") ?? ""
       if dataBase.isScepterSkill(ability: ability, heroID: viewModel.heroID) {
         AbilityDescriptionView(
           width: proxy.size.width, type: .scepter, description: description,

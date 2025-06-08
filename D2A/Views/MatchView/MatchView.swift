@@ -37,10 +37,12 @@ struct MatchView: View {
           .listRowSeparator(.hidden)
           .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
         if let goldDiff = match.goldDiff, let xpDiff = match.xpDiff {
-          DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: goldDiff, xpDiff: xpDiff))
-            .listRowSeparator(.hidden)
-            .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
-            .frame(height: 300)
+          DifferenceGraphView(
+            vm: DifferenceGraphViewModel(goldDiff: goldDiff, xpDiff: xpDiff)
+          )
+          .listRowSeparator(.hidden)
+          .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
+          .frame(height: 300)
         }
       }
       .listStyle(.plain)
@@ -79,11 +81,15 @@ struct MatchView: View {
     VStack(spacing: 30) {
       ScrollView(.horizontal, showsIndicators: false) {
         HStack(spacing: 15) {
-          MatchStatCardView(icon: "calendar", title: "Start Time", label: match.startTimeString)
-            .frame(width: 140)
-          MatchStatCardView(icon: "clock", title: "Duration", label: "\(match.durationString)")
-            .colorInvert()
-            .frame(width: 140)
+          MatchStatCardView(
+            icon: "calendar", title: "Start Time", label: match.startTimeString
+          )
+          .frame(width: 140)
+          MatchStatCardView(
+            icon: "clock", title: "Duration", label: "\(match.durationString)"
+          )
+          .colorInvert()
+          .frame(width: 140)
           MatchStatCardView(
             icon: "rosette", title: "Game Mode",
             label: LocalizedStringKey(data.fetchGameMode(id: Int(match.mode)).modeName)

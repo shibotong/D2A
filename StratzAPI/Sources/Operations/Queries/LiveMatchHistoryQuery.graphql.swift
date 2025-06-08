@@ -140,7 +140,9 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.MatchLiveType }
+        public static var __parentType: ApolloAPI.ParentType {
+          StratzAPI.Objects.MatchLiveType
+        }
         public static var __selections: [ApolloAPI.Selection] {
           [
             .field("__typename", String.self),
@@ -158,7 +160,9 @@ public class LiveMatchHistoryQuery: GraphQLQuery {
         public var direTeamId: Int? { __data["direTeamId"] }
         public var gameMode: GraphQLEnum<StratzAPI.GameModeEnumType>? { __data["gameMode"] }
         public var playbackData: PlaybackData? { __data["playbackData"] }
-        public var gameState: GraphQLEnum<StratzAPI.MatchLiveGameState>? { __data["gameState"] }
+        public var gameState: GraphQLEnum<StratzAPI.MatchLiveGameState>? {
+          __data["gameState"]
+        }
         public var players: [Player?]? { __data["players"] }
         public var liveWinRateValues: [LiveWinRateValue?]? { __data["liveWinRateValues"] }
 

@@ -88,7 +88,8 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
       let data = try await D2ANetwork.default.dataTask(url, as: T.self)
       return data
     } catch {
-      logWarn("Loading \(service) from OpenDota failed: \(error)", category: .opendotaConstant)
+      logWarn(
+        "Loading \(service) from OpenDota failed: \(error)", category: .opendotaConstant)
       return nil
     }
   }

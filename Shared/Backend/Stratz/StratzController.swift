@@ -27,12 +27,15 @@ class StratzController: StratzProviding {
 
   private func loadStratzAbilities() async throws -> [StratzAbility] {
     try await withCheckedThrowingContinuation { continuation in
-      Network.shared.apollo.fetch(query: AbilityQuery(language: .init(languageCode))) { result in
+      Network.shared.apollo.fetch(query: AbilityQuery(language: .init(languageCode))) {
+        result in
         switch result {
         case .success(let graphQLResult):
           guard let abilitiesConnection = graphQLResult.data?.constants?.abilities else {
             guard let errors = graphQLResult.errors else {
-              logWarn("0 abilities loaded from Stratz and no error thrown", category: .stratz)
+              logWarn(
+                "0 abilities loaded from Stratz and no error thrown",
+                category: .stratz)
               continuation.resume(returning: [])
               return
             }

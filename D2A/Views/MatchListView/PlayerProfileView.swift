@@ -39,12 +39,15 @@ struct PlayerProfileView: View {
   private var userid: String
 
   init(userid: String) {
-    _profile = FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "id = %@", userid))
+    _profile = FetchRequest(
+      sortDescriptors: [], predicate: NSPredicate(format: "id = %@", userid))
     let request = NSFetchRequest<RecentMatch>(entityName: "RecentMatch")
     request.fetchLimit = 10
     request.fetchBatchSize = 1
     request.predicate = NSPredicate(format: "playerId = %@", userid)
-    request.sortDescriptors = [NSSortDescriptor(keyPath: \RecentMatch.startTime, ascending: false)]
+    request.sortDescriptors = [
+      NSSortDescriptor(keyPath: \RecentMatch.startTime, ascending: false)
+    ]
     _matches = FetchRequest(fetchRequest: request)
     self.userid = userid
   }
@@ -122,7 +125,8 @@ struct PlayerProfileView: View {
           .bold()
         Spacer()
         NavigationLink(
-          destination: CalendarMatchListView(vm: CalendarMatchListViewModel(userid: profile.id!))
+          destination: CalendarMatchListView(
+            vm: CalendarMatchListViewModel(userid: profile.id!))
         ) {
           Text("All")
         }
@@ -139,7 +143,8 @@ struct PlayerProfileView: View {
             ) {
               MatchListRowView(viewModel: MatchListRowViewModel(match: match))
                 .background(Color.systemBackground)
-            }.listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
+            }.listRowInsets(
+              EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
           }
         }
       }
@@ -235,7 +240,8 @@ struct PlayerProfileView: View {
           Spacer()
         }
         .frame(height: 45)
-        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
+        .background(
+          RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
 
       }
       if let url = URL(string: profile.profileurl ?? "") {

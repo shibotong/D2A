@@ -137,7 +137,8 @@ struct LiveMatchBuildingEvent: LiveMatchEvent {
     guard !isAlive else {
       return []
     }
-    let detail = LiveMatchEventDetail(type: .tower, itemName: buildingName, itemIcon: AnyView(icon))
+    let detail = LiveMatchEventDetail(
+      type: .tower, itemName: buildingName, itemIcon: AnyView(icon))
     let iconName = isRadiantEvent ? "icon_radiant" : "icon_dire"
     let event = LiveMatchEventItem(
       time: time, isRadiantEvent: isRadiantEvent, icon: iconName, events: [detail])

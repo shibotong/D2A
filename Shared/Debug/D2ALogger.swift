@@ -13,7 +13,8 @@ func logDebug(
   function: String = #function, line: Int = #line
 ) {
   D2ALogger.shared.log(
-    level: .debug, message: message, category: category, file: file, function: function, line: line)
+    level: .debug, message: message, category: category, file: file, function: function,
+    line: line)
 }
 
 func logWarn(
@@ -21,7 +22,8 @@ func logWarn(
   function: String = #function, line: Int = #line
 ) {
   D2ALogger.shared.log(
-    level: .warn, message: message, category: category, file: file, function: function, line: line)
+    level: .warn, message: message, category: category, file: file, function: function,
+    line: line)
 }
 
 func logError(
@@ -29,7 +31,8 @@ func logError(
   function: String = #function, line: Int = #line
 ) {
   D2ALogger.shared.log(
-    level: .error, message: message, category: category, file: file, function: function, line: line)
+    level: .error, message: message, category: category, file: file, function: function,
+    line: line)
 }
 
 class D2ALogger: ObservableObject {
@@ -66,7 +69,9 @@ class D2ALogger: ObservableObject {
 
       let fileName = file.components(separatedBy: "/").last ?? file
 
-      print("\(level.icon) [\(category.rawValue)] [\(fileName): \(line) \(function)]: \(message)")
+      print(
+        "\(level.icon) [\(category.rawValue)] [\(fileName): \(line) \(function)]: \(message)"
+      )
     #endif
   }
 }

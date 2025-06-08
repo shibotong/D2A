@@ -51,12 +51,14 @@ class HeroListViewModel: ObservableObject {
         guard let self = self else { return [] }
         let filterHeroes =
           attributes == .whole
-          ? self.heroList : self.heroList.filter({ return $0.primaryAttr == attributes.rawValue })
+          ? self.heroList
+          : self.heroList.filter({ return $0.primaryAttr == attributes.rawValue })
         if searchString.isEmpty {
           return filterHeroes
         } else {
           let searchedHeroes = filterHeroes.filter({ hero in
-            let originalName = hero.localizedName.lowercased().contains(searchString.lowercased())
+            let originalName = hero.localizedName.lowercased().contains(
+              searchString.lowercased())
             let localizedName = hero.heroNameLocalized.lowercased().contains(
               searchString.lowercased())
             return originalName || localizedName

@@ -60,7 +60,8 @@ class LiveMatchViewModel: ObservableObject {
       if !setDraftState {
         setDraftState = true
         let showDraft =
-          status == "Init" || status == "Wait For Players To Load" || status == "Hero Selection"
+          status == "Init" || status == "Wait For Players To Load"
+          || status == "Hero Selection"
           || status == "Strategy Time" || status == "Pre Game"
         self.showDraft = showDraft
       }
@@ -155,7 +156,8 @@ class LiveMatchViewModel: ObservableObject {
           self?.direTeam = direTeamId.description
         }
         if let statusString = graphQLResult.data?.matchLive?.gameState?.rawValue {
-          let readableString = statusString.replacingOccurrences(of: "_", with: " ").capitalized
+          let readableString = statusString.replacingOccurrences(of: "_", with: " ")
+            .capitalized
           self?.status = readableString
         }
         if let radiantLogoURL = graphQLResult.data?.matchLive?.radiantTeam?.logo {
@@ -193,7 +195,8 @@ class LiveMatchViewModel: ObservableObject {
               guard let heroID = data.heroId else {
                 continue
               }
-              radiantPick.append(.init(heroID: Int(heroID), pickLevel: data.letter?.rawValue ?? ""))
+              radiantPick.append(
+                .init(heroID: Int(heroID), pickLevel: data.letter?.rawValue ?? ""))
             }
             if isRadiant && !data.isPick {
               guard let heroID = data.bannedHeroId else {
@@ -205,7 +208,8 @@ class LiveMatchViewModel: ObservableObject {
               guard let heroID = data.heroId else {
                 continue
               }
-              direPick.append(.init(heroID: Int(heroID), pickLevel: data.letter?.rawValue ?? " "))
+              direPick.append(
+                .init(heroID: Int(heroID), pickLevel: data.letter?.rawValue ?? " "))
             }
             if !isRadiant && !data.isPick {
               guard let heroID = data.bannedHeroId else {
@@ -248,8 +252,10 @@ class LiveMatchViewModel: ObservableObject {
             else {
               continue
             }
-            let deathEvent: [Int] = player.playbackData?.deathEvents?.compactMap { $0?.time } ?? []
-            let killEvent: [Int] = player.playbackData?.killEvents?.compactMap { $0?.time } ?? []
+            let deathEvent: [Int] =
+              player.playbackData?.deathEvents?.compactMap { $0?.time } ?? []
+            let killEvent: [Int] =
+              player.playbackData?.killEvents?.compactMap { $0?.time } ?? []
 
             let playerRowViewModel = PlayerRowViewModel(player: player)
             players.append(
@@ -275,7 +281,8 @@ class LiveMatchViewModel: ObservableObject {
               return nil
             }
             return LiveMatchBuildingEvent(
-              indexId: buildingID, time: event.time, type: type, isAlive: event.isAlive,
+              indexId: buildingID, time: event.time, type: type,
+              isAlive: event.isAlive,
               isRadiant: isRadiant)
           }
           newBuildingEvents = self?.processBuildingEvents(events: events) ?? []
@@ -296,7 +303,8 @@ class LiveMatchViewModel: ObservableObject {
 
   private func fetchHistoryData(lastFetchTime: Int) {
     let subscription = Network.shared.apollo.fetch(
-      query: LiveMatchHistoryQuery(matchid: matchID), cachePolicy: .fetchIgnoringCacheCompletely
+      query: LiveMatchHistoryQuery(matchid: matchID),
+      cachePolicy: .fetchIgnoringCacheCompletely
     ) { [weak self] result in
       switch result {
       case .success(let graphQLResult):
@@ -310,7 +318,9 @@ class LiveMatchViewModel: ObservableObject {
 
         // Building events
         var buildingEvents: [LiveMatchBuildingEvent] = []
-        if let buildingEventsData = graphQLResult.data?.live?.match?.playbackData?.buildingEvents {
+        if let buildingEventsData = graphQLResult.data?.live?.match?.playbackData?
+          .buildingEvents
+        {
           let events: [LiveMatchBuildingEvent] = buildingEventsData.compactMap { event in
             guard let event,
               let buildingID = event.indexId,
@@ -320,7 +330,8 @@ class LiveMatchViewModel: ObservableObject {
               return nil
             }
             return LiveMatchBuildingEvent(
-              indexId: buildingID, time: event.time, type: type, isAlive: event.isAlive,
+              indexId: buildingID, time: event.time, type: type,
+              isAlive: event.isAlive,
               isRadiant: isRadiant)
           }
           buildingEvents = self?.processBuildingEvents(events: events) ?? []
@@ -342,7 +353,9 @@ class LiveMatchViewModel: ObservableObject {
                 $0 > lastFetchTime
               } ?? []
             let killEvent: [Int] =
-              player.playbackData?.killEvents?.compactMap { $0?.time }.filter { $0 > lastFetchTime }
+              player.playbackData?.killEvents?.compactMap { $0?.time }.filter {
+                $0 > lastFetchTime
+              }
               ?? []
             players.append(
               Player(
@@ -428,7 +441,8 @@ class LiveMatchViewModel: ObservableObject {
         } else {
           // if no events here add a new one
           killEvents.append(
-            LiveMatchKillEvent(time: killEvent, kill: [heroID], died: [], players: matchPlayers))
+            LiveMatchKillEvent(
+              time: killEvent, kill: [heroID], died: [], players: matchPlayers))
         }
       }
 
@@ -442,7 +456,8 @@ class LiveMatchViewModel: ObservableObject {
         } else {
           // if no events here add a new one
           killEvents.append(
-            LiveMatchKillEvent(time: deathEvent, kill: [], died: [heroID], players: matchPlayers))
+            LiveMatchKillEvent(
+              time: deathEvent, kill: [], died: [heroID], players: matchPlayers))
         }
       }
     }

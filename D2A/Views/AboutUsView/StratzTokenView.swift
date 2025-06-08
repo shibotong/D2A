@@ -28,7 +28,9 @@ struct StratzTokenView: View {
         TextField("Stratz Token", text: $editToken)
           .padding()
           .clipShape(RoundedRectangle(cornerRadius: 10))
-          .background(RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(.primaryDota))
+          .background(
+            RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(.primaryDota)
+          )
           .keyboardType(.numberPad)
       }
       .padding()

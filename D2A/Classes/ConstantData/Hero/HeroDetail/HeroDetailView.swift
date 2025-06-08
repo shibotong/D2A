@@ -91,7 +91,8 @@ struct HeroDetailView: View {
         }
         Divider()
         if let selectedAbility = vm.selectedAbility {
-          AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: selectedAbility))
+          AbilityView(
+            viewModel: AbilityViewModel(heroID: vm.heroID, ability: selectedAbility))
         }
       }
     }
@@ -125,8 +126,10 @@ struct HeroDetailView: View {
             VStack(alignment: .leading, spacing: 3) {
               Spacer()
               HStack {
-                AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr ?? ""))
-                  .frame(width: 25, height: 25)
+                AttributeImage(
+                  attribute: HeroAttribute(rawValue: hero.primaryAttr ?? "")
+                )
+                .frame(width: 25, height: 25)
                 Text(LocalizedStringKey(hero.displayName ?? ""))
                   .font(.system(size: 30))
                   .bold()
@@ -190,7 +193,8 @@ struct HeroDetailView: View {
               viewModel: AbilityViewModel(heroID: vm.heroID, ability: ability))
           ) {
             AbilityImage(
-              viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL)
+              viewModel: AbilityImageViewModel(
+                name: ability.name, urlString: ability.imageURL)
             )
             .frame(width: 30, height: 30)
             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -201,7 +205,8 @@ struct HeroDetailView: View {
             vm.selectedAbility = ability
           } label: {
             AbilityImage(
-              viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL)
+              viewModel: AbilityImageViewModel(
+                name: ability.name, urlString: ability.imageURL)
             )
             .frame(width: 30, height: 30)
             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -337,7 +342,8 @@ struct HeroDetailView: View {
           )
           buildStatDetail(image: "icon_attack_time", value: "\(hero.attackRate)")
           buildStatDetail(image: "icon_attack_range", value: "\(hero.attackRange)")
-          buildStatDetail(image: "icon_projectile_speed", value: "\(hero.projectileSpeed)")
+          buildStatDetail(
+            image: "icon_projectile_speed", value: "\(hero.projectileSpeed)")
         }
         Spacer()
         VStack(alignment: .leading, spacing: 5) {

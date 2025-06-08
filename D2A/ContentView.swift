@@ -26,7 +26,8 @@ struct ContentView: View {
     .alert(
       isPresented: $env.error,
       content: {
-        Alert(title: Text("Error"), message: Text(env.errorMessage), dismissButton: .cancel())
+        Alert(
+          title: Text("Error"), message: Text(env.errorMessage), dismissButton: .cancel())
       })
   }
 }

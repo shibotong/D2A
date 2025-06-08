@@ -56,7 +56,8 @@ struct AbilityDescriptionView: View {
             .onDisappear {
               player.pause()
               NotificationCenter.default.removeObserver(
-                self, name: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+                self, name: .AVPlayerItemDidPlayToEndTime,
+                object: player.currentItem)
             }
           Spacer()
         }

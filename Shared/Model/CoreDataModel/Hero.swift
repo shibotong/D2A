@@ -100,7 +100,8 @@ extension Hero {
     do {
       guard let result = try context.fetch(request).first else {
         logError(
-          "Failed to fetch Hero with predicate \(predicate.predicateFormat)", category: .coredata)
+          "Failed to fetch Hero with predicate \(predicate.predicateFormat)",
+          category: .coredata)
         return nil
       }
       return result
@@ -226,7 +227,8 @@ extension Hero {
             + calculateAttribute(level: level, attr: .agi)
             + calculateAttribute(level: level, attr: .int)) * 0.7)
     case "str", "int", "agi":
-      bonusAttack = calculateAttribute(level: level, attr: HeroAttribute(rawValue: primaryAttr!)!)
+      bonusAttack = calculateAttribute(
+        level: level, attr: HeroAttribute(rawValue: primaryAttr!)!)
     default:
       bonusAttack = 0
     }

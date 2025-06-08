@@ -21,12 +21,16 @@ struct LatestRecentMatchView: View {
     request.fetchLimit = 25
     request.fetchBatchSize = 1
     let availableModes = [1, 2, 3, 4, 5, 12, 13, 14, 16, 17, 22]
-    let modeMultiplePredicates = availableModes.map { return NSPredicate(format: "mode = %d", $0) }
+    let modeMultiplePredicates = availableModes.map {
+      return NSPredicate(format: "mode = %d", $0)
+    }
     let modePredicate = NSCompoundPredicate(type: .or, subpredicates: modeMultiplePredicates)
     let userPredicate = NSPredicate(format: "playerId = %@", userid)
     request.predicate = NSCompoundPredicate(
       type: .and, subpredicates: [userPredicate, modePredicate])
-    request.sortDescriptors = [NSSortDescriptor(keyPath: \RecentMatch.startTime, ascending: false)]
+    request.sortDescriptors = [
+      NSSortDescriptor(keyPath: \RecentMatch.startTime, ascending: false)
+    ]
     _matches = FetchRequest(fetchRequest: request)
 
     let latestRequest = NSFetchRequest<RecentMatch>(entityName: "RecentMatch")
@@ -44,9 +48,11 @@ struct LatestRecentMatchView: View {
       if matches.count != 0 {
         ScrollView(.horizontal, showsIndicators: false) {
           HStack {
-            let fetchedMatches = matches.count >= 25 ? Array(matches[0..<25]) : Array(matches)
+            let fetchedMatches =
+              matches.count >= 25 ? Array(matches[0..<25]) : Array(matches)
             ForEach(fetchedMatches) { match in
-              RecentMatchWinLossView(heroID: Int(match.heroID), playerWin: match.playerWin)
+              RecentMatchWinLossView(
+                heroID: Int(match.heroID), playerWin: match.playerWin)
             }
           }
           .padding(.leading)

@@ -103,7 +103,9 @@ struct SearchView: View {
       if !vm.filterHeroes.isEmpty {
         Section {
           ForEach(vm.filterHeroes) { hero in
-            NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+            NavigationLink(
+              destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))
+            ) {
               HStack {
                 HeroImageView(heroID: hero.id, type: .icon)
                   .frame(width: 30, height: 30)
@@ -123,7 +125,9 @@ struct SearchView: View {
             }.accessibilityIdentifier(profile.id ?? "")
           }
           ForEach(vm.userProfiles) { profile in
-            NavigationLink(destination: PlayerProfileView(userid: profile.id.description)) {
+            NavigationLink(
+              destination: PlayerProfileView(userid: profile.id.description)
+            ) {
               ProfileView(viewModel: ProfileViewModel(profile: profile))
             }.accessibilityIdentifier(profile.id.description)
           }

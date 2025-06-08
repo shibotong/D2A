@@ -90,7 +90,8 @@ struct PlayerRowView: View {
       VStack(alignment: .leading, spacing: 2) {
         if let personaname = viewModel.personaname {
           HStack(spacing: 2) {
-            Image("rank_\(viewModel.rank / 10)").resizable().frame(width: 18, height: 18)
+            Image("rank_\(viewModel.rank / 10)").resizable().frame(
+              width: 18, height: 18)
             Text(personaname.description).font(.system(size: 15)).bold().lineLimit(1)
               .foregroundColor(.label)
           }
@@ -131,13 +132,16 @@ struct PlayerRowView: View {
       let backPackWidth: CGFloat = 30.0 * 2 / 3
       let backPachHeight = backPackWidth * 0.75
       if viewModel.backpack0 != nil {
-        ItemView(id: $viewModel.backpack0).frame(width: backPackWidth, height: backPachHeight)
+        ItemView(id: $viewModel.backpack0).frame(
+          width: backPackWidth, height: backPachHeight)
       }
       if viewModel.backpack1 != nil {
-        ItemView(id: $viewModel.backpack1).frame(width: backPackWidth, height: backPachHeight)
+        ItemView(id: $viewModel.backpack1).frame(
+          width: backPackWidth, height: backPachHeight)
       }
       if viewModel.backpack2 != nil {
-        ItemView(id: $viewModel.backpack2).frame(width: backPackWidth, height: backPachHeight)
+        ItemView(id: $viewModel.backpack2).frame(
+          width: backPackWidth, height: backPachHeight)
       }
     }
   }
@@ -240,10 +244,12 @@ struct PlayerRowView: View {
   @ViewBuilder private func buildAbility(abilityID: Int) -> some View {
     if let abilityName = HeroDatabase.shared.fetchAbilityName(id: abilityID) {
       if let ability = HeroDatabase.shared.fetchOpenDotaAbility(name: abilityName) {
-        if let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!"
+        if let img = ability.img,
+          ability.desc != "Associated ability not drafted, have some gold!"
         {
-          let parsedimgURL = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(
-            of: "images/abilities", with: "images/dota_react/abilities")
+          let parsedimgURL = img.replacingOccurrences(of: "_md", with: "")
+            .replacingOccurrences(
+              of: "images/abilities", with: "images/dota_react/abilities")
           AbilityImage(
             viewModel: AbilityImageViewModel(
               name: abilityName, urlString: "\(IMAGE_PREFIX)\(parsedimgURL)")

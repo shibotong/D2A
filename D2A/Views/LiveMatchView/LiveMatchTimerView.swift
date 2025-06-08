@@ -92,7 +92,8 @@ struct LiveMatchTimerView: View {
     }
     .background(
       LinearGradient(
-        colors: [Color(UIColor.systemGreen), Color(UIColor.systemRed)], startPoint: .leading,
+        colors: [Color(UIColor.systemGreen), Color(UIColor.systemRed)],
+        startPoint: .leading,
         endPoint: .trailing
       )
       .opacity(0.3)
@@ -109,10 +110,14 @@ struct LiveMatchTimerView_Previews: PreviewProvider {
         radiantTeamName: "PSG.LGD", direTeamName: "Aster"
       )
       .previewLayout(.fixed(width: 375, height: 200))
-      LiveMatchTimerView(radiantScore: 10, direScore: 10, time: 100, radiantTeam: "", direTeam: "")
-        .previewLayout(.fixed(width: 300, height: 100))
-      LiveMatchTimerView(radiantScore: 10, direScore: 10, time: 400, radiantTeam: "", direTeam: "")
-        .previewLayout(.fixed(width: 300, height: 100))
+      LiveMatchTimerView(
+        radiantScore: 10, direScore: 10, time: 100, radiantTeam: "", direTeam: ""
+      )
+      .previewLayout(.fixed(width: 300, height: 100))
+      LiveMatchTimerView(
+        radiantScore: 10, direScore: 10, time: 400, radiantTeam: "", direTeam: ""
+      )
+      .previewLayout(.fixed(width: 300, height: 100))
       LiveMatchTimerView(
         radiantScore: nil, direScore: nil, time: nil, radiantTeam: "", direTeam: ""
       )

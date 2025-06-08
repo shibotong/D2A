@@ -238,12 +238,14 @@ func loadMatch() -> ODMatch? {
 }
 
 func loadItemIDs() async -> [String: String] {
-  let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/item_ids.json"
+  let urlString =
+    "https://raw.githubusercontent.com/odota/dotaconstants/master/build/item_ids.json"
   if let url = URL(string: urlString) {
     do {
       let (data, _) = try await URLSession.shared.data(from: url)
       guard
-        let itemIDs = try JSONSerialization.jsonObject(with: data, options: []) as? [String: String]
+        let itemIDs = try JSONSerialization.jsonObject(with: data, options: [])
+          as? [String: String]
       else {
         return [:]
       }

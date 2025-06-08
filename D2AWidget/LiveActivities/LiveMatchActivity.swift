@@ -56,7 +56,8 @@ class LiveMatchActivity {
       self.currentActivity = activity
       print("start activity")
     } catch {
-      print("LiveActivityManager: Error in LiveActivityManager: \(error.localizedDescription)")
+      print(
+        "LiveActivityManager: Error in LiveActivityManager: \(error.localizedDescription)")
     }
   }
   // swiftlint:enable all

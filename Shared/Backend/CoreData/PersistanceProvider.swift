@@ -244,7 +244,8 @@ class PersistanceProvider: PersistanceProviding {
   private func batchInsertData<T: PersistanceModel, V: NSEntityDescription>(
     _ data: [T], into entity: V, context: NSManagedObjectContext
   ) async {
-    let insertRequest = NSBatchInsertRequest(entity: entity, objects: data.map { $0.dictionaries })
+    let insertRequest = NSBatchInsertRequest(
+      entity: entity, objects: data.map { $0.dictionaries })
     insertRequest.resultType = .statusOnly
     await context.perform {
       do {
@@ -254,10 +255,12 @@ class PersistanceProvider: PersistanceProviding {
         {
           if !success {
             logError(
-              "Failed to insert data in \(entity.name ?? "Unknown entity")", category: .coredata)
+              "Failed to insert data in \(entity.name ?? "Unknown entity")",
+              category: .coredata)
           } else {
             logDebug(
-              "Insert data in \(entity.name ?? "Unknown entity") success", category: .coredata)
+              "Insert data in \(entity.name ?? "Unknown entity") success",
+              category: .coredata)
           }
         } else {
           logWarn("Cast NSBatchInsertResult failed", category: .coredata)

@@ -31,7 +31,8 @@ class OpenDotaProvider: OpenDotaProviding {
     do {
       return try await D2ANetwork.default.dataTask(urlString, as: [ODUserProfile].self)
     } catch {
-      logError("Search user by text failed: \(error.localizedDescription)", category: .opendota)
+      logError(
+        "Search user by text failed: \(error.localizedDescription)", category: .opendota)
       return []
     }
   }

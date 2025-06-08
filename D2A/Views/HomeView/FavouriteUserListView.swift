@@ -53,7 +53,8 @@ struct FavouriteUserListView: View {
           }
         }
         .frame(height: 40)
-        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
+        .background(
+          RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
       }
     }
     .padding(.vertical)
@@ -63,7 +64,8 @@ struct FavouriteUserListView: View {
     LazyVGrid(
       columns: Array(
         repeating: GridItem(
-          .adaptive(minimum: 100, maximum: 140), spacing: 10, alignment: .leading), count: 1),
+          .adaptive(minimum: 100, maximum: 140), spacing: 10, alignment: .leading),
+        count: 1),
       spacing: 10
     ) {
       ForEach(favouritePlayers, id: \.id) { player in

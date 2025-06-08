@@ -33,9 +33,11 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "MatchLiveRoshanDetailType": return StratzAPI.Objects.MatchLiveRoshanDetailType
     case "MatchLiveBuildingDetailType": return StratzAPI.Objects.MatchLiveBuildingDetailType
     case "MatchLivePickBanType": return StratzAPI.Objects.MatchLivePickBanType
-    case "MatchPlayerLivePlaybackDataType": return StratzAPI.Objects.MatchPlayerLivePlaybackDataType
+    case "MatchPlayerLivePlaybackDataType":
+      return StratzAPI.Objects.MatchPlayerLivePlaybackDataType
     case "MatchLivePlayerKillDetailType": return StratzAPI.Objects.MatchLivePlayerKillDetailType
-    case "MatchLivePlayerDeathDetailType": return StratzAPI.Objects.MatchLivePlayerDeathDetailType
+    case "MatchLivePlayerDeathDetailType":
+      return StratzAPI.Objects.MatchLivePlayerDeathDetailType
     case "MatchLivePlayerPositionDetailType":
       return StratzAPI.Objects.MatchLivePlayerPositionDetailType
     case "MatchLivePlayerInventoryDetailType":
