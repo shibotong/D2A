@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserProfileCodable: Decodable, Identifiable {
+struct ODUserProfile: Decodable, Identifiable {
 
     var id: Int
     var avatarfull: String
@@ -20,8 +20,8 @@ struct UserProfileCodable: Decodable, Identifiable {
     var rank: Int?
     var leaderboard: Int?
     var name: String?
-    static let empty = UserProfileCodable(id: 0, avatarfull: "", lastLogin: nil, countryCode: nil, personaname: "", isPlus: false, profileurl: "", rank: nil, leaderboard: nil)
-    static let sample: UserProfileCodable = loadProfile()!
+    static let empty = ODUserProfile(id: 0, avatarfull: "", lastLogin: nil, countryCode: nil, personaname: "", isPlus: false, profileurl: "", rank: nil, leaderboard: nil)
+    static let sample: ODUserProfile = loadProfile()!
 
     enum CodingKeys: String, CodingKey {
         case id = "account_id"

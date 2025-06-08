@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MatchCodable: Decodable {
+struct ODMatch: Decodable {
     var id: Int
     var direKill: Int?
     var duration: Int
@@ -30,7 +30,7 @@ struct MatchCodable: Decodable {
     
     static let sample = loadMatch()!
     
-    static let emptyMatch = MatchCodable(id: 0, duration: 0, mode: 0, lobbyType: 0, radiantWin: false, startTime: 0, direBarracks: 0, radiantBarracks: 0, direTowers: 0, radiantTowers: 0, region: 0)
+    static let emptyMatch = ODMatch(id: 0, duration: 0, mode: 0, lobbyType: 0, radiantWin: false, startTime: 0, direBarracks: 0, radiantBarracks: 0, direTowers: 0, radiantTowers: 0, region: 0)
     
     enum CodingKeys: String, CodingKey {
         case id = "match_id"
