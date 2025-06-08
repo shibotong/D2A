@@ -9,16 +9,16 @@ import CoreData
 import Foundation
 
 extension CodingUserInfoKey {
-  static let managedObjectContext = CodingUserInfoKey(rawValue: "managedObjectContext")!
+    static let managedObjectContext = CodingUserInfoKey(rawValue: "managedObjectContext")!
 }
 
 enum DecoderConfigurationError: Error {
-  case missingManagedObjectContext
+    case missingManagedObjectContext
 }
 
 extension JSONDecoder {
-  convenience init(context: NSManagedObjectContext) {
-    self.init()
-    userInfo[.managedObjectContext] = context
-  }
+    convenience init(context: NSManagedObjectContext) {
+        self.init()
+        userInfo[.managedObjectContext] = context
+    }
 }

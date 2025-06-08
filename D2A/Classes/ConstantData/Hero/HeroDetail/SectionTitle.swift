@@ -9,14 +9,14 @@ import SwiftUI
 
 struct SectionTitle: View {
 
-  let title: String
+    let title: String
 
-  var body: some View {
-    HStack {
-      Text(title)
-        .font(.system(size: 15))
-        .bold()
-      Spacer()
-    }.padding(.bottom)
-  }
+    var body: some View {
+        HStack {
+            Text(title)
+                .font(.system(size: 15))
+                .bold()
+            Spacer()
+        }.padding(.bottom)
+    }
 }

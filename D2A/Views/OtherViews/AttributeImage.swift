@@ -9,25 +9,25 @@ import SwiftUI
 
 struct AttributeImage: View {
 
-  let attribute: HeroAttribute?
+    let attribute: HeroAttribute?
 
-  var body: some View {
-    if let attribute, attribute != .whole {
-      Image("attribute_\(attribute.rawValue)")
-        .resizable()
-    } else {
-      EmptyView()
+    var body: some View {
+        if let attribute, attribute != .whole {
+            Image("attribute_\(attribute.rawValue)")
+                .resizable()
+        } else {
+            EmptyView()
+        }
     }
-  }
 }
 
 struct AttributeImage_Previews: PreviewProvider {
-  static var previews: some View {
-    Group {
-      ForEach(HeroAttribute.allCases, id: \.self) { attribute in
-        AttributeImage(attribute: attribute)
-          .previewLayout(.fixed(width: 20, height: 20))
-      }
+    static var previews: some View {
+        Group {
+            ForEach(HeroAttribute.allCases, id: \.self) { attribute in
+                AttributeImage(attribute: attribute)
+                    .previewLayout(.fixed(width: 20, height: 20))
+            }
+        }
     }
-  }
 }

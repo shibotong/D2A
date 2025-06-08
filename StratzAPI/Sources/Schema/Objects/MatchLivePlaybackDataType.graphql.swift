@@ -4,8 +4,8 @@
 import ApolloAPI
 
 extension Objects {
-  public static let MatchLivePlaybackDataType = Object(
-    typename: "MatchLivePlaybackDataType",
-    implementedInterfaces: []
-  )
+    public static let MatchLivePlaybackDataType = Object(
+        typename: "MatchLivePlaybackDataType",
+        implementedInterfaces: []
+    )
 }

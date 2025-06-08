@@ -4,8 +4,8 @@
 import ApolloAPI
 
 extension Objects {
-  public static let MatchLiveWinRateDetailType = Object(
-    typename: "MatchLiveWinRateDetailType",
-    implementedInterfaces: []
-  )
+    public static let MatchLiveWinRateDetailType = Object(
+        typename: "MatchLiveWinRateDetailType",
+        implementedInterfaces: []
+    )
 }

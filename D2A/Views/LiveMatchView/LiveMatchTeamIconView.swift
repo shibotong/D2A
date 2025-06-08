@@ -9,20 +9,20 @@ import SwiftUI
 
 struct LiveMatchTeamIconView: View {
 
-  @ObservedObject var viewModel: LiveMatchTeamIconViewModel
+    @ObservedObject var viewModel: LiveMatchTeamIconViewModel
 
-  var body: some View {
-    ZStack {
-      if let image = viewModel.image {
-        Image(uiImage: image)
-          .resizable()
-          .scaledToFit()
-      } else {
-        Image("icon_\(viewModel.isRadiant ? "radiant" : "dire")")
-          .resizable()
-          .scaledToFit()
-      }
+    var body: some View {
+        ZStack {
+            if let image = viewModel.image {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+            } else {
+                Image("icon_\(viewModel.isRadiant ? "radiant" : "dire")")
+                    .resizable()
+                    .scaledToFit()
+            }
+        }
+        .cornerRadius(5)
     }
-    .cornerRadius(5)
-  }
 }

@@ -18,44 +18,44 @@ public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI
 where Schema == StratzAPI.SchemaMetadata {}
 
 public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
-  public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
+    public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
 
-  public static func objectType(forTypename typename: String) -> Object? {
-    switch typename {
-    case "DotaQuery": return StratzAPI.Objects.DotaQuery
-    case "LiveQuery": return StratzAPI.Objects.LiveQuery
-    case "MatchLiveType": return StratzAPI.Objects.MatchLiveType
-    case "LeagueType": return StratzAPI.Objects.LeagueType
-    case "MatchLivePlayerType": return StratzAPI.Objects.MatchLivePlayerType
-    case "SteamAccountType": return StratzAPI.Objects.SteamAccountType
-    case "ProSteamAccountType": return StratzAPI.Objects.ProSteamAccountType
-    case "MatchLivePlaybackDataType": return StratzAPI.Objects.MatchLivePlaybackDataType
-    case "MatchLiveRoshanDetailType": return StratzAPI.Objects.MatchLiveRoshanDetailType
-    case "MatchLiveBuildingDetailType": return StratzAPI.Objects.MatchLiveBuildingDetailType
-    case "MatchLivePickBanType": return StratzAPI.Objects.MatchLivePickBanType
-    case "MatchPlayerLivePlaybackDataType":
-      return StratzAPI.Objects.MatchPlayerLivePlaybackDataType
-    case "MatchLivePlayerKillDetailType": return StratzAPI.Objects.MatchLivePlayerKillDetailType
-    case "MatchLivePlayerDeathDetailType":
-      return StratzAPI.Objects.MatchLivePlayerDeathDetailType
-    case "MatchLivePlayerPositionDetailType":
-      return StratzAPI.Objects.MatchLivePlayerPositionDetailType
-    case "MatchLivePlayerInventoryDetailType":
-      return StratzAPI.Objects.MatchLivePlayerInventoryDetailType
-    case "MatchLiveWinRateDetailType": return StratzAPI.Objects.MatchLiveWinRateDetailType
-    case "DotaSubscription": return StratzAPI.Objects.DotaSubscription
-    case "TeamType": return StratzAPI.Objects.TeamType
-    case "ConstantQuery": return StratzAPI.Objects.ConstantQuery
-    case "HeroType": return StratzAPI.Objects.HeroType
-    case "HeroRoleType": return StratzAPI.Objects.HeroRoleType
-    case "HeroTalentType": return StratzAPI.Objects.HeroTalentType
-    case "HeroStatType": return StratzAPI.Objects.HeroStatType
-    case "AbilityType": return StratzAPI.Objects.AbilityType
-    case "AbilityLanguageType": return StratzAPI.Objects.AbilityLanguageType
-    case "AbilityAttributeType": return StratzAPI.Objects.AbilityAttributeType
-    default: return nil
+    public static func objectType(forTypename typename: String) -> Object? {
+        switch typename {
+        case "DotaQuery": return StratzAPI.Objects.DotaQuery
+        case "LiveQuery": return StratzAPI.Objects.LiveQuery
+        case "MatchLiveType": return StratzAPI.Objects.MatchLiveType
+        case "LeagueType": return StratzAPI.Objects.LeagueType
+        case "MatchLivePlayerType": return StratzAPI.Objects.MatchLivePlayerType
+        case "SteamAccountType": return StratzAPI.Objects.SteamAccountType
+        case "ProSteamAccountType": return StratzAPI.Objects.ProSteamAccountType
+        case "MatchLivePlaybackDataType": return StratzAPI.Objects.MatchLivePlaybackDataType
+        case "MatchLiveRoshanDetailType": return StratzAPI.Objects.MatchLiveRoshanDetailType
+        case "MatchLiveBuildingDetailType": return StratzAPI.Objects.MatchLiveBuildingDetailType
+        case "MatchLivePickBanType": return StratzAPI.Objects.MatchLivePickBanType
+        case "MatchPlayerLivePlaybackDataType":
+            return StratzAPI.Objects.MatchPlayerLivePlaybackDataType
+        case "MatchLivePlayerKillDetailType": return StratzAPI.Objects.MatchLivePlayerKillDetailType
+        case "MatchLivePlayerDeathDetailType":
+            return StratzAPI.Objects.MatchLivePlayerDeathDetailType
+        case "MatchLivePlayerPositionDetailType":
+            return StratzAPI.Objects.MatchLivePlayerPositionDetailType
+        case "MatchLivePlayerInventoryDetailType":
+            return StratzAPI.Objects.MatchLivePlayerInventoryDetailType
+        case "MatchLiveWinRateDetailType": return StratzAPI.Objects.MatchLiveWinRateDetailType
+        case "DotaSubscription": return StratzAPI.Objects.DotaSubscription
+        case "TeamType": return StratzAPI.Objects.TeamType
+        case "ConstantQuery": return StratzAPI.Objects.ConstantQuery
+        case "HeroType": return StratzAPI.Objects.HeroType
+        case "HeroRoleType": return StratzAPI.Objects.HeroRoleType
+        case "HeroTalentType": return StratzAPI.Objects.HeroTalentType
+        case "HeroStatType": return StratzAPI.Objects.HeroStatType
+        case "AbilityType": return StratzAPI.Objects.AbilityType
+        case "AbilityLanguageType": return StratzAPI.Objects.AbilityLanguageType
+        case "AbilityAttributeType": return StratzAPI.Objects.AbilityAttributeType
+        default: return nil
+        }
     }
-  }
 }
 
 public enum Objects {}

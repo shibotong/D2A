@@ -9,13 +9,13 @@ import ActivityKit
 import Foundation
 
 struct LiveMatchActivityAttributes: ActivityAttributes {
-  public typealias MatchStatus = ContentState
+    public typealias MatchStatus = ContentState
 
-  public struct ContentState: Codable, Hashable {
-    var radiantScore: Int
-    var direScore: Int
-    var time: Int
-  }
+    public struct ContentState: Codable, Hashable {
+        var radiantScore: Int
+        var direScore: Int
+        var time: Int
+    }
 
-  var leagueName: String?
+    var leagueName: String?
 }

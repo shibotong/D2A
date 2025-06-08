@@ -8,10 +8,10 @@
 import WidgetKit
 
 struct D2AWidgetUserEntry: TimelineEntry {
-  let date: Date
-  let user: D2AWidgetUser?
-  let subscription: Bool
+    let date: Date
+    let user: D2AWidgetUser?
+    let subscription: Bool
 
-  static let preview = D2AWidgetUserEntry(
-    date: Date(), user: D2AWidgetUser.preview, subscription: true)
+    static let preview = D2AWidgetUserEntry(
+        date: Date(), user: D2AWidgetUser.preview, subscription: true)
 }

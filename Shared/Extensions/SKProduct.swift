@@ -10,60 +10,60 @@ import StoreKit
 
 extension SKProduct {
 
-  private static let formatter: NumberFormatter = {
-    let formatter = NumberFormatter()
-    formatter.numberStyle = .currency
-    return formatter
-  }()
+    private static let formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        return formatter
+    }()
 
-  var isFree: Bool {
-    price == 0.00
-  }
-
-  var localizedPrice: String? {
-    guard !isFree else {
-      return nil
+    var isFree: Bool {
+        price == 0.00
     }
 
-    let formatter = SKProduct.formatter
-    formatter.locale = priceLocale
+    var localizedPrice: String? {
+        guard !isFree else {
+            return nil
+        }
 
-    return formatter.string(from: price)
-  }
+        let formatter = SKProduct.formatter
+        formatter.locale = priceLocale
 
-  var monthlyCost: String? {
-    let cost = price
-    var months = subscriptionPeriod!.numberOfUnits
-    if subscriptionPeriod!.unit == .year {
-      months *= 12
+        return formatter.string(from: price)
     }
-    let monthlyCost = (cost as Decimal / Decimal(months)) as NSNumber
 
-    let formatter = SKProduct.formatter
-    formatter.locale = priceLocale
+    var monthlyCost: String? {
+        let cost = price
+        var months = subscriptionPeriod!.numberOfUnits
+        if subscriptionPeriod!.unit == .year {
+            months *= 12
+        }
+        let monthlyCost = (cost as Decimal / Decimal(months)) as NSNumber
 
-    return formatter.string(from: monthlyCost)
-  }
+        let formatter = SKProduct.formatter
+        formatter.locale = priceLocale
 
-  var monthlyPrice: Double {
-    let cost = price.doubleValue
-    var months = subscriptionPeriod!.numberOfUnits
-    if subscriptionPeriod!.unit == .year {
-      months *= 12
+        return formatter.string(from: monthlyCost)
     }
-    let monthlyCost = cost / Double(months)
-    return monthlyCost
-  }
 
-  func getNumberOfUnit() -> Int {
-    let number = subscriptionPeriod!.numberOfUnits
-    switch subscriptionPeriod!.unit {
-    case .month:
-      return number
-    case .year:
-      return number * 12
-    default:
-      return 0
+    var monthlyPrice: Double {
+        let cost = price.doubleValue
+        var months = subscriptionPeriod!.numberOfUnits
+        if subscriptionPeriod!.unit == .year {
+            months *= 12
+        }
+        let monthlyCost = cost / Double(months)
+        return monthlyCost
     }
-  }
+
+    func getNumberOfUnit() -> Int {
+        let number = subscriptionPeriod!.numberOfUnits
+        switch subscriptionPeriod!.unit {
+        case .month:
+            return number
+        case .year:
+            return number * 12
+        default:
+            return 0
+        }
+    }
 }

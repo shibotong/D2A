@@ -4,8 +4,8 @@
 import ApolloAPI
 
 extension Objects {
-  public static let MatchLivePlayerInventoryDetailType = Object(
-    typename: "MatchLivePlayerInventoryDetailType",
-    implementedInterfaces: []
-  )
+    public static let MatchLivePlayerInventoryDetailType = Object(
+        typename: "MatchLivePlayerInventoryDetailType",
+        implementedInterfaces: []
+    )
 }

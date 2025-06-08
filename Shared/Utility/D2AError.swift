@@ -8,9 +8,9 @@
 import Foundation
 
 struct D2AError: LocalizedError {
-  let message: String
+    let message: String
 
-  var errorDescription: String? {
-    message
-  }
+    var errorDescription: String? {
+        message
+    }
 }

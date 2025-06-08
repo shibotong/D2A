@@ -10,102 +10,102 @@ import SwiftUI
 import WidgetKit
 
 struct Provider: IntentTimelineProvider {
-  // Intent configuration of the widget
-  typealias Intent = DynamicUserSelectionIntent
+    // Intent configuration of the widget
+    typealias Intent = DynamicUserSelectionIntent
 
-  public typealias Entry = D2AWidgetUserEntry
+    public typealias Entry = D2AWidgetUserEntry
 
-  private let persistanceController = PersistanceProvider.shared
+    private let persistanceController = PersistanceProvider.shared
 
-  func placeholder(in context: Context) -> D2AWidgetUserEntry {
-    D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
-  }
-
-  func getSnapshot(
-    for configuration: DynamicUserSelectionIntent, in context: Context,
-    completion: @escaping (D2AWidgetUserEntry) -> Void
-  ) {
-    let profile = persistanceController.fetchFirstWidgetUser()
-
-    guard let profile, let userID = profile.id else {
-      let entry = D2AWidgetUserEntry(
-        date: Date(), user: D2AWidgetUser.preview, subscription: true)
-      completion(entry)
-      return
+    func placeholder(in context: Context) -> D2AWidgetUserEntry {
+        D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
     }
 
-    // Use matches on device to load snapshot
-    let matches = RecentMatch.fetch(userID: userID, count: 10)
-    let userAvatar = ImageCache.readImage(type: .avatar, id: userID)
+    func getSnapshot(
+        for configuration: DynamicUserSelectionIntent, in context: Context,
+        completion: @escaping (D2AWidgetUserEntry) -> Void
+    ) {
+        let profile = persistanceController.fetchFirstWidgetUser()
 
-    let user = D2AWidgetUser(profile, image: userAvatar, matches: matches)
-    let entry = D2AWidgetUserEntry(date: Date(), user: user, subscription: true)
-    completion(entry)
-  }
+        guard let profile, let userID = profile.id else {
+            let entry = D2AWidgetUserEntry(
+                date: Date(), user: D2AWidgetUser.preview, subscription: true)
+            completion(entry)
+            return
+        }
 
-  func getTimeline(
-    for configuration: DynamicUserSelectionIntent, in context: Context,
-    completion: @escaping (Timeline<D2AWidgetUserEntry>) -> Void
-  ) {
-    let currentDate = Date()
-    let status =
-      UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool
-      ?? false
-    guard status, let selectedProfile = user(for: configuration),
-      let userID = selectedProfile.id
-    else {
-      let entry = D2AWidgetUserEntry(date: Date(), user: nil, subscription: status)
-      let timeline = Timeline(entries: [entry], policy: .never)
-      completion(timeline)
-      return
-    }
-    Task {
-      let matches = await loadNewMatches(for: userID)
-      var profile = selectedProfile
-      if selectedProfile.shouldUpdate {
-        profile = await refreshUser(for: userID) ?? selectedProfile
-      }
+        // Use matches on device to load snapshot
+        let matches = RecentMatch.fetch(userID: userID, count: 10)
+        let userAvatar = ImageCache.readImage(type: .avatar, id: userID)
 
-      var image = ImageCache.readImage(type: .avatar, id: userID)
-
-      if let urlString = profile.avatarfull, image == nil,
-        let newImage = await ImageCache.loadImage(urlString: urlString)
-      {
-        image = newImage
-        ImageCache.saveImage(newImage, type: .avatar, id: userID)
-      }
-
-      let user = D2AWidgetUser(profile, image: image, matches: matches)
-      let entry = D2AWidgetUserEntry(date: Date(), user: user, subscription: status)
-      let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
-      let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-      completion(timeline)
-    }
-  }
-
-  private func user(for configuration: DynamicUserSelectionIntent) -> UserProfile? {
-    guard let id = configuration.profile?.identifier, let profile = UserProfile.fetch(id: id)
-    else {
-      return persistanceController.fetchFirstWidgetUser()
+        let user = D2AWidgetUser(profile, image: userAvatar, matches: matches)
+        let entry = D2AWidgetUserEntry(date: Date(), user: user, subscription: true)
+        completion(entry)
     }
 
-    return profile
-  }
+    func getTimeline(
+        for configuration: DynamicUserSelectionIntent, in context: Context,
+        completion: @escaping (Timeline<D2AWidgetUserEntry>) -> Void
+    ) {
+        let currentDate = Date()
+        let status =
+            UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool
+            ?? false
+        guard status, let selectedProfile = user(for: configuration),
+            let userID = selectedProfile.id
+        else {
+            let entry = D2AWidgetUserEntry(date: Date(), user: nil, subscription: status)
+            let timeline = Timeline(entries: [entry], policy: .never)
+            completion(timeline)
+            return
+        }
+        Task {
+            let matches = await loadNewMatches(for: userID)
+            var profile = selectedProfile
+            if selectedProfile.shouldUpdate {
+                profile = await refreshUser(for: userID) ?? selectedProfile
+            }
 
-  private func loadNewMatches(for userID: String) async -> [RecentMatch] {
-    await OpenDotaProvider.shared.loadRecentMatch(userid: userID)
-    let newMatches = RecentMatch.fetch(userID: userID, count: 10)
-    return newMatches
-  }
+            var image = ImageCache.readImage(type: .avatar, id: userID)
 
-  private func refreshUser(for userID: String) async -> UserProfile? {
-    do {
-      let profileCodable = try await OpenDotaProvider.shared.loadUserData(userid: userID)
-      _ = try UserProfile.create(profileCodable)
-      let newProfile = UserProfile.fetch(id: userID)
-      return newProfile
-    } catch {
-      return nil
+            if let urlString = profile.avatarfull, image == nil,
+                let newImage = await ImageCache.loadImage(urlString: urlString)
+            {
+                image = newImage
+                ImageCache.saveImage(newImage, type: .avatar, id: userID)
+            }
+
+            let user = D2AWidgetUser(profile, image: image, matches: matches)
+            let entry = D2AWidgetUserEntry(date: Date(), user: user, subscription: status)
+            let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
+            let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+            completion(timeline)
+        }
     }
-  }
+
+    private func user(for configuration: DynamicUserSelectionIntent) -> UserProfile? {
+        guard let id = configuration.profile?.identifier, let profile = UserProfile.fetch(id: id)
+        else {
+            return persistanceController.fetchFirstWidgetUser()
+        }
+
+        return profile
+    }
+
+    private func loadNewMatches(for userID: String) async -> [RecentMatch] {
+        await OpenDotaProvider.shared.loadRecentMatch(userid: userID)
+        let newMatches = RecentMatch.fetch(userID: userID, count: 10)
+        return newMatches
+    }
+
+    private func refreshUser(for userID: String) async -> UserProfile? {
+        do {
+            let profileCodable = try await OpenDotaProvider.shared.loadUserData(userid: userID)
+            _ = try UserProfile.create(profileCodable)
+            let newProfile = UserProfile.fetch(id: userID)
+            return newProfile
+        } catch {
+            return nil
+        }
+    }
 }

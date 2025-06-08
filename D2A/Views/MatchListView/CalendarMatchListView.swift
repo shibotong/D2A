@@ -8,44 +8,44 @@
 import SwiftUI
 
 struct CalendarMatchListView: View {
-  @StateObject var vm: CalendarMatchListViewModel
-  @Environment(\.horizontalSizeClass) private var horizontalSize
-  var body: some View {
-    VStack {
-      DatePicker(
-        "Select Date", selection: $vm.selectDate, in: PartialRangeThrough(Date()),
-        displayedComponents: [.date]
-      )
-      .datePickerStyle(.graphical)
-      buildMatches()
-    }
-  }
-
-  @ViewBuilder private func buildMatches() -> some View {
-    if vm.isLoading {
-      ProgressView()
-    } else {
-      if vm.matches.isEmpty {
-        Text("No Result")
-          .foregroundColor(.secondaryLabel)
-          .frame(maxWidth: .infinity, maxHeight: .infinity)
-          .background(Color.secondarySystemBackground)
-      } else {
-        ScrollView {
-          VStack(spacing: 1) {
-            ForEach(vm.matches) { match in
-              NavigationLink(destination: MatchView(matchid: match.id!.description)) {
-                MatchListRowView(viewModel: MatchListRowViewModel(match: match))
-                  .background(Color.systemBackground)
-              }
-              .accessibilityIdentifier(match.id!.description)
-            }
-          }
+    @StateObject var vm: CalendarMatchListViewModel
+    @Environment(\.horizontalSizeClass) private var horizontalSize
+    var body: some View {
+        VStack {
+            DatePicker(
+                "Select Date", selection: $vm.selectDate, in: PartialRangeThrough(Date()),
+                displayedComponents: [.date]
+            )
+            .datePickerStyle(.graphical)
+            buildMatches()
         }
-        .background(Color.secondarySystemBackground)
-      }
     }
-  }
+
+    @ViewBuilder private func buildMatches() -> some View {
+        if vm.isLoading {
+            ProgressView()
+        } else {
+            if vm.matches.isEmpty {
+                Text("No Result")
+                    .foregroundColor(.secondaryLabel)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.secondarySystemBackground)
+            } else {
+                ScrollView {
+                    VStack(spacing: 1) {
+                        ForEach(vm.matches) { match in
+                            NavigationLink(destination: MatchView(matchid: match.id!.description)) {
+                                MatchListRowView(viewModel: MatchListRowViewModel(match: match))
+                                    .background(Color.systemBackground)
+                            }
+                            .accessibilityIdentifier(match.id!.description)
+                        }
+                    }
+                }
+                .background(Color.secondarySystemBackground)
+            }
+        }
+    }
 }
 
 // struct CalendarMatchListView_Previews: PreviewProvider {

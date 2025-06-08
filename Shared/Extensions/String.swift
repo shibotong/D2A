@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 extension String {
-  func fetchTalentValue(prefix: String, suffix: String) -> String {
-    let value = replacingOccurrences(of: prefix, with: "").replacingOccurrences(
-      of: suffix, with: "")
-    return value.count > 5 ? "{value}" : value
-  }
+    func fetchTalentValue(prefix: String, suffix: String) -> String {
+        let value = replacingOccurrences(of: prefix, with: "").replacingOccurrences(
+            of: suffix, with: "")
+        return value.count > 5 ? "{value}" : value
+    }
 }

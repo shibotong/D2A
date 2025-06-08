@@ -4,8 +4,8 @@
 import ApolloAPI
 
 extension Objects {
-  public static let LiveQuery = Object(
-    typename: "LiveQuery",
-    implementedInterfaces: []
-  )
+    public static let LiveQuery = Object(
+        typename: "LiveQuery",
+        implementedInterfaces: []
+    )
 }

@@ -9,18 +9,18 @@ import SwiftUI
 
 struct ShareActivityView: UIViewControllerRepresentable {
 
-  var activityItems: [Any]
-  var applicationActivities: [UIActivity]?
+    var activityItems: [Any]
+    var applicationActivities: [UIActivity]?
 
-  @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) var presentationMode
 
-  func makeUIViewController(context: Context) -> UIActivityViewController {
-    let controller = UIActivityViewController(
-      activityItems: activityItems, applicationActivities: applicationActivities)
-    return controller
-  }
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let controller = UIActivityViewController(
+            activityItems: activityItems, applicationActivities: applicationActivities)
+        return controller
+    }
 
-  func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
 
-  }
+    }
 }
