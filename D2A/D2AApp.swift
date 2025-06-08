@@ -12,7 +12,7 @@ import CoreData
 @main
 struct D2AApp: App {
     @StateObject var environment: DotaEnvironment = DotaEnvironment.shared
-    @StateObject var heroDatabase: ConstantProvider = ConstantProvider.shared
+    @StateObject var constants: ConstantProvider = ConstantProvider.shared
     @StateObject var storeManager: StoreManager = StoreManager.shared
     #if DEBUG
     @StateObject var logger: D2ALogger = D2ALogger.shared
@@ -29,7 +29,7 @@ struct D2AApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(environment)
-                .environmentObject(heroDatabase)
+                .environmentObject(constants)
                 .environmentObject(storeManager)
             #if DEBUG
                 .environmentObject(logger)

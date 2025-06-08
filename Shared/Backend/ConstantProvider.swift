@@ -10,10 +10,6 @@ import SwiftUI
 import StratzAPI
 import CoreData
 
-enum LoadingStatus {
-    case loading, error, finish
-}
-
 class ConstantProvider: ObservableObject {
     
     enum HeroDataError: Error {
