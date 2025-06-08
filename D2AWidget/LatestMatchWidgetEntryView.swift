@@ -29,11 +29,10 @@ struct LatestMatchWidgetEntryView: View {
         guard let matches = entry.user?.matches else {
             return []
         }
-        if matches.count <= maxMatches {
-            return matches
-        } else {
+        guard matches.count <= maxMatches else {
             return Array(matches[0..<maxMatches])
         }
+        return matches
     }
 
     var body: some View {

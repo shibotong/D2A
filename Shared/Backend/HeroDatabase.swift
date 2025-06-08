@@ -94,9 +94,7 @@ class HeroDatabase: ObservableObject {
     }
 
     func fetchItem(id: Int) -> Item? {
-        if id == 0 {
-            return nil
-        } else {
+        guard id == 0 else {
             guard let itemString = itemIDTable["\(id)"] else {
                 return nil
             }
@@ -105,6 +103,7 @@ class HeroDatabase: ObservableObject {
             }
             return item
         }
+        return nil
     }
 
     func fetchRegion(id: String) -> String {
@@ -217,11 +216,10 @@ class HeroDatabase: ObservableObject {
             // Cannot find this hero
             return false
         }
-        if ability.dname == hero.shardSkillName {
-            return true
-        } else {
+        guard ability.dname == hero.shardSkillName else {
             return false
         }
+        return true
     }
 
     func getAbilityShardDesc(ability: ODAbility, heroID: Int) -> String? {

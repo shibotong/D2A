@@ -26,11 +26,10 @@ class RecentMatchCodable: Decodable, Identifiable {
     static let sample = loadRecentMatches()!
 
     var playerWin: Bool {
-        if slot <= 127 {
-            return radiantWin
-        } else {
+        guard slot <= 127 else {
             return !radiantWin
         }
+        return radiantWin
     }
 
     var gameMode: GameMode {

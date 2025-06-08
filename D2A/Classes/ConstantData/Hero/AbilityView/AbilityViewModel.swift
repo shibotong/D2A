@@ -187,13 +187,12 @@ private class CacheVideo {
     }
 
     func getVideo(key: String, heroID: Int) -> AVAsset? {
-        if let cacheVideo = cache.object(forKey: key as NSString) {
-            return cacheVideo
-        } else {
+        guard let cacheVideo = cache.object(forKey: key as NSString) else {
             guard let url = URL(string: key) else { return nil }
             let asset = AVAsset(url: url)
             saveVideo(asset, key: key, heroID: heroID)
             return asset
         }
+        return cacheVideo
     }
 }

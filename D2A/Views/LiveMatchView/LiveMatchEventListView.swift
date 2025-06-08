@@ -12,11 +12,10 @@ struct LiveMatchEventListView: View {
     var events: [any LiveMatchEvent]
 
     var latestEventTime5Minute: Int {
-        if let latestEvent = events.first {
-            return latestEvent.time / 300 + 1
-        } else {
+        guard let latestEvent = events.first else {
             return 0
         }
+        return latestEvent.time / 300 + 1
     }
 
     var body: some View {

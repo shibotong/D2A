@@ -53,9 +53,7 @@ class HeroListViewModel: ObservableObject {
                     attributes == .whole
                     ? self.heroList
                     : self.heroList.filter({ return $0.primaryAttr == attributes.rawValue })
-                if searchString.isEmpty {
-                    return filterHeroes
-                } else {
+                guard searchString.isEmpty else {
                     let searchedHeroes = filterHeroes.filter({ hero in
                         let originalName = hero.localizedName.lowercased().contains(
                             searchString.lowercased())
@@ -65,6 +63,7 @@ class HeroListViewModel: ObservableObject {
                     })
                     return searchedHeroes
                 }
+                return filterHeroes
             }
             .sink { [weak self] results in
                 self?.searchResults = results

@@ -36,17 +36,16 @@ extension RecentMatch {
             let request = NSBatchInsertRequest(
                 entityName: "RecentMatch",
                 managedObjectHandler: { object in
-                    if insertItems < totalItems {
-                        let match = matches[insertItems]
-                        guard let recentMatch = object as? RecentMatch else {
-                            return false
-                        }
-                        recentMatch.update(match)
-                        insertItems += 1
-                        return false
-                    } else {
+                    guard insertItems < totalItems else {
                         return true
                     }
+                    let match = matches[insertItems]
+                    guard let recentMatch = object as? RecentMatch else {
+                        return false
+                    }
+                    recentMatch.update(match)
+                    insertItems += 1
+                    return false
                 })
             request.resultType = .objectIDs
             if let result = try strongContext.execute(request) as? NSBatchInsertResult,
@@ -108,14 +107,13 @@ extension RecentMatch {
             let batchRequest = NSBatchInsertRequest(
                 entityName: "Item",
                 dictionaryHandler: { dict in
-                    if index < amount {
-                        let item = ["timestamp": Date().addingTimeInterval(TimeInterval(index))]
-                        dict.setDictionary(item)
-                        index += 1
-                        return false
-                    } else {
+                    guard index < amount else {
                         return true
                     }
+                    let item = ["timestamp": Date().addingTimeInterval(TimeInterval(index))]
+                    dict.setDictionary(item)
+                    index += 1
+                    return false
                 })
             batchRequest.resultType = .statusOnly
             guard let insertResult = try context.execute(batchRequest) as? NSBatchInsertResult,
@@ -199,11 +197,10 @@ extension RecentMatch {
     }
 
     var playerWin: Bool {
-        if slot <= 127 {
-            return radiantWin
-        } else {
+        guard slot <= 127 else {
             return !radiantWin
         }
+        return radiantWin
     }
 
     var gameMode: GameMode {

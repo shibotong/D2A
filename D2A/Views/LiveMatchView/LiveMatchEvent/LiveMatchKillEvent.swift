@@ -86,24 +86,7 @@ struct LiveMatchKillEvent: LiveMatchEvent {
     private func generateEventForKiller(killers: [Int], deads: [Int], isRadiant: Bool)
         -> [LiveMatchEventItem]
     {
-        if killers.count == 1 && !deads.isEmpty {
-            guard let killer = killers.first else {
-                return []
-            }
-            let details: [LiveMatchEventDetail] = deads.map { heroID in
-                let heroIcon = AnyView(
-                    HeroImageView(heroID: heroID, type: .icon)
-                        .frame(width: 20, height: 20)
-                )
-                let heroName = try? heroDatabase.fetchHeroWithID(id: heroID).heroNameLocalized
-                return LiveMatchEventDetail(type: .killDied, itemName: heroName, itemIcon: heroIcon)
-            }
-
-            return [
-                LiveMatchEventItem(
-                    time: time, isRadiantEvent: isRadiant, icon: "\(killer)_icon", events: details)
-            ]
-        } else {
+        guard killers.count == 1 && !deads.isEmpty else {
             if deads.isEmpty {
                 return []
             }
@@ -122,6 +105,22 @@ struct LiveMatchKillEvent: LiveMatchEvent {
             events.append(contentsOf: diedEvents)
             return events
         }
+        guard let killer = killers.first else {
+            return []
+        }
+        let details: [LiveMatchEventDetail] = deads.map { heroID in
+            let heroIcon = AnyView(
+                HeroImageView(heroID: heroID, type: .icon)
+                    .frame(width: 20, height: 20)
+            )
+            let heroName = try? heroDatabase.fetchHeroWithID(id: heroID).heroNameLocalized
+            return LiveMatchEventDetail(type: .killDied, itemName: heroName, itemIcon: heroIcon)
+        }
+
+        return [
+            LiveMatchEventItem(
+                time: time, isRadiantEvent: isRadiant, icon: "\(killer)_icon", events: details)
+        ]
     }
 
     private func fetchEnemyHero(killHero: Int) -> [Int] {

@@ -26,11 +26,10 @@ struct LiveMatchTimerView: View {
         }
         let normalizedSeconds = time % 600  // Normalize the seconds within a 600-second cycle
 
-        if normalizedSeconds >= 0 && normalizedSeconds <= 300 {
-            return true  // Day time
-        } else {
+        guard normalizedSeconds >= 0 && normalizedSeconds <= 300 else {
             return false  // Night time
         }
+        return true  // Day time
     }
 
     var body: some View {

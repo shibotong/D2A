@@ -82,13 +82,12 @@ final class DotaEnvironment: ObservableObject {
         }
 
         let distance = currentTime - lastRefresh
-        if distance > refreshDistance {
-            refreshHandler[userid] = currentTime
-            return true
-        } else {
+        guard distance > refreshDistance else {
             print("last refresh \(distance)s before, cannot refresh")
             return false
         }
+        refreshHandler[userid] = currentTime
+        return true
     }
 
     private func removeNotFavouriteRecentMatches() {

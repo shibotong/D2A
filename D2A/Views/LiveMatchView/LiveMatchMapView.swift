@@ -80,11 +80,10 @@ struct LiveMatchMapView: View {
         let yEndPoint = midPoint - yStartPoint + midPoint
         let yLength = yEndPoint - yStartPoint
 
-        if isX {
-            return (totalLength * (position - xStartPoint) / xLength)
-        } else {
+        guard isX else {
             return (totalLength - (totalLength * (position - yStartPoint) / yLength))
         }
+        return (totalLength * (position - xStartPoint) / xLength)
     }
 }
 

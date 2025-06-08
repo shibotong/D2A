@@ -9,16 +9,15 @@ import AVFoundation
 
 extension AVAsset {
     func isPlayable() async -> Bool {
-        if #available(iOS 16.0, *) {
-            do {
-                return try await load(.isPlayable)
-            } catch {
-                logError(
-                    "An error thrown when checking video is playable: \(error)", category: .video)
-                return false
-            }
-        } else {
+        guard #available(iOS 16.0, *) else {
             return isPlayable
+        }
+        do {
+            return try await load(.isPlayable)
+        } catch {
+            logError(
+                "An error thrown when checking video is playable: \(error)", category: .video)
+            return false
         }
     }
 }

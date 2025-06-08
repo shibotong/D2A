@@ -117,11 +117,10 @@ struct StoreView: View {
         if env.subscriptionStatus {
             return "Unlocked"
         } else {
-            if let selectedProduct = storeManager.products.first {
-                return "SubscriptionButtonDescription \(selectedProduct.displayPrice)"
-            } else {
+            guard let selectedProduct = storeManager.products.first else {
                 return "Loading..."
             }
+            return "SubscriptionButtonDescription \(selectedProduct.displayPrice)"
         }
     }
 }

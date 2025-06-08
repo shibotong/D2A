@@ -61,11 +61,10 @@ struct RecentMatchesWidgetEntryView: View {
         guard let totalMatches = entry.user?.matches else {
             return []
         }
-        if totalMatches.count <= maxNumberOfMatches {
-            return totalMatches
-        } else {
+        guard totalMatches.count <= maxNumberOfMatches else {
             return Array(totalMatches[0..<maxNumberOfMatches])
         }
+        return totalMatches
     }
 
     private var matchView: some View {

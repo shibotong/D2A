@@ -36,14 +36,13 @@ class SearchViewModel: ObservableObject {
         $searchText
             .receive(on: RunLoop.main)
             .map { text in
-                if !text.isEmpty {
-                    let heroes = HeroDatabase.shared.fetchAllHeroes().filter({
-                        return $0.heroNameLocalized.lowercased().contains(text.lowercased())
-                    })
-                    return heroes
-                } else {
+                guard !text.isEmpty else {
                     return []
                 }
+                let heroes = HeroDatabase.shared.fetchAllHeroes().filter({
+                    return $0.heroNameLocalized.lowercased().contains(text.lowercased())
+                })
+                return heroes
             }
             .sink { [weak self] searchResults in
                 self?.suggestHeroes = searchResults
@@ -52,12 +51,11 @@ class SearchViewModel: ObservableObject {
         $searchText
             .receive(on: RunLoop.main)
             .map { text in
-                if !text.isEmpty {
-                    let profiles = UserProfile.fetch(text: text, favourite: true)
-                    return profiles
-                } else {
+                guard !text.isEmpty else {
                     return []
                 }
+                let profiles = UserProfile.fetch(text: text, favourite: true)
+                return profiles
             }
             .sink { [weak self] searchProfiles in
                 self?.suggestLocalProfiles = searchProfiles

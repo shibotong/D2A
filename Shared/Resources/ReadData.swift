@@ -8,15 +8,14 @@
 import Foundation
 
 private func loadFile(filename: String) -> Data? {
-    if let path = Bundle.main.url(forResource: filename, withExtension: "json") {
-        do {
-            let data = try Data(contentsOf: path)
-            return data
-        } catch {
-            print("No such file")
-            return nil
-        }
-    } else {
+    guard let path = Bundle.main.url(forResource: filename, withExtension: "json") else {
+        return nil
+    }
+    do {
+        let data = try Data(contentsOf: path)
+        return data
+    } catch {
+        print("No such file")
         return nil
     }
 }
@@ -54,36 +53,34 @@ func loadLobby() -> [String: LobbyType]? {
 func loadScepter() async -> [HeroScepter] {
     let urlString =
         "https://raw.githubusercontent.com/odota/dotaconstants/master/build/aghs_desc.json"
-    if let url = URL(string: urlString) {
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
+    guard let url = URL(string: urlString) else {
+        return []
+    }
+    do {
+        let (data, _) = try await URLSession.shared.data(from: url)
 
-            let decoder = JSONDecoder()
-            let jsonData = try decoder.decode([HeroScepter].self, from: data)
-            return jsonData
-        } catch {
-            debugPrint("Load Scepter", error)
-            return []
-        }
-    } else {
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode([HeroScepter].self, from: data)
+        return jsonData
+    } catch {
+        debugPrint("Load Scepter", error)
         return []
     }
 }
 
 func loadHeroes() async -> [String: ODHero] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/heroes.json"
-    if let url = URL(string: urlString) {
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
+    guard let url = URL(string: urlString) else {
+        return [:]
+    }
+    do {
+        let (data, _) = try await URLSession.shared.data(from: url)
 
-            let decoder = JSONDecoder()
-            let jsonData = try decoder.decode([String: ODHero].self, from: data)
-            return jsonData
-        } catch {
-            debugPrint("Load Heroes", error)
-            return [:]
-        }
-    } else {
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode([String: ODHero].self, from: data)
+        return jsonData
+    } catch {
+        debugPrint("Load Heroes", error)
         return [:]
     }
 }
@@ -91,18 +88,17 @@ func loadHeroes() async -> [String: ODHero] {
 func loadHeroAbilities() async -> [String: ODHeroAbilities] {
     let urlString =
         "https://raw.githubusercontent.com/odota/dotaconstants/master/build/hero_abilities.json"
-    if let url = URL(string: urlString) {
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
+    guard let url = URL(string: urlString) else {
+        return [:]
+    }
+    do {
+        let (data, _) = try await URLSession.shared.data(from: url)
 
-            let decoder = JSONDecoder()
-            let jsonData = try decoder.decode([String: ODHeroAbilities].self, from: data)
-            return jsonData
-        } catch {
-            debugPrint("Load Abilities", error)
-            return [:]
-        }
-    } else {
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode([String: ODHeroAbilities].self, from: data)
+        return jsonData
+    } catch {
+        debugPrint("Load Abilities", error)
         return [:]
     }
 }
@@ -187,17 +183,16 @@ func loadSampleItem() -> [String: Item] {
 func loadAbilityID() async -> [String: String] {
     let urlString =
         "https://raw.githubusercontent.com/odota/dotaconstants/master/build/ability_ids.json"
-    if let url = URL(string: urlString) {
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let decoder = JSONDecoder()
-            let jsonData = try decoder.decode([String: String].self, from: data)
-            return jsonData
-        } catch {
-            debugPrint("Load Ability ID", error)
-            return [:]
-        }
-    } else {
+    guard let url = URL(string: urlString) else {
+        return [:]
+    }
+    do {
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode([String: String].self, from: data)
+        return jsonData
+    } catch {
+        debugPrint("Load Ability ID", error)
         return [:]
     }
 }
@@ -205,18 +200,17 @@ func loadAbilityID() async -> [String: String] {
 func loadAbilities() async -> [String: ODAbility] {
     let urlString =
         "https://raw.githubusercontent.com/odota/dotaconstants/master/build/abilities.json"
-    if let url = URL(string: urlString) {
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
+    guard let url = URL(string: urlString) else {
+        return [:]
+    }
+    do {
+        let (data, _) = try await URLSession.shared.data(from: url)
 
-            let decoder = JSONDecoder()
-            let jsonData = try decoder.decode([String: ODAbility].self, from: data)
-            return jsonData
-        } catch {
-            debugPrint("Load Abilities", error)
-            return [:]
-        }
-    } else {
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode([String: ODAbility].self, from: data)
+        return jsonData
+    } catch {
+        debugPrint("Load Abilities", error)
         return [:]
     }
 }
@@ -240,21 +234,20 @@ func loadMatch() -> ODMatch? {
 func loadItemIDs() async -> [String: String] {
     let urlString =
         "https://raw.githubusercontent.com/odota/dotaconstants/master/build/item_ids.json"
-    if let url = URL(string: urlString) {
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            guard
-                let itemIDs = try JSONSerialization.jsonObject(with: data, options: [])
-                    as? [String: String]
-            else {
-                return [:]
-            }
-            return itemIDs
-        } catch {
-            debugPrint("Load Item IDs", error)
+    guard let url = URL(string: urlString) else {
+        return [:]
+    }
+    do {
+        let (data, _) = try await URLSession.shared.data(from: url)
+        guard
+            let itemIDs = try JSONSerialization.jsonObject(with: data, options: [])
+                as? [String: String]
+        else {
             return [:]
         }
-    } else {
+        return itemIDs
+    } catch {
+        debugPrint("Load Item IDs", error)
         return [:]
     }
 
@@ -262,17 +255,16 @@ func loadItemIDs() async -> [String: String] {
 
 func loadItems() async -> [String: Item] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/items.json"
-    if let url = URL(string: urlString) {
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let decoder = JSONDecoder()
-            let jsonData = try decoder.decode([String: Item].self, from: data)
-            return jsonData
-        } catch {
-            debugPrint("Load Items", error)
-            return [:]
-        }
-    } else {
+    guard let url = URL(string: urlString) else {
+        return [:]
+    }
+    do {
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode([String: Item].self, from: data)
+        return jsonData
+    } catch {
+        debugPrint("Load Items", error)
         return [:]
     }
 }

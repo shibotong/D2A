@@ -23,10 +23,9 @@ struct KDAView: View {
     }
 
     private func calculateKDA() -> Double {
-        if deaths == 0 {
-            return Double(kills + assists)
-        } else {
+        guard deaths == 0 else {
             return Double(kills + assists) / Double(deaths)
         }
+        return Double(kills + assists)
     }
 }
