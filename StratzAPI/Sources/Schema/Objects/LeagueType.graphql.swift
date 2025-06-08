@@ -3,8 +3,8 @@
 
 import ApolloAPI
 
-extension Objects {
-  public static let LeagueType = Object(
+public extension Objects {
+  static let LeagueType = Object(
     typename: "LeagueType",
     implementedInterfaces: []
   )

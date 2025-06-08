@@ -5,17 +5,17 @@
 //  Created by Shibo Tong on 15/6/2023.
 //
 
-import ActivityKit
 import Foundation
+import ActivityKit
 
 struct LiveMatchActivityAttributes: ActivityAttributes {
-  public typealias MatchStatus = ContentState
+    public typealias MatchStatus = ContentState
 
-  public struct ContentState: Codable, Hashable {
-    var radiantScore: Int
-    var direScore: Int
-    var time: Int
-  }
-
-  var leagueName: String?
+    public struct ContentState: Codable, Hashable {
+        var radiantScore: Int
+        var direScore: Int
+        var time: Int
+    }
+    
+    var leagueName: String?
 }

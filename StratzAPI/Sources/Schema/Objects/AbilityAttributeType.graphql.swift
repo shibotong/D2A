@@ -3,8 +3,8 @@
 
 import ApolloAPI
 
-extension Objects {
-  public static let AbilityAttributeType = Object(
+public extension Objects {
+  static let AbilityAttributeType = Object(
     typename: "AbilityAttributeType",
     implementedInterfaces: []
   )

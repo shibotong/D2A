@@ -49,11 +49,9 @@ public class AbilityQuery: GraphQLQuery {
     public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.DotaQuery }
-    public static var __selections: [ApolloAPI.Selection] {
-      [
-        .field("constants", Constants?.self)
-      ]
-    }
+    public static var __selections: [ApolloAPI.Selection] { [
+      .field("constants", Constants?.self),
+    ] }
 
     /// Queries used to query constants in Dota.
     public var constants: Constants? { __data["constants"] }
@@ -66,12 +64,10 @@ public class AbilityQuery: GraphQLQuery {
       public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.ConstantQuery }
-      public static var __selections: [ApolloAPI.Selection] {
-        [
-          .field("__typename", String.self),
-          .field("abilities", [Ability?]?.self, arguments: ["language": .variable("language")]),
-        ]
-      }
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .field("abilities", [Ability?]?.self, arguments: ["language": .variable("language")]),
+      ] }
 
       /// Find ability details.
       public var abilities: [Ability?]? { __data["abilities"] }
@@ -84,15 +80,13 @@ public class AbilityQuery: GraphQLQuery {
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.AbilityType }
-        public static var __selections: [ApolloAPI.Selection] {
-          [
-            .field("__typename", String.self),
-            .field("id", StratzAPI.Short?.self),
-            .field("name", String?.self),
-            .field("language", Language?.self),
-            .field("attributes", [Attribute?]?.self),
-          ]
-        }
+        public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
+          .field("id", StratzAPI.Short?.self),
+          .field("name", String?.self),
+          .field("language", Language?.self),
+          .field("attributes", [Attribute?]?.self),
+        ] }
 
         public var id: StratzAPI.Short? { __data["id"] }
         public var name: String? { __data["name"] }
@@ -106,21 +100,17 @@ public class AbilityQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType {
-            StratzAPI.Objects.AbilityLanguageType
-          }
-          public static var __selections: [ApolloAPI.Selection] {
-            [
-              .field("__typename", String.self),
-              .field("displayName", String?.self),
-              .field("description", [String?]?.self),
-              .field("attributes", [String?]?.self),
-              .field("lore", String?.self),
-              .field("aghanimDescription", String?.self),
-              .field("shardDescription", String?.self),
-              .field("notes", [String?]?.self),
-            ]
-          }
+          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.AbilityLanguageType }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
+            .field("displayName", String?.self),
+            .field("description", [String?]?.self),
+            .field("attributes", [String?]?.self),
+            .field("lore", String?.self),
+            .field("aghanimDescription", String?.self),
+            .field("shardDescription", String?.self),
+            .field("notes", [String?]?.self),
+          ] }
 
           public var displayName: String? { __data["displayName"] }
           public var description: [String?]? { __data["description"] }
@@ -138,16 +128,12 @@ public class AbilityQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public static var __parentType: ApolloAPI.ParentType {
-            StratzAPI.Objects.AbilityAttributeType
-          }
-          public static var __selections: [ApolloAPI.Selection] {
-            [
-              .field("__typename", String.self),
-              .field("name", String?.self),
-              .field("value", String?.self),
-            ]
-          }
+          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.AbilityAttributeType }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
+            .field("name", String?.self),
+            .field("value", String?.self),
+          ] }
 
           public var name: String? { __data["name"] }
           public var value: String? { __data["value"] }

@@ -53,11 +53,9 @@ public class HeroQuery: GraphQLQuery {
     public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.DotaQuery }
-    public static var __selections: [ApolloAPI.Selection] {
-      [
-        .field("constants", Constants?.self)
-      ]
-    }
+    public static var __selections: [ApolloAPI.Selection] { [
+      .field("constants", Constants?.self),
+    ] }
 
     /// Queries used to query constants in Dota.
     public var constants: Constants? { __data["constants"] }
@@ -70,12 +68,10 @@ public class HeroQuery: GraphQLQuery {
       public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.ConstantQuery }
-      public static var __selections: [ApolloAPI.Selection] {
-        [
-          .field("__typename", String.self),
-          .field("hero", Hero?.self, arguments: ["id": .variable("id")]),
-        ]
-      }
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .field("hero", Hero?.self, arguments: ["id": .variable("id")]),
+      ] }
 
       public var hero: Hero? { __data["hero"] }
 
@@ -87,19 +83,17 @@ public class HeroQuery: GraphQLQuery {
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.HeroType }
-        public static var __selections: [ApolloAPI.Selection] {
-          [
-            .field("__typename", String.self),
-            .field("id", StratzAPI.Short?.self),
-            .field("name", String?.self),
-            .field("displayName", String?.self),
-            .field("shortName", String?.self),
-            .field("aliases", [String?]?.self),
-            .field("roles", [Role?]?.self),
-            .field("talents", [Talent?]?.self),
-            .field("stats", Stats?.self),
-          ]
-        }
+        public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
+          .field("id", StratzAPI.Short?.self),
+          .field("name", String?.self),
+          .field("displayName", String?.self),
+          .field("shortName", String?.self),
+          .field("aliases", [String?]?.self),
+          .field("roles", [Role?]?.self),
+          .field("talents", [Talent?]?.self),
+          .field("stats", Stats?.self),
+        ] }
 
         public var id: StratzAPI.Short? { __data["id"] }
         public var name: String? { __data["name"] }
@@ -118,13 +112,11 @@ public class HeroQuery: GraphQLQuery {
           public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.HeroRoleType }
-          public static var __selections: [ApolloAPI.Selection] {
-            [
-              .field("__typename", String.self),
-              .field("roleId", GraphQLEnum<StratzAPI.HeroRoleEnum>?.self),
-              .field("level", StratzAPI.Short?.self),
-            ]
-          }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
+            .field("roleId", GraphQLEnum<StratzAPI.HeroRoleEnum>?.self),
+            .field("level", StratzAPI.Short?.self),
+          ] }
 
           public var roleId: GraphQLEnum<StratzAPI.HeroRoleEnum>? { __data["roleId"] }
           public var level: StratzAPI.Short? { __data["level"] }
@@ -138,13 +130,11 @@ public class HeroQuery: GraphQLQuery {
           public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.HeroTalentType }
-          public static var __selections: [ApolloAPI.Selection] {
-            [
-              .field("__typename", String.self),
-              .field("abilityId", StratzAPI.Short?.self),
-              .field("slot", StratzAPI.Byte?.self),
-            ]
-          }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
+            .field("abilityId", StratzAPI.Short?.self),
+            .field("slot", StratzAPI.Byte?.self),
+          ] }
 
           public var abilityId: StratzAPI.Short? { __data["abilityId"] }
           public var slot: StratzAPI.Byte? { __data["slot"] }
@@ -158,14 +148,12 @@ public class HeroQuery: GraphQLQuery {
           public init(_dataDict: DataDict) { __data = _dataDict }
 
           public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.HeroStatType }
-          public static var __selections: [ApolloAPI.Selection] {
-            [
-              .field("__typename", String.self),
-              .field("visionDaytimeRange", Double?.self),
-              .field("visionNighttimeRange", Double?.self),
-              .field("complexity", StratzAPI.Byte?.self),
-            ]
-          }
+          public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
+            .field("visionDaytimeRange", Double?.self),
+            .field("visionNighttimeRange", Double?.self),
+            .field("complexity", StratzAPI.Byte?.self),
+          ] }
 
           public var visionDaytimeRange: Double? { __data["visionDaytimeRange"] }
           public var visionNighttimeRange: Double? { __data["visionNighttimeRange"] }

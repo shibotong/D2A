@@ -36,7 +36,7 @@ public struct MatchLiveRequestType: InputObject {
       "orderBy": orderBy,
       "isLeague": isLeague,
       "take": take,
-      "skip": skip,
+      "skip": skip
     ])
   }
 
@@ -100,7 +100,7 @@ public struct MatchLiveRequestType: InputObject {
     set { __data["isLeague"] = newValue }
   }
 
-  /// The amount to have returned in your query. The maximum of this is always dynamic. Limit :
+  /// The amount to have returned in your query. The maximum of this is always dynamic. Limit : 
   public var take: GraphQLNullable<Int> {
     get { __data["take"] }
     set { __data["take"] = newValue }

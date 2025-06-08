@@ -6,23 +6,23 @@
 //
 
 enum D2AServiceCategory: String {
-  case opendotaConstant = "📕"
-  case coredata = "💾"
-  case stratz = "🏉"
-  case video = "🎥"
+    case opendotaConstant = "📕"
+    case coredata = "💾"
+    case stratz = "🏉"
+    case video = "🎥"
 }
 
 enum LoggingLevel: Int {
-  case debug, warn, error
+     case debug, warn, error
 
-  var icon: String {
-    switch self {
-    case .debug:
-      "📝"
-    case .warn:
-      "⚠️"
-    case .error:
-      "❌"
-    }
-  }
-}
+     var icon: String {
+         switch self {
+         case .debug:
+             "📝"
+         case .warn:
+             "⚠️"
+         case .error:
+             "❌"
+         }
+     }
+ }

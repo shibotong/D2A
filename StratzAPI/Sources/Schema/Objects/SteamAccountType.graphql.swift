@@ -3,8 +3,8 @@
 
 import ApolloAPI
 
-extension Objects {
-  public static let SteamAccountType = Object(
+public extension Objects {
+  static let SteamAccountType = Object(
     typename: "SteamAccountType",
     implementedInterfaces: []
   )

@@ -8,6 +8,6 @@
 import CoreData
 
 protocol PersistanceModel {
-  var dictionaries: [String: Any] { get }
-  func update(context: NSManagedObjectContext) throws -> NSManagedObject
+    var dictionaries: [String: Any] { get }
+    func update(context: NSManagedObjectContext) throws -> NSManagedObject
 }

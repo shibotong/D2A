@@ -6,6 +6,7 @@
 //
 
 import CryptoKit
+import Foundation
 import SwiftUI
 
 struct HeroListView: View {
