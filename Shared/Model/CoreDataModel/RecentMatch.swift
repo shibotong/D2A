@@ -10,8 +10,7 @@ import Foundation
 
 extension RecentMatch {
 
-    static func create(_ match: RecentMatchCodable, discardable: Bool = false) throws -> RecentMatch
-    {
+    static func create(_ match: RecentMatchCodable, discardable: Bool = false) throws -> RecentMatch {
         let viewContext = PersistanceProvider.shared.makeContext(author: "RecentMatch")
         let newRecentMatch =
             fetch(match.id.description, userID: match.playerId?.description ?? "")

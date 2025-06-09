@@ -271,8 +271,7 @@ class LiveMatchViewModel: ObservableObject {
 
                 // Towers
                 var newBuildingEvents: [LiveMatchBuildingEvent] = []
-                if let buildingEvents = graphQLResult.data?.matchLive?.playbackData?.buildingEvents
-                {
+                if let buildingEvents = graphQLResult.data?.matchLive?.playbackData?.buildingEvents {
                     let events: [LiveMatchBuildingEvent] = buildingEvents.compactMap { event in
                         guard let event,
                             let buildingID = event.indexId,
@@ -379,8 +378,7 @@ class LiveMatchViewModel: ObservableObject {
         subscriptions.append(subscription)
     }
 
-    private func processBuildingEvents(events: [LiveMatchBuildingEvent]) -> [LiveMatchBuildingEvent]
-    {
+    private func processBuildingEvents(events: [LiveMatchBuildingEvent]) -> [LiveMatchBuildingEvent] {
         var newEvent: [LiveMatchBuildingEvent] = []
         for event in events {
             Task {
