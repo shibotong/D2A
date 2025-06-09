@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var env: DotaEnvironment
-    @EnvironmentObject var data: HeroDatabase
+    @EnvironmentObject var data: ConstantsController
     @EnvironmentObject var store: StoreManager
     var body: some View {
         Group {
@@ -42,7 +42,7 @@ struct ContentView: View {
 
 struct NavigationHostView: View {
     @EnvironmentObject var env: DotaEnvironment
-    @EnvironmentObject var data: HeroDatabase
+    @EnvironmentObject var data: ConstantsController
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
     var body: some View {

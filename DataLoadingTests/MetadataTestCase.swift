@@ -33,11 +33,11 @@ class MetadataTestCase: XCTestCase {
     //        XCTAssertNotEqual(scepter.count, 0)
     //    }
     //
-    //    func testLoadingHeroDatabase() {
+    //    func testLoadingConstantsController() {
     //        let expectation = self.expectation(description: "loading hero data")
-    //        let heroDatabase = ConstantsController()
+    //        let ConstantsController = ConstantsController()
     //        var databaseStatus: LoadingStatus?
-    //        cancellable = heroDatabase.$status.sink { status in
+    //        cancellable = ConstantsController.$status.sink { status in
     //            switch status {
     //            case .loading:
     //                break

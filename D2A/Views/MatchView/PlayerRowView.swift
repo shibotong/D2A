@@ -11,7 +11,7 @@ import SwiftUI
 struct PlayerRowView: View {
     var maxDamage: Int
     @ObservedObject var viewModel: PlayerRowViewModel
-    @EnvironmentObject var heroData: HeroDatabase
+    @EnvironmentObject var heroData: ConstantsController
 
     var shortVersion: Bool = false
     var showAbility: Bool = true
@@ -242,8 +242,8 @@ struct PlayerRowView: View {
     }
 
     @ViewBuilder private func buildAbility(abilityID: Int) -> some View {
-        if let abilityName = HeroDatabase.shared.fetchAbilityName(id: abilityID) {
-            if let ability = HeroDatabase.shared.fetchOpenDotaAbility(name: abilityName) {
+        if let abilityName = ConstantsController.shared.fetchAbilityName(id: abilityID) {
+            if let ability = ConstantsController.shared.fetchOpenDotaAbility(name: abilityName) {
                 if let img = ability.img,
                     ability.desc != "Associated ability not drafted, have some gold!"
                 {
@@ -294,15 +294,15 @@ struct PlayerRowView_Previews: PreviewProvider {
             PlayerRowView(
                 maxDamage: 0, viewModel: .init(heroID: 2), shortVersion: true, showAbility: false
             )
-            .environmentObject(HeroDatabase.shared)
+            .environmentObject(ConstantsController.shared)
             ScrollView(.horizontal) {
                 PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 2, abilities: [1123]))
-                    .environmentObject(HeroDatabase.shared)
+                    .environmentObject(ConstantsController.shared)
                 PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 3, abilities: [1123, 1124]))
-                    .environmentObject(HeroDatabase.shared)
+                    .environmentObject(ConstantsController.shared)
             }
             PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 3), showAbility: false)
-                .environmentObject(HeroDatabase.shared)
+                .environmentObject(ConstantsController.shared)
         }
         .previewLayout(.fixed(width: 800, height: 300))
     }
