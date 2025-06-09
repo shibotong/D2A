@@ -199,8 +199,7 @@ class LiveMatchListViewModel: ObservableObject {
         if !addMatches {
             matches = []
         }
-        for match in newMatches where !self.matches.contains(where: { $0.matchId == match.matchId })
-        {
+        for match in newMatches where !self.matches.contains(where: { $0.matchId == match.matchId }) {
             self.matches.append(match)
         }
     }

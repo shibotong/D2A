@@ -71,8 +71,7 @@ struct HeroListView: View {
         }
     }
 
-    @ViewBuilder private func buildHeroGrid(heroes: [ODHero], attribute: HeroAttribute) -> some View
-    {
+    @ViewBuilder private func buildHeroGrid(heroes: [ODHero], attribute: HeroAttribute) -> some View {
         Section {
             LazyVGrid(
                 columns: Array(
@@ -98,8 +97,7 @@ struct HeroListView: View {
         }
     }
 
-    @ViewBuilder private func buildSection(heroes: [ODHero], attributes: HeroAttribute) -> some View
-    {
+    @ViewBuilder private func buildSection(heroes: [ODHero], attributes: HeroAttribute) -> some View {
         if heroes.count == 0 {
             Text("No Results")
                 .bold()
