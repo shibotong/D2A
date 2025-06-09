@@ -19,7 +19,7 @@ extension UserProfile {
     }
 
     static var canFavourite: Bool {
-        return DotaEnvironment.shared.subscriptionStatus || favouriteUsersCount == 0
+        return EnvironmentController.shared.subscriptionStatus || favouriteUsersCount == 0
     }
 
     private static var favouriteUsersCount: Int {
