@@ -10,6 +10,7 @@ enum D2AServiceCategory: String {
     case coredata = "💾"
     case stratz = "🏉"
     case video = "🎥"
+    case opendota = "🎮"
 }
 
 enum LoggingLevel: Int {

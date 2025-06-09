@@ -17,7 +17,7 @@ class SearchViewModel: ObservableObject {
     @Published var suggestLocalProfiles: [UserProfile] = []
     
     // search results
-    @Published var userProfiles: [UserProfileCodable] = []
+    @Published var userProfiles: [ODUserProfile] = []
     @Published var searchLocalProfiles: [UserProfile] = []
     @Published var searchedMatch: Match?
     @Published var filterHeroes: [ODHero] = []
@@ -75,10 +75,10 @@ class SearchViewModel: ObservableObject {
         filterHeroes = ConstantProvider.shared.fetchAllHeroes().filter { hero in
             return hero.heroNameLocalized.lowercased().contains(searchText.lowercased())
         }
-        async let searchedProfile = OpenDotaController.shared.searchUserByText(text: searchText)
+        async let searchedProfile = OpenDotaProvider.shared.searchUserByText(text: searchText)
         let searchCachedProfile = UserProfile.fetch(text: searchText)
         if Int(searchText) != nil {
-            async let matchID = OpenDotaController.shared.loadMatchData(matchid: searchText)
+            async let matchID = OpenDotaProvider.shared.loadMatchData(matchid: searchText)
             do {
                 searchedMatch = try await Match.fetch(id: matchID)
             } catch {
@@ -90,7 +90,7 @@ class SearchViewModel: ObservableObject {
         }
 
         var cachedProfiles: [UserProfile] = searchCachedProfile
-        var notCachedProfiles: [UserProfileCodable] = []
+        var notCachedProfiles: [ODUserProfile] = []
         
         for profile in await searchedProfile {
             if let cachedProfile = UserProfile.fetch(id: profile.id.description) {

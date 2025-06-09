@@ -105,7 +105,7 @@ func loadHeroAbilities() async -> [String: ODHeroAbilities] {
     }
 }
 
-func loadProfile() -> UserProfileCodable? {
+func loadProfile() -> ODUserProfile? {
     guard let data = loadFile(filename: "sampleProfile") else {
         return nil
     }
@@ -217,14 +217,14 @@ func loadAbilities() async -> [String: ODAbility] {
     }
 }
 
-func loadMatch() -> MatchCodable? {
+func loadMatch() -> ODMatch? {
     guard let data = loadFile(filename: "sampleMatch") else {
         return nil
     }
 
     do {
         let decoder = JSONDecoder()
-        let jsonData = try decoder.decode(MatchCodable.self, from: data)
+        let jsonData = try decoder.decode(ODMatch.self, from: data)
         return jsonData
     } catch {
         debugPrint(error)
