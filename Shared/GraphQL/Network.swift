@@ -52,11 +52,12 @@ extension Network {
             endpointURL: url,
             additionalHeaders: additionalHeaders)
 
-        let webSocket = WebSocket(
-            url: URL(string: "wss://api.stratz.com/graphql?jwt=\(token)")!,
-            protocol: .graphql_ws
-        )
         // TODO: Comment out websocket temporary
+        //        let webSocket = WebSocket(
+        //            url: URL(string: "wss://api.stratz.com/graphql?jwt=\(token)")!,
+        //            protocol: .graphql_ws
+        //        )
+
         //        let webSocketTransport = WebSocketTransport(websocket: webSocket)
 
         //        let splitTransport = SplitNetworkTransport(

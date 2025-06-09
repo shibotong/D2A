@@ -114,14 +114,13 @@ struct StoreView: View {
     }
 
     private func buildSubscribeString() -> LocalizedStringKey {
-        if env.subscriptionStatus {
-            return "Unlocked"
-        } else {
+        guard env.subscriptionStatus else {
             guard let selectedProduct = storeManager.products.first else {
                 return "Loading..."
             }
             return "SubscriptionButtonDescription \(selectedProduct.displayPrice)"
         }
+        return "Unlocked"
     }
 }
 

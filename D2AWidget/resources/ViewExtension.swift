@@ -8,12 +8,15 @@
 import SwiftUI
 
 extension View {
+
+    // swift-format-ignore: UseEarlyExits
     func widgetBackground(_ backgroundView: some View) -> some View {
-        guard #available(iOS 17.0, *) else {
+        if #available(iOS 17.0, *) {
+            return containerBackground(for: .widget) {
+                backgroundView
+            }
+        } else {
             return background(backgroundView)
-        }
-        return containerBackground(for: .widget) {
-            backgroundView
         }
     }
 }
