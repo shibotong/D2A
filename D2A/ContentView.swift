@@ -9,7 +9,7 @@ import StoreKit
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var env: EnvironmentController
     @EnvironmentObject var data: HeroDatabase
     @EnvironmentObject var store: StoreManager
     var body: some View {
@@ -41,7 +41,7 @@ struct ContentView: View {
 // }
 
 struct NavigationHostView: View {
-    @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var env: EnvironmentController
     @EnvironmentObject var data: HeroDatabase
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 

@@ -96,6 +96,6 @@ struct Sidebar_Previews: PreviewProvider {
             Sidebar()
             EmptyView()
         }
-        .environmentObject(DotaEnvironment.shared)
+        .environmentObject(EnvironmentController.shared)
     }
 }
