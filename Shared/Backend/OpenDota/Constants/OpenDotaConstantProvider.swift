@@ -8,7 +8,7 @@
 import Foundation
 
 protocol OpenDotaConstantProviding {
-    func loadHeroes() async -> [String: ODHero]
+    func loadHeroes() async -> [ODHero]
     func loadItemIDs() async -> [String: String]
     func loadAbilities() async -> [ODAbility]
     func loadAbilitiesForHeroes() async -> [String: ODHeroAbilities]
@@ -27,14 +27,18 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
         self.network = network
     }
 
-    func loadHeroes() async -> [String: ODHero] {
+    func loadHeroes() async -> [ODHero] {
         guard
             let heroDict = await loadOpenDotaConstantService(
                 service: .heroes, type: [String: ODHero].self)
         else {
-            return [:]
+            return []
         }
-        return heroDict
+        var heroesArray: [ODHero] = []
+        for (_, value) in heroDict {
+            heroesArray.append(value)
+        }
+        return heroesArray
     }
 
     func loadAbilities() async -> [ODAbility] {

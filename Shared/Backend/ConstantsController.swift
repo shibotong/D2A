@@ -241,40 +241,15 @@ class ConstantsController: ObservableObject {
 
     // MARK: - Save Constant Data
     private func loadConstantData() async {
-        await loadODHeroes()
-        await loadODAbilities()
-        await saveAbilitiesToHero()
-    }
-
-    // MARK: - Save abilities to heroes
-
-    private func saveAbilitiesToHero() async {
-        let heroAbilities = await openDotaProvider.loadAbilitiesForHeroes()
-        await persistanceProvider.saveAbilitiesToHero(heroAbilities: heroAbilities)
-    }
-
-    // MARK: - Save Abilities
-
-    private func loadODAbilities() async {
-        let abilities = await openDotaProvider.loadAbilities()
-        await persistanceProvider.saveODAbilities(abilities: abilities)
-    }
-
-    // MARK: - Save Heroes
-
-    private func loadODHeroes() async {
-        let heroes = await openDotaProvider.loadHeroes()
-        var heroesArray: [ODHero] = []
-        for (_, value) in heroes {
-            heroesArray.append(value)
-        }
-        await persistanceProvider.saveODHeroes(heroes: heroesArray)
-    }
-    
-    // MARK: - Save Game Mode
-    private func loadODGameModes() async {
-        let modes = await openDotaProvider.loadGameModes()
-        await persistanceProvider.saveGameModes(gameModes: modes)
+        async let heroes = await openDotaProvider.loadHeroes()
+        async let abilities = await openDotaProvider.loadAbilities()
+        async let heroAbilities = await openDotaProvider.loadAbilitiesForHeroes()
+        async let modes = await openDotaProvider.loadGameModes()
+        
+        await persistanceProvider.saveODHeroes(heroes: await heroes)
+        await persistanceProvider.saveGameModes(gameModes: await modes)
+        await persistanceProvider.saveODAbilities(abilities: await abilities)
+        await persistanceProvider.saveAbilitiesToHero(heroAbilities: await heroAbilities)
     }
 
     func resetHeroData(context: NSManagedObjectContext) async {
