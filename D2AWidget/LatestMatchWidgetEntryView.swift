@@ -11,9 +11,9 @@ import WidgetKit
 struct LatestMatchWidgetEntryView: View {
     var entry: Provider.Entry
     @Environment(\.widgetFamily) var family
-    
+
     private let avatarHeight: CGFloat = 20
-    
+
     var maxMatches: Int {
         switch self.family {
         case .systemMedium:
@@ -24,18 +24,17 @@ struct LatestMatchWidgetEntryView: View {
             return 1
         }
     }
-    
+
     private var matches: [D2AWidgetMatch] {
         guard let matches = entry.user?.matches else {
             return []
         }
-        if matches.count <= maxMatches {
-            return matches
-        } else {
+        guard matches.count <= maxMatches else {
             return Array(matches[0..<maxMatches])
         }
+        return matches
     }
-    
+
     var body: some View {
         ZStack {
             switch family {
@@ -51,28 +50,30 @@ struct LatestMatchWidgetEntryView: View {
         }
         .widgetBackground(Color.systemBackground)
     }
-    
+
     private var mediumView: some View {
         ZStack {
             if let user = entry.user {
                 VStack(spacing: 0) {
-                    Link(destination: URL(string: "d2aapp:profile?userid=\(user.userID)")!, label: {
-                        HStack {
-                            Image(uiImage: user.image)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: avatarHeight)
-                                .clipShape(Circle())
-                            Text(user.userName)
-                                .font(.caption2)
-                                .bold()
-                            Spacer()
-                            Text(user.userID)
-                                .font(.caption2)
-                                .foregroundColor(.secondaryLabel)
-                        }
-                        .padding(10)
-                    })
+                    Link(
+                        destination: URL(string: "d2aapp:profile?userid=\(user.userID)")!,
+                        label: {
+                            HStack {
+                                Image(uiImage: user.image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: avatarHeight)
+                                    .clipShape(Circle())
+                                Text(user.userName)
+                                    .font(.caption2)
+                                    .bold()
+                                Spacer()
+                                Text(user.userID)
+                                    .font(.caption2)
+                                    .foregroundColor(.secondaryLabel)
+                            }
+                            .padding(10)
+                        })
                     GeometryReader { proxy in
                         VStack(spacing: 0) {
                             ForEach(matches) { match in
@@ -97,6 +98,6 @@ struct LatestMatchWidgetEntryView_Previews: PreviewProvider {
             LatestMatchWidgetEntryView(entry: D2AWidgetUserEntry.preview)
                 .previewContext(WidgetPreviewContext(family: family))
         }
-        
+
     }
 }

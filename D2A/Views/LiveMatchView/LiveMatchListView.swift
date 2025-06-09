@@ -5,15 +5,15 @@
 //  Created by Shibo Tong on 14/6/2023.
 //
 
-import SwiftUI
 import StratzAPI
+import SwiftUI
 
 struct LiveMatchListView: View {
-    
+
     @StateObject private var viewModel: LiveMatchListViewModel = .init()
-    
+
     private let gridItems = [GridItem(.adaptive(minimum: 300, maximum: 400))]
-    
+
     var body: some View {
         ScrollView {
             LazyVGrid(columns: gridItems) {
@@ -36,24 +36,29 @@ struct LiveMatchListView: View {
         }
         .navigationTitle("Live")
     }
-    
+
     private var matchListView: some View {
         ForEach(viewModel.matches) { match in
-            NavigationLink(destination: LiveMatchView(viewModel: LiveMatchViewModel(matchID: match.matchId.description))) {
-                LiveMatchListRowView(radiantScore: match.radiantScore,
-                                     direScore: match.direScore,
-                                     radiantHeroes: match.radiantPlayers,
-                                     direHeroes: match.direPlayers,
-                                     radiantTeam: match.radiantTeam?.description,
-                                     direTeam: match.direTeam?.description,
-                                     averageRank: match.averageRank,
-                                     leagueID: match.leagueId,
-                                     leagueName: match.leagueName)
+            NavigationLink(
+                destination: LiveMatchView(
+                    viewModel: LiveMatchViewModel(matchID: match.matchId.description))
+            ) {
+                LiveMatchListRowView(
+                    radiantScore: match.radiantScore,
+                    direScore: match.direScore,
+                    radiantHeroes: match.radiantPlayers,
+                    direHeroes: match.direPlayers,
+                    radiantTeam: match.radiantTeam?.description,
+                    direTeam: match.direTeam?.description,
+                    averageRank: match.averageRank,
+                    leagueID: match.leagueId,
+                    leagueName: match.leagueName
+                )
                 .padding(5)
             }
         }
     }
-    
+
     private var loadingView: some View {
         ForEach(0...10, id: \.self) { _ in
             LiveMatchListRowEmptyView()
@@ -65,7 +70,7 @@ struct LiveMatchListView: View {
 class LiveMatchListViewModel: ObservableObject {
     @Published var matches: [LiveMatch] = []
     @Published var loading: Bool = false
-    
+
     struct LiveMatch: Identifiable {
         var id: Int {
             return matchId
@@ -82,20 +87,20 @@ class LiveMatchListViewModel: ObservableObject {
         let radiantPlayers: [LiveMatchRowPlayer]
         let direPlayers: [LiveMatchRowPlayer]
     }
-    
+
     init() {
         Task {
             await fetchMatchesAsync(existItems: 0)
         }
     }
-    
+
     func loadMore() {
         let currentItems = matches.count
         Task {
             await fetchMatchesAsync(existItems: currentItems)
         }
     }
-    
+
     func fetchMatchesAsync(existItems: Int) async {
         if existItems == 0 {
             await setMatches([], addMatches: false)
@@ -109,7 +114,7 @@ class LiveMatchListViewModel: ObservableObject {
         })
         await setLoading(false)
     }
-    
+
     private func fetchMatches(existItems: Int, completion: (() -> Void)? = nil) {
         let fetchQuery = MatchLiveRequestType(
             gameStates: [
@@ -117,11 +122,14 @@ class LiveMatchListViewModel: ObservableObject {
                 .case(.gameInProgress),
                 .case(.heroSelection),
                 .case(.preGame),
-                .case(.strategyTime)
+                .case(.strategyTime),
             ],
             skip: GraphQLNullable<Int>(integerLiteral: existItems)
         )
-        Network.shared.apollo.fetch(query: LiveMatchListQuery(request: .init(fetchQuery)), cachePolicy: .fetchIgnoringCacheCompletely) { [weak self] result in
+        Network.shared.apollo.fetch(
+            query: LiveMatchListQuery(request: .init(fetchQuery)),
+            cachePolicy: .fetchIgnoringCacheCompletely
+        ) { [weak self] result in
             switch result {
             case .success(let graphQLResult):
                 guard let matches = graphQLResult.data?.live?.matches else {
@@ -137,19 +145,25 @@ class LiveMatchListViewModel: ObservableObject {
                             }
                             return player.isRadiant ?? false
                         }.map { player in
-                            return LiveMatchRowPlayer(heroID: Int(player?.heroId ?? 0), playerName: player?.steamAccount?.proSteamAccount?.name ?? player?.steamAccount?.name, slot: player?.playerSlot ?? 0)
+                            return LiveMatchRowPlayer(
+                                heroID: Int(player?.heroId ?? 0),
+                                playerName: player?.steamAccount?.proSteamAccount?.name
+                                    ?? player?.steamAccount?.name, slot: player?.playerSlot ?? 0)
                         }
                         direPlayers = players.filter { player in
                             guard let player else {
                                 return false
                             }
-                            
+
                             return !(player.isRadiant ?? true)
                         }.map { player in
-                            return LiveMatchRowPlayer(heroID: Int(player?.heroId ?? 0), playerName: player?.steamAccount?.proSteamAccount?.name ?? player?.steamAccount?.name, slot: player?.playerSlot ?? 0)
+                            return LiveMatchRowPlayer(
+                                heroID: Int(player?.heroId ?? 0),
+                                playerName: player?.steamAccount?.proSteamAccount?.name
+                                    ?? player?.steamAccount?.name, slot: player?.playerSlot ?? 0)
                         }
                     }
-                    
+
                     let match = LiveMatch(
                         matchId: matchData?.matchId ?? 0,
                         radiantScore: matchData?.radiantScore ?? 0,
@@ -174,18 +188,19 @@ class LiveMatchListViewModel: ObservableObject {
             }
         }
     }
-    
+
     @MainActor
     private func setLoading(_ loading: Bool) {
         self.loading = loading
     }
-    
+
     @MainActor
     private func setMatches(_ newMatches: [LiveMatch], addMatches: Bool) {
         if !addMatches {
             matches = []
         }
-        for match in newMatches where !self.matches.contains(where: { $0.matchId == match.matchId }) {
+        for match in newMatches where !self.matches.contains(where: { $0.matchId == match.matchId })
+        {
             self.matches.append(match)
         }
     }

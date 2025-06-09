@@ -10,11 +10,11 @@ import UIKit
 
 class LiveMatchTeamIconViewModel: ObservableObject {
     @Published var image: UIImage?
-    
+
     var teamID: String?
     var urlString: String = ""
     var isRadiant: Bool
-    
+
     init(teamID: String?, isRadiant: Bool) {
         self.isRadiant = isRadiant
         self.teamID = teamID
@@ -27,7 +27,7 @@ class LiveMatchTeamIconViewModel: ObservableObject {
             await fetchImage()
         }
     }
-    
+
     private func fetchImage() async {
         if image != nil {
             return
@@ -38,20 +38,21 @@ class LiveMatchTeamIconViewModel: ObservableObject {
         ImageCache.saveImage(newImage, type: .teamIcon, id: teamID, fileExtension: "png")
         await setImage(newImage)
     }
-    
+
     private func loadImage() async -> UIImage? {
         guard let url = URL(string: urlString),
-              let (newImageData, _) = try? await URLSession.shared.data(from: url),
-              let newImage = UIImage(data: newImageData) else {
+            let (newImageData, _) = try? await URLSession.shared.data(from: url),
+            let newImage = UIImage(data: newImageData)
+        else {
             return nil
         }
-        
+
         return newImage
     }
-    
+
     @MainActor
     private func setImage(_ image: UIImage) {
         self.image = image
     }
-    
+
 }

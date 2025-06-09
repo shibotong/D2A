@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct AbilityStatsView: View {
-    
+
     var behavior: String?
     var targetTeam: String?
     var bkbPierce: String?
     var dispellable: String?
     var damageType: String?
-    
+
     var body: some View {
-        LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 100, maximum: 200), spacing: 5), count: 2), alignment: .leading, spacing: 5) {
+        LazyVGrid(
+            columns: Array(
+                repeating: GridItem(.flexible(minimum: 100, maximum: 200), spacing: 5), count: 2),
+            alignment: .leading, spacing: 5
+        ) {
             if let behavior {
                 AbilityStatsTextView(title: "ABILITY:", message: behavior)
             }
@@ -33,37 +37,42 @@ struct AbilityStatsView: View {
                 }
             }
             if let bkbPierce {
-                AbilityStatsTextView(title: "IMMUNITY:", message: bkbPierce, color: bkbPierce == "Yes" ? .green : .label)
+                AbilityStatsTextView(
+                    title: "IMMUNITY:", message: bkbPierce,
+                    color: bkbPierce == "Yes" ? .green : .label)
             }
             if let dispellable {
-                AbilityStatsTextView(title: "DISPELLABLE:",
-                                     message: dispellable,
-                                     color: dispellable == "No" ? .red : Color(uiColor: UIColor.label))
+                AbilityStatsTextView(
+                    title: "DISPELLABLE:",
+                    message: dispellable,
+                    color: dispellable == "No" ? .red : Color(uiColor: UIColor.label))
             }
             if let damageType {
-                AbilityStatsTextView(title: "DAMAGE TYPE:", message: damageType, color: {
-                    switch damageType {
-                    case "Magical":
-                        return .blue
-                    case "Physical":
-                        return .red
-                    case "Pure":
-                        return .yellow
-                    default:
-                        return .label
-                    }
-                }())
+                AbilityStatsTextView(
+                    title: "DAMAGE TYPE:", message: damageType,
+                    color: {
+                        switch damageType {
+                        case "Magical":
+                            return .blue
+                        case "Physical":
+                            return .red
+                        case "Pure":
+                            return .yellow
+                        default:
+                            return .label
+                        }
+                    }())
             }
         }
     }
 }
 
 struct AbilityStatsTextView: View {
-    
+
     var title: String
     var message: String
     var color: Color = .label
-    
+
     var body: some View {
         HStack {
             Text(LocalizedStringKey(title))
@@ -81,10 +90,12 @@ struct AbilityStatsTextView: View {
 
 struct AbilityStatsView_Previews: PreviewProvider {
     static var previews: some View {
-        AbilityStatsView(behavior: "Point Target",
-                         targetTeam: "Enemy",
-                         bkbPierce: "Yes",
-                         damageType: "Magical")
+        AbilityStatsView(
+            behavior: "Point Target",
+            targetTeam: "Enemy",
+            bkbPierce: "Yes",
+            damageType: "Magical"
+        )
         .previewLayout(.fixed(width: 375, height: 300))
     }
 }

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct AttributeStatsView: View {
-    
+
     let level: Int
     let hero: Hero
-    
+
     var body: some View {
         HStack {
             Spacer()
@@ -23,7 +23,7 @@ struct AttributeStatsView: View {
             Spacer()
         }
     }
-    
+
     @ViewBuilder
     private func buildStatLevel(type: HeroAttribute) -> some View {
         HStack {

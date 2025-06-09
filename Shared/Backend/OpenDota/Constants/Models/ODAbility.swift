@@ -5,13 +5,13 @@
 //  Created by Shibo Tong on 12/9/21.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 struct ODAbility: Codable, Identifiable, PersistanceModel {
-    
+
     var id: Int?
-    
+
     var name: String?
     var img: String?
     var dname: String?
@@ -26,16 +26,18 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
     var coolDown: StringOrArray?  // CD can be String or [String]
     var targetTeam: StringOrArray?
     var targetType: StringOrArray?
-    
+
     var imageURL: String? {
-        guard let imageURL = img?
-            .replacingOccurrences(of: "_md", with: "")
-            .replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities") else {
+        guard
+            let imageURL = img?
+                .replacingOccurrences(of: "_md", with: "")
+                .replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+        else {
             return nil
         }
         return "\(IMAGE_PREFIX)\(imageURL)"
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case img = "img"
         case dname
@@ -51,7 +53,7 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
         case targetTeam = "target_team"
         case targetType = "target_type"
     }
-    
+
     var dictionaries: [String: Any] {
         guard let id, let name, let dname else {
             return [:]
@@ -90,13 +92,13 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
         if let lore {
             result["lore"] = lore
         }
-        
+
         if let attributes {
             result["attributes"] = attributes.map { AbilityAttribute(attribute: $0) }
         }
         return result
     }
-    
+
     func update(context: NSManagedObjectContext) throws -> NSManagedObject {
         guard let abilityID = id else {
             throw D2AError(message: "No ability ID for \(self)")
@@ -116,7 +118,9 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
         setIfNotEqual(entity: ability, path: \.manaCost, value: manaCost?.transformString())
         setIfNotEqual(entity: ability, path: \.targetTeam, value: targetTeam?.transformString())
         setIfNotEqual(entity: ability, path: \.targetType, value: targetType?.transformString())
-        setIfNotEqual(entity: ability, path: \.attributes, value: attributes?.compactMap { AbilityAttribute(attribute: $0) })
+        setIfNotEqual(
+            entity: ability, path: \.attributes,
+            value: attributes?.compactMap { AbilityAttribute(attribute: $0) })
         return ability
     }
 }
@@ -124,24 +128,24 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
 enum StringOrArray: Codable {
     case string(String)
     case array([String])
-    
+
     init(from decoder: Decoder) throws {
         if let string = try? decoder.singleValueContainer().decode(String.self) {
             self = .string(string)
             return
         }
-        
+
         if let array = try? decoder.singleValueContainer().decode([String].self) {
             self = .array(array)
             return
         }
         throw Error.couldNotFindStringOrArray
     }
-    
+
     enum Error: Swift.Error {
         case couldNotFindStringOrArray
     }
-    
+
     func transformString() -> String? {
         switch self {
         case .string(let string):

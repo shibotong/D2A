@@ -9,11 +9,12 @@ import SwiftUI
 
 struct Sidebar: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
-    @FetchRequest(sortDescriptors: [],
-                  predicate: NSPredicate(format: "favourite = %d", true))
+
+    @FetchRequest(
+        sortDescriptors: [],
+        predicate: NSPredicate(format: "favourite = %d", true))
     private var favouritePlayers: FetchedResults<UserProfile>
-    
+
     var body: some View {
         List {
             NavigationLink(
@@ -36,7 +37,7 @@ struct Sidebar: View {
             ) {
                 Label("Search", systemImage: "magnifyingglass")
             }
-            
+
             if !favouritePlayers.isEmpty {
                 Section {
                     ForEach(favouritePlayers, id: \.self) { player in
@@ -63,15 +64,16 @@ struct Sidebar: View {
 
 struct SidebarRowView: View {
     @FetchRequest var profile: FetchedResults<UserProfile>
-    
+
     init(userid: String) {
-        _profile = FetchRequest<UserProfile>(sortDescriptors: [], predicate: NSPredicate(format: "id == %@", userid))
+        _profile = FetchRequest<UserProfile>(
+            sortDescriptors: [], predicate: NSPredicate(format: "id == %@", userid))
     }
-    
+
     var body: some View {
         makeUI()
     }
-    
+
     @ViewBuilder
     func makeUI() -> some View {
         if let profile = profile.first {
@@ -85,10 +87,10 @@ struct SidebarRowView: View {
             ProgressView()
         }
     }
-    
+
 }
 
- struct Sidebar_Previews: PreviewProvider {
+struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             Sidebar()
@@ -96,4 +98,4 @@ struct SidebarRowView: View {
         }
         .environmentObject(DotaEnvironment.shared)
     }
- }
+}

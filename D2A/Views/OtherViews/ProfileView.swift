@@ -9,11 +9,13 @@ import SwiftUI
 
 struct ProfileView: View {
     @ObservedObject var viewModel: ProfileViewModel
-    
+
     private var avatar: some View {
-        ProfileAvatar(userID: viewModel.userID, imageURL: viewModel.avatarfull, cornerRadius: 0, profile: viewModel.profile)
+        ProfileAvatar(
+            userID: viewModel.userID, imageURL: viewModel.avatarfull, cornerRadius: 0,
+            profile: viewModel.profile)
     }
-    
+
     var body: some View {
         HStack {
             avatar.frame(width: 40, height: 40)

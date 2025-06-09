@@ -8,38 +8,39 @@
 import SwiftUI
 
 struct LiveMatchTimerView: View {
-    
+
     var radiantScore: Int?
     var direScore: Int?
     var time: Int?
-    
+
     var radiantTeam: String
     var direTeam: String
     var radiantTeamName: String?
     var direTeamName: String?
-    
+
     private let imagePadding: CGFloat = 20
-    
+
     private var isDayTime: Bool {
         guard let time else {
             return true
         }
-        let normalizedSeconds = time % 600 // Normalize the seconds within a 600-second cycle
-        
-        if normalizedSeconds >= 0 && normalizedSeconds <= 300 {
-            return true // Day time
-        } else {
-            return false // Night time
+        let normalizedSeconds = time % 600  // Normalize the seconds within a 600-second cycle
+
+        guard normalizedSeconds >= 0 && normalizedSeconds <= 300 else {
+            return false  // Night time
         }
+        return true  // Day time
     }
-    
+
     var body: some View {
         HStack {
             Spacer()
             HStack {
                 VStack {
-                    LiveMatchTeamIconView(viewModel: LiveMatchTeamIconViewModel(teamID: radiantTeam, isRadiant: true))
-                        .frame(maxWidth: 100, maxHeight: 100)
+                    LiveMatchTeamIconView(
+                        viewModel: LiveMatchTeamIconViewModel(teamID: radiantTeam, isRadiant: true)
+                    )
+                    .frame(maxWidth: 100, maxHeight: 100)
                     if let radiantTeamName {
                         Text(radiantTeamName)
                     }
@@ -76,8 +77,10 @@ struct LiveMatchTimerView: View {
                         .font(.title)
                 }
                 VStack {
-                    LiveMatchTeamIconView(viewModel: LiveMatchTeamIconViewModel(teamID: direTeam, isRadiant: false))
-                        .frame(maxWidth: 100, maxHeight: 100)
+                    LiveMatchTeamIconView(
+                        viewModel: LiveMatchTeamIconViewModel(teamID: direTeam, isRadiant: false)
+                    )
+                    .frame(maxWidth: 100, maxHeight: 100)
                     if let direTeamName {
                         Text(direTeamName)
                     }
@@ -87,9 +90,13 @@ struct LiveMatchTimerView: View {
             Spacer()
         }
         .background(
-            LinearGradient(colors: [Color(UIColor.systemGreen), Color(UIColor.systemRed)], startPoint: .leading, endPoint: .trailing)
-                .opacity(0.3)
-                
+            LinearGradient(
+                colors: [Color(UIColor.systemGreen), Color(UIColor.systemRed)],
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+            .opacity(0.3)
+
         )
     }
 }
@@ -97,14 +104,23 @@ struct LiveMatchTimerView: View {
 struct LiveMatchTimerView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LiveMatchTimerView(radiantScore: 10, direScore: 10, time: -90, radiantTeam: "", direTeam: "", radiantTeamName: "PSG.LGD", direTeamName: "Aster")
-                .previewLayout(.fixed(width: 375, height: 200))
-            LiveMatchTimerView(radiantScore: 10, direScore: 10, time: 100, radiantTeam: "", direTeam: "")
-                .previewLayout(.fixed(width: 300, height: 100))
-            LiveMatchTimerView(radiantScore: 10, direScore: 10, time: 400, radiantTeam: "", direTeam: "")
-                .previewLayout(.fixed(width: 300, height: 100))
-            LiveMatchTimerView(radiantScore: nil, direScore: nil, time: nil, radiantTeam: "", direTeam: "")
-                .previewLayout(.fixed(width: 300, height: 100))
+            LiveMatchTimerView(
+                radiantScore: 10, direScore: 10, time: -90, radiantTeam: "", direTeam: "",
+                radiantTeamName: "PSG.LGD", direTeamName: "Aster"
+            )
+            .previewLayout(.fixed(width: 375, height: 200))
+            LiveMatchTimerView(
+                radiantScore: 10, direScore: 10, time: 100, radiantTeam: "", direTeam: ""
+            )
+            .previewLayout(.fixed(width: 300, height: 100))
+            LiveMatchTimerView(
+                radiantScore: 10, direScore: 10, time: 400, radiantTeam: "", direTeam: ""
+            )
+            .previewLayout(.fixed(width: 300, height: 100))
+            LiveMatchTimerView(
+                radiantScore: nil, direScore: nil, time: nil, radiantTeam: "", direTeam: ""
+            )
+            .previewLayout(.fixed(width: 300, height: 100))
         }
     }
 }

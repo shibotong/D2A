@@ -5,18 +5,18 @@
 //  Created by Shibo Tong on 2/5/2025.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 extension Ability {
-    
+
     static func fetch(id: Int, context: NSManagedObjectContext) -> Ability? {
         let fetchAbility: NSFetchRequest<Ability> = Ability.fetchRequest()
         fetchAbility.predicate = NSPredicate(format: "id == %d", id)
         let results = try? context.fetch(fetchAbility)
         return results?.first
     }
-    
+
     static func fetchByNames(names: [String], context: NSManagedObjectContext) -> [Ability] {
         let request = Self.fetchRequest()
         request.predicate = NSPredicate(format: "name IN %@", names)
@@ -32,17 +32,21 @@ extension Ability {
 
 @objcMembers
 public class AbilityAttribute: NSObject, NSSecureCoding {
-    
+
     public static var supportsSecureCoding: Bool = true
-    
+
     public var key: String
     public var header: String
     public var value: String
     public var generated: Bool?
-    
+
     init?(attribute: ODAbility.Attribute) {
-        guard let key = attribute.key, let header = attribute.header, let value = attribute.value?.transformString() else {
-            logWarn("Failed to initialize AbilityAttribute with attribute: \(attribute)", category: .opendotaConstant)
+        guard let key = attribute.key, let header = attribute.header,
+            let value = attribute.value?.transformString()
+        else {
+            logWarn(
+                "Failed to initialize AbilityAttribute with attribute: \(attribute)",
+                category: .opendotaConstant)
             return nil
         }
         self.key = key
@@ -51,7 +55,7 @@ public class AbilityAttribute: NSObject, NSSecureCoding {
         self.generated = attribute.generated
         super.init()
     }
-    
+
     init(key: String, header: String, value: String, generated: Bool?) {
         self.key = key
         self.header = header
@@ -59,18 +63,19 @@ public class AbilityAttribute: NSObject, NSSecureCoding {
         self.generated = generated
         super.init()
     }
-    
+
     public func encode(with coder: NSCoder) {
         coder.encode(key, forKey: "key")
         coder.encode(header, forKey: "header")
         coder.encode(value, forKey: "value")
         coder.encode(generated, forKey: "generated")
     }
-    
+
     required public init?(coder: NSCoder) {
         guard let key = coder.decodeObject(of: NSString.self, forKey: "key") as? String,
-              let header = coder.decodeObject(of: NSString.self, forKey: "header") as? String,
-              let value = coder.decodeObject(of: NSString.self, forKey: "value") as? String else {
+            let header = coder.decodeObject(of: NSString.self, forKey: "header") as? String,
+            let value = coder.decodeObject(of: NSString.self, forKey: "value") as? String
+        else {
             logError("Failed to decode AbilityAttribute", category: .coredata)
             return nil
         }

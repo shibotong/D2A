@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct RankView: View {
-    
+
     var rank: Int?
     var leaderboard: Int?
-    
+
     var body: some View {
         ZStack {
             buildBadge(rank: rank ?? 0, leaderboard: leaderboard)
@@ -20,7 +20,7 @@ struct RankView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     private func buildBadge(rank: Int, leaderboard: Int?) -> some View {
         if rank == 80 {
@@ -39,7 +39,7 @@ struct RankView: View {
             Image("rank_icon_\(rank / 10)").resizable()
         }
     }
-    
+
     @ViewBuilder
     private func buildStar(rank: Int, leaderboard: Int?) -> some View {
         if rank < 80 {

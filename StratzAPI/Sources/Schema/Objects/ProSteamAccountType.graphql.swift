@@ -3,9 +3,9 @@
 
 import ApolloAPI
 
-public extension Objects {
-  static let ProSteamAccountType = Object(
-    typename: "ProSteamAccountType",
-    implementedInterfaces: []
-  )
+extension Objects {
+    public static let ProSteamAccountType = Object(
+        typename: "ProSteamAccountType",
+        implementedInterfaces: []
+    )
 }

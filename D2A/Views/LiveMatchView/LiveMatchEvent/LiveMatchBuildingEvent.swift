@@ -11,15 +11,15 @@ import SwiftUI
 
 struct LiveMatchBuildingEvent: LiveMatchEvent {
     typealias Building = GraphQLEnum<BuildingType>
-    
+
     var id = UUID()
-    
+
     let indexId: Int
-    
+
     var time: Int
     let type: Building
     let isAlive: Bool
-    
+
     var position: CGPoint {
         switch indexId {
         case 0: return .init(x: 87, y: 140)
@@ -61,21 +61,21 @@ struct LiveMatchBuildingEvent: LiveMatchEvent {
         default: return .init(x: 0, y: 0)
         }
     }
-    
+
     let isRadiant: Bool
-    
+
     var isRadiantEvent: Bool {
         return !isRadiant
     }
-    
+
     private var buildingName: String {
         return "\(lane)\(buildingPosition)\(buildingType)"
     }
-    
+
     private var teamString: String {
         return isRadiant ? "Radiant " : "Dire "
     }
-    
+
     private var buildingType: String {
         switch type {
         case .tower:
@@ -88,7 +88,7 @@ struct LiveMatchBuildingEvent: LiveMatchEvent {
             return ""
         }
     }
-    
+
     private var lane: String {
         switch indexId {
         case 0, 1, 2, 11, 12, 18, 19, 20, 29, 30:
@@ -101,7 +101,7 @@ struct LiveMatchBuildingEvent: LiveMatchEvent {
             return ""
         }
     }
-    
+
     private var buildingPosition: String {
         switch indexId {
         case 0, 3, 6, 18, 21, 24:
@@ -120,7 +120,7 @@ struct LiveMatchBuildingEvent: LiveMatchEvent {
             return ""
         }
     }
-    
+
     private var icon: some View {
         ZStack {
             if type == .tower {
@@ -132,14 +132,16 @@ struct LiveMatchBuildingEvent: LiveMatchEvent {
         .frame(width: 15, height: 15)
         .foregroundColor(isRadiant ? Color.green : Color.red)
     }
-    
+
     func generateEvent() -> [LiveMatchEventItem] {
         guard !isAlive else {
             return []
         }
-        let detail = LiveMatchEventDetail(type: .tower, itemName: buildingName, itemIcon: AnyView(icon))
+        let detail = LiveMatchEventDetail(
+            type: .tower, itemName: buildingName, itemIcon: AnyView(icon))
         let iconName = isRadiantEvent ? "icon_radiant" : "icon_dire"
-        let event = LiveMatchEventItem(time: time, isRadiantEvent: isRadiantEvent, icon: iconName, events: [detail])
+        let event = LiveMatchEventItem(
+            time: time, isRadiantEvent: isRadiantEvent, icon: iconName, events: [detail])
         return [event]
     }
 }

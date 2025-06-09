@@ -8,22 +8,23 @@
 import SwiftUI
 
 struct HealthManaView: View {
-    
+
     let level: Int
-    
+
     let hero: Hero
-    
+
     var body: some View {
         VStack {
             ForEach(Hero.HeroHPMana.allCases, id: \.rawValue) { value in
-                buildBar(amount: hero.calculateHPManaByLevel(level: Double(level), type: value),
-                         gain: hero.calculateHPManaRegenByLevel(level: Double(level), type: value),
-                         title: value.rawValue,
-                         color: barColor(value))
+                buildBar(
+                    amount: hero.calculateHPManaByLevel(level: Double(level), type: value),
+                    gain: hero.calculateHPManaRegenByLevel(level: Double(level), type: value),
+                    title: value.rawValue,
+                    color: barColor(value))
             }
         }
     }
-    
+
     private func barColor(_ type: Hero.HeroHPMana) -> Color {
         switch type {
         case .hp:
@@ -32,7 +33,7 @@ struct HealthManaView: View {
             return Color(UIColor.systemBlue)
         }
     }
-    
+
     @ViewBuilder
     private func buildBar(amount: Int, gain: Double, title: String, color: Color) -> some View {
         VStack(spacing: 0) {
@@ -54,7 +55,7 @@ struct HealthManaView: View {
                 let spacer = (amount % 250 == 0) ? numberOfRect : numberOfRect + 1
                 let restWidth = proxy.size.width - CGFloat(spacer)
                 let rectWidth = restWidth / rectangles
-                
+
                 HStack(spacing: 1) {
                     ForEach(0..<numberOfRect, id: \.self) { _ in
                         Rectangle()

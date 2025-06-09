@@ -15,57 +15,61 @@ enum TabSelection {
 
 final class DotaEnvironment: ObservableObject {
     static var shared = DotaEnvironment()
-    
+
     var refreshHandler: [String: TimeInterval] = [:]
-    
+
     // MARK: Errors
     @Published var error = false
     @Published var errorMessage = ""
-    
+
     @Published var subscriptionSheet = false
-    
+
     @Published var subscriptionStatus: Bool {
         didSet {
             UserDefaults.group.set(subscriptionStatus, forKey: UserDefaults.subscription)
         }
     }
-    
+
     // migration loading
     @Published var loading = false
-    
+
     // tab selections
     var tab: TabSelection {
         didSet {
             selectedTab = tab
         }
     }
-    
+
     @Published var selectedTab: TabSelection = .home
-    
+
     @Published var selectedUser: String?
     @Published var selectedMatch: String?
     @Published var matchActive: Bool = false
     @Published var userActive: Bool = false
-    
+
     private var refreshDistance: TimeInterval {
         var refreshTime: TimeInterval = 60
         #if DEBUG
-        refreshTime = 1
+            refreshTime = 1
         #endif
         return refreshTime
     }
 
     init() {
-        subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: UserDefaults.subscription) as? Bool ?? false
+        subscriptionStatus =
+            UserDefaults(suiteName: GROUP_NAME)?.object(forKey: UserDefaults.subscription) as? Bool
+            ?? false
         tab = .home
     }
-    
+
     static func isInWidget() -> Bool {
-        guard let extesion = Bundle.main.infoDictionary?["NSExtension"] as? [String: String] else { return false }
+        guard let extesion = Bundle.main.infoDictionary?["NSExtension"] as? [String: String] else {
+            return false
+        }
         guard let widget = extesion["NSExtensionPointIdentifier"] else { return false }
         return widget == "com.apple.widgetkit-extension"
     }
-    
+
     /// Check if user can refresh this player (Debug mode 1s Release mode 60s)
     /// - parameters:
     /// - userid: Player ID
@@ -76,17 +80,16 @@ final class DotaEnvironment: ObservableObject {
             refreshHandler[userid] = currentTime
             return true
         }
-        
+
         let distance = currentTime - lastRefresh
-        if distance > refreshDistance {
-            refreshHandler[userid] = currentTime
-            return true
-        } else {
+        guard distance > refreshDistance else {
             print("last refresh \(distance)s before, cannot refresh")
             return false
         }
+        refreshHandler[userid] = currentTime
+        return true
     }
-    
+
     private func removeNotFavouriteRecentMatches() {
         let moc = PersistanceProvider.shared.makeContext()
         let fetchRequest = UserProfile.fetchRequest()

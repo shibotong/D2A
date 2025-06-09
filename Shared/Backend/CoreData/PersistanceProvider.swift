@@ -19,17 +19,17 @@ enum PersistanceError: Error {
 }
 
 class PersistanceProvider: PersistanceProviding {
-    
+
     static let shared = PersistanceProvider()
 
     static let preview = PersistanceProvider()
 
     let container: NSPersistentContainer
     private var notificationToken: NSObjectProtocol?
-    
+
     /// A peristent history token used for fetching transactions from the store.
     private var lastToken: NSPersistentHistoryToken?
-    
+
     /// URL of tokenFile
     private lazy var tokenFileURL: URL = {
         let url = NSPersistentContainer.defaultDirectoryURL()
@@ -52,35 +52,38 @@ class PersistanceProvider: PersistanceProviding {
         container.viewContext.automaticallyMergesChangesFromParent = true
         loadContainer(inMemory: inMemory)
     }
-    
+
     static func registerClasses() {
         // Register the transformer with the exact name used in the Core Data model
         ArrayValueTransformer<AbilityAttribute>.registerTransformer(with: .abilityAttribute)
     }
-    
+
     private func removeContainer() {
-        let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME)!
+        let containerURL = FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: GROUP_NAME)!
         let storeURL = containerURL.appendingPathComponent("D2AModel.sqlite")
         do {
             try FileManager.default.removeItem(at: storeURL)
             loadContainer()
         } catch {
             DotaEnvironment.shared.error = true
-            DotaEnvironment.shared.errorMessage = "There are some problems with the App. Please delete and reinstall."
+            DotaEnvironment.shared.errorMessage =
+                "There are some problems with the App. Please delete and reinstall."
         }
     }
-    
+
     private func loadContainer(inMemory: Bool = false) {
-        let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME)!
+        let containerURL = FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: GROUP_NAME)!
         let storeURL = containerURL.appendingPathComponent("D2AModel.sqlite")
         let description = NSPersistentStoreDescription(url: storeURL)
-        
+
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         } else {
             container.persistentStoreDescriptions = [description]
         }
-        
+
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -98,7 +101,7 @@ class PersistanceProvider: PersistanceProviding {
             }
         })
     }
-    
+
     func makeContext(author: String? = nil) -> NSManagedObjectContext {
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = container.viewContext
@@ -106,7 +109,7 @@ class PersistanceProvider: PersistanceProviding {
         privateContext.automaticallyMergesChangesFromParent = true
         return privateContext
     }
-    
+
     func fetchFirstWidgetUser() -> UserProfile? {
         let fetchRequest = UserProfile.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
@@ -118,7 +121,7 @@ class PersistanceProvider: PersistanceProviding {
             return nil
         }
     }
-    
+
     func deleteRecentMatchesForUserID(userID: String) {
         let viewContext = makeContext(author: userID)
         weak var weakContext = viewContext
@@ -127,24 +130,25 @@ class PersistanceProvider: PersistanceProviding {
             let fetchRequest: NSFetchRequest<NSFetchRequestResult> = RecentMatch.fetchRequest()
             let predicate = NSPredicate(format: "playerId = %@", userID)
             fetchRequest.predicate = predicate
-            
+
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
             deleteRequest.resultType = .resultTypeObjectIDs
-            
+
             guard let strongSelf = self,
-                  let batchDelete = try? weakContext?.execute(deleteRequest) as? NSBatchDeleteResult,
-                  let deleteResult = batchDelete.result as? [NSManagedObjectID] else {
+                let batchDelete = try? weakContext?.execute(deleteRequest) as? NSBatchDeleteResult,
+                let deleteResult = batchDelete.result as? [NSManagedObjectID]
+            else {
                 print("batch delete error")
                 return
             }
-            
+
             let deletedObjects: [AnyHashable: Any] = [NSDeletedObjectsKey: deleteResult]
-            
-            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: deletedObjects, into: [strongSelf.container.viewContext])
+
+            NSManagedObjectContext.mergeChanges(
+                fromRemoteContextSave: deletedObjects, into: [strongSelf.container.viewContext])
         }
     }
-    
-    
+
     // MARK: - Save constant data
     func saveODHeroes(heroes: [ODHero]) async {
         let viewContext = container.newBackgroundContext()
@@ -154,7 +158,7 @@ class PersistanceProvider: PersistanceProviding {
             await batchInsertData(heroes, into: Hero.entity(), context: viewContext)
         }
     }
-    
+
     func saveODAbilities(abilities: [ODAbility]) async {
         let context = container.newBackgroundContext()
         if await hasData(for: Ability.self, context: context) {
@@ -163,8 +167,8 @@ class PersistanceProvider: PersistanceProviding {
             await batchInsertData(abilities, into: Ability.entity(), context: context)
         }
     }
-    
-    func saveAbilitiesToHero(heroAbilities: [String : ODHeroAbilities]) async {
+
+    func saveAbilitiesToHero(heroAbilities: [String: ODHeroAbilities]) async {
         let context = container.newBackgroundContext()
         for (name, heroAbility) in heroAbilities {
             guard let hero = Hero.fetchByName(name: name, context: context) else {
@@ -172,7 +176,7 @@ class PersistanceProvider: PersistanceProviding {
                 continue
             }
             let abilityNames = heroAbility.abilities
-            
+
             if let currentAbilities = hero.abilities?.compactMap({ ($0 as? Ability) }) {
                 guard currentAbilities.compactMap(\.name) != abilityNames else {
                     continue
@@ -183,9 +187,9 @@ class PersistanceProvider: PersistanceProviding {
                     }
                 }
             }
-            
+
             let abilities = Ability.fetchByNames(names: abilityNames, context: context)
-            
+
             await context.perform {
                 for ability in abilities {
                     hero.addToAbilities(ability)
@@ -201,7 +205,7 @@ class PersistanceProvider: PersistanceProviding {
             }
         }
     }
-    
+
     private func updateData(data: [PersistanceModel], context: NSManagedObjectContext) async {
         for object in data {
             await context.perform {
@@ -212,14 +216,18 @@ class PersistanceProvider: PersistanceProviding {
                     }
                     try context.save()
                 } catch {
-                    logError("An error occured when updating data in Core Data \(error.localizedDescription)", category: .coredata)
+                    logError(
+                        "An error occured when updating data in Core Data \(error.localizedDescription)",
+                        category: .coredata)
                 }
             }
         }
     }
-    
+
     /// Check if there is any data saved in core data
-    private func hasData<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) async -> Bool {
+    private func hasData<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext)
+        async -> Bool
+    {
         let request = T.fetchRequest()
         request.fetchLimit = 1
         return await context.perform {
@@ -232,25 +240,35 @@ class PersistanceProvider: PersistanceProviding {
             }
         }
     }
-    
-    private func batchInsertData<T: PersistanceModel, V: NSEntityDescription>(_ data: [T], into entity: V, context: NSManagedObjectContext) async {
-        let insertRequest = NSBatchInsertRequest(entity: entity, objects: data.map { $0.dictionaries })
+
+    private func batchInsertData<T: PersistanceModel, V: NSEntityDescription>(
+        _ data: [T], into entity: V, context: NSManagedObjectContext
+    ) async {
+        let insertRequest = NSBatchInsertRequest(
+            entity: entity, objects: data.map { $0.dictionaries })
         insertRequest.resultType = .statusOnly
         await context.perform {
             do {
                 let fetchResult = try context.execute(insertRequest)
                 if let batchInsertResult = fetchResult as? NSBatchInsertResult,
-                   let success = batchInsertResult.result as? Bool {
+                    let success = batchInsertResult.result as? Bool
+                {
                     if !success {
-                        logError("Failed to insert data in \(entity.name ?? "Unknown entity")", category: .coredata)
+                        logError(
+                            "Failed to insert data in \(entity.name ?? "Unknown entity")",
+                            category: .coredata)
                     } else {
-                        logDebug("Insert data in \(entity.name ?? "Unknown entity") success", category: .coredata)
+                        logDebug(
+                            "Insert data in \(entity.name ?? "Unknown entity") success",
+                            category: .coredata)
                     }
                 } else {
                     logWarn("Cast NSBatchInsertResult failed", category: .coredata)
                 }
             } catch {
-                logError("An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)", category: .coredata)
+                logError(
+                    "An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)",
+                    category: .coredata)
             }
         }
     }

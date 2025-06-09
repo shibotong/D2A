@@ -5,44 +5,44 @@
 //  Created by Shibo Tong on 20/8/21.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 class SearchViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var isLoading: Bool = false
-    
+
     // suggestion
     @Published var suggestHeroes: [ODHero] = []
     @Published var suggestLocalProfiles: [UserProfile] = []
-    
+
     // search results
     @Published var userProfiles: [ODUserProfile] = []
     @Published var searchLocalProfiles: [UserProfile] = []
     @Published var searchedMatch: Match?
     @Published var filterHeroes: [ODHero] = []
-    
+
     @Published var searchHistory: [String] {
         didSet {
             UserDefaults.standard.set(searchHistory, forKey: "dotaArmory.searchHistory")
         }
     }
-    
+
     private var cancellableObject: Set<AnyCancellable> = []
     init() {
-        searchHistory = UserDefaults.standard.object(forKey: "dotaArmory.searchHistory") as? [String] ?? []
-        
+        searchHistory =
+            UserDefaults.standard.object(forKey: "dotaArmory.searchHistory") as? [String] ?? []
+
         $searchText
             .receive(on: RunLoop.main)
             .map { text in
-                if !text.isEmpty {
-                    let heroes = HeroDatabase.shared.fetchAllHeroes().filter({
-                        return $0.heroNameLocalized.lowercased().contains(text.lowercased())
-                    })
-                    return heroes
-                } else {
+                guard !text.isEmpty else {
                     return []
                 }
+                let heroes = HeroDatabase.shared.fetchAllHeroes().filter({
+                    return $0.heroNameLocalized.lowercased().contains(text.lowercased())
+                })
+                return heroes
             }
             .sink { [weak self] searchResults in
                 self?.suggestHeroes = searchResults
@@ -51,26 +51,25 @@ class SearchViewModel: ObservableObject {
         $searchText
             .receive(on: RunLoop.main)
             .map { text in
-                if !text.isEmpty {
-                    let profiles = UserProfile.fetch(text: text, favourite: true)
-                    return profiles
-                } else {
+                guard !text.isEmpty else {
                     return []
                 }
+                let profiles = UserProfile.fetch(text: text, favourite: true)
+                return profiles
             }
             .sink { [weak self] searchProfiles in
                 self?.suggestLocalProfiles = searchProfiles
             }
             .store(in: &cancellableObject)
     }
-    
+
     @MainActor
     func search(searchText: String) async {
         isLoading = true
         // set suggestion to empty
         suggestLocalProfiles = []
         suggestHeroes = []
-        
+
         userProfiles = []
         filterHeroes = HeroDatabase.shared.fetchAllHeroes().filter { hero in
             return hero.heroNameLocalized.lowercased().contains(searchText.lowercased())
@@ -91,7 +90,7 @@ class SearchViewModel: ObservableObject {
 
         var cachedProfiles: [UserProfile] = searchCachedProfile
         var notCachedProfiles: [ODUserProfile] = []
-        
+
         for profile in await searchedProfile {
             if let cachedProfile = UserProfile.fetch(id: profile.id.description) {
                 if cachedProfiles.contains(where: { profile in
@@ -104,13 +103,13 @@ class SearchViewModel: ObservableObject {
                 notCachedProfiles.append(profile)
             }
         }
-        
+
         searchLocalProfiles = cachedProfiles
         userProfiles = notCachedProfiles
-        
+
         isLoading = false
     }
-    
+
     func addSearch(_ searchText: String) {
         guard !searchText.isEmpty, !searchHistory.contains(searchText) else {
             return

@@ -13,7 +13,7 @@ extension Role {
         case nilValue
         case decodingError
     }
-    
+
     static func createRole(_ role: HeroQuery.Data.Constants.Hero.Role?) throws -> Role {
         guard let role = role else {
             throw CoreDataError.nilValue
@@ -21,7 +21,8 @@ extension Role {
         let viewContext = PersistanceProvider.shared.container.viewContext
         let newRole = Role(context: viewContext)
         guard let roleID = role.roleId,
-              let level = role.level else {
+            let level = role.level
+        else {
             throw CoreDataError.decodingError
         }
         newRole.roleId = roleID.rawValue

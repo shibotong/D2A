@@ -5,8 +5,8 @@
 //  Created by Shibo Tong on 19/8/21.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 class AnalysisViewModel: ObservableObject {
     @Published var players: [PlayerRowViewModel] = []
@@ -19,7 +19,7 @@ class AnalysisViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .map { [weak self] selection in
                 return self?.sortPlayer(selection: selection)
-                
+
             }
             .sink { [weak self] sortedPlayer in
                 guard let self, let sortedPlayer else { return }
@@ -27,26 +27,26 @@ class AnalysisViewModel: ObservableObject {
             }
             .store(in: &cancellableSet)
     }
-    
+
     func sortPlayer(selection: AnalysisType) -> [PlayerRowViewModel]? {
         switch selection {
         case .kills:
             return storedPlayers.sorted(by: { $0.kdaCalculate >= $1.kdaCalculate })
         case .level:
-            return storedPlayers.sorted(by: { $0.level >= $1.level})
+            return storedPlayers.sorted(by: { $0.level >= $1.level })
         case .xpm:
-            return storedPlayers.sorted(by: { $0.xpm >= $1.xpm})
+            return storedPlayers.sorted(by: { $0.xpm >= $1.xpm })
         case .gpm:
-            return storedPlayers.sorted(by: { $0.gpm >= $1.gpm})
+            return storedPlayers.sorted(by: { $0.gpm >= $1.gpm })
         case .golds:
-            return storedPlayers.sorted(by: { $0.netWorth >= $1.netWorth})
+            return storedPlayers.sorted(by: { $0.netWorth >= $1.netWorth })
         case .heroDamage:
             return storedPlayers.sorted(by: { $0.heroDamage ?? 0 >= $1.heroDamage ?? 0 })
         case .lastHitsDenies:
-            return storedPlayers.sorted(by: { $0.level >= $1.level})
+            return storedPlayers.sorted(by: { $0.level >= $1.level })
         }
     }
-    
+
     func fetchPlayerValue(player: PlayerRowViewModel) -> Int {
         switch selection {
         case .kills:
@@ -65,7 +65,7 @@ class AnalysisViewModel: ObservableObject {
             return 0
         }
     }
-    
+
     func fetchPlayerValueString(player: PlayerRowViewModel) -> String {
         switch selection {
         case .kills:
@@ -84,11 +84,11 @@ class AnalysisViewModel: ObservableObject {
             return ""
         }
     }
-    
+
     func calculatePercentage(player: PlayerRowViewModel) -> Double {
         return Double(fetchPlayerValue(player: player)) / Double(fetchMaxValue())
     }
-    
+
     private func fetchMaxValue() -> Int {
         switch selection {
         case .kills:

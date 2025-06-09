@@ -10,8 +10,8 @@ import Foundation
 struct PlayerCodable: Decodable {
     var accountId: Int?
     var slot: Int
-    var abilityUpgrade: [Int]? // An array describing how abilities were upgraded
-    
+    var abilityUpgrade: [Int]?  // An array describing how abilities were upgraded
+
     // backpack
     var backpack0: Int?
     var backpack1: Int?
@@ -24,7 +24,7 @@ struct PlayerCodable: Decodable {
     var item4: Int
     var item5: Int
     var itemNeutral: Int?
-    
+
     // K/D/A lasthit/deny
     var kills: Int
     var deaths: Int
@@ -50,16 +50,16 @@ struct PlayerCodable: Decodable {
     var towerDamage: Int?
 
     var personaname: String?
-    
+
     var multiKills: [String: Int]?
-    
+
     var rank: Int?
-    
+
     enum CodingKeys: String, CodingKey {
         case accountId = "account_id"
         case slot = "player_slot"
         case abilityUpgrade = "ability_upgrades_arr"
-       
+
         // backpack
         case backpack0 = "backpack_0"
         case backpack1 = "backpack_1"
@@ -96,7 +96,7 @@ struct PlayerCodable: Decodable {
 
         case personaname
         case multiKills = "multi_kills"
-        
+
         case rank = "rank_tier"
     }
 }
@@ -104,7 +104,7 @@ struct PlayerCodable: Decodable {
 struct PermanentBuffCodable: Decodable {
     var buffID: Int
     var stack: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case buffID = "permanent_buff"
         case stack = "stack_count"

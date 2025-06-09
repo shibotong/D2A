@@ -9,7 +9,7 @@ import Foundation
 
 extension UserDefaults {
     static let group = UserDefaults(suiteName: GROUP_NAME)!
-    
+
     // UserDefaults keys
     static let stratzToken = "stratzToken"
     static let subscription = "dotaArmory.subscription"

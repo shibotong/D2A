@@ -6,13 +6,15 @@
 //
 
 import Foundation
-import SwiftUI
 import StratzAPI
+import SwiftUI
 
 let GROUP_NAME = "group.D2A"
 let IMAGE_PREFIX = "https://cdn.cloudflare.steamstatic.com"
-let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/privacy-policy.md"
-let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/terms-of-use.md"
+let PRIVACY_POLICY =
+    "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/privacy-policy.md"
+let TERMS_OF_USE =
+    "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/terms-of-use.md"
 
 private let currentLanguage: String = {
     if #available(iOS 16.0, *) {
@@ -51,10 +53,12 @@ let colonLocalize: Character = {
 }()
 
 extension PreviewDevice {
-    static let iPhoneDevices = [PreviewDevice.iPhoneSE, PreviewDevice.iPhone, PreviewDevice.iPhoneProMax]
+    static let iPhoneDevices = [
+        PreviewDevice.iPhoneSE, PreviewDevice.iPhone, PreviewDevice.iPhoneProMax,
+    ]
 
     static let iPadDevies = [PreviewDevice.iPadMini, PreviewDevice.iPad]
-    
+
     static let iPhone = PreviewDevice("iPhone 15")
     static let iPhoneProMax = PreviewDevice("iPhone 14 Pro Max")
     static let iPhoneSE = PreviewDevice("iPhone SE (3rd generation)")

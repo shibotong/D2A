@@ -17,32 +17,49 @@ enum ImageCacheType: String {
 }
 
 class ImageCache: ObservableObject {
-    
-    static func readImage(type: ImageCacheType, 
-                          id: String,
-                          fileExtension: String = "jpg") -> UIImage? {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+
+    static func readImage(
+        type: ImageCacheType,
+        id: String,
+        fileExtension: String = "jpg"
+    ) -> UIImage? {
+        guard
+            let docDir = FileManager.default.containerURL(
+                forSecurityApplicationGroupIdentifier: GROUP_NAME)
+        else {
             return nil
         }
-        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
+        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent(
+            "\(id).\(fileExtension)", isDirectory: false)
         let newImage = UIImage(contentsOfFile: imageURL.path)
         return newImage
     }
-    
-    static func fetchImagePath(type: ImageCacheType, id: String, fileExtension: String = "jpg") -> String? {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+
+    static func fetchImagePath(type: ImageCacheType, id: String, fileExtension: String = "jpg")
+        -> String?
+    {
+        guard
+            let docDir = FileManager.default.containerURL(
+                forSecurityApplicationGroupIdentifier: GROUP_NAME)
+        else {
             return nil
         }
-        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
+        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent(
+            "\(id).\(fileExtension)", isDirectory: false)
         return imageURL.path
     }
-    
-    static func saveImage(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: String = "jpg") {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+
+    static func saveImage(
+        _ image: UIImage, type: ImageCacheType, id: String, fileExtension: String = "jpg"
+    ) {
+        guard
+            let docDir = FileManager.default.containerURL(
+                forSecurityApplicationGroupIdentifier: GROUP_NAME)
+        else {
             print("save image error")
             return
         }
-        
+
         let imageFolder = docDir.appendingPathComponent(type.rawValue)
         do {
             try FileManager.default
@@ -50,7 +67,8 @@ class ImageCache: ObservableObject {
                     at: imageFolder,
                     withIntermediateDirectories: true,
                     attributes: nil)
-            let imageURL = imageFolder.appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
+            let imageURL = imageFolder.appendingPathComponent(
+                "\(id).\(fileExtension)", isDirectory: false)
             var imageData: Data?
             if fileExtension == "jpg" {
                 imageData = image.jpegData(compressionQuality: 1.0)
@@ -64,18 +82,22 @@ class ImageCache: ObservableObject {
             // log any errors
         }
     }
-    
+
     static func docDir(type: ImageCacheType) -> URL? {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+        guard
+            let docDir = FileManager.default.containerURL(
+                forSecurityApplicationGroupIdentifier: GROUP_NAME)
+        else {
             return nil
         }
         return docDir.appendingPathComponent(type.rawValue)
     }
-    
+
     static func loadImage(urlString: String) async -> UIImage? {
         guard let url = URL(string: urlString),
-              let (newImageData, _) = try? await URLSession.shared.data(from: url),
-              let newImage = UIImage(data: newImageData) else {
+            let (newImageData, _) = try? await URLSession.shared.data(from: url),
+            let newImage = UIImage(data: newImageData)
+        else {
             return nil
         }
         return newImage

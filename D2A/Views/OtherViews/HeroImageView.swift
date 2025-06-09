@@ -15,7 +15,7 @@ struct HeroImageView: View {
     @EnvironmentObject var heroData: HeroDatabase
     let heroID: Int
     let type: HeroImageType
-    
+
     var body: some View {
         if type == .icon || type == .full || type == .vert {
             if heroID == 0 && type == .icon {
@@ -31,16 +31,16 @@ struct HeroImageView: View {
                 if let image = phase.image {
                     image
                         .resizable()
-                        .aspectRatio(contentMode: .fit)// Displays the loaded image.
+                        .aspectRatio(contentMode: .fit)  // Displays the loaded image.
                 } else if phase.error != nil {
-                    ProgressView()// Indicates an error.
+                    ProgressView()  // Indicates an error.
                 } else {
-                    ProgressView() // Acts as a placeholder.
+                    ProgressView()  // Acts as a placeholder.
                 }
             }
         }
     }
-    
+
     private func searchHeroImage() -> String {
         switch type {
         case .icon:
@@ -57,7 +57,7 @@ struct HeroImageView: View {
             return filename
         }
     }
-    
+
     private func computeURL() -> URL? {
         guard let hero = try? heroData.fetchHeroWithID(id: heroID) else {
             return nil
@@ -68,7 +68,8 @@ struct HeroImageView: View {
             return url
         case .portrait:
             let name = hero.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
-            let url = URL(string: "\(IMAGE_PREFIX)/apps/dota2/videos/dota_react/heroes/renders/\(name).png")
+            let url = URL(
+                string: "\(IMAGE_PREFIX)/apps/dota2/videos/dota_react/heroes/renders/\(name).png")
             return url
         case .full:
             return nil

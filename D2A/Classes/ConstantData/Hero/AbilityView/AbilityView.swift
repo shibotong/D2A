@@ -5,15 +5,15 @@
 //  Created by Shibo Tong on 26/8/2022.
 //
 
-import SwiftUI
 import AVKit
 import StratzAPI
+import SwiftUI
 
 enum ScepterType: String {
     case scepter
     case shard
     case non
-    
+
     var upgradeString: LocalizedStringKey {
         switch self {
         case .scepter:
@@ -35,29 +35,34 @@ struct AbilityView: View {
         GeometryReader { proxy in
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    AbilityTitleView(displayName: viewModel.displayName,
-                                     cd: viewModel.cd,
-                                     mc: viewModel.mc,
-                                     name: viewModel.abilityID,
-                                     url: viewModel.abilityImageURL)
-                    AbilityStatsView(behavior: viewModel.behavior,
-                                     targetTeam: viewModel.targetTeam,
-                                     bkbPierce: viewModel.bkbPierce, 
-                                     dispellable: viewModel.dispellable,
-                                     damageType: viewModel.damageType)
+                    AbilityTitleView(
+                        displayName: viewModel.displayName,
+                        cd: viewModel.cd,
+                        mc: viewModel.mc,
+                        name: viewModel.abilityID,
+                        url: viewModel.abilityImageURL)
+                    AbilityStatsView(
+                        behavior: viewModel.behavior,
+                        targetTeam: viewModel.targetTeam,
+                        bkbPierce: viewModel.bkbPierce,
+                        dispellable: viewModel.dispellable,
+                        damageType: viewModel.damageType)
                     if let openDota = viewModel.opentDotaAbility,
-                       let stratz = viewModel.stratzAbility {
-                        buildDescription(ability: openDota,
-                                         stratz: stratz,
-                                         proxy: proxy)
+                        let stratz = viewModel.stratzAbility
+                    {
+                        buildDescription(
+                            ability: openDota,
+                            stratz: stratz,
+                            proxy: proxy)
                     }
-                    
+
                     Spacer().frame(height: 10)
                     if let attributes = viewModel.stratzAbility?.localizedAttributes {
                         HStack {
                             VStack(alignment: .leading, spacing: 5) {
                                 ForEach(attributes, id: \.self) { item in
-                                    AbilityStatsTextView(title: item.name, message: item.description)
+                                    AbilityStatsTextView(
+                                        title: item.name, message: item.description)
                                 }
                             }
                             Spacer()
@@ -81,23 +86,36 @@ struct AbilityView: View {
         .padding(.horizontal)
         .navigationBarTitleDisplayMode(.inline)
     }
-    
-    @ViewBuilder private func buildDescription(ability: ODAbility,
-                                               stratz: StratzAbility,
-                                               proxy: GeometryProxy) -> some View {
+
+    @ViewBuilder private func buildDescription(
+        ability: ODAbility,
+        stratz: StratzAbility,
+        proxy: GeometryProxy
+    ) -> some View {
         VStack {
-            let description = stratz.language?.description.compactMap { $0 }.joined(separator: "\n") ?? ""
+            let description =
+                stratz.language?.description.compactMap { $0 }.joined(separator: "\n") ?? ""
             if dataBase.isScepterSkill(ability: ability, heroID: viewModel.heroID) {
-                AbilityDescriptionView(width: proxy.size.width, type: .scepter, description: description, player: viewModel.scepterVideo)
+                AbilityDescriptionView(
+                    width: proxy.size.width, type: .scepter, description: description,
+                    player: viewModel.scepterVideo)
             } else if dataBase.isShardSkill(ability: ability, heroID: viewModel.heroID) {
-                AbilityDescriptionView(width: proxy.size.width, type: .shard, description: description, player: viewModel.shardVideo)
+                AbilityDescriptionView(
+                    width: proxy.size.width, type: .shard, description: description,
+                    player: viewModel.shardVideo)
             } else {
-                AbilityDescriptionView(width: proxy.size.width, type: .non, description: description, player: viewModel.abilityVideo)
+                AbilityDescriptionView(
+                    width: proxy.size.width, type: .non, description: description,
+                    player: viewModel.abilityVideo)
                 if let scepterDesc = stratz.language?.aghanimDescription {
-                    AbilityDescriptionView(width: proxy.size.width, type: .scepter, description: scepterDesc, player: viewModel.scepterVideo)
+                    AbilityDescriptionView(
+                        width: proxy.size.width, type: .scepter, description: scepterDesc,
+                        player: viewModel.scepterVideo)
                 }
                 if let shardDesc = stratz.language?.shardDescription {
-                    AbilityDescriptionView(width: proxy.size.width, type: .shard, description: shardDesc, player: viewModel.shardVideo)
+                    AbilityDescriptionView(
+                        width: proxy.size.width, type: .shard, description: shardDesc,
+                        player: viewModel.shardVideo)
                 }
             }
         }

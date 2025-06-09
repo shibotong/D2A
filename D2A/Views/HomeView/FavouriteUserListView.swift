@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct FavouriteUserListView: View {
-    
+
     @EnvironmentObject var env: DotaEnvironment
-    
+
     @Environment(\.managedObjectContext) var viewContext
-    
+
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
-    @FetchRequest(sortDescriptors: [],
-                  predicate: NSPredicate(format: "favourite = %d AND register = %d", true, false))
+
+    @FetchRequest(
+        sortDescriptors: [],
+        predicate: NSPredicate(format: "favourite = %d AND register = %d", true, false))
     private var favouritePlayers: FetchedResults<UserProfile>
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -34,7 +35,7 @@ struct FavouriteUserListView: View {
             }
         }
     }
-    
+
     private var emptyPlayers: some View {
         VStack {
             Text("FAVORITESADDTITLE")
@@ -52,14 +53,21 @@ struct FavouriteUserListView: View {
                     }
                 }
                 .frame(height: 40)
-                .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
+                .background(
+                    RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
             }
         }
         .padding(.vertical)
     }
-    
+
     private var playersView: some View {
-        LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 100, maximum: 140), spacing: 10, alignment: .leading), count: 1), spacing: 10) {
+        LazyVGrid(
+            columns: Array(
+                repeating: GridItem(
+                    .adaptive(minimum: 100, maximum: 140), spacing: 10, alignment: .leading),
+                count: 1),
+            spacing: 10
+        ) {
             ForEach(favouritePlayers, id: \.id) { player in
                 NavigationLink(destination: PlayerProfileView(userid: player.id ?? "")) {
                     UserProfileRowView(profile: player)

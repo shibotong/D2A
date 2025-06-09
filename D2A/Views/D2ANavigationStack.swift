@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct D2ANavigationStack<Content: View>: View {
-    
+
     let content: () -> Content
-    
+
     var body: some View {
         if #available(iOS 16.0, *) {
             NavigationStack {
@@ -28,7 +28,7 @@ struct D2ANavigationStack<Content: View>: View {
 struct D2ANavigationSplitView<SideBar: View, Content: View>: View {
     let sideBar: () -> SideBar
     let detail: () -> Content
-    
+
     var body: some View {
         if #available(iOS 16.0, *) {
             NavigationSplitView(sidebar: sideBar, detail: detail)
@@ -40,5 +40,5 @@ struct D2ANavigationSplitView<SideBar: View, Content: View>: View {
             .navigationViewStyle(.columns)
         }
     }
-    
+
 }

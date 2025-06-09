@@ -12,12 +12,15 @@ struct CalendarMatchListView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSize
     var body: some View {
         VStack {
-            DatePicker("Select Date", selection: $vm.selectDate, in: PartialRangeThrough(Date()), displayedComponents: [.date])
-                .datePickerStyle(.graphical)
+            DatePicker(
+                "Select Date", selection: $vm.selectDate, in: PartialRangeThrough(Date()),
+                displayedComponents: [.date]
+            )
+            .datePickerStyle(.graphical)
             buildMatches()
         }
     }
-    
+
     @ViewBuilder private func buildMatches() -> some View {
         if vm.isLoading {
             ProgressView()

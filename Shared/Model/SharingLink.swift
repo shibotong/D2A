@@ -32,15 +32,22 @@ class SharingLink: NSObject, UIActivityItemSource {
         super.init()
     }
 
-    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController)
+        -> Any
+    {
         return text
     }
 
-    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+    func activityViewController(
+        _ activityViewController: UIActivityViewController,
+        itemForActivityType activityType: UIActivity.ActivityType?
+    ) -> Any? {
         return text
     }
 
-    func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController) -> LPLinkMetadata? {
+    func activityViewControllerLinkMetadata(_ activityViewController: UIActivityViewController)
+        -> LPLinkMetadata?
+    {
         return metadata
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct UserProfileRowView: View {
     @Environment(\.managedObjectContext) private var viewContext
     var profile: UserProfile
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ProfileAvatar(profile: profile, cornerRadius: 10)

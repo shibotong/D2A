@@ -14,11 +14,11 @@ enum WidgetOverlayType {
 }
 
 struct WidgetOverlayView: View {
-    
+
     @Environment(\.widgetFamily) var family
 
     var widgetType: WidgetOverlayType
-    
+
     private var widgetTitle: String {
         switch self.widgetType {
         case .subscription:
@@ -105,7 +105,7 @@ struct WidgetOverlayView: View {
             }
         }
     }
-    
+
     @ViewBuilder private func buildSubscriptionTitle(avatarSize: CGFloat) -> some View {
         switch self.family {
         case .systemSmall:
@@ -164,13 +164,13 @@ struct SubscriptionWidgetView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             WidgetOverlayView(widgetType: .chooseProfile)
-//                .environment(\.widgetFamily, .systemSmall)
+                //                .environment(\.widgetFamily, .systemSmall)
                 .previewContext(WidgetPreviewContext(family: .systemSmall))
             WidgetOverlayView(widgetType: .chooseProfile)
-//                .environment(\.widgetFamily, .systemMedium)
+                //                .environment(\.widgetFamily, .systemMedium)
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
             WidgetOverlayView(widgetType: .subscription)
-//                .environment(\.widgetFamily, .systemLarge)
+                //                .environment(\.widgetFamily, .systemLarge)
                 .previewContext(WidgetPreviewContext(family: .systemLarge))
         }
     }

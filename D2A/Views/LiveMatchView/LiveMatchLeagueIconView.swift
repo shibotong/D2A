@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct LiveMatchLeagueIconView: View {
-    
+
     @ObservedObject var viewModel: LiveMatchLeagueIconViewModel
-    
+
     var body: some View {
         ZStack {
             if let image = viewModel.image {

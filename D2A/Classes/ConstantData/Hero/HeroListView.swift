@@ -1,21 +1,23 @@
+import CryptoKit
 //
 //  HeroListView.swift
 //  App
 //
 //  Created by Shibo Tong on 29/10/21.
 //
-
 import SwiftUI
-import CryptoKit
 
 struct HeroListView: View {
     @StateObject var vm = HeroListViewModel()
     @Environment(\.horizontalSizeClass) private var horizontalSize
-    
+
     var body: some View {
         buildBody()
             .navigationTitle("Heroes")
-            .searchable(text: $vm.searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
+            .searchable(
+                text: $vm.searchString.animation(.linear), placement: .automatic,
+                prompt: "Search Heroes"
+            )
             .disableAutocorrection(true)
             .toolbar {
                 if horizontalSize == .compact {
@@ -24,7 +26,7 @@ struct HeroListView: View {
                             Label("Icons", systemImage: "square.grid.2x2").tag(true)
                             Label("List", systemImage: "list.bullet").tag(false)
                         }
-                        
+
                         Picker("attributes", selection: $vm.selectedAttribute) {
                             Text("All").tag(HeroAttribute.whole)
                             Label("STRENGTH", image: "attribute_str").tag(HeroAttribute.str)
@@ -42,7 +44,7 @@ struct HeroListView: View {
                 }
             }
     }
-    
+
     @ViewBuilder private func buildBody() -> some View {
         if horizontalSize == .compact {
             if vm.gridView {
@@ -68,12 +70,20 @@ struct HeroListView: View {
             .padding(.horizontal)
         }
     }
-    
-    @ViewBuilder private func buildHeroGrid(heroes: [ODHero], attribute: HeroAttribute) -> some View {
+
+    @ViewBuilder private func buildHeroGrid(heroes: [ODHero], attribute: HeroAttribute) -> some View
+    {
         Section {
-            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading), count: 1)) {
+            LazyVGrid(
+                columns: Array(
+                    repeating: GridItem(
+                        .adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading),
+                    count: 1)
+            ) {
                 ForEach(heroes) { hero in
-                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                    NavigationLink(
+                        destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))
+                    ) {
                         buildHero(hero: hero)
                     }
                 }
@@ -87,8 +97,9 @@ struct HeroListView: View {
             }
         }
     }
-    
-    @ViewBuilder private func buildSection(heroes: [ODHero], attributes: HeroAttribute) -> some View {
+
+    @ViewBuilder private func buildSection(heroes: [ODHero], attributes: HeroAttribute) -> some View
+    {
         if heroes.count == 0 {
             Text("No Results")
                 .bold()
@@ -112,44 +123,64 @@ struct HeroListView: View {
             }
         }
     }
-    
+
     @ViewBuilder private func buildMainPart(heroes: [ODHero]) -> some View {
         if vm.gridView {
-            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 130, maximum: 200), spacing: 10, alignment: .leading), count: 1)) {
+            LazyVGrid(
+                columns: Array(
+                    repeating: GridItem(
+                        .adaptive(minimum: 130, maximum: 200), spacing: 10, alignment: .leading),
+                    count: 1)
+            ) {
                 ForEach(heroes) { hero in
-                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                    NavigationLink(
+                        destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))
+                    ) {
                         buildHero(hero: hero)
-                            
+
                     }
                 }
             }
         } else {
             ForEach(heroes) { hero in
-                NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                NavigationLink(
+                    destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))
+                ) {
                     buildHero(hero: hero)
                 }
             }
         }
     }
-    
+
     @ViewBuilder private func buildHero(hero: ODHero) -> some View {
         if horizontalSize == .regular {
             HeroImageView(heroID: hero.id, type: .vert)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-                .opacity(vm.searchResults.contains(where: { $0.id == hero.id }) || vm.searchString.isEmpty ? 1 : 0.2)
+                .opacity(
+                    vm.searchResults.contains(where: { $0.id == hero.id })
+                        || vm.searchString.isEmpty
+                        ? 1 : 0.2
+                )
                 .accessibilityIdentifier(hero.heroNameLocalized)
         } else {
             if vm.gridView {
                 ZStack {
                     HeroImageView(heroID: hero.id, type: .full)
-                        .overlay(LinearGradient(colors: [.black.opacity(0), .black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
+                        .overlay(
+                            LinearGradient(
+                                colors: [.black.opacity(0), .black.opacity(0), .black],
+                                startPoint: .top,
+                                endPoint: .bottom)
+                        )
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .accessibilityIdentifier(hero.heroNameLocalized)
                     HStack {
                         VStack {
                             Spacer()
                             HStack(spacing: 3) {
-                                AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr)).frame(width: 15, height: 15)
+                                AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr))
+                                    .frame(
+                                        width: 15, height: 15)
                                 Text(hero.heroNameLocalized)
                                     .font(.caption2)
                                     .fontWeight(.black)

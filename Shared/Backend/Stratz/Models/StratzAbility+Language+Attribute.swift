@@ -17,12 +17,12 @@ extension StratzAbility {
         var shardDescription: String?
         var notes: [String]
     }
-    
+
     struct Attribute {
         var name: String
         var value: String
     }
-    
+
     var localizedAttributes: [StratzAttribute]? {
         guard let localizedString = language?.attributes.compactMap({ $0 }) else {
             return nil
@@ -35,9 +35,10 @@ extension StratzAbility {
                 var message = String(splits.last ?? "")
                 if message.first == "%" && message.last == "%" {
                     let key = extractAttributeKey(input: message, abilityName: name)
-                    message = attributes.filter({ attribute in
-                        return attribute.name == key
-                    }).first?.value ?? message
+                    message =
+                        attributes.filter({ attribute in
+                            return attribute.name == key
+                        }).first?.value ?? message
                 }
                 localizedAttributes.append(StratzAttribute(name: header, description: message))
             } else {
@@ -46,15 +47,17 @@ extension StratzAbility {
         }
         return localizedAttributes
     }
-    
+
     func extractAttributeKey(input: String, abilityName: String) -> String {
         let pattern = "%DOTA_Tooltip_Ability_\(abilityName)_(\\w+)%"
         do {
             // Create a regular expression object with the defined pattern
             let regex = try NSRegularExpression(pattern: pattern, options: [])
-            
+
             // Find the first match in the input string
-            if let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf16.count)) {
+            if let match = regex.firstMatch(
+                in: input, options: [], range: NSRange(location: 0, length: input.utf16.count))
+            {
                 // Extract the substring using the captured group
                 let range = Range(match.range(at: 1), in: input)!
                 return String(input[range])
@@ -70,7 +73,7 @@ extension StratzAbility {
 struct StratzAttribute: Identifiable, Hashable {
     public let name: String
     public let description: String
-    
+
     public var id: String {
         return name
     }

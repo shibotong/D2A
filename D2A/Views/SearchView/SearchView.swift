@@ -10,11 +10,14 @@ import SwiftUI
 struct SearchView: View {
     @StateObject var vm: SearchViewModel = SearchViewModel()
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
+
     var body: some View {
         searchPage
             .navigationTitle("Search")
-            .searchable(text: $vm.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Players, Heroes, Matches") {
+            .searchable(
+                text: $vm.searchText, placement: .navigationBarDrawer(displayMode: .always),
+                prompt: "Players, Heroes, Matches"
+            ) {
                 searchSuggestions
             }
             .disableAutocorrection(true)
@@ -25,7 +28,7 @@ struct SearchView: View {
                 }
             }
     }
-    
+
     private var searchSuggestions: some View {
         Group {
             if vm.searchText.isEmpty {
@@ -33,7 +36,7 @@ struct SearchView: View {
                     Label("\(text)", systemImage: "magnifyingglass")
                         .searchCompletion(text)
                 }
-                
+
             }
             ForEach(vm.suggestLocalProfiles) { profile in
                 Label("\(profile.personaname ?? "")", systemImage: "person.crop.circle")
@@ -45,7 +48,7 @@ struct SearchView: View {
             }
         }.foregroundColor(.label)
     }
-    
+
     private var searchPage: some View {
         ZStack {
             if vm.searchText.isEmpty {
@@ -59,7 +62,7 @@ struct SearchView: View {
             }
         }
     }
-    
+
     private var emptySearchPage: some View {
         VStack(spacing: 15) {
             Text("Players, Heroes, Matches")
@@ -72,7 +75,7 @@ struct SearchView: View {
             }
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-    
+
     private var searchedList: some View {
         List {
             if let match = vm.searchedMatch, let matchID = match.id {
@@ -96,11 +99,13 @@ struct SearchView: View {
                     Text("Match: \(match.id ?? "")")
                 }
             }
-            
+
             if !vm.filterHeroes.isEmpty {
                 Section {
                     ForEach(vm.filterHeroes) { hero in
-                        NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                        NavigationLink(
+                            destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))
+                        ) {
                             HStack {
                                 HeroImageView(heroID: hero.id, type: .icon)
                                     .frame(width: 30, height: 30)
@@ -120,7 +125,9 @@ struct SearchView: View {
                         }.accessibilityIdentifier(profile.id ?? "")
                     }
                     ForEach(vm.userProfiles) { profile in
-                        NavigationLink(destination: PlayerProfileView(userid: profile.id.description)) {
+                        NavigationLink(
+                            destination: PlayerProfileView(userid: profile.id.description)
+                        ) {
                             ProfileView(viewModel: ProfileViewModel(profile: profile))
                         }.accessibilityIdentifier(profile.id.description)
                     }
@@ -133,11 +140,11 @@ struct SearchView: View {
     }
 }
 
- struct AddAccountView_Previews: PreviewProvider {
+struct AddAccountView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             EmptyView()
             SearchView()
         }
     }
- }
+}

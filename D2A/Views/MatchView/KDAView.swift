@@ -17,15 +17,15 @@ struct KDAView: View {
             Text("\(kills)").bold()
             Text("/\(deaths)").lineLimit(1).foregroundColor(Color(.systemRed))
             Text("/\(assists)").lineLimit(1)
-            Text(" (\(calculateKDA().rounded(toPlaces: 1).description))").bold().foregroundColor(Color(.systemGray))
+            Text(" (\(calculateKDA().rounded(toPlaces: 1).description))").bold().foregroundColor(
+                Color(.systemGray))
         }.font(size).foregroundColor(.label)
     }
-    
+
     private func calculateKDA() -> Double {
-        if deaths == 0 {
-            return Double(kills + assists)
-        } else {
+        guard deaths == 0 else {
             return Double(kills + assists) / Double(deaths)
         }
+        return Double(kills + assists)
     }
 }

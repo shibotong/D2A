@@ -5,17 +5,17 @@
 //  Created by Shibo Tong on 21/1/2024.
 //
 
-import SwiftUI
 import AVKit
+import SwiftUI
 
 struct AbilityDescriptionView: View {
-    
+
     var width: CGFloat
-    
+
     var type: ScepterType
     var description: String
     var player: AVPlayer?
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             if type != .non {
@@ -36,8 +36,10 @@ struct AbilityDescriptionView: View {
                 HStack {
                     Spacer()
                     VideoPlayer(player: player)
-                        .frame(width: width - 40,
-                               height: (width - 40.0) / 16.0 * 9.0)
+                        .frame(
+                            width: width - 40,
+                            height: (width - 40.0) / 16.0 * 9.0
+                        )
                         .disabled(true)
                         .onAppear {
                             player.seek(to: .zero)
@@ -45,24 +47,27 @@ struct AbilityDescriptionView: View {
                             NotificationCenter.default.addObserver(
                                 forName: .AVPlayerItemDidPlayToEndTime,
                                 object: player.currentItem,
-                                queue: nil) { _ in
-                                    player.seek(to: .zero)
-                                    player.play()
-                                }
+                                queue: nil
+                            ) { _ in
+                                player.seek(to: .zero)
+                                player.play()
+                            }
                         }
                         .onDisappear {
                             player.pause()
-                            NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+                            NotificationCenter.default.removeObserver(
+                                self, name: .AVPlayerItemDidPlayToEndTime,
+                                object: player.currentItem)
                         }
                     Spacer()
                 }
             }
-            
+
         }
         .padding(10)
         .background(calculateDescBackground(type: type))
     }
-    
+
     @ViewBuilder private func calculateDescBackground(type: ScepterType) -> some View {
         switch type {
         case .scepter:
@@ -79,16 +84,20 @@ struct AbilityDescriptionView: View {
 
 struct AbilityDescriptionView_Previews: PreviewProvider {
     static let player: AVPlayer = {
-        let urlString = "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/alchemist/alchemist_unstable_concoction.mp4"
+        let urlString =
+            "https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/alchemist/alchemist_unstable_concoction.mp4"
         let asset = AVAsset(url: URL(string: urlString)!)
         let player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
         return player
     }()
     static var previews: some View {
         Group {
-            AbilityDescriptionView(width: 300, type: .non, description: "this is description", player: player)
-            AbilityDescriptionView(width: 300, type: .scepter, description: "this is description", player: player)
-            AbilityDescriptionView(width: 300, type: .shard, description: "this is description", player: player)
+            AbilityDescriptionView(
+                width: 300, type: .non, description: "this is description", player: player)
+            AbilityDescriptionView(
+                width: 300, type: .scepter, description: "this is description", player: player)
+            AbilityDescriptionView(
+                width: 300, type: .shard, description: "this is description", player: player)
         }
         .previewLayout(.fixed(width: 300, height: 500))
     }

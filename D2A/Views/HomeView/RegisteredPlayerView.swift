@@ -5,14 +5,14 @@
 //  Created by Shibo Tong on 3/12/2022.
 //
 
-import SwiftUI
 import CoreData
+import SwiftUI
 
 struct RegisteredPlayerView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "register = %d", true))
     var profile: FetchedResults<UserProfile>
-    
+
     var body: some View {
         ZStack {
             if let profile = profile.first {
@@ -34,7 +34,7 @@ struct RegisteredPlayerView: View {
             }
         }
     }
-    
+
     @ViewBuilder private func buildWL(win: Bool, size: CGFloat = 15) -> some View {
         ZStack {
             Rectangle().foregroundColor(win ? Color(.systemGreen) : Color(.systemRed))
@@ -42,7 +42,7 @@ struct RegisteredPlayerView: View {
             Text("\(win ? "W" : "L")").font(.system(size: 10)).bold().foregroundColor(.white)
         }
     }
-    
+
     @ViewBuilder private func buildProfile(profile: UserProfile) -> some View {
         VStack(spacing: 10) {
             NavigationLink(destination: PlayerProfileView(userid: profile.id ?? "")) {
@@ -50,17 +50,18 @@ struct RegisteredPlayerView: View {
                     ProfileAvatar(profile: profile, cornerRadius: 25)
                         .frame(width: 70, height: 70)
                     VStack(alignment: .leading, spacing: 0) {
-                        Text(profile.personaname ?? "").font(.system(size: 20)).bold().lineLimit(1).foregroundColor(.label)
+                        Text(profile.personaname ?? "").font(.system(size: 20)).bold().lineLimit(1)
+                            .foregroundColor(.label)
                         Text(profile.id ?? "")
                             .font(.system(size: 13))
                             .foregroundColor(Color.secondaryLabel)
                     }
-                    
+
                     Spacer()
                     RankView(rank: Int(profile.rank), leaderboard: Int(profile.leaderboard))
                         .frame(width: 70, height: 70)
                         .padding(.trailing)
-                    
+
                 }
             }
             .padding(.horizontal, 15)
@@ -69,7 +70,7 @@ struct RegisteredPlayerView: View {
             }
         }
     }
-    
+
     private func deRegisterUser(user: UserProfile) {
         user.register = false
         user.favourite = false
@@ -81,9 +82,9 @@ struct EmptyRegistedView: View {
     @State var searchText: String = ""
     @EnvironmentObject var env: DotaEnvironment
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @State var loading = false
-    
+
     var body: some View {
         if loading {
             ProgressView()
@@ -91,7 +92,7 @@ struct EmptyRegistedView: View {
             mainBody
         }
     }
-    
+
     private var mainBody: some View {
         VStack {
             HStack {
@@ -103,7 +104,9 @@ struct EmptyRegistedView: View {
             TextField("Search ID", text: $searchText)
                 .padding()
                 .clipShape(RoundedRectangle(cornerRadius: 10))
-                .background(RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(.primaryDota))
+                .background(
+                    RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(.primaryDota)
+                )
                 .keyboardType(.numberPad)
             Spacer()
             Button {
@@ -125,7 +128,7 @@ struct EmptyRegistedView: View {
         .padding()
         .background(Color.systemBackground)
     }
-    
+
     private func registerUser(userid: String) async {
         do {
             if let profile = UserProfile.fetch(id: userid) {

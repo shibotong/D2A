@@ -11,10 +11,10 @@ import WidgetKit
 @available(iOS 16.1, *)
 @available(iOSApplicationExtension 16.1, *)
 struct LiveMatchActivityWidget: Widget {
-    
+
     private let iconSmallSize: CGFloat = 34
     private let iconExpandSize: CGFloat = 75
-    
+
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: LiveMatchActivityAttributes.self) { context in
             // Create the presentation that appears on the Lock Screen and as a
@@ -52,11 +52,12 @@ struct LiveMatchActivityWidget: Widget {
                         Text("\(context.state.time.toDuration)")
                     }
                 }
-                
+
                 DynamicIslandExpandedRegion(.bottom) {
                     HStack {
                         if let leagueName = context.attributes.leagueName {
-                            let data = UserDefaults(suiteName: GROUP_NAME)?.data(forKey: "liveActivity.league")
+                            let data = UserDefaults(suiteName: GROUP_NAME)?.data(
+                                forKey: "liveActivity.league")
                             if data != nil {
                                 Image(uiImage: UIImage(data: data!)!)
                                     .resizable()
@@ -89,15 +90,15 @@ struct LiveMatchActivityWidget: Widget {
 
 struct LiveMatchActivityTeamIconView: View {
     let isRadiant: Bool
-    
+
     private var key: String {
         isRadiant ? "liveActivity.radiantTeam" : "liveActivity.direTeam"
     }
-    
+
     private var iconName: String {
         isRadiant ? "icon_radiant" : "icon_dire"
     }
-    
+
     var body: some View {
         ZStack {
             let data = UserDefaults(suiteName: GROUP_NAME)?.data(forKey: key)
@@ -119,11 +120,12 @@ struct LiveMatchActivityTeamIconView: View {
 struct LockScreenLiveActivityView: View {
 
     let context: ActivityViewContext<LiveMatchActivityAttributes>
-    
+
     var body: some View {
         VStack {
             if let leagueName = context.attributes.leagueName,
-               let data = UserDefaults(suiteName: GROUP_NAME)?.data(forKey: "liveActivity.league") {
+                let data = UserDefaults(suiteName: GROUP_NAME)?.data(forKey: "liveActivity.league")
+            {
                 HStack {
                     Image(uiImage: UIImage(data: data)!)
                         .resizable()
@@ -135,7 +137,7 @@ struct LockScreenLiveActivityView: View {
                         .lineLimit(1)
                 }
             }
-            
+
             HStack {
                 LiveMatchActivityTeamIconView(isRadiant: true)
                 Text(context.state.radiantScore.description)
@@ -156,26 +158,27 @@ struct LockScreenLiveActivityView: View {
 @available(iOS 16.2, *)
 @available(iOSApplicationExtension 16.2, *)
 struct LiveMatchActivityWidget_Previews: PreviewProvider {
-    static let activityState = LiveMatchActivityAttributes.ContentState(radiantScore: 0, direScore: 0, time: 0)
-    
+    static let activityState = LiveMatchActivityAttributes.ContentState(
+        radiantScore: 0, direScore: 0, time: 0)
+
     static let activityAttributes = LiveMatchActivityAttributes()
-    
+
     static var previews: some View {
         activityAttributes
             .previewContext(activityState, viewKind: .content)
             .previewDisplayName("Notification")
-        
+
         activityAttributes
             .previewContext(activityState, viewKind: .dynamicIsland(.compact))
             .previewDisplayName("Compact")
-        
+
         activityAttributes
             .previewContext(activityState, viewKind: .dynamicIsland(.expanded))
             .previewDisplayName("Expanded")
-        
+
         activityAttributes
             .previewContext(activityState, viewKind: .dynamicIsland(.minimal))
             .previewDisplayName("Minimal")
-        
+
     }
 }
