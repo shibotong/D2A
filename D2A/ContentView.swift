@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var env: EnvironmentController
-    @EnvironmentObject var data: HeroDatabase
+    @EnvironmentObject var data: ConstantsController
     @EnvironmentObject var store: StoreManager
     var body: some View {
         Group {
@@ -36,13 +36,13 @@ struct ContentView: View {
 //    static var previews: some View {
 //        ContentView()
 //            .environmentObject(EnvironmentController.shared)
-//            .environmentObject(HeroDatabase.preview)
+//            .environmentObject(ConstantsController.preview)
 //    }
 // }
 
 struct NavigationHostView: View {
     @EnvironmentObject var env: EnvironmentController
-    @EnvironmentObject var data: HeroDatabase
+    @EnvironmentObject var data: ConstantsController
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
     var body: some View {

@@ -34,17 +34,17 @@ struct LiveMatchKillEvent: LiveMatchEvent {
 
     let players: LiveMatchPlayers
 
-    private let heroDatabase: HeroDatabase
+    private let constantsController: ConstantsController
 
     init(
         time: Int, kill: [Int], died: [Int], players: LiveMatchPlayers,
-        heroDatabase: HeroDatabase = HeroDatabase.shared
+        constantsController: ConstantsController = ConstantsController.shared
     ) {
         self.time = time
         self.kill = kill
         self.died = died
         self.players = players
-        self.heroDatabase = heroDatabase
+        self.constantsController = constantsController
     }
 
     func generateEvent() -> [LiveMatchEventItem] {
@@ -113,7 +113,7 @@ struct LiveMatchKillEvent: LiveMatchEvent {
                 HeroImageView(heroID: heroID, type: .icon)
                     .frame(width: 20, height: 20)
             )
-            let heroName = try? heroDatabase.fetchHeroWithID(id: heroID).heroNameLocalized
+            let heroName = try? constantsController.fetchHeroWithID(id: heroID).heroNameLocalized
             return LiveMatchEventDetail(type: .killDied, itemName: heroName, itemIcon: heroIcon)
         }
 

@@ -12,7 +12,7 @@ import SwiftUI
 @main
 struct D2AApp: App {
     @StateObject var environment: EnvironmentController = EnvironmentController.shared
-    @StateObject var heroDatabase: HeroDatabase = HeroDatabase.shared
+    @StateObject var heroDatabase: ConstantsController = ConstantsController.shared
     @StateObject var storeManager: StoreManager = StoreManager.shared
     #if DEBUG
         @StateObject var logger: D2ALogger = D2ALogger.shared
@@ -29,7 +29,7 @@ struct D2AApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(environment)
-                .environmentObject(heroDatabase)
+                .environmentObject(constantsController)
                 .environmentObject(storeManager)
                 #if DEBUG
                     .environmentObject(logger)
