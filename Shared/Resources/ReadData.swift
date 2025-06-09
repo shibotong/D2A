@@ -2,7 +2,7 @@
 //  ReadData.swift
 //  Dota Portfolio
 //
-//  Created by 佟诗博 on 4/7/21.
+//  Created by Shibo Tong on 4/7/21.
 //
 
 import Foundation
@@ -265,20 +265,6 @@ func loadItems() async -> [String: Item] {
         return jsonData
     } catch {
         debugPrint("Load Items", error)
-        return [:]
-    }
-}
-
-func loadGameModes() -> [String: GameMode] {
-    guard let data = loadFile(filename: "game_mode") else {
-        fatalError("no game mode file")
-    }
-    do {
-        let decoder = JSONDecoder()
-        let modes = try decoder.decode([String: GameMode].self, from: data)
-        return modes
-    } catch {
-        debugPrint(error)
         return [:]
     }
 }

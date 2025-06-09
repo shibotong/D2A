@@ -17,7 +17,6 @@ class ConstantsController: ObservableObject {
     }
 
     private var heroes = [String: ODHero]()
-    private var gameModes = [String: GameMode]()
     private var lobbyTypes = [String: LobbyType]()
     private var regions = [String: String]()
     private var items = [String: Item]()
@@ -46,14 +45,9 @@ class ConstantsController: ObservableObject {
         self.stratzProvider = stratzProvider
         self.openDotaProvider = openDotaProvider
         self.persistanceProvider = persistanceProvider
-        Task {
-            await loadData()
-        }
     }
 
-    @MainActor
     func loadData() async {
-        gameModes = loadGameModes()
         regions = loadRegion()!
         lobbyTypes = loadLobby()!
 
@@ -85,8 +79,8 @@ class ConstantsController: ObservableObject {
         return hero
     }
 
-    func fetchGameMode(id: Int) -> GameMode {
-        return gameModes["\(id)"]!
+    func fetchGameMode(id: Int) -> GameMode? {
+        return persistanceProvider.fetchGameMode(id: id)
     }
 
     func fetchItem(id: Int) -> Item? {
@@ -275,6 +269,12 @@ class ConstantsController: ObservableObject {
             heroesArray.append(value)
         }
         await persistanceProvider.saveODHeroes(heroes: heroesArray)
+    }
+    
+    // MARK: - Save Game Mode
+    private func loadODGameModes() async {
+        let modes = await openDotaProvider.loadGameModes()
+        await persistanceProvider.saveGameModes(gameModes: modes)
     }
 
     func resetHeroData(context: NSManagedObjectContext) async {

@@ -11,6 +11,9 @@ protocol PersistanceProviding {
     func saveODHeroes(heroes: [ODHero]) async
     func saveODAbilities(abilities: [ODAbility]) async
     func saveAbilitiesToHero(heroAbilities: [String: ODHeroAbilities]) async
+    func saveGameModes(gameModes: [ODGameMode]) async
+    
+    func fetchGameMode(id: Int) -> GameMode?
 }
 
 enum PersistanceError: Error {
@@ -203,6 +206,28 @@ class PersistanceProvider: PersistanceProviding {
                     }
                 }
             }
+        }
+    }
+    
+    func saveGameModes(gameModes: [ODGameMode]) async {
+        let context = container.newBackgroundContext()
+        if await hasData(for: GameMode.self, context: context) {
+            await updateData(data: gameModes, context: context)
+        } else {
+            await batchInsertData(gameModes, into: GameMode.entity(), context: context)
+        }
+    }
+    
+    func fetchGameMode(id: Int) -> GameMode? {
+        do {
+            guard let mode = try GameMode.fetch(id: id, context: container.viewContext) else {
+                logError("Failed to fetch game mode ID: \(id), no data found", category: .constants)
+                return nil
+            }
+            return mode
+        } catch {
+            logError("Failed to fetch game mode: \(error.localizedDescription)", category: .coredata)
+            return nil
         }
     }
 

@@ -32,7 +32,7 @@ class RecentMatchCodable: Decodable, Identifiable {
         return radiantWin
     }
 
-    var gameMode: GameMode {
+    var gameMode: GameMode? {
         return ConstantsController.shared.fetchGameMode(id: Int(mode))
     }
 

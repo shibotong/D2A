@@ -12,6 +12,7 @@ protocol OpenDotaConstantProviding {
     func loadItemIDs() async -> [String: String]
     func loadAbilities() async -> [ODAbility]
     func loadAbilitiesForHeroes() async -> [String: ODHeroAbilities]
+    func loadGameModes() async -> [ODGameMode]
 }
 
 class OpenDotaConstantProvider: OpenDotaConstantProviding {
@@ -84,6 +85,21 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
             return [:]
         }
         return heroAbilities
+    }
+    
+    func loadGameModes() async -> [ODGameMode] {
+        guard let gameModesDict = await loadOpenDotaConstantService(
+            service: .gameModes, type: [String: ODGameMode].self
+        ) else {
+            return []
+        }
+        
+        var gameModes: [ODGameMode] = []
+        for (_, mode) in gameModesDict {
+            gameModes.append(mode)
+        }
+        
+        return gameModes
     }
 
     private func loadOpenDotaConstantService<T: Decodable>(
