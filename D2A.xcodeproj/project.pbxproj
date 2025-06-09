@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,7 +23,6 @@
 		322B893626CD438700DF67F9 /* ODUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893526CD438700DF67F9 /* ODUserProfile.swift */; };
 		322B893826CD44FE00DF67F9 /* SteamProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893726CD44FE00DF67F9 /* SteamProfile.swift */; };
 		322B893A26CD456400DF67F9 /* RecentMatchCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893926CD456400DF67F9 /* RecentMatchCodable.swift */; };
-		322B893E26CE66F800DF67F9 /* MainLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893D26CE66F800DF67F9 /* MainLoadingView.swift */; };
 		322B894026CE696C00DF67F9 /* DifferenceGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893F26CE696C00DF67F9 /* DifferenceGraphView.swift */; };
 		322B89BD26CE6B7900DF67F9 /* OpenDotaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89BC26CE6B7900DF67F9 /* OpenDotaProvider.swift */; };
 		322B89BF26CE788900DF67F9 /* AnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89BE26CE788900DF67F9 /* AnalysisViewModel.swift */; };
@@ -120,8 +119,8 @@
 		3261C90F2830765300D47CDA /* sampleAbility.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90E2830765300D47CDA /* sampleAbility.json */; };
 		3270271B285C088300927426 /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */; };
 		3270271C285C088300927426 /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */; };
-		3270271D285C08C200927426 /* HeroDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* HeroDatabase.swift */; };
-		3270271E285C08C300927426 /* HeroDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* HeroDatabase.swift */; };
+		3270271D285C08C200927426 /* ConstantsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* ConstantsController.swift */; };
+		3270271E285C08C300927426 /* ConstantsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* ConstantsController.swift */; };
 		32756CC128535CA800F38B81 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3251C8F126F97C9500C826BD /* Localizable.strings */; };
 		32756CC228535CA900F38B81 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3251C8F126F97C9500C826BD /* Localizable.strings */; };
 		327772AD26D8BD47000A0A97 /* sampleRecentMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 327772AC26D8BD47000A0A97 /* sampleRecentMatch.json */; };
@@ -161,7 +160,7 @@
 		3294463826E1A530006E0D06 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294463726E1A530006E0D06 /* ProfileView.swift */; };
 		3294463A26E1A5A5006E0D06 /* sampleProfile.json in Resources */ = {isa = PBXBuildFile; fileRef = 3294463926E1A5A5006E0D06 /* sampleProfile.json */; };
 		3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294CF7B288EA87600FDFB8E /* ShareActivityView.swift */; };
-		329849F426DCAEAE00A1032C /* HeroDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* HeroDatabase.swift */; };
+		329849F426DCAEAE00A1032C /* ConstantsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* ConstantsController.swift */; };
 		32985DD3285569D0001869F2 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32985DD2285569D0001869F2 /* RankView.swift */; };
 		32A26C51285947D3005E890F /* OpenDotaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89BC26CE6B7900DF67F9 /* OpenDotaProvider.swift */; };
 		32A26C52285947D4005E890F /* OpenDotaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89BC26CE6B7900DF67F9 /* OpenDotaProvider.swift */; };
@@ -349,7 +348,9 @@
 		79A989202931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79A989212931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79ABE8FA2A35C3CF00EE9EF9 /* LiveMatchDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */; };
-		79B11E792DF698320091A935 /* OpenDotaConstantsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B551832DF6906E001CA42B /* OpenDotaConstantsTests.swift */; };
+		79B11E742DF695740091A935 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79B11E732DF695740091A935 /* StratzAPI */; };
+		79B11E772DF6959B0091A935 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79B11E762DF6959B0091A935 /* StratzAPI */; };
+		79B551842DF6906E001CA42B /* OpenDotaConstantsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B551832DF6906E001CA42B /* OpenDotaConstantsTests.swift */; };
 		79B870992DC38A150090CAB8 /* StratzController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870972DC38A150090CAB8 /* StratzController.swift */; };
 		79B8709A2DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870952DC38A150090CAB8 /* StratzAbility+StratzAPI.swift */; };
 		79B8709B2DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870942DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift */; };
@@ -406,7 +407,6 @@
 		79E01CAA291E35320073BF68 /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
 		79E01CAB291E35320073BF68 /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
 		79E4AED02DCB79EA008BBF6D /* D2ANavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4AECF2DCB79CD008BBF6D /* D2ANavigationStack.swift */; };
-		79EA36D32DE9B3F800DFC2BA /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79EA36D22DE9B3F800DFC2BA /* StratzAPI */; };
 		79EA36D52DE9B3FE00DFC2BA /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79EA36D42DE9B3FE00DFC2BA /* StratzAPI */; };
 		79EA36D72DE9B40200DFC2BA /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79EA36D62DE9B40200DFC2BA /* StratzAPI */; };
 		79EB3EEC2DC4ACA0008C4F6D /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E7EA28E53919007A43AF /* Hero.swift */; };
@@ -521,7 +521,6 @@
 		322B893526CD438700DF67F9 /* ODUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODUserProfile.swift; sourceTree = "<group>"; };
 		322B893726CD44FE00DF67F9 /* SteamProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteamProfile.swift; sourceTree = "<group>"; };
 		322B893926CD456400DF67F9 /* RecentMatchCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMatchCodable.swift; sourceTree = "<group>"; };
-		322B893D26CE66F800DF67F9 /* MainLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLoadingView.swift; sourceTree = "<group>"; };
 		322B893F26CE696C00DF67F9 /* DifferenceGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DifferenceGraphView.swift; sourceTree = "<group>"; };
 		322B89BC26CE6B7900DF67F9 /* OpenDotaProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenDotaProvider.swift; sourceTree = "<group>"; };
 		322B89BE26CE788900DF67F9 /* AnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewModel.swift; sourceTree = "<group>"; };
@@ -585,7 +584,7 @@
 		3294463726E1A530006E0D06 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		3294463926E1A5A5006E0D06 /* sampleProfile.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleProfile.json; sourceTree = "<group>"; };
 		3294CF7B288EA87600FDFB8E /* ShareActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareActivityView.swift; sourceTree = "<group>"; };
-		329849F326DCAEAE00A1032C /* HeroDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroDatabase.swift; sourceTree = "<group>"; };
+		329849F326DCAEAE00A1032C /* ConstantsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstantsController.swift; sourceTree = "<group>"; };
 		32985DD2285569D0001869F2 /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
 		32AEEEF826F9B1120088DEC8 /* LocalizableStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableStrings.swift; sourceTree = "<group>"; };
 		32B36F0B26C38821002D427D /* D2A.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = D2A.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -744,7 +743,8 @@
 				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
 				79266DA42A31B078002FEF0F /* ApolloWebSocket in Frameworks */,
 				790FBB2429C186AE00E27106 /* Apollo in Frameworks */,
-				79EA36D32DE9B3F800DFC2BA /* StratzAPI in Frameworks */,
+				79B11E742DF695740091A935 /* StratzAPI in Frameworks */,
+				79B11E772DF6959B0091A935 /* StratzAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -971,7 +971,7 @@
 				79B870B52DC394C10090CAB8 /* OpenDota */,
 				79B870982DC38A150090CAB8 /* Stratz */,
 				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
-				329849F326DCAEAE00A1032C /* HeroDatabase.swift */,
+				329849F326DCAEAE00A1032C /* ConstantsController.swift */,
 				32B36F4B26C39C5D002D427D /* Environment.swift */,
 				799948BF2932D50000D79055 /* ImageCache.swift */,
 			);
@@ -1102,7 +1102,6 @@
 				796FE19D29AB006C003379EB /* AbilityImageViewModel.swift */,
 				32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */,
 				794B724229862294000059E4 /* ItemView.swift */,
-				322B893D26CE66F800DF67F9 /* MainLoadingView.swift */,
 				799948BD2932423800D79055 /* LoadingView.swift */,
 				798A5CF72945503100EB07B0 /* ProfileAvatar.swift */,
 				3294463726E1A530006E0D06 /* ProfileView.swift */,
@@ -1493,7 +1492,8 @@
 			packageProductDependencies = (
 				790FBB2329C186AE00E27106 /* Apollo */,
 				79266DA32A31B078002FEF0F /* ApolloWebSocket */,
-				79EA36D22DE9B3F800DFC2BA /* StratzAPI */,
+				79B11E732DF695740091A935 /* StratzAPI */,
+				79B11E762DF6959B0091A935 /* StratzAPI */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* D2A.app */;
@@ -1624,6 +1624,7 @@
 			mainGroup = 32B36F0226C38821002D427D;
 			packageReferences = (
 				790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				79B11E752DF6959B0091A935 /* XCLocalSwiftPackageReference "StratzAPI" */,
 			);
 			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
 			projectDirPath = "";
@@ -1857,7 +1858,6 @@
 				79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */,
 				3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */,
 				79EB3F872DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */,
-				322B893E26CE66F800DF67F9 /* MainLoadingView.swift in Sources */,
 				32079DBD28B83F0F0056D19F /* AbilityView.swift in Sources */,
 				32AEEEF926F9B1120088DEC8 /* LocalizableStrings.swift in Sources */,
 				79A989042931E7F1006AC847 /* PermanentBuff.swift in Sources */,
@@ -1889,7 +1889,7 @@
 				327772AF26D8BE63000A0A97 /* MatchListRowView.swift in Sources */,
 				322B893A26CD456400DF67F9 /* RecentMatchCodable.swift in Sources */,
 				32D1605D26F30B7A00657449 /* StoreManager.swift in Sources */,
-				329849F426DCAEAE00A1032C /* HeroDatabase.swift in Sources */,
+				329849F426DCAEAE00A1032C /* ConstantsController.swift in Sources */,
 				7985E7ED28E53A40007A43AF /* Role.swift in Sources */,
 				79EB3F842DC6EFAA008C4F6D /* NSSecureCodingValueTransformer.swift in Sources */,
 				79EB3F802DC6EF54008C4F6D /* ArraySecureCodingValueTransformer.swift in Sources */,
@@ -1982,7 +1982,7 @@
 				327C033D2716A90400DAEC42 /* KDAView.swift in Sources */,
 				79EB3F052DC6EE86008C4F6D /* NSValueTransformerName.swift in Sources */,
 				32F70B1926F6295B006E9B05 /* Date.swift in Sources */,
-				3270271D285C08C200927426 /* HeroDatabase.swift in Sources */,
+				3270271D285C08C200927426 /* ConstantsController.swift in Sources */,
 				799948C12932D50000D79055 /* ImageCache.swift in Sources */,
 				32079DC028B843360056D19F /* String.swift in Sources */,
 				793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
@@ -2063,7 +2063,7 @@
 				32F70B2026F6295C006E9B05 /* Int.swift in Sources */,
 				79CF375D2DC0F8F800207CB8 /* D2AError.swift in Sources */,
 				79EB3EF82DC4B5D8008C4F6D /* PersistanceModel.swift in Sources */,
-				3270271E285C08C300927426 /* HeroDatabase.swift in Sources */,
+				3270271E285C08C300927426 /* ConstantsController.swift in Sources */,
 				79B870BF2DC394D30090CAB8 /* D2ANetwork.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,
 				79EB3F042DC6EE86008C4F6D /* NSValueTransformerName.swift in Sources */,
@@ -2709,6 +2709,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		79B11E752DF6959B0091A935 /* XCLocalSwiftPackageReference "StratzAPI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = StratzAPI;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -2746,14 +2753,18 @@
 			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloWebSocket;
 		};
+		79B11E732DF695740091A935 /* StratzAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StratzAPI;
+		};
+		79B11E762DF6959B0091A935 /* StratzAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StratzAPI;
+		};
 		79D1043629E2991E00BC04B3 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
-		};
-		79EA36D22DE9B3F800DFC2BA /* StratzAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = StratzAPI;
 		};
 		79EA36D42DE9B3FE00DFC2BA /* StratzAPI */ = {
 			isa = XCSwiftPackageProductDependency;

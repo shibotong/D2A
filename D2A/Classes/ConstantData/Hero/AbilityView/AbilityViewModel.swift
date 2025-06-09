@@ -40,7 +40,7 @@ class AbilityViewModel: ObservableObject {
     @Published var stratzAbility: StratzAbility?
     @Published var opentDotaAbility: ODAbility?
 
-    private var database = HeroDatabase.shared
+    private var database = ConstantsController.shared
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -68,7 +68,7 @@ class AbilityViewModel: ObservableObject {
         scepterVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: scepterURL)))
         shardVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: shardURL)))
         abilityVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: abilityURL)))
-        database = HeroDatabase.preview
+        database = ConstantsController.preview
     }
 
     private func setupBinding() {

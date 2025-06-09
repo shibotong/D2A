@@ -24,7 +24,7 @@ class HeroDetailViewModel: ObservableObject {
 
     @Published var abilities: [ODAbility] = []
 
-    private var database: HeroDatabase = HeroDatabase.shared
+    private var database: ConstantsController = ConstantsController.shared
 
     init(heroID: Int) {
         self.heroID = heroID
@@ -121,7 +121,7 @@ class HeroDetailViewModel: ObservableObject {
     }
 
     func getRelateHeroID(id: Int, isPrevious: Bool) -> Int? {
-        let heroList = HeroDatabase.shared.fetchAllHeroes().sorted {
+        let heroList = ConstantsController.shared.fetchAllHeroes().sorted {
             $0.heroNameLocalized < $1.heroNameLocalized
         }
         let heroIndex = heroList.firstIndex { $0.id == id } ?? 0
@@ -146,7 +146,7 @@ class HeroDetailViewModel: ObservableObject {
     }
 
     //    func getNextHeroID(id: Int) -> Int? {
-    //        let heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
+    //        let heroList = ConstantsController.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
     //        let heroIndex = heroList.firstIndex { $0.id == id } ?? 0
     //        var nextIndex = heroIndex + 1
     //        if nextIndex == heroList.endIndex {
@@ -161,7 +161,7 @@ class HeroDetailViewModel: ObservableObject {
     //    }
     //
     //    func getPreviousHeroID(id: Int) -> Int? {
-    //        let heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
+    //        let heroList = ConstantsController.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
     //        let heroIndex = heroList.firstIndex { $0.id == id } ?? 0
     //        var previousIndex = heroIndex - 1
     //        if heroIndex == heroList.startIndex {
