@@ -36,7 +36,7 @@ struct ContentView: View {
 //    static var previews: some View {
 //        ContentView()
 //            .environmentObject(DotaEnvironment.shared)
-//            .environmentObject(HeroDatabase.preview)
+//            .environmentObject(ConstantsController.preview)
 //    }
 // }
 

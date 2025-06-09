@@ -35,7 +35,7 @@ class MetadataTestCase: XCTestCase {
     //
     //    func testLoadingHeroDatabase() {
     //        let expectation = self.expectation(description: "loading hero data")
-    //        let heroDatabase = HeroDatabase()
+    //        let heroDatabase = ConstantsController()
     //        var databaseStatus: LoadingStatus?
     //        cancellable = heroDatabase.$status.sink { status in
     //            switch status {

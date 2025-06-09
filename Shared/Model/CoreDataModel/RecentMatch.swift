@@ -204,11 +204,11 @@ extension RecentMatch {
     }
 
     var gameMode: GameMode {
-        return HeroDatabase.shared.fetchGameMode(id: Int(mode))
+        return ConstantsController.shared.fetchGameMode(id: Int(mode))
     }
 
     var gameLobby: LobbyType {
-        return HeroDatabase.shared.fetchLobby(id: Int(lobbyType))
+        return ConstantsController.shared.fetchLobby(id: Int(lobbyType))
     }
 
     var matchDuration: String {
