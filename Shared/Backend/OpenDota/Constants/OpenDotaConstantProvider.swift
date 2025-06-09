@@ -20,6 +20,12 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
 
     private let maxHeroID = 150
 
+    private let network: D2ANetworking
+
+    init(network: D2ANetworking = D2ANetwork.default) {
+        self.network = network
+    }
+
     func loadHeroes() async -> [String: ODHero] {
         guard
             let heroDict = await loadOpenDotaConstantService(
@@ -85,7 +91,7 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
     ) async -> T? {
         let url = service.serviceURL
         do {
-            let data = try await D2ANetwork.default.dataTask(url, as: T.self)
+            let data = try await network.dataTask(url, as: T.self)
             return data
         } catch {
             logWarn(
