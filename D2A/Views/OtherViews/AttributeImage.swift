@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct AttributeImage: View {
-    
+
     let attribute: HeroAttribute?
-    
+
     var body: some View {
         if let attribute, attribute != .whole {
             Image("attribute_\(attribute.rawValue)")

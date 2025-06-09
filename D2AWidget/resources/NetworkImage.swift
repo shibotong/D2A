@@ -11,10 +11,10 @@ struct NetworkImage: View {
     let urlString: String
     let userID: String
     let image: UIImage?
-    
+
     let imageType: ImageCacheType
     let isRadiant: Bool
-    
+
     private var emptyImage: String {
         switch imageType {
         case .item:
@@ -29,7 +29,7 @@ struct NetworkImage: View {
             return "league_template"
         }
     }
-    
+
     init(profile: UserProfile) {
         userID = profile.id!
         urlString = profile.avatarfull!
@@ -37,7 +37,7 @@ struct NetworkImage: View {
         isRadiant = true
         image = ImageCache.readImage(type: .avatar, id: userID)
     }
-    
+
     init(userID: String, urlString: String, image: UIImage) {
         self.userID = userID
         self.urlString = urlString
@@ -45,7 +45,7 @@ struct NetworkImage: View {
         isRadiant = true
         self.image = image
     }
-    
+
     init(teamID: String, isRadiant: Bool) {
         self.urlString = "https://cdn.stratz.com/images/dota2/teams/\(teamID).png"
         self.userID = teamID
@@ -58,7 +58,7 @@ struct NetworkImage: View {
             image = nil
         }
     }
-    
+
     var body: some View {
         Group {
             if let image {

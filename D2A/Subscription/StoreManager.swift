@@ -9,7 +9,7 @@ import Foundation
 import StoreKit
 import WidgetKit
 
-private let productIDs = ["D2APRO"]// ["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnually"]
+private let productIDs = ["D2APRO"]  // ["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnually"]
 
 public enum StoreError: Error {
     case failedVerification
@@ -17,11 +17,11 @@ public enum StoreError: Error {
 
 class StoreManager: NSObject, ObservableObject {
     static let shared = StoreManager()
-    
+
     @Published var products: [Product] = []
-    
+
     var updateListenerTask: Task<Void, Error>?
-    
+
     override init() {
         super.init()
         products = []
@@ -31,7 +31,7 @@ class StoreManager: NSObject, ObservableObject {
             await self?.requestProducts()
         }
     }
-    
+
     @MainActor
     func requestProducts() async {
         do {
@@ -42,7 +42,7 @@ class StoreManager: NSObject, ObservableObject {
             print("Failed product request: \(error)")
         }
     }
-    
+
     func restorePurchase() {
         Task {
             // This call displays a system prompt that asks users to authenticate with their App Store credentials.
@@ -50,7 +50,7 @@ class StoreManager: NSObject, ObservableObject {
             try? await AppStore.sync()
         }
     }
-    
+
     func parsePurchaseInfo(info: Transaction) {
         DispatchQueue.main.async {
             DotaEnvironment.shared.subscriptionStatus = true
@@ -59,7 +59,7 @@ class StoreManager: NSObject, ObservableObject {
         }
         print("D2A Pro Purchased")
     }
-    
+
     func purchase() async throws -> Transaction? {
         // Begin a purchase.
         guard let product = products.first else {
@@ -84,7 +84,7 @@ class StoreManager: NSObject, ObservableObject {
             return nil
         }
     }
-    
+
     func listenForTransactions() -> Task<Void, Error> {
         return Task.detached { [weak self] in
             guard let self = self else { return }
@@ -105,7 +105,7 @@ class StoreManager: NSObject, ObservableObject {
             }
         }
     }
-    
+
     func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
         // Check if the transaction passes StoreKit verification.
         switch result {

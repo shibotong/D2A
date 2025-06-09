@@ -5,17 +5,17 @@
 //  Created by Shibo Tong on 16/12/2022.
 //
 
-import SwiftUI
 import StratzAPI
+import SwiftUI
 
 struct PlayerRowView: View {
     var maxDamage: Int
     @ObservedObject var viewModel: PlayerRowViewModel
     @EnvironmentObject var heroData: ConstantProvider
-    
+
     var shortVersion: Bool = false
     var showAbility: Bool = true
-    
+
     var body: some View {
         if shortVersion {
             shortPlayerView
@@ -23,11 +23,13 @@ struct PlayerRowView: View {
             longPlayerView
         }
     }
-    
+
     private var longPlayerView: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: viewModel.heroID))) {
+                NavigationLink(
+                    destination: HeroDetailView(vm: HeroDetailViewModel(heroID: viewModel.heroID))
+                ) {
                     heroIcon
                 }
                 if let playerID = viewModel.accountID {
@@ -53,24 +55,26 @@ struct PlayerRowView: View {
             }.frame(height: 50)
         }
     }
-    
+
     private var heroIcon: some View {
         HeroImageView(heroID: viewModel.heroID, type: .icon)
             .frame(width: 35, height: 35)
-            .overlay(HStack {
-                Spacer()
-                VStack {
+            .overlay(
+                HStack {
                     Spacer()
-                    Circle()
-                        .frame(width: 15, height: 15)
-                        .foregroundColor(.label)
-                        .overlay(Text("\(viewModel.level)")
+                    VStack {
+                        Spacer()
+                        Circle()
+                            .frame(width: 15, height: 15)
+                            .foregroundColor(.label)
+                            .overlay(
+                                Text("\(viewModel.level)")
                                     .foregroundColor(Color(.systemBackground))
                                     .font(.system(size: 8)).bold())
-                }
-            })
+                    }
+                })
     }
-    
+
     private var leadingViewContainer: some View {
         ZStack {
             if showAbility {
@@ -80,24 +84,28 @@ struct PlayerRowView: View {
             }
         }
     }
-    
+
     private var leadingView: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
                 if let personaname = viewModel.personaname {
                     HStack(spacing: 2) {
-                        Image("rank_\(viewModel.rank / 10)").resizable().frame(width: 18, height: 18)
-                        Text(personaname.description).font(.system(size: 15)).bold().lineLimit(1).foregroundColor(.label)
+                        Image("rank_\(viewModel.rank / 10)").resizable().frame(
+                            width: 18, height: 18)
+                        Text(personaname.description).font(.system(size: 15)).bold().lineLimit(1)
+                            .foregroundColor(.label)
                     }
                 } else {
                     Text("Anonymous").font(.system(size: 15)).bold().lineLimit(1)
                 }
-                KDAView(kills: viewModel.kills, deaths: viewModel.deaths, assists: viewModel.assists, size: .caption)
+                KDAView(
+                    kills: viewModel.kills, deaths: viewModel.deaths, assists: viewModel.assists,
+                    size: .caption)
             }
             Spacer()
         }
     }
-    
+
     private var itemsStackView: some View {
         HStack(spacing: 1) {
             let width: CGFloat = 30.0
@@ -118,23 +126,26 @@ struct PlayerRowView: View {
             itemStackBackPackView
         }
     }
-    
+
     private var itemStackBackPackView: some View {
         VStack(spacing: 1) {
             let backPackWidth: CGFloat = 30.0 * 2 / 3
             let backPachHeight = backPackWidth * 0.75
             if viewModel.backpack0 != nil {
-                ItemView(id: $viewModel.backpack0).frame(width: backPackWidth, height: backPachHeight)
+                ItemView(id: $viewModel.backpack0).frame(
+                    width: backPackWidth, height: backPachHeight)
             }
             if viewModel.backpack1 != nil {
-                ItemView(id: $viewModel.backpack1).frame(width: backPackWidth, height: backPachHeight)
+                ItemView(id: $viewModel.backpack1).frame(
+                    width: backPackWidth, height: backPachHeight)
             }
             if viewModel.backpack2 != nil {
-                ItemView(id: $viewModel.backpack2).frame(width: backPackWidth, height: backPachHeight)
+                ItemView(id: $viewModel.backpack2).frame(
+                    width: backPackWidth, height: backPachHeight)
             }
         }
     }
-    
+
     private var itemsView: some View {
         HStack(spacing: 5) {
             let width: CGFloat = 40.0
@@ -167,36 +178,39 @@ struct PlayerRowView: View {
             }
         }
     }
-    
+
     private var scepterView: some View {
         VStack(spacing: 0) {
             Image("scepter_\(viewModel.hasScepter ? "1" : "0")")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 24, height: 24)
-                
+
             Image("shard_\(viewModel.hasShard ? "1" : "0")")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 24, height: 12)
         }.frame(width: 10)
     }
-    
+
     private var abilityView: some View {
         HStack(spacing: 1) {
             ForEach(0..<viewModel.abilityUpgrade.count, id: \.self) { index in
                 buildAbility(abilityID: viewModel.abilityUpgrade[index])
-                    .overlay(HStack {
-                        Spacer()
-                        VStack {
+                    .overlay(
+                        HStack {
                             Spacer()
-                            Text("\(index + 1)").font(.system(size: 10)).foregroundColor(Color(.systemBackground)).background(Color(.label))
-                        }
-                    })
+                            VStack {
+                                Spacer()
+                                Text("\(index + 1)").font(.system(size: 10)).foregroundColor(
+                                    Color(.systemBackground)
+                                ).background(Color(.label))
+                            }
+                        })
             }
         }
     }
-    
+
     private var gpmxpmView: some View {
         VStack(spacing: 0) {
             if viewModel.gpm != 0 {
@@ -216,7 +230,7 @@ struct PlayerRowView: View {
             }
         }.font(.system(size: 10))
     }
-    
+
     private var shortPlayerView: some View {
         HStack {
             heroIcon
@@ -226,14 +240,21 @@ struct PlayerRowView: View {
             itemsStackView
         }
     }
-    
+
     @ViewBuilder private func buildAbility(abilityID: Int) -> some View {
         if let abilityName = ConstantProvider.shared.fetchAbilityName(id: abilityID) {
             if let ability = ConstantProvider.shared.fetchOpenDotaAbility(name: abilityName) {
-                if let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!" {
-                    let parsedimgURL = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                    AbilityImage(viewModel: AbilityImageViewModel(name: abilityName, urlString: "\(IMAGE_PREFIX)\(parsedimgURL)"))
-                        .frame(width: 40, height: 40)
+                if let img = ability.img,
+                    ability.desc != "Associated ability not drafted, have some gold!"
+                {
+                    let parsedimgURL = img.replacingOccurrences(of: "_md", with: "")
+                        .replacingOccurrences(
+                            of: "images/abilities", with: "images/dota_react/abilities")
+                    AbilityImage(
+                        viewModel: AbilityImageViewModel(
+                            name: abilityName, urlString: "\(IMAGE_PREFIX)\(parsedimgURL)")
+                    )
+                    .frame(width: 40, height: 40)
                 } else {
                     // no image
                     if abilityID == 730 {
@@ -251,7 +272,7 @@ struct PlayerRowView: View {
             buildAbilityWithString("Unknown: \(abilityID)")
         }
     }
-    
+
     @ViewBuilder private func buildAbilityWithString(_ text: String) -> some View {
         Image("ability_slot")
             .resizable()
@@ -267,20 +288,22 @@ struct PlayerRowView: View {
     }
 }
 
- struct PlayerRowView_Previews: PreviewProvider {
+struct PlayerRowView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 2), shortVersion: true, showAbility: false)
-                .environmentObject(ConstantProvider.shared)
+            PlayerRowView(
+                maxDamage: 0, viewModel: .init(heroID: 2), shortVersion: true, showAbility: false
+            )
+            .environmentObject(ConstantProvider.shared)
             ScrollView(.horizontal) {
                 PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 2, abilities: [1123]))
                     .environmentObject(ConstantProvider.shared)
                 PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 3, abilities: [1123, 1124]))
                     .environmentObject(ConstantProvider.shared)
             }
-                PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 3), showAbility: false)
-                    .environmentObject(ConstantProvider.shared)
+            PlayerRowView(maxDamage: 0, viewModel: .init(heroID: 3), showAbility: false)
+                .environmentObject(ConstantProvider.shared)
         }
         .previewLayout(.fixed(width: 800, height: 300))
     }
- }
+}

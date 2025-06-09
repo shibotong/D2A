@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct MatchListRowView: View {
-    
+
     @Environment(\.horizontalSizeClass) var horizontalClass
-    
+
     @ObservedObject var viewModel: MatchListRowViewModel
-    
+
     private var isCompact: Bool {
         return horizontalClass == .compact || DotaEnvironment.isInWidget()
     }
-    
+
     private var headingView: some View {
         Group {
             if isCompact {
@@ -38,7 +38,7 @@ struct MatchListRowView: View {
             }
         }
     }
-    
+
     private var trailingView: some View {
         Group {
             if isCompact {
@@ -66,39 +66,43 @@ struct MatchListRowView: View {
             }
         }
     }
-    
+
     private var gameLobbyText: some View {
         Text(LocalizedStringKey(viewModel.gameLobby))
-            .foregroundColor(viewModel.gameLobby == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
+            .foregroundColor(
+                viewModel.gameLobby == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
     }
-    
+
     private var heroImage: some View {
         HeroImageView(heroID: Int(viewModel.heroID), type: .icon)
             .frame(width: 30, height: 30)
     }
-    
+
     private var kdaView: some View {
-        KDAView(kills: viewModel.kills,
-                deaths: viewModel.deaths,
-                assists: viewModel.assists,
-                size: isCompact ? .caption : .body)
+        KDAView(
+            kills: viewModel.kills,
+            deaths: viewModel.deaths,
+            assists: viewModel.assists,
+            size: isCompact ? .caption : .body)
     }
-    
+
     private var gameMode: some View {
         Text(LocalizedStringKey(viewModel.gameMode))
             .font(isCompact ? .caption2 : .body)
             .foregroundColor(.secondaryLabel)
     }
-    
+
     var winLoss: some View {
-        Rectangle().frame(width: 15, height: 15).foregroundColor(Color(viewModel.isWin ? .systemGreen : .systemRed))
-            .overlay {
-                Text(viewModel.isWin ? "W" : "L")
-                    .foregroundColor(.white)
-                    .font(.caption2)
-            }
+        Rectangle().frame(width: 15, height: 15).foregroundColor(
+            Color(viewModel.isWin ? .systemGreen : .systemRed)
+        )
+        .overlay {
+            Text(viewModel.isWin ? "W" : "L")
+                .foregroundColor(.white)
+                .font(.caption2)
+        }
     }
-    
+
     var body: some View {
         HStack {
             winLoss
@@ -114,7 +118,7 @@ struct MatchListRowView: View {
         .padding(.horizontal)
         .frame(height: 70)
     }
-    
+
     @ViewBuilder private func buildParty(size: Int) -> some View {
         if size >= 4 {
             HStack(spacing: 2) {
@@ -153,11 +157,12 @@ struct MatchListRowView_Previews: PreviewProvider {
                     assists: 10,
                     partySize: 3,
                     gameMode: "All Pick",
-                    lobbyName: "Ranked"))
-                .previewDevice(.iPad)
-                .previewLayout(.fixed(width: 800, height: 70))
-                .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
-                .previewDisplayName("iPad")
+                    lobbyName: "Ranked")
+            )
+            .previewDevice(.iPad)
+            .previewLayout(.fixed(width: 800, height: 70))
+            .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
+            .previewDisplayName("iPad")
             MatchListRowView(
                 viewModel: MatchListRowViewModel(
                     isWin: true,
@@ -167,11 +172,12 @@ struct MatchListRowView_Previews: PreviewProvider {
                     assists: 10,
                     partySize: 3,
                     gameMode: "Ranked",
-                    lobbyName: "Ranked"))
-                .previewDevice(.iPhone)
-                .previewLayout(.fixed(width: 375, height: 70))
-                .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
-                .previewDisplayName("iPhone")
+                    lobbyName: "Ranked")
+            )
+            .previewDevice(.iPhone)
+            .previewLayout(.fixed(width: 375, height: 70))
+            .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
+            .previewDisplayName("iPhone")
         }
     }
 }

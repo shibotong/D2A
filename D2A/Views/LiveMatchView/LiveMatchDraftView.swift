@@ -23,24 +23,27 @@ struct LiveMatchDraftView: View {
     let winRate: Double
     let hasBan: Bool
     @Binding var showDetail: Bool
-    
+
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
+
     private let opacity: CGFloat = 0.5
     private let horizontalIconHeight: CGFloat = 40
     private let horizontalBanIconHeight: CGFloat = 25
-    
+
     var body: some View {
         VStack {
-            Button(action: { showDetail.toggle() }, label: {
-                HStack {
-                    Text("Draft").bold()
-                        .foregroundColor(.label)
-                    Spacer()
-                    Text(showDetail ? "-" : "+").bold()
-                        .foregroundColor(.label)
+            Button(
+                action: { showDetail.toggle() },
+                label: {
+                    HStack {
+                        Text("Draft").bold()
+                            .foregroundColor(.label)
+                        Spacer()
+                        Text(showDetail ? "-" : "+").bold()
+                            .foregroundColor(.label)
+                    }
                 }
-            })
+            )
             .padding()
             if showDetail {
                 winRateView
@@ -54,7 +57,7 @@ struct LiveMatchDraftView: View {
             }
         }
     }
-    
+
     private var winRateView: some View {
         VStack(spacing: 0) {
             HStack {
@@ -72,10 +75,10 @@ struct LiveMatchDraftView: View {
                 .progressViewStyle(.linear)
                 .tint(.green)
                 .background(.red)
-                
+
         }.padding([.horizontal, .bottom])
     }
-    
+
     private var horizontalView: some View {
         HStack {
             if hasBan {
@@ -162,7 +165,7 @@ struct LiveMatchDraftView: View {
             }
         }
     }
-    
+
     private var verticalView: some View {
         VStack {
             if hasBan {
@@ -205,7 +208,7 @@ struct LiveMatchDraftView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     private func buildBanHero(heroes: [Int]) -> some View {
         if horizontalSizeClass == .compact {
@@ -240,7 +243,7 @@ struct LiveMatchDraftView: View {
             }
         }
     }
-    
+
     private func pickLevelColor(letter: String) -> Color {
         switch letter {
         case "S":
@@ -266,9 +269,12 @@ struct LiveMatchDraftView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(PreviewDevice.iPhoneDevices, id: \.rawValue) { device in
-                LiveMatchDraftView(radiantPick: [.init(heroID: 1, pickLevel: "A")], radiantBan: [], direPick: [], direBan: [], winRate: 0.5, hasBan: true, showDetail: $showDetail)
-                    .previewDevice(device)
-                    .previewDisplayName(device.rawValue)
+                LiveMatchDraftView(
+                    radiantPick: [.init(heroID: 1, pickLevel: "A")], radiantBan: [], direPick: [],
+                    direBan: [], winRate: 0.5, hasBan: true, showDetail: $showDetail
+                )
+                .previewDevice(device)
+                .previewDisplayName(device.rawValue)
             }
         }
     }

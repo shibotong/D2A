@@ -5,8 +5,8 @@
 //  Created by Shibo Tong on 26/11/2022.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(PlayerTransformer)
 final class PlayerTransformer: NSSecureUnarchiveFromDataTransformer {
@@ -27,18 +27,18 @@ final class PlayerTransformer: NSSecureUnarchiveFromDataTransformer {
 }
 
 public class Player: NSObject, NSSecureCoding, Identifiable {
-    
+
     public static let supportsSecureCoding: Bool = true
-    
+
     let accountId: String?
     let personaname: String?
     let rank: Int
-    
+
     // hero data
     let heroID: Int
     let level: Int
     let slot: Int
-    
+
     // items
     let item0: Int
     let item1: Int
@@ -50,15 +50,15 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
     let backpack1: Int?
     let backpack2: Int?
     let itemNeutral: Int?
-    
+
     // KDA
     let kills: Int
     let deaths: Int
     let assists: Int
-    
+
     let denies: Int
     let lastHits: Int
-    
+
     // finance
     let gpm: Int
     let xpm: Int
@@ -67,9 +67,9 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
     let heroDamage: Int?
     let heroHealing: Int?
     var abilityUpgrade: [Int] = []
-    
+
     var permanentBuffs: [PermanentBuff] = []
-    
+
     var hasScepter: Bool {
         if item0 == 108 {
             return true
@@ -90,28 +90,30 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
             } != nil
         }
     }
-    
+
     var hasShard: Bool {
         let buffs = permanentBuffs
         return buffs.first { buff in
             buff.buffID == 12
         } != nil
     }
-    
-    init(id: String,
-         slot: Int,
-         heroID: Int = 1,
-         personaname: String = "Sample Player",
-         rank: Int = 0,
-         level: Int = 25,
-         item: Int = 1) {
+
+    init(
+        id: String,
+        slot: Int,
+        heroID: Int = 1,
+        personaname: String = "Sample Player",
+        rank: Int = 0,
+        level: Int = 25,
+        item: Int = 1
+    ) {
         accountId = id
         self.heroID = heroID
         self.slot = slot
         self.rank = rank
         self.level = level
         self.personaname = personaname
-        
+
         item0 = item
         item1 = item
         item2 = item
@@ -122,34 +124,34 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
         backpack1 = item
         backpack2 = item
         itemNeutral = item
-        
+
         kills = 5
         assists = 5
         deaths = 5
-        
+
         denies = 5
         lastHits = 5
-        
+
         gpm = 100
         xpm = 100
         towerDamage = 10000
         heroDamage = 10000
         heroHealing = 10000
         netWorth = 10000
-        
+
         abilityUpgrade = []
     }
-    
+
     init(player: PlayerCodable) {
         accountId = player.accountId?.description
         personaname = player.personaname
         rank = player.rank ?? 0
-        
+
         // hero data
         heroID = player.heroID
         level = player.level
         slot = player.slot
-        
+
         // items
         item0 = player.item0
         item1 = player.item1
@@ -161,15 +163,15 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
         backpack1 = player.backpack1
         backpack2 = player.backpack2
         itemNeutral = player.itemNeutral
-        
+
         // KDA
         kills = player.kills
         deaths = player.deaths
         assists = player.assists
-        
+
         denies = player.denies
         lastHits = player.lastHits
-        
+
         // finance
         gpm = player.gpm
         xpm = player.xpm
@@ -177,21 +179,21 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
         netWorth = player.netWorth
         heroDamage = player.heroDamage
         heroHealing = player.heroHealing
-        
+
         if let abilityUpgrade = player.abilityUpgrade {
             self.abilityUpgrade = abilityUpgrade as [Int]
         }
         if let buffs = player.permanentBuffs {
             permanentBuffs = buffs.map { PermanentBuff($0) }
         }
-        
+
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case accountId
         case slot
         case abilityUpgrade
-       
+
         // backpack
         case backpack0
         case backpack1
@@ -228,10 +230,10 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
 
         case personaname
         case multiKills
-        
+
         case rank
     }
-    
+
     public func encode(with coder: NSCoder) {
         coder.encode(accountId, forKey: CodingKeys.accountId.rawValue)
         coder.encode(personaname, forKey: CodingKeys.personaname.rawValue)
@@ -263,20 +265,27 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
         coder.encode(abilityUpgrade, forKey: CodingKeys.abilityUpgrade.rawValue)
         coder.encode(permanentBuffs, forKey: CodingKeys.permanentBuffs.rawValue)
     }
-    
+
     required public init?(coder: NSCoder) {
-        guard let abilityUpgrade = coder.decodeArrayOfObjects(ofClass: NSNumber.self, forKey: CodingKeys.abilityUpgrade.rawValue) as? [Int],
-              let permanentBuffs = coder.decodeArrayOfObjects(ofClass: PermanentBuff.self, forKey: CodingKeys.permanentBuffs.rawValue) else {
-                  return nil
+        guard
+            let abilityUpgrade = coder.decodeArrayOfObjects(
+                ofClass: NSNumber.self, forKey: CodingKeys.abilityUpgrade.rawValue) as? [Int],
+            let permanentBuffs = coder.decodeArrayOfObjects(
+                ofClass: PermanentBuff.self, forKey: CodingKeys.permanentBuffs.rawValue)
+        else {
+            return nil
         }
-        accountId = coder.decodeObject(of: NSString.self, forKey: CodingKeys.accountId.rawValue) as? String
-        personaname = coder.decodeObject(of: NSString.self, forKey: CodingKeys.personaname.rawValue) as? String
+        accountId =
+            coder.decodeObject(of: NSString.self, forKey: CodingKeys.accountId.rawValue) as? String
+        personaname =
+            coder.decodeObject(of: NSString.self, forKey: CodingKeys.personaname.rawValue)
+            as? String
         rank = coder.decodeInteger(forKey: CodingKeys.rank.rawValue)
-        
+
         heroID = coder.decodeInteger(forKey: CodingKeys.heroID.rawValue)
         level = coder.decodeInteger(forKey: CodingKeys.level.rawValue)
         slot = coder.decodeInteger(forKey: CodingKeys.slot.rawValue)
-        
+
         item0 = coder.decodeInteger(forKey: CodingKeys.item0.rawValue)
         item1 = coder.decodeInteger(forKey: CodingKeys.item1.rawValue)
         item2 = coder.decodeInteger(forKey: CodingKeys.item2.rawValue)
@@ -287,20 +296,20 @@ public class Player: NSObject, NSSecureCoding, Identifiable {
         backpack1 = coder.decodeObject(forKey: CodingKeys.backpack1.rawValue) as? Int
         backpack2 = coder.decodeObject(forKey: CodingKeys.backpack2.rawValue) as? Int
         itemNeutral = coder.decodeObject(forKey: CodingKeys.itemNeutral.rawValue) as? Int
-        
+
         kills = coder.decodeInteger(forKey: CodingKeys.kills.rawValue)
         deaths = coder.decodeInteger(forKey: CodingKeys.deaths.rawValue)
         assists = coder.decodeInteger(forKey: CodingKeys.assists.rawValue)
         denies = coder.decodeInteger(forKey: CodingKeys.denies.rawValue)
         lastHits = coder.decodeInteger(forKey: CodingKeys.lastHits.rawValue)
-        
+
         gpm = coder.decodeInteger(forKey: CodingKeys.gpm.rawValue)
         xpm = coder.decodeInteger(forKey: CodingKeys.xpm.rawValue)
         towerDamage = coder.decodeObject(forKey: CodingKeys.towerDamage.rawValue) as? Int
         netWorth = coder.decodeObject(forKey: CodingKeys.netWorth.rawValue) as? Int
         heroDamage = coder.decodeObject(forKey: CodingKeys.heroDamage.rawValue) as? Int
         heroHealing = coder.decodeObject(forKey: CodingKeys.heroHealing.rawValue) as? Int
-        
+
         self.abilityUpgrade = abilityUpgrade
         self.permanentBuffs = permanentBuffs
     }

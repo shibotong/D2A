@@ -5,8 +5,8 @@
 //  Created by Shibo Tong on 18/8/21.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 extension CodingUserInfoKey {
     static let managedObjectContext = CodingUserInfoKey(rawValue: "managedObjectContext")!

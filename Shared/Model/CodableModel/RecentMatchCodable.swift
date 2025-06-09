@@ -21,26 +21,25 @@ class RecentMatchCodable: Decodable, Identifiable {
     var startTime: Int
     var partySize: Int?
     var skill: Int?
-    
+
     var playerId: Int?
     static let sample = loadRecentMatches()!
-    
+
     var playerWin: Bool {
-        if slot <= 127 {
-            return radiantWin
-        } else {
+        guard slot <= 127 else {
             return !radiantWin
         }
+        return radiantWin
     }
-    
+
     var gameMode: GameMode {
         return ConstantProvider.shared.fetchGameMode(id: Int(mode))
     }
-    
+
     var gameLobby: LobbyType {
         return ConstantProvider.shared.fetchLobby(id: Int(lobbyType))
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case id = "match_id"
         case duration
@@ -57,7 +56,7 @@ class RecentMatchCodable: Decodable, Identifiable {
         case partySize = "party_size"
         case skill
     }
-    
+
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)

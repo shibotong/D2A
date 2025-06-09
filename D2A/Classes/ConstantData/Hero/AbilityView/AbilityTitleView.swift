@@ -5,17 +5,17 @@
 //  Created by Shibo Tong on 21/1/2024.
 //
 //
- import SwiftUI
+import SwiftUI
 
 struct AbilityTitleView: View {
-    
+
     let displayName: String
     let cd: String?
     let mc: String?
-    
+
     let name: String?
     let url: String?
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
             if let name, let url {
@@ -44,10 +44,13 @@ struct AbilityTitleView: View {
 }
 
 #Preview {
-    AbilityTitleView(displayName: "Acid Spray",
-                     cd: "10/20/30",
-                     mc: "10/20/30",
-                     name: "acid Spray",
-                     url: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_acid_spray.png")
+    AbilityTitleView(
+        displayName: "Acid Spray",
+        cd: "10/20/30",
+        mc: "10/20/30",
+        name: "acid Spray",
+        url:
+            "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_acid_spray.png"
+    )
 
 }

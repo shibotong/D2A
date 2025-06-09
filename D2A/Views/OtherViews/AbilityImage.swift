@@ -9,9 +9,9 @@ import SwiftUI
 import UIKit
 
 struct AbilityImage: View {
-    
+
     @ObservedObject var viewModel: AbilityImageViewModel
-    
+
     var body: some View {
         ZStack {
             if let image = viewModel.image {

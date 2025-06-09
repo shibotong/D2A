@@ -10,16 +10,16 @@ import SwiftUI
 
 extension Int {
     var toDuration: String {
-        let absoluteSeconds = abs(self) // Convert to absolute value
-        
+        let absoluteSeconds = abs(self)  // Convert to absolute value
+
         let minutes = absoluteSeconds / 60
         let remainingSeconds = absoluteSeconds % 60
-        
-        let sign = self >= 0 ? "" : "-" // Determine the sign
-        
+
+        let sign = self >= 0 ? "" : "-"  // Determine the sign
+
         return "\(sign)\(minutes):\(String(format: "%02d", remainingSeconds))"
     }
-    
+
     var toTime: LocalizedStringKey {
         let date = TimeInterval(self)
         let today = Date().timeIntervalSince1970
@@ -43,19 +43,18 @@ extension Int {
             return "YEARSCALCULATE \(getNumberOfUnit(diff, oneYear))"
         }
     }
-    
+
     var isDotaDayTime: Bool {
-        let normalizedSeconds = self % 600 // Normalize the seconds within a 600-second cycle
-        
-        if normalizedSeconds >= 0 && normalizedSeconds <= 300 {
-            return true // Day time
-        } else {
-            return false // Night time
+        let normalizedSeconds = self % 600  // Normalize the seconds within a 600-second cycle
+
+        guard normalizedSeconds >= 0 && normalizedSeconds <= 300 else {
+            return false  // Night time
         }
+        return true  // Day time
     }
-    
+
     private func getNumberOfUnit(_ diff: TimeInterval, _ interval: Double) -> Int {
-        return Int(diff/interval)
+        return Int(diff / interval)
     }
 }
 

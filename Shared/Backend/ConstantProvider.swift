@@ -5,17 +5,17 @@
 //  Created by Shibo Tong on 11/8/21.
 //
 
-import Foundation
-import SwiftUI
-import StratzAPI
 import CoreData
+import Foundation
+import StratzAPI
+import SwiftUI
 
 class ConstantProvider: ObservableObject {
-    
+
     enum HeroDataError: Error {
         case heroNotFound
     }
-    
+
     private var heroes = [String: ODHero]()
     private var gameModes = [String: GameMode]()
     private var lobbyTypes = [String: LobbyType]()
@@ -27,20 +27,22 @@ class ConstantProvider: ObservableObject {
     private var heroAbilities = [String: ODHeroAbilities]()
     private var scepterData = [HeroScepter]()
     private var apolloAbilities = [StratzAbility]()
-    
+
     static var shared = ConstantProvider()
-    
+
     static var preview = ConstantProvider()
-    
+
     let url = "https://api.opendota.com/api/herostats"
-    
+
     private let stratzProvider: StratzProviding
     private let openDotaProvider: OpenDotaConstantProviding
     private let persistanceProvider: PersistanceProviding
-    
-    init(stratzProvider: StratzProviding = StratzController.shared,
-         openDotaProvider: OpenDotaConstantProviding = OpenDotaConstantProvider.shared,
-         persistanceProvider: PersistanceProviding = PersistanceProvider.shared) {
+
+    init(
+        stratzProvider: StratzProviding = StratzController.shared,
+        openDotaProvider: OpenDotaConstantProviding = OpenDotaConstantProvider.shared,
+        persistanceProvider: PersistanceProviding = PersistanceProvider.shared
+    ) {
         self.stratzProvider = stratzProvider
         self.openDotaProvider = openDotaProvider
         self.persistanceProvider = persistanceProvider
@@ -48,13 +50,13 @@ class ConstantProvider: ObservableObject {
             await loadData()
         }
     }
-    
+
     @MainActor
     func loadData() async {
         gameModes = loadGameModes()
         regions = loadRegion()!
         lobbyTypes = loadLobby()!
-        
+
         async let idTable = loadItemIDs()
         async let items = loadItems()
         async let heroes = loadHeroes()
@@ -63,7 +65,7 @@ class ConstantProvider: ObservableObject {
         async let heroAbilities = loadHeroAbilities()
         async let scepter = loadScepter()
         async let stratzAbilities = stratzProvider.loadAbilities()
-        
+
         self.itemIDTable = await idTable
         self.items = await items
         self.heroes = await heroes
@@ -72,7 +74,7 @@ class ConstantProvider: ObservableObject {
         self.heroAbilities = await heroAbilities
         self.scepterData = await scepter
         self.apolloAbilities = await stratzAbilities
-        
+
         await loadConstantData()
     }
 
@@ -82,15 +84,13 @@ class ConstantProvider: ObservableObject {
         }
         return hero
     }
-    
+
     func fetchGameMode(id: Int) -> GameMode {
         return gameModes["\(id)"]!
     }
-    
+
     func fetchItem(id: Int) -> Item? {
-        if id == 0 {
-            return nil
-        } else {
+        guard id == 0 else {
             guard let itemString = itemIDTable["\(id)"] else {
                 return nil
             }
@@ -99,40 +99,41 @@ class ConstantProvider: ObservableObject {
             }
             return item
         }
+        return nil
     }
-    
+
     func fetchRegion(id: String) -> String {
         guard let region = regions[id] else {
             return "Unknown"
         }
         return region
     }
-    
+
     func fetchLobby(id: Int) -> LobbyType {
         return lobbyTypes["\(id)"] ?? LobbyType(id: id, name: "Unknown Lobby")
     }
-    
+
     func fetchAbilityName(id: Int) -> String? {
         guard let abilityName = abilityIDTable["\(id)"] else {
             return nil
         }
         return abilityName
     }
-    
+
     func fetchOpenDotaAbility(name: String) -> ODAbility? {
         return abilities[name]
     }
-    
+
     func fetchStratzAbility(name: String) -> StratzAbility? {
         let ability = apolloAbilities.first { $0.name == name }
         return ability
     }
-    
+
     func fetchHeroAbility(name: String) -> [String] {
         let abilities = heroAbilities[name]?.abilities
         return abilities ?? []
     }
-    
+
     func fetchAllHeroes() -> [ODHero] {
         var sortedHeroes = [ODHero]()
         for i in 1..<150 {
@@ -140,21 +141,23 @@ class ConstantProvider: ObservableObject {
                 sortedHeroes.append(hero)
             }
         }
-        
+
         sortedHeroes.sort { hero1, hero2 in
             return hero1.localizedName < hero2.localizedName
         }
         return sortedHeroes
     }
-    
+
     func fetchSearchedHeroes(text: String) -> [ODHero] {
         return []
     }
-    
+
     func getAbilityScepterDesc(ability: ODAbility, heroID: Int) -> String? {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
+        guard
+            let hero = scepterData.filter({ scepter in
+                scepter.id == heroID
+            }).first
+        else {
             // Cannot find this hero
             return nil
         }
@@ -163,55 +166,64 @@ class ConstantProvider: ObservableObject {
         }
         return nil
     }
-    
+
     func isScepterSkill(ability: ODAbility, heroID: Int) -> Bool {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
+        guard
+            let hero = scepterData.filter({ scepter in
+                scepter.id == heroID
+            }).first
+        else {
             // Cannot find this hero
             return false
         }
         return ability.dname == hero.scepterSkillName && hero.scepterNewSkill
     }
-    
+
     func isShardSkill(ability: ODAbility, heroID: Int) -> Bool {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
+        guard
+            let hero = scepterData.filter({ scepter in
+                scepter.id == heroID
+            }).first
+        else {
             // Cannot find this hero
             return false
         }
         return ability.dname == hero.shardSkillName && hero.shardNewSkill
     }
-    
+
     func hasScepter(ability: ODAbility, heroID: Int) -> Bool {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
+        guard
+            let hero = scepterData.filter({ scepter in
+                scepter.id == heroID
+            }).first
+        else {
             // Cannot find this hero
             return false
         }
         return ability.dname == hero.scepterSkillName
     }
-    
+
     func hasShard(ability: ODAbility, heroID: Int) -> Bool {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
+        guard
+            let hero = scepterData.filter({ scepter in
+                scepter.id == heroID
+            }).first
+        else {
             // Cannot find this hero
             return false
         }
-        if ability.dname == hero.shardSkillName {
-            return true
-        } else {
+        guard ability.dname == hero.shardSkillName else {
             return false
         }
+        return true
     }
-    
+
     func getAbilityShardDesc(ability: ODAbility, heroID: Int) -> String? {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
+        guard
+            let hero = scepterData.filter({ scepter in
+                scepter.id == heroID
+            }).first
+        else {
             // Cannot find this hero
             return nil
         }
@@ -221,41 +233,41 @@ class ConstantProvider: ObservableObject {
         }
         return nil
     }
-    
+
     func getTalentDisplayName(id: Short) -> String {
         return getTalentDisplayName(talentID: Int(id))
     }
-    
+
     private func getTalentDisplayName(talentID: Int) -> String {
         let talent = apolloAbilities.first { ability in
             return ability.id == talentID
         }
         return talent?.language?.displayName ?? "Fetch String Error"
     }
-    
+
     // MARK: - Save Constant Data
     private func loadConstantData() async {
         await loadODHeroes()
         await loadODAbilities()
         await saveAbilitiesToHero()
     }
-    
+
     // MARK: - Save abilities to heroes
-    
+
     private func saveAbilitiesToHero() async {
         let heroAbilities = await openDotaProvider.loadAbilitiesForHeroes()
         await persistanceProvider.saveAbilitiesToHero(heroAbilities: heroAbilities)
     }
-    
+
     // MARK: - Save Abilities
-    
+
     private func loadODAbilities() async {
         let abilities = await openDotaProvider.loadAbilities()
         await persistanceProvider.saveODAbilities(abilities: abilities)
     }
-    
+
     // MARK: - Save Heroes
-    
+
     private func loadODHeroes() async {
         let heroes = await openDotaProvider.loadHeroes()
         var heroesArray: [ODHero] = []
@@ -264,7 +276,7 @@ class ConstantProvider: ObservableObject {
         }
         await persistanceProvider.saveODHeroes(heroes: heroesArray)
     }
-    
+
     func resetHeroData(context: NSManagedObjectContext) async {
         await context.perform {
             do {

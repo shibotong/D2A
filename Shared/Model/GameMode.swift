@@ -66,5 +66,5 @@ struct GameMode: Codable {
             return "Unknown (\(id))"
         }
     }
-    
+
 }

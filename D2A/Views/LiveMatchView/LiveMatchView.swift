@@ -12,9 +12,9 @@ struct LiveMatchView: View {
     @ObservedObject var viewModel: LiveMatchViewModel
     @State var showActivity = false
     @State var showPlayer = false
-    
+
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
+
     var body: some View {
         ZStack {
             if horizontalSizeClass == .compact {
@@ -30,7 +30,7 @@ struct LiveMatchView: View {
         }
         .onDisappear(perform: viewModel.removeSubscription)
     }
-    
+
     private var horizontalView: some View {
         VStack(spacing: 0) {
             timerView
@@ -63,7 +63,7 @@ struct LiveMatchView: View {
         }
         .background(Color.systemBackground)
     }
-    
+
     private var verticalView: some View {
         VStack(spacing: 0) {
             timerView
@@ -89,34 +89,36 @@ struct LiveMatchView: View {
         }
         .background(Color.secondarySystemBackground)
     }
-    
+
     private var timerView: some View {
-        LiveMatchTimerView(radiantScore: viewModel.radiantScore,
-                           direScore: viewModel.direScore,
-                           time: viewModel.time,
-                           radiantTeam: viewModel.radiantTeam,
-                           direTeam: viewModel.direTeam)
+        LiveMatchTimerView(
+            radiantScore: viewModel.radiantScore,
+            direScore: viewModel.direScore,
+            time: viewModel.time,
+            radiantTeam: viewModel.radiantTeam,
+            direTeam: viewModel.direTeam)
     }
-    
+
     private var eventView: some View {
         LiveMatchEventListView(events: viewModel.events)
             .padding(.horizontal)
     }
-    
+
     private var mapView: some View {
         LiveMatchMapView(heroes: viewModel.heroesPosition, buildings: viewModel.buildingStatus)
     }
-    
+
     private var draftView: some View {
-        LiveMatchDraftView(radiantPick: viewModel.radiantPick,
-                           radiantBan: viewModel.radiantBan,
-                           direPick: viewModel.direPick,
-                           direBan: viewModel.direBan,
-                           winRate: viewModel.draftWinRate,
-                           hasBan: viewModel.hasBan,
-                           showDetail: $viewModel.showDraft)
+        LiveMatchDraftView(
+            radiantPick: viewModel.radiantPick,
+            radiantBan: viewModel.radiantBan,
+            direPick: viewModel.direPick,
+            direBan: viewModel.direBan,
+            winRate: viewModel.draftWinRate,
+            hasBan: viewModel.hasBan,
+            showDetail: $viewModel.showDraft)
     }
-    
+
     @ViewBuilder private func buildPlayerView(short: Bool = true) -> some View {
         LiveMatchPlayerView(players: viewModel.matchPlayers, shortVersion: short)
             .padding()

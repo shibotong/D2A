@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct StratzTokenView: View {
-    
-    @AppStorage(UserDefaults.stratzToken, store: UserDefaults.group) 
+
+    @AppStorage(UserDefaults.stratzToken, store: UserDefaults.group)
     private var stratzToken: String = ""
-    
+
     @State private var editToken: String = ""
-    
+
     @Environment(\.dismiss) var dismiss
-    
+
     var body: some View {
         ScrollView {
             VStack {
@@ -28,7 +28,9 @@ struct StratzTokenView: View {
                 TextField("Stratz Token", text: $editToken)
                     .padding()
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .background(RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(.primaryDota))
+                    .background(
+                        RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(.primaryDota)
+                    )
                     .keyboardType(.numberPad)
             }
             .padding()

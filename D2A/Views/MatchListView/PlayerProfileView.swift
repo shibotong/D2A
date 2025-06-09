@@ -5,23 +5,23 @@
 //  Created by Shibo Tong on 11/8/21.
 //
 
-import SwiftUI
 import CoreData
+import SwiftUI
 
 struct PlayerProfileView: View {
     @EnvironmentObject var env: DotaEnvironment
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.managedObjectContext) var viewContext
     @State private var isSharePresented: Bool = false
-    
+
     @FetchRequest private var profile: FetchedResults<UserProfile>
     @FetchRequest private var matches: FetchedResults<RecentMatch>
-    
+
     @State private var error: Bool = false
     @State private var matchLoading = false
-    
+
     @State private var refreshID = UUID()
-    
+
     private var steamLink: some View {
         HStack {
             Spacer()
@@ -35,20 +35,23 @@ struct PlayerProfileView: View {
         .frame(height: 45)
         .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.primaryDota))
     }
-    
+
     private var userid: String
-    
+
     init(userid: String) {
-        _profile = FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "id = %@", userid))
+        _profile = FetchRequest(
+            sortDescriptors: [], predicate: NSPredicate(format: "id = %@", userid))
         let request = NSFetchRequest<RecentMatch>(entityName: "RecentMatch")
         request.fetchLimit = 10
         request.fetchBatchSize = 1
         request.predicate = NSPredicate(format: "playerId = %@", userid)
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \RecentMatch.startTime, ascending: false)]
+        request.sortDescriptors = [
+            NSSortDescriptor(keyPath: \RecentMatch.startTime, ascending: false)
+        ]
         _matches = FetchRequest(fetchRequest: request)
         self.userid = userid
     }
-    
+
     var favoriteButton: some View {
         ZStack {
             if let profile = profile.first {
@@ -82,11 +85,11 @@ struct PlayerProfileView: View {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
                         favoriteButton
                             .accessibilityIdentifier("favourite")
-//                        Button {
-//                            self.isSharePresented = true
-//                        } label: {
-//                            Image(systemName: "square.and.arrow.up")
-//                        }
+                        //                        Button {
+                        //                            self.isSharePresented = true
+                        //                        } label: {
+                        //                            Image(systemName: "square.and.arrow.up")
+                        //                        }
                     }
                 })
                 .task {
@@ -121,7 +124,10 @@ struct PlayerProfileView: View {
                     .font(.system(size: 20))
                     .bold()
                 Spacer()
-                NavigationLink(destination: CalendarMatchListView(vm: CalendarMatchListViewModel(userid: profile.id!))) {
+                NavigationLink(
+                    destination: CalendarMatchListView(
+                        vm: CalendarMatchListViewModel(userid: profile.id!))
+                ) {
                     Text("All")
                 }
             }
@@ -137,7 +143,8 @@ struct PlayerProfileView: View {
                         ) {
                             MatchListRowView(viewModel: MatchListRowViewModel(match: match))
                                 .background(Color.systemBackground)
-                        }.listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
+                        }.listRowInsets(
+                            EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
                     }
                 }
             }
@@ -145,14 +152,14 @@ struct PlayerProfileView: View {
             .id(refreshID)
         }
     }
-    
+
     @ViewBuilder private func buildNameBar(profile: UserProfile) -> some View {
         Text(profile.name ?? profile.personaname ?? "")
             .font(.title2)
             .bold()
             .lineLimit(1)
     }
-    
+
     @ViewBuilder private func buildCompactTopBar(profile: UserProfile) -> some View {
         VStack {
             VStack {
@@ -175,7 +182,7 @@ struct PlayerProfileView: View {
         }
         .padding()
     }
-    
+
     @ViewBuilder private func buildRegularTopBar(profile: UserProfile) -> some View {
         HStack(spacing: 30) {
             ProfileAvatar(profile: profile, cornerRadius: 20)
@@ -202,7 +209,7 @@ struct PlayerProfileView: View {
             }
         }
     }
-    
+
     @ViewBuilder private func buildRank(profile: UserProfile, size: CGFloat) -> some View {
         HStack {
             if profile.isPlus {
@@ -215,7 +222,7 @@ struct PlayerProfileView: View {
                 .frame(width: size, height: size)
         }
     }
-    
+
     @ViewBuilder private func buildButton(profile: UserProfile) -> some View {
         HStack(spacing: 20) {
             Button {
@@ -233,8 +240,9 @@ struct PlayerProfileView: View {
                     Spacer()
                 }
                 .frame(height: 45)
-                .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
-                
+                .background(
+                    RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
+
             }
             if let url = URL(string: profile.profileurl ?? "") {
                 Link(destination: url) {
@@ -248,15 +256,16 @@ struct PlayerProfileView: View {
             }
         }
     }
-    
+
     private func refreshUser() async {
-        guard let profileCodable = try? await OpenDotaProvider.shared.loadUserData(userid: userid) else {
+        guard let profileCodable = try? await OpenDotaProvider.shared.loadUserData(userid: userid)
+        else {
             print("cancelled search")
             return
         }
         _ = try? UserProfile.create(profileCodable)
     }
-    
+
     private func loadMatches() async {
         guard let userID = profile.first?.id else {
             return
@@ -265,7 +274,7 @@ struct PlayerProfileView: View {
         await OpenDotaProvider.shared.loadRecentMatch(userid: userID)
         await setLoading(false)
     }
-    
+
     @MainActor
     private func setLoading(_ state: Bool) async {
         matchLoading = state

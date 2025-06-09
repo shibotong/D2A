@@ -24,13 +24,13 @@ extension SKProduct {
         guard !isFree else {
             return nil
         }
-        
+
         let formatter = SKProduct.formatter
         formatter.locale = priceLocale
 
         return formatter.string(from: price)
     }
-    
+
     var monthlyCost: String? {
         let cost = price
         var months = subscriptionPeriod!.numberOfUnits
@@ -38,13 +38,13 @@ extension SKProduct {
             months *= 12
         }
         let monthlyCost = (cost as Decimal / Decimal(months)) as NSNumber
-        
-        let formatter =  SKProduct.formatter
+
+        let formatter = SKProduct.formatter
         formatter.locale = priceLocale
-        
+
         return formatter.string(from: monthlyCost)
     }
-    
+
     var monthlyPrice: Double {
         let cost = price.doubleValue
         var months = subscriptionPeriod!.numberOfUnits

@@ -13,16 +13,17 @@ struct MatchView: View {
     @Environment(\.managedObjectContext) var context
     @FetchRequest private var match: FetchedResults<Match>
     private var matchid: String
-    
+
     init(matchid: String) {
-        _match = FetchRequest<Match>(sortDescriptors: [], predicate: NSPredicate(format: "id = %@", matchid))
+        _match = FetchRequest<Match>(
+            sortDescriptors: [], predicate: NSPredicate(format: "id = %@", matchid))
         self.matchid = matchid
     }
-    
+
     var body: some View {
         buildStack()
     }
-    
+
     @ViewBuilder private func buildStack() -> some View {
         if let match = match.first {
             List {
@@ -36,10 +37,12 @@ struct MatchView: View {
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
                 if let goldDiff = match.goldDiff, let xpDiff = match.xpDiff {
-                    DifferenceGraphView(vm: DifferenceGraphViewModel(goldDiff: goldDiff, xpDiff: xpDiff))
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
-                        .frame(height: 300)
+                    DifferenceGraphView(
+                        vm: DifferenceGraphViewModel(goldDiff: goldDiff, xpDiff: xpDiff)
+                    )
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0)))
+                    .frame(height: 300)
                 }
             }
             .listStyle(.plain)
@@ -64,7 +67,7 @@ struct MatchView: View {
                 }
         }
     }
-    
+
     private func loadMatch() async {
         do {
             _ = try await OpenDotaProvider.shared.loadMatchData(matchid: matchid)
@@ -73,21 +76,31 @@ struct MatchView: View {
             env.error = true
         }
     }
-    
+
     @ViewBuilder private func buildMatchData(match: Match) -> some View {
         VStack(spacing: 30) {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 15) {
-                    MatchStatCardView(icon: "calendar", title: "Start Time", label: match.startTimeString)
-                        .frame(width: 140)
-                    MatchStatCardView(icon: "clock", title: "Duration", label: "\(match.durationString)")
-                        .colorInvert()
-                        .frame(width: 140)
-                    MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(data.fetchGameMode(id: Int(match.mode)).modeName))
-                        .frame(width: 140)
-                    MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: LocalizedStringKey(data.fetchRegion(id: match.region.description)))
-                        .colorInvert()
-                        .frame(width: 140)
+                    MatchStatCardView(
+                        icon: "calendar", title: "Start Time", label: match.startTimeString
+                    )
+                    .frame(width: 140)
+                    MatchStatCardView(
+                        icon: "clock", title: "Duration", label: "\(match.durationString)"
+                    )
+                    .colorInvert()
+                    .frame(width: 140)
+                    MatchStatCardView(
+                        icon: "rosette", title: "Game Mode",
+                        label: LocalizedStringKey(data.fetchGameMode(id: Int(match.mode)).modeName)
+                    )
+                    .frame(width: 140)
+                    MatchStatCardView(
+                        icon: "mappin.and.ellipse", title: "Region",
+                        label: LocalizedStringKey(data.fetchRegion(id: match.region.description))
+                    )
+                    .colorInvert()
+                    .frame(width: 140)
                 }.padding(.horizontal)
             }
         }.padding([.top])
@@ -123,7 +136,7 @@ struct MatchStatCardView: View {
 //        .environmentObject(DotaEnvironment.shared)
 //        .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
 //        .environment(\.locale, .init(identifier: "zh-Hans"))
-//        
+//
 //    }
 // }
 
@@ -131,32 +144,34 @@ struct AllTeamPlayerView: View {
     var match: Match
     var players: [Player]
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Players").font(.system(size: 20)).bold().padding([.horizontal, .top])
             ScrollView(.horizontal, showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
-                    TeamView(players: fetchPlayers(isRadiant: true),
-                             isRadiant: true,
-                             score: Int(match.radiantKill),
-                             win: match.radiantWin,
-                             maxDamage: fetchMaxDamage(players: match.allPlayers))
-                    TeamView(players: fetchPlayers(isRadiant: false),
-                             isRadiant: false,
-                             score: Int(match.direKill),
-                             win: !match.radiantWin,
-                             maxDamage: fetchMaxDamage(players: match.allPlayers))
+                    TeamView(
+                        players: fetchPlayers(isRadiant: true),
+                        isRadiant: true,
+                        score: Int(match.radiantKill),
+                        win: match.radiantWin,
+                        maxDamage: fetchMaxDamage(players: match.allPlayers))
+                    TeamView(
+                        players: fetchPlayers(isRadiant: false),
+                        isRadiant: false,
+                        score: Int(match.direKill),
+                        win: !match.radiantWin,
+                        maxDamage: fetchMaxDamage(players: match.allPlayers))
                 }
             }
         }
     }
-    
+
     func fetchMaxDamage(players: [Player]) -> Int {
         let sortedPlayers = players.sorted(by: { $0.heroDamage ?? 0 > $1.heroDamage ?? 0 })
         return Int(sortedPlayers.first?.heroDamage ?? 0)
     }
-    
+
     private func fetchPlayers(isRadiant: Bool) -> [Player] {
         return players.filter { isRadiant ? $0.slot <= 127 : $0.slot > 127 }
     }
@@ -180,11 +195,11 @@ struct TeamHeaderView: View {
     var isRadiant: Bool
     var score: Int
     var win: Bool
-    
+
     private var teamString: LocalizedStringKey {
         return isRadiant ? "Radiant" : "Dire"
     }
-    
+
     var body: some View {
         HStack {
             Image("battle_icon")
@@ -216,7 +231,7 @@ struct TeamView: View {
     var win: Bool
     var maxDamage: Int
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
+
     var body: some View {
         VStack(spacing: 0) {
             TeamHeaderView(isRadiant: isRadiant, score: score, win: win)
@@ -225,6 +240,6 @@ struct TeamView: View {
                     .padding(.horizontal)
             }
         }
-        
+
     }
 }

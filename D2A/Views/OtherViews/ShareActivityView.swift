@@ -15,7 +15,8 @@ struct ShareActivityView: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
 
     func makeUIViewController(context: Context) -> UIActivityViewController {
-        let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+        let controller = UIActivityViewController(
+            activityItems: activityItems, applicationActivities: applicationActivities)
         return controller
     }
 

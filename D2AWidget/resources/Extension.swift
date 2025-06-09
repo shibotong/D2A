@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import WidgetKit
 import SwiftUI
+import WidgetKit
 
 //#if DEBUG
 //extension WidgetFamily: EnvironmentKey {

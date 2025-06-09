@@ -5,8 +5,8 @@
 //  Created by Shibo Tong on 15/6/2023.
 //
 
-import Foundation
 import ActivityKit
+import Foundation
 
 struct LiveMatchActivityAttributes: ActivityAttributes {
     public typealias MatchStatus = ContentState
@@ -16,6 +16,6 @@ struct LiveMatchActivityAttributes: ActivityAttributes {
         var direScore: Int
         var time: Int
     }
-    
+
     var leagueName: String?
 }

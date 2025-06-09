@@ -10,15 +10,15 @@ import SwiftUI
 struct ItemView: View {
     @EnvironmentObject var heroData: ConstantProvider
     @State var image: UIImage?
-    
+
     @Binding var id: Int?
-    
+
     func updateUI() {
         Task {
             await fetchImage()
         }
     }
-    
+
     var body: some View {
         ZStack {
             if let image = image {
@@ -33,7 +33,7 @@ struct ItemView: View {
             await fetchImage()
         }
     }
-    
+
     private func computeURL() -> URL? {
         guard let id, let item = ConstantProvider.shared.fetchItem(id: id) else {
             return nil
@@ -41,18 +41,18 @@ struct ItemView: View {
         let url = URL(string: "\(IMAGE_PREFIX)\(item.img)")
         return url
     }
-    
+
     private func fetchImage() async {
         guard let id else {
             setImage(nil)
             return
         }
-        
+
         if let cacheImage = ImageCache.readImage(type: .item, id: id.description) {
             setImage(cacheImage)
             return
         }
-        
+
         guard let newImage = await loadImage() else {
             setImage(nil)
             return
@@ -60,16 +60,17 @@ struct ItemView: View {
         ImageCache.saveImage(newImage, type: .item, id: id.description)
         setImage(newImage)
     }
-    
+
     private func loadImage() async -> UIImage? {
         guard let url = computeURL(),
-              let (newImageData, _) = try? await URLSession.shared.data(from: url),
-              let newImage = UIImage(data: newImageData) else {
+            let (newImageData, _) = try? await URLSession.shared.data(from: url),
+            let newImage = UIImage(data: newImageData)
+        else {
             return nil
         }
         return newImage
     }
-    
+
     @MainActor
     private func setImage(_ image: UIImage?) {
         self.image = image
@@ -82,6 +83,6 @@ struct ItemView_Previews: PreviewProvider {
         VStack {
             ItemView(id: $id)
         }
-        
+
     }
 }

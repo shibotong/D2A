@@ -5,11 +5,11 @@
 //  Created by Shibo Tong on 26/11/2022.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 extension UserProfile {
-    
+
     /// If the profile should update. (Last update time is not today)
     var shouldUpdate: Bool {
         guard let lastUpdate else {
@@ -17,11 +17,11 @@ extension UserProfile {
         }
         return !lastUpdate.isToday
     }
-    
+
     static var canFavourite: Bool {
         return DotaEnvironment.shared.subscriptionStatus || favouriteUsersCount == 0
     }
-    
+
     private static var favouriteUsersCount: Int {
         let viewContext = PersistanceProvider.shared.container.viewContext
         let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
@@ -31,33 +31,40 @@ extension UserProfile {
         predicates.append(favouritePredicate)
         predicates.append(registerPredicate)
         fetchResult.predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
-        
+
         let results = try? viewContext.fetch(fetchResult)
         return results?.count ?? 0
     }
-    
+
     /// Create a new `UserProfile` with favourite and register
     static func create(_ profile: ODUserProfile, favourite: Bool, register: Bool) throws {
         let viewContext = PersistanceProvider.shared.makeContext(author: "UserProfile")
-        let newProfile = fetch(id: profile.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
+        let newProfile =
+            fetch(id: profile.id.description, viewContext: viewContext)
+            ?? UserProfile(context: viewContext)
         newProfile.update(profile)
         newProfile.favourite = favourite
         newProfile.register = register
         try viewContext.save()
         try viewContext.parent?.save()
     }
-    
+
     static func create(_ profile: ODUserProfile) throws -> UserProfile {
         let viewContext = PersistanceProvider.shared.makeContext(author: "UserProfile")
-        let newProfile = fetch(id: profile.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
+        let newProfile =
+            fetch(id: profile.id.description, viewContext: viewContext)
+            ?? UserProfile(context: viewContext)
         newProfile.update(profile)
         try viewContext.save()
         try viewContext.parent?.save()
         return newProfile
     }
-    
+
     /// Create a UserProfile object in CoreData for testing purpose
-    static func create(id: String, favourite: Bool = false, register: Bool = false, controller: PersistanceProvider = PersistanceProvider.shared) {
+    static func create(
+        id: String, favourite: Bool = false, register: Bool = false,
+        controller: PersistanceProvider = PersistanceProvider.shared
+    ) {
         let viewContext = controller.makeContext(author: "UserProfile")
         let newProfile = UserProfile(context: viewContext)
         newProfile.id = id
@@ -69,15 +76,18 @@ extension UserProfile {
         newProfile.avatarfull = "nil"
         try? viewContext.save()
     }
-    
-    static func fetch(id: String, viewContext: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext) -> UserProfile? {
+
+    static func fetch(
+        id: String,
+        viewContext: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext
+    ) -> UserProfile? {
         let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         fetchResult.predicate = NSPredicate(format: "id == %@", id)
-        
+
         let results = try? viewContext.fetch(fetchResult)
         return results?.first
     }
-    
+
     /// Search user saved in CoreData and marked as favourite
     static func fetch(text: String, favourite: Bool? = nil) -> [UserProfile] {
         let viewContext = PersistanceProvider.shared.container.viewContext
@@ -90,11 +100,11 @@ extension UserProfile {
             predicates.append(favouritePredicate)
         }
         fetchResult.predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
-        
+
         let results = try? viewContext.fetch(fetchResult)
         return results ?? []
     }
-    
+
     static func delete(id: String) {
         guard let user = fetch(id: id) else {
             return
@@ -102,11 +112,11 @@ extension UserProfile {
         let viewContext = PersistanceProvider.shared.container.viewContext
         viewContext.delete(user)
     }
-    
+
     func update(_ profile: ODUserProfile) {
         id = profile.id.description
         avatarfull = profile.avatarfull
-        
+
         countryCode = profile.countryCode
         personaname = profile.personaname
         profileurl = profile.profileurl
@@ -117,19 +127,23 @@ extension UserProfile {
         if let leaderboard = profile.leaderboard {
             self.leaderboard = Int16(leaderboard)
         }
-        
+
         name = profile.name
         lastUpdate = Date()
     }
-    
-    func update(favourite: Bool,
-                viewContext: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext) {
+
+    func update(
+        favourite: Bool,
+        viewContext: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext
+    ) {
         self.favourite = favourite
         try? viewContext.save()
     }
-    
-    func update(register: Bool,
-                viewContext: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext) {
+
+    func update(
+        register: Bool,
+        viewContext: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext
+    ) {
         self.register = register
         try? viewContext.save()
     }

@@ -13,7 +13,7 @@ extension Talent {
         case nilValue
         case decodingError
     }
-    
+
     static func createTalent(_ talent: HeroQuery.Data.Constants.Hero.Talent?) throws -> Talent {
         guard let talent = talent else {
             throw CoreDataError.nilValue
@@ -21,7 +21,8 @@ extension Talent {
         let viewContext = PersistanceProvider.shared.container.viewContext
         let newTalent = Talent(context: viewContext)
         guard let talentID = talent.abilityId,
-              let slot = talent.slot else {
+            let slot = talent.slot
+        else {
             throw CoreDataError.decodingError
         }
         newTalent.abilityId = talentID

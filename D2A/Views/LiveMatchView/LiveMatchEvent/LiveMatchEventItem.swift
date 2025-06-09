@@ -11,7 +11,8 @@ import SwiftUI
 protocol LiveMatchEvent: Identifiable {
     var id: UUID { get set }
     var time: Int { get set }
-    func generateEvent() -> [LiveMatchEventItem]}
+    func generateEvent() -> [LiveMatchEventItem]
+}
 
 // MARK: LiveMatchEventItem
 struct LiveMatchEventItem: Identifiable {
@@ -28,7 +29,7 @@ struct LiveMatchEventDetail: Identifiable {
     let type: EventType
     let itemName: String?
     let itemIcon: AnyView?
-    
+
     var eventDescription: LocalizedStringKey {
         switch type {
         case .tower:
@@ -43,9 +44,9 @@ struct LiveMatchEventDetail: Identifiable {
             return LocalizedStringKey("killed")
         }
     }
-    
+
     enum EventType {
         case tower, kill, purchase, died, killDied
     }
-    
+
 }

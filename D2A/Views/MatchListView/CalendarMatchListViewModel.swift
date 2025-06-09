@@ -5,8 +5,8 @@
 //  Created by Shibo Tong on 12/6/2022.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 class CalendarMatchListViewModel: ObservableObject {
     @Published var selectDate: Date = Date()
@@ -14,7 +14,7 @@ class CalendarMatchListViewModel: ObservableObject {
     @Published var matches: [RecentMatch] = []
     let userid: String
     private var cancellableSet: Set<AnyCancellable> = []
-    
+
     init(userid: String) {
         self.userid = userid
         isLoading = true
@@ -30,7 +30,7 @@ class CalendarMatchListViewModel: ObservableObject {
             }
             .store(in: &cancellableSet)
     }
-    
+
     private func filterMatch(on date: Date) -> [RecentMatch] {
         print("select Date \(date.description)")
         let matches = RecentMatch.fetch(userID: userid, on: date)

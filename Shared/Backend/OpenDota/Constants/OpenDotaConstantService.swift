@@ -8,9 +8,9 @@
 import Foundation
 
 enum OpenDotaConstantService {
-    
+
     static let baseURL = "https://raw.githubusercontent.com/odota/dotaconstants/master/build"
-    
+
     case heroes
     case abilities
     case abilityIDs
@@ -18,11 +18,11 @@ enum OpenDotaConstantService {
     case aghs
     case items
     case itemIDs
-    
+
     var serviceURL: String {
         "\(Self.baseURL)/\(name).json"
     }
-    
+
     private var name: String {
         switch self {
         case .heroes:

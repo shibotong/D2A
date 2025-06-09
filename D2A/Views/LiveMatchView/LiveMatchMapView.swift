@@ -5,15 +5,15 @@
 //  Created by Shibo Tong on 9/6/2023.
 //
 
-import SwiftUI
 import StratzAPI
+import SwiftUI
 
 struct LiveMatchMapView: View {
-    
+
     var heroes: [LiveMatchHeroPosition]
-    
+
     var buildings: [LiveMatchBuildingEvent]
-    
+
     var body: some View {
         Image("live_map")
             .resizable()
@@ -23,11 +23,14 @@ struct LiveMatchMapView: View {
                 ZStack {
                     GeometryReader { proxy in
                         let sideLength = proxy.size.width
-                        
+
                         ForEach(buildings) { building in
-                            let xPos = calculatePosition(totalLength: sideLength, position: building.position.x, isX: true)
-                            let yPos = calculatePosition(totalLength: sideLength, position: building.position.y, isX: false)
-                            let forgroundColor: Color = building.isAlive ? building.isRadiant ? .green : .red : .black
+                            let xPos = calculatePosition(
+                                totalLength: sideLength, position: building.position.x, isX: true)
+                            let yPos = calculatePosition(
+                                totalLength: sideLength, position: building.position.y, isX: false)
+                            let forgroundColor: Color =
+                                building.isAlive ? building.isRadiant ? .green : .red : .black
                             ZStack {
                                 if building.type == .case(.tower) {
                                     let frame = sideLength / 27
@@ -46,38 +49,41 @@ struct LiveMatchMapView: View {
                             .position(x: xPos, y: yPos)
                             .foregroundColor(forgroundColor)
                         }
-                        
+
                         ForEach(heroes) { hero in
-                            let xPos = calculatePosition(totalLength: sideLength, position: hero.xPos, isX: true)
-                            let yPos = calculatePosition(totalLength: sideLength, position: hero.yPos, isX: false)
+                            let xPos = calculatePosition(
+                                totalLength: sideLength, position: hero.xPos, isX: true)
+                            let yPos = calculatePosition(
+                                totalLength: sideLength, position: hero.yPos, isX: false)
                             HeroImageView(heroID: hero.heroID, type: .icon)
                                 .frame(width: sideLength / 15)
-                                .shadow(color: hero.isRadiant ? .green : .red, radius: 5, x: 0, y: 0)
+                                .shadow(
+                                    color: hero.isRadiant ? .green : .red, radius: 5, x: 0, y: 0
+                                )
                                 .position(x: xPos, y: yPos)
                                 .animation(.linear, value: hero)
-                                
+
                         }
                     }
                 }
             }
     }
-    
+
     private func calculatePosition(totalLength: CGFloat, position: CGFloat, isX: Bool) -> CGFloat {
         let midPoint: CGFloat = 127
-        
+
         let xStartPoint: CGFloat = 76
         let xEndPoint = midPoint - xStartPoint + midPoint
         let xLength = xEndPoint - xStartPoint
-        
+
         let yStartPoint: CGFloat = 76
         let yEndPoint = midPoint - yStartPoint + midPoint
         let yLength = yEndPoint - yStartPoint
-        
-        if isX {
-            return (totalLength * (position - xStartPoint) / xLength)
-        } else {
+
+        guard isX else {
             return (totalLength - (totalLength * (position - yStartPoint) / yLength))
         }
+        return (totalLength * (position - xStartPoint) / xLength)
     }
 }
 
@@ -85,16 +91,17 @@ struct LiveMatchHeroPosition: Identifiable, Equatable {
     var id: Int {
         return heroID
     }
-    
+
     let heroID: Int
     let isRadiant: Bool
     let xPos: CGFloat
     let yPos: CGFloat
-    
+
 }
 
 struct LiveMatchMapView_Previews: PreviewProvider {
     static var previews: some View {
-        LiveMatchMapView(heroes: [.init(heroID: 1, isRadiant: true, xPos: 127, yPos: 127)], buildings: [])
+        LiveMatchMapView(
+            heroes: [.init(heroID: 1, isRadiant: true, xPos: 127, yPos: 127)], buildings: [])
     }
 }

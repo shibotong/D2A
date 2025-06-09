@@ -5,8 +5,8 @@
 //  Created by Shibo Tong on 11/8/21.
 //
 
-import SwiftUI
 import StoreKit
+import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var env: DotaEnvironment
@@ -15,15 +15,20 @@ struct ContentView: View {
     var body: some View {
         Group {
             NavigationHostView()
-                .sheet(isPresented: $env.subscriptionSheet, content: {
-                    StoreView()
-                        .environmentObject(env)
-                        .environmentObject(store)
-                })
+                .sheet(
+                    isPresented: $env.subscriptionSheet,
+                    content: {
+                        StoreView()
+                            .environmentObject(env)
+                            .environmentObject(store)
+                    })
         }
-        .alert(isPresented: $env.error, content: {
-            Alert(title: Text("Error"), message: Text(env.errorMessage), dismissButton: .cancel())
-        })
+        .alert(
+            isPresented: $env.error,
+            content: {
+                Alert(
+                    title: Text("Error"), message: Text(env.errorMessage), dismissButton: .cancel())
+            })
     }
 }
 
@@ -39,7 +44,7 @@ struct NavigationHostView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var data: ConstantProvider
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
+
     var body: some View {
         if horizontalSizeClass == .compact {
             TabView(selection: $env.selectedTab) {
@@ -51,7 +56,7 @@ struct NavigationHostView: View {
                     Text("Home")
                 }
                 .tag(TabSelection.home)
-                
+
                 D2ANavigationStack {
                     HeroListView()
                 }
@@ -60,7 +65,7 @@ struct NavigationHostView: View {
                     Text("Heroes")
                 }
                 .tag(TabSelection.hero)
-                
+
                 D2ANavigationStack {
                     LiveMatchListView()
                 }
@@ -69,7 +74,7 @@ struct NavigationHostView: View {
                     Text("Live")
                 }
                 .tag(TabSelection.live)
-                
+
                 D2ANavigationStack {
                     SearchView()
                 }
@@ -78,7 +83,7 @@ struct NavigationHostView: View {
                     Text("Search")
                 }
                 .tag(TabSelection.search)
-                
+
                 D2ANavigationStack {
                     AboutUsView()
                 }

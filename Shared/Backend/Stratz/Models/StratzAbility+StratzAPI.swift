@@ -10,15 +10,17 @@ import StratzAPI
 extension StratzAbility {
     init?(ability: AbilityQuery.Data.Constants.Ability?) {
         guard let ability, let id = ability.id else {
-            logWarn("\(String(describing: ability?.id)) has something error, Please check", category: .stratz)
+            logWarn(
+                "\(String(describing: ability?.id)) has something error, Please check",
+                category: .stratz)
             return nil
         }
-        
+
         guard let name = ability.name else {
             logDebug("Ability \(id) doesn't have name", category: .stratz)
             return nil
         }
-        
+
         self.id = Int(id)
         self.name = name
         language = Language(language: ability.language)
@@ -44,8 +46,9 @@ extension StratzAbility.Language {
 extension StratzAbility.Attribute {
     init?(attribute: AbilityQuery.Data.Constants.Ability.Attribute?) {
         guard let attribute,
-              let name = attribute.name,
-              let value = attribute.value else {
+            let name = attribute.name,
+            let value = attribute.value
+        else {
             return nil
         }
         self.name = name

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct AttributesSectionView: View {
-    
+
     let hero: Hero
     let level: Int
-    
+
     var body: some View {
         VStack(spacing: 0) {
             SectionTitle(title: "Attribute")

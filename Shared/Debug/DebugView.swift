@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct DebugView: View {
-    
+
     @EnvironmentObject var logger: D2ALogger
-    
+
     var body: some View {
         List {
             Slider(value: $logger.logging, in: 0...2, step: 1) {

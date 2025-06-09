@@ -14,16 +14,16 @@ enum D2AServiceCategory: String {
 }
 
 enum LoggingLevel: Int {
-     case debug, warn, error
+    case debug, warn, error
 
-     var icon: String {
-         switch self {
-         case .debug:
-             "📝"
-         case .warn:
-             "⚠️"
-         case .error:
-             "❌"
-         }
-     }
- }
+    var icon: String {
+        switch self {
+        case .debug:
+            "📝"
+        case .warn:
+            "⚠️"
+        case .error:
+            "❌"
+        }
+    }
+}

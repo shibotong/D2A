@@ -11,7 +11,7 @@ struct HeroDetailView: View {
     @StateObject var vm: HeroDetailViewModel
     @Environment(\.horizontalSizeClass) var horizontal
     @State private var heroLevel = 1.00
-    
+
     var body: some View {
         ZStack {
             if let hero = vm.hero {
@@ -51,7 +51,7 @@ struct HeroDetailView: View {
             }
         }
     }
-    
+
     private var levelSlider: some View {
         Slider(value: $heroLevel, in: 1...30, step: 1) {
             Text("Level \(Int(heroLevel))")
@@ -61,7 +61,7 @@ struct HeroDetailView: View {
             Text("30")
         }
     }
-    
+
     @ViewBuilder private func buildMainBody(hero: Hero) -> some View {
         if horizontal == .compact {
             buildCompactBody(hero: hero)
@@ -69,7 +69,7 @@ struct HeroDetailView: View {
             buildRegularBody(hero: hero)
         }
     }
-    
+
     @ViewBuilder private func buildRegularBody(hero: Hero) -> some View {
         VStack(spacing: 0) {
             buildTitle(hero: hero)
@@ -91,12 +91,13 @@ struct HeroDetailView: View {
                 }
                 Divider()
                 if let selectedAbility = vm.selectedAbility {
-                    AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: selectedAbility))
+                    AbilityView(
+                        viewModel: AbilityViewModel(heroID: vm.heroID, ability: selectedAbility))
                 }
             }
         }
     }
-    
+
     @ViewBuilder private func buildCompactBody(hero: Hero) -> some View {
         ScrollView {
             buildTitle(hero: hero)
@@ -107,34 +108,41 @@ struct HeroDetailView: View {
             buildHeroDetails(hero: hero)
         }.navigationTitle(hero.heroNameLocalized)
     }
-    
+
     @ViewBuilder private func buildTitle(hero: Hero) -> some View {
         if horizontal == .compact {
             HeroImageView(heroID: Int(hero.id), type: .full)
                 .overlay(
-                    LinearGradient(colors: [Color(.black).opacity(0),
-                                            Color(.black).opacity(1)],
-                                   startPoint: .top,
-                                   endPoint: .bottom))
-                .overlay(HStack {
-                    VStack(alignment: .leading, spacing: 3) {
-                        Spacer()
-                        HStack {
-                            AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr ?? ""))
-                                .frame(width: 25, height: 25)
-                            Text(LocalizedStringKey(hero.displayName ?? ""))
-                                .font(.system(size: 30))
-                                .bold()
-                                .foregroundColor(.white)
-                            Text("\(Int(hero.id))")
-                                .font(.caption2)
-                                .foregroundColor(.white.opacity(0.5))
+                    LinearGradient(
+                        colors: [
+                            Color(.black).opacity(0),
+                            Color(.black).opacity(1),
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom)
+                )
+                .overlay(
+                    HStack {
+                        VStack(alignment: .leading, spacing: 3) {
                             Spacer()
-                            buildComplexity(hero.complexity)
+                            HStack {
+                                AttributeImage(
+                                    attribute: HeroAttribute(rawValue: hero.primaryAttr ?? "")
+                                )
+                                .frame(width: 25, height: 25)
+                                Text(LocalizedStringKey(hero.displayName ?? ""))
+                                    .font(.system(size: 30))
+                                    .bold()
+                                    .foregroundColor(.white)
+                                Text("\(Int(hero.id))")
+                                    .font(.caption2)
+                                    .foregroundColor(.white.opacity(0.5))
+                                Spacer()
+                                buildComplexity(hero.complexity)
+                            }
                         }
-                    }
-                    Spacer()
-                }.padding(.leading))
+                        Spacer()
+                    }.padding(.leading))
         } else {
             HStack {
                 HeroImageView(heroID: Int(hero.id), type: .full)
@@ -155,7 +163,7 @@ struct HeroDetailView: View {
             .background(Color.secondarySystemBackground)
         }
     }
-    
+
     @ViewBuilder private func buildComplexity(_ heroComplexity: Int16) -> some View {
         let color: Color = horizontal == .compact ? .white : .label
         HStack {
@@ -175,31 +183,40 @@ struct HeroDetailView: View {
             }
         }
     }
-    
+
     @ViewBuilder private func buildAbilities(navigation: Bool) -> some View {
         HStack {
             ForEach(vm.abilities) { ability in
                 if navigation {
-                    NavigationLink(destination: AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: ability))) {
-                        AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
-                            .frame(width: 30, height: 30)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                            .accessibilityIdentifier(ability.name ?? "")
+                    NavigationLink(
+                        destination: AbilityView(
+                            viewModel: AbilityViewModel(heroID: vm.heroID, ability: ability))
+                    ) {
+                        AbilityImage(
+                            viewModel: AbilityImageViewModel(
+                                name: ability.name, urlString: ability.imageURL)
+                        )
+                        .frame(width: 30, height: 30)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .accessibilityIdentifier(ability.name ?? "")
                     }
                 } else {
                     Button {
                         vm.selectedAbility = ability
                     } label: {
-                        AbilityImage(viewModel: AbilityImageViewModel(name: ability.name, urlString: ability.imageURL))
-                            .frame(width: 30, height: 30)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                        AbilityImage(
+                            viewModel: AbilityImageViewModel(
+                                name: ability.name, urlString: ability.imageURL)
+                        )
+                        .frame(width: 30, height: 30)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                     }.accessibilityIdentifier(ability.name ?? "")
                 }
             }
         }
         .padding(10)
     }
-    
+
     @ViewBuilder private func buildHeroDetails(hero: Hero) -> some View {
         VStack {
             AttributesSectionView(hero: hero, level: Int(heroLevel))
@@ -215,7 +232,7 @@ struct HeroDetailView: View {
             }
         }
     }
-    
+
     @ViewBuilder private func buildTalent(talent: [Talent]) -> some View {
         VStack {
             HStack {
@@ -233,7 +250,7 @@ struct HeroDetailView: View {
             buildLevelTalent(talent: talent, level: 1)
         }
     }
-    
+
     @ViewBuilder private func buildLevelTalent(talent: [Talent], level: Int) -> some View {
         GeometryReader { proxy in
             HStack(spacing: 5) {
@@ -264,7 +281,7 @@ struct HeroDetailView: View {
         .frame(height: 30)
         .padding(.horizontal)
     }
-    
+
     @ViewBuilder private func buildRoles(roles: [Role]) -> some View {
         VStack {
             HStack {
@@ -299,12 +316,12 @@ struct HeroDetailView: View {
             .frame(height: 120)
         }
     }
-    
+
     @ViewBuilder private func buildRole(role: String, roles: [Role]) -> some View {
         let filterdRole = roles.first { $0.roleId == role.uppercased() }
         RoleView(title: role, level: filterdRole?.level ?? 0.0)
     }
-    
+
     @ViewBuilder private func buildStats(hero: Hero) -> some View {
         VStack {
             HStack {
@@ -318,17 +335,23 @@ struct HeroDetailView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Attack")
                         .font(.system(size: 15))
-                    buildStatDetail(image: "icon_damage",
-                                    value: "\(hero.calculateAttackByLevel(level: heroLevel, isMin: true))-\(hero.calculateAttackByLevel(level: heroLevel, isMin: false))")
+                    buildStatDetail(
+                        image: "icon_damage",
+                        value:
+                            "\(hero.calculateAttackByLevel(level: heroLevel, isMin: true))-\(hero.calculateAttackByLevel(level: heroLevel, isMin: false))"
+                    )
                     buildStatDetail(image: "icon_attack_time", value: "\(hero.attackRate)")
                     buildStatDetail(image: "icon_attack_range", value: "\(hero.attackRange)")
-                    buildStatDetail(image: "icon_projectile_speed", value: "\(hero.projectileSpeed)")
+                    buildStatDetail(
+                        image: "icon_projectile_speed", value: "\(hero.projectileSpeed)")
                 }
                 Spacer()
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Defense")
                         .font(.system(size: 15))
-                    buildStatDetail(image: "icon_armor", value: String(format: "%.1f", hero.calculateArmorByLevel(level: heroLevel)))
+                    buildStatDetail(
+                        image: "icon_armor",
+                        value: String(format: "%.1f", hero.calculateArmorByLevel(level: heroLevel)))
                     buildStatDetail(image: "icon_magic_resist", value: "\(hero.baseMr)%")
                 }
                 Spacer()
@@ -337,13 +360,15 @@ struct HeroDetailView: View {
                         .font(.system(size: 15))
                     buildStatDetail(image: "icon_movement_speed", value: "\(hero.moveSpeed)")
                     buildStatDetail(image: "icon_turn_rate", value: "\(hero.turnRate)")
-                    buildStatDetail(image: "icon_vision", value: "\(Int(hero.visionDaytimeRange))/\(Int(hero.visionNighttimeRange))")
+                    buildStatDetail(
+                        image: "icon_vision",
+                        value: "\(Int(hero.visionDaytimeRange))/\(Int(hero.visionNighttimeRange))")
                 }
                 Spacer()
             }
         }
     }
-    
+
     @ViewBuilder private func buildStatDetail(image: String, value: String) -> some View {
         HStack {
             Image(image)
@@ -365,7 +390,7 @@ struct HeroDetailView_Previews: PreviewProvider {
                     .environment(\.horizontalSizeClass, .regular)
             }
             .previewDevice(.iPhone)
-            
+
             NavigationView {
                 EmptyView()
                 HeroDetailView(vm: HeroDetailViewModel(heroID: 1))

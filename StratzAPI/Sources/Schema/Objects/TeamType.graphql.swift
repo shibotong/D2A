@@ -3,9 +3,9 @@
 
 import ApolloAPI
 
-public extension Objects {
-  static let TeamType = Object(
-    typename: "TeamType",
-    implementedInterfaces: []
-  )
+extension Objects {
+    public static let TeamType = Object(
+        typename: "TeamType",
+        implementedInterfaces: []
+    )
 }
