@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -352,6 +352,7 @@
 		79A989202931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79A989212931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79ABE8FA2A35C3CF00EE9EF9 /* LiveMatchDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */; };
+		79B11E7C2DF698B80091A935 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79B11E7B2DF698B80091A935 /* StratzAPI */; };
 		79B870992DC38A150090CAB8 /* StratzController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870972DC38A150090CAB8 /* StratzController.swift */; };
 		79B8709A2DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870952DC38A150090CAB8 /* StratzAbility+StratzAPI.swift */; };
 		79B8709B2DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870942DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift */; };
@@ -756,6 +757,7 @@
 				79266DA42A31B078002FEF0F /* ApolloWebSocket in Frameworks */,
 				790FBB2429C186AE00E27106 /* Apollo in Frameworks */,
 				79EA36D32DE9B3F800DFC2BA /* StratzAPI in Frameworks */,
+				79B11E7C2DF698B80091A935 /* StratzAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1514,6 +1516,7 @@
 				790FBB2329C186AE00E27106 /* Apollo */,
 				79266DA32A31B078002FEF0F /* ApolloWebSocket */,
 				79EA36D22DE9B3F800DFC2BA /* StratzAPI */,
+				79B11E7B2DF698B80091A935 /* StratzAPI */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* D2A.app */;
@@ -1666,6 +1669,7 @@
 			mainGroup = 32B36F0226C38821002D427D;
 			packageReferences = (
 				790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				79B11E7A2DF698B80091A935 /* XCLocalSwiftPackageReference "StratzAPI" */,
 			);
 			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
 			projectDirPath = "";
@@ -2829,6 +2833,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		79B11E7A2DF698B80091A935 /* XCLocalSwiftPackageReference "StratzAPI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = StratzAPI;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -2865,6 +2876,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloWebSocket;
+		};
+		79B11E7B2DF698B80091A935 /* StratzAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StratzAPI;
 		};
 		79D1043629E2991E00BC04B3 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
