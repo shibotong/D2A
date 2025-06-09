@@ -113,8 +113,7 @@ struct AboutUsView: View {
         }
     }
 
-    private func makeDetailRow(image: String, text: LocalizedStringKey, detail: String) -> some View
-    {
+    private func makeDetailRow(image: String, text: LocalizedStringKey, detail: String) -> some View {
         HStack {
             Image(systemName: image)
                 .imageScale(.medium)

@@ -7,7 +7,11 @@
 
 import Foundation
 
-class D2ANetwork {
+protocol D2ANetworking {
+    func dataTask<T: Decodable>(_ urlString: String, as type: T.Type) async throws -> T
+}
+
+class D2ANetwork: D2ANetworking {
     static let `default` = D2ANetwork()
 
     func dataTask<T: Decodable>(_ urlString: String, as type: T.Type) async throws -> T {

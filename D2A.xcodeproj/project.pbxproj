@@ -353,6 +353,7 @@
 		79ABE8FA2A35C3CF00EE9EF9 /* LiveMatchDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */; };
 		79B11E742DF695740091A935 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79B11E732DF695740091A935 /* StratzAPI */; };
 		79B11E772DF6959B0091A935 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79B11E762DF6959B0091A935 /* StratzAPI */; };
+		79B551842DF6906E001CA42B /* OpenDotaConstantsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B551832DF6906E001CA42B /* OpenDotaConstantsTests.swift */; };
 		79B870992DC38A150090CAB8 /* StratzController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870972DC38A150090CAB8 /* StratzController.swift */; };
 		79B8709A2DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870952DC38A150090CAB8 /* StratzAbility+StratzAPI.swift */; };
 		79B8709B2DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870942DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift */; };
@@ -700,6 +701,7 @@
 		79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchDraftView.swift; sourceTree = "<group>"; };
 		79B1630228DD5A29009B2AE2 /* Ability.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Ability.graphql; sourceTree = "<group>"; };
 		79B1630328DD5A31009B2AE2 /* Hero.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hero.graphql; sourceTree = "<group>"; };
+		79B551832DF6906E001CA42B /* OpenDotaConstantsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantsTests.swift; sourceTree = "<group>"; };
 		79B870932DC38A150090CAB8 /* StratzAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratzAbility.swift; sourceTree = "<group>"; };
 		79B870942DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StratzAbility+Language+Attribute.swift"; sourceTree = "<group>"; };
 		79B870952DC38A150090CAB8 /* StratzAbility+StratzAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StratzAbility+StratzAPI.swift"; sourceTree = "<group>"; };
@@ -883,6 +885,7 @@
 		3289579A27F6609B00BA9847 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				79B551852DF69073001CA42B /* OpenDota */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -1318,6 +1321,14 @@
 				79D5280D28DD5D990070841D /* Network.swift */,
 			);
 			path = GraphQL;
+			sourceTree = "<group>";
+		};
+		79B551852DF69073001CA42B /* OpenDota */ = {
+			isa = PBXGroup;
+			children = (
+				79B551832DF6906E001CA42B /* OpenDotaConstantsTests.swift */,
+			);
+			path = OpenDota;
 			sourceTree = "<group>";
 		};
 		79B870962DC38A150090CAB8 /* Models */ = {
@@ -1852,6 +1863,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
+				79B551842DF6906E001CA42B /* OpenDotaConstantsTests.swift in Sources */,
 				79CF375C2DC0F8F800207CB8 /* D2AError.swift in Sources */,
 				79EB3EFA2DC4B5D8008C4F6D /* PersistanceModel.swift in Sources */,
 			);

@@ -13,8 +13,7 @@ struct AnalysisView: View {
 
     private let selections: [AnalysisType]
 
-    init(players: [PlayerRowViewModel], selections: [AnalysisType] = [.heroDamage, .golds, .kills])
-    {
+    init(players: [PlayerRowViewModel], selections: [AnalysisType] = [.heroDamage, .golds, .kills]) {
         self.viewModel = AnalysisViewModel(player: players)
         self.selections = selections
     }
