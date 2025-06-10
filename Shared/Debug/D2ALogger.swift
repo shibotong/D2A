@@ -70,7 +70,7 @@ class D2ALogger: ObservableObject {
             let fileName = file.components(separatedBy: "/").last ?? file
 
             print(
-                "\(level.icon) [\(category.rawValue)] [\(fileName): \(line) \(function)]: \(message)"
+                "\(level.icon) [\(category.rawValue)] [\(fileName):\(line)]: \(message)"
             )
         #endif
     }
