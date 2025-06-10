@@ -66,8 +66,8 @@ class PersistanceProvider: PersistanceProviding {
             try FileManager.default.removeItem(at: storeURL)
             loadContainer()
         } catch {
-            DotaEnvironment.shared.error = true
-            DotaEnvironment.shared.errorMessage =
+            EnvironmentController.shared.error = true
+            EnvironmentController.shared.errorMessage =
                 "There are some problems with the App. Please delete and reinstall."
         }
     }

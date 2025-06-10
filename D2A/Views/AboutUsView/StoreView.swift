@@ -10,7 +10,7 @@ import StoreKit
 import SwiftUI
 
 struct StoreView: View {
-    @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var env: EnvironmentController
     @EnvironmentObject var storeManager: StoreManager
     var body: some View {
         VStack(spacing: 0) {
@@ -127,7 +127,7 @@ struct StoreView: View {
 struct SubscriptionView_Previews: PreviewProvider {
     static var previews: some View {
         StoreView()
-            .environmentObject(DotaEnvironment.shared)
+            .environmentObject(EnvironmentController.shared)
             .environmentObject(StoreManager.shared)
     }
 }

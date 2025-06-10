@@ -9,7 +9,7 @@ import StoreKit
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var env: EnvironmentController
     @EnvironmentObject var data: ConstantsController
     @EnvironmentObject var store: StoreManager
     var body: some View {
@@ -35,13 +35,13 @@ struct ContentView: View {
 // struct ContentView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        ContentView()
-//            .environmentObject(DotaEnvironment.shared)
+//            .environmentObject(EnvironmentController.shared)
 //            .environmentObject(ConstantsController.preview)
 //    }
 // }
 
 struct NavigationHostView: View {
-    @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var env: EnvironmentController
     @EnvironmentObject var data: ConstantsController
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 

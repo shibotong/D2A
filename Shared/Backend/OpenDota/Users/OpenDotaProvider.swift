@@ -68,7 +68,7 @@ class OpenDotaProvider: OpenDotaProviding {
     }
 
     func loadRecentMatch(userid: String) async {
-        guard DotaEnvironment.shared.canRefresh(userid: userid) else {
+        guard EnvironmentController.shared.canRefresh(userid: userid) else {
             return
         }
         let latestMatches = RecentMatch.fetch(userID: userid, count: 1)

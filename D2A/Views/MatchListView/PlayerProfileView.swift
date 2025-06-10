@@ -9,7 +9,7 @@ import CoreData
 import SwiftUI
 
 struct PlayerProfileView: View {
-    @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var env: EnvironmentController
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.managedObjectContext) var viewContext
     @State private var isSharePresented: Bool = false
