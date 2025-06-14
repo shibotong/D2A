@@ -12,6 +12,8 @@ class FileController: ObservableObject {
     
     static let shared = FileController()
     
+    static let preview = FileController(imageProvider: MockImageProvider())
+    
     private let imageProvider: ImageProviding
     
     init(imageProvider: ImageProviding = ImageProvider.shared) {
