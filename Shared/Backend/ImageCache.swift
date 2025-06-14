@@ -74,6 +74,31 @@ class PreviewImageProvider: ImageProviding {
     }
 }
 
+class MockImageProvider: ImageProviding {
+    func loadImage(type: ImageCacheType, id: String, fileExtension: String, url: String) async -> UIImage? {
+        return loadImage(type: type)
+    }
+    
+    func localImage(type: ImageCacheType, id: String, fileExtension: String) -> UIImage? {
+        return loadImage(type: type)
+    }
+    
+    private func loadImage(type: ImageCacheType) -> UIImage {
+        switch type {
+        case .item:
+            return UIImage(named: "preview_item")!
+        case .avatar:
+            return UIImage(named: "preview_avatar")!
+        case .ability:
+            return UIImage(named: "preview_ability")!
+        case .teamIcon:
+            return UIImage(named: "preview_avatar")!
+        case .league:
+            return UIImage(named: "preview_league")!
+        }
+    }
+}
+
 class ImageCache: ObservableObject {
     
     static func readImage(
