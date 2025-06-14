@@ -9,6 +9,9 @@ import Foundation
 import UIKit
 
 class FileController: ObservableObject {
+    
+    static let shared = FileController()
+    
     private let imageProvider: ImageProviding
     
     init(imageProvider: ImageProviding = ImageProvider.shared) {
@@ -18,5 +21,9 @@ class FileController: ObservableObject {
     func loadImage(type: ImageCacheType, id: String, fileExtension: String, url: String) async -> UIImage? {
         let image = await imageProvider.loadImage(type: type, id: id, fileExtension: fileExtension, url: url)
         return image
+    }
+    
+    func localImage(type: ImageCacheType, id: String, fileExtension: String) -> UIImage? {
+        return imageProvider.localImage(type: type, id: id, fileExtension: fileExtension)
     }
 }

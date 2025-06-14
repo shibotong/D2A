@@ -18,6 +18,7 @@ enum ImageCacheType: String {
 
 protocol ImageProviding {
     func loadImage(type: ImageCacheType, id: String, fileExtension: String, url: String) async -> UIImage?
+    func localImage(type: ImageCacheType, id: String, fileExtension: String) -> UIImage?
 }
 
 class ImageProvider: ImageProviding {
@@ -33,6 +34,10 @@ class ImageProvider: ImageProviding {
         }
         ImageCache.saveImage(remoteImage, type: type, id: id, fileExtension: fileExtension)
         return remoteImage
+    }
+    
+    func localImage(type: ImageCacheType, id: String, fileExtension: String) -> UIImage? {
+        return ImageCache.readImage(type: type, id: id, fileExtension: fileExtension)
     }
 }
 
