@@ -25,28 +25,48 @@ struct HeroImageView: View {
     }
 
     var body: some View {
-        if type == .icon || type == .full || type == .vert {
-            if heroID == 0 && type == .icon {
-                Circle()
-                    .foregroundColor(Color.label.opacity(0.3))
-            } else {
-                Image(searchHeroImage())
+        Group {
+            if let image {
+                Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-            }
-        } else {
-            AsyncImage(url: computeURL()) { phase in
-                if let image = phase.image {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)  // Displays the loaded image.
-                } else if phase.error != nil {
-                    ProgressView()  // Indicates an error.
-                } else {
-                    ProgressView()  // Acts as a placeholder.
-                }
+            } else {
+                ProgressView()
             }
         }
+        .task {
+            await loadImage()
+        }
+        
+//        if type == .icon || type == .full || type == .vert {
+//            if heroID == 0 && type == .icon {
+//                Circle()
+//                    .foregroundColor(Color.label.opacity(0.3))
+//            } else {
+//                Image(searchHeroImage())
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fit)
+//            }
+//        } else {
+//            AsyncImage(url: computeURL()) { phase in
+//                if let image = phase.image {
+//                    image
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)  // Displays the loaded image.
+//                } else if phase.error != nil {
+//                    ProgressView()  // Indicates an error.
+//                } else {
+//                    ProgressView()  // Acts as a placeholder.
+//                }
+//            }
+//        }
+    }
+    
+    @MainActor
+    private func loadImage() async {
+        let heroImageID = searchHeroImage()
+        let image = await fileController.loadImage(type: .hero, id: heroImageID, fileExtension: .png, url: computeURLString())
+        self.image = image
     }
 
     private func searchHeroImage() -> String {
@@ -63,6 +83,23 @@ struct HeroImageView: View {
         case .vert:
             let filename = "\(heroID.description)_vert"
             return filename
+        }
+    }
+    
+    private func computeURLString() -> String {
+        guard let hero = try? heroData.fetchHeroWithID(id: heroID) else {
+            return ""
+        }
+        let name = hero.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
+        switch type {
+        case .icon:
+            return "https://api.opendota.com\(hero.icon)"
+        case .portrait:
+            return "\(IMAGE_PREFIX)/apps/dota2/videos/dota_react/heroes/renders/\(name).png"
+        case .full:
+            return "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/\(name).png"
+        case .vert:
+            return ""
         }
     }
 

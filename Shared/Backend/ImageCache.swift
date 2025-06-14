@@ -14,39 +14,40 @@ enum ImageCacheType: String {
     case ability
     case teamIcon
     case league
+    case hero
 }
 
 protocol ImageProviding {
-    func loadImage(type: ImageCacheType, id: String, fileExtension: String, url: String) async -> UIImage?
-    func localImage(type: ImageCacheType, id: String, fileExtension: String) -> UIImage?
+    func loadImage(type: ImageCacheType, id: String, fileExtension: ImageExtension, url: String) async -> UIImage?
+    func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension) -> UIImage?
 }
 
 class ImageProvider: ImageProviding {
     static let shared = ImageProvider()
     
-    func loadImage(type: ImageCacheType, id: String, fileExtension: String, url: String) async -> UIImage? {
-        if let savedImage = ImageCache.readImage(type: type, id: id, fileExtension: fileExtension) {
+    func loadImage(type: ImageCacheType, id: String, fileExtension: ImageExtension, url: String) async -> UIImage? {
+        if let savedImage = ImageCache.readImage(type: type, id: id, fileExtension: fileExtension.rawValue) {
             return savedImage
         }
         
         guard let remoteImage = await ImageCache.loadImage(urlString: url) else {
             return nil
         }
-        ImageCache.saveImage(remoteImage, type: type, id: id, fileExtension: fileExtension)
+        ImageCache.saveImage(remoteImage, type: type, id: id, fileExtension: fileExtension.rawValue)
         return remoteImage
     }
     
-    func localImage(type: ImageCacheType, id: String, fileExtension: String) -> UIImage? {
-        return ImageCache.readImage(type: type, id: id, fileExtension: fileExtension)
+    func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension) -> UIImage? {
+        return ImageCache.readImage(type: type, id: id, fileExtension: fileExtension.rawValue)
     }
 }
 
 class MockImageProvider: ImageProviding {
-    func loadImage(type: ImageCacheType, id: String, fileExtension: String, url: String) async -> UIImage? {
+    func loadImage(type: ImageCacheType, id: String, fileExtension: ImageExtension, url: String) async -> UIImage? {
         return loadImage(type: type)
     }
     
-    func localImage(type: ImageCacheType, id: String, fileExtension: String) -> UIImage? {
+    func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension) -> UIImage? {
         return loadImage(type: type)
     }
     
@@ -62,6 +63,8 @@ class MockImageProvider: ImageProviding {
             return UIImage(named: "preview_avatar")!
         case .league:
             return UIImage(named: "preview_league")!
+        case .hero:
+            return UIImage(named: "")!
         }
     }
 }

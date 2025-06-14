@@ -20,12 +20,12 @@ class FileController: ObservableObject {
         self.imageProvider = imageProvider
     }
     
-    func loadImage(type: ImageCacheType, id: String, fileExtension: String, url: String) async -> UIImage? {
+    func loadImage(type: ImageCacheType, id: String, fileExtension: ImageExtension, url: String) async -> UIImage? {
         let image = await imageProvider.loadImage(type: type, id: id, fileExtension: fileExtension, url: url)
         return image
     }
     
-    func localImage(type: ImageCacheType, id: String, fileExtension: String) -> UIImage? {
+    func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension) -> UIImage? {
         return imageProvider.localImage(type: type, id: id, fileExtension: fileExtension)
     }
 }
