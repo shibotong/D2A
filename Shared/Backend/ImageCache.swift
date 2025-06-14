@@ -16,6 +16,26 @@ enum ImageCacheType: String {
     case league
 }
 
+protocol ImageProviding {
+    func loadImage(type: ImageCacheType, id: String, fileExtension: String, url: String) async -> UIImage?
+}
+
+class ImageProvider: ImageProviding {
+    static let shared = ImageProvider()
+    
+    func loadImage(type: ImageCacheType, id: String, fileExtension: String, url: String) async -> UIImage? {
+        if let savedImage = ImageCache.readImage(type: type, id: id, fileExtension: fileExtension) {
+            return savedImage
+        }
+        
+        guard let remoteImage = await ImageCache.loadImage(urlString: url) else {
+            return nil
+        }
+        ImageCache.saveImage(remoteImage, type: type, id: id, fileExtension: fileExtension)
+        return remoteImage
+    }
+}
+
 class ImageCache: ObservableObject {
 
     static func readImage(
