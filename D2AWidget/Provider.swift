@@ -36,7 +36,7 @@ struct Provider: IntentTimelineProvider {
 
         // Use matches on device to load snapshot
         let matches = RecentMatch.fetch(userID: userID, count: 10)
-        let userAvatar = ImageCache.readImage(type: .avatar, id: userID)
+        let userAvatar = ImageProvider.shared.localImage(type: .avatar, id: userID)
 
         let user = D2AWidgetUser(profile, image: userAvatar, matches: matches)
         let entry = D2AWidgetUserEntry(date: Date(), user: user, subscription: true)
@@ -66,7 +66,7 @@ struct Provider: IntentTimelineProvider {
                 profile = await refreshUser(for: userID) ?? selectedProfile
             }
 
-            var image = ImageCache.readImage(type: .avatar, id: userID)
+            var image = ImageProvider.shared.localImage(type: .avatar, id: userID)
 
             if let urlString = profile.avatarfull, image == nil,
                 let newImage = await ImageCache.loadImage(urlString: urlString)

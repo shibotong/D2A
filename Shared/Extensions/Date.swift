@@ -31,4 +31,21 @@ extension Date {
     var isToday: Bool {
         return self.startOfDay == Date().startOfDay
     }
+    
+    func addComponent(year: Int = 0, month: Int = 0, day: Int = 0, hour: Int = 0, minute: Int = 0, second: Int = 0) -> Date! {
+        var dateComponent = DateComponents()
+        dateComponent.year = year
+        dateComponent.month = month
+        dateComponent.day = day
+        dateComponent.hour = hour
+        dateComponent.minute = minute
+        dateComponent.second = second
+        return Calendar.current.date(byAdding: dateComponent, to: self)
+    }
+
+    func addOneDay(to date: Date) -> Date? {
+        var dateComponent = DateComponents()
+        dateComponent.day = 1
+        return Calendar.current.date(byAdding: dateComponent, to: date)
+    }
 }

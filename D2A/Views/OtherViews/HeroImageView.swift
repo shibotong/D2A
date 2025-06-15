@@ -65,8 +65,9 @@ struct HeroImageView: View {
     @MainActor
     private func loadImage() async {
         let heroImageID = searchHeroImage()
-        let image = await fileController.loadImage(type: .hero, id: heroImageID, fileExtension: .png, url: computeURLString())
-        self.image = image
+        await fileController.refreshImage(type: .hero, id: heroImageID, fileExtension: .png, url: computeURLString()) { localImage in
+            self.image = localImage
+        }
     }
 
     private func searchHeroImage() -> String {

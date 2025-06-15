@@ -12,17 +12,38 @@ class FileController: ObservableObject {
     
     static let shared = FileController()
     
-    static let preview = FileController(imageProvider: MockImageProvider())
+    static let preview = FileController(imageProvider: PreviewImageProvider())
     
     private let imageProvider: ImageProviding
+    private let userDefaults: UserDefaults
     
-    init(imageProvider: ImageProviding = ImageProvider.shared) {
+    init(imageProvider: ImageProviding = ImageProvider.shared,
+         userDefaults: UserDefaults = UserDefaults.group) {
         self.imageProvider = imageProvider
+        self.userDefaults = userDefaults
     }
     
-    func loadImage(type: ImageCacheType, id: String, fileExtension: ImageExtension, url: String) async -> UIImage? {
-        let image = await imageProvider.loadImage(type: type, id: id, fileExtension: fileExtension, url: url)
-        return image
+    func refreshImage(type: ImageCacheType, id: String, fileExtension: ImageExtension = .jpg, url: String, refreshTime: Date = Date(),
+                      imageHandler: (UIImage) -> Void) async {
+        if let localImage = imageProvider.localImage(type: type, id: id, fileExtension: fileExtension) {
+            imageHandler(localImage)
+        }
+        
+        let imageKey = "\(type.rawValue)_\(id)"
+        
+        if let savedDate = userDefaults.object(forKey: imageKey) as? Date, !imageNeedsRefresh(lastDate: savedDate, currentDate: refreshTime) {
+            return
+        }
+        guard let remoteImage = await imageProvider.remoteImage(type: type, id: id, fileExtension: fileExtension, url: url) else {
+            return
+        }
+        imageProvider.saveImage(image: remoteImage, type: type, id: id, fileExtension: fileExtension)
+        userDefaults.set(Date(), forKey: imageKey)
+        imageHandler(remoteImage)
+    }
+    
+    private func imageNeedsRefresh(lastDate: Date, currentDate: Date = Date()) -> Bool {
+        return lastDate.startOfDay < currentDate.startOfDay
     }
     
     func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension) -> UIImage? {

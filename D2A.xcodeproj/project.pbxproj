@@ -413,6 +413,7 @@
 		79E89A462DFD2BF600497B5D /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A442DFD2BF600497B5D /* ImageExtension.swift */; };
 		79E89A472DFD2BF600497B5D /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A442DFD2BF600497B5D /* ImageExtension.swift */; };
 		79E89A482DFD2BF600497B5D /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A442DFD2BF600497B5D /* ImageExtension.swift */; };
+		79E89A4B2DFD366900497B5D /* FileControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A4A2DFD366900497B5D /* FileControllerTests.swift */; };
 		79EA36D52DE9B3FE00DFC2BA /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79EA36D42DE9B3FE00DFC2BA /* StratzAPI */; };
 		79EA36D72DE9B40200DFC2BA /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79EA36D62DE9B40200DFC2BA /* StratzAPI */; };
 		79EB3EEC2DC4ACA0008C4F6D /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E7EA28E53919007A43AF /* Hero.swift */; };
@@ -724,6 +725,7 @@
 		79E4AECF2DCB79CD008BBF6D /* D2ANavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ANavigationStack.swift; sourceTree = "<group>"; };
 		79E89A392DFD272000497B5D /* FileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileController.swift; sourceTree = "<group>"; };
 		79E89A442DFD2BF600497B5D /* ImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
+		79E89A4A2DFD366900497B5D /* FileControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileControllerTests.swift; sourceTree = "<group>"; };
 		79EB3EF22DC4B0B4008C4F6D /* ODAbility+Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ODAbility+Attribute.swift"; sourceTree = "<group>"; };
 		79EB3EF62DC4B5D2008C4F6D /* PersistanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceModel.swift; sourceTree = "<group>"; };
 		79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
@@ -873,7 +875,7 @@
 		3289579A27F6609B00BA9847 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				79B551852DF69073001CA42B /* OpenDota */,
+				79E89A492DFD364D00497B5D /* Backend */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -1302,13 +1304,6 @@
 			path = GraphQL;
 			sourceTree = "<group>";
 		};
-		79B551852DF69073001CA42B /* OpenDota */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = OpenDota;
-			sourceTree = "<group>";
-		};
 		79B870962DC38A150090CAB8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1411,6 +1406,14 @@
 				7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */,
 			);
 			path = "UI Tests";
+			sourceTree = "<group>";
+		};
+		79E89A492DFD364D00497B5D /* Backend */ = {
+			isa = PBXGroup;
+			children = (
+				79E89A4A2DFD366900497B5D /* FileControllerTests.swift */,
+			);
+			path = Backend;
 			sourceTree = "<group>";
 		};
 		79EA36DF2DE9C31E00DFC2BA /* Constants */ = {
@@ -1813,6 +1816,7 @@
 			files = (
 				327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				79CF375C2DC0F8F800207CB8 /* D2AError.swift in Sources */,
+				79E89A4B2DFD366900497B5D /* FileControllerTests.swift in Sources */,
 				79EB3EFA2DC4B5D8008C4F6D /* PersistanceModel.swift in Sources */,
 				79E89A462DFD2BF600497B5D /* ImageExtension.swift in Sources */,
 			);
