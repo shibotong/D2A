@@ -97,17 +97,19 @@ extension Hero {
     static func fetchOne(predicate: NSPredicate, context: NSManagedObjectContext) -> Hero? {
         let request = Self.fetchRequest()
         request.predicate = predicate
-        do {
-            guard let result = try context.fetch(request).first else {
-                logError(
-                    "Failed to fetch Hero with predicate \(predicate.predicateFormat)",
-                    category: .coredata)
+        return context.performAndWait {
+            do {
+                guard let result = try context.fetch(request).first else {
+                    logError(
+                        "Failed to fetch Hero with predicate \(predicate.predicateFormat)",
+                        category: .coredata)
+                    return nil
+                }
+                return result
+            } catch {
+                logError("Failed to fetch Hero: \(error)", category: .coredata)
                 return nil
             }
-            return result
-        } catch {
-            logError("Failed to fetch Hero: \(error)", category: .coredata)
-            return nil
         }
     }
 

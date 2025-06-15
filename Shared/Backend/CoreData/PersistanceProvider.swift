@@ -176,7 +176,7 @@ class PersistanceProvider: PersistanceProviding {
                 continue
             }
             let abilityNames = heroAbility.abilities
-
+            
             if let currentAbilities = hero.abilities?.compactMap({ ($0 as? Ability) }) {
                 guard currentAbilities.compactMap(\.name) != abilityNames else {
                     continue
@@ -187,9 +187,9 @@ class PersistanceProvider: PersistanceProviding {
                     }
                 }
             }
-
+            
             let abilities = Ability.fetchByNames(names: abilityNames, context: context)
-
+            
             await context.perform {
                 for ability in abilities {
                     hero.addToAbilities(ability)

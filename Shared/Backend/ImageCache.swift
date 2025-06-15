@@ -18,7 +18,7 @@ enum ImageCacheType: String {
 }
 
 protocol ImageProviding {
-    func remoteImage(type: ImageCacheType, id: String, fileExtension: ImageExtension, url: String) async -> UIImage?
+    func remoteImage(url: String) async -> UIImage?
     func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension) -> UIImage?
     func saveImage(image: UIImage, type: ImageCacheType, id: String, fileExtension: ImageExtension)
 }
@@ -27,7 +27,7 @@ class ImageProvider: ImageProviding {
     
     static let shared = ImageProvider()
     
-    func remoteImage(type: ImageCacheType, id: String, fileExtension: ImageExtension = .jpg, url: String) async -> UIImage? {
+    func remoteImage(url: String) async -> UIImage? {
         guard let remoteImage = await ImageCache.loadImage(urlString: url) else {
             return nil
         }
@@ -44,8 +44,8 @@ class ImageProvider: ImageProviding {
 }
 
 class PreviewImageProvider: ImageProviding {
-    func remoteImage(type: ImageCacheType, id: String, fileExtension: ImageExtension, url: String) async -> UIImage? {
-        return loadImage(type: type)
+    func remoteImage(url: String) async -> UIImage? {
+        return loadImage()
     }
     
     func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension) -> UIImage? {
@@ -56,7 +56,7 @@ class PreviewImageProvider: ImageProviding {
         return
     }
     
-    private func loadImage(type: ImageCacheType) -> UIImage {
+    private func loadImage(type: ImageCacheType = .item) -> UIImage {
         switch type {
         case .item:
             return UIImage(named: "preview_item")!

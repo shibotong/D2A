@@ -34,7 +34,7 @@ class FileController: ObservableObject {
         if let savedDate = userDefaults.object(forKey: imageKey) as? Date, !imageNeedsRefresh(lastDate: savedDate, currentDate: refreshTime) {
             return
         }
-        guard let remoteImage = await imageProvider.remoteImage(type: type, id: id, fileExtension: fileExtension, url: url) else {
+        guard let remoteImage = await imageProvider.remoteImage(url: url) else {
             return
         }
         imageProvider.saveImage(image: remoteImage, type: type, id: id, fileExtension: fileExtension)

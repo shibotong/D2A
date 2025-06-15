@@ -14,7 +14,7 @@ class MockImageProvider: ImageProviding {
     var localImageCalled: Int = 0
     var saveImageCalled: Int = 0
     
-    func remoteImage(type: D2A.ImageCacheType, id: String, fileExtension: D2A.ImageExtension, url: String) async -> UIImage? {
+    func remoteImage(url: String) async -> UIImage? {
         remoteImageCalled += 1
         return UIImage()
     }
