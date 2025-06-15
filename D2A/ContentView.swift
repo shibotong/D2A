@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var env: EnvironmentController
-    @EnvironmentObject var data: ConstantsController
+    @EnvironmentObject var constants: ConstantsController
     @EnvironmentObject var store: StoreManager
     var body: some View {
         Group {

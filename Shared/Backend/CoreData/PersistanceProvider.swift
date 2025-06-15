@@ -12,6 +12,7 @@ protocol PersistanceProviding {
     func saveODAbilities(abilities: [ODAbility]) async
     func saveAbilitiesToHero(heroAbilities: [String: ODHeroAbilities]) async
     func saveGameModes(gameModes: [ODGameMode]) async
+    func saveODData(data: [PersistanceModel], type: NSManagedObject.Type) async
     
     func fetchGameMode(id: Int) -> GameMode?
 }
@@ -170,6 +171,15 @@ class PersistanceProvider: PersistanceProviding {
             await batchInsertData(abilities, into: Ability.entity(), context: context)
         }
     }
+    
+    func saveODData(data: [PersistanceModel], type: NSManagedObject.Type) async {
+        let context = container.newBackgroundContext()
+        if await hasData(for: type, context: context) {
+            await updateData(data: data, context: context)
+        } else {
+            await batchInsertData(data, into: type.entity(), context: context)
+        }
+    }
 
     func saveAbilitiesToHero(heroAbilities: [String: ODHeroAbilities]) async {
         let context = container.newBackgroundContext()
@@ -241,18 +251,14 @@ class PersistanceProvider: PersistanceProviding {
                     }
                     try context.save()
                 } catch {
-                    logError(
-                        "An error occured when updating data in Core Data \(error.localizedDescription)",
-                        category: .coredata)
+                    logError("An error occured when updating data in Core Data \(error.localizedDescription)", category: .coredata)
                 }
             }
         }
     }
 
     /// Check if there is any data saved in core data
-    private func hasData<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext)
-        async -> Bool
-    {
+    private func hasData<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) async -> Bool {
         let request = T.fetchRequest()
         request.fetchLimit = 1
         return await context.perform {
@@ -260,40 +266,30 @@ class PersistanceProvider: PersistanceProviding {
                 let count = try context.count(for: request)
                 return count > 0
             } catch {
-                logError("Cannot count number of heroes saved in Core Data", category: .coredata)
+                logError("Cannot count number of \(entity) saved in Core Data", category: .coredata)
                 return true
             }
         }
     }
 
-    private func batchInsertData<T: PersistanceModel, V: NSEntityDescription>(
-        _ data: [T], into entity: V, context: NSManagedObjectContext
-    ) async {
-        let insertRequest = NSBatchInsertRequest(
-            entity: entity, objects: data.map { $0.dictionaries })
+    private func batchInsertData(_ data: [PersistanceModel], into entity: NSEntityDescription, context: NSManagedObjectContext) async {
+        let insertRequest = NSBatchInsertRequest(entity: entity, objects: data.map { $0.dictionaries })
         insertRequest.resultType = .statusOnly
         await context.perform {
             do {
                 let fetchResult = try context.execute(insertRequest)
                 if let batchInsertResult = fetchResult as? NSBatchInsertResult,
-                    let success = batchInsertResult.result as? Bool
-                {
+                   let success = batchInsertResult.result as? Bool {
                     if !success {
-                        logError(
-                            "Failed to insert data in \(entity.name ?? "Unknown entity")",
-                            category: .coredata)
+                        logError("Failed to insert data in \(entity.name ?? "Unknown entity")", category: .coredata)
                     } else {
-                        logDebug(
-                            "Insert data in \(entity.name ?? "Unknown entity") success",
-                            category: .coredata)
+                        logDebug("Insert data in \(entity.name ?? "Unknown entity") success", category: .coredata)
                     }
                 } else {
                     logWarn("Cast NSBatchInsertResult failed", category: .coredata)
                 }
             } catch {
-                logError(
-                    "An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)",
-                    category: .coredata)
+                logError("An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)", category: .coredata)
             }
         }
     }
