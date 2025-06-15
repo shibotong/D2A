@@ -80,7 +80,7 @@ struct RegisteredPlayerView: View {
 
 struct EmptyRegistedView: View {
     @State var searchText: String = ""
-    @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var env: EnvironmentController
     @Environment(\.managedObjectContext) private var viewContext
 
     @State var loading = false

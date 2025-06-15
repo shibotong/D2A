@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AboutUsView: View {
-    @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var env: EnvironmentController
     @EnvironmentObject var logger: D2ALogger
 
     #if DEBUG

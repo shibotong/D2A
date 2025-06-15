@@ -14,7 +14,7 @@ struct MatchListRowView: View {
     @ObservedObject var viewModel: MatchListRowViewModel
 
     private var isCompact: Bool {
-        return horizontalClass == .compact || DotaEnvironment.isInWidget()
+        return horizontalClass == .compact || EnvironmentController.isInWidget()
     }
 
     private var headingView: some View {

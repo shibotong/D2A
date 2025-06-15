@@ -11,7 +11,7 @@ import SwiftUI
 
 @main
 struct D2AApp: App {
-    @StateObject var environment: DotaEnvironment = DotaEnvironment.shared
+    @StateObject var environment: EnvironmentController = EnvironmentController.shared
     @StateObject var constantsController: ConstantsController = ConstantsController.shared
     @StateObject var storeManager: StoreManager = StoreManager.shared
     #if DEBUG

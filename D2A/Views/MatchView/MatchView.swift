@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MatchView: View {
-    @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var env: EnvironmentController
     @EnvironmentObject var data: ConstantsController
     @Environment(\.managedObjectContext) var context
     @FetchRequest private var match: FetchedResults<Match>
@@ -133,7 +133,7 @@ struct MatchStatCardView: View {
 //            MatchView(matchid: "123")
 //        }
 //        .environmentObject(ConstantsController.shared)
-//        .environmentObject(DotaEnvironment.shared)
+//        .environmentObject(EnvironmentController.shared)
 //        .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
 //        .environment(\.locale, .init(identifier: "zh-Hans"))
 //

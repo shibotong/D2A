@@ -53,9 +53,9 @@ class StoreManager: NSObject, ObservableObject {
 
     func parsePurchaseInfo(info: Transaction) {
         DispatchQueue.main.async {
-            DotaEnvironment.shared.subscriptionStatus = true
+            EnvironmentController.shared.subscriptionStatus = true
             WidgetCenter.shared.reloadAllTimelines()
-            print("subscription status \(DotaEnvironment.shared.subscriptionStatus)")
+            print("subscription status \(EnvironmentController.shared.subscriptionStatus)")
         }
         print("D2A Pro Purchased")
     }

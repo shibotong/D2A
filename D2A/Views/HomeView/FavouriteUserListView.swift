@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FavouriteUserListView: View {
 
-    @EnvironmentObject var env: DotaEnvironment
+    @EnvironmentObject var env: EnvironmentController
 
     @Environment(\.managedObjectContext) var viewContext
 

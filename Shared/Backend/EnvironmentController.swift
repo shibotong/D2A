@@ -13,8 +13,8 @@ enum TabSelection {
     case home, hero, search, setting, live
 }
 
-final class DotaEnvironment: ObservableObject {
-    static var shared = DotaEnvironment()
+final class EnvironmentController: ObservableObject {
+    static var shared = EnvironmentController()
 
     var refreshHandler: [String: TimeInterval] = [:]
 
