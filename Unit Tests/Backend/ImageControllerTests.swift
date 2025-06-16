@@ -32,9 +32,9 @@ class MockImageProvider: ImageProviding {
     }
 }
 
-final class FileControllerTests: XCTestCase {
+final class ImageControllerTests: XCTestCase {
     
-    var fileController: FileController!
+    var imageController: ImageController!
     var userDefaults: UserDefaults!
     var imageProvider: MockImageProvider!
     var imageHandlerCalled: Int!
@@ -45,7 +45,7 @@ final class FileControllerTests: XCTestCase {
     override func setUp()  {
         imageProvider = MockImageProvider()
         userDefaults = UserDefaults(suiteName: "UnitTest")!
-        fileController = FileController(imageProvider: imageProvider, userDefaults: userDefaults)
+        imageController = ImageController(imageProvider: imageProvider, userDefaults: userDefaults)
         imageHandlerCalled = 0
     }
     
@@ -78,7 +78,7 @@ final class FileControllerTests: XCTestCase {
     }
     
     private func callRefreshImage(time: Date) async {
-        await fileController.refreshImage(type: .hero, id: "1", url: "https://picsum.photos/200/300", refreshTime: time) { _ in
+        await imageController.refreshImage(type: .hero, id: "1", url: "https://picsum.photos/200/300", refreshTime: time) { _ in
             imageHandlerCalled += 1
         }
     }

@@ -14,7 +14,7 @@ struct D2AApp: App {
     @StateObject var environment: EnvironmentController = EnvironmentController.shared
     @StateObject var constantsController: ConstantsController = ConstantsController.shared
     @StateObject var storeManager: StoreManager = StoreManager.shared
-    @StateObject var fileController: FileController = FileController.shared
+    @StateObject var fileController: ImageController = ImageController.shared
     #if DEBUG
         @StateObject var logger: D2ALogger = D2ALogger.shared
     #endif

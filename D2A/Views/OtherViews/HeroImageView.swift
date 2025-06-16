@@ -13,7 +13,7 @@ enum HeroImageType {
 
 struct HeroImageView: View {
     @EnvironmentObject var heroData: ConstantsController
-    @EnvironmentObject var fileController: FileController
+    @EnvironmentObject var fileController: ImageController
     let heroID: Int
     let type: HeroImageType
     
@@ -128,5 +128,5 @@ struct HeroImageView: View {
 #Preview {
     HeroImageView(heroID: 1, type: .icon)
         .environmentObject(ConstantsController.preview)
-        .environmentObject(FileController.preview)
+        .environmentObject(ImageController.preview)
 }
