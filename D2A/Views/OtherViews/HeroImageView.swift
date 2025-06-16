@@ -13,16 +13,9 @@ enum HeroImageType {
 
 struct HeroImageView: View {
     @EnvironmentObject var heroData: ConstantsController
-    @EnvironmentObject var fileController: FileController
+
     let heroID: Int
     let type: HeroImageType
-    
-    @State private var image: UIImage?
-    
-    init(heroID: Int, type: HeroImageType) {
-        self.heroID = heroID
-        self.type = type
-    }
 
     var body: some View {
         if type == .icon || type == .full || type == .vert {
@@ -85,10 +78,4 @@ struct HeroImageView: View {
             return nil
         }
     }
-}
-
-#Preview {
-    HeroImageView(heroID: 1, type: .icon)
-        .environmentObject(ConstantsController.preview)
-        .environmentObject(FileController.preview)
 }
