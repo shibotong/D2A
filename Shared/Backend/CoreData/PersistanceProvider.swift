@@ -8,10 +8,8 @@
 import CoreData
 
 protocol PersistanceProviding {
-    func saveODHeroes(heroes: [ODHero]) async
-    func saveODAbilities(abilities: [ODAbility]) async
     func saveAbilitiesToHero(heroAbilities: [String: ODHeroAbilities]) async
-    func saveGameModes(gameModes: [ODGameMode]) async
+
     func saveODData(data: [PersistanceModel], type: NSManagedObject.Type) async
     
     func fetchGameMode(id: Int) -> GameMode?
@@ -152,27 +150,24 @@ class PersistanceProvider: PersistanceProviding {
                 fromRemoteContextSave: deletedObjects, into: [strongSelf.container.viewContext])
         }
     }
+    
+    // MARK: - Fetch data
+
+    func fetchGameMode(id: Int) -> GameMode? {
+        do {
+            guard let mode = try GameMode.fetch(id: id, context: container.viewContext) else {
+                logError("Failed to fetch game mode ID: \(id), no data found", category: .constants)
+                return nil
+            }
+            return mode
+        } catch {
+            logError("Failed to fetch game mode: \(error.localizedDescription)", category: .coredata)
+            return nil
+        }
+    }
 
     // MARK: - Save constant data
-    func saveODHeroes(heroes: [ODHero]) async {
-        let viewContext = container.newBackgroundContext()
-        if await hasData(for: Hero.self, context: viewContext) {
-            await updateData(data: heroes, context: viewContext)
-        } else {
-            await batchInsertData(heroes, into: Hero.entity(), context: viewContext)
-        }
-    }
-
-    func saveODAbilities(abilities: [ODAbility]) async {
-        let context = container.newBackgroundContext()
-        if await hasData(for: Ability.self, context: context) {
-            await updateData(data: abilities, context: context)
-        } else {
-            await batchInsertData(abilities, into: Ability.entity(), context: context)
-        }
-    }
-    
-    func saveODData(data: [PersistanceModel], type: NSManagedObject.Type) async {
+    func saveODData<T: NSManagedObject>(data: [PersistanceModel], type: T.Type) async {
         let context = container.newBackgroundContext()
         if await hasData(for: type, context: context) {
             await updateData(data: data, context: context)
@@ -180,6 +175,8 @@ class PersistanceProvider: PersistanceProviding {
             await batchInsertData(data, into: type.entity(), context: context)
         }
     }
+    
+    // MARK: - Save Specific data
 
     func saveAbilitiesToHero(heroAbilities: [String: ODHeroAbilities]) async {
         let context = container.newBackgroundContext()
@@ -218,28 +215,6 @@ class PersistanceProvider: PersistanceProviding {
             }
         }
     }
-    
-    func saveGameModes(gameModes: [ODGameMode]) async {
-        let context = container.newBackgroundContext()
-        if await hasData(for: GameMode.self, context: context) {
-            await updateData(data: gameModes, context: context)
-        } else {
-            await batchInsertData(gameModes, into: GameMode.entity(), context: context)
-        }
-    }
-    
-    func fetchGameMode(id: Int) -> GameMode? {
-        do {
-            guard let mode = try GameMode.fetch(id: id, context: container.viewContext) else {
-                logError("Failed to fetch game mode ID: \(id), no data found", category: .constants)
-                return nil
-            }
-            return mode
-        } catch {
-            logError("Failed to fetch game mode: \(error.localizedDescription)", category: .coredata)
-            return nil
-        }
-    }
 
     private func updateData(data: [PersistanceModel], context: NSManagedObjectContext) async {
         for object in data {
@@ -259,7 +234,7 @@ class PersistanceProvider: PersistanceProviding {
 
     /// Check if there is any data saved in core data
     private func hasData<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) async -> Bool {
-        let request = T.fetchRequest()
+        let request = entity.fetchRequest()
         request.fetchLimit = 1
         return await context.perform {
             do {
