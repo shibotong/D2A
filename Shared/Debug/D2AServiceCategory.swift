@@ -6,6 +6,7 @@
 //
 
 enum D2AServiceCategory: String {
+    case constants = "🔍"
     case opendotaConstant = "📕"
     case coredata = "💾"
     case stratz = "🏉"
