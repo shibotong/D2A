@@ -7,74 +7,86 @@
 
 import SwiftUI
 
-enum HeroImageType {
+enum HeroImageType: String {
     case icon, portrait, full, vert
 }
 
 struct HeroImageView: View {
     @EnvironmentObject var heroData: ConstantsController
+    @EnvironmentObject var imageController: ImageController
+    
     let heroID: Int
     let type: HeroImageType
+    
+    @State private var image: UIImage?
 
     var body: some View {
-        if type == .icon || type == .full || type == .vert {
-            if heroID == 0 && type == .icon {
-                Circle()
-                    .foregroundColor(Color.label.opacity(0.3))
-            } else {
-                Image(searchHeroImage())
+        Group {
+            if let image {
+                Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+            } else {
+                loadingView
             }
-        } else {
-            AsyncImage(url: computeURL()) { phase in
-                if let image = phase.image {
-                    image
+        }
+        .task {
+            await loadImage()
+        }
+    }
+    
+    var loadingView: some View {
+        ZStack {
+            Group {
+                if type == .full {
+                    Image(.heroFullSlot)
+                        .renderingMode(.template)
                         .resizable()
-                        .aspectRatio(contentMode: .fit)  // Displays the loaded image.
-                } else if phase.error != nil {
-                    ProgressView()  // Indicates an error.
-                } else {
-                    ProgressView()  // Acts as a placeholder.
+                }
+                if type == .icon {
+                    Image(.heroIconSlot)
+                        .renderingMode(.template)
+                        .resizable()
+                }
+                if type == .vert {
+                    Image(.heroVertSlot)
+                        .renderingMode(.template)
+                        .resizable()
                 }
             }
+            .aspectRatio(contentMode: .fit)
+            ProgressView()
         }
     }
-
-    private func searchHeroImage() -> String {
-        switch type {
-        case .icon:
-            let filename = "\(heroID.description)_icon"
-            return filename
-        case .portrait:
-            let filename = "\(heroID.description)_portrait"
-            return filename
-        case .full:
-            let filename = "\(heroID.description)_full"
-            return filename
-        case .vert:
-            let filename = "\(heroID.description)_vert"
-            return filename
+    
+    @MainActor
+    private func loadImage() async {
+        let heroImageID = "\(heroID.description)_\(type.rawValue)"
+        await imageController.refreshImage(type: .hero, id: heroImageID, fileExtension: .png, url: computeURLString()) { image in
+            self.image = image
         }
     }
-
-    private func computeURL() -> URL? {
+    
+    private func computeURLString() -> String {
         guard let hero = try? heroData.fetchHeroWithID(id: heroID) else {
-            return nil
+            return ""
         }
+        let name = hero.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
         switch type {
         case .icon:
-            let url = URL(string: "https://api.opendota.com\(hero.icon)")
-            return url
+            return "https://api.opendota.com\(hero.icon)"
         case .portrait:
-            let name = hero.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
-            let url = URL(
-                string: "\(IMAGE_PREFIX)/apps/dota2/videos/dota_react/heroes/renders/\(name).png")
-            return url
+            return "\(IMAGE_PREFIX)/apps/dota2/videos/dota_react/heroes/renders/\(name).png"
         case .full:
-            return nil
+            return "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/\(name).png"
         case .vert:
-            return nil
+            return ""
         }
     }
+}
+
+#Preview {
+    HeroImageView(heroID: 1, type: .icon)
+        .environmentObject(ConstantsController.preview)
+        .environmentObject(ImageController.preview)
 }

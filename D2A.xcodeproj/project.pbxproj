@@ -345,8 +345,19 @@
 		79A989202931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79A989212931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79ABE8FA2A35C3CF00EE9EF9 /* LiveMatchDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */; };
-		79B11E742DF695740091A935 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79B11E732DF695740091A935 /* StratzAPI */; };
-		79B11E772DF6959B0091A935 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79B11E762DF6959B0091A935 /* StratzAPI */; };
+		79AF521C2E00341D009FE792 /* ImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF521B2E00341D009FE792 /* ImageController.swift */; };
+		79AF521D2E00341D009FE792 /* ImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF521B2E00341D009FE792 /* ImageController.swift */; };
+		79AF521E2E00341D009FE792 /* ImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF521B2E00341D009FE792 /* ImageController.swift */; };
+		79AF52202E00347A009FE792 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF521F2E00347A009FE792 /* ImageExtension.swift */; };
+		79AF52212E00347A009FE792 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF521F2E00347A009FE792 /* ImageExtension.swift */; };
+		79AF52222E00347A009FE792 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF521F2E00347A009FE792 /* ImageExtension.swift */; };
+		79AF52232E00347A009FE792 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF521F2E00347A009FE792 /* ImageExtension.swift */; };
+		79AF52262E0034BF009FE792 /* ImageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF52252E0034BF009FE792 /* ImageControllerTests.swift */; };
+		79AF52282E0034E7009FE792 /* ImageProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF52272E0034E7009FE792 /* ImageProviderTests.swift */; };
+		79AF522E2E003724009FE792 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79AF522D2E003724009FE792 /* StratzAPI */; };
+		79AF52312E003757009FE792 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79AF52302E003757009FE792 /* StratzAPI */; };
+		79AF52332E003764009FE792 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79AF52322E003764009FE792 /* StratzAPI */; };
+		79AF52352E003767009FE792 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79AF52342E003767009FE792 /* StratzAPI */; };
 		79B870992DC38A150090CAB8 /* StratzController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870972DC38A150090CAB8 /* StratzController.swift */; };
 		79B8709A2DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870952DC38A150090CAB8 /* StratzAbility+StratzAPI.swift */; };
 		79B8709B2DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870942DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift */; };
@@ -411,8 +422,6 @@
 		79E89A322DF6B8A500497B5D /* GameMode+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A2F2DF6B81C00497B5D /* GameMode+Preview.swift */; };
 		79E89A332DF6B8BB00497B5D /* PersistanceProvider+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */; };
 		79E89A342DF6B8BB00497B5D /* PersistanceProvider+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */; };
-		79EA36D52DE9B3FE00DFC2BA /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79EA36D42DE9B3FE00DFC2BA /* StratzAPI */; };
-		79EA36D72DE9B40200DFC2BA /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79EA36D62DE9B40200DFC2BA /* StratzAPI */; };
 		79EB3EEC2DC4ACA0008C4F6D /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E7EA28E53919007A43AF /* Hero.swift */; };
 		79EB3EED2DC4ACA0008C4F6D /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E7EA28E53919007A43AF /* Hero.swift */; };
 		79EB3EEE2DC4ACB7008C4F6D /* HeroListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B87772852263300BBE1F8 /* HeroListViewModel.swift */; };
@@ -669,7 +678,6 @@
 		7985E7EA28E53919007A43AF /* Hero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 		7985E7EC28E53A40007A43AF /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 		7985E7EE28E53E47007A43AF /* Talent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Talent.swift; sourceTree = "<group>"; };
-		798A1D1729C183B500E443A6 /* StratzAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = StratzAPI; sourceTree = "<group>"; };
 		798A5CF529454AEE00EB07B0 /* FavouriteUserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteUserListView.swift; sourceTree = "<group>"; };
 		798A5CF72945503100EB07B0 /* ProfileAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAvatar.swift; sourceTree = "<group>"; };
 		798A5CF92945B3C300EB07B0 /* RecentMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMatch.swift; sourceTree = "<group>"; };
@@ -689,6 +697,10 @@
 		79A989032931E7F1006AC847 /* PermanentBuff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentBuff.swift; sourceTree = "<group>"; };
 		79A989262931FA50006AC847 /* D2AProStore.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = D2AProStore.storekit; sourceTree = "<group>"; };
 		79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchDraftView.swift; sourceTree = "<group>"; };
+		79AF521B2E00341D009FE792 /* ImageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageController.swift; sourceTree = "<group>"; };
+		79AF521F2E00347A009FE792 /* ImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
+		79AF52252E0034BF009FE792 /* ImageControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageControllerTests.swift; sourceTree = "<group>"; };
+		79AF52272E0034E7009FE792 /* ImageProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProviderTests.swift; sourceTree = "<group>"; };
 		79B1630228DD5A29009B2AE2 /* Ability.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Ability.graphql; sourceTree = "<group>"; };
 		79B1630328DD5A31009B2AE2 /* Hero.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hero.graphql; sourceTree = "<group>"; };
 		79B551832DF6906E001CA42B /* OpenDotaConstantsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantsTests.swift; sourceTree = "<group>"; };
@@ -749,8 +761,8 @@
 				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
 				79266DA42A31B078002FEF0F /* ApolloWebSocket in Frameworks */,
 				790FBB2429C186AE00E27106 /* Apollo in Frameworks */,
-				79B11E742DF695740091A935 /* StratzAPI in Frameworks */,
-				79B11E772DF6959B0091A935 /* StratzAPI in Frameworks */,
+				79AF522E2E003724009FE792 /* StratzAPI in Frameworks */,
+				79AF52312E003757009FE792 /* StratzAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,7 +774,7 @@
 				790FBB3429C18AC800E27106 /* Apollo in Frameworks */,
 				79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */,
 				32F70A9E26F57F7E006E9B05 /* WidgetKit.framework in Frameworks */,
-				79EA36D52DE9B3FE00DFC2BA /* StratzAPI in Frameworks */,
+				79AF52332E003764009FE792 /* StratzAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -773,7 +785,7 @@
 				32F70AE826F61836006E9B05 /* Intents.framework in Frameworks */,
 				79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */,
 				79D1043729E2991E00BC04B3 /* Apollo in Frameworks */,
-				79EA36D72DE9B40200DFC2BA /* StratzAPI in Frameworks */,
+				79AF52352E003767009FE792 /* StratzAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,7 +882,7 @@
 		3289579A27F6609B00BA9847 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				79B551852DF69073001CA42B /* OpenDota */,
+				79AF52242E0034AF009FE792 /* Backend */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -914,7 +926,6 @@
 		32B36F0226C38821002D427D = {
 			isa = PBXGroup;
 			children = (
-				798A1D1729C183B500E443A6 /* StratzAPI */,
 				79A989262931FA50006AC847 /* D2AProStore.storekit */,
 				32C606CB286479F7007AD14B /* ci_scripts */,
 				327C03432717AE8500DAEC42 /* README.md */,
@@ -972,13 +983,14 @@
 		32B36F1D26C38834002D427D /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				79AF52362E0037A7009FE792 /* Image */,
 				79EB3F7B2DC6EF41008C4F6D /* CoreData */,
 				79B870B52DC394C10090CAB8 /* OpenDota */,
 				79B870982DC38A150090CAB8 /* Stratz */,
 				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
 				329849F326DCAEAE00A1032C /* ConstantsController.swift */,
 				32B36F4B26C39C5D002D427D /* EnvironmentController.swift */,
-				799948BF2932D50000D79055 /* ImageCache.swift */,
+				79AF521B2E00341D009FE792 /* ImageController.swift */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -1047,6 +1059,7 @@
 				32B36F4926C39242002D427D /* StringVariable.swift */,
 				79CF375B2DC0F8F500207CB8 /* D2AError.swift */,
 				327B875F284D9FA100BBE1F8 /* DataHelper.swift */,
+				79AF521F2E00347A009FE792 /* ImageExtension.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -1287,6 +1300,23 @@
 			path = CoreDataModel;
 			sourceTree = "<group>";
 		};
+		79AF52242E0034AF009FE792 /* Backend */ = {
+			isa = PBXGroup;
+			children = (
+				79AF52252E0034BF009FE792 /* ImageControllerTests.swift */,
+				79AF52272E0034E7009FE792 /* ImageProviderTests.swift */,
+			);
+			path = Backend;
+			sourceTree = "<group>";
+		};
+		79AF52362E0037A7009FE792 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				799948BF2932D50000D79055 /* ImageCache.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
 		79B1630028DD59FC009B2AE2 /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
@@ -1296,13 +1326,6 @@
 				79D5280D28DD5D990070841D /* Network.swift */,
 			);
 			path = GraphQL;
-			sourceTree = "<group>";
-		};
-		79B551852DF69073001CA42B /* OpenDota */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = OpenDota;
 			sourceTree = "<group>";
 		};
 		79B870962DC38A150090CAB8 /* Models */ = {
@@ -1507,8 +1530,8 @@
 			packageProductDependencies = (
 				790FBB2329C186AE00E27106 /* Apollo */,
 				79266DA32A31B078002FEF0F /* ApolloWebSocket */,
-				79B11E732DF695740091A935 /* StratzAPI */,
-				79B11E762DF6959B0091A935 /* StratzAPI */,
+				79AF522D2E003724009FE792 /* StratzAPI */,
+				79AF52302E003757009FE792 /* StratzAPI */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* D2A.app */;
@@ -1530,7 +1553,7 @@
 			packageProductDependencies = (
 				790FBB3329C18AC800E27106 /* Apollo */,
 				79266DA82A31B21D002FEF0F /* ApolloWebSocket */,
-				79EA36D42DE9B3FE00DFC2BA /* StratzAPI */,
+				79AF52322E003764009FE792 /* StratzAPI */,
 			);
 			productName = AppWidgetExtension;
 			productReference = 32F70A9D26F57F7E006E9B05 /* D2AWidgetExtension.appex */;
@@ -1552,7 +1575,7 @@
 			packageProductDependencies = (
 				79D1043629E2991E00BC04B3 /* Apollo */,
 				79266DAA2A31B224002FEF0F /* ApolloWebSocket */,
-				79EA36D62DE9B40200DFC2BA /* StratzAPI */,
+				79AF52342E003767009FE792 /* StratzAPI */,
 			);
 			productName = AppWidgetIntentHandler;
 			productReference = 32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */;
@@ -1639,7 +1662,7 @@
 			mainGroup = 32B36F0226C38821002D427D;
 			packageReferences = (
 				790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */,
-				79B11E752DF6959B0091A935 /* XCLocalSwiftPackageReference "StratzAPI" */,
+				79AF522F2E003757009FE792 /* XCLocalSwiftPackageReference "StratzAPI" */,
 			);
 			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
 			projectDirPath = "";
@@ -1814,8 +1837,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
+				79AF52262E0034BF009FE792 /* ImageControllerTests.swift in Sources */,
+				79AF52282E0034E7009FE792 /* ImageProviderTests.swift in Sources */,
 				79CF375C2DC0F8F800207CB8 /* D2AError.swift in Sources */,
 				79EB3EFA2DC4B5D8008C4F6D /* PersistanceModel.swift in Sources */,
+				79AF52202E00347A009FE792 /* ImageExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1918,6 +1944,8 @@
 				790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */,
 				79D5280E28DD5D990070841D /* Network.swift in Sources */,
 				79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */,
+				79AF52212E00347A009FE792 /* ImageExtension.swift in Sources */,
+				79AF521C2E00341D009FE792 /* ImageController.swift in Sources */,
 				79CF376F2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				79837B55294C18FE00458529 /* DamageView.swift in Sources */,
 				79A989002931DCE1006AC847 /* UserProfile.swift in Sources */,
@@ -2005,6 +2033,7 @@
 				327B87732850DA7800BBE1F8 /* ODAbility.swift in Sources */,
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
 				32F70ADB26F6090A006E9B05 /* NetworkImage.swift in Sources */,
+				79AF52232E00347A009FE792 /* ImageExtension.swift in Sources */,
 				79B870A12DC38A150090CAB8 /* StratzController.swift in Sources */,
 				79B870A22DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */,
 				79EB3EF02DC4ACC4008C4F6D /* Role.swift in Sources */,
@@ -2024,6 +2053,7 @@
 				7983DA6B2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
 				79CF376D2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				32F70AD526F60364006E9B05 /* ODHero.swift in Sources */,
+				79AF521D2E00341D009FE792 /* ImageController.swift in Sources */,
 				32F70AB526F5812B006E9B05 /* LobbyType.swift in Sources */,
 				79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */,
 				794B723E2985D410000059E4 /* RecentMatchWinLossView.swift in Sources */,
@@ -2094,6 +2124,7 @@
 				32B526D5285C1DBC0099B058 /* Extension.swift in Sources */,
 				32F70B0226F621ED006E9B05 /* D2AWidget.swift in Sources */,
 				32F70B1F26F6295C006E9B05 /* Color.swift in Sources */,
+				79AF52222E00347A009FE792 /* ImageExtension.swift in Sources */,
 				79B870992DC38A150090CAB8 /* StratzController.swift in Sources */,
 				79B8709A2DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */,
 				79EB3EF12DC4ACC4008C4F6D /* Role.swift in Sources */,
@@ -2113,6 +2144,7 @@
 				7983DA6C2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
 				79CF376E2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */,
+				79AF521E2E00341D009FE792 /* ImageController.swift in Sources */,
 				32F70AFC26F61E52006E9B05 /* ODUserProfile.swift in Sources */,
 				79E01CA9291E351B0073BF68 /* MatchListRowView.swift in Sources */,
 				794B723F2985D411000059E4 /* RecentMatchWinLossView.swift in Sources */,
@@ -2729,7 +2761,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		79B11E752DF6959B0091A935 /* XCLocalSwiftPackageReference "StratzAPI" */ = {
+		79AF522F2E003757009FE792 /* XCLocalSwiftPackageReference "StratzAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = StratzAPI;
 		};
@@ -2772,26 +2804,28 @@
 			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloWebSocket;
 		};
-		79B11E732DF695740091A935 /* StratzAPI */ = {
+		79AF522D2E003724009FE792 /* StratzAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = StratzAPI;
 		};
-		79B11E762DF6959B0091A935 /* StratzAPI */ = {
+		79AF52302E003757009FE792 /* StratzAPI */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = StratzAPI;
+		};
+		79AF52322E003764009FE792 /* StratzAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79AF522F2E003757009FE792 /* XCLocalSwiftPackageReference "StratzAPI" */;
+			productName = StratzAPI;
+		};
+		79AF52342E003767009FE792 /* StratzAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79AF522F2E003757009FE792 /* XCLocalSwiftPackageReference "StratzAPI" */;
 			productName = StratzAPI;
 		};
 		79D1043629E2991E00BC04B3 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
-		};
-		79EA36D42DE9B3FE00DFC2BA /* StratzAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = StratzAPI;
-		};
-		79EA36D62DE9B40200DFC2BA /* StratzAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = StratzAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 
