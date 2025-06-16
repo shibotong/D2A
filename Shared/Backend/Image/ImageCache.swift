@@ -69,7 +69,7 @@ class PreviewImageProvider: ImageProviding {
         case .league:
             return UIImage(named: "preview_league")!
         case .hero:
-            return UIImage(named: "")!
+            return UIImage(named: "preview_hero")!
         }
     }
 }
