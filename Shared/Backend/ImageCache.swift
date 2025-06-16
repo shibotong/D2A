@@ -14,10 +14,68 @@ enum ImageCacheType: String {
     case ability
     case teamIcon
     case league
+    case hero
+}
+
+protocol ImageProviding {
+    func remoteImage(url: String) async -> UIImage?
+    func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension) -> UIImage?
+    func saveImage(image: UIImage, type: ImageCacheType, id: String, fileExtension: ImageExtension)
+}
+
+class ImageProvider: ImageProviding {
+    
+    static let shared = ImageProvider()
+    
+    func remoteImage(url: String) async -> UIImage? {
+        guard let remoteImage = await ImageCache.loadImage(urlString: url) else {
+            return nil
+        }
+        return remoteImage
+    }
+    
+    func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension = .jpg) -> UIImage? {
+        return ImageCache.readImage(type: type, id: id, fileExtension: fileExtension.rawValue)
+    }
+    
+    func saveImage(image: UIImage, type: ImageCacheType, id: String, fileExtension: ImageExtension) {
+        ImageCache.saveImage(image, type: type, id: id, fileExtension: fileExtension.rawValue)
+    }
+}
+
+class PreviewImageProvider: ImageProviding {
+    func remoteImage(url: String) async -> UIImage? {
+        return loadImage()
+    }
+    
+    func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension) -> UIImage? {
+        return loadImage(type: type)
+    }
+    
+    func saveImage(image: UIImage, type: ImageCacheType, id: String, fileExtension: ImageExtension) {
+        return
+    }
+    
+    private func loadImage(type: ImageCacheType = .item) -> UIImage {
+        switch type {
+        case .item:
+            return UIImage(named: "preview_item")!
+        case .avatar:
+            return UIImage(named: "preview_avatar")!
+        case .ability:
+            return UIImage(named: "preview_ability")!
+        case .teamIcon:
+            return UIImage(named: "preview_avatar")!
+        case .league:
+            return UIImage(named: "preview_league")!
+        case .hero:
+            return UIImage(named: "")!
+        }
+    }
 }
 
 class ImageCache: ObservableObject {
-
+    
     static func readImage(
         type: ImageCacheType,
         id: String,
@@ -34,9 +92,9 @@ class ImageCache: ObservableObject {
         let newImage = UIImage(contentsOfFile: imageURL.path)
         return newImage
     }
-
+    
     static func fetchImagePath(type: ImageCacheType, id: String, fileExtension: String = "jpg")
-        -> String?
+    -> String?
     {
         guard
             let docDir = FileManager.default.containerURL(
@@ -48,7 +106,7 @@ class ImageCache: ObservableObject {
             "\(id).\(fileExtension)", isDirectory: false)
         return imageURL.path
     }
-
+    
     static func saveImage(
         _ image: UIImage, type: ImageCacheType, id: String, fileExtension: String = "jpg"
     ) {
@@ -59,7 +117,7 @@ class ImageCache: ObservableObject {
             print("save image error")
             return
         }
-
+        
         let imageFolder = docDir.appendingPathComponent(type.rawValue)
         do {
             try FileManager.default
@@ -82,7 +140,7 @@ class ImageCache: ObservableObject {
             // log any errors
         }
     }
-
+    
     static func docDir(type: ImageCacheType) -> URL? {
         guard
             let docDir = FileManager.default.containerURL(
@@ -92,11 +150,11 @@ class ImageCache: ObservableObject {
         }
         return docDir.appendingPathComponent(type.rawValue)
     }
-
+    
     static func loadImage(urlString: String) async -> UIImage? {
         guard let url = URL(string: urlString),
-            let (newImageData, _) = try? await URLSession.shared.data(from: url),
-            let newImage = UIImage(data: newImageData)
+              let (newImageData, _) = try? await URLSession.shared.data(from: url),
+              let newImage = UIImage(data: newImageData)
         else {
             return nil
         }
