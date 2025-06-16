@@ -92,7 +92,7 @@ struct MatchView: View {
                     .frame(width: 140)
                     MatchStatCardView(
                         icon: "rosette", title: "Game Mode",
-                        label: LocalizedStringKey(data.fetchGameMode(id: Int(match.mode))?.modeName ?? "Unknown")
+                        label: LocalizedStringKey(data.fetchGameMode(id: Int(match.mode)).modeName)
                     )
                     .frame(width: 140)
                     MatchStatCardView(

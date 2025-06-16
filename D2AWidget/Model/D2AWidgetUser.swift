@@ -74,7 +74,7 @@ struct D2AWidgetUser {
 
     private static var previewMatches: [D2AWidgetMatch] {
         let matches = (1...10).map { id in
-            D2AWidgetMatch(matchID: id.description, heroID: randomHeroID, win: randomWinLoss, gameMode: GameMode.preview)
+            D2AWidgetMatch(matchID: id.description, heroID: randomHeroID, win: randomWinLoss)
         }
         return matches
     }

@@ -10,4 +10,5 @@ extension Hero {
         let heroes = try? PersistanceProvider.previewContext.fetch(Hero.fetchRequest())
         return heroes ?? []
     }()
+
 }

@@ -6,17 +6,10 @@
 //
 
 import Foundation
-import CoreData
 
-extension GameMode {
-    
-    static func fetch(id: Int, context: NSManagedObjectContext) throws -> GameMode? {
-        let request = GameMode.fetchRequest()
-        let predicate = NSPredicate(format: "id == %d", id)
-        request.predicate = predicate
-        return try context.fetch(request).first
-    }
-    
+struct GameMode: Codable {
+    var id: Int
+    var name: String
     var modeName: String {
         switch id {
         case 0:
@@ -73,4 +66,5 @@ extension GameMode {
             return "Unknown (\(id))"
         }
     }
+
 }

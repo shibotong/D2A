@@ -8,16 +8,17 @@
 import Foundation
 
 protocol OpenDotaConstantProviding {
-    func loadHeroes() async -> [ODHero]
+    func loadHeroes() async -> [String: ODHero]
     func loadItemIDs() async -> [String: String]
     func loadAbilities() async -> [ODAbility]
     func loadAbilitiesForHeroes() async -> [String: ODHeroAbilities]
-    func loadGameModes() async -> [ODGameMode]
 }
 
 class OpenDotaConstantProvider: OpenDotaConstantProviding {
 
     static let shared = OpenDotaConstantProvider()
+
+    private let maxHeroID = 150
 
     private let network: D2ANetworking
 
@@ -25,20 +26,23 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
         self.network = network
     }
 
-    func loadHeroes() async -> [ODHero] {
-        guard let heroDict = await loadOpenDotaConstantService(service: .heroes, type: [String: ODHero].self) else {
-            return []
+    func loadHeroes() async -> [String: ODHero] {
+        guard
+            let heroDict = await loadOpenDotaConstantService(
+                service: .heroes, type: [String: ODHero].self)
+        else {
+            return [:]
         }
-        var heroesArray: [ODHero] = []
-        for (_, value) in heroDict {
-            heroesArray.append(value)
-        }
-        return heroesArray
+        return heroDict
     }
 
     func loadAbilities() async -> [ODAbility] {
-        guard let abilityDict = await loadOpenDotaConstantService(service: .abilities, type: [String: ODAbility].self),
-              let abilityIDs = await loadOpenDotaConstantService(service: .abilityIDs, type: [String: String].self) else {
+        guard
+            let abilityDict = await loadOpenDotaConstantService(
+                service: .abilities, type: [String: ODAbility].self),
+            let abilityIDs = await loadOpenDotaConstantService(
+                service: .abilityIDs, type: [String: String].self)
+        else {
             return []
         }
         var abilities: [ODAbility] = []
@@ -63,41 +67,37 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
     }
 
     func loadItemIDs() async -> [String: String] {
-        guard let itemIDs = await loadOpenDotaConstantService(service: .itemIDs, type: [String: String].self) else {
+        guard
+            let itemIDs = await loadOpenDotaConstantService(
+                service: .itemIDs, type: [String: String].self)
+        else {
             return [:]
         }
         return itemIDs
     }
 
     func loadAbilitiesForHeroes() async -> [String: ODHeroAbilities] {
-        guard let heroAbilities = await loadOpenDotaConstantService(service: .heroAbilities,
-                                                                    type: [String: ODHeroAbilities].self) else {
+        guard
+            let heroAbilities = await loadOpenDotaConstantService(
+                service: .heroAbilities, type: [String: ODHeroAbilities].self)
+        else {
             return [:]
         }
         return heroAbilities
     }
-    
-    func loadGameModes() async -> [ODGameMode] {
-        guard let gameModesDict = await loadOpenDotaConstantService(service: .gameModes, type: [String: ODGameMode].self) else {
-            return []
-        }
-        
-        var gameModes: [ODGameMode] = []
-        for (_, mode) in gameModesDict {
-            gameModes.append(mode)
-        }
-        
-        return gameModes
-    }
 
-    private func loadOpenDotaConstantService<T: Decodable>(service: OpenDotaConstantService, type: T.Type) async -> T? {
+    private func loadOpenDotaConstantService<T: Decodable>(
+        service: OpenDotaConstantService, type: T.Type
+    ) async -> T? {
         let url = service.serviceURL
         do {
             let data = try await network.dataTask(url, as: T.self)
             return data
         } catch {
-            logWarn("Loading \(service) from OpenDota failed: \(error)", category: .opendotaConstant)
+            logWarn(
+                "Loading \(service) from OpenDota failed: \(error)", category: .opendotaConstant)
             return nil
         }
     }
+
 }
