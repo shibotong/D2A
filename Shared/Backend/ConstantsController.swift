@@ -12,10 +12,6 @@ import SwiftUI
 
 class ConstantsController: ObservableObject {
 
-    enum HeroDataError: Error {
-        case heroNotFound
-    }
-
     private var heroes = [String: ODHero]()
     private var lobbyTypes = [String: LobbyType]()
     private var regions = [String: String]()
@@ -74,7 +70,7 @@ class ConstantsController: ObservableObject {
 
     func fetchHeroWithID(id: Int) throws -> ODHero {
         guard let hero = heroes["\(id)"] else {
-            throw HeroDataError.heroNotFound
+            throw D2AError(message: "Cannot find hero")
         }
         return hero
     }
