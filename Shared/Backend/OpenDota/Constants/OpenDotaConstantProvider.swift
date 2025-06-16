@@ -19,8 +19,6 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
 
     static let shared = OpenDotaConstantProvider()
 
-    private let maxHeroID = 150
-
     private let network: D2ANetworking
 
     init(network: D2ANetworking = D2ANetwork.default) {
