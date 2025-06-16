@@ -983,13 +983,13 @@
 		32B36F1D26C38834002D427D /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				79AF52362E0037A7009FE792 /* Image */,
 				79EB3F7B2DC6EF41008C4F6D /* CoreData */,
 				79B870B52DC394C10090CAB8 /* OpenDota */,
 				79B870982DC38A150090CAB8 /* Stratz */,
 				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
 				329849F326DCAEAE00A1032C /* ConstantsController.swift */,
 				32B36F4B26C39C5D002D427D /* EnvironmentController.swift */,
-				799948BF2932D50000D79055 /* ImageCache.swift */,
 				79AF521B2E00341D009FE792 /* ImageController.swift */,
 			);
 			path = Backend;
@@ -1307,6 +1307,14 @@
 				79AF52272E0034E7009FE792 /* ImageProviderTests.swift */,
 			);
 			path = Backend;
+			sourceTree = "<group>";
+		};
+		79AF52362E0037A7009FE792 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				799948BF2932D50000D79055 /* ImageCache.swift */,
+			);
+			path = Image;
 			sourceTree = "<group>";
 		};
 		79B1630028DD59FC009B2AE2 /* GraphQL */ = {
