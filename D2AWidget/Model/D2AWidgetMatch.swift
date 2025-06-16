@@ -21,7 +21,7 @@ struct D2AWidgetMatch: Identifiable {
 
     let startTime: Date?
     let lobby: LobbyType
-    let gameMode: GameMode
+    let gameMode: GameMode?
 
     init(_ match: RecentMatch) {
         self.init(
@@ -47,7 +47,7 @@ struct D2AWidgetMatch: Identifiable {
         partySize: Int = 0,
         startTime: Date? = nil,
         lobby: LobbyType = .init(id: 1, name: "lobby"),
-        gameMode: GameMode = .init(id: 1, name: "mode")
+        gameMode: GameMode?
     ) {
         id = matchID
         self.heroID = heroID

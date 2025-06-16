@@ -12,12 +12,7 @@ import SwiftUI
 
 class ConstantsController: ObservableObject {
 
-    enum HeroDataError: Error {
-        case heroNotFound
-    }
-
     private var heroes = [String: ODHero]()
-    private var gameModes = [String: GameMode]()
     private var lobbyTypes = [String: LobbyType]()
     private var regions = [String: String]()
     private var items = [String: Item]()
@@ -46,14 +41,9 @@ class ConstantsController: ObservableObject {
         self.stratzProvider = stratzProvider
         self.openDotaProvider = openDotaProvider
         self.persistanceProvider = persistanceProvider
-        Task {
-            await loadData()
-        }
     }
 
-    @MainActor
     func loadData() async {
-        gameModes = loadGameModes()
         regions = loadRegion()!
         lobbyTypes = loadLobby()!
 
@@ -80,13 +70,13 @@ class ConstantsController: ObservableObject {
 
     func fetchHeroWithID(id: Int) throws -> ODHero {
         guard let hero = heroes["\(id)"] else {
-            throw HeroDataError.heroNotFound
+            throw D2AError(message: "Cannot find hero")
         }
         return hero
     }
 
-    func fetchGameMode(id: Int) -> GameMode {
-        return gameModes["\(id)"]!
+    func fetchGameMode(id: Int) -> GameMode? {
+        return persistanceProvider.fetchGameMode(id: id)
     }
 
     func fetchItem(id: Int) -> Item? {
@@ -247,34 +237,33 @@ class ConstantsController: ObservableObject {
 
     // MARK: - Save Constant Data
     private func loadConstantData() async {
-        await loadODHeroes()
-        await loadODAbilities()
-        await saveAbilitiesToHero()
+        async let loadHeroes: Void = await loadODHeroes()
+        async let loadAbilities: Void = await loadODAbilities()
+        async let loadGameModes: Void = await loadODGameModes()
+        
+        _ = await [loadHeroes, loadAbilities, loadGameModes]
+        
+        await loadODHeroAbilities()
     }
-
-    // MARK: - Save abilities to heroes
-
-    private func saveAbilitiesToHero() async {
-        let heroAbilities = await openDotaProvider.loadAbilitiesForHeroes()
-        await persistanceProvider.saveAbilitiesToHero(heroAbilities: heroAbilities)
-    }
-
-    // MARK: - Save Abilities
-
-    private func loadODAbilities() async {
-        let abilities = await openDotaProvider.loadAbilities()
-        await persistanceProvider.saveODAbilities(abilities: abilities)
-    }
-
-    // MARK: - Save Heroes
-
+    
     private func loadODHeroes() async {
         let heroes = await openDotaProvider.loadHeroes()
-        var heroesArray: [ODHero] = []
-        for (_, value) in heroes {
-            heroesArray.append(value)
-        }
-        await persistanceProvider.saveODHeroes(heroes: heroesArray)
+        await persistanceProvider.saveODData(data: heroes, type: Hero.self)
+    }
+    
+    private func loadODAbilities() async {
+        let abilities = await openDotaProvider.loadAbilities()
+        await persistanceProvider.saveODData(data: abilities, type: Ability.self)
+    }
+    
+    private func loadODGameModes() async {
+        let modes = await openDotaProvider.loadGameModes()
+        await persistanceProvider.saveODData(data: modes, type: GameMode.self)
+    }
+    
+    private func loadODHeroAbilities() async {
+        let heroAbilities = await openDotaProvider.loadAbilitiesForHeroes()
+        await persistanceProvider.saveAbilitiesToHero(heroAbilities: heroAbilities)
     }
 
     func resetHeroData(context: NSManagedObjectContext) async {

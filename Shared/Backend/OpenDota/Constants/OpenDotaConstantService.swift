@@ -18,6 +18,7 @@ enum OpenDotaConstantService {
     case aghs
     case items
     case itemIDs
+    case gameModes
 
     var serviceURL: String {
         "\(Self.baseURL)/\(name).json"
@@ -39,6 +40,8 @@ enum OpenDotaConstantService {
             "items"
         case .itemIDs:
             "item_ids"
+        case .gameModes:
+            "game_mode"
         }
     }
 }
