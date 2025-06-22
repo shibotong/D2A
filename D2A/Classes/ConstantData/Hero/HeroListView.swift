@@ -189,4 +189,7 @@ struct HeroListView: View {
 
 #Preview {
     HeroListView()
+        .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
+        .environmentObject(ConstantsController.preview)
+        .environmentObject(ImageController.preview)
 }
