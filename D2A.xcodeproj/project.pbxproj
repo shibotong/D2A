@@ -361,6 +361,7 @@
 		79AF52962E080E56009FE792 /* OpenDotaConstantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF52952E080E50009FE792 /* OpenDotaConstantFetcher.swift */; };
 		79AF52972E080E56009FE792 /* OpenDotaConstantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF52952E080E50009FE792 /* OpenDotaConstantFetcher.swift */; };
 		79AF52982E080E56009FE792 /* OpenDotaConstantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF52952E080E50009FE792 /* OpenDotaConstantFetcher.swift */; };
+		79AF52CC2E082DFE009FE792 /* OpenDotaConstantsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B551832DF6906E001CA42B /* OpenDotaConstantsTests.swift */; };
 		79B870992DC38A150090CAB8 /* StratzController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870972DC38A150090CAB8 /* StratzController.swift */; };
 		79B8709A2DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870952DC38A150090CAB8 /* StratzAbility+StratzAPI.swift */; };
 		79B8709B2DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B870942DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift */; };
@@ -2220,6 +2221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79AF52CC2E082DFE009FE792 /* OpenDotaConstantsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
