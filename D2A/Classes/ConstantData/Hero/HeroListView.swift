@@ -185,8 +185,7 @@ struct HeroListView: View {
 }
 
 #Preview {
-    HeroListView(heroes: Hero.previewHeroes)
-        .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
+    HeroListView(heroes: Hero.previewHeroes.sorted(by: { $0.heroNameLocalized < $1.heroNameLocalized }))
         .environmentObject(ConstantsController.preview)
         .environmentObject(ImageController.preview)
 }
