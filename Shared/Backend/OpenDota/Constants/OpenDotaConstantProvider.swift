@@ -18,7 +18,6 @@ protocol OpenDotaConstantProviding {
 class OpenDotaConstantProvider: OpenDotaConstantProviding {
     
     static let shared = OpenDotaConstantProvider()
-    static let preview = OpenDotaConstantProvider(fetcher: MockOpenDotaConstantFetcher())
     
     private let fetcher: OpenDotaConstantFetching
     
