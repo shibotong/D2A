@@ -1,4 +1,3 @@
-import CryptoKit
 //
 //  HeroListView.swift
 //  App
@@ -15,8 +14,7 @@ struct HeroListView: View {
     @State private var isGrid = true
     @State private var searchString = ""
     
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.id)])
-    private var heroes: FetchedResults<Hero>
+    let heroes: [Hero]
 
     var body: some View {
         buildBody()
@@ -50,8 +48,8 @@ struct HeroListView: View {
                     }
                 }
             }
-            .onAppear {
-                searchedResults = Array(heroes)
+            .task {
+                searchedResults = filterHero(searchText: searchString, selectedAttribute: selectedAttribute)
             }
             .onChange(of: searchString, action: { value in
                 searchedResults = filterHero(searchText: value, selectedAttribute: selectedAttribute)
@@ -175,20 +173,19 @@ struct HeroListView: View {
     }
     
     private func filterHero(searchText: String, selectedAttribute: HeroAttribute) -> [Hero] {
-        if searchText.isEmpty && selectedAttribute == .whole {
-            return Array(heroes)
+        var searchedHeroes = heroes
+        if selectedAttribute != .whole {
+            searchedHeroes = searchedHeroes.filter({ $0.primaryAttr == selectedAttribute.rawValue })
         }
-        if searchText.isEmpty {
-            return heroes.filter { $0.primaryAttr == selectedAttribute.rawValue }
+        if !searchText.isEmpty {
+            searchedHeroes = searchedHeroes.filter({ $0.heroNameLocalized.lowercased().contains(searchText.lowercased()) })
         }
-        return heroes.filter { hero in
-            hero.primaryAttr == selectedAttribute.rawValue && hero.heroNameLocalized.lowercased().contains(searchText.lowercased())
-        }
+        return searchedHeroes
     }
 }
 
 #Preview {
-    HeroListView()
+    HeroListView(heroes: Hero.previewHeroes)
         .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
         .environmentObject(ConstantsController.preview)
         .environmentObject(ImageController.preview)
