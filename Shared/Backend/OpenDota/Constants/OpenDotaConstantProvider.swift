@@ -16,17 +16,18 @@ protocol OpenDotaConstantProviding {
 }
 
 class OpenDotaConstantProvider: OpenDotaConstantProviding {
-
+    
     static let shared = OpenDotaConstantProvider()
-
-    private let network: D2ANetworking
-
-    init(network: D2ANetworking = D2ANetwork.default) {
-        self.network = network
+    static let preview = OpenDotaConstantProvider(fetcher: MockOpenDotaConstantFetcher())
+    
+    private let fetcher: OpenDotaConstantFetching
+    
+    init(fetcher: OpenDotaConstantFetching = OpenDotaConstantFetcher()) {
+        self.fetcher = fetcher
     }
-
+    
     func loadHeroes() async -> [ODHero] {
-        guard let heroDict = await loadOpenDotaConstantService(service: .heroes, type: [String: ODHero].self) else {
+        guard let heroDict = await fetcher.loadService(service: .heroes, as: [String: ODHero].self) else {
             return []
         }
         var heroesArray: [ODHero] = []
@@ -35,14 +36,14 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
         }
         return heroesArray
     }
-
+    
     func loadAbilities() async -> [ODAbility] {
-        guard let abilityDict = await loadOpenDotaConstantService(service: .abilities, type: [String: ODAbility].self),
-              let abilityIDs = await loadOpenDotaConstantService(service: .abilityIDs, type: [String: String].self) else {
+        guard let abilityDict = await fetcher.loadService(service: .abilities, as: [String: ODAbility].self),
+              let abilityIDs = await fetcher.loadService(service: .abilityIDs, as: [String: String].self) else {
             return []
         }
         var abilities: [ODAbility] = []
-
+        
         for (abilityIDString, name) in abilityIDs {
             guard var ability = abilityDict[name] else {
                 logDebug("\(name) cannot be found", category: .opendotaConstant)
@@ -61,24 +62,24 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
         }
         return abilities
     }
-
+    
     func loadItemIDs() async -> [String: String] {
-        guard let itemIDs = await loadOpenDotaConstantService(service: .itemIDs, type: [String: String].self) else {
+        guard let itemIDs = await fetcher.loadService(service: .itemIDs, as: [String: String].self) else {
             return [:]
         }
         return itemIDs
     }
-
+    
     func loadAbilitiesForHeroes() async -> [String: ODHeroAbilities] {
-        guard let heroAbilities = await loadOpenDotaConstantService(service: .heroAbilities,
-                                                                    type: [String: ODHeroAbilities].self) else {
+        guard let heroAbilities = await fetcher.loadService(service: .heroAbilities,
+                                                            as: [String: ODHeroAbilities].self) else {
             return [:]
         }
         return heroAbilities
     }
     
     func loadGameModes() async -> [ODGameMode] {
-        guard let gameModesDict = await loadOpenDotaConstantService(service: .gameModes, type: [String: ODGameMode].self) else {
+        guard let gameModesDict = await fetcher.loadService(service: .gameModes, as: [String: ODGameMode].self) else {
             return []
         }
         
@@ -88,16 +89,5 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
         }
         
         return gameModes
-    }
-
-    private func loadOpenDotaConstantService<T: Decodable>(service: OpenDotaConstantService, type: T.Type) async -> T? {
-        let url = service.serviceURL
-        do {
-            let data = try await network.dataTask(url, as: T.self)
-            return data
-        } catch {
-            logWarn("Loading \(service) from OpenDota failed: \(error)", category: .opendotaConstant)
-            return nil
-        }
     }
 }
