@@ -47,6 +47,13 @@ struct NavigationHostView: View {
     @EnvironmentObject var env: EnvironmentController
     @EnvironmentObject var data: ConstantsController
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    @FetchRequest(sortDescriptors: [])
+    private var heroes: FetchedResults<Hero>
+    
+    private var sortedHeroes: [Hero] {
+        return Array(heroes).sorted(by: { $0.heroNameLocalized < $1.heroNameLocalized })
+    }
 
     var body: some View {
         if horizontalSizeClass == .compact {
@@ -61,7 +68,7 @@ struct NavigationHostView: View {
                 .tag(TabSelection.home)
 
                 D2ANavigationStack {
-                    HeroListView()
+                    HeroListView(heroes: sortedHeroes)
                 }
                 .tabItem {
                     Image(systemName: "server.rack")
@@ -98,7 +105,7 @@ struct NavigationHostView: View {
             }
         } else {
             D2ANavigationSplitView {
-                Sidebar()
+                Sidebar(heroes: sortedHeroes)
             } detail: {
                 HomeView()
             }

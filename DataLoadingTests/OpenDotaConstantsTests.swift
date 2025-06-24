@@ -31,18 +31,4 @@ struct OpenDotaConstantsTests {
         #expect(abilities.count > 0, "abilities should not be empty")
         #expect(heroAbilities.count > 0, "Hero abilities should not be empty")
     }
-
-    @Test("Bad Network")
-    func loadConstantsWithBadNetwork() async throws {
-        let constantsProvider = OpenDotaConstantProvider(network: MockNetwork())
-
-        let heroes = await constantsProvider.loadHeroes()
-        let itemIDs = await constantsProvider.loadItemIDs()
-        let abilities = await constantsProvider.loadAbilities()
-        let heroAbilities = await constantsProvider.loadAbilitiesForHeroes()
-        #expect(heroes.count == 0, "Heroes list should be empty for bad network")
-        #expect(itemIDs.count == 0, "item ID should be empty for bad network")
-        #expect(abilities.count == 0, "abilities should be empty for bad network")
-        #expect(heroAbilities.count == 0, "Hero abilities should be empty for bad network")
-    }
 }

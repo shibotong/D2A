@@ -14,6 +14,8 @@ struct Sidebar: View {
         sortDescriptors: [],
         predicate: NSPredicate(format: "favourite = %d", true))
     private var favouritePlayers: FetchedResults<UserProfile>
+    
+    let heroes: [Hero]
 
     var body: some View {
         List {
@@ -23,7 +25,7 @@ struct Sidebar: View {
                 Label("Home", systemImage: "house")
             }
             NavigationLink(
-                destination: HeroListView()
+                destination: HeroListView(heroes: heroes)
             ) {
                 Label("Heroes", systemImage: "server.rack")
             }
@@ -93,7 +95,7 @@ struct SidebarRowView: View {
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            Sidebar()
+            Sidebar(heroes: Hero.previewHeroes)
             EmptyView()
         }
         .environmentObject(EnvironmentController.shared)

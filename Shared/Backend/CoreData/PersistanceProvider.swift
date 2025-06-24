@@ -180,27 +180,25 @@ class PersistanceProvider: PersistanceProviding {
 
     func saveAbilitiesToHero(heroAbilities: [String: ODHeroAbilities]) async {
         let context = container.newBackgroundContext()
-        for (name, heroAbility) in heroAbilities {
-            guard let hero = Hero.fetchByName(name: name, context: context) else {
-                logError("Cannot find hero: \(name)", category: .coredata)
-                continue
-            }
-            let abilityNames = heroAbility.abilities
-
-            if let currentAbilities = hero.abilities?.compactMap({ ($0 as? Ability) }) {
-                guard currentAbilities.compactMap(\.name) != abilityNames else {
+        await context.perform {
+            for (name, heroAbility) in heroAbilities {
+                guard let hero = Hero.fetchByName(name: name, context: context) else {
+                    logError("Cannot find hero: \(name)", category: .coredata)
                     continue
                 }
-                await context.perform {
+                let abilityNames = heroAbility.abilities
+                
+                if let currentAbilities = hero.abilities?.compactMap({ ($0 as? Ability) }) {
+                    guard currentAbilities.compactMap(\.name) != abilityNames else {
+                        continue
+                    }
                     for ability in currentAbilities {
                         hero.removeFromAbilities(ability)
                     }
                 }
-            }
-
-            let abilities = Ability.fetchByNames(names: abilityNames, context: context)
-
-            await context.perform {
+                
+                let abilities = Ability.fetchByNames(names: abilityNames, context: context)
+                
                 for ability in abilities {
                     hero.addToAbilities(ability)
                 }
