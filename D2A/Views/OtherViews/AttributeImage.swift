@@ -12,7 +12,7 @@ struct AttributeImage: View {
     let attribute: HeroAttribute?
 
     var body: some View {
-        if let attribute, attribute != .whole {
+        if let attribute {
             Image("attribute_\(attribute.rawValue)")
                 .resizable()
         } else {

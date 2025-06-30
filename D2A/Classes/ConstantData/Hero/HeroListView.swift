@@ -6,11 +6,45 @@
 //
 import SwiftUI
 
+
+
 struct HeroListView: View {
+    
+    fileprivate enum AttributeSelection: String, CaseIterable {
+        case all = "All"
+        case str = "Strength"
+        case agi = "Agility"
+        case int = "Intelligence"
+        case uni = "Universal"
+        
+        var attributes: [HeroAttribute] {
+            switch self {
+            case .all: return [.str, .agi, .int, .uni]
+            case .str: return [.str]
+            case .agi: return [.agi]
+            case .int: return [.int]
+            case .uni: return [.uni]
+            }
+        }
+        
+        var image: String {
+            switch self {
+            case .all: return ""
+            case .str: return "attribute_str"
+            case .agi: return "attribute_agi"
+            case .int: return "attribute_int"
+            case .uni: return "attribute_uni"
+            }
+        }
+    }
+    
     @Environment(\.horizontalSizeClass) private var horizontalSize
     
     @State private var searchedResults: [Hero] = []
-    @State private var selectedAttribute: HeroAttribute = .whole
+    @State private var selectedAttribute: AttributeSelection = .all
+    
+    @State private var selectedAttributes: Set<HeroAttribute> = []
+    
     @State private var isGrid = true
     @State private var searchString = ""
     
@@ -26,26 +60,7 @@ struct HeroListView: View {
             .disableAutocorrection(true)
             .toolbar {
                 if horizontalSize == .compact {
-                    Menu {
-                        Picker("picker", selection: $isGrid) {
-                            Label("Icons", systemImage: "square.grid.2x2").tag(true)
-                            Label("List", systemImage: "list.bullet").tag(false)
-                        }
-                        
-                        Picker("attributes", selection: $selectedAttribute) {
-                            Text("All").tag(HeroAttribute.whole)
-                            Label("STRENGTH", image: "attribute_str").tag(HeroAttribute.str)
-                            Label("AGILITY", image: "attribute_agi").tag(HeroAttribute.agi)
-                            Label("INTELLIGENCE", image: "attribute_int").tag(HeroAttribute.int)
-                            Label("UNIVERSAL", image: "attribute_all").tag(HeroAttribute.all)
-                        }
-                    } label: {
-                        if isGrid {
-                            Image(systemName: "square.grid.2x2")
-                        } else {
-                            Image(systemName: "list.bullet")
-                        }
-                    }
+                    menu
                 }
             }
             .task {
@@ -58,17 +73,38 @@ struct HeroListView: View {
                 searchedResults = filterHero(searchText: searchString, selectedAttribute: value)
             })
     }
+    
+    private var menu: Menu<some View, some View> {
+        Menu {
+            Picker("picker", selection: $isGrid) {
+                Label("Icons", systemImage: "square.grid.2x2").tag(true)
+                Label("List", systemImage: "list.bullet").tag(false)
+            }
+            
+            Picker("attributes", selection: $selectedAttribute) {
+                ForEach(AttributeSelection.allCases, id: \.rawValue) { selection in
+                    Label(selection.rawValue, image: selection.image).tag(selection)
+                }
+            }
+        } label: {
+            if isGrid {
+                Image(systemName: "square.grid.2x2")
+            } else {
+                Image(systemName: "list.bullet")
+            }
+        }
+    }
 
     private var gridView: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            buildSection(heroes: searchedResults, attributes: selectedAttribute)
+            buildSection(heroes: searchedResults)
         }
         .padding(.horizontal)
     }
     
     private var listView: some View {
         List {
-            buildSection(heroes: searchedResults, attributes: selectedAttribute)
+            buildSection(heroes: searchedResults)
         }
         .listStyle(PlainListStyle())
     }
@@ -118,28 +154,14 @@ struct HeroListView: View {
     }
 
     @ViewBuilder
-    private func buildSection(heroes: [Hero], attributes: HeroAttribute) -> some View {
+    private func buildSection(heroes: [Hero]) -> some View {
         if heroes.count == 0 {
             Text("No Results")
                 .bold()
                 .foregroundColor(.secondaryLabel)
                 .padding()
         } else {
-            Section {
-                buildMainPart(heroes: heroes)
-            } header: {
-                if attributes != .whole {
-                    HStack {
-                        AttributeImage(attribute: selectedAttribute)
-                            .frame(width: 20, height: 20)
-                        Text(LocalizedStringKey(attributes.fullName))
-                            .bold()
-                        Spacer()
-                    }
-                } else {
-                    EmptyView()
-                }
-            }
+            buildMainPart(heroes: heroes)
         }
     }
 
@@ -172,10 +194,10 @@ struct HeroListView: View {
         }
     }
     
-    private func filterHero(searchText: String, selectedAttribute: HeroAttribute) -> [Hero] {
+    private func filterHero(searchText: String, selectedAttribute: AttributeSelection) -> [Hero] {
         var searchedHeroes = heroes
-        if selectedAttribute != .whole {
-            searchedHeroes = searchedHeroes.filter({ $0.primaryAttr == selectedAttribute.rawValue })
+        searchedHeroes = searchedHeroes.filter { hero in
+            selectedAttribute.attributes.map { $0.rawValue }.contains(hero.primaryAttr)
         }
         if !searchText.isEmpty {
             searchedHeroes = searchedHeroes.filter({ $0.heroNameLocalized.lowercased().contains(searchText.lowercased()) })
@@ -185,7 +207,9 @@ struct HeroListView: View {
 }
 
 #Preview {
-    HeroListView(heroes: Hero.previewHeroes.sorted(by: { $0.heroNameLocalized < $1.heroNameLocalized }))
-        .environmentObject(ConstantsController.preview)
-        .environmentObject(ImageController.preview)
+    NavigationView {
+        HeroListView(heroes: Hero.previewHeroes.sorted(by: { $0.heroNameLocalized < $1.heroNameLocalized }))
+            .environmentObject(ConstantsController.preview)
+            .environmentObject(ImageController.preview)
+    }
 }

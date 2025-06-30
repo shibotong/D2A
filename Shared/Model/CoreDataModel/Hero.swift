@@ -248,7 +248,7 @@ extension Hero {
 
     func getGain(type: HeroAttribute) -> Double {
         switch type {
-        case .all:
+        case .uni:
             return 0.0
         case .str:
             return gainStr
@@ -256,8 +256,6 @@ extension Hero {
             return gainAgi
         case .int:
             return gainInt
-        case .whole:
-            return 0.0
         }
     }
 
