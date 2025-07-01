@@ -8,6 +8,9 @@
 import CoreData
 
 protocol PersistanceProviding {
+    
+    var container: NSPersistentContainer { get }
+    
     func saveAbilitiesToHero(heroAbilities: [String: ODHeroAbilities]) async
 
     func saveODData(data: [PersistanceModel], type: NSManagedObject.Type) async
@@ -24,7 +27,7 @@ class PersistanceProvider: PersistanceProviding {
 
     static let shared = PersistanceProvider()
 
-    static let preview = PersistanceProvider()
+    static let preview = PersistanceProvider(inMemory: true)
 
     let container: NSPersistentContainer
     private var notificationToken: NSObjectProtocol?
@@ -110,18 +113,6 @@ class PersistanceProvider: PersistanceProviding {
         privateContext.transactionAuthor = author
         privateContext.automaticallyMergesChangesFromParent = true
         return privateContext
-    }
-
-    func fetchFirstWidgetUser() -> UserProfile? {
-        let fetchRequest = UserProfile.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
-        do {
-            let result = try container.viewContext.fetch(fetchRequest)
-            return result.first(where: { $0.register }) ?? result.first
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
     }
 
     func deleteRecentMatchesForUserID(userID: String) {
