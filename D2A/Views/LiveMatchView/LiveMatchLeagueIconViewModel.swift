@@ -13,14 +13,17 @@ class LiveMatchLeagueIconViewModel: ObservableObject {
 
     var leagueID: Int
     var urlString: String = ""
-
+    
+    
+    private let imageProvider: ImageProviding
     private let imageType: ImageCacheType = .league
 
-    init(leagueID: Int) {
+    init(leagueID: Int,
+         imageProvider: ImageProviding = ImageProvider.shared) {
         self.leagueID = leagueID
         self.urlString = "https://cdn.stratz.com/images/dota2/leagues/\(leagueID).png"
-        self.image = ImageCache.readImage(
-            type: imageType, id: leagueID.description, fileExtension: "png")
+        self.imageProvider = imageProvider
+        self.image = imageProvider.localImage(type: imageType, id: leagueID.description, fileExtension: .png)
         Task {
             await fetchImage()
         }
@@ -33,8 +36,7 @@ class LiveMatchLeagueIconViewModel: ObservableObject {
         guard let newImage = await loadImage() else {
             return
         }
-        ImageCache.saveImage(
-            newImage, type: imageType, id: leagueID.description, fileExtension: "png")
+        imageProvider.saveImage(image: newImage, type: imageType, id: leagueID.description, fileExtension: .png)
         await setImage(newImage)
     }
 

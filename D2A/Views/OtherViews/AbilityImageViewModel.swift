@@ -13,23 +13,28 @@ class AbilityImageViewModel: ObservableObject {
 
     var name: String?
     let urlString: String?
+    
+    private let imageProvider: ImageProviding
 
-    init(name: String?, urlString: String?) {
+    init(name: String?, urlString: String?,
+         imageProvider: ImageProviding = ImageProvider.shared) {
         self.name = name
         self.urlString = urlString
+        self.imageProvider = imageProvider
         if let name {
-            self.image = ImageCache.readImage(type: .ability, id: name)
+            self.image = imageProvider.localImage(type: .ability, id: name, fileExtension: .jpg)
             Task {
                 await fetchImage()
             }
         }
     }
 
-    init() {
+    init(imageProvider: ImageProviding = ImageProvider.shared) {
         name = "Acid Spray"
         urlString =
             "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_acid_spray.png"
         image = UIImage(named: "ability_slot")
+        self.imageProvider = imageProvider
     }
 
     private func fetchImage() async {
@@ -41,7 +46,7 @@ class AbilityImageViewModel: ObservableObject {
         else {
             return
         }
-        ImageCache.saveImage(newImage, type: .ability, id: name)
+        imageProvider.saveImage(image: newImage, type: .ability, id: name, fileExtension: .jpg)
         await setImage(newImage)
     }
 
