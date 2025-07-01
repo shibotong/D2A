@@ -18,13 +18,13 @@ extension HeroListView {
         
         init(heroes: [Hero]) {
             self.heroes = heroes
-            searchedResults = filterHero(searchText: searchString, selectedAttribute: selectedAttribute)
             setupBinding()
         }
         
         private func setupBinding() {
             $searchString
                 .combineLatest($selectedAttribute)
+                .removeDuplicates(by: { $0.0 == $1.0 && $0.1 == $1.1 })
                 .map { [weak self] searchString, selectedAttribute in
                     guard let self else {
                         return []

@@ -9,7 +9,7 @@ enum HeroAttribute: String, CaseIterable {
     case str
     case agi
     case int
-    case uni
+    case uni = "all"
     
     var fullName: String {
         switch self {
