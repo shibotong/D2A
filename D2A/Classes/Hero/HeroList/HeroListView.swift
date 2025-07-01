@@ -10,51 +10,25 @@ import SwiftUI
 
 struct HeroListView: View {
     
-    fileprivate enum AttributeSelection: String, CaseIterable {
-        case all = "All"
-        case str = "Strength"
-        case agi = "Agility"
-        case int = "Intelligence"
-        case uni = "Universal"
-        
-        var attributes: [HeroAttribute] {
-            switch self {
-            case .all: return [.str, .agi, .int, .uni]
-            case .str: return [.str]
-            case .agi: return [.agi]
-            case .int: return [.int]
-            case .uni: return [.uni]
-            }
-        }
-        
-        var image: String {
-            switch self {
-            case .all: return ""
-            case .str: return "attribute_str"
-            case .agi: return "attribute_agi"
-            case .int: return "attribute_int"
-            case .uni: return "attribute_uni"
-            }
-        }
+    @Environment(\.horizontalSizeClass)
+    private var horizontalSize
+    
+    @ObservedObject
+    private var viewModel: ViewModel
+    
+    @State
+    private var isGrid = true
+    
+    init(heroes: [Hero]) {
+        viewModel = ViewModel(heroes: heroes)
     }
-    
-    @Environment(\.horizontalSizeClass) private var horizontalSize
-    
-    @State private var searchedResults: [Hero] = []
-    @State private var selectedAttribute: AttributeSelection = .all
-    
-    @State private var selectedAttributes: Set<HeroAttribute> = []
-    
-    @State private var isGrid = true
-    @State private var searchString = ""
-    
-    let heroes: [Hero]
 
     var body: some View {
         buildBody()
             .navigationTitle("Heroes")
             .searchable(
-                text: $searchString.animation(.linear), placement: .automatic,
+                text: $viewModel.searchString.animation(.linear),
+                placement: .automatic,
                 prompt: "Search Heroes"
             )
             .disableAutocorrection(true)
@@ -63,15 +37,6 @@ struct HeroListView: View {
                     menu
                 }
             }
-            .task {
-                searchedResults = filterHero(searchText: searchString, selectedAttribute: selectedAttribute)
-            }
-            .onChange(of: searchString, action: { value in
-                searchedResults = filterHero(searchText: value, selectedAttribute: selectedAttribute)
-            })
-            .onChange(of: selectedAttribute, action: { value in
-                searchedResults = filterHero(searchText: searchString, selectedAttribute: value)
-            })
     }
     
     private var menu: Menu<some View, some View> {
@@ -81,7 +46,7 @@ struct HeroListView: View {
                 Label("List", systemImage: "list.bullet").tag(false)
             }
             
-            Picker("attributes", selection: $selectedAttribute) {
+            Picker("attributes", selection: $viewModel.selectedAttribute) {
                 ForEach(AttributeSelection.allCases, id: \.rawValue) { selection in
                     Label(selection.rawValue, image: selection.image).tag(selection)
                 }
@@ -97,14 +62,14 @@ struct HeroListView: View {
 
     private var gridView: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            buildSection(heroes: searchedResults)
+            buildSection(heroes: viewModel.searchedResults)
         }
         .padding(.horizontal)
     }
     
     private var listView: some View {
         List {
-            buildSection(heroes: searchedResults)
+            buildSection(heroes: viewModel.searchedResults)
         }
         .listStyle(PlainListStyle())
     }
@@ -112,7 +77,7 @@ struct HeroListView: View {
     private var sectionView: some View {
         ScrollView(.vertical, showsIndicators: false) {
             ForEach(HeroAttribute.allCases, id: \.self) { attribute in
-                let heroes = self.heroes.filter { hero in
+                let heroes = viewModel.heroes.filter { hero in
                     return hero.primaryAttr == attribute.rawValue
                 }
                 buildHeroGrid(heroes: heroes, attribute: attribute)
@@ -192,17 +157,6 @@ struct HeroListView: View {
                 }
             }
         }
-    }
-    
-    private func filterHero(searchText: String, selectedAttribute: AttributeSelection) -> [Hero] {
-        var searchedHeroes = heroes
-        searchedHeroes = searchedHeroes.filter { hero in
-            selectedAttribute.attributes.map { $0.rawValue }.contains(hero.primaryAttr)
-        }
-        if !searchText.isEmpty {
-            searchedHeroes = searchedHeroes.filter({ $0.heroNameLocalized.lowercased().contains(searchText.lowercased()) })
-        }
-        return searchedHeroes
     }
 }
 
