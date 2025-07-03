@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ItemView: View {
     @EnvironmentObject var heroData: ConstantsController
+    @EnvironmentObject var imageController: ImageController
     @State var image: UIImage?
 
     @Binding var id: Int?
@@ -34,46 +35,22 @@ struct ItemView: View {
         }
     }
 
-    private func computeURL() -> URL? {
+    private func computeURL() -> String? {
         guard let id, let item = ConstantsController.shared.fetchItem(id: id) else {
             return nil
         }
-        let url = URL(string: "\(IMAGE_PREFIX)\(item.img)")
-        return url
-    }
-
-    private func fetchImage() async {
-        guard let id else {
-            setImage(nil)
-            return
-        }
-
-        if let cacheImage = ImageCache.readImage(type: .item, id: id.description) {
-            setImage(cacheImage)
-            return
-        }
-
-        guard let newImage = await loadImage() else {
-            setImage(nil)
-            return
-        }
-        ImageCache.saveImage(newImage, type: .item, id: id.description)
-        setImage(newImage)
-    }
-
-    private func loadImage() async -> UIImage? {
-        guard let url = computeURL(),
-            let (newImageData, _) = try? await URLSession.shared.data(from: url),
-            let newImage = UIImage(data: newImageData)
-        else {
-            return nil
-        }
-        return newImage
+        return "\(IMAGE_PREFIX)\(item.img)"
     }
 
     @MainActor
-    private func setImage(_ image: UIImage?) {
-        self.image = image
+    private func fetchImage() async {
+        guard let id else {
+            self.image = nil
+            return
+        }
+        await imageController.refreshImage(type: .item, id: id.description, url: computeURL() ?? "") { image in
+            self.image = image
+        }
     }
 }
 

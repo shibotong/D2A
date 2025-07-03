@@ -79,7 +79,7 @@ class HeroDetailViewModel: ObservableObject {
     /// Download hero from API
     func downloadHero(heroID: Int) {
         loadingHero = true
-        Network.shared.apollo.fetch(query: HeroQuery(id: Double(heroID))) {
+        StratzController.shared.apollo?.fetch(query: HeroQuery(id: Double(heroID))) {
             [weak self] (result: Result<GraphQLResult<HeroQuery.Data>, Error>) in
             guard let self = self else { return }
             switch result {

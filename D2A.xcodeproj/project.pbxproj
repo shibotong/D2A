@@ -248,8 +248,6 @@
 		79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */; };
 		79091DFC2A3B36310093EEE4 /* LiveMatchTeamIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DFB2A3B36310093EEE4 /* LiveMatchTeamIconView.swift */; };
 		790FBB2429C186AE00E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2329C186AE00E27106 /* Apollo */; };
-		790FBB3129C18ABC00E27106 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
-		790FBB3229C18ABC00E27106 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
 		790FBB3429C18AC800E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB3329C18AC800E27106 /* Apollo */; };
 		7912B6E32B5D022C00AE1947 /* AbilityTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7912B6E22B5D022C00AE1947 /* AbilityTitleView.swift */; };
 		79266DA42A31B078002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA32A31B078002FEF0F /* ApolloWebSocket */; };
@@ -414,7 +412,10 @@
 		79D1871F2E13CEFF00C04CC8 /* HeroListView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D1871E2E13CEFB00C04CC8 /* HeroListView+ViewModel.swift */; };
 		79D187222E13CF9200C04CC8 /* HeroListView+AttributeSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187212E13CF9200C04CC8 /* HeroListView+AttributeSelection.swift */; };
 		79D187252E13D21100C04CC8 /* HeroListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187242E13D21100C04CC8 /* HeroListViewModelTests.swift */; };
-		79D5280E28DD5D990070841D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5280D28DD5D990070841D /* Network.swift */; };
+		79D187322E16205700C04CC8 /* D2ANotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187312E16205100C04CC8 /* D2ANotificationCenter.swift */; };
+		79D187332E16205700C04CC8 /* D2ANotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187312E16205100C04CC8 /* D2ANotificationCenter.swift */; };
+		79D187342E16205700C04CC8 /* D2ANotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187312E16205100C04CC8 /* D2ANotificationCenter.swift */; };
+		79D187372E16222100C04CC8 /* StratzControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187362E16221C00C04CC8 /* StratzControllerTests.swift */; };
 		79DEA8432A36A3060009A414 /* PlayerRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */; };
 		79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */; };
 		79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
@@ -738,7 +739,8 @@
 		79D1871E2E13CEFB00C04CC8 /* HeroListView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HeroListView+ViewModel.swift"; sourceTree = "<group>"; };
 		79D187212E13CF9200C04CC8 /* HeroListView+AttributeSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HeroListView+AttributeSelection.swift"; sourceTree = "<group>"; };
 		79D187242E13D21100C04CC8 /* HeroListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListViewModelTests.swift; sourceTree = "<group>"; };
-		79D5280D28DD5D990070841D /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		79D187312E16205100C04CC8 /* D2ANotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ANotificationCenter.swift; sourceTree = "<group>"; };
+		79D187362E16221C00C04CC8 /* StratzControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratzControllerTests.swift; sourceTree = "<group>"; };
 		79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowViewModel.swift; sourceTree = "<group>"; };
 		79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchPlayerView.swift; sourceTree = "<group>"; };
 		79E4AECF2DCB79CD008BBF6D /* D2ANavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ANavigationStack.swift; sourceTree = "<group>"; };
@@ -872,6 +874,7 @@
 		3266081C27CED53C00D9A204 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				79D187302E16204C00C04CC8 /* Notification */,
 				79AF52862E02A618009FE792 /* Version Control */,
 				32B36F1226C38822002D427D /* Assets.xcassets */,
 				32B36F1D26C38834002D427D /* Backend */,
@@ -891,6 +894,7 @@
 		3289579A27F6609B00BA9847 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				79D187352E16221300C04CC8 /* New Group */,
 				79D187232E13D1FD00C04CC8 /* Hero */,
 				79AF52242E0034AF009FE792 /* Backend */,
 			);
@@ -1313,6 +1317,7 @@
 		79AF52242E0034AF009FE792 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				79D187362E16221C00C04CC8 /* StratzControllerTests.swift */,
 				79AF52252E0034BF009FE792 /* ImageControllerTests.swift */,
 				79AF52272E0034E7009FE792 /* ImageProviderTests.swift */,
 			);
@@ -1359,7 +1364,6 @@
 				7977FDA029C1770B0034D3EA /* schema.graphqls */,
 				79B1630228DD5A29009B2AE2 /* Ability.graphql */,
 				79B1630328DD5A31009B2AE2 /* Hero.graphql */,
-				79D5280D28DD5D990070841D /* Network.swift */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -1478,6 +1482,21 @@
 				79D187242E13D21100C04CC8 /* HeroListViewModelTests.swift */,
 			);
 			path = Hero;
+			sourceTree = "<group>";
+		};
+		79D187302E16204C00C04CC8 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				79D187312E16205100C04CC8 /* D2ANotificationCenter.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		79D187352E16221300C04CC8 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		79E89A2E2DF6B0DD00497B5D /* Model */ = {
@@ -1884,6 +1903,7 @@
 				79AF52282E0034E7009FE792 /* ImageProviderTests.swift in Sources */,
 				79CF375C2DC0F8F800207CB8 /* D2AError.swift in Sources */,
 				79D187252E13D21100C04CC8 /* HeroListViewModelTests.swift in Sources */,
+				79D187372E16222100C04CC8 /* StratzControllerTests.swift in Sources */,
 				79EB3EFA2DC4B5D8008C4F6D /* PersistanceModel.swift in Sources */,
 				79AF52202E00347A009FE792 /* ImageExtension.swift in Sources */,
 			);
@@ -1987,12 +2007,12 @@
 				79B8709D2DC38A150090CAB8 /* StratzController.swift in Sources */,
 				79B8709E2DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */,
 				79B8709F2DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift in Sources */,
+				79D187332E16205700C04CC8 /* D2ANotificationCenter.swift in Sources */,
 				79B870A02DC38A150090CAB8 /* StratzAbility.swift in Sources */,
 				79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
 				32079DBF28B843360056D19F /* String.swift in Sources */,
 				790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */,
-				79D5280E28DD5D990070841D /* Network.swift in Sources */,
 				79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */,
 				79AF52212E00347A009FE792 /* ImageExtension.swift in Sources */,
 				79AF521C2E00341D009FE792 /* ImageController.swift in Sources */,
@@ -2063,7 +2083,6 @@
 				32F70ADC26F60B30006E9B05 /* StringVariable.swift in Sources */,
 				797C88B22DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */,
 				32B526CB285C0CE40099B058 /* RecentMatchesWidgetEntryView.swift in Sources */,
-				790FBB3129C18ABC00E27106 /* Network.swift in Sources */,
 				32B526D4285C1DBC0099B058 /* Extension.swift in Sources */,
 				32F70B1726F6294D006E9B05 /* MatchCodable.swift in Sources */,
 				79CF375F2DC0F8F800207CB8 /* D2AError.swift in Sources */,
@@ -2127,6 +2146,7 @@
 				79B870B62DC394C10090CAB8 /* OpenDotaConstantService.swift in Sources */,
 				79B870B72DC394C10090CAB8 /* OpenDotaConstantProvider.swift in Sources */,
 				79CF37622DC0F93600207CB8 /* D2ALogger.swift in Sources */,
+				79D187322E16205700C04CC8 /* D2ANotificationCenter.swift in Sources */,
 				32F70AA226F57F7E006E9B05 /* D2AWidget.swift in Sources */,
 				7983DA712B63086700C42F87 /* D2AWidgetUserEntry.swift in Sources */,
 				79A9891C2931EB59006AC847 /* Match.swift in Sources */,
@@ -2156,7 +2176,6 @@
 				32F70B0F26F622C0006E9B05 /* LobbyType.swift in Sources */,
 				797C88B12DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */,
 				32F70B1026F622C2006E9B05 /* GameMode.swift in Sources */,
-				790FBB3229C18ABC00E27106 /* Network.swift in Sources */,
 				327B87742850DA7900BBE1F8 /* ODAbility.swift in Sources */,
 				32F70B2026F6295C006E9B05 /* Int.swift in Sources */,
 				79CF375D2DC0F8F800207CB8 /* D2AError.swift in Sources */,
@@ -2220,6 +2239,7 @@
 				79B870B82DC394C10090CAB8 /* OpenDotaConstantService.swift in Sources */,
 				79B870B92DC394C10090CAB8 /* OpenDotaConstantProvider.swift in Sources */,
 				79CF37642DC0F93600207CB8 /* D2ALogger.swift in Sources */,
+				79D187342E16205700C04CC8 /* D2ANotificationCenter.swift in Sources */,
 				32EC7F3728646BAC00A36AF6 /* WidgetOverlayView.swift in Sources */,
 				7983DA722B63086700C42F87 /* D2AWidgetUserEntry.swift in Sources */,
 				79A9891D2931EB5A006AC847 /* Match.swift in Sources */,
