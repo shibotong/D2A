@@ -134,7 +134,8 @@ class LiveMatchViewModel: ObservableObject {
     }
 
     private func startSubscription() {
-        let subscription = Network.shared.apollo.subscribe(
+        guard let client = StratzController.shared.apollo else { return }
+        let subscription = client.subscribe(
             subscription: LiveMatchSubscription(matchid: matchID)
         ) { [weak self] result in
             switch result {
@@ -302,7 +303,10 @@ class LiveMatchViewModel: ObservableObject {
     }
 
     private func fetchHistoryData(lastFetchTime: Int) {
-        let subscription = Network.shared.apollo.fetch(
+        guard let client = StratzController.shared.apollo else {
+            return
+        }
+        let subscription = client.fetch(
             query: LiveMatchHistoryQuery(matchid: matchID),
             cachePolicy: .fetchIgnoringCacheCompletely
         ) { [weak self] result in
