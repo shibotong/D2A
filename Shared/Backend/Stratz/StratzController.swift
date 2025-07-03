@@ -19,15 +19,16 @@ class StratzController: StratzProviding {
 
     static let shared = StratzController()
     
-    private var apollo: ApolloClient?
+    private(set) var apollo: ApolloClient?
     private var stratzToken: String
     private var cancellable: AnyCancellable?
     
     private let notification: D2ANotificationCenter
     
-    init(notification: D2ANotificationCenter = .shared) {
+    init(notification: D2ANotificationCenter = .shared,
+         userDefault: UserDefaults = UserDefaults.group) {
         self.notification = notification
-        stratzToken = UserDefaults.group.string(forKey: UserDefaults.stratzToken) ?? ""
+        stratzToken = userDefault.string(forKey: UserDefaults.stratzToken) ?? ""
         apollo = try? Self.createClient(token: stratzToken)
         setupBinding()
     }
