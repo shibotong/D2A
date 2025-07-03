@@ -48,7 +48,5 @@ import Foundation
 
      func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension) -> UIImage? {
          return imageProvider.localImage(type: type, id: id, fileExtension: fileExtension)
-
-
      }
  }
