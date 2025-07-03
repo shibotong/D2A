@@ -27,7 +27,7 @@ final class ImageProviderTests: XCTestCase {
     }
 
     func testImageSaving() async {
-        if let localImage = imageProvider.localImage(type: imageType, id: imageID, fileExtension: .jpg) {
+        if imageProvider.localImage(type: imageType, id: imageID, fileExtension: .jpg) != nil {
             XCTFail("No image should be saved at beginning")
             return
         }
