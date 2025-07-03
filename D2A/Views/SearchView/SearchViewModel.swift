@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import CoreData
 
 class SearchViewModel: ObservableObject {
     @Published var searchText: String = ""
@@ -29,7 +30,11 @@ class SearchViewModel: ObservableObject {
     }
 
     private var cancellableObject: Set<AnyCancellable> = []
-    init() {
+    
+    private let context: NSManagedObjectContext
+    
+    init(context: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext) {
+        self.context = context
         searchHistory =
             UserDefaults.standard.object(forKey: "dotaArmory.searchHistory") as? [String] ?? []
 
@@ -79,7 +84,9 @@ class SearchViewModel: ObservableObject {
         if Int(searchText) != nil {
             async let matchID = OpenDotaProvider.shared.loadMatchData(matchid: searchText)
             do {
-                searchedMatch = try await Match.fetch(id: matchID)
+                let matchData = try await OpenDotaProvider.shared.loadMatch(id: searchText)
+                let saveMatch = try Match.create(matchData, viewContext: context)
+                searchedMatch = saveMatch
             } catch {
                 print("parse match error")
                 searchedMatch = nil

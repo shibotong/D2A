@@ -14,7 +14,6 @@ protocol OpenDotaProviding {
 
     func getRecentMatches(userid: String) async -> [RecentMatchCodable]
     func loadMatch(id: String) async throws -> ODMatch
-    func loadMatchData(matchid: String) async throws -> String
     func loadRecentMatch(userid: String) async
     func loadRecentMatch(userid: String, days: Double?) async
     func loadRecentMatches(userid: String) async -> [RecentMatchCodable]
@@ -59,17 +58,6 @@ class OpenDotaProvider: OpenDotaProviding {
     func loadMatch(id: String) async throws -> ODMatch {
         let match = try await loadData("/matches/\(id)", as: ODMatch.self)
         return match
-    }
-
-    func loadMatchData(matchid: String) async throws -> String {
-        let match = try await loadData("/matches/\(matchid)", as: ODMatch.self)
-        do {
-            _ = try Match.create(match)
-            return matchid
-        } catch {
-            print("Match created failed")
-            throw error
-        }
     }
 
     func loadRecentMatch(userid: String) async {
