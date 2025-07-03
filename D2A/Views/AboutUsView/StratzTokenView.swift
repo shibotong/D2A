@@ -15,6 +15,12 @@ struct StratzTokenView: View {
     @State private var editToken: String = ""
 
     @Environment(\.dismiss) var dismiss
+    
+    private let notification: D2ANotificationCenter
+    
+    init(notification: D2ANotificationCenter = .shared) {
+        self.notification = notification
+    }
 
     var body: some View {
         ScrollView {
@@ -44,7 +50,7 @@ struct StratzTokenView: View {
             ToolbarItem {
                 Button("Save") {
                     stratzToken = editToken
-                    NotificationCenter.stratzToken.send(stratzToken)
+                    notification.stratzToken.send(stratzToken)
                     dismiss()
                 }
             }
