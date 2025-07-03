@@ -78,4 +78,8 @@ actor ImageCache {
     func readCache(key: String) -> UIImage? {
         return cache[key]
     }
+    
+    func resetCache() {
+        cache.removeAll()
+    }
 }

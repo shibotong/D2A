@@ -416,6 +416,7 @@
 		79D187332E16205700C04CC8 /* D2ANotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187312E16205100C04CC8 /* D2ANotificationCenter.swift */; };
 		79D187342E16205700C04CC8 /* D2ANotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187312E16205100C04CC8 /* D2ANotificationCenter.swift */; };
 		79D187372E16222100C04CC8 /* StratzControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187362E16221C00C04CC8 /* StratzControllerTests.swift */; };
+		79D1873F2E16411B00C04CC8 /* D2AAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D1873E2E16411600C04CC8 /* D2AAppDelegate.swift */; };
 		79DEA8432A36A3060009A414 /* PlayerRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */; };
 		79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */; };
 		79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
@@ -741,6 +742,7 @@
 		79D187242E13D21100C04CC8 /* HeroListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListViewModelTests.swift; sourceTree = "<group>"; };
 		79D187312E16205100C04CC8 /* D2ANotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ANotificationCenter.swift; sourceTree = "<group>"; };
 		79D187362E16221C00C04CC8 /* StratzControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratzControllerTests.swift; sourceTree = "<group>"; };
+		79D1873E2E16411600C04CC8 /* D2AAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AAppDelegate.swift; sourceTree = "<group>"; };
 		79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowViewModel.swift; sourceTree = "<group>"; };
 		79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchPlayerView.swift; sourceTree = "<group>"; };
 		79E4AECF2DCB79CD008BBF6D /* D2ANavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ANavigationStack.swift; sourceTree = "<group>"; };
@@ -975,6 +977,7 @@
 				32F70B3726F80AD3006E9B05 /* D2ARelease.entitlements */,
 				32F70B2726F62B09006E9B05 /* D2ADebug.entitlements */,
 				32B36F0E26C38821002D427D /* D2AApp.swift */,
+				79D1873E2E16411600C04CC8 /* D2AAppDelegate.swift */,
 				32B36F1026C38821002D427D /* ContentView.swift */,
 				32B36F3D26C38894002D427D /* Views */,
 				32D1605B26F30B5F00657449 /* Subscription */,
@@ -2011,6 +2014,7 @@
 				79B870A02DC38A150090CAB8 /* StratzAbility.swift in Sources */,
 				79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
+				79D1873F2E16411B00C04CC8 /* D2AAppDelegate.swift in Sources */,
 				32079DBF28B843360056D19F /* String.swift in Sources */,
 				790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */,
 				79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */,
