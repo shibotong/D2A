@@ -38,14 +38,16 @@ import XCTest
      var userDefaults: UserDefaults!
      var imageProvider: MockImageProvider!
      var imageHandlerCalled: Int!
+     var cache: ImageCache!
 
      private let heroCache: ImageCacheType = .hero
      private let heroID: String = "1"
 
      override func setUp()  {
          imageProvider = MockImageProvider()
+         cache = ImageCache()
          userDefaults = UserDefaults(suiteName: "UnitTest")!
-         imageController = ImageController(imageProvider: imageProvider, userDefaults: userDefaults)
+         imageController = ImageController(imageProvider: imageProvider, userDefaults: userDefaults, imageCache: cache)
          imageHandlerCalled = 0
      }
 

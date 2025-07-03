@@ -38,8 +38,8 @@ import Foundation
          }
          
          if let localImage = imageProvider.localImage(type: type, id: id, fileExtension: fileExtension) {
-             imageHandler(localImage)
              await imageCache.setCache(key: imageKey, image: localImage)
+             imageHandler(localImage)
          }
 
          if let savedDate = userDefaults.object(forKey: imageKey) as? Date, !imageNeedsRefresh(lastDate: savedDate, currentDate: refreshTime) {
@@ -50,8 +50,8 @@ import Foundation
          }
          imageProvider.saveImage(image: remoteImage, type: type, id: id, fileExtension: fileExtension)
          userDefaults.set(Date(), forKey: imageKey)
-         imageHandler(remoteImage)
          await imageCache.setCache(key: imageKey, image: remoteImage)
+         imageHandler(remoteImage)
      }
 
      private func imageNeedsRefresh(lastDate: Date, currentDate: Date = Date()) -> Bool {
