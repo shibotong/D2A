@@ -31,7 +31,11 @@ struct D2ANavigationSplitView<SideBar: View, Content: View>: View {
 
     var body: some View {
         if #available(iOS 16.0, *) {
-            NavigationSplitView(sidebar: sideBar, detail: detail)
+            NavigationSplitView(sidebar: sideBar) {
+                NavigationStack {
+                    detail()
+                }
+            }
         } else {
             NavigationView {
                 sideBar()
