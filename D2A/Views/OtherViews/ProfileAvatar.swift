@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileAvatar: View {
 
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var imageController: ImageController
     @State var image: UIImage?
 
     private let profile: UserProfile?
@@ -48,39 +49,9 @@ struct ProfileAvatar: View {
             }
         }
         .task {
-            let cacheImage = fetchImage(userID: userID)
-
-            if let cacheImage {
-                await setImage(uiImage: cacheImage)
-            }
-
-            if profile == nil || cacheImage == nil || profile!.shouldUpdate {
-                guard let imageURL, let newImage = await loadImage(urlString: imageURL) else {
-                    return
-                }
-                ImageCache.saveImage(newImage, type: .avatar, id: userID)
-                await setImage(uiImage: newImage)
+            await imageController.refreshImage(type: .avatar, id: userID, url: imageURL ?? "") { image in
+                self.image = image
             }
         }
-    }
-
-    private func fetchImage(userID: String) -> UIImage? {
-        let cacheImage = ImageCache.readImage(type: .avatar, id: userID)
-        return cacheImage
-    }
-
-    private func loadImage(urlString: String) async -> UIImage? {
-        guard let url = URL(string: urlString),
-            let (newImageData, _) = try? await URLSession.shared.data(from: url),
-            let newImage = UIImage(data: newImageData)
-        else {
-            return nil
-        }
-        return newImage
-    }
-
-    @MainActor
-    private func setImage(uiImage: UIImage) async {
-        image = uiImage
     }
 }

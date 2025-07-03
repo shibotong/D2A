@@ -15,7 +15,17 @@ struct Provider: IntentTimelineProvider {
 
     public typealias Entry = D2AWidgetUserEntry
 
-    private let persistanceController = PersistanceProvider.shared
+    private let persistanceProvider: PersistanceProviding
+    private let openDotaProvider: OpenDotaProviding
+    private let imageProvider: ImageProviding
+    
+    init(openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared,
+         persistanceProvider: PersistanceProviding = PersistanceProvider.shared,
+         imageProvider: ImageProviding = ImageProvider.shared) {
+        self.openDotaProvider = openDotaProvider
+        self.persistanceProvider = persistanceProvider
+        self.imageProvider = imageProvider
+    }
 
     func placeholder(in context: Context) -> D2AWidgetUserEntry {
         D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
@@ -25,7 +35,7 @@ struct Provider: IntentTimelineProvider {
         for configuration: DynamicUserSelectionIntent, in context: Context,
         completion: @escaping (D2AWidgetUserEntry) -> Void
     ) {
-        let profile = persistanceController.fetchFirstWidgetUser()
+        let profile = firstWidgetUser()
 
         guard let profile, let userID = profile.id else {
             let entry = D2AWidgetUserEntry(
@@ -36,7 +46,7 @@ struct Provider: IntentTimelineProvider {
 
         // Use matches on device to load snapshot
         let matches = RecentMatch.fetch(userID: userID, count: 10)
-        let userAvatar = ImageCache.readImage(type: .avatar, id: userID)
+        let userAvatar = imageProvider.localImage(type: .avatar, id: userID, fileExtension: .jpg)
 
         let user = D2AWidgetUser(profile, image: userAvatar, matches: matches)
         let entry = D2AWidgetUserEntry(date: Date(), user: user, subscription: true)
@@ -66,13 +76,12 @@ struct Provider: IntentTimelineProvider {
                 profile = await refreshUser(for: userID) ?? selectedProfile
             }
 
-            var image = ImageCache.readImage(type: .avatar, id: userID)
+            var image = imageProvider.localImage(type: .avatar, id: userID, fileExtension: .jpg)
 
             if let urlString = profile.avatarfull, image == nil,
-                let newImage = await ImageCache.loadImage(urlString: urlString)
-            {
+               let newImage = await imageProvider.remoteImage(url: urlString) {
                 image = newImage
-                ImageCache.saveImage(newImage, type: .avatar, id: userID)
+                imageProvider.saveImage(image: newImage, type: .avatar, id: userID, fileExtension: .jpg)
             }
 
             let user = D2AWidgetUser(profile, image: image, matches: matches)
@@ -82,25 +91,36 @@ struct Provider: IntentTimelineProvider {
             completion(timeline)
         }
     }
+    
+    private func firstWidgetUser() -> UserProfile? {
+        let fetchRequest = UserProfile.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
+        do {
+            let result = try persistanceProvider.container.viewContext.fetch(fetchRequest)
+            return result.first(where: { $0.register }) ?? result.first
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
 
     private func user(for configuration: DynamicUserSelectionIntent) -> UserProfile? {
-        guard let id = configuration.profile?.identifier, let profile = UserProfile.fetch(id: id)
-        else {
-            return persistanceController.fetchFirstWidgetUser()
+        guard let id = configuration.profile?.identifier, let profile = UserProfile.fetch(id: id) else {
+            return firstWidgetUser()
         }
 
         return profile
     }
 
     private func loadNewMatches(for userID: String) async -> [RecentMatch] {
-        await OpenDotaProvider.shared.loadRecentMatch(userid: userID)
+        await openDotaProvider.loadRecentMatch(userid: userID)
         let newMatches = RecentMatch.fetch(userID: userID, count: 10)
         return newMatches
     }
 
     private func refreshUser(for userID: String) async -> UserProfile? {
         do {
-            let profileCodable = try await OpenDotaProvider.shared.loadUserData(userid: userID)
+            let profileCodable = try await openDotaProvider.loadUserData(userid: userID)
             _ = try UserProfile.create(profileCodable)
             let newProfile = UserProfile.fetch(id: userID)
             return newProfile

@@ -14,15 +14,19 @@ class LiveMatchTeamIconViewModel: ObservableObject {
     var teamID: String?
     var urlString: String = ""
     var isRadiant: Bool
+    
+    private let imageProvider: ImageProviding
 
-    init(teamID: String?, isRadiant: Bool) {
+    init(teamID: String?, isRadiant: Bool,
+         imageProvider: ImageProviding = ImageProvider.shared) {
         self.isRadiant = isRadiant
         self.teamID = teamID
+        self.imageProvider = imageProvider
         guard let teamID else {
             return
         }
         self.urlString = "https://cdn.stratz.com/images/dota2/teams/\(teamID).png"
-        self.image = ImageCache.readImage(type: .teamIcon, id: teamID, fileExtension: "png")
+        self.image = imageProvider.localImage(type: .teamIcon, id: teamID, fileExtension: .png)
         Task {
             await fetchImage()
         }
@@ -35,7 +39,7 @@ class LiveMatchTeamIconViewModel: ObservableObject {
         guard let newImage = await loadImage(), let teamID else {
             return
         }
-        ImageCache.saveImage(newImage, type: .teamIcon, id: teamID, fileExtension: "png")
+        imageProvider.saveImage(image: newImage, type: .teamIcon, id: teamID, fileExtension: .png)
         await setImage(newImage)
     }
 
