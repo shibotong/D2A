@@ -9,6 +9,8 @@ import CoreData
 import SwiftUI
 
 struct LatestRecentMatchView: View {
+    
+    @EnvironmentObject private var gameDataController: GameDataController
 
     @FetchRequest private var matches: FetchedResults<RecentMatch>
     @FetchRequest private var latestMatch: FetchedResults<RecentMatch>
@@ -63,7 +65,7 @@ struct LatestRecentMatchView: View {
         }
         .frame(height: 70)
         .task {
-            await OpenDotaProvider.shared.loadRecentMatch(userid: userID)
+            await gameDataController.loadRecentMatches(for: userID)
         }
     }
 }

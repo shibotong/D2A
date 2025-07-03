@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RecentMatchCodable: Decodable, Identifiable {
+class ODRecentMatch: Decodable, Identifiable {
     var id: Int
     var duration: Int
     var mode: Int

@@ -82,7 +82,6 @@ class SearchViewModel: ObservableObject {
         async let searchedProfile = OpenDotaProvider.shared.searchUserByText(text: searchText)
         let searchCachedProfile = UserProfile.fetch(text: searchText)
         if Int(searchText) != nil {
-            async let matchID = OpenDotaProvider.shared.loadMatchData(matchid: searchText)
             do {
                 let matchData = try await OpenDotaProvider.shared.loadMatch(id: searchText)
                 let saveMatch = try Match.create(matchData, viewContext: context)

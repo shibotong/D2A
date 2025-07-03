@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PlayerProfileView: View {
     @EnvironmentObject var env: EnvironmentController
+    @EnvironmentObject var gameDataController: GameDataController
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.managedObjectContext) var viewContext
     @State private var isSharePresented: Bool = false
@@ -271,7 +272,7 @@ struct PlayerProfileView: View {
             return
         }
         await setLoading(true)
-        await OpenDotaProvider.shared.loadRecentMatch(userid: userID)
+        await gameDataController.loadRecentMatches(for: userID)
         await setLoading(false)
     }
 

@@ -8,6 +8,7 @@
 import Intents
 import SwiftUI
 import WidgetKit
+import CoreData
 
 struct Provider: IntentTimelineProvider {
     // Intent configuration of the widget
@@ -18,13 +19,16 @@ struct Provider: IntentTimelineProvider {
     private let persistanceProvider: PersistanceProviding
     private let openDotaProvider: OpenDotaProviding
     private let imageProvider: ImageProviding
+    private let gameDataController: GameDataController
     
     init(openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared,
          persistanceProvider: PersistanceProviding = PersistanceProvider.shared,
-         imageProvider: ImageProviding = ImageProvider.shared) {
+         imageProvider: ImageProviding = ImageProvider.shared,
+         gameDataController: GameDataController = GameDataController.shared) {
         self.openDotaProvider = openDotaProvider
         self.persistanceProvider = persistanceProvider
         self.imageProvider = imageProvider
+        self.gameDataController = gameDataController
     }
 
     func placeholder(in context: Context) -> D2AWidgetUserEntry {
@@ -113,7 +117,7 @@ struct Provider: IntentTimelineProvider {
     }
 
     private func loadNewMatches(for userID: String) async -> [RecentMatch] {
-        await openDotaProvider.loadRecentMatch(userid: userID)
+        await gameDataController.loadRecentMatches(for: userID)
         let newMatches = RecentMatch.fetch(userID: userID, count: 10)
         return newMatches
     }

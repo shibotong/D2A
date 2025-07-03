@@ -25,7 +25,7 @@ class MatchListRowViewModel: ObservableObject {
 
     let matchID: String
 
-    convenience init(match: RecentMatchCodable) {
+    convenience init(match: ODRecentMatch) {
         self.init(
             isWin: match.playerWin,
             heroID: match.heroID,

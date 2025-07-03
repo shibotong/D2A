@@ -10,8 +10,7 @@ import Foundation
 
 extension RecentMatch {
 
-    static func create(_ match: RecentMatchCodable, discardable: Bool = false) throws -> RecentMatch {
-        let viewContext = PersistanceProvider.shared.makeContext(author: "RecentMatch")
+    static func create(_ match: ODRecentMatch, discardable: Bool = false, viewContext: NSManagedObjectContext = PersistanceProvider.shared.makeContext(author: "RecentMatch")) throws -> RecentMatch {
         let newRecentMatch =
             fetch(match.id.description, userID: match.playerId?.description ?? "")
             ?? RecentMatch(context: viewContext)
@@ -23,8 +22,7 @@ extension RecentMatch {
         return newRecentMatch
     }
 
-    static func create(_ matches: [RecentMatchCodable]) async throws {
-        let viewContext = PersistanceProvider.shared.makeContext(author: "RecentMatch")
+    static func create(_ matches: [ODRecentMatch], viewContext: NSManagedObjectContext = PersistanceProvider.shared.makeContext(author: "RecentMatch")) async throws {
         weak var weakContext = viewContext
         try await viewContext.perform {
             guard let strongContext = weakContext else {
@@ -177,7 +175,7 @@ extension RecentMatch {
         }
     }
 
-    func update(_ match: RecentMatchCodable) {
+    func update(_ match: ODRecentMatch) {
         id = match.id.description
         playerId = match.playerId?.description ?? ""
 
