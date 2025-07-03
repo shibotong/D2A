@@ -23,4 +23,17 @@ enum HeroAttribute: String, CaseIterable {
             return "UNIVERSAL"
         }
     }
+    
+    var image: String {
+        switch self {
+        case .str:
+            return "attribute_str"
+        case .agi:
+            return "attribute_agi"
+        case .int:
+            return "attribute_int"
+        case .uni:
+            return "attribute_uni"
+        }
+    }
 }

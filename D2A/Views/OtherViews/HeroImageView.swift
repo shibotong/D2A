@@ -14,6 +14,7 @@ enum HeroImageType: String {
 struct HeroImageView: View {
     @EnvironmentObject var heroData: ConstantsController
     @EnvironmentObject var imageController: ImageController
+    @Environment(\.managedObjectContext) var viewContext
     
     let heroID: Int
     let type: HeroImageType
@@ -68,19 +69,21 @@ struct HeroImageView: View {
     }
     
     private func computeURLString() -> String {
-        guard let hero = try? heroData.fetchHeroWithID(id: heroID) else {
+        guard let hero = Hero.fetch(id: Double(heroID), context: viewContext),
+              let heroName = hero.name,
+              let heroIcon = hero.icon else {
             return ""
         }
-        let name = hero.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
+        let name = heroName.replacingOccurrences(of: "npc_dota_hero_", with: "")
         switch type {
         case .icon:
-            return "https://api.opendota.com\(hero.icon)"
+            return "https://api.opendota.com\(heroIcon)"
         case .portrait:
             return "\(IMAGE_PREFIX)/apps/dota2/videos/dota_react/heroes/renders/\(name).png"
         case .full:
             return "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/\(name).png"
         case .vert:
-            return ""
+            return "https://cdn.stratz.com/images/dota2/heroes/\(name)_vert.png"
         }
     }
 }
@@ -89,4 +92,5 @@ struct HeroImageView: View {
     HeroImageView(heroID: 1, type: .icon)
         .environmentObject(ConstantsController.preview)
         .environmentObject(ImageController.preview)
+        .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
 }

@@ -56,10 +56,9 @@ struct HeroRowView: View {
             )
             .overlay(alignment: .bottomLeading, content: {
                 HStack(spacing: 3) {
-                    if let attribute = hero.primaryAttr {
-                        AttributeImage(attribute: HeroAttribute(rawValue: attribute))
-                            .frame(width: 15, height: 15)
-                    }
+                    Image(hero.attribute.image)
+                        .resizable()
+                        .frame(width: 15, height: 15)
                     Text(hero.heroNameLocalized)
                         .font(.caption2)
                         .fontWeight(.black)

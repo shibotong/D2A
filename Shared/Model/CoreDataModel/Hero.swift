@@ -131,6 +131,18 @@ extension Hero {
     var heroNameLocalized: String {
         return NSLocalizedString(displayName ?? "no_name", comment: "")
     }
+    
+    var attribute: HeroAttribute {
+        guard let primaryAttr else {
+            logError("Hero \(id) doesn't have attribute", category: .constants)
+            return .uni
+        }
+        guard let attribute = HeroAttribute(rawValue: primaryAttr) else {
+            logError("Hero \(id) doesn't have a valid attribute", category: .constants)
+            return .uni
+        }
+        return attribute
+    }
 
     enum HeroHPMana: String, CaseIterable {
         case hp = "HP"

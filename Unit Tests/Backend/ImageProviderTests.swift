@@ -13,22 +13,21 @@ final class ImageProviderTests: XCTestCase {
     var imageProvider: ImageProvider!
     let imageType: ImageCacheType = .hero
     let imageID: String = "1"
+    var directory: URL!
 
     override func setUp() {
-        imageProvider = ImageProvider()
+        directory = FileManager.default.temporaryDirectory
+        imageProvider = ImageProvider(directory: directory)
     }
 
     override func tearDown() {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
-            return
-        }
-        let path = docDir.appendingPathComponent(imageType.rawValue).appendingPathComponent(imageID).appendingPathExtension("jpg")
+        let path = directory.appendingPathComponent(imageType.rawValue).appendingPathComponent(imageID).appendingPathExtension("jpg")
         let fileManager = FileManager.default
         try? fileManager.removeItem(at: path)
     }
 
     func testImageSaving() async {
-        if let localImage = imageProvider.localImage(type: imageType, id: imageID, fileExtension: .jpg) {
+        if imageProvider.localImage(type: imageType, id: imageID, fileExtension: .jpg) != nil {
             XCTFail("No image should be saved at beginning")
             return
         }

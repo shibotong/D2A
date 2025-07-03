@@ -110,7 +110,8 @@ struct HeroListView: View {
             }
         } header: {
             HStack {
-                AttributeImage(attribute: attribute)
+                Image(attribute.image)
+                    .resizable()
                     .frame(width: 20, height: 20)
                 Text(LocalizedStringKey(attribute.fullName)).bold()
                 Spacer()
