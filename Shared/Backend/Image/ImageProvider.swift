@@ -27,6 +27,12 @@ class ImageProvider: ImageProviding {
     
     static let shared = ImageProvider()
     
+    private let documentDirectory: URL?
+    
+    init(directory: URL? = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME)) {
+        documentDirectory = directory
+    }
+    
     func remoteImage(url urlString: String) async -> UIImage? {
         guard let url = URL(string: urlString),
               let (newImageData, _) = try? await URLSession.shared.data(from: url),
@@ -37,7 +43,7 @@ class ImageProvider: ImageProviding {
     }
     
     func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension = .jpg) -> UIImage? {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+        guard let docDir = documentDirectory else {
             return nil
         }
         let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
@@ -46,7 +52,7 @@ class ImageProvider: ImageProviding {
     }
     
     func saveImage(image: UIImage, type: ImageCacheType, id: String, fileExtension: ImageExtension) {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+        guard let docDir = documentDirectory else {
             logError("Save image failed due to missing container URL", category: .image)
             return
         }
