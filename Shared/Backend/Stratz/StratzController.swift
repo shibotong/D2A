@@ -28,9 +28,7 @@ class StratzController: StratzProviding {
     init(notification: D2ANotificationCenter = .shared) {
         self.notification = notification
         stratzToken = UserDefaults.group.string(forKey: UserDefaults.stratzToken) ?? ""
-        if !stratzToken.isEmpty {
-            apollo = Self.createClient(token: stratzToken)
-        }
+        apollo = try? Self.createClient(token: stratzToken)
         setupBinding()
     }
 
@@ -55,10 +53,13 @@ class StratzController: StratzProviding {
             return
         }
         stratzToken = token
-        apollo = Self.createClient(token: stratzToken)
+        apollo = try? Self.createClient(token: stratzToken)
     }
     
-    static func createClient(token: String) -> ApolloClient {
+    static func createClient(token: String) throws -> ApolloClient {
+        guard !token.isEmpty else {
+            throw D2AError(message: "stratz token is empty")
+        }
         let url = URL(string: "https://api.stratz.com/graphql")!
         let additionalHeaders = ["Authorization": "Bearer \(token)"]
 
