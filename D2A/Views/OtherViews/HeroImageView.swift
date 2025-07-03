@@ -77,7 +77,7 @@ struct HeroImageView: View {
         let name = heroName.replacingOccurrences(of: "npc_dota_hero_", with: "")
         switch type {
         case .icon:
-            return "https://api.opendota.com\(heroIcon)"
+            return "https://cdn.cloudflare.steamstatic.com\(heroIcon)"
         case .portrait:
             return "\(IMAGE_PREFIX)/apps/dota2/videos/dota_react/heroes/renders/\(name).png"
         case .full:
