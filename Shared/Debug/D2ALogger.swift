@@ -63,16 +63,16 @@ class D2ALogger: ObservableObject {
         function: String, line: Int
     ) {
         #if DEBUG
-            guard level.rawValue >= loggingLevel.rawValue else {
-                return
-            }
-
-            let fileName = file.components(separatedBy: "/").last ?? file
-            let logMessage = "\(level.icon) [\(category.rawValue)] [\(fileName):\(line)]: \(message)"
+        guard level.rawValue >= loggingLevel.rawValue else {
+            return
+        }
+        
+        let fileName = file.components(separatedBy: "/").last ?? file
+        let logMessage = "\(level.icon) [\(category.rawValue)] [\(fileName):\(line)]: \(message)"
         print(logMessage)
         if level == .error {
             assertionFailure(logMessage)
         }
-#endif
+        #endif
     }
 }
