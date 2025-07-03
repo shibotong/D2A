@@ -68,10 +68,11 @@ class D2ALogger: ObservableObject {
             }
 
             let fileName = file.components(separatedBy: "/").last ?? file
-
-            print(
-                "\(level.icon) [\(category.rawValue)] [\(fileName):\(line)]: \(message)"
-            )
-        #endif
+            let logMessage = "\(level.icon) [\(category.rawValue)] [\(fileName):\(line)]: \(message)"
+        print(logMessage)
+        if level == .error {
+            assertionFailure(logMessage)
+        }
+#endif
     }
 }
