@@ -10,6 +10,9 @@ import SwiftUI
 
 struct LatestRecentMatchView: View {
 
+    @Environment(\.managedObjectContext) var context: NSManagedObjectContext
+    @EnvironmentObject var environment: EnvironmentController
+    @EnvironmentObject var gameDataController: GameDataController
     @FetchRequest private var matches: FetchedResults<RecentMatch>
     @FetchRequest private var latestMatch: FetchedResults<RecentMatch>
 
@@ -63,7 +66,10 @@ struct LatestRecentMatchView: View {
         }
         .frame(height: 70)
         .task {
-            await OpenDotaProvider.shared.loadRecentMatch(userid: userID)
+            guard environment.canRefresh(userid: userID) else {
+                return
+            }
+            await gameDataController.refreshRecentMatches(for: userID, viewContext: context)
         }
     }
 }

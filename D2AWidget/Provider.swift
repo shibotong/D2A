@@ -8,6 +8,7 @@
 import Intents
 import SwiftUI
 import WidgetKit
+import CoreData
 
 struct Provider: IntentTimelineProvider {
     // Intent configuration of the widget
@@ -15,16 +16,19 @@ struct Provider: IntentTimelineProvider {
 
     public typealias Entry = D2AWidgetUserEntry
 
-    private let persistanceProvider: PersistanceProviding
+    private let viewContext: NSManagedObjectContext
     private let openDotaProvider: OpenDotaProviding
     private let imageProvider: ImageProviding
+    private let gameDataController: GameDataController
     
     init(openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared,
          persistanceProvider: PersistanceProviding = PersistanceProvider.shared,
-         imageProvider: ImageProviding = ImageProvider.shared) {
+         imageProvider: ImageProviding = ImageProvider.shared,
+         gameDataController: GameDataController = .shared) {
         self.openDotaProvider = openDotaProvider
-        self.persistanceProvider = persistanceProvider
+        self.viewContext = persistanceProvider.container.viewContext
         self.imageProvider = imageProvider
+        self.gameDataController = gameDataController
     }
 
     func placeholder(in context: Context) -> D2AWidgetUserEntry {
@@ -96,7 +100,7 @@ struct Provider: IntentTimelineProvider {
         let fetchRequest = UserProfile.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
         do {
-            let result = try persistanceProvider.container.viewContext.fetch(fetchRequest)
+            let result = try viewContext.fetch(fetchRequest)
             return result.first(where: { $0.register }) ?? result.first
         } catch {
             print(error.localizedDescription)
@@ -113,8 +117,8 @@ struct Provider: IntentTimelineProvider {
     }
 
     private func loadNewMatches(for userID: String) async -> [RecentMatch] {
-        await openDotaProvider.loadRecentMatch(userid: userID)
-        let newMatches = RecentMatch.fetch(userID: userID, count: 10)
+        await gameDataController.refreshRecentMatches(for: userID, viewContext: viewContext)
+        let newMatches = gameDataController.fetchRecentMatches(for: userID, context: viewContext, count: 10)
         return newMatches
     }
 

@@ -79,7 +79,6 @@ extension RecentMatch {
     ) -> RecentMatch {
         let viewContext = controller.makeContext(author: "RecentMatch")
         let match = RecentMatch(context: viewContext)
-        match.playerId = userID
         match.id = matchID
 
         match.duration = duration
@@ -97,31 +96,6 @@ extension RecentMatch {
 
         try? viewContext.save()
         return match
-    }
-
-    func batchInsertItem(amount: Int) async throws -> Bool {
-        let context = PersistanceProvider.shared.container.newBackgroundContext()
-        return try await context.perform {
-            var index = 0
-            let batchRequest = NSBatchInsertRequest(
-                entityName: "Item",
-                dictionaryHandler: { dict in
-                    guard index < amount else {
-                        return true
-                    }
-                    let item = ["timestamp": Date().addingTimeInterval(TimeInterval(index))]
-                    dict.setDictionary(item)
-                    index += 1
-                    return false
-                })
-            batchRequest.resultType = .statusOnly
-            guard let insertResult = try context.execute(batchRequest) as? NSBatchInsertResult,
-                let result = insertResult.result as? Bool
-            else {
-                throw PersistanceError.insertError
-            }
-            return result
-        }
     }
 
     static func fetch(_ matchID: String, userID: String) -> RecentMatch? {
@@ -179,7 +153,6 @@ extension RecentMatch {
 
     func update(_ match: RecentMatchCodable) {
         id = match.id.description
-        playerId = match.playerId?.description ?? ""
 
         duration = Int32(match.duration)
         mode = Int16(match.mode)

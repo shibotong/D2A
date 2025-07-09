@@ -11,11 +11,10 @@ import WidgetKit
 protocol OpenDotaProviding {
     func searchUserByText(text: String) async -> [ODUserProfile]
     func loadUserData(userid: String) async throws -> ODUserProfile
+    func fetchRecentMatches(userID: String, days: Double?) async -> [RecentMatchCodable]
 
     func getRecentMatches(userid: String) async -> [RecentMatchCodable]
     func loadMatchData(matchid: String) async throws -> String
-    func loadRecentMatch(userid: String) async
-    func loadRecentMatch(userid: String, days: Double?) async
     func loadRecentMatches(userid: String) async -> [RecentMatchCodable]
 }
 
@@ -52,6 +51,22 @@ class OpenDotaProvider: OpenDotaProviding {
             return recentMatches
         } catch {
             print(error.localizedDescription)
+            return []
+        }
+    }
+    
+    func fetchRecentMatches(userID: String, days: Double?) async -> [RecentMatchCodable] {
+        var urlString = ""
+        if let days {
+            urlString = "/players/\(userID)/matches/?date=\(days)&&significant=0"
+        } else {
+            urlString = "/players/\(userID)/matches?significant=0"
+        }
+        do {
+            let matches = try await loadData(urlString, as: [RecentMatchCodable].self)
+            return matches
+        } catch {
+            logError("Not able to fetch recent match for \(userID). error: \(error.localizedDescription)", category: .opendota)
             return []
         }
     }

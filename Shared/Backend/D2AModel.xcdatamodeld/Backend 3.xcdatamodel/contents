@@ -87,7 +87,7 @@
         <attribute name="skill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="slot" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startTime" attributeType="Date" defaultDateTimeInterval="-31644000" usesScalarValueType="NO"/>
-        <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserProfile" inverseName="matches" inverseEntity="UserProfile"/>
+        <relationship name="player" maxCount="1" deletionRule="Nullify" destinationEntity="UserProfile" inverseName="matches" inverseEntity="UserProfile"/>
     </entity>
     <entity name="Role" representedClassName="Role" syncable="YES" codeGenerationType="class">
         <attribute name="level" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
@@ -112,6 +112,6 @@
         <attribute name="profileurl" optional="YES" attributeType="String"/>
         <attribute name="rank" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="register" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <relationship name="matches" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RecentMatch" inverseName="player" inverseEntity="RecentMatch"/>
+        <relationship name="matches" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RecentMatch" inverseName="player" inverseEntity="RecentMatch"/>
     </entity>
 </model>

@@ -419,6 +419,9 @@
 		79D187412E1E51D400C04CC8 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187402E1E51CC00C04CC8 /* NSManagedObjectContext.swift */; };
 		79D187422E1E51D400C04CC8 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187402E1E51CC00C04CC8 /* NSManagedObjectContext.swift */; };
 		79D187432E1E51D400C04CC8 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187402E1E51CC00C04CC8 /* NSManagedObjectContext.swift */; };
+		79D187462E1E573A00C04CC8 /* GameDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187452E1E573100C04CC8 /* GameDataController.swift */; };
+		79D187472E1E573A00C04CC8 /* GameDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187452E1E573100C04CC8 /* GameDataController.swift */; };
+		79D187482E1E573A00C04CC8 /* GameDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187452E1E573100C04CC8 /* GameDataController.swift */; };
 		79DEA8432A36A3060009A414 /* PlayerRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */; };
 		79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */; };
 		79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
@@ -746,6 +749,7 @@
 		79D187362E16221C00C04CC8 /* StratzControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratzControllerTests.swift; sourceTree = "<group>"; };
 		79D187402E1E51CC00C04CC8 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
 		79D187442E1E551D00C04CC8 /* Backend 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 3.xcdatamodel"; sourceTree = "<group>"; };
+		79D187452E1E573100C04CC8 /* GameDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataController.swift; sourceTree = "<group>"; };
 		79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowViewModel.swift; sourceTree = "<group>"; };
 		79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchPlayerView.swift; sourceTree = "<group>"; };
 		79E4AECF2DCB79CD008BBF6D /* D2ANavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ANavigationStack.swift; sourceTree = "<group>"; };
@@ -1009,6 +1013,7 @@
 				79B870982DC38A150090CAB8 /* Stratz */,
 				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
 				329849F326DCAEAE00A1032C /* ConstantsController.swift */,
+				79D187452E1E573100C04CC8 /* GameDataController.swift */,
 				32B36F4B26C39C5D002D427D /* EnvironmentController.swift */,
 				79AF521B2E00341D009FE792 /* ImageController.swift */,
 			);
@@ -1992,6 +1997,7 @@
 				79AF52962E080E56009FE792 /* OpenDotaConstantFetcher.swift in Sources */,
 				327B875A284D96A600BBE1F8 /* UserProfileRowView.swift in Sources */,
 				322B893826CD44FE00DF67F9 /* SteamProfile.swift in Sources */,
+				79D187472E1E573A00C04CC8 /* GameDataController.swift in Sources */,
 				790266462A35454500CE54DF /* LiveMatchEventListView.swift in Sources */,
 				79D187222E13CF9200C04CC8 /* HeroListView+AttributeSelection.swift in Sources */,
 				322B893626CD438700DF67F9 /* ODUserProfile.swift in Sources */,
@@ -2081,6 +2087,7 @@
 				32F70AB426F58125006E9B05 /* GameMode.swift in Sources */,
 				79A989062931E8EB006AC847 /* UserProfile.swift in Sources */,
 				32EC7F35286464C300A36AF6 /* WidgetOverlayView.swift in Sources */,
+				79D187462E1E573A00C04CC8 /* GameDataController.swift in Sources */,
 				794838662A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				327B8761284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				3270271B285C088300927426 /* HeroImageView.swift in Sources */,
@@ -2175,6 +2182,7 @@
 				32F70B0426F6226D006E9B05 /* SteamProfile.swift in Sources */,
 				327B8762284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				3270271C285C088300927426 /* HeroImageView.swift in Sources */,
+				79D187482E1E573A00C04CC8 /* GameDataController.swift in Sources */,
 				794838672A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				32B526CE285C18450099B058 /* RankView.swift in Sources */,
 				32F70B0E26F622AE006E9B05 /* StringVariable.swift in Sources */,
@@ -2920,7 +2928,7 @@
 				79E89A2D2DF6AFE100497B5D /* Backend 2.xcdatamodel */,
 				79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */,
 			);
-			currentVersion = 79E89A2D2DF6AFE100497B5D /* Backend 2.xcdatamodel */;
+			currentVersion = 79D187442E1E551D00C04CC8 /* Backend 3.xcdatamodel */;
 			path = D2AModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
