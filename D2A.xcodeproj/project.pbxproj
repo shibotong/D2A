@@ -416,9 +416,6 @@
 		79D187332E16205700C04CC8 /* D2ANotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187312E16205100C04CC8 /* D2ANotificationCenter.swift */; };
 		79D187342E16205700C04CC8 /* D2ANotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187312E16205100C04CC8 /* D2ANotificationCenter.swift */; };
 		79D187372E16222100C04CC8 /* StratzControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187362E16221C00C04CC8 /* StratzControllerTests.swift */; };
-		79D187412E1E51D400C04CC8 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187402E1E51CC00C04CC8 /* NSManagedObjectContext.swift */; };
-		79D187422E1E51D400C04CC8 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187402E1E51CC00C04CC8 /* NSManagedObjectContext.swift */; };
-		79D187432E1E51D400C04CC8 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187402E1E51CC00C04CC8 /* NSManagedObjectContext.swift */; };
 		79D187462E1E573A00C04CC8 /* GameDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187452E1E573100C04CC8 /* GameDataController.swift */; };
 		79D187472E1E573A00C04CC8 /* GameDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187452E1E573100C04CC8 /* GameDataController.swift */; };
 		79D187482E1E573A00C04CC8 /* GameDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187452E1E573100C04CC8 /* GameDataController.swift */; };
@@ -747,7 +744,6 @@
 		79D187242E13D21100C04CC8 /* HeroListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListViewModelTests.swift; sourceTree = "<group>"; };
 		79D187312E16205100C04CC8 /* D2ANotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ANotificationCenter.swift; sourceTree = "<group>"; };
 		79D187362E16221C00C04CC8 /* StratzControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratzControllerTests.swift; sourceTree = "<group>"; };
-		79D187402E1E51CC00C04CC8 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
 		79D187442E1E551D00C04CC8 /* Backend 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 3.xcdatamodel"; sourceTree = "<group>"; };
 		79D187452E1E573100C04CC8 /* GameDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataController.swift; sourceTree = "<group>"; };
 		79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowViewModel.swift; sourceTree = "<group>"; };
@@ -1549,7 +1545,6 @@
 		79EB3F7B2DC6EF41008C4F6D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				79D187402E1E51CC00C04CC8 /* NSManagedObjectContext.swift */,
 				79E89A2E2DF6B0DD00497B5D /* Model */,
 				79F5B5D328E3B8D900FB67E5 /* PersistanceProvider.swift */,
 				79EB3F7C2DC6EF46008C4F6D /* Transformers */,
@@ -2030,7 +2025,6 @@
 				79AF521C2E00341D009FE792 /* ImageController.swift in Sources */,
 				79CF376F2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				79837B55294C18FE00458529 /* DamageView.swift in Sources */,
-				79D187432E1E51D400C04CC8 /* NSManagedObjectContext.swift in Sources */,
 				79A989002931DCE1006AC847 /* UserProfile.swift in Sources */,
 				797C88BA2DCB75A300D4CDD1 /* Hero+Preview.swift in Sources */,
 				79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
@@ -2170,7 +2164,6 @@
 				79091DF62A3B2E2F0093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 				327B87752850DA9E00BBE1F8 /* Item.swift in Sources */,
 				79EB3EEC2DC4ACA0008C4F6D /* Hero.swift in Sources */,
-				79D187412E1E51D400C04CC8 /* NSManagedObjectContext.swift in Sources */,
 				79046E732DCB7FA00006FB86 /* AVAsset.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2265,7 +2258,6 @@
 				79091DF82A3B2FC00093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 				327B87762850DA9F00BBE1F8 /* Item.swift in Sources */,
 				79EB3EED2DC4ACA0008C4F6D /* Hero.swift in Sources */,
-				79D187422E1E51D400C04CC8 /* NSManagedObjectContext.swift in Sources */,
 				79046E722DCB7FA00006FB86 /* AVAsset.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
