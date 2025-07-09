@@ -63,16 +63,26 @@ import XCTest
          XCTAssertEqual(imageProvider.localImageCalled, 1, "First time call should fetch local image")
          XCTAssertEqual(imageProvider.remoteImageCalled, 1, "First time call should fetch remote image")
          XCTAssertEqual(imageProvider.saveImageCalled, 1, "First time call should save image")
-
+         
          await callRefreshImage(time: currentDate.addComponent(second: 1))
-         XCTAssertEqual(imageHandlerCalled, 2, "Second time call on same day should render image once again")
+         XCTAssertEqual(imageHandlerCalled, 2, "Second time call on same session should render image once again")
+         XCTAssertEqual(imageProvider.localImageCalled, 1, "Second time call on same session should fetch image from cache")
+         XCTAssertEqual(imageProvider.remoteImageCalled, 1, "Second time call on same day should not fetch remote image")
+         XCTAssertEqual(imageProvider.saveImageCalled, 1, "Second time call on same day should not save image")
+
+         await cache.resetCache()
+         
+         await callRefreshImage(time: currentDate.addComponent(second: 1))
+         XCTAssertEqual(imageHandlerCalled, 3, "Second time call on same day should render image once again")
 
          XCTAssertEqual(imageProvider.localImageCalled, 2, "Second time call on same day should fetch local image")
          XCTAssertEqual(imageProvider.remoteImageCalled, 1, "Second time call on same day should not fetch remote image")
          XCTAssertEqual(imageProvider.saveImageCalled, 1, "Second time call on same day should not save image")
 
+         await cache.resetCache()
+         
          await callRefreshImage(time: currentDate.addComponent(day: 1))
-         XCTAssertEqual(imageHandlerCalled, 4, "Third time call on different day should render image twice")
+         XCTAssertEqual(imageHandlerCalled, 5, "Third time call on different day should render image twice")
 
          XCTAssertEqual(imageProvider.localImageCalled, 3, "Third time call on different day should fetch local image")
          XCTAssertEqual(imageProvider.remoteImageCalled, 2, "Third time call on different day should fetch remote image")
