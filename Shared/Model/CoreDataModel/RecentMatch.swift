@@ -10,56 +10,6 @@ import Foundation
 
 extension RecentMatch {
 
-    static func create(_ match: RecentMatchCodable, discardable: Bool = false) throws -> RecentMatch {
-        let viewContext = PersistanceProvider.shared.makeContext(author: "RecentMatch")
-        let newRecentMatch =
-            fetch(match.id.description, userID: match.playerId?.description ?? "")
-            ?? RecentMatch(context: viewContext)
-        newRecentMatch.update(match)
-        if !discardable {
-            try viewContext.save()
-            try viewContext.parent?.save()
-        }
-        return newRecentMatch
-    }
-
-    static func create(_ matches: [RecentMatchCodable]) async throws {
-        let viewContext = PersistanceProvider.shared.makeContext(author: "RecentMatch")
-        weak var weakContext = viewContext
-        try await viewContext.perform {
-            guard let strongContext = weakContext else {
-                return
-            }
-            var insertItems = 0
-            let totalItems = matches.count
-            let request = NSBatchInsertRequest(
-                entityName: "RecentMatch",
-                managedObjectHandler: { object in
-                    guard insertItems < totalItems else {
-                        return true
-                    }
-                    let match = matches[insertItems]
-                    guard let recentMatch = object as? RecentMatch else {
-                        return false
-                    }
-                    recentMatch.update(match)
-                    insertItems += 1
-                    return false
-                })
-            request.resultType = .objectIDs
-            if let result = try strongContext.execute(request) as? NSBatchInsertResult,
-                let objs = result.result as? [NSManagedObjectID]
-            {
-                let changes: [AnyHashable: Any] = [NSInsertedObjectIDsKey: objs]
-                NSManagedObjectContext.mergeChanges(
-                    fromRemoteContextSave: changes,
-                    into: [PersistanceProvider.shared.container.viewContext])
-                return
-            }
-            throw PersistanceError.insertError
-        }
-    }
-
     static func create(
         userID: String,
         matchID: String,
