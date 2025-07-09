@@ -14,11 +14,14 @@ class GameDataController: ObservableObject {
     
     private let persistanceProvider: PersistanceProviding
     private let openDotaProvider: OpenDotaProviding
+    private let refreshHandler: RefreshHandler
     
     init(persistanceProvider: PersistanceProviding = PersistanceProvider.shared,
-         openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared) {
+         openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared,
+         refreshHandler: RefreshHandler = .shared) {
         self.persistanceProvider = persistanceProvider
         self.openDotaProvider = openDotaProvider
+        self.refreshHandler = refreshHandler
     }
     
     func fetchRecentMatches(for userID: String, context: NSManagedObjectContext, count: Int) -> [RecentMatch] {
@@ -37,6 +40,9 @@ class GameDataController: ObservableObject {
     }
     
     func refreshRecentMatches(for userID: String, viewContext: NSManagedObjectContext) async {
+        guard await refreshHandler.canRefresh(userid: userID) else {
+            return
+        }
         let days = calculateDaysSinceLastMatch(userID: userID, context: viewContext)
         let matches = await openDotaProvider.fetchRecentMatches(userID: userID, days: days)
         if matches.count > 50 {

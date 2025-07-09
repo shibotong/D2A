@@ -66,9 +66,6 @@ struct LatestRecentMatchView: View {
         }
         .frame(height: 70)
         .task {
-            guard environment.canRefresh(userid: userID) else {
-                return
-            }
             await gameDataController.refreshRecentMatches(for: userID, viewContext: context)
         }
     }
