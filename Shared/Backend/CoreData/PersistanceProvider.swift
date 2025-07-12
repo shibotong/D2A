@@ -11,11 +11,15 @@ protocol PersistanceProviding {
     
     var container: NSPersistentContainer { get }
     
+    func makeContext(author: String?) -> NSManagedObjectContext
+    
     func saveAbilitiesToHero(heroAbilities: [String: ODHeroAbilities]) async
 
     func saveODData(data: [PersistanceModel], type: NSManagedObject.Type) async
     
     func fetchGameMode(id: Int) -> GameMode?
+    
+    func calculateDaysSinceLastMatch(userID: String, context: NSManagedObjectContext) -> Double?
 }
 
 enum PersistanceError: Error {
@@ -155,6 +159,23 @@ class PersistanceProvider: PersistanceProviding {
             logError("Failed to fetch game mode: \(error.localizedDescription)", category: .coredata)
             return nil
         }
+    }
+    
+    func calculateDaysSinceLastMatch(userID: String, context: NSManagedObjectContext) -> Double? {
+        guard let latestMatch = RecentMatch.fetch(userID: userID, count: 1, viewContext: context).first else {
+            return nil
+        }
+        
+        var days: Double?
+        // here should be timeIntervalSinceNow
+        if let lastMatchStartTime = latestMatch.startTime?.timeIntervalSinceNow {
+            let oneDay: Double = 60 * 60 * 24
+
+            // Decrease 1 sec to avoid adding repeated match
+            days = -(lastMatchStartTime + 1) / oneDay
+        }
+        
+        return days
     }
 
     // MARK: - Save constant data

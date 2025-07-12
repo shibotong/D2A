@@ -11,11 +11,10 @@ import WidgetKit
 protocol OpenDotaProviding {
     func searchUserByText(text: String) async -> [ODUserProfile]
     func loadUserData(userid: String) async throws -> ODUserProfile
+    func fetchRecentMatches(userID: String, days: Double?) async -> [RecentMatchCodable]
 
     func getRecentMatches(userid: String) async -> [RecentMatchCodable]
     func loadMatchData(matchid: String) async throws -> String
-    func loadRecentMatch(userid: String) async
-    func loadRecentMatch(userid: String, days: Double?) async
     func loadRecentMatches(userid: String) async -> [RecentMatchCodable]
 }
 
@@ -55,6 +54,22 @@ class OpenDotaProvider: OpenDotaProviding {
             return []
         }
     }
+    
+    func fetchRecentMatches(userID: String, days: Double?) async -> [RecentMatchCodable] {
+        var urlString = ""
+        if let days {
+            urlString = "/players/\(userID)/matches/?date=\(days)&&significant=0"
+        } else {
+            urlString = "/players/\(userID)/matches?significant=0"
+        }
+        do {
+            let matches = try await loadData(urlString, as: [RecentMatchCodable].self)
+            return matches
+        } catch {
+            logError("Not able to fetch recent match for \(userID). error: \(error.localizedDescription)", category: .opendota)
+            return []
+        }
+    }
 
     func loadMatchData(matchid: String) async throws -> String {
         let match = try await loadData("/matches/\(matchid)", as: ODMatch.self)
@@ -64,39 +79,6 @@ class OpenDotaProvider: OpenDotaProviding {
         } catch {
             print("Match created failed")
             throw error
-        }
-    }
-
-    func loadRecentMatch(userid: String) async {
-        guard EnvironmentController.shared.canRefresh(userid: userid) else {
-            return
-        }
-        let latestMatches = RecentMatch.fetch(userID: userid, count: 1)
-        var days: Double?
-        // here should be timeIntervalSinceNow
-        if let lastMatchStartTime = latestMatches.first?.startTime?.timeIntervalSinceNow {
-            let oneDay: Double = 60 * 60 * 24
-
-            // Decrease 1 sec to avoid adding repeated match
-            days = -(lastMatchStartTime + 1) / oneDay
-        }
-        await loadRecentMatch(userid: userid, days: days)
-    }
-
-    func loadRecentMatch(userid: String, days: Double?) async {
-        var urlString = ""
-        if days != nil {
-            urlString = "/players/\(userid)/matches/?date=\(days!)&&significant=0"
-        } else {
-            urlString = "/players/\(userid)/matches?significant=0"
-        }
-        do {
-            let matches = try await loadData(urlString, as: [RecentMatchCodable].self)
-            matches.forEach({ $0.playerId = Int(userid) })
-            try await RecentMatch.create(matches)
-        } catch {
-            print("error: ", error)
-            return
         }
     }
 
