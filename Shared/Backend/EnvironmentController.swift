@@ -16,8 +16,6 @@ enum TabSelection {
 final class EnvironmentController: ObservableObject {
     static var shared = EnvironmentController()
 
-    var refreshHandler: [String: TimeInterval] = [:]
-
     // MARK: Errors
     @Published var error = false
     @Published var errorMessage = ""
@@ -68,26 +66,6 @@ final class EnvironmentController: ObservableObject {
         }
         guard let widget = extesion["NSExtensionPointIdentifier"] else { return false }
         return widget == "com.apple.widgetkit-extension"
-    }
-
-    /// Check if user can refresh this player (Debug mode 1s Release mode 60s)
-    /// - parameters:
-    /// - userid: Player ID
-    /// - Returns: Returns a `Bool` value of if user can refresh this player
-    func canRefresh(userid: String) -> Bool {
-        let currentTime = Date().timeIntervalSince1970
-        guard let lastRefresh = refreshHandler[userid] else {
-            refreshHandler[userid] = currentTime
-            return true
-        }
-
-        let distance = currentTime - lastRefresh
-        guard distance > refreshDistance else {
-            print("last refresh \(distance)s before, cannot refresh")
-            return false
-        }
-        refreshHandler[userid] = currentTime
-        return true
     }
 
     private func removeNotFavouriteRecentMatches() {
