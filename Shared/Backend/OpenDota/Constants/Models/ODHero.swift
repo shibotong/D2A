@@ -160,7 +160,7 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
     }
 
     func update(context: NSManagedObjectContext) throws -> NSManagedObject {
-        let hero = Hero.fetch(id: Double(id), context: context) ?? Hero(context: context)
+        let hero = Hero.fetch(id: id, context: context) ?? Hero(context: context)
         setIfNotEqual(entity: hero, path: \.id, value: Double(id))
         setIfNotEqual(entity: hero, path: \.displayName, value: localizedName)
         setIfNotEqual(entity: hero, path: \.primaryAttr, value: primaryAttr)

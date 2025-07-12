@@ -27,13 +27,13 @@ struct HeroRowView: View {
     }
     
     private var vertical: some View {
-        HeroImageView(heroID: Int(hero.id), type: .vert)
+        HeroImageView(hero: hero, type: .vert)
             .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
     private var list: some View {
         HStack {
-            HeroImageView(heroID: Int(hero.id), type: .full)
+            HeroImageView(hero: hero, type: .full)
                 .frame(width: 70)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
             Text(hero.heroNameLocalized)
@@ -47,7 +47,7 @@ struct HeroRowView: View {
     }
     
     private var gridView: some View {
-        HeroImageView(heroID: Int(hero.id), type: .full)
+        HeroImageView(hero: hero, type: .full)
             .overlay(
                 LinearGradient(
                     colors: [.black.opacity(0), .black.opacity(0), .black],
@@ -74,20 +74,17 @@ struct HeroRowView: View {
 #Preview("Compact Grid") {
     HeroRowView(hero: Hero.previewHeroes.first!, isGrid: true)
         .environment(\.horizontalSizeClass, .compact)
-        .environmentObject(ConstantsController.preview)
         .environmentObject(ImageController.preview)
 }
 
 #Preview("Compact List") {
     HeroRowView(hero: Hero.previewHeroes.first!, isGrid: false)
         .environment(\.horizontalSizeClass, .compact)
-        .environmentObject(ConstantsController.preview)
         .environmentObject(ImageController.preview)
 }
 
 #Preview("Regular") {
     HeroRowView(hero: Hero.previewHeroes.first!, isGrid: true)
         .environment(\.horizontalSizeClass, .regular)
-        .environmentObject(ConstantsController.preview)
         .environmentObject(ImageController.preview)
 }
