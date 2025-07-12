@@ -353,7 +353,6 @@
 		79AF52892E02A639009FE792 /* OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF52872E02A639009FE792 /* OnChange.swift */; };
 		79AF528A2E02A639009FE792 /* OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF52872E02A639009FE792 /* OnChange.swift */; };
 		79AF52902E080B23009FE792 /* heroes.json in Resources */ = {isa = PBXBuildFile; fileRef = 79AF528F2E080B1E009FE792 /* heroes.json */; };
-		79AF52942E080D5B009FE792 /* abilities.json in Sources */ = {isa = PBXBuildFile; fileRef = 79AF52932E080D58009FE792 /* abilities.json */; };
 		79AF52962E080E56009FE792 /* OpenDotaConstantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF52952E080E50009FE792 /* OpenDotaConstantFetcher.swift */; };
 		79AF52972E080E56009FE792 /* OpenDotaConstantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF52952E080E50009FE792 /* OpenDotaConstantFetcher.swift */; };
 		79AF52982E080E56009FE792 /* OpenDotaConstantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AF52952E080E50009FE792 /* OpenDotaConstantFetcher.swift */; };
@@ -423,6 +422,7 @@
 		79D1874A2E1E622500C04CC8 /* RefreshHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187492E1E621C00C04CC8 /* RefreshHandler.swift */; };
 		79D1874B2E1E622500C04CC8 /* RefreshHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187492E1E621C00C04CC8 /* RefreshHandler.swift */; };
 		79D1874C2E1E622500C04CC8 /* RefreshHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187492E1E621C00C04CC8 /* RefreshHandler.swift */; };
+		79D187512E232AB600C04CC8 /* abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 79AF52932E080D58009FE792 /* abilities.json */; };
 		79DEA8432A36A3060009A414 /* PlayerRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */; };
 		79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */; };
 		79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
@@ -1792,6 +1792,7 @@
 				32C606CD28647A10007AD14B /* ci_post_clone.sh in Resources */,
 				323ADB24272B91F500253124 /* lobby_type.json in Resources */,
 				324791B92818B7AF00605D55 /* Localizable.strings in Resources */,
+				79D187512E232AB600C04CC8 /* abilities.json in Resources */,
 				323ADB2D272B91F500253124 /* xp_level.json in Resources */,
 				323ADB2F272B91F500253124 /* permanent_buffs.json in Resources */,
 				3261C90D2830748600D47CDA /* sampleHero.json in Resources */,
@@ -1991,7 +1992,6 @@
 				79CF37672DC0F96100207CB8 /* D2AServiceCategory.swift in Sources */,
 				32B36F3F26C388AD002D427D /* PlayerProfileView.swift in Sources */,
 				79D1871F2E13CEFF00C04CC8 /* HeroListView+ViewModel.swift in Sources */,
-				79AF52942E080D5B009FE792 /* abilities.json in Sources */,
 				32B36F2A26C38852002D427D /* Item.swift in Sources */,
 				3261C90B2830721500D47CDA /* HeroDetailViewModel.swift in Sources */,
 				79ABE8FA2A35C3CF00EE9EF9 /* LiveMatchDraftView.swift in Sources */,
