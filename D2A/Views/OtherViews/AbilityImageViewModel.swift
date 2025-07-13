@@ -29,14 +29,6 @@ class AbilityImageViewModel: ObservableObject {
         }
     }
 
-    init(imageProvider: ImageProviding = ImageProvider.shared) {
-        name = "Acid Spray"
-        urlString =
-            "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_acid_spray.png"
-        image = UIImage(named: "ability_slot")
-        self.imageProvider = imageProvider
-    }
-
     private func fetchImage() async {
         if image != nil {
             return

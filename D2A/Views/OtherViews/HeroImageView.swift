@@ -12,14 +12,25 @@ enum HeroImageType: String {
 }
 
 struct HeroImageView: View {
-    @EnvironmentObject var heroData: ConstantsController
     @EnvironmentObject var imageController: ImageController
     @Environment(\.managedObjectContext) var viewContext
     
-    let heroID: Int
-    let type: HeroImageType
+    private let heroID: Int
+    private let type: HeroImageType
+    private var hero: Hero?
     
     @State private var image: UIImage?
+    
+    init(hero: Hero, type: HeroImageType) {
+        self.hero = hero
+        self.type = type
+        self.heroID = Int(hero.id)
+    }
+    
+    init(heroID: Int, type: HeroImageType) {
+        self.heroID = heroID
+        self.type = type
+    }
 
     var body: some View {
         Group {
@@ -69,7 +80,7 @@ struct HeroImageView: View {
     }
     
     private func computeURLString() -> String {
-        guard let hero = Hero.fetch(id: Double(heroID), context: viewContext),
+        guard let hero = self.hero ?? Hero.fetch(id: heroID, context: viewContext),
               let heroName = hero.name,
               let heroIcon = hero.icon else {
             return ""
@@ -90,7 +101,6 @@ struct HeroImageView: View {
 
 #Preview {
     HeroImageView(heroID: 1, type: .icon)
-        .environmentObject(ConstantsController.preview)
         .environmentObject(ImageController.preview)
         .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
 }

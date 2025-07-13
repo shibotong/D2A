@@ -903,7 +903,6 @@
 		3289579A27F6609B00BA9847 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				79D187352E16221300C04CC8 /* New Group */,
 				79D187232E13D1FD00C04CC8 /* Hero */,
 				79AF52242E0034AF009FE792 /* Backend */,
 			);
@@ -1501,13 +1500,6 @@
 				79D187312E16205100C04CC8 /* D2ANotificationCenter.swift */,
 			);
 			path = Notification;
-			sourceTree = "<group>";
-		};
-		79D187352E16221300C04CC8 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		79E89A2E2DF6B0DD00497B5D /* Model */ = {

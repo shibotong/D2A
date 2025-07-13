@@ -19,7 +19,7 @@ struct AbilityTitleView: View {
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
             if let name, let url {
-                AbilityImage(viewModel: AbilityImageViewModel(name: name, urlString: url))
+                AbilityImage(name: name, urlString: url)
                     .frame(width: 70, height: 70)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
             }
