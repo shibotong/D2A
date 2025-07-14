@@ -16,6 +16,18 @@ extension Ability {
         let results = try? context.fetch(fetchAbility)
         return results?.first
     }
+    
+    static func fetchByName(name: String, context: NSManagedObjectContext) -> Ability? {
+        let request = Self.fetchRequest()
+        request.predicate = NSPredicate(format: "name == %@", name)
+        do {
+            let results = try context.fetch(request)
+            return results.first
+        } catch {
+            logError("Fetch abilities in \(name) failed: \(error)", category: .coredata)
+            return nil
+        }
+    }
 
     static func fetchByNames(names: [String], context: NSManagedObjectContext) -> [Ability] {
         let request = Self.fetchRequest()
