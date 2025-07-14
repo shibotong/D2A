@@ -199,21 +199,27 @@ class PersistanceProvider: PersistanceProviding {
                     continue
                 }
                 let abilityNames = heroAbility.abilities
-                
-                if let currentAbilities = hero.abilities?.compactMap({ ($0 as? Ability) }) {
-                    guard currentAbilities.compactMap(\.name) != abilityNames else {
+                var newAbilities: [Ability] = []
+                for name in abilityNames {
+                    guard let newAbility = Ability.fetchByName(name: name, context: context) else {
+                        logDebug("Not able to fetch hero ability: \(name)", category: .coredata)
                         continue
                     }
+                    newAbilities.append(newAbility)
+                }
+                
+                if let currentAbilities = hero.abilities?.compactMap({ ($0 as? Ability) }) {
+                    guard currentAbilities.compactMap(\.name) != newAbilities.compactMap(\.name) else {
+                        logDebug("Same ability for \(String(describing: hero.name)). Don't need to update.", category: .coredata)
+                        continue
+                    }
+                    logWarn("Ability has difference for \(String(describing: hero.name)). Needs to update.", category: .coredata)
                     for ability in currentAbilities {
                         hero.removeFromAbilities(ability)
                     }
                 }
+                hero.addToAbilities(NSOrderedSet(array: newAbilities))
                 
-                let abilities = Ability.fetchByNames(names: abilityNames, context: context)
-                
-                for ability in abilities {
-                    hero.addToAbilities(ability)
-                }
                 if hero.hasChanges {
                     do {
                         try context.save()

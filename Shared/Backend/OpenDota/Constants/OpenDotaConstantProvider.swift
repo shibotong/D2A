@@ -53,6 +53,7 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
                 continue
             }
             guard let dname = ability.dname, !dname.isEmpty else {
+                logDebug("\(name) has empty dname", category: .opendotaConstant)
                 continue
             }
             ability.id = abilityID
