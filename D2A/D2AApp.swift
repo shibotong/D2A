@@ -11,6 +11,7 @@ import SwiftUI
 
 @main
 struct D2AApp: App {
+    @UIApplicationDelegateAdaptor private var appDelegate: D2AAppDelegate
     @StateObject var environment: EnvironmentController = EnvironmentController.shared
     @StateObject var constantsController: ConstantsController = ConstantsController.shared
     @StateObject var storeManager: StoreManager = StoreManager.shared
