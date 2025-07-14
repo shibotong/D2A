@@ -11,6 +11,10 @@ import UIKit
 struct AbilityImage: View {
 
     @ObservedObject var viewModel: AbilityImageViewModel
+    
+    init(name: String?, urlString: String?) {
+        viewModel = .init(name: name, urlString: urlString)
+    }
 
     var body: some View {
         ZStack {
@@ -28,5 +32,5 @@ struct AbilityImage: View {
 }
 
 #Preview {
-    AbilityImage(viewModel: .init())
+    AbilityImage(name: "Acid Spray", urlString: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_acid_spray.png")
 }

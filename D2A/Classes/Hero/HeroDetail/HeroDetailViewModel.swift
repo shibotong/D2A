@@ -31,7 +31,7 @@ class HeroDetailViewModel: ObservableObject {
         loadingHero = false
         $heroID
             .map { [weak self] heroID in
-                let cachedHero = Hero.fetchHero(id: Double(heroID))
+                let cachedHero = Hero.fetch(id: heroID, context: PersistanceProvider.shared.container.viewContext)
                 self?.loadHero(hero: cachedHero, id: heroID)
                 return cachedHero
             }

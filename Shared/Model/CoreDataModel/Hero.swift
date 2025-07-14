@@ -30,7 +30,7 @@ extension Hero {
         else {
             throw Hero.CoreDataError.decodingError
         }
-        let hero = fetchHero(id: heroID) ?? Hero(context: viewContext)
+        let hero = fetch(id: Int(heroID), context: viewContext) ?? Hero(context: viewContext)
         // data from Stratz
         hero.lastFetch = Date()
         hero.id = heroID
@@ -75,17 +75,8 @@ extension Hero {
     }
 
     /// Fetch `Hero` with `id` in CoreData
-    static func fetchHero(id: Double) -> Hero? {
-        let viewContext = PersistanceProvider.shared.container.viewContext
-        let fetchHero: NSFetchRequest<Hero> = Hero.fetchRequest()
-        fetchHero.predicate = NSPredicate(format: "id == %f", id)
-
-        let results = try? viewContext.fetch(fetchHero)
-        return results?.first
-    }
-
-    static func fetch(id: Double, context: NSManagedObjectContext) -> Hero? {
-        let predicate = NSPredicate(format: "id == %f", id)
+    static func fetch(id: Int, context: NSManagedObjectContext) -> Hero? {
+        let predicate = NSPredicate(format: "id == %f", Double(id))
         return fetchOne(predicate: predicate, context: context)
     }
 

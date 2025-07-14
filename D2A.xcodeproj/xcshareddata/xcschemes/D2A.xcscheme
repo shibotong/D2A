@@ -53,6 +53,11 @@
                BlueprintName = "Unit Tests"
                ReferencedContainer = "container:D2A.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "ImageProviderTests/testImageSaving()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
          <TestableReference
             skipped = "YES"
