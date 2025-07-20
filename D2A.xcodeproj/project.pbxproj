@@ -306,6 +306,10 @@
 		798C42912A35581900BDC470 /* LiveMatchKillEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798C42902A35581900BDC470 /* LiveMatchKillEvent.swift */; };
 		798C42972A356F4A00BDC470 /* itemIDs.json in Resources */ = {isa = PBXBuildFile; fileRef = 798C42962A356F4A00BDC470 /* itemIDs.json */; };
 		798C42992A356FAC00BDC470 /* sampleItem.json in Resources */ = {isa = PBXBuildFile; fileRef = 798C42982A356FAC00BDC470 /* sampleItem.json */; };
+		798E0FE12E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */; };
+		798E0FE22E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */; };
+		798E0FE32E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */; };
+		798E0FE62E2CFE9C0066D7E1 /* PreviewProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FE52E2CFE960066D7E1 /* PreviewProviderTests.swift */; };
 		799948BE2932423800D79055 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BD2932423800D79055 /* LoadingView.swift */; };
 		799948C02932D50000D79055 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageProvider.swift */; };
 		799948C12932D50000D79055 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageProvider.swift */; };
@@ -692,6 +696,8 @@
 		798C42902A35581900BDC470 /* LiveMatchKillEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchKillEvent.swift; sourceTree = "<group>"; };
 		798C42962A356F4A00BDC470 /* itemIDs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = itemIDs.json; sourceTree = "<group>"; };
 		798C42982A356FAC00BDC470 /* sampleItem.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleItem.json; sourceTree = "<group>"; };
+		798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDataProvider.swift; sourceTree = "<group>"; };
+		798E0FE52E2CFE960066D7E1 /* PreviewProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProviderTests.swift; sourceTree = "<group>"; };
 		799948BD2932423800D79055 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		799948BF2932D50000D79055 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityStatsView.swift; sourceTree = "<group>"; };
@@ -902,6 +908,7 @@
 			children = (
 				79D187232E13D1FD00C04CC8 /* Hero */,
 				79AF52242E0034AF009FE792 /* Backend */,
+				798E0FE42E2CFE7F0066D7E1 /* Previews */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -1270,6 +1277,7 @@
 		797C88B72DCB74E100D4CDD1 /* Previews */ = {
 			isa = PBXGroup;
 			children = (
+				798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */,
 				798E0FDF2E2CFD660066D7E1 /* Sample Data */,
 				797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */,
 				797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */,
@@ -1304,6 +1312,14 @@
 				79AF528F2E080B1E009FE792 /* heroes.json */,
 			);
 			path = "Sample Data";
+			sourceTree = "<group>";
+		};
+		798E0FE42E2CFE7F0066D7E1 /* Previews */ = {
+			isa = PBXGroup;
+			children = (
+				798E0FE52E2CFE960066D7E1 /* PreviewProviderTests.swift */,
+			);
+			path = Previews;
 			sourceTree = "<group>";
 		};
 		79A988FE2931DCB6006AC847 /* CodableModel */ = {
@@ -1905,6 +1921,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				798E0FE62E2CFE9C0066D7E1 /* PreviewProviderTests.swift in Sources */,
 				327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				79AF52262E0034BF009FE792 /* ImageControllerTests.swift in Sources */,
 				79AF52282E0034E7009FE792 /* ImageProviderTests.swift in Sources */,
@@ -1981,6 +1998,7 @@
 				79B870BA2DC394C10090CAB8 /* OpenDotaConstantService.swift in Sources */,
 				79EB3EF52DC4B0BB008C4F6D /* ODAbility+Attribute.swift in Sources */,
 				79B870BB2DC394C10090CAB8 /* OpenDotaConstantProvider.swift in Sources */,
+				798E0FE12E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */,
 				79CF37672DC0F96100207CB8 /* D2AServiceCategory.swift in Sources */,
 				32B36F3F26C388AD002D427D /* PlayerProfileView.swift in Sources */,
 				79D1871F2E13CEFF00C04CC8 /* HeroListView+ViewModel.swift in Sources */,
@@ -2164,6 +2182,7 @@
 				79E01CAA291E35320073BF68 /* MatchListRowViewModel.swift in Sources */,
 				327B876D2850D9D800BBE1F8 /* ReadData.swift in Sources */,
 				32F70B1A26F6295B006E9B05 /* Color.swift in Sources */,
+				798E0FE32E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */,
 				79091DF62A3B2E2F0093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 				327B87752850DA9E00BBE1F8 /* Item.swift in Sources */,
 				79EB3EEC2DC4ACA0008C4F6D /* Hero.swift in Sources */,
@@ -2259,6 +2278,7 @@
 				79E01CAB291E35320073BF68 /* MatchListRowViewModel.swift in Sources */,
 				327B876E2850D9D900BBE1F8 /* ReadData.swift in Sources */,
 				32F70B2126F6295C006E9B05 /* SKProduct.swift in Sources */,
+				798E0FE22E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */,
 				79091DF82A3B2FC00093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 				327B87762850DA9F00BBE1F8 /* Item.swift in Sources */,
 				79EB3EED2DC4ACA0008C4F6D /* Hero.swift in Sources */,
