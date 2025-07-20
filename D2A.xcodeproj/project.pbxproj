@@ -1270,6 +1270,7 @@
 		797C88B72DCB74E100D4CDD1 /* Previews */ = {
 			isa = PBXGroup;
 			children = (
+				798E0FDF2E2CFD660066D7E1 /* Sample Data */,
 				797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */,
 				797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */,
 				79E89A2F2DF6B81C00497B5D /* GameMode+Preview.swift */,
@@ -1295,6 +1296,14 @@
 				798C42902A35581900BDC470 /* LiveMatchKillEvent.swift */,
 			);
 			path = LiveMatchEvent;
+			sourceTree = "<group>";
+		};
+		798E0FDF2E2CFD660066D7E1 /* Sample Data */ = {
+			isa = PBXGroup;
+			children = (
+				79AF528F2E080B1E009FE792 /* heroes.json */,
+			);
+			path = "Sample Data";
 			sourceTree = "<group>";
 		};
 		79A988FE2931DCB6006AC847 /* CodableModel */ = {
@@ -1361,7 +1370,6 @@
 			children = (
 				79AF52932E080D58009FE792 /* abilities.json */,
 				798C42962A356F4A00BDC470 /* itemIDs.json */,
-				79AF528F2E080B1E009FE792 /* heroes.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
