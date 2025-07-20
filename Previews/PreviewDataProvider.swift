@@ -12,7 +12,7 @@ class PreviewDataProvider {
     
     static let shared = PreviewDataProvider()
     
-    var heroes: [String: ODHero] {
+    var odHeroes: [String: ODHero] {
         return loadFile(filename: "heroes", as: [String: ODHero].self) ?? [:]
     }
     
