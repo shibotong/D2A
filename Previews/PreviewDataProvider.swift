@@ -12,18 +12,15 @@ class PreviewDataProvider {
     
     static let shared = PreviewDataProvider()
     
-    var odHeroes: [String: ODHero] {
-        return loadFile(filename: "heroes", as: [String: ODHero].self) ?? [:]
+    func loadOpenDotaConstants<T: Decodable>(service: OpenDotaConstantService, as type: T.Type) -> T? {
+        loadFile(filename: service.rawValue, as: type)
     }
     
     private func loadFile<T: Decodable>(filename: String, as type: T.Type) -> T? {
-        guard let path = Bundle.main.url(forResource: filename, withExtension: "json"),
-              let data = try? Data(contentsOf: path) else {
-            return nil
-        }
-
+        let path = Bundle.main.url(forResource: filename, withExtension: "json")!
+        let data = try! Data(contentsOf: path)
         let decoder = JSONDecoder()
-        let jsonData = try? decoder.decode(T.self, from: data)
+        let jsonData = try! decoder.decode(T.self, from: data)
         return jsonData
     }
 }

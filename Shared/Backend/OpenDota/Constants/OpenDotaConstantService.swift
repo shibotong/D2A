@@ -7,23 +7,23 @@
 
 import Foundation
 
-enum OpenDotaConstantService {
-
+enum OpenDotaConstantService: String, CaseIterable {
+    
     static let baseURL = "https://raw.githubusercontent.com/odota/dotaconstants/master/build"
-
+    
     case heroes
     case abilities
-    case abilityIDs
-    case heroAbilities
-    case aghs
+    case abilityIDs = "ability_ids"
+    case heroAbilities = "hero_abilities"
+    case aghs = "aghs_description"
     case items
-    case itemIDs
-    case gameModes
-
+    case itemIDs = "item_ids"
+    case gameModes = "game_mode"
+    
     var serviceURL: String {
         "\(Self.baseURL)/\(name).json"
     }
-
+    
     private var name: String {
         switch self {
         case .heroes:
