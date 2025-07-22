@@ -12,16 +12,8 @@ class PreviewDataProvider {
     
     static let shared = PreviewDataProvider()
     
-    var odHeroes: [String: ODHero] {
-        return loadFile(filename: "heroes", as: [String: ODHero].self)!
-    }
-    
-    var odAbilities: [String: ODAbility] {
-        return loadFile(filename: "abilities", as: [String: ODAbility].self)!
-    }
-    
-    var odAbilityIDs: [String: String] {
-        return loadFile(filename: "ability_ids", as: [String: String].self)!
+    func loadOpenDotaConstants<T: Decodable>(service: OpenDotaConstantService, as type: T.Type) -> T? {
+        loadFile(filename: service.rawValue, as: type)
     }
     
     private func loadFile<T: Decodable>(filename: String, as type: T.Type) -> T? {

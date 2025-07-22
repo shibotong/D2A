@@ -310,6 +310,9 @@
 		798E0FE22E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */; };
 		798E0FE32E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */; };
 		798E0FE62E2CFE9C0066D7E1 /* PreviewProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FE52E2CFE960066D7E1 /* PreviewProviderTests.swift */; };
+		798E0FEE2E2F79BD0066D7E1 /* MockOpenDotaConstantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FED2E2F79B70066D7E1 /* MockOpenDotaConstantFetcher.swift */; };
+		798E0FEF2E2F79BD0066D7E1 /* MockOpenDotaConstantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FED2E2F79B70066D7E1 /* MockOpenDotaConstantFetcher.swift */; };
+		798E0FF02E2F79BD0066D7E1 /* MockOpenDotaConstantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FED2E2F79B70066D7E1 /* MockOpenDotaConstantFetcher.swift */; };
 		799948BE2932423800D79055 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BD2932423800D79055 /* LoadingView.swift */; };
 		799948C02932D50000D79055 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageProvider.swift */; };
 		799948C12932D50000D79055 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageProvider.swift */; };
@@ -698,6 +701,7 @@
 		798C42982A356FAC00BDC470 /* sampleItem.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleItem.json; sourceTree = "<group>"; };
 		798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDataProvider.swift; sourceTree = "<group>"; };
 		798E0FE52E2CFE960066D7E1 /* PreviewProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProviderTests.swift; sourceTree = "<group>"; };
+		798E0FED2E2F79B70066D7E1 /* MockOpenDotaConstantFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockOpenDotaConstantFetcher.swift; sourceTree = "<group>"; };
 		799948BD2932423800D79055 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		799948BF2932D50000D79055 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityStatsView.swift; sourceTree = "<group>"; };
@@ -1276,6 +1280,7 @@
 		797C88B72DCB74E100D4CDD1 /* Previews */ = {
 			isa = PBXGroup;
 			children = (
+				798E0FED2E2F79B70066D7E1 /* MockOpenDotaConstantFetcher.swift */,
 				798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */,
 				798E0FDF2E2CFD660066D7E1 /* Sample Data */,
 				797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */,
@@ -2089,6 +2094,7 @@
 				7912B6E32B5D022C00AE1947 /* AbilityTitleView.swift in Sources */,
 				797C88AD2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */,
 				798A5CFA2945B3C300EB07B0 /* RecentMatch.swift in Sources */,
+				798E0FEE2E2F79BD0066D7E1 /* MockOpenDotaConstantFetcher.swift in Sources */,
 				32B36F2D26C3885A002D427D /* Color.swift in Sources */,
 				32B526C5285C0B730099B058 /* IntentHandler.swift in Sources */,
 			);
@@ -2185,6 +2191,7 @@
 				798E0FE32E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */,
 				79091DF62A3B2E2F0093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 				327B87752850DA9E00BBE1F8 /* Item.swift in Sources */,
+				798E0FEF2E2F79BD0066D7E1 /* MockOpenDotaConstantFetcher.swift in Sources */,
 				79EB3EEC2DC4ACA0008C4F6D /* Hero.swift in Sources */,
 				79046E732DCB7FA00006FB86 /* AVAsset.swift in Sources */,
 			);
@@ -2281,6 +2288,7 @@
 				798E0FE22E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */,
 				79091DF82A3B2FC00093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 				327B87762850DA9F00BBE1F8 /* Item.swift in Sources */,
+				798E0FF02E2F79BD0066D7E1 /* MockOpenDotaConstantFetcher.swift in Sources */,
 				79EB3EED2DC4ACA0008C4F6D /* Hero.swift in Sources */,
 				79046E722DCB7FA00006FB86 /* AVAsset.swift in Sources */,
 			);
