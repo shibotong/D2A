@@ -5,22 +5,28 @@
 //  Created by Shibo Tong on 22/7/2025.
 //
 
-import XCTest
+import Testing
 @testable import D2A
 
-final class OpenDotaConstantProviderTests: XCTestCase {
+@Suite("OpenDotaConstantProvider tests")
+struct OpenDotaConstantProviderTests {
     
-    var provider: OpenDotaConstantProviding!
-
-    override func setUp() {
+    let provider: OpenDotaConstantProvider
+    
+    init() {
         let fetcher = MockOpenDotaConstantFetcher()
         provider = OpenDotaConstantProvider(fetcher: fetcher)
     }
     
-    func testProvider() async {
-        let abilities = await provider.loadAbilities()
-        XCTAssert(abilities.count > 0, "Provider should return at least one ability")
-        let heroes = await provider.loadHeroes()
-        XCTAssert(heroes.count > 0, "Provider should return at least one hero")
+    
+    @Test("Ability exists", .disabled("ability_ids file doesn't exist"))
+    func abilityExists() async {
+        #expect(await provider.loadAbilities().count > 0, "Provider should return abilities")
     }
+    
+    @Test("Hero exists")
+    func heroExists() async {
+        #expect(await provider.loadHeroes().count > 0, "Provider should return heroes")
+    }
+    
 }
