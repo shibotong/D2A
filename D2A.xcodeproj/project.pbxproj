@@ -1309,6 +1309,7 @@
 		798E0FDF2E2CFD660066D7E1 /* Sample Data */ = {
 			isa = PBXGroup;
 			children = (
+				79AF52932E080D58009FE792 /* abilities.json */,
 				79AF528F2E080B1E009FE792 /* heroes.json */,
 			);
 			path = "Sample Data";
@@ -1384,7 +1385,6 @@
 		79AF528E2E080B0C009FE792 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				79AF52932E080D58009FE792 /* abilities.json */,
 				798C42962A356F4A00BDC470 /* itemIDs.json */,
 			);
 			path = Resources;
