@@ -11,7 +11,7 @@ import Testing
 @Test
 func testPreviewProvider() {
     let provider = PreviewDataProvider()
+    #expect(provider.odHeroes.count == 10, "Preview provider should have 10 heroes")
+    #expect(provider.odAbilities.count == 137, "Preview provider should have 100 abilities")
     
-    let heroes = provider.odHeroes
-    #expect(heroes.count == 10, "Preview provider should have 10 heroes")
 }
