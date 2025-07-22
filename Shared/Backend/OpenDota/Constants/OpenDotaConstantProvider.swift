@@ -98,6 +98,4 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
         }
         return scepters
     }
-    
-    
 }

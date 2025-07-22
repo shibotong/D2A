@@ -53,7 +53,7 @@ class ConstantsController: ObservableObject {
         async let abilityIDTable = loadAbilityID()
         async let abilities = loadAbilities()
         async let heroAbilities = loadHeroAbilities()
-        async let scepter = loadScepter()
+        async let scepter = openDotaProvider.loadScepters()
         async let stratzAbilities = stratzProvider.loadAbilities()
 
         self.itemIDTable = await idTable

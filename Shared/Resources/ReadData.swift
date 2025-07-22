@@ -50,24 +50,6 @@ func loadLobby() -> [String: LobbyType]? {
     }
 }
 
-func loadScepter() async -> [ODScepter] {
-    let urlString =
-        "https://raw.githubusercontent.com/odota/dotaconstants/master/build/aghs_desc.json"
-    guard let url = URL(string: urlString) else {
-        return []
-    }
-    do {
-        let (data, _) = try await URLSession.shared.data(from: url)
-
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode([ODScepter].self, from: data)
-        return jsonData
-    } catch {
-        debugPrint("Load Scepter", error)
-        return []
-    }
-}
-
 func loadHeroes() async -> [String: ODHero] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/heroes.json"
     guard let url = URL(string: urlString) else {
