@@ -844,7 +844,6 @@
 		321D585326D22FE90059526B /* staticdata */ = {
 			isa = PBXGroup;
 			children = (
-				323ADB08272B91F400253124 /* ability_ids.json */,
 				323ADB0E272B91F400253124 /* aghs_desc.json */,
 				323ADB15272B91F400253124 /* ancients.json */,
 				323ADB19272B91F400253124 /* chat_wheel.json */,
@@ -1309,6 +1308,7 @@
 		798E0FDF2E2CFD660066D7E1 /* Sample Data */ = {
 			isa = PBXGroup;
 			children = (
+				323ADB08272B91F400253124 /* ability_ids.json */,
 				79AF52932E080D58009FE792 /* abilities.json */,
 				79AF528F2E080B1E009FE792 /* heroes.json */,
 			);
