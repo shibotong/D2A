@@ -20,7 +20,7 @@ class ConstantsController: ObservableObject {
     private var abilityIDTable = [String: String]()
     private var abilities = [String: ODAbility]()
     private var heroAbilities = [String: ODHeroAbilities]()
-    private var scepterData = [HeroScepter]()
+    private var scepterData = [ODScepter]()
     private var apolloAbilities = [StratzAbility]()
 
     static var shared = ConstantsController()

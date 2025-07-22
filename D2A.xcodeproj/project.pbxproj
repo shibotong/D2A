@@ -310,6 +310,9 @@
 		798E0FE22E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */; };
 		798E0FE32E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */; };
 		798E0FE62E2CFE9C0066D7E1 /* PreviewProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FE52E2CFE960066D7E1 /* PreviewProviderTests.swift */; };
+		798E0FF42E2F7DA60066D7E1 /* ODScepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */; };
+		798E0FF52E2F7DA60066D7E1 /* ODScepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */; };
+		798E0FF62E2F7DA60066D7E1 /* ODScepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */; };
 		799948BE2932423800D79055 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BD2932423800D79055 /* LoadingView.swift */; };
 		799948C02932D50000D79055 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageProvider.swift */; };
 		799948C12932D50000D79055 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageProvider.swift */; };
@@ -698,6 +701,7 @@
 		798C42982A356FAC00BDC470 /* sampleItem.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleItem.json; sourceTree = "<group>"; };
 		798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDataProvider.swift; sourceTree = "<group>"; };
 		798E0FE52E2CFE960066D7E1 /* PreviewProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProviderTests.swift; sourceTree = "<group>"; };
+		798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODScepter.swift; sourceTree = "<group>"; };
 		799948BD2932423800D79055 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		799948BF2932D50000D79055 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityStatsView.swift; sourceTree = "<group>"; };
@@ -1439,11 +1443,12 @@
 		79B870C52DC395200090CAB8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */,
-				32B36F2326C38852002D427D /* ODHero.swift */,
 				32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */,
 				79EB3EF22DC4B0B4008C4F6D /* ODAbility+Attribute.swift */,
 				79E89A292DF6AE7B00497B5D /* ODGameMode.swift */,
+				32B36F2326C38852002D427D /* ODHero.swift */,
+				79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */,
+				798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1983,6 +1988,7 @@
 				32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */,
 				79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */,
 				79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */,
+				798E0FF52E2F7DA60066D7E1 /* ODScepter.swift in Sources */,
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
 				79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */,
 				3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */,
@@ -2149,6 +2155,7 @@
 				7983DA752B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
 				79A9891E2931ECAE006AC847 /* PersistanceProvider.swift in Sources */,
 				7983DA6B2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
+				798E0FF42E2F7DA60066D7E1 /* ODScepter.swift in Sources */,
 				79CF376D2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				32F70AD526F60364006E9B05 /* ODHero.swift in Sources */,
 				79AF521D2E00341D009FE792 /* ImageController.swift in Sources */,
@@ -2245,6 +2252,7 @@
 				7983DA762B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
 				79A9891F2931ECAF006AC847 /* PersistanceProvider.swift in Sources */,
 				7983DA6C2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
+				798E0FF62E2F7DA60066D7E1 /* ODScepter.swift in Sources */,
 				79CF376E2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */,
 				79AF521E2E00341D009FE792 /* ImageController.swift in Sources */,
