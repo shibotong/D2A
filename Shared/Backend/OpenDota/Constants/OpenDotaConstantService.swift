@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum OpenDotaConstantService: String {
+enum OpenDotaConstantService: String, CaseIterable {
 
     static let baseURL = "https://raw.githubusercontent.com/odota/dotaconstants/master/build"
 
