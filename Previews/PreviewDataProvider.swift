@@ -20,6 +20,10 @@ class PreviewDataProvider {
         return loadFile(filename: "abilities", as: [String: ODAbility].self) ?? [:]
     }
     
+    var odAbilityIDs: [String: String] {
+        return loadFile(filename: "ability_ids", as: [String: String].self) ?? [:]
+    }
+    
     private func loadFile<T: Decodable>(filename: String, as type: T.Type) -> T? {
         guard let path = Bundle.main.url(forResource: filename, withExtension: "json"),
               let data = try? Data(contentsOf: path) else {
