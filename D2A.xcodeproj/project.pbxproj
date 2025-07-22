@@ -313,6 +313,7 @@
 		798E0FF42E2F7DA60066D7E1 /* ODScepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */; };
 		798E0FF52E2F7DA60066D7E1 /* ODScepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */; };
 		798E0FF62E2F7DA60066D7E1 /* ODScepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */; };
+		798E0FF92E2F7FE10066D7E1 /* OpenDotaConstantProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FF82E2F7FE10066D7E1 /* OpenDotaConstantProviderTests.swift */; };
 		799948BE2932423800D79055 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BD2932423800D79055 /* LoadingView.swift */; };
 		799948C02932D50000D79055 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageProvider.swift */; };
 		799948C12932D50000D79055 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageProvider.swift */; };
@@ -702,6 +703,7 @@
 		798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDataProvider.swift; sourceTree = "<group>"; };
 		798E0FE52E2CFE960066D7E1 /* PreviewProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProviderTests.swift; sourceTree = "<group>"; };
 		798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODScepter.swift; sourceTree = "<group>"; };
+		798E0FF82E2F7FE10066D7E1 /* OpenDotaConstantProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantProviderTests.swift; sourceTree = "<group>"; };
 		799948BD2932423800D79055 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		799948BF2932D50000D79055 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityStatsView.swift; sourceTree = "<group>"; };
@@ -1326,6 +1328,14 @@
 			path = Previews;
 			sourceTree = "<group>";
 		};
+		798E0FF72E2F7FCF0066D7E1 /* OpenDota */ = {
+			isa = PBXGroup;
+			children = (
+				798E0FF82E2F7FE10066D7E1 /* OpenDotaConstantProviderTests.swift */,
+			);
+			path = OpenDota;
+			sourceTree = "<group>";
+		};
 		79A988FE2931DCB6006AC847 /* CodableModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1354,6 +1364,7 @@
 		79AF52242E0034AF009FE792 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				798E0FF72E2F7FCF0066D7E1 /* OpenDota */,
 				79D187362E16221C00C04CC8 /* StratzControllerTests.swift */,
 				79AF52252E0034BF009FE792 /* ImageControllerTests.swift */,
 				79AF52272E0034E7009FE792 /* ImageProviderTests.swift */,
@@ -1926,6 +1937,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				798E0FF92E2F7FE10066D7E1 /* OpenDotaConstantProviderTests.swift in Sources */,
 				798E0FE62E2CFE9C0066D7E1 /* PreviewProviderTests.swift in Sources */,
 				327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				79AF52262E0034BF009FE792 /* ImageControllerTests.swift in Sources */,
