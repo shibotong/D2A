@@ -889,8 +889,6 @@
 		3266081C27CED53C00D9A204 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				79D187302E16204C00C04CC8 /* Notification */,
-				79AF52862E02A618009FE792 /* Version Control */,
 				32B36F1226C38822002D427D /* Assets.xcassets */,
 				32B36F1D26C38834002D427D /* Backend */,
 				79CF37602DC0F92E00207CB8 /* Debug */,
@@ -900,8 +898,10 @@
 				3251C8F126F97C9500C826BD /* Localizable.strings */,
 				32B36F2226C38852002D427D /* Model */,
 				79B870BD2DC394D30090CAB8 /* Network */,
+				79D187302E16204C00C04CC8 /* Notification */,
 				32B36F2E26C38860002D427D /* Resources */,
 				32B36F4826C39238002D427D /* Utility */,
+				79AF52862E02A618009FE792 /* Version Control */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
