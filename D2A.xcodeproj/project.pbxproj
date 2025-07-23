@@ -860,6 +860,7 @@
 				323ADB10272B91F400253124 /* cluster.json */,
 				323ADB1A272B91F400253124 /* countries.json */,
 				323ADB1D272B91F400253124 /* hero_abilities.json */,
+				323ADB1C272B91F400253124 /* hero_lore.json */,
 				323ADB0F272B91F400253124 /* hero_names.json */,
 				323ADB07272B91F400253124 /* item_colors.json */,
 				323ADB1E272B91F400253124 /* item_ids.json */,
@@ -1322,6 +1323,7 @@
 				323ADB08272B91F400253124 /* ability_ids.json */,
 				79AF528F2E080B1E009FE792 /* heroes.json */,
 				323ADB1C272B91F400253124 /* hero_lore.json */,
+				323ADB1D272B91F400253124 /* hero_abilities.json */,
 			);
 			path = "Sample Data";
 			sourceTree = "<group>";
