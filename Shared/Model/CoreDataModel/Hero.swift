@@ -91,9 +91,6 @@ extension Hero {
         return context.performAndWait {
             do {
                 guard let result = try context.fetch(request).first else {
-                    logError(
-                        "Failed to fetch Hero with predicate \(predicate.predicateFormat)",
-                        category: .coredata)
                     return nil
                 }
                 return result
