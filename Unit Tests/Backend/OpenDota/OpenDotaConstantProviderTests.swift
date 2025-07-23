@@ -19,7 +19,7 @@ struct OpenDotaConstantProviderTests {
     }
     
     
-    @Test("Ability exists", .disabled("ability_ids file doesn't exist"))
+    @Test("Ability exists")
     func abilityExists() async {
         #expect(await provider.loadAbilities().count > 0, "Provider should return abilities")
     }
