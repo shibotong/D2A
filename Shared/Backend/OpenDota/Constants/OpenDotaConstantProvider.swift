@@ -21,6 +21,7 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
     static let shared = OpenDotaConstantProvider()
     
     private let fetcher: OpenDotaConstantFetching
+    private let processor: OpenDotaConstantProcessor = .shared
     
     init(fetcher: OpenDotaConstantFetching = OpenDotaConstantFetcher()) {
         self.fetcher = fetcher
@@ -78,11 +79,7 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
         guard let heroDict = await fetcher.loadService(service: .heroes, as: [String: ODHero].self) else {
             return []
         }
-        var heroesArray: [ODHero] = []
-        for (_, value) in heroDict {
-            heroesArray.append(value)
-        }
-        return heroesArray
+        return processor.processHeroes(heroes: heroDict)
     }
     
     func loadItemIDs() async -> [String: String] {
