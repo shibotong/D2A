@@ -16,6 +16,8 @@ func testPreviewProvider() {
     #expect(abilities?.count != 0, "abilities should not be empty")
     let abilityIDs = loadService(service: .abilityIDs, as: [String: String].self)
     #expect(abilityIDs?.count != 0, "ability IDs should not be empty")
+    let aghs = loadService(service: .aghs, as: [ODScepter].self)
+    #expect(aghs?.count != 0, "aghs should not be empty")
     let heroes = loadService(service: .heroes, as: [String: ODHero].self)
     #expect(heroes?.count != 0, "heroes should not be empty")
 }
