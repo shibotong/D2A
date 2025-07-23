@@ -12,8 +12,6 @@ import Foundation
 
      static let shared = ImageController()
 
-     static let preview = ImageController(imageProvider: PreviewImageProvider())
-
      private let imageProvider: ImageProviding
      private let userDefaults: UserDefaults
      
@@ -27,7 +25,8 @@ import Foundation
          self.imageCache = imageCache
      }
 
-     func refreshImage(type: ImageCacheType, id: String, fileExtension: ImageExtension = .jpg, url: String, refreshTime: Date = Date(),
+     func refreshImage(type: ImageCacheType, id: String, fileExtension: ImageExtension = .jpg,
+                       url: String, refreshTime: Date = Date(),
                        imageHandler: (UIImage) -> Void) async {
          let imageKey = "\(type.rawValue)_\(id)"
          
