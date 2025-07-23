@@ -11,7 +11,7 @@ class OpenDotaConstantProcessor {
     
     func processHeroes(heroes: [String: ODHero]) -> [ODHero] {
         var heroesArray: [ODHero] = []
-        for (_, value) in heroDict {
+        for (_, value) in heroes {
             heroesArray.append(value)
         }
         return heroesArray
