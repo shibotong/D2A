@@ -18,6 +18,9 @@ func testPreviewProvider() {
     #expect(abilityIDs?.count != 0, "ability IDs should not be empty")
     let heroes = loadService(service: .heroes, as: [String: ODHero].self)
     #expect(heroes?.count != 0, "heroes should not be empty")
+    
+    let heroLore = loadService(service: .heroLore, as: [String: String].self)
+    #expect(heroLore?.count != 0, "hero lore should not be empty")
 }
 
 func loadService<T: Decodable>(service: OpenDotaConstantService, as type: T.Type) -> T? {
