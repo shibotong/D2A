@@ -26,7 +26,7 @@ struct PreviewProviderTests {
     
     @Test("aghs_desc")
     func aghsDescription() {
-        let aghs = provider.loadOpenDotaConstants(service: .aghs, as: [String: String].self) ?? [:]
+        let aghs = provider.loadOpenDotaConstants(service: .aghs, as: [ODScepter].self) ?? []
         #expect(aghs.count > 0, "aghs should not be empty")
     }
     
