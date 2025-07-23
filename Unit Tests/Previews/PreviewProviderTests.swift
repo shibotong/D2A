@@ -35,4 +35,10 @@ struct PreviewProviderTests {
         let heroAbilities = provider.loadOpenDotaConstants(service: .heroAbilities, as: [String: ODHeroAbilities].self) ?? [:]
         #expect(heroAbilities.count > 0, "hero abilities should not be empty")
     }
+    
+    @Test("hero lores")
+    func heroLores() {
+        let lores = provider.loadOpenDotaConstants(service: .heroLore, as: [String: ODHeroAbilities].self) ?? [:]
+        #expect(lores.count > 0, "hero lores should not be empty")
+    }
 }
