@@ -192,25 +192,3 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
         return hero
     }
 }
-
-struct HeroScepter: Decodable {
-    var name: String
-    var id: Int
-    var scepterDesc: String
-    var scepterSkillName: String
-    var scepterNewSkill: Bool
-    var shardDesc: String
-    var shardSkillName: String
-    var shardNewSkill: Bool
-
-    enum CodingKeys: String, CodingKey {
-        case name = "hero_name"
-        case id = "hero_id"
-        case scepterDesc = "scepter_desc"
-        case scepterSkillName = "scepter_skill_name"
-        case scepterNewSkill = "scepter_new_skill"
-        case shardDesc = "shard_desc"
-        case shardSkillName = "shard_skill_name"
-        case shardNewSkill = "shard_new_skill"
-    }
-}

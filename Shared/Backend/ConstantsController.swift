@@ -20,7 +20,7 @@ class ConstantsController: ObservableObject {
     private var abilityIDTable = [String: String]()
     private var abilities = [String: ODAbility]()
     private var heroAbilities = [String: ODHeroAbilities]()
-    private var scepterData = [HeroScepter]()
+    private var scepterData = [ODScepter]()
     private var apolloAbilities = [StratzAbility]()
 
     static var shared = ConstantsController()
@@ -53,7 +53,7 @@ class ConstantsController: ObservableObject {
         async let abilityIDTable = loadAbilityID()
         async let abilities = loadAbilities()
         async let heroAbilities = loadHeroAbilities()
-        async let scepter = loadScepter()
+        async let scepter = openDotaProvider.loadScepters()
         async let stratzAbilities = stratzProvider.loadAbilities()
 
         self.itemIDTable = await idTable

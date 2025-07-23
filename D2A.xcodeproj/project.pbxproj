@@ -310,6 +310,10 @@
 		798E0FE22E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */; };
 		798E0FE32E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */; };
 		798E0FE62E2CFE9C0066D7E1 /* PreviewProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FE52E2CFE960066D7E1 /* PreviewProviderTests.swift */; };
+		798E0FF42E2F7DA60066D7E1 /* ODScepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */; };
+		798E0FF52E2F7DA60066D7E1 /* ODScepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */; };
+		798E0FF62E2F7DA60066D7E1 /* ODScepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */; };
+		798E0FF92E2F7FE10066D7E1 /* OpenDotaConstantProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FF82E2F7FE10066D7E1 /* OpenDotaConstantProviderTests.swift */; };
 		798E0FEE2E2F79BD0066D7E1 /* MockOpenDotaConstantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FED2E2F79B70066D7E1 /* MockOpenDotaConstantFetcher.swift */; };
 		798E0FEF2E2F79BD0066D7E1 /* MockOpenDotaConstantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FED2E2F79B70066D7E1 /* MockOpenDotaConstantFetcher.swift */; };
 		798E0FF02E2F79BD0066D7E1 /* MockOpenDotaConstantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798E0FED2E2F79B70066D7E1 /* MockOpenDotaConstantFetcher.swift */; };
@@ -701,6 +705,8 @@
 		798C42982A356FAC00BDC470 /* sampleItem.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleItem.json; sourceTree = "<group>"; };
 		798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDataProvider.swift; sourceTree = "<group>"; };
 		798E0FE52E2CFE960066D7E1 /* PreviewProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProviderTests.swift; sourceTree = "<group>"; };
+		798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODScepter.swift; sourceTree = "<group>"; };
+		798E0FF82E2F7FE10066D7E1 /* OpenDotaConstantProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantProviderTests.swift; sourceTree = "<group>"; };
 		798E0FED2E2F79B70066D7E1 /* MockOpenDotaConstantFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockOpenDotaConstantFetcher.swift; sourceTree = "<group>"; };
 		799948BD2932423800D79055 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		799948BF2932D50000D79055 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
@@ -1328,6 +1334,14 @@
 			path = Previews;
 			sourceTree = "<group>";
 		};
+		798E0FF72E2F7FCF0066D7E1 /* OpenDota */ = {
+			isa = PBXGroup;
+			children = (
+				798E0FF82E2F7FE10066D7E1 /* OpenDotaConstantProviderTests.swift */,
+			);
+			path = OpenDota;
+			sourceTree = "<group>";
+		};
 		79A988FE2931DCB6006AC847 /* CodableModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1356,6 +1370,7 @@
 		79AF52242E0034AF009FE792 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				798E0FF72E2F7FCF0066D7E1 /* OpenDota */,
 				79D187362E16221C00C04CC8 /* StratzControllerTests.swift */,
 				79AF52252E0034BF009FE792 /* ImageControllerTests.swift */,
 				79AF52272E0034E7009FE792 /* ImageProviderTests.swift */,
@@ -1444,11 +1459,12 @@
 		79B870C52DC395200090CAB8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */,
-				32B36F2326C38852002D427D /* ODHero.swift */,
 				32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */,
 				79EB3EF22DC4B0B4008C4F6D /* ODAbility+Attribute.swift */,
 				79E89A292DF6AE7B00497B5D /* ODGameMode.swift */,
+				32B36F2326C38852002D427D /* ODHero.swift */,
+				79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */,
+				798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1926,6 +1942,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				798E0FF92E2F7FE10066D7E1 /* OpenDotaConstantProviderTests.swift in Sources */,
 				798E0FE62E2CFE9C0066D7E1 /* PreviewProviderTests.swift in Sources */,
 				327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				79AF52262E0034BF009FE792 /* ImageControllerTests.swift in Sources */,
@@ -1988,6 +2005,7 @@
 				32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */,
 				79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */,
 				79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */,
+				798E0FF52E2F7DA60066D7E1 /* ODScepter.swift in Sources */,
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
 				79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */,
 				3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */,
@@ -2155,6 +2173,7 @@
 				7983DA752B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
 				79A9891E2931ECAE006AC847 /* PersistanceProvider.swift in Sources */,
 				7983DA6B2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
+				798E0FF42E2F7DA60066D7E1 /* ODScepter.swift in Sources */,
 				79CF376D2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				32F70AD526F60364006E9B05 /* ODHero.swift in Sources */,
 				79AF521D2E00341D009FE792 /* ImageController.swift in Sources */,
@@ -2252,6 +2271,7 @@
 				7983DA762B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
 				79A9891F2931ECAF006AC847 /* PersistanceProvider.swift in Sources */,
 				7983DA6C2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
+				798E0FF62E2F7DA60066D7E1 /* ODScepter.swift in Sources */,
 				79CF376E2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */,
 				79AF521E2E00341D009FE792 /* ImageController.swift in Sources */,
