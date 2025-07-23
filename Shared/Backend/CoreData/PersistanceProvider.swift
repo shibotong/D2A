@@ -31,8 +31,6 @@ class PersistanceProvider: PersistanceProviding {
 
     static let shared = PersistanceProvider()
 
-    static let preview = PersistanceProvider(inMemory: true)
-
     let container: NSPersistentContainer
     private var notificationToken: NSObjectProtocol?
 

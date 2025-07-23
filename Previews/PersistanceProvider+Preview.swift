@@ -7,7 +7,14 @@
 
 import CoreData
 
+#if DEBUG
 extension PersistanceProvider {
+    static let preview: PersistanceProvider = {
+        let provider = PersistanceProvider(inMemory: true)
+        let dataProvider = PreviewDataProvider()
+        let heroes = dataProvider.loadOpenDotaConstants(service: .heroes, as: [String: ODHero].self)
+        
+    }()
     static let previewContext: NSManagedObjectContext = {
         let controller = PersistanceProvider(inMemory: true)
         let heroes = loadSampleHero() ?? [:]
@@ -22,3 +29,4 @@ extension PersistanceProvider {
         return context
     }()
 }
+#endif
