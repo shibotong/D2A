@@ -178,6 +178,11 @@ class PersistanceProvider: PersistanceProviding {
 
     // MARK: - Save constant data
     func saveODData<T: NSManagedObject>(data: [PersistanceModel], type: T.Type) {
+        guard data.count > 20 else {
+            let context = container.viewContext
+            updateData(data: data, context: context)
+            return
+        }
         let context = container.newBackgroundContext()
         if hasData(for: type, context: context) {
             updateData(data: data, context: context)

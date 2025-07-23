@@ -21,12 +21,10 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
     static let shared = OpenDotaConstantProvider()
     
     private let fetcher: OpenDotaConstantFetching
-    private let processor: OpenDotaConstantProcessor
+    private let processor: OpenDotaConstantProcessor = .shared
     
-    init(fetcher: OpenDotaConstantFetching = OpenDotaConstantFetcher(),
-         processor: OpenDotaConstantProcessor = .shared) {
+    init(fetcher: OpenDotaConstantFetching = OpenDotaConstantFetcher()) {
         self.fetcher = fetcher
-        self.processor = processor
     }
     
     func loadAbilities() async -> [ODAbility] {
