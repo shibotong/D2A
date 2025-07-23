@@ -57,6 +57,9 @@
                <Test
                   Identifier = "ImageProviderTests/testImageSaving()">
                </Test>
+               <Test
+                  Identifier = "OpenDotaConstantProviderTests/testProviderAbilities()">
+               </Test>
             </SkippedTests>
          </TestableReference>
          <TestableReference
