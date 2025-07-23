@@ -25,8 +25,6 @@ class ConstantsController: ObservableObject {
 
     static var shared = ConstantsController()
 
-    static var preview = ConstantsController(openDotaProvider: OpenDotaConstantProvider(fetcher: MockOpenDotaConstantFetcher()))
-
     let url = "https://api.opendota.com/api/herostats"
 
     private let stratzProvider: StratzProviding
