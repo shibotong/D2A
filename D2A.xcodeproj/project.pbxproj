@@ -48,15 +48,12 @@
 		323ADB32272B91F500253124 /* chat_wheel.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB19272B91F400253124 /* chat_wheel.json */; };
 		323ADB33272B91F500253124 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1A272B91F400253124 /* countries.json */; };
 		323ADB34272B91F500253124 /* skillshots.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1B272B91F400253124 /* skillshots.json */; };
-		323ADB35272B91F500253124 /* hero_lore.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1C272B91F400253124 /* hero_lore.json */; };
-		323ADB36272B91F500253124 /* hero_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1D272B91F400253124 /* hero_abilities.json */; };
 		323ADB37272B91F500253124 /* item_ids.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1E272B91F400253124 /* item_ids.json */; };
 		323ADB38272B91F500253124 /* patch.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1F272B91F500253124 /* patch.json */; };
 		323ADB58272E03E300253124 /* permanent_buffs.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB16272B91F400253124 /* permanent_buffs.json */; };
 		323ADB59272E03E300253124 /* hero_names.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0F272B91F400253124 /* hero_names.json */; };
 		323ADB5B272E03E300253124 /* ancients.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB15272B91F400253124 /* ancients.json */; };
 		323ADB5C272E03E300253124 /* item_colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB07272B91F400253124 /* item_colors.json */; };
-		323ADB5D272E03E300253124 /* hero_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1D272B91F400253124 /* hero_abilities.json */; };
 		323ADB5E272E03E300253124 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1A272B91F400253124 /* countries.json */; };
 		323ADB5F272E03E300253124 /* items.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0C272B91F400253124 /* items.json */; };
 		323ADB60272E03E300253124 /* cluster.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB10272B91F400253124 /* cluster.json */; };
@@ -68,7 +65,6 @@
 		323ADB67272E03E300253124 /* ability_ids.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB08272B91F400253124 /* ability_ids.json */; };
 		323ADB68272E03E300253124 /* skillshots.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1B272B91F400253124 /* skillshots.json */; };
 		323ADB6A272E03E300253124 /* xp_level.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB14272B91F400253124 /* xp_level.json */; };
-		323ADB6B272E03E300253124 /* hero_lore.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1C272B91F400253124 /* hero_lore.json */; };
 		323ADB6C272E03E300253124 /* region.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB17272B91F400253124 /* region.json */; };
 		323ADB6D272E03E300253124 /* patch.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1F272B91F500253124 /* patch.json */; };
 		323ADB6E272E03E300253124 /* order_types.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB12272B91F400253124 /* order_types.json */; };
@@ -78,7 +74,6 @@
 		323ADB8A272E03E500253124 /* hero_names.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0F272B91F400253124 /* hero_names.json */; };
 		323ADB8C272E03E500253124 /* ancients.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB15272B91F400253124 /* ancients.json */; };
 		323ADB8D272E03E500253124 /* item_colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB07272B91F400253124 /* item_colors.json */; };
-		323ADB8E272E03E500253124 /* hero_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1D272B91F400253124 /* hero_abilities.json */; };
 		323ADB8F272E03E500253124 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1A272B91F400253124 /* countries.json */; };
 		323ADB90272E03E500253124 /* items.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB0C272B91F400253124 /* items.json */; };
 		323ADB91272E03E500253124 /* cluster.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB10272B91F400253124 /* cluster.json */; };
@@ -90,7 +85,6 @@
 		323ADB98272E03E500253124 /* ability_ids.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB08272B91F400253124 /* ability_ids.json */; };
 		323ADB99272E03E500253124 /* skillshots.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1B272B91F400253124 /* skillshots.json */; };
 		323ADB9B272E03E500253124 /* xp_level.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB14272B91F400253124 /* xp_level.json */; };
-		323ADB9C272E03E500253124 /* hero_lore.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1C272B91F400253124 /* hero_lore.json */; };
 		323ADB9D272E03E500253124 /* region.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB17272B91F400253124 /* region.json */; };
 		323ADB9E272E03E500253124 /* patch.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB1F272B91F500253124 /* patch.json */; };
 		323ADB9F272E03E500253124 /* order_types.json in Resources */ = {isa = PBXBuildFile; fileRef = 323ADB12272B91F400253124 /* order_types.json */; };
@@ -257,6 +251,8 @@
 		79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79368C0928E6D8ED009517D2 /* RoleView.swift */; };
 		793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
 		793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
+		793D31822E30C6F20033B366 /* hero_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 793D31812E30C6F20033B366 /* hero_abilities.json */; };
+		793D31842E30C6FB0033B366 /* hero_lore.json in Resources */ = {isa = PBXBuildFile; fileRef = 793D31832E30C6FB0033B366 /* hero_lore.json */; };
 		7942FD0E2B706B85008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
 		794838652A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838642A3D2C0800A447DA /* LiveMatchActivity.swift */; };
 		794838662A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838642A3D2C0800A447DA /* LiveMatchActivity.swift */; };
@@ -584,8 +580,6 @@
 		323ADB19272B91F400253124 /* chat_wheel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = chat_wheel.json; sourceTree = "<group>"; };
 		323ADB1A272B91F400253124 /* countries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = countries.json; sourceTree = "<group>"; };
 		323ADB1B272B91F400253124 /* skillshots.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = skillshots.json; sourceTree = "<group>"; };
-		323ADB1C272B91F400253124 /* hero_lore.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hero_lore.json; sourceTree = "<group>"; };
-		323ADB1D272B91F400253124 /* hero_abilities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hero_abilities.json; sourceTree = "<group>"; };
 		323ADB1E272B91F400253124 /* item_ids.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = item_ids.json; sourceTree = "<group>"; };
 		323ADB1F272B91F500253124 /* patch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = patch.json; sourceTree = "<group>"; };
 		323BCBA2285584D90061F937 /* CalendarMatchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMatchListView.swift; sourceTree = "<group>"; };
@@ -673,6 +667,8 @@
 		79266DA62A31B0FD002FEF0F /* LiveMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchView.swift; sourceTree = "<group>"; };
 		7930699B2B5D323100A5CF5D /* DataLoadingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataLoadingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79368C0928E6D8ED009517D2 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
+		793D31812E30C6F20033B366 /* hero_abilities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hero_abilities.json; sourceTree = "<group>"; };
+		793D31832E30C6FB0033B366 /* hero_lore.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hero_lore.json; sourceTree = "<group>"; };
 		7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
 		794838642A3D2C0800A447DA /* LiveMatchActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivity.swift; sourceTree = "<group>"; };
 		794838682A3D391200A447DA /* LiveMatchTeamIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchTeamIconViewModel.swift; sourceTree = "<group>"; };
@@ -863,7 +859,6 @@
 				323ADB19272B91F400253124 /* chat_wheel.json */,
 				323ADB10272B91F400253124 /* cluster.json */,
 				323ADB1A272B91F400253124 /* countries.json */,
-				323ADB1C272B91F400253124 /* hero_lore.json */,
 				323ADB0F272B91F400253124 /* hero_names.json */,
 				323ADB07272B91F400253124 /* item_colors.json */,
 				323ADB1E272B91F400253124 /* item_ids.json */,
@@ -1325,7 +1320,8 @@
 				79AF52932E080D58009FE792 /* abilities.json */,
 				323ADB08272B91F400253124 /* ability_ids.json */,
 				79AF528F2E080B1E009FE792 /* heroes.json */,
-				323ADB1D272B91F400253124 /* hero_abilities.json */,
+				793D31812E30C6F20033B366 /* hero_abilities.json */,
+				793D31832E30C6FB0033B366 /* hero_lore.json */,
 			);
 			path = "Sample Data";
 			sourceTree = "<group>";
@@ -1816,7 +1812,6 @@
 				798C42992A356FAC00BDC470 /* sampleItem.json in Resources */,
 				798C42972A356F4A00BDC470 /* itemIDs.json in Resources */,
 				323ADB2E272B91F500253124 /* ancients.json in Resources */,
-				323ADB36272B91F500253124 /* hero_abilities.json in Resources */,
 				323ADB31272B91F500253124 /* patchnotes.json in Resources */,
 				323ADB2A272B91F500253124 /* neutral_abilities.json in Resources */,
 				321D58A726D717900059526B /* sampleMatch.json in Resources */,
@@ -1824,13 +1819,14 @@
 				323ADB21272B91F500253124 /* ability_ids.json in Resources */,
 				327C03442717AE8500DAEC42 /* README.md in Resources */,
 				323ADB2C272B91F500253124 /* player_colors.json in Resources */,
-				323ADB35272B91F500253124 /* hero_lore.json in Resources */,
 				32C606CD28647A10007AD14B /* ci_post_clone.sh in Resources */,
 				323ADB24272B91F500253124 /* lobby_type.json in Resources */,
 				324791B92818B7AF00605D55 /* Localizable.strings in Resources */,
 				79D187512E232AB600C04CC8 /* abilities.json in Resources */,
+				793D31842E30C6FB0033B366 /* hero_lore.json in Resources */,
 				323ADB2D272B91F500253124 /* xp_level.json in Resources */,
 				323ADB2F272B91F500253124 /* permanent_buffs.json in Resources */,
+				793D31822E30C6F20033B366 /* hero_abilities.json in Resources */,
 				3261C90D2830748600D47CDA /* sampleHero.json in Resources */,
 				323ADB34272B91F500253124 /* skillshots.json in Resources */,
 				323ADB20272B91F500253124 /* item_colors.json in Resources */,
@@ -1855,7 +1851,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				323ADB6B272E03E300253124 /* hero_lore.json in Resources */,
 				323ADB6C272E03E300253124 /* region.json in Resources */,
 				323ADB66272E03E300253124 /* lobby_type.json in Resources */,
 				323ADB6F272E03E300253124 /* neutral_abilities.json in Resources */,
@@ -1883,7 +1878,6 @@
 				323ADB5E272E03E300253124 /* countries.json in Resources */,
 				323ADB67272E03E300253124 /* ability_ids.json in Resources */,
 				323ADB62272E03E300253124 /* player_colors.json in Resources */,
-				323ADB5D272E03E300253124 /* hero_abilities.json in Resources */,
 				323ADB70272E03E300253124 /* chat_wheel.json in Resources */,
 				32F70ADF26F60BDA006E9B05 /* sampleProfile.json in Resources */,
 			);
@@ -1911,11 +1905,9 @@
 				323ADBA1272E03E500253124 /* chat_wheel.json in Resources */,
 				323ADB93272E03E500253124 /* player_colors.json in Resources */,
 				323ADB9F272E03E500253124 /* order_types.json in Resources */,
-				323ADB9C272E03E500253124 /* hero_lore.json in Resources */,
 				323ADB92272E03E500253124 /* patchnotes.json in Resources */,
 				323ADB9E272E03E500253124 /* patch.json in Resources */,
 				32F70B2426F6296C006E9B05 /* sampleMatch.json in Resources */,
-				323ADB8E272E03E500253124 /* hero_abilities.json in Resources */,
 				32F70B2526F6296F006E9B05 /* sampleProfile.json in Resources */,
 				327A7B8327152388001F964D /* Assets.xcassets in Resources */,
 				323ADBA0272E03E500253124 /* neutral_abilities.json in Resources */,
