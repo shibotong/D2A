@@ -177,12 +177,12 @@ class PersistanceProvider: PersistanceProviding {
     }
 
     // MARK: - Save constant data
-    func saveODData<T: NSManagedObject>(data: [PersistanceModel], type: T.Type) async {
+    func saveODData<T: NSManagedObject>(data: [PersistanceModel], type: T.Type) {
         let context = container.newBackgroundContext()
-        if await hasData(for: type, context: context) {
-            await updateData(data: data, context: context)
+        if hasData(for: type, context: context) {
+            updateData(data: data, context: context)
         } else {
-            await batchInsertData(data, into: type.entity(), context: context)
+            batchInsertData(data, into: type.entity(), context: context)
         }
     }
     
@@ -230,9 +230,9 @@ class PersistanceProvider: PersistanceProviding {
         }
     }
 
-    private func updateData(data: [PersistanceModel], context: NSManagedObjectContext) async {
+    private func updateData(data: [PersistanceModel], context: NSManagedObjectContext) {
         for object in data {
-            await context.perform {
+            context.performAndWait {
                 do {
                     let newObject = try object.update(context: context)
                     guard newObject.hasChanges else {
@@ -247,10 +247,10 @@ class PersistanceProvider: PersistanceProviding {
     }
 
     /// Check if there is any data saved in core data
-    private func hasData<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) async -> Bool {
+    private func hasData<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) -> Bool {
         let request = entity.fetchRequest()
         request.fetchLimit = 1
-        return await context.perform {
+        return context.performAndWait {
             do {
                 let count = try context.count(for: request)
                 return count > 0
@@ -261,10 +261,10 @@ class PersistanceProvider: PersistanceProviding {
         }
     }
 
-    private func batchInsertData(_ data: [PersistanceModel], into entity: NSEntityDescription, context: NSManagedObjectContext) async {
+    private func batchInsertData(_ data: [PersistanceModel], into entity: NSEntityDescription, context: NSManagedObjectContext) {
         let insertRequest = NSBatchInsertRequest(entity: entity, objects: data.map { $0.dictionaries })
         insertRequest.resultType = .statusOnly
-        await context.perform {
+        context.performAndWait {
             do {
                 let fetchResult = try context.execute(insertRequest)
                 if let batchInsertResult = fetchResult as? NSBatchInsertResult,
