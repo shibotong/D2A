@@ -7,7 +7,6 @@
 
 import CoreData
 
-#if DEBUG
 extension PersistanceProvider {
     static let preview: PersistanceProvider = {
         let provider = PersistanceProvider(inMemory: true)
@@ -32,4 +31,3 @@ extension PersistanceProvider {
         return context
     }()
 }
-#endif
