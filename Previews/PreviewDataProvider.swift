@@ -7,6 +7,7 @@
 
 import Foundation
 
+#if DEBUG
 class PreviewDataProvider {
     
     static let shared = PreviewDataProvider()
@@ -23,3 +24,4 @@ class PreviewDataProvider {
         return jsonData
     }
 }
+#endif
