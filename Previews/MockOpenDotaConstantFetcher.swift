@@ -5,7 +5,6 @@
 //  Created by Shibo Tong on 22/7/2025.
 //
 
-#if DEBUG
 class MockOpenDotaConstantFetcher: OpenDotaConstantFetching {
     
     private let dataProvider: PreviewDataProvider = .shared
@@ -14,4 +13,3 @@ class MockOpenDotaConstantFetcher: OpenDotaConstantFetching {
         dataProvider.loadOpenDotaConstants(service: service, as: type)
     }
 }
-#endif
