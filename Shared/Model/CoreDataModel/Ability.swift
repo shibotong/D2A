@@ -18,7 +18,7 @@ extension Ability {
     }
     
     static func fetchByName(name: String, context: NSManagedObjectContext) -> Ability? {
-        let request = Self.fetchRequest()
+        let request = Ability.fetchRequest()
         request.predicate = NSPredicate(format: "name == %@", name)
         do {
             let results = try context.fetch(request)
@@ -30,7 +30,7 @@ extension Ability {
     }
 
     static func fetchByNames(names: [String], context: NSManagedObjectContext) -> [Ability] {
-        let request = Self.fetchRequest()
+        let request = Ability.fetchRequest()
         request.predicate = NSPredicate(format: "name IN %@", names)
         do {
             let results = try context.fetch(request)
