@@ -23,3 +23,9 @@ class PreviewDataProvider {
         return jsonData
     }
 }
+
+extension PreviewDataProvider: OpenDotaConstantFetching {
+    func loadService<T>(service: OpenDotaConstantService, as type: T.Type) async -> T? where T : Decodable {
+        loadOpenDotaConstants(service: service, as: type)
+    }
+}
