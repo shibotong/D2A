@@ -444,9 +444,6 @@
 		79E89A2A2DF6AE7B00497B5D /* ODGameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A292DF6AE7B00497B5D /* ODGameMode.swift */; };
 		79E89A2B2DF6AE7B00497B5D /* ODGameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A292DF6AE7B00497B5D /* ODGameMode.swift */; };
 		79E89A2C2DF6AE7B00497B5D /* ODGameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A292DF6AE7B00497B5D /* ODGameMode.swift */; };
-		79E89A302DF6B82100497B5D /* GameMode+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A2F2DF6B81C00497B5D /* GameMode+Preview.swift */; };
-		79E89A312DF6B8A500497B5D /* GameMode+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A2F2DF6B81C00497B5D /* GameMode+Preview.swift */; };
-		79E89A322DF6B8A500497B5D /* GameMode+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A2F2DF6B81C00497B5D /* GameMode+Preview.swift */; };
 		79E89A332DF6B8BB00497B5D /* PersistanceProvider+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */; };
 		79E89A342DF6B8BB00497B5D /* PersistanceProvider+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */; };
 		79EB3EEC2DC4ACA0008C4F6D /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7985E7EA28E53919007A43AF /* Hero.swift */; };
@@ -775,7 +772,6 @@
 		79E4AECF2DCB79CD008BBF6D /* D2ANavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ANavigationStack.swift; sourceTree = "<group>"; };
 		79E89A292DF6AE7B00497B5D /* ODGameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODGameMode.swift; sourceTree = "<group>"; };
 		79E89A2D2DF6AFE100497B5D /* Backend 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 2.xcdatamodel"; sourceTree = "<group>"; };
-		79E89A2F2DF6B81C00497B5D /* GameMode+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameMode+Preview.swift"; sourceTree = "<group>"; };
 		79EB3EF22DC4B0B4008C4F6D /* ODAbility+Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ODAbility+Attribute.swift"; sourceTree = "<group>"; };
 		79EB3EF62DC4B5D2008C4F6D /* PersistanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceModel.swift; sourceTree = "<group>"; };
 		79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
@@ -1296,7 +1292,6 @@
 			isa = PBXGroup;
 			children = (
 				797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */,
-				79E89A2F2DF6B81C00497B5D /* GameMode+Preview.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -2112,7 +2107,6 @@
 				79F5F5B22DCB461F00194FD5 /* StratzTokenView.swift in Sources */,
 				79C5380C2DCB76FA00B5920A /* AttributeStatsView.swift in Sources */,
 				79E89A2A2DF6AE7B00497B5D /* ODGameMode.swift in Sources */,
-				79E89A302DF6B82100497B5D /* GameMode+Preview.swift in Sources */,
 				79CB52462A31B38200C5D1C6 /* LiveMatchViewModel.swift in Sources */,
 				328D88B5288EB4F700DFD204 /* SharingLink.swift in Sources */,
 				795860412A335D69006DDA21 /* LiveMatchMapView.swift in Sources */,
@@ -2175,7 +2169,6 @@
 				32F70ADD26F60B8D006E9B05 /* SteamProfile.swift in Sources */,
 				79B870C02DC394D30090CAB8 /* D2ANetwork.swift in Sources */,
 				79AF52972E080E56009FE792 /* OpenDotaConstantFetcher.swift in Sources */,
-				79E89A312DF6B8A500497B5D /* GameMode+Preview.swift in Sources */,
 				327C033D2716A90400DAEC42 /* KDAView.swift in Sources */,
 				79EB3F052DC6EE86008C4F6D /* NSValueTransformerName.swift in Sources */,
 				32F70B1926F6295B006E9B05 /* Date.swift in Sources */,
@@ -2275,7 +2268,6 @@
 				3270271E285C08C300927426 /* ConstantsController.swift in Sources */,
 				79B870BF2DC394D30090CAB8 /* D2ANetwork.swift in Sources */,
 				79AF52982E080E56009FE792 /* OpenDotaConstantFetcher.swift in Sources */,
-				79E89A322DF6B8A500497B5D /* GameMode+Preview.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,
 				79EB3F042DC6EE86008C4F6D /* NSValueTransformerName.swift in Sources */,
 				32A26C52285947D4005E890F /* OpenDotaProvider.swift in Sources */,
