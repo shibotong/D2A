@@ -255,6 +255,7 @@
 		79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA82A31B21D002FEF0F /* ApolloWebSocket */; };
 		79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DAA2A31B224002FEF0F /* ApolloWebSocket */; };
 		79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79368C0928E6D8ED009517D2 /* RoleView.swift */; };
+		7939A67D2E344A8C00FDD617 /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 7939A67C2E344A8700FDD617 /* game_mode.json */; };
 		793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
 		793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
 		793D31822E30C6F20033B366 /* hero_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 793D31812E30C6F20033B366 /* hero_abilities.json */; };
@@ -675,6 +676,7 @@
 		79266DA62A31B0FD002FEF0F /* LiveMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchView.swift; sourceTree = "<group>"; };
 		7930699B2B5D323100A5CF5D /* DataLoadingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataLoadingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79368C0928E6D8ED009517D2 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
+		7939A67C2E344A8700FDD617 /* game_mode.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = game_mode.json; sourceTree = "<group>"; };
 		793D31812E30C6F20033B366 /* hero_abilities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hero_abilities.json; sourceTree = "<group>"; };
 		793D31832E30C6FB0033B366 /* hero_lore.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hero_lore.json; sourceTree = "<group>"; };
 		7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
@@ -1353,6 +1355,7 @@
 				79AF52932E080D58009FE792 /* abilities.json */,
 				323ADB08272B91F400253124 /* ability_ids.json */,
 				323ADB0E272B91F400253124 /* aghs_desc.json */,
+				7939A67C2E344A8700FDD617 /* game_mode.json */,
 				79AF528F2E080B1E009FE792 /* heroes.json */,
 				793D31812E30C6F20033B366 /* hero_abilities.json */,
 				793D31832E30C6FB0033B366 /* hero_lore.json */,
@@ -1867,6 +1870,7 @@
 				79AF52902E080B23009FE792 /* heroes.json in Resources */,
 				32B36F1626C38822002D427D /* Preview Assets.xcassets in Resources */,
 				323ADB25272B91F500253124 /* items.json in Resources */,
+				7939A67D2E344A8C00FDD617 /* game_mode.json in Resources */,
 				7977FDA129C1770B0034D3EA /* schema.graphqls in Resources */,
 				3214C0D426F0E44500C377EF /* terms-of-use.md in Resources */,
 				323ADB29272B91F500253124 /* cluster.json in Resources */,
