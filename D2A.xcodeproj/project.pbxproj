@@ -1276,6 +1276,34 @@
 			path = DataLoadingTests;
 			sourceTree = "<group>";
 		};
+		7939A6792E344A0200FDD617 /* EnvironmentControllers */ = {
+			isa = PBXGroup;
+			children = (
+				792540622E30CDE000201CF1 /* ConstantsController+Preview.swift */,
+				792540662E30CE4600201CF1 /* ImageController+Preview.swift */,
+			);
+			path = EnvironmentControllers;
+			sourceTree = "<group>";
+		};
+		7939A67A2E344A1800FDD617 /* DataProviders */ = {
+			isa = PBXGroup;
+			children = (
+				798E0FED2E2F79B70066D7E1 /* MockOpenDotaConstantFetcher.swift */,
+				797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */,
+				798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */,
+			);
+			path = DataProviders;
+			sourceTree = "<group>";
+		};
+		7939A67B2E344A3100FDD617 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */,
+				79E89A2F2DF6B81C00497B5D /* GameMode+Preview.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		797C88B42DCB5EFE00D4CDD1 /* HeroDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1290,14 +1318,10 @@
 		797C88B72DCB74E100D4CDD1 /* Previews */ = {
 			isa = PBXGroup;
 			children = (
-				792540622E30CDE000201CF1 /* ConstantsController+Preview.swift */,
-				797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */,
-				792540662E30CE4600201CF1 /* ImageController+Preview.swift */,
-				798E0FED2E2F79B70066D7E1 /* MockOpenDotaConstantFetcher.swift */,
-				797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */,
-				798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */,
-				798E0FDF2E2CFD660066D7E1 /* Sample Data */,
-				79E89A2F2DF6B81C00497B5D /* GameMode+Preview.swift */,
+				7939A67B2E344A3100FDD617 /* CoreData */,
+				7939A67A2E344A1800FDD617 /* DataProviders */,
+				7939A6792E344A0200FDD617 /* EnvironmentControllers */,
+				798E0FDF2E2CFD660066D7E1 /* Preview Data */,
 				32B36F1526C38822002D427D /* Preview Assets.xcassets */,
 			);
 			path = Previews;
@@ -1323,7 +1347,7 @@
 			path = LiveMatchEvent;
 			sourceTree = "<group>";
 		};
-		798E0FDF2E2CFD660066D7E1 /* Sample Data */ = {
+		798E0FDF2E2CFD660066D7E1 /* Preview Data */ = {
 			isa = PBXGroup;
 			children = (
 				79AF52932E080D58009FE792 /* abilities.json */,
@@ -1333,7 +1357,7 @@
 				793D31812E30C6F20033B366 /* hero_abilities.json */,
 				793D31832E30C6FB0033B366 /* hero_lore.json */,
 			);
-			path = "Sample Data";
+			path = "Preview Data";
 			sourceTree = "<group>";
 		};
 		798E0FE42E2CFE7F0066D7E1 /* Previews */ = {
