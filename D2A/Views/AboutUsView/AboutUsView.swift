@@ -144,6 +144,7 @@ struct AboutUsView: View {
     }
 }
 
+#if DEBUG
 struct AboutUsView_Previews: PreviewProvider {
     static var previews: some View {
         AboutUsView()
@@ -154,3 +155,4 @@ struct AboutUsView_Previews: PreviewProvider {
 
     }
 }
+#endif

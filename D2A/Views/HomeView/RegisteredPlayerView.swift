@@ -149,9 +149,11 @@ struct EmptyRegistedView: View {
     }
 }
 
+#if DEBUG
 struct RegisteredPlayerView_Previews: PreviewProvider {
     static var previews: some View {
         RegisteredPlayerView()
             .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
     }
 }
+#endif

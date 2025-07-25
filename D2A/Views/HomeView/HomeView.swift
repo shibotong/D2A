@@ -23,6 +23,7 @@ struct HomeView: View {
     }
 }
 
+#if DEBUG
 struct PlayerListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
@@ -31,3 +32,4 @@ struct PlayerListView_Previews: PreviewProvider {
         .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
     }
 }
+#endif
