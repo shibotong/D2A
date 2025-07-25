@@ -66,13 +66,7 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
         guard let gameModesDict = await fetcher.loadService(service: .gameMode, as: [String: ODGameMode].self) else {
             return []
         }
-        
-        var gameModes: [ODGameMode] = []
-        for (_, mode) in gameModesDict {
-            gameModes.append(mode)
-        }
-        
-        return gameModes
+        return processor.processGameModes(modes: gameModesDict)
     }
     
     func loadHeroes() async -> [ODHero] {

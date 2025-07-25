@@ -16,4 +16,12 @@ class OpenDotaConstantProcessor {
         }
         return heroesArray
     }
+    
+    func processGameModes(modes: [String: ODGameMode]) -> [ODGameMode] {
+        var gameModes: [ODGameMode] = []
+        for (_, mode) in modes {
+            gameModes.append(mode)
+        }
+        return gameModes
+    }
 }
