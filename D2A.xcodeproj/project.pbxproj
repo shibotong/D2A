@@ -1017,7 +1017,6 @@
 			isa = PBXGroup;
 			children = (
 				79AF528E2E080B0C009FE792 /* Resources */,
-				32B36F1526C38822002D427D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -1292,13 +1291,14 @@
 			isa = PBXGroup;
 			children = (
 				792540622E30CDE000201CF1 /* ConstantsController+Preview.swift */,
+				797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */,
 				792540662E30CE4600201CF1 /* ImageController+Preview.swift */,
 				798E0FED2E2F79B70066D7E1 /* MockOpenDotaConstantFetcher.swift */,
+				797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */,
 				798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */,
 				798E0FDF2E2CFD660066D7E1 /* Sample Data */,
-				797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */,
-				797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */,
 				79E89A2F2DF6B81C00497B5D /* GameMode+Preview.swift */,
+				32B36F1526C38822002D427D /* Preview Assets.xcassets */,
 			);
 			path = Previews;
 			sourceTree = "<group>";

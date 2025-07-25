@@ -122,6 +122,7 @@ struct AbilityView: View {
     }
 }
 
+#if DEBUG
 struct AbilityView_Previews: PreviewProvider {
     static let ability = ConstantsController.preview.fetchOpenDotaAbility(
         name: "antimage_name_break")
@@ -135,3 +136,4 @@ struct AbilityView_Previews: PreviewProvider {
         }
     }
 }
+#endif

@@ -71,6 +71,8 @@ struct HealthManaView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     HealthManaView(level: 1, hero: Hero.previewHeroes.first!)
 }
+#endif

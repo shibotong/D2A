@@ -92,6 +92,7 @@ struct SidebarRowView: View {
 
 }
 
+#if DEBUG
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
@@ -101,3 +102,4 @@ struct Sidebar_Previews: PreviewProvider {
         .environmentObject(EnvironmentController.shared)
     }
 }
+#endif

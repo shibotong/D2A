@@ -145,6 +145,7 @@ struct MatchListRowView: View {
     }
 }
 
+#if DEBUG
 struct MatchListRowView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
@@ -181,3 +182,4 @@ struct MatchListRowView_Previews: PreviewProvider {
         }
     }
 }
+#endif

@@ -99,8 +99,10 @@ struct HeroImageView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     HeroImageView(heroID: 1, type: .icon)
         .environmentObject(ImageController.preview)
         .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
 }
+#endif

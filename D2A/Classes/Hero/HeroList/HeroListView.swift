@@ -161,6 +161,7 @@ struct HeroListView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     NavigationView {
         HeroListView(heroes: Hero.previewHeroes.sorted(by: { $0.heroNameLocalized < $1.heroNameLocalized }))
@@ -168,3 +169,4 @@ struct HeroListView: View {
             .environmentObject(ImageController.preview)
     }
 }
+#endif

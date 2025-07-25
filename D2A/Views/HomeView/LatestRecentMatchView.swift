@@ -71,6 +71,7 @@ struct LatestRecentMatchView: View {
     }
 }
 
+#if DEBUG
 struct LatestRecentMatchView_Previews: PreviewProvider {
     static var previews: some View {
         LatestRecentMatchView(userid: "preview")
@@ -78,3 +79,4 @@ struct LatestRecentMatchView_Previews: PreviewProvider {
             .previewLayout(.fixed(width: 300, height: 60))
     }
 }
+#endif

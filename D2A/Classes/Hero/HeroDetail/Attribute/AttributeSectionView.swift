@@ -22,6 +22,8 @@ struct AttributesSectionView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     AttributesSectionView(hero: Hero.previewHeroes.first!, level: 1)
 }
+#endif

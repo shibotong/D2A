@@ -68,7 +68,7 @@ class AbilityViewModel: ObservableObject {
         scepterVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: scepterURL)))
         shardVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: shardURL)))
         abilityVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: abilityURL)))
-        database = ConstantsController.preview
+        database = ConstantsController.shared
     }
 
     private func setupBinding() {

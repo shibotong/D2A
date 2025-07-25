@@ -71,6 +71,7 @@ struct HeroRowView: View {
     }
 }
 
+#if DEBUG
 #Preview("Compact Grid") {
     HeroRowView(hero: Hero.previewHeroes.first!, isGrid: true)
         .environment(\.horizontalSizeClass, .compact)
@@ -88,3 +89,4 @@ struct HeroRowView: View {
         .environment(\.horizontalSizeClass, .regular)
         .environmentObject(ImageController.preview)
 }
+#endif

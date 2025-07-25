@@ -40,6 +40,8 @@ struct AttributeStatsView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     AttributeStatsView(level: 1, hero: Hero.previewHeroes.first!)
 }
+#endif

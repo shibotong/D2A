@@ -78,9 +78,11 @@ struct FavouriteUserListView: View {
     }
 }
 
+#if DEBUG
 struct FavouriteUserListView_Previews: PreviewProvider {
     static var previews: some View {
         FavouriteUserListView()
             .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
     }
 }
+#endif
