@@ -46,7 +46,7 @@ import XCTest
      override func setUp()  {
          imageProvider = MockImageProvider()
          cache = ImageCache()
-         userDefaults = UserDefaults(suiteName: "UnitTest")!
+         userDefaults = UserDefaults.standard
          imageController = ImageController(imageProvider: imageProvider, userDefaults: userDefaults, imageCache: cache)
          imageHandlerCalled = 0
      }
