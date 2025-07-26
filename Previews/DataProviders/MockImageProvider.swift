@@ -9,7 +9,7 @@ import UIKit
 
 class MockImageProvider: GameImageProviding {
     func remoteImage(url: String) async -> UIImage? {
-        return loadImage()
+        return nil
     }
     
     func localImage(type: GameImageType, id: String, fileExtension: ImageExtension) -> UIImage? {
