@@ -7,20 +7,20 @@
 
 import UIKit
 
-class MockImageProvider: ImageProviding {
+class MockImageProvider: GameImageProviding {
     func remoteImage(url: String) async -> UIImage? {
         return loadImage()
     }
     
-    func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension) -> UIImage? {
+    func localImage(type: GameImageType, id: String, fileExtension: ImageExtension) -> UIImage? {
         return loadImage(type: type)
     }
     
-    func saveImage(image: UIImage, type: ImageCacheType, id: String, fileExtension: ImageExtension) {
+    func saveImage(image: UIImage, type: GameImageType, id: String, fileExtension: ImageExtension) {
         return
     }
     
-    private func loadImage(type: ImageCacheType = .item) -> UIImage {
+    private func loadImage(type: GameImageType = .item) -> UIImage {
         switch type {
         case .item:
             return UIImage(named: "preview_item")!

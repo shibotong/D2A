@@ -1433,9 +1433,9 @@
 		79AF52362E0037A7009FE792 /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				799948BF2932D50000D79055 /* GameImageProvider.swift */,
-				793CD5372E3509F300FEA46B /* FileImageProvider.swift */,
 				793CD52F2E3503A100FEA46B /* ConstantImageProvider.swift */,
+				793CD5372E3509F300FEA46B /* FileImageProvider.swift */,
+				799948BF2932D50000D79055 /* GameImageProvider.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";

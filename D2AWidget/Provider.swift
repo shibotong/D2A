@@ -18,12 +18,12 @@ struct Provider: IntentTimelineProvider {
 
     private let viewContext: NSManagedObjectContext
     private let openDotaProvider: OpenDotaProviding
-    private let imageProvider: ImageProviding
+    private let imageProvider: GameImageProviding
     private let gameDataController: GameDataController
     
     init(openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared,
          persistanceProvider: PersistanceProviding = PersistanceProvider.shared,
-         imageProvider: ImageProviding = GameImageProvider.shared,
+         imageProvider: GameImageProviding = GameImageProvider.shared,
          gameDataController: GameDataController = .shared) {
         self.openDotaProvider = openDotaProvider
         self.viewContext = persistanceProvider.container.viewContext

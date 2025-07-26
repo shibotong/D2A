@@ -12,25 +12,21 @@ import Foundation
 
      static let shared = ImageController()
 
-     private let imageProvider: ImageProviding
+     private let imageProvider: GameImageProviding
      private let userDefaults: UserDefaults
      
      private let imageCache: ImageCache
 
-     init(imageProvider: ImageProviding = GameImageProvider.shared,
-          constantImageProvider: ConstantImageProviding = ConstantImageProvider.shared
+     init(imageProvider: GameImageProviding = GameImageProvider.shared,
+          constantImageProvider: ConstantImageProviding = ConstantImageProvider.shared,
           userDefaults: UserDefaults = UserDefaults.group,
           imageCache: ImageCache = .shared) {
          self.imageProvider = imageProvider
          self.userDefaults = userDefaults
          self.imageCache = imageCache
      }
-     
-     func heroImage(type: HeroImageType, name: String, imageHandler: (UIImage) -> Void) async {
-         
-     }
 
-     func refreshImage(type: ImageCacheType, id: String, fileExtension: ImageExtension = .jpg,
+     func refreshImage(type: GameImageType, id: String, fileExtension: ImageExtension = .jpg,
                        url: String, refreshTime: Date = Date(),
                        imageHandler: (UIImage) -> Void) async {
          let imageKey = "\(type.rawValue)_\(id)"
@@ -52,8 +48,12 @@ import Foundation
          guard let remoteImage = await imageProvider.remoteImage(url: url) else {
              return
          }
-         imageProvider.saveImage(image: remoteImage, type: type, id: id, fileExtension: fileExtension)
-         userDefaults.set(Date(), forKey: imageKey)
+         do {
+             try imageProvider.saveImage(image: remoteImage, type: type, id: id, fileExtension: fileExtension)
+             userDefaults.set(Date(), forKey: imageKey)
+         } catch {
+             logError("Error occured when saving image: \(error.localizedDescription)", category: .image)
+         }
          await imageCache.setCache(key: imageKey, image: remoteImage)
          imageHandler(remoteImage)
      }
@@ -62,7 +62,7 @@ import Foundation
          return lastDate.startOfDay < currentDate.startOfDay
      }
 
-     func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension) -> UIImage? {
+     func localImage(type: GameImageType, id: String, fileExtension: ImageExtension) -> UIImage? {
          return imageProvider.localImage(type: type, id: id, fileExtension: fileExtension)
      }
  }

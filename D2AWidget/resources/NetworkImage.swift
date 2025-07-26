@@ -12,10 +12,10 @@ struct NetworkImage: View {
     let userID: String
     let image: UIImage?
 
-    let imageType: ImageCacheType
+    let imageType: GameImageType
     let isRadiant: Bool
     
-    private let imageProvider: ImageProviding
+    private let imageProvider: GameImageProviding
 
     private var emptyImage: String {
         switch imageType {
@@ -35,7 +35,7 @@ struct NetworkImage: View {
     }
 
     init(profile: UserProfile,
-         imageProvider: ImageProviding = GameImageProvider.shared) {
+         imageProvider: GameImageProviding = GameImageProvider.shared) {
         userID = profile.id!
         urlString = profile.avatarfull!
         imageType = .avatar
@@ -44,7 +44,7 @@ struct NetworkImage: View {
         image = imageProvider.localImage(type: .avatar, id: userID, fileExtension: .jpg)
     }
 
-    init(userID: String, urlString: String, image: UIImage, imageProvider: ImageProviding = GameImageProvider.shared) {
+    init(userID: String, urlString: String, image: UIImage, imageProvider: GameImageProviding = GameImageProvider.shared) {
         self.userID = userID
         self.urlString = urlString
         imageType = .avatar
@@ -53,7 +53,7 @@ struct NetworkImage: View {
         self.image = image
     }
 
-    init(teamID: String, isRadiant: Bool, imageProvider: ImageProviding = GameImageProvider.shared) {
+    init(teamID: String, isRadiant: Bool, imageProvider: GameImageProviding = GameImageProvider.shared) {
         self.urlString = "https://cdn.stratz.com/images/dota2/teams/\(teamID).png"
         self.userID = teamID
         self.isRadiant = isRadiant
