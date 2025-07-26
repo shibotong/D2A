@@ -263,9 +263,6 @@
 		793CD52C2E35038800FEA46B /* ConstantImageController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD52B2E35038100FEA46B /* ConstantImageController+Preview.swift */; };
 		793CD52D2E35038800FEA46B /* ConstantImageController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD52B2E35038100FEA46B /* ConstantImageController+Preview.swift */; };
 		793CD52E2E35038800FEA46B /* ConstantImageController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD52B2E35038100FEA46B /* ConstantImageController+Preview.swift */; };
-		793CD5302E3503A600FEA46B /* ConstantImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD52F2E3503A100FEA46B /* ConstantImageProvider.swift */; };
-		793CD5312E3503A600FEA46B /* ConstantImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD52F2E3503A100FEA46B /* ConstantImageProvider.swift */; };
-		793CD5322E3503A600FEA46B /* ConstantImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD52F2E3503A100FEA46B /* ConstantImageProvider.swift */; };
 		793CD5382E3509F300FEA46B /* FileImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5372E3509F300FEA46B /* FileImageProvider.swift */; };
 		793CD5392E3509F300FEA46B /* FileImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5372E3509F300FEA46B /* FileImageProvider.swift */; };
 		793CD53A2E3509F300FEA46B /* FileImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5372E3509F300FEA46B /* FileImageProvider.swift */; };
@@ -689,7 +686,6 @@
 		79368C0928E6D8ED009517D2 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
 		793CD5272E35019E00FEA46B /* MockImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageProvider.swift; sourceTree = "<group>"; };
 		793CD52B2E35038100FEA46B /* ConstantImageController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConstantImageController+Preview.swift"; sourceTree = "<group>"; };
-		793CD52F2E3503A100FEA46B /* ConstantImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantImageProvider.swift; sourceTree = "<group>"; };
 		793CD5372E3509F300FEA46B /* FileImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImageProvider.swift; sourceTree = "<group>"; };
 		793D31812E30C6F20033B366 /* hero_abilities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hero_abilities.json; sourceTree = "<group>"; };
 		793D31832E30C6FB0033B366 /* hero_lore.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hero_lore.json; sourceTree = "<group>"; };
@@ -1433,7 +1429,6 @@
 		79AF52362E0037A7009FE792 /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				793CD52F2E3503A100FEA46B /* ConstantImageProvider.swift */,
 				793CD5372E3509F300FEA46B /* FileImageProvider.swift */,
 				799948BF2932D50000D79055 /* GameImageProvider.swift */,
 			);
@@ -2091,7 +2086,6 @@
 				322B893826CD44FE00DF67F9 /* SteamProfile.swift in Sources */,
 				79D187472E1E573A00C04CC8 /* GameDataController.swift in Sources */,
 				790266462A35454500CE54DF /* LiveMatchEventListView.swift in Sources */,
-				793CD5312E3503A600FEA46B /* ConstantImageProvider.swift in Sources */,
 				79D187222E13CF9200C04CC8 /* HeroListView+AttributeSelection.swift in Sources */,
 				322B893626CD438700DF67F9 /* ODUserProfile.swift in Sources */,
 				322B89BF26CE788900DF67F9 /* AnalysisViewModel.swift in Sources */,
@@ -2242,7 +2236,6 @@
 				79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */,
 				794B723E2985D410000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				79D1871C2E0D667B00C04CC8 /* HeroAttribute.swift in Sources */,
-				793CD5322E3503A600FEA46B /* ConstantImageProvider.swift in Sources */,
 				793CD52D2E35038800FEA46B /* ConstantImageController+Preview.swift in Sources */,
 				79EB3F862DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */,
 				79A989202931ECBB006AC847 /* Player.swift in Sources */,
@@ -2347,7 +2340,6 @@
 				79E01CA9291E351B0073BF68 /* MatchListRowView.swift in Sources */,
 				794B723F2985D411000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				79D1871D2E0D667B00C04CC8 /* HeroAttribute.swift in Sources */,
-				793CD5302E3503A600FEA46B /* ConstantImageProvider.swift in Sources */,
 				793CD52E2E35038800FEA46B /* ConstantImageController+Preview.swift in Sources */,
 				79EB3F882DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */,
 				79A989212931ECBB006AC847 /* Player.swift in Sources */,

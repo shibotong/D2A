@@ -8,10 +8,30 @@
 import Foundation
 import UIKit
 
-enum GameImageType: String {
+enum GameImageType {
     case avatar
     case teamIcon
     case league
+    case item
+    case hero(type: HeroImageType)
+    case ability
+    
+    var folder: String {
+        switch self {
+        case .avatar:
+            return "avatar"
+        case .teamIcon:
+            return "teamIcon"
+        case .league:
+            return "league"
+        case .item:
+            return "item"
+        case .hero(let type):
+            return "hero"
+        case .ability:
+            return "ability"
+        }
+    }
 }
 
 protocol GameImageProviding {
@@ -41,24 +61,38 @@ class GameImageProvider: GameImageProviding {
     }
     
     func localImage(type: GameImageType, id: String, fileExtension: ImageExtension = .jpg) -> UIImage? {
-        guard let docDir = documentDirectory else {
+        guard let imageFolder = imageFolder(type: type) else {
             return nil
         }
-        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
+        
+        let imageURL = imageFolder.appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
         return fileImageProvider.readImage(imageURL: imageURL)
     }
     
     func saveImage(image: UIImage, type: GameImageType, id: String, fileExtension: ImageExtension) throws {
-        guard let docDir = documentDirectory else {
+        guard let imageFolder = imageFolder(type: type) else {
             logError("Save image failed due to missing container URL", category: .image)
             return
         }
         
-        let imageFolder = docDir.appendingPathComponent(type.rawValue)
         try FileManager.default.createDirectory(at: imageFolder,
                                                 withIntermediateDirectories: true,
                                                 attributes: nil)
         try fileImageProvider.saveImage(image, path: imageFolder, name: id, fileExtension: fileExtension)
+    }
+    
+    private func imageFolder(type: GameImageType) -> URL? {
+        guard let docDir = documentDirectory else {
+            return nil
+        }
+        var imageFolder = docDir.appendingPathComponent(type.folder)
+        switch type {
+        case .hero(let type):
+            imageFolder = imageFolder.appendingPathComponent(type.rawValue)
+        default:
+            break
+        }
+        return imageFolder
     }
 }
 
