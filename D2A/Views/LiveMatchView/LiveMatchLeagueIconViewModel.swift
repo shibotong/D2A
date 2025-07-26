@@ -15,11 +15,11 @@ class LiveMatchLeagueIconViewModel: ObservableObject {
     var urlString: String = ""
     
     
-    private let imageProvider: GameImageProviding
+    private let imageProvider: ImageProviding
     private let imageType: GameImageType = .league
 
     init(leagueID: Int,
-         imageProvider: GameImageProviding = GameImageProvider.shared) {
+         imageProvider: ImageProviding = ImageProvider.shared) {
         self.leagueID = leagueID
         self.urlString = "https://cdn.stratz.com/images/dota2/leagues/\(leagueID).png"
         self.imageProvider = imageProvider

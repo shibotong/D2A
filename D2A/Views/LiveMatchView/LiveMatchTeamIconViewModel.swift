@@ -15,10 +15,10 @@ class LiveMatchTeamIconViewModel: ObservableObject {
     var urlString: String = ""
     var isRadiant: Bool
     
-    private let imageProvider: GameImageProviding
+    private let imageProvider: ImageProviding
 
     init(teamID: String?, isRadiant: Bool,
-         imageProvider: GameImageProviding = GameImageProvider.shared) {
+         imageProvider: ImageProviding = ImageProvider.shared) {
         self.isRadiant = isRadiant
         self.teamID = teamID
         self.imageProvider = imageProvider

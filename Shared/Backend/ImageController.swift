@@ -12,12 +12,12 @@ class ImageController: ObservableObject {
     
     static let shared = ImageController()
     
-    private let imageProvider: GameImageProviding
+    private let imageProvider: ImageProviding
     private let userDefaults: UserDefaults
     
     private let imageCache: ImageCache
     
-    init(imageProvider: GameImageProviding = GameImageProvider.shared,
+    init(imageProvider: ImageProviding = ImageProvider.shared,
          userDefaults: UserDefaults = UserDefaults.group,
          imageCache: ImageCache = .shared) {
         self.imageProvider = imageProvider

@@ -8,7 +8,7 @@
 import XCTest
 @testable import D2A
 
-class MockImageProvider: GameImageProviding {
+class MockImageProvider: ImageProviding {
     
     var remoteImageCalled: Int = 0
     var localImageCalled: Int = 0

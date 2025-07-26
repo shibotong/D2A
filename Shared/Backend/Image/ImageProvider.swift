@@ -26,7 +26,7 @@ enum GameImageType {
             return "league"
         case .item:
             return "item"
-        case .hero(let _):
+        case .hero(_):
             return "hero"
         case .ability:
             return "ability"
@@ -43,13 +43,13 @@ enum GameImageType {
     }
 }
 
-protocol GameImageProviding {
+protocol ImageProviding {
     func remoteImage(url: String) async -> UIImage?
     func localImage(type: GameImageType, id: String, fileExtension: ImageExtension) -> UIImage?
     func saveImage(image: UIImage, type: GameImageType, id: String, fileExtension: ImageExtension) throws
 }
 
-class ImageProvider: GameImageProviding {
+class ImageProvider: ImageProviding {
     
     static let shared = ImageProvider()
     

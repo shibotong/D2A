@@ -14,10 +14,10 @@ class AbilityImageViewModel: ObservableObject {
     var name: String?
     let urlString: String?
     
-    private let imageProvider: GameImageProviding
+    private let imageProvider: ImageProviding
 
     init(name: String?, urlString: String?,
-         imageProvider: GameImageProviding = GameImageProvider.shared) {
+         imageProvider: ImageProviding = ImageProvider.shared) {
         self.name = name
         self.urlString = urlString
         self.imageProvider = imageProvider

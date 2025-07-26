@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MockImageProvider: GameImageProviding {
+class MockImageProvider: ImageProviding {
     func remoteImage(url: String) async -> UIImage? {
         return nil
     }
