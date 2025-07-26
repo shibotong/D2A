@@ -16,10 +16,13 @@ struct AbilityViewV2: View {
                 Group {
                     cdmcView
                     statsView
+                    descriptionView
                 }
+                .frame(maxWidth: .infinity)
                 .padding()
                 .background(Color.secondarySystemBackground)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
+                
             }
             .padding()
             
@@ -92,6 +95,18 @@ struct AbilityViewV2: View {
                     }
                 }())
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var descriptionView: some View {
+        if let desc = ability.desc {
+            Text(desc)
+        }
+        if let lore = ability.lore {
+            Text(lore)
+                .font(.caption2)
+                .foregroundStyle(.secondary)
         }
     }
     
