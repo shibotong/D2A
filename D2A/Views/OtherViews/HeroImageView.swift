@@ -15,35 +15,26 @@ struct HeroImageView: View {
     @EnvironmentObject var imageController: ImageController
     @Environment(\.managedObjectContext) var viewContext
     
-    private let heroID: Int
+    @State private var name: String?
     private let type: HeroImageType
-    private var hero: Hero?
-    
-    @State private var image: UIImage?
+    private let heroID: Int? = nil
     
     init(hero: Hero, type: HeroImageType) {
-        self.hero = hero
+        self.name = hero.heroNameLowerCase
         self.type = type
-        self.heroID = Int(hero.id)
     }
     
     init(heroID: Int, type: HeroImageType) {
-        self.heroID = heroID
         self.type = type
     }
 
     var body: some View {
         Group {
-            if let image {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
+            if let name {
+                HeroImageViewV2(name: name, type: type)
             } else {
                 loadingView
             }
-        }
-        .task {
-            await loadImage()
         }
     }
     
@@ -69,31 +60,18 @@ struct HeroImageView: View {
             .aspectRatio(contentMode: .fit)
             ProgressView()
         }
+        .task {
+            await loadImage()
+        }
     }
     
     @MainActor
     private func loadImage() async {
-        let heroImageID = "\(heroID.description)_\(type.rawValue)"
-        await imageController.refreshImage(type: .hero(type: type), id: heroImageID, fileExtension: .png, url: computeURLString()) { image in
-            self.image = image
+        guard name == nil else {
+            return
         }
-    }
-    
-    private func computeURLString() -> String {
-        guard let hero = self.hero ?? Hero.fetch(id: heroID, context: viewContext),
-              let heroName = hero.name,
-              let heroIcon = hero.icon else {
-            return ""
-        }
-        let name = heroName.replacingOccurrences(of: "npc_dota_hero_", with: "")
-        switch type {
-        case .icon:
-            return "https://api.opendota.com\(heroIcon)"
-        case .full:
-            return "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/\(name).png"
-        case .vert:
-            return "https://cdn.stratz.com/images/dota2/heroes/\(name)_vert.png"
-        }
+        let hero = Hero.fetch(id: heroID ?? 0, context: viewContext)
+        self.name = hero?.heroNameLowerCase
     }
 }
 

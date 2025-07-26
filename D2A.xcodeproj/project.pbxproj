@@ -267,6 +267,8 @@
 		793CD5392E3509F300FEA46B /* FileImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5372E3509F300FEA46B /* FileImageProvider.swift */; };
 		793CD53A2E3509F300FEA46B /* FileImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5372E3509F300FEA46B /* FileImageProvider.swift */; };
 		793CD53C2E3516F100FEA46B /* HeroImageViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD53B2E3516ED00FEA46B /* HeroImageViewV2.swift */; };
+		793CD53D2E351A2B00FEA46B /* HeroImageViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD53B2E3516ED00FEA46B /* HeroImageViewV2.swift */; };
+		793CD53E2E351A2B00FEA46B /* HeroImageViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD53B2E3516ED00FEA46B /* HeroImageViewV2.swift */; };
 		793D31822E30C6F20033B366 /* hero_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 793D31812E30C6F20033B366 /* hero_abilities.json */; };
 		793D31842E30C6FB0033B366 /* hero_lore.json in Resources */ = {isa = PBXBuildFile; fileRef = 793D31832E30C6FB0033B366 /* hero_lore.json */; };
 		7942FD0E2B706B85008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
@@ -2202,6 +2204,7 @@
 				79E89A312DF6B8A500497B5D /* GameMode+Preview.swift in Sources */,
 				327C033D2716A90400DAEC42 /* KDAView.swift in Sources */,
 				79EB3F052DC6EE86008C4F6D /* NSValueTransformerName.swift in Sources */,
+				793CD53D2E351A2B00FEA46B /* HeroImageViewV2.swift in Sources */,
 				32F70B1926F6295B006E9B05 /* Date.swift in Sources */,
 				3270271D285C08C200927426 /* ConstantsController.swift in Sources */,
 				799948C12932D50000D79055 /* GameImageProvider.swift in Sources */,
@@ -2306,6 +2309,7 @@
 				79E89A322DF6B8A500497B5D /* GameMode+Preview.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,
 				79EB3F042DC6EE86008C4F6D /* NSValueTransformerName.swift in Sources */,
+				793CD53E2E351A2B00FEA46B /* HeroImageViewV2.swift in Sources */,
 				32A26C52285947D4005E890F /* OpenDotaProvider.swift in Sources */,
 				32079DC128B843360056D19F /* String.swift in Sources */,
 				799948C22932D50000D79055 /* GameImageProvider.swift in Sources */,
