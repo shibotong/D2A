@@ -9,16 +9,21 @@ import SwiftUI
 import UIKit
 
 struct AbilityImage: View {
-
-    @ObservedObject var viewModel: AbilityImageViewModel
+    @EnvironmentObject var imageController: ImageController
+    
+    @State private var image: UIImage?
+    
+    private let name: String?
+    private let urlString: String?
     
     init(name: String?, urlString: String?) {
-        viewModel = .init(name: name, urlString: urlString)
+        self.name = name
+        self.urlString = urlString
     }
 
     var body: some View {
         ZStack {
-            if let image = viewModel.image {
+            if let image {
                 Image(uiImage: image)
                     .resizable()
             } else {
@@ -29,8 +34,18 @@ struct AbilityImage: View {
             }
         }
     }
+    
+    private func loadImage() async {
+        guard let name, let urlString else {
+            return
+        }
+        await imageController.refreshImage(type: .ability, id: name, url: urlString) { image in
+            self.image = image
+        }
+    }
 }
 
 #Preview {
     AbilityImage(name: "Acid Spray", urlString: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_acid_spray.png")
+        .environmentObject(ImageController.preview)
 }
