@@ -17,14 +17,16 @@ struct HeroImageView: View {
     
     @State private var name: String?
     private let type: HeroImageType
-    private let heroID: Int? = nil
+    private let heroID: Int?
     
     init(hero: Hero, type: HeroImageType) {
         self.name = hero.heroNameLowerCase
         self.type = type
+        heroID = nil
     }
     
     init(heroID: Int, type: HeroImageType) {
+        self.heroID = heroID
         self.type = type
     }
 
