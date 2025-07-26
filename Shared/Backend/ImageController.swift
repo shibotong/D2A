@@ -18,7 +18,6 @@ class ImageController: ObservableObject {
     private let imageCache: ImageCache
     
     init(imageProvider: GameImageProviding = GameImageProvider.shared,
-         constantImageProvider: ConstantImageProviding = ConstantImageProvider.shared,
          userDefaults: UserDefaults = UserDefaults.group,
          imageCache: ImageCache = .shared) {
         self.imageProvider = imageProvider
@@ -29,7 +28,7 @@ class ImageController: ObservableObject {
     func refreshImage(type: GameImageType, id: String, fileExtension: ImageExtension = .jpg,
                       url: String, refreshTime: Date = Date(),
                       imageHandler: (UIImage) -> Void) async {
-        let imageKey = "\(type.rawValue)_\(id)"
+        let imageKey = "\(type.imageKey)_\(id)"
         
         await refreshImage(imageKey: imageKey, fileExtension: fileExtension, refreshTime: refreshTime, imageHandler: imageHandler) {
             imageProvider.localImage(type: type, id: id, fileExtension: fileExtension)

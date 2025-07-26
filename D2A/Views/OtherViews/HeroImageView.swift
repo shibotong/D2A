@@ -74,7 +74,7 @@ struct HeroImageView: View {
     @MainActor
     private func loadImage() async {
         let heroImageID = "\(heroID.description)_\(type.rawValue)"
-        await imageController.refreshImage(type: .hero, id: heroImageID, fileExtension: .png, url: computeURLString()) { image in
+        await imageController.refreshImage(type: .hero(type: type), id: heroImageID, fileExtension: .png, url: computeURLString()) { image in
             self.image = image
         }
     }

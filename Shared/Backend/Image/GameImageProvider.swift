@@ -26,10 +26,19 @@ enum GameImageType {
             return "league"
         case .item:
             return "item"
-        case .hero(let type):
+        case .hero(let _):
             return "hero"
         case .ability:
             return "ability"
+        }
+    }
+    
+    var imageKey: String {
+        switch self {
+        case .hero(let type):
+            return "hero_\(type.rawValue)"
+        default:
+            return folder
         }
     }
 }

@@ -22,18 +22,18 @@ class MockImageProvider: GameImageProviding {
     
     private func loadImage(type: GameImageType = .item) -> UIImage {
         switch type {
-        case .item:
-            return UIImage(named: "preview_item")!
         case .avatar:
-            return UIImage(named: "preview_avatar")!
-        case .ability:
-            return UIImage(named: "preview_ability")!
+            UIImage(named: "preview_avatar")!
         case .teamIcon:
-            return UIImage(named: "preview_avatar")!
+            UIImage(named: "preview_avatar")!
         case .league:
-            return UIImage(named: "preview_league")!
-        case .hero:
-            return UIImage(named: "preview_hero")!
+            UIImage(named: "preview_league")!
+        case .item:
+            UIImage(named: "preview_item")!
+        case .hero(let type):
+            UIImage(named: "\(type.rawValue)_antimage")!
+        case .ability:
+            UIImage(named: "preview_ability")!
         }
     }
 }
