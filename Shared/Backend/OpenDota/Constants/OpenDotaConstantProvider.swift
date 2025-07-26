@@ -32,25 +32,8 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
               let abilityIDs = await fetcher.loadService(service: .abilityIDs, as: [String: String].self) else {
             return []
         }
-        var abilities: [ODAbility] = []
         
-        for (abilityIDString, name) in abilityIDs {
-            guard var ability = abilityDict[name] else {
-                logDebug("\(name) cannot be found", category: .opendotaConstant)
-                continue
-            }
-            guard let abilityID = Int(abilityIDString) else {
-                logWarn("\(abilityIDString) abilityID is not a number", category: .opendotaConstant)
-                continue
-            }
-            guard let dname = ability.dname, !dname.isEmpty else {
-                logDebug("\(name) has empty dname", category: .opendotaConstant)
-                continue
-            }
-            ability.id = abilityID
-            ability.name = name
-            abilities.append(ability)
-        }
+        let abilities = processor.processAbilities(ability: abilityDict, ids: abilityIDs)
         return abilities
     }
     

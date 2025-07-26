@@ -24,4 +24,27 @@ class OpenDotaConstantProcessor {
         }
         return gameModes
     }
+    
+    func processAbilities(ability: [String: ODAbility], ids: [String: String]) -> [ODAbility] {
+        var abilities: [ODAbility] = []
+        
+        for (abilityIDString, name) in ids {
+            guard var ability = ability[name] else {
+                logDebug("\(name) cannot be found", category: .opendotaConstant)
+                continue
+            }
+            guard let abilityID = Int(abilityIDString) else {
+                logWarn("\(abilityIDString) abilityID is not a number", category: .opendotaConstant)
+                continue
+            }
+            guard let dname = ability.dname, !dname.isEmpty else {
+                logDebug("\(name) has empty dname", category: .opendotaConstant)
+                continue
+            }
+            ability.id = abilityID
+            ability.name = name
+            abilities.append(ability)
+        }
+        return abilities
+    }
 }
