@@ -11,7 +11,7 @@ import XCTest
 final class ImageProviderTests: XCTestCase {
 
     var imageProvider: ImageProvider!
-    let imageType: ImageCacheType = .hero
+    let imageType: GameImageType = .item
     let imageID: String = "1"
     var directory: URL!
 
@@ -21,7 +21,7 @@ final class ImageProviderTests: XCTestCase {
     }
 
     override func tearDown() {
-        let path = directory.appendingPathComponent(imageType.rawValue).appendingPathComponent(imageID).appendingPathExtension("jpg")
+        let path = directory.appendingPathComponent(imageType.folder).appendingPathComponent(imageID).appendingPathExtension("jpg")
         let fileManager = FileManager.default
         try? fileManager.removeItem(at: path)
     }
@@ -35,7 +35,7 @@ final class ImageProviderTests: XCTestCase {
             XCTFail("Remote image should not be nil")
             return
         }
-        imageProvider.saveImage(image: remoteImage, type: imageType, id: imageID, fileExtension: .jpg)
+        try? imageProvider.saveImage(image: remoteImage, type: imageType, id: imageID, fileExtension: .jpg)
 
         let savedImage = imageProvider.localImage(type: imageType, id: imageID, fileExtension: .jpg)
         XCTAssertNotNil(savedImage, "Image should be fetched locally")

@@ -52,7 +52,7 @@ final class ImageControllerTests: XCTestCase {
     }
     
     override func tearDown() {
-        userDefaults.set(nil, forKey: "\(heroCache.rawValue)_\(heroID)")
+        userDefaults.set(nil, forKey: "\(heroCache.folder)_\(heroID)")
     }
     
     func testLoadImageAtBeginning() async {
