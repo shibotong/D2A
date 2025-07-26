@@ -14,6 +14,10 @@ extension PersistanceProvider {
         let processor  = OpenDotaConstantProcessor.shared
         let heroes = processor.processHeroes(heroes: dataProvider.loadOpenDotaConstants(service: .heroes, as: [String: ODHero].self) ?? [:])
         provider.saveODData(data: heroes, type: Hero.self)
+        
+        let gameModes = processor.processGameModes(modes: dataProvider.loadOpenDotaConstants(service: .gameMode, as: [String: ODGameMode].self) ?? [:])
+        provider.saveODData(data: gameModes, type: GameMode.self)
+        
         return provider
     }()
     
