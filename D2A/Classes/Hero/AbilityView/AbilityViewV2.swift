@@ -16,7 +16,9 @@ struct AbilityViewV2: View {
                 Group {
                     cdmcView
                     statsView
+                    attributesView
                     descriptionView
+                    Text(ability.attributes?.count.description ?? "::")
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -107,6 +109,17 @@ struct AbilityViewV2: View {
             Text(lore)
                 .font(.caption2)
                 .foregroundStyle(.secondary)
+        }
+    }
+    
+    @ViewBuilder
+    private var attributesView: some View {
+        if let attributes = ability.attributes {
+            VStack {
+                ForEach(attributes, id: \.key) { attribute in
+                    buildRow(title: attribute.header, value: attribute.value)
+                }
+            }
         }
     }
     
