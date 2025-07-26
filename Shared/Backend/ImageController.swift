@@ -62,13 +62,14 @@ class ImageController: ObservableObject {
         guard let remoteImage = await remoteImageHandler() else {
             return
         }
-        imageHandler(remoteImage)
         do {
             try saveImageHander(remoteImage)
             userDefaults.set(Date(), forKey: imageKey)
         } catch {
             logError("Error occured when saving image: \(error.localizedDescription)", category: .image)
         }
+        await imageCache.setCache(key: imageKey, image: remoteImage)
+        imageHandler(remoteImage)
     }
     
     private func imageNeedsRefresh(lastDate: Date, currentDate: Date = Date()) -> Bool {

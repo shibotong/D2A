@@ -260,9 +260,6 @@
 		793CD5282E3501A300FEA46B /* MockImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5272E35019E00FEA46B /* MockImageProvider.swift */; };
 		793CD5292E3501A300FEA46B /* MockImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5272E35019E00FEA46B /* MockImageProvider.swift */; };
 		793CD52A2E3501A300FEA46B /* MockImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5272E35019E00FEA46B /* MockImageProvider.swift */; };
-		793CD52C2E35038800FEA46B /* ConstantImageController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD52B2E35038100FEA46B /* ConstantImageController+Preview.swift */; };
-		793CD52D2E35038800FEA46B /* ConstantImageController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD52B2E35038100FEA46B /* ConstantImageController+Preview.swift */; };
-		793CD52E2E35038800FEA46B /* ConstantImageController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD52B2E35038100FEA46B /* ConstantImageController+Preview.swift */; };
 		793CD5382E3509F300FEA46B /* FileImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5372E3509F300FEA46B /* FileImageProvider.swift */; };
 		793CD5392E3509F300FEA46B /* FileImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5372E3509F300FEA46B /* FileImageProvider.swift */; };
 		793CD53A2E3509F300FEA46B /* FileImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5372E3509F300FEA46B /* FileImageProvider.swift */; };
@@ -688,7 +685,6 @@
 		7930699B2B5D323100A5CF5D /* DataLoadingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataLoadingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79368C0928E6D8ED009517D2 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
 		793CD5272E35019E00FEA46B /* MockImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageProvider.swift; sourceTree = "<group>"; };
-		793CD52B2E35038100FEA46B /* ConstantImageController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConstantImageController+Preview.swift"; sourceTree = "<group>"; };
 		793CD5372E3509F300FEA46B /* FileImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImageProvider.swift; sourceTree = "<group>"; };
 		793CD53B2E3516ED00FEA46B /* HeroImageViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageViewV2.swift; sourceTree = "<group>"; };
 		793D31812E30C6F20033B366 /* hero_abilities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hero_abilities.json; sourceTree = "<group>"; };
@@ -1298,7 +1294,6 @@
 			children = (
 				792540622E30CDE000201CF1 /* ConstantsController+Preview.swift */,
 				792540662E30CE4600201CF1 /* ImageController+Preview.swift */,
-				793CD52B2E35038100FEA46B /* ConstantImageController+Preview.swift */,
 			);
 			path = EnvironmentControllers;
 			sourceTree = "<group>";
@@ -2108,7 +2103,6 @@
 				79D1871B2E0D64CC00C04CC8 /* HeroAttribute.swift in Sources */,
 				322B89C526CFAC1000DF67F9 /* SearchView.swift in Sources */,
 				799948C02932D50000D79055 /* ImageProvider.swift in Sources */,
-				793CD52C2E35038800FEA46B /* ConstantImageController+Preview.swift in Sources */,
 				793CD53C2E3516F100FEA46B /* HeroImageViewV2.swift in Sources */,
 				79B8709D2DC38A150090CAB8 /* StratzController.swift in Sources */,
 				79B8709E2DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */,
@@ -2243,7 +2237,6 @@
 				79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */,
 				794B723E2985D410000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				79D1871C2E0D667B00C04CC8 /* HeroAttribute.swift in Sources */,
-				793CD52D2E35038800FEA46B /* ConstantImageController+Preview.swift in Sources */,
 				79EB3F862DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */,
 				79A989202931ECBB006AC847 /* Player.swift in Sources */,
 				32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */,
@@ -2348,7 +2341,6 @@
 				79E01CA9291E351B0073BF68 /* MatchListRowView.swift in Sources */,
 				794B723F2985D411000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				79D1871D2E0D667B00C04CC8 /* HeroAttribute.swift in Sources */,
-				793CD52E2E35038800FEA46B /* ConstantImageController+Preview.swift in Sources */,
 				79EB3F882DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */,
 				79A989212931ECBB006AC847 /* Player.swift in Sources */,
 				32B526C4285C0B380099B058 /* IntentHandler.swift in Sources */,
