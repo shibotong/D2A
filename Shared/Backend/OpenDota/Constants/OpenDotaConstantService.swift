@@ -14,7 +14,7 @@ enum OpenDotaConstantService: String, CaseIterable {
     case abilities
     case abilityIDs = "ability_ids"
     case aghs = "aghs_desc"
-    case gameModes = "game_mode"
+    case gameMode = "game_mode"
     case heroes
     case heroAbilities = "hero_abilities"
     case heroLore = "hero_lore"

@@ -14,7 +14,7 @@ struct OpenDotaConstantProviderTests {
     let provider: OpenDotaConstantProvider
     
     init() {
-        let fetcher = MockOpenDotaConstantFetcher()
+        let fetcher = PreviewDataProvider()
         provider = OpenDotaConstantProvider(fetcher: fetcher)
     }
     
@@ -27,6 +27,11 @@ struct OpenDotaConstantProviderTests {
     @Test("Hero exists")
     func heroExists() async {
         #expect(await provider.loadHeroes().count > 0, "Provider should return heroes")
+    }
+    
+    @Test("Game modes exists")
+    func modeExists() async {
+        #expect(await provider.loadGameModes().count > 0, "Provider should return game modes")
     }
     
 }

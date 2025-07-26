@@ -30,6 +30,12 @@ struct PreviewProviderTests {
         #expect(aghs.count > 0, "aghs should not be empty")
     }
     
+    @Test("game modes")
+    func gameModes() {
+        let modes = provider.loadOpenDotaConstants(service: .gameMode, as: [String: ODGameMode].self) ?? [:]
+        #expect(modes.count > 0, "modes should not be empty")
+    }
+    
     @Test("heroes")
     func heroes() {
         let heroes = provider.loadOpenDotaConstants(service: .heroes, as: [String: ODHero].self) ?? [:]
@@ -47,4 +53,6 @@ struct PreviewProviderTests {
         let lores = provider.loadOpenDotaConstants(service: .heroLore, as: [String: String].self) ?? [:]
         #expect(lores.count > 0, "hero lores should not be empty")
     }
+    
+
 }

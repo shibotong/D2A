@@ -6,5 +6,5 @@
 //
 
 extension ConstantsController {
-    static let preview = ConstantsController(openDotaProvider: OpenDotaConstantProvider(fetcher: MockOpenDotaConstantFetcher()))
+    static let preview = ConstantsController(openDotaProvider: OpenDotaConstantProvider(fetcher: PreviewDataProvider.shared))
 }
