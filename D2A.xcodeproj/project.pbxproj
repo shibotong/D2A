@@ -266,6 +266,7 @@
 		793CD5382E3509F300FEA46B /* FileImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5372E3509F300FEA46B /* FileImageProvider.swift */; };
 		793CD5392E3509F300FEA46B /* FileImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5372E3509F300FEA46B /* FileImageProvider.swift */; };
 		793CD53A2E3509F300FEA46B /* FileImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5372E3509F300FEA46B /* FileImageProvider.swift */; };
+		793CD53C2E3516F100FEA46B /* HeroImageViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD53B2E3516ED00FEA46B /* HeroImageViewV2.swift */; };
 		793D31822E30C6F20033B366 /* hero_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 793D31812E30C6F20033B366 /* hero_abilities.json */; };
 		793D31842E30C6FB0033B366 /* hero_lore.json in Resources */ = {isa = PBXBuildFile; fileRef = 793D31832E30C6FB0033B366 /* hero_lore.json */; };
 		7942FD0E2B706B85008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
@@ -687,6 +688,7 @@
 		793CD5272E35019E00FEA46B /* MockImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageProvider.swift; sourceTree = "<group>"; };
 		793CD52B2E35038100FEA46B /* ConstantImageController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConstantImageController+Preview.swift"; sourceTree = "<group>"; };
 		793CD5372E3509F300FEA46B /* FileImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImageProvider.swift; sourceTree = "<group>"; };
+		793CD53B2E3516ED00FEA46B /* HeroImageViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageViewV2.swift; sourceTree = "<group>"; };
 		793D31812E30C6F20033B366 /* hero_abilities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hero_abilities.json; sourceTree = "<group>"; };
 		793D31832E30C6FB0033B366 /* hero_lore.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hero_lore.json; sourceTree = "<group>"; };
 		7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
@@ -1173,6 +1175,7 @@
 				796FE19B29AAF659003379EB /* AbilityImage.swift */,
 				796FE19D29AB006C003379EB /* AbilityImageViewModel.swift */,
 				32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */,
+				793CD53B2E3516ED00FEA46B /* HeroImageViewV2.swift */,
 				794B724229862294000059E4 /* ItemView.swift */,
 				799948BD2932423800D79055 /* LoadingView.swift */,
 				798A5CF72945503100EB07B0 /* ProfileAvatar.swift */,
@@ -2104,6 +2107,7 @@
 				322B89C526CFAC1000DF67F9 /* SearchView.swift in Sources */,
 				799948C02932D50000D79055 /* GameImageProvider.swift in Sources */,
 				793CD52C2E35038800FEA46B /* ConstantImageController+Preview.swift in Sources */,
+				793CD53C2E3516F100FEA46B /* HeroImageViewV2.swift in Sources */,
 				79B8709D2DC38A150090CAB8 /* StratzController.swift in Sources */,
 				79B8709E2DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */,
 				79B8709F2DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift in Sources */,
