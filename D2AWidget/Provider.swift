@@ -85,7 +85,7 @@ struct Provider: IntentTimelineProvider {
             if let urlString = profile.avatarfull, image == nil,
                let newImage = await imageProvider.remoteImage(url: urlString) {
                 image = newImage
-                imageProvider.saveImage(image: newImage, type: .avatar, id: userID, fileExtension: .jpg)
+                try? imageProvider.saveImage(image: newImage, type: .avatar, id: userID, fileExtension: .jpg)
             }
 
             let user = D2AWidgetUser(profile, image: image, matches: matches)

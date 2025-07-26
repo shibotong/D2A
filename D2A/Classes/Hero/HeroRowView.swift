@@ -27,13 +27,13 @@ struct HeroRowView: View {
     }
     
     private var vertical: some View {
-        HeroImageView(hero: hero, type: .vert)
+        heroImage(type: .vert)
             .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
     private var list: some View {
         HStack {
-            HeroImageView(hero: hero, type: .full)
+            heroImage(type: .full)
                 .frame(width: 70)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
             Text(hero.heroNameLocalized)
@@ -47,7 +47,7 @@ struct HeroRowView: View {
     }
     
     private var gridView: some View {
-        HeroImageView(hero: hero, type: .full)
+        heroImage(type: .full)
             .overlay(
                 LinearGradient(
                     colors: [.black.opacity(0), .black.opacity(0), .black],
@@ -68,6 +68,11 @@ struct HeroRowView: View {
             })
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .accessibilityIdentifier(hero.heroNameLocalized)
+    }
+    
+    @ViewBuilder
+    private func heroImage(type: HeroImageType) -> some View {
+        HeroImageViewV2(name: hero.heroNameLowerCase, type: type)
     }
 }
 

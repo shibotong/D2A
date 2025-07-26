@@ -6,12 +6,16 @@
 //
 
 import Testing
-
+import UIKit
 @testable import D2A
 
 struct OpenDotaConstantsTests {
 
     struct MockNetwork: D2ANetworking {
+        func remoteImage(_ urlString: String) async throws -> UIImage? {
+            return nil
+        }
+        
         func dataTask<T>(_ urlString: String, as type: T.Type) async throws -> T where T: Decodable {
             throw D2AError(message: "Mock testing error")
         }

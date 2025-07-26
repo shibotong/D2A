@@ -12,7 +12,7 @@ struct NetworkImage: View {
     let userID: String
     let image: UIImage?
 
-    let imageType: ImageCacheType
+    let imageType: GameImageType
     let isRadiant: Bool
     
     private let imageProvider: ImageProviding

@@ -86,7 +86,7 @@ extension Hero {
     }
 
     static func fetchOne(predicate: NSPredicate, context: NSManagedObjectContext) -> Hero? {
-        let request = Self.fetchRequest()
+        let request = Hero.fetchRequest()
         request.predicate = predicate
         return context.performAndWait {
             do {

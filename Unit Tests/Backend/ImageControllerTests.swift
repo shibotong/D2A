@@ -19,7 +19,7 @@ class MockImageProvider: ImageProviding {
         return UIImage()
     }
     
-    func localImage(type: D2A.ImageCacheType, id: String, fileExtension: D2A.ImageExtension) -> UIImage? {
+    func localImage(type: D2A.GameImageType, id: String, fileExtension: D2A.ImageExtension) -> UIImage? {
         localImageCalled += 1
         if localImageCalled == 1 {
             return nil
@@ -27,7 +27,7 @@ class MockImageProvider: ImageProviding {
         return UIImage()
     }
     
-    func saveImage(image: UIImage, type: D2A.ImageCacheType, id: String, fileExtension: D2A.ImageExtension) {
+    func saveImage(image: UIImage, type: D2A.GameImageType, id: String, fileExtension: D2A.ImageExtension) throws {
         saveImageCalled += 1
     }
 }
@@ -40,7 +40,7 @@ final class ImageControllerTests: XCTestCase {
     var imageHandlerCalled: Int!
     var cache: ImageCache!
     
-    private let heroCache: ImageCacheType = .hero
+    private let heroCache: GameImageType = .avatar
     private let heroID: String = "1"
     
     override func setUp()  {
@@ -52,7 +52,7 @@ final class ImageControllerTests: XCTestCase {
     }
     
     override func tearDown() {
-        userDefaults.set(nil, forKey: "\(heroCache.rawValue)_\(heroID)")
+        userDefaults.set(nil, forKey: "\(heroCache.folder)_\(heroID)")
     }
     
     func testLoadImageAtBeginning() async {
@@ -90,7 +90,7 @@ final class ImageControllerTests: XCTestCase {
     }
     
     private func callRefreshImage(time: Date) async {
-        await imageController.refreshImage(type: .hero, id: "1", url: "https://picsum.photos/200/300", refreshTime: time) { _ in
+        await imageController.refreshImage(type: .avatar, id: "1", url: "https://picsum.photos/200/300", refreshTime: time) { _ in
             imageHandlerCalled += 1
         }
     }

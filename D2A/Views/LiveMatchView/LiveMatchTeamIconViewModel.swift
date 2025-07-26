@@ -39,7 +39,7 @@ class LiveMatchTeamIconViewModel: ObservableObject {
         guard let newImage = await loadImage(), let teamID else {
             return
         }
-        imageProvider.saveImage(image: newImage, type: .teamIcon, id: teamID, fileExtension: .png)
+        try? imageProvider.saveImage(image: newImage, type: .teamIcon, id: teamID, fileExtension: .png)
         await setImage(newImage)
     }
 

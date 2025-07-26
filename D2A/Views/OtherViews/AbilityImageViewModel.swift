@@ -38,7 +38,7 @@ class AbilityImageViewModel: ObservableObject {
         else {
             return
         }
-        imageProvider.saveImage(image: newImage, type: .ability, id: name, fileExtension: .jpg)
+        try? imageProvider.saveImage(image: newImage, type: .ability, id: name, fileExtension: .jpg)
         await setImage(newImage)
     }
 

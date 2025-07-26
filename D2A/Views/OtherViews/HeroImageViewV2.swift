@@ -1,42 +1,38 @@
 //
-//  HeroIconImageView.swift
-//  App
+//  HeroImageViewV2.swift
+//  D2A
 //
-//  Created by Shibo Tong on 14/8/21.
+//  Created by Shibo Tong on 27/7/2025.
 //
 
 import SwiftUI
 
-enum HeroImageType: String {
-    case icon, full, vert
-}
-
-struct HeroImageView: View {
+struct HeroImageViewV2: View {
     @EnvironmentObject var imageController: ImageController
     @Environment(\.managedObjectContext) var viewContext
     
-    @State private var name: String?
+    @State private var image: UIImage?
+    
+    private let name: String
     private let type: HeroImageType
-    private let heroID: Int?
     
-    init(hero: Hero, type: HeroImageType) {
-        self.name = hero.heroNameLowerCase
-        self.type = type
-        heroID = nil
-    }
-    
-    init(heroID: Int, type: HeroImageType) {
-        self.heroID = heroID
+    init(name: String, type: HeroImageType) {
+        self.name = name
         self.type = type
     }
-
+    
     var body: some View {
         Group {
-            if let name {
-                HeroImageViewV2(name: name, type: type)
+            if let image {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
             } else {
                 loadingView
             }
+        }
+        .task {
+            await loadImage()
         }
     }
     
@@ -62,25 +58,30 @@ struct HeroImageView: View {
             .aspectRatio(contentMode: .fit)
             ProgressView()
         }
-        .task {
-            await loadImage()
-        }
     }
     
     @MainActor
     private func loadImage() async {
-        guard name == nil else {
-            return
+        await imageController.refreshImage(type: .hero(type: type), id: name, fileExtension: .png, url: computeURLString()) { image in
+            self.image = image
         }
-        let hero = Hero.fetch(id: heroID ?? 0, context: viewContext)
-        self.name = hero?.heroNameLowerCase
+    }
+
+    private func computeURLString() -> String {
+        switch type {
+        case .icon:
+            return "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/\(name).png"
+        case .full:
+            return "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/\(name).png"
+        case .vert:
+            return "https://cdn.stratz.com/images/dota2/heroes/\(name)_vert.png"
+        }
     }
 }
 
 #if DEBUG
 #Preview {
-    HeroImageView(heroID: 1, type: .icon)
+    HeroImageViewV2(name: "antimage", type: .full)
         .environmentObject(ImageController.preview)
-        .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
 }
 #endif
