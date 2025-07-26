@@ -228,6 +228,8 @@
 		32F70B3026F714FD006E9B05 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2F26F714FD006E9B05 /* Provider.swift */; };
 		790266462A35454500CE54DF /* LiveMatchEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790266452A35454500CE54DF /* LiveMatchEventListView.swift */; };
 		790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790266482A35478D00CE54DF /* LiveMatchEventRowView.swift */; };
+		7903498B2E35298000EF4CFB /* AbilityViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7903498A2E35297D00EF4CFB /* AbilityViewV2.swift */; };
+		7903498C2E3529E500EF4CFB /* Ability+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790349872E3528CA00EF4CFB /* Ability+Preview.swift */; };
 		79046E722DCB7FA00006FB86 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79046E712DCB7F9D0006FB86 /* AVAsset.swift */; };
 		79046E732DCB7FA00006FB86 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79046E712DCB7F9D0006FB86 /* AVAsset.swift */; };
 		79046E742DCB7FA00006FB86 /* AVAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79046E712DCB7F9D0006FB86 /* AVAsset.swift */; };
@@ -661,6 +663,8 @@
 		32F70B3926F80AE4006E9B05 /* D2AWidgetIntentHandlerRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2AWidgetIntentHandlerRelease.entitlements; sourceTree = "<group>"; };
 		790266452A35454500CE54DF /* LiveMatchEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchEventListView.swift; sourceTree = "<group>"; };
 		790266482A35478D00CE54DF /* LiveMatchEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchEventRowView.swift; sourceTree = "<group>"; };
+		790349872E3528CA00EF4CFB /* Ability+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ability+Preview.swift"; sourceTree = "<group>"; };
+		7903498A2E35297D00EF4CFB /* AbilityViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityViewV2.swift; sourceTree = "<group>"; };
 		79046E712DCB7F9D0006FB86 /* AVAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAsset.swift; sourceTree = "<group>"; };
 		79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityAttributes.swift; sourceTree = "<group>"; };
 		79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityWidget.swift; sourceTree = "<group>"; };
@@ -1235,6 +1239,7 @@
 			isa = PBXGroup;
 			children = (
 				32079DBC28B83F0F0056D19F /* AbilityView.swift */,
+				7903498A2E35297D00EF4CFB /* AbilityViewV2.swift */,
 				321E3D00285422D00094FB10 /* AbilityViewModel.swift */,
 				7912B6E22B5D022C00AE1947 /* AbilityTitleView.swift */,
 				79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */,
@@ -1294,6 +1299,7 @@
 		7939A67B2E344A3100FDD617 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				790349872E3528CA00EF4CFB /* Ability+Preview.swift */,
 				7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */,
 				797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */,
 			);
@@ -2075,6 +2081,7 @@
 				79645CC32A39D1610004EF50 /* LiveMatchListView.swift in Sources */,
 				327772B326D9D735000A0A97 /* GameMode.swift in Sources */,
 				327772AF26D8BE63000A0A97 /* MatchListRowView.swift in Sources */,
+				7903498B2E35298000EF4CFB /* AbilityViewV2.swift in Sources */,
 				322B893A26CD456400DF67F9 /* RecentMatchCodable.swift in Sources */,
 				32D1605D26F30B7A00657449 /* StoreManager.swift in Sources */,
 				329849F426DCAEAE00A1032C /* ConstantsController.swift in Sources */,
@@ -2116,6 +2123,7 @@
 				795860412A335D69006DDA21 /* LiveMatchMapView.swift in Sources */,
 				321D58A026D234A90059526B /* AboutUsView.swift in Sources */,
 				32985DD3285569D0001869F2 /* RankView.swift in Sources */,
+				7903498C2E3529E500EF4CFB /* Ability+Preview.swift in Sources */,
 				79CF37632DC0F93600207CB8 /* D2ALogger.swift in Sources */,
 				32B36F2926C38852002D427D /* MatchCodable.swift in Sources */,
 				32D1605A26F304DC00657449 /* StoreView.swift in Sources */,
