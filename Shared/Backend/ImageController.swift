@@ -62,6 +62,7 @@ class ImageController: ObservableObject {
         guard let remoteImage = await remoteImageHandler() else {
             return
         }
+        imageHandler(remoteImage)
         do {
             try saveImageHander(remoteImage)
             userDefaults.set(Date(), forKey: imageKey)
