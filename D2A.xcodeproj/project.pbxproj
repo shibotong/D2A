@@ -256,7 +256,8 @@
 		79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DAA2A31B224002FEF0F /* ApolloWebSocket */; };
 		79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79368C0928E6D8ED009517D2 /* RoleView.swift */; };
 		7939A67D2E344A8C00FDD617 /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 7939A67C2E344A8700FDD617 /* game_mode.json */; };
-		7939A67F2E3452CA00FDD617 /* GameMode+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */; };
+		7939A6802E34534100FDD617 /* GameMode+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */; };
+		7939A6812E34534100FDD617 /* GameMode+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */; };
 		793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
 		793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
 		793D31822E30C6F20033B366 /* hero_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 793D31812E30C6F20033B366 /* hero_abilities.json */; };
@@ -2046,7 +2047,6 @@
 				798C428D2A35572400BDC470 /* LiveMatchEventItem.swift in Sources */,
 				798C428F2A35579200BDC470 /* LiveMatchBuildingEvent.swift in Sources */,
 				79091DF92A3B32140093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
-				7939A67F2E3452CA00FDD617 /* GameMode+Preview.swift in Sources */,
 				796FE19C29AAF659003379EB /* AbilityImage.swift in Sources */,
 				325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */,
 				79B870BA2DC394C10090CAB8 /* OpenDotaConstantService.swift in Sources */,
@@ -2171,6 +2171,7 @@
 				79CF375F2DC0F8F800207CB8 /* D2AError.swift in Sources */,
 				79EB3EF72DC4B5D8008C4F6D /* PersistanceModel.swift in Sources */,
 				32F70ADD26F60B8D006E9B05 /* SteamProfile.swift in Sources */,
+				7939A6802E34534100FDD617 /* GameMode+Preview.swift in Sources */,
 				79B870C02DC394D30090CAB8 /* D2ANetwork.swift in Sources */,
 				79AF52972E080E56009FE792 /* OpenDotaConstantFetcher.swift in Sources */,
 				327C033D2716A90400DAEC42 /* KDAView.swift in Sources */,
@@ -2270,6 +2271,7 @@
 				79CF375D2DC0F8F800207CB8 /* D2AError.swift in Sources */,
 				79EB3EF82DC4B5D8008C4F6D /* PersistanceModel.swift in Sources */,
 				3270271E285C08C300927426 /* ConstantsController.swift in Sources */,
+				7939A6812E34534100FDD617 /* GameMode+Preview.swift in Sources */,
 				79B870BF2DC394D30090CAB8 /* D2ANetwork.swift in Sources */,
 				79AF52982E080E56009FE792 /* OpenDotaConstantFetcher.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,
