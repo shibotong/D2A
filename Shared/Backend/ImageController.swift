@@ -17,7 +17,7 @@ import Foundation
      
      private let imageCache: ImageCache
 
-     init(imageProvider: ImageProviding = ImageProvider.shared,
+     init(imageProvider: ImageProviding = GameImageProvider.shared,
           constantImageProvider: ConstantImageProviding = ConstantImageProvider.shared
           userDefaults: UserDefaults = UserDefaults.group,
           imageCache: ImageCache = .shared) {

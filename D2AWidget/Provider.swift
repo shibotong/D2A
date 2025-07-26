@@ -23,7 +23,7 @@ struct Provider: IntentTimelineProvider {
     
     init(openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared,
          persistanceProvider: PersistanceProviding = PersistanceProvider.shared,
-         imageProvider: ImageProviding = ImageProvider.shared,
+         imageProvider: ImageProviding = GameImageProvider.shared,
          gameDataController: GameDataController = .shared) {
         self.openDotaProvider = openDotaProvider
         self.viewContext = persistanceProvider.container.viewContext
