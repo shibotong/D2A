@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum HeroImageType: String {
-    case icon, portrait, full, vert
+    case icon, full, vert
 }
 
 struct HeroImageView: View {
@@ -89,8 +89,6 @@ struct HeroImageView: View {
         switch type {
         case .icon:
             return "https://api.opendota.com\(heroIcon)"
-        case .portrait:
-            return "\(IMAGE_PREFIX)/apps/dota2/videos/dota_react/heroes/renders/\(name).png"
         case .full:
             return "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/\(name).png"
         case .vert:

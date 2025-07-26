@@ -28,18 +28,16 @@ class ImageProvider: ImageProviding {
     static let shared = ImageProvider()
     
     private let documentDirectory: URL?
+    private let network: D2ANetworking
     
-    init(directory: URL? = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME)) {
+    init(directory: URL? = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME),
+         network: D2ANetworking = D2ANetwork.default) {
         documentDirectory = directory
+        self.network = network
     }
     
     func remoteImage(url urlString: String) async -> UIImage? {
-        guard let url = URL(string: urlString),
-              let (newImageData, _) = try? await URLSession.shared.data(from: url),
-              let newImage = UIImage(data: newImageData) else {
-            return nil
-        }
-        return newImage
+        return try? await network.remoteImage(urlString)
     }
     
     func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension = .jpg) -> UIImage? {
@@ -77,33 +75,3 @@ class ImageProvider: ImageProviding {
     }
 }
 
-class PreviewImageProvider: ImageProviding {
-    func remoteImage(url: String) async -> UIImage? {
-        return loadImage()
-    }
-    
-    func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension) -> UIImage? {
-        return loadImage(type: type)
-    }
-    
-    func saveImage(image: UIImage, type: ImageCacheType, id: String, fileExtension: ImageExtension) {
-        return
-    }
-    
-    private func loadImage(type: ImageCacheType = .item) -> UIImage {
-        switch type {
-        case .item:
-            return UIImage(named: "preview_item")!
-        case .avatar:
-            return UIImage(named: "preview_avatar")!
-        case .ability:
-            return UIImage(named: "preview_ability")!
-        case .teamIcon:
-            return UIImage(named: "preview_avatar")!
-        case .league:
-            return UIImage(named: "preview_league")!
-        case .hero:
-            return UIImage(named: "preview_hero")!
-        }
-    }
-}

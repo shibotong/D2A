@@ -18,11 +18,16 @@ import Foundation
      private let imageCache: ImageCache
 
      init(imageProvider: ImageProviding = ImageProvider.shared,
+          constantImageProvider: ConstantImageProviding = ConstantImageProvider.shared
           userDefaults: UserDefaults = UserDefaults.group,
           imageCache: ImageCache = .shared) {
          self.imageProvider = imageProvider
          self.userDefaults = userDefaults
          self.imageCache = imageCache
+     }
+     
+     func heroImage(type: HeroImageType, name: String, imageHandler: (UIImage) -> Void) async {
+         
      }
 
      func refreshImage(type: ImageCacheType, id: String, fileExtension: ImageExtension = .jpg,

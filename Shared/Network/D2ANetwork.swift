@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 protocol D2ANetworking {
     func dataTask<T: Decodable>(_ urlString: String, as type: T.Type) async throws -> T
+    func remoteImage(_ urlString: String) async throws -> UIImage?
 }
 
 class D2ANetwork: D2ANetworking {
@@ -23,5 +25,14 @@ class D2ANetwork: D2ANetworking {
         let decoder = JSONDecoder()
         let jsonData = try decoder.decode(T.self, from: data)
         return jsonData
+    }
+    
+    func remoteImage(_ urlString: String) async throws -> UIImage? {
+        guard let url = URL(string: urlString),
+              let (newImageData, _) = try? await URLSession.shared.data(from: url),
+              let newImage = UIImage(data: newImageData) else {
+            return nil
+        }
+        return newImage
     }
 }
