@@ -8,19 +8,19 @@
 import Foundation
 import UIKit
 
-enum ImageCacheType: String {
+enum GameImageType: String {
     case avatar
     case teamIcon
     case league
 }
 
-protocol ImageProviding {
+protocol GameImageProviding {
     func remoteImage(url: String) async -> UIImage?
-    func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension) -> UIImage?
-    func saveImage(image: UIImage, type: ImageCacheType, id: String, fileExtension: ImageExtension) throws
+    func localImage(type: GameImageType, id: String, fileExtension: ImageExtension) -> UIImage?
+    func saveImage(image: UIImage, type: GameImageType, id: String, fileExtension: ImageExtension) throws
 }
 
-class GameImageProvider: ImageProviding {
+class GameImageProvider: GameImageProviding {
     
     static let shared = GameImageProvider()
     
@@ -40,7 +40,7 @@ class GameImageProvider: ImageProviding {
         return try? await network.remoteImage(urlString)
     }
     
-    func localImage(type: ImageCacheType, id: String, fileExtension: ImageExtension = .jpg) -> UIImage? {
+    func localImage(type: GameImageType, id: String, fileExtension: ImageExtension = .jpg) -> UIImage? {
         guard let docDir = documentDirectory else {
             return nil
         }
@@ -48,7 +48,7 @@ class GameImageProvider: ImageProviding {
         return fileImageProvider.readImage(imageURL: imageURL)
     }
     
-    func saveImage(image: UIImage, type: ImageCacheType, id: String, fileExtension: ImageExtension) throws {
+    func saveImage(image: UIImage, type: GameImageType, id: String, fileExtension: ImageExtension) throws {
         guard let docDir = documentDirectory else {
             logError("Save image failed due to missing container URL", category: .image)
             return
