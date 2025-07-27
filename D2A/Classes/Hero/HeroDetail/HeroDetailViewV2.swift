@@ -12,12 +12,65 @@ struct HeroDetailViewV2: View {
     let hero: Hero
     
     var body: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                titleView
+                detailView
+            }
+        }
         Text(hero.abilities?.description ?? "No abilities")
+    }
+    
+    private var titleView: some View {
+        HStack {
+            HeroImageViewV2(name: hero.name ?? "", type: .full)
+                .frame(height: 50)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+            Text(hero.heroNameLocalized)
+                .font(.largeTitle)
+                .bold()
+            Spacer()
+        }
+        .padding()
+        .background(Color.tertiarySystemBackground)
+    }
+    
+    private var detailView: some View {
+        HStack {
+            attackType
+        }
+        .padding()
+        .background(Color.secondarySystemBackground)
+    }
+    
+    @ViewBuilder
+    private var attackType: some View {
+        if hero.attackType == "Melee" {
+            HStack {
+                Image("ic_sword")
+                    .renderingMode(.template)
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                    .foregroundStyle(Color.label)
+                Text("Melee")
+            }
+        }
+        if hero.attackType == "Ranged" {
+            HStack {
+                Image("ic_archer")
+                    .renderingMode(.template)
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                    .foregroundStyle(Color.label)
+                Text("Ranged")
+            }
+        }
     }
 }
 
 #if DEBUG
 #Preview {
     HeroDetailViewV2(hero: Hero.antimage)
+        .environmentObject(ImageController.preview)
 }
 #endif
