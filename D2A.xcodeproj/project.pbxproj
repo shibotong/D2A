@@ -339,8 +339,8 @@
 		799948C22932D50000D79055 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageProvider.swift */; };
 		79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */; };
 		79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */; };
-		79A988F62931CDD9006AC847 /* D2AModel 2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel 2.xcdatamodeld */; };
-		79A988F72931CDD9006AC847 /* D2AModel 2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel 2.xcdatamodeld */; };
+		79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
+		79A988F72931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79A988F92931D400006AC847 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988F82931D400006AC847 /* Match.swift */; };
 		79A988FB2931D6D7006AC847 /* PlayerCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FA2931D6D7006AC847 /* PlayerCodable.swift */; };
 		79A988FD2931D6FF006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
@@ -485,7 +485,7 @@
 		79EB3F862DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */; };
 		79EB3F872DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */; };
 		79EB3F882DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */; };
-		79F5B5D228E3B89800FB67E5 /* D2AModel 2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel 2.xcdatamodeld */; };
+		79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79F5B5D428E3B8D900FB67E5 /* PersistanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceProvider.swift */; };
 		79F5F5B22DCB461F00194FD5 /* StratzTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5F5B12DCB461700194FD5 /* StratzTokenView.swift */; };
 /* End PBXBuildFile section */
@@ -1637,7 +1637,7 @@
 		79EB3F7B2DC6EF41008C4F6D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				79F5B5D028E3B89800FB67E5 /* D2AModel 2.xcdatamodeld */,
+				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
 				79E89A2E2DF6B0DD00497B5D /* Model */,
 				79EB3F7C2DC6EF46008C4F6D /* Transformers */,
 				79F5B5D328E3B8D900FB67E5 /* PersistanceProvider.swift */,
@@ -2119,7 +2119,7 @@
 				79D1873F2E16411B00C04CC8 /* D2AAppDelegate.swift in Sources */,
 				32079DBF28B843360056D19F /* String.swift in Sources */,
 				790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */,
-				79F5B5D228E3B89800FB67E5 /* D2AModel 2.xcdatamodeld in Sources */,
+				79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */,
 				79AF52212E00347A009FE792 /* ImageExtension.swift in Sources */,
 				79AF521C2E00341D009FE792 /* ImageController.swift in Sources */,
 				79CF376F2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
@@ -2223,7 +2223,7 @@
 				79EB3F7E2DC6EF54008C4F6D /* ArraySecureCodingValueTransformer.swift in Sources */,
 				79B870A42DC38A150090CAB8 /* StratzAbility.swift in Sources */,
 				32A26C51285947D3005E890F /* OpenDotaProvider.swift in Sources */,
-				79A988F62931CDD9006AC847 /* D2AModel 2.xcdatamodeld in Sources */,
+				79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
 				79EB3EF32DC4B0BB008C4F6D /* ODAbility+Attribute.swift in Sources */,
 				32B526CD285C18440099B058 /* RankView.swift in Sources */,
 				79D1874A2E1E622500C04CC8 /* RefreshHandler.swift in Sources */,
@@ -2325,7 +2325,7 @@
 				793CD52A2E3501A300FEA46B /* MockImageProvider.swift in Sources */,
 				79EB3F7F2DC6EF54008C4F6D /* ArraySecureCodingValueTransformer.swift in Sources */,
 				79B8709C2DC38A150090CAB8 /* StratzAbility.swift in Sources */,
-				79A988F72931CDD9006AC847 /* D2AModel 2.xcdatamodeld in Sources */,
+				79A988F72931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
 				79A989102931E8F3006AC847 /* Talent.swift in Sources */,
 				79EB3EF42DC4B0BB008C4F6D /* ODAbility+Attribute.swift in Sources */,
 				32B526C8285C0BDE0099B058 /* Provider.swift in Sources */,
@@ -3031,7 +3031,7 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		79F5B5D028E3B89800FB67E5 /* D2AModel 2.xcdatamodeld */ = {
+		79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				79D187442E1E551D00C04CC8 /* Backend 3.xcdatamodel */,
@@ -3039,7 +3039,7 @@
 				79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */,
 			);
 			currentVersion = 79D187442E1E551D00C04CC8 /* Backend 3.xcdatamodel */;
-			path = "D2AModel 2.xcdatamodeld";
+			path = D2AModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
