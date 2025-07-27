@@ -454,6 +454,7 @@
 		79E01CAA291E35320073BF68 /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
 		79E01CAB291E35320073BF68 /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
 		79E41BC02E35FADA00AF520F /* HeroDetailViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E41BBF2E35FAD600AF520F /* HeroDetailViewV2.swift */; };
+		79E41BC82E360FDA00AF520F /* HeroDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */; };
 		79E4AED02DCB79EA008BBF6D /* D2ANavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4AECF2DCB79CD008BBF6D /* D2ANavigationStack.swift */; };
 		79E89A2A2DF6AE7B00497B5D /* ODGameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A292DF6AE7B00497B5D /* ODGameMode.swift */; };
 		79E89A2B2DF6AE7B00497B5D /* ODGameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A292DF6AE7B00497B5D /* ODGameMode.swift */; };
@@ -790,6 +791,7 @@
 		79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowViewModel.swift; sourceTree = "<group>"; };
 		79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchPlayerView.swift; sourceTree = "<group>"; };
 		79E41BBF2E35FAD600AF520F /* HeroDetailViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewV2.swift; sourceTree = "<group>"; };
+		79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailRow.swift; sourceTree = "<group>"; };
 		79E4AECF2DCB79CD008BBF6D /* D2ANavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ANavigationStack.swift; sourceTree = "<group>"; };
 		79E89A292DF6AE7B00497B5D /* ODGameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODGameMode.swift; sourceTree = "<group>"; };
 		79E89A2D2DF6AFE100497B5D /* Backend 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -1324,6 +1326,7 @@
 		797C88B42DCB5EFE00D4CDD1 /* HeroDetail */ = {
 			isa = PBXGroup;
 			children = (
+				79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */,
 				79E41BBF2E35FAD600AF520F /* HeroDetailViewV2.swift */,
 				79C5380D2DCB771A00B5920A /* Attribute */,
 				79C538102DCB776800B5920A /* SectionTitle.swift */,
@@ -2059,6 +2062,7 @@
 				79837B53294C189200458529 /* PlayerRowView.swift in Sources */,
 				79AF52852E015B5A009FE792 /* HeroRowView.swift in Sources */,
 				32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */,
+				79E41BC82E360FDA00AF520F /* HeroDetailRow.swift in Sources */,
 				79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */,
 				79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */,
 				798E0FF52E2F7DA60066D7E1 /* ODScepter.swift in Sources */,

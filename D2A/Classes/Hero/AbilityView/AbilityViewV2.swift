@@ -166,15 +166,7 @@ struct AbilityViewV2: View {
     
     @ViewBuilder
     private func buildRow(title: String, value: String, color: Color = .label) -> some View {
-        HStack {
-            Text(title)
-                .foregroundStyle(.secondary)
-            Rectangle()
-                .frame(height: 1)
-                .opacity(0.1)
-            Text(value)
-                .bold()
-        }
+        HeroDetailRow(title: title, value: value, color: color)
     }
     
     enum AbilityDescriptionType: String {

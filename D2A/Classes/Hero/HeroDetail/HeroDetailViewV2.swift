@@ -11,14 +11,34 @@ struct HeroDetailViewV2: View {
     
     let hero: Hero
     
+    @State private var heroLevel: Double = 1
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
                 titleView
                 detailView
             }
+            Group {
+                levelSlider
+                attackStats
+                defenceStats
+                mobilityStats
+            }
+            .padding()
+            .background(Color.secondarySystemBackground)
+            .clipShape(RoundedRectangle(cornerRadius: 5))
+            .padding(.horizontal)
         }
         Text(hero.abilities?.description ?? "No abilities")
+    }
+    
+    private var levelSlider: some View {
+        HStack {
+            Text("\(Int(heroLevel))")
+            Slider(value: $heroLevel, in: 1...30, step: 1)
+            Text("30")
+        }
     }
     
     private var titleView: some View {
@@ -53,6 +73,55 @@ struct HeroDetailViewV2: View {
                 .frame(width: 15, height: 15)
                 .foregroundStyle(Color.label)
             Text(hero.attackType ?? "Unknown")
+        }
+    }
+    
+    private var attackStats: some View {
+        VStack(alignment: .leading) {
+            buildSectionTitle(icon: "ic_sword", title: "Attack")
+            Group {
+                HeroDetailRow(title: "Attack Speed", value: "\(hero.attackRate)s")
+                HeroDetailRow(title: "Damage", value: "\(hero.calculateAttackByLevel(level: heroLevel, isMin: true)) - \(hero.calculateAttackByLevel(level: heroLevel, isMin: false))")
+                HeroDetailRow(title: "Attack Range", value: "\(hero.attackRange)")
+            }
+            .font(.caption)
+        }
+    }
+    
+    private var defenceStats: some View {
+        VStack(alignment: .leading) {
+            buildSectionTitle(icon: "ic_shield", title: "Defense")
+            Group {
+                HeroDetailRow(title: "Armor", value: "\(String(format: "%.1f", hero.calculateArmorByLevel(level: heroLevel)))")
+                HeroDetailRow(title: "Magical Resistance", value: "\(hero.baseMr)%")
+            }
+            .font(.caption)
+        }
+    }
+    
+    private var mobilityStats: some View {
+        VStack(alignment: .leading) {
+            buildSectionTitle(icon: "ic_shoe", title: "Mobility")
+            Group {
+                HeroDetailRow(title: "Movement Speed", value: "\(hero.moveSpeed)")
+                HeroDetailRow(title: "Turn Rate", value: "\(hero.turnRate)")
+                HeroDetailRow(title: "Vision Range", value: "\(Int(hero.visionDaytimeRange))/\(Int(hero.visionNighttimeRange))")
+            }
+            .font(.caption)
+        }
+    }
+    
+    
+    @ViewBuilder
+    private func buildSectionTitle(icon: String, title: String) -> some View {
+        HStack {
+            Image(icon)
+                .renderingMode(.template)
+                .resizable()
+                .frame(width: 20, height: 20)
+                .foregroundStyle(Color.label)
+            Text(title)
+                .bold()
         }
     }
 }
