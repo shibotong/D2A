@@ -12,8 +12,6 @@ protocol PersistanceProviding {
     var container: NSPersistentContainer { get }
     
     func makeContext(author: String?) -> NSManagedObjectContext
-    
-    func saveAbilitiesToHero(heroAbilities: [String: ODHeroAbilities]) async
 
     func saveODData(data: [PersistanceModel], type: NSManagedObject.Type) async
     
@@ -196,49 +194,6 @@ class PersistanceProvider: PersistanceProviding {
     }
     
     // MARK: - Save Specific data
-
-    func saveAbilitiesToHero(heroAbilities: [String: ODHeroAbilities]) async {
-        let context = container.newBackgroundContext()
-        await context.perform {
-            for (name, heroAbility) in heroAbilities {
-                guard let hero = Hero.fetchByName(name: name, context: context) else {
-                    logError("Cannot find hero: \(name)", category: .coredata)
-                    continue
-                }
-                let abilityNames = heroAbility.abilities
-                var newAbilities: [Ability] = []
-                for name in abilityNames {
-                    guard let newAbility = Ability.fetchByName(name: name, context: context) else {
-                        logDebug("Not able to fetch hero ability: \(name)", category: .coredata)
-                        continue
-                    }
-                    newAbilities.append(newAbility)
-                }
-                
-                if let currentAbilities = hero.abilities?.compactMap({ ($0 as? Ability) }) {
-                    guard currentAbilities.compactMap(\.name) != newAbilities.compactMap(\.name) else {
-                        logDebug("Same ability for \(String(describing: hero.name)). Don't need to update.", category: .coredata)
-                        continue
-                    }
-                    logWarn("Ability has difference for \(String(describing: hero.name)). Needs to update.", category: .coredata)
-                    for ability in currentAbilities {
-                        hero.removeFromAbilities(ability)
-                    }
-                }
-                hero.addToAbilities(NSOrderedSet(array: newAbilities))
-                
-                if hero.hasChanges {
-                    do {
-                        try context.save()
-                        logDebug("Save hero ability \(hero.id) success", category: .coredata)
-                    } catch {
-                        logError("\(hero.id) abilities save failed. \(error)", category: .coredata)
-                    }
-                }
-            }
-        }
-    }
-
     private func updateData(data: [PersistanceModel], context: NSManagedObjectContext) {
         for object in data {
             context.performAndWait {
