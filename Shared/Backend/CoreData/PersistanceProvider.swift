@@ -61,6 +61,7 @@ class PersistanceProvider: PersistanceProviding {
     static func registerClasses() {
         // Register the transformer with the exact name used in the Core Data model
         ArrayValueTransformer<AbilityAttribute>.registerTransformer(with: .abilityAttribute)
+        ArrayValueTransformer<Role>.registerTransformer(with: .heroRole)
     }
 
     private func removeContainer() {

@@ -79,7 +79,7 @@ struct HeroDetailView: View {
                         AttributesSectionView(hero: hero, level: Int(heroLevel))
                         Divider()
                         buildStats(hero: hero)
-                        if let roles = hero.roles?.allObjects as? [Role] {
+                        if let roles = hero.roles {
                             Divider()
                             buildRoles(roles: roles)
                         }
@@ -215,7 +215,7 @@ struct HeroDetailView: View {
         VStack {
             AttributesSectionView(hero: hero, level: Int(heroLevel))
             Divider()
-            if let roles = hero.roles?.allObjects as? [Role] {
+            if let roles = hero.roles {
                 buildRoles(roles: roles)
                 Divider()
             }
@@ -313,7 +313,7 @@ struct HeroDetailView: View {
 
     @ViewBuilder private func buildRole(role: String, roles: [Role]) -> some View {
         let filterdRole = roles.first { $0.roleId == role.uppercased() }
-        RoleView(title: role, level: filterdRole?.level ?? 0.0)
+        RoleView(title: role, level: Double(filterdRole?.level ?? Int(0.0)))
     }
 
     @ViewBuilder private func buildStats(hero: Hero) -> some View {
