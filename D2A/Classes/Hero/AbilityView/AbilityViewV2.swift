@@ -169,7 +169,9 @@ struct AbilityViewV2: View {
         HStack {
             Text(title)
                 .foregroundStyle(.secondary)
-            Spacer()
+            Rectangle()
+                .frame(height: 1)
+                .opacity(0.1)
             Text(value)
                 .bold()
         }
@@ -197,7 +199,6 @@ struct AbilityViewV2: View {
             }
             Text(description)
         }
-        
     }
 }
 
@@ -207,5 +208,15 @@ struct AbilityViewV2: View {
         AbilityViewV2(ability: Ability.blink)
     }
     .environmentObject(ImageController.preview)
+}
+
+#Preview {
+    Text("Present modal")
+        .sheet(isPresented: .constant(true)) {
+            NavigationView {
+                AbilityViewV2(ability: Ability.blink)
+            }
+            .environmentObject((ImageController.preview))
+        }
 }
 #endif
