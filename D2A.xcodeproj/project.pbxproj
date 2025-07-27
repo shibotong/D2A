@@ -339,8 +339,8 @@
 		799948C22932D50000D79055 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageProvider.swift */; };
 		79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */; };
 		79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */; };
-		79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
-		79A988F72931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
+		79A988F62931CDD9006AC847 /* D2AModel 2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel 2.xcdatamodeld */; };
+		79A988F72931CDD9006AC847 /* D2AModel 2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel 2.xcdatamodeld */; };
 		79A988F92931D400006AC847 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988F82931D400006AC847 /* Match.swift */; };
 		79A988FB2931D6D7006AC847 /* PlayerCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FA2931D6D7006AC847 /* PlayerCodable.swift */; };
 		79A988FD2931D6FF006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
@@ -485,7 +485,7 @@
 		79EB3F862DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */; };
 		79EB3F872DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */; };
 		79EB3F882DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EB3F852DC6F7E5008C4F6D /* ODHeroAbilities.swift */; };
-		79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
+		79F5B5D228E3B89800FB67E5 /* D2AModel 2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel 2.xcdatamodeld */; };
 		79F5B5D428E3B8D900FB67E5 /* PersistanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceProvider.swift */; };
 		79F5F5B22DCB461F00194FD5 /* StratzTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5F5B12DCB461700194FD5 /* StratzTokenView.swift */; };
 /* End PBXBuildFile section */
@@ -685,11 +685,11 @@
 		79266DA62A31B0FD002FEF0F /* LiveMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchView.swift; sourceTree = "<group>"; };
 		7930699B2B5D323100A5CF5D /* DataLoadingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataLoadingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79368C0928E6D8ED009517D2 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
+		7939A67C2E344A8700FDD617 /* game_mode.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = game_mode.json; sourceTree = "<group>"; };
+		7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameMode+Preview.swift"; sourceTree = "<group>"; };
 		793CD5272E35019E00FEA46B /* MockImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageProvider.swift; sourceTree = "<group>"; };
 		793CD5372E3509F300FEA46B /* FileImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImageProvider.swift; sourceTree = "<group>"; };
 		793CD53B2E3516ED00FEA46B /* HeroImageViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageViewV2.swift; sourceTree = "<group>"; };
-		7939A67C2E344A8700FDD617 /* game_mode.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = game_mode.json; sourceTree = "<group>"; };
-		7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameMode+Preview.swift"; sourceTree = "<group>"; };
 		793D31812E30C6F20033B366 /* hero_abilities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hero_abilities.json; sourceTree = "<group>"; };
 		793D31832E30C6FB0033B366 /* hero_lore.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hero_lore.json; sourceTree = "<group>"; };
 		7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
@@ -1042,7 +1042,6 @@
 				79EB3F7B2DC6EF41008C4F6D /* CoreData */,
 				79B870B52DC394C10090CAB8 /* OpenDota */,
 				79B870982DC38A150090CAB8 /* Stratz */,
-				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
 				329849F326DCAEAE00A1032C /* ConstantsController.swift */,
 				79D187452E1E573100C04CC8 /* GameDataController.swift */,
 				32B36F4B26C39C5D002D427D /* EnvironmentController.swift */,
@@ -1304,7 +1303,6 @@
 			isa = PBXGroup;
 			children = (
 				793CD5272E35019E00FEA46B /* MockImageProvider.swift */,
-				798E0FED2E2F79B70066D7E1 /* MockOpenDotaConstantFetcher.swift */,
 				797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */,
 				798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */,
 			);
@@ -1406,8 +1404,6 @@
 		79A989022931DF61006AC847 /* CoreDataModel */ = {
 			isa = PBXGroup;
 			children = (
-				79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */,
-				7985E7EA28E53919007A43AF /* Hero.swift */,
 				79A988F82931D400006AC847 /* Match.swift */,
 				79A989032931E7F1006AC847 /* PermanentBuff.swift */,
 				79A988FC2931D6FF006AC847 /* Player.swift */,
@@ -1601,7 +1597,9 @@
 		79E89A2E2DF6B0DD00497B5D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */,
 				327772B226D9D735000A0A97 /* GameMode.swift */,
+				7985E7EA28E53919007A43AF /* Hero.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1639,9 +1637,10 @@
 		79EB3F7B2DC6EF41008C4F6D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				79F5B5D028E3B89800FB67E5 /* D2AModel 2.xcdatamodeld */,
 				79E89A2E2DF6B0DD00497B5D /* Model */,
-				79F5B5D328E3B8D900FB67E5 /* PersistanceProvider.swift */,
 				79EB3F7C2DC6EF46008C4F6D /* Transformers */,
+				79F5B5D328E3B8D900FB67E5 /* PersistanceProvider.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -2120,7 +2119,7 @@
 				79D1873F2E16411B00C04CC8 /* D2AAppDelegate.swift in Sources */,
 				32079DBF28B843360056D19F /* String.swift in Sources */,
 				790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */,
-				79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */,
+				79F5B5D228E3B89800FB67E5 /* D2AModel 2.xcdatamodeld in Sources */,
 				79AF52212E00347A009FE792 /* ImageExtension.swift in Sources */,
 				79AF521C2E00341D009FE792 /* ImageController.swift in Sources */,
 				79CF376F2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
@@ -2224,7 +2223,7 @@
 				79EB3F7E2DC6EF54008C4F6D /* ArraySecureCodingValueTransformer.swift in Sources */,
 				79B870A42DC38A150090CAB8 /* StratzAbility.swift in Sources */,
 				32A26C51285947D3005E890F /* OpenDotaProvider.swift in Sources */,
-				79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
+				79A988F62931CDD9006AC847 /* D2AModel 2.xcdatamodeld in Sources */,
 				79EB3EF32DC4B0BB008C4F6D /* ODAbility+Attribute.swift in Sources */,
 				32B526CD285C18440099B058 /* RankView.swift in Sources */,
 				79D1874A2E1E622500C04CC8 /* RefreshHandler.swift in Sources */,
@@ -2326,7 +2325,7 @@
 				793CD52A2E3501A300FEA46B /* MockImageProvider.swift in Sources */,
 				79EB3F7F2DC6EF54008C4F6D /* ArraySecureCodingValueTransformer.swift in Sources */,
 				79B8709C2DC38A150090CAB8 /* StratzAbility.swift in Sources */,
-				79A988F72931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
+				79A988F72931CDD9006AC847 /* D2AModel 2.xcdatamodeld in Sources */,
 				79A989102931E8F3006AC847 /* Talent.swift in Sources */,
 				79EB3EF42DC4B0BB008C4F6D /* ODAbility+Attribute.swift in Sources */,
 				32B526C8285C0BDE0099B058 /* Provider.swift in Sources */,
@@ -3032,7 +3031,7 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */ = {
+		79F5B5D028E3B89800FB67E5 /* D2AModel 2.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				79D187442E1E551D00C04CC8 /* Backend 3.xcdatamodel */,
@@ -3040,7 +3039,7 @@
 				79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */,
 			);
 			currentVersion = 79D187442E1E551D00C04CC8 /* Backend 3.xcdatamodel */;
-			path = D2AModel.xcdatamodeld;
+			path = "D2AModel 2.xcdatamodeld";
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
