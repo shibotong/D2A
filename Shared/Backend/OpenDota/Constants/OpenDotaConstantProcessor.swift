@@ -25,7 +25,15 @@ class OpenDotaConstantProcessor {
         return gameModes
     }
     
-    func processAbilities(ability: [String: ODAbility], ids: [String: String]) -> [ODAbility] {
+    func processAbilities(ability: [String: ODAbility], ids: [String: String], scepters: [ODScepter]) -> [ODAbility] {
+        var scepterDict: [String: String] = [:]
+        var shardDict: [String: String] = [:]
+        
+        for scepter in scepters {
+            scepterDict[scepter.scepterSkillName] = scepter.scepterDesc
+            shardDict[scepter.shardSkillName] = scepter.shardDesc
+        }
+        
         var abilities: [ODAbility] = []
         
         for (abilityIDString, name) in ids {
@@ -43,6 +51,15 @@ class OpenDotaConstantProcessor {
             }
             ability.id = abilityID
             ability.name = name
+            if let displayName = ability.dname {
+                if let scepterDesc = scepterDict[displayName] {
+                    ability.scepter = scepterDesc
+                }
+                if let shardDesc = shardDict[displayName] {
+                    ability.shard = shardDesc
+                }
+            }
+            
             abilities.append(ability)
         }
         return abilities

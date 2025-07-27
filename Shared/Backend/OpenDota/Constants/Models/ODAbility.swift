@@ -26,6 +26,8 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
     var coolDown: StringOrArray?  // CD can be String or [String]
     var targetTeam: StringOrArray?
     var targetType: StringOrArray?
+    var scepter: String?
+    var shard: String?
 
     var imageURL: String? {
         guard
@@ -96,6 +98,12 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
         if let attributes {
             result["attributes"] = attributes.map { AbilityAttribute(attribute: $0) }
         }
+        if let scepter {
+            result["scepter"] = scepter
+        }
+        if let shard {
+            result["shard"] = shard
+        }
         return result
     }
 
@@ -121,6 +129,8 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
         setIfNotEqual(
             entity: ability, path: \.attributes,
             value: attributes?.compactMap { AbilityAttribute(attribute: $0) })
+        setIfNotEqual(entity: ability, path: \.scepter, value: scepter)
+        setIfNotEqual(entity: ability, path: \.shard, value: shard)
         return ability
     }
 }

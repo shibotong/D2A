@@ -14,6 +14,8 @@
         <attribute name="lore" optional="YES" attributeType="String"/>
         <attribute name="manaCost" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
+        <attribute name="scepter" optional="YES" attributeType="String"/>
+        <attribute name="shard" optional="YES" attributeType="String"/>
         <attribute name="targetTeam" optional="YES" attributeType="String"/>
         <attribute name="targetType" optional="YES" attributeType="String"/>
         <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="abilities" inverseEntity="Hero"/>
