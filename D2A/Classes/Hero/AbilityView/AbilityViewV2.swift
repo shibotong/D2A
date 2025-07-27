@@ -18,11 +18,13 @@ struct AbilityViewV2: View {
                     statsView
                     attributesView
                     descriptionView
-                    Text(ability.attributes?.count.description ?? "::")
+                    loreView
                 }
+                .font(.caption)
                 .frame(maxWidth: .infinity)
                 .padding()
                 .background(Color.secondarySystemBackground)
+                
                 .clipShape(RoundedRectangle(cornerRadius: 5))
                 
             }
@@ -102,13 +104,20 @@ struct AbilityViewV2: View {
     
     @ViewBuilder
     private var descriptionView: some View {
-        if let desc = ability.desc {
-            Text(desc)
-        }
-        if let lore = ability.lore {
-            Text(lore)
-                .font(.caption2)
-                .foregroundStyle(.secondary)
+        if let description = ability.desc {
+            if description == ability.scepter {
+                buildDescription(type: .scepter, description: description)
+            } else if description == ability.shard {
+                buildDescription(type: .shard, description: description)
+            } else {
+                buildDescription(type: .none, description: description)
+                if let scepter = ability.scepter {
+                    buildDescription(type: .scepter, description: scepter)
+                }
+                if let shard = ability.shard {
+                    buildDescription(type: .shard, description: shard)
+                }
+            }
         }
     }
     
@@ -124,23 +133,90 @@ struct AbilityViewV2: View {
     }
     
     @ViewBuilder
+    private var loreView: some View {
+        if let lore = ability.lore {
+            Text(lore)
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
+    }
+    
+    @ViewBuilder
+    private var scepterView: some View {
+        if let scepter = ability.scepter {
+            VStack(alignment: .leading, spacing: 10) {
+                HStack {
+                    Image("scepter_1")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 18, height: 18)
+                    Text("Upgraded by Scepter")
+                        .font(.body)
+                        .bold()
+                }
+                Text(scepter)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var shardView: some View {
+        
+    }
+    
+    @ViewBuilder
     private func buildRow(title: String, value: String, color: Color = .label) -> some View {
         HStack {
             Text(title)
                 .foregroundStyle(.secondary)
-            Spacer()
+            Rectangle()
+                .frame(height: 1)
+                .opacity(0.1)
             Text(value)
                 .bold()
         }
-        .font(.caption)
+    }
+    
+    enum AbilityDescriptionType: String {
+        case shard
+        case scepter
+        case none
+    }
+    
+    @ViewBuilder
+    private func buildDescription(type: AbilityDescriptionType, description: String) -> some View {
+        VStack(alignment: .leading) {
+            if type != .none {
+                HStack {
+                    Image("\(type.rawValue)_1")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 18, height: 18)
+                    Text("Upgraded by \(type.rawValue)")
+                        .font(.body)
+                        .bold()
+                }
+            }
+            Text(description)
+        }
     }
 }
 
 #if DEBUG
 #Preview {
     NavigationView {
-        AbilityViewV2(ability: Ability.manaBreak)
+        AbilityViewV2(ability: Ability.blink)
     }
     .environmentObject(ImageController.preview)
+}
+
+#Preview {
+    Text("Present modal")
+        .sheet(isPresented: .constant(true)) {
+            NavigationView {
+                AbilityViewV2(ability: Ability.blink)
+            }
+            .environmentObject((ImageController.preview))
+        }
 }
 #endif

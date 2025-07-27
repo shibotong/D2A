@@ -32,8 +32,8 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
               let abilityIDs = await fetcher.loadService(service: .abilityIDs, as: [String: String].self) else {
             return []
         }
-        
-        let abilities = processor.processAbilities(ability: abilityDict, ids: abilityIDs)
+        let scepters = await fetcher.loadService(service: .aghs, as: [ODScepter].self) ?? []
+        let abilities = processor.processAbilities(ability: abilityDict, ids: abilityIDs, scepters: scepters)
         return abilities
     }
     

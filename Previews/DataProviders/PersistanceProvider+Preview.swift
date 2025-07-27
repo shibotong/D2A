@@ -17,7 +17,8 @@ extension PersistanceProvider {
         
         let abilityDict = dataProvider.loadOpenDotaConstants(service: .abilities, as: [String: ODAbility].self) ?? [:]
         let abilityIDs = dataProvider.loadOpenDotaConstants(service: .abilityIDs, as: [String: String].self) ?? [:]
-        let abilities = processor.processAbilities(ability: abilityDict, ids: abilityIDs)
+        let scepters = dataProvider.loadOpenDotaConstants(service: .aghs, as: [ODScepter].self) ?? []
+        let abilities = processor.processAbilities(ability: abilityDict, ids: abilityIDs, scepters: scepters)
         provider.saveODData(data: abilities, type: Ability.self, mainContext: true)
         
         let gameModes = processor.processGameModes(modes: dataProvider.loadOpenDotaConstants(service: .gameMode, as: [String: ODGameMode].self) ?? [:])
