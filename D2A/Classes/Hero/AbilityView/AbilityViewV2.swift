@@ -18,8 +18,8 @@ struct AbilityViewV2: View {
                     statsView
                     attributesView
                     descriptionView
-                    Text(ability.attributes?.count.description ?? "::")
                 }
+                .font(.caption)
                 .frame(maxWidth: .infinity)
                 .padding()
                 .background(Color.secondarySystemBackground)
@@ -132,7 +132,6 @@ struct AbilityViewV2: View {
             Text(value)
                 .bold()
         }
-        .font(.caption)
     }
 }
 
