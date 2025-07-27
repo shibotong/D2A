@@ -11,6 +11,8 @@ struct HeroDetailViewV2: View {
     
     let hero: Hero
     
+    private let detailSpacing: CGFloat = 2
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -36,8 +38,9 @@ struct HeroDetailViewV2: View {
     }
     
     private var detailView: some View {
-        HStack {
+        HStack(spacing: 10) {
             attackType
+            roleView
             Spacer()
         }
         .font(.caption)
@@ -45,8 +48,22 @@ struct HeroDetailViewV2: View {
         .background(Color.secondarySystemBackground)
     }
     
+    @ViewBuilder
+    private var roleView: some View {
+        if let roles = hero.rolesCollection {
+            HStack(spacing: detailSpacing) {
+                Image("ic_tag")
+                    .renderingMode(.template)
+                    .resizable()
+                    .frame(width: 15, height: 15)
+                    .foregroundStyle(Color.label)
+                Text(roles.joined(separator: ", "))
+            }
+        }
+    }
+    
     private var attackType: some View {
-        HStack {
+        HStack(spacing: detailSpacing) {
             Image(hero.attackType == "Melee" ? "ic_sword" : "ic_archer")
                 .renderingMode(.template)
                 .resizable()
