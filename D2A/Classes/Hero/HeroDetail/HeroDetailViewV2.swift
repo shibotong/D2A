@@ -38,32 +38,21 @@ struct HeroDetailViewV2: View {
     private var detailView: some View {
         HStack {
             attackType
+            Spacer()
         }
+        .font(.caption)
         .padding()
         .background(Color.secondarySystemBackground)
     }
     
-    @ViewBuilder
     private var attackType: some View {
-        if hero.attackType == "Melee" {
-            HStack {
-                Image("ic_sword")
-                    .renderingMode(.template)
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .foregroundStyle(Color.label)
-                Text("Melee")
-            }
-        }
-        if hero.attackType == "Ranged" {
-            HStack {
-                Image("ic_archer")
-                    .renderingMode(.template)
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .foregroundStyle(Color.label)
-                Text("Ranged")
-            }
+        HStack {
+            Image(hero.attackType == "Melee" ? "ic_sword" : "ic_archer")
+                .renderingMode(.template)
+                .resizable()
+                .frame(width: 15, height: 15)
+                .foregroundStyle(Color.label)
+            Text(hero.attackType ?? "Unknown")
         }
     }
 }
