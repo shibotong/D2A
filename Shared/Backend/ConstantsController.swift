@@ -240,8 +240,6 @@ class ConstantsController: ObservableObject {
         async let loadGameModes: Void = await loadODGameModes()
         
         _ = await [loadHeroes, loadAbilities, loadGameModes]
-        
-        await loadODHeroAbilities()
     }
     
     private func loadODHeroes() async {
@@ -257,11 +255,6 @@ class ConstantsController: ObservableObject {
     private func loadODGameModes() async {
         let modes = await openDotaProvider.loadGameModes()
         await persistanceProvider.saveODData(data: modes, type: GameMode.self)
-    }
-    
-    private func loadODHeroAbilities() async {
-        let heroAbilities = await openDotaProvider.loadAbilitiesForHeroes()
-        await persistanceProvider.saveAbilitiesToHero(heroAbilities: heroAbilities)
     }
 
     func resetHeroData(context: NSManagedObjectContext) async {

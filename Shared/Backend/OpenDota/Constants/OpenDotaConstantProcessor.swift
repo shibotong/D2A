@@ -9,10 +9,13 @@ class OpenDotaConstantProcessor {
     
     static let shared = OpenDotaConstantProcessor()
     
-    func processHeroes(heroes: [String: ODHero]) -> [ODHero] {
+    func processHeroes(heroes: [String: ODHero], abilities: [String: ODHeroAbilities]) -> [ODHero] {
         var heroesArray: [ODHero] = []
-        for (_, value) in heroes {
-            heroesArray.append(value)
+        for (_, hero) in heroes {
+            if let ability = abilities[hero.name] {
+                hero.abilities = ability.abilities
+            }
+            heroesArray.append(hero)
         }
         return heroesArray
     }

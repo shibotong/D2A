@@ -20,6 +20,8 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
     var legs: Int?
     var img: String
     var icon: String
+    
+    var abilities: [String]
 
     var baseHealth: Int32
     var baseHealthRegen: Double
@@ -69,6 +71,7 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
             "attackType": attackType,
             "img": img,
             "icon": icon,
+            "abilities": abilities,
             "baseHealth": baseHealth,
             "baseHealthRegen": baseHealthRegen,
             "baseMana": baseMana,
@@ -157,6 +160,7 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
         self.moveSpeed = (try? container.decode(Int32.self, forKey: .moveSpeed)) ?? 0
         self.cmEnabled = (try? container.decode(Bool.self, forKey: .cmEnabled)) ?? false
         self.turnRate = try? container.decodeIfPresent(Double.self, forKey: .turnRate)
+        self.abilities = []
     }
 
     func update(context: NSManagedObjectContext) throws -> NSManagedObject {
@@ -167,6 +171,7 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
         setIfNotEqual(entity: hero, path: \.attackType, value: attackType)
         setIfNotEqual(entity: hero, path: \.img, value: img)
         setIfNotEqual(entity: hero, path: \.icon, value: icon)
+        setIfNotEqual(entity: hero, path: \.abilities, value: abilities)
 
         setIfNotEqual(entity: hero, path: \.baseHealth, value: baseHealth)
         setIfNotEqual(entity: hero, path: \.baseHealthRegen, value: baseHealthRegen)

@@ -10,4 +10,13 @@ extension Hero {
         let heroes = try? PersistanceProvider.previewContext.fetch(Hero.fetchRequest())
         return heroes ?? []
     }()
+    
+    static let antimage: Hero = {
+        loadHero(id: 1)
+    }()
+    
+    static func loadHero(id: Int) -> Hero {
+        let context = PersistanceProvider.preview.container.viewContext
+        return Hero.fetch(id: id, context: context)!
+    }
 }
