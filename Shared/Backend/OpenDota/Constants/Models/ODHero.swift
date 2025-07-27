@@ -44,6 +44,9 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
     var moveSpeed: Int32
     var cmEnabled: Bool
     var turnRate: Double?
+    
+    var dayVision: Int
+    var nightVision: Int
 
     var heroNameLowerCase: String {
         return name.replacingOccurrences(of: "npc_dota_hero_", with: "")
@@ -91,6 +94,8 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
             "attackRate": attackRate,
             "moveSpeed": moveSpeed,
             "turnRate": turnRate ?? 0,
+            "visionDaytimeRange": dayVision,
+            "visionNighttimeRange": nightVision
         ]
     }
 
@@ -126,6 +131,9 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
         case moveSpeed = "move_speed"
         case cmEnabled = "cm_enabled"
         case turnRate = "turn_rate"
+        
+        case dayVision = "day_vision"
+        case nightVision = "night_vision"
     }
 
     required init(from decoder: any Decoder) throws {
@@ -161,6 +169,8 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
         self.cmEnabled = (try? container.decode(Bool.self, forKey: .cmEnabled)) ?? false
         self.turnRate = try? container.decodeIfPresent(Double.self, forKey: .turnRate)
         self.abilities = []
+        self.dayVision = (try? container.decodeIfPresent(Int.self, forKey: .dayVision)) ?? 1800
+        self.nightVision = (try? container.decodeIfPresent(Int.self, forKey: .nightVision)) ?? 800
     }
 
     func update(context: NSManagedObjectContext) throws -> NSManagedObject {
@@ -194,6 +204,9 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
         setIfNotEqual(entity: hero, path: \.attackRate, value: attackRate)
         setIfNotEqual(entity: hero, path: \.moveSpeed, value: moveSpeed)
         setIfNotEqual(entity: hero, path: \.turnRate, value: turnRate ?? 0.6)
+        
+        setIfNotEqual(entity: hero, path: \.visionDaytimeRange, value: Double(dayVision))
+        setIfNotEqual(entity: hero, path: \.visionNighttimeRange, value: Double(nightVision))
         return hero
     }
 }
