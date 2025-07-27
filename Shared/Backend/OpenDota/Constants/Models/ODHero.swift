@@ -69,6 +69,7 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
             "displayName": localizedName,
             "primaryAttr": primaryAttr,
             "attackType": attackType,
+            "rolesCollection": roles,
             "img": img,
             "icon": icon,
             "abilities": abilities,
@@ -169,6 +170,7 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
         setIfNotEqual(entity: hero, path: \.displayName, value: localizedName)
         setIfNotEqual(entity: hero, path: \.primaryAttr, value: primaryAttr)
         setIfNotEqual(entity: hero, path: \.attackType, value: attackType)
+        setIfNotEqual(entity: hero, path: \.rolesCollection, value: roles)
         setIfNotEqual(entity: hero, path: \.img, value: img)
         setIfNotEqual(entity: hero, path: \.icon, value: icon)
         setIfNotEqual(entity: hero, path: \.abilities, value: abilities)
