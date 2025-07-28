@@ -33,8 +33,12 @@ struct AbilityImage: View {
                     .foregroundColor(.label)
             }
         }
+        .task {
+            await loadImage()
+        }
     }
     
+    @MainActor
     private func loadImage() async {
         guard let name, let urlString else {
             return

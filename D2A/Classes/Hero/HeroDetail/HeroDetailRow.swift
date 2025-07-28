@@ -23,12 +23,22 @@ struct HeroDetailRow: View {
         HStack {
             Text(title)
                 .foregroundStyle(.secondary)
-            Rectangle()
-                .frame(height: 1)
-                .opacity(0.1)
+            Spacer()
+                .overlay {
+                    VStack {
+                        Divider()
+                            .padding(.horizontal)
+                    }
+                }
             Text(value)
                 .bold()
                 .foregroundStyle(color)
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    HeroDetailRow(title: "veryverylongTextveryverylongText", value: "100", color: .label)
+}
+#endif
