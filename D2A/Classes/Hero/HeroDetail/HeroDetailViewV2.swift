@@ -9,28 +9,72 @@ import SwiftUI
 
 struct HeroDetailViewV2: View {
     
+    @Environment(\.managedObjectContext) private var context
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
     let hero: Hero
     
     @State private var heroLevel: Double = 1
+    @State private var abilities: [Ability] = []
     
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
                 titleView
                 detailView
+                abilitiesView
             }
             Group {
                 levelSlider
-                attackStats
-                defenceStats
-                mobilityStats
+                    .padding()
+                    .background(Color.secondarySystemBackground)
+                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                    
+                statsView
             }
-            .padding()
-            .background(Color.secondarySystemBackground)
-            .clipShape(RoundedRectangle(cornerRadius: 5))
             .padding(.horizontal)
         }
+        .task {
+            self.abilities = loadAbilities()
+        }
         Text(hero.abilities?.description ?? "No abilities")
+    }
+    
+    private var abilitiesView: some View {
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach(abilities) { ability in
+                    AbilityImage(name: ability.name, urlString: ability.img)
+                        .frame(width: 40, height: 40)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
+            }
+            .padding()
+        }
+    }
+    
+    @ViewBuilder
+    private var statsView: some View {
+        if horizontalSizeClass == .compact {
+            VStack {
+                statsCollection
+            }
+        } else {
+            HStack(alignment: .top) {
+                statsCollection
+            }
+        }
+    }
+    
+    private var statsCollection: some View {
+        Group {
+            attackStats
+            defenceStats
+            mobilityStats
+        }
+        .padding()
+        .background(Color.secondarySystemBackground)
+        .clipShape(RoundedRectangle(cornerRadius: 5))
     }
     
     private var levelSlider: some View {
@@ -124,11 +168,22 @@ struct HeroDetailViewV2: View {
                 .bold()
         }
     }
+    
+    private func loadAbilities() -> [Ability] {
+        guard let abilityNames = hero.abilities else {
+            return []
+        }
+        return abilityNames.compactMap { Ability.fetchByName(name: $0, context: context) }
+    }
 }
 
 #if DEBUG
 #Preview {
-    HeroDetailViewV2(hero: Hero.antimage)
-        .environmentObject(ImageController.preview)
+    NavigationView(content: {
+        EmptyView()
+        HeroDetailViewV2(hero: Hero.antimage)
+    })
+    .environmentObject(ImageController.preview)
+    .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
 }
 #endif
