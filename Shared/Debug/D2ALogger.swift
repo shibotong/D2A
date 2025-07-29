@@ -57,14 +57,23 @@ func logFatal(
 class D2ALogger: ObservableObject {
 
     static let shared = D2ALogger()
+    
+    private static let loggingKey = "loggingLevel"
 
     @Published var logging: Double
 
     private var cancellable: AnyCancellable?
-    var loggingLevel: LoggingLevel = .warn
+    var loggingLevel: LoggingLevel {
+        didSet {
+            UserDefaults.standard.set(loggingLevel.rawValue, forKey: Self.loggingKey)
+        }
+    }
+    
     private let logger = Logger(subsystem: "com.shibotongdev.D2A", category: "persistence")
 
     init() {
+        let level = UserDefaults.standard.integer(forKey: Self.loggingKey)
+        loggingLevel = LoggingLevel(rawValue: level) ?? .warn
         logging = Double(loggingLevel.rawValue)
         setupBinding()
     }
@@ -82,10 +91,10 @@ class D2ALogger: ObservableObject {
         level: LoggingLevel, message: String, category: D2AServiceCategory, file: String,
         function: String, line: Int
     ) {
-        #if DEBUG
         let fileName = file.components(separatedBy: "/").last ?? file
         let logMessage = "\(level.icon) [\(category.rawValue)] [\(fileName):\(line)]: \(message)"
         logger.log(level: level.logLevel, "\(logMessage)")
+        #if DEBUG
         guard level.rawValue >= loggingLevel.rawValue else {
             return
         }

@@ -17,7 +17,7 @@ enum D2AServiceCategory: String {
     case image = "📸"
 }
 
-enum LoggingLevel: Int {
+enum LoggingLevel: Int, CaseIterable {
     case info, debug, warn, error, fatal
 
     var icon: String {

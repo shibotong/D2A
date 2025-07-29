@@ -13,15 +13,17 @@ struct DebugView: View {
 
     var body: some View {
         List {
-            Slider(value: $logger.logging, in: 0...2, step: 1) {
+            Slider(value: $logger.logging, in: 0...4, step: 1) {
                 Text("Logger")
             }
             HStack {
-                Text("📝")
-                Spacer()
-                Text("⚠️")
-                Spacer()
-                Text("❌")
+                Text(LoggingLevel.info.icon)
+                ForEach(LoggingLevel.allCases, id: \.icon) { level in
+                    if level != .info {
+                        Spacer()
+                        Text(level.icon)
+                    }
+                }
             }
         }
         .navigationTitle("Console Logging")
