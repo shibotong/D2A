@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import StratzAPI
 
 @objcMembers
 public class Role: NSObject, NSSecureCoding {
