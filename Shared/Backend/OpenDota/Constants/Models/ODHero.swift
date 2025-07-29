@@ -99,7 +99,7 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
             "turnRate": turnRate ?? 0,
             "visionDaytimeRange": dayVision,
             "visionNighttimeRange": nightVision,
-            "talents": talents.map { $0.dictionaries }
+            "talents": talents
         ]
     }
 

@@ -96,4 +96,18 @@ public class AbilityAttribute: NSObject, NSSecureCoding {
         self.value = value
         self.generated = coder.decodeObject(of: NSNumber.self, forKey: "generated") as? Bool
     }
+    
+    override public func isEqual(_ object: Any?) -> Bool {
+        guard let attribute = object as? AbilityAttribute else {
+            return false
+        }
+        return self == attribute
+    }
+    
+    static func ==(lhs: AbilityAttribute, rhs: AbilityAttribute) -> Bool {
+        return lhs.key == rhs.key
+        && lhs.header == rhs.header
+        && lhs.value == rhs.value
+        && lhs.generated == rhs.generated
+    }
 }

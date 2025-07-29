@@ -41,4 +41,15 @@ public class Talent: NSObject, NSSecureCoding {
         let slot = coder.decodeInteger(forKey: "slot")
         self.init(ability: ability, slot: slot)
     }
+    
+    override public func isEqual(_ object: Any?) -> Bool {
+        guard let talent = object as? Talent else {
+            return false
+        }
+        return self == talent
+    }
+    
+    static func ==(lhs: Talent, rhs: Talent) -> Bool {
+        return lhs.ability == rhs.ability && lhs.slot == rhs.slot
+    }
 }
