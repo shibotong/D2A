@@ -29,17 +29,35 @@ struct HeroDetailViewV2: View {
                 Group {
                     levelSlider
                     HealthManaView(level: Int(heroLevel), hero: hero)
+                    
                 }
                 .padding()
                 .background(Color.secondarySystemBackground)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
                 stackBuilder(views: attributeCollection)
                 stackBuilder(views: statsCollection)
+                
+                talentsView
+                    .padding()
+                    .background(Color.secondarySystemBackground)
+                    .clipShape(RoundedRectangle(cornerRadius: 5))
             }
             .padding(.horizontal)
         }
         .task {
             self.abilities = loadAbilities()
+        }
+    }
+    
+    private var talentsView: some View {
+        VStack(alignment: .leading) {
+            buildSectionTitle(title: "Talents")
+            if let talents = hero.talents {
+                buildTalents(level: 4, talents: talents)
+                buildTalents(level: 3, talents: talents)
+                buildTalents(level: 2, talents: talents)
+                buildTalents(level: 1, talents: talents)
+            }
         }
     }
     
@@ -180,6 +198,7 @@ struct HeroDetailViewV2: View {
             Group {
                 HeroDetailRow(title: "Armor", value: "\(String(format: "%.1f", hero.calculateArmorByLevel(level: heroLevel)))")
                 HeroDetailRow(title: "Magical Resistance", value: "\(hero.baseMr)%")
+                Spacer()
             }
             .font(.caption)
         }
@@ -199,15 +218,40 @@ struct HeroDetailViewV2: View {
     
     
     @ViewBuilder
-    private func buildSectionTitle(icon: String, title: String, renderMode: Image.TemplateRenderingMode = .template) -> some View {
+    private func buildSectionTitle(icon: String? = nil, title: String, renderMode: Image.TemplateRenderingMode = .template) -> some View {
         HStack {
-            Image(icon)
-                .renderingMode(renderMode)
-                .resizable()
-                .frame(width: 20, height: 20)
-                .foregroundStyle(Color.label)
+            if let icon {
+                Image(icon)
+                    .renderingMode(renderMode)
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                    .foregroundStyle(Color.label)
+            }
             Text(title)
                 .bold()
+        }
+    }
+    
+    @ViewBuilder
+    private func buildTalents(level: Int, talents: [Talent]) -> some View {
+        let filteredTalents = talents.filter { $0.slot == level }
+        let frameSize: CGFloat = 40
+        HStack {
+            Text("\(5 + 5 * level)")
+                .font(.body)
+                .bold()
+                .padding(5)
+                .frame(width: frameSize, height: frameSize)
+                .background(Circle().stroke().foregroundColor(.yellow))
+            VStack(alignment: .leading) {
+                ForEach(filteredTalents, id: \.ability) { talent in
+                    if let ability = fetchTalent(for: talent.ability) {
+                        Text(ability.displayName ?? "")
+                            .font(.caption)
+                    }
+                }
+            }
+            Spacer()
         }
     }
     
@@ -216,6 +260,11 @@ struct HeroDetailViewV2: View {
             return []
         }
         return abilityNames.compactMap { Ability.fetchByName(name: $0, context: context) }
+    }
+    
+    private func fetchTalent(for name: String) -> Ability? {
+        let ability = Ability.fetchByName(name: name, context: context)
+        return ability
     }
 }
 
