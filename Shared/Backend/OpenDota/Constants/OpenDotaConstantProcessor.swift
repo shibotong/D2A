@@ -14,6 +14,8 @@ class OpenDotaConstantProcessor {
         for (_, hero) in heroes {
             if let ability = abilities[hero.name] {
                 hero.abilities = ability.abilities
+                let talents = ability.talents.map { Talent(ability: $0.name, slot: $0.level) }
+                hero.talents = talents
             }
             heroesArray.append(hero)
         }

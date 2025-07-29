@@ -47,6 +47,8 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
     
     var dayVision: Int
     var nightVision: Int
+    
+    var talents: [Talent]
 
     var heroNameLowerCase: String {
         return name.replacingOccurrences(of: "npc_dota_hero_", with: "")
@@ -96,7 +98,8 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
             "moveSpeed": moveSpeed,
             "turnRate": turnRate ?? 0,
             "visionDaytimeRange": dayVision,
-            "visionNighttimeRange": nightVision
+            "visionNighttimeRange": nightVision,
+            "talents": talents.map { $0.dictionaries }
         ]
     }
 
@@ -169,9 +172,11 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
         self.moveSpeed = (try? container.decode(Int32.self, forKey: .moveSpeed)) ?? 0
         self.cmEnabled = (try? container.decode(Bool.self, forKey: .cmEnabled)) ?? false
         self.turnRate = try? container.decodeIfPresent(Double.self, forKey: .turnRate)
-        self.abilities = []
         self.dayVision = (try? container.decodeIfPresent(Int.self, forKey: .dayVision)) ?? 1800
         self.nightVision = (try? container.decodeIfPresent(Int.self, forKey: .nightVision)) ?? 800
+        
+        self.abilities = [] // fetch from hero abilities
+        self.talents = [] // fetch from hero abilities
     }
 
     func update(context: NSManagedObjectContext) throws -> NSManagedObject {
@@ -209,6 +214,8 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
         
         setIfNotEqual(entity: hero, path: \.visionDaytimeRange, value: Double(dayVision))
         setIfNotEqual(entity: hero, path: \.visionNighttimeRange, value: Double(nightVision))
+        
+        setIfNotEqual(entity: hero, path: \.talents, value: talents)
         return hero
     }
 }

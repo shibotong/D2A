@@ -15,6 +15,13 @@ public class Talent: NSObject, NSSecureCoding {
     public var ability: String
     public var slot: Int
     
+    var dictionaries: [String: Any] {
+        return [
+            "ability": ability,
+            "slot": slot
+        ]
+    }
+    
     init(ability: String, slot: Int) {
         self.ability = ability
         self.slot = slot
