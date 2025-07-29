@@ -11,11 +11,12 @@ struct HeroDetailViewV2: View {
     
     @Environment(\.managedObjectContext) private var context
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
-    let hero: Hero
-    
+
     @State private var heroLevel: Double = 1
     @State private var abilities: [Ability] = []
+    
+    let hero: Hero
+    private let detailSpacing: CGFloat = 2
     
     var body: some View {
         ScrollView {
@@ -24,11 +25,14 @@ struct HeroDetailViewV2: View {
                 detailView
                 abilitiesView
             }
-            Group {
-                levelSlider
-                    .padding()
-                    .background(Color.secondarySystemBackground)
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
+            VStack {
+                Group {
+                    levelSlider
+                    HealthManaView(level: Int(heroLevel), hero: hero)
+                }
+                .padding()
+                .background(Color.secondarySystemBackground)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
                 stackBuilder(views: attributeCollection)
                 stackBuilder(views: statsCollection)
             }
@@ -37,7 +41,6 @@ struct HeroDetailViewV2: View {
         .task {
             self.abilities = loadAbilities()
         }
-        Text(hero.abilities?.description ?? "No abilities")
     }
     
     private var abilitiesView: some View {
@@ -124,8 +127,9 @@ struct HeroDetailViewV2: View {
     }
     
     private var detailView: some View {
-        HStack {
+        HStack(spacing: 10) {
             attackType
+            roleView
             Spacer()
         }
         .font(.caption)
@@ -133,8 +137,22 @@ struct HeroDetailViewV2: View {
         .background(Color.secondarySystemBackground)
     }
     
+    @ViewBuilder
+    private var roleView: some View {
+        if let roles = hero.rolesCollection {
+            HStack(spacing: detailSpacing) {
+                Image("ic_tag")
+                    .renderingMode(.template)
+                    .resizable()
+                    .frame(width: 15, height: 15)
+                    .foregroundStyle(Color.label)
+                Text(roles.joined(separator: ", "))
+            }
+        }
+    }
+    
     private var attackType: some View {
-        HStack {
+        HStack(spacing: detailSpacing) {
             Image(hero.attackType == "Melee" ? "ic_sword" : "ic_archer")
                 .renderingMode(.template)
                 .resizable()
@@ -203,10 +221,8 @@ struct HeroDetailViewV2: View {
 
 #if DEBUG
 #Preview {
-    NavigationView(content: {
-        HeroDetailViewV2(hero: Hero.antimage)
-    })
-    .environmentObject(ImageController.preview)
-    .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
+    HeroDetailViewV2(hero: Hero.antimage)
+        .environmentObject(ImageController.preview)
+        .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
 }
 #endif
