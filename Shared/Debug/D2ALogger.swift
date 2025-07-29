@@ -7,6 +7,16 @@
 
 import Combine
 import Foundation
+import OSLog
+
+func logInfo(
+    _ message: String, category: D2AServiceCategory, file: String = #file,
+    function: String = #function, line: Int = #line
+) {
+    D2ALogger.shared.log(
+        level: .info, message: message, category: category, file: file, function: function,
+        line: line)
+}
 
 func logDebug(
     _ message: String, category: D2AServiceCategory, file: String = #file,
@@ -35,6 +45,15 @@ func logError(
         line: line)
 }
 
+func logFatal(
+    _ message: String, category: D2AServiceCategory, file: String = #file,
+    function: String = #function, line: Int = #line
+) {
+    D2ALogger.shared.log(
+        level: .fatal, message: message, category: category, file: file, function: function,
+        line: line)
+}
+
 class D2ALogger: ObservableObject {
 
     static let shared = D2ALogger()
@@ -43,6 +62,7 @@ class D2ALogger: ObservableObject {
 
     private var cancellable: AnyCancellable?
     var loggingLevel: LoggingLevel = .warn
+    private let logger = Logger(subsystem: "com.shibotongdev.D2A", category: "persistence")
 
     init() {
         logging = Double(loggingLevel.rawValue)
@@ -63,14 +83,14 @@ class D2ALogger: ObservableObject {
         function: String, line: Int
     ) {
         #if DEBUG
+        let fileName = file.components(separatedBy: "/").last ?? file
+        let logMessage = "\(level.icon) [\(category.rawValue)] [\(fileName):\(line)]: \(message)"
+        logger.log(level: level.logLevel, "\(logMessage)")
         guard level.rawValue >= loggingLevel.rawValue else {
             return
         }
-        
-        let fileName = file.components(separatedBy: "/").last ?? file
-        let logMessage = "\(level.icon) [\(category.rawValue)] [\(fileName):\(line)]: \(message)"
         print(logMessage)
-        if level == .error {
+        if level == .fatal {
             assertionFailure(logMessage)
         }
         #endif
