@@ -1413,7 +1413,6 @@
 				79A988F82931D400006AC847 /* Match.swift */,
 				79A989032931E7F1006AC847 /* PermanentBuff.swift */,
 				79A988FC2931D6FF006AC847 /* Player.swift */,
-				7985E7EE28E53E47007A43AF /* Talent.swift */,
 				79A988FF2931DCE1006AC847 /* UserProfile.swift */,
 				798A5CF92945B3C300EB07B0 /* RecentMatch.swift */,
 			);
@@ -1610,6 +1609,7 @@
 		79E89A2E2DF6B0DD00497B5D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7985E7EE28E53E47007A43AF /* Talent.swift */,
 				79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */,
 				327772B226D9D735000A0A97 /* GameMode.swift */,
 				7985E7EA28E53919007A43AF /* Hero.swift */,
