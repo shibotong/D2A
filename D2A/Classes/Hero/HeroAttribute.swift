@@ -24,6 +24,19 @@ enum HeroAttribute: String, CaseIterable {
         }
     }
     
+    var displayName: String {
+        switch self {
+        case .str:
+            return "Strength"
+        case .agi:
+            return "Agility"
+        case .int:
+            return "Intelligence"
+        case .uni:
+            return "Universal"
+        }
+    }
+    
     var image: String {
         switch self {
         case .str:
