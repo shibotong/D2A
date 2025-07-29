@@ -24,11 +24,14 @@ struct HeroDetailViewV2: View {
                 detailView
                 abilitiesView
             }
-            Group {
-                levelSlider
-                    .padding()
-                    .background(Color.secondarySystemBackground)
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
+            VStack {
+                Group {
+                    levelSlider
+                    HealthManaView(level: Int(heroLevel), hero: hero)
+                }
+                .padding()
+                .background(Color.secondarySystemBackground)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
                 stackBuilder(views: attributeCollection)
                 stackBuilder(views: statsCollection)
             }
@@ -37,7 +40,6 @@ struct HeroDetailViewV2: View {
         .task {
             self.abilities = loadAbilities()
         }
-        Text(hero.abilities?.description ?? "No abilities")
     }
     
     private var abilitiesView: some View {
@@ -203,10 +205,8 @@ struct HeroDetailViewV2: View {
 
 #if DEBUG
 #Preview {
-    NavigationView(content: {
-        HeroDetailViewV2(hero: Hero.antimage)
-    })
-    .environmentObject(ImageController.preview)
-    .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
+    HeroDetailViewV2(hero: Hero.antimage)
+        .environmentObject(ImageController.preview)
+        .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
 }
 #endif
