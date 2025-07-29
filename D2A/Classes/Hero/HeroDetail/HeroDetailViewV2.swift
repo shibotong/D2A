@@ -29,8 +29,8 @@ struct HeroDetailViewV2: View {
                     .padding()
                     .background(Color.secondarySystemBackground)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
-                    
-                statsView
+                stackBuilder(views: attributeCollection)
+                stackBuilder(views: statsCollection)
             }
             .padding(.horizontal)
         }
@@ -54,14 +54,14 @@ struct HeroDetailViewV2: View {
     }
     
     @ViewBuilder
-    private var statsView: some View {
+    private func stackBuilder(views: some View) -> some View {
         if horizontalSizeClass == .compact {
             VStack {
-                statsCollection
+                views
             }
         } else {
             HStack(alignment: .top) {
-                statsCollection
+                views
             }
         }
     }
@@ -77,9 +77,33 @@ struct HeroDetailViewV2: View {
         .clipShape(RoundedRectangle(cornerRadius: 5))
     }
     
+    private var attributeCollection: some View {
+        Group {
+            buildAttribute(attribute: .str)
+            buildAttribute(attribute: .agi)
+            buildAttribute(attribute: .int)
+        }
+        .padding()
+        .background(Color.secondarySystemBackground)
+        .clipShape(RoundedRectangle(cornerRadius: 5))
+    }
+    
+    @ViewBuilder
+    private func buildAttribute(attribute: HeroAttribute) -> some View {
+        let gain = hero.getGain(type: attribute)
+        HStack {
+            buildSectionTitle(icon: attribute.image, title: attribute.displayName, renderMode: .original)
+            Spacer()
+            Text("\(hero.calculateAttribute(level: heroLevel, attr: attribute))")
+                .bold()
+            Text("+ \(gain, specifier: "%.1f")")
+        }
+    }
+    
     private var levelSlider: some View {
         HStack {
             Text("\(Int(heroLevel))")
+                .bold()
             Slider(value: $heroLevel, in: 1...30, step: 1)
             Text("30")
         }
@@ -157,10 +181,10 @@ struct HeroDetailViewV2: View {
     
     
     @ViewBuilder
-    private func buildSectionTitle(icon: String, title: String) -> some View {
+    private func buildSectionTitle(icon: String, title: String, renderMode: Image.TemplateRenderingMode = .template) -> some View {
         HStack {
             Image(icon)
-                .renderingMode(.template)
+                .renderingMode(renderMode)
                 .resizable()
                 .frame(width: 20, height: 20)
                 .foregroundStyle(Color.label)
@@ -180,7 +204,6 @@ struct HeroDetailViewV2: View {
 #if DEBUG
 #Preview {
     NavigationView(content: {
-        EmptyView()
         HeroDetailViewV2(hero: Hero.antimage)
     })
     .environmentObject(ImageController.preview)
