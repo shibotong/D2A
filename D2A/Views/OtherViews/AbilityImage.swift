@@ -43,7 +43,7 @@ struct AbilityImage: View {
         guard let name, let urlString else {
             return
         }
-        await imageController.refreshImage(type: .ability, id: name, url: urlString) { image in
+        try? await imageController.refreshImage(type: .ability, id: name, url: urlString) { image in
             self.image = image
         }
     }

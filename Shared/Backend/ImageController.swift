@@ -27,31 +27,15 @@ class ImageController: ObservableObject {
     
     func refreshImage(type: GameImageType, id: String, fileExtension: ImageExtension = .jpg,
                       url: String, refreshTime: Date = Date(),
-                      imageHandler: (UIImage) -> Void) async {
+                      imageHandler: (UIImage) -> Void) async throws {
         let imageKey = "\(type.imageKey)_\(id)"
-        
-        await refreshImage(imageKey: imageKey, fileExtension: fileExtension, refreshTime: refreshTime, imageHandler: imageHandler) {
-            imageProvider.localImage(type: type, id: id, fileExtension: fileExtension)
-        } remoteImageHandler: {
-            await imageProvider.remoteImage(url: url)
-        } saveImageHander: { remoteImage in
-            try imageProvider.saveImage(image: remoteImage, type: type, id: id, fileExtension: fileExtension)
-        }
-    }
-    
-    private func refreshImage(imageKey: String, fileExtension: ImageExtension = .jpg,
-                              refreshTime: Date,
-                              imageHandler: (UIImage) -> Void,
-                              localImageHandler: () -> UIImage?,
-                              remoteImageHandler: () async -> UIImage?,
-                              saveImageHander: (UIImage) throws -> Void) async {
         // Check cached image, if have cached image return it
         if let cachedImage = await imageCache.readCache(key: imageKey) {
             imageHandler(cachedImage)
             return
         }
         
-        if let localImage = localImageHandler() {
+        if let localImage = imageProvider.localImage(type: type, id: id, fileExtension: fileExtension) {
             await imageCache.setCache(key: imageKey, image: localImage)
             imageHandler(localImage)
         }
@@ -59,15 +43,11 @@ class ImageController: ObservableObject {
         if let savedDate = userDefaults.object(forKey: imageKey) as? Date, !imageNeedsRefresh(lastDate: savedDate, currentDate: refreshTime) {
             return
         }
-        guard let remoteImage = await remoteImageHandler() else {
+        guard let remoteImage = await imageProvider.remoteImage(url: url) else {
             return
         }
-        do {
-            try saveImageHander(remoteImage)
-            userDefaults.set(Date(), forKey: imageKey)
-        } catch {
-            logError("Error occured when saving image: \(error.localizedDescription)", category: .image)
-        }
+        try imageProvider.saveImage(image: remoteImage, type: type, id: id, fileExtension: fileExtension)
+        userDefaults.set(Date(), forKey: imageKey)
         await imageCache.setCache(key: imageKey, image: remoteImage)
         imageHandler(remoteImage)
     }
