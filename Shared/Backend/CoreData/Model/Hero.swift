@@ -115,7 +115,8 @@ extension Hero {
     }
 
     var heroNameLocalized: String {
-        return NSLocalizedString(displayName ?? "no_name", comment: "")
+        let translation = try? translation(for: "en")
+        return translation?.displayName ?? "no_name"
     }
     
     var attribute: HeroAttribute {
@@ -285,7 +286,6 @@ extension Hero {
 
     func saveODData(context: NSManagedObjectContext, openDotaHero: ODHero) {
         setIfNotEqual(entity: self, path: \.id, value: Double(openDotaHero.id))
-        setIfNotEqual(entity: self, path: \.displayName, value: openDotaHero.localizedName)
         setIfNotEqual(entity: self, path: \.primaryAttr, value: openDotaHero.primaryAttr)
         setIfNotEqual(entity: self, path: \.attackType, value: openDotaHero.attackType)
         setIfNotEqual(entity: self, path: \.img, value: openDotaHero.img)
@@ -312,5 +312,12 @@ extension Hero {
         setIfNotEqual(entity: self, path: \.attackRate, value: openDotaHero.attackRate)
         setIfNotEqual(entity: self, path: \.moveSpeed, value: openDotaHero.moveSpeed)
         setIfNotEqual(entity: self, path: \.turnRate, value: openDotaHero.turnRate ?? 0.6)
+    }
+    
+    private func translation(for language: String = "en") throws -> HeroTranslation {
+        guard let translation = translations?.first(where: { $0.language == language }) else {
+            throw D2AError(message: "Not able to find translation for \(language)")
+        }
+        return translation
     }
 }
