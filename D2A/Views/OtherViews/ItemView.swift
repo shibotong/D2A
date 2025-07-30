@@ -48,7 +48,7 @@ struct ItemView: View {
             self.image = nil
             return
         }
-        await imageController.refreshImage(type: .item, id: id.description, url: computeURL() ?? "") { image in
+        try? await imageController.refreshImage(type: .item, id: id.description, url: computeURL() ?? "") { image in
             self.image = image
         }
     }

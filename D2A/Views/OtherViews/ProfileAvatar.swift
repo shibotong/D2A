@@ -49,7 +49,7 @@ struct ProfileAvatar: View {
             }
         }
         .task {
-            await imageController.refreshImage(type: .avatar, id: userID, url: imageURL ?? "") { image in
+            try? await imageController.refreshImage(type: .avatar, id: userID, url: imageURL ?? "") { image in
                 self.image = image
             }
         }
