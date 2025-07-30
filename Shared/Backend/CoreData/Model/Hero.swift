@@ -112,10 +112,19 @@ extension Hero {
     var heroNameLowerCase: String {
         return name?.replacingOccurrences(of: "npc_dota_hero_", with: "") ?? "no_name"
     }
+    
+    var displayName: String {
+        heroNameLocalized
+    }
 
     var heroNameLocalized: String {
-        let translation = try? translation(for: "en")
+        let translation = try? translation(for: .english)
         return translation?.displayName ?? "no_name"
+    }
+    
+    var lore: String {
+        let translation = try? translation(for: .english)
+        return translation?.lore ?? "No lore"
     }
     
     var attribute: HeroAttribute {
@@ -318,9 +327,31 @@ extension Hero {
         setIfNotEqual(entity: self, path: \.visionNighttimeRange, value: Double(openDotaHero.nightVision))
         
         setIfNotEqual(entity: self, path: \.talents, value: openDotaHero.talents)
+        updateTranslation(translation: openDotaHero.translation)
     }
     
-    private func translation(for language: String = "en") throws -> HeroTranslation {
+    private func updateTranslation(translation: HeroTranslation?) {
+        guard let translation else {
+            return
+        }
+        let language = translation.language
+        guard var translations else {
+            translations = [translation]
+            return
+        }
+        guard let indexOfLanguage = translations.firstIndex(where: { $0.language == language }) else {
+            translations.append(translation)
+            return
+        }
+            
+        let existingTranslation = translations[indexOfLanguage]
+        if existingTranslation == translation {
+            return
+        }
+        translations[indexOfLanguage] = translation
+    }
+    
+    private func translation(for language: LocaliseLanguage = .english) throws -> HeroTranslation {
         guard let translation = translations?.first(where: { $0.language == language }) else {
             throw D2AError(message: "Not able to find translation for \(language)")
         }

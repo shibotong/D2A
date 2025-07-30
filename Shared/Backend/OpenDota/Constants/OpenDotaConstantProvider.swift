@@ -57,7 +57,8 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
             return []
         }
         let abilities = await fetcher.loadService(service: .heroAbilities, as: [String: ODHeroAbilities].self) ?? [:]
-        return processor.processHeroes(heroes: heroDict, abilities: abilities)
+        let lores = await fetcher.loadService(service: .heroLore, as: [String: String].self) ?? [:]
+        return processor.processHeroes(heroes: heroDict, abilities: abilities, lores: lores)
     }
     
     func loadItemIDs() async -> [String: String] {

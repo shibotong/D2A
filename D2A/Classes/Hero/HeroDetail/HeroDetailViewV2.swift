@@ -36,17 +36,24 @@ struct HeroDetailViewV2: View {
                 .clipShape(RoundedRectangle(cornerRadius: 5))
                 stackBuilder(views: attributeCollection)
                 stackBuilder(views: statsCollection)
-                
-                talentsView
-                    .padding()
-                    .background(Color.secondarySystemBackground)
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                Group {
+                    talentsView
+                    loreView
+                }
+                .padding()
+                .background(Color.secondarySystemBackground)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
             }
             .padding(.horizontal)
         }
         .task {
             self.abilities = loadAbilities()
         }
+    }
+    
+    private var loreView: some View {
+        Text("\(hero.lore)")
+            .font(.caption2)
     }
     
     private var talentsView: some View {

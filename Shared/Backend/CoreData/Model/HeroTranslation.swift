@@ -11,7 +11,7 @@ import Foundation
 public class HeroTranslation: NSObject, NSSecureCoding {
     public static var supportsSecureCoding: Bool = true
     
-    public var language: String
+    public var language: LocaliseLanguage
     public var displayName: String
     public var lore: String
     
@@ -21,25 +21,26 @@ public class HeroTranslation: NSObject, NSSecureCoding {
         case lore
     }
     
-    init(language: String, displayName: String, lore: String) {
+    init(language: LocaliseLanguage, displayName: String, lore: String) {
         self.language = language
         self.displayName = displayName
         self.lore = lore
     }
     
     public func encode(with coder: NSCoder) {
-        coder.encode(language, forKey: CodingKeys.language.rawValue)
+        coder.encode(language.rawValue, forKey: CodingKeys.language.rawValue)
         coder.encode(displayName, forKey: CodingKeys.displayName.rawValue)
         coder.encode(lore, forKey: CodingKeys.lore.rawValue)
     }
     
     required public convenience init?(coder: NSCoder) {
-        guard let language = coder.decodeObject(forKey: CodingKeys.language.rawValue) as? String,
-              let displayName = coder.decodeObject(forKey: CodingKeys.displayName.rawValue) as? String,
-              let lore = coder.decodeObject(forKey: CodingKeys.lore.rawValue) as? String else {
+        guard let language = coder.decodeObject(of: NSString.self, forKey: CodingKeys.language.rawValue) as? String,
+              let localised = LocaliseLanguage(rawValue: language),
+              let displayName = coder.decodeObject(of: NSString.self, forKey: CodingKeys.displayName.rawValue) as? String,
+              let lore = coder.decodeObject(of: NSString.self, forKey: CodingKeys.lore.rawValue) as? String else {
             logError("Failed to decode HeroTranslation", category: .coredata)
             return nil
         }
-        self.init(language: language, displayName: displayName, lore: lore)
+        self.init(language: localised, displayName: displayName, lore: lore)
     }
 }

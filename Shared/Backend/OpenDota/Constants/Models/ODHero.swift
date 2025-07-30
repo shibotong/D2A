@@ -49,6 +49,8 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
     var nightVision: Int
     
     var talents: [Talent]
+    
+    var translation: HeroTranslation?
 
     var heroNameLowerCase: String {
         return name.replacingOccurrences(of: "npc_dota_hero_", with: "")
@@ -71,7 +73,6 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
         return [
             "id": Double(id),
             "name": name,
-            "displayName": localizedName,
             "primaryAttr": primaryAttr,
             "attackType": attackType,
             "rolesCollection": roles,
@@ -99,7 +100,8 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
             "turnRate": turnRate ?? 0,
             "visionDaytimeRange": dayVision,
             "visionNighttimeRange": nightVision,
-            "talents": talents
+            "talents": talents,
+            "translations": [translation]
         ]
     }
 
@@ -177,6 +179,7 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
         
         self.abilities = [] // fetch from hero abilities
         self.talents = [] // fetch from hero abilities
+        self.translation = nil
     }
 
     func update(context: NSManagedObjectContext) throws -> NSManagedObject {
