@@ -49,6 +49,8 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
     var nightVision: Int
     
     var talents: [Talent]
+    
+    var translation: HeroTranslation?
 
     var heroNameLowerCase: String {
         return name.replacingOccurrences(of: "npc_dota_hero_", with: "")
@@ -71,7 +73,6 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
         return [
             "id": Double(id),
             "name": name,
-            "displayName": localizedName,
             "primaryAttr": primaryAttr,
             "attackType": attackType,
             "rolesCollection": roles,
@@ -99,7 +100,8 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
             "turnRate": turnRate ?? 0,
             "visionDaytimeRange": dayVision,
             "visionNighttimeRange": nightVision,
-            "talents": talents
+            "talents": talents,
+            "translations": [translation]
         ]
     }
 
@@ -177,45 +179,12 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
         
         self.abilities = [] // fetch from hero abilities
         self.talents = [] // fetch from hero abilities
+        self.translation = nil
     }
 
     func update(context: NSManagedObjectContext) throws -> NSManagedObject {
         let hero = Hero.fetch(id: id, context: context) ?? Hero(context: context)
-        setIfNotEqual(entity: hero, path: \.id, value: Double(id))
-        setIfNotEqual(entity: hero, path: \.displayName, value: localizedName)
-        setIfNotEqual(entity: hero, path: \.primaryAttr, value: primaryAttr)
-        setIfNotEqual(entity: hero, path: \.attackType, value: attackType)
-        setIfNotEqual(entity: hero, path: \.rolesCollection, value: roles)
-        setIfNotEqual(entity: hero, path: \.img, value: img)
-        setIfNotEqual(entity: hero, path: \.icon, value: icon)
-        setIfNotEqual(entity: hero, path: \.abilities, value: abilities)
-
-        setIfNotEqual(entity: hero, path: \.baseHealth, value: baseHealth)
-        setIfNotEqual(entity: hero, path: \.baseHealthRegen, value: baseHealthRegen)
-        setIfNotEqual(entity: hero, path: \.baseMana, value: baseMana)
-        setIfNotEqual(entity: hero, path: \.baseManaRegen, value: baseManaRegen)
-        setIfNotEqual(entity: hero, path: \.baseArmor, value: baseArmor)
-        setIfNotEqual(entity: hero, path: \.baseMr, value: baseMr)
-        setIfNotEqual(entity: hero, path: \.baseAttackMin, value: baseAttackMin)
-        setIfNotEqual(entity: hero, path: \.baseAttackMax, value: baseAttackMax)
-
-        setIfNotEqual(entity: hero, path: \.baseStr, value: baseStr)
-        setIfNotEqual(entity: hero, path: \.baseAgi, value: baseAgi)
-        setIfNotEqual(entity: hero, path: \.baseInt, value: baseInt)
-        setIfNotEqual(entity: hero, path: \.gainStr, value: strGain)
-        setIfNotEqual(entity: hero, path: \.gainAgi, value: agiGain)
-        setIfNotEqual(entity: hero, path: \.gainInt, value: intGain)
-
-        setIfNotEqual(entity: hero, path: \.attackRange, value: attackRange)
-        setIfNotEqual(entity: hero, path: \.projectileSpeed, value: projectileSpeed)
-        setIfNotEqual(entity: hero, path: \.attackRate, value: attackRate)
-        setIfNotEqual(entity: hero, path: \.moveSpeed, value: moveSpeed)
-        setIfNotEqual(entity: hero, path: \.turnRate, value: turnRate ?? 0.6)
-        
-        setIfNotEqual(entity: hero, path: \.visionDaytimeRange, value: Double(dayVision))
-        setIfNotEqual(entity: hero, path: \.visionNighttimeRange, value: Double(nightVision))
-        
-        setIfNotEqual(entity: hero, path: \.talents, value: talents)
+        hero.saveODData(context: context, openDotaHero: self)
         return hero
     }
 }

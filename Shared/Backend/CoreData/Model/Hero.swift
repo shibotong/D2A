@@ -34,7 +34,6 @@ extension Hero {
         // data from Stratz
         hero.lastFetch = Date()
         hero.id = heroID
-        hero.displayName = queryHero.displayName
         hero.name = queryHero.name
         hero.complexity = Int16(heroStats.complexity ?? 0)
         hero.visionDaytimeRange = heroStats.visionDaytimeRange ?? 1800
@@ -113,9 +112,19 @@ extension Hero {
     var heroNameLowerCase: String {
         return name?.replacingOccurrences(of: "npc_dota_hero_", with: "") ?? "no_name"
     }
+    
+    var displayName: String {
+        heroNameLocalized
+    }
 
     var heroNameLocalized: String {
-        return NSLocalizedString(displayName ?? "no_name", comment: "")
+        let translation = try? translation(for: .english)
+        return translation?.displayName ?? "no_name"
+    }
+    
+    var lore: String {
+        let translation = try? translation(for: .english)
+        return translation?.lore ?? "No lore"
     }
     
     var attribute: HeroAttribute {
@@ -285,11 +294,12 @@ extension Hero {
 
     func saveODData(context: NSManagedObjectContext, openDotaHero: ODHero) {
         setIfNotEqual(entity: self, path: \.id, value: Double(openDotaHero.id))
-        setIfNotEqual(entity: self, path: \.displayName, value: openDotaHero.localizedName)
         setIfNotEqual(entity: self, path: \.primaryAttr, value: openDotaHero.primaryAttr)
         setIfNotEqual(entity: self, path: \.attackType, value: openDotaHero.attackType)
+        setIfNotEqual(entity: self, path: \.rolesCollection, value: openDotaHero.roles)
         setIfNotEqual(entity: self, path: \.img, value: openDotaHero.img)
         setIfNotEqual(entity: self, path: \.icon, value: openDotaHero.icon)
+        setIfNotEqual(entity: self, path: \.abilities, value: openDotaHero.abilities)
 
         setIfNotEqual(entity: self, path: \.baseHealth, value: openDotaHero.baseHealth)
         setIfNotEqual(entity: self, path: \.baseHealthRegen, value: openDotaHero.baseHealthRegen)
@@ -312,5 +322,39 @@ extension Hero {
         setIfNotEqual(entity: self, path: \.attackRate, value: openDotaHero.attackRate)
         setIfNotEqual(entity: self, path: \.moveSpeed, value: openDotaHero.moveSpeed)
         setIfNotEqual(entity: self, path: \.turnRate, value: openDotaHero.turnRate ?? 0.6)
+        
+        setIfNotEqual(entity: self, path: \.visionDaytimeRange, value: Double(openDotaHero.dayVision))
+        setIfNotEqual(entity: self, path: \.visionNighttimeRange, value: Double(openDotaHero.nightVision))
+        
+        setIfNotEqual(entity: self, path: \.talents, value: openDotaHero.talents)
+        updateTranslation(translation: openDotaHero.translation)
+    }
+    
+    private func updateTranslation(translation: HeroTranslation?) {
+        guard let translation else {
+            return
+        }
+        let language = translation.language
+        guard var translations else {
+            translations = [translation]
+            return
+        }
+        guard let indexOfLanguage = translations.firstIndex(where: { $0.language == language }) else {
+            translations.append(translation)
+            return
+        }
+            
+        let existingTranslation = translations[indexOfLanguage]
+        if existingTranslation == translation {
+            return
+        }
+        translations[indexOfLanguage] = translation
+    }
+    
+    private func translation(for language: LocaliseLanguage = .english) throws -> HeroTranslation {
+        guard let translation = translations?.first(where: { $0.language == language }) else {
+            throw D2AError(message: "Not able to find translation for \(language)")
+        }
+        return translation
     }
 }

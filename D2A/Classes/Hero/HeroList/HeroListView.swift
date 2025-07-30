@@ -142,7 +142,7 @@ struct HeroListView: View {
             ) {
                 ForEach(heroes) { hero in
                     NavigationLink(
-                        destination: HeroDetailView(vm: HeroDetailViewModel(heroID: Int(hero.id)))
+                        destination: HeroDetailViewV2(hero: hero)
                     ) {
                         HeroRowView(hero: hero, isGrid: isGrid)
 

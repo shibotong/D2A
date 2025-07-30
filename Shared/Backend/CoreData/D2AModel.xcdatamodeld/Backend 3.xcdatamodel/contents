@@ -41,7 +41,6 @@
         <attribute name="baseMr" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="baseStr" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="complexity" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="displayName" optional="YES" attributeType="String"/>
         <attribute name="gainAgi" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="gainInt" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="gainStr" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -56,6 +55,7 @@
         <attribute name="roles" optional="YES" attributeType="Transformable" valueTransformerName="RoleTransformer" customClassName="[Role]"/>
         <attribute name="rolesCollection" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
         <attribute name="talents" optional="YES" attributeType="Transformable" valueTransformerName="TalentTransformer" customClassName="[Talent]"/>
+        <attribute name="translations" optional="YES" attributeType="Transformable" valueTransformerName="HeroTranslationTransformer" customClassName="[HeroTranslation]"/>
         <attribute name="turnRate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionDaytimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionNighttimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>

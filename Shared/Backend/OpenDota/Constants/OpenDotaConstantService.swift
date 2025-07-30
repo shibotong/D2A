@@ -9,7 +9,8 @@ import Foundation
 
 enum OpenDotaConstantService: String, CaseIterable {
     
-    static let baseURL = "https://raw.githubusercontent.com/odota/dotaconstants/master/build"
+//    static let baseURL = "https://raw.githubusercontent.com/odota/dotaconstants/master/build"
+    static let baseURL = "https://api.opendota.com/api/constants"
     
     case abilities
     case abilityIDs = "ability_ids"

@@ -14,7 +14,8 @@ extension PersistanceProvider {
         let processor  = OpenDotaConstantProcessor.shared
         let heroDict = dataProvider.loadOpenDotaConstants(service: .heroes, as: [String: ODHero].self) ?? [:]
         let heroAbilities = dataProvider.loadOpenDotaConstants(service: .heroAbilities, as: [String: ODHeroAbilities].self) ?? [:]
-        let heroes = processor.processHeroes(heroes: heroDict, abilities: heroAbilities)
+        let lores = dataProvider.loadOpenDotaConstants(service: .heroLore, as: [String: String].self) ?? [:]
+        let heroes = processor.processHeroes(heroes: heroDict, abilities: heroAbilities, lores: lores)
         provider.saveODData(data: heroes, type: Hero.self, mainContext: true)
         
         let abilityDict = dataProvider.loadOpenDotaConstants(service: .abilities, as: [String: ODAbility].self) ?? [:]
@@ -30,16 +31,7 @@ extension PersistanceProvider {
     }()
     
     static let previewContext: NSManagedObjectContext = {
-        let controller = PersistanceProvider(inMemory: true)
-        let heroes = loadSampleHero() ?? [:]
-
-        let context = controller.container.viewContext
-
-        for (heroID, heroModel) in heroes {
-            let hero = Hero(context: context)
-            hero.saveODData(context: context, openDotaHero: heroModel)
-            try? context.save()
-        }
-        return context
+        let provider = PersistanceProvider.preview
+        return provider.container.viewContext
     }()
 }
