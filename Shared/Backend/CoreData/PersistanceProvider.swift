@@ -73,6 +73,7 @@ class PersistanceProvider: PersistanceProviding {
         ArrayValueTransformer<AbilityAttribute>.registerTransformer(with: .abilityAttribute)
         ArrayValueTransformer<Role>.registerTransformer(with: .heroRole)
         ArrayValueTransformer<Talent>.registerTransformer(with: .heroTalent)
+        ArrayValueTransformer<HeroTranslation>.registerTransformer(with: .heroTranslation)
     }
 
     private func removeContainer() {
