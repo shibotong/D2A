@@ -34,7 +34,6 @@ extension Hero {
         // data from Stratz
         hero.lastFetch = Date()
         hero.id = heroID
-        hero.displayName = queryHero.displayName
         hero.name = queryHero.name
         hero.complexity = Int16(heroStats.complexity ?? 0)
         hero.visionDaytimeRange = heroStats.visionDaytimeRange ?? 1800
@@ -288,8 +287,10 @@ extension Hero {
         setIfNotEqual(entity: self, path: \.id, value: Double(openDotaHero.id))
         setIfNotEqual(entity: self, path: \.primaryAttr, value: openDotaHero.primaryAttr)
         setIfNotEqual(entity: self, path: \.attackType, value: openDotaHero.attackType)
+        setIfNotEqual(entity: self, path: \.rolesCollection, value: openDotaHero.roles)
         setIfNotEqual(entity: self, path: \.img, value: openDotaHero.img)
         setIfNotEqual(entity: self, path: \.icon, value: openDotaHero.icon)
+        setIfNotEqual(entity: self, path: \.abilities, value: openDotaHero.abilities)
 
         setIfNotEqual(entity: self, path: \.baseHealth, value: openDotaHero.baseHealth)
         setIfNotEqual(entity: self, path: \.baseHealthRegen, value: openDotaHero.baseHealthRegen)
@@ -312,6 +313,11 @@ extension Hero {
         setIfNotEqual(entity: self, path: \.attackRate, value: openDotaHero.attackRate)
         setIfNotEqual(entity: self, path: \.moveSpeed, value: openDotaHero.moveSpeed)
         setIfNotEqual(entity: self, path: \.turnRate, value: openDotaHero.turnRate ?? 0.6)
+        
+        setIfNotEqual(entity: self, path: \.visionDaytimeRange, value: Double(openDotaHero.dayVision))
+        setIfNotEqual(entity: self, path: \.visionNighttimeRange, value: Double(openDotaHero.nightVision))
+        
+        setIfNotEqual(entity: self, path: \.talents, value: openDotaHero.talents)
     }
     
     private func translation(for language: String = "en") throws -> HeroTranslation {
