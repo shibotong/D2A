@@ -13,6 +13,9 @@ struct HeroListView: View {
     @Environment(\.horizontalSizeClass)
     private var horizontalSize
     
+    @EnvironmentObject
+    var constantsController: ConstantsController
+    
     @ObservedObject
     private var viewModel: ViewModel
     
@@ -88,12 +91,16 @@ struct HeroListView: View {
 
     @ViewBuilder
     private func buildBody() -> some View {
-        if horizontalSize == .regular {
-            sectionView
-        } else if isGrid {
-            gridView
+        if viewModel.heroes.isEmpty && constantsController.isLoading {
+            ProgressView()
         } else {
-            listView
+            if horizontalSize == .regular {
+                sectionView
+            } else if isGrid {
+                gridView
+            } else {
+                listView
+            }
         }
     }
 
@@ -163,11 +170,9 @@ struct HeroListView: View {
 
 #if DEBUG
 #Preview {
-    NavigationView {
-        HeroListView(heroes: Hero.previewHeroes.sorted(by: { $0.heroNameLocalized < $1.heroNameLocalized }))
-            .environmentObject(ConstantsController.preview)
-            .environmentObject(ImageController.preview)
-            .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
-    }
+    HeroListView(heroes: Hero.previewHeroes.sorted(by: { $0.heroNameLocalized < $1.heroNameLocalized }))
+        .environmentObject(ConstantsController.preview)
+        .environmentObject(ImageController.preview)
+        .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
 }
 #endif

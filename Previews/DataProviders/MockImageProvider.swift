@@ -31,7 +31,7 @@ class MockImageProvider: ImageProviding {
         case .item:
             UIImage(named: "preview_item")!
         case .hero(let type):
-            UIImage(named: "\(type.rawValue)_antimage")!
+            UIImage(named: "antimage_\(type)")!
         case .ability:
             UIImage(named: "preview_ability")!
         }
