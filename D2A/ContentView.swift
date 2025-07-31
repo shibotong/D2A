@@ -48,7 +48,7 @@ struct NavigationHostView: View {
     @EnvironmentObject var data: ConstantsController
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
-    @FetchRequest(sortDescriptors: [])
+    @FetchRequest(entity: Hero.entity(), sortDescriptors: [])
     private var heroes: FetchedResults<Hero>
     
     private var sortedHeroes: [Hero] {
