@@ -76,7 +76,7 @@ struct HeroDetailViewV2: View {
         ScrollView(.horizontal) {
             HStack {
                 ForEach(abilities) { ability in
-                    AbilityImage(name: ability.name, urlString: ability.img)
+                    AbilityImage(name: ability.name)
                         .frame(width: 40, height: 40)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
