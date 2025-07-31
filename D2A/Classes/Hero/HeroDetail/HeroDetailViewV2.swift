@@ -143,7 +143,7 @@ struct HeroDetailViewV2: View {
     
     private var titleView: some View {
         HStack {
-            HeroImageViewV2(name: hero.name ?? "", type: .full)
+            HeroImageViewV2(name: hero.heroNameLowerCase, type: .full)
                 .frame(height: 50)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             Text(hero.heroNameLocalized)
