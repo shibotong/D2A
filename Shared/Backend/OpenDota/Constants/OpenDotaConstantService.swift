@@ -9,8 +9,8 @@ import Foundation
 
 enum OpenDotaConstantService: String, CaseIterable {
     
-//    static let baseURL = "https://raw.githubusercontent.com/odota/dotaconstants/master/build"
-    static let baseURL = "https://api.opendota.com/api/constants"
+    static let githubURL = "https://raw.githubusercontent.com/odota/dotaconstants/master/build"
+    static let openDotaURL = "https://api.opendota.com/api/constants"
     
     case abilities
     case abilityIDs = "ability_ids"
@@ -24,6 +24,19 @@ enum OpenDotaConstantService: String, CaseIterable {
     
     
     var serviceURL: String {
-        "\(Self.baseURL)/\(rawValue).json"
+        serviceURL(source: .opendota)
+    }
+    
+    private enum Source {
+        case github, opendota
+    }
+    
+    private func serviceURL(source: Source) -> String {
+        switch source {
+        case .github:
+            return "\(Self.githubURL)/\(rawValue).json"
+        case .opendota:
+            return "\(Self.openDotaURL)/\(rawValue)"
+        }
     }
 }
