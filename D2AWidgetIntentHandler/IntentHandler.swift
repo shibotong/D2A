@@ -10,13 +10,17 @@ import Intents
 
 class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
 
-    private let persistanceController = PersistanceProvider.shared
+    private let persistanceProvider: PersistanceProviding
+    
+    init(persistanceProvider: PersistanceProviding = PersistanceProvider.shared) {
+        self.persistanceProvider = persistanceProvider
+    }
 
     func provideProfileOptionsCollection(
         for intent: DynamicUserSelectionIntent,
         with completion: @escaping (INObjectCollection<Profile>?, Error?) -> Void
     ) {
-        let context = persistanceController.container.viewContext
+        let context = persistanceProvider.container.viewContext
         let fetchRequest: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
 
