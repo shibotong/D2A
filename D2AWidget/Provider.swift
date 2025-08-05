@@ -21,6 +21,8 @@ struct Provider: IntentTimelineProvider {
     private let imageProvider: ImageProviding
     private let gameDataController: GameDataController
     
+    private let userPlaceholder = D2AWidgetUserEntry(date: Date(), user: .preview, subscription: true)
+    
     init(openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared,
          persistanceProvider: PersistanceProviding = PersistanceProvider.shared,
          imageProvider: ImageProviding = ImageProvider.shared,
@@ -32,7 +34,7 @@ struct Provider: IntentTimelineProvider {
     }
 
     func placeholder(in context: Context) -> D2AWidgetUserEntry {
-        D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
+        userPlaceholder
     }
 
     func getSnapshot(
@@ -40,16 +42,12 @@ struct Provider: IntentTimelineProvider {
         completion: @escaping (D2AWidgetUserEntry) -> Void
     ) {
         let profile = firstWidgetUser()
-
         guard let profile, let userID = profile.id else {
-            let entry = D2AWidgetUserEntry(
-                date: Date(), user: D2AWidgetUser.preview, subscription: true)
-            completion(entry)
+            completion(userPlaceholder)
             return
         }
-
         // Use matches on device to load snapshot
-        let matches = RecentMatch.fetch(userID: userID, count: 10)
+        let matches = RecentMatch.fetch(userID: userID, count: 10, viewContext: viewContext)
         let userAvatar = imageProvider.localImage(type: .avatar, id: userID, fileExtension: .jpg)
 
         let user = D2AWidgetUser(profile, image: userAvatar, matches: matches)

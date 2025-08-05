@@ -172,21 +172,19 @@ struct UserTitleView: View {
     }
 }
 
-struct RecentMatchesWidgetEntryView_Previews: PreviewProvider {
+@available(iOS 17.0, *)
+#Preview(as: .systemSmall, widget: {
+    RecentMatchesWidget()
+}, timeline: {
+    let date = Date()
+    D2AWidgetUserEntry(date: date, user: .preview, subscription: true)
+})
 
-    static let supportedFamilies: [WidgetFamily] = [.systemSmall, .systemMedium]
+@available(iOS 17.0, *)
+#Preview(as: .systemMedium, widget: {
+    RecentMatchesWidget()
+}, timeline: {
+    let date = Date()
+    D2AWidgetUserEntry(date: date, user: .preview, subscription: true)
+})
 
-    static var previews: some View {
-        ForEach(supportedFamilies, id: \.rawValue) { family in
-            RecentMatchesWidgetEntryView(
-                entry: D2AWidgetUserEntry(
-                    date: Date(),
-                    user: D2AWidgetUser.preview,
-                    subscription: true)
-            )
-            //            .environment(\.widgetFamily, family)
-            .previewContext(WidgetPreviewContext(family: family))
-            .previewDisplayName(family.description)
-        }
-    }
-}

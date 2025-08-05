@@ -160,9 +160,7 @@
 		32B36F3F26C388AD002D427D /* PlayerProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F3E26C388AD002D427D /* PlayerProfileView.swift */; };
 		32B36F4A26C39242002D427D /* StringVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4926C39242002D427D /* StringVariable.swift */; };
 		32B36F4C26C39C5D002D427D /* EnvironmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F4B26C39C5D002D427D /* EnvironmentController.swift */; };
-		32B526C3285C0B380099B058 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AEA26F61836006E9B05 /* IntentHandler.swift */; };
 		32B526C4285C0B380099B058 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AEA26F61836006E9B05 /* IntentHandler.swift */; };
-		32B526C5285C0B730099B058 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AEA26F61836006E9B05 /* IntentHandler.swift */; };
 		32B526C8285C0BDE0099B058 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2F26F714FD006E9B05 /* Provider.swift */; };
 		32B526CB285C0CE40099B058 /* RecentMatchesWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526C9285C0CBF0099B058 /* RecentMatchesWidgetEntryView.swift */; };
 		32B526CD285C18440099B058 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32985DD2285569D0001869F2 /* RankView.swift */; };
@@ -181,7 +179,6 @@
 		32EC7F35286464C300A36AF6 /* WidgetOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EC7F34286464C300A36AF6 /* WidgetOverlayView.swift */; };
 		32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526D0285C1C480099B058 /* LatestMatchWidgetEntryView.swift */; };
 		32EC7F3728646BAC00A36AF6 /* WidgetOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EC7F34286464C300A36AF6 /* WidgetOverlayView.swift */; };
-		32EC7F3828646BAE00A36AF6 /* RecentMatchesWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526C9285C0CBF0099B058 /* RecentMatchesWidgetEntryView.swift */; };
 		32F6A1B026C499E3009C00E1 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F6A1AF26C499E3009C00E1 /* MatchView.swift */; };
 		32F70A9E26F57F7E006E9B05 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1606A26F4EE1500657449 /* WidgetKit.framework */; };
 		32F70A9F26F57F7E006E9B05 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1606C26F4EE1500657449 /* SwiftUI.framework */; };
@@ -201,7 +198,6 @@
 		32F70AE826F61836006E9B05 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F70AE726F61836006E9B05 /* Intents.framework */; };
 		32F70AEF26F61836006E9B05 /* D2AWidgetIntentHandler.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		32F70AFC26F61E52006E9B05 /* ODUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893526CD438700DF67F9 /* ODUserProfile.swift */; };
-		32F70B0226F621ED006E9B05 /* D2AWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AA126F57F7E006E9B05 /* D2AWidget.swift */; };
 		32F70B0326F62268006E9B05 /* RecentMatchCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893926CD456400DF67F9 /* RecentMatchCodable.swift */; };
 		32F70B0426F6226D006E9B05 /* SteamProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893726CD44FE00DF67F9 /* SteamProfile.swift */; };
 		32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70ADA26F6090A006E9B05 /* NetworkImage.swift */; };
@@ -263,6 +259,18 @@
 		79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA82A31B21D002FEF0F /* ApolloWebSocket */; };
 		79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DAA2A31B224002FEF0F /* ApolloWebSocket */; };
 		79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79368C0928E6D8ED009517D2 /* RoleView.swift */; };
+		7937FDDB2E421C2A0019145D /* heroes.json in Resources */ = {isa = PBXBuildFile; fileRef = 79AF528F2E080B1E009FE792 /* heroes.json */; };
+		7937FDDC2E421C2A0019145D /* heroes.json in Resources */ = {isa = PBXBuildFile; fileRef = 79AF528F2E080B1E009FE792 /* heroes.json */; };
+		7937FDDD2E421C2F0019145D /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 7939A67C2E344A8700FDD617 /* game_mode.json */; };
+		7937FDDE2E421C2F0019145D /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 7939A67C2E344A8700FDD617 /* game_mode.json */; };
+		7937FDDF2E421C370019145D /* abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 79AF52932E080D58009FE792 /* abilities.json */; };
+		7937FDE02E421C370019145D /* abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 79AF52932E080D58009FE792 /* abilities.json */; };
+		7937FDE12E421C3C0019145D /* hero_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 793D31812E30C6F20033B366 /* hero_abilities.json */; };
+		7937FDE22E421C3C0019145D /* hero_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 793D31812E30C6F20033B366 /* hero_abilities.json */; };
+		7937FDE32E421C410019145D /* hero_lore.json in Resources */ = {isa = PBXBuildFile; fileRef = 793D31832E30C6FB0033B366 /* hero_lore.json */; };
+		7937FDE42E421C410019145D /* hero_lore.json in Resources */ = {isa = PBXBuildFile; fileRef = 793D31832E30C6FB0033B366 /* hero_lore.json */; };
+		7937FDE52E421C610019145D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1526C38822002D427D /* Preview Assets.xcassets */; };
+		7937FDE62E421C610019145D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1526C38822002D427D /* Preview Assets.xcassets */; };
 		7939A67D2E344A8C00FDD617 /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 7939A67C2E344A8700FDD617 /* game_mode.json */; };
 		7939A6802E34534100FDD617 /* GameMode+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */; };
 		7939A6812E34534100FDD617 /* GameMode+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */; };
@@ -1923,16 +1931,21 @@
 				323ADB6C272E03E300253124 /* region.json in Resources */,
 				323ADB66272E03E300253124 /* lobby_type.json in Resources */,
 				323ADB6F272E03E300253124 /* neutral_abilities.json in Resources */,
+				7937FDDD2E421C2F0019145D /* game_mode.json in Resources */,
 				323ADB61272E03E300253124 /* patchnotes.json in Resources */,
 				323ADB68272E03E300253124 /* skillshots.json in Resources */,
 				327B876F2850DA6500BBE1F8 /* sampleHero.json in Resources */,
+				7937FDE12E421C3C0019145D /* hero_abilities.json in Resources */,
 				323ADB6D272E03E300253124 /* patch.json in Resources */,
 				323ADB5B272E03E300253124 /* ancients.json in Resources */,
 				323ADB6E272E03E300253124 /* order_types.json in Resources */,
+				7937FDDB2E421C2A0019145D /* heroes.json in Resources */,
 				323ADB59272E03E300253124 /* hero_names.json in Resources */,
+				7937FDDF2E421C370019145D /* abilities.json in Resources */,
 				323ADB64272E03E300253124 /* aghs_desc.json in Resources */,
 				323ADB6A272E03E300253124 /* xp_level.json in Resources */,
 				7977FDA229C1770B0034D3EA /* schema.graphqls in Resources */,
+				7937FDE52E421C610019145D /* Preview Assets.xcassets in Resources */,
 				323ADB5F272E03E300253124 /* items.json in Resources */,
 				323ADB58272E03E300253124 /* permanent_buffs.json in Resources */,
 				32756CC128535CA800F38B81 /* Localizable.strings in Resources */,
@@ -1949,6 +1962,7 @@
 				323ADB62272E03E300253124 /* player_colors.json in Resources */,
 				323ADB70272E03E300253124 /* chat_wheel.json in Resources */,
 				32F70ADF26F60BDA006E9B05 /* sampleProfile.json in Resources */,
+				7937FDE32E421C410019145D /* hero_lore.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1962,13 +1976,17 @@
 				323ADB9D272E03E500253124 /* region.json in Resources */,
 				327B876B2850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */,
 				323ADB90272E03E500253124 /* items.json in Resources */,
+				7937FDE42E421C410019145D /* hero_lore.json in Resources */,
 				323ADB9B272E03E500253124 /* xp_level.json in Resources */,
+				7937FDE62E421C610019145D /* Preview Assets.xcassets in Resources */,
 				323ADB97272E03E500253124 /* lobby_type.json in Resources */,
 				323ADB8D272E03E500253124 /* item_colors.json in Resources */,
 				32F70B2626F62971006E9B05 /* sampleRecentMatch.json in Resources */,
 				32756CC228535CA900F38B81 /* Localizable.strings in Resources */,
+				7937FDE02E421C370019145D /* abilities.json in Resources */,
 				323ADB99272E03E500253124 /* skillshots.json in Resources */,
 				323ADB8C272E03E500253124 /* ancients.json in Resources */,
+				7937FDDC2E421C2A0019145D /* heroes.json in Resources */,
 				323ADB95272E03E500253124 /* aghs_desc.json in Resources */,
 				323ADB8F272E03E500253124 /* countries.json in Resources */,
 				323ADBA1272E03E500253124 /* chat_wheel.json in Resources */,
@@ -1983,6 +2001,8 @@
 				323ADB91272E03E500253124 /* cluster.json in Resources */,
 				323ADB89272E03E500253124 /* permanent_buffs.json in Resources */,
 				323ADB94272E03E500253124 /* item_ids.json in Resources */,
+				7937FDDE2E421C2F0019145D /* game_mode.json in Resources */,
+				7937FDE22E421C3C0019145D /* hero_abilities.json in Resources */,
 				323ADB98272E03E500253124 /* ability_ids.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2190,7 +2210,6 @@
 				798A5CFA2945B3C300EB07B0 /* RecentMatch.swift in Sources */,
 				32B36F2D26C3885A002D427D /* Color.swift in Sources */,
 				7925E1562E39EA96002B9865 /* HeroTranslation.swift in Sources */,
-				32B526C5285C0B730099B058 /* IntentHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2265,7 +2284,6 @@
 				79EB3F862DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */,
 				79A989202931ECBB006AC847 /* Player.swift in Sources */,
 				32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */,
-				32B526C3285C0B380099B058 /* IntentHandler.swift in Sources */,
 				797C88AF2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */,
 				32A26C5528594A28005E890F /* EnvironmentController.swift in Sources */,
 				32F70ADE26F60B95006E9B05 /* ODUserProfile.swift in Sources */,
@@ -2336,7 +2354,6 @@
 				793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
 				79B870C72DC39C970090CAB8 /* NSManagedObject.swift in Sources */,
 				32B526D5285C1DBC0099B058 /* Extension.swift in Sources */,
-				32F70B0226F621ED006E9B05 /* D2AWidget.swift in Sources */,
 				32F70B1F26F6295C006E9B05 /* Color.swift in Sources */,
 				79AF52222E00347A009FE792 /* ImageExtension.swift in Sources */,
 				79B870992DC38A150090CAB8 /* StratzController.swift in Sources */,
@@ -2370,7 +2387,6 @@
 				79EB3F882DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */,
 				79A989212931ECBB006AC847 /* Player.swift in Sources */,
 				32B526C4285C0B380099B058 /* IntentHandler.swift in Sources */,
-				32EC7F3828646BAE00A36AF6 /* RecentMatchesWidgetEntryView.swift in Sources */,
 				797C88AE2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */,
 				32A26C5628594A28005E890F /* EnvironmentController.swift in Sources */,
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
