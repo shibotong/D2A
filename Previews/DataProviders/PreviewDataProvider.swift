@@ -16,7 +16,10 @@ class PreviewDataProvider {
     }
     
     private func loadFile<T: Decodable>(filename: String, as type: T.Type) -> T? {
-        let path = Bundle.main.url(forResource: filename, withExtension: "json")!
+        guard let path = Bundle.main.url(forResource: filename, withExtension: "json") else {
+            assertionFailure("Not able to find file \(filename).json")
+            return nil
+        }
         let data = try! Data(contentsOf: path)
         let decoder = JSONDecoder()
         let jsonData = try! decoder.decode(T.self, from: data)
