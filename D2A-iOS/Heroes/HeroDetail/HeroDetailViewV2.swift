@@ -73,7 +73,7 @@ struct HeroDetailViewV2: View {
     }
     
     private var abilitiesView: some View {
-        ScrollView(.horizontal) {
+        ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(abilities) { ability in
                     AbilityImage(name: ability.name)
