@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-enum HeroImageType: String {
-    case icon, full, vert
-}
-
 struct HeroImageView: View {
     @EnvironmentObject var imageController: ImageController
     @Environment(\.managedObjectContext) var viewContext

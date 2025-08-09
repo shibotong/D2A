@@ -99,8 +99,6 @@
 		3261C907282F315100D47CDA /* HeroDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261C906282F315100D47CDA /* HeroDetailView.swift */; };
 		3261C90B2830721500D47CDA /* HeroDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */; };
 		3261C90D2830748600D47CDA /* sampleHero.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90C2830748600D47CDA /* sampleHero.json */; };
-		3270271B285C088300927426 /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */; };
-		3270271C285C088300927426 /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */; };
 		3270271D285C08C200927426 /* ConstantsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* ConstantsController.swift */; };
 		3270271E285C08C300927426 /* ConstantsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* ConstantsController.swift */; };
 		32756CC128535CA800F38B81 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3251C8F126F97C9500C826BD /* Localizable.strings */; };
@@ -264,6 +262,9 @@
 		7937FDE72E421DF50019145D /* Ability+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790349872E3528CA00EF4CFB /* Ability+Preview.swift */; };
 		7937FDE82E421DFE0019145D /* Hero+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */; };
 		7937FF212E45F5210019145D /* DataHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7937FF202E45F5210019145D /* DataHelperTests.swift */; };
+		7937FF292E47058B0019145D /* HeroImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7937FF282E4705890019145D /* HeroImageType.swift */; };
+		7937FF2A2E47058B0019145D /* HeroImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7937FF282E4705890019145D /* HeroImageType.swift */; };
+		7937FF2B2E47058B0019145D /* HeroImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7937FF282E4705890019145D /* HeroImageType.swift */; };
 		7939A67D2E344A8C00FDD617 /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 7939A67C2E344A8700FDD617 /* game_mode.json */; };
 		7939A6802E34534100FDD617 /* GameMode+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */; };
 		793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
@@ -283,8 +284,6 @@
 		794838672A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838642A3D2C0800A447DA /* LiveMatchActivity.swift */; };
 		794838692A3D391200A447DA /* LiveMatchTeamIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838682A3D391200A447DA /* LiveMatchTeamIconViewModel.swift */; };
 		794B723D2985D2C9000059E4 /* RecentMatchWinLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794B723C2985D2C9000059E4 /* RecentMatchWinLossView.swift */; };
-		794B723E2985D410000059E4 /* RecentMatchWinLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794B723C2985D2C9000059E4 /* RecentMatchWinLossView.swift */; };
-		794B723F2985D411000059E4 /* RecentMatchWinLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794B723C2985D2C9000059E4 /* RecentMatchWinLossView.swift */; };
 		794B724329862294000059E4 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794B724229862294000059E4 /* ItemView.swift */; };
 		795860412A335D69006DDA21 /* LiveMatchMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795860402A335D69006DDA21 /* LiveMatchMapView.swift */; };
 		79645CC32A39D1610004EF50 /* LiveMatchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79645CC22A39D1610004EF50 /* LiveMatchListView.swift */; };
@@ -691,6 +690,7 @@
 		7930699B2B5D323100A5CF5D /* DataLoadingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataLoadingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79368C0928E6D8ED009517D2 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
 		7937FF202E45F5210019145D /* DataHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHelperTests.swift; sourceTree = "<group>"; };
+		7937FF282E4705890019145D /* HeroImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageType.swift; sourceTree = "<group>"; };
 		7939A67C2E344A8700FDD617 /* game_mode.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = game_mode.json; sourceTree = "<group>"; };
 		7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameMode+Preview.swift"; sourceTree = "<group>"; };
 		793CD5272E35019E00FEA46B /* MockImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageProvider.swift; sourceTree = "<group>"; };
@@ -917,7 +917,7 @@
 				79CF37602DC0F92E00207CB8 /* Debug */,
 				32B36F2B26C3885A002D427D /* Extensions */,
 				79B1630028DD59FC009B2AE2 /* GraphQL */,
-				3251C8F126F97C9500C826BD /* Localizable.strings */,
+				79C5380A2DCB76B200B5920A /* Hero */,
 				32B36F2226C38852002D427D /* Model */,
 				79B870BD2DC394D30090CAB8 /* Network */,
 				79D187302E16204C00C04CC8 /* Notification */,
@@ -926,7 +926,6 @@
 				79AF52862E02A618009FE792 /* Version Control */,
 				32B36F0E26C38821002D427D /* D2AApp.swift */,
 				79D1873E2E16411600C04CC8 /* D2AAppDelegate.swift */,
-				79C5380A2DCB76B200B5920A /* Hero */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1304,8 +1303,16 @@
 			children = (
 				3214C0D126F0E1AF00C377EF /* privacy-policy.md */,
 				3214C0D326F0E44500C377EF /* terms-of-use.md */,
+				3251C8F126F97C9500C826BD /* Localizable.strings */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		7937FF2C2E4706000019145D /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Widget;
 			sourceTree = "<group>";
 		};
 		7939A6792E344A0200FDD617 /* EnvironmentControllers */ = {
@@ -1353,6 +1360,7 @@
 		797C88B72DCB74E100D4CDD1 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				7937FF2C2E4706000019145D /* Widget */,
 				7939A67B2E344A3100FDD617 /* CoreData */,
 				7939A67A2E344A1800FDD617 /* DataProviders */,
 				7939A6792E344A0200FDD617 /* EnvironmentControllers */,
@@ -1544,6 +1552,7 @@
 				797C88B42DCB5EFE00D4CDD1 /* HeroDetail */,
 				79AF52842E015B5A009FE792 /* HeroRowView.swift */,
 				79D1871A2E0D64CA00C04CC8 /* HeroAttribute.swift */,
+				7937FF282E4705890019145D /* HeroImageType.swift */,
 				79368C0928E6D8ED009517D2 /* RoleView.swift */,
 			);
 			path = Hero;
@@ -2164,6 +2173,7 @@
 				32985DD3285569D0001869F2 /* RankView.swift in Sources */,
 				7903498C2E3529E500EF4CFB /* Ability+Preview.swift in Sources */,
 				79CF37632DC0F93600207CB8 /* D2ALogger.swift in Sources */,
+				7937FF2B2E47058B0019145D /* HeroImageType.swift in Sources */,
 				32B36F2926C38852002D427D /* MatchCodable.swift in Sources */,
 				32D1605A26F304DC00657449 /* StoreView.swift in Sources */,
 				794B724329862294000059E4 /* ItemView.swift in Sources */,
@@ -2205,7 +2215,6 @@
 				79D187462E1E573A00C04CC8 /* GameDataController.swift in Sources */,
 				794838662A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				327B8761284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
-				3270271B285C088300927426 /* HeroImageView.swift in Sources */,
 				32F70AAC26F58006006E9B05 /* RecentMatchCodable.swift in Sources */,
 				32F70B1B26F6295B006E9B05 /* Int.swift in Sources */,
 				79A989172931E8F3006AC847 /* Talent.swift in Sources */,
@@ -2231,6 +2240,7 @@
 				32079DC028B843360056D19F /* String.swift in Sources */,
 				792540682E30CE4B00201CF1 /* ImageController+Preview.swift in Sources */,
 				793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
+				7937FF292E47058B0019145D /* HeroImageType.swift in Sources */,
 				79B870C82DC39C970090CAB8 /* NSManagedObject.swift in Sources */,
 				327B87732850DA7800BBE1F8 /* ODAbility.swift in Sources */,
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
@@ -2262,7 +2272,6 @@
 				79AF521D2E00341D009FE792 /* ImageController.swift in Sources */,
 				32F70AB526F5812B006E9B05 /* LobbyType.swift in Sources */,
 				79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */,
-				794B723E2985D410000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				7937FDE72E421DF50019145D /* Ability+Preview.swift in Sources */,
 				79D1871C2E0D667B00C04CC8 /* HeroAttribute.swift in Sources */,
 				79EB3F862DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */,
@@ -2307,7 +2316,6 @@
 			files = (
 				32F70B0426F6226D006E9B05 /* SteamProfile.swift in Sources */,
 				327B8762284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
-				3270271C285C088300927426 /* HeroImageView.swift in Sources */,
 				79D187482E1E573A00C04CC8 /* GameDataController.swift in Sources */,
 				794838672A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				32B526CE285C18450099B058 /* RankView.swift in Sources */,
@@ -2315,6 +2323,7 @@
 				79A989112931E8F3006AC847 /* UserProfile.swift in Sources */,
 				32F70B2226F6295C006E9B05 /* CodingKey.swift in Sources */,
 				32F70B1126F622C5006E9B05 /* ODHero.swift in Sources */,
+				7937FF2A2E47058B0019145D /* HeroImageType.swift in Sources */,
 				32F70B0F26F622C0006E9B05 /* LobbyType.swift in Sources */,
 				797C88B12DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */,
 				32F70B1026F622C2006E9B05 /* GameMode.swift in Sources */,
@@ -2360,7 +2369,6 @@
 				32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */,
 				79AF521E2E00341D009FE792 /* ImageController.swift in Sources */,
 				32F70AFC26F61E52006E9B05 /* ODUserProfile.swift in Sources */,
-				794B723F2985D411000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				79D1871D2E0D667B00C04CC8 /* HeroAttribute.swift in Sources */,
 				79EB3F882DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */,
 				79A989212931ECBB006AC847 /* Player.swift in Sources */,
@@ -2717,7 +2725,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = D2AWidget/D2AWidgetExtensionDebug.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "D2A-Widget/D2AWidgetExtensionDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
@@ -2744,7 +2752,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = D2AWidget/D2AWidgetExtensionRelease.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "D2A-Widget/D2AWidgetExtensionRelease.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
@@ -2769,7 +2777,7 @@
 		32F70AF126F61836006E9B05 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = D2AWidgetIntentHandler/D2AWidgetIntentHandlerDebug.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "D2A-WidgetIntentHandler/D2AWidgetIntentHandlerDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MRB66268H7;
@@ -2793,7 +2801,7 @@
 		32F70AF226F61836006E9B05 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = D2AWidgetIntentHandler/D2AWidgetIntentHandlerRelease.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "D2A-WidgetIntentHandler/D2AWidgetIntentHandlerRelease.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MRB66268H7;
