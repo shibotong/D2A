@@ -456,7 +456,6 @@
 		79E01CAB291E35320073BF68 /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
 		79E41BC02E35FADA00AF520F /* HeroDetailViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E41BBF2E35FAD600AF520F /* HeroDetailViewV2.swift */; };
 		79E41BC82E360FDA00AF520F /* HeroDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */; };
-		79E4AED02DCB79EA008BBF6D /* D2ANavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E4AECF2DCB79CD008BBF6D /* D2ANavigationStack.swift */; };
 		79E89A2A2DF6AE7B00497B5D /* ODGameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A292DF6AE7B00497B5D /* ODGameMode.swift */; };
 		79E89A2B2DF6AE7B00497B5D /* ODGameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A292DF6AE7B00497B5D /* ODGameMode.swift */; };
 		79E89A2C2DF6AE7B00497B5D /* ODGameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A292DF6AE7B00497B5D /* ODGameMode.swift */; };
@@ -796,7 +795,6 @@
 		79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchPlayerView.swift; sourceTree = "<group>"; };
 		79E41BBF2E35FAD600AF520F /* HeroDetailViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewV2.swift; sourceTree = "<group>"; };
 		79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailRow.swift; sourceTree = "<group>"; };
-		79E4AECF2DCB79CD008BBF6D /* D2ANavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ANavigationStack.swift; sourceTree = "<group>"; };
 		79E89A292DF6AE7B00497B5D /* ODGameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODGameMode.swift; sourceTree = "<group>"; };
 		79E89A2D2DF6AFE100497B5D /* Backend 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 2.xcdatamodel"; sourceTree = "<group>"; };
 		79EB3EF22DC4B0B4008C4F6D /* ODAbility+Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ODAbility+Attribute.swift"; sourceTree = "<group>"; };
@@ -1093,7 +1091,6 @@
 		32B36F3D26C38894002D427D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				79E4AECF2DCB79CD008BBF6D /* D2ANavigationStack.swift */,
 				32EC7F3C2864748200A36AF6 /* AboutUsView */,
 				32EC7F3D286474C600A36AF6 /* HomeView */,
 				79266DA52A31B0D7002FEF0F /* LiveMatchView */,
@@ -2042,7 +2039,6 @@
 				79F5B5D428E3B8D900FB67E5 /* PersistanceProvider.swift in Sources */,
 				797C88B32DCB5B8D00D4CDD1 /* NotificationCenter.swift in Sources */,
 				32B36F4A26C39242002D427D /* StringVariable.swift in Sources */,
-				79E4AED02DCB79EA008BBF6D /* D2ANavigationStack.swift in Sources */,
 				7985E7EB28E53919007A43AF /* Hero.swift in Sources */,
 				79AF528A2E02A639009FE792 /* OnChange.swift in Sources */,
 				798A5CF82945503100EB07B0 /* ProfileAvatar.swift in Sources */,

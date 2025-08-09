@@ -58,7 +58,7 @@ struct NavigationHostView: View {
     var body: some View {
         if horizontalSizeClass == .compact {
             TabView(selection: $env.selectedTab) {
-                D2ANavigationStack {
+                NavigationStack {
                     HomeView()
                 }
                 .tabItem {
@@ -67,7 +67,7 @@ struct NavigationHostView: View {
                 }
                 .tag(TabSelection.home)
 
-                D2ANavigationStack {
+                NavigationStack {
                     HeroListView(heroes: sortedHeroes)
                 }
                 .tabItem {
@@ -76,7 +76,7 @@ struct NavigationHostView: View {
                 }
                 .tag(TabSelection.hero)
 
-                D2ANavigationStack {
+                NavigationStack {
                     LiveMatchListView()
                 }
                 .tabItem {
@@ -85,7 +85,7 @@ struct NavigationHostView: View {
                 }
                 .tag(TabSelection.live)
 
-                D2ANavigationStack {
+                NavigationStack {
                     SearchView()
                 }
                 .tabItem {
@@ -94,7 +94,7 @@ struct NavigationHostView: View {
                 }
                 .tag(TabSelection.search)
 
-                D2ANavigationStack {
+                NavigationStack {
                     AboutUsView()
                 }
                 .tabItem {
@@ -104,10 +104,12 @@ struct NavigationHostView: View {
                 .tag(TabSelection.setting)
             }
         } else {
-            D2ANavigationSplitView {
+            NavigationSplitView {
                 Sidebar(heroes: sortedHeroes)
             } detail: {
-                HomeView()
+                NavigationStack {
+                    HomeView()
+                }
             }
 
         }
