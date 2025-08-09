@@ -255,7 +255,6 @@
 		79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA82A31B21D002FEF0F /* ApolloWebSocket */; };
 		79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DAA2A31B224002FEF0F /* ApolloWebSocket */; };
 		79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79368C0928E6D8ED009517D2 /* RoleView.swift */; };
-		7937FF212E45F5210019145D /* DataHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7937FF202E45F5210019145D /* DataHelperTests.swift */; };
 		7937FDDB2E421C2A0019145D /* heroes.json in Resources */ = {isa = PBXBuildFile; fileRef = 79AF528F2E080B1E009FE792 /* heroes.json */; };
 		7937FDDD2E421C2F0019145D /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 7939A67C2E344A8700FDD617 /* game_mode.json */; };
 		7937FDDF2E421C370019145D /* abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 79AF52932E080D58009FE792 /* abilities.json */; };
@@ -264,6 +263,7 @@
 		7937FDE52E421C610019145D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1526C38822002D427D /* Preview Assets.xcassets */; };
 		7937FDE72E421DF50019145D /* Ability+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790349872E3528CA00EF4CFB /* Ability+Preview.swift */; };
 		7937FDE82E421DFE0019145D /* Hero+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */; };
+		7937FF212E45F5210019145D /* DataHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7937FF202E45F5210019145D /* DataHelperTests.swift */; };
 		7939A67D2E344A8C00FDD617 /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 7939A67C2E344A8700FDD617 /* game_mode.json */; };
 		7939A6802E34534100FDD617 /* GameMode+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */; };
 		793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
@@ -275,7 +275,6 @@
 		793CD53A2E3509F300FEA46B /* FileImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD5372E3509F300FEA46B /* FileImageProvider.swift */; };
 		793CD53C2E3516F100FEA46B /* HeroImageViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD53B2E3516ED00FEA46B /* HeroImageViewV2.swift */; };
 		793CD53D2E351A2B00FEA46B /* HeroImageViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD53B2E3516ED00FEA46B /* HeroImageViewV2.swift */; };
-		793CD53E2E351A2B00FEA46B /* HeroImageViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CD53B2E3516ED00FEA46B /* HeroImageViewV2.swift */; };
 		793D31822E30C6F20033B366 /* hero_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 793D31812E30C6F20033B366 /* hero_abilities.json */; };
 		793D31842E30C6FB0033B366 /* hero_lore.json in Resources */ = {isa = PBXBuildFile; fileRef = 793D31832E30C6FB0033B366 /* hero_lore.json */; };
 		7942FD0E2B706B85008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
@@ -454,7 +453,6 @@
 		79DEA8432A36A3060009A414 /* PlayerRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */; };
 		79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */; };
 		79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
-		79E01CA9291E351B0073BF68 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
 		79E01CAA291E35320073BF68 /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
 		79E01CAB291E35320073BF68 /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
 		79E41BC02E35FADA00AF520F /* HeroDetailViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E41BBF2E35FAD600AF520F /* HeroDetailViewV2.swift */; };
@@ -2337,7 +2335,6 @@
 				79AF52982E080E56009FE792 /* OpenDotaConstantFetcher.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,
 				79EB3F042DC6EE86008C4F6D /* NSValueTransformerName.swift in Sources */,
-				793CD53E2E351A2B00FEA46B /* HeroImageViewV2.swift in Sources */,
 				32A26C52285947D4005E890F /* OpenDotaProvider.swift in Sources */,
 				32079DC128B843360056D19F /* String.swift in Sources */,
 				799948C22932D50000D79055 /* ImageProvider.swift in Sources */,
@@ -2371,7 +2368,6 @@
 				32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */,
 				79AF521E2E00341D009FE792 /* ImageController.swift in Sources */,
 				32F70AFC26F61E52006E9B05 /* ODUserProfile.swift in Sources */,
-				79E01CA9291E351B0073BF68 /* MatchListRowView.swift in Sources */,
 				794B723F2985D411000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				79D1871D2E0D667B00C04CC8 /* HeroAttribute.swift in Sources */,
 				79EB3F882DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */,
