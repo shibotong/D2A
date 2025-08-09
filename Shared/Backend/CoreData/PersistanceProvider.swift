@@ -31,6 +31,7 @@ class PersistanceProvider: PersistanceProviding {
     static let shared = PersistanceProvider()
 
     private var remoteChangeCancellable: AnyCancellable?
+    private var backgroundChangeCancellable: AnyCancellable?
     let container: NSPersistentContainer
 
     /// A peristent history token used for fetching transactions from the store.
@@ -246,7 +247,7 @@ class PersistanceProvider: PersistanceProviding {
     }
     
     func saveODData<T: NSManagedObject>(data: [PersistanceModel], type: T.Type, mainContext: Bool) {
-        let context = mainContext ? container.viewContext : container.newBackgroundContext()
+        let context = mainContext ? container.viewContext : makeContext(author: "ODData")
         if mainContext {
             updateData(data: data, context: context)
             return

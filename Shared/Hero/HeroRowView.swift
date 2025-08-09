@@ -15,18 +15,13 @@ struct HeroRowView: View {
     var isGrid: Bool
     
     var body: some View {
-        NavigationLink(
-            destination: HeroDetailViewV2(hero: hero)
-        ) {
-            HeroRowView(hero: hero, isGrid: isGrid)
-            Group {
-                if horizontalSizeClass == .regular {
-                    vertical
-                } else if isGrid {
-                    gridView
-                } else {
-                    list
-                }
+        Group {
+            if horizontalSizeClass == .regular {
+                vertical
+            } else if isGrid {
+                gridView
+            } else {
+                list
             }
         }
     }

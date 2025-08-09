@@ -294,6 +294,7 @@ extension Hero {
 
     func saveODData(context: NSManagedObjectContext, openDotaHero: ODHero) {
         setIfNotEqual(entity: self, path: \.id, value: Double(openDotaHero.id))
+        setIfNotEqual(entity: self, path: \.name, value: openDotaHero.name)
         setIfNotEqual(entity: self, path: \.primaryAttr, value: openDotaHero.primaryAttr)
         setIfNotEqual(entity: self, path: \.attackType, value: openDotaHero.attackType)
         setIfNotEqual(entity: self, path: \.rolesCollection, value: openDotaHero.roles)
