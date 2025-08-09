@@ -192,7 +192,7 @@ struct HeroDetailView: View {
                         destination: AbilityView(
                             viewModel: AbilityViewModel(heroID: vm.heroID, ability: ability))
                     ) {
-                        AbilityImage(name: ability.name, urlString: ability.imageURL)
+                        AbilityImage(name: ability.name)
                             .frame(width: 30, height: 30)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .accessibilityIdentifier(ability.name ?? "")
@@ -201,7 +201,7 @@ struct HeroDetailView: View {
                     Button {
                         vm.selectedAbility = ability
                     } label: {
-                        AbilityImage(name: ability.name, urlString: ability.imageURL)
+                        AbilityImage(name: ability.name)
                         .frame(width: 30, height: 30)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                     }.accessibilityIdentifier(ability.name ?? "")

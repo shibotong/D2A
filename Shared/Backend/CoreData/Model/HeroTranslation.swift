@@ -43,4 +43,8 @@ public class HeroTranslation: NSObject, NSSecureCoding {
         }
         self.init(language: localised, displayName: displayName, lore: lore)
     }
+    
+    static func == (lhs: HeroTranslation, rhs: HeroTranslation) -> Bool {
+        return lhs.language == rhs.language && lhs.displayName == rhs.displayName && lhs.lore == rhs.lore
+    }
 }

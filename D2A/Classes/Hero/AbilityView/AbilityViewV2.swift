@@ -41,7 +41,7 @@ struct AbilityViewV2: View {
     
     private var titleView: some View {
         HStack {
-            AbilityImage(name: ability.name, urlString: ability.img)
+            AbilityImage(name: ability.name)
                 .frame(width: 30, height: 30)
             Text(ability.displayName ?? "")
         }

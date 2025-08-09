@@ -76,7 +76,7 @@ struct HeroDetailViewV2: View {
         ScrollView(.horizontal) {
             HStack {
                 ForEach(abilities) { ability in
-                    AbilityImage(name: ability.name, urlString: ability.img)
+                    AbilityImage(name: ability.name)
                         .frame(width: 40, height: 40)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
@@ -143,7 +143,7 @@ struct HeroDetailViewV2: View {
     
     private var titleView: some View {
         HStack {
-            HeroImageViewV2(name: hero.name ?? "", type: .full)
+            HeroImageViewV2(name: hero.heroNameLowerCase, type: .full)
                 .frame(height: 50)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             Text(hero.heroNameLocalized)

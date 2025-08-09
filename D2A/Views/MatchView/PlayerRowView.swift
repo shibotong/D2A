@@ -250,7 +250,7 @@ struct PlayerRowView: View {
                     let parsedimgURL = img.replacingOccurrences(of: "_md", with: "")
                         .replacingOccurrences(
                             of: "images/abilities", with: "images/dota_react/abilities")
-                    AbilityImage(name: abilityName, urlString: "\(IMAGE_PREFIX)\(parsedimgURL)")
+                    AbilityImage(name: abilityName)
                     .frame(width: 40, height: 40)
                 } else {
                     // no image

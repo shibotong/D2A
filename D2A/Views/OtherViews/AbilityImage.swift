@@ -14,13 +14,17 @@ struct AbilityImage: View {
     @State private var image: UIImage?
     
     private let name: String?
-    private let urlString: String?
     
-    init(name: String?, urlString: String?) {
+    init(name: String?) {
         self.name = name
-        self.urlString = urlString
     }
 
+    private var fullURL: String {
+        guard let name else {
+            return ""
+        }
+        return "https://cdn.steamstatic.com/apps/dota2/images/dota_react/abilities/\(name).png"
+    }
     var body: some View {
         ZStack {
             if let image {
@@ -40,16 +44,16 @@ struct AbilityImage: View {
     
     @MainActor
     private func loadImage() async {
-        guard let name, let urlString else {
+        guard let name else {
             return
         }
-        try? await imageController.refreshImage(type: .ability, id: name, url: urlString) { image in
+        try? await imageController.refreshImage(type: .ability, id: name, url: fullURL) { image in
             self.image = image
         }
     }
 }
 
 #Preview {
-    AbilityImage(name: "Acid Spray", urlString: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_acid_spray.png")
+    AbilityImage(name: "Acid Spray")
         .environmentObject(ImageController.preview)
 }
