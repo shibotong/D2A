@@ -12,9 +12,9 @@ import SwiftUI
 let GROUP_NAME = "group.D2A"
 let IMAGE_PREFIX = "https://cdn.cloudflare.steamstatic.com"
 let PRIVACY_POLICY =
-    "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/privacy-policy.md"
+    "https://github.com/shibotong/Dota2Armory/blob/main/Resources/privacy-policy.md"
 let TERMS_OF_USE =
-    "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/terms-of-use.md"
+    "https://github.com/shibotong/Dota2Armory/blob/main/Resources/terms-of-use.md"
 
 private let currentLanguage: String = {
     if #available(iOS 16.0, *) {

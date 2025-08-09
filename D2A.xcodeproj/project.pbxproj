@@ -871,15 +871,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3214C0D026F0E19A00C377EF /* Documents */ = {
-			isa = PBXGroup;
-			children = (
-				3214C0D126F0E1AF00C377EF /* privacy-policy.md */,
-				3214C0D326F0E44500C377EF /* terms-of-use.md */,
-			);
-			path = Documents;
-			sourceTree = "<group>";
-		};
 		321D585326D22FE90059526B /* staticdata */ = {
 			isa = PBXGroup;
 			children = (
@@ -924,7 +915,6 @@
 				32B36F1226C38822002D427D /* Assets.xcassets */,
 				32B36F1D26C38834002D427D /* Backend */,
 				79CF37602DC0F92E00207CB8 /* Debug */,
-				3214C0D026F0E19A00C377EF /* Documents */,
 				32B36F2B26C3885A002D427D /* Extensions */,
 				79B1630028DD59FC009B2AE2 /* GraphQL */,
 				3251C8F126F97C9500C826BD /* Localizable.strings */,
@@ -936,6 +926,7 @@
 				79AF52862E02A618009FE792 /* Version Control */,
 				32B36F0E26C38821002D427D /* D2AApp.swift */,
 				79D1873E2E16411600C04CC8 /* D2AAppDelegate.swift */,
+				79C5380A2DCB76B200B5920A /* Hero */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -996,7 +987,8 @@
 				32B36F0D26C38821002D427D /* D2A */,
 				32F70AA026F57F7E006E9B05 /* D2AWidget */,
 				32F70AE926F61836006E9B05 /* D2AWidgetIntentHandler */,
-				797C88B72DCB74E100D4CDD1 /* Previews */,
+				797C88B72DCB74E100D4CDD1 /* Preview Content */,
+				7937FF262E4704020019145D /* Resources */,
 				3266081C27CED53C00D9A204 /* Shared */,
 				3289579A27F6609B00BA9847 /* Unit Tests */,
 				79CF637A29C40B700072F4C0 /* UI Tests */,
@@ -1030,7 +1022,6 @@
 				32B36F1726C38822002D427D /* Info.plist */,
 				32B36F1426C38822002D427D /* Preview Content */,
 				32AEEEF826F9B1120088DEC8 /* LocalizableStrings.swift */,
-				79C538082DCB76A200B5920A /* Classes */,
 			);
 			path = D2A;
 			sourceTree = "<group>";
@@ -1308,6 +1299,15 @@
 			path = Uitility;
 			sourceTree = "<group>";
 		};
+		7937FF262E4704020019145D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3214C0D126F0E1AF00C377EF /* privacy-policy.md */,
+				3214C0D326F0E44500C377EF /* terms-of-use.md */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		7939A6792E344A0200FDD617 /* EnvironmentControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1350,7 +1350,7 @@
 			path = HeroDetail;
 			sourceTree = "<group>";
 		};
-		797C88B72DCB74E100D4CDD1 /* Previews */ = {
+		797C88B72DCB74E100D4CDD1 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
 				7939A67B2E344A3100FDD617 /* CoreData */,
@@ -1359,7 +1359,7 @@
 				798E0FDF2E2CFD660066D7E1 /* Preview Data */,
 				32B36F1526C38822002D427D /* Preview Assets.xcassets */,
 			);
-			path = Previews;
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		7983DA6E2B63085C00C42F87 /* Model */ = {
@@ -1534,14 +1534,6 @@
 				798E0FF32E2F7D9F0066D7E1 /* ODScepter.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		79C538082DCB76A200B5920A /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				79C5380A2DCB76B200B5920A /* Hero */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		79C5380A2DCB76B200B5920A /* Hero */ = {
