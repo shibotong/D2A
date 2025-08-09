@@ -985,8 +985,8 @@
 				32C606CB286479F7007AD14B /* ci_scripts */,
 				327C03432717AE8500DAEC42 /* README.md */,
 				32B36F0D26C38821002D427D /* D2A-iOS */,
-				32F70AA026F57F7E006E9B05 /* D2AWidget */,
-				32F70AE926F61836006E9B05 /* D2AWidgetIntentHandler */,
+				32F70AA026F57F7E006E9B05 /* D2A-Widget */,
+				32F70AE926F61836006E9B05 /* D2A-WidgetIntentHandler */,
 				797C88B72DCB74E100D4CDD1 /* Preview Content */,
 				7937FF262E4704020019145D /* Resources */,
 				3266081C27CED53C00D9A204 /* Shared */,
@@ -1186,7 +1186,7 @@
 			path = OtherViews;
 			sourceTree = "<group>";
 		};
-		32F70AA026F57F7E006E9B05 /* D2AWidget */ = {
+		32F70AA026F57F7E006E9B05 /* D2A-Widget */ = {
 			isa = PBXGroup;
 			children = (
 				79091DF02A3B2D020093EEE4 /* LiveActivities */,
@@ -1203,7 +1203,7 @@
 				32F70AA326F57F7E006E9B05 /* Assets.xcassets */,
 				32F70AA526F57F7E006E9B05 /* Info.plist */,
 			);
-			path = D2AWidget;
+			path = "D2A-Widget";
 			sourceTree = "<group>";
 		};
 		32F70AB626F58154006E9B05 /* resources */ = {
@@ -1216,7 +1216,7 @@
 			path = resources;
 			sourceTree = "<group>";
 		};
-		32F70AE926F61836006E9B05 /* D2AWidgetIntentHandler */ = {
+		32F70AE926F61836006E9B05 /* D2A-WidgetIntentHandler */ = {
 			isa = PBXGroup;
 			children = (
 				32F70B3926F80AE4006E9B05 /* D2AWidgetIntentHandlerRelease.entitlements */,
@@ -1224,7 +1224,7 @@
 				32F70AEA26F61836006E9B05 /* IntentHandler.swift */,
 				32F70AEC26F61836006E9B05 /* Info.plist */,
 			);
-			path = D2AWidgetIntentHandler;
+			path = "D2A-WidgetIntentHandler";
 			sourceTree = "<group>";
 		};
 		78E76DAB4BB6331DA85B70C0 /* Frameworks */ = {
