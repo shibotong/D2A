@@ -277,7 +277,15 @@ struct HeroDetailViewV2: View {
         guard let abilityNames = hero.abilities else {
             return []
         }
-        return abilityNames.compactMap { Ability.fetchByName(name: $0, context: context) }
+        var abilities = abilityNames.compactMap { Ability.fetchByName(name: $0, context: context)
+        }
+        
+        let innateIndex = abilities.firstIndex(where: { $0.isInnate })
+        if let innateIndex {
+            let innate = abilities.remove(at: innateIndex)
+            abilities.insert(innate, at: 0)
+        }
+        return abilities
     }
     
     private func fetchTalent(for name: String) -> Ability? {
