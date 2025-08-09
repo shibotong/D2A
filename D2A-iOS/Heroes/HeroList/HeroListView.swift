@@ -101,9 +101,7 @@ struct HeroListView: View {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading),
                                      count: 1)) {
                 ForEach(heroes) { hero in
-                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: Int(hero.id)))) {
-                        HeroRowView(hero: hero, isGrid: isGrid)
-                    }
+                    buildHeroRow(hero: hero)
                 }
             }
         } header: {
@@ -139,22 +137,22 @@ struct HeroListView: View {
                     count: 1)
             ) {
                 ForEach(heroes) { hero in
-                    NavigationLink(
-                        destination: HeroDetailViewV2(hero: hero)
-                    ) {
-                        HeroRowView(hero: hero, isGrid: isGrid)
-
-                    }
+                    buildHeroRow(hero: hero)
                 }
             }
         } else {
             ForEach(heroes) { hero in
-                NavigationLink(
-                    destination: HeroDetailView(vm: HeroDetailViewModel(heroID: Int(hero.id)))
-                ) {
-                    HeroRowView(hero: hero, isGrid: isGrid)
-                }
+                buildHeroRow(hero: hero)
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func buildHeroRow(hero: Hero) -> some View {
+        NavigationLink(
+            destination: HeroDetailViewV2(hero: hero)
+        ) {
+            HeroRowView(hero: hero, isGrid: isGrid)
         }
     }
 }
