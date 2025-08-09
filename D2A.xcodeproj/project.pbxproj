@@ -984,7 +984,7 @@
 				79A989262931FA50006AC847 /* D2AProStore.storekit */,
 				32C606CB286479F7007AD14B /* ci_scripts */,
 				327C03432717AE8500DAEC42 /* README.md */,
-				32B36F0D26C38821002D427D /* D2A */,
+				32B36F0D26C38821002D427D /* D2A-iOS */,
 				32F70AA026F57F7E006E9B05 /* D2AWidget */,
 				32F70AE926F61836006E9B05 /* D2AWidgetIntentHandler */,
 				797C88B72DCB74E100D4CDD1 /* Preview Content */,
@@ -1011,7 +1011,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		32B36F0D26C38821002D427D /* D2A */ = {
+		32B36F0D26C38821002D427D /* D2A-iOS */ = {
 			isa = PBXGroup;
 			children = (
 				32F70B3726F80AD3006E9B05 /* D2ARelease.entitlements */,
@@ -1023,7 +1023,7 @@
 				32B36F1426C38822002D427D /* Preview Content */,
 				32AEEEF826F9B1120088DEC8 /* LocalizableStrings.swift */,
 			);
-			path = D2A;
+			path = "D2A-iOS";
 			sourceTree = "<group>";
 		};
 		32B36F1426C38822002D427D /* Preview Content */ = {
