@@ -11,6 +11,8 @@ import StratzAPI
 import SwiftUI
 
 class ConstantsController: ObservableObject {
+    
+    @Published var isLoading = false
 
     private var heroes = [String: ODHero]()
     private var lobbyTypes = [String: LobbyType]()
@@ -234,12 +236,15 @@ class ConstantsController: ObservableObject {
     }
 
     // MARK: - Save Constant Data
+    @MainActor
     private func loadConstantData() async {
+        isLoading = true
         async let loadHeroes: Void = await loadODHeroes()
         async let loadAbilities: Void = await loadODAbilities()
         async let loadGameModes: Void = await loadODGameModes()
         
         _ = await [loadHeroes, loadAbilities, loadGameModes]
+        isLoading = false
     }
     
     private func loadODHeroes() async {
