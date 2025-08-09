@@ -1245,7 +1245,7 @@
 			path = LiveActivities;
 			sourceTree = "<group>";
 		};
-		7912B6E12B5D021700AE1947 /* AbilityView */ = {
+		7912B6E12B5D021700AE1947 /* Abilities */ = {
 			isa = PBXGroup;
 			children = (
 				32079DBC28B83F0F0056D19F /* AbilityView.swift */,
@@ -1255,7 +1255,7 @@
 				79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */,
 				79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */,
 			);
-			path = AbilityView;
+			path = Abilities;
 			sourceTree = "<group>";
 		};
 		79266DA52A31B0D7002FEF0F /* LiveMatchView */ = {
@@ -1317,6 +1317,8 @@
 			isa = PBXGroup;
 			children = (
 				79D187202E13CF8000C04CC8 /* HeroList */,
+				7912B6E12B5D021700AE1947 /* Abilities */,
+				797C88B42DCB5EFE00D4CDD1 /* HeroDetail */,
 			);
 			path = Heroes;
 			sourceTree = "<group>";
@@ -1359,6 +1361,7 @@
 				79C538102DCB776800B5920A /* SectionTitle.swift */,
 				3261C906282F315100D47CDA /* HeroDetailView.swift */,
 				3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */,
+				79368C0928E6D8ED009517D2 /* RoleView.swift */,
 			);
 			path = HeroDetail;
 			sourceTree = "<group>";
@@ -1553,12 +1556,9 @@
 		79C5380A2DCB76B200B5920A /* Hero */ = {
 			isa = PBXGroup;
 			children = (
-				7912B6E12B5D021700AE1947 /* AbilityView */,
-				797C88B42DCB5EFE00D4CDD1 /* HeroDetail */,
 				79AF52842E015B5A009FE792 /* HeroRowView.swift */,
 				79D1871A2E0D64CA00C04CC8 /* HeroAttribute.swift */,
 				7937FF282E4705890019145D /* HeroImageType.swift */,
-				79368C0928E6D8ED009517D2 /* RoleView.swift */,
 			);
 			path = Hero;
 			sourceTree = "<group>";
