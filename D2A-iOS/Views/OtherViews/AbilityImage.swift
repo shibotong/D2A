@@ -14,9 +14,11 @@ struct AbilityImage: View {
     @State private var image: UIImage?
     
     private let name: String?
+    private let isInnate: Bool
     
-    init(name: String?) {
+    init(name: String?, isInnate: Bool = false) {
         self.name = name
+        self.isInnate = isInnate
     }
 
     private var fullURL: String {
@@ -27,7 +29,10 @@ struct AbilityImage: View {
     }
     var body: some View {
         ZStack {
-            if let image {
+            if isInnate {
+                Image(.innateIcon)
+                    .resizable()
+            } else if let image {
                 Image(uiImage: image)
                     .resizable()
             } else {

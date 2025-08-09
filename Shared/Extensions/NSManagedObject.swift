@@ -13,3 +13,10 @@ func setIfNotEqual<T: Any, V: Equatable>(entity: T, path: ReferenceWritableKeyPa
         entity[keyPath: path] = value
     }
 }
+
+extension NSManagedObjectContext {
+    func saveChanges() throws {
+        try save()
+        try parent?.saveChanges()
+    }
+}

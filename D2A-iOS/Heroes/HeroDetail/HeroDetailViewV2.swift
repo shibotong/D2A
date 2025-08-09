@@ -14,6 +14,7 @@ struct HeroDetailViewV2: View {
 
     @State private var heroLevel: Double = 1
     @State private var abilities: [Ability] = []
+    @State private var selectedAbility: Ability?
     
     let hero: Hero
     private let detailSpacing: CGFloat = 2
@@ -40,6 +41,9 @@ struct HeroDetailViewV2: View {
             }
             .padding(.horizontal)
         }
+        .sheet(item: $selectedAbility, content: { ability in
+            AbilityViewV2(ability: ability)
+        })
         .task {
             self.abilities = loadAbilities()
         }
@@ -76,9 +80,12 @@ struct HeroDetailViewV2: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(abilities) { ability in
-                    AbilityImage(name: ability.name)
+                    AbilityImage(name: ability.name, isInnate: ability.isInnate)
                         .frame(width: 40, height: 40)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .onTapGesture {
+                            selectedAbility = ability
+                        }
                 }
             }
             .padding()

@@ -46,7 +46,7 @@ class OpenDotaConstantProcessor {
         
         for (abilityIDString, name) in ids {
             guard var ability = ability[name] else {
-                logDebug("\(name) cannot be found", category: .opendotaConstant)
+                logInfo("\(name) cannot be found", category: .opendotaConstant)
                 continue
             }
             guard let abilityID = Int(abilityIDString) else {
@@ -54,7 +54,7 @@ class OpenDotaConstantProcessor {
                 continue
             }
             guard let dname = ability.dname, !dname.isEmpty else {
-                logDebug("\(name) has empty dname", category: .opendotaConstant)
+                logInfo("\(name) has empty dname", category: .opendotaConstant)
                 continue
             }
             ability.id = abilityID

@@ -13,6 +13,7 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
     var id: Int?
 
     var name: String?
+    var isInnate: Bool?
     var img: String?
     var dname: String?
     var desc: String?
@@ -43,6 +44,7 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
     enum CodingKeys: String, CodingKey {
         case img = "img"
         case dname
+        case isInnate = "is_innate"
         case desc
         case attributes = "attrib"
         case behavior
@@ -64,6 +66,7 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
         result["id"] = id
         result["name"] = name
         result["displayName"] = dname
+        result["isInnate"] = isInnate ?? false
         if let img = img {
             result["img"] = img
         }
@@ -113,6 +116,7 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
         }
         let ability = Ability.fetch(id: abilityID, context: context) ?? Ability(context: context)
         setIfNotEqual(entity: ability, path: \.id, value: Int32(abilityID))
+        setIfNotEqual(entity: ability, path: \.isInnate, value: isInnate ?? false)
         setIfNotEqual(entity: ability, path: \.name, value: name)
         setIfNotEqual(entity: ability, path: \.behavior, value: behavior?.transformString())
         setIfNotEqual(entity: ability, path: \.bkbPierce, value: bkbPierce?.transformString())

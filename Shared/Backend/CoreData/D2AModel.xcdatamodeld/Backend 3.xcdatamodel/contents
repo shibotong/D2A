@@ -11,6 +11,7 @@
         <attribute name="displayName" attributeType="String"/>
         <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="img" optional="YES" attributeType="String"/>
+        <attribute name="isInnate" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="lore" optional="YES" attributeType="String"/>
         <attribute name="manaCost" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>

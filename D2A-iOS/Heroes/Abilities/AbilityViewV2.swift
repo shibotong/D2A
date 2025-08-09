@@ -11,37 +11,38 @@ struct AbilityViewV2: View {
     let ability: Ability
     
     var body: some View {
-        ScrollView {
-            VStack {
-                Group {
-                    cdmcView
-                    statsView
-                    attributesView
-                    descriptionView
-                    loreView
+        NavigationView {
+            ScrollView {
+                VStack {
+                    Group {
+                        cdmcView
+                        statsView
+                        attributesView
+                        descriptionView
+                        loreView
+                    }
+                    .font(.caption)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.secondarySystemBackground)
+                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                    
                 }
-                .font(.caption)
-                .frame(maxWidth: .infinity)
                 .padding()
-                .background(Color.secondarySystemBackground)
-                
-                .clipShape(RoundedRectangle(cornerRadius: 5))
                 
             }
-            .padding()
-            
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                titleView
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    titleView
+                }
             }
         }
     }
     
     private var titleView: some View {
         HStack {
-            AbilityImage(name: ability.name)
+            AbilityImage(name: ability.name, isInnate: ability.isInnate)
                 .frame(width: 30, height: 30)
             Text(ability.displayName ?? "")
         }
@@ -177,19 +178,22 @@ struct AbilityViewV2: View {
     
     @ViewBuilder
     private func buildDescription(type: AbilityDescriptionType, description: String) -> some View {
-        VStack(alignment: .leading) {
-            if type != .none {
-                HStack {
-                    Image("\(type.rawValue)_1")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 18, height: 18)
-                    Text("Upgraded by \(type.rawValue)")
-                        .font(.body)
-                        .bold()
+        HStack {
+            VStack(alignment: .leading) {
+                if type != .none {
+                    HStack {
+                        Image("\(type.rawValue)_1")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 18)
+                        Text("Upgraded by \(type.rawValue)")
+                            .font(.body)
+                            .bold()
+                    }
                 }
+                Text(description)
             }
-            Text(description)
+            Spacer()
         }
     }
 }
@@ -205,10 +209,8 @@ struct AbilityViewV2: View {
 #Preview {
     Text("Present modal")
         .sheet(isPresented: .constant(true)) {
-            NavigationView {
-                AbilityViewV2(ability: Ability.blink)
-            }
-            .environmentObject((ImageController.preview))
+            AbilityViewV2(ability: Ability.blink)
+                .environmentObject((ImageController.preview))
         }
 }
 #endif

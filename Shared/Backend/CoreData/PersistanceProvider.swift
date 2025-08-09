@@ -266,14 +266,16 @@ class PersistanceProvider: PersistanceProviding {
             context.performAndWait {
                 do {
                     let newObject = try object.update(context: context)
-                    guard newObject.hasChanges else {
-                        return
-                    }
-                    try context.save()
                 } catch {
                     logError("An error occured when updating data in Core Data \(error.localizedDescription)", category: .coredata)
                 }
             }
+        }
+        
+        do {
+            try context.saveChanges()
+        } catch {
+            logError("An error occured when save data in Core Data \(error.localizedDescription)", category: .coredata)
         }
     }
 
