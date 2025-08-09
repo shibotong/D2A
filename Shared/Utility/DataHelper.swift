@@ -9,9 +9,20 @@ import Foundation
 import SwiftUI
 
 struct DataHelper {
-    static func transferRank(rank: Int?) -> LocalizedStringKey {
+    
+    private static let unranked = NSLocalizedString("Unranked", comment: "Unrank ranking")
+    private static let immortal = NSLocalizedString("Immortal", comment: "Immortal ranking")
+    private static let divine = NSLocalizedString("Divine %@", comment: "Divine ranking")
+    private static let ancient = NSLocalizedString("Ancient %@", comment: "Ancient ranking")
+    private static let legend = NSLocalizedString("Legend %@", comment: "Legend ranking")
+    private static let archon = NSLocalizedString("Archon %@", comment: "Archon ranking")
+    private static let crusader = NSLocalizedString("Crusader %@", comment: "Crusader ranking")
+    private static let guardian = NSLocalizedString("Guardian %@", comment: "Guardian ranking")
+    private static let herald = NSLocalizedString("Herald %@", comment: "Herald ranking")
+    
+    static func transferRank(rank: Int?) -> String {
         guard let rank = rank else {
-            return LocalizedStringKey("Unranked")
+            return Self.unranked
         }
         let number = rank % 10
         var numberRoman = ""
@@ -25,23 +36,23 @@ struct DataHelper {
         }
 
         if rank >= 80 {
-            return LocalizedStringKey("Immortal")
+            return Self.immortal
         } else if rank > 70 {
-            return LocalizedStringKey("Divine \(numberRoman)")
+            return String(format: Self.divine, numberRoman)
         } else if rank > 60 {
-            return LocalizedStringKey("Ancient \(numberRoman)")
+            return String(format: Self.ancient, numberRoman)
         } else if rank > 50 {
-            return LocalizedStringKey("Legend \(numberRoman)")
+            return String(format: Self.legend, numberRoman)
         } else if rank > 40 {
-            return LocalizedStringKey("Archon \(numberRoman)")
+            return String(format: Self.archon, numberRoman)
         } else if rank > 30 {
-            return LocalizedStringKey("Crusader \(numberRoman)")
+            return String(format: Self.crusader, numberRoman)
         } else if rank > 20 {
-            return LocalizedStringKey("Guardian \(numberRoman)")
+            return String(format: Self.guardian, numberRoman)
         } else if rank > 10 {
-            return LocalizedStringKey("Herald \(numberRoman)")
+            return String(format: Self.herald, numberRoman)
         } else {
-            return LocalizedStringKey("Unranked")
+            return Self.unranked
         }
     }
 }
