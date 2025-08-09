@@ -13,6 +13,7 @@ import SwiftUI
 class ConstantsController: ObservableObject {
     
     @Published var isLoading = false
+    @Published var allHeroes: [Hero] = []
 
     private var heroes = [String: ODHero]()
     private var lobbyTypes = [String: LobbyType]()

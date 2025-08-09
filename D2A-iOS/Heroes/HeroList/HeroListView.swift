@@ -6,15 +6,10 @@
 //
 import SwiftUI
 
-
-
 struct HeroListView: View {
     
     @Environment(\.horizontalSizeClass)
     private var horizontalSize
-    
-    @EnvironmentObject
-    var constantsController: ConstantsController
     
     @ObservedObject
     private var viewModel: ViewModel
@@ -91,16 +86,12 @@ struct HeroListView: View {
 
     @ViewBuilder
     private func buildBody() -> some View {
-        if viewModel.heroes.isEmpty && constantsController.isLoading {
-            ProgressView()
+        if horizontalSize == .regular {
+            sectionView
+        } else if isGrid {
+            gridView
         } else {
-            if horizontalSize == .regular {
-                sectionView
-            } else if isGrid {
-                gridView
-            } else {
-                listView
-            }
+            listView
         }
     }
 
