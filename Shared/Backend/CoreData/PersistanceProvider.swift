@@ -10,9 +10,11 @@ import Combine
 
 protocol PersistanceProviding {
     
+    var mainContext: D2AManagedObjectContext { get }
+    
     var container: NSPersistentContainer { get }
     
-    func makeContext(author: String?) -> NSManagedObjectContext
+    func makeContext(author: String?) -> D2AManagedObjectContext
 
     func saveODData(data: [PersistanceModel], type: NSManagedObject.Type) async
     
@@ -30,12 +32,14 @@ class PersistanceProvider: PersistanceProviding {
 
     static let shared = PersistanceProvider()
 
-    private var remoteChangeCancellable: AnyCancellable?
-    private var backgroundChangeCancellable: AnyCancellable?
     let container: NSPersistentContainer
+    let mainContext: D2AManagedObjectContext
 
     /// A peristent history token used for fetching transactions from the store.
     private var lastToken: NSPersistentHistoryToken?
+    
+    private var remoteChangeCancellable: AnyCancellable?
+    private var backgroundChangeCancellable: AnyCancellable?
 
     /// URL of tokenFile
     private lazy var tokenFileURL: URL = {
@@ -57,7 +61,8 @@ class PersistanceProvider: PersistanceProviding {
         Self.registerClasses()
         container = NSPersistentContainer(name: "D2AModel")
         container.viewContext.automaticallyMergesChangesFromParent = true
-        
+        mainContext = D2AManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        mainContext.persistentStoreCoordinator = container.persistentStoreCoordinator
         // Observe Core Data remote change notifications on the queue where the changes were made.
         remoteChangeCancellable = NotificationCenter.Publisher(center: .default, name: .NSPersistentStoreRemoteChange)
             .sink(receiveValue: { [weak self] note in
@@ -174,9 +179,9 @@ class PersistanceProvider: PersistanceProviding {
         }
     }
 
-    func makeContext(author: String? = nil) -> NSManagedObjectContext {
-        let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateContext.parent = container.viewContext
+    func makeContext(author: String? = nil) -> D2AManagedObjectContext {
+        let privateContext = D2AManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateContext.parent = mainContext
         privateContext.transactionAuthor = author
         privateContext.automaticallyMergesChangesFromParent = true
         return privateContext
@@ -265,7 +270,7 @@ class PersistanceProvider: PersistanceProviding {
         for object in data {
             context.performAndWait {
                 do {
-                    let newObject = try object.update(context: context)
+                    _ = try object.update(context: context)
                 } catch {
                     logError("An error occured when updating data in Core Data \(error.localizedDescription)", category: .coredata)
                 }
@@ -273,7 +278,7 @@ class PersistanceProvider: PersistanceProviding {
         }
         
         do {
-            try context.saveChanges()
+            try context.save()
         } catch {
             logError("An error occured when save data in Core Data \(error.localizedDescription)", category: .coredata)
         }

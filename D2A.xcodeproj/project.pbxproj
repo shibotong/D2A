@@ -266,6 +266,9 @@
 		7937FF302E4707880019145D /* RecentMatchWinLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794B723C2985D2C9000059E4 /* RecentMatchWinLossView.swift */; };
 		7937FF312E4707E00019145D /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32897B0F26C7B9F1008D3CC8 /* HeroImageView.swift */; };
 		7937FF342E470B2D0019145D /* HeroListContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7937FF332E470B270019145D /* HeroListContainer.swift */; };
+		7937FF362E4B40230019145D /* D2AManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7937FF352E4B40190019145D /* D2AManagedObjectContext.swift */; };
+		7937FF372E4B40230019145D /* D2AManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7937FF352E4B40190019145D /* D2AManagedObjectContext.swift */; };
+		7937FF382E4B40230019145D /* D2AManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7937FF352E4B40190019145D /* D2AManagedObjectContext.swift */; };
 		7939A67D2E344A8C00FDD617 /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 7939A67C2E344A8700FDD617 /* game_mode.json */; };
 		7939A6802E34534100FDD617 /* GameMode+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */; };
 		793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
@@ -690,6 +693,7 @@
 		7937FF202E45F5210019145D /* DataHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHelperTests.swift; sourceTree = "<group>"; };
 		7937FF282E4705890019145D /* HeroImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageType.swift; sourceTree = "<group>"; };
 		7937FF332E470B270019145D /* HeroListContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListContainer.swift; sourceTree = "<group>"; };
+		7937FF352E4B40190019145D /* D2AManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AManagedObjectContext.swift; sourceTree = "<group>"; };
 		7939A67C2E344A8700FDD617 /* game_mode.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = game_mode.json; sourceTree = "<group>"; };
 		7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameMode+Preview.swift"; sourceTree = "<group>"; };
 		793CD5272E35019E00FEA46B /* MockImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageProvider.swift; sourceTree = "<group>"; };
@@ -1665,6 +1669,7 @@
 		79EB3F7B2DC6EF41008C4F6D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				7937FF352E4B40190019145D /* D2AManagedObjectContext.swift */,
 				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
 				79E89A2E2DF6B0DD00497B5D /* Model */,
 				79EB3F7C2DC6EF46008C4F6D /* Transformers */,
@@ -2188,6 +2193,7 @@
 				323BCBA3285584D90061F937 /* CalendarMatchListView.swift in Sources */,
 				797C88B62DCB5F2200D4CDD1 /* HealthManaView.swift in Sources */,
 				79DEA8432A36A3060009A414 /* PlayerRowViewModel.swift in Sources */,
+				7937FF372E4B40230019145D /* D2AManagedObjectContext.swift in Sources */,
 				3252859E26CB9FDC0030F15B /* Sidebar.swift in Sources */,
 				3294463826E1A530006E0D06 /* ProfileView.swift in Sources */,
 				79EB3EFD2DC4B8F8008C4F6D /* Ability.swift in Sources */,
@@ -2279,6 +2285,7 @@
 				32F70AD526F60364006E9B05 /* ODHero.swift in Sources */,
 				79AF521D2E00341D009FE792 /* ImageController.swift in Sources */,
 				32F70AB526F5812B006E9B05 /* LobbyType.swift in Sources */,
+				7937FF382E4B40230019145D /* D2AManagedObjectContext.swift in Sources */,
 				79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */,
 				7937FDE72E421DF50019145D /* Ability+Preview.swift in Sources */,
 				79D1871C2E0D667B00C04CC8 /* HeroAttribute.swift in Sources */,
@@ -2381,6 +2388,7 @@
 				797C88AE2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */,
 				32A26C5628594A28005E890F /* EnvironmentController.swift in Sources */,
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
+				7937FF362E4B40230019145D /* D2AManagedObjectContext.swift in Sources */,
 				797776D32B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
 				327C033E2716A92500DAEC42 /* KDAView.swift in Sources */,
 				79E89A2B2DF6AE7B00497B5D /* ODGameMode.swift in Sources */,

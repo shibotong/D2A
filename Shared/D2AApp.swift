@@ -39,7 +39,7 @@ struct D2AApp: App {
                 #if DEBUG
                     .environmentObject(logger)
                 #endif
-                .environment(\.managedObjectContext, persistanceController.container.viewContext)
+                .environment(\.managedObjectContext, persistanceController.mainContext)
                 .onOpenURL { url in
                     print(url.absoluteString)
                     environment.userActive = false
