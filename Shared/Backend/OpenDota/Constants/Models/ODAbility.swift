@@ -73,6 +73,9 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
         if let desc = desc {
             result["desc"] = desc
         }
+        if let damageType = damageType?.transformString() {
+            result["damageType"] = damageType
+        }
         if let targetType = targetType?.transformString() {
             result["targetType"] = targetType
         }
