@@ -10,6 +10,8 @@ import SwiftUI
 struct AbilityViewV2: View {
     let ability: Ability
     
+    private let iconSize: CGFloat = 25
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -29,7 +31,6 @@ struct AbilityViewV2: View {
                     
                 }
                 .padding()
-                
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -43,8 +44,11 @@ struct AbilityViewV2: View {
     private var titleView: some View {
         HStack {
             AbilityImage(name: ability.name, isInnate: ability.isInnate)
-                .frame(width: 30, height: 30)
+                .frame(width: iconSize, height: iconSize)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
             Text(ability.displayName ?? "")
+                .font(.title)
+                .bold()
         }
     }
     
@@ -141,30 +145,7 @@ struct AbilityViewV2: View {
                 .foregroundStyle(.secondary)
         }
     }
-    
-    @ViewBuilder
-    private var scepterView: some View {
-        if let scepter = ability.scepter {
-            VStack(alignment: .leading, spacing: 10) {
-                HStack {
-                    Image("scepter_1")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 18, height: 18)
-                    Text("Upgraded by Scepter")
-                        .font(.body)
-                        .bold()
-                }
-                Text(scepter)
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private var shardView: some View {
-        
-    }
-    
+
     @ViewBuilder
     private func buildRow(title: String, value: String, color: Color = .label) -> some View {
         HeroDetailRow(title: title, value: value, color: color)
@@ -200,10 +181,8 @@ struct AbilityViewV2: View {
 
 #if DEBUG
 #Preview {
-    NavigationView {
-        AbilityViewV2(ability: Ability.blink)
-    }
-    .environmentObject(ImageController.preview)
+    AbilityViewV2(ability: Ability.blink)
+        .environmentObject(ImageController.preview)
 }
 
 #Preview {
