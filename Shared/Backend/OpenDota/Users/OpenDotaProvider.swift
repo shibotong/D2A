@@ -10,12 +10,13 @@ import WidgetKit
 
 protocol OpenDotaProviding {
     func searchUserByText(text: String) async -> [ODUserProfile]
-    func loadUserData(userid: String) async throws -> ODUserProfile
     func fetchRecentMatches(userID: String, days: Double?) async -> [RecentMatchCodable]
 
     func getRecentMatches(userid: String) async -> [RecentMatchCodable]
     func loadMatchData(matchid: String) async throws -> String
     func loadRecentMatches(userid: String) async -> [RecentMatchCodable]
+    
+    func user(id: String) async throws -> ODPlayerProfile
 }
 
 class OpenDotaProvider: OpenDotaProviding {
@@ -23,6 +24,12 @@ class OpenDotaProvider: OpenDotaProviding {
     static let shared = OpenDotaProvider()
 
     private let baseURL = "https://api.opendota.com"
+    
+    private let network: D2ANetworking
+    
+    init(network: D2ANetworking = D2ANetwork.default) {
+        self.network = network
+    }
 
     func searchUserByText(text: String) async -> [ODUserProfile] {
         let urlString = "\(baseURL)/api/search/?q=\(text)".addingPercentEncoding(
@@ -35,13 +42,10 @@ class OpenDotaProvider: OpenDotaProviding {
             return []
         }
     }
-
-    func loadUserData(userid: String) async throws -> ODUserProfile {
-        let user = try await loadData("/players/\(userid)", as: SteamProfile.self)
-        var userProfile = user.profile
-        userProfile.rank = user.rank
-        userProfile.leaderboard = user.leaderboard
-        return userProfile
+    
+    func user(id: String) async throws -> ODPlayerProfile {
+        let user = try await loadData("/players/\(id)", as: ODPlayerProfile.self)
+        return user
     }
 
     func getRecentMatches(userid: String) async -> [RecentMatchCodable] {
@@ -97,6 +101,6 @@ class OpenDotaProvider: OpenDotaProviding {
     /// Load data with path `\(baseURL)/api`
     private func loadData<T: Decodable>(_ path: String, as type: T.Type) async throws -> T {
         let urlString = "\(baseURL)/api\(path)"
-        return try await D2ANetwork.default.dataTask(urlString, as: T.self)
+        return try await network.dataTask(urlString, as: T.self)
     }
 }

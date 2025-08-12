@@ -16,10 +16,10 @@ struct Provider: IntentTimelineProvider {
 
     public typealias Entry = D2AWidgetUserEntry
 
-    private let viewContext: NSManagedObjectContext
     private let openDotaProvider: OpenDotaProviding
     private let imageProvider: ImageProviding
     private let gameDataController: GameDataController
+    private let persistanceProvider: PersistanceProviding
     
     private let userPlaceholder = D2AWidgetUserEntry(date: Date(), user: .preview, subscription: true)
     
@@ -28,9 +28,9 @@ struct Provider: IntentTimelineProvider {
          imageProvider: ImageProviding = ImageProvider.shared,
          gameDataController: GameDataController = .shared) {
         self.openDotaProvider = openDotaProvider
-        self.viewContext = persistanceProvider.container.viewContext
         self.imageProvider = imageProvider
         self.gameDataController = gameDataController
+        self.persistanceProvider = persistanceProvider
     }
 
     func placeholder(in context: Context) -> D2AWidgetUserEntry {
@@ -47,7 +47,7 @@ struct Provider: IntentTimelineProvider {
             return
         }
         // Use matches on device to load snapshot
-        let matches = RecentMatch.fetch(userID: userID, count: 10, viewContext: viewContext)
+        let matches = RecentMatch.fetch(userID: userID, count: 10, viewContext: persistanceProvider.mainContext)
         let userAvatar = imageProvider.localImage(type: .avatar, id: userID, fileExtension: .jpg)
 
         let user = D2AWidgetUser(profile, image: userAvatar, matches: matches)
@@ -98,7 +98,7 @@ struct Provider: IntentTimelineProvider {
         let fetchRequest = UserProfile.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
         do {
-            let result = try viewContext.fetch(fetchRequest)
+            let result = try persistanceProvider.mainContext.fetch(fetchRequest)
             return result.first(where: { $0.register }) ?? result.first
         } catch {
             print(error.localizedDescription)
@@ -115,16 +115,15 @@ struct Provider: IntentTimelineProvider {
     }
 
     private func loadNewMatches(for userID: String) async -> [RecentMatch] {
-        await gameDataController.refreshRecentMatches(for: userID, viewContext: viewContext)
-        let newMatches = gameDataController.fetchRecentMatches(for: userID, context: viewContext, count: 10)
+        await gameDataController.refreshRecentMatches(for: userID, viewContext: persistanceProvider.mainContext)
+        let newMatches = gameDataController.fetchRecentMatches(for: userID, context: persistanceProvider.mainContext, count: 10)
         return newMatches
     }
 
     private func refreshUser(for userID: String) async -> UserProfile? {
         do {
-            let profileCodable = try await openDotaProvider.loadUserData(userid: userID)
-            _ = try UserProfile.create(profileCodable)
-            let newProfile = UserProfile.fetch(id: userID)
+            let user = try await openDotaProvider.user(id: userID)
+            let newProfile = try user.update(context: persistanceProvider.mainContext) as? UserProfile
             return newProfile
         } catch {
             return nil

@@ -252,13 +252,10 @@ class PersistanceProvider: PersistanceProviding {
     }
     
     func saveODData<T: NSManagedObject>(data: [PersistanceModel], type: T.Type, mainContext: Bool) {
-        let context = mainContext ? container.viewContext : makeContext(author: "ODData")
-        if mainContext {
-            updateData(data: data, context: context)
-            return
-        }
+        let useMainContext = data.count <= 5 || mainContext
+        let context = useMainContext ? self.mainContext : makeContext(author: "ODData")
         
-        if hasData(for: type, context: context) {
+        if useMainContext || hasData(for: type, context: context) {
             updateData(data: data, context: context)
         } else {
             batchInsertData(data, into: type.entity(), context: context)
