@@ -23,7 +23,6 @@ struct ODUserProfile: Decodable, Identifiable {
     static let empty = ODUserProfile(
         id: 0, avatarfull: "", lastLogin: nil, countryCode: nil, personaname: "", isPlus: false,
         profileurl: "", rank: nil, leaderboard: nil)
-    static let sample: ODUserProfile = loadProfile()!
 
     enum CodingKeys: String, CodingKey {
         case id = "account_id"

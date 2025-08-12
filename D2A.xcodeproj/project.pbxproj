@@ -961,7 +961,6 @@
 		3294463C26E1BC3B006E0D06 /* MatchListView */ = {
 			isa = PBXGroup;
 			children = (
-				32B36F3E26C388AD002D427D /* PlayerProfileView.swift */,
 				327772AE26D8BE63000A0A97 /* MatchListRowView.swift */,
 				325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */,
 				323BCBA2285584D90061F937 /* CalendarMatchListView.swift */,
@@ -1014,6 +1013,7 @@
 		32B36F0D26C38821002D427D /* D2A-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				7937FF3F2E4B5A5C0019145D /* Players */,
 				7937FF322E470B1A0019145D /* Heroes */,
 				32F70B3726F80AD3006E9B05 /* D2ARelease.entitlements */,
 				32F70B2726F62B09006E9B05 /* D2ADebug.entitlements */,
@@ -1345,6 +1345,14 @@
 				3294463926E1A5A5006E0D06 /* player.json */,
 			);
 			path = OpenDotaData;
+			sourceTree = "<group>";
+		};
+		7937FF3F2E4B5A5C0019145D /* Players */ = {
+			isa = PBXGroup;
+			children = (
+				32B36F3E26C388AD002D427D /* PlayerProfileView.swift */,
+			);
+			path = Players;
 			sourceTree = "<group>";
 		};
 		7939A6792E344A0200FDD617 /* EnvironmentControllers */ = {

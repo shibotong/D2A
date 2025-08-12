@@ -85,24 +85,6 @@ func loadHeroAbilities() async -> [String: ODHeroAbilities] {
     }
 }
 
-func loadProfile() -> ODUserProfile? {
-    guard let data = loadFile(filename: "sampleProfile") else {
-        return nil
-    }
-    do {
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode(SteamProfile.self, from: data)
-        var userprofile = jsonData.profile
-        userprofile.rank = jsonData.rank
-        userprofile.leaderboard = jsonData.leaderboard
-        return userprofile
-    } catch {
-        // handle error
-        debugPrint(error)
-        return nil
-    }
-}
-
 func loadSampleAbilities() -> [String: ODAbility]? {
     guard let data = loadFile(filename: "sampleAbility") else {
         return nil
