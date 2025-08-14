@@ -10,7 +10,6 @@
 		3201BC3F26F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 3201BC4326F89ECD00A67505 /* DynamicUserSelection.intentdefinition */; };
 		3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 3201BC4326F89ECD00A67505 /* DynamicUserSelection.intentdefinition */; };
 		3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 3201BC4326F89ECD00A67505 /* DynamicUserSelection.intentdefinition */; };
-		32079DBD28B83F0F0056D19F /* AbilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32079DBC28B83F0F0056D19F /* AbilityView.swift */; };
 		32079DBF28B843360056D19F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32079DBE28B843360056D19F /* String.swift */; };
 		32079DC028B843360056D19F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32079DBE28B843360056D19F /* String.swift */; };
 		32079DC128B843360056D19F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32079DBE28B843360056D19F /* String.swift */; };
@@ -18,7 +17,6 @@
 		3214C0D426F0E44500C377EF /* terms-of-use.md in Resources */ = {isa = PBXBuildFile; fileRef = 3214C0D326F0E44500C377EF /* terms-of-use.md */; };
 		321D58A026D234A90059526B /* AboutUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D589F26D234A90059526B /* AboutUsView.swift */; };
 		321D58A726D717900059526B /* sampleMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 321D58A626D717900059526B /* sampleMatch.json */; };
-		321E3D01285422D00094FB10 /* AbilityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321E3D00285422D00094FB10 /* AbilityViewModel.swift */; };
 		322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B88ED26CCBA1800DF67F9 /* CodingKey.swift */; };
 		322B893626CD438700DF67F9 /* ODUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893526CD438700DF67F9 /* ODUserProfile.swift */; };
 		322B893826CD44FE00DF67F9 /* ODPlayerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893726CD44FE00DF67F9 /* ODPlayerProfile.swift */; };
@@ -228,7 +226,6 @@
 		79091DFC2A3B36310093EEE4 /* LiveMatchTeamIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DFB2A3B36310093EEE4 /* LiveMatchTeamIconView.swift */; };
 		790FBB2429C186AE00E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2329C186AE00E27106 /* Apollo */; };
 		790FBB3429C18AC800E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB3329C18AC800E27106 /* Apollo */; };
-		7912B6E32B5D022C00AE1947 /* AbilityTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7912B6E22B5D022C00AE1947 /* AbilityTitleView.swift */; };
 		7925405F2E30C8CC00201CF1 /* OpenDotaConstantProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */; };
 		792540602E30C8CC00201CF1 /* OpenDotaConstantProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */; };
 		792540612E30C8CC00201CF1 /* OpenDotaConstantProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */; };
@@ -351,8 +348,6 @@
 		799948C02932D50000D79055 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageProvider.swift */; };
 		799948C12932D50000D79055 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageProvider.swift */; };
 		799948C22932D50000D79055 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageProvider.swift */; };
-		79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */; };
-		79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */; };
 		79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79A988F72931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79A988F92931D400006AC847 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988F82931D400006AC847 /* Match.swift */; };
@@ -569,13 +564,11 @@
 		3201BC3E26F81EEE00A67505 /* D2AWidgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2AWidgetExtensionDebug.entitlements; sourceTree = "<group>"; };
 		3201BC4226F89ECD00A67505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/DynamicUserSelection.intentdefinition; sourceTree = "<group>"; };
 		3201BC4526F89ED100A67505 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DynamicUserSelection.strings; sourceTree = "<group>"; };
-		32079DBC28B83F0F0056D19F /* AbilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityView.swift; sourceTree = "<group>"; };
 		32079DBE28B843360056D19F /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		3214C0D126F0E1AF00C377EF /* privacy-policy.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "privacy-policy.md"; sourceTree = "<group>"; };
 		3214C0D326F0E44500C377EF /* terms-of-use.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "terms-of-use.md"; sourceTree = "<group>"; };
 		321D589F26D234A90059526B /* AboutUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsView.swift; sourceTree = "<group>"; };
 		321D58A626D717900059526B /* sampleMatch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleMatch.json; sourceTree = "<group>"; };
-		321E3D00285422D00094FB10 /* AbilityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityViewModel.swift; sourceTree = "<group>"; };
 		322B88ED26CCBA1800DF67F9 /* CodingKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingKey.swift; sourceTree = "<group>"; };
 		322B893526CD438700DF67F9 /* ODUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODUserProfile.swift; sourceTree = "<group>"; };
 		322B893726CD44FE00DF67F9 /* ODPlayerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODPlayerProfile.swift; sourceTree = "<group>"; };
@@ -687,7 +680,6 @@
 		79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityAttributes.swift; sourceTree = "<group>"; };
 		79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityWidget.swift; sourceTree = "<group>"; };
 		79091DFB2A3B36310093EEE4 /* LiveMatchTeamIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchTeamIconView.swift; sourceTree = "<group>"; };
-		7912B6E22B5D022C00AE1947 /* AbilityTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityTitleView.swift; sourceTree = "<group>"; };
 		7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantProcessor.swift; sourceTree = "<group>"; };
 		792540622E30CDE000201CF1 /* ConstantsController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConstantsController+Preview.swift"; sourceTree = "<group>"; };
 		792540662E30CE4600201CF1 /* ImageController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageController+Preview.swift"; sourceTree = "<group>"; };
@@ -752,8 +744,6 @@
 		798E0FF82E2F7FE10066D7E1 /* OpenDotaConstantProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantProviderTests.swift; sourceTree = "<group>"; };
 		799948BD2932423800D79055 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		799948BF2932D50000D79055 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
-		79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityStatsView.swift; sourceTree = "<group>"; };
-		79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityDescriptionView.swift; sourceTree = "<group>"; };
 		79A988F82931D400006AC847 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		79A988FA2931D6D7006AC847 /* PlayerCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCodable.swift; sourceTree = "<group>"; };
 		79A988FC2931D6FF006AC847 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -1259,12 +1249,7 @@
 		7912B6E12B5D021700AE1947 /* Abilities */ = {
 			isa = PBXGroup;
 			children = (
-				32079DBC28B83F0F0056D19F /* AbilityView.swift */,
 				7903498A2E35297D00EF4CFB /* AbilityViewV2.swift */,
-				321E3D00285422D00094FB10 /* AbilityViewModel.swift */,
-				7912B6E22B5D022C00AE1947 /* AbilityTitleView.swift */,
-				79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */,
-				79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */,
 			);
 			path = Abilities;
 			sourceTree = "<group>";
@@ -2112,7 +2097,6 @@
 				798A5CF629454AEE00EB07B0 /* FavouriteUserListView.swift in Sources */,
 				327B8760284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				7983DA6D2B63085000C42F87 /* D2AWidgetMatch.swift in Sources */,
-				321E3D01285422D00094FB10 /* AbilityViewModel.swift in Sources */,
 				794838652A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				7985E7EF28E53E47007A43AF /* Talent.swift in Sources */,
 				79EB3F062DC6EE86008C4F6D /* NSValueTransformerName.swift in Sources */,
@@ -2139,12 +2123,10 @@
 				79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */,
 				798E0FF52E2F7DA60066D7E1 /* ODScepter.swift in Sources */,
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
-				79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */,
 				7925E15A2E39F431002B9865 /* LocaliseLanguage.swift in Sources */,
 				3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */,
 				79EB3F872DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */,
 				792540672E30CE4B00201CF1 /* ImageController+Preview.swift in Sources */,
-				32079DBD28B83F0F0056D19F /* AbilityView.swift in Sources */,
 				32AEEEF926F9B1120088DEC8 /* LocalizableStrings.swift in Sources */,
 				79A989042931E7F1006AC847 /* PermanentBuff.swift in Sources */,
 				798C428D2A35572400BDC470 /* LiveMatchEventItem.swift in Sources */,
@@ -2195,7 +2177,6 @@
 				79B8709F2DC38A150090CAB8 /* StratzAbility+Language+Attribute.swift in Sources */,
 				79D187332E16205700C04CC8 /* D2ANotificationCenter.swift in Sources */,
 				79B870A02DC38A150090CAB8 /* StratzAbility.swift in Sources */,
-				79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
 				79D1873F2E16411B00C04CC8 /* D2AAppDelegate.swift in Sources */,
 				32079DBF28B843360056D19F /* String.swift in Sources */,
@@ -2250,7 +2231,6 @@
 				323ADB06272B8D4900253124 /* Patch.swift in Sources */,
 				794B723D2985D2C9000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				797C88BD2DCB75AE00D4CDD1 /* PersistanceProvider+Preview.swift in Sources */,
-				7912B6E32B5D022C00AE1947 /* AbilityTitleView.swift in Sources */,
 				797C88AD2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */,
 				798A5CFA2945B3C300EB07B0 /* RecentMatch.swift in Sources */,
 				32B36F2D26C3885A002D427D /* Color.swift in Sources */,
