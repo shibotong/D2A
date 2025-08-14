@@ -8,12 +8,10 @@
 import Foundation
 
 protocol OpenDotaConstantProviding {
-    func loadAbilities() async -> [ODAbility]
-    func loadAbilitiesForHeroes() async -> [String: ODHeroAbilities]
-    func loadGameModes() async -> [ODGameMode]
-    func loadHeroes() async -> [ODHero]
-    func loadItemIDs() async -> [String: String]
-    func loadScepters() async -> [ODScepter]
+    func loadAbilities() async throws -> [ODAbility]
+    func loadGameModes() async throws -> [ODGameMode]
+    func loadHeroes() async throws -> [ODHero]
+    func loadItemIDs() async throws -> [String: String]
 }
 
 class OpenDotaConstantProvider: OpenDotaConstantProviding {
@@ -27,49 +25,41 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
         self.fetcher = fetcher
     }
     
-    func loadAbilities() async -> [ODAbility] {
-        guard let abilityDict = await fetcher.loadService(service: .abilities, as: [String: ODAbility].self),
-              let abilityIDs = await fetcher.loadService(service: .abilityIDs, as: [String: String].self) else {
+    func loadAbilities() async throws -> [ODAbility] {
+        guard let abilityDict = try await fetcher.loadService(service: .abilities, as: [String: ODAbility].self),
+              let abilityIDs = try await fetcher.loadService(service: .abilityIDs, as: [String: String].self) else {
             return []
         }
-        let scepters = await fetcher.loadService(service: .aghs, as: [ODScepter].self) ?? []
+        let scepters = try await fetcher.loadService(service: .aghs, as: [ODScepter].self) ?? []
         let abilities = processor.processAbilities(ability: abilityDict, ids: abilityIDs, scepters: scepters)
         return abilities
     }
     
-    func loadAbilitiesForHeroes() async -> [String: ODHeroAbilities] {
-        guard let heroAbilities = await fetcher.loadService(service: .heroAbilities,
-                                                            as: [String: ODHeroAbilities].self) else {
-            return [:]
-        }
-        return heroAbilities
-    }
-    
-    func loadGameModes() async -> [ODGameMode] {
-        guard let gameModesDict = await fetcher.loadService(service: .gameMode, as: [String: ODGameMode].self) else {
+    func loadGameModes() async throws -> [ODGameMode] {
+        guard let gameModesDict = try await fetcher.loadService(service: .gameMode, as: [String: ODGameMode].self) else {
             return []
         }
         return processor.processGameModes(modes: gameModesDict)
     }
     
-    func loadHeroes() async -> [ODHero] {
-        guard let heroDict = await fetcher.loadService(service: .heroes, as: [String: ODHero].self) else {
+    func loadHeroes() async throws -> [ODHero] {
+        guard let heroDict = try await fetcher.loadService(service: .heroes, as: [String: ODHero].self) else {
             return []
         }
-        let abilities = await fetcher.loadService(service: .heroAbilities, as: [String: ODHeroAbilities].self) ?? [:]
-        let lores = await fetcher.loadService(service: .heroLore, as: [String: String].self) ?? [:]
+        let abilities = try await fetcher.loadService(service: .heroAbilities, as: [String: ODHeroAbilities].self) ?? [:]
+        let lores = try await fetcher.loadService(service: .heroLore, as: [String: String].self) ?? [:]
         return processor.processHeroes(heroes: heroDict, abilities: abilities, lores: lores)
     }
     
-    func loadItemIDs() async -> [String: String] {
-        guard let itemIDs = await fetcher.loadService(service: .itemIDs, as: [String: String].self) else {
+    func loadItemIDs() async throws -> [String: String] {
+        guard let itemIDs = try await fetcher.loadService(service: .itemIDs, as: [String: String].self) else {
             return [:]
         }
         return itemIDs
     }
     
-    func loadScepters() async -> [ODScepter] {
-        guard let scepters = await fetcher.loadService(service: .aghs, as: [ODScepter].self) else {
+    func loadScepters() async throws -> [ODScepter] {
+        guard let scepters = try await fetcher.loadService(service: .aghs, as: [ODScepter].self) else {
             return []
         }
         return scepters

@@ -247,7 +247,6 @@
 		79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA82A31B21D002FEF0F /* ApolloWebSocket */; };
 		79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DAA2A31B224002FEF0F /* ApolloWebSocket */; };
 		79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79368C0928E6D8ED009517D2 /* RoleView.swift */; };
-		7937FDDD2E421C2F0019145D /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 7939A67C2E344A8700FDD617 /* game_mode.json */; };
 		7937FDE52E421C610019145D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B36F1526C38822002D427D /* Preview Assets.xcassets */; };
 		7937FDE72E421DF50019145D /* Ability+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790349872E3528CA00EF4CFB /* Ability+Preview.swift */; };
 		7937FDE82E421DFE0019145D /* Hero+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */; };
@@ -280,7 +279,9 @@
 		7937FF582E4E07C50019145D /* hero_abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = 7937FF502E4E07C50019145D /* hero_abilities.json */; };
 		7937FF592E4E07C50019145D /* hero_lore.json in Resources */ = {isa = PBXBuildFile; fileRef = 7937FF512E4E07C50019145D /* hero_lore.json */; };
 		7937FF5A2E4E07C50019145D /* aghs_desc.json in Resources */ = {isa = PBXBuildFile; fileRef = 7937FF4F2E4E07C50019145D /* aghs_desc.json */; };
-		7939A67D2E344A8C00FDD617 /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 7939A67C2E344A8700FDD617 /* game_mode.json */; };
+		7937FF5D2E4E09E70019145D /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 7937FF5C2E4E09E70019145D /* game_mode.json */; };
+		7937FF5E2E4E09E70019145D /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 7937FF5C2E4E09E70019145D /* game_mode.json */; };
+		7937FF5F2E4E09E70019145D /* game_mode.json in Resources */ = {isa = PBXBuildFile; fileRef = 7937FF5C2E4E09E70019145D /* game_mode.json */; };
 		7939A6802E34534100FDD617 /* GameMode+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */; };
 		793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
 		793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
@@ -706,7 +707,7 @@
 		7937FF4F2E4E07C50019145D /* aghs_desc.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = aghs_desc.json; sourceTree = "<group>"; };
 		7937FF502E4E07C50019145D /* hero_abilities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hero_abilities.json; sourceTree = "<group>"; };
 		7937FF512E4E07C50019145D /* hero_lore.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hero_lore.json; sourceTree = "<group>"; };
-		7939A67C2E344A8700FDD617 /* game_mode.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = game_mode.json; sourceTree = "<group>"; };
+		7937FF5C2E4E09E70019145D /* game_mode.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = game_mode.json; sourceTree = "<group>"; };
 		7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameMode+Preview.swift"; sourceTree = "<group>"; };
 		793CD5272E35019E00FEA46B /* MockImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageProvider.swift; sourceTree = "<group>"; };
 		793CD5372E3509F300FEA46B /* FileImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImageProvider.swift; sourceTree = "<group>"; };
@@ -1333,14 +1334,6 @@
 			path = Heroes;
 			sourceTree = "<group>";
 		};
-		7937FF3D2E4B54E40019145D /* OpenDotaConstants */ = {
-			isa = PBXGroup;
-			children = (
-				7939A67C2E344A8700FDD617 /* game_mode.json */,
-			);
-			path = OpenDotaConstants;
-			sourceTree = "<group>";
-		};
 		7937FF3E2E4B54F20019145D /* OpenDotaData */ = {
 			isa = PBXGroup;
 			children = (
@@ -1364,6 +1357,7 @@
 				7937FF472E4E07870019145D /* abilities.json */,
 				7937FF4B2E4E07970019145D /* ability_ids.json */,
 				7937FF4F2E4E07C50019145D /* aghs_desc.json */,
+				7937FF5C2E4E09E70019145D /* game_mode.json */,
 				7937FF502E4E07C50019145D /* hero_abilities.json */,
 				7937FF512E4E07C50019145D /* hero_lore.json */,
 				7937FF432E4E074B0019145D /* heroes.json */,
@@ -1451,7 +1445,6 @@
 			isa = PBXGroup;
 			children = (
 				7937FF3E2E4B54F20019145D /* OpenDotaData */,
-				7937FF3D2E4B54E40019145D /* OpenDotaConstants */,
 			);
 			path = "Preview Data";
 			sourceTree = "<group>";
@@ -1958,8 +1951,8 @@
 				7937FF522E4E07C50019145D /* hero_abilities.json in Resources */,
 				7937FF532E4E07C50019145D /* hero_lore.json in Resources */,
 				7937FF542E4E07C50019145D /* aghs_desc.json in Resources */,
-				7939A67D2E344A8C00FDD617 /* game_mode.json in Resources */,
 				7977FDA129C1770B0034D3EA /* schema.graphqls in Resources */,
+				7937FF5D2E4E09E70019145D /* game_mode.json in Resources */,
 				3214C0D426F0E44500C377EF /* terms-of-use.md in Resources */,
 				323ADB29272B91F500253124 /* cluster.json in Resources */,
 				327B87692850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */,
@@ -1984,7 +1977,6 @@
 				7937FF5A2E4E07C50019145D /* aghs_desc.json in Resources */,
 				323ADB66272E03E300253124 /* lobby_type.json in Resources */,
 				323ADB6F272E03E300253124 /* neutral_abilities.json in Resources */,
-				7937FDDD2E421C2F0019145D /* game_mode.json in Resources */,
 				323ADB61272E03E300253124 /* patchnotes.json in Resources */,
 				323ADB68272E03E300253124 /* skillshots.json in Resources */,
 				327B876F2850DA6500BBE1F8 /* sampleHero.json in Resources */,
@@ -1997,6 +1989,7 @@
 				7937FDE52E421C610019145D /* Preview Assets.xcassets in Resources */,
 				323ADB5F272E03E300253124 /* items.json in Resources */,
 				7937FF4D2E4E07970019145D /* ability_ids.json in Resources */,
+				7937FF5E2E4E09E70019145D /* game_mode.json in Resources */,
 				323ADB58272E03E300253124 /* permanent_buffs.json in Resources */,
 				32756CC128535CA800F38B81 /* Localizable.strings in Resources */,
 				327A7B8227152387001F964D /* Assets.xcassets in Resources */,
@@ -2048,6 +2041,7 @@
 				7937FF4A2E4E07870019145D /* abilities.json in Resources */,
 				323ADB91272E03E500253124 /* cluster.json in Resources */,
 				323ADB89272E03E500253124 /* permanent_buffs.json in Resources */,
+				7937FF5F2E4E09E70019145D /* game_mode.json in Resources */,
 				7937FF552E4E07C50019145D /* hero_abilities.json in Resources */,
 				7937FF562E4E07C50019145D /* hero_lore.json in Resources */,
 				7937FF572E4E07C50019145D /* aghs_desc.json in Resources */,

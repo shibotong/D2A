@@ -23,7 +23,6 @@ class ConstantsController: ObservableObject {
     private var abilityIDTable = [String: String]()
     private var abilities = [String: ODAbility]()
     private var heroAbilities = [String: ODHeroAbilities]()
-    private var scepterData = [ODScepter]()
     private var apolloAbilities = [StratzAbility]()
 
     static var shared = ConstantsController()
@@ -54,7 +53,6 @@ class ConstantsController: ObservableObject {
         async let abilityIDTable = loadAbilityID()
         async let abilities = loadAbilities()
         async let heroAbilities = loadHeroAbilities()
-        async let scepter = openDotaProvider.loadScepters()
         async let stratzAbilities = stratzProvider.loadAbilities()
 
         self.itemIDTable = await idTable
@@ -63,7 +61,6 @@ class ConstantsController: ObservableObject {
         self.abilityIDTable = await abilityIDTable
         self.abilities = await abilities
         self.heroAbilities = await heroAbilities
-        self.scepterData = await scepter
         self.apolloAbilities = await stratzAbilities
 
         await loadConstantData()
@@ -143,88 +140,6 @@ class ConstantsController: ObservableObject {
         return []
     }
 
-    func getAbilityScepterDesc(ability: ODAbility, heroID: Int) -> String? {
-        guard
-            let hero = scepterData.filter({ scepter in
-                scepter.id == heroID
-            }).first
-        else {
-            // Cannot find this hero
-            return nil
-        }
-        if ability.dname == hero.scepterSkillName {
-            return hero.scepterDesc
-        }
-        return nil
-    }
-
-    func isScepterSkill(ability: ODAbility, heroID: Int) -> Bool {
-        guard
-            let hero = scepterData.filter({ scepter in
-                scepter.id == heroID
-            }).first
-        else {
-            // Cannot find this hero
-            return false
-        }
-        return ability.dname == hero.scepterSkillName && hero.scepterNewSkill
-    }
-
-    func isShardSkill(ability: ODAbility, heroID: Int) -> Bool {
-        guard
-            let hero = scepterData.filter({ scepter in
-                scepter.id == heroID
-            }).first
-        else {
-            // Cannot find this hero
-            return false
-        }
-        return ability.dname == hero.shardSkillName && hero.shardNewSkill
-    }
-
-    func hasScepter(ability: ODAbility, heroID: Int) -> Bool {
-        guard
-            let hero = scepterData.filter({ scepter in
-                scepter.id == heroID
-            }).first
-        else {
-            // Cannot find this hero
-            return false
-        }
-        return ability.dname == hero.scepterSkillName
-    }
-
-    func hasShard(ability: ODAbility, heroID: Int) -> Bool {
-        guard
-            let hero = scepterData.filter({ scepter in
-                scepter.id == heroID
-            }).first
-        else {
-            // Cannot find this hero
-            return false
-        }
-        guard ability.dname == hero.shardSkillName else {
-            return false
-        }
-        return true
-    }
-
-    func getAbilityShardDesc(ability: ODAbility, heroID: Int) -> String? {
-        guard
-            let hero = scepterData.filter({ scepter in
-                scepter.id == heroID
-            }).first
-        else {
-            // Cannot find this hero
-            return nil
-        }
-        if ability.dname == hero.shardSkillName {
-            print("\(hero.shardDesc)")
-            return hero.shardDesc
-        }
-        return nil
-    }
-
     func getTalentDisplayName(id: Short) -> String {
         return getTalentDisplayName(talentID: Int(id))
     }
@@ -240,27 +155,21 @@ class ConstantsController: ObservableObject {
     @MainActor
     private func loadConstantData() async {
         isLoading = true
-        async let loadHeroes: Void = await loadODHeroes()
-        async let loadAbilities: Void = await loadODAbilities()
-        async let loadGameModes: Void = await loadODGameModes()
+        async let heroes = openDotaProvider.loadHeroes()
+        async let abilities = openDotaProvider.loadAbilities()
+        async let modes = openDotaProvider.loadGameModes()
         
-        _ = await [loadHeroes, loadAbilities, loadGameModes]
+        do {
+            let fetchedHeroes = try await heroes
+            let fetchedAbilities = try await abilities
+            let fetchedModes = try await modes
+            await persistanceProvider.saveODData(data: fetchedHeroes, type: Hero.self)
+            await persistanceProvider.saveODData(data: fetchedAbilities, type: Ability.self)
+            await persistanceProvider.saveODData(data: fetchedModes, type: GameMode.self)
+        } catch {
+            try? persistanceProvider.loadDefaultData()
+        }
         isLoading = false
-    }
-    
-    private func loadODHeroes() async {
-        let heroes = await openDotaProvider.loadHeroes()
-        await persistanceProvider.saveODData(data: heroes, type: Hero.self)
-    }
-    
-    private func loadODAbilities() async {
-        let abilities = await openDotaProvider.loadAbilities()
-        await persistanceProvider.saveODData(data: abilities, type: Ability.self)
-    }
-    
-    private func loadODGameModes() async {
-        let modes = await openDotaProvider.loadGameModes()
-        await persistanceProvider.saveODData(data: modes, type: GameMode.self)
     }
 
     func resetHeroData(context: NSManagedObjectContext) async {
@@ -280,5 +189,9 @@ class ConstantsController: ObservableObject {
             }
         }
         await loadConstantData()
+    }
+    
+    private func saveDefaultData() {
+        
     }
 }

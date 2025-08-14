@@ -16,11 +16,11 @@ class D2AManagedObjectContext: NSManagedObjectContext {
 
 
 extension NSManagedObjectContext {
-    func fetchOne<T: NSManagedObject>(type: T.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]? = nil) throws -> T? {
+    func fetchOne<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil) throws -> T? {
         return try fetchAll(type: type, predicate: predicate, sortDescriptors: sortDescriptors, limit: 1).first
     }
     
-    func fetchAll<T: NSManagedObject>(type: T.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]? = nil, limit: Int? = nil) throws -> [T] {
+    func fetchAll<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil, limit: Int? = nil) throws -> [T] {
         let fetchRequest = type.fetchRequest()
         fetchRequest.predicate = predicate
         fetchRequest.fetchLimit = 1

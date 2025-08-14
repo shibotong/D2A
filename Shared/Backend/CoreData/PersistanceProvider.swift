@@ -21,6 +21,8 @@ protocol PersistanceProviding {
     func fetchGameMode(id: Int) -> GameMode?
     
     func calculateDaysSinceLastMatch(userID: String, context: NSManagedObjectContext) -> Double?
+    
+    func loadDefaultData() throws
 }
 
 enum PersistanceError: Error {
@@ -72,6 +74,33 @@ class PersistanceProvider: PersistanceProviding {
             })
         
         loadContainer(inMemory: inMemory)
+    }
+    
+    func loadDefaultData() throws {
+        if let hero = try mainContext.fetchOne(type: Hero.self) {
+            logInfo("Constant data exists", category: .coredata)
+            return
+        }
+        logDebug("Constant data doesn't exist, adding default data", category: .coredata)
+        let processor = OpenDotaConstantProcessor.shared
+        // Heroes
+        let defaultHeroes = try FileReader.loadFile(filename: OpenDotaConstantService.heroes.rawValue, as: [String: ODHero].self)
+        let defaultAbilities = try FileReader.loadFile(filename: OpenDotaConstantService.abilities.rawValue, as: [String: ODHeroAbilities].self)
+        let defaultLores = try FileReader.loadFile(filename: OpenDotaConstantService.heroLore.rawValue, as: [String: String].self)
+        let heroes = processor.processHeroes(heroes: defaultHeroes, abilities: defaultAbilities, lores: defaultLores)
+        saveODData(data: heroes, type: Hero.self)
+        
+        // Abilities
+        let abilityDict = try FileReader.loadFile(filename: OpenDotaConstantService.abilities.rawValue, as: [String: ODAbility].self)
+        let abilityIDs = try FileReader.loadFile(filename: OpenDotaConstantService.abilityIDs.rawValue, as: [String: String].self)
+        let scepters = try FileReader.loadFile(filename: OpenDotaConstantService.aghs.rawValue, as: [ODScepter].self)
+        let abilities = processor.processAbilities(ability: abilityDict, ids: abilityIDs, scepters: scepters)
+        saveODData(data: abilities, type: Ability.self)
+        
+        // GameModes
+        let gameModesDict = try FileReader.loadFile(filename: OpenDotaConstantService.gameMode.rawValue, as: [String: ODGameMode].self)
+        let gameModes = processor.processGameModes(modes: gameModesDict)
+        saveODData(data: gameModes, type: GameMode.self)
     }
 
     static func registerClasses() {

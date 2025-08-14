@@ -12,11 +12,11 @@ class PreviewDataProvider {
     static let shared = PreviewDataProvider()
     
     func loadOpenDotaConstants<T: Decodable>(service: OpenDotaConstantService, as type: T.Type) -> T? {
-        FileReader.loadFile(filename: service.rawValue, as: type)
+        try? FileReader.loadFile(filename: service.rawValue, as: type)
     }
     
     func loadOpenDotaUser() -> ODPlayerProfile? {
-        FileReader.loadFile(filename: OpenDotaDataService.player.rawValue, as: ODPlayerProfile.self)
+        try? FileReader.loadFile(filename: OpenDotaDataService.player.rawValue, as: ODPlayerProfile.self)
     }
     
     private enum OpenDotaDataService: String {
