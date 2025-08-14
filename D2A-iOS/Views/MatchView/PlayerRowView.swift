@@ -28,7 +28,7 @@ struct PlayerRowView: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 NavigationLink(
-                    destination: HeroDetailView(vm: HeroDetailViewModel(heroID: viewModel.heroID))
+                    destination: Text("Temp")
                 ) {
                     heroIcon
                 }

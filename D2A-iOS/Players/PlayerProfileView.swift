@@ -53,6 +53,7 @@ struct PlayerProfileView: View {
         ]
         _matches = FetchRequest(fetchRequest: request)
         self.userid = userid
+        viewModel = .init(userID: userid)
     }
 
     var favoriteButton: some View {
@@ -261,12 +262,13 @@ struct PlayerProfileView: View {
     }
 
     private func refreshUser() async {
-        guard let profileCodable = try? await OpenDotaProvider.shared.loadUserData(userid: userid)
+        guard let profileCodable = try? await OpenDotaProvider.shared.user(id: userid)
         else {
             print("cancelled search")
             return
         }
-        _ = try? UserProfile.create(profileCodable)
+        _ = try? profileCodable.update(context: viewContext)
+        try? viewContext.save()
     }
 
     private func loadMatches() async {

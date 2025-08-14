@@ -90,8 +90,6 @@
 		3252859726CB81480030F15B /* DifferenceGraphViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859626CB81480030F15B /* DifferenceGraphViewModel.swift */; };
 		3252859E26CB9FDC0030F15B /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3252859D26CB9FDC0030F15B /* Sidebar.swift */; };
 		325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
-		3261C907282F315100D47CDA /* HeroDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261C906282F315100D47CDA /* HeroDetailView.swift */; };
-		3261C90B2830721500D47CDA /* HeroDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */; };
 		3261C90D2830748600D47CDA /* sampleHero.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90C2830748600D47CDA /* sampleHero.json */; };
 		3270271D285C08C200927426 /* ConstantsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* ConstantsController.swift */; };
 		3270271E285C08C300927426 /* ConstantsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329849F326DCAEAE00A1032C /* ConstantsController.swift */; };
@@ -608,8 +606,6 @@
 		3252859626CB81480030F15B /* DifferenceGraphViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferenceGraphViewModel.swift; sourceTree = "<group>"; };
 		3252859D26CB9FDC0030F15B /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchListRowViewModel.swift; sourceTree = "<group>"; };
-		3261C906282F315100D47CDA /* HeroDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailView.swift; sourceTree = "<group>"; };
-		3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewModel.swift; sourceTree = "<group>"; };
 		3261C90C2830748600D47CDA /* sampleHero.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleHero.json; sourceTree = "<group>"; };
 		327772AC26D8BD47000A0A97 /* sampleRecentMatch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleRecentMatch.json; sourceTree = "<group>"; };
 		327772AE26D8BE63000A0A97 /* MatchListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchListRowView.swift; sourceTree = "<group>"; };
@@ -1386,8 +1382,6 @@
 				79E41BBF2E35FAD600AF520F /* HeroDetailViewV2.swift */,
 				79C5380D2DCB771A00B5920A /* Attribute */,
 				79C538102DCB776800B5920A /* SectionTitle.swift */,
-				3261C906282F315100D47CDA /* HeroDetailView.swift */,
-				3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */,
 				79368C0928E6D8ED009517D2 /* RoleView.swift */,
 			);
 			path = HeroDetail;
@@ -2091,7 +2085,6 @@
 				79B870C92DC39C970090CAB8 /* NSManagedObject.swift in Sources */,
 				796BF20429F5536000555C64 /* HeroListView.swift in Sources */,
 				3252858F26C949940030F15B /* Date.swift in Sources */,
-				3261C907282F315100D47CDA /* HeroDetailView.swift in Sources */,
 				792540652E30CDE700201CF1 /* ConstantsController+Preview.swift in Sources */,
 				79D1874B2E1E622500C04CC8 /* RefreshHandler.swift in Sources */,
 				798A5CF629454AEE00EB07B0 /* FavouriteUserListView.swift in Sources */,
@@ -2143,7 +2136,6 @@
 				79E41BC02E35FADA00AF520F /* HeroDetailViewV2.swift in Sources */,
 				79D1871F2E13CEFF00C04CC8 /* HeroListView+ViewModel.swift in Sources */,
 				32B36F2A26C38852002D427D /* Item.swift in Sources */,
-				3261C90B2830721500D47CDA /* HeroDetailViewModel.swift in Sources */,
 				79ABE8FA2A35C3CF00EE9EF9 /* LiveMatchDraftView.swift in Sources */,
 				79266DA72A31B0FD002FEF0F /* LiveMatchView.swift in Sources */,
 				79A988FB2931D6D7006AC847 /* PlayerCodable.swift in Sources */,

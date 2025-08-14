@@ -104,7 +104,7 @@ struct SearchView: View {
                 Section {
                     ForEach(vm.filterHeroes) { hero in
                         NavigationLink(
-                            destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))
+                            destination: Text("Temp")
                         ) {
                             HStack {
                                 HeroImageView(heroID: hero.id, type: .icon)

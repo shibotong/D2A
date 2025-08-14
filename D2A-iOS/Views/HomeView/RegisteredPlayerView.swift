@@ -136,8 +136,8 @@ struct EmptyRegistedView: View {
                 profile.register = true
                 try viewContext.save()
             } else {
-                let userCodable = try await OpenDotaProvider.shared.loadUserData(userid: userid)
-                _ = try UserProfile.create(userCodable, favourite: true, register: true)
+                let userCodable = try await OpenDotaProvider.shared.user(id: userid)
+                try? userCodable.update(context: viewContext, favourite: true, register: true)
             }
         } catch {
             env.error = true

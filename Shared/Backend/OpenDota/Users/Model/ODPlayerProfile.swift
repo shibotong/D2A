@@ -76,4 +76,10 @@ struct ODPlayerProfile: Decodable, PersistanceModel {
         setIfNotEqual(entity: user, path: \.rank, value: Int16(rank ?? 0))
         return user
     }
+    
+    func update(context: NSManagedObjectContext, favourite: Bool, register: Bool) throws {
+        let user = try update(context: context) as! UserProfile
+        setIfNotEqual(entity: user, path: \.favourite, value: favourite)
+        setIfNotEqual(entity: user, path: \.register, value: register)
+    }
 }
