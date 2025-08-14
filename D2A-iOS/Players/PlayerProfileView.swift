@@ -22,6 +22,8 @@ struct PlayerProfileView: View {
     @State private var matchLoading = false
 
     @State private var refreshID = UUID()
+    
+    @ObservedObject private var viewModel: PlayerProfileViewModel
 
     private var steamLink: some View {
         HStack {
@@ -55,7 +57,7 @@ struct PlayerProfileView: View {
 
     var favoriteButton: some View {
         ZStack {
-            if let profile = profile.first {
+            if let profile = viewModel.user {
                 if profile.register {
                     Image(systemName: "person.text.rectangle")
                         .foregroundColor(.primaryDota)
@@ -77,7 +79,7 @@ struct PlayerProfileView: View {
     }
 
     var body: some View {
-        if let profile = profile.first {
+        if let profile = viewModel.user {
             buildProfileView(profile: profile)
                 .listStyle(PlainListStyle())
                 .navigationTitle("\(profile.personaname ?? "")")
