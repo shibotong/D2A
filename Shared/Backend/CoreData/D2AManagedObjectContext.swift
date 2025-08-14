@@ -13,3 +13,14 @@ class D2AManagedObjectContext: NSManagedObjectContext {
         try parent?.save()
     }
 }
+
+
+extension NSManagedObjectContext {
+    func fetchOne<T: NSManagedObject>(type: T.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]? = nil) throws -> T? {
+        let fetchRequest = type.fetchRequest()
+        fetchRequest.predicate = predicate
+        fetchRequest.fetchLimit = 1
+        fetchRequest.sortDescriptors = sortDescriptors
+        return try fetch(fetchRequest).first as? T
+    }
+}

@@ -83,19 +83,7 @@ extension Hero {
     }
 
     static func fetchOne(predicate: NSPredicate, context: NSManagedObjectContext) -> Hero? {
-        let request = Hero.fetchRequest()
-        request.predicate = predicate
-        return context.performAndWait {
-            do {
-                guard let result = try context.fetch(request).first else {
-                    return nil
-                }
-                return result
-            } catch {
-                logError("Failed to fetch Hero: \(error)", category: .coredata)
-                return nil
-            }
-        }
+        return try? context.fetchOne(type: Hero.self, predicate: predicate)
     }
 
     // MARK: - Static let
