@@ -12,26 +12,15 @@ class PreviewDataProvider {
     static let shared = PreviewDataProvider()
     
     func loadOpenDotaConstants<T: Decodable>(service: OpenDotaConstantService, as type: T.Type) -> T? {
-        loadFile(filename: service.rawValue, as: type)
+        FileReader.loadFile(filename: service.rawValue, as: type)
     }
     
     func loadOpenDotaUser() -> ODPlayerProfile? {
-        loadFile(filename: OpenDotaDataService.player.rawValue, as: ODPlayerProfile.self)
+        FileReader.loadFile(filename: OpenDotaDataService.player.rawValue, as: ODPlayerProfile.self)
     }
     
     private enum OpenDotaDataService: String {
         case player
-    }
-    
-    private func loadFile<T: Decodable>(filename: String, as type: T.Type) -> T? {
-        guard let path = Bundle.main.url(forResource: filename, withExtension: "json") else {
-            assertionFailure("Not able to find file \(filename).json")
-            return nil
-        }
-        let data = try! Data(contentsOf: path)
-        let decoder = JSONDecoder()
-        let jsonData = try! decoder.decode(T.self, from: data)
-        return jsonData
     }
 }
 
