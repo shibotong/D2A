@@ -27,3 +27,9 @@ class OpenDotaConstantFetcher: OpenDotaConstantFetching {
     }
 }
 
+class LocalOpenDotaConstantFetcher: OpenDotaConstantFetching {
+    func loadService<T: Decodable>(service: OpenDotaConstantService, as type: T.Type) async -> T? {
+        loadFile(filename: service.rawValue, as: type)
+    }
+}
+
