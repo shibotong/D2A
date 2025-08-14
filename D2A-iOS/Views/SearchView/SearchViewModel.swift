@@ -13,23 +13,26 @@ class SearchViewModel: ObservableObject {
     @Published var isLoading: Bool = false
 
     // suggestion
-    @Published var suggestHeroes: [ODHero] = []
+    @Published var suggestHeroes: [Hero] = []
     @Published var suggestLocalProfiles: [UserProfile] = []
 
     // search results
     @Published var userProfiles: [ODUserProfile] = []
     @Published var searchLocalProfiles: [UserProfile] = []
     @Published var searchedMatch: Match?
-    @Published var filterHeroes: [ODHero] = []
+    @Published var filterHeroes: [Hero] = []
 
     @Published var searchHistory: [String] {
         didSet {
             UserDefaults.standard.set(searchHistory, forKey: "dotaArmory.searchHistory")
         }
     }
-
-    private var cancellableObject: Set<AnyCancellable> = []
-    init() {
+    
+    private let allHeroes: [Hero]
+    
+    init(viewContext: D2AManagedObjectContext = PersistanceProvider.shared.mainContext) {
+        let allHeroes = (try? viewContext.fetchAll(type: Hero.self)) ?? []
+        self.allHeroes = allHeroes
         searchHistory =
             UserDefaults.standard.object(forKey: "dotaArmory.searchHistory") as? [String] ?? []
 
@@ -39,15 +42,13 @@ class SearchViewModel: ObservableObject {
                 guard !text.isEmpty else {
                     return []
                 }
-                let heroes = ConstantsController.shared.fetchAllHeroes().filter({
+                let heroes = allHeroes.filter({
                     return $0.heroNameLocalized.lowercased().contains(text.lowercased())
                 })
                 return heroes
             }
-            .sink { [weak self] searchResults in
-                self?.suggestHeroes = searchResults
-            }
-            .store(in: &cancellableObject)
+            .assign(to: &$suggestHeroes)
+
         $searchText
             .receive(on: RunLoop.main)
             .map { text in
@@ -57,10 +58,7 @@ class SearchViewModel: ObservableObject {
                 let profiles = UserProfile.fetch(text: text, favourite: true)
                 return profiles
             }
-            .sink { [weak self] searchProfiles in
-                self?.suggestLocalProfiles = searchProfiles
-            }
-            .store(in: &cancellableObject)
+            .assign(to: &$suggestLocalProfiles)
     }
 
     @MainActor
@@ -71,7 +69,7 @@ class SearchViewModel: ObservableObject {
         suggestHeroes = []
 
         userProfiles = []
-        filterHeroes = ConstantsController.shared.fetchAllHeroes().filter { hero in
+        filterHeroes = allHeroes.filter { hero in
             return hero.heroNameLocalized.lowercased().contains(searchText.lowercased())
         }
         async let searchedProfile = OpenDotaProvider.shared.searchUserByText(text: searchText)

@@ -23,7 +23,9 @@ extension NSManagedObjectContext {
     func fetchAll<T: NSManagedObject>(type: T.Type, predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor]? = nil, limit: Int? = nil) throws -> [T] {
         let fetchRequest = type.fetchRequest()
         fetchRequest.predicate = predicate
-        fetchRequest.fetchLimit = 1
+        if let limit {
+            fetchRequest.fetchLimit = limit
+        }
         fetchRequest.sortDescriptors = sortDescriptors
         return try fetch(fetchRequest) as? [T] ?? []
     }
