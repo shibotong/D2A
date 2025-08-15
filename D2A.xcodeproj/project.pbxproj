@@ -1008,11 +1008,12 @@
 		32B36F0D26C38821002D427D /* D2A-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				7937FF3F2E4B5A5C0019145D /* Players */,
-				7937FF322E470B1A0019145D /* Heroes */,
 				32F70B3726F80AD3006E9B05 /* D2ARelease.entitlements */,
 				32F70B2726F62B09006E9B05 /* D2ADebug.entitlements */,
 				32B36F1026C38821002D427D /* ContentView.swift */,
+				7937FF322E470B1A0019145D /* Heroes */,
+				7937FF3F2E4B5A5C0019145D /* Players */,
+				790D96112E4FFB740090801B /* Search */,
 				32B36F3D26C38894002D427D /* Views */,
 				32D1605B26F30B5F00657449 /* Subscription */,
 				32B36F1726C38822002D427D /* Info.plist */,
@@ -1094,7 +1095,6 @@
 				3294463C26E1BC3B006E0D06 /* MatchListView */,
 				3294463B26E1BC24006E0D06 /* MatchView */,
 				32EC7F3E286474EB00A36AF6 /* OtherViews */,
-				32EC7F3B2864747100A36AF6 /* SearchView */,
 				3294463D26E1BC60006E0D06 /* SideBarView */,
 			);
 			path = Views;
@@ -1128,15 +1128,6 @@
 				32D1605C26F30B7A00657449 /* StoreManager.swift */,
 			);
 			path = Subscription;
-			sourceTree = "<group>";
-		};
-		32EC7F3B2864747100A36AF6 /* SearchView */ = {
-			isa = PBXGroup;
-			children = (
-				322B89C426CFAC1000DF67F9 /* SearchView.swift */,
-				322B89C626CFD2DE00DF67F9 /* SearchViewModel.swift */,
-			);
-			path = SearchView;
 			sourceTree = "<group>";
 		};
 		32EC7F3C2864748200A36AF6 /* AboutUsView */ = {
@@ -1240,6 +1231,15 @@
 				794838642A3D2C0800A447DA /* LiveMatchActivity.swift */,
 			);
 			path = LiveActivities;
+			sourceTree = "<group>";
+		};
+		790D96112E4FFB740090801B /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				322B89C426CFAC1000DF67F9 /* SearchView.swift */,
+				322B89C626CFD2DE00DF67F9 /* SearchViewModel.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		7912B6E12B5D021700AE1947 /* Abilities */ = {

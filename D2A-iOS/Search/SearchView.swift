@@ -143,8 +143,16 @@ struct SearchView: View {
 struct AddAccountView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
+            SearchView()
+        }
+        .previewDevice(.iPhone)
+        .previewDisplayName("iPhone")
+        
+        NavigationView {
             EmptyView()
             SearchView()
         }
+        .previewDevice(.iPad)
+        .previewDisplayName("iPad")
     }
 }

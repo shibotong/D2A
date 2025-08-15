@@ -52,11 +52,11 @@ class SearchViewModel: ObservableObject {
         $searchText
             .receive(on: RunLoop.main)
             .map { text in
-                guard !text.isEmpty else {
+//                guard !text.isEmpty else {
                     return []
-                }
-                let profiles = UserProfile.fetch(text: text, favourite: true)
-                return profiles
+//                }
+//                let profiles = UserProfile.fetch(text: text, favourite: true)
+//                return profiles
             }
             .assign(to: &$suggestLocalProfiles)
     }
