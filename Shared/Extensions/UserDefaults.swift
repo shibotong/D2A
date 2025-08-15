@@ -13,4 +13,9 @@ extension UserDefaults {
     // UserDefaults keys
     static let stratzToken = "stratzToken"
     static let subscription = "dotaArmory.subscription"
+    
+    struct Key {
+        private static let prefix = "com.shibotong.dotaarmory"
+        static let searchHistory = "\(prefix).searchHistory"
+    }
 }
