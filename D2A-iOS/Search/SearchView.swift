@@ -8,41 +8,41 @@
 import SwiftUI
 
 struct SearchView: View {
-    @StateObject var vm: SearchViewModel = SearchViewModel()
+    @StateObject var viewModel: SearchViewModel = SearchViewModel()
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
     var body: some View {
         searchPage
             .navigationTitle("Search")
             .searchable(
-                text: $vm.searchText, placement: .navigationBarDrawer(displayMode: .always),
+                text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always),
                 prompt: "Players, Heroes, Matches"
             ) {
                 searchSuggestions
             }
             .disableAutocorrection(true)
             .onSubmit(of: .search) {
-                vm.addSearch(vm.searchText)
+                viewModel.addSearch(viewModel.searchText)
                 Task {
-                    await vm.search(searchText: vm.searchText)
+                    await viewModel.search(searchText: viewModel.searchText)
                 }
             }
     }
 
     private var searchSuggestions: some View {
         Group {
-            if vm.searchText.isEmpty {
-                ForEach(vm.searchHistory, id: \.self) { text in
+            if viewModel.searchText.isEmpty {
+                ForEach(viewModel.searchHistory, id: \.self) { text in
                     Label("\(text)", systemImage: "magnifyingglass")
                         .searchCompletion(text)
                 }
 
             }
-            ForEach(vm.suggestLocalProfiles) { profile in
+            ForEach(viewModel.suggestLocalProfiles) { profile in
                 Label("\(profile.personaname ?? "")", systemImage: "person.crop.circle")
                     .searchCompletion(profile.personaname ?? "")
             }
-            ForEach(vm.suggestHeroes) { hero in
+            ForEach(viewModel.suggestHeroes) { hero in
                 Label("\(hero.heroNameLocalized)", systemImage: "books.vertical.fill")
                     .searchCompletion(hero.heroNameLocalized)
             }
@@ -51,10 +51,10 @@ struct SearchView: View {
 
     private var searchPage: some View {
         ZStack {
-            if vm.searchText.isEmpty {
+            if viewModel.searchText.isEmpty {
                 emptySearchPage
             } else {
-                if vm.isLoading {
+                if viewModel.isLoading {
                     ProgressView()
                 } else {
                     searchedList
@@ -78,7 +78,7 @@ struct SearchView: View {
 
     private var searchedList: some View {
         List {
-            if let match = vm.searchedMatch, let matchID = match.id {
+            if let match = viewModel.searchedMatch, let matchID = match.id {
                 Section {
                     NavigationLink(destination: MatchView(matchid: matchID)) {
                         HStack {
@@ -100,9 +100,9 @@ struct SearchView: View {
                 }
             }
 
-            if !vm.filterHeroes.isEmpty {
+            if !viewModel.filterHeroes.isEmpty {
                 Section {
-                    ForEach(vm.filterHeroes) { hero in
+                    ForEach(viewModel.filterHeroes) { hero in
                         NavigationLink(
                             destination: HeroDetailViewV2(hero: hero)
                         ) {
@@ -117,14 +117,14 @@ struct SearchView: View {
                     Text("Heroes")
                 }
             }
-            if !vm.userProfiles.isEmpty || !vm.searchLocalProfiles.isEmpty {
+            if !viewModel.userProfiles.isEmpty || !viewModel.searchLocalProfiles.isEmpty {
                 Section {
-                    ForEach(vm.searchLocalProfiles) { profile in
+                    ForEach(viewModel.searchLocalProfiles) { profile in
                         NavigationLink(destination: PlayerProfileView(userid: profile.id ?? "")) {
                             ProfileView(viewModel: ProfileViewModel(profile: profile))
                         }.accessibilityIdentifier(profile.id ?? "")
                     }
-                    ForEach(vm.userProfiles) { profile in
+                    ForEach(viewModel.userProfiles) { profile in
                         NavigationLink(
                             destination: PlayerProfileView(userid: profile.id.description)
                         ) {
