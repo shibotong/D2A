@@ -20,18 +20,18 @@ struct OpenDotaConstantProviderTests {
     
     
     @Test("Ability exists")
-    func abilityExists() async {
-        #expect(await provider.loadAbilities().count > 0, "Provider should return abilities")
+    func abilityExists() async throws {
+        #expect(try await provider.loadAbilities().count > 0, "Provider should return abilities")
     }
     
     @Test("Hero exists")
-    func heroExists() async {
-        #expect(await provider.loadHeroes().count > 0, "Provider should return heroes")
+    func heroExists() async throws {
+        #expect(try await provider.loadHeroes().count > 0, "Provider should return heroes")
     }
     
     @Test("Game modes exists")
-    func modeExists() async {
-        #expect(await provider.loadGameModes().count > 0, "Provider should return game modes")
+    func modeExists() async throws {
+        #expect(try await provider.loadGameModes().count > 0, "Provider should return game modes")
     }
     
 }
