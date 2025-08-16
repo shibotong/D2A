@@ -1100,7 +1100,6 @@
 			isa = PBXGroup;
 			children = (
 				32EC7F3C2864748200A36AF6 /* AboutUsView */,
-				32EC7F3D286474C600A36AF6 /* HomeView */,
 				79266DA52A31B0D7002FEF0F /* LiveMatchView */,
 				3294463C26E1BC3B006E0D06 /* MatchListView */,
 				3294463B26E1BC24006E0D06 /* MatchView */,
@@ -1150,7 +1149,7 @@
 			path = AboutUsView;
 			sourceTree = "<group>";
 		};
-		32EC7F3D286474C600A36AF6 /* HomeView */ = {
+		32EC7F3D286474C600A36AF6 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				798A5CF529454AEE00EB07B0 /* FavouriteUserListView.swift */,
@@ -1160,7 +1159,7 @@
 				794B723C2985D2C9000059E4 /* RecentMatchWinLossView.swift */,
 				327B8759284D96A600BBE1F8 /* UserProfileRowView.swift */,
 			);
-			path = HomeView;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		32EC7F3E286474EB00A36AF6 /* OtherViews */ = {
@@ -1257,6 +1256,7 @@
 		790D962F2E50241E0090801B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				32EC7F3D286474C600A36AF6 /* Home */,
 				7937FF322E470B1A0019145D /* Heroes */,
 				7937FF3F2E4B5A5C0019145D /* Players */,
 				790D96112E4FFB740090801B /* Search */,
