@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SearchHistoryView: View {
+    @Environment(\.managedObjectContext) var context
+    
     let searchHistory: [String]
     
     var body: some View {
