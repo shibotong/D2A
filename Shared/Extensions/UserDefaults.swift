@@ -14,8 +14,11 @@ extension UserDefaults {
     static let stratzToken = "stratzToken"
     static let subscription = "dotaArmory.subscription"
     
-    struct Key {
-        private static let prefix = "com.shibotong.dotaarmory"
-        static let searchHistory = "\(prefix).searchHistory"
+    enum Key: String {
+        case searchHistory = "com.shibotong.dotaArmory.searchHistory"
+    }
+    
+    func object(for key: Key) -> Any? {
+        return object(forKey: key.rawValue)
     }
 }

@@ -9,12 +9,15 @@ import SwiftUI
 
 struct HeroImageViewV2: View {
     @EnvironmentObject var imageController: ImageController
-    @Environment(\.managedObjectContext) var viewContext
     
     @State private var image: UIImage?
     
     private let name: String
     private let type: HeroImageType
+    
+    init(hero: Hero, type: HeroImageType) {
+        self.init(name: hero.heroNameLowerCase, type: type)
+    }
     
     init(name: String, type: HeroImageType) {
         self.name = name

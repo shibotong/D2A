@@ -15,7 +15,7 @@ extension PersistanceProvider {
         let heroDict = dataProvider.loadOpenDotaConstants(service: .heroes, as: [String: ODHero].self) ?? [:]
         let heroAbilities = dataProvider.loadOpenDotaConstants(service: .heroAbilities, as: [String: ODHeroAbilities].self) ?? [:]
         let lores = dataProvider.loadOpenDotaConstants(service: .heroLore, as: [String: String].self) ?? [:]
-        let heroes = processor.processHeroes(heroes: heroDict, abilities: heroAbilities, lores: lores)
+        let heroes = processor.processHeroes(heroes: heroDict, abilities: heroAbilities, lores: lores).filter({ $0.id <= 10 })
         provider.saveODData(data: heroes, type: Hero.self, mainContext: true)
         
         let abilityDict = dataProvider.loadOpenDotaConstants(service: .abilities, as: [String: ODAbility].self) ?? [:]
@@ -34,4 +34,6 @@ extension PersistanceProvider {
         let provider = PersistanceProvider.preview
         return provider.container.viewContext
     }()
+    
+    static let previewProvider: PersistanceProvider = PersistanceProvider(inMemory: true)
 }
