@@ -223,10 +223,13 @@
 		79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */; };
 		79091DFC2A3B36310093EEE4 /* LiveMatchTeamIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DFB2A3B36310093EEE4 /* LiveMatchTeamIconView.swift */; };
 		790D96132E4FFCA60090801B /* SearchSuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D96122E4FFCA20090801B /* SearchSuggestionView.swift */; };
-		790D96152E4FFD520090801B /* SearchSuggestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D96142E4FFD4D0090801B /* SearchSuggestionViewModel.swift */; };
 		790D96172E5000DA0090801B /* SearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D96162E5000D60090801B /* SearchHistoryView.swift */; };
 		790D96192E5005850090801B /* OpenDotaConstantProvider+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D96182E50057D0090801B /* OpenDotaConstantProvider+Preview.swift */; };
 		790D961A2E5005850090801B /* OpenDotaConstantProvider+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D96182E50057D0090801B /* OpenDotaConstantProvider+Preview.swift */; };
+		790D961C2E5008080090801B /* UserProfile+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D961B2E5008040090801B /* UserProfile+Preview.swift */; };
+		790D961D2E5008080090801B /* UserProfile+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D961B2E5008040090801B /* UserProfile+Preview.swift */; };
+		790D961F2E500E380090801B /* OpenDotaProvider+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D961E2E500E300090801B /* OpenDotaProvider+Preview.swift */; };
+		790D96202E500E380090801B /* OpenDotaProvider+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D961E2E500E300090801B /* OpenDotaProvider+Preview.swift */; };
 		790FBB2429C186AE00E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2329C186AE00E27106 /* Apollo */; };
 		790FBB3429C18AC800E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB3329C18AC800E27106 /* Apollo */; };
 		7925405F2E30C8CC00201CF1 /* OpenDotaConstantProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */; };
@@ -682,9 +685,10 @@
 		79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityWidget.swift; sourceTree = "<group>"; };
 		79091DFB2A3B36310093EEE4 /* LiveMatchTeamIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchTeamIconView.swift; sourceTree = "<group>"; };
 		790D96122E4FFCA20090801B /* SearchSuggestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionView.swift; sourceTree = "<group>"; };
-		790D96142E4FFD4D0090801B /* SearchSuggestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionViewModel.swift; sourceTree = "<group>"; };
 		790D96162E5000D60090801B /* SearchHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryView.swift; sourceTree = "<group>"; };
 		790D96182E50057D0090801B /* OpenDotaConstantProvider+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenDotaConstantProvider+Preview.swift"; sourceTree = "<group>"; };
+		790D961B2E5008040090801B /* UserProfile+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProfile+Preview.swift"; sourceTree = "<group>"; };
+		790D961E2E500E300090801B /* OpenDotaProvider+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenDotaProvider+Preview.swift"; sourceTree = "<group>"; };
 		7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantProcessor.swift; sourceTree = "<group>"; };
 		792540622E30CDE000201CF1 /* ConstantsController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConstantsController+Preview.swift"; sourceTree = "<group>"; };
 		792540662E30CE4600201CF1 /* ImageController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageController+Preview.swift"; sourceTree = "<group>"; };
@@ -1249,7 +1253,6 @@
 				322B89C626CFD2DE00DF67F9 /* SearchViewModel.swift */,
 				790D96162E5000D60090801B /* SearchHistoryView.swift */,
 				790D96122E4FFCA20090801B /* SearchSuggestionView.swift */,
-				790D96142E4FFD4D0090801B /* SearchSuggestionViewModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1371,6 +1374,7 @@
 			isa = PBXGroup;
 			children = (
 				790D96182E50057D0090801B /* OpenDotaConstantProvider+Preview.swift */,
+				790D961E2E500E300090801B /* OpenDotaProvider+Preview.swift */,
 				793CD5272E35019E00FEA46B /* MockImageProvider.swift */,
 				797C88B82DCB750E00D4CDD1 /* PersistanceProvider+Preview.swift */,
 				798E0FE02E2CFDD50066D7E1 /* PreviewDataProvider.swift */,
@@ -1381,6 +1385,7 @@
 		7939A67B2E344A3100FDD617 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				790D961B2E5008040090801B /* UserProfile+Preview.swift */,
 				790349872E3528CA00EF4CFB /* Ability+Preview.swift */,
 				7939A67E2E3452C400FDD617 /* GameMode+Preview.swift */,
 				797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */,
@@ -2126,6 +2131,7 @@
 				79AF52852E015B5A009FE792 /* HeroRowView.swift in Sources */,
 				32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */,
 				79E41BC82E360FDA00AF520F /* HeroDetailRow.swift in Sources */,
+				790D961C2E5008080090801B /* UserProfile+Preview.swift in Sources */,
 				79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */,
 				79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */,
 				798E0FF52E2F7DA60066D7E1 /* ODScepter.swift in Sources */,
@@ -2144,7 +2150,6 @@
 				79B870BA2DC394C10090CAB8 /* OpenDotaConstantService.swift in Sources */,
 				79EB3EF52DC4B0BB008C4F6D /* ODAbility+Attribute.swift in Sources */,
 				79B870BB2DC394C10090CAB8 /* OpenDotaConstantProvider.swift in Sources */,
-				790D96152E4FFD520090801B /* SearchSuggestionViewModel.swift in Sources */,
 				798E0FE12E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */,
 				79CF37672DC0F96100207CB8 /* D2AServiceCategory.swift in Sources */,
 				32B36F3F26C388AD002D427D /* PlayerProfileView.swift in Sources */,
@@ -2193,6 +2198,7 @@
 				79AF521C2E00341D009FE792 /* ImageController.swift in Sources */,
 				79CF376F2DC0FA5E00207CB8 /* DebugView.swift in Sources */,
 				79837B55294C18FE00458529 /* DamageView.swift in Sources */,
+				790D96202E500E380090801B /* OpenDotaProvider+Preview.swift in Sources */,
 				79A989002931DCE1006AC847 /* UserProfile.swift in Sources */,
 				797C88BA2DCB75A300D4CDD1 /* Hero+Preview.swift in Sources */,
 				79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
@@ -2282,6 +2288,7 @@
 				799948C12932D50000D79055 /* ImageProvider.swift in Sources */,
 				32079DC028B843360056D19F /* String.swift in Sources */,
 				792540682E30CE4B00201CF1 /* ImageController+Preview.swift in Sources */,
+				790D961D2E5008080090801B /* UserProfile+Preview.swift in Sources */,
 				793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
 				7937FF292E47058B0019145D /* HeroImageType.swift in Sources */,
 				79B870C82DC39C970090CAB8 /* NSManagedObject.swift in Sources */,
@@ -2318,6 +2325,7 @@
 				32F70AB526F5812B006E9B05 /* LobbyType.swift in Sources */,
 				7937FF382E4B40230019145D /* D2AManagedObjectContext.swift in Sources */,
 				79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */,
+				790D961F2E500E380090801B /* OpenDotaProvider+Preview.swift in Sources */,
 				7937FDE72E421DF50019145D /* Ability+Preview.swift in Sources */,
 				790D961A2E5005850090801B /* OpenDotaConstantProvider+Preview.swift in Sources */,
 				79D1871C2E0D667B00C04CC8 /* HeroAttribute.swift in Sources */,

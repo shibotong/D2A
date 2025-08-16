@@ -15,8 +15,8 @@ class PreviewDataProvider {
         try? FileReader.loadFile(filename: service.rawValue, as: type)
     }
     
-    func loadOpenDotaUser() -> ODPlayerProfile? {
-        try? FileReader.loadFile(filename: OpenDotaDataService.player.rawValue, as: ODPlayerProfile.self)
+    func loadOpenDotaUser() -> ODPlayerProfile {
+        try! FileReader.loadFile(filename: OpenDotaDataService.player.rawValue, as: ODPlayerProfile.self)
     }
     
     private enum OpenDotaDataService: String {

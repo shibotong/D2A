@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProfileAvatar: View {
 
-    @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var imageController: ImageController
     @State var image: UIImage?
 
@@ -41,7 +40,9 @@ struct ProfileAvatar: View {
                     .aspectRatio(contentMode: .fit)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                     .overlay {
-                        RoundedRectangle(cornerRadius: cornerRadius).stroke().foregroundColor(
+                        RoundedRectangle(cornerRadius: cornerRadius)
+                            .stroke()
+                            .foregroundColor(
                             Color(uiColor: .systemGray6))
                     }
             } else {

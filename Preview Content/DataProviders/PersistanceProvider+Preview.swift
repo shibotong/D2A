@@ -18,10 +18,11 @@ extension PersistanceProvider {
         let heroes = processor.processHeroes(heroes: heroDict, abilities: heroAbilities, lores: lores).filter({ $0.id <= 10 })
         provider.saveODData(data: heroes, type: Hero.self, mainContext: true)
         
+        let abilityNames = fetchAbilityIDs(heroes: heroes)
         let abilityDict = dataProvider.loadOpenDotaConstants(service: .abilities, as: [String: ODAbility].self) ?? [:]
         let abilityIDs = dataProvider.loadOpenDotaConstants(service: .abilityIDs, as: [String: String].self) ?? [:]
         let scepters = dataProvider.loadOpenDotaConstants(service: .aghs, as: [ODScepter].self) ?? []
-        let abilities = processor.processAbilities(ability: abilityDict, ids: abilityIDs, scepters: scepters)
+        let abilities = processor.processAbilities(ability: abilityDict, ids: abilityIDs, scepters: scepters).filter { abilityNames.contains($0.name ?? "") }
         provider.saveODData(data: abilities, type: Ability.self, mainContext: true)
         
         let gameModes = processor.processGameModes(modes: dataProvider.loadOpenDotaConstants(service: .gameMode, as: [String: ODGameMode].self) ?? [:])
@@ -36,4 +37,13 @@ extension PersistanceProvider {
     }()
     
     static let previewProvider: PersistanceProvider = PersistanceProvider(inMemory: true)
+    
+    static private func fetchAbilityIDs(heroes: [ODHero]) -> [String] {
+        var ids: [String] = []
+        for hero in heroes {
+            ids.append(contentsOf: hero.abilities)
+            ids.append(contentsOf: hero.talents.map { $0.ability })
+        }
+        return ids
+    }
 }
