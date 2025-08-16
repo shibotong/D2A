@@ -6,7 +6,6 @@
 //
 
 import CoreData
-import SwiftData
 import StoreKit
 import SwiftUI
 
@@ -32,7 +31,6 @@ struct D2AApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .modelContainer(persistanceController.modelContainer)
                 .environmentObject(environment)
                 .environmentObject(constantsController)
                 .environmentObject(storeManager)
