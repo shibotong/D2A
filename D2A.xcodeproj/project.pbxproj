@@ -1021,14 +1021,11 @@
 		32B36F0D26C38821002D427D /* D2A-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				790D962F2E50241E0090801B /* Classes */,
 				32F70B3726F80AD3006E9B05 /* D2ARelease.entitlements */,
 				32F70B2726F62B09006E9B05 /* D2ADebug.entitlements */,
 				32B36F1026C38821002D427D /* ContentView.swift */,
-				7937FF322E470B1A0019145D /* Heroes */,
-				7937FF3F2E4B5A5C0019145D /* Players */,
-				790D96112E4FFB740090801B /* Search */,
 				32B36F3D26C38894002D427D /* Views */,
-				32D1605B26F30B5F00657449 /* Subscription */,
 				32B36F1726C38822002D427D /* Info.plist */,
 				32B36F1426C38822002D427D /* Preview Content */,
 				32AEEEF826F9B1120088DEC8 /* LocalizableStrings.swift */,
@@ -1255,6 +1252,17 @@
 				790D96122E4FFCA20090801B /* SearchSuggestionView.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		790D962F2E50241E0090801B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				7937FF322E470B1A0019145D /* Heroes */,
+				7937FF3F2E4B5A5C0019145D /* Players */,
+				790D96112E4FFB740090801B /* Search */,
+				32D1605B26F30B5F00657449 /* Subscription */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		7912B6E12B5D021700AE1947 /* Abilities */ = {
