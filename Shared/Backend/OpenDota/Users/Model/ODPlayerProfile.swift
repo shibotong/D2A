@@ -10,15 +10,11 @@ import CoreData
 
 struct ODPlayerProfile: Decodable, PersistanceModel {
     
-    let soloCompetitiveRank: Int?
-    let competitiveRank: Int?
     let rank: Int?
     let leaderboard: Int?
     let profile: Profile
 
     enum CodingKeys: String, CodingKey {
-        case soloCompetitiveRank = "solo_competitive_rank"
-        case competitiveRank = "competitive_rank"
         case profile
         case rank = "rank_tier"
         case leaderboard = "leaderboard_rank"
@@ -27,18 +23,15 @@ struct ODPlayerProfile: Decodable, PersistanceModel {
     struct Profile: Decodable {
         let accountID: Int
         let personaname: String
-        let name: String
+        let name: String?
         let plus: Bool
         let cheese: Int
-        let steamID: String
         let avatar: String
         let avatarMedium: String
         let avatarFull: String
         let profileURL: String
         let lastLogin: String
         let country: String
-        let isContributer: Bool
-        let isSubscriber: Bool
         
         enum CodingKeys: String, CodingKey {
             case accountID = "account_id"
@@ -46,15 +39,12 @@ struct ODPlayerProfile: Decodable, PersistanceModel {
             case name
             case plus
             case cheese
-            case steamID = "steamid"
             case avatar
             case avatarMedium = "avatarmedium"
             case avatarFull = "avatarfull"
             case profileURL = "profileurl"
             case lastLogin = "last_login"
-            case country = "locountrycode"
-            case isContributer = "is_contributor"
-            case isSubscriber = "is_subscriber"
+            case country = "loccountrycode"
         }
     }
     
