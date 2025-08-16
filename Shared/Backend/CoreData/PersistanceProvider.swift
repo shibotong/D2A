@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import SwiftData
 import Combine
 
 protocol PersistanceProviding {
@@ -36,6 +37,8 @@ class PersistanceProvider: PersistanceProviding {
 
     let container: NSPersistentContainer
     let mainContext: D2AManagedObjectContext
+    
+    let modelContainer: ModelContainer
 
     /// A peristent history token used for fetching transactions from the store.
     private var lastToken: NSPersistentHistoryToken?
@@ -65,6 +68,15 @@ class PersistanceProvider: PersistanceProviding {
         container.viewContext.automaticallyMergesChangesFromParent = true
         mainContext = D2AManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         mainContext.persistentStoreCoordinator = container.persistentStoreCoordinator
+        
+        // Swift Data
+        let configuration = ModelConfiguration(isStoredInMemoryOnly: inMemory)
+        do {
+            modelContainer = try ModelContainer(for: SearchHistory.self, configurations: configuration)
+        } catch {
+            fatalError("Not able to load model container")
+        }
+        
         // Observe Core Data remote change notifications on the queue where the changes were made.
         remoteChangeCancellable = NotificationCenter.Publisher(center: .default, name: .NSPersistentStoreRemoteChange)
             .sink(receiveValue: { [weak self] note in
@@ -73,6 +85,7 @@ class PersistanceProvider: PersistanceProviding {
                 }
             })
         
+        // Core Data
         loadContainer(inMemory: inMemory)
     }
     
