@@ -1044,15 +1044,11 @@
 		32B36F1D26C38834002D427D /* Backend */ = {
 			isa = PBXGroup;
 			children = (
-				79D187492E1E621C00C04CC8 /* RefreshHandler.swift */,
-				79AF52362E0037A7009FE792 /* Image */,
 				79EB3F7B2DC6EF41008C4F6D /* CoreData */,
+				790D96302E514C740090801B /* Environments */,
+				79AF52362E0037A7009FE792 /* Image */,
 				79B870B52DC394C10090CAB8 /* OpenDota */,
 				79B870982DC38A150090CAB8 /* Stratz */,
-				329849F326DCAEAE00A1032C /* ConstantsController.swift */,
-				79D187452E1E573100C04CC8 /* GameDataController.swift */,
-				32B36F4B26C39C5D002D427D /* EnvironmentController.swift */,
-				79AF521B2E00341D009FE792 /* ImageController.swift */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -1119,6 +1115,7 @@
 				327B875F284D9FA100BBE1F8 /* DataHelper.swift */,
 				79AF521F2E00347A009FE792 /* ImageExtension.swift */,
 				7925E1582E39F427002B9865 /* LocaliseLanguage.swift */,
+				79D187492E1E621C00C04CC8 /* RefreshHandler.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -1263,6 +1260,17 @@
 				32D1605B26F30B5F00657449 /* Subscription */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		790D96302E514C740090801B /* Environments */ = {
+			isa = PBXGroup;
+			children = (
+				329849F326DCAEAE00A1032C /* ConstantsController.swift */,
+				32B36F4B26C39C5D002D427D /* EnvironmentController.swift */,
+				79D187452E1E573100C04CC8 /* GameDataController.swift */,
+				79AF521B2E00341D009FE792 /* ImageController.swift */,
+			);
+			path = Environments;
 			sourceTree = "<group>";
 		};
 		7912B6E12B5D021700AE1947 /* Abilities */ = {
