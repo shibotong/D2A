@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct UserProfileRowView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     var profile: UserProfile
 
     var body: some View {

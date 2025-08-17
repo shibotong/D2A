@@ -14,8 +14,8 @@ struct HomeView: View {
                 RegisteredPlayerView()
                     .frame(height: 170)
                     .background(Color.systemBackground)
-                FavouriteUserListView()
-                    .padding(.horizontal)
+//                FavouriteUserListView()
+//                    .padding(.horizontal)
             }
         }
         .listStyle(.plain)

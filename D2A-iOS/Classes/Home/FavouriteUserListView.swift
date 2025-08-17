@@ -11,14 +11,9 @@ struct FavouriteUserListView: View {
 
     @EnvironmentObject var env: EnvironmentController
 
-    @Environment(\.managedObjectContext) var viewContext
-
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    @FetchRequest(
-        sortDescriptors: [],
-        predicate: NSPredicate(format: "favourite = %d AND register = %d", true, false))
-    private var favouritePlayers: FetchedResults<UserProfile>
+    let favouritePlayers: [UserProfile]
 
     var body: some View {
         VStack {
@@ -81,8 +76,9 @@ struct FavouriteUserListView: View {
 #if DEBUG
 struct FavouriteUserListView_Previews: PreviewProvider {
     static var previews: some View {
-        FavouriteUserListView()
-            .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
+        FavouriteUserListView(favouritePlayers: [UserProfile.user])
+            .environmentObject(EnvironmentController.shared)
+            .environmentObject(ImageController.preview)
     }
 }
 #endif

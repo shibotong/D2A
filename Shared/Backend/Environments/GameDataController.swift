@@ -78,7 +78,6 @@ class GameDataController: ObservableObject {
             do {
                 let newMatch = RecentMatch(context: context)
                 newMatch.update(match)
-                newMatch.player = user
                 try context.save()
             } catch {
                 logError("insert Recent Matches failed. \(error.localizedDescription)", category: .coredata)
@@ -108,7 +107,6 @@ class GameDataController: ObservableObject {
                 return false
             }
             recentMatch.update(match)
-            recentMatch.player = user
             insertItems += 1
             return false
         })
