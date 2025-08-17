@@ -30,8 +30,8 @@ struct ODPlayerProfile: Decodable, PersistanceModel {
         let avatarMedium: String
         let avatarFull: String
         let profileURL: String
-        let lastLogin: String
-        let country: String
+        let lastLogin: Date?
+        let country: String?
         
         enum CodingKeys: String, CodingKey {
             case accountID = "account_id"
@@ -45,6 +45,48 @@ struct ODPlayerProfile: Decodable, PersistanceModel {
             case profileURL = "profileurl"
             case lastLogin = "last_login"
             case country = "loccountrycode"
+        }
+        
+        init(from decoder: any Decoder) throws {
+            let container: KeyedDecodingContainer<ODPlayerProfile.Profile.CodingKeys> = try decoder.container(keyedBy: ODPlayerProfile.Profile.CodingKeys.self)
+            self.accountID = try container.decode(Int.self, forKey: ODPlayerProfile.Profile.CodingKeys.accountID)
+            self.personaname = try container.decode(String.self, forKey: ODPlayerProfile.Profile.CodingKeys.personaname)
+            self.name = try container.decode(String.self, forKey: ODPlayerProfile.Profile.CodingKeys.name)
+            self.plus = try container.decode(Bool.self, forKey: ODPlayerProfile.Profile.CodingKeys.plus)
+            self.cheese = try container.decode(Int.self, forKey: ODPlayerProfile.Profile.CodingKeys.cheese)
+            self.avatar = try container.decode(String.self, forKey: ODPlayerProfile.Profile.CodingKeys.avatar)
+            self.avatarMedium = try container.decode(String.self, forKey: ODPlayerProfile.Profile.CodingKeys.avatarMedium)
+            self.avatarFull = try container.decode(String.self, forKey: ODPlayerProfile.Profile.CodingKeys.avatarFull)
+            self.profileURL = try container.decode(String.self, forKey: ODPlayerProfile.Profile.CodingKeys.profileURL)
+            let lastLoginString = try container.decode(String.self, forKey: ODPlayerProfile.Profile.CodingKeys.lastLogin)
+            self.country = try container.decode(String.self, forKey: ODPlayerProfile.Profile.CodingKeys.country)
+            self.lastLogin = Date(utc: lastLoginString)
+        }
+        
+        init?(json: [String: Any?]) {
+            guard let accountID = json[CodingKeys.accountID.rawValue] as? Int,
+            let personaname = json[CodingKeys.personaname.rawValue] as? String,
+            let avatar = json[CodingKeys.avatar.rawValue] as? String,
+            let avatarMedium = json[CodingKeys.avatarMedium.rawValue] as? String,
+            let avatarFull = json[CodingKeys.avatarFull.rawValue] as? String,
+            let profileURL = json[CodingKeys.profileURL.rawValue] as? String else {
+                return nil
+            }
+            self.accountID = accountID
+            self.personaname = personaname
+            self.name = json[CodingKeys.name.rawValue] as? String
+            self.plus = json[CodingKeys.plus.rawValue] as? Bool ?? false
+            self.cheese = json[CodingKeys.cheese.rawValue] as? Int ?? 0
+            self.avatar = avatar
+            self.avatarMedium = avatarMedium
+            self.avatarFull = avatarFull
+            self.profileURL = profileURL
+            self.country = json[CodingKeys.country.rawValue] as? String
+            if let lastLogin = json[CodingKeys.lastLogin.rawValue] as? String {
+                self.lastLogin = Date(utc: lastLogin)
+            } else {
+                self.lastLogin = nil
+            }
         }
     }
     

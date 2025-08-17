@@ -17,6 +17,7 @@ protocol OpenDotaProviding {
     func loadRecentMatches(userid: String) async -> [RecentMatchCodable]
     
     func user(id: String) async throws -> ODPlayerProfile
+    func proUsers() async throws -> [ODPlayerProfile.Profile]
 }
 
 class OpenDotaProvider: OpenDotaProviding {
@@ -46,6 +47,18 @@ class OpenDotaProvider: OpenDotaProviding {
     func user(id: String) async throws -> ODPlayerProfile {
         let user = try await loadData("/players/\(id)", as: ODPlayerProfile.self)
         return user
+    }
+    
+    func proUsers() async throws -> [ODPlayerProfile.Profile] {
+        guard let usersJSON = try await loadData("/proPlayers") as? [[String: Any?]] else {
+            throw D2AError(message: "Not able to decode as json object")
+        }
+        return usersJSON.compactMap { ODPlayerProfile.Profile(json: $0) }.sorted(by: { lhs, rhs in
+            guard let lhsLogin = lhs.lastLogin, let rhsLogin = rhs.lastLogin else {
+                return false
+            }
+            return lhsLogin > rhsLogin
+        })
     }
 
     func getRecentMatches(userid: String) async -> [RecentMatchCodable] {
@@ -97,10 +110,17 @@ class OpenDotaProvider: OpenDotaProviding {
             return []
         }
     }
+    
+    private func loadData(_ path: String) async throws -> Any {
+        return try await network.dataTask(url(path))
+    }
 
     /// Load data with path `\(baseURL)/api`
     private func loadData<T: Decodable>(_ path: String, as type: T.Type) async throws -> T {
-        let urlString = "\(baseURL)/api\(path)"
-        return try await network.dataTask(urlString, as: T.self)
+        return try await network.dataTask(url(path), as: T.self)
+    }
+    
+    private func url(_ path: String) -> String {
+        "\(baseURL)/api\(path)"
     }
 }
