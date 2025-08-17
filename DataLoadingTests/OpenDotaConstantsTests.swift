@@ -12,9 +12,7 @@ import UIKit
 struct OpenDotaConstantsTests {
     @Test("Good Network Constants")
     func loadConstantsWithGoodNetwork() async throws {
-
         let constantsProvider = OpenDotaConstantProvider()
-
         let heroes = try await constantsProvider.loadHeroes()
         let itemIDs = try await constantsProvider.loadItemIDs()
         let abilities = try await constantsProvider.loadAbilities()

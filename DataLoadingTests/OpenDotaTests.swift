@@ -12,7 +12,7 @@ struct OpenDotaTests {
 
     let provider = OpenDotaProvider()
     
-    @Test
+    @Test("Pro Players")
     func proPlayers() async throws {
         let players = try await provider.proUsers()
         #expect(players.count > 0)

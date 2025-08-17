@@ -295,20 +295,19 @@ class PersistanceProvider: PersistanceProviding {
     
     // MARK: - Save Specific data
     private func updateData(data: [PersistanceModel], context: NSManagedObjectContext) {
-        for object in data {
-            context.performAndWait {
+        context.performAndWait {
+            for object in data {
                 do {
                     _ = try object.update(context: context)
                 } catch {
                     logError("An error occured when updating data in Core Data \(error.localizedDescription)", category: .coredata)
                 }
             }
-        }
-        
-        do {
-            try context.save()
-        } catch {
-            logError("An error occured when save data in Core Data \(error.localizedDescription)", category: .coredata)
+            do {
+                try context.save()
+            } catch {
+                logError("An error occured when save data in Core Data \(error.localizedDescription)", category: .coredata)
+            }
         }
     }
 
