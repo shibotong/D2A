@@ -230,6 +230,7 @@
 		790D961D2E5008080090801B /* UserProfile+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D961B2E5008040090801B /* UserProfile+Preview.swift */; };
 		790D961F2E500E380090801B /* OpenDotaProvider+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D961E2E500E300090801B /* OpenDotaProvider+Preview.swift */; };
 		790D96202E500E380090801B /* OpenDotaProvider+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D961E2E500E300090801B /* OpenDotaProvider+Preview.swift */; };
+		790D96322E514D4A0090801B /* OpenDotaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D96312E514D4A0090801B /* OpenDotaTests.swift */; };
 		790FBB2429C186AE00E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2329C186AE00E27106 /* Apollo */; };
 		790FBB3429C18AC800E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB3329C18AC800E27106 /* Apollo */; };
 		7925405F2E30C8CC00201CF1 /* OpenDotaConstantProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */; };
@@ -689,6 +690,7 @@
 		790D96182E50057D0090801B /* OpenDotaConstantProvider+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenDotaConstantProvider+Preview.swift"; sourceTree = "<group>"; };
 		790D961B2E5008040090801B /* UserProfile+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProfile+Preview.swift"; sourceTree = "<group>"; };
 		790D961E2E500E300090801B /* OpenDotaProvider+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenDotaProvider+Preview.swift"; sourceTree = "<group>"; };
+		790D96312E514D4A0090801B /* OpenDotaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaTests.swift; sourceTree = "<group>"; };
 		7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantProcessor.swift; sourceTree = "<group>"; };
 		792540622E30CDE000201CF1 /* ConstantsController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConstantsController+Preview.swift"; sourceTree = "<group>"; };
 		792540662E30CE4600201CF1 /* ImageController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageController+Preview.swift"; sourceTree = "<group>"; };
@@ -1307,6 +1309,7 @@
 			isa = PBXGroup;
 			children = (
 				79B551832DF6906E001CA42B /* OpenDotaConstantsTests.swift */,
+				790D96312E514D4A0090801B /* OpenDotaTests.swift */,
 			);
 			path = DataLoadingTests;
 			sourceTree = "<group>";
@@ -2477,6 +2480,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79AF52CC2E082DFE009FE792 /* OpenDotaConstantsTests.swift in Sources */,
+				790D96322E514D4A0090801B /* OpenDotaTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
