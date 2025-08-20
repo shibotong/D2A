@@ -60,6 +60,7 @@
         <attribute name="turnRate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionDaytimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionNighttimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="lastSearch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SearchHistory" inverseName="hero" inverseEntity="SearchHistory"/>
     </entity>
     <entity name="Match" representedClassName="Match" syncable="YES" codeGenerationType="class">
         <attribute name="direKill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -75,6 +76,7 @@
         <attribute name="skill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="xpDiff" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[NSNumber]"/>
+        <relationship name="lastSearch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SearchHistory" inverseName="match" inverseEntity="SearchHistory"/>
     </entity>
     <entity name="RecentMatch" representedClassName="RecentMatch" syncable="YES" codeGenerationType="class">
         <attribute name="assists" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -92,6 +94,12 @@
         <attribute name="startTime" attributeType="Date" defaultDateTimeInterval="-31644000" usesScalarValueType="NO"/>
         <relationship name="player" maxCount="1" deletionRule="Nullify" destinationEntity="UserProfile" inverseName="matches" inverseEntity="UserProfile"/>
     </entity>
+    <entity name="SearchHistory" representedClassName="SearchHistory" syncable="YES" codeGenerationType="class">
+        <attribute name="searchTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="lastSearch" inverseEntity="Hero"/>
+        <relationship name="match" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Match" inverseName="lastSearch" inverseEntity="Match"/>
+        <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserProfile" inverseName="lastSearch" inverseEntity="UserProfile"/>
+    </entity>
     <entity name="UserProfile" representedClassName="UserProfile" syncable="YES" codeGenerationType="class">
         <attribute name="avatarfull" attributeType="String"/>
         <attribute name="countryCode" optional="YES" attributeType="String"/>
@@ -105,6 +113,7 @@
         <attribute name="profileurl" optional="YES" attributeType="String"/>
         <attribute name="rank" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="register" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <relationship name="lastSearch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SearchHistory" inverseName="player" inverseEntity="SearchHistory"/>
         <relationship name="matches" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RecentMatch" inverseName="player" inverseEntity="RecentMatch"/>
     </entity>
 </model>

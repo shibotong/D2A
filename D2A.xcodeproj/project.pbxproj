@@ -234,6 +234,7 @@
 		790D963D2E55DD710090801B /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D963C2E55DD6E0090801B /* ImageCache.swift */; };
 		790D963E2E55DD710090801B /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D963C2E55DD6E0090801B /* ImageCache.swift */; };
 		790D963F2E55DD710090801B /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D963C2E55DD6E0090801B /* ImageCache.swift */; };
+		790D96452E55EEC20090801B /* SearchHeroRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D96442E55EEC20090801B /* SearchHeroRowView.swift */; };
 		790FBB2429C186AE00E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2329C186AE00E27106 /* Apollo */; };
 		790FBB3429C18AC800E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB3329C18AC800E27106 /* Apollo */; };
 		7925405F2E30C8CC00201CF1 /* OpenDotaConstantProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */; };
@@ -692,6 +693,7 @@
 		790D961E2E500E300090801B /* OpenDotaProvider+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenDotaProvider+Preview.swift"; sourceTree = "<group>"; };
 		790D96312E514D4A0090801B /* OpenDotaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaTests.swift; sourceTree = "<group>"; };
 		790D963C2E55DD6E0090801B /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		790D96442E55EEC20090801B /* SearchHeroRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeroRowView.swift; sourceTree = "<group>"; };
 		7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantProcessor.swift; sourceTree = "<group>"; };
 		792540622E30CDE000201CF1 /* ConstantsController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConstantsController+Preview.swift"; sourceTree = "<group>"; };
 		792540662E30CE4600201CF1 /* EnvironmentController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentController+Preview.swift"; sourceTree = "<group>"; };
@@ -1248,6 +1250,7 @@
 				322B89C626CFD2DE00DF67F9 /* SearchViewModel.swift */,
 				790D96162E5000D60090801B /* SearchHistoryView.swift */,
 				790D96122E4FFCA20090801B /* SearchSuggestionView.swift */,
+				790D96442E55EEC20090801B /* SearchHeroRowView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -2121,6 +2124,7 @@
 				3252859126C9E8040030F15B /* AnalysisView.swift in Sources */,
 				327C033C2716A8F400DAEC42 /* KDAView.swift in Sources */,
 				79B870C92DC39C970090CAB8 /* NSManagedObject.swift in Sources */,
+				790D96452E55EEC20090801B /* SearchHeroRowView.swift in Sources */,
 				796BF20429F5536000555C64 /* HeroListView.swift in Sources */,
 				3252858F26C949940030F15B /* Date.swift in Sources */,
 				792540652E30CDE700201CF1 /* ConstantsController+Preview.swift in Sources */,

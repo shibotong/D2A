@@ -8,7 +8,7 @@
 import CoreData
 
 extension PersistanceProvider {
-    static let preview: PersistanceProvider = {
+    static var preview: PersistanceProvider = {
         let provider = PersistanceProvider(inMemory: true)
         let dataProvider = PreviewDataProvider()
         let processor  = OpenDotaConstantProcessor.shared
@@ -28,6 +28,12 @@ extension PersistanceProvider {
         let gameModes = processor.processGameModes(modes: dataProvider.loadOpenDotaConstants(service: .gameMode, as: [String: ODGameMode].self) ?? [:])
         provider.saveODData(data: gameModes, type: GameMode.self, mainContext: true)
         
+        let context = provider.mainContext
+        let searchedHero = try! context.fetchOne(type: Hero.self)!
+        let searchHistory = SearchHistory(context: context)
+        searchHistory.searchTime = Date()
+        searchHistory.hero = searchedHero
+        try! context.save()
         return provider
     }()
     
