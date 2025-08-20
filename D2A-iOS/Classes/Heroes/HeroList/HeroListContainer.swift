@@ -27,5 +27,4 @@ struct HeroListContainer: View {
 #Preview {
     HeroListContainer()
         .environmentObject(ConstantsController.preview)
-        .environmentObject(ImageController.preview)
 }
