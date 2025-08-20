@@ -80,18 +80,18 @@ struct HeroRowView: View {
 #Preview("Compact Grid") {
     HeroRowView(hero: Hero.previewHeroes.first!, isGrid: true)
         .environment(\.horizontalSizeClass, .compact)
-        .environmentObject(ImageController.preview)
+        .environmentObject(EnvironmentController.preview)
 }
 
 #Preview("Compact List") {
     HeroRowView(hero: Hero.previewHeroes.first!, isGrid: false)
         .environment(\.horizontalSizeClass, .compact)
-        .environmentObject(ImageController.preview)
+        .environmentObject(EnvironmentController.preview)
 }
 
 #Preview("Regular") {
     HeroRowView(hero: Hero.previewHeroes.first!, isGrid: true)
         .environment(\.horizontalSizeClass, .regular)
-        .environmentObject(ImageController.preview)
+        .environmentObject(EnvironmentController.preview)
 }
 #endif

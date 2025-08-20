@@ -182,14 +182,14 @@ struct AbilityViewV2: View {
 #if DEBUG
 #Preview {
     AbilityViewV2(ability: Ability.blink)
-        .environmentObject(ImageController.preview)
+        .environmentObject(EnvironmentController.preview)
 }
 
 #Preview {
     Text("Present modal")
         .sheet(isPresented: .constant(true)) {
             AbilityViewV2(ability: Ability.blink)
-                .environmentObject((ImageController.preview))
+                .environmentObject((EnvironmentController.preview))
         }
 }
 #endif

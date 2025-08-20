@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileAvatar: View {
 
-    @EnvironmentObject private var imageController: ImageController
+    @EnvironmentObject private var environment: EnvironmentController
     @State var image: UIImage?
 
     private let profile: UserProfile?
@@ -50,7 +50,7 @@ struct ProfileAvatar: View {
             }
         }
         .task {
-            try? await imageController.refreshImage(type: .avatar, id: userID, url: imageURL ?? "") { image in
+            try? await environment.refreshImage(type: .avatar, id: userID, url: imageURL ?? "") { image in
                 self.image = image
             }
         }

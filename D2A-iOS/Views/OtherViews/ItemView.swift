@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ItemView: View {
     @EnvironmentObject var heroData: ConstantsController
-    @EnvironmentObject var imageController: ImageController
+    @EnvironmentObject var environment: EnvironmentController
     @State var image: UIImage?
 
     @Binding var id: Int?
@@ -48,7 +48,7 @@ struct ItemView: View {
             self.image = nil
             return
         }
-        try? await imageController.refreshImage(type: .item, id: id.description, url: computeURL() ?? "") { image in
+        try? await environment.refreshImage(type: .item, id: id.description, url: computeURL() ?? "") { image in
             self.image = image
         }
     }

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HeroImageView: View {
-    @EnvironmentObject var imageController: ImageController
     @Environment(\.managedObjectContext) var viewContext
     
     @State private var name: String?
@@ -76,7 +75,7 @@ struct HeroImageView: View {
 #if DEBUG
 #Preview {
     HeroImageView(heroID: 1, type: .icon)
-        .environmentObject(ImageController.preview)
+        .environmentObject(EnvironmentController.preview)
         .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
 }
 #endif

@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 struct AbilityImage: View {
-    @EnvironmentObject var imageController: ImageController
+    @EnvironmentObject var environment: EnvironmentController
     
     @State private var image: UIImage?
     
@@ -52,7 +52,7 @@ struct AbilityImage: View {
         guard let name else {
             return
         }
-        try? await imageController.refreshImage(type: .ability, id: name, url: fullURL) { image in
+        try? await environment.refreshImage(type: .ability, id: name, url: fullURL) { image in
             self.image = image
         }
     }
@@ -60,5 +60,5 @@ struct AbilityImage: View {
 
 #Preview {
     AbilityImage(name: "Acid Spray")
-        .environmentObject(ImageController.preview)
+        .environmentObject(EnvironmentController.preview)
 }

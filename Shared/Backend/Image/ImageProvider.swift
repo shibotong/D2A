@@ -90,6 +90,10 @@ class ImageProvider: ImageProviding {
         try fileImageProvider.saveImage(image, path: imageFolder, name: id, fileExtension: fileExtension)
     }
     
+    private func imageNeedsRefresh(lastDate: Date, currentDate: Date = Date()) -> Bool {
+        return lastDate.startOfDay < currentDate.startOfDay
+    }
+    
     private func imageFolder(type: GameImageType) -> URL? {
         guard let docDir = documentDirectory else {
             return nil

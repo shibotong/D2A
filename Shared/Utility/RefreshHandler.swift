@@ -41,3 +41,9 @@ actor RefreshHandler {
         return true
     }
 }
+
+struct Refresher {
+    static func canRefreshImage(lastDate: Date, currentDate: Date = Date()) -> Bool {
+        return lastDate.startOfDay < currentDate.startOfDay
+    }
+}
