@@ -36,9 +36,9 @@ class MockImageProvider: ImageProviding {
     }
 }
 
-final class ImageControllerTests: XCTestCase {
+final class EnvironmentControllerTests: XCTestCase {
     
-    var imageController: ImageController!
+    var environment: EnvironmentController!
     var userDefaults: UserDefaults!
     var imageProvider: MockImageProvider!
     var imageHandlerCalled: Int!
@@ -51,7 +51,7 @@ final class ImageControllerTests: XCTestCase {
         imageProvider = MockImageProvider()
         cache = ImageCache()
         userDefaults = UserDefaults.standard
-        imageController = ImageController(imageProvider: imageProvider, userDefaults: userDefaults, imageCache: cache)
+        environment = EnvironmentController(imageProvider: imageProvider, imageCache: cache, userDefaults: userDefaults)
         imageHandlerCalled = 0
     }
     
@@ -130,7 +130,7 @@ final class ImageControllerTests: XCTestCase {
     func testLocalImageCall() {
         let image = UIImage()
         imageProvider.localImageReturn = image
-        let localImage = imageController.localImage(type: .avatar, id: "1", fileExtension: .png)
+        let localImage = imageProvider.localImage(type: .avatar, id: "1", fileExtension: .png)
         XCTAssertEqual(image, localImage, "Image should be returned for local image call")
     }
     
@@ -146,7 +146,7 @@ final class ImageControllerTests: XCTestCase {
     }
     
     private func callRefreshImage(time: Date) async throws {
-        try await imageController.refreshImage(type: .avatar, id: "1", url: "https://picsum.photos/200/300", refreshTime: time) { _ in
+        try await environment.refreshImage(type: .avatar, id: "1", url: "https://picsum.photos/200/300", refreshTime: time) { _ in
             imageHandlerCalled += 1
         }
     }
