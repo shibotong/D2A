@@ -55,6 +55,6 @@ struct SearchSuggestionView: View {
     NavigationStack {
         SearchSuggestionView(users: [UserProfile.user], heroes: [Hero.antimage])
     }
-    .environmentObject(ImageController.preview)
+    .environmentObject(EnvironmentController.preview)
     .environment(\.managedObjectContext, PersistanceProvider.preview.mainContext)
 }

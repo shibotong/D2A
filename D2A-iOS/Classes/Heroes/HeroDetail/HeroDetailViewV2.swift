@@ -297,7 +297,7 @@ struct HeroDetailViewV2: View {
 #if DEBUG
 #Preview {
     HeroDetailViewV2(hero: Hero.antimage)
-        .environmentObject(ImageController.preview)
+        .environmentObject(EnvironmentController.preview)
         .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
 }
 #endif
