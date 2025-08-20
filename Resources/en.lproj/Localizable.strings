@@ -27,3 +27,11 @@
 
 "FAVORITESADDTITLE" = "There are no players registered in your favorites.";
 "FAVORITESADDSUBTITLE" = "Please search and register a player";
+
+"RECENT_SEARCH" = "Recently Searched";
+"CLEAR" = "Clear";
+"CLEARSEARCHTITLE" = "Clear Searches?";
+"CLEARSEARCHDESCRIPTION" = "Clearing your searches will remove your search history from this device.";
+"CLEARSEARCHBUTTON" = "Clear Searches";
+
+"CANCEL" = "Cancel";
