@@ -18,44 +18,11 @@ struct SearchHistoryView: View {
     
     var body: some View {
         ScrollView {
-            VStack {
-                HStack {
-                    Text(LocalizableStrings.recentlySearched)
-                        .bold()
-                    Spacer()
-                    Button {
-                        clearSearchDialogIsPresented = true
-                    } label: {
-                        Text(LocalizableStrings.clear)
-                            .bold()
-                    }
-                }
-                Divider()
-                ForEach(searchHistories) { history in
-                    if let hero = history.hero {
-                        NavigationLink(destination: HeroDetailViewV2(hero: hero)) {
-                            HStack {
-                                SearchHeroRowView(hero: hero)
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .bold()
-                            }
-                        }
-                    }
-                    if let user = history.player {
-                        NavigationLink(destination: PlayerProfileView(userid: user.id ?? "")) {
-                            HStack {
-                                ProfileView(viewModel: ProfileViewModel(profile: user))
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .bold()
-                            }
-                        }
-                    }
-                    Divider()
-                }
+            if searchHistories.isEmpty {
+                EmptyView()
+            } else {
+                searchList
             }
-            .padding(.horizontal)
         }
         .confirmationDialog(LocalizableStrings.clearSearchTitle, isPresented: $clearSearchDialogIsPresented, titleVisibility: .visible) {
             Button(LocalizableStrings.clearSearchButton, role: .destructive, action: clearSearch)
@@ -65,6 +32,47 @@ struct SearchHistoryView: View {
         } message: {
             Text(LocalizableStrings.clearSearchDescription)
         }
+    }
+    
+    private var searchList: some View {
+        VStack {
+            HStack {
+                Text(LocalizableStrings.recentlySearched)
+                    .bold()
+                Spacer()
+                Button {
+                    clearSearchDialogIsPresented = true
+                } label: {
+                    Text(LocalizableStrings.clear)
+                        .bold()
+                }
+            }
+            Divider()
+            ForEach(searchHistories) { history in
+                if let hero = history.hero {
+                    NavigationLink(destination: HeroDetailViewV2(hero: hero)) {
+                        HStack {
+                            SearchHeroRowView(hero: hero)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .bold()
+                        }
+                    }
+                }
+                if let user = history.player {
+                    NavigationLink(destination: PlayerProfileView(userid: user.id ?? "")) {
+                        HStack {
+                            ProfileView(viewModel: ProfileViewModel(profile: user))
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .bold()
+                        }
+                    }
+                }
+                Divider()
+            }
+        }
+        .padding(.horizontal)
     }
     
     private func clearSearch() {
