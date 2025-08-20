@@ -88,11 +88,11 @@
         <attribute name="lobbyType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="mode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="partySize" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="playerId" optional="YES" attributeType="String"/>
         <attribute name="radiantWin" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="skill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="slot" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startTime" attributeType="Date" defaultDateTimeInterval="-31644000" usesScalarValueType="NO"/>
-        <relationship name="player" maxCount="1" deletionRule="Nullify" destinationEntity="UserProfile" inverseName="matches" inverseEntity="UserProfile"/>
     </entity>
     <entity name="SearchHistory" representedClassName="SearchHistory" syncable="YES" codeGenerationType="class">
         <attribute name="searchTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -114,6 +114,5 @@
         <attribute name="rank" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="register" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <relationship name="lastSearch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SearchHistory" inverseName="player" inverseEntity="SearchHistory"/>
-        <relationship name="matches" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RecentMatch" inverseName="player" inverseEntity="RecentMatch"/>
     </entity>
 </model>
