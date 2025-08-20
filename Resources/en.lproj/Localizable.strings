@@ -28,6 +28,8 @@
 "FAVORITESADDTITLE" = "There are no players registered in your favorites.";
 "FAVORITESADDSUBTITLE" = "Please search and register a player";
 
+"HERO" = "Hero";
+
 "RECENT_SEARCH" = "Recently Searched";
 "CLEAR" = "Clear";
 "CLEARSEARCHTITLE" = "Clear Searches?";

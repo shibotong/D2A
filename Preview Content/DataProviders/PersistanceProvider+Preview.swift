@@ -29,10 +29,18 @@ extension PersistanceProvider {
         provider.saveODData(data: gameModes, type: GameMode.self, mainContext: true)
         
         let context = provider.mainContext
+        
+        let user = OpenDotaProvider.user
+        let savedUser = try! user.update(context: context) as! UserProfile
+        
         let searchedHero = try! context.fetchOne(type: Hero.self)!
         let searchHistory = SearchHistory(context: context)
         searchHistory.searchTime = Date()
         searchHistory.hero = searchedHero
+        
+        let searchHistory2 = SearchHistory(context: context)
+        searchHistory2.searchTime = Date()
+        searchHistory2.player = savedUser
         try! context.save()
         return provider
     }()

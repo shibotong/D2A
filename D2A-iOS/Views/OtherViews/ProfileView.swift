@@ -14,6 +14,7 @@ struct ProfileView: View {
         ProfileAvatar(
             userID: viewModel.userID, imageURL: viewModel.avatarfull, cornerRadius: 0,
             profile: viewModel.profile)
+        .clipShape(Circle())
     }
 
     var body: some View {

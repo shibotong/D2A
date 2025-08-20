@@ -14,8 +14,13 @@ struct SearchHeroRowView: View {
     var body: some View {
         HStack {
             HeroImageViewV2(name: hero.heroNameLowerCase, type: .icon)
-                .frame(width: 30, height: 30)
-            Text(hero.heroNameLocalized)
+                .frame(width: 40, height: 40)
+            VStack(alignment: .leading) {
+                Text(hero.heroNameLocalized).bold()
+                Text(LocalizableStrings.hero)
+                    .foregroundColor(.secondaryLabel)
+                    .font(.caption)
+            }
         }
     }
 }
