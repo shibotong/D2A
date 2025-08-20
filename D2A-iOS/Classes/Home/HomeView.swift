@@ -11,9 +11,6 @@ struct HomeView: View {
     var body: some View {
         ScrollView {
             VStack {
-                RegisteredPlayerView()
-                    .frame(height: 170)
-                    .background(Color.systemBackground)
                 FavouriteUserListView()
                     .padding(.horizontal)
             }
