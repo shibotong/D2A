@@ -45,6 +45,11 @@ final class EnvironmentController: ObservableObject {
     @Published var matchActive: Bool = false
     @Published var userActive: Bool = false
 
+    private let imageProvider: ImageProvider
+    private let imageCache: ImageCache
+    
+    private let userDefaults: UserDefaults
+    
     private var refreshDistance: TimeInterval {
         var refreshTime: TimeInterval = 60
         #if DEBUG
@@ -53,7 +58,12 @@ final class EnvironmentController: ObservableObject {
         return refreshTime
     }
 
-    init() {
+    init(imageProvider: ImageProvider = .shared,
+         imageCache: ImageCache = .shared,
+         userDefaults: UserDefaults = .group) {
+        self.imageProvider = imageProvider
+        self.imageCache = imageCache
+        self.userDefaults = userDefaults
         subscriptionStatus =
             UserDefaults(suiteName: GROUP_NAME)?.object(forKey: UserDefaults.subscription) as? Bool
             ?? false
@@ -80,5 +90,32 @@ final class EnvironmentController: ObservableObject {
             guard let playerID = player.id else { return }
             PersistanceProvider.shared.deleteRecentMatchesForUserID(userID: playerID)
         }
+    }
+    
+    func refreshImage(type: GameImageType, id: String, fileExtension: ImageExtension = .jpg,
+                      url: String, refreshTime: Date = Date(),
+                      imageHandler: (UIImage) -> Void) async throws {
+        let imageKey = "\(type.imageKey)_\(id)"
+        // Check cached image, if have cached image return it
+        if let cachedImage = await imageCache.readCache(key: imageKey) {
+            imageHandler(cachedImage)
+            return
+        }
+        
+        if let localImage = imageProvider.localImage(type: type, id: id, fileExtension: fileExtension) {
+            await imageCache.setCache(key: imageKey, image: localImage)
+            imageHandler(localImage)
+        }
+        
+        if let savedDate = userDefaults.object(forKey: imageKey) as? Date, !Refresher.canRefreshImage(lastDate: savedDate, currentDate: refreshTime) {
+            return
+        }
+        guard let remoteImage = await imageProvider.remoteImage(url: url) else {
+            return
+        }
+        try imageProvider.saveImage(image: remoteImage, type: type, id: id, fileExtension: fileExtension)
+        userDefaults.set(Date(), forKey: imageKey)
+        await imageCache.setCache(key: imageKey, image: remoteImage)
+        imageHandler(remoteImage)
     }
 }

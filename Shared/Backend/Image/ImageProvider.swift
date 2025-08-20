@@ -63,6 +63,35 @@ class ImageProvider: ImageProviding {
         documentDirectory = directory
         self.network = network
         self.fileImageProvider = fileProvider
+        self.imageCache = imageCache
+        self.userDefaults = userDefaults
+    }
+    
+    func refreshImage(type: GameImageType, id: String, fileExtension: ImageExtension = .jpg,
+                      url: String, refreshTime: Date = Date(),
+                      imageHandler: (UIImage) -> Void) async throws {
+        let imageKey = "\(type.imageKey)_\(id)"
+        // Check cached image, if have cached image return it
+        if let cachedImage = await imageCache.readCache(key: imageKey) {
+            imageHandler(cachedImage)
+            return
+        }
+        
+        if let localImage = localImage(type: type, id: id, fileExtension: fileExtension) {
+            await imageCache.setCache(key: imageKey, image: localImage)
+            imageHandler(localImage)
+        }
+        
+        if let savedDate = userDefaults.object(forKey: imageKey) as? Date, !imageNeedsRefresh(lastDate: savedDate, currentDate: refreshTime) {
+            return
+        }
+        guard let remoteImage = await remoteImage(url: url) else {
+            return
+        }
+        try saveImage(image: remoteImage, type: type, id: id, fileExtension: fileExtension)
+        userDefaults.set(Date(), forKey: imageKey)
+        await imageCache.setCache(key: imageKey, image: remoteImage)
+        imageHandler(remoteImage)
     }
     
     func remoteImage(url urlString: String) async -> UIImage? {
@@ -88,6 +117,10 @@ class ImageProvider: ImageProviding {
                                                 withIntermediateDirectories: true,
                                                 attributes: nil)
         try fileImageProvider.saveImage(image, path: imageFolder, name: id, fileExtension: fileExtension)
+    }
+    
+    private func imageNeedsRefresh(lastDate: Date, currentDate: Date = Date()) -> Bool {
+        return lastDate.startOfDay < currentDate.startOfDay
     }
     
     private func imageFolder(type: GameImageType) -> URL? {
