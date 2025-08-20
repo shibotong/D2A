@@ -41,6 +41,17 @@ class ConstantsController: ObservableObject {
         self.stratzProvider = stratzProvider
         self.openDotaProvider = openDotaProvider
         self.persistanceProvider = persistanceProvider
+        fetchHeroes()
+    }
+    
+    private func fetchHeroes() {
+        let context = persistanceProvider.mainContext
+        do {
+            let heroes = try context.fetchAll(type: Hero.self)
+            self.allHeroes = heroes
+        } catch {
+            logError("Not able to fetch all heroes. \(error.localizedDescription)", category: .constants)
+        }
     }
 
     func loadData() async {
@@ -169,6 +180,7 @@ class ConstantsController: ObservableObject {
         } catch {
             try? persistanceProvider.loadDefaultData()
         }
+        fetchHeroes()
         isLoading = false
     }
 
@@ -189,9 +201,5 @@ class ConstantsController: ObservableObject {
             }
         }
         await loadConstantData()
-    }
-    
-    private func saveDefaultData() {
-        
     }
 }
