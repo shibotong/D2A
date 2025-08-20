@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HeroImageViewV2: View {
-    @EnvironmentObject var imageController: ImageController
+    @EnvironmentObject var environment: EnvironmentController
     
     @State private var image: UIImage?
     
@@ -65,7 +65,7 @@ struct HeroImageViewV2: View {
     
     @MainActor
     private func loadImage() async {
-        try? await imageController.refreshImage(type: .hero(type: type), id: name, fileExtension: .png, url: computeURLString()) { image in
+        try? await environment.refreshImage(type: .hero(type: type), id: name, fileExtension: .png, url: computeURLString()) { image in
             self.image = image
         }
     }
@@ -85,6 +85,6 @@ struct HeroImageViewV2: View {
 #if DEBUG
 #Preview {
     HeroImageViewV2(name: "antimage", type: .full)
-        .environmentObject(ImageController.preview)
+        .environmentObject(EnvironmentController.preview)
 }
 #endif

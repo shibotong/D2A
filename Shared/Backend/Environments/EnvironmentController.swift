@@ -45,7 +45,7 @@ final class EnvironmentController: ObservableObject {
     @Published var matchActive: Bool = false
     @Published var userActive: Bool = false
 
-    private let imageProvider: ImageProvider
+    private let imageProvider: ImageProviding
     private let imageCache: ImageCache
     
     private let userDefaults: UserDefaults
@@ -58,7 +58,7 @@ final class EnvironmentController: ObservableObject {
         return refreshTime
     }
 
-    init(imageProvider: ImageProvider = .shared,
+    init(imageProvider: ImageProviding = ImageProvider.shared,
          imageCache: ImageCache = .shared,
          userDefaults: UserDefaults = .group) {
         self.imageProvider = imageProvider
