@@ -14,6 +14,8 @@ struct LocalizableStrings {
     static let heroDamage = NSLocalizedString("Hero Damage", comment: "")
     static let gold = NSLocalizedString("Net Worth", comment: "")
     
+    
+    // MARK: - Search
     static let recentlySearched = LocalizedStringKey("RECENT_SEARCH")
     static let clear = LocalizedStringKey("CLEAR")
     static let clearSearchTitle = LocalizedStringKey("CLEARSEARCHTITLE")
