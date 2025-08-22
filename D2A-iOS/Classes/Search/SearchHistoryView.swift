@@ -17,7 +17,7 @@ struct SearchHistoryView: View {
     @State var clearSearchDialogIsPresented = false
     
     var body: some View {
-        ScrollView {
+        Group {
             if searchHistories.isEmpty {
                 EmptyView()
             } else {

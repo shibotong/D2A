@@ -30,6 +30,9 @@
 
 "HERO" = "Hero";
 
+// MARK: - Search
+"SEARCHPAGETITLE" = "Players, Heroes, Matches";
+"SEARCHPAGESUBTITLE" = "Search with players id or name, hero name and match id.";
 "RECENT_SEARCH" = "Recently Searched";
 "CLEAR" = "Clear";
 "CLEARSEARCHTITLE" = "Clear Searches?";

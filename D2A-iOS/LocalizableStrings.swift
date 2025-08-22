@@ -17,6 +17,8 @@ struct LocalizableStrings {
     static let hero = LocalizedStringKey("HERO")
     
     // MARK: - Search
+    static let searchPageTitle = LocalizedStringKey("SEARCHPAGETITLE")
+    static let searchPageSubtitle = LocalizedStringKey("SEARCHPAGESUBTITLE")
     static let recentlySearched = LocalizedStringKey("RECENT_SEARCH")
     static let clear = LocalizedStringKey("CLEAR")
     static let clearSearchTitle = LocalizedStringKey("CLEARSEARCHTITLE")

@@ -10,9 +10,10 @@ import SwiftUI
 struct SearchView: View {
     @StateObject var viewModel: SearchViewModel = SearchViewModel()
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.isSearching) var isSearching
 
     var body: some View {
-        searchPage
+        SearchResultView()
             .navigationTitle("Search")
             .searchable(
                 text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always),
@@ -31,17 +32,19 @@ struct SearchView: View {
     private var searchSuggestions: some View {
         Group {
             if viewModel.searchText.isEmpty {
-                SearchHistoryView()
+                EmptyView()
+//                SearchHistoryView()
+            } else {
+                SearchSuggestionView(users: viewModel.suggestLocalProfiles,
+                                     heroes: viewModel.suggestHeroes)
             }
-            SearchSuggestionView(users: viewModel.suggestLocalProfiles,
-                                 heroes: viewModel.suggestHeroes)
         }.foregroundColor(.label)
     }
 
     private var searchPage: some View {
         ZStack {
             if viewModel.searchText.isEmpty {
-                emptySearchPage
+//                emptySearchPage
             } else {
                 if viewModel.isLoading {
                     ProgressView()
@@ -52,18 +55,7 @@ struct SearchView: View {
         }
     }
 
-    private var emptySearchPage: some View {
-        VStack(spacing: 15) {
-            Text("Players, Heroes, Matches")
-                .bold()
-            VStack {
-                Text("Search with players id or name,")
-                    .foregroundColor(.secondaryLabel)
-                Text("hero name and match id")
-                    .foregroundColor(.secondaryLabel)
-            }
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
+    
 
     private var searchedList: some View {
         List {
