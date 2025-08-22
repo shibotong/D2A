@@ -21,20 +21,12 @@ class SearchViewModel: ObservableObject {
     @Published var searchLocalProfiles: [UserProfile] = []
     @Published var searchedMatch: Match?
     @Published var filterHeroes: [Hero] = []
-
-    @Published var searchHistory: [String] {
-        didSet {
-            UserDefaults.standard.set(searchHistory, forKey: "dotaArmory.searchHistory")
-        }
-    }
     
     private let allHeroes: [Hero]
     
     init(viewContext: D2AManagedObjectContext = PersistanceProvider.shared.mainContext) {
         let allHeroes = (try? viewContext.fetchAll(type: Hero.self)) ?? []
         self.allHeroes = allHeroes
-        searchHistory =
-            UserDefaults.standard.object(forKey: "dotaArmory.searchHistory") as? [String] ?? []
 
         $searchText
             .receive(on: RunLoop.main)

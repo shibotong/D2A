@@ -32,11 +32,7 @@ struct SearchView: View {
     private var searchSuggestions: some View {
         Group {
             if viewModel.searchText.isEmpty {
-                ForEach(viewModel.searchHistory, id: \.self) { text in
-                    Label("\(text)", systemImage: "magnifyingglass")
-                        .searchCompletion(text)
-                }
-
+                SearchHistoryView()
             }
             ForEach(viewModel.suggestLocalProfiles) { profile in
                 Label("\(profile.personaname ?? "")", systemImage: "person.crop.circle")
