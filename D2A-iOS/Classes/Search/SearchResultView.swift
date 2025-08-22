@@ -219,7 +219,7 @@ struct SearchResultView: View {
 
 #Preview {
     NavigationStack {
-        SearchResultView(isLoading: false, heroes: [], viewModel: <#SearchViewModel#>, localPlayers: [], remotePlayers: [])
+        SearchResultView(viewModel: SearchViewModel(viewContext: PersistanceProvider.preview.mainContext))
     }
     .searchable(text: .constant(""))
     .environment(\.managedObjectContext, PersistanceProvider.preview.mainContext)

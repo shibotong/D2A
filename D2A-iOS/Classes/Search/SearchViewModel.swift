@@ -20,8 +20,10 @@ class SearchViewModel: ObservableObject {
     @Published var searchedMatch: Match?
     
     private let viewContext: NSManagedObjectContext
+    private let openDotaProvider: OpenDotaProviding
     
-    init(viewContext: D2AManagedObjectContext = PersistanceProvider.shared.mainContext) {
+    init(viewContext: D2AManagedObjectContext = PersistanceProvider.shared.mainContext,
+         openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared) {
         self.viewContext = viewContext
         
         $searchText
@@ -73,10 +75,9 @@ class SearchViewModel: ObservableObject {
         isLoading = true
         // set suggestion to empty
         remoteProfiles = []
-        async let searchedProfile = OpenDotaProvider.shared.searchUserByText(text: searchText)
-        let searchCachedProfile = UserProfile.fetch(text: searchText)
+        async let searchedProfile = openDotaProvider.searchUserByText(text: searchText)
         if Int(searchText) != nil {
-            async let matchID = OpenDotaProvider.shared.loadMatchData(matchid: searchText)
+            async let matchID = openDotaProvider.loadMatchData(matchid: searchText)
             do {
                 searchedMatch = try await Match.fetch(id: matchID)
             } catch {
