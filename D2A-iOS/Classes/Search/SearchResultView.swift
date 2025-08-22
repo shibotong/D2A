@@ -15,13 +15,53 @@ struct SearchResultView: View {
     var searchHistories: FetchedResults<SearchHistory>
     
     @State private var clearSearchDialogIsPresented = false
+
+    let suggestHeroes: [Hero]
+    let suggestPlayer: [UserProfile]
+    
+    private let imageSize: CGFloat = 40
     
     var body: some View {
+        if !suggestHeroes.isEmpty || !suggestPlayer.isEmpty {
+            suggestions
+        }
         if isSearching && !searchHistories.isEmpty {
             searchHistoryPage
         } else {
             emptySearchPage
         }
+    }
+    
+    private var suggestions: some View {
+        List {
+            ForEach(suggestPlayer) { profile in
+                NavigationLink(destination: Text("PlayerProfileView")) {
+                    HStack {
+                        ProfileAvatar(profile: profile, cornerRadius: 5)
+                            .frame(width: imageSize)
+                        buildTitle(title: profile.personaname ?? "Unknown", subTitle: profile.id ?? "")
+                    }
+                }
+                .onTapGesture {
+                    addSeaarch(item: profile)
+                }
+            }
+            ForEach(suggestHeroes) { hero in
+                NavigationLink(destination: HeroDetailViewV2(hero: hero)) {
+                    HStack {
+                        HeroImageViewV2(hero: hero, type: .icon)
+                            .frame(width: imageSize)
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                        buildTitle(title: hero.heroNameLocalized, subTitle: "Hero")
+                    }
+                }
+                .onTapGesture {
+                    addSeaarch(item: hero)
+                }
+            }
+        }
+        .listStyle(.plain)
+        .foregroundColor(.label)
     }
     
     private var emptySearchPage: some View {
@@ -101,6 +141,16 @@ struct SearchResultView: View {
         }
     }
     
+    @ViewBuilder
+    private func buildTitle(title: String, subTitle: String) -> some View {
+        VStack(alignment: .leading) {
+            Text(title)
+            Text(subTitle)
+                .font(.subheadline)
+                .foregroundStyle(Color.secondaryLabel)
+        }
+    }
+    
     private func searchClicked(history: SearchHistory) {
         history.searchTime = Date()
         do {
@@ -120,11 +170,31 @@ struct SearchResultView: View {
             logError("Failed to batch delete search histories: \(error)", category: .coredata)
         }
     }
+    
+    private func addSeaarch(item: Any) {
+        let searchHistory = SearchHistory(context: context)
+        searchHistory.searchTime = Date()
+        if let user = item as? UserProfile {
+            searchHistory.player = user
+        } else if let hero = item as? Hero {
+            searchHistory.hero = hero
+        } else if let match = item as? Match {
+            searchHistory.match = match
+        } else {
+            logError("search item is not supported", category: .coredata)
+            return
+        }
+        do {
+            try context.save()
+        } catch {
+            logError("Not able to save search history", category: .coredata)
+        }
+    }
 }
 
 #Preview {
     NavigationStack {
-        SearchResultView()
+        SearchResultView(suggestHeroes: [], suggestPlayer: [])
     }
     .searchable(text: .constant(""))
     .environment(\.managedObjectContext, PersistanceProvider.preview.mainContext)

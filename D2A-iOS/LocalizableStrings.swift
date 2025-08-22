@@ -17,13 +17,14 @@ struct LocalizableStrings {
     static let hero = LocalizedStringKey("HERO")
     
     // MARK: - Search
-    static let searchPageTitle = LocalizedStringKey("SEARCHPAGETITLE")
-    static let searchPageSubtitle = LocalizedStringKey("SEARCHPAGESUBTITLE")
-    static let recentlySearched = LocalizedStringKey("RECENT_SEARCH")
-    static let clear = LocalizedStringKey("CLEAR")
-    static let clearSearchTitle = LocalizedStringKey("CLEARSEARCHTITLE")
-    static let clearSearchDescription = LocalizedStringKey("CLEARSEARCHDESCRIPTION")
-    static let clearSearchButton = LocalizedStringKey("CLEARSEARCHBUTTON")
+    static let search = LocalizedStringKey("Search")
+    static let searchPageTitle = LocalizedStringKey("SearchPageTitle")
+    static let searchPageSubtitle = LocalizedStringKey("SearchPageSubtitle")
+    static let recentlySearched = LocalizedStringKey("RecentSearch")
+    static let clear = LocalizedStringKey("Clear")
+    static let clearSearchTitle = LocalizedStringKey("ClearSearchTitle")
+    static let clearSearchDescription = LocalizedStringKey("ClearSearchDescription")
+    static let clearSearchButton = LocalizedStringKey("ClearSearchButtonTitle")
     
-    static let cancel = LocalizedStringKey("CANCEL")
+    static let cancel = LocalizedStringKey("Cancel")
 }
