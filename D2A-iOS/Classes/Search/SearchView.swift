@@ -22,7 +22,6 @@ struct SearchView: View {
             }
             .disableAutocorrection(true)
             .onSubmit(of: .search) {
-                viewModel.addSearch(viewModel.searchText)
                 Task {
                     await viewModel.search(searchText: viewModel.searchText)
                 }
@@ -34,14 +33,8 @@ struct SearchView: View {
             if viewModel.searchText.isEmpty {
                 SearchHistoryView()
             }
-            ForEach(viewModel.suggestLocalProfiles) { profile in
-                Label("\(profile.personaname ?? "")", systemImage: "person.crop.circle")
-                    .searchCompletion(profile.personaname ?? "")
-            }
-            ForEach(viewModel.suggestHeroes) { hero in
-                Label("\(hero.heroNameLocalized)", systemImage: "books.vertical.fill")
-                    .searchCompletion(hero.heroNameLocalized)
-            }
+            SearchSuggestionView(users: viewModel.suggestLocalProfiles,
+                                 heroes: viewModel.suggestHeroes)
         }.foregroundColor(.label)
     }
 

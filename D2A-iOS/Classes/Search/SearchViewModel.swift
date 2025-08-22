@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import CoreData
 
 class SearchViewModel: ObservableObject {
     @Published var searchText: String = ""
@@ -23,8 +24,10 @@ class SearchViewModel: ObservableObject {
     @Published var filterHeroes: [Hero] = []
     
     private let allHeroes: [Hero]
+    private let viewContext: NSManagedObjectContext
     
     init(viewContext: D2AManagedObjectContext = PersistanceProvider.shared.mainContext) {
+        self.viewContext = viewContext
         let allHeroes = (try? viewContext.fetchAll(type: Hero.self)) ?? []
         self.allHeroes = allHeroes
 
@@ -100,13 +103,25 @@ class SearchViewModel: ObservableObject {
         isLoading = false
     }
 
-    func addSearch(_ searchText: String) {
-        guard !searchText.isEmpty, !searchHistory.contains(searchText) else {
+    func addSearch(user: UserProfile? = nil, hero: Hero? = nil, match: Match? = nil) {
+        let searchHistory = SearchHistory(context: viewContext)
+        searchHistory.searchTime = Date()
+        if let user {
+            searchHistory.player = user
+        } else if let hero {
+            searchHistory.hero = hero
+        } else if let match {
+            searchHistory.match = match
+        } else {
+            logError("No data for search history", category: .coredata)
             return
         }
-        searchHistory.append(searchText)
-        if searchHistory.count >= 15 {
-            searchHistory.remove(at: 0)
+        
+        viewContext.insert(searchHistory)
+        do {
+            try viewContext.save()
+        } catch {
+            logError("An error occurred when saving search history: \(error)", category: .coredata)
         }
     }
 }

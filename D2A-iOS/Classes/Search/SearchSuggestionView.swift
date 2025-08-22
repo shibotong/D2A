@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SearchSuggestionView: View {
     
+    @Environment(\.managedObjectContext) var context
+    
     let users: [UserProfile]
     let heroes: [Hero]
     
@@ -24,6 +26,9 @@ struct SearchSuggestionView: View {
                         buildTitle(title: profile.personaname ?? "Unknown", subTitle: profile.id ?? "")
                     }
                 }
+                .onTapGesture {
+                    addSeaarch(item: profile)
+                }
             }
             ForEach(heroes) { hero in
                 NavigationLink(destination: HeroDetailViewV2(hero: hero)) {
@@ -33,6 +38,9 @@ struct SearchSuggestionView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 5))
                         buildTitle(title: hero.heroNameLocalized, subTitle: "Hero")
                     }
+                }
+                .onTapGesture {
+                    addSeaarch(item: hero)
                 }
             }
         }
@@ -47,6 +55,26 @@ struct SearchSuggestionView: View {
             Text(subTitle)
                 .font(.subheadline)
                 .foregroundStyle(Color.secondaryLabel)
+        }
+    }
+    
+    private func addSeaarch(item: Any) {
+        let searchHistory = SearchHistory(context: context)
+        searchHistory.searchTime = Date()
+        if let user = item as? UserProfile {
+            searchHistory.player = user
+        } else if let hero = item as? Hero {
+            searchHistory.hero = hero
+        } else if let match = item as? Match {
+            searchHistory.match = match
+        } else {
+            logError("search item is not supported", category: .coredata)
+            return
+        }
+        do {
+            try context.save()
+        } catch {
+            logError("Not able to save search history", category: .coredata)
         }
     }
 }
