@@ -17,7 +17,7 @@ struct SearchResultView: View {
     @State private var clearSearchDialogIsPresented = false
     
     var body: some View {
-        if isSearching {
+        if isSearching && !searchHistories.isEmpty {
             searchHistoryPage
         } else {
             emptySearchPage
