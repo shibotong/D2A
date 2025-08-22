@@ -14,14 +14,10 @@ class SearchViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     
     // suggestion
-    @Published var suggestHeroes: [Hero] = []
-    @Published var suggestLocalProfiles: [UserProfile] = []
-    
-    // search results
-    @Published var userProfiles: [ODUserProfile] = []
-    @Published var searchLocalProfiles: [UserProfile] = []
+    @Published var heroes: [Hero] = []
+    @Published var localProfiles: [UserProfile] = []
+    @Published var remoteProfiles: [ODUserProfile] = []
     @Published var searchedMatch: Match?
-    @Published var filterHeroes: [Hero] = []
     
     private let viewContext: NSManagedObjectContext
     
@@ -37,7 +33,7 @@ class SearchViewModel: ObservableObject {
                 let heroes = self?.searchHero(text: text) ?? []
                 return heroes
             }
-            .assign(to: &$suggestHeroes)
+            .assign(to: &$heroes)
         
         $searchText
             .receive(on: RunLoop.main)
@@ -48,7 +44,7 @@ class SearchViewModel: ObservableObject {
                 let profiles = self?.searchUser(text: text) ?? []
                 return profiles
             }
-            .assign(to: &$suggestLocalProfiles)
+            .assign(to: &$localProfiles)
     }
     
     private func searchHero(text: String) -> [Hero] {
@@ -57,6 +53,7 @@ class SearchViewModel: ObservableObject {
             return allHeroes.filter { $0.heroNameLocalized.lowercased().contains(text.lowercased()) }
         } catch {
             logError("Not able to search hero. \(error.localizedDescription)", category: .coredata)
+            return []
         }
     }
     
@@ -67,6 +64,7 @@ class SearchViewModel: ObservableObject {
             return users
         } catch {
             logError("Not able to search local user. \(error.localizedDescription)", category: .coredata)
+            return []
         }
     }
 
@@ -74,13 +72,7 @@ class SearchViewModel: ObservableObject {
     func search(searchText: String) async {
         isLoading = true
         // set suggestion to empty
-        suggestLocalProfiles = []
-        suggestHeroes = []
-
-        userProfiles = []
-        filterHeroes = allHeroes.filter { hero in
-            return hero.heroNameLocalized.lowercased().contains(searchText.lowercased())
-        }
+        remoteProfiles = []
         async let searchedProfile = OpenDotaProvider.shared.searchUserByText(text: searchText)
         let searchCachedProfile = UserProfile.fetch(text: searchText)
         if Int(searchText) != nil {
@@ -95,7 +87,7 @@ class SearchViewModel: ObservableObject {
             searchedMatch = nil
         }
 
-        var cachedProfiles: [UserProfile] = searchCachedProfile
+        var cachedProfiles: [UserProfile] = localProfiles
         var notCachedProfiles: [ODUserProfile] = []
 
         for profile in await searchedProfile {
@@ -111,8 +103,7 @@ class SearchViewModel: ObservableObject {
             }
         }
 
-        searchLocalProfiles = cachedProfiles
-        userProfiles = notCachedProfiles
+        remoteProfiles = notCachedProfiles
 
         isLoading = false
     }

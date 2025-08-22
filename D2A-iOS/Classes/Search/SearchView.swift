@@ -9,95 +9,21 @@ import SwiftUI
 
 struct SearchView: View {
     @StateObject var viewModel: SearchViewModel = SearchViewModel()
-    @EnvironmentObject var constants: ConstantsController
     
     var body: some View {
-        SearchResultView(suggestHeroes: viewModel.suggestHeroes, suggestPlayer: viewModel.suggestLocalProfiles)
-            .navigationTitle("Search")
+        SearchResultView(viewModel: viewModel)
+        .navigationTitle(LocalizableStrings.search)
             .searchable(
                 text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always),
-                prompt: "Players, Heroes, Matches"
-            ) {
-                searchSuggestions
-            }
+                prompt: LocalizableStrings.searchPageTitle
+            )
             .disableAutocorrection(true)
             .onSubmit(of: .search) {
                 Task {
-//                    await viewModel.search(searchText: viewModel.searchText)
+                    await viewModel.search(searchText: viewModel.searchText)
                 }
             }
     }
-
-    private var searchSuggestions: some View {
-        Group {
-            Text("Search Suggestion")
-//            SearchSuggestionView(users: viewModel.suggestLocalProfiles,
-//                a                 heroes: viewModel.suggestHeroes)
-        }.foregroundColor(.label)
-    }
-
-//    private var searchedList: some View {
-//        List {
-//            if let match = viewModel.searchedMatch, let matchID = match.id {
-//                Section {
-//                    NavigationLink(destination: MatchView(matchid: matchID)) {
-//                        HStack {
-//                            Image("icon_\(match.radiantWin ? "radiant" : "dire")")
-//                                .resizable()
-//                                .frame(width: 40, height: 40)
-//                                .clipShape(RoundedRectangle(cornerRadius: 5))
-//                            VStack(alignment: .leading) {
-//                                Text("\(match.radiantWin ? "Radiant" : "Dire") Win").bold()
-//                                Text(match.startTimeString)
-//                                    .foregroundColor(.secondaryLabel)
-//                                    .font(.caption)
-//                            }
-//                            Spacer()
-//                        }
-//                    }
-//                } header: {
-//                    Text("Match: \(match.id ?? "")")
-//                }
-//            }
-//
-//            if !viewModel.filterHeroes.isEmpty {
-//                Section {
-//                    ForEach(viewModel.filterHeroes) { hero in
-//                        NavigationLink(
-//                            destination: HeroDetailViewV2(hero: hero)
-//                        ) {
-//                            HStack {
-//                                HeroImageViewV2(name: hero.heroNameLowerCase, type: .icon)
-//                                    .frame(width: 30, height: 30)
-//                                Text(hero.heroNameLocalized)
-//                            }
-//                        }
-//                    }
-//                } header: {
-//                    Text("Heroes")
-//                }
-//            }
-//            if !viewModel.userProfiles.isEmpty || !viewModel.searchLocalProfiles.isEmpty {
-//                Section {
-//                    ForEach(viewModel.searchLocalProfiles) { profile in
-//                        NavigationLink(destination: PlayerProfileView(userid: profile.id ?? "")) {
-//                            ProfileView(viewModel: ProfileViewModel(profile: profile))
-//                        }.accessibilityIdentifier(profile.id ?? "")
-//                    }
-//                    ForEach(viewModel.userProfiles) { profile in
-//                        NavigationLink(
-//                            destination: PlayerProfileView(userid: profile.id.description)
-//                        ) {
-//                            ProfileView(viewModel: ProfileViewModel(profile: profile))
-//                        }.accessibilityIdentifier(profile.id.description)
-//                    }
-//                } header: {
-//                    Text("Players")
-//                }
-//            }
-//        }
-//        .listStyle(PlainListStyle())
-//    }
 }
 
 struct AddAccountView_Previews: PreviewProvider {

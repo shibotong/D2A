@@ -11,21 +11,21 @@ struct SearchResultView: View {
     @Environment(\.isSearching) var isSearching
     @Environment(\.managedObjectContext) var context
     
+    @ObservedObject var viewModel: SearchViewModel
+    
     @FetchRequest(sortDescriptors: [SortDescriptor(\.searchTime)])
     var searchHistories: FetchedResults<SearchHistory>
     
     @State private var clearSearchDialogIsPresented = false
-
-    let suggestHeroes: [Hero]
-    let suggestPlayer: [UserProfile]
     
     private let imageSize: CGFloat = 40
     
     var body: some View {
-        if !suggestHeroes.isEmpty || !suggestPlayer.isEmpty {
+        if viewModel.isLoading {
+            ProgressView()
+        } else if !viewModel.heroes.isEmpty || !viewModel.localProfiles.isEmpty {
             suggestions
-        }
-        if isSearching && !searchHistories.isEmpty {
+        } else if isSearching && !searchHistories.isEmpty {
             searchHistoryPage
         } else {
             emptySearchPage
@@ -34,7 +34,37 @@ struct SearchResultView: View {
     
     private var suggestions: some View {
         List {
-            ForEach(suggestPlayer) { profile in
+            if let match = viewModel.searchedMatch, let matchID = match.id {
+                NavigationLink(destination: MatchView(matchid: matchID)) {
+                    HStack {
+                        Image("icon_\(match.radiantWin ? "radiant" : "dire")")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                        VStack(alignment: .leading) {
+                            Text("\(match.radiantWin ? "Radiant" : "Dire") Win").bold()
+                            Text(match.startTimeString)
+                                .foregroundColor(.secondaryLabel)
+                                .font(.caption)
+                        }
+                        Spacer()
+                    }
+                }
+            }
+            ForEach(viewModel.heroes) { hero in
+                NavigationLink(destination: HeroDetailViewV2(hero: hero)) {
+                    HStack {
+                        HeroImageViewV2(hero: hero, type: .icon)
+                            .frame(width: imageSize)
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                        buildTitle(title: hero.heroNameLocalized, subTitle: "Hero")
+                    }
+                }
+                .onTapGesture {
+                    addSeaarch(item: hero)
+                }
+            }
+            ForEach(viewModel.localProfiles) { profile in
                 NavigationLink(destination: Text("PlayerProfileView")) {
                     HStack {
                         ProfileAvatar(profile: profile, cornerRadius: 5)
@@ -46,17 +76,12 @@ struct SearchResultView: View {
                     addSeaarch(item: profile)
                 }
             }
-            ForEach(suggestHeroes) { hero in
-                NavigationLink(destination: HeroDetailViewV2(hero: hero)) {
-                    HStack {
-                        HeroImageViewV2(hero: hero, type: .icon)
-                            .frame(width: imageSize)
-                            .clipShape(RoundedRectangle(cornerRadius: 5))
-                        buildTitle(title: hero.heroNameLocalized, subTitle: "Hero")
-                    }
+            ForEach(viewModel.remoteProfiles) { profile in
+                NavigationLink(destination: PlayerProfileView(userid: profile.id.description)) {
+                    ProfileView(viewModel: ProfileViewModel(profile: profile))
                 }
                 .onTapGesture {
-                    addSeaarch(item: hero)
+                    addSeaarch(item: profile)
                 }
             }
         }
@@ -194,7 +219,7 @@ struct SearchResultView: View {
 
 #Preview {
     NavigationStack {
-        SearchResultView(suggestHeroes: [], suggestPlayer: [])
+        SearchResultView(isLoading: false, heroes: [], viewModel: <#SearchViewModel#>, localPlayers: [], remotePlayers: [])
     }
     .searchable(text: .constant(""))
     .environment(\.managedObjectContext, PersistanceProvider.preview.mainContext)
