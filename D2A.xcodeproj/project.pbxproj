@@ -362,6 +362,9 @@
 		79A323F42E56068000F738E9 /* Match+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A323F32E56067D00F738E9 /* Match+Preview.swift */; };
 		79A323F52E56068000F738E9 /* Match+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A323F32E56067D00F738E9 /* Match+Preview.swift */; };
 		79A323F72E585BE100F738E9 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A323F62E585BDD00F738E9 /* SearchResultView.swift */; };
+		79A323F92E59346500F738E9 /* ODSearchProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A323F82E59346000F738E9 /* ODSearchProfile.swift */; };
+		79A323FA2E59346500F738E9 /* ODSearchProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A323F82E59346000F738E9 /* ODSearchProfile.swift */; };
+		79A323FB2E59346500F738E9 /* ODSearchProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A323F82E59346000F738E9 /* ODSearchProfile.swift */; };
 		79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79A988F72931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79A988F92931D400006AC847 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988F82931D400006AC847 /* Match.swift */; };
@@ -761,6 +764,7 @@
 		79A323EB2E5605BB00F738E9 /* match.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = match.json; sourceTree = "<group>"; };
 		79A323F32E56067D00F738E9 /* Match+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Match+Preview.swift"; sourceTree = "<group>"; };
 		79A323F62E585BDD00F738E9 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
+		79A323F82E59346000F738E9 /* ODSearchProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODSearchProfile.swift; sourceTree = "<group>"; };
 		79A988F82931D400006AC847 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		79A988FA2931D6D7006AC847 /* PlayerCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCodable.swift; sourceTree = "<group>"; };
 		79A988FC2931D6FF006AC847 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -1714,6 +1718,7 @@
 		79EA36E12DE9C42400DFC2BA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				79A323F82E59346000F738E9 /* ODSearchProfile.swift */,
 				32B36F2526C38852002D427D /* ODMatch.swift */,
 				322B893526CD438700DF67F9 /* ODUserProfile.swift */,
 				322B893726CD44FE00DF67F9 /* ODPlayerProfile.swift */,
@@ -2154,6 +2159,7 @@
 				79CB52482A31C11F00C5D1C6 /* LiveMatchTimerView.swift in Sources */,
 				322B894026CE696C00DF67F9 /* DifferenceGraphView.swift in Sources */,
 				793CD53A2E3509F300FEA46B /* FileImageProvider.swift in Sources */,
+				79A323FA2E59346500F738E9 /* ODSearchProfile.swift in Sources */,
 				79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */,
 				79A988FD2931D6FF006AC847 /* Player.swift in Sources */,
 				79046E742DCB7FA00006FB86 /* AVAsset.swift in Sources */,
@@ -2322,6 +2328,7 @@
 				79B870C82DC39C970090CAB8 /* NSManagedObject.swift in Sources */,
 				327B87732850DA7800BBE1F8 /* ODAbility.swift in Sources */,
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
+				79A323F92E59346500F738E9 /* ODSearchProfile.swift in Sources */,
 				32F70ADB26F6090A006E9B05 /* NetworkImage.swift in Sources */,
 				79AF52232E00347A009FE792 /* ImageExtension.swift in Sources */,
 				79B870A12DC38A150090CAB8 /* StratzController.swift in Sources */,
@@ -2437,6 +2444,7 @@
 				79EB3F7F2DC6EF54008C4F6D /* ArraySecureCodingValueTransformer.swift in Sources */,
 				79B8709C2DC38A150090CAB8 /* StratzAbility.swift in Sources */,
 				79A988F72931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
+				79A323FB2E59346500F738E9 /* ODSearchProfile.swift in Sources */,
 				79A989102931E8F3006AC847 /* Talent.swift in Sources */,
 				79EB3EF42DC4B0BB008C4F6D /* ODAbility+Attribute.swift in Sources */,
 				79D1874C2E1E622500C04CC8 /* RefreshHandler.swift in Sources */,

@@ -12,24 +12,20 @@ struct ProfileAvatar: View {
     @EnvironmentObject private var environment: EnvironmentController
     @State var image: UIImage?
 
-    private let profile: UserProfile?
-
     private let cornerRadius: CGFloat
     private let userID: String
     private let imageURL: String?
 
     init(profile: UserProfile, cornerRadius: CGFloat) {
-        self.profile = profile
         userID = profile.id?.description ?? "0"
         imageURL = profile.avatarfull
         self.cornerRadius = cornerRadius
     }
 
-    init(userID: String, imageURL: String, cornerRadius: CGFloat, profile: UserProfile? = nil) {
+    init(userID: String, imageURL: String, cornerRadius: CGFloat) {
         self.userID = userID
         self.imageURL = imageURL
         self.cornerRadius = cornerRadius
-        self.profile = profile
     }
 
     var body: some View {
