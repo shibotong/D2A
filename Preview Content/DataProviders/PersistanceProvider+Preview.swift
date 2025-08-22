@@ -33,6 +33,9 @@ extension PersistanceProvider {
         let user = OpenDotaProvider.user
         let savedUser = try! user.update(context: context) as! UserProfile
         
+        let match = OpenDotaProvider.match
+        let savedMatch = match.update(context: context)
+        
         let searchedHero = try! context.fetchOne(type: Hero.self)!
         let searchHistory = SearchHistory(context: context)
         searchHistory.searchTime = Date()
@@ -41,6 +44,11 @@ extension PersistanceProvider {
         let searchHistory2 = SearchHistory(context: context)
         searchHistory2.searchTime = Date()
         searchHistory2.player = savedUser
+        
+        let searchHistory3 = SearchHistory(context: context)
+        searchHistory3.searchTime = Date()
+        searchHistory3.match = savedMatch
+        
         try! context.save()
         return provider
     }()

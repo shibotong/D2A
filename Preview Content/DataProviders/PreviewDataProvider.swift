@@ -19,8 +19,13 @@ class PreviewDataProvider {
         try! FileReader.loadFile(filename: OpenDotaDataService.player.rawValue, as: ODPlayerProfile.self)
     }
     
+    func loadOpenDotaMatch() -> ODMatch {
+        try! FileReader.loadFile(filename: OpenDotaDataService.match.rawValue, as: ODMatch.self)
+    }
+    
     private enum OpenDotaDataService: String {
         case player
+        case match
     }
 }
 

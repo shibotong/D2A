@@ -69,6 +69,25 @@ struct SearchHistoryView: View {
                         }
                     }
                 }
+                if let match = history.match {
+                    NavigationLink(destination: MatchView(matchid: match.id ?? "")) {
+                        HStack {
+                            Image("icon_\(match.radiantWin ? "radiant" : "dire")")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .clipShape(RoundedRectangle(cornerRadius: 5))
+                            VStack(alignment: .leading) {
+                                Text("\(match.id ?? "")").bold()
+                                Text(match.startTimeString)
+                                    .foregroundColor(.secondaryLabel)
+                                    .font(.caption)
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .bold()
+                        }
+                    }
+                }
                 Divider()
             }
         }
