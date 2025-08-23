@@ -118,7 +118,7 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
             throw D2AError(message: "No ability ID for \(self)")
         }
         let ability = Ability.fetch(id: abilityID, context: context) ?? Ability(context: context)
-        setIfNotEqual(entity: ability, path: \.id, value: Int32(abilityID))
+        setIfNotEqual(entity: ability, path: \.abilityID, value: Int32(abilityID))
         setIfNotEqual(entity: ability, path: \.isInnate, value: isInnate ?? false)
         setIfNotEqual(entity: ability, path: \.name, value: name)
         setIfNotEqual(entity: ability, path: \.behavior, value: behavior?.transformString())
