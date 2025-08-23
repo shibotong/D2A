@@ -13,11 +13,6 @@ struct SearchResultView: View {
     
     @ObservedObject var viewModel: SearchViewModel
     
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.searchTime)])
-    var searchHistories: FetchedResults<SearchHistory>
-    
-    @State private var clearSearchDialogIsPresented = false
-    
     private let imageSize: CGFloat = 40
     
     var body: some View {
@@ -26,11 +21,7 @@ struct SearchResultView: View {
         } else if viewModel.hasResults {
             suggestions
         } else {
-            if isSearching && !searchHistories.isEmpty {
-                searchHistoryPage
-            } else {
-                emptySearchPage
-            }
+            emptySearchPage
         }
     }
     
@@ -54,7 +45,7 @@ struct SearchResultView: View {
                 }
             }
             ForEach(viewModel.heroes) { hero in
-                NavigationLink(destination: HeroDetailViewV2(hero: hero)) {
+                NavigationLink(value: hero) {
                     HStack {
                         HeroImageViewV2(hero: hero, type: .icon)
                             .frame(width: imageSize)
@@ -62,34 +53,27 @@ struct SearchResultView: View {
                         buildTitle(title: hero.heroNameLocalized, subTitle: "Hero")
                     }
                 }
-                .onTapGesture {
-                    addSeaarch(item: hero)
-                }
             }
             ForEach(viewModel.localProfiles) { profile in
-                NavigationLink(destination: Text("PlayerProfileView")) {
-                    HStack {
-                        ProfileAvatar(profile: profile, cornerRadius: 5)
-                            .frame(width: imageSize)
-                        buildTitle(title: profile.personaname ?? "Unknown", subTitle: profile.id ?? "")
-                    }
-                }
-                .onTapGesture {
-                    addSeaarch(item: profile)
+                NavigationLink(value: profile.id?.description ?? "") {
+                    ProfileView(profile: profile)
                 }
             }
             ForEach(viewModel.remoteProfiles) { profile in
-                NavigationLink(destination: PlayerProfileView(userid: profile.accountID.description)) {
+                NavigationLink(value: profile.accountID.description) {
                     ProfileView(userID: profile.accountID.description, personaname: profile.personaname, avatarfull: profile.avatarFull
                     )
-                }
-                .onTapGesture {
-                    addSeaarch(item: profile)
                 }
             }
         }
         .listStyle(.plain)
         .foregroundColor(.label)
+        .navigationDestination(for: Hero.self) { hero in
+            HeroDetailViewV2(hero: hero)
+        }
+        .navigationDestination(for: String.self) { userID in
+            PlayerProfileView(userid: userID)
+        }
     }
     
     private var emptySearchPage: some View {
@@ -106,69 +90,6 @@ struct SearchResultView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    private var searchHistoryPage: some View {
-        List {
-            Section {
-                ForEach(searchHistories) { history in
-                    Group {
-                        if let hero = history.hero {
-                            NavigationLink(destination: HeroDetailViewV2(hero: hero)) {
-                                SearchHeroRowView(hero: hero)
-                                
-                            }
-                        }
-                        if let user = history.player {
-                            NavigationLink(destination: PlayerProfileView(userid: user.id ?? "")) {
-                                ProfileView(profile: user)
-                                
-                            }
-                        }
-                        if let match = history.match {
-                            NavigationLink(destination: MatchView(matchid: match.id ?? "")) {
-                                HStack {
-                                    Image("icon_\(match.radiantWin ? "radiant" : "dire")")
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
-                                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                                    VStack(alignment: .leading) {
-                                        Text("\(match.id ?? "")").bold()
-                                        Text(match.startTimeString)
-                                            .foregroundColor(.secondaryLabel)
-                                            .font(.caption)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .onTapGesture {
-                        searchClicked(history: history)
-                    }
-                }
-            } header: {
-                HStack {
-                    Text(LocalizableStrings.recentlySearched)
-                        .bold()
-                    Spacer()
-                    Button {
-                        clearSearchDialogIsPresented = true
-                    } label: {
-                        Text(LocalizableStrings.clear)
-                            .bold()
-                    }
-                }
-            }
-        }
-        .listStyle(.plain)
-        .confirmationDialog(LocalizableStrings.clearSearchTitle, isPresented: $clearSearchDialogIsPresented, titleVisibility: .visible) {
-            Button(LocalizableStrings.clearSearchButton, role: .destructive, action: clearSearch)
-            Button(LocalizableStrings.cancel, role: .cancel) {
-                clearSearchDialogIsPresented = false
-            }
-        } message: {
-            Text(LocalizableStrings.clearSearchDescription)
-        }
-    }
-    
     @ViewBuilder
     private func buildTitle(title: String, subTitle: String) -> some View {
         VStack(alignment: .leading) {
@@ -176,46 +97,6 @@ struct SearchResultView: View {
             Text(subTitle)
                 .font(.subheadline)
                 .foregroundStyle(Color.secondaryLabel)
-        }
-    }
-    
-    private func searchClicked(history: SearchHistory) {
-        history.searchTime = Date()
-        do {
-            try context.save()
-        } catch {
-            logError("not able to update search history. \(error.localizedDescription)", category: .coredata)
-        }
-    }
-    
-    private func clearSearch() {
-        for search in searchHistories {
-            context.delete(search)
-        }
-        do {
-            try context.save()
-        } catch {
-            logError("Failed to batch delete search histories: \(error)", category: .coredata)
-        }
-    }
-    
-    private func addSeaarch(item: Any) {
-        let searchHistory = SearchHistory(context: context)
-        searchHistory.searchTime = Date()
-        if let user = item as? UserProfile {
-            searchHistory.player = user
-        } else if let hero = item as? Hero {
-            searchHistory.hero = hero
-        } else if let match = item as? Match {
-            searchHistory.match = match
-        } else {
-            logError("search item is not supported", category: .coredata)
-            return
-        }
-        do {
-            try context.save()
-        } catch {
-            logError("Not able to save search history", category: .coredata)
         }
     }
 }
