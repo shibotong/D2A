@@ -15,7 +15,7 @@ struct ProfileView: View {
     let isFavourite: Bool
     
     init(profile: UserProfile) {
-        userID = profile.id ?? ""
+        userID = profile.userID.description
         personaname = profile.personaname ?? ""
         avatarfull = profile.avatarfull ?? ""
         isFavourite = profile.favourite

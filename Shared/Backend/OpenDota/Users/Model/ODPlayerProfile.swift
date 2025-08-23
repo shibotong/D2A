@@ -98,7 +98,7 @@ struct ODPlayerProfile: Decodable, PersistanceModel {
         let user = UserProfile.fetch(id: "\(profile.accountID)", viewContext: context) ?? UserProfile(context: context)
         setIfNotEqual(entity: user, path: \.avatarfull, value: profile.avatarFull)
         setIfNotEqual(entity: user, path: \.countryCode, value: profile.country)
-        setIfNotEqual(entity: user, path: \.id, value: "\(profile.accountID)")
+        setIfNotEqual(entity: user, path: \.userID, value: Int64(profile.accountID))
         setIfNotEqual(entity: user, path: \.isPlus, value: profile.plus)
         setIfNotEqual(entity: user, path: \.lastUpdate, value: Date())
         setIfNotEqual(entity: user, path: \.leaderboard, value: Int16(leaderboard ?? 0))

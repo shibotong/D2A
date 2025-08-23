@@ -87,8 +87,7 @@ final class EnvironmentController: ObservableObject {
             return
         }
         players.forEach { player in
-            guard let playerID = player.id else { return }
-            PersistanceProvider.shared.deleteRecentMatchesForUserID(userID: playerID)
+            PersistanceProvider.shared.deleteRecentMatchesForUserID(userID: player.userID.description)
         }
     }
     

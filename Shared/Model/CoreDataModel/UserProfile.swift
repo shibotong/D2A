@@ -60,23 +60,6 @@ extension UserProfile {
         return newProfile
     }
 
-    /// Create a UserProfile object in CoreData for testing purpose
-    static func create(
-        id: String, favourite: Bool = false, register: Bool = false,
-        controller: PersistanceProvider = PersistanceProvider.shared
-    ) {
-        let viewContext = controller.makeContext(author: "UserProfile")
-        let newProfile = UserProfile(context: viewContext)
-        newProfile.id = id
-        newProfile.name = "test name"
-        newProfile.personaname = "test persona"
-        newProfile.favourite = favourite
-        newProfile.register = register
-        newProfile.rank = 13
-        newProfile.avatarfull = "nil"
-        try? viewContext.save()
-    }
-
     static func fetch(
         id: String,
         viewContext: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext
@@ -114,7 +97,7 @@ extension UserProfile {
     }
 
     func update(_ profile: ODUserProfile) {
-        id = profile.id.description
+        userID = Int64(profile.id)
         avatarfull = profile.avatarfull
 
         countryCode = profile.countryCode

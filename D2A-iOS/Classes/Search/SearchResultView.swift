@@ -55,7 +55,7 @@ struct SearchResultView: View {
                 }
             }
             ForEach(viewModel.localProfiles) { profile in
-                NavigationLink(value: profile.id?.description ?? "") {
+                NavigationLink(value: profile.userID.description) {
                     ProfileView(profile: profile)
                 }
             }

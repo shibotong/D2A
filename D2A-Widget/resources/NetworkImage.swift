@@ -36,7 +36,7 @@ struct NetworkImage: View {
 
     init(profile: UserProfile,
          imageProvider: ImageProviding = ImageProvider.shared) {
-        userID = profile.id!
+        userID = profile.userID.description
         urlString = profile.avatarfull!
         imageType = .avatar
         isRadiant = true

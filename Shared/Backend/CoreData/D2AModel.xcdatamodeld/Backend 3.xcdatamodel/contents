@@ -86,7 +86,7 @@
         <attribute name="matchID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="mode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="partySize" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="playerId" optional="YES" attributeType="String"/>
+        <attribute name="playerId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="radiantWin" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="skill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="slot" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -96,7 +96,6 @@
         <attribute name="avatarfull" attributeType="String"/>
         <attribute name="countryCode" optional="YES" attributeType="String"/>
         <attribute name="favourite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="id" attributeType="String"/>
         <attribute name="isPlus" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="lastUpdate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="leaderboard" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -105,5 +104,6 @@
         <attribute name="profileurl" optional="YES" attributeType="String"/>
         <attribute name="rank" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="register" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="userID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
 </model>

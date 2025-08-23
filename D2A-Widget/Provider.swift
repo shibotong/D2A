@@ -42,10 +42,11 @@ struct Provider: IntentTimelineProvider {
         completion: @escaping (D2AWidgetUserEntry) -> Void
     ) {
         let profile = firstWidgetUser()
-        guard let profile, let userID = profile.id else {
+        guard let profile else {
             completion(userPlaceholder)
             return
         }
+        let userID = profile.userID.description
         // Use matches on device to load snapshot
         let matches = RecentMatch.fetch(userID: userID, count: 10, viewContext: persistanceProvider.mainContext)
         let userAvatar = imageProvider.localImage(type: .avatar, id: userID, fileExtension: .jpg)
@@ -63,14 +64,14 @@ struct Provider: IntentTimelineProvider {
         let status =
             UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool
             ?? false
-        guard status, let selectedProfile = user(for: configuration),
-            let userID = selectedProfile.id
+        guard status, let selectedProfile = user(for: configuration)
         else {
             let entry = D2AWidgetUserEntry(date: Date(), user: nil, subscription: status)
             let timeline = Timeline(entries: [entry], policy: .never)
             completion(timeline)
             return
         }
+        let userID = selectedProfile.userID.description
         Task {
             let matches = await loadNewMatches(for: userID)
             var profile = selectedProfile

@@ -40,11 +40,11 @@ struct Sidebar: View {
 
             if !favouritePlayers.isEmpty {
                 Section {
-                    ForEach(favouritePlayers, id: \.self) { player in
+                    ForEach(favouritePlayers, id: \.userID) { player in
                         NavigationLink(
-                            destination: PlayerProfileView(userid: player.id!)
+                            destination: PlayerProfileView(userid: player.userID.description)
                         ) {
-                            SidebarRowView(userid: player.id!)
+                            SidebarRowView(userid: player.userID.description)
                         }
                     }
                 } header: {

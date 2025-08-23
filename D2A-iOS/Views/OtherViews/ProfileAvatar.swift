@@ -17,7 +17,7 @@ struct ProfileAvatar: View {
     private let imageURL: String?
 
     init(profile: UserProfile, cornerRadius: CGFloat) {
-        userID = profile.id?.description ?? "0"
+        userID = profile.userID.description
         imageURL = profile.avatarfull
         self.cornerRadius = cornerRadius
     }

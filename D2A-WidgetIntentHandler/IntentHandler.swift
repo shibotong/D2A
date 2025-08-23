@@ -29,9 +29,9 @@ class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
         let profiles: [Profile] =
             results?.filter({ !$0.register }).map { userProfile in
                 return Profile(
-                    identifier: userProfile.id,
+                    identifier: userProfile.userID.description,
                     display: "\(userProfile.name ?? userProfile.personaname ?? "Unknown")",
-                    subtitle: "\(userProfile.id?.description ?? "")",
+                    subtitle: "\(userProfile.userID)",
                     image: nil)
             } ?? []
 
@@ -42,9 +42,9 @@ class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
         }
 
         let registerProfile = Profile(
-            identifier: registerUserProfile.id,
+            identifier: registerUserProfile.userID.description,
             display: "\(registerUserProfile.name ?? registerUserProfile.personaname ?? "")",
-            subtitle: "\(registerUserProfile.id ?? "")",
+            subtitle: "\(registerUserProfile.userID)",
             image: nil)
         let registerSection = INObjectSection(title: "Registered", items: [registerProfile])
         let profileSection = INObjectSection(title: "Favorite Players", items: profiles)

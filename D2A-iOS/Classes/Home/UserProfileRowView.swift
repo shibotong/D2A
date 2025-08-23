@@ -33,7 +33,7 @@ struct UserProfileRowView: View {
                     .font(.system(size: 10))
                     .foregroundColor(.secondaryLabel)
             }
-            Text(profile.id ?? "")
+            Text("\(profile.userID)")
                 .font(.system(size: 9))
                 .foregroundColor(.tertiaryLabel)
         }

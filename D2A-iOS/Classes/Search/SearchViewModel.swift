@@ -93,7 +93,7 @@ class SearchViewModel: ObservableObject {
         var notCachedProfiles: [ODSearchProfile] = []
 
         for profile in await searchedProfile {
-            if !cachedProfiles.contains(where: { $0.id == profile.accountID.description }) {
+            if !cachedProfiles.contains(where: { $0.userID == profile.accountID }) {
                 notCachedProfiles.append(profile)
             }
         }

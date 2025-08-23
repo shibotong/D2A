@@ -130,7 +130,7 @@ struct PlayerProfileView: View {
                 Spacer()
                 NavigationLink(
                     destination: CalendarMatchListView(
-                        vm: CalendarMatchListViewModel(userid: profile.id!))
+                        vm: CalendarMatchListViewModel(userid: profile.userID.description))
                 ) {
                     Text("All")
                 }
@@ -174,7 +174,7 @@ struct PlayerProfileView: View {
                             .font(.subheadline)
                             .lineLimit(1)
                     }
-                    Text("id: \(profile.id ?? "")")
+                    Text("id: \(profile.userID)")
                         .font(.caption)
                         .foregroundColor(.secondaryLabel)
                     buildRank(profile: profile, size: 60)
@@ -199,7 +199,7 @@ struct PlayerProfileView: View {
                                 .font(.subheadline)
                                 .lineLimit(1)
                         }
-                        Text("id: \(profile.id ?? "")")
+                        Text("id: \(profile.userID)")
                             .font(.caption)
                             .foregroundColor(.secondaryLabel)
                     }
@@ -270,7 +270,7 @@ struct PlayerProfileView: View {
     }
 
     private func loadMatches() async {
-        guard let userID = profile.first?.id else {
+        guard let userID = profile.first?.userID.description else {
             return
         }
         await setLoading(true)

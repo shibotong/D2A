@@ -26,11 +26,11 @@ struct D2AWidgetUser {
         leaderboard: nil)
 
     init?(_ profile: UserProfile, image: UIImage?, matches: [RecentMatch]) {
-        guard let userID = profile.id,
-            let userName = profile.personaname
+        guard let userName = profile.personaname
         else {
             return nil
         }
+        let userID = profile.userID.description
         let widgetMatches = matches.map { D2AWidgetMatch($0) }
         self.init(
             userID: userID, userName: userName,

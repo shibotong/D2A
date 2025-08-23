@@ -21,7 +21,7 @@ class ProfileViewModel: ObservableObject {
     init(profile: UserProfile) {
         self.profile = profile
         personaname = profile.personaname ?? ""
-        userID = profile.id ?? ""
+        userID = profile.userID.description
         avatarfull = profile.avatarfull ?? ""
     }
 
