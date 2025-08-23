@@ -51,7 +51,7 @@ struct ODPlayerProfile: Decodable, PersistanceModel {
             let container: KeyedDecodingContainer<ODPlayerProfile.Profile.CodingKeys> = try decoder.container(keyedBy: ODPlayerProfile.Profile.CodingKeys.self)
             self.accountID = try container.decode(Int.self, forKey: ODPlayerProfile.Profile.CodingKeys.accountID)
             self.personaname = try container.decode(String.self, forKey: ODPlayerProfile.Profile.CodingKeys.personaname)
-            self.name = try container.decode(String.self, forKey: ODPlayerProfile.Profile.CodingKeys.name)
+            self.name = try container.decodeIfPresent(String.self, forKey: ODPlayerProfile.Profile.CodingKeys.name)
             self.plus = try container.decode(Bool.self, forKey: ODPlayerProfile.Profile.CodingKeys.plus)
             self.cheese = try container.decode(Int.self, forKey: ODPlayerProfile.Profile.CodingKeys.cheese)
             self.avatar = try container.decode(String.self, forKey: ODPlayerProfile.Profile.CodingKeys.avatar)

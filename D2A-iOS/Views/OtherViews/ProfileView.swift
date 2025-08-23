@@ -8,32 +8,45 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @ObservedObject var viewModel: ProfileViewModel
+
+    let userID: String
+    let personaname: String
+    let avatarfull: String
+    let isFavourite: Bool
+    
+    init(profile: UserProfile) {
+        userID = profile.id ?? ""
+        personaname = profile.personaname ?? ""
+        avatarfull = profile.avatarfull ?? ""
+        isFavourite = profile.favourite
+    }
+    
+    init(userID: String, personaname: String, avatarfull: String, isFavourite: Bool = false) {
+        self.userID = userID
+        self.personaname = personaname
+        self.avatarfull = avatarfull
+        self.isFavourite = isFavourite
+    }
 
     private var avatar: some View {
         ProfileAvatar(
-            userID: viewModel.userID, imageURL: viewModel.avatarfull, cornerRadius: 0,
-            profile: viewModel.profile)
+            userID: userID, imageURL: avatarfull, cornerRadius: 0)
+        .clipShape(Circle())
     }
 
     var body: some View {
         HStack {
             avatar.frame(width: 40, height: 40)
             VStack(alignment: .leading) {
-                Text(viewModel.personaname).bold()
-                Text("ID: \(viewModel.userID)")
+                Text(personaname).bold()
+                Text("ID: \(userID)")
                     .foregroundColor(.secondaryLabel)
                     .font(.caption)
             }
             Spacer()
-            if let profile = viewModel.profile {
-                if profile.register && profile.favourite {
-                    Image(systemName: "person.text.rectangle")
-                        .foregroundColor(.primaryDota)
-                } else if profile.favourite {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.primaryDota)
-                }
+            if isFavourite {
+                Image(systemName: "star.fill")
+                    .foregroundColor(.primaryDota)
             }
         }
     }

@@ -27,3 +27,17 @@
 
 "FAVORITESADDTITLE" = "There are no players registered in your favorites.";
 "FAVORITESADDSUBTITLE" = "Please search and register a player";
+
+"HERO" = "Hero";
+
+// MARK: - Search
+"Search" = "Search";
+"SearchPageTitle" = "Players, Heroes, Matches";
+"SearchPageSubtitle" = "Search with players id or name, hero name and match id.";
+"RecentSearch" = "Recently Searched";
+"Clear" = "Clear";
+"ClearSearchTitle" = "Clear Searches?";
+"ClearSearchDescription" = "Clearing your searches will remove your search history from this device.";
+"ClearSearchButtonTitle" = "Clear Searches";
+
+"Cancel" = "Cancel";

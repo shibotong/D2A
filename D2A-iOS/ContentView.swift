@@ -47,6 +47,8 @@ struct NavigationHostView: View {
     @EnvironmentObject var env: EnvironmentController
     @EnvironmentObject var data: ConstantsController
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    @State var text = ""
 
     var body: some View {
         if horizontalSizeClass == .compact {
@@ -80,6 +82,7 @@ struct NavigationHostView: View {
 
                 NavigationStack {
                     SearchView()
+                        .searchable(text: $text)
                 }
                 .tabItem {
                     Image(systemName: "magnifyingglass")

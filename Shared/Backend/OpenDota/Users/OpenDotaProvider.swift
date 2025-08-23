@@ -9,7 +9,7 @@ import Foundation
 import WidgetKit
 
 protocol OpenDotaProviding {
-    func searchUserByText(text: String) async -> [ODUserProfile]
+    func searchUserByText(text: String) async -> [ODSearchProfile]
     func fetchRecentMatches(userID: String, days: Double?) async -> [RecentMatchCodable]
 
     func getRecentMatches(userid: String) async -> [RecentMatchCodable]
@@ -32,11 +32,11 @@ class OpenDotaProvider: OpenDotaProviding {
         self.network = network
     }
 
-    func searchUserByText(text: String) async -> [ODUserProfile] {
+    func searchUserByText(text: String) async -> [ODSearchProfile] {
         let urlString = "\(baseURL)/api/search/?q=\(text)".addingPercentEncoding(
             withAllowedCharacters: .urlQueryAllowed)!
         do {
-            return try await D2ANetwork.default.dataTask(urlString, as: [ODUserProfile].self)
+            return try await D2ANetwork.default.dataTask(urlString, as: [ODSearchProfile].self)
         } catch {
             logError(
                 "Search user by text failed: \(error.localizedDescription)", category: .opendota)
