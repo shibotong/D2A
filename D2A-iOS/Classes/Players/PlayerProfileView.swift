@@ -141,15 +141,13 @@ struct PlayerProfileView: View {
             }
             VStack(spacing: 2) {
                 ForEach(matches[0..<(matches.count > 10 ? 10 : matches.count)], id: \.id) { match in
-                    if let matchID = match.id {
-                        NavigationLink(
-                            destination: MatchView(matchid: matchID)
-                        ) {
-                            MatchListRowView(viewModel: MatchListRowViewModel(match: match))
-                                .background(Color.systemBackground)
-                        }.listRowInsets(
-                            EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
-                    }
+                    NavigationLink(
+                        destination: MatchView(matchid: match.matchID.description)
+                    ) {
+                        MatchListRowView(viewModel: MatchListRowViewModel(match: match))
+                            .background(Color.systemBackground)
+                    }.listRowInsets(
+                        EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
                 }
             }
             .background(Color.secondarySystemBackground)

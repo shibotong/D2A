@@ -10,44 +10,6 @@ import Foundation
 
 extension RecentMatch {
 
-    static func create(
-        userID: String,
-        matchID: String,
-        duration: Int32 = 1600,
-        mode: Int16 = 1,
-        radiantWin: Bool = true,
-        slot: Int16 = 1,
-        heroID: Int16 = 1,
-        kills: Int16 = 1,
-        deaths: Int16 = 1,
-        assists: Int16 = 1,
-        lobbyType: Int16 = 1,
-        startTime: Date = Date(),
-        partySize: Int16 = 5,
-        skill: Int16 = 0,
-        controller: PersistanceProvider = PersistanceProvider.shared
-    ) -> RecentMatch {
-        let viewContext = controller.makeContext(author: "RecentMatch")
-        let match = RecentMatch(context: viewContext)
-        match.id = matchID
-
-        match.duration = duration
-        match.mode = mode
-        match.radiantWin = radiantWin
-        match.slot = slot
-        match.heroID = heroID
-        match.kills = kills
-        match.deaths = deaths
-        match.assists = assists
-        match.lobbyType = lobbyType
-        match.startTime = startTime
-        match.partySize = partySize
-        match.skill = skill
-
-        try? viewContext.save()
-        return match
-    }
-
     static func fetch(_ matchID: String, userID: String) -> RecentMatch? {
         let viewContext = PersistanceProvider.shared.container.viewContext
         let fetchResult: NSFetchRequest<RecentMatch> = RecentMatch.fetchRequest()
@@ -102,7 +64,7 @@ extension RecentMatch {
     }
 
     func update(_ match: RecentMatchCodable) {
-        id = match.id.description
+        matchID = Int64(match.id)
 
         duration = Int32(match.duration)
         mode = Int16(match.mode)

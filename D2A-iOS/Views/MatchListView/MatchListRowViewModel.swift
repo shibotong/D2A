@@ -50,7 +50,7 @@ class MatchListRowViewModel: ObservableObject {
             gameMode: match.gameMode?.modeName ?? "Unknown",
             lobbyName: match.gameLobby.lobbyName,
             startTime: match.startTime ?? Date(),
-            matchID: match.id ?? "")
+            matchID: match.matchID.description)
     }
 
     convenience init(match: D2AWidgetMatch) {
