@@ -16,40 +16,38 @@ class SearchViewModel: ObservableObject {
     // suggestion
     @Published var heroes: [Hero] = []
     @Published var localProfiles: [UserProfile] = []
-    @Published var remoteProfiles: [ODUserProfile] = []
+    @Published var remoteProfiles: [ODSearchProfile] = []
     @Published var searchedMatch: Match?
     
     private let viewContext: NSManagedObjectContext
     private let openDotaProvider: OpenDotaProviding
+    private var cancellable: AnyCancellable?
+    
+    var showHistory: Bool {
+        return searchText.isEmpty
+    }
+    
+    var hasResults: Bool {
+        return !heroes.isEmpty || !localProfiles.isEmpty || !remoteProfiles.isEmpty || searchedMatch != nil
+    }
     
     init(viewContext: D2AManagedObjectContext = PersistanceProvider.shared.mainContext,
          openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared) {
         self.viewContext = viewContext
-        
-        $searchText
-            .receive(on: RunLoop.main)
-            .map { [weak self] text in
-                guard !text.isEmpty else {
-                    return []
-                }
-                let heroes = self?.searchHero(text: text) ?? []
-                return heroes
+        self.openDotaProvider = openDotaProvider
+        cancellable = $searchText
+            .sink { [weak self] text in
+                self?.heroes = self?.searchHero(text: text) ?? []
+                self?.localProfiles = self?.searchUser(text: text) ?? []
+                self?.remoteProfiles = []
+                self?.searchedMatch = nil
             }
-            .assign(to: &$heroes)
-        
-        $searchText
-            .receive(on: RunLoop.main)
-            .map { [weak self] text in
-                guard !text.isEmpty else {
-                    return []
-                }
-                let profiles = self?.searchUser(text: text) ?? []
-                return profiles
-            }
-            .assign(to: &$localProfiles)
     }
     
     private func searchHero(text: String) -> [Hero] {
+        guard !text.isEmpty else {
+            return []
+        }
         do {
             let allHeroes = try viewContext.fetchAll(type: Hero.self)
             return allHeroes.filter { $0.heroNameLocalized.lowercased().contains(text.lowercased()) }
@@ -60,6 +58,9 @@ class SearchViewModel: ObservableObject {
     }
     
     private func searchUser(text: String) -> [UserProfile] {
+        guard !text.isEmpty else {
+            return []
+        }
         do {
             let predicate = NSPredicate(format: "personaname CONTAINS[cd] %@", text)
             let users = try viewContext.fetchAll(type: UserProfile.self, predicate: predicate)
@@ -88,24 +89,16 @@ class SearchViewModel: ObservableObject {
             searchedMatch = nil
         }
 
-        var cachedProfiles: [UserProfile] = localProfiles
-        var notCachedProfiles: [ODUserProfile] = []
+        let cachedProfiles: [UserProfile] = localProfiles
+        var notCachedProfiles: [ODSearchProfile] = []
 
         for profile in await searchedProfile {
-            if let cachedProfile = UserProfile.fetch(id: profile.id.description) {
-                if cachedProfiles.contains(where: { profile in
-                    profile.id == cachedProfile.id
-                }) {
-                    continue
-                }
-                cachedProfiles.append(cachedProfile)
-            } else {
+            if !cachedProfiles.contains(where: { $0.id == profile.accountID.description }) {
                 notCachedProfiles.append(profile)
             }
         }
 
         remoteProfiles = notCachedProfiles
-
         isLoading = false
     }
 

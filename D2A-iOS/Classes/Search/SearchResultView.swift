@@ -23,12 +23,14 @@ struct SearchResultView: View {
     var body: some View {
         if viewModel.isLoading {
             ProgressView()
-        } else if !viewModel.heroes.isEmpty || !viewModel.localProfiles.isEmpty {
+        } else if viewModel.hasResults {
             suggestions
-        } else if isSearching && !searchHistories.isEmpty {
-            searchHistoryPage
         } else {
-            emptySearchPage
+            if isSearching && !searchHistories.isEmpty {
+                searchHistoryPage
+            } else {
+                emptySearchPage
+            }
         }
     }
     
@@ -77,8 +79,9 @@ struct SearchResultView: View {
                 }
             }
             ForEach(viewModel.remoteProfiles) { profile in
-                NavigationLink(destination: PlayerProfileView(userid: profile.id.description)) {
-                    ProfileView(viewModel: ProfileViewModel(profile: profile))
+                NavigationLink(destination: PlayerProfileView(userid: profile.accountID.description)) {
+                    ProfileView(userID: profile.accountID.description, personaname: profile.personaname, avatarfull: profile.avatarFull
+                    )
                 }
                 .onTapGesture {
                     addSeaarch(item: profile)
@@ -116,7 +119,7 @@ struct SearchResultView: View {
                         }
                         if let user = history.player {
                             NavigationLink(destination: PlayerProfileView(userid: user.id ?? "")) {
-                                ProfileView(viewModel: ProfileViewModel(profile: user))
+                                ProfileView(profile: user)
                                 
                             }
                         }
