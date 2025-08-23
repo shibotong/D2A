@@ -17,59 +17,6 @@ extension Hero {
     }
 
     // MARK: - Static func
-    /// Create `Hero` with `HeroModel` and `HeroQuery.Data.Constants.Hero` and save into Core Data
-    static func createHero(
-        _ queryHero: HeroQuery.Data.Constants.Hero, model: ODHero, abilities: [String] = []
-    ) throws -> Hero {
-        let viewContext = PersistanceProvider.shared.container.viewContext
-
-        guard let heroID = queryHero.id,
-            let heroTalents = queryHero.talents,
-            let heroRoles = queryHero.roles,
-            let heroStats = queryHero.stats
-        else {
-            throw Hero.CoreDataError.decodingError
-        }
-        let hero = fetch(id: Int(heroID), context: viewContext) ?? Hero(context: viewContext)
-        // data from Stratz
-        hero.lastFetch = Date()
-        hero.id = heroID
-        hero.name = queryHero.name
-        hero.complexity = Int16(heroStats.complexity ?? 0)
-        hero.visionDaytimeRange = heroStats.visionDaytimeRange ?? 1800
-        hero.visionNighttimeRange = heroStats.visionNighttimeRange ?? 800
-
-        // data from OpenDota
-        hero.primaryAttr = model.primaryAttr
-        hero.attackType = model.attackType
-        hero.img = model.img
-        hero.icon = model.icon
-
-        hero.baseHealth = model.baseHealth
-        hero.baseHealthRegen = model.baseHealthRegen
-        hero.baseMana = model.baseMana
-        hero.baseManaRegen = model.baseManaRegen
-        hero.baseArmor = model.baseArmor
-        hero.baseMr = model.baseMr
-        hero.baseAttackMin = model.baseAttackMin
-        hero.baseAttackMax = model.baseAttackMax
-
-        hero.baseStr = model.baseStr
-        hero.baseAgi = model.baseAgi
-        hero.baseInt = model.baseInt
-        hero.gainStr = model.strGain
-        hero.gainAgi = model.agiGain
-        hero.gainInt = model.intGain
-
-        hero.attackRange = model.attackRange
-        hero.projectileSpeed = model.projectileSpeed
-        hero.attackRate = model.attackRate
-        hero.moveSpeed = model.moveSpeed
-        hero.turnRate = model.turnRate ?? 0.6
-
-        try viewContext.save()
-        return hero
-    }
 
     /// Fetch `Hero` with `id` in CoreData
     static func fetch(id: Int, context: NSManagedObjectContext) -> Hero? {

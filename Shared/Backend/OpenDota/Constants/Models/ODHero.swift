@@ -71,7 +71,7 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
 
     var dictionaries: [String: Any] {
         return [
-            "id": Double(id),
+            "heroID": id,
             "name": name,
             "primaryAttr": primaryAttr,
             "attackType": attackType,
@@ -184,7 +184,7 @@ class ODHero: Identifiable, Decodable, PersistanceModel {
 
     func update(context: NSManagedObjectContext) throws -> NSManagedObject {
         let hero = Hero.fetch(id: id, context: context) ?? Hero(context: context)
-        setIfNotEqual(entity: hero, path: \.id, value: Double(id))
+        setIfNotEqual(entity: hero, path: \.heroID, value: Int16(id))
         setIfNotEqual(entity: hero, path: \.name, value: name)
         setIfNotEqual(entity: hero, path: \.primaryAttr, value: primaryAttr)
         setIfNotEqual(entity: hero, path: \.attackType, value: attackType)
