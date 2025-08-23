@@ -65,8 +65,8 @@
         <attribute name="direKill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="goldDiff" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[NSNumber]"/>
-        <attribute name="id" attributeType="String"/>
         <attribute name="lobbyType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="matchID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="mode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="players" optional="YES" attributeType="Transformable" valueTransformerName="PlayerTransformer" customClassName="[Player]"/>
         <attribute name="radiantKill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

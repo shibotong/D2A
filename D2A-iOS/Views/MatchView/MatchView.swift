@@ -46,7 +46,7 @@ struct MatchView: View {
                 }
             }
             .listStyle(.plain)
-            .navigationTitle("ID: \(match.id ?? "")")
+            .navigationTitle("ID: \(match.matchID)")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 Button {

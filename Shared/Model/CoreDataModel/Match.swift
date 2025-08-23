@@ -10,54 +10,13 @@ import Foundation
 import SwiftUI
 
 extension Match {
-
-    static func create(
-        id: String,
-        lobbyType: Int16 = 1,
-        mode: Int16 = 1,
-        region: Int16 = 1,
-        skill: Int16 = 1,
-        duration: Int32 = 1800,
-        direKill: Int16 = 30,
-        radiantKill: Int16 = 20,
-        radiantWin: Bool = true,
-        startTime: Date = Date(),
-        controller: PersistanceProvider = PersistanceProvider.shared
-    ) {
-        let viewContext = controller.makeContext(author: "Match")
-        let matchCoreData = fetch(id: id) ?? Match(context: viewContext)
-        matchCoreData.id = id
-        matchCoreData.lobbyType = lobbyType
-        matchCoreData.mode = mode
-        matchCoreData.region = region
-        matchCoreData.skill = skill
-        matchCoreData.duration = duration
-        matchCoreData.direKill = direKill
-        matchCoreData.radiantKill = radiantKill
-        matchCoreData.radiantWin = radiantWin
-        matchCoreData.startTime = startTime
-        matchCoreData.players = [
-            Player(id: "0", slot: 0),
-            Player(id: "1", slot: 1),
-            Player(id: "2", slot: 2),
-            Player(id: "3", slot: 3),
-            Player(id: "4", slot: 4),
-            Player(id: "5", slot: 127),
-            Player(id: "6", slot: 128),
-            Player(id: "7", slot: 129),
-            Player(id: "8", slot: 130),
-            Player(id: "9", slot: 131),
-        ]
-        try? viewContext.save()
-    }
-
     static func create(_ match: ODMatch) throws -> Match {
         let viewContext = PersistanceProvider.shared.makeContext(author: "Match")
         let matchCoreData = fetch(id: match.id.description) ?? Match(context: viewContext)
         matchCoreData.update(match)
         try viewContext.save()
         try viewContext.parent?.save()
-        print("save match successfully \(matchCoreData.id ?? "nil")")
+        print("save match successfully \(matchCoreData.matchID)")
         return matchCoreData
     }
 
@@ -102,7 +61,7 @@ extension Match {
     }
 
     func update(_ match: ODMatch) {
-        id = match.id.description
+        matchID = Int64(match.id)
 
         // Match data
         direKill = Int16(match.direKill ?? 0)

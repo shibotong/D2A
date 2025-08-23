@@ -27,8 +27,8 @@ struct SearchResultView: View {
     
     private var suggestions: some View {
         List {
-            if let match = viewModel.searchedMatch, let matchID = match.id {
-                NavigationLink(destination: MatchView(matchid: matchID)) {
+            if let match = viewModel.searchedMatch {
+                NavigationLink(destination: MatchView(matchid: match.matchID.description)) {
                     HStack {
                         Image("icon_\(match.radiantWin ? "radiant" : "dire")")
                             .resizable()
