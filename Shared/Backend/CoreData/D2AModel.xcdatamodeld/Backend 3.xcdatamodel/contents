@@ -22,7 +22,7 @@
     </entity>
     <entity name="GameMode" representedClassName="GameMode" syncable="YES" codeGenerationType="class">
         <attribute name="balanced" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="modeID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
     </entity>
     <entity name="Hero" representedClassName="Hero" syncable="YES" codeGenerationType="class">

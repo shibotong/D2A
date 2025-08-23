@@ -16,7 +16,7 @@ struct ODGameMode: Decodable, PersistanceModel {
     
     var dictionaries: [String : Any] {
         return [
-            "id": id,
+            "modeID": id,
             "name": name,
             "balanced": balanced
         ]
@@ -25,7 +25,7 @@ struct ODGameMode: Decodable, PersistanceModel {
     func update(context: NSManagedObjectContext) throws -> NSManagedObject {
         let mode = try GameMode.fetch(id: id, context: context) ?? GameMode(context: context)
         
-        setIfNotEqual(entity: mode, path: \.id, value: Int16(id))
+        setIfNotEqual(entity: mode, path: \.modeID, value: Int16(id))
         setIfNotEqual(entity: mode, path: \.name, value: name)
         setIfNotEqual(entity: mode, path: \.balanced, value: balanced)
 

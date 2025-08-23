@@ -18,7 +18,7 @@ extension GameMode {
     }
     
     var modeName: String {
-        switch id {
+        switch modeID {
         case 0:
             return "Unknown"
         case 1:

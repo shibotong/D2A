@@ -63,7 +63,7 @@ struct ODAbility: Codable, Identifiable, PersistanceModel {
             return [:]
         }
         var result: [String: Any] = [:]
-        result["id"] = id
+        result["abilityID"] = id
         result["name"] = name
         result["displayName"] = dname
         result["isInnate"] = isInnate ?? false
