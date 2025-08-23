@@ -25,7 +25,7 @@ final class HeroListViewModelTests: XCTestCase {
     func testSearchHeroesByText() {
         viewModel.searchString = "anti"
         XCTAssertEqual(viewModel.searchedResults.count, 1, "Only one hero can be filtered by text")
-        XCTAssertEqual(viewModel.searchedResults.first?.id, 1)
+        XCTAssertEqual(viewModel.searchedResults.first?.heroID, 1)
     }
     
     func testSearchHeroesByAttribute() {
