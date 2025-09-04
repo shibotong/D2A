@@ -58,6 +58,14 @@ final class DotaEnvironment: ObservableObject {
     init() {
         subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         tab = .home
+        let userDefaults = UserDefaults(suiteName: GROUP_NAME)
+        let lastVersion = userDefaults?.string(forKey: "dotaArmory.appVersion")
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        
+        if appVersion != lastVersion {
+            versionUpdate(lastVersion: lastVersion, currentVersion: appVersion)
+            userDefaults?.setValue(appVersion, forKey: "dotaArmory.appVersion")
+        }
     }
     
     static func isInWidget() -> Bool {
@@ -99,5 +107,9 @@ final class DotaEnvironment: ObservableObject {
             guard let playerID = player.id else { return }
             PersistenceController.shared.deleteRecentMatchesForUserID(userID: playerID)
         }
+    }
+    
+    private func versionUpdate(lastVersion: String?, currentVersion: String?) {
+        
     }
 }
