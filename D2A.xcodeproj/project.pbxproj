@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -248,9 +248,6 @@
 		32F70B2626F62971006E9B05 /* sampleRecentMatch.json in Resources */ = {isa = PBXBuildFile; fileRef = 327772AC26D8BD47000A0A97 /* sampleRecentMatch.json */; };
 		32F70B3026F714FD006E9B05 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2F26F714FD006E9B05 /* Provider.swift */; };
 		790102B829F4099D00E8A320 /* AttributeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790102B729F4099D00E8A320 /* AttributeImage.swift */; };
-		790102C029F40F7B00E8A320 /* secrets.json.sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 790102BF29F40F7B00E8A320 /* secrets.json.sample.json */; };
-		790102C129F40F8100E8A320 /* secrets.json.sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 790102BF29F40F7B00E8A320 /* secrets.json.sample.json */; };
-		790102C229F40F8200E8A320 /* secrets.json.sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 790102BF29F40F7B00E8A320 /* secrets.json.sample.json */; };
 		790266462A35454500CE54DF /* LiveMatchEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790266452A35454500CE54DF /* LiveMatchEventListView.swift */; };
 		790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790266482A35478D00CE54DF /* LiveMatchEventRowView.swift */; };
 		79091DF52A3B2E2C0093EEE4 /* LiveMatchActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */; };
@@ -290,6 +287,7 @@
 		795860412A335D69006DDA21 /* LiveMatchMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795860402A335D69006DDA21 /* LiveMatchMapView.swift */; };
 		79645CC32A39D1610004EF50 /* LiveMatchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79645CC22A39D1610004EF50 /* LiveMatchListView.swift */; };
 		7965F636293ADE1900922F99 /* RegisteredPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */; };
+		796674212E697BD500D102FA /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 796674202E697BD500D102FA /* StratzAPI */; };
 		796BF20429F5536000555C64 /* HeroListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796BF20329F5536000555C64 /* HeroListView.swift */; };
 		796FE19C29AAF659003379EB /* AbilityImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796FE19B29AAF659003379EB /* AbilityImage.swift */; };
 		796FE19E29AB006C003379EB /* AbilityImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796FE19D29AB006C003379EB /* AbilityImageViewModel.swift */; };
@@ -575,7 +573,6 @@
 		32F70B3926F80AE4006E9B05 /* D2AWidgetIntentHandlerRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2AWidgetIntentHandlerRelease.entitlements; sourceTree = "<group>"; };
 		790102B729F4099D00E8A320 /* AttributeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeImage.swift; sourceTree = "<group>"; };
 		790102B929F40C4600E8A320 /* ScreenShotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotTests.swift; sourceTree = "<group>"; };
-		790102BF29F40F7B00E8A320 /* secrets.json.sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = secrets.json.sample.json; sourceTree = "<group>"; };
 		790266452A35454500CE54DF /* LiveMatchEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchEventListView.swift; sourceTree = "<group>"; };
 		790266482A35478D00CE54DF /* LiveMatchEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchEventRowView.swift; sourceTree = "<group>"; };
 		79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityAttributes.swift; sourceTree = "<group>"; };
@@ -664,6 +661,7 @@
 				79266DA42A31B078002FEF0F /* ApolloWebSocket in Frameworks */,
 				790FBB2429C186AE00E27106 /* Apollo in Frameworks */,
 				790FBB2A29C1876D00E27106 /* StratzAPI in Frameworks */,
+				796674212E697BD500D102FA /* StratzAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1214,7 +1212,6 @@
 				79D5280D28DD5D990070841D /* Network.swift */,
 				79D5282128DD74930070841D /* Secret.swift */,
 				79D5281D28DD73CF0070841D /* secrets.json */,
-				790102BF29F40F7B00E8A320 /* secrets.json.sample.json */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -1271,6 +1268,7 @@
 				790FBB2329C186AE00E27106 /* Apollo */,
 				790FBB2929C1876D00E27106 /* StratzAPI */,
 				79266DA32A31B078002FEF0F /* ApolloWebSocket */,
+				796674202E697BD500D102FA /* StratzAPI */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* D2A.app */;
@@ -1423,6 +1421,7 @@
 			mainGroup = 32B36F0226C38821002D427D;
 			packageReferences = (
 				790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				7966741F2E697BD500D102FA /* XCLocalSwiftPackageReference "StratzAPI" */,
 			);
 			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
 			projectDirPath = "";
@@ -1465,7 +1464,6 @@
 				323ADB31272B91F500253124 /* patchnotes.json in Resources */,
 				323ADB2A272B91F500253124 /* neutral_abilities.json in Resources */,
 				323ADB26272B91F500253124 /* abilities.json in Resources */,
-				790102C029F40F7B00E8A320 /* secrets.json.sample.json in Resources */,
 				321D58A726D717900059526B /* sampleMatch.json in Resources */,
 				323ADB33272B91F500253124 /* countries.json in Resources */,
 				323ADB21272B91F500253124 /* ability_ids.json in Resources */,
@@ -1534,7 +1532,6 @@
 				323ADB5C272E03E300253124 /* item_colors.json in Resources */,
 				323ADB5E272E03E300253124 /* countries.json in Resources */,
 				323ADB67272E03E300253124 /* ability_ids.json in Resources */,
-				790102C129F40F8100E8A320 /* secrets.json.sample.json in Resources */,
 				323ADB62272E03E300253124 /* player_colors.json in Resources */,
 				323ADB5D272E03E300253124 /* hero_abilities.json in Resources */,
 				323ADB70272E03E300253124 /* chat_wheel.json in Resources */,
@@ -1551,7 +1548,6 @@
 				323ADB8B272E03E500253124 /* heroes.json in Resources */,
 				7977FDA329C1770B0034D3EA /* schema.graphqls in Resources */,
 				323ADB96272E03E500253124 /* abilities.json in Resources */,
-				790102C229F40F8200E8A320 /* secrets.json.sample.json in Resources */,
 				323ADB9D272E03E500253124 /* region.json in Resources */,
 				327B876B2850D92A00BBE1F8 /* sampleHeroAbility.json in Resources */,
 				323ADB90272E03E500253124 /* items.json in Resources */,
@@ -2540,6 +2536,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		7966741F2E697BD500D102FA /* XCLocalSwiftPackageReference "StratzAPI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = StratzAPI;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -2588,6 +2591,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloWebSocket;
+		};
+		796674202E697BD500D102FA /* StratzAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StratzAPI;
 		};
 		79D1043629E2991E00BC04B3 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
