@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # Add Secret
-echo '{ "stratzToken": "'"$STRATZTOKEN"'" }' >> ../Shared/GraphQL/secrets.json
+echo '{ "stratzToken": "'"$STRATZTOKEN"'" }' > ../Shared/GraphQL/secrets.json
