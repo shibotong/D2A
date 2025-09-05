@@ -235,6 +235,9 @@
 		790D96452E55EEC20090801B /* SearchHeroRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D96442E55EEC20090801B /* SearchHeroRowView.swift */; };
 		790FBB2429C186AE00E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2329C186AE00E27106 /* Apollo */; };
 		790FBB3429C18AC800E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB3329C18AC800E27106 /* Apollo */; };
+		7910272A2E6BA706005B04E5 /* CoreDataMigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791027292E6BA6FA005B04E5 /* CoreDataMigrationManager.swift */; };
+		7910272B2E6BA706005B04E5 /* CoreDataMigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791027292E6BA6FA005B04E5 /* CoreDataMigrationManager.swift */; };
+		7910272C2E6BA706005B04E5 /* CoreDataMigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791027292E6BA6FA005B04E5 /* CoreDataMigrationManager.swift */; };
 		7925405F2E30C8CC00201CF1 /* OpenDotaConstantProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */; };
 		792540602E30C8CC00201CF1 /* OpenDotaConstantProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */; };
 		792540612E30C8CC00201CF1 /* OpenDotaConstantProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */; };
@@ -698,6 +701,7 @@
 		790D96312E514D4A0090801B /* OpenDotaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaTests.swift; sourceTree = "<group>"; };
 		790D963C2E55DD6E0090801B /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		790D96442E55EEC20090801B /* SearchHeroRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeroRowView.swift; sourceTree = "<group>"; };
+		791027292E6BA6FA005B04E5 /* CoreDataMigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMigrationManager.swift; sourceTree = "<group>"; };
 		7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantProcessor.swift; sourceTree = "<group>"; };
 		792540622E30CDE000201CF1 /* ConstantsController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConstantsController+Preview.swift"; sourceTree = "<group>"; };
 		792540662E30CE4600201CF1 /* EnvironmentController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentController+Preview.swift"; sourceTree = "<group>"; };
@@ -811,7 +815,7 @@
 		79D187312E16205100C04CC8 /* D2ANotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ANotificationCenter.swift; sourceTree = "<group>"; };
 		79D187362E16221C00C04CC8 /* StratzControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratzControllerTests.swift; sourceTree = "<group>"; };
 		79D1873E2E16411600C04CC8 /* D2AAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AAppDelegate.swift; sourceTree = "<group>"; };
-		79D187442E1E551D00C04CC8 /* Backend 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 3.xcdatamodel"; sourceTree = "<group>"; };
+		79D187442E1E551D00C04CC8 /* Backend 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 2.xcdatamodel"; sourceTree = "<group>"; };
 		79D187452E1E573100C04CC8 /* GameDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataController.swift; sourceTree = "<group>"; };
 		79D187492E1E621C00C04CC8 /* RefreshHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshHandler.swift; sourceTree = "<group>"; };
 		79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowViewModel.swift; sourceTree = "<group>"; };
@@ -819,7 +823,6 @@
 		79E41BBF2E35FAD600AF520F /* HeroDetailViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewV2.swift; sourceTree = "<group>"; };
 		79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailRow.swift; sourceTree = "<group>"; };
 		79E89A292DF6AE7B00497B5D /* ODGameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODGameMode.swift; sourceTree = "<group>"; };
-		79E89A2D2DF6AFE100497B5D /* Backend 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 2.xcdatamodel"; sourceTree = "<group>"; };
 		79EB3EF22DC4B0B4008C4F6D /* ODAbility+Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ODAbility+Attribute.swift"; sourceTree = "<group>"; };
 		79EB3EF62DC4B5D2008C4F6D /* PersistanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceModel.swift; sourceTree = "<group>"; };
 		79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
@@ -1735,6 +1738,7 @@
 				79E89A2E2DF6B0DD00497B5D /* Model */,
 				79EB3F7C2DC6EF46008C4F6D /* Transformers */,
 				79F5B5D328E3B8D900FB67E5 /* PersistanceProvider.swift */,
+				791027292E6BA6FA005B04E5 /* CoreDataMigrationManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -2271,6 +2275,7 @@
 				3294463826E1A530006E0D06 /* ProfileView.swift in Sources */,
 				79EB3EFD2DC4B8F8008C4F6D /* Ability.swift in Sources */,
 				32D1606126F3753900657449 /* SKProduct.swift in Sources */,
+				7910272A2E6BA706005B04E5 /* CoreDataMigrationManager.swift in Sources */,
 				799948BE2932423800D79055 /* LoadingView.swift in Sources */,
 				79C5380F2DCB772800B5920A /* AttributeSectionView.swift in Sources */,
 				796FE19E29AB006C003379EB /* AbilityImageViewModel.swift in Sources */,
@@ -2368,6 +2373,7 @@
 				79A989202931ECBB006AC847 /* Player.swift in Sources */,
 				32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */,
 				797C88AF2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */,
+				7910272C2E6BA706005B04E5 /* CoreDataMigrationManager.swift in Sources */,
 				32A26C5528594A28005E890F /* EnvironmentController.swift in Sources */,
 				32F70ADE26F60B95006E9B05 /* ODUserProfile.swift in Sources */,
 				797776D22B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
@@ -2434,6 +2440,7 @@
 				793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
 				79B870C72DC39C970090CAB8 /* NSManagedObject.swift in Sources */,
 				32B526D5285C1DBC0099B058 /* Extension.swift in Sources */,
+				7910272B2E6BA706005B04E5 /* CoreDataMigrationManager.swift in Sources */,
 				32F70B1F26F6295C006E9B05 /* Color.swift in Sources */,
 				79AF52222E00347A009FE792 /* ImageExtension.swift in Sources */,
 				79B870992DC38A150090CAB8 /* StratzController.swift in Sources */,
@@ -3148,11 +3155,10 @@
 		79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				79D187442E1E551D00C04CC8 /* Backend 3.xcdatamodel */,
-				79E89A2D2DF6AFE100497B5D /* Backend 2.xcdatamodel */,
+				79D187442E1E551D00C04CC8 /* Backend 2.xcdatamodel */,
 				79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */,
 			);
-			currentVersion = 79D187442E1E551D00C04CC8 /* Backend 3.xcdatamodel */;
+			currentVersion = 79D187442E1E551D00C04CC8 /* Backend 2.xcdatamodel */;
 			path = D2AModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
