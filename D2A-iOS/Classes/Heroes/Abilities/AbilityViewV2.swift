@@ -8,9 +8,49 @@
 import SwiftUI
 
 struct AbilityViewV2: View {
-    let ability: Ability
     
-    private let iconSize: CGFloat = 25
+    private let name: String?
+    private let isInnate: Bool
+    private let displayName: String
+    private let manaCost: String?
+    private let coolDown: String?
+    private let targetTeam: Ability.TargetTeam?
+    private let behaviour: String?
+    private let bkbPierce: String?
+    private let dispellable: String?
+    private let damageType: String?
+    private let desc: String?
+    private let scepter: String?
+    private let shard: String?
+    private let lore: String?
+    private let attributes: [AbilityAttribute]
+    
+    private let iconSize: CGFloat = 20
+    
+    init(ability: Ability) {
+        self.init(name: ability.name, isInnate: ability.isInnate, displayName: ability.displayName ?? "",
+                  manaCost: ability.manaCost, coolDown: ability.coolDown, targetTeam: ability.target, behaviour: ability.behavior,
+                  bkbPierce: ability.bkbPierce, dispellable: ability.dispellable, damageType: ability.damageType, desc: ability.desc,
+                  scepter: ability.scepter, shard: ability.shard, lore: ability.lore, attributes: ability.attributes ?? [])
+    }
+    
+    init(name: String?, isInnate: Bool, displayName: String, manaCost: String?, coolDown: String?, targetTeam: Ability.TargetTeam?, behaviour: String?, bkbPierce: String?, dispellable: String?, damageType: String?, desc: String?, scepter: String?, shard: String?, lore: String?, attributes: [AbilityAttribute]) {
+        self.name = name
+        self.isInnate = isInnate
+        self.displayName = displayName
+        self.manaCost = manaCost
+        self.coolDown = coolDown
+        self.targetTeam = targetTeam
+        self.behaviour = behaviour
+        self.bkbPierce = bkbPierce
+        self.dispellable = dispellable
+        self.damageType = damageType
+        self.desc = desc
+        self.scepter = scepter
+        self.shard = shard
+        self.lore = lore
+        self.attributes = attributes
+    }
     
     var body: some View {
         NavigationView {
@@ -43,24 +83,23 @@ struct AbilityViewV2: View {
     
     private var titleView: some View {
         HStack {
-            AbilityImage(name: ability.name, isInnate: ability.isInnate)
+            AbilityImage(name: name, isInnate: isInnate)
                 .frame(width: iconSize, height: iconSize)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
-            Text(ability.displayName ?? "")
-                .font(.title)
+            Text(displayName)
                 .bold()
         }
     }
     
     @ViewBuilder
     private var cdmcView: some View {
-        if ability.manaCost != nil || ability.coolDown != nil {
+        if manaCost != nil || coolDown != nil {
             VStack {
-                if let mc = ability.manaCost {
+                if let mc = manaCost {
                     buildRow(title: "Mana Cost", value: mc)
                 }
                 
-                if let cd = ability.coolDown {
+                if let cd = coolDown {
                     buildRow(title: "Cool Down", value: cd)
                 }
             }
@@ -69,28 +108,26 @@ struct AbilityViewV2: View {
     
     private var statsView: some View {
         VStack {
-            if let behavior = ability.behavior {
-                buildRow(title: "ABILITY", value: behavior)
+            if let behaviour {
+                buildRow(title: "ABILITY", value: behaviour)
             }
-            if let targetTeam = ability.targetTeam {
+            if let targetTeam {
                 switch targetTeam {
-                case "Both":
+                case .both:
                     buildRow(title: "AFFECTS:", value: "Heroes")
-                case "Enemy":
+                case .enemy:
                     buildRow(title: "AFFECTS:", value: "Enemy Units")
-                case "Friendly":
+                case .friendly:
                     buildRow(title: "AFFECTS:", value: "Allied Units")
-                default:
-                    EmptyView()
                 }
             }
-            if let bkbPierce = ability.bkbPierce {
+            if let bkbPierce {
                 buildRow(title: "Immunity", value: bkbPierce, color: bkbPierce == "Yes" ? .green : .label)
             }
-            if let dispellable = ability.dispellable {
+            if let dispellable {
                 buildRow(title: "Dispellable", value: dispellable, color: dispellable == "No" ? .red : .label)
             }
-            if let damageType = ability.damageType {
+            if let damageType {
                 buildRow(title: "Damage Type", value: damageType, color: {
                     switch damageType {
                     case "Magical":
@@ -109,17 +146,17 @@ struct AbilityViewV2: View {
     
     @ViewBuilder
     private var descriptionView: some View {
-        if let description = ability.desc {
-            if description == ability.scepter {
+        if let description = desc {
+            if description == scepter {
                 buildDescription(type: .scepter, description: description)
-            } else if description == ability.shard {
+            } else if description == shard {
                 buildDescription(type: .shard, description: description)
             } else {
                 buildDescription(type: .none, description: description)
-                if let scepter = ability.scepter {
+                if let scepter {
                     buildDescription(type: .scepter, description: scepter)
                 }
-                if let shard = ability.shard {
+                if let shard {
                     buildDescription(type: .shard, description: shard)
                 }
             }
@@ -128,18 +165,16 @@ struct AbilityViewV2: View {
     
     @ViewBuilder
     private var attributesView: some View {
-        if let attributes = ability.attributes {
-            VStack {
-                ForEach(attributes, id: \.key) { attribute in
-                    buildRow(title: attribute.header, value: attribute.value)
-                }
+        VStack {
+            ForEach(attributes, id: \.key) { attribute in
+                buildRow(title: attribute.header, value: attribute.value)
             }
         }
     }
     
     @ViewBuilder
     private var loreView: some View {
-        if let lore = ability.lore {
+        if let lore {
             Text(lore)
                 .font(.caption2)
                 .foregroundStyle(.secondary)
@@ -181,15 +216,7 @@ struct AbilityViewV2: View {
 
 #if DEBUG
 #Preview {
-    AbilityViewV2(ability: Ability.blink)
+    AbilityViewV2(name: "Blink", isInnate: false, displayName: "Blink", manaCost: "20", coolDown: "20", targetTeam: .both, behaviour: "This is behaviour", bkbPierce: "Yes", dispellable: "NO", damageType: "This is damage", desc: "This is description", scepter: "This is scepter", shard: "This is shard", lore: "This is lore", attributes: [.init(key: "Attribute", header: "Header", value: "Value", generated: false)])
         .environmentObject(EnvironmentController.preview)
-}
-
-#Preview {
-    Text("Present modal")
-        .sheet(isPresented: .constant(true)) {
-            AbilityViewV2(ability: Ability.blink)
-                .environmentObject((EnvironmentController.preview))
-        }
 }
 #endif
