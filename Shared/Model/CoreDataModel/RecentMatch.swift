@@ -24,36 +24,28 @@ extension RecentMatch {
     /// - parameter userid: Player ID
     /// - parameter count: The number of matches to fetch
     static func fetch(
-        userID: String, count: Int,
+        userID: String,
+        count: Int? = nil,
+        on date: Date? = nil,
         viewContext: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext
     ) -> [RecentMatch] {
         let fetchResult: NSFetchRequest<RecentMatch> = RecentMatch.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "startTime", ascending: false)
         fetchResult.sortDescriptors = [sortDescriptor]
-        fetchResult.predicate = NSPredicate(format: "playerId = %@", userID)
-        fetchResult.fetchLimit = count
-        do {
-            let result = try viewContext.fetch(fetchResult)
-            return result
-        } catch {
-            print(error.localizedDescription)
-            return []
+        let userPredicate = NSPredicate(format: "userID = %d", Int(userID)!)
+        
+        if let count {
+            fetchResult.fetchLimit = count
         }
-    }
-
-    static func fetch(
-        userID: String, on date: Date,
-        viewContext: NSManagedObjectContext = PersistanceProvider.shared.container.viewContext
-    ) -> [RecentMatch] {
-        let fetchResult: NSFetchRequest<RecentMatch> = RecentMatch.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "startTime", ascending: false)
-        fetchResult.sortDescriptors = [sortDescriptor]
-        let playerPredicate = NSPredicate(format: "playerId = %@", userID)
-        let datePredicate = NSPredicate(
-            format: "startTime >= %@ AND startTime <= %@", date.startOfDay as CVarArg,
-            date.endOfDay as CVarArg)
+        var predicates = [userPredicate]
+        if let date {
+            let datePredicate = NSPredicate(
+                format: "startTime >= %@ AND startTime <= %@", date.startOfDay as CVarArg,
+                date.endOfDay as CVarArg)
+            predicates.append(datePredicate)
+        }
         fetchResult.predicate = NSCompoundPredicate(
-            type: .and, subpredicates: [playerPredicate, datePredicate])
+            type: .and, subpredicates: predicates)
         do {
             let result = try viewContext.fetch(fetchResult)
             return result
