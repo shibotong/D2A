@@ -24,7 +24,7 @@ extension Match {
     static func fetch(id: String) -> Match? {
         let viewContext = PersistanceProvider.shared.container.viewContext
         let fetchMatch: NSFetchRequest<Match> = Match.fetchRequest()
-        let predicate = NSPredicate(format: "id == %@", id)
+        let predicate = NSPredicate(format: "matchID == %@", id)
         fetchMatch.predicate = predicate
 
         let results = try? viewContext.fetch(fetchMatch)
