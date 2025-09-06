@@ -20,7 +20,7 @@ extension Hero {
 
     /// Fetch `Hero` with `id` in CoreData
     static func fetch(id: Int, context: NSManagedObjectContext) -> Hero? {
-        let predicate = NSPredicate(format: "heroID == %i", Double(id))
+        let predicate = NSPredicate(format: "heroID == %i", id)
         return fetchOne(predicate: predicate, context: context)
     }
 
