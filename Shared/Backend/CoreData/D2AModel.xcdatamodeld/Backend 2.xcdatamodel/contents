@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788.4" systemVersion="24G84" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788.4" systemVersion="24G90" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Ability" representedClassName="Ability" syncable="YES" codeGenerationType="class">
         <attribute name="abilityID" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="attributes" optional="YES" attributeType="Transformable" valueTransformerName="AbilityAttributeTransformer" customClassName="[AbilityAttribute]"/>
@@ -86,11 +86,11 @@
         <attribute name="matchID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="mode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="partySize" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="playerId" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="radiantWin" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="skill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="slot" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startTime" attributeType="Date" defaultDateTimeInterval="-31644000" usesScalarValueType="NO"/>
+        <attribute name="userID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="UserProfile" representedClassName="UserProfile" syncable="YES" codeGenerationType="class">
         <attribute name="avatarfull" attributeType="String"/>
