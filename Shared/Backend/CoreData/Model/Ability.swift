@@ -12,7 +12,7 @@ extension Ability {
 
     static func fetch(id: Int, context: NSManagedObjectContext) -> Ability? {
         let fetchAbility: NSFetchRequest<Ability> = Ability.fetchRequest()
-        fetchAbility.predicate = NSPredicate(format: "id == %d", id)
+        fetchAbility.predicate = NSPredicate(format: "abilityID == %d", id)
         let results = try? context.fetch(fetchAbility)
         return results?.first
     }
