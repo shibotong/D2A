@@ -11,12 +11,12 @@ struct CoreDataMigrationManager {
     func migration() throws {
         guard let sourceModelURL = Bundle.main.url(forResource: "Backend", withExtension: "xcdatamodel"),
               let destinationModelURL = Bundle.main.url(forResource: "Backend 2", withExtension: "xcdatamodel"),
-        let mappingModelURL = Bundle.main.url(forResource: "Version2Mapping", withExtension: "xcmappingmodel") else {
+              let mappingModelURL = Bundle.main.url(forResource: "Version2Mapping", withExtension: "xcmappingmodel"),
+              let mappingModel = NSMappingModel(contentsOf: mappingModelURL) else {
             throw D2AError(message: "Not able to find source model or destination model")
         }
         
         let manager = NSMigrationManager()
-        
-        
+        try manager.migrateStore(from: sourceModelURL, type: .sqlite, mapping: mappingModel, to: destinationModelURL, type: .sqlite)
     }
 }
