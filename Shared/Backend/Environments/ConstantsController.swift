@@ -119,38 +119,6 @@ class ConstantsController: ObservableObject {
         return abilityName
     }
 
-    func fetchOpenDotaAbility(name: String) -> ODAbility? {
-        return abilities[name]
-    }
-
-    func fetchStratzAbility(name: String) -> StratzAbility? {
-        let ability = apolloAbilities.first { $0.name == name }
-        return ability
-    }
-
-    func fetchHeroAbility(name: String) -> [String] {
-        let abilities = heroAbilities[name]?.abilities
-        return abilities ?? []
-    }
-
-    func fetchAllHeroes() -> [ODHero] {
-        var sortedHeroes = [ODHero]()
-        for i in 1..<150 {
-            if let hero = heroes["\(i)"] {
-                sortedHeroes.append(hero)
-            }
-        }
-
-        sortedHeroes.sort { hero1, hero2 in
-            return hero1.localizedName < hero2.localizedName
-        }
-        return sortedHeroes
-    }
-
-    func fetchSearchedHeroes(text: String) -> [ODHero] {
-        return []
-    }
-
     func getTalentDisplayName(id: Short) -> String {
         return getTalentDisplayName(talentID: Int(id))
     }
