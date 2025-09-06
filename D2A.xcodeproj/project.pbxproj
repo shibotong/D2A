@@ -235,9 +235,6 @@
 		790D96452E55EEC20090801B /* SearchHeroRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790D96442E55EEC20090801B /* SearchHeroRowView.swift */; };
 		790FBB2429C186AE00E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2329C186AE00E27106 /* Apollo */; };
 		790FBB3429C18AC800E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB3329C18AC800E27106 /* Apollo */; };
-		7910272A2E6BA706005B04E5 /* CoreDataMigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791027292E6BA6FA005B04E5 /* CoreDataMigrationManager.swift */; };
-		7910272B2E6BA706005B04E5 /* CoreDataMigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791027292E6BA6FA005B04E5 /* CoreDataMigrationManager.swift */; };
-		7910272C2E6BA706005B04E5 /* CoreDataMigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791027292E6BA6FA005B04E5 /* CoreDataMigrationManager.swift */; };
 		7910272F2E6BB5C7005B04E5 /* HeroMigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7910272E2E6BB5BA005B04E5 /* HeroMigrationPolicy.swift */; };
 		791027302E6BB5C7005B04E5 /* HeroMigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7910272E2E6BB5BA005B04E5 /* HeroMigrationPolicy.swift */; };
 		791027312E6BB5C7005B04E5 /* HeroMigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7910272E2E6BB5BA005B04E5 /* HeroMigrationPolicy.swift */; };
@@ -716,7 +713,6 @@
 		790D96312E514D4A0090801B /* OpenDotaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaTests.swift; sourceTree = "<group>"; };
 		790D963C2E55DD6E0090801B /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		790D96442E55EEC20090801B /* SearchHeroRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeroRowView.swift; sourceTree = "<group>"; };
-		791027292E6BA6FA005B04E5 /* CoreDataMigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMigrationManager.swift; sourceTree = "<group>"; };
 		7910272E2E6BB5BA005B04E5 /* HeroMigrationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroMigrationPolicy.swift; sourceTree = "<group>"; };
 		7910273E2E6BC854005B04E5 /* MatchMigrationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchMigrationPolicy.swift; sourceTree = "<group>"; };
 		791027422E6BC99A005B04E5 /* RecentMatchMigrationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMatchMigrationPolicy.swift; sourceTree = "<group>"; };
@@ -1308,12 +1304,7 @@
 		7910272D2E6BB5B1005B04E5 /* Migration */ = {
 			isa = PBXGroup;
 			children = (
-				791027292E6BA6FA005B04E5 /* CoreDataMigrationManager.swift */,
-				7910272E2E6BB5BA005B04E5 /* HeroMigrationPolicy.swift */,
-				7910273E2E6BC854005B04E5 /* MatchMigrationPolicy.swift */,
-				791027422E6BC99A005B04E5 /* RecentMatchMigrationPolicy.swift */,
-				7910274A2E6BCD16005B04E5 /* UserProfileMigrationPolicy.swift */,
-				791027462E6BCCA6005B04E5 /* Version2Mapping.xcmappingmodel */,
+				794832672E6BD5D1006D9DBA /* Backend 2 */,
 			);
 			path = Migration;
 			sourceTree = "<group>";
@@ -1455,6 +1446,18 @@
 				797C88B92DCB755A00D4CDD1 /* Hero+Preview.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		794832672E6BD5D1006D9DBA /* Backend 2 */ = {
+			isa = PBXGroup;
+			children = (
+				7910272E2E6BB5BA005B04E5 /* HeroMigrationPolicy.swift */,
+				7910273E2E6BC854005B04E5 /* MatchMigrationPolicy.swift */,
+				791027422E6BC99A005B04E5 /* RecentMatchMigrationPolicy.swift */,
+				7910274A2E6BCD16005B04E5 /* UserProfileMigrationPolicy.swift */,
+				791027462E6BCCA6005B04E5 /* Version2Mapping.xcmappingmodel */,
+			);
+			path = "Backend 2";
 			sourceTree = "<group>";
 		};
 		797C88B42DCB5EFE00D4CDD1 /* HeroDetail */ = {
@@ -2312,7 +2315,6 @@
 				3294463826E1A530006E0D06 /* ProfileView.swift in Sources */,
 				79EB3EFD2DC4B8F8008C4F6D /* Ability.swift in Sources */,
 				32D1606126F3753900657449 /* SKProduct.swift in Sources */,
-				7910272A2E6BA706005B04E5 /* CoreDataMigrationManager.swift in Sources */,
 				799948BE2932423800D79055 /* LoadingView.swift in Sources */,
 				79C5380F2DCB772800B5920A /* AttributeSectionView.swift in Sources */,
 				796FE19E29AB006C003379EB /* AbilityImageViewModel.swift in Sources */,
@@ -2416,7 +2418,6 @@
 				79A989202931ECBB006AC847 /* Player.swift in Sources */,
 				32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */,
 				797C88AF2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */,
-				7910272C2E6BA706005B04E5 /* CoreDataMigrationManager.swift in Sources */,
 				32A26C5528594A28005E890F /* EnvironmentController.swift in Sources */,
 				32F70ADE26F60B95006E9B05 /* ODUserProfile.swift in Sources */,
 				797776D22B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
@@ -2485,7 +2486,6 @@
 				793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
 				79B870C72DC39C970090CAB8 /* NSManagedObject.swift in Sources */,
 				32B526D5285C1DBC0099B058 /* Extension.swift in Sources */,
-				7910272B2E6BA706005B04E5 /* CoreDataMigrationManager.swift in Sources */,
 				32F70B1F26F6295C006E9B05 /* Color.swift in Sources */,
 				79AF52222E00347A009FE792 /* ImageExtension.swift in Sources */,
 				79B870992DC38A150090CAB8 /* StratzController.swift in Sources */,
