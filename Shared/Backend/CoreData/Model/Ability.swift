@@ -40,6 +40,19 @@ extension Ability {
             return []
         }
     }
+    
+    enum TargetTeam: String {
+        case both = "Both"
+        case enemy = "Enemy"
+        case friendly = "Friendly"
+    }
+    
+    var target: TargetTeam? {
+        guard let targetTeam else {
+            return nil
+        }
+        return TargetTeam(rawValue: targetTeam)
+    }
 }
 
 @objcMembers
