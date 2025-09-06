@@ -12,7 +12,7 @@ extension GameMode {
     
     static func fetch(id: Int, context: NSManagedObjectContext) throws -> GameMode? {
         let request = GameMode.fetchRequest()
-        let predicate = NSPredicate(format: "id == %d", id)
+        let predicate = NSPredicate(format: "modeID == %d", id)
         request.predicate = predicate
         return try context.fetch(request).first
     }
