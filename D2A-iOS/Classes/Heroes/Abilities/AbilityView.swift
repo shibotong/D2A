@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AbilityViewV2: View {
+struct AbilityView: View {
     
     private let name: String?
     private let isInnate: Bool
@@ -217,7 +217,7 @@ struct AbilityViewV2: View {
 
 #if DEBUG
 #Preview {
-    AbilityViewV2(name: "Blink", isInnate: false, displayName: "Blink", manaCost: "20", coolDown: "20", targetTeam: .both, behaviour: "This is behaviour", bkbPierce: "Yes", dispellable: "NO", damageType: "This is damage", desc: "This is description", scepter: "This is scepter", shard: "This is shard", lore: "This is lore", attributes: [.init(key: "Attribute", header: "Header", value: "Value", generated: false)])
+    AbilityView(name: "Blink", isInnate: false, displayName: "Blink", manaCost: "20", coolDown: "20", targetTeam: .both, behaviour: "This is behaviour", bkbPierce: "Yes", dispellable: "NO", damageType: "This is damage", desc: "This is description", scepter: "This is scepter", shard: "This is shard", lore: "This is lore", attributes: [.init(key: "Attribute", header: "Header", value: "Value", generated: false)])
         .environmentObject(EnvironmentController.preview)
 }
 #endif

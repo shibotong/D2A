@@ -42,7 +42,7 @@ struct HeroDetailViewV2: View {
             .padding(.horizontal)
         }
         .sheet(item: $selectedAbility, content: { ability in
-            AbilityViewV2(ability: ability)
+            AbilityView(ability: ability)
         })
         .task {
             self.abilities = loadAbilities()
