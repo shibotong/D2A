@@ -76,6 +76,10 @@ class ConstantsController: ObservableObject {
 
         await loadConstantData()
     }
+    
+    func fetchHero(id: Int) -> Hero? {
+        return allHeroes.first { Int($0.heroID) == id }
+    }
 
     func fetchHeroWithID(id: Int) throws -> ODHero {
         guard let hero = heroes["\(id)"] else {

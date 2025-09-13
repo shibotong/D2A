@@ -150,7 +150,7 @@ struct HeroListView: View {
     @ViewBuilder
     private func buildHeroRow(hero: Hero) -> some View {
         NavigationLink(
-            destination: HeroDetailViewV2(hero: hero)
+            destination: HeroDetailView(hero: hero)
         ) {
             HeroRowView(hero: hero, isGrid: isGrid)
         }

@@ -488,7 +488,7 @@
 		79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
 		79E01CAA291E35320073BF68 /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
 		79E01CAB291E35320073BF68 /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
-		79E41BC02E35FADA00AF520F /* HeroDetailViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E41BBF2E35FAD600AF520F /* HeroDetailViewV2.swift */; };
+		79E41BC02E35FADA00AF520F /* HeroDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E41BBF2E35FAD600AF520F /* HeroDetailView.swift */; };
 		79E41BC82E360FDA00AF520F /* HeroDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */; };
 		79E89A2A2DF6AE7B00497B5D /* ODGameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A292DF6AE7B00497B5D /* ODGameMode.swift */; };
 		79E89A2B2DF6AE7B00497B5D /* ODGameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A292DF6AE7B00497B5D /* ODGameMode.swift */; };
@@ -836,7 +836,7 @@
 		79D187492E1E621C00C04CC8 /* RefreshHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshHandler.swift; sourceTree = "<group>"; };
 		79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowViewModel.swift; sourceTree = "<group>"; };
 		79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchPlayerView.swift; sourceTree = "<group>"; };
-		79E41BBF2E35FAD600AF520F /* HeroDetailViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewV2.swift; sourceTree = "<group>"; };
+		79E41BBF2E35FAD600AF520F /* HeroDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailView.swift; sourceTree = "<group>"; };
 		79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailRow.swift; sourceTree = "<group>"; };
 		79E89A292DF6AE7B00497B5D /* ODGameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODGameMode.swift; sourceTree = "<group>"; };
 		79EB3EF22DC4B0B4008C4F6D /* ODAbility+Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ODAbility+Attribute.swift"; sourceTree = "<group>"; };
@@ -1464,7 +1464,7 @@
 			isa = PBXGroup;
 			children = (
 				79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */,
-				79E41BBF2E35FAD600AF520F /* HeroDetailViewV2.swift */,
+				79E41BBF2E35FAD600AF520F /* HeroDetailView.swift */,
 				79C5380D2DCB771A00B5920A /* Attribute */,
 				79C538102DCB776800B5920A /* SectionTitle.swift */,
 				79368C0928E6D8ED009517D2 /* RoleView.swift */,
@@ -2233,7 +2233,7 @@
 				798E0FE12E2CFDDB0066D7E1 /* PreviewDataProvider.swift in Sources */,
 				79CF37672DC0F96100207CB8 /* D2AServiceCategory.swift in Sources */,
 				32B36F3F26C388AD002D427D /* PlayerProfileView.swift in Sources */,
-				79E41BC02E35FADA00AF520F /* HeroDetailViewV2.swift in Sources */,
+				79E41BC02E35FADA00AF520F /* HeroDetailView.swift in Sources */,
 				79D1871F2E13CEFF00C04CC8 /* HeroListView+ViewModel.swift in Sources */,
 				32B36F2A26C38852002D427D /* Item.swift in Sources */,
 				79ABE8FA2A35C3CF00EE9EF9 /* LiveMatchDraftView.swift in Sources */,

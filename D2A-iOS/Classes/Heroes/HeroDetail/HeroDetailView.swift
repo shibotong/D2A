@@ -1,5 +1,5 @@
 //
-//  HeroDetailViewV2.swift
+//  HeroDetailView.swift
 //  D2A
 //
 //  Created by Shibo Tong on 27/7/2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HeroDetailViewV2: View {
+struct HeroDetailView: View {
     
     @Environment(\.managedObjectContext) private var context
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -296,7 +296,7 @@ struct HeroDetailViewV2: View {
 
 #if DEBUG
 #Preview {
-    HeroDetailViewV2(hero: Hero.antimage)
+    HeroDetailView(hero: Hero.antimage)
         .environmentObject(EnvironmentController.preview)
         .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
 }

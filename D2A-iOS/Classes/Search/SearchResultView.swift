@@ -69,7 +69,7 @@ struct SearchResultView: View {
         .listStyle(.plain)
         .foregroundColor(.label)
         .navigationDestination(for: Hero.self) { hero in
-            HeroDetailViewV2(hero: hero)
+            HeroDetailView(hero: hero)
         }
         .navigationDestination(for: String.self) { userID in
             PlayerProfileView(userid: userID)
