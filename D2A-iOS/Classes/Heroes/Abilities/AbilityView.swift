@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AbilityView: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     private let name: String?
     private let isInnate: Bool
     private let displayName: String
@@ -78,8 +80,20 @@ struct AbilityView: View {
                 ToolbarItem(placement: .principal) {
                     titleView
                 }
+                ToolbarItem(placement: .topBarTrailing) {
+                    closeButton
+                }
             }
         }
+    }
+    
+    private var closeButton: some View {
+        Button(action: {
+            dismiss()
+        }, label: {
+            Image(systemName: "xmark.circle.fill")
+        })
+        .buttonStyle(.plain)
     }
     
     private var titleView: some View {
