@@ -66,12 +66,13 @@ struct AbilityViewV2: View {
                     .font(.caption)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.secondarySystemBackground)
+                    .background(Color.systemBackground)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                     
                 }
                 .padding()
             }
+            .background(Color.secondarySystemBackground)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
