@@ -24,10 +24,12 @@ class PlayerProfileViewModel: ObservableObject {
     }
     
     private func loadData() {
-        let userPredicate = NSPredicate(format: "id = %@", userID)
-        let matchPredicate = NSPredicate(format: "playerId = %@", userID)
+        guard let userIDInteger = Int(userID) else {
+            return
+        }
+        let userPredicate = UserProfile.predicate(for: userIDInteger)
         user = try? context.fetchOne(type: UserProfile.self, predicate: userPredicate)
-        let matches = try? context.fetchAll(type: RecentMatch.self, predicate: matchPredicate,
+        let matches = try? context.fetchAll(type: RecentMatch.self, predicate: userPredicate,
                                             sortDescriptors: [NSSortDescriptor(keyPath: \RecentMatch.startTime, ascending: true)],
                                             limit: 10)
         self.matches = matches ?? []
