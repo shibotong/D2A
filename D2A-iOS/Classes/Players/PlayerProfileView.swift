@@ -42,12 +42,13 @@ struct PlayerProfileView: View {
     private var userid: String
 
     init(userid: String) {
+        let userPredicate = UserProfile.predicate(for: Int(userid)!)
         _profile = FetchRequest(
-            sortDescriptors: [], predicate: NSPredicate(format: "id = %@", userid))
+            sortDescriptors: [], predicate: userPredicate)
         let request = NSFetchRequest<RecentMatch>(entityName: "RecentMatch")
         request.fetchLimit = 10
         request.fetchBatchSize = 1
-        request.predicate = NSPredicate(format: "playerId = %@", userid)
+        request.predicate = userPredicate
         request.sortDescriptors = [
             NSSortDescriptor(keyPath: \RecentMatch.startTime, ascending: false)
         ]
