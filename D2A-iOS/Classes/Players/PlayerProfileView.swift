@@ -80,49 +80,8 @@ struct PlayerProfileView: View {
     }
 
     var body: some View {
-        if let profile = viewModel.user {
-            buildProfileView(profile: profile)
-                .listStyle(PlainListStyle())
-                .navigationTitle("\(profile.personaname ?? "")")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar(content: {
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        favoriteButton
-                            .accessibilityIdentifier("favourite")
-                        //                        Button {
-                        //                            self.isSharePresented = true
-                        //                        } label: {
-                        //                            Image(systemName: "square.and.arrow.up")
-                        //                        }
-                    }
-                })
-                .task {
-                    await loadMatches()
-                    if let profileLastUpdate = profile.lastUpdate, !profileLastUpdate.isToday {
-                        await refreshUser()
-                    }
-                }
-        } else {
-            if error {
-                Text("Error Occured")
-            } else {
-                ProgressView()
-                    .task {
-                        await refreshUser()
-                    }
-            }
-        }
-    }
-
-    @ViewBuilder private func buildProfileView(profile: UserProfile) -> some View {
         ScrollView {
-            if horizontalSizeClass == .compact {
-                buildCompactTopBar(profile: profile)
-                    .padding(.horizontal)
-            } else {
-                buildRegularTopBar(profile: profile)
-                    .padding()
-            }
+            topBar
             HStack {
                 Text("Recent Matches")
                     .font(.system(size: 20))
@@ -130,7 +89,7 @@ struct PlayerProfileView: View {
                 Spacer()
                 NavigationLink(
                     destination: CalendarMatchListView(
-                        vm: CalendarMatchListViewModel(userid: profile.userID.description))
+                        vm: CalendarMatchListViewModel(userid: viewModel.userID.description))
                 ) {
                     Text("All")
                 }
@@ -153,120 +112,103 @@ struct PlayerProfileView: View {
             .background(Color.secondarySystemBackground)
             .id(refreshID)
         }
+        .listStyle(PlainListStyle())
+        .navigationTitle(viewModel.personaname)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                favoriteButton
+                    .accessibilityIdentifier("favourite")
+                //                        Button {
+                //                            self.isSharePresented = true
+                //                        } label: {
+                //                            Image(systemName: "square.and.arrow.up")
+                //                        }
+            }
+        })
     }
-
-    @ViewBuilder private func buildNameBar(profile: UserProfile) -> some View {
-        Text(profile.name ?? profile.personaname ?? "")
-            .font(.title2)
-            .bold()
-            .lineLimit(1)
+    
+    @ViewBuilder
+    private var topBar: some View {
+        if horizontalSizeClass == .compact {
+            compactTopBar
+        } else {
+            regularTopBar
+        }
     }
-
-    @ViewBuilder private func buildCompactTopBar(profile: UserProfile) -> some View {
+    
+    private var compactTopBar: some View {
         VStack {
             VStack {
-                ProfileAvatar(profile: profile, cornerRadius: 20)
+                avatar
                     .frame(width: 150, height: 150)
                 VStack {
-                    buildNameBar(profile: profile)
-                    if profile.name != nil {
-                        Text(profile.personaname ?? "")
-                            .font(.subheadline)
-                            .lineLimit(1)
-                    }
-                    Text("id: \(profile.userID)")
-                        .font(.caption)
-                        .foregroundColor(.secondaryLabel)
-                    buildRank(profile: profile, size: 60)
+                    nameBar
+                    subNameBar
+                    userID
+                    buildRank(size: 60)
                 }
             }
-            buildButton(profile: profile)
         }
         .padding()
     }
 
-    @ViewBuilder private func buildRegularTopBar(profile: UserProfile) -> some View {
+    private var regularTopBar: some View {
         HStack(spacing: 30) {
-            ProfileAvatar(profile: profile, cornerRadius: 20)
+            avatar
                 .frame(width: 250, height: 250)
             VStack {
                 Spacer()
                 HStack {
                     VStack(alignment: .leading) {
-                        buildNameBar(profile: profile)
-                        if profile.name != nil {
-                            Text(profile.personaname ?? "")
-                                .font(.subheadline)
-                                .lineLimit(1)
-                        }
-                        Text("id: \(profile.userID)")
-                            .font(.caption)
-                            .foregroundColor(.secondaryLabel)
+                        nameBar
+                        subNameBar
+                        userID
                     }
                     Spacer()
-                    buildRank(profile: profile, size: 80)
+                    buildRank(size: 80)
                 }
-                Spacer()
-                buildButton(profile: profile)
             }
         }
     }
+    
+    private var avatar: some View {
+        ProfileAvatar(userID: viewModel.userID, imageURL: viewModel.imageURL, cornerRadius: 20)
+    }
+    
+    private var nameBar: some View {
+        Text(viewModel.name ?? viewModel.personaname)
+            .font(.title2)
+            .bold()
+            .lineLimit(1)
+    }
+    
+    private var userID: some View {
+        Text("id: \(viewModel.userID.description)")
+            .font(.caption)
+            .foregroundColor(.secondaryLabel)
+    }
+    
+    @ViewBuilder
+    private var subNameBar: some View {
+        if viewModel.name != nil {
+            Text(viewModel.personaname)
+                .font(.subheadline)
+                .lineLimit(1)
+        }
+    }
 
-    @ViewBuilder private func buildRank(profile: UserProfile, size: CGFloat) -> some View {
+    @ViewBuilder private func buildRank(size: CGFloat) -> some View {
         HStack {
-            if profile.isPlus {
+            if viewModel.isPlus {
                 Image("dota_plus")
                     .resizable()
                     .padding(size / 10)
                     .frame(width: size, height: size)
             }
-            RankView(rank: Int(profile.rank), leaderboard: Int(profile.leaderboard))
+            RankView(rank: viewModel.rank, leaderboard: viewModel.leaderboard)
                 .frame(width: size, height: size)
         }
-    }
-
-    @ViewBuilder private func buildButton(profile: UserProfile) -> some View {
-        HStack(spacing: 20) {
-            Button {
-                refreshID = UUID()
-                Task {
-                    await loadMatches()
-                }
-            } label: {
-                HStack {
-                    Spacer()
-                    Image(systemName: "arrow.clockwise")
-                        .font(Font.system(size: 15, weight: .semibold))
-                    Text("Update")
-                        .font(Font.system(size: 15, weight: .semibold))
-                    Spacer()
-                }
-                .frame(height: 45)
-                .background(
-                    RoundedRectangle(cornerRadius: 10).foregroundColor(.secondarySystemBackground))
-
-            }
-            if let url = URL(string: profile.profileurl ?? "") {
-                Link(destination: url) {
-                    steamLink
-                }
-            } else {
-                steamLink
-                    .task {
-                        await refreshUser()
-                    }
-            }
-        }
-    }
-
-    private func refreshUser() async {
-        guard let profileCodable = try? await OpenDotaProvider.shared.user(id: userid)
-        else {
-            print("cancelled search")
-            return
-        }
-        _ = try? profileCodable.update(context: viewContext)
-        try? viewContext.save()
     }
 
     private func loadMatches() async {
