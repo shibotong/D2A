@@ -17,6 +17,10 @@ extension UserProfile {
         }
         return !lastUpdate.isToday
     }
+    
+    static func predicate(for userID: Int) -> NSPredicate {
+        return NSPredicate(format: "userID == %d", userID)
+    }
 
     static var canFavourite: Bool {
         return EnvironmentController.shared.subscriptionStatus || favouriteUsersCount == 0
