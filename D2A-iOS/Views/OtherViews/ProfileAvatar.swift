@@ -22,7 +22,7 @@ struct ProfileAvatar: View {
         self.cornerRadius = cornerRadius
     }
 
-    init(userID: String, imageURL: String, cornerRadius: CGFloat) {
+    init(userID: String, imageURL: String?, cornerRadius: CGFloat) {
         self.userID = userID
         self.imageURL = imageURL
         self.cornerRadius = cornerRadius
@@ -42,7 +42,8 @@ struct ProfileAvatar: View {
                             Color(uiColor: .systemGray6))
                     }
             } else {
-                ProgressView()
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .foregroundStyle(.foreground.opacity(0.1))
             }
         }
         .task {
