@@ -23,15 +23,4 @@ extension PlayerProfileView {
     }
 }
 
-extension PlayerView {
-    struct ViewModel: Observable {
-        var userID: Int
-        var imageURL: String?
-        var personaname: String
-        var name: String?
-        
-        var isPlus: Bool
-        var rank: Int
-        var leaderboard: Int
-    }
-}
+
