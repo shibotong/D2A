@@ -48,7 +48,7 @@ struct ItemView: View {
             self.image = nil
             return
         }
-        try? await environment.refreshImage(type: .item, id: id.description, url: computeURL() ?? "") { image in
+        await environment.refreshImage(type: .item, id: id.description, url: computeURL() ?? "") { image in
             self.image = image
         }
     }

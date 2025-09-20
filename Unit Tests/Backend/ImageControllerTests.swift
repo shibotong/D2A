@@ -62,7 +62,7 @@ final class EnvironmentControllerTests: XCTestCase {
     func testWithNoLocalImage() async throws {
         let currentDate = Date()
         imageProvider.remoteImageReturn = UIImage()
-        try await callRefreshImage(time: currentDate)
+        await callRefreshImage(time: currentDate)
         XCTAssertEqual(imageHandlerCalled, 1, "Remote image exist and local image not exist should render once for remote image")
         XCTAssertEqual(imageProvider.localImageCalled, 1, "Local image function should be called once")
         XCTAssertEqual(imageProvider.remoteImageCalled, 1, "Remote image function should be called once")
@@ -73,7 +73,7 @@ final class EnvironmentControllerTests: XCTestCase {
         let currentDate = Date()
         imageProvider.remoteImageReturn = UIImage()
         imageProvider.localImageReturn = UIImage()
-        try await callRefreshImage(time: currentDate)
+        await callRefreshImage(time: currentDate)
         XCTAssertEqual(imageHandlerCalled, 2, "Both local image and remote image exist should render twice")
         XCTAssertEqual(imageProvider.localImageCalled, 1, "Local image function should be called once")
         XCTAssertEqual(imageProvider.remoteImageCalled, 1, "Remote image function should be called once")
@@ -83,7 +83,7 @@ final class EnvironmentControllerTests: XCTestCase {
     func testWithNoRemoteImage() async throws {
         let currentDate = Date()
         imageProvider.localImageReturn = UIImage()
-        try await callRefreshImage(time: currentDate)
+        await callRefreshImage(time: currentDate)
         XCTAssertEqual(imageHandlerCalled, 1, "Local image exist and remote image not exist should render once for local image")
         XCTAssertEqual(imageProvider.localImageCalled, 1, "Local image function should be called once")
         XCTAssertEqual(imageProvider.remoteImageCalled, 1, "Remote image function should be called once")
@@ -95,7 +95,7 @@ final class EnvironmentControllerTests: XCTestCase {
         
         // Remote image available
         imageProvider.remoteImageReturn = UIImage()
-        try await callRefreshImage(time: currentDate)
+        await callRefreshImage(time: currentDate)
         XCTAssertEqual(imageHandlerCalled, 1, "First time call should render image once")
         XCTAssertEqual(imageProvider.localImageCalled, 1, "First time call should fetch local image")
         XCTAssertEqual(imageProvider.remoteImageCalled, 1, "First time call should fetch remote image")
@@ -103,7 +103,7 @@ final class EnvironmentControllerTests: XCTestCase {
         
         // Local imag available
         imageProvider.localImageReturn = UIImage()
-        try await callRefreshImage(time: currentDate.addComponent(second: 1))
+        await callRefreshImage(time: currentDate.addComponent(second: 1))
         XCTAssertEqual(imageHandlerCalled, 2, "Second time call on same session should render image once again")
         XCTAssertEqual(imageProvider.localImageCalled, 1, "Second time call on same session should fetch image from cache")
         XCTAssertEqual(imageProvider.remoteImageCalled, 1, "Second time call on same day should not fetch remote image")
@@ -111,7 +111,7 @@ final class EnvironmentControllerTests: XCTestCase {
         
         await cache.resetCache()
         
-        try await callRefreshImage(time: currentDate.addComponent(second: 1))
+        await callRefreshImage(time: currentDate.addComponent(second: 1))
         XCTAssertEqual(imageHandlerCalled, 3, "Second time call on same day should render image once again")
         
         XCTAssertEqual(imageProvider.localImageCalled, 2, "Second time call on same day should fetch local image")
@@ -120,7 +120,7 @@ final class EnvironmentControllerTests: XCTestCase {
         
         await cache.resetCache()
         
-        try await callRefreshImage(time: currentDate.addComponent(day: 1))
+        await callRefreshImage(time: currentDate.addComponent(day: 1))
         XCTAssertEqual(imageHandlerCalled, 5, "Third time call on different day should render image twice")
         XCTAssertEqual(imageProvider.localImageCalled, 3, "Third time call on different day should fetch local image")
         XCTAssertEqual(imageProvider.remoteImageCalled, 2, "Third time call on different day should fetch remote image")
@@ -134,19 +134,8 @@ final class EnvironmentControllerTests: XCTestCase {
         XCTAssertEqual(image, localImage, "Image should be returned for local image call")
     }
     
-    func testSavingError() async {
-        imageProvider.remoteImageReturn = UIImage()
-        imageProvider.error = D2AError(message: "Test Error")
-        do {
-            try await callRefreshImage(time: Date())
-            XCTFail("Error should be thrown")
-        } catch {
-            XCTAssertEqual(error.localizedDescription, "Test Error")
-        }
-    }
-    
-    private func callRefreshImage(time: Date) async throws {
-        try await environment.refreshImage(type: .avatar, id: "1", url: "https://picsum.photos/200/300", refreshTime: time) { _ in
+    private func callRefreshImage(time: Date) async {
+        await environment.refreshImage(type: .avatar, id: "1", url: "https://picsum.photos/200/300", refreshTime: time) { _ in
             imageHandlerCalled += 1
         }
     }
