@@ -55,7 +55,7 @@ struct SearchResultView: View {
                 }
             }
             ForEach(viewModel.localProfiles) { profile in
-                NavigationLink(value: profile.userID.description) {
+                NavigationLink(value: profile) {
                     ProfileView(profile: profile)
                 }
             }
@@ -71,6 +71,9 @@ struct SearchResultView: View {
         .navigationDestination(for: Hero.self) { hero in
             HeroDetailView(hero: hero)
         }
+        .navigationDestination(for: UserProfile.self, destination: { user in
+            PlayerProfileView(user: user)
+        })
         .navigationDestination(for: String.self) { userID in
             PlayerProfileView(userid: userID)
         }

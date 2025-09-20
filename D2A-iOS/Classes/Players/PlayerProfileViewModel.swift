@@ -8,32 +8,19 @@
 import Foundation
 import CoreData
 
-class PlayerProfileViewModel: ObservableObject {
-    
-    @Published var user: UserProfile?
-    @Published var matches: [RecentMatch] = []
-    
-    private let userID: String
-    private let context: NSManagedObjectContext
-    
-    init(userID: String,
-         context: NSManagedObjectContext = PersistanceProvider.shared.mainContext) {
-        self.userID = userID
-        self.context = context
-        loadData()
+extension PlayerProfileView {
+    struct ViewModel: Observable {
+        var imageURL: String?
+        var personaname: String = ""
+        var name: String?
+        
+        var isPlus: Bool = false
+        var rank: Int = 0
+        var leaderboard: Int?
+        
+        var isRegistered: Bool = false
+        var isFavourite: Bool = false
     }
-    
-    private func loadData() {
-        guard let userIDInteger = Int(userID) else {
-            return
-        }
-        let userPredicate = UserProfile.predicate(for: userIDInteger)
-        user = try? context.fetchOne(type: UserProfile.self, predicate: userPredicate)
-        let matches = try? context.fetchAll(type: RecentMatch.self, predicate: userPredicate,
-                                            sortDescriptors: [NSSortDescriptor(keyPath: \RecentMatch.startTime, ascending: true)],
-                                            limit: 10)
-        self.matches = matches ?? []
-    }
-    
-    
 }
+
+

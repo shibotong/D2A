@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 import SwiftUI
 import UIKit
 
@@ -24,7 +25,7 @@ final class EnvironmentController: ObservableObject {
 
     @Published var subscriptionStatus: Bool {
         didSet {
-            UserDefaults.group.set(subscriptionStatus, forKey: UserDefaults.subscription)
+            userDefaults.set(subscriptionStatus, forKey: UserDefaults.subscription)
         }
     }
 
@@ -47,6 +48,8 @@ final class EnvironmentController: ObservableObject {
 
     private let imageProvider: ImageProviding
     private let imageCache: ImageCache
+    private let refreshHandler: RefreshHandler
+    private let openDotaProvider: OpenDotaProviding
     
     private let userDefaults: UserDefaults
     
@@ -60,12 +63,16 @@ final class EnvironmentController: ObservableObject {
 
     init(imageProvider: ImageProviding = ImageProvider.shared,
          imageCache: ImageCache = .shared,
-         userDefaults: UserDefaults = .group) {
+         userDefaults: UserDefaults = .group,
+         openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared,
+         refreshHander: RefreshHandler = .shared) {
         self.imageProvider = imageProvider
         self.imageCache = imageCache
         self.userDefaults = userDefaults
+        self.openDotaProvider = openDotaProvider
+        self.refreshHandler = refreshHander
         subscriptionStatus =
-            UserDefaults(suiteName: GROUP_NAME)?.object(forKey: UserDefaults.subscription) as? Bool
+            userDefaults.object(forKey: UserDefaults.subscription) as? Bool
             ?? false
         tab = .home
     }
@@ -117,4 +124,43 @@ final class EnvironmentController: ObservableObject {
         await imageCache.setCache(key: imageKey, image: remoteImage)
         imageHandler(remoteImage)
     }
+    
+    @MainActor
+    func refreshUser(userID: Int, context: NSManagedObjectContext, completionHandler: (UserProfile) -> Void) async {
+        let userPredicate = UserProfile.predicate(for: userID)
+        do {
+            let existUser = try context.fetchOne(type: UserProfile.self, predicate: userPredicate)
+            if let existUser {
+                completionHandler(existUser)
+            }
+            if await refreshHandler.canRefresh(for: userID) {
+                let remoteUser = try await openDotaProvider.user(id: "\(userID)")
+                let user = existUser ?? UserProfile(context: context)
+                user.update(with: remoteUser)
+                if user.hasChanges {
+                    try context.save()
+                    completionHandler(user)
+                }
+            }
+        } catch {
+            logError("An error occurred when fetching user: \(error.localizedDescription)", category: .opendota)
+        }
+    }
+    
+    func canFavourite(context: NSManagedObjectContext) -> Bool {
+        if subscriptionStatus {
+            return true
+        }
+        let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
+        let favouritePredicate = NSPredicate(format: "favourite = %d", true)
+        fetchResult.predicate = favouritePredicate
+        do {
+            let result = try context.count(for: fetchResult)
+            return result < 1
+        } catch {
+            logError("Not able to count favourite users.", category: .coredata)
+            return false
+        }
+    }
 }
+
