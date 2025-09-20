@@ -107,17 +107,26 @@ struct PlayerProfileView: View {
     }
     
     private func toggleUserFavourite() {
+        if favourite == true {
+            favourite.toggle()
+            toggleUserFavourite(isFavourite: favourite)
+        } else {
+            if environment.canFavourite(context: context) {
+                favourite.toggle()
+                toggleUserFavourite(isFavourite: favourite)
+            } else {
+                environment.subscriptionSheet = true
+            }
+        }
+    }
+    
+    private func toggleUserFavourite(isFavourite: Bool) {
         guard let user else {
             return
         }
         do {
-            if environment.canFavourite(context: context) {
-                favourite.toggle()
-                user.favourite = favourite
-                try context.save()
-            } else {
-                environment.subscriptionSheet = true
-            }
+            user.favourite = isFavourite
+            try context.save()
         } catch {
             logError("Error occured when saving user: \(error)", category: .coredata)
         }
