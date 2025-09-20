@@ -13,7 +13,7 @@ extension RecentMatch {
     static func fetch(_ matchID: String, userID: String) -> RecentMatch? {
         let viewContext = PersistanceProvider.shared.container.viewContext
         let fetchResult: NSFetchRequest<RecentMatch> = RecentMatch.fetchRequest()
-        fetchResult.predicate = NSPredicate(format: "id = %@ AND playerId = %@", matchID, userID)
+        fetchResult.predicate = NSPredicate(format: "matchID = %@ AND userID = %@", matchID, userID)
 
         let results = try? viewContext.fetch(fetchResult)
         return results?.first
