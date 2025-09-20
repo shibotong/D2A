@@ -67,7 +67,7 @@ struct SidebarRowView: View {
 
     init(userid: String) {
         _profile = FetchRequest<UserProfile>(
-            sortDescriptors: [], predicate: NSPredicate(format: "id == %@", userid))
+            sortDescriptors: [], predicate: NSPredicate(format: "userID == %@", userid))
     }
 
     var body: some View {

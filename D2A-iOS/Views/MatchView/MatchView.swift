@@ -16,7 +16,7 @@ struct MatchView: View {
 
     init(matchid: String) {
         _match = FetchRequest<Match>(
-            sortDescriptors: [], predicate: NSPredicate(format: "id = %@", matchid))
+            sortDescriptors: [], predicate: NSPredicate(format: "matchID = %@", matchid))
         self.matchid = matchid
     }
 
