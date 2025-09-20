@@ -29,32 +29,6 @@ struct PlayerProfileView: View {
                 ScrollView {
                     PlayerView(viewModel: user)
                         .padding(.horizontal)
-                    //                HStack {
-                    //                    Text("Recent Matches")
-                    //                        .font(.system(size: 20))
-                    //                        .bold()
-                    //                    Spacer()
-                    //                    NavigationLink(
-                    //                        destination: CalendarMatchListView(
-                    //                            vm: CalendarMatchListViewModel(userid: userID.description))
-                    //                    ) {
-                    //                        Text("All")
-                    //                    }
-                    //                }
-                    //                .padding(.horizontal)
-                    //                VStack(spacing: 2) {
-                    //                    ForEach(matches[0..<(matches.count > 10 ? 10 : matches.count)], id: \.id) { match in
-                    //                        NavigationLink(
-                    //                            destination: MatchView(matchid: match.matchID.description)
-                    //                        ) {
-                    //                            MatchListRowView(viewModel: MatchListRowViewModel(match: match))
-                    //                                .background(Color.systemBackground)
-                    //                        }.listRowInsets(
-                    //                            EdgeInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 10)))
-                    //                    }
-                    //                }
-                    //                .background(Color.secondarySystemBackground)
-                    //                .id(refreshID)
                 }
                 .listStyle(PlainListStyle())
                 .navigationTitle(user.personaname ?? "")
