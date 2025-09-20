@@ -14,7 +14,7 @@ actor RefreshHandler {
     var cache: [String: TimeInterval] = [:]
     
     private let refreshDistance: TimeInterval = {
-        var refreshTime: TimeInterval = 60
+        var refreshTime: TimeInterval = 500
         #if DEBUG
             refreshTime = 1
         #endif
