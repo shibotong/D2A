@@ -1399,8 +1399,8 @@
 		7937FF3F2E4B5A5C0019145D /* Players */ = {
 			isa = PBXGroup;
 			children = (
-				32B36F3E26C388AD002D427D /* PlayerProfileView.swift */,
 				79F13C842E7E4CAC003B06B9 /* PlayerProfileLoadingView.swift */,
+				32B36F3E26C388AD002D427D /* PlayerProfileView.swift */,
 				7937FF402E4B5A9A0019145D /* PlayerProfileViewModel.swift */,
 				79F13C862E7E5017003B06B9 /* PlayerView.swift */,
 			);

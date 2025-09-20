@@ -23,6 +23,12 @@ struct PlayerProfileView: View {
         user = nil
     }
     
+    init(user: UserProfile) {
+        self.userID = Int(user.userID)
+        self.user = user
+        self.favourite = user.favourite
+    }
+    
     var body: some View {
         Group {
             if let user {
