@@ -137,8 +137,10 @@ final class EnvironmentController: ObservableObject {
                 let remoteUser = try await openDotaProvider.user(id: "\(userID)")
                 let user = existUser ?? UserProfile(context: context)
                 user.update(with: remoteUser)
-                try context.save()
-                completionHandler(user)
+                if user.hasChanges {
+                    try context.save()
+                    completionHandler(user)
+                }
             }
         } catch {
             logError("An error occurred when fetching user: \(error.localizedDescription)", category: .opendota)
