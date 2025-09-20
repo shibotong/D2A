@@ -11,10 +11,10 @@ struct PlayerView: View {
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
-    var viewModel: ViewModel
+    let viewModel: UserProfile
     
     private var avatarSize: CGFloat {
-        horizontalSizeClass == .regular ? 100 : 50
+        horizontalSizeClass == .regular ? 64 : 32
     }
     
     var body: some View {
@@ -31,14 +31,14 @@ struct PlayerView: View {
                     .padding(avatarSize / 10)
                     .frame(width: avatarSize, height: avatarSize)
             }
-            RankView(rank: viewModel.rank, leaderboard: viewModel.leaderboard)
+            RankView(rank: Int(viewModel.rank), leaderboard: Int(viewModel.leaderboard))
                 .frame(width: avatarSize, height: avatarSize)
         }
     }
     
     private var name: some View {
         VStack(alignment: .leading) {
-            Text(viewModel.name ?? viewModel.personaname)
+            Text((viewModel.name ?? viewModel.personaname) ?? "")
                 .font(horizontalSizeClass == .regular ? .largeTitle : .body)
                 .bold()
                 .lineLimit(1)
@@ -51,18 +51,27 @@ struct PlayerView: View {
     @ViewBuilder
     private var subNameBar: some View {
         if viewModel.name != nil {
-            Text(viewModel.personaname)
+            Text(viewModel.personaname ?? "")
                 .font(.subheadline)
                 .lineLimit(1)
         }
     }
     
     private var avatar: some View {
-        ProfileAvatar(userID: "\(viewModel.userID)", imageURL: viewModel.imageURL, cornerRadius: 5)
+        ProfileAvatar(userID: "\(viewModel.userID)", imageURL: viewModel.avatarfull, cornerRadius: 5)
     }
 }
 
 #Preview {
-    PlayerView(viewModel: .init(userID: 153041957, personaname: "Mr.BOBOBO", name: "ST", isPlus: true, rank: 80, leaderboard: 100))
+    let user = UserProfile()
+    user.userID = 153041957
+    user.personaname = "Mr.BOBOBO"
+    user.name = "ST"
+    user.avatarfull = "h"
+    user.rank = 80
+    user.leaderboard = 100
+    user.isPlus = true
+    user.countryCode = "AU"
+    return PlayerView(viewModel: user)
         .environmentObject(EnvironmentController.preview)
 }
