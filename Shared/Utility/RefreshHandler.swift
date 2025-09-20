@@ -21,6 +21,10 @@ actor RefreshHandler {
         return refreshTime
     }()
     
+    func canRefresh(for userid: Int) -> Bool {
+        return canRefresh(userid: "\(userid)")
+    }
+    
     /// Check if user can refresh this player (Debug mode 1s Release mode 60s)
     /// - parameters:
     /// - userid: Player ID

@@ -24,6 +24,27 @@ class GameDataController: ObservableObject {
         self.refreshHandler = refreshHandler
     }
     
+    @MainActor
+    func refreshUser(userID: Int, completionHandler: (UserProfile) -> Void) async {
+        let context = persistanceProvider.mainContext
+        let userPredicate = UserProfile.predicate(for: userID)
+        do {
+            let existUser = try context.fetchOne(type: UserProfile.self, predicate: userPredicate)
+            if let existUser {
+                completionHandler(existUser)
+            }
+            if await refreshHandler.canRefresh(for: userID) {
+                let remoteUser = try await openDotaProvider.user(id: "\(userID)")
+                let user = existUser ?? UserProfile(context: context)
+                user.update(with: remoteUser)
+                try context.save()
+                completionHandler(user)
+            }
+        } catch {
+            logError("An error occurred when fetching user: \(error.localizedDescription)", category: .opendota)
+        }
+    }
+    
     func fetchRecentMatches(for userID: String, context: NSManagedObjectContext, count: Int) -> [RecentMatch] {
         let request = RecentMatch.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "startTime", ascending: false)
