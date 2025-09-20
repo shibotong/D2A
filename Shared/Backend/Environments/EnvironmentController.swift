@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import UIKit
+import Combine
 
 enum TabSelection {
     case home, hero, search, setting, live
@@ -22,12 +23,6 @@ final class EnvironmentController: ObservableObject {
 
     @Published var subscriptionSheet = false
 
-    @Published var subscriptionStatus: Bool {
-        didSet {
-            UserDefaults.group.set(subscriptionStatus, forKey: UserDefaults.subscription)
-        }
-    }
-
     // migration loading
     @Published var loading = false
 
@@ -39,7 +34,7 @@ final class EnvironmentController: ObservableObject {
     }
 
     @Published var selectedTab: TabSelection = .home
-
+    @Published var subscriptionStatus: Bool = false
     @Published var selectedUser: String?
     @Published var selectedMatch: String?
     @Published var matchActive: Bool = false
@@ -60,14 +55,19 @@ final class EnvironmentController: ObservableObject {
 
     init(imageProvider: ImageProviding = ImageProvider.shared,
          imageCache: ImageCache = .shared,
-         userDefaults: UserDefaults = .group) {
+         userDefaults: UserDefaults = .group,
+         purchaseProvider: PurchaseProviding = PurchaseProvider.shared) {
         self.imageProvider = imageProvider
         self.imageCache = imageCache
         self.userDefaults = userDefaults
-        subscriptionStatus =
-            UserDefaults(suiteName: GROUP_NAME)?.object(forKey: UserDefaults.subscription) as? Bool
-            ?? false
+        subscriptionStatus = purchaseProvider.isPro
         tab = .home
+        setupBinding()
+    }
+    
+    private func setupBinding() {
+        NotificationCenter.isPro.receive(on: RunLoop.main)
+            .assign(to: &$subscriptionStatus)
     }
 
     static func isInWidget() -> Bool {

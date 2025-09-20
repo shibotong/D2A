@@ -21,8 +21,11 @@ class StoreManager: NSObject, ObservableObject {
     @Published var products: [Product] = []
 
     var updateListenerTask: Task<Void, Error>?
+    
+    private let purchaseProvider: PurchaseProviding
 
-    override init() {
+    init(purchaseProvider: PurchaseProviding = PurchaseProvider.shared) {
+        self.purchaseProvider = purchaseProvider
         super.init()
         products = []
         updateListenerTask = listenForTransactions()
@@ -51,12 +54,11 @@ class StoreManager: NSObject, ObservableObject {
         }
     }
 
+    @MainActor
     func parsePurchaseInfo(info: Transaction) {
-        DispatchQueue.main.async {
-            EnvironmentController.shared.subscriptionStatus = true
-            WidgetCenter.shared.reloadAllTimelines()
-            print("subscription status \(EnvironmentController.shared.subscriptionStatus)")
-        }
+        purchaseProvider.setPro(true)
+        WidgetCenter.shared.reloadAllTimelines()
+        print("subscription status \(EnvironmentController.shared.subscriptionStatus)")
         print("D2A Pro Purchased")
     }
 
@@ -72,7 +74,7 @@ class StoreManager: NSObject, ObservableObject {
             let transaction = try checkVerified(verification)
 
             // Deliver content to the user.
-            parsePurchaseInfo(info: transaction)
+            await parsePurchaseInfo(info: transaction)
 
             // Always finish a transaction.
             await transaction.finish()
@@ -94,7 +96,7 @@ class StoreManager: NSObject, ObservableObject {
                     let transaction = try self.checkVerified(result)
 
                     // Deliver content to the user.
-                    self.parsePurchaseInfo(info: transaction)
+                    await self.parsePurchaseInfo(info: transaction)
 
                     // Always finish a transaction.
                     await transaction.finish()
