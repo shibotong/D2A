@@ -14,12 +14,16 @@ actor RefreshHandler {
     var cache: [String: TimeInterval] = [:]
     
     private let refreshDistance: TimeInterval = {
-        var refreshTime: TimeInterval = 60
+        var refreshTime: TimeInterval = 500
         #if DEBUG
             refreshTime = 1
         #endif
         return refreshTime
     }()
+    
+    func canRefresh(for userid: Int) -> Bool {
+        return canRefresh(userid: "\(userid)")
+    }
     
     /// Check if user can refresh this player (Debug mode 1s Release mode 60s)
     /// - parameters:

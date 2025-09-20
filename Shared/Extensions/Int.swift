@@ -52,6 +52,10 @@ extension Int {
         }
         return true  // Day time
     }
+    
+    var int16: Int16 {
+        return Int16(self)
+    }
 
     private func getNumberOfUnit(_ diff: TimeInterval, _ interval: Double) -> Int {
         return Int(diff / interval)

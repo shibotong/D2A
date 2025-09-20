@@ -57,7 +57,7 @@ struct ODMatch: Decodable {
     }
     
     func update(context: NSManagedObjectContext) -> Match {
-        let match = (try? context.fetchOne(type: Match.self, predicate: NSPredicate(format: "id == %@", "\(id)"))) ?? Match(context: context)
+        let match = (try? context.fetchOne(type: Match.self, predicate: NSPredicate(format: "matchID == %@", "\(id)"))) ?? Match(context: context)
         setIfNotEqual(entity: match, path: \.matchID, value: Int64(id))
         setIfNotEqual(entity: match, path: \.direKill, value: Int16(direKill ?? 0))
         setIfNotEqual(entity: match, path: \.radiantKill, value: Int16(radiantKill ?? 0))

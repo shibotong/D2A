@@ -99,6 +99,18 @@ extension UserProfile {
         let viewContext = PersistanceProvider.shared.container.viewContext
         viewContext.delete(user)
     }
+    
+    func update(with odUser: ODPlayerProfile) {
+        setIfNotEqual(entity: self, path: \.userID, value: Int64(odUser.profile.accountID))
+        setIfNotEqual(entity: self, path: \.avatarfull, value: odUser.profile.avatarFull)
+        setIfNotEqual(entity: self, path: \.countryCode, value: odUser.profile.country)
+        setIfNotEqual(entity: self, path: \.isPlus, value: odUser.profile.plus)
+        setIfNotEqual(entity: self, path: \.leaderboard, value: odUser.leaderboard?.int16 ?? 0)
+        setIfNotEqual(entity: self, path: \.name, value: odUser.profile.name)
+        setIfNotEqual(entity: self, path: \.personaname, value: odUser.profile.personaname)
+        setIfNotEqual(entity: self, path: \.profileurl, value: odUser.profile.profileURL)
+        setIfNotEqual(entity: self, path: \.rank, value: odUser.rank?.int16 ?? 0)
+    }
 
     func update(_ profile: ODUserProfile) {
         userID = Int64(profile.id)

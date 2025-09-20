@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-struct ODPlayerProfile: Decodable, PersistanceModel {
+struct ODPlayerProfile: Decodable {
     
     let rank: Int?
     let leaderboard: Int?
@@ -94,7 +94,7 @@ struct ODPlayerProfile: Decodable, PersistanceModel {
         [:]
     }
     
-    func update(context: NSManagedObjectContext) throws -> NSManagedObject {
+    func update(context: NSManagedObjectContext) throws -> UserProfile {
         let user = UserProfile.fetch(id: "\(profile.accountID)", viewContext: context) ?? UserProfile(context: context)
         setIfNotEqual(entity: user, path: \.avatarfull, value: profile.avatarFull)
         setIfNotEqual(entity: user, path: \.countryCode, value: profile.country)
