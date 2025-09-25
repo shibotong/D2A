@@ -100,7 +100,7 @@ final class EnvironmentController: ObservableObject {
     
     func refreshImage(type: GameImageType, id: String, fileExtension: ImageExtension = .jpg,
                       url: String, refreshTime: Date = Date(),
-                      imageHandler: (UIImage) -> Void) async throws {
+                      imageHandler: (UIImage) -> Void) async {
         let imageKey = "\(type.imageKey)_\(id)"
         // Check cached image, if have cached image return it
         if let cachedImage = await imageCache.readCache(key: imageKey) {
@@ -119,10 +119,14 @@ final class EnvironmentController: ObservableObject {
         guard let remoteImage = await imageProvider.remoteImage(url: url) else {
             return
         }
-        try imageProvider.saveImage(image: remoteImage, type: type, id: id, fileExtension: fileExtension)
-        userDefaults.set(Date(), forKey: imageKey)
-        await imageCache.setCache(key: imageKey, image: remoteImage)
-        imageHandler(remoteImage)
+        do {
+            try imageProvider.saveImage(image: remoteImage, type: type, id: id, fileExtension: fileExtension)
+            userDefaults.set(Date(), forKey: imageKey)
+            await imageCache.setCache(key: imageKey, image: remoteImage)
+            imageHandler(remoteImage)
+        } catch {
+            logError("Not able to save image: \(error.localizedDescription)", category: .image)
+        }
     }
     
     @MainActor

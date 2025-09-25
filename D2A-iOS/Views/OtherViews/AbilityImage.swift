@@ -52,7 +52,7 @@ struct AbilityImage: View {
         guard let name else {
             return
         }
-        try? await environment.refreshImage(type: .ability, id: name, url: fullURL) { image in
+        await environment.refreshImage(type: .ability, id: name, url: fullURL) { image in
             self.image = image
         }
     }
