@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-extension MatchView {
+stru
+
+extension MatchViewV2 {
     struct TeamIcon: View {
         
         @EnvironmentObject var environment: EnvironmentController
@@ -50,6 +52,7 @@ extension MatchView {
 
 
 #Preview {
-    MatchView.TeamIcon(isRadiant: false, teamID: nil)
+    typealias TeamIcon = MatchViewV2.TeamIcon
+    return TeamIcon(isRadiant: false, teamID: nil)
         .environmentObject(EnvironmentController.preview)
 }
