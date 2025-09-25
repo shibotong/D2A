@@ -250,9 +250,6 @@
 		7910274B2E6BCD1B005B04E5 /* UserProfileMigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7910274A2E6BCD16005B04E5 /* UserProfileMigrationPolicy.swift */; };
 		7910274C2E6BCD1B005B04E5 /* UserProfileMigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7910274A2E6BCD16005B04E5 /* UserProfileMigrationPolicy.swift */; };
 		7910274D2E6BCD1B005B04E5 /* UserProfileMigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7910274A2E6BCD16005B04E5 /* UserProfileMigrationPolicy.swift */; };
-		79177B8C2E7E71EE00357234 /* PurchaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177B8B2E7E71E800357234 /* PurchaseProvider.swift */; };
-		79177B8D2E7E71EE00357234 /* PurchaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177B8B2E7E71E800357234 /* PurchaseProvider.swift */; };
-		79177B8E2E7E71EE00357234 /* PurchaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177B8B2E7E71E800357234 /* PurchaseProvider.swift */; };
 		79177B902E7E76A000357234 /* MockPurchaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177B8F2E7E769900357234 /* MockPurchaseProvider.swift */; };
 		79177B912E7E76A000357234 /* MockPurchaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177B8F2E7E769900357234 /* MockPurchaseProvider.swift */; };
 		7925405F2E30C8CC00201CF1 /* OpenDotaConstantProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */; };
@@ -488,6 +485,10 @@
 		79D1874A2E1E622500C04CC8 /* RefreshHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187492E1E621C00C04CC8 /* RefreshHandler.swift */; };
 		79D1874B2E1E622500C04CC8 /* RefreshHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187492E1E621C00C04CC8 /* RefreshHandler.swift */; };
 		79D1874C2E1E622500C04CC8 /* RefreshHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187492E1E621C00C04CC8 /* RefreshHandler.swift */; };
+		79DA21BA2E852A3D00AD350C /* StoreManager+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA21B92E852A3500AD350C /* StoreManager+Preview.swift */; };
+		79DA21BB2E852A3D00AD350C /* StoreManager+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA21B92E852A3500AD350C /* StoreManager+Preview.swift */; };
+		79DA21BE2E852A7200AD350C /* UserDefaults+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA21BD2E852A6E00AD350C /* UserDefaults+Preview.swift */; };
+		79DA21BF2E852A7200AD350C /* UserDefaults+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA21BD2E852A6E00AD350C /* UserDefaults+Preview.swift */; };
 		79DEA8432A36A3060009A414 /* PlayerRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */; };
 		79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */; };
 		79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
@@ -725,7 +726,6 @@
 		791027422E6BC99A005B04E5 /* RecentMatchMigrationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMatchMigrationPolicy.swift; sourceTree = "<group>"; };
 		791027462E6BCCA6005B04E5 /* Version2Mapping.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Version2Mapping.xcmappingmodel; sourceTree = "<group>"; };
 		7910274A2E6BCD16005B04E5 /* UserProfileMigrationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileMigrationPolicy.swift; sourceTree = "<group>"; };
-		79177B8B2E7E71E800357234 /* PurchaseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseProvider.swift; sourceTree = "<group>"; };
 		79177B8F2E7E769900357234 /* MockPurchaseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPurchaseProvider.swift; sourceTree = "<group>"; };
 		7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantProcessor.swift; sourceTree = "<group>"; };
 		792540622E30CDE000201CF1 /* ConstantsController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConstantsController+Preview.swift"; sourceTree = "<group>"; };
@@ -843,6 +843,8 @@
 		79D187442E1E551D00C04CC8 /* Backend 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 2.xcdatamodel"; sourceTree = "<group>"; };
 		79D187452E1E573100C04CC8 /* GameDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataController.swift; sourceTree = "<group>"; };
 		79D187492E1E621C00C04CC8 /* RefreshHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshHandler.swift; sourceTree = "<group>"; };
+		79DA21B92E852A3500AD350C /* StoreManager+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreManager+Preview.swift"; sourceTree = "<group>"; };
+		79DA21BD2E852A6E00AD350C /* UserDefaults+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Preview.swift"; sourceTree = "<group>"; };
 		79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowViewModel.swift; sourceTree = "<group>"; };
 		79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchPlayerView.swift; sourceTree = "<group>"; };
 		79E41BBF2E35FAD600AF520F /* HeroDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailView.swift; sourceTree = "<group>"; };
@@ -962,7 +964,6 @@
 		3266081C27CED53C00D9A204 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				79177B8A2E7E71D500357234 /* Store */,
 				32B36F1226C38822002D427D /* Assets.xcassets */,
 				32B36F1D26C38834002D427D /* Backend */,
 				79CF37602DC0F92E00207CB8 /* Debug */,
@@ -1173,7 +1174,6 @@
 		32D1605B26F30B5F00657449 /* Subscription */ = {
 			isa = PBXGroup;
 			children = (
-				32D1605C26F30B7A00657449 /* StoreManager.swift */,
 			);
 			path = Subscription;
 			sourceTree = "<group>";
@@ -1306,6 +1306,7 @@
 		790D96302E514C740090801B /* Environments */ = {
 			isa = PBXGroup;
 			children = (
+				32D1605C26F30B7A00657449 /* StoreManager.swift */,
 				329849F326DCAEAE00A1032C /* ConstantsController.swift */,
 				32B36F4B26C39C5D002D427D /* EnvironmentController.swift */,
 				79D187452E1E573100C04CC8 /* GameDataController.swift */,
@@ -1327,14 +1328,6 @@
 				7903498A2E35297D00EF4CFB /* AbilityView.swift */,
 			);
 			path = Abilities;
-			sourceTree = "<group>";
-		};
-		79177B8A2E7E71D500357234 /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				79177B8B2E7E71E800357234 /* PurchaseProvider.swift */,
-			);
-			path = Store;
 			sourceTree = "<group>";
 		};
 		79266DA52A31B0D7002FEF0F /* LiveMatchView */ = {
@@ -1437,13 +1430,14 @@
 			path = DefaultData;
 			sourceTree = "<group>";
 		};
-		7939A6792E344A0200FDD617 /* EnvironmentControllers */ = {
+		7939A6792E344A0200FDD617 /* Environments */ = {
 			isa = PBXGroup;
 			children = (
 				792540622E30CDE000201CF1 /* ConstantsController+Preview.swift */,
 				792540662E30CE4600201CF1 /* EnvironmentController+Preview.swift */,
+				79DA21B92E852A3500AD350C /* StoreManager+Preview.swift */,
 			);
-			path = EnvironmentControllers;
+			path = Environments;
 			sourceTree = "<group>";
 		};
 		7939A67A2E344A1800FDD617 /* DataProviders */ = {
@@ -1497,11 +1491,12 @@
 		797C88B72DCB74E100D4CDD1 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				79DA21BC2E852A6900AD350C /* Utility */,
 				79177B8F2E7E769900357234 /* MockPurchaseProvider.swift */,
 				7937FF2C2E4706000019145D /* Widget */,
 				7939A67B2E344A3100FDD617 /* CoreData */,
 				7939A67A2E344A1800FDD617 /* DataProviders */,
-				7939A6792E344A0200FDD617 /* EnvironmentControllers */,
+				7939A6792E344A0200FDD617 /* Environments */,
 				798E0FDF2E2CFD660066D7E1 /* Preview Data */,
 				32B36F1526C38822002D427D /* Preview Assets.xcassets */,
 			);
@@ -1741,6 +1736,14 @@
 				79D187312E16205100C04CC8 /* D2ANotificationCenter.swift */,
 			);
 			path = Notification;
+			sourceTree = "<group>";
+		};
+		79DA21BC2E852A6900AD350C /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				79DA21BD2E852A6E00AD350C /* UserDefaults+Preview.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		79E89A2E2DF6B0DD00497B5D /* Model */ = {
@@ -2290,7 +2293,6 @@
 				79D1871B2E0D64CC00C04CC8 /* HeroAttribute.swift in Sources */,
 				322B89C526CFAC1000DF67F9 /* SearchView.swift in Sources */,
 				799948C02932D50000D79055 /* ImageProvider.swift in Sources */,
-				79177B8C2E7E71EE00357234 /* PurchaseProvider.swift in Sources */,
 				793CD53C2E3516F100FEA46B /* HeroImageViewV2.swift in Sources */,
 				79B8709D2DC38A150090CAB8 /* StratzController.swift in Sources */,
 				79B8709E2DC38A150090CAB8 /* StratzAbility+StratzAPI.swift in Sources */,
@@ -2324,6 +2326,7 @@
 				328D88B5288EB4F700DFD204 /* SharingLink.swift in Sources */,
 				795860412A335D69006DDA21 /* LiveMatchMapView.swift in Sources */,
 				321D58A026D234A90059526B /* AboutUsView.swift in Sources */,
+				79DA21BF2E852A7200AD350C /* UserDefaults+Preview.swift in Sources */,
 				32985DD3285569D0001869F2 /* RankView.swift in Sources */,
 				7903498C2E3529E500EF4CFB /* Ability+Preview.swift in Sources */,
 				79CF37632DC0F93600207CB8 /* D2ALogger.swift in Sources */,
@@ -2352,6 +2355,7 @@
 				794B723D2985D2C9000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				797C88BD2DCB75AE00D4CDD1 /* PersistanceProvider+Preview.swift in Sources */,
 				797C88AD2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */,
+				79DA21BA2E852A3D00AD350C /* StoreManager+Preview.swift in Sources */,
 				798A5CFA2945B3C300EB07B0 /* RecentMatch.swift in Sources */,
 				791027492E6BCCA6005B04E5 /* Version2Mapping.xcmappingmodel in Sources */,
 				32B36F2D26C3885A002D427D /* Color.swift in Sources */,
@@ -2387,7 +2391,6 @@
 				79B870C02DC394D30090CAB8 /* D2ANetwork.swift in Sources */,
 				79AF52972E080E56009FE792 /* OpenDotaConstantFetcher.swift in Sources */,
 				327C033D2716A90400DAEC42 /* KDAView.swift in Sources */,
-				79177B8E2E7E71EE00357234 /* PurchaseProvider.swift in Sources */,
 				79EB3F052DC6EE86008C4F6D /* NSValueTransformerName.swift in Sources */,
 				793CD53D2E351A2B00FEA46B /* HeroImageViewV2.swift in Sources */,
 				32F70B1926F6295B006E9B05 /* Date.swift in Sources */,
@@ -2396,6 +2399,7 @@
 				32079DC028B843360056D19F /* String.swift in Sources */,
 				792540682E30CE4B00201CF1 /* EnvironmentController+Preview.swift in Sources */,
 				790D961D2E5008080090801B /* UserProfile+Preview.swift in Sources */,
+				79DA21BE2E852A7200AD350C /* UserDefaults+Preview.swift in Sources */,
 				793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
 				7937FF292E47058B0019145D /* HeroImageType.swift in Sources */,
 				79B870C82DC39C970090CAB8 /* NSManagedObject.swift in Sources */,
@@ -2438,6 +2442,7 @@
 				790D963F2E55DD710090801B /* ImageCache.swift in Sources */,
 				790D961F2E500E380090801B /* OpenDotaProvider+Preview.swift in Sources */,
 				791027312E6BB5C7005B04E5 /* HeroMigrationPolicy.swift in Sources */,
+				79DA21BB2E852A3D00AD350C /* StoreManager+Preview.swift in Sources */,
 				7937FDE72E421DF50019145D /* Ability+Preview.swift in Sources */,
 				7910274D2E6BCD1B005B04E5 /* UserProfileMigrationPolicy.swift in Sources */,
 				790D961A2E5005850090801B /* OpenDotaConstantProvider+Preview.swift in Sources */,
@@ -2549,7 +2554,6 @@
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				791027402E6BC85A005B04E5 /* MatchMigrationPolicy.swift in Sources */,
 				7937FF362E4B40230019145D /* D2AManagedObjectContext.swift in Sources */,
-				79177B8D2E7E71EE00357234 /* PurchaseProvider.swift in Sources */,
 				797776D32B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
 				327C033E2716A92500DAEC42 /* KDAView.swift in Sources */,
 				79E89A2B2DF6AE7B00497B5D /* ODGameMode.swift in Sources */,

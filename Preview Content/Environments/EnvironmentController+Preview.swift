@@ -8,5 +8,5 @@
 import Foundation
 
 extension EnvironmentController {
-    static let preview = EnvironmentController(imageProvider: MockImageProvider(), imageCache: ImageCache(), userDefaults: UserDefaults.standard)
+    static let preview = EnvironmentController(imageProvider: MockImageProvider(), imageCache: ImageCache(), userDefaults: .preview)
 }
