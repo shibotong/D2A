@@ -17,15 +17,22 @@ public enum StoreError: Error {
 
 class StoreManager: NSObject, ObservableObject {
     static let shared = StoreManager()
+    
+    @Published var isPro: Bool {
+        didSet {
+            userDefaults.set(isPro, forKey: UserDefaults.subscription)
+        }
+    }
 
     @Published var products: [Product] = []
 
     var updateListenerTask: Task<Void, Error>?
     
-    private let purchaseProvider: PurchaseProviding
+    private let userDefaults: UserDefaults
 
-    init(purchaseProvider: PurchaseProviding = PurchaseProvider.shared) {
-        self.purchaseProvider = purchaseProvider
+    init(userDefaults: UserDefaults = .group) {
+        self.userDefaults = userDefaults
+        isPro = userDefaults.bool(forKey: UserDefaults.subscription)
         super.init()
         products = []
         updateListenerTask = listenForTransactions()
@@ -56,7 +63,7 @@ class StoreManager: NSObject, ObservableObject {
 
     @MainActor
     func parsePurchaseInfo(info: Transaction) {
-        purchaseProvider.setPro(true)
+        isPro = true
         WidgetCenter.shared.reloadAllTimelines()
         print("subscription status \(EnvironmentController.shared.subscriptionStatus)")
         print("D2A Pro Purchased")
