@@ -33,9 +33,9 @@ final class StratzControllerTests: XCTestCase {
     }
     
     func testApolloClientCreationAtBeginning() {
-        userDefaults.set("test token", forKey: UserDefaults.stratzToken)
+        userDefaults.set("test token", forKey: UserDefaults.Key.stratzToken.rawValue)
         stratzController = StratzController(notification: notification, userDefault: userDefaults)
         XCTAssertNotNil(stratzController.apollo, "Apollo client should not be nil when has stored token")
-        userDefaults.set(nil, forKey: UserDefaults.stratzToken)
+        userDefaults.set(nil, forKey: UserDefaults.Key.stratzToken.rawValue)
     }
 }
