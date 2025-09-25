@@ -23,8 +23,6 @@ protocol PersistanceProviding {
     func calculateDaysSinceLastMatch(userID: String, context: NSManagedObjectContext) -> Double?
     
     func loadDefaultData() throws
-    
-    func batchInsert(dictionary: [[String: Any]], into entity: NSEntityDescription, context: NSManagedObjectContext)
 }
 
 enum PersistanceError: Error {
