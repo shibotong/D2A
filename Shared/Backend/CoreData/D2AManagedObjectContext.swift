@@ -52,14 +52,16 @@ extension NSManagedObjectContext {
     
     /// Check if there is any data saved in core data
     func hasData<T: NSManagedObject>(for entity: T.Type) -> Bool {
-        let request = entity.fetchRequest()
-        request.fetchLimit = 1
-        do {
-            let count = try count(for: request)
-            return count > 0
-        } catch {
-            logError("Cannot count number of \(entity) saved in Core Data", category: .coredata)
-            return true
+        return performAndWait {
+            let request = entity.fetchRequest()
+            request.fetchLimit = 1
+            do {
+                let count = try count(for: request)
+                return count > 0
+            } catch {
+                logError("Cannot count number of \(entity) saved in Core Data", category: .coredata)
+                return true
+            }
         }
     }
 }
