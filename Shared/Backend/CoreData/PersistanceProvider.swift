@@ -66,8 +66,6 @@ class PersistanceProvider: PersistanceProviding {
         mainContext = D2AManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         mainContext.persistentStoreCoordinator = container.persistentStoreCoordinator
         
-        
-
         // Observe Core Data remote change notifications on the queue where the changes were made.
         remoteChangeCancellable = NotificationCenter.Publisher(center: .default, name: .NSPersistentStoreRemoteChange)
             .sink(receiveValue: { [weak self] note in
@@ -331,8 +329,6 @@ class PersistanceProvider: PersistanceProviding {
             }
         }
     }
-
-
 
     private func batchInsertData(_ data: [PersistanceModel], into entity: NSEntityDescription, context: NSManagedObjectContext) {
         context.batchInsert(dictionary: data.map{ $0.dictionaries }, into: entity)
