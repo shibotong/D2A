@@ -105,6 +105,22 @@ class PersistanceProvider: PersistanceProviding {
         let gameModesDict = try FileReader.loadFile(filename: OpenDotaConstantService.gameMode.rawValue, as: [String: ODGameMode].self)
         let gameModes = processor.processGameModes(modes: gameModesDict)
         saveODData(data: gameModes, type: GameMode.self)
+        
+        try insertDefaultPatch(context: mainContext)
+    }
+    
+    private func insertDefaultPatch(context: NSManagedObjectContext) throws {
+        guard try !dataExist(for: Patch.fetchRequest(), context: context) else {
+            return
+        }
+        // Patch
+        let patches = try FileReader.loadFile(filename: OpenDotaConstantService.patch.rawValue, as: [ODPatch].self)
+        batchInsert(dictionary: patches.map(\.dictionary), into: Patch.entity(), context: mainContext)
+    }
+    
+    private func dataExist(for request: NSFetchRequest<NSFetchRequestResult>, context: NSManagedObjectContext) throws -> Bool {
+        let dataCount = try context.count(for: request)
+        return dataCount != 0
     }
 
     static func registerClasses() {
@@ -350,6 +366,26 @@ class PersistanceProvider: PersistanceProviding {
             } catch {
                 logError("An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)", category: .coredata)
             }
+        }
+    }
+    
+    private func batchInsert(dictionary: [[String: Any]], into entity: NSEntityDescription, context: NSManagedObjectContext) {
+        let insertRequest = NSBatchInsertRequest(entity: entity, objects: dictionary)
+        insertRequest.resultType = .statusOnly
+        do {
+            let fetchResult = try context.execute(insertRequest)
+            if let batchInsertResult = fetchResult as? NSBatchInsertResult,
+               let success = batchInsertResult.result as? Bool {
+                if !success {
+                    logError("Failed to insert data in \(entity.name ?? "Unknown entity")", category: .coredata)
+                } else {
+                    logDebug("Insert data in \(entity.name ?? "Unknown entity") success", category: .coredata)
+                }
+            } else {
+                logWarn("Cast NSBatchInsertResult failed", category: .coredata)
+            }
+        } catch {
+            logError("An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)", category: .coredata)
         }
     }
 }

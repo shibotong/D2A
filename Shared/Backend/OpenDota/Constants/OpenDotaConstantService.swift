@@ -21,6 +21,7 @@ enum OpenDotaConstantService: String, CaseIterable {
     case heroLore = "hero_lore"
     case items
     case itemIDs = "item_ids"
+    case patch
     
     
     var serviceURL: String {
