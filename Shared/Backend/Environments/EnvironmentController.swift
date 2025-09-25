@@ -59,22 +59,14 @@ final class EnvironmentController: ObservableObject {
     init(imageProvider: ImageProviding = ImageProvider.shared,
          imageCache: ImageCache = .shared,
          userDefaults: UserDefaults = .group,
-         purchaseProvider: PurchaseProviding = PurchaseProvider.shared,
-         penDotaProvider: OpenDotaProviding = OpenDotaProvider.shared,
+         openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared,
          refreshHandler: RefreshHandler = .shared) {
         self.imageProvider = imageProvider
         self.imageCache = imageCache
         self.userDefaults = userDefaults
         self.openDotaProvider = openDotaProvider
         self.refreshHandler = refreshHandler
-        subscriptionStatus = purchaseProvider.isPro
         tab = .home
-        setupBinding()
-    }
-    
-    private func setupBinding() {
-        NotificationCenter.isPro.receive(on: RunLoop.main)
-            .assign(to: &$subscriptionStatus)
     }
 
     static func isInWidget() -> Bool {

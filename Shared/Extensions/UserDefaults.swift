@@ -23,4 +23,8 @@ extension UserDefaults {
     func set(_ value: Any?, for key: Key) {
         set(value, forKey: key.rawValue)
     }
+    
+    func string(for key: Key) -> String? {
+        string(forKey: key.rawValue)
+    }
 }
