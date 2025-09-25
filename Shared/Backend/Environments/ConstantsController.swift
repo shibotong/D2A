@@ -173,14 +173,17 @@ class ConstantsController: ObservableObject {
         async let heroes = openDotaProvider.loadHeroes()
         async let abilities = openDotaProvider.loadAbilities()
         async let modes = openDotaProvider.loadGameModes()
+        async let patches = openDotaProvider.loadPatches()
         
         do {
             let fetchedHeroes = try await heroes
             let fetchedAbilities = try await abilities
             let fetchedModes = try await modes
+            let fetchedPatches = try await patches
             await persistanceProvider.saveODData(data: fetchedHeroes, type: Hero.self)
             await persistanceProvider.saveODData(data: fetchedAbilities, type: Ability.self)
             await persistanceProvider.saveODData(data: fetchedModes, type: GameMode.self)
+            await persistanceProvider.saveODData(data: fetchedPatches, type: Patch.self)
         } catch {
             try? persistanceProvider.loadDefaultData()
         }
@@ -188,22 +191,29 @@ class ConstantsController: ObservableObject {
         isLoading = false
     }
 
-    func resetHeroData(context: NSManagedObjectContext) async {
-        await context.perform {
-            do {
-                let heroes = try context.fetch(Hero.fetchRequest())
-                let abilities = try context.fetch(Ability.fetchRequest())
-                for hero in heroes {
-                    context.delete(hero)
-                }
-                for ability in abilities {
-                    context.delete(ability)
-                }
-                try context.save()
-            } catch {
-                logError("Reset failed: \(error)", category: .coredata)
-            }
+    func resetHeroData(context: NSManagedObjectContext) {
+        do {
+            deleteData(Hero.self, in: context)
+            deleteData(Ability.self, in: context)
+            deleteData(GameMode.self, in: context)
+            deleteData(Patch.self, in: context)
+            try context.save()
+        } catch {
+            logError("Reset failed: \(error)", category: .coredata)
         }
-        await loadConstantData()
+        Task {
+            await loadConstantData()
+        }
+    }
+    
+    private func deleteData<T: NSManagedObject>(_ type: T.Type, in context: NSManagedObjectContext) {
+        do {
+            let objects = try context.fetch(T.fetchRequest()) as? [T] ?? []
+            for object in objects {
+                context.delete(object)
+            }
+        } catch {
+            logError("Failed to fetch data: \(type)", category: .coredata)
+        }
     }
 }

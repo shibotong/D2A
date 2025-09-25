@@ -6,27 +6,44 @@
 //
 
 import Foundation
+import CoreData
 
-struct ODPatch: Decodable {
+struct ODPatch: Decodable, PersistanceModel {
+    
     let name: String
     let id: Int
-    let date: String
+    let dateString: String
     
-    var dictionary: [String: Any] {
-        let formatter = ISO8601DateFormatter()
-        let date = {
-            if let date = formatter.date(from: self.date) {
-                return date
-            } else {
-                logError("Not able to parse date string: \(self.date)", category: .opendota)
-                return Date()
-            }
-        }()
-        
+    enum CodingKeys: String, CodingKey {
+        case name
+        case id
+        case dateString = "date"
+    }
+    
+    var dictionaries: [String: Any] {
         return [
             "name": name,
             "patchID": Int16(id),
             "date": date
         ]
+    }
+    
+    private var date: Date {
+        let formatter = ISO8601DateFormatter()
+        if let date = formatter.date(from: dateString) {
+            return date
+        } else {
+            logError("Not able to parse date string: \(dateString)", category: .opendota)
+            return Date()
+        }
+    }
+    
+    func update(context: NSManagedObjectContext) throws -> NSManagedObject {
+        let predicate = NSPredicate(format: "patchID == %i", id)
+        let patch = try context.fetchOne(type: Patch.self, predicate: predicate) ?? Patch(context: context)
+        setIfNotEqual(entity: patch, path: \.patchID, value: Int16(id))
+        setIfNotEqual(entity: patch, path: \.name, value: name)
+        setIfNotEqual(entity: patch, path: \.date, value: date)
+        return patch
     }
 }

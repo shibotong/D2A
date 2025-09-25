@@ -115,7 +115,7 @@ class PersistanceProvider: PersistanceProviding {
         }
         // Patch
         let patches = try FileReader.loadFile(filename: OpenDotaConstantService.patch.rawValue, as: [ODPatch].self)
-        mainContext.batchInsert(dictionary: patches.map(\.dictionary), into: Patch.entity())
+        mainContext.batchInsert(dictionary: patches.map(\.dictionaries), into: Patch.entity())
     }
     
     private func dataExist(for request: NSFetchRequest<NSFetchRequestResult>, context: NSManagedObjectContext) throws -> Bool {

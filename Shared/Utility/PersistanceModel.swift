@@ -11,3 +11,7 @@ protocol PersistanceModel {
     var dictionaries: [String: Any] { get }
     func update(context: NSManagedObjectContext) throws -> NSManagedObject
 }
+
+protocol Mappable {
+    var dictionary: [String: Any] { get }
+}
