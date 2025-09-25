@@ -23,6 +23,8 @@ protocol PersistanceProviding {
     func calculateDaysSinceLastMatch(userID: String, context: NSManagedObjectContext) -> Double?
     
     func loadDefaultData() throws
+    
+    func batchInsert(dictionary: [[String: Any]], into entity: NSEntityDescription, context: NSManagedObjectContext)
 }
 
 enum PersistanceError: Error {
@@ -348,44 +350,6 @@ class PersistanceProvider: PersistanceProviding {
     }
 
     private func batchInsertData(_ data: [PersistanceModel], into entity: NSEntityDescription, context: NSManagedObjectContext) {
-        let insertRequest = NSBatchInsertRequest(entity: entity, objects: data.map { $0.dictionaries })
-        insertRequest.resultType = .statusOnly
-        context.performAndWait {
-            do {
-                let fetchResult = try context.execute(insertRequest)
-                if let batchInsertResult = fetchResult as? NSBatchInsertResult,
-                   let success = batchInsertResult.result as? Bool {
-                    if !success {
-                        logError("Failed to insert data in \(entity.name ?? "Unknown entity")", category: .coredata)
-                    } else {
-                        logDebug("Insert data in \(entity.name ?? "Unknown entity") success", category: .coredata)
-                    }
-                } else {
-                    logWarn("Cast NSBatchInsertResult failed", category: .coredata)
-                }
-            } catch {
-                logError("An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)", category: .coredata)
-            }
-        }
-    }
-    
-    private func batchInsert(dictionary: [[String: Any]], into entity: NSEntityDescription, context: NSManagedObjectContext) {
-        let insertRequest = NSBatchInsertRequest(entity: entity, objects: dictionary)
-        insertRequest.resultType = .statusOnly
-        do {
-            let fetchResult = try context.execute(insertRequest)
-            if let batchInsertResult = fetchResult as? NSBatchInsertResult,
-               let success = batchInsertResult.result as? Bool {
-                if !success {
-                    logError("Failed to insert data in \(entity.name ?? "Unknown entity")", category: .coredata)
-                } else {
-                    logDebug("Insert data in \(entity.name ?? "Unknown entity") success", category: .coredata)
-                }
-            } else {
-                logWarn("Cast NSBatchInsertResult failed", category: .coredata)
-            }
-        } catch {
-            logError("An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)", category: .coredata)
-        }
+        context.batchInsert(dictionary: data.map{ $0.dictionaries }, into: entity)
     }
 }
