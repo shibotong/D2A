@@ -20,7 +20,7 @@ class StoreManager: NSObject, ObservableObject {
     
     @Published var isPro: Bool {
         didSet {
-            userDefaults.set(isPro, forKey: UserDefaults.subscription)
+            userDefaults.set(isPro, for: .subscription)
         }
     }
 
@@ -32,7 +32,7 @@ class StoreManager: NSObject, ObservableObject {
 
     init(userDefaults: UserDefaults = .group) {
         self.userDefaults = userDefaults
-        isPro = userDefaults.bool(forKey: UserDefaults.subscription)
+        isPro = userDefaults.bool(for: .subscription)
         super.init()
         products = []
         updateListenerTask = listenForTransactions()

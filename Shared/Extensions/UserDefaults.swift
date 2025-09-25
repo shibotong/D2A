@@ -27,4 +27,8 @@ extension UserDefaults {
     func string(for key: Key) -> String? {
         string(forKey: key.rawValue)
     }
+    
+    func bool(for key: Key) -> Bool {
+        bool(forKey: key.rawValue)
+    }
 }
