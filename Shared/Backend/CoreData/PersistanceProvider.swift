@@ -115,7 +115,7 @@ class PersistanceProvider: PersistanceProviding {
         }
         // Patch
         let patches = try FileReader.loadFile(filename: OpenDotaConstantService.patch.rawValue, as: [ODPatch].self)
-        batchInsert(dictionary: patches.map(\.dictionary), into: Patch.entity(), context: mainContext)
+        mainContext.batchInsert(dictionary: patches.map(\.dictionary), into: Patch.entity())
     }
     
     private func dataExist(for request: NSFetchRequest<NSFetchRequestResult>, context: NSManagedObjectContext) throws -> Bool {
@@ -307,7 +307,7 @@ class PersistanceProvider: PersistanceProviding {
         let useMainContext = data.count <= 5 || mainContext
         let context = useMainContext ? self.mainContext : makeContext(author: "ODData")
         
-        if useMainContext || hasData(for: type, context: context) {
+        if useMainContext || context.hasData(for: type) {
             updateData(data: data, context: context)
         } else {
             batchInsertData(data, into: type.entity(), context: context)
@@ -332,20 +332,7 @@ class PersistanceProvider: PersistanceProviding {
         }
     }
 
-    /// Check if there is any data saved in core data
-    private func hasData<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) -> Bool {
-        let request = entity.fetchRequest()
-        request.fetchLimit = 1
-        return context.performAndWait {
-            do {
-                let count = try context.count(for: request)
-                return count > 0
-            } catch {
-                logError("Cannot count number of \(entity) saved in Core Data", category: .coredata)
-                return true
-            }
-        }
-    }
+
 
     private func batchInsertData(_ data: [PersistanceModel], into entity: NSEntityDescription, context: NSManagedObjectContext) {
         context.batchInsert(dictionary: data.map{ $0.dictionaries }, into: entity)
