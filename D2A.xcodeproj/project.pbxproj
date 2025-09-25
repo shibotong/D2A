@@ -483,6 +483,9 @@
 		79D1874A2E1E622500C04CC8 /* RefreshHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187492E1E621C00C04CC8 /* RefreshHandler.swift */; };
 		79D1874B2E1E622500C04CC8 /* RefreshHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187492E1E621C00C04CC8 /* RefreshHandler.swift */; };
 		79D1874C2E1E622500C04CC8 /* RefreshHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D187492E1E621C00C04CC8 /* RefreshHandler.swift */; };
+		79DA21C92E854A8D00AD350C /* patch.json in Resources */ = {isa = PBXBuildFile; fileRef = 79DA21C82E854A8700AD350C /* patch.json */; };
+		79DA21CA2E854A8D00AD350C /* patch.json in Resources */ = {isa = PBXBuildFile; fileRef = 79DA21C82E854A8700AD350C /* patch.json */; };
+		79DA21CB2E854A8D00AD350C /* patch.json in Resources */ = {isa = PBXBuildFile; fileRef = 79DA21C82E854A8700AD350C /* patch.json */; };
 		79DEA8432A36A3060009A414 /* PlayerRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */; };
 		79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */; };
 		79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
@@ -836,6 +839,7 @@
 		79D187442E1E551D00C04CC8 /* Backend 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Backend 2.xcdatamodel"; sourceTree = "<group>"; };
 		79D187452E1E573100C04CC8 /* GameDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataController.swift; sourceTree = "<group>"; };
 		79D187492E1E621C00C04CC8 /* RefreshHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshHandler.swift; sourceTree = "<group>"; };
+		79DA21C82E854A8700AD350C /* patch.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = patch.json; sourceTree = "<group>"; };
 		79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowViewModel.swift; sourceTree = "<group>"; };
 		79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchPlayerView.swift; sourceTree = "<group>"; };
 		79E41BBF2E35FAD600AF520F /* HeroDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailView.swift; sourceTree = "<group>"; };
@@ -1417,6 +1421,7 @@
 				7937FF502E4E07C50019145D /* hero_abilities.json */,
 				7937FF512E4E07C50019145D /* hero_lore.json */,
 				7937FF432E4E074B0019145D /* heroes.json */,
+				79DA21C82E854A8700AD350C /* patch.json */,
 			);
 			path = DefaultData;
 			sourceTree = "<group>";
@@ -2003,6 +2008,7 @@
 				3214C0D226F0E1AF00C377EF /* privacy-policy.md in Resources */,
 				798C42992A356FAC00BDC470 /* sampleItem.json in Resources */,
 				798C42972A356F4A00BDC470 /* itemIDs.json in Resources */,
+				79DA21C92E854A8D00AD350C /* patch.json in Resources */,
 				323ADB2E272B91F500253124 /* ancients.json in Resources */,
 				323ADB31272B91F500253124 /* patchnotes.json in Resources */,
 				323ADB2A272B91F500253124 /* neutral_abilities.json in Resources */,
@@ -2077,6 +2083,7 @@
 				323ADB63272E03E300253124 /* item_ids.json in Resources */,
 				323ADB5C272E03E300253124 /* item_colors.json in Resources */,
 				323ADB5E272E03E300253124 /* countries.json in Resources */,
+				79DA21CA2E854A8D00AD350C /* patch.json in Resources */,
 				323ADB62272E03E300253124 /* player_colors.json in Resources */,
 				323ADB70272E03E300253124 /* chat_wheel.json in Resources */,
 				7937FF452E4E074B0019145D /* heroes.json in Resources */,
@@ -2108,6 +2115,7 @@
 				7937FF442E4E074B0019145D /* heroes.json in Resources */,
 				323ADB93272E03E500253124 /* player_colors.json in Resources */,
 				323ADB9F272E03E500253124 /* order_types.json in Resources */,
+				79DA21CB2E854A8D00AD350C /* patch.json in Resources */,
 				323ADB92272E03E500253124 /* patchnotes.json in Resources */,
 				323ADB9E272E03E500253124 /* patch.json in Resources */,
 				32F70B2426F6296C006E9B05 /* sampleMatch.json in Resources */,
