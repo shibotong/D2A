@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-stru
-
 extension MatchViewV2 {
     struct TeamIcon: View {
         
