@@ -17,12 +17,22 @@ public enum StoreError: Error {
 
 class StoreManager: NSObject, ObservableObject {
     static let shared = StoreManager()
+    
+    @Published var isPro: Bool {
+        didSet {
+            userDefaults.set(isPro, for: .subscription)
+        }
+    }
 
     @Published var products: [Product] = []
 
     var updateListenerTask: Task<Void, Error>?
+    
+    private let userDefaults: UserDefaults
 
-    override init() {
+    init(userDefaults: UserDefaults = .group) {
+        self.userDefaults = userDefaults
+        isPro = userDefaults.bool(for: .subscription)
         super.init()
         products = []
         updateListenerTask = listenForTransactions()
@@ -51,12 +61,11 @@ class StoreManager: NSObject, ObservableObject {
         }
     }
 
+    @MainActor
     func parsePurchaseInfo(info: Transaction) {
-        DispatchQueue.main.async {
-            EnvironmentController.shared.subscriptionStatus = true
-            WidgetCenter.shared.reloadAllTimelines()
-            print("subscription status \(EnvironmentController.shared.subscriptionStatus)")
-        }
+        isPro = true
+        WidgetCenter.shared.reloadAllTimelines()
+        print("subscription status \(EnvironmentController.shared.subscriptionStatus)")
         print("D2A Pro Purchased")
     }
 
@@ -72,7 +81,7 @@ class StoreManager: NSObject, ObservableObject {
             let transaction = try checkVerified(verification)
 
             // Deliver content to the user.
-            parsePurchaseInfo(info: transaction)
+            await parsePurchaseInfo(info: transaction)
 
             // Always finish a transaction.
             await transaction.finish()
@@ -94,7 +103,7 @@ class StoreManager: NSObject, ObservableObject {
                     let transaction = try self.checkVerified(result)
 
                     // Deliver content to the user.
-                    self.parsePurchaseInfo(info: transaction)
+                    await self.parsePurchaseInfo(info: transaction)
 
                     // Always finish a transaction.
                     await transaction.finish()

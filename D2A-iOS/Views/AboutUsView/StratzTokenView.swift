@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StratzTokenView: View {
 
-    @AppStorage(UserDefaults.stratzToken, store: UserDefaults.group)
+    @AppStorage(UserDefaults.Key.stratzToken.rawValue, store: UserDefaults.group)
     private var stratzToken: String = ""
 
     @State private var editToken: String = ""

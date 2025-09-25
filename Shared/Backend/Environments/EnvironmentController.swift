@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 import SwiftUI
 import UIKit
+import Combine
 
 enum TabSelection {
     case home, hero, search, setting, live
@@ -23,12 +24,6 @@ final class EnvironmentController: ObservableObject {
 
     @Published var subscriptionSheet = false
 
-    @Published var subscriptionStatus: Bool {
-        didSet {
-            userDefaults.set(subscriptionStatus, forKey: UserDefaults.subscription)
-        }
-    }
-
     // migration loading
     @Published var loading = false
 
@@ -40,7 +35,7 @@ final class EnvironmentController: ObservableObject {
     }
 
     @Published var selectedTab: TabSelection = .home
-
+    @Published var subscriptionStatus: Bool = false
     @Published var selectedUser: String?
     @Published var selectedMatch: String?
     @Published var matchActive: Bool = false
@@ -65,15 +60,12 @@ final class EnvironmentController: ObservableObject {
          imageCache: ImageCache = .shared,
          userDefaults: UserDefaults = .group,
          openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared,
-         refreshHander: RefreshHandler = .shared) {
+         refreshHandler: RefreshHandler = .shared) {
         self.imageProvider = imageProvider
         self.imageCache = imageCache
         self.userDefaults = userDefaults
         self.openDotaProvider = openDotaProvider
-        self.refreshHandler = refreshHander
-        subscriptionStatus =
-            userDefaults.object(forKey: UserDefaults.subscription) as? Bool
-            ?? false
+        self.refreshHandler = refreshHandler
         tab = .home
     }
 

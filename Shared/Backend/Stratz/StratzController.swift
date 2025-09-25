@@ -28,7 +28,7 @@ class StratzController: StratzProviding {
     init(notification: D2ANotificationCenter = .shared,
          userDefault: UserDefaults = UserDefaults.group) {
         self.notification = notification
-        stratzToken = userDefault.string(forKey: UserDefaults.stratzToken) ?? ""
+        stratzToken = userDefault.string(for: .stratzToken) ?? ""
         apollo = try? Self.createClient(token: stratzToken)
         setupBinding()
     }
