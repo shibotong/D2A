@@ -68,6 +68,8 @@ extension Match: Mappable {
         case barracksDire = "barracks_status_dire"
         case barracksRadiant = "barracks_status_radiant"
         case chat
+        case cluster
+        case scoreDire = "dire_score"
     }
     
     func map(from json: [String: Any]) {
@@ -81,6 +83,12 @@ extension Match: Mappable {
             setIfNotEqual(entity: self, path: \.barracksRadiant, value: Int16(barracksRadiant))
             setIfNotEqual(entity: self, path: \.barracksDire, value: Int16(barracksDire))
         }
+        let cluster = json[CodingKeys.cluster.rawValue] as? Int
+        setIfNotEqual(entity: self, path: \.cluster, value: Int16(cluster ?? 0))
+        let direScore = json[CodingKeys.scoreDire.rawValue] as? Int
+        setIfNotEqual(entity: self, path: \.direKill, value: Int16(direScore ?? 0))
+        
+        
         mapChat(from: json)
         
         

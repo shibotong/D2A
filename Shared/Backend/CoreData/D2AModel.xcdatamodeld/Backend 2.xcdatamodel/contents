@@ -64,7 +64,8 @@
     <entity name="Match" representedClassName="Match" syncable="YES" codeGenerationType="class">
         <attribute name="barracksDire" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="barracksRadiant" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="chats" optional="YES" attributeType="Transformable" customClassName="[Chat]"/>
+        <attribute name="chats" optional="YES" attributeType="Transformable" valueTransformerName="ChatTransformer" customClassName="[Chat]"/>
+        <attribute name="cluster" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="direKill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="goldDiff" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[NSNumber]"/>
