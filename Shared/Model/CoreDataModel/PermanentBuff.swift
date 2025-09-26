@@ -14,7 +14,7 @@ class PermanentBuff: NSObject, NSSecureCoding {
     let buffID: Int
     let stack: Int
 
-    init(_ permanentBuff: PermanentBuffCodable) {
+    init(_ permanentBuff: ODMatch.Player.PermanentBuff) {
         buffID = permanentBuff.buffID
         stack = permanentBuff.stack
     }

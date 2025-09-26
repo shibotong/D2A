@@ -88,21 +88,21 @@ class PersistanceProvider: PersistanceProviding {
         logDebug("Constant data doesn't exist, adding default data", category: .coredata)
         let processor = OpenDotaConstantProcessor.shared
         // Heroes
-        let defaultHeroes = try FileReader.loadFile(filename: OpenDotaConstantService.heroes.rawValue, as: [String: ODHero].self)
-        let defaultAbilities = try FileReader.loadFile(filename: OpenDotaConstantService.abilities.rawValue, as: [String: ODHeroAbilities].self)
-        let defaultLores = try FileReader.loadFile(filename: OpenDotaConstantService.heroLore.rawValue, as: [String: String].self)
+        let defaultHeroes = try FileReader.shared.loadFile(filename: OpenDotaConstantService.heroes.rawValue, as: [String: ODHero].self)
+        let defaultAbilities = try FileReader.shared.loadFile(filename: OpenDotaConstantService.abilities.rawValue, as: [String: ODHeroAbilities].self)
+        let defaultLores = try FileReader.shared.loadFile(filename: OpenDotaConstantService.heroLore.rawValue, as: [String: String].self)
         let heroes = processor.processHeroes(heroes: defaultHeroes, abilities: defaultAbilities, lores: defaultLores)
         saveODData(data: heroes, type: Hero.self)
         
         // Abilities
-        let abilityDict = try FileReader.loadFile(filename: OpenDotaConstantService.abilities.rawValue, as: [String: ODAbility].self)
-        let abilityIDs = try FileReader.loadFile(filename: OpenDotaConstantService.abilityIDs.rawValue, as: [String: String].self)
-        let scepters = try FileReader.loadFile(filename: OpenDotaConstantService.aghs.rawValue, as: [ODScepter].self)
+        let abilityDict = try FileReader.shared.loadFile(filename: OpenDotaConstantService.abilities.rawValue, as: [String: ODAbility].self)
+        let abilityIDs = try FileReader.shared.loadFile(filename: OpenDotaConstantService.abilityIDs.rawValue, as: [String: String].self)
+        let scepters = try FileReader.shared.loadFile(filename: OpenDotaConstantService.aghs.rawValue, as: [ODScepter].self)
         let abilities = processor.processAbilities(ability: abilityDict, ids: abilityIDs, scepters: scepters)
         saveODData(data: abilities, type: Ability.self)
         
         // GameModes
-        let gameModesDict = try FileReader.loadFile(filename: OpenDotaConstantService.gameMode.rawValue, as: [String: ODGameMode].self)
+        let gameModesDict = try FileReader.shared.loadFile(filename: OpenDotaConstantService.gameMode.rawValue, as: [String: ODGameMode].self)
         let gameModes = processor.processGameModes(modes: gameModesDict)
         saveODData(data: gameModes, type: GameMode.self)
     }

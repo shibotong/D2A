@@ -16,6 +16,7 @@ protocol OpenDotaProviding {
     func loadMatchData(matchid: String) async throws -> String
     func loadRecentMatches(userid: String) async -> [RecentMatchCodable]
     
+    func match(id: Int) async throws -> ODMatch
     func user(id: String) async throws -> ODPlayerProfile
     func proUsers() async throws -> [ODPlayerProfile.Profile]
 }
@@ -47,6 +48,10 @@ class OpenDotaProvider: OpenDotaProviding {
     func user(id: String) async throws -> ODPlayerProfile {
         let user = try await loadData("/players/\(id)", as: ODPlayerProfile.self)
         return user
+    }
+    
+    func match(id: Int) async throws -> ODMatch {
+        return try await loadData("/match/\(id)", as: ODMatch.self)
     }
     
     func proUsers() async throws -> [ODPlayerProfile.Profile] {

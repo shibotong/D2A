@@ -12,8 +12,8 @@ import SwiftUI
 extension Match {
     static func create(_ match: ODMatch) throws -> Match {
         let viewContext = PersistanceProvider.shared.makeContext(author: "Match")
-        let matchCoreData = fetch(id: match.id.description) ?? Match(context: viewContext)
-        matchCoreData.update(match)
+        let matchCoreData = fetch(id: match.matchID.description) ?? Match(context: viewContext)
+//        matchCoreData.update(match)
         try viewContext.save()
         try viewContext.parent?.save()
         print("save match successfully \(matchCoreData.matchID)")
@@ -59,25 +59,40 @@ extension Match {
         let filteredPlayers = players.filter { isRadiant ? $0.slot <= 127 : $0.slot > 127 }
         return filteredPlayers
     }
+}
 
-    func update(_ match: ODMatch) {
-        matchID = Int64(match.id)
-
-        // Match data
-        direKill = Int16(match.direKill ?? 0)
-        radiantKill = Int16(match.radiantKill ?? 0)
-        duration = Int32(match.duration)
-        radiantWin = match.radiantWin
-
-        // Lobby data
-        lobbyType = Int16(match.lobbyType)
-        mode = Int16(match.mode)
-        region = Int16(match.region)
-        skill = Int16(match.skill ?? 0)
-        startTime = Date(timeIntervalSince1970: TimeInterval(match.startTime))
-        players = match.players.map { Player(player: $0) }
-
-        goldDiff = match.goldDiff as [NSNumber]?
-        xpDiff = match.xpDiff as [NSNumber]?
+extension Match: Mappable {
+    
+    enum CodingKeys: String, CodingKey {
+        case matchID = "match_id"
+        case barracksDire = "barracks_status_dire"
+        case barracksRadiant = "barracks_status_radiant"
+        case chat
+    }
+    
+    func map(from json: [String: Any]) {
+        guard let matchID = json[CodingKeys.matchID.rawValue] as? Int else {
+            logError("Not able to decode match. missing matchID", category: .coredata)
+            return
+        }
+        setIfNotEqual(entity: self, path: \.matchID, value: Int64(matchID))
+        if let barracksDire = json[CodingKeys.barracksDire.rawValue] as? Int,
+           let barracksRadiant = json[CodingKeys.barracksRadiant.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.barracksRadiant, value: Int16(barracksRadiant))
+            setIfNotEqual(entity: self, path: \.barracksDire, value: Int16(barracksDire))
+        }
+        mapChat(from: json)
+        
+        
+        
+    }
+    
+    private func mapChat(from json: [String: Any]) {
+        guard let chatsJson = json[CodingKeys.chat.rawValue] as? [[String: Any]] else {
+            logInfo("No chat for this match", category: .coredata)
+            return
+        }
+        let chats = chatsJson.compactMap{ Chat(from: $0) }
+        self.chats = chats
     }
 }
