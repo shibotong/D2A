@@ -72,6 +72,7 @@ extension Match: Mappable {
         case scoreDire = "dire_score"
         case draftTiming = "draft_timing"
         case duration
+        case engine
     }
     
     func map(from json: [String: Any]) {
@@ -91,6 +92,8 @@ extension Match: Mappable {
         setIfNotEqual(entity: self, path: \.direKill, value: Int16(direScore))
         let duration = json[CodingKeys.duration.rawValue] as? Int ?? 0
         setIfNotEqual(entity: self, path: \.duration, value: Int32(duration))
+        let engine = json[CodingKeys.engine.rawValue] as? Int ?? 0
+        setIfNotEqual(entity: self, path: \.engine, value: Int16(engine))
         
         mapChat(from: json)
         mapDraftTiming(from: json)
