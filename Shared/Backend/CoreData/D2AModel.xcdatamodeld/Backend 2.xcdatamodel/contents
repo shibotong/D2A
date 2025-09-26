@@ -72,6 +72,8 @@
         <attribute name="engine" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="firstBloodTime" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="goldDiff" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[NSNumber]"/>
+        <attribute name="humanPlayers" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="leagueID" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="lobbyType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="matchID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="mode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

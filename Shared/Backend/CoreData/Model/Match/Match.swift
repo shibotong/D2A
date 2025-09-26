@@ -74,6 +74,10 @@ extension Match: Mappable {
         case duration
         case engine
         case firstBloodTime = "first_blood_time"
+        case gameMode = "game_mode"
+        case humanPlayers = "human_players"
+        case leagueID = "leagueid"
+        case lobbyType = "lobby_type"
     }
     
     func map(from json: [String: Any]) {
@@ -97,6 +101,15 @@ extension Match: Mappable {
         setIfNotEqual(entity: self, path: \.engine, value: Int16(engine))
         let firstBloodTime = json[CodingKeys.firstBloodTime.rawValue] as? Int ?? 0
         setIfNotEqual(entity: self, path: \.firstBloodTime, value: Int32(firstBloodTime))
+        let gameMode = json[CodingKeys.gameMode.rawValue] as? Int ?? 0
+        setIfNotEqual(entity: self, path: \.mode, value: Int16(gameMode))
+        let humanPlayers = json[CodingKeys.humanPlayers.rawValue] as? Int ?? 0
+        setIfNotEqual(entity: self, path: \.humanPlayers, value: Int16(humanPlayers))
+        let leagueID = json[CodingKeys.leagueID.rawValue] as? Int ?? 0
+        setIfNotEqual(entity: self, path: \.leagueID, value: Int32(leagueID))
+        let lobbyType = json[CodingKeys.lobbyType.rawValue] as? Int ?? 0
+        setIfNotEqual(entity: self, path: \.lobbyType, value: Int16(lobbyType))
+        
         
         mapChat(from: json)
         mapDraftTiming(from: json)
