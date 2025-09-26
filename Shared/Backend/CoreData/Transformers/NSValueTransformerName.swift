@@ -13,4 +13,5 @@ extension NSValueTransformerName {
     static let heroTalent = NSValueTransformerName("TalentTransformer")
     static let heroTranslation = NSValueTransformerName("HeroTranslationTransformer")
     static let chats = NSValueTransformerName("ChatTransformer")
+    static let draftTiming = NSValueTransformerName("DraftTimingTransformer")
 }

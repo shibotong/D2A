@@ -520,6 +520,9 @@
 		79DA220A2E86667300AD350C /* Match+Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA22092E86666F00AD350C /* Match+Chat.swift */; };
 		79DA220B2E86667300AD350C /* Match+Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA22092E86666F00AD350C /* Match+Chat.swift */; };
 		79DA220C2E86667300AD350C /* Match+Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA22092E86666F00AD350C /* Match+Chat.swift */; };
+		79DA220E2E866B3600AD350C /* Match+DraftTiming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA220D2E866B3000AD350C /* Match+DraftTiming.swift */; };
+		79DA220F2E866B3600AD350C /* Match+DraftTiming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA220D2E866B3000AD350C /* Match+DraftTiming.swift */; };
+		79DA22102E866B3600AD350C /* Match+DraftTiming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA220D2E866B3000AD350C /* Match+DraftTiming.swift */; };
 		79DEA8432A36A3060009A414 /* PlayerRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */; };
 		79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */; };
 		79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
@@ -887,6 +890,7 @@
 		79DA21FF2E857B3C00AD350C /* FileReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
 		79DA22042E86646A00AD350C /* Mappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mappable.swift; sourceTree = "<group>"; };
 		79DA22092E86666F00AD350C /* Match+Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Match+Chat.swift"; sourceTree = "<group>"; };
+		79DA220D2E866B3000AD350C /* Match+DraftTiming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Match+DraftTiming.swift"; sourceTree = "<group>"; };
 		79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowViewModel.swift; sourceTree = "<group>"; };
 		79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchPlayerView.swift; sourceTree = "<group>"; };
 		79E41BBF2E35FAD600AF520F /* HeroDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailView.swift; sourceTree = "<group>"; };
@@ -1817,6 +1821,7 @@
 			children = (
 				79A988F82931D400006AC847 /* Match.swift */,
 				79DA22092E86666F00AD350C /* Match+Chat.swift */,
+				79DA220D2E866B3000AD350C /* Match+DraftTiming.swift */,
 			);
 			path = Match;
 			sourceTree = "<group>";
@@ -2330,6 +2335,7 @@
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
 				7925E15A2E39F431002B9865 /* LocaliseLanguage.swift in Sources */,
 				3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */,
+				79DA220F2E866B3600AD350C /* Match+DraftTiming.swift in Sources */,
 				79EB3F872DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */,
 				792540672E30CE4B00201CF1 /* EnvironmentController+Preview.swift in Sources */,
 				79DA21DF2E85663A00AD350C /* ODMatch+PickBan.swift in Sources */,
@@ -2555,6 +2561,7 @@
 				79AF52882E02A639009FE792 /* OnChange.swift in Sources */,
 				79091DF52A3B2E2C0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				79E89A332DF6B8BB00497B5D /* PersistanceProvider+Preview.swift in Sources */,
+				79DA220E2E866B3600AD350C /* Match+DraftTiming.swift in Sources */,
 				32F70B3026F714FD006E9B05 /* Provider.swift in Sources */,
 				79EB3EFE2DC4B8F8008C4F6D /* Ability.swift in Sources */,
 				79CF37682DC0F96100207CB8 /* D2AServiceCategory.swift in Sources */,
@@ -2603,6 +2610,7 @@
 				32F70B2026F6295C006E9B05 /* Int.swift in Sources */,
 				79CF375D2DC0F8F800207CB8 /* D2AError.swift in Sources */,
 				79EB3EF82DC4B5D8008C4F6D /* PersistanceModel.swift in Sources */,
+				79DA22102E866B3600AD350C /* Match+DraftTiming.swift in Sources */,
 				79DA21DC2E85652500AD350C /* ODMatch+DraftTime.swift in Sources */,
 				3270271E285C08C300927426 /* ConstantsController.swift in Sources */,
 				79B870BF2DC394D30090CAB8 /* D2ANetwork.swift in Sources */,

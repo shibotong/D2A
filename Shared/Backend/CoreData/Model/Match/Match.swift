@@ -70,6 +70,7 @@ extension Match: Mappable {
         case chat
         case cluster
         case scoreDire = "dire_score"
+        case draftTiming = "draft_timing"
     }
     
     func map(from json: [String: Any]) {
@@ -90,7 +91,7 @@ extension Match: Mappable {
         
         
         mapChat(from: json)
-        
+        mapDraftTiming(from: json)
         
         
     }
@@ -102,5 +103,14 @@ extension Match: Mappable {
         }
         let chats = chatsJson.compactMap{ Chat(from: $0) }
         self.chats = chats
+    }
+    
+    private func mapDraftTiming(from json: [String: Any]) {
+        guard let draftsJson = json[CodingKeys.draftTiming.rawValue] as? [[String: Any]] else {
+            logInfo("No draft timing for this match", category: .coredata)
+            return
+        }
+        let drafts = draftsJson.compactMap{ DraftTiming(from: $0) }
+        self.drafts = drafts
     }
 }
