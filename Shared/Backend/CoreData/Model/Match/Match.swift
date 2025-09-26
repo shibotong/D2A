@@ -71,6 +71,7 @@ extension Match: Mappable {
         case cluster
         case scoreDire = "dire_score"
         case draftTiming = "draft_timing"
+        case duration
     }
     
     func map(from json: [String: Any]) {
@@ -84,11 +85,12 @@ extension Match: Mappable {
             setIfNotEqual(entity: self, path: \.barracksRadiant, value: Int16(barracksRadiant))
             setIfNotEqual(entity: self, path: \.barracksDire, value: Int16(barracksDire))
         }
-        let cluster = json[CodingKeys.cluster.rawValue] as? Int
-        setIfNotEqual(entity: self, path: \.cluster, value: Int16(cluster ?? 0))
-        let direScore = json[CodingKeys.scoreDire.rawValue] as? Int
-        setIfNotEqual(entity: self, path: \.direKill, value: Int16(direScore ?? 0))
-        
+        let cluster = json[CodingKeys.cluster.rawValue] as? Int ?? 0
+        setIfNotEqual(entity: self, path: \.cluster, value: Int16(cluster))
+        let direScore = json[CodingKeys.scoreDire.rawValue] as? Int ?? 0
+        setIfNotEqual(entity: self, path: \.direKill, value: Int16(direScore))
+        let duration = json[CodingKeys.duration.rawValue] as? Int ?? 0
+        setIfNotEqual(entity: self, path: \.duration, value: Int32(duration))
         
         mapChat(from: json)
         mapDraftTiming(from: json)
