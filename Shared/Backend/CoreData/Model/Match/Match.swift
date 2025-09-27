@@ -78,6 +78,7 @@ extension Match: Mappable {
         case humanPlayers = "human_players"
         case leagueID = "leagueid"
         case lobbyType = "lobby_type"
+        case picksBans = "picks_bans"
     }
     
     func map(from json: [String: Any]) {
@@ -113,7 +114,7 @@ extension Match: Mappable {
         
         mapChat(from: json)
         mapDraftTiming(from: json)
-        
+        mapPickBan(from: json)
         
     }
     
@@ -133,5 +134,14 @@ extension Match: Mappable {
         }
         let drafts = draftsJson.compactMap{ DraftTiming(from: $0) }
         self.drafts = drafts
+    }
+    
+    private func mapPickBan(from json: [String: Any]) {
+        guard let picksBansJson = json[CodingKeys.picksBans.rawValue] as? [[String: Any]] else {
+            logInfo("No picks bans for this match", category: .coredata)
+            return
+        }
+        let picksBans = picksBansJson.compactMap{ PickBan(from: $0) }
+        self.picksBans = picksBans
     }
 }
