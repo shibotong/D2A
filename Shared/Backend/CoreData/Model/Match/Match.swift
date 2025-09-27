@@ -79,14 +79,25 @@ extension Match: Mappable {
         case leagueID = "leagueid"
         case lobbyType = "lobby_type"
         case picksBans = "picks_bans"
+        case radiantGoldAdv = "radiant_gold_adv"
+        case scoreRadiant = "radiant_score"
+        case radiantWin = "radiant_win"
+        case radiantXpAdv = "radiant_xp_adv"
+        case startTime = "start_time"
     }
     
-    func map(from json: [String: Any]) {
-        guard let matchID = json[CodingKeys.matchID.rawValue] as? Int else {
-            logError("Not able to decode match. missing matchID", category: .coredata)
-            return
+    func map(from json: [String: Any]) throws {
+        guard let matchID = json[CodingKeys.matchID.rawValue] as? Int,
+              let radiantWin = json[CodingKeys.radiantWin.rawValue] as? Bool,
+              let startTime = json[CodingKeys.startTime.rawValue] as? Int else {
+            logError("Not able to decode match. Required value missing", category: .coredata)
+            throw D2AError(message: "An error occured when saving match")
         }
+        setIfNotEqual(entity: self, path: \.radiantWin, value: radiantWin)
         setIfNotEqual(entity: self, path: \.matchID, value: Int64(matchID))
+        let startDate = Date(timeIntervalSince1970: TimeInterval(startTime))
+        setIfNotEqual(entity: self, path: \.startTime, value: startDate)
+        
         if let barracksDire = json[CodingKeys.barracksDire.rawValue] as? Int,
            let barracksRadiant = json[CodingKeys.barracksRadiant.rawValue] as? Int {
             setIfNotEqual(entity: self, path: \.barracksRadiant, value: Int16(barracksRadiant))
@@ -110,6 +121,14 @@ extension Match: Mappable {
         setIfNotEqual(entity: self, path: \.leagueID, value: Int32(leagueID))
         let lobbyType = json[CodingKeys.lobbyType.rawValue] as? Int ?? 0
         setIfNotEqual(entity: self, path: \.lobbyType, value: Int16(lobbyType))
+        if let radiantGoldAdv = json[CodingKeys.radiantGoldAdv.rawValue] as? [NSNumber] {
+            setIfNotEqual(entity: self, path: \.goldDiff, value: radiantGoldAdv)
+        }
+        let radiantScore = json[CodingKeys.scoreRadiant.rawValue] as? Int ?? 0
+        setIfNotEqual(entity: self, path: \.radiantKill, value: Int16(radiantScore))
+        if let radiantXpAdv = json[CodingKeys.radiantXpAdv.rawValue] as? [NSNumber] {
+            setIfNotEqual(entity: self, path: \.xpDiff, value: radiantXpAdv)
+        }
         
         
         mapChat(from: json)

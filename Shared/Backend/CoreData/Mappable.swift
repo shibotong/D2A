@@ -8,5 +8,5 @@
 import CoreData
 
 protocol Mappable: NSManagedObject {
-    func map(from: [String: Any])
+    func map(from: [String: Any]) throws
 }
