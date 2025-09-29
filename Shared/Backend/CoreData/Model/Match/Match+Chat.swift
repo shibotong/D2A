@@ -69,4 +69,3 @@ public class Chat: NSObject, NSSecureCoding {
         coder.encode(playerSlot, forKey: CodingKeys.playerSlot.rawValue)
     }
 }
-

@@ -61,6 +61,12 @@
         <attribute name="visionDaytimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionNighttimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
+    <entity name="League" representedClassName="League" syncable="YES" codeGenerationType="class">
+        <attribute name="leagueID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="tier" optional="YES" attributeType="String"/>
+        <relationship name="matches" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Match" inverseName="league" inverseEntity="Match"/>
+    </entity>
     <entity name="Match" representedClassName="Match" syncable="YES" codeGenerationType="class">
         <attribute name="barracksDire" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="barracksRadiant" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -88,6 +94,9 @@
         <attribute name="towerRadiant" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="version" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="xpDiff" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[NSNumber]"/>
+        <relationship name="direTeam" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="matchDire" inverseEntity="Team"/>
+        <relationship name="league" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="League" inverseName="matches" inverseEntity="League"/>
+        <relationship name="radiantTeam" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="matchRadiant" inverseEntity="Team"/>
     </entity>
     <entity name="RecentMatch" representedClassName="RecentMatch" syncable="YES" codeGenerationType="class">
         <attribute name="assists" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -104,6 +113,13 @@
         <attribute name="slot" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startTime" attributeType="Date" defaultDateTimeInterval="-31644000" usesScalarValueType="NO"/>
         <attribute name="userID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Team" representedClassName="Team" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="tag" optional="YES" attributeType="String"/>
+        <attribute name="teamID" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="matchDire" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Match" inverseName="direTeam" inverseEntity="Match"/>
+        <relationship name="matchRadiant" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Match" inverseName="radiantTeam" inverseEntity="Match"/>
     </entity>
     <entity name="UserProfile" representedClassName="UserProfile" syncable="YES" codeGenerationType="class">
         <attribute name="avatarfull" attributeType="String"/>

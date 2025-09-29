@@ -87,6 +87,7 @@ extension Match: Mappable {
         case towerStatusDire = "tower_status_dire"
         case towerStatusRadiant = "tower_status_radiant"
         case version
+        case skill
     }
     
     func map(from json: [String: Any]) throws {
@@ -146,6 +147,18 @@ extension Match: Mappable {
         if let version = json[CodingKeys.version.rawValue] as? Int {
             setIfNotEqual(entity: self, path: \.version, value: Int16(version))
         }
+        
+        // TODO: Team
+        // TODO: League
+        
+        if let skill = json[CodingKeys.skill.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.skill, value: Int16(skill))
+        }
+        
+        // TODO: Players
+        // TODO: Patch
+        // TODO: Region
+        // TODO: Pauses
         
         mapChat(from: json)
         mapDraftTiming(from: json)
