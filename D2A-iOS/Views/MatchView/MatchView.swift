@@ -69,12 +69,12 @@ struct MatchView: View {
     }
 
     private func loadMatch() async {
-        do {
-            _ = try await OpenDotaProvider.shared.loadMatchData(matchid: matchid)
-        } catch {
-            env.errorMessage = error.localizedDescription
-            env.error = true
-        }
+//        do {
+//            _ = try await OpenDotaProvider.shared.loadMatchData(matchid: matchid)
+//        } catch {
+//            env.errorMessage = error.localizedDescription
+//            env.error = true
+//        }
     }
 
     @ViewBuilder private func buildMatchData(match: Match) -> some View {
