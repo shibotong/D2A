@@ -86,6 +86,7 @@ extension Match: Mappable {
         case startTime = "start_time"
         case towerStatusDire = "tower_status_dire"
         case towerStatusRadiant = "tower_status_radiant"
+        case version
     }
     
     func map(from json: [String: Any]) throws {
@@ -140,6 +141,10 @@ extension Match: Mappable {
         
         if let towerStatusRadiant = json[CodingKeys.towerStatusRadiant.rawValue] as? Int {
             setIfNotEqual(entity: self, path: \.towerRadiant, value: Int16(towerStatusRadiant))
+        }
+        
+        if let version = json[CodingKeys.version.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.version, value: Int16(version))
         }
         
         mapChat(from: json)
