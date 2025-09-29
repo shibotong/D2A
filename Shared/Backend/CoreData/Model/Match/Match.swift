@@ -10,14 +10,9 @@ import Foundation
 import SwiftUI
 
 extension Match {
-    static func create(_ match: ODMatch) throws -> Match {
-        let viewContext = PersistanceProvider.shared.makeContext(author: "Match")
-        let matchCoreData = fetch(id: match.matchID.description) ?? Match(context: viewContext)
-//        matchCoreData.update(match)
-        try viewContext.save()
-        try viewContext.parent?.save()
-        print("save match successfully \(matchCoreData.matchID)")
-        return matchCoreData
+    
+    static func predicate(id: Int) -> NSPredicate {
+        return NSPredicate(format: "matchID == %i", id)
     }
 
     /// Fetch `Match` with `id` in CoreData

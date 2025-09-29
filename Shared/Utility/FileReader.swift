@@ -18,13 +18,22 @@ struct FileReader {
     }
     
     func loadFile<T: Decodable>(filename: String, as type: T.Type) throws -> T {
+        let data = try loadFileContent(filename: filename)
+        let decoder = JSONDecoder()
+        let jsonData = try decoder.decode(T.self, from: data)
+        return jsonData
+    }
+    
+    func loadFile(filename: String) throws -> Any {
+        let data = try loadFileContent(filename: filename)
+        return try JSONSerialization.jsonObject(with: data)
+    }
+    
+    private func loadFileContent(filename: String) throws -> Data {
         guard let path = bundle.url(forResource: filename, withExtension: "json") else {
             throw D2AError(message: "Not able to find file \(filename).json")
         }
         
-        let data = try Data(contentsOf: path)
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode(T.self, from: data)
-        return jsonData
+        return try Data(contentsOf: path)
     }
 }

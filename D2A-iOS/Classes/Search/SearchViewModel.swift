@@ -21,6 +21,7 @@ class SearchViewModel: ObservableObject {
     
     private let viewContext: NSManagedObjectContext
     private let openDotaProvider: OpenDotaProviding
+    private let gameDataController: GameDataController
     private var cancellable: AnyCancellable?
     
     var showHistory: Bool {
@@ -32,9 +33,11 @@ class SearchViewModel: ObservableObject {
     }
     
     init(viewContext: D2AManagedObjectContext = PersistanceProvider.shared.mainContext,
-         openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared) {
+         openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared,
+         gameDataController: GameDataController = GameDataController.shared) {
         self.viewContext = viewContext
         self.openDotaProvider = openDotaProvider
+        self.gameDataController = gameDataController
         cancellable = $searchText
             .sink { [weak self] text in
                 self?.heroes = self?.searchHero(text: text) ?? []
@@ -77,12 +80,13 @@ class SearchViewModel: ObservableObject {
         // set suggestion to empty
         remoteProfiles = []
         async let searchedProfile = openDotaProvider.searchUserByText(text: searchText)
-        if Int(searchText) != nil {
-            async let matchID = openDotaProvider.loadMatchData(matchid: searchText)
+        if let matchID = Int(searchText) {
             do {
-                searchedMatch = try await Match.fetch(id: matchID)
+                let match = try await gameDataController.loadMatch(matchID: matchID, context: viewContext)
+                
+                searchedMatch = match
             } catch {
-                print("parse match error")
+                logError("An error occured when loading match. \(error.localizedDescription)", category: .opendota)
                 searchedMatch = nil
             }
         } else {

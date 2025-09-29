@@ -23,6 +23,8 @@ protocol PersistanceProviding {
     func calculateDaysSinceLastMatch(userID: String, context: NSManagedObjectContext) -> Double?
     
     func loadDefaultData() throws
+    
+    func persistent<T: Mappable>(mapping json: [String: Any], existing: T?, context: NSManagedObjectContext) throws -> T
 }
 
 enum PersistanceError: Error {
@@ -353,5 +355,11 @@ class PersistanceProvider: PersistanceProviding {
                 logError("An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)", category: .coredata)
             }
         }
+    }
+    
+    func persistent<T: Mappable>(mapping json: [String: Any], existing: T?, context: NSManagedObjectContext) throws -> T {
+        var object = existing ?? T(context: context)
+        try object.map(from: json)
+        return object
     }
 }

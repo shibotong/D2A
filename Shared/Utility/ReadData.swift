@@ -181,22 +181,6 @@ func loadAbilities() async -> [String: ODAbility] {
     }
 }
 
-func loadMatch() -> ODMatch? {
-    guard let data = loadFile(filename: "sampleMatch") else {
-        return nil
-    }
-
-    do {
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode(ODMatch.self, from: data)
-        return jsonData
-    } catch {
-        debugPrint(error)
-        return nil
-    }
-
-}
-
 func loadItemIDs() async -> [String: String] {
     let urlString =
         "https://raw.githubusercontent.com/odota/dotaconstants/master/build/item_ids.json"

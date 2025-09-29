@@ -13,10 +13,9 @@ protocol OpenDotaProviding {
     func fetchRecentMatches(userID: String, days: Double?) async -> [RecentMatchCodable]
 
     func getRecentMatches(userid: String) async -> [RecentMatchCodable]
-    func loadMatchData(matchid: String) async throws -> String
     func loadRecentMatches(userid: String) async -> [RecentMatchCodable]
     
-    func match(id: Int) async throws -> ODMatch
+    func match(id: Int) async throws -> [String: Any]
     func user(id: String) async throws -> ODPlayerProfile
     func proUsers() async throws -> [ODPlayerProfile.Profile]
 }
@@ -50,8 +49,11 @@ class OpenDotaProvider: OpenDotaProviding {
         return user
     }
     
-    func match(id: Int) async throws -> ODMatch {
-        return try await loadData("/match/\(id)", as: ODMatch.self)
+    func match(id: Int) async throws -> [String: Any] {
+        guard let matchData = try await loadData("/matches/\(id)") as? [String: Any] else {
+            throw D2AError(message: "Not able to decode as json object")
+        }
+        return matchData
     }
     
     func proUsers() async throws -> [ODPlayerProfile.Profile] {
@@ -90,17 +92,6 @@ class OpenDotaProvider: OpenDotaProviding {
         } catch {
             logError("Not able to fetch recent match for \(userID). error: \(error.localizedDescription)", category: .opendota)
             return []
-        }
-    }
-
-    func loadMatchData(matchid: String) async throws -> String {
-        let match = try await loadData("/matches/\(matchid)", as: ODMatch.self)
-        do {
-            _ = try Match.create(match)
-            return matchid
-        } catch {
-            print("Match created failed")
-            throw error
         }
     }
 

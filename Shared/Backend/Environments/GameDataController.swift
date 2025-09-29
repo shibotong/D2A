@@ -52,6 +52,14 @@ class GameDataController: ObservableObject {
         }
     }
     
+    func loadMatch(matchID: Int, context: NSManagedObjectContext) async throws -> Match {
+        let matchData = try await openDotaProvider.match(id: matchID)
+        let existingMatch = try context.fetchOne(type: Match.self, predicate: Match.predicate(id: matchID))
+        let savedMatch = try persistanceProvider.persistent(mapping: matchData, existing: existingMatch, context: context)
+        try context.save()
+        return savedMatch
+    }
+        
     private func calculateDaysSinceLastMatch(userID: String, context: NSManagedObjectContext) -> Double? {
         guard let latestMatch = RecentMatch.fetch(userID: userID, count: 1, viewContext: context).first else {
             return nil
