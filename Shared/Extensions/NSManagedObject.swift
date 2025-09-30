@@ -36,6 +36,10 @@ extension NSManagedObjectContext {
     
     func persistent<T: Mappable>(mapping json: [String: Any], to type: T.Type, id: Int) throws -> T {
         let existing = try fetchOne(type: T.self, predicate: T.predicate(id: id))
+        return try persistent(mapping: json, existing: existing)
+    }
+    
+    func persistent<T: Mappable>(mapping json: [String: Any], existing: T?) throws -> T {
         let object = existing ?? T(context: self)
         try object.map(from: json)
         try save()
