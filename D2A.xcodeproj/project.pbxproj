@@ -504,6 +504,7 @@
 		79E0E2D52E8BD62100405DA2 /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E0E2D42E8BD61F00405DA2 /* League.swift */; };
 		79E0E2D62E8BD62100405DA2 /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E0E2D42E8BD61F00405DA2 /* League.swift */; };
 		79E0E2D72E8BD62100405DA2 /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E0E2D42E8BD61F00405DA2 /* League.swift */; };
+		79E0E2D92E8BD7B400405DA2 /* MatchSavingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E0E2D82E8BD7AD00405DA2 /* MatchSavingTests.swift */; };
 		79E41BC02E35FADA00AF520F /* HeroDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E41BBF2E35FAD600AF520F /* HeroDetailView.swift */; };
 		79E41BC82E360FDA00AF520F /* HeroDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */; };
 		79E89A2A2DF6AE7B00497B5D /* ODGameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A292DF6AE7B00497B5D /* ODGameMode.swift */; };
@@ -861,6 +862,7 @@
 		79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchPlayerView.swift; sourceTree = "<group>"; };
 		79E0E2D02E8BD32B00405DA2 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		79E0E2D42E8BD61F00405DA2 /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
+		79E0E2D82E8BD7AD00405DA2 /* MatchSavingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchSavingTests.swift; sourceTree = "<group>"; };
 		79E41BBF2E35FAD600AF520F /* HeroDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailView.swift; sourceTree = "<group>"; };
 		79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailRow.swift; sourceTree = "<group>"; };
 		79E89A292DF6AE7B00497B5D /* ODGameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODGameMode.swift; sourceTree = "<group>"; };
@@ -1373,6 +1375,7 @@
 			children = (
 				79B551832DF6906E001CA42B /* OpenDotaConstantsTests.swift */,
 				790D96312E514D4A0090801B /* OpenDotaTests.swift */,
+				79E0E2D82E8BD7AD00405DA2 /* MatchSavingTests.swift */,
 			);
 			path = DataLoadingTests;
 			sourceTree = "<group>";
@@ -2632,6 +2635,7 @@
 			files = (
 				79AF52CC2E082DFE009FE792 /* OpenDotaConstantsTests.swift in Sources */,
 				790D96322E514D4A0090801B /* OpenDotaTests.swift in Sources */,
+				79E0E2D92E8BD7B400405DA2 /* MatchSavingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
