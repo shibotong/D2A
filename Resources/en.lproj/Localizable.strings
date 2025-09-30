@@ -41,3 +41,28 @@
 "ClearSearchButtonTitle" = "Clear Searches";
 
 "Cancel" = "Cancel";
+
+// MARK: - Game Text
+// MARK: Region
+"US WEST" = "US West";
+"US EAST" = "US East";
+"EUROPE" = "Europe";
+"SINGAPORE" = "Singapore";
+"DUBAI" = "Dubai";
+"AUSTRALIA" = "Australia";
+"STOCKHOLM" = "Stockhold";
+"AUSTRIA" = "Austria";
+"BRAZIL" = "Brazil";
+"SOUTHAFRICA" = "South Africa";
+"PW TELECOM SHANGHAI" = "PW Telecom Shanghai";
+"PW UNICOM" = "PW Unicom";
+"CHILE" = "Chile";
+"PERU" = "Peru";
+"INDIA" = "India";
+"PW TELECOM GUANGDONG" = "PW Telecom Guangdong";
+"PW TELECOM ZHEJIANG" = "PW Telecom Zhejiang";
+"JAPAN" = "Japan";
+"PW TELECOM WUHAN" = "PW Telecom Wuhan";
+"PW UNICOM TIANJIN" = "PW Unicom Tianjin";
+"TAIWAN" = "Taiwan";
+"ARGENTINA" = "Argentina";
