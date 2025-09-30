@@ -505,6 +505,7 @@
 		79E0E2D62E8BD62100405DA2 /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E0E2D42E8BD61F00405DA2 /* League.swift */; };
 		79E0E2D72E8BD62100405DA2 /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E0E2D42E8BD61F00405DA2 /* League.swift */; };
 		79E0E2D92E8BD7B400405DA2 /* MatchSavingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E0E2D82E8BD7AD00405DA2 /* MatchSavingTests.swift */; };
+		79E0E2DB2E8BDA1D00405DA2 /* GameDataSavingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E0E2DA2E8BDA1700405DA2 /* GameDataSavingTests.swift */; };
 		79E41BC02E35FADA00AF520F /* HeroDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E41BBF2E35FAD600AF520F /* HeroDetailView.swift */; };
 		79E41BC82E360FDA00AF520F /* HeroDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */; };
 		79E89A2A2DF6AE7B00497B5D /* ODGameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A292DF6AE7B00497B5D /* ODGameMode.swift */; };
@@ -863,6 +864,7 @@
 		79E0E2D02E8BD32B00405DA2 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		79E0E2D42E8BD61F00405DA2 /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
 		79E0E2D82E8BD7AD00405DA2 /* MatchSavingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchSavingTests.swift; sourceTree = "<group>"; };
+		79E0E2DA2E8BDA1700405DA2 /* GameDataSavingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataSavingTests.swift; sourceTree = "<group>"; };
 		79E41BBF2E35FAD600AF520F /* HeroDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailView.swift; sourceTree = "<group>"; };
 		79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailRow.swift; sourceTree = "<group>"; };
 		79E89A292DF6AE7B00497B5D /* ODGameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODGameMode.swift; sourceTree = "<group>"; };
@@ -1586,6 +1588,7 @@
 		79AF52242E0034AF009FE792 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				79E0E2DA2E8BDA1700405DA2 /* GameDataSavingTests.swift */,
 				798E0FF72E2F7FCF0066D7E1 /* OpenDota */,
 				79D187362E16221C00C04CC8 /* StratzControllerTests.swift */,
 				79AF52252E0034BF009FE792 /* ImageControllerTests.swift */,
@@ -2211,6 +2214,7 @@
 				79AF52262E0034BF009FE792 /* ImageControllerTests.swift in Sources */,
 				79DA22032E857B3E00AD350C /* FileReader.swift in Sources */,
 				79AF52282E0034E7009FE792 /* ImageProviderTests.swift in Sources */,
+				79E0E2DB2E8BDA1D00405DA2 /* GameDataSavingTests.swift in Sources */,
 				79CF375C2DC0F8F800207CB8 /* D2AError.swift in Sources */,
 				79D187252E13D21100C04CC8 /* HeroListViewModelTests.swift in Sources */,
 				79D187372E16222100C04CC8 /* StratzControllerTests.swift in Sources */,
