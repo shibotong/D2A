@@ -65,7 +65,7 @@ struct HeroImageViewV2: View {
     
     @MainActor
     private func loadImage() async {
-        try? await environment.refreshImage(type: .hero(type: type), id: name, fileExtension: .png, url: computeURLString()) { image in
+        await environment.refreshImage(type: .hero(type: type), id: name, fileExtension: .png, url: computeURLString()) { image in
             self.image = image
         }
     }
