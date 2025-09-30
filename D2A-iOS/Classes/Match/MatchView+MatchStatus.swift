@@ -21,32 +21,28 @@ extension MatchViewV2 {
         var body: some View {
             if horizontalSizeClass == .regular {
                 HStack {
-                    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+                    matchType
+                    regionView
                 }
+                .bold()
             }
         }
         
         private var regionView: some View {
-            Label("region", systemImage: regionImage(regionID: regionID))
+            Label(region.localizedName, systemImage: region.globeIcon)
         }
         
-        private func regionImage(regionID: Int) -> String {
-            switch regionID {
-            case 1, 2, 10, 14, 15, 38:
-                return "globe.americas.fill"
-            case 3, 8, 9, 11:
-                return "globe.europe.africa.fill"
-            case 5, 7, 12, 13, 17, 18, 19, 20, 25, 37:
-                return "globe.asia.australia.fill"
-            case 6, 16:
-                return "globe.central.asia.fill"
-            default:
-                return "globe"
-            }
+        private var matchType: some View {
+            Text("\(lobby) / \(mode)")
         }
     }
 }
 
 #Preview {
-    MatchViewV2.MatchStatus(region: 1, matchID: 1000000, startTime: Date(), mode: "All Pick", lobby: "Ranked")
+    let context = PersistanceProvider(inMemory: true).mainContext
+    var region = Region(context: context)
+    region.regionID = 1
+    region.name = "US WEST"
+    try? context.saveChanges()
+    return MatchViewV2.MatchStatus(region: region, matchID: 1000000, startTime: Date(), mode: "All Pick", lobby: "Ranked")
 }
