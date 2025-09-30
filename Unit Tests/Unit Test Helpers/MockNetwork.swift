@@ -19,7 +19,7 @@ class MockNetwork: D2ANetworking {
     }
     
     func dataTask<T>(_ urlString: String, as type: T.Type) async throws -> T where T : Decodable {
-        if urlString.contains("https://api.opendota.com/api/match/") {
+        if urlString.contains("https://api.opendota.com/api/matches/") {
             let match = try fileReader.loadFile(filename: "test_match", as: T.self)
             return match
         }
@@ -27,6 +27,10 @@ class MockNetwork: D2ANetworking {
     }
     
     func dataTask(_ urlString: String) async throws -> Any {
+        if urlString.contains("https://api.opendota.com/api/matches/") {
+            let match = try fileReader.loadFile(filename: "test_match")
+            return match
+        }
         throw error
     }
     

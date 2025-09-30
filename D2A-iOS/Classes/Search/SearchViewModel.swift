@@ -32,7 +32,7 @@ class SearchViewModel: ObservableObject {
         return !heroes.isEmpty || !localProfiles.isEmpty || !remoteProfiles.isEmpty || searchedMatch != nil
     }
     
-    init(viewContext: D2AManagedObjectContext = PersistanceProvider.shared.mainContext,
+    init(viewContext: NSManagedObjectContext = PersistanceProvider.shared.mainContext,
          openDotaProvider: OpenDotaProviding = OpenDotaProvider.shared,
          gameDataController: GameDataController = GameDataController.shared) {
         self.viewContext = viewContext
@@ -82,9 +82,11 @@ class SearchViewModel: ObservableObject {
         async let searchedProfile = openDotaProvider.searchUserByText(text: searchText)
         if let matchID = Int(searchText) {
             do {
-                let match = try await gameDataController.loadMatch(matchID: matchID, context: viewContext)
-                
-                searchedMatch = match
+                searchedMatch = try viewContext.fetchOne(type: Match.self, predicate: Match.predicate(id: matchID))
+                if searchedMatch == nil {
+                    let matchData = try await openDotaProvider.match(id: matchID)
+                    searchedMatch = try viewContext.persistent(mapping: matchData, to: Match.self, id: matchID)
+                }
             } catch {
                 logError("An error occured when loading match. \(error.localizedDescription)", category: .opendota)
                 searchedMatch = nil

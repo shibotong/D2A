@@ -10,11 +10,11 @@ import Combine
 
 protocol PersistanceProviding {
     
-    var mainContext: D2AManagedObjectContext { get }
+    var mainContext: NSManagedObjectContext { get }
     
     var container: NSPersistentContainer { get }
     
-    func makeContext(author: String?) -> D2AManagedObjectContext
+    func makeContext(author: String?) -> NSManagedObjectContext
 
     func saveODData(data: [PersistanceModel], type: NSManagedObject.Type) async
     
@@ -23,8 +23,6 @@ protocol PersistanceProviding {
     func calculateDaysSinceLastMatch(userID: String, context: NSManagedObjectContext) -> Double?
     
     func loadDefaultData() throws
-    
-    func persistent<T: Mappable>(mapping json: [String: Any], existing: T?, context: NSManagedObjectContext) throws -> T
 }
 
 enum PersistanceError: Error {
@@ -37,7 +35,7 @@ class PersistanceProvider: PersistanceProviding {
     static let shared = PersistanceProvider()
 
     let container: NSPersistentContainer
-    let mainContext: D2AManagedObjectContext
+    let mainContext: NSManagedObjectContext
 
     /// A peristent history token used for fetching transactions from the store.
     private var lastToken: NSPersistentHistoryToken?
@@ -65,7 +63,7 @@ class PersistanceProvider: PersistanceProviding {
         Self.registerClasses()
         container = NSPersistentContainer(name: "D2AModel")
         container.viewContext.automaticallyMergesChangesFromParent = true
-        mainContext = D2AManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        mainContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         mainContext.persistentStoreCoordinator = container.persistentStoreCoordinator
         
         
@@ -219,8 +217,8 @@ class PersistanceProvider: PersistanceProviding {
         }
     }
 
-    func makeContext(author: String? = nil) -> D2AManagedObjectContext {
-        let privateContext = D2AManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+    func makeContext(author: String? = nil) -> NSManagedObjectContext {
+        let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = mainContext
         privateContext.transactionAuthor = author
         privateContext.automaticallyMergesChangesFromParent = true
@@ -355,11 +353,5 @@ class PersistanceProvider: PersistanceProviding {
                 logError("An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)", category: .coredata)
             }
         }
-    }
-    
-    func persistent<T: Mappable>(mapping json: [String: Any], existing: T?, context: NSManagedObjectContext) throws -> T {
-        var object = existing ?? T(context: context)
-        try object.map(from: json)
-        return object
     }
 }

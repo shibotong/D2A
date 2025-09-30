@@ -8,5 +8,6 @@
 import CoreData
 
 protocol Mappable: NSManagedObject {
+    static func predicate(id: Int) -> NSPredicate
     func map(from: [String: Any]) throws
 }

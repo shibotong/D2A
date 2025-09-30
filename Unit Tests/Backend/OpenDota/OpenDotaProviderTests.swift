@@ -18,12 +18,4 @@ struct OpenDotaProviderTests {
         network = MockNetwork()
         provider = OpenDotaProvider(network: network)
     }
-    
-    @Test("Test decoding match")
-    func decodingMatch() async throws {
-        let matchID = 8479398158
-        let match = try await provider.match(id: matchID)
-        #expect(match.matchID == matchID)
-    }
-    
 }
