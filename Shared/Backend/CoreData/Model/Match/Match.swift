@@ -85,6 +85,7 @@ extension Match: Mappable {
         case skill
         case radiantTeam = "radiant_team"
         case direTeam = "dire_team"
+        case league
     }
     
     func map(from json: [String: Any]) throws {
@@ -145,8 +146,6 @@ extension Match: Mappable {
             setIfNotEqual(entity: self, path: \.version, value: Int16(version))
         }
         
-        // TODO: League
-        
         if let skill = json[CodingKeys.skill.rawValue] as? Int {
             setIfNotEqual(entity: self, path: \.skill, value: Int16(skill))
         }
@@ -160,6 +159,7 @@ extension Match: Mappable {
         mapDraftTiming(from: json)
         mapPickBan(from: json)
         mapTeams(from: json)
+        mapLeague(from: json)
     }
     
     private func mapChat(from json: [String: Any]) {
@@ -213,5 +213,23 @@ extension Match: Mappable {
                 logError("Not able to persist dire team", category: .coredata)
             }
         }
+    }
+    
+    private func mapLeague(from json: [String: Any]) {
+        guard let context = managedObjectContext else {
+            logError("No context for Match", category: .coredata)
+            return
+        }
+        guard let leagueData = json[CodingKeys.league.rawValue] as? [String: Any],
+              let leagueID = leagueData["league_id"] as? Int else {
+            return
+        }
+        do {
+            let league = try context.persistent(mapping: leagueData, to: League.self, id: leagueID)
+            setIfNotEqual(entity: self, path: \.league, value: league)
+        } catch {
+            logError("Not able to persist league", category: .coredata)
+        }
+        
     }
 }
