@@ -83,6 +83,8 @@ extension Match: Mappable {
         case towerStatusRadiant = "tower_status_radiant"
         case version
         case skill
+        case radiantTeam = "radiant_team"
+        case direTeam = "dire_team"
     }
     
     func map(from json: [String: Any]) throws {
@@ -144,6 +146,8 @@ extension Match: Mappable {
         }
         
         // TODO: Team
+        
+        
         // TODO: League
         
         if let skill = json[CodingKeys.skill.rawValue] as? Int {
@@ -158,7 +162,7 @@ extension Match: Mappable {
         mapChat(from: json)
         mapDraftTiming(from: json)
         mapPickBan(from: json)
-        
+        mapTeams(from: json)
     }
     
     private func mapChat(from json: [String: Any]) {
@@ -186,5 +190,31 @@ extension Match: Mappable {
         }
         let picksBans = picksBansJson.compactMap{ PickBan(from: $0) }
         self.picksBans = picksBans
+    }
+    
+    private func mapTeams(from json: [String: Any]) {
+        guard let context = managedObjectContext else {
+            logError("No context for Match", category: .coredata)
+            return
+        }
+        if let radiantTeam = json[CodingKeys.radiantTeam.rawValue] as? [String: Any],
+           let teamID = radiantTeam["team_id"] as? Int {
+            do {
+                let team = try context.persistent(mapping: radiantTeam, to: Team.self, id: teamID)
+                setIfNotEqual(entity: self, path: \.radiantTeam, value: team)
+            } catch {
+                logError("Not able to persist radiant team", category: .coredata)
+            }
+        }
+        
+        if let direTeam = json[CodingKeys.direTeam.rawValue] as? [String: Any],
+           let teamID = direTeam["team_id"] as? Int {
+            do {
+                let team = try context.persistent(mapping: direTeam, to: Team.self, id: teamID)
+                setIfNotEqual(entity: self, path: \.direTeam, value: team)
+            } catch {
+                logError("Not able to persist dire team", category: .coredata)
+            }
+        }
     }
 }

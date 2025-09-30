@@ -498,6 +498,9 @@
 		79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
 		79E01CAA291E35320073BF68 /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
 		79E01CAB291E35320073BF68 /* MatchListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */; };
+		79E0E2D12E8BD32C00405DA2 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E0E2D02E8BD32B00405DA2 /* Team.swift */; };
+		79E0E2D22E8BD32C00405DA2 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E0E2D02E8BD32B00405DA2 /* Team.swift */; };
+		79E0E2D32E8BD32C00405DA2 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E0E2D02E8BD32B00405DA2 /* Team.swift */; };
 		79E41BC02E35FADA00AF520F /* HeroDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E41BBF2E35FAD600AF520F /* HeroDetailView.swift */; };
 		79E41BC82E360FDA00AF520F /* HeroDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */; };
 		79E89A2A2DF6AE7B00497B5D /* ODGameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E89A292DF6AE7B00497B5D /* ODGameMode.swift */; };
@@ -853,6 +856,7 @@
 		79DA22112E86717500AD350C /* Match+PickBan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Match+PickBan.swift"; sourceTree = "<group>"; };
 		79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowViewModel.swift; sourceTree = "<group>"; };
 		79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchPlayerView.swift; sourceTree = "<group>"; };
+		79E0E2D02E8BD32B00405DA2 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		79E41BBF2E35FAD600AF520F /* HeroDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailView.swift; sourceTree = "<group>"; };
 		79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailRow.swift; sourceTree = "<group>"; };
 		79E89A292DF6AE7B00497B5D /* ODGameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODGameMode.swift; sourceTree = "<group>"; };
@@ -1773,6 +1777,7 @@
 		79E89A2E2DF6B0DD00497B5D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				79E0E2D02E8BD32B00405DA2 /* Team.swift */,
 				79EB3EFB2DC4B8EF008C4F6D /* Ability.swift */,
 				327772B226D9D735000A0A97 /* GameMode.swift */,
 				7985E7EA28E53919007A43AF /* Hero.swift */,
@@ -2221,6 +2226,7 @@
 				32B36F4A26C39242002D427D /* StringVariable.swift in Sources */,
 				7985E7EB28E53919007A43AF /* Hero.swift in Sources */,
 				79AF528A2E02A639009FE792 /* OnChange.swift in Sources */,
+				79E0E2D22E8BD32C00405DA2 /* Team.swift in Sources */,
 				79F13C872E7E501C003B06B9 /* PlayerView.swift in Sources */,
 				79DA22142E86717A00AD350C /* Match+PickBan.swift in Sources */,
 				798A5CF82945503100EB07B0 /* ProfileAvatar.swift in Sources */,
@@ -2473,6 +2479,7 @@
 				790D961A2E5005850090801B /* OpenDotaConstantProvider+Preview.swift in Sources */,
 				79D1871C2E0D667B00C04CC8 /* HeroAttribute.swift in Sources */,
 				79EB3F862DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */,
+				79E0E2D32E8BD32C00405DA2 /* Team.swift in Sources */,
 				79A989202931ECBB006AC847 /* Player.swift in Sources */,
 				32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */,
 				797C88AF2DCB59B900D4CDD1 /* UserDefaults.swift in Sources */,
@@ -2521,6 +2528,7 @@
 				794838672A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				32B526CE285C18450099B058 /* RankView.swift in Sources */,
 				32F70B0E26F622AE006E9B05 /* StringVariable.swift in Sources */,
+				79E0E2D12E8BD32C00405DA2 /* Team.swift in Sources */,
 				79A989112931E8F3006AC847 /* UserProfile.swift in Sources */,
 				32F70B2226F6295C006E9B05 /* CodingKey.swift in Sources */,
 				32F70B1126F622C5006E9B05 /* ODHero.swift in Sources */,
