@@ -12,7 +12,7 @@ struct SearchView: View {
     
     var body: some View {
         SearchResultView(viewModel: viewModel)
-        .navigationTitle(LocalizableStrings.search)
+            .navigationTitle(LocalizableStrings.search)
             .searchable(
                 text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always),
                 prompt: LocalizableStrings.searchPageTitle

@@ -51,7 +51,7 @@ class GameDataController: ObservableObject {
             insertRecentMatches(matches: matches, userID: userID, context: viewContext)
         }
     }
-    
+        
     private func calculateDaysSinceLastMatch(userID: String, context: NSManagedObjectContext) -> Double? {
         guard let latestMatch = RecentMatch.fetch(userID: userID, count: 1, viewContext: context).first else {
             return nil
