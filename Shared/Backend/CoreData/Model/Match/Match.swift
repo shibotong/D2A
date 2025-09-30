@@ -145,9 +145,6 @@ extension Match: Mappable {
             setIfNotEqual(entity: self, path: \.version, value: Int16(version))
         }
         
-        // TODO: Team
-        
-        
         // TODO: League
         
         if let skill = json[CodingKeys.skill.rawValue] as? Int {

@@ -42,7 +42,9 @@ extension NSManagedObjectContext {
     func persistent<T: Mappable>(mapping json: [String: Any], existing: T?) throws -> T {
         let object = existing ?? T(context: self)
         try object.map(from: json)
-        try save()
+        if object.hasChanges {
+            try save()
+        }
         return object
     }
 }
