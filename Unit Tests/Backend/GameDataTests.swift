@@ -6,24 +6,25 @@
 //
 
 import Testing
+import CoreData
 @testable import D2A
 
 @Suite("Game Data Loading Tests")
 struct GameDataTests {
     
-    let gameDataController: GameDataController
     let persistanceProvider: PersistanceProvider
+    let openDotaProvider: OpenDotaProviding
     
     init() {
         persistanceProvider = PersistanceProvider(inMemory: true)
-        let openDotaProvider = OpenDotaProvider(network: MockNetwork())
-        gameDataController = GameDataController(persistanceProvider: persistanceProvider, openDotaProvider: openDotaProvider)
+        openDotaProvider = OpenDotaProvider(network: MockNetwork())
     }
     
     @Test("Test Saving Match", arguments: [8479398158])
     func testSavingMatch(matchID: Int) async throws {
+        let matchData = try await openDotaProvider.match(id: matchID)
         let context = persistanceProvider.makeContext(author: "match")
-        let match = try await gameDataController.loadMatch(matchID: matchID)
+        let match = try context.persistent(mapping: matchData, to: Match.self, id: matchID)
         #expect(match.matchID == Int64(matchID))
         #expect(match.version == Int16(22))
     }
