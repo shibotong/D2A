@@ -493,7 +493,6 @@
 		79DA22122E86717A00AD350C /* Match+PickBan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA22112E86717500AD350C /* Match+PickBan.swift */; };
 		79DA22132E86717A00AD350C /* Match+PickBan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA22112E86717500AD350C /* Match+PickBan.swift */; };
 		79DA22142E86717A00AD350C /* Match+PickBan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA22112E86717500AD350C /* Match+PickBan.swift */; };
-		79DA221E2E8AA19100AD350C /* GameDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DA221D2E8AA18D00AD350C /* GameDataTests.swift */; };
 		79DEA8432A36A3060009A414 /* PlayerRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */; };
 		79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */; };
 		79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
@@ -1577,7 +1576,6 @@
 		79AF52242E0034AF009FE792 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
-				79DA221D2E8AA18D00AD350C /* GameDataTests.swift */,
 				798E0FF72E2F7FCF0066D7E1 /* OpenDota */,
 				79D187362E16221C00C04CC8 /* StratzControllerTests.swift */,
 				79AF52252E0034BF009FE792 /* ImageControllerTests.swift */,
@@ -2208,7 +2206,6 @@
 				79AF52202E00347A009FE792 /* ImageExtension.swift in Sources */,
 				79DA21F72E85744C00AD350C /* OpenDotaProviderTests.swift in Sources */,
 				7937FF212E45F5210019145D /* DataHelperTests.swift in Sources */,
-				79DA221E2E8AA19100AD350C /* GameDataTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
