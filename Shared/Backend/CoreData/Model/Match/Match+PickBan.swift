@@ -52,7 +52,7 @@ public class PickBan: NSObject, NSSecureCoding {
     }
     
     public func encode(with coder: NSCoder) {
-        coder.encode(isPick, forKey: CodingKeys.order.rawValue)
+        coder.encode(isPick, forKey: CodingKeys.isPick.rawValue)
         coder.encode(heroID, forKey: CodingKeys.heroID.rawValue)
         coder.encode(team, forKey: CodingKeys.team.rawValue)
         coder.encode(order, forKey: CodingKeys.order.rawValue)

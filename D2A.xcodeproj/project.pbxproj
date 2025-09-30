@@ -851,7 +851,6 @@
 		79DA22092E86666F00AD350C /* Match+Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Match+Chat.swift"; sourceTree = "<group>"; };
 		79DA220D2E866B3000AD350C /* Match+DraftTiming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Match+DraftTiming.swift"; sourceTree = "<group>"; };
 		79DA22112E86717500AD350C /* Match+PickBan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Match+PickBan.swift"; sourceTree = "<group>"; };
-		79DA221D2E8AA18D00AD350C /* GameDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataTests.swift; sourceTree = "<group>"; };
 		79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowViewModel.swift; sourceTree = "<group>"; };
 		79DEA8442A36A6610009A414 /* LiveMatchPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchPlayerView.swift; sourceTree = "<group>"; };
 		79E41BBF2E35FAD600AF520F /* HeroDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailView.swift; sourceTree = "<group>"; };
