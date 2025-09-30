@@ -34,6 +34,7 @@ extension NSManagedObjectContext {
         try parent?.saveChanges()
     }
     
+    @discardableResult
     func persistent<T: Mappable>(mapping json: [String: Any], to type: T.Type, id: Int) throws -> T {
         let existing = try fetchOne(type: T.self, predicate: T.predicate(id: id))
         return try persistent(mapping: json, existing: existing)
@@ -43,7 +44,7 @@ extension NSManagedObjectContext {
         let object = existing ?? T(context: self)
         try object.map(from: json)
         if object.hasChanges {
-            try save()
+            try saveChanges()
         }
         return object
     }
