@@ -124,7 +124,7 @@ struct Provider: IntentTimelineProvider {
     private func refreshUser(for userID: String) async -> UserProfile? {
         do {
             let user = try await openDotaProvider.user(id: userID)
-            let newProfile = try user.update(context: persistanceProvider.mainContext) as? UserProfile
+            let newProfile = try user.update(context: persistanceProvider.mainContext)
             return newProfile
         } catch {
             return nil
