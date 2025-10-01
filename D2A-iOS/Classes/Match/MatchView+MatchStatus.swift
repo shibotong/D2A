@@ -24,7 +24,7 @@ extension MatchViewV2 {
                     matchType
                     regionView
                 }
-                .bold()
+                .font(.body.bold())
             }
         }
         
@@ -40,7 +40,7 @@ extension MatchViewV2 {
 
 #Preview {
     let context = PersistanceProvider(inMemory: true).mainContext
-    var region = Region(context: context)
+    let region = Region(context: context)
     region.regionID = 1
     region.name = "US WEST"
     try? context.saveChanges()
