@@ -31,7 +31,7 @@ extension PersistanceProvider {
         let context = provider.mainContext
         
         let user = OpenDotaProvider.user
-        let savedUser = try! user.update(context: context) as! UserProfile
+        let savedUser = try! user.update(context: context)
         
         let match = OpenDotaProvider.match
 //        let savedMatch = match.update(context: context)
