@@ -81,7 +81,7 @@ class PersistanceProvider: PersistanceProviding {
     }
     
     func loadDefaultData() throws {
-        if let hero = try mainContext.fetchOne(type: Hero.self) {
+        if try mainContext.fetchOne(type: Hero.self) != nil {
             logInfo("Constant data exists", category: .coredata)
             return
         }

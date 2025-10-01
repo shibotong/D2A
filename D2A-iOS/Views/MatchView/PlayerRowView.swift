@@ -244,14 +244,9 @@ struct PlayerRowView: View {
     @ViewBuilder private func buildAbility(abilityID: Int) -> some View {
         if let abilityName = ConstantsController.shared.fetchAbilityName(id: abilityID) {
             if let ability = ConstantsController.shared.fetchOpenDotaAbility(name: abilityName) {
-                if let img = ability.img,
-                    ability.desc != "Associated ability not drafted, have some gold!"
-                {
-                    let parsedimgURL = img.replacingOccurrences(of: "_md", with: "")
-                        .replacingOccurrences(
-                            of: "images/abilities", with: "images/dota_react/abilities")
+                if ability.img != nil, ability.desc != "Associated ability not drafted, have some gold!" {
                     AbilityImage(name: abilityName)
-                    .frame(width: 40, height: 40)
+                       .frame(width: 40, height: 40)
                 } else {
                     // no image
                     if abilityID == 730 {
