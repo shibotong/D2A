@@ -45,7 +45,7 @@ struct SearchResultView: View {
                 }
             }
             ForEach(viewModel.heroes) { hero in
-                NavigationLink(value: hero) {
+                NavigationLink(destination: HeroDetailView(hero: hero)) {
                     HStack {
                         HeroImageViewV2(hero: hero, type: .icon)
                             .frame(width: imageSize)
@@ -55,12 +55,12 @@ struct SearchResultView: View {
                 }
             }
             ForEach(viewModel.localProfiles) { profile in
-                NavigationLink(value: profile) {
+                NavigationLink(destination: PlayerProfileView(user: profile)) {
                     ProfileView(profile: profile)
                 }
             }
             ForEach(viewModel.remoteProfiles) { profile in
-                NavigationLink(value: profile.accountID.description) {
+                NavigationLink(destination: PlayerProfileView(userid: profile.accountID.description)) {
                     ProfileView(userID: profile.accountID.description, personaname: profile.personaname, avatarfull: profile.avatarFull
                     )
                 }
@@ -68,15 +68,6 @@ struct SearchResultView: View {
         }
         .listStyle(.plain)
         .foregroundColor(.label)
-        .navigationDestination(for: Hero.self) { hero in
-            HeroDetailView(hero: hero)
-        }
-        .navigationDestination(for: UserProfile.self, destination: { user in
-            PlayerProfileView(user: user)
-        })
-        .navigationDestination(for: String.self) { userID in
-            PlayerProfileView(userid: userID)
-        }
     }
     
     private var emptySearchPage: some View {
@@ -105,7 +96,7 @@ struct SearchResultView: View {
 }
 
 #Preview {
-    NavigationStack {
+    NavigationView {
         SearchResultView(viewModel: SearchViewModel(viewContext: PersistanceProvider.preview.mainContext))
     }
     .searchable(text: .constant(""))

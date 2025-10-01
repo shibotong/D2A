@@ -6,9 +6,9 @@
 //
 
 extension Match {
-    static var match: Match {
-        let match = OpenDotaProvider.match
-        let context = PersistanceProvider.previewProvider.mainContext
-        return match.update(context: context)
-    }
+//    static var match: Match {
+//        let match = OpenDotaProvider.match
+//        let context = PersistanceProvider.previewProvider.mainContext
+//        return match.update(context: context)
+//    }
 }

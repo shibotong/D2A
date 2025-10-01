@@ -10,9 +10,4 @@ extension OpenDotaProvider {
         let previewProvider = PreviewDataProvider.shared
         return previewProvider.loadOpenDotaUser()
     }
-    
-    static var match: ODMatch {
-        let provider = PreviewDataProvider.shared
-        return provider.loadOpenDotaMatch()
-    }
 }

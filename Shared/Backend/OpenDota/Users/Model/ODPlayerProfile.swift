@@ -110,7 +110,7 @@ struct ODPlayerProfile: Decodable {
     }
     
     func update(context: NSManagedObjectContext, favourite: Bool, register: Bool) throws {
-        let user = try update(context: context) as! UserProfile
+        let user = try update(context: context)
         setIfNotEqual(entity: user, path: \.favourite, value: favourite)
         setIfNotEqual(entity: user, path: \.register, value: register)
     }

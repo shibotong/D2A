@@ -10,11 +10,11 @@ import Combine
 
 protocol PersistanceProviding {
     
-    var mainContext: D2AManagedObjectContext { get }
+    var mainContext: NSManagedObjectContext { get }
     
     var container: NSPersistentContainer { get }
     
-    func makeContext(author: String?) -> D2AManagedObjectContext
+    func makeContext(author: String?) -> NSManagedObjectContext
 
     func saveODData(data: [PersistanceModel], type: NSManagedObject.Type) async
     
@@ -35,7 +35,7 @@ class PersistanceProvider: PersistanceProviding {
     static let shared = PersistanceProvider()
 
     let container: NSPersistentContainer
-    let mainContext: D2AManagedObjectContext
+    let mainContext: NSManagedObjectContext
 
     /// A peristent history token used for fetching transactions from the store.
     private var lastToken: NSPersistentHistoryToken?
@@ -63,7 +63,7 @@ class PersistanceProvider: PersistanceProviding {
         Self.registerClasses()
         container = NSPersistentContainer(name: "D2AModel")
         container.viewContext.automaticallyMergesChangesFromParent = true
-        mainContext = D2AManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        mainContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         mainContext.persistentStoreCoordinator = container.persistentStoreCoordinator
         
         // Observe Core Data remote change notifications on the queue where the changes were made.
@@ -79,28 +79,28 @@ class PersistanceProvider: PersistanceProviding {
     }
     
     func loadDefaultData() throws {
-        if let hero = try mainContext.fetchOne(type: Hero.self) {
+        if try mainContext.fetchOne(type: Hero.self) != nil {
             logInfo("Constant data exists", category: .coredata)
             return
         }
         logDebug("Constant data doesn't exist, adding default data", category: .coredata)
         let processor = OpenDotaConstantProcessor.shared
         // Heroes
-        let defaultHeroes = try FileReader.loadFile(filename: OpenDotaConstantService.heroes.rawValue, as: [String: ODHero].self)
-        let defaultAbilities = try FileReader.loadFile(filename: OpenDotaConstantService.abilities.rawValue, as: [String: ODHeroAbilities].self)
-        let defaultLores = try FileReader.loadFile(filename: OpenDotaConstantService.heroLore.rawValue, as: [String: String].self)
+        let defaultHeroes = try FileReader.shared.loadFile(filename: OpenDotaConstantService.heroes.rawValue, as: [String: ODHero].self)
+        let defaultAbilities = try FileReader.shared.loadFile(filename: OpenDotaConstantService.abilities.rawValue, as: [String: ODHeroAbilities].self)
+        let defaultLores = try FileReader.shared.loadFile(filename: OpenDotaConstantService.heroLore.rawValue, as: [String: String].self)
         let heroes = processor.processHeroes(heroes: defaultHeroes, abilities: defaultAbilities, lores: defaultLores)
         saveODData(data: heroes, type: Hero.self)
         
         // Abilities
-        let abilityDict = try FileReader.loadFile(filename: OpenDotaConstantService.abilities.rawValue, as: [String: ODAbility].self)
-        let abilityIDs = try FileReader.loadFile(filename: OpenDotaConstantService.abilityIDs.rawValue, as: [String: String].self)
-        let scepters = try FileReader.loadFile(filename: OpenDotaConstantService.aghs.rawValue, as: [ODScepter].self)
+        let abilityDict = try FileReader.shared.loadFile(filename: OpenDotaConstantService.abilities.rawValue, as: [String: ODAbility].self)
+        let abilityIDs = try FileReader.shared.loadFile(filename: OpenDotaConstantService.abilityIDs.rawValue, as: [String: String].self)
+        let scepters = try FileReader.shared.loadFile(filename: OpenDotaConstantService.aghs.rawValue, as: [ODScepter].self)
         let abilities = processor.processAbilities(ability: abilityDict, ids: abilityIDs, scepters: scepters)
         saveODData(data: abilities, type: Ability.self)
         
         // GameModes
-        let gameModesDict = try FileReader.loadFile(filename: OpenDotaConstantService.gameMode.rawValue, as: [String: ODGameMode].self)
+        let gameModesDict = try FileReader.shared.loadFile(filename: OpenDotaConstantService.gameMode.rawValue, as: [String: ODGameMode].self)
         let gameModes = processor.processGameModes(modes: gameModesDict)
         saveODData(data: gameModes, type: GameMode.self)
         
@@ -127,6 +127,8 @@ class PersistanceProvider: PersistanceProviding {
         ArrayValueTransformer<Role>.registerTransformer(with: .heroRole)
         ArrayValueTransformer<Talent>.registerTransformer(with: .heroTalent)
         ArrayValueTransformer<HeroTranslation>.registerTransformer(with: .heroTranslation)
+        ArrayValueTransformer<Chat>.registerTransformer(with: .chats)
+        ArrayValueTransformer<DraftTiming>.registerTransformer(with: .draftTiming)
     }
 
     private func removeContainer() {
@@ -229,8 +231,8 @@ class PersistanceProvider: PersistanceProviding {
         }
     }
 
-    func makeContext(author: String? = nil) -> D2AManagedObjectContext {
-        let privateContext = D2AManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+    func makeContext(author: String? = nil) -> NSManagedObjectContext {
+        let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = mainContext
         privateContext.transactionAuthor = author
         privateContext.automaticallyMergesChangesFromParent = true

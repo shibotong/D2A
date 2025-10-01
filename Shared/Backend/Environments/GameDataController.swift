@@ -51,7 +51,7 @@ class GameDataController: ObservableObject {
             insertRecentMatches(matches: matches, userID: userID, context: viewContext)
         }
     }
-    
+        
     private func calculateDaysSinceLastMatch(userID: String, context: NSManagedObjectContext) -> Double? {
         guard let latestMatch = RecentMatch.fetch(userID: userID, count: 1, viewContext: context).first else {
             return nil
@@ -70,7 +70,7 @@ class GameDataController: ObservableObject {
     }
     
     private func insertRecentMatches(matches: [RecentMatchCodable], userID: String, context: NSManagedObjectContext) {
-        guard let user = UserProfile.fetch(id: userID, viewContext: context) else {
+        guard UserProfile.fetch(id: userID, viewContext: context) != nil else {
             logError("User profile for \(userID) not found.", category: .coredata)
             return
         }
@@ -92,7 +92,7 @@ class GameDataController: ObservableObject {
             logError("less than 50 matches should not use batch insert", category: .coredata)
         }
         let bgContext = persistanceProvider.makeContext(author: "RecentMatch")
-        guard let user = UserProfile.fetch(id: userID, viewContext: bgContext) else {
+        guard UserProfile.fetch(id: userID, viewContext: bgContext) != nil else {
             logError("User profile for \(userID) not found.", category: .coredata)
             return
         }

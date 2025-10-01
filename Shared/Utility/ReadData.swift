@@ -7,18 +7,7 @@
 
 import Foundation
 
-struct FileReader {
-    static func loadFile<T: Decodable>(filename: String, as type: T.Type) throws -> T {
-        guard let path = Bundle.main.url(forResource: filename, withExtension: "json") else {
-            throw D2AError(message: "Not able to find file \(filename).json")
-        }
-        
-        let data = try Data(contentsOf: path)
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode(T.self, from: data)
-        return jsonData
-    }
-}
+
 
 private func loadFile(filename: String) -> Data? {
     guard let path = Bundle.main.url(forResource: filename, withExtension: "json") else {
@@ -190,22 +179,6 @@ func loadAbilities() async -> [String: ODAbility] {
         debugPrint("Load Abilities", error)
         return [:]
     }
-}
-
-func loadMatch() -> ODMatch? {
-    guard let data = loadFile(filename: "sampleMatch") else {
-        return nil
-    }
-
-    do {
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode(ODMatch.self, from: data)
-        return jsonData
-    } catch {
-        debugPrint(error)
-        return nil
-    }
-
 }
 
 func loadItemIDs() async -> [String: String] {

@@ -53,7 +53,7 @@ struct NavigationHostView: View {
     var body: some View {
         if horizontalSizeClass == .compact {
             TabView(selection: $env.selectedTab) {
-                NavigationStack {
+                NavigationView {
                     HomeView()
                 }
                 .tabItem {
@@ -62,7 +62,7 @@ struct NavigationHostView: View {
                 }
                 .tag(TabSelection.home)
 
-                NavigationStack {
+                NavigationView {
                     HeroListContainer()
                 }
                 .tabItem {
@@ -71,7 +71,7 @@ struct NavigationHostView: View {
                 }
                 .tag(TabSelection.hero)
 
-                NavigationStack {
+                NavigationView {
                     LiveMatchListView()
                 }
                 .tabItem {
@@ -80,7 +80,7 @@ struct NavigationHostView: View {
                 }
                 .tag(TabSelection.live)
 
-                NavigationStack {
+                NavigationView {
                     SearchView()
                         .searchable(text: $text)
                 }
@@ -90,7 +90,7 @@ struct NavigationHostView: View {
                 }
                 .tag(TabSelection.search)
 
-                NavigationStack {
+                NavigationView {
                     AboutUsView()
                 }
                 .tabItem {
@@ -100,14 +100,10 @@ struct NavigationHostView: View {
                 .tag(TabSelection.setting)
             }
         } else {
-            NavigationSplitView {
+            NavigationView {
                 Sidebar()
-            } detail: {
-                NavigationStack {
-                    HomeView()
-                }
+                HomeView()
             }
-
         }
     }
 }

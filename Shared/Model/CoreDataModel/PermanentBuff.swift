@@ -14,9 +14,9 @@ class PermanentBuff: NSObject, NSSecureCoding {
     let buffID: Int
     let stack: Int
 
-    init(_ permanentBuff: PermanentBuffCodable) {
-        buffID = permanentBuff.buffID
-        stack = permanentBuff.stack
+    init(buffID: Int, stack: Int) {
+        self.buffID = buffID
+        self.stack = stack
     }
 
     enum CodingKeys: String {
