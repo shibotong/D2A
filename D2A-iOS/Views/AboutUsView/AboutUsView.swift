@@ -37,9 +37,7 @@ struct AboutUsView: View {
                             detail: logger.loggingLevel.icon)
                     }
                     makeButton(image: "trash", text: "Clear cache") {
-                        Task {
-                            await heroData.resetHeroData(context: context)
-                        }
+                        heroData.resetHeroData(context: context)
                     }
                 }
             #endif

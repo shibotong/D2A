@@ -30,6 +30,7 @@ struct ODPatch: Decodable, PersistanceModel {
     
     private var date: Date {
         let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         if let date = formatter.date(from: dateString) {
             return date
         } else {

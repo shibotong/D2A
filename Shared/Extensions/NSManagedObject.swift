@@ -47,4 +47,34 @@ extension NSManagedObjectContext {
         }
         return object
     }
+    
+    func hasData<T: NSManagedObject>(for entity: T.Type) -> Bool {
+        let request = entity.fetchRequest()
+        do {
+            return try count(for: request) > 0
+        } catch {
+            logError("Failed to count \(entity)s: \(error)", category: .coredata)
+            return true
+        }
+    }
+    
+    func batchInsert(dictionary: [[String: Any]], into entity: NSEntityDescription) {
+        let insertRequest = NSBatchInsertRequest(entity: entity, objects: dictionary)
+        insertRequest.resultType = .statusOnly
+        do {
+            let fetchResult = try execute(insertRequest)
+            if let batchInsertResult = fetchResult as? NSBatchInsertResult,
+               let success = batchInsertResult.result as? Bool {
+                if !success {
+                    logError("Failed to insert data in \(entity.name ?? "Unknown entity")", category: .coredata)
+                } else {
+                    logDebug("Insert data in \(entity.name ?? "Unknown entity") success", category: .coredata)
+                }
+            } else {
+                logWarn("Cast NSBatchInsertResult failed", category: .coredata)
+            }
+        } catch {
+            logError("An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)", category: .coredata)
+        }
+    }
 }

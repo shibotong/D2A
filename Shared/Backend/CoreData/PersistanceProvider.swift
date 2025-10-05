@@ -112,7 +112,7 @@ class PersistanceProvider: PersistanceProviding {
             return
         }
         // Patch
-        let patches = try FileReader.loadFile(filename: OpenDotaConstantService.patch.rawValue, as: [ODPatch].self)
+        let patches = try FileReader.shared.loadFile(filename: OpenDotaConstantService.patch.rawValue, as: [ODPatch].self)
         mainContext.batchInsert(dictionary: patches.map(\.dictionaries), into: Patch.entity())
     }
     
