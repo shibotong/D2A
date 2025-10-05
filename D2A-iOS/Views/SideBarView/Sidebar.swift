@@ -10,10 +10,10 @@ import SwiftUI
 struct Sidebar: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
-    @FetchRequest(
-        sortDescriptors: [],
-        predicate: NSPredicate(format: "favourite = %d", true))
-    private var favouritePlayers: FetchedResults<UserProfile>
+//    @FetchRequest(
+//        sortDescriptors: [],
+//        predicate: NSPredicate(format: "favourite = %d", true))
+//    private var favouritePlayers: FetchedResults<UserProfile>
 
     var body: some View {
         List {
@@ -38,19 +38,19 @@ struct Sidebar: View {
                 Label("Search", systemImage: "magnifyingglass")
             }
 
-            if !favouritePlayers.isEmpty {
-                Section {
-                    ForEach(favouritePlayers, id: \.userID) { player in
-                        NavigationLink(
-                            destination: PlayerProfileView(userid: player.userID.description)
-                        ) {
-                            SidebarRowView(userid: player.userID.description)
-                        }
-                    }
-                } header: {
-                    Text("Favorite Players")
-                }
-            }
+//            if !favouritePlayers.isEmpty {
+//                Section {
+//                    ForEach(favouritePlayers, id: \.userID) { player in
+//                        NavigationLink(
+//                            destination: PlayerProfileView(userid: player.userID.description)
+//                        ) {
+//                            SidebarRowView(userid: player.userID.description)
+//                        }
+//                    }
+//                } header: {
+//                    Text("Favorite Players")
+//                }
+//            }
             NavigationLink(
                 destination: AboutUsView()
             ) {
