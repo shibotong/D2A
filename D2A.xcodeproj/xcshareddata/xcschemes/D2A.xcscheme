@@ -55,9 +55,6 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "ImageProviderTests/testImageSaving()">
-               </Test>
-               <Test
                   Identifier = "OpenDotaConstantProviderTests/testProviderAbilities()">
                </Test>
             </SkippedTests>
