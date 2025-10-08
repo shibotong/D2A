@@ -59,15 +59,13 @@ class PersistanceProvider: PersistanceProviding {
         return url.appendingPathComponent("token.data", isDirectory: false)
     }()
 
-    init(inMemory: Bool = uiTesting ? true : false) {
+    init(inMemory: Bool = isTesting ? true : false) {
         Self.registerClasses()
         container = NSPersistentContainer(name: "D2AModel")
         container.viewContext.automaticallyMergesChangesFromParent = true
         mainContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         mainContext.persistentStoreCoordinator = container.persistentStoreCoordinator
         
-        
-
         // Observe Core Data remote change notifications on the queue where the changes were made.
         remoteChangeCancellable = NotificationCenter.Publisher(center: .default, name: .NSPersistentStoreRemoteChange)
             .sink(receiveValue: { [weak self] note in
@@ -105,6 +103,22 @@ class PersistanceProvider: PersistanceProviding {
         let gameModesDict = try FileReader.shared.loadFile(filename: OpenDotaConstantService.gameMode.rawValue, as: [String: ODGameMode].self)
         let gameModes = processor.processGameModes(modes: gameModesDict)
         saveODData(data: gameModes, type: GameMode.self)
+        
+        try insertDefaultPatch(context: mainContext)
+    }
+    
+    private func insertDefaultPatch(context: NSManagedObjectContext) throws {
+        guard try !dataExist(for: Patch.fetchRequest(), context: context) else {
+            return
+        }
+        // Patch
+        let patches = try FileReader.shared.loadFile(filename: OpenDotaConstantService.patch.rawValue, as: [ODPatch].self)
+        mainContext.batchInsert(dictionary: patches.map(\.dictionaries), into: Patch.entity())
+    }
+    
+    private func dataExist(for request: NSFetchRequest<NSFetchRequestResult>, context: NSManagedObjectContext) throws -> Bool {
+        let dataCount = try context.count(for: request)
+        return dataCount != 0
     }
 
     static func registerClasses() {
@@ -293,7 +307,7 @@ class PersistanceProvider: PersistanceProviding {
         let useMainContext = data.count <= 5 || mainContext
         let context = useMainContext ? self.mainContext : makeContext(author: "ODData")
         
-        if useMainContext || hasData(for: type, context: context) {
+        if useMainContext || context.hasData(for: type) {
             updateData(data: data, context: context)
         } else {
             batchInsertData(data, into: type.entity(), context: context)
@@ -318,40 +332,7 @@ class PersistanceProvider: PersistanceProviding {
         }
     }
 
-    /// Check if there is any data saved in core data
-    private func hasData<T: NSManagedObject>(for entity: T.Type, context: NSManagedObjectContext) -> Bool {
-        let request = entity.fetchRequest()
-        request.fetchLimit = 1
-        return context.performAndWait {
-            do {
-                let count = try context.count(for: request)
-                return count > 0
-            } catch {
-                logError("Cannot count number of \(entity) saved in Core Data", category: .coredata)
-                return true
-            }
-        }
-    }
-
     private func batchInsertData(_ data: [PersistanceModel], into entity: NSEntityDescription, context: NSManagedObjectContext) {
-        let insertRequest = NSBatchInsertRequest(entity: entity, objects: data.map { $0.dictionaries })
-        insertRequest.resultType = .statusOnly
-        context.performAndWait {
-            do {
-                let fetchResult = try context.execute(insertRequest)
-                if let batchInsertResult = fetchResult as? NSBatchInsertResult,
-                   let success = batchInsertResult.result as? Bool {
-                    if !success {
-                        logError("Failed to insert data in \(entity.name ?? "Unknown entity")", category: .coredata)
-                    } else {
-                        logDebug("Insert data in \(entity.name ?? "Unknown entity") success", category: .coredata)
-                    }
-                } else {
-                    logWarn("Cast NSBatchInsertResult failed", category: .coredata)
-                }
-            } catch {
-                logError("An error occured in batch insert \(entity.name ?? "Unknown entity") \(error)", category: .coredata)
-            }
-        }
+        context.batchInsert(dictionary: data.map{ $0.dictionaries }, into: entity)
     }
 }

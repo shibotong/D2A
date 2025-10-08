@@ -15,7 +15,7 @@ struct MatchSavingTests {
     let openDotaProvider: OpenDotaProviding
     
     init() {
-        viewContext = PersistanceProvider(inMemory: true).mainContext
+        viewContext = PersistanceProvider.shared.mainContext
         openDotaProvider = OpenDotaProvider()
     }
     
