@@ -59,7 +59,7 @@ class PersistanceProvider: PersistanceProviding {
         return url.appendingPathComponent("token.data", isDirectory: false)
     }()
 
-    init(inMemory: Bool = uiTesting ? true : false) {
+    init(inMemory: Bool = isTesting ? true : false) {
         Self.registerClasses()
         container = NSPersistentContainer(name: "D2AModel")
         container.viewContext.automaticallyMergesChangesFromParent = true

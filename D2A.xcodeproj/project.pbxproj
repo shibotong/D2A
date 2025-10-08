@@ -243,6 +243,9 @@
 		7910274B2E6BCD1B005B04E5 /* UserProfileMigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7910274A2E6BCD16005B04E5 /* UserProfileMigrationPolicy.swift */; };
 		7910274C2E6BCD1B005B04E5 /* UserProfileMigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7910274A2E6BCD16005B04E5 /* UserProfileMigrationPolicy.swift */; };
 		7910274D2E6BCD1B005B04E5 /* UserProfileMigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7910274A2E6BCD16005B04E5 /* UserProfileMigrationPolicy.swift */; };
+		7916584F2E9649ED00AB7CB1 /* D2AProStore.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 79A989262931FA50006AC847 /* D2AProStore.storekit */; };
+		791658502E9649ED00AB7CB1 /* D2AProStore.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 79A989262931FA50006AC847 /* D2AProStore.storekit */; };
+		791658512E9649ED00AB7CB1 /* D2AProStore.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 79A989262931FA50006AC847 /* D2AProStore.storekit */; };
 		79177B962E7E7AC700357234 /* MatchView+Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177B952E7E7AC200357234 /* MatchView+Banner.swift */; };
 		79177B982E7E7B0000357234 /* MatchView+TeamIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177B972E7E7AF600357234 /* MatchView+TeamIcon.swift */; };
 		7925405F2E30C8CC00201CF1 /* OpenDotaConstantProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */; };
@@ -2105,6 +2108,7 @@
 				32B36F1626C38822002D427D /* Preview Assets.xcassets in Resources */,
 				323ADB25272B91F500253124 /* items.json in Resources */,
 				7937FF4E2E4E07970019145D /* ability_ids.json in Resources */,
+				7916584F2E9649ED00AB7CB1 /* D2AProStore.storekit in Resources */,
 				7937FF522E4E07C50019145D /* hero_abilities.json in Resources */,
 				7937FF532E4E07C50019145D /* hero_lore.json in Resources */,
 				7937FF542E4E07C50019145D /* aghs_desc.json in Resources */,
@@ -2147,6 +2151,7 @@
 				7937FF4D2E4E07970019145D /* ability_ids.json in Resources */,
 				7937FF5E2E4E09E70019145D /* game_mode.json in Resources */,
 				323ADB58272E03E300253124 /* permanent_buffs.json in Resources */,
+				791658502E9649ED00AB7CB1 /* D2AProStore.storekit in Resources */,
 				32756CC128535CA800F38B81 /* Localizable.strings in Resources */,
 				327A7B8227152387001F964D /* Assets.xcassets in Resources */,
 				32F70AAE26F5803C006E9B05 /* sampleRecentMatch.json in Resources */,
@@ -2203,6 +2208,7 @@
 				7937FF552E4E07C50019145D /* hero_abilities.json in Resources */,
 				7937FF562E4E07C50019145D /* hero_lore.json in Resources */,
 				7937FF572E4E07C50019145D /* aghs_desc.json in Resources */,
+				791658512E9649ED00AB7CB1 /* D2AProStore.storekit in Resources */,
 				323ADB94272E03E500253124 /* item_ids.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
