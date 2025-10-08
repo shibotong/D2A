@@ -55,6 +55,10 @@ class ConstantsController: ObservableObject {
     }
 
     func loadData() async {
+        if isTesting {
+            logDebug("is Running Unit Test, not fetching from API", category: .constants)
+            return
+        }
         regions = loadRegion()!
         lobbyTypes = loadLobby()!
 
