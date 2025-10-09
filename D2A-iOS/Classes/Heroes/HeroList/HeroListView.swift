@@ -98,7 +98,9 @@ struct HeroListView: View {
     @ViewBuilder
     private func buildHeroGrid(heroes: [Hero], attribute: HeroAttribute) -> some View {
         Section {
-            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading),
+            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 64, maximum: 72),
+                                                         spacing: 5,
+                                                         alignment: .leading),
                                      count: 1)) {
                 ForEach(heroes) { hero in
                     buildHeroRow(hero: hero)
