@@ -86,6 +86,7 @@ extension Match: Mappable {
         case radiantTeam = "radiant_team"
         case direTeam = "dire_team"
         case league
+        case region
     }
     
     func map(from json: [String: Any]) throws {
@@ -152,7 +153,9 @@ extension Match: Mappable {
         
         // TODO: Players
         // TODO: Patch
-        // TODO: Region
+        if let regionID = json[CodingKeys.region.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.region, value: Int16(regionID))
+        }
         // TODO: Pauses
         
         mapChat(from: json)

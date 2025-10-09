@@ -177,22 +177,42 @@ class ConstantsController: ObservableObject {
         async let heroes = openDotaProvider.loadHeroes()
         async let abilities = openDotaProvider.loadAbilities()
         async let modes = openDotaProvider.loadGameModes()
+        async let regions = openDotaProvider.loadRegions()
         async let patches = openDotaProvider.loadPatches()
         
         do {
             let fetchedHeroes = try await heroes
             let fetchedAbilities = try await abilities
             let fetchedModes = try await modes
+            let fetchedRegions = try await regions
             let fetchedPatches = try await patches
+            
             await persistanceProvider.saveODData(data: fetchedHeroes, type: Hero.self)
             await persistanceProvider.saveODData(data: fetchedAbilities, type: Ability.self)
             await persistanceProvider.saveODData(data: fetchedModes, type: GameMode.self)
             await persistanceProvider.saveODData(data: fetchedPatches, type: Patch.self)
+            saveRegions(regions: fetchedRegions)
         } catch {
             try? persistanceProvider.loadDefaultData()
         }
         fetchHeroes()
         isLoading = false
+    }
+    
+    private func saveRegions(regions: [String: String]) {
+        let context = persistanceProvider.makeContext(author: "Regions")
+        for (regionIDString, regionName) in regions {
+            guard let regionID = Int(regionIDString) else {
+                logError("Region ID is not an integer. regionID: \(regionIDString)", category: .coredata)
+                continue
+            }
+            do {
+                try context.persistent(mapping: ["id": regionID, "name": regionName], to: Region.self, id: regionID)
+            } catch {
+                logError("Not able to persist region data. \(error)", category: .coredata)
+                continue
+            }
+        }
     }
 
     func resetHeroData(context: NSManagedObjectContext) {
