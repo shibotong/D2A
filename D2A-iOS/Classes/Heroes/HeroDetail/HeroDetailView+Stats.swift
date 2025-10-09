@@ -8,17 +8,18 @@
 import SwiftUI
 
 extension HeroDetailView {
+
     var statsView: some View {
         buildSection(title: "Stats") {
             if horizontalSizeClass == .regular {
                 HStack(alignment: .top) {
-                    statsSection {
+                    horizontalSection {
                         statsAttack
                     }
-                    statsSection {
+                    horizontalSection {
                         statsDefence
                     }
-                    statsSection {
+                    horizontalSection {
                         statsMobility
                     }
                 }
@@ -33,38 +34,32 @@ extension HeroDetailView {
         }
     }
     
+    // MARK: - Private Vars
+    
     @ViewBuilder
     private var statsAttack: some View {
-        statsRow(title: "Attack Speed", value: "\(hero.attackRate)s")
+        statRow(title: "Attack Speed", value: "\(hero.attackRate)s")
             .listRowSeparator(.hidden, edges: .top)
-        statsRow(title: "Damage", value: "\(hero.calculateAttackByLevel(level: heroLevel, isMin: true)) - \(hero.calculateAttackByLevel(level: heroLevel, isMin: false))")
-        statsRow(title: "Attack Range", value: "\(hero.attackRange)")
+        statRow(title: "Damage", value: "\(hero.calculateAttackByLevel(level: heroLevel, isMin: true)) - \(hero.calculateAttackByLevel(level: heroLevel, isMin: false))")
+        statRow(title: "Attack Range", value: "\(hero.attackRange)")
     }
     
     @ViewBuilder
     private var statsDefence: some View {
-        statsRow(title: "Armor", value: "\(String(format: "%.1f", hero.calculateArmorByLevel(level: heroLevel)))")
-        statsRow(title: "Magical Resistance", value: "\(hero.baseMr)%")
+        statRow(title: "Armor", value: "\(String(format: "%.1f", hero.calculateArmorByLevel(level: heroLevel)))")
+        statRow(title: "Magical Resistance", value: "\(hero.baseMr)%")
     }
     
     @ViewBuilder
     private var statsMobility: some View {
-        statsRow(title: "Movement Speed", value: "\(hero.moveSpeed)")
-        statsRow(title: "Turn Rate", value: "\(hero.turnRate)")
-        statsRow(title: "Vision Range", value: "\(Int(hero.visionDaytimeRange))/\(Int(hero.visionNighttimeRange))")
+        statRow(title: "Movement Speed", value: "\(hero.moveSpeed)")
+        statRow(title: "Turn Rate", value: "\(hero.turnRate)")
+        statRow(title: "Vision Range", value: "\(Int(hero.visionDaytimeRange))/\(Int(hero.visionNighttimeRange))")
             .listRowSeparator(.hidden, edges: .bottom)
     }
     
     @ViewBuilder
-    private func statsSection<Content: View>(@ViewBuilder content: () -> Content) -> some View {
-        VStack(alignment: .leading, spacing: 16) {
-            content()
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-    }
-    
-    @ViewBuilder
-    private func statsRow(title: String, value: String) -> some View {
+    private func statRow(title: String, value: String) -> some View {
         if horizontalSizeClass == .regular {
             VStack(alignment: .leading) {
                 Text(title)
