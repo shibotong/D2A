@@ -23,11 +23,6 @@ struct HeroDetailView: View {
     
     var body: some View {
         List {
-            //            VStack(spacing: 0) {
-            //                titleView
-            //                detailView
-            //                abilitiesView
-            //            }
             //            VStack {
             //                Group {
             //                    levelSlider
@@ -41,7 +36,11 @@ struct HeroDetailView: View {
             //                stackBuilder(views: talentsLoreCollection)
             //            }
             //            .padding(.horizontal)
+            titleView
+            abilitiesView
             levelSlider
+            HealthManaView(level: Int(heroLevel), hero: hero)
+                .listRowSeparator(.hidden)
             statsView
             loreView
         }
@@ -52,6 +51,33 @@ struct HeroDetailView: View {
         .task {
             self.abilities = loadAbilities()
         }
+    }
+    
+    private var abilitiesView: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(abilities) { ability in
+                    AbilityImage(name: ability.name, isInnate: ability.isInnate)
+                        .frame(width: 50, height: 50)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .onTapGesture {
+                            selectedAbility = ability
+                        }
+                }
+            }
+            .padding()
+        }
+        .listRowInsets(EdgeInsets())
+    }
+    
+    private var levelSlider: some View {
+        HStack {
+            Text("\(Int(heroLevel))")
+                .bold()
+            Slider(value: $heroLevel, in: 1...30, step: 1)
+            Text("30")
+        }
+        .listRowSeparator(.hidden)
     }
     
     private var loreView: some View {
@@ -68,6 +94,19 @@ struct HeroDetailView: View {
         }
     }
     
+    private var titleView: some View {
+        HStack(spacing: 16) {
+            HeroImageViewV2(name: hero.heroNameLowerCase, type: .full)
+                .frame(width: 100)
+                .clipShape(.rect(cornerRadius: 16))
+            VStack(alignment: .leading) {
+                Text(hero.heroNameLocalized)
+                    .font(.title2)
+                Text("Melee")
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
     
     
     private var talentsLoreCollection: some View {
@@ -80,9 +119,6 @@ struct HeroDetailView: View {
         .clipShape(RoundedRectangle(cornerRadius: 5))
     }
     
-    
-    
-    
     private var talentsView: some View {
         VStack(alignment: .leading) {
             buildSectionTitle(title: "Talents")
@@ -91,35 +127,6 @@ struct HeroDetailView: View {
                 buildTalents(level: 3, talents: talents)
                 buildTalents(level: 2, talents: talents)
                 buildTalents(level: 1, talents: talents)
-            }
-        }
-    }
-    
-    private var abilitiesView: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(abilities) { ability in
-                    AbilityImage(name: ability.name, isInnate: ability.isInnate)
-                        .frame(width: 40, height: 40)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .onTapGesture {
-                            selectedAbility = ability
-                        }
-                }
-            }
-            .padding()
-        }
-    }
-    
-    @ViewBuilder
-    private func stackBuilder(views: some View) -> some View {
-        if horizontalSizeClass == .compact {
-            VStack {
-                views
-            }
-        } else {
-            HStack(alignment: .top) {
-                views
             }
         }
     }
@@ -147,64 +154,8 @@ struct HeroDetailView: View {
         }
     }
     
-    private var levelSlider: some View {
-        HStack {
-            Text("\(Int(heroLevel))")
-                .bold()
-            Slider(value: $heroLevel, in: 1...30, step: 1)
-            Text("30")
-        }
-    }
     
-    private var titleView: some View {
-        HStack {
-            HeroImageViewV2(name: hero.heroNameLowerCase, type: .full)
-                .frame(height: 50)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-            Text(hero.heroNameLocalized)
-                .font(.largeTitle)
-                .bold()
-            Spacer()
-        }
-        .padding()
-        .background(Color.tertiarySystemBackground)
-    }
     
-    private var detailView: some View {
-        HStack(spacing: 10) {
-            attackType
-            roleView
-            Spacer()
-        }
-        .font(.caption)
-        .padding()
-        .background(Color.systemBackground)
-    }
-    
-    @ViewBuilder
-    private var roleView: some View {
-        if let roles = hero.rolesCollection {
-            HStack(spacing: detailSpacing) {
-                Image("ic_tag")
-                    .renderingMode(.template)
-                    .resizable()
-                    .frame(width: 15, height: 15)
-                    .foregroundStyle(Color.label)
-                Text(roles.joined(separator: ", "))
-            }
-        }
-    }
-    
-    private var attackType: some View {
-        HStack(spacing: detailSpacing) {
-            Image(hero.attackType == "Melee" ? "ic_sword" : "ic_archer")
-                .renderingMode(.template)
-                .resizable()
-                .frame(width: 15, height: 15)
-                .foregroundStyle(Color.label)
-            Text(hero.attackType ?? "Unknown")
-        }
-    }
     
     @ViewBuilder
     private func buildSectionTitle(icon: String? = nil, title: String, renderMode: Image.TemplateRenderingMode = .template) -> some View {
