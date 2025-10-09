@@ -246,6 +246,7 @@
 		7916584F2E9649ED00AB7CB1 /* D2AProStore.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 79A989262931FA50006AC847 /* D2AProStore.storekit */; };
 		791658502E9649ED00AB7CB1 /* D2AProStore.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 79A989262931FA50006AC847 /* D2AProStore.storekit */; };
 		791658512E9649ED00AB7CB1 /* D2AProStore.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 79A989262931FA50006AC847 /* D2AProStore.storekit */; };
+		7916590C2E978C8E00AB7CB1 /* HeroDetailView+Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7916590B2E978C8900AB7CB1 /* HeroDetailView+Stats.swift */; };
 		79177B962E7E7AC700357234 /* MatchView+Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177B952E7E7AC200357234 /* MatchView+Banner.swift */; };
 		79177B982E7E7B0000357234 /* MatchView+TeamIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177B972E7E7AF600357234 /* MatchView+TeamIcon.swift */; };
 		7925405F2E30C8CC00201CF1 /* OpenDotaConstantProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */; };
@@ -743,6 +744,7 @@
 		791027422E6BC99A005B04E5 /* RecentMatchMigrationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMatchMigrationPolicy.swift; sourceTree = "<group>"; };
 		791027462E6BCCA6005B04E5 /* Version2Mapping.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Version2Mapping.xcmappingmodel; sourceTree = "<group>"; };
 		7910274A2E6BCD16005B04E5 /* UserProfileMigrationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileMigrationPolicy.swift; sourceTree = "<group>"; };
+		7916590B2E978C8900AB7CB1 /* HeroDetailView+Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HeroDetailView+Stats.swift"; sourceTree = "<group>"; };
 		79177B952E7E7AC200357234 /* MatchView+Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MatchView+Banner.swift"; sourceTree = "<group>"; };
 		79177B972E7E7AF600357234 /* MatchView+TeamIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MatchView+TeamIcon.swift"; sourceTree = "<group>"; };
 		7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantProcessor.swift; sourceTree = "<group>"; };
@@ -1524,6 +1526,7 @@
 			children = (
 				79E41BC72E360FCD00AF520F /* HeroDetailRow.swift */,
 				79E41BBF2E35FAD600AF520F /* HeroDetailView.swift */,
+				7916590B2E978C8900AB7CB1 /* HeroDetailView+Stats.swift */,
 				79C5380D2DCB771A00B5920A /* Attribute */,
 				79C538102DCB776800B5920A /* SectionTitle.swift */,
 				79368C0928E6D8ED009517D2 /* RoleView.swift */,
@@ -2299,6 +2302,7 @@
 				327B8764284DBD4600BBE1F8 /* NetworkImage.swift in Sources */,
 				79BEC5BF29736E4900510748 /* LatestRecentMatchView.swift in Sources */,
 				79DA21CD2E854B0D00AD350C /* ODPatch.swift in Sources */,
+				7916590C2E978C8E00AB7CB1 /* HeroDetailView+Stats.swift in Sources */,
 				323BCBA5285586E40061F937 /* CalendarMatchListViewModel.swift in Sources */,
 				79A988F92931D400006AC847 /* Match.swift in Sources */,
 				79CB52482A31C11F00C5D1C6 /* LiveMatchTimerView.swift in Sources */,

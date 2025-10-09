@@ -10,37 +10,42 @@ import SwiftUI
 struct HeroDetailView: View {
     
     @Environment(\.managedObjectContext) private var context
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
-    @State private var heroLevel: Double = 1
+    @State var heroLevel: Double = 1
     @State private var abilities: [Ability] = []
     @State private var selectedAbility: Ability?
+    
+    @State private var showFullLore = false
     
     let hero: Hero
     private let detailSpacing: CGFloat = 2
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                titleView
-                detailView
-                abilitiesView
-            }
-            VStack {
-                Group {
-                    levelSlider
-                    HealthManaView(level: Int(heroLevel), hero: hero)
-                    
-                }
-                .padding()
-                .background(Color.secondarySystemBackground)
-                .clipShape(RoundedRectangle(cornerRadius: 5))
-                stackBuilder(views: attributeCollection)
-                stackBuilder(views: statsCollection)
-                stackBuilder(views: talentsLoreCollection)
-            }
-            .padding(.horizontal)
+        List {
+            //            VStack(spacing: 0) {
+            //                titleView
+            //                detailView
+            //                abilitiesView
+            //            }
+            //            VStack {
+            //                Group {
+            //                    levelSlider
+            //                    HealthManaView(level: Int(heroLevel), hero: hero)
+            //                }
+            //                .padding()
+            //                .background(Color.systemBackground)
+            //                .clipShape(RoundedRectangle(cornerRadius: 5))
+            //                stackBuilder(views: attributeCollection)
+            //                stackBuilder(views: statsCollection)
+            //                stackBuilder(views: talentsLoreCollection)
+            //            }
+            //            .padding(.horizontal)
+            levelSlider
+            statsView
+            loreView
         }
+        .listStyle(.plain)
         .sheet(item: $selectedAbility, content: { ability in
             AbilityView(ability: ability)
         })
@@ -48,6 +53,22 @@ struct HeroDetailView: View {
             self.abilities = loadAbilities()
         }
     }
+    
+    private var loreView: some View {
+        buildSection(title: "Lore") {
+            VStack(alignment: .leading) {
+                Text("\(hero.lore)")
+                    .lineLimit(showFullLore ? nil : 10)
+                Button(action: {
+                    showFullLore.toggle()
+                }, label: {
+                    Text("Show more")
+                })
+            }
+        }
+    }
+    
+    
     
     private var talentsLoreCollection: some View {
         Group {
@@ -59,10 +80,8 @@ struct HeroDetailView: View {
         .clipShape(RoundedRectangle(cornerRadius: 5))
     }
     
-    private var loreView: some View {
-        Text("\(hero.lore)")
-            .font(.caption2)
-    }
+    
+    
     
     private var talentsView: some View {
         VStack(alignment: .leading) {
@@ -105,17 +124,6 @@ struct HeroDetailView: View {
         }
     }
     
-    private var statsCollection: some View {
-        Group {
-            attackStats
-            defenceStats
-            mobilityStats
-        }
-        .padding()
-        .background(Color.secondarySystemBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 5))
-    }
-    
     private var attributeCollection: some View {
         Group {
             buildAttribute(attribute: .str)
@@ -123,7 +131,7 @@ struct HeroDetailView: View {
             buildAttribute(attribute: .int)
         }
         .padding()
-        .background(Color.secondarySystemBackground)
+        .background(Color.systemBackground)
         .clipShape(RoundedRectangle(cornerRadius: 5))
     }
     
@@ -170,7 +178,7 @@ struct HeroDetailView: View {
         }
         .font(.caption)
         .padding()
-        .background(Color.secondarySystemBackground)
+        .background(Color.systemBackground)
     }
     
     @ViewBuilder
@@ -197,43 +205,6 @@ struct HeroDetailView: View {
             Text(hero.attackType ?? "Unknown")
         }
     }
-    
-    private var attackStats: some View {
-        VStack(alignment: .leading) {
-            buildSectionTitle(icon: "ic_sword", title: "Attack")
-            Group {
-                HeroDetailRow(title: "Attack Speed", value: "\(hero.attackRate)s")
-                HeroDetailRow(title: "Damage", value: "\(hero.calculateAttackByLevel(level: heroLevel, isMin: true)) - \(hero.calculateAttackByLevel(level: heroLevel, isMin: false))")
-                HeroDetailRow(title: "Attack Range", value: "\(hero.attackRange)")
-            }
-            .font(.caption)
-        }
-    }
-    
-    private var defenceStats: some View {
-        VStack(alignment: .leading) {
-            buildSectionTitle(icon: "ic_shield", title: "Defense")
-            Group {
-                HeroDetailRow(title: "Armor", value: "\(String(format: "%.1f", hero.calculateArmorByLevel(level: heroLevel)))")
-                HeroDetailRow(title: "Magical Resistance", value: "\(hero.baseMr)%")
-                Spacer()
-            }
-            .font(.caption)
-        }
-    }
-    
-    private var mobilityStats: some View {
-        VStack(alignment: .leading) {
-            buildSectionTitle(icon: "ic_shoe", title: "Mobility")
-            Group {
-                HeroDetailRow(title: "Movement Speed", value: "\(hero.moveSpeed)")
-                HeroDetailRow(title: "Turn Rate", value: "\(hero.turnRate)")
-                HeroDetailRow(title: "Vision Range", value: "\(Int(hero.visionDaytimeRange))/\(Int(hero.visionNighttimeRange))")
-            }
-            .font(.caption)
-        }
-    }
-    
     
     @ViewBuilder
     private func buildSectionTitle(icon: String? = nil, title: String, renderMode: Image.TemplateRenderingMode = .template) -> some View {
@@ -271,6 +242,19 @@ struct HeroDetailView: View {
             }
             Spacer()
         }
+    }
+    
+    @ViewBuilder
+    func buildSection<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
+        Section {
+            content()
+        } header: {
+            Text(title)
+                .font(.title3)
+                .bold()
+                .foregroundStyle(.primary)
+        }
+        .listRowSeparator(.hidden)
     }
     
     private func loadAbilities() -> [Ability] {
