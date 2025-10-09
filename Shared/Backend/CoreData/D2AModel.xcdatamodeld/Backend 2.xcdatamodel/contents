@@ -98,6 +98,11 @@
         <relationship name="league" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="League" inverseName="matches" inverseEntity="League"/>
         <relationship name="radiantTeam" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="matchRadiant" inverseEntity="Team"/>
     </entity>
+    <entity name="Patch" representedClassName="Patch" syncable="YES" codeGenerationType="class">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="patchID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="RecentMatch" representedClassName="RecentMatch" syncable="YES" codeGenerationType="class">
         <attribute name="assists" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="deaths" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

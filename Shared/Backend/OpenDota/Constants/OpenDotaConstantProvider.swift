@@ -13,6 +13,7 @@ protocol OpenDotaConstantProviding {
     func loadHeroes() async throws -> [ODHero]
     func loadItemIDs() async throws -> [String: String]
     func loadRegions() async throws -> [String: String]
+    func loadPatches() async throws -> [ODPatch]
 }
 
 class OpenDotaConstantProvider: OpenDotaConstantProviding {
@@ -71,5 +72,12 @@ class OpenDotaConstantProvider: OpenDotaConstantProviding {
             return [:]
         }
         return regions
+    }
+    
+    func loadPatches() async throws -> [ODPatch] {
+        guard let patches = try await fetcher.loadService(service: .patch, as: [ODPatch].self) else {
+            return []
+        }
+        return patches
     }
 }

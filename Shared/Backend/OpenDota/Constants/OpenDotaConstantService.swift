@@ -22,6 +22,7 @@ enum OpenDotaConstantService: String, CaseIterable {
     case items
     case itemIDs = "item_ids"
     case region
+    case patch
     
     
     var serviceURL: String {
