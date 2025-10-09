@@ -155,6 +155,7 @@ struct HeroListView: View {
             destination: HeroDetailView(hero: hero)
         ) {
             HeroRowView(hero: hero, isGrid: isGrid)
+                .opacity(viewModel.searchedResults.contains(hero) ? 1 : 0.5)
         }
     }
 }
