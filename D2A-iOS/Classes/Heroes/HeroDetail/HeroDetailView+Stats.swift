@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension HeroDetailView {
-
+    
     var statsView: some View {
         buildSection(title: "Stats") {
             if horizontalSizeClass == .regular {
@@ -24,12 +24,13 @@ extension HeroDetailView {
                     }
                 }
             } else {
-                Group {
+                VStack(spacing: 16) {
                     statsAttack
+                    Divider()
                     statsDefence
+                    Divider()
                     statsMobility
                 }
-                .listRowSeparator(.visible)
             }
         }
     }
@@ -40,20 +41,35 @@ extension HeroDetailView {
     private var statsAttack: some View {
         statRow(title: "Attack Speed", value: "\(hero.attackRate)s")
             .listRowSeparator(.hidden, edges: .top)
+        if horizontalSizeClass == .compact {
+            Divider()
+        }
         statRow(title: "Damage", value: "\(hero.calculateAttackByLevel(level: heroLevel, isMin: true)) - \(hero.calculateAttackByLevel(level: heroLevel, isMin: false))")
+        if horizontalSizeClass == .compact {
+            Divider()
+        }
         statRow(title: "Attack Range", value: "\(hero.attackRange)")
     }
     
     @ViewBuilder
     private var statsDefence: some View {
         statRow(title: "Armor", value: "\(String(format: "%.1f", hero.calculateArmorByLevel(level: heroLevel)))")
+        if horizontalSizeClass == .compact {
+            Divider()
+        }
         statRow(title: "Magical Resistance", value: "\(hero.baseMr)%")
     }
     
     @ViewBuilder
     private var statsMobility: some View {
         statRow(title: "Movement Speed", value: "\(hero.moveSpeed)")
+        if horizontalSizeClass == .compact {
+            Divider()
+        }
         statRow(title: "Turn Rate", value: "\(hero.turnRate)")
+        if horizontalSizeClass == .compact {
+            Divider()
+        }
         statRow(title: "Vision Range", value: "\(Int(hero.visionDaytimeRange))/\(Int(hero.visionNighttimeRange))")
             .listRowSeparator(.hidden, edges: .bottom)
     }

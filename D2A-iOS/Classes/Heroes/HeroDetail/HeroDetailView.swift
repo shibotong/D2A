@@ -15,8 +15,6 @@ struct HeroDetailView: View {
     
     @State var heroLevel: Double = 1
     @State private var abilities: [Ability] = []
-    @State private var selectedAbility: Ability?
-    
     @State private var showFullLore = false
     
     let hero: Hero
@@ -24,41 +22,63 @@ struct HeroDetailView: View {
     
     // MARK: - Views
     var body: some View {
-        List {
-            titleView
-            abilitiesView
-            levelSlider
-            HealthManaView(level: Int(heroLevel), hero: hero)
-                .listRowSeparator(.hidden)
-            attributeView
-            statsView
-            talentsView
-            loreView
+        ScrollView {
+            VStack(alignment: .leading) {
+                VStack {
+                    titleView
+                    Divider()
+                }
+                
+                VStack(alignment: .leading, spacing: 32) {
+                    levelSlider
+                    HealthManaView(level: Int(heroLevel), hero: hero)
+                    attributeView
+                    statsView
+                    talentsView
+                    abilitiesView
+                    loreView
+                }
+                .padding(.horizontal)
+            }
         }
-        .listStyle(.plain)
-        .sheet(item: $selectedAbility, content: { ability in
-            AbilityView(ability: ability)
-        })
         .task {
             self.abilities = loadAbilities()
         }
     }
     
     private var abilitiesView: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
+        buildSection(title: "Abilities") {
+            VStack(alignment: .leading, spacing: 16) {
                 ForEach(abilities) { ability in
-                    AbilityImage(name: ability.name, isInnate: ability.isInnate)
-                        .frame(width: 50, height: 50)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .onTapGesture {
-                            selectedAbility = ability
+                    NavigationLink(destination: AbilityView(ability: ability)) {
+                        HStack {
+                            AbilityImage(name: ability.name, isInnate: ability.isInnate)
+                                .frame(width: 40, height: 40)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                            VStack(alignment: .leading) {
+                                Text(ability.displayName ?? "")
+                                    .foregroundStyle(Color.primary)
+                                Text(ability.desc ?? "")
+                                    .lineLimit(1)
+                                    .font(.caption)
+                                    .foregroundStyle(Color.secondary)
+                            }
+                            Spacer()
+                            Group {
+                                if #available(iOS 16.0, *) {
+                                    Image(systemName: "chevron.right")
+                                        .bold()
+                                } else {
+                                    Image(systemName: "chevron.right")
+                                }
+                            }
+                            .foregroundStyle(Color.primary)
                         }
+                        .foregroundStyle(.primary)
+                    }
                 }
             }
-            .padding()
         }
-        .listRowInsets(EdgeInsets())
     }
     
     @ViewBuilder
@@ -196,15 +216,12 @@ struct HeroDetailView: View {
     
     @ViewBuilder
     func buildSection<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
-        Section {
-            content()
-        } header: {
+        VStack(alignment: .leading, spacing: 8) {
             Text(title)
                 .font(.title3)
                 .bold()
-                .foregroundStyle(.primary)
+            content()
         }
-        .listRowSeparator(.hidden)
     }
     
     @ViewBuilder
@@ -254,7 +271,9 @@ struct HeroDetailView: View {
 
 #if DEBUG
 #Preview {
-    HeroDetailView(hero: Hero.antimage)
+    NavigationView {
+        HeroDetailView(hero: Hero.antimage)
+    }
         .environmentObject(EnvironmentController.preview)
         .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
 }
