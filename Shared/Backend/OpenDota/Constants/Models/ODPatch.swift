@@ -29,9 +29,12 @@ struct ODPatch: Decodable, PersistanceModel {
     }
     
     private var date: Date {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        if let date = formatter.date(from: dateString) {
+        let originalFormatter = ISO8601DateFormatter()
+        let fractionFormatter = ISO8601DateFormatter()
+        fractionFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        if let date = originalFormatter.date(from: dateString) {
+            return date
+        } else if let date = fractionFormatter.date(from: dateString) {
             return date
         } else {
             logError("Not able to parse date string: \(dateString)", category: .opendota)
@@ -40,7 +43,7 @@ struct ODPatch: Decodable, PersistanceModel {
     }
     
     func update(context: NSManagedObjectContext) throws -> NSManagedObject {
-        let predicate = NSPredicate(format: "patchID == %i", id)
+        let predicate = NSPredicate(format: "patchID = %i", id)
         let patch = try context.fetchOne(type: Patch.self, predicate: predicate) ?? Patch(context: context)
         setIfNotEqual(entity: patch, path: \.patchID, value: Int16(id))
         setIfNotEqual(entity: patch, path: \.name, value: name)
