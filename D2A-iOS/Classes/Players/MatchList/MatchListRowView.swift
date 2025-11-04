@@ -146,40 +146,52 @@ struct MatchListRowView: View {
 }
 
 #if DEBUG
-struct MatchListRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            MatchListRowView(
-                viewModel: MatchListRowViewModel(
-                    isWin: true,
-                    heroID: 1,
-                    kills: 10,
-                    deaths: 10,
-                    assists: 10,
-                    partySize: 3,
-                    gameMode: "All Pick",
-                    lobbyName: "Ranked")
-            )
-            .previewDevice(.iPad)
-            .previewLayout(.fixed(width: 800, height: 70))
-            .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
-            .previewDisplayName("iPad")
-            MatchListRowView(
-                viewModel: MatchListRowViewModel(
-                    isWin: true,
-                    heroID: 1,
-                    kills: 10,
-                    deaths: 10,
-                    assists: 10,
-                    partySize: 3,
-                    gameMode: "Ranked",
-                    lobbyName: "Ranked")
-            )
-            .previewDevice(.iPhone)
-            .previewLayout(.fixed(width: 375, height: 70))
-            .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
-            .previewDisplayName("iPhone")
-        }
-    }
+#Preview {
+    MatchListRowView(viewModel: MatchListRowViewModel(
+        isWin: true,
+        heroID: 1,
+        kills: 10,
+        deaths: 10,
+        assists: 10,
+        partySize: 3,
+        gameMode: "All Pick",
+        lobbyName: "Ranked")
+    )
 }
+//struct MatchListRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            MatchListRowView(
+//                viewModel: MatchListRowViewModel(
+//                    isWin: true,
+//                    heroID: 1,
+//                    kills: 10,
+//                    deaths: 10,
+//                    assists: 10,
+//                    partySize: 3,
+//                    gameMode: "All Pick",
+//                    lobbyName: "Ranked")
+//            )
+//            .previewDevice(.iPad)
+//            .previewLayout(.fixed(width: 800, height: 70))
+//            .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
+//            .previewDisplayName("iPad")
+//            MatchListRowView(
+//                viewModel: MatchListRowViewModel(
+//                    isWin: true,
+//                    heroID: 1,
+//                    kills: 10,
+//                    deaths: 10,
+//                    assists: 10,
+//                    partySize: 3,
+//                    gameMode: "Ranked",
+//                    lobbyName: "Ranked")
+//            )
+//            .previewDevice(.iPhone)
+//            .previewLayout(.fixed(width: 375, height: 70))
+//            .environment(\.managedObjectContext, PersistanceProvider.preview.container.viewContext)
+//            .previewDisplayName("iPhone")
+//        }
+//    }
+//}
 #endif

@@ -460,6 +460,7 @@
 		79CF376E2DC0FA5E00207CB8 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF376C2DC0FA5C00207CB8 /* DebugView.swift */; };
 		79CF376F2DC0FA5E00207CB8 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF376C2DC0FA5C00207CB8 /* DebugView.swift */; };
 		79CF637C29C40B700072F4C0 /* D2AUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF637B29C40B700072F4C0 /* D2AUITests.swift */; };
+		79CFE5E02EB9BBF40041ED98 /* MatchListRowViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CFE5DF2EB9BBF40041ED98 /* MatchListRowViewV2.swift */; };
 		79D1043729E2991E00BC04B3 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79D1043629E2991E00BC04B3 /* Apollo */; };
 		79D1871B2E0D64CC00C04CC8 /* HeroAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D1871A2E0D64CA00C04CC8 /* HeroAttribute.swift */; };
 		79D1871C2E0D667B00C04CC8 /* HeroAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D1871A2E0D64CA00C04CC8 /* HeroAttribute.swift */; };
@@ -854,6 +855,7 @@
 		79CF376C2DC0FA5C00207CB8 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		79CF637929C40B6F0072F4C0 /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79CF637B29C40B700072F4C0 /* D2AUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AUITests.swift; sourceTree = "<group>"; };
+		79CFE5DF2EB9BBF40041ED98 /* MatchListRowViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchListRowViewV2.swift; sourceTree = "<group>"; };
 		79D1871A2E0D64CA00C04CC8 /* HeroAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroAttribute.swift; sourceTree = "<group>"; };
 		79D1871E2E13CEFB00C04CC8 /* HeroListView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HeroListView+ViewModel.swift"; sourceTree = "<group>"; };
 		79D187212E13CF9200C04CC8 /* HeroListView+AttributeSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HeroListView+AttributeSelection.swift"; sourceTree = "<group>"; };
@@ -1046,17 +1048,6 @@
 			path = MatchView;
 			sourceTree = "<group>";
 		};
-		3294463C26E1BC3B006E0D06 /* MatchListView */ = {
-			isa = PBXGroup;
-			children = (
-				327772AE26D8BE63000A0A97 /* MatchListRowView.swift */,
-				325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */,
-				323BCBA2285584D90061F937 /* CalendarMatchListView.swift */,
-				323BCBA4285586E40061F937 /* CalendarMatchListViewModel.swift */,
-			);
-			path = MatchListView;
-			sourceTree = "<group>";
-		};
 		3294463D26E1BC60006E0D06 /* SideBarView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1176,7 +1167,6 @@
 			children = (
 				32EC7F3C2864748200A36AF6 /* AboutUsView */,
 				79266DA52A31B0D7002FEF0F /* LiveMatchView */,
-				3294463C26E1BC3B006E0D06 /* MatchListView */,
 				3294463B26E1BC24006E0D06 /* MatchView */,
 				32EC7F3E286474EB00A36AF6 /* OtherViews */,
 				3294463D26E1BC60006E0D06 /* SideBarView */,
@@ -1458,6 +1448,7 @@
 		7937FF3F2E4B5A5C0019145D /* Players */ = {
 			isa = PBXGroup;
 			children = (
+				79CFE5E22EB9BC080041ED98 /* MatchList */,
 				79F13C842E7E4CAC003B06B9 /* PlayerProfileLoadingView.swift */,
 				32B36F3E26C388AD002D427D /* PlayerProfileView.swift */,
 				7937FF402E4B5A9A0019145D /* PlayerProfileViewModel.swift */,
@@ -1758,6 +1749,18 @@
 				7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */,
 			);
 			path = "UI Tests";
+			sourceTree = "<group>";
+		};
+		79CFE5E22EB9BC080041ED98 /* MatchList */ = {
+			isa = PBXGroup;
+			children = (
+				327772AE26D8BE63000A0A97 /* MatchListRowView.swift */,
+				79CFE5DF2EB9BBF40041ED98 /* MatchListRowViewV2.swift */,
+				325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */,
+				323BCBA2285584D90061F937 /* CalendarMatchListView.swift */,
+				323BCBA4285586E40061F937 /* CalendarMatchListViewModel.swift */,
+			);
+			path = MatchList;
 			sourceTree = "<group>";
 		};
 		79D187202E13CF8000C04CC8 /* HeroList */ = {
@@ -2335,6 +2338,7 @@
 				79DA220F2E866B3600AD350C /* Match+DraftTiming.swift in Sources */,
 				79EB3F872DC6F7EB008C4F6D /* ODHeroAbilities.swift in Sources */,
 				79177B982E7E7B0000357234 /* MatchView+TeamIcon.swift in Sources */,
+				79CFE5E02EB9BBF40041ED98 /* MatchListRowViewV2.swift in Sources */,
 				792540672E30CE4B00201CF1 /* EnvironmentController+Preview.swift in Sources */,
 				32AEEEF926F9B1120088DEC8 /* LocalizableStrings.swift in Sources */,
 				79A989042931E7F1006AC847 /* PermanentBuff.swift in Sources */,
