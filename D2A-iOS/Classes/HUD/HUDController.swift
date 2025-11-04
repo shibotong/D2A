@@ -20,6 +20,11 @@ class HUDController: ObservableObject {
     
     @MainActor
     func createHUD(title: String, total: Int) {
+        let hudsTitle = huds.map(\.title)
+        guard !hudsTitle.contains(title) else {
+            logWarn("HUD already exists: \(title)", category: .hud)
+            return
+        }
         let newHUD = HUDProgress(title: title, total: total, current: 0)
         huds.append(newHUD)
     }
