@@ -23,23 +23,17 @@ struct HeroDetailView: View {
     // MARK: - Views
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading) {
-                VStack {
-                    titleView
-                    Divider()
-                }
-                
-                VStack(alignment: .leading, spacing: 32) {
-                    levelSlider
-                    HealthManaView(level: Int(heroLevel), hero: hero)
-                    attributeView
-                    statsView
-                    talentsView
-                    abilitiesView
-                    loreView
-                }
-                .padding(.horizontal)
+            VStack(alignment: .leading, spacing: 32) {
+                titleView
+                levelSlider
+                HealthManaView(level: Int(heroLevel), hero: hero)
+                attributeView
+                statsView
+                talentsView
+                abilitiesView
+                loreView
             }
+            .padding(.horizontal)
         }
         .task {
             self.abilities = loadAbilities()
