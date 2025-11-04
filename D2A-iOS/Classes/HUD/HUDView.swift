@@ -22,6 +22,11 @@ struct HUDView: View {
             }
             .progressViewStyle(.linear)
         }
+        .padding()
+        .background {
+            RoundedRectangle(cornerRadius: 16, style: .circular)
+                .opacity(0.1)
+        }
     }
 }
 
