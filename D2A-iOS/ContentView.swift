@@ -46,6 +46,11 @@ struct ContentView: View {
 struct NavigationHostView: View {
     @EnvironmentObject var env: EnvironmentController
     @EnvironmentObject var data: ConstantsController
+    
+    #if DEBUG
+    @EnvironmentObject var progress: HUDProgressViewModel
+    #endif
+    
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     @State var text = ""
@@ -71,16 +76,7 @@ struct NavigationHostView: View {
                         Text("Heroes")
                     }
                     .tag(TabSelection.hero)
-                    
-                    //                NavigationView {
-                    //                    LiveMatchListView()
-                    //                }
-                    //                .tabItem {
-                    //                    Image(systemName: "gamecontroller.fill")
-                    //                    Text("Live")
-                    //                }
-                    //                .tag(TabSelection.live)
-                    
+
                     NavigationView {
                         SearchView()
                             .searchable(text: $text)
@@ -102,9 +98,11 @@ struct NavigationHostView: View {
                 }
                 #if DEBUG
                 VStack {
-                    HUDView(title: "Test HUD", processed: 1, total: 100)
+                    HUDView(title: "Hero Progress", processed: progress.heroCurrent, total: progress.heroTotal)
+                        .padding()
                     Spacer()
                 }
+                .opacity(progress.showHeroHUD ? 1 : 0)
                 #endif
             }
         } else {
@@ -120,4 +118,5 @@ struct NavigationHostView: View {
     NavigationHostView()
         .environmentObject(EnvironmentController.preview)
         .environmentObject(ConstantsController.preview)
+        .environmentObject(HUDProgressViewModel())
 }

@@ -18,6 +18,7 @@ struct D2AApp: App {
     @StateObject var gameDataController: GameDataController = GameDataController.shared
     #if DEBUG
         @StateObject var logger: D2ALogger = D2ALogger.shared
+    @StateObject var hud: HUDProgressViewModel = HUDProgressViewModel.shared
     #endif
     let persistanceController = PersistanceProvider.shared
     @AppStorage("selectedMatch") var selectedMatch: String?
@@ -36,6 +37,7 @@ struct D2AApp: App {
                 .environmentObject(gameDataController)
                 #if DEBUG
                     .environmentObject(logger)
+                    .environmentObject(hud)
                 #endif
                 .environment(\.managedObjectContext, persistanceController.mainContext)
                 .onOpenURL { url in

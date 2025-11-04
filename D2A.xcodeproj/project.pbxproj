@@ -247,6 +247,7 @@
 		791658502E9649ED00AB7CB1 /* D2AProStore.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 79A989262931FA50006AC847 /* D2AProStore.storekit */; };
 		791658512E9649ED00AB7CB1 /* D2AProStore.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 79A989262931FA50006AC847 /* D2AProStore.storekit */; };
 		7916590F2EB97F4200AB7CB1 /* HUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7916590E2EB97F3F00AB7CB1 /* HUDView.swift */; };
+		791659112EB981BC00AB7CB1 /* HUDProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791659102EB981B400AB7CB1 /* HUDProgressViewModel.swift */; };
 		79177B962E7E7AC700357234 /* MatchView+Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177B952E7E7AC200357234 /* MatchView+Banner.swift */; };
 		79177B982E7E7B0000357234 /* MatchView+TeamIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177B972E7E7AF600357234 /* MatchView+TeamIcon.swift */; };
 		7925405F2E30C8CC00201CF1 /* OpenDotaConstantProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */; };
@@ -749,6 +750,7 @@
 		791027462E6BCCA6005B04E5 /* Version2Mapping.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Version2Mapping.xcmappingmodel; sourceTree = "<group>"; };
 		7910274A2E6BCD16005B04E5 /* UserProfileMigrationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileMigrationPolicy.swift; sourceTree = "<group>"; };
 		7916590E2EB97F3F00AB7CB1 /* HUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDView.swift; sourceTree = "<group>"; };
+		791659102EB981B400AB7CB1 /* HUDProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDProgressViewModel.swift; sourceTree = "<group>"; };
 		79177B952E7E7AC200357234 /* MatchView+Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MatchView+Banner.swift"; sourceTree = "<group>"; };
 		79177B972E7E7AF600357234 /* MatchView+TeamIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MatchView+TeamIcon.swift"; sourceTree = "<group>"; };
 		7925405E2E30C8C500201CF1 /* OpenDotaConstantProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantProcessor.swift; sourceTree = "<group>"; };
@@ -1374,6 +1376,7 @@
 		7916590D2EB97F3A00AB7CB1 /* HUD */ = {
 			isa = PBXGroup;
 			children = (
+				791659102EB981B400AB7CB1 /* HUDProgressViewModel.swift */,
 				7916590E2EB97F3F00AB7CB1 /* HUDView.swift */,
 			);
 			path = HUD;
@@ -2448,6 +2451,7 @@
 				79C5380F2DCB772800B5920A /* AttributeSectionView.swift in Sources */,
 				796FE19E29AB006C003379EB /* AbilityImageViewModel.swift in Sources */,
 				798C42912A35581900BDC470 /* LiveMatchKillEvent.swift in Sources */,
+				791659112EB981BC00AB7CB1 /* HUDProgressViewModel.swift in Sources */,
 				79BD872E2A4C2F1400964814 /* LiveMatchListRowView.swift in Sources */,
 				32D3EB4F26ED7B9B00AA8D8B /* ODAbility.swift in Sources */,
 				794B723D2985D2C9000059E4 /* RecentMatchWinLossView.swift in Sources */,

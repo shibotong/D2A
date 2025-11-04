@@ -15,6 +15,7 @@ enum D2AServiceCategory: String {
     case video = "🎥"
     case opendota = "🎮"
     case image = "📸"
+    case hud = "👀"
 }
 
 enum LoggingLevel: Int, CaseIterable {
