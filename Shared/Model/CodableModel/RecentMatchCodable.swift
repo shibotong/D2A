@@ -33,11 +33,13 @@ class RecentMatchCodable: Decodable, Identifiable {
     }
 
     var gameMode: GameMode? {
-        return ConstantsController.shared.fetchGameMode(id: Int(mode))
+        return nil
+//        return ConstantsController.shared.fetchGameMode(id: Int(mode))
     }
 
     var gameLobby: LobbyType {
-        return ConstantsController.shared.fetchLobby(id: Int(lobbyType))
+        return LobbyType(id: 1, name: "test")
+//        return ConstantsController.shared.fetchLobby(id: Int(lobbyType))
     }
 
     enum CodingKeys: String, CodingKey {
