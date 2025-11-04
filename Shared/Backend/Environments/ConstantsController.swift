@@ -10,6 +10,7 @@ import Foundation
 import StratzAPI
 import SwiftUI
 
+/// `ConstantsController` is responsible for saving hero and ability data into device (This process is only occured on iOS)
 class ConstantsController: ObservableObject {
     
     @Published var isLoading = false
@@ -187,10 +188,10 @@ class ConstantsController: ObservableObject {
             let fetchedRegions = try await regions
             let fetchedPatches = try await patches
             
-            await persistanceProvider.saveODData(data: fetchedHeroes, type: Hero.self)
-            await persistanceProvider.saveODData(data: fetchedAbilities, type: Ability.self)
-            await persistanceProvider.saveODData(data: fetchedModes, type: GameMode.self)
-            await persistanceProvider.saveODData(data: fetchedPatches, type: Patch.self)
+            await saveODData(data: fetchedHeroes, type: Hero.self)
+            await saveODData(data: fetchedAbilities, type: Ability.self)
+            await saveODData(data: fetchedModes, type: GameMode.self)
+            await saveODData(data: fetchedPatches, type: Patch.self)
             saveRegions(regions: fetchedRegions)
         } catch {
             try? persistanceProvider.loadDefaultData()
@@ -239,5 +240,50 @@ class ConstantsController: ObservableObject {
         } catch {
             logError("Failed to fetch data: \(type)", category: .coredata)
         }
+    }
+    
+    @MainActor
+    private func updateTracking(total: Int, current: Int) {
+        #if DEBUG
+        let progress = HUDController.shared
+        #endif
+    }
+    
+    // MARK: - Save constant data
+    private func saveODData<T: NSManagedObject>(data: [PersistanceModel], type: T.Type) {
+        saveODData(data: data, type: type, mainContext: false)
+    }
+    
+    private func saveODData<T: NSManagedObject>(data: [PersistanceModel], type: T.Type, mainContext: Bool) {
+        let useMainContext = data.count <= 5 || mainContext
+        let context = useMainContext ? persistanceProvider.mainContext : persistanceProvider.makeContext(author: "ODData")
+        
+        if useMainContext || context.hasData(for: type) {
+            updateData(data: data, context: context)
+        } else {
+            batchInsertData(data, into: type.entity(), context: context)
+        }
+    }
+    
+    // MARK: - Save Specific data
+    private func updateData(data: [PersistanceModel], context: NSManagedObjectContext) {
+        context.performAndWait {
+            for object in data {
+                do {
+                    _ = try object.update(context: context)
+                } catch {
+                    logError("An error occured when updating data in Core Data \(error.localizedDescription)", category: .coredata)
+                }
+            }
+            do {
+                try context.save()
+            } catch {
+                logError("An error occured when save data in Core Data \(error.localizedDescription)", category: .coredata)
+            }
+        }
+    }
+    
+    private func batchInsertData(_ data: [PersistanceModel], into entity: NSEntityDescription, context: NSManagedObjectContext) {
+        context.batchInsert(dictionary: data.map{ $0.dictionaries }, into: entity)
     }
 }
