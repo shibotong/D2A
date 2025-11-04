@@ -48,7 +48,7 @@ struct NavigationHostView: View {
     @EnvironmentObject var data: ConstantsController
     
     #if DEBUG
-    @EnvironmentObject var progress: HUDProgressViewModel
+    @EnvironmentObject var hudController: HUDController
     #endif
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -97,12 +97,15 @@ struct NavigationHostView: View {
                     .tag(TabSelection.setting)
                 }
                 #if DEBUG
-                VStack {
-                    HUDView(title: "Hero Progress", processed: progress.heroCurrent, total: progress.heroTotal)
-                        .padding()
-                    Spacer()
+                if hudController.huds.count > 0 {
+                    ScrollView {
+                        VStack {
+                            ForEach(hudController.huds, id: \.title) { progress in
+                                HUDView(progress: progress)
+                            }
+                        }
+                    }
                 }
-                .opacity(progress.showHeroHUD ? 1 : 0)
                 #endif
             }
         } else {
@@ -118,5 +121,5 @@ struct NavigationHostView: View {
     NavigationHostView()
         .environmentObject(EnvironmentController.preview)
         .environmentObject(ConstantsController.preview)
-        .environmentObject(HUDProgressViewModel())
+        .environmentObject(HUDController(huds: [HUDProgress(title: "TEST HUD", total: 100, current: 1)]))
 }

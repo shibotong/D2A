@@ -10,15 +10,13 @@ import SwiftUI
 #if DEBUG
 struct HUDView: View {
     
-    @State var title: String
-    @State var processed: Int
-    @State var total: Int
+    @ObservedObject var progress: HUDProgress
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(title)
-            ProgressView(value: Double(processed) / Double(total)) {
-                Text("\(processed) / \(total)")
+            Text(progress.title)
+            ProgressView(value: Double(progress.current) / Double(progress.total)) {
+                Text("\(progress.current) / \(progress.total)")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -28,6 +26,6 @@ struct HUDView: View {
 }
 
 #Preview {
-    HUDView(title: "Test HUD", processed: 1, total: 100)
+    HUDView(progress: HUDProgress(title: "TEST HUD", total: 100, current: 1))
 }
 #endif

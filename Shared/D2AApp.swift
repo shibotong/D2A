@@ -18,7 +18,7 @@ struct D2AApp: App {
     @StateObject var gameDataController: GameDataController = GameDataController.shared
     #if DEBUG
         @StateObject var logger: D2ALogger = D2ALogger.shared
-    @StateObject var hud: HUDProgressViewModel = HUDProgressViewModel.shared
+    @StateObject var hud: HUDController = HUDController.shared
     #endif
     let persistanceController = PersistanceProvider.shared
     @AppStorage("selectedMatch") var selectedMatch: String?
