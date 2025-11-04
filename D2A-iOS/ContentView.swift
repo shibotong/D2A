@@ -52,52 +52,60 @@ struct NavigationHostView: View {
 
     var body: some View {
         if horizontalSizeClass == .compact {
-            TabView(selection: $env.selectedTab) {
-                NavigationView {
-                    HomeView()
+            ZStack {
+                TabView(selection: $env.selectedTab) {
+                    NavigationView {
+                        HomeView()
+                    }
+                    .tabItem {
+                        Image(systemName: "house")
+                        Text("Home")
+                    }
+                    .tag(TabSelection.home)
+                    
+                    NavigationView {
+                        HeroListContainer()
+                    }
+                    .tabItem {
+                        Image(systemName: "server.rack")
+                        Text("Heroes")
+                    }
+                    .tag(TabSelection.hero)
+                    
+                    //                NavigationView {
+                    //                    LiveMatchListView()
+                    //                }
+                    //                .tabItem {
+                    //                    Image(systemName: "gamecontroller.fill")
+                    //                    Text("Live")
+                    //                }
+                    //                .tag(TabSelection.live)
+                    
+                    NavigationView {
+                        SearchView()
+                            .searchable(text: $text)
+                    }
+                    .tabItem {
+                        Image(systemName: "magnifyingglass")
+                        Text("Search")
+                    }
+                    .tag(TabSelection.search)
+                    
+                    NavigationView {
+                        AboutUsView()
+                    }
+                    .tabItem {
+                        Image(systemName: "ellipsis")
+                        Text("More")
+                    }
+                    .tag(TabSelection.setting)
                 }
-                .tabItem {
-                    Image(systemName: "house")
-                    Text("Home")
+                #if DEBUG
+                VStack {
+                    HUDView(title: "Test HUD", processed: 1, total: 100)
+                    Spacer()
                 }
-                .tag(TabSelection.home)
-
-                NavigationView {
-                    HeroListContainer()
-                }
-                .tabItem {
-                    Image(systemName: "server.rack")
-                    Text("Heroes")
-                }
-                .tag(TabSelection.hero)
-
-                NavigationView {
-                    LiveMatchListView()
-                }
-                .tabItem {
-                    Image(systemName: "gamecontroller.fill")
-                    Text("Live")
-                }
-                .tag(TabSelection.live)
-
-                NavigationView {
-                    SearchView()
-                        .searchable(text: $text)
-                }
-                .tabItem {
-                    Image(systemName: "magnifyingglass")
-                    Text("Search")
-                }
-                .tag(TabSelection.search)
-
-                NavigationView {
-                    AboutUsView()
-                }
-                .tabItem {
-                    Image(systemName: "ellipsis")
-                    Text("More")
-                }
-                .tag(TabSelection.setting)
+                #endif
             }
         } else {
             NavigationView {
@@ -106,4 +114,10 @@ struct NavigationHostView: View {
             }
         }
     }
+}
+
+#Preview {
+    NavigationHostView()
+        .environmentObject(EnvironmentController.preview)
+        .environmentObject(ConstantsController.preview)
 }
