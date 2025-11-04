@@ -15,7 +15,7 @@ class ConstantsController: ObservableObject {
     
     @Published var isLoading = false
     @Published var allHeroes: [Hero] = []
-
+    
     private var heroes = [String: ODHero]()
     private var lobbyTypes = [String: LobbyType]()
     private var regions = [String: String]()
@@ -25,15 +25,15 @@ class ConstantsController: ObservableObject {
     private var abilities = [String: ODAbility]()
     private var heroAbilities = [String: ODHeroAbilities]()
     private var apolloAbilities = [StratzAbility]()
-
+    
     static var shared = ConstantsController()
-
+    
     let url = "https://api.opendota.com/api/herostats"
-
+    
     private let stratzProvider: StratzProviding
     private let openDotaProvider: OpenDotaConstantProviding
     private let persistanceProvider: PersistanceProviding
-
+    
     init(
         stratzProvider: StratzProviding = StratzController.shared,
         openDotaProvider: OpenDotaConstantProviding = OpenDotaConstantProvider.shared,
@@ -54,7 +54,7 @@ class ConstantsController: ObservableObject {
             logError("Not able to fetch all heroes. \(error.localizedDescription)", category: .constants)
         }
     }
-
+    
     func loadData() async {
         if isTesting {
             logDebug("is Running Unit Test, not fetching from API", category: .constants)
@@ -62,7 +62,7 @@ class ConstantsController: ObservableObject {
         }
         regions = loadRegion()!
         lobbyTypes = loadLobby()!
-
+        
         async let idTable = loadItemIDs()
         async let items = loadItems()
         async let heroes = loadHeroes()
@@ -70,7 +70,7 @@ class ConstantsController: ObservableObject {
         async let abilities = loadAbilities()
         async let heroAbilities = loadHeroAbilities()
         async let stratzAbilities = stratzProvider.loadAbilities()
-
+        
         self.itemIDTable = await idTable
         self.items = await items
         self.heroes = await heroes
@@ -78,25 +78,25 @@ class ConstantsController: ObservableObject {
         self.abilities = await abilities
         self.heroAbilities = await heroAbilities
         self.apolloAbilities = await stratzAbilities
-
+        
         await loadConstantData()
     }
     
     func fetchHero(id: Int) -> Hero? {
         return allHeroes.first { Int($0.heroID) == id }
     }
-
+    
     func fetchHeroWithID(id: Int) throws -> ODHero {
         guard let hero = heroes["\(id)"] else {
             throw D2AError(message: "Cannot find hero")
         }
         return hero
     }
-
+    
     func fetchGameMode(id: Int) -> GameMode? {
         return persistanceProvider.fetchGameMode(id: id)
     }
-
+    
     func fetchItem(id: Int) -> Item? {
         guard id == 0 else {
             guard let itemString = itemIDTable["\(id)"] else {
@@ -109,39 +109,39 @@ class ConstantsController: ObservableObject {
         }
         return nil
     }
-
+    
     func fetchRegion(id: String) -> String {
         guard let region = regions[id] else {
             return "Unknown"
         }
         return region
     }
-
+    
     func fetchLobby(id: Int) -> LobbyType {
         return lobbyTypes["\(id)"] ?? LobbyType(id: id, name: "Unknown Lobby")
     }
-
+    
     func fetchAbilityName(id: Int) -> String? {
         guard let abilityName = abilityIDTable["\(id)"] else {
             return nil
         }
         return abilityName
     }
-
+    
     func fetchOpenDotaAbility(name: String) -> ODAbility? {
         return abilities[name]
     }
-
+    
     func fetchStratzAbility(name: String) -> StratzAbility? {
         let ability = apolloAbilities.first { $0.name == name }
         return ability
     }
-
+    
     func fetchHeroAbility(name: String) -> [String] {
         let abilities = heroAbilities[name]?.abilities
         return abilities ?? []
     }
-
+    
     func fetchAllHeroes() -> [ODHero] {
         var sortedHeroes = [ODHero]()
         for i in 1..<150 {
@@ -149,28 +149,28 @@ class ConstantsController: ObservableObject {
                 sortedHeroes.append(hero)
             }
         }
-
+        
         sortedHeroes.sort { hero1, hero2 in
             return hero1.localizedName < hero2.localizedName
         }
         return sortedHeroes
     }
-
+    
     func fetchSearchedHeroes(text: String) -> [ODHero] {
         return []
     }
-
+    
     func getTalentDisplayName(id: Short) -> String {
         return getTalentDisplayName(talentID: Int(id))
     }
-
+    
     private func getTalentDisplayName(talentID: Int) -> String {
         let talent = apolloAbilities.first { ability in
             return ability.id == talentID
         }
         return talent?.language?.displayName ?? "Fetch String Error"
     }
-
+    
     // MARK: - Save Constant Data
     @MainActor
     private func loadConstantData() async {
@@ -215,7 +215,7 @@ class ConstantsController: ObservableObject {
             }
         }
     }
-
+    
     func resetHeroData(context: NSManagedObjectContext) {
         do {
             deleteData(Hero.self, in: context)
@@ -242,13 +242,6 @@ class ConstantsController: ObservableObject {
         }
     }
     
-    @MainActor
-    private func updateTracking(total: Int, current: Int) {
-        #if DEBUG
-        let progress = HUDController.shared
-        #endif
-    }
-    
     // MARK: - Save constant data
     private func saveODData<T: NSManagedObject>(data: [PersistanceModel], type: T.Type) {
         saveODData(data: data, type: type, mainContext: false)
@@ -259,24 +252,38 @@ class ConstantsController: ObservableObject {
         let context = useMainContext ? persistanceProvider.mainContext : persistanceProvider.makeContext(author: "ODData")
         
         if useMainContext || context.hasData(for: type) {
-            updateData(data: data, context: context)
+            updateData(data: data, context: context, tracking: type.entity().name ?? "NO_ENTITY_NAME")
         } else {
             batchInsertData(data, into: type.entity(), context: context)
         }
     }
     
     // MARK: - Save Specific data
-    private func updateData(data: [PersistanceModel], context: NSManagedObjectContext) {
-        context.performAndWait {
+    private func updateData(data: [PersistanceModel], context: NSManagedObjectContext, tracking: String = "") {
+        context.perform {
+            #if DEBUG
+            DispatchQueue.main.async {
+                let hud = HUDController.shared
+                hud.createHUD(title: tracking, total: data.count)
+            }
+            #endif
             for object in data {
                 do {
                     _ = try object.update(context: context)
                 } catch {
                     logError("An error occured when updating data in Core Data \(error.localizedDescription)", category: .coredata)
                 }
+                #if DEBUG
+                DispatchQueue.main.async {
+                    let hud = HUDController.shared
+                    hud.updateHUD(title: tracking)
+                }
+                #endif
             }
             do {
-                try context.save()
+                if context.hasChanges {
+                    try context.save()
+                }
             } catch {
                 logError("An error occured when save data in Core Data \(error.localizedDescription)", category: .coredata)
             }
