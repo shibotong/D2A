@@ -7,34 +7,76 @@
 
 extension Hero: Mappable {
     func map(json: [String: Any]) {
-        guard let id = json[CodingKeys.id.rawValue] as? Int,
-              let name = json[CodingKeys.name.rawValue] as? String,
-              let primaryAttr = json[CodingKeys.primaryAttr.rawValue] as? String,
-              let attackType = json[CodingKeys.attackType.rawValue] as? String,
-              let baseHealth = json[CodingKeys.baseHealth.rawValue] as? Int,
-              let baseHealthRegen = json[CodingKeys.baseHealthRegen.rawValue] as? Double,
-              let baseMana = json[CodingKeys.baseMana.rawValue] as? Int,
-              let baseManaRegen = json[CodingKeys.baseManaRegen.rawValue] as? Double,
-              let baseArmor = json[CodingKeys.baseArmor.rawValue] as? Double,
-              let baseMr = json[CodingKeys.baseMr.rawValue] as? Int,
-              let baseAttackMin = json[CodingKeys.baseAttackMin.rawValue] as? Int,
-              let baseAttackMax = json[CodingKeys.baseAttackMax.rawValue] as? Int,
-              let baseStr = json[CodingKeys.baseStr.rawValue] as? Int,
-              let baseAgi = json[CodingKeys.baseAgi.rawValue] as? Int,
-              let baseInt = json[CodingKeys.baseInt.rawValue] as? Int,
-              let strGain = json[CodingKeys.strGain.rawValue] as? Double,
-              let agiGain = json[CodingKeys.agiGain.rawValue] as? Double,
-              let intGain = json[CodingKeys.intGain.rawValue] as? Double,
-              let attackRange = json[CodingKeys.attackRange.rawValue] as? Int,
-              let projectileSpeed = json[CodingKeys.projectileSpeed.rawValue] as? Int,
-              let attackRate = json[CodingKeys.attackRate.rawValue] as? Double,
-              let moveSpeed = json[CodingKeys.moveSpeed.rawValue] as? Int,
-              let cmEnabled = json[CodingKeys.cmEnabled.rawValue] as? Bool else {
-            logger.error("Not able to find data when mapping hero")
+        guard let id = json[CodingKeys.id.rawValue] as? Int else {
+            logger.error("Not able to find id when mapping hero")
             return
+        }
+        if let name = json[CodingKeys.name.rawValue] as? String {
+            setIfNotEqual(entity: self, path: \.name, value: name)
+        }
+        if let primaryAttr = json[CodingKeys.primaryAttr.rawValue] as? String {
+            setIfNotEqual(entity: self, path: \.primaryAttr, value: primaryAttr)
+        }
+        if let attackType = json[CodingKeys.attackType.rawValue] as? String {
+            setIfNotEqual(entity: self, path: \.attackType, value: attackType)
+        }
+        if let baseHealth = json[CodingKeys.baseHealth.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.baseHealth, value: Int32(baseHealth))
+        }
+        if let baseHealthRegen = json[CodingKeys.baseHealthRegen.rawValue] as? Double {
+            setIfNotEqual(entity: self, path: \.baseHealthRegen, value: baseHealthRegen)
+        }
+        if let baseMana = json[CodingKeys.baseMana.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.baseMana, value: Int32(baseMana))
+        }
+        if let baseManaRegen = json[CodingKeys.baseManaRegen.rawValue] as? Double {
+            setIfNotEqual(entity: self, path: \.baseManaRegen, value: baseManaRegen)
+        }
+        if let baseArmor = json[CodingKeys.baseArmor.rawValue] as? Double {
+            setIfNotEqual(entity: self, path: \.baseArmor, value: baseArmor)
+        }
+        if let baseMr = json[CodingKeys.baseMr.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.baseMr, value: Int32(baseMr))
+        }
+        if let baseAttackMin = json[CodingKeys.baseAttackMin.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.baseAttackMin, value: Int32(baseAttackMin))
+        }
+        if let baseAttackMax = json[CodingKeys.baseAttackMax.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.baseAttackMax, value: Int32(baseAttackMax))
+        }
+        if let baseStr = json[CodingKeys.baseStr.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.baseStr, value: Int32(baseStr))
+        }
+        if let baseAgi = json[CodingKeys.baseAgi.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.baseAgi, value: Int32(baseAgi))
+        }
+        if let baseInt = json[CodingKeys.baseInt.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.baseInt, value: Int32(baseInt))
+        }
+        if let strGain = json[CodingKeys.strGain.rawValue] as? Double {
+            setIfNotEqual(entity: self, path: \.gainStr, value: strGain)
+        }
+        if let agiGain = json[CodingKeys.agiGain.rawValue] as? Double {
+            setIfNotEqual(entity: self, path: \.gainAgi, value: agiGain)
+        }
+        if let intGain = json[CodingKeys.intGain.rawValue] as? Double {
+            setIfNotEqual(entity: self, path: \.gainInt, value: intGain)
+        }
+        if let attackRange = json[CodingKeys.attackRange.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.attackRange, value: Int32(attackRange))
+        }
+        if let projectileSpeed = json[CodingKeys.projectileSpeed.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.projectileSpeed, value: Int32(projectileSpeed))
+        }
+        if let attackRate = json[CodingKeys.attackRate.rawValue] as? Double {
+            setIfNotEqual(entity: self, path: \.attackRate, value: attackRate)
+        }
+        if let moveSpeed = json[CodingKeys.moveSpeed.rawValue] as? Int {
+            setIfNotEqual(entity: self, path: \.moveSpeed, value: Int32(moveSpeed))
         }
         
         let turnRate = json[CodingKeys.turnRate.rawValue] as? Double ?? 0.6
+        setIfNotEqual(entity: self, path: \.id, value: Double(id))
     }
     
     enum CodingKeys: String, CodingKey {
@@ -67,7 +109,6 @@ extension Hero: Mappable {
         case projectileSpeed = "projectile_speed"
         case attackRate = "attack_rate"
         case moveSpeed = "move_speed"
-        case cmEnabled = "cm_enabled"
         case turnRate = "turn_rate"
         
         case dayVision = "day_vision"

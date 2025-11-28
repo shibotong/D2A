@@ -393,10 +393,9 @@
 		79E173A12ED97583000A04BE /* Hero+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173A02ED9757F000A04BE /* Hero+Mappable.swift */; };
 		79E173A22ED97583000A04BE /* Hero+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173A02ED9757F000A04BE /* Hero+Mappable.swift */; };
 		79E173A32ED97583000A04BE /* Hero+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173A02ED9757F000A04BE /* Hero+Mappable.swift */; };
-		79E173A52ED978B9000A04BE /* SetValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173A42ED978B5000A04BE /* SetValue.swift */; };
-		79E173A62ED978B9000A04BE /* SetValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173A42ED978B5000A04BE /* SetValue.swift */; };
-		79E173A72ED978B9000A04BE /* SetValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173A42ED978B5000A04BE /* SetValue.swift */; };
-		79E173A82ED978B9000A04BE /* SetValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173A42ED978B5000A04BE /* SetValue.swift */; };
+		79E173AA2ED97A7D000A04BE /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173A92ED97A79000A04BE /* NSManagedObject.swift */; };
+		79E173AB2ED97A7D000A04BE /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173A92ED97A79000A04BE /* NSManagedObject.swift */; };
+		79E173AC2ED97A7D000A04BE /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173A92ED97A79000A04BE /* NSManagedObject.swift */; };
 		79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
 /* End PBXBuildFile section */
@@ -675,7 +674,7 @@
 		79E173962ED973F9000A04BE /* ConstantsLoadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsLoadingTests.swift; sourceTree = "<group>"; };
 		79E1739B2ED97569000A04BE /* Mappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mappable.swift; sourceTree = "<group>"; };
 		79E173A02ED9757F000A04BE /* Hero+Mappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hero+Mappable.swift"; sourceTree = "<group>"; };
-		79E173A42ED978B5000A04BE /* SetValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetValue.swift; sourceTree = "<group>"; };
+		79E173A92ED97A79000A04BE /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
 		79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Backend.xcdatamodel; sourceTree = "<group>"; };
 		79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -977,6 +976,7 @@
 				32D1606026F3753900657449 /* SKProduct.swift */,
 				32079DBE28B843360056D19F /* String.swift */,
 				79800DA3294C2E1000662E2F /* NSNumber.swift */,
+				79E173A92ED97A79000A04BE /* NSManagedObject.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1010,7 +1010,6 @@
 		32B36F4826C39238002D427D /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				79E173A42ED978B5000A04BE /* SetValue.swift */,
 				79E1739B2ED97569000A04BE /* Mappable.swift */,
 				79E173912ED9729D000A04BE /* Logger.swift */,
 				79E173842ED970A8000A04BE /* D2AError.swift */,
@@ -1707,7 +1706,6 @@
 				327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				79E173882ED970AB000A04BE /* D2AError.swift in Sources */,
 				328957A327F660D400BA9847 /* DecodingTestCase.swift in Sources */,
-				79E173A82ED978B9000A04BE /* SetValue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1746,6 +1744,7 @@
 				79BEC5BF29736E4900510748 /* LatestRecentMatchView.swift in Sources */,
 				323BCBA5285586E40061F937 /* CalendarMatchListViewModel.swift in Sources */,
 				79A988F92931D400006AC847 /* Match.swift in Sources */,
+				79E173AA2ED97A7D000A04BE /* NSManagedObject.swift in Sources */,
 				79CB52482A31C11F00C5D1C6 /* LiveMatchTimerView.swift in Sources */,
 				322B894026CE696C00DF67F9 /* DifferenceGraphView.swift in Sources */,
 				79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */,
@@ -1813,7 +1812,6 @@
 				32985DD3285569D0001869F2 /* RankView.swift in Sources */,
 				32B36F2926C38852002D427D /* MatchCodable.swift in Sources */,
 				32D1605A26F304DC00657449 /* StoreView.swift in Sources */,
-				79E173A72ED978B9000A04BE /* SetValue.swift in Sources */,
 				794B724329862294000059E4 /* ItemView.swift in Sources */,
 				3201BC3F26F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */,
@@ -1864,7 +1862,7 @@
 				32F70B1726F6294D006E9B05 /* MatchCodable.swift in Sources */,
 				32F70ADD26F60B8D006E9B05 /* SteamProfile.swift in Sources */,
 				327C033D2716A90400DAEC42 /* KDAView.swift in Sources */,
-				79E173A62ED978B9000A04BE /* SetValue.swift in Sources */,
+				79E173AC2ED97A7D000A04BE /* NSManagedObject.swift in Sources */,
 				32F70B1926F6295B006E9B05 /* Date.swift in Sources */,
 				3270271D285C08C200927426 /* HeroDatabase.swift in Sources */,
 				799948C12932D50000D79055 /* ImageCache.swift in Sources */,
@@ -1934,7 +1932,7 @@
 				32F70B2026F6295C006E9B05 /* Int.swift in Sources */,
 				3270271E285C08C300927426 /* HeroDatabase.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,
-				79E173A52ED978B9000A04BE /* SetValue.swift in Sources */,
+				79E173AB2ED97A7D000A04BE /* NSManagedObject.swift in Sources */,
 				32A26C52285947D4005E890F /* OpenDotaController.swift in Sources */,
 				32079DC128B843360056D19F /* String.swift in Sources */,
 				799948C22932D50000D79055 /* ImageCache.swift in Sources */,
