@@ -89,11 +89,11 @@ class HeroDatabase: ObservableObject {
     private func setupBinding() {
         Publishers
             .CombineLatest($openDotaLoadFinish, $stratzLoadFinish)
-            .map({ opendota, stratz in
-                if opendota == .error || stratz == .error {
+            .map({ opendota, _ in
+                if opendota == .error {
                     return LoadingStatus.error
                 }
-                if opendota == .finish && stratz == .finish {
+                if opendota == .finish {
                     return LoadingStatus.finish
                 }
                 return LoadingStatus.loading
