@@ -17,6 +17,8 @@ protocol OpenDotaProviding {
 
 struct OpenDotaProvider: OpenDotaProviding {
     
+    static let shared = OpenDotaProvider()
+    
     private let baseURL = "https://api.opendota.com/api/"
     
     private let network: NetworkProviding
