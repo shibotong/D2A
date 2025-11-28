@@ -57,19 +57,6 @@ class AbilityViewModel: ObservableObject {
         }
     }
     
-    init(scepter: String, shard: String, ability: String) {
-        heroID = 0
-        guard let scepterURL = URL(string: scepter),
-              let shardURL = URL(string: shard),
-              let abilityURL = URL(string: ability) else {
-            return
-        }
-        scepterVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: scepterURL)))
-        shardVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: shardURL)))
-        abilityVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: abilityURL)))
-        database = HeroDatabase.preview
-    }
-    
     private func setupBinding() {
         $stratzAbility
             .sink(receiveValue: { [weak self] ability in

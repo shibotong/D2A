@@ -103,16 +103,3 @@ struct AbilityView: View {
         }
     }
 }
-
-struct AbilityView_Previews: PreviewProvider {
-    static let ability = HeroDatabase.preview.fetchOpenDotaAbility(name: "antimage_name_break")
-    static var previews: some View {
-        Group {
-            NavigationView {
-                AbilityView(viewModel: AbilityViewModel(heroID: 1, ability: ability))
-                    .environmentObject(HeroDatabase.preview)
-            }
-            .previewDevice(.iPhone)
-        }
-    }
-}

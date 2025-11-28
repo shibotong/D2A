@@ -29,6 +29,7 @@ class PersistenceController {
     }()
 
     let container: NSPersistentContainer
+    let mainContext: NSManagedObjectContext
     private var notificationToken: NSObjectProtocol?
     
     /// A peristent history token used for fetching transactions from the store.
@@ -53,6 +54,7 @@ class PersistenceController {
     init(inMemory: Bool = uiTesting ? true : false) {
         container = NSPersistentContainer(name: "D2AModel")
         container.viewContext.automaticallyMergesChangesFromParent = true
+        mainContext = container.viewContext
         loadContainer(inMemory: inMemory)
     }
     

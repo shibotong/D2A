@@ -9,12 +9,15 @@ import Foundation
 import SwiftUI
 import Combine
 import StratzAPI
+import CoreData
 
 enum LoadingStatus {
     case loading, error, finish
 }
 
 class HeroDatabase: ObservableObject {
+    
+    @Published var allHeroes: [Hero] = []
     
     enum HeroDataError: Error {
         case heroNotFound
@@ -35,30 +38,18 @@ class HeroDatabase: ObservableObject {
     
     static var shared = HeroDatabase()
     
-    static var preview = HeroDatabase(preview: true)
-    
     @Published private var openDotaLoadFinish: LoadingStatus = .loading
     @Published private var stratzLoadFinish: LoadingStatus = .loading
     private var cancellable = Set<AnyCancellable>()
     
     let url = "https://api.opendota.com/api/herostats"
     
-    init(preview: Bool = false) {
-        guard !preview else {
-            self.heroes = loadSampleHero() ?? [:]
-            self.abilities = loadSampleAbilities() ?? [:]
-            return
-        }
+    private let context: NSManagedObjectContext
+    
+    init(context: NSManagedObjectContext = PersistenceController.shared.mainContext) {
+        self.context = context
         setupBinding()
         loadData()
-    }
-    
-    init(heroes: [String: HeroCodable] = [:],
-         itemID: [String: String] = [:],
-         items: [String: Item] = [:]) {
-        self.heroes = heroes
-        self.itemIDTable = itemID
-        self.items = items
     }
     
     func loadData() {

@@ -396,6 +396,8 @@
 		79E173AA2ED97A7D000A04BE /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173A92ED97A79000A04BE /* NSManagedObject.swift */; };
 		79E173AB2ED97A7D000A04BE /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173A92ED97A79000A04BE /* NSManagedObject.swift */; };
 		79E173AC2ED97A7D000A04BE /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173A92ED97A79000A04BE /* NSManagedObject.swift */; };
+		79E173AE2ED97EDD000A04BE /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 79E173AD2ED97EDD000A04BE /* Logging */; };
+		79E173B02ED97EE2000A04BE /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 79E173AF2ED97EE2000A04BE /* Logging */; };
 		79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
 /* End PBXBuildFile section */
@@ -704,6 +706,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79E173AE2ED97EDD000A04BE /* Logging in Frameworks */,
 				32F70A9F26F57F7E006E9B05 /* SwiftUI.framework in Frameworks */,
 				790FBB3429C18AC800E27106 /* Apollo in Frameworks */,
 				79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */,
@@ -720,6 +723,7 @@
 				79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */,
 				79D1043729E2991E00BC04B3 /* Apollo in Frameworks */,
 				790FBB2E29C1877A00E27106 /* StratzAPI in Frameworks */,
+				79E173B02ED97EE2000A04BE /* Logging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1359,6 +1363,7 @@
 				790FBB2B29C1877400E27106 /* StratzAPI */,
 				790FBB3329C18AC800E27106 /* Apollo */,
 				79266DA82A31B21D002FEF0F /* ApolloWebSocket */,
+				79E173AD2ED97EDD000A04BE /* Logging */,
 			);
 			productName = AppWidgetExtension;
 			productReference = 32F70A9D26F57F7E006E9B05 /* D2AWidgetExtension.appex */;
@@ -1381,6 +1386,7 @@
 				790FBB2D29C1877A00E27106 /* StratzAPI */,
 				79D1043629E2991E00BC04B3 /* Apollo */,
 				79266DAA2A31B224002FEF0F /* ApolloWebSocket */,
+				79E173AF2ED97EE2000A04BE /* Logging */,
 			);
 			productName = AppWidgetIntentHandler;
 			productReference = 32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */;
@@ -2704,6 +2710,16 @@
 			productName = Apollo;
 		};
 		79E1738A2ED9725F000A04BE /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79E173892ED9725F000A04BE /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		79E173AD2ED97EDD000A04BE /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79E173892ED9725F000A04BE /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		79E173AF2ED97EE2000A04BE /* Logging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 79E173892ED9725F000A04BE /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
