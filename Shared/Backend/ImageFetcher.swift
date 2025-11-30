@@ -7,8 +7,6 @@
 
 import Foundation
 import UIKit
-import CryptoKit
-import os.log
 
 // Actor to manage in-flight requests to deduplicate concurrent fetches for the same key
 actor InFlightRequests {
@@ -136,12 +134,5 @@ final class ImageFetcher {
     
     func resetMemoryCache() {
         memoryCache = [:]
-    }
-}
-
-private extension Data {
-    var sha256Hex: String {
-        let digest = SHA256.hash(data: self)
-        return digest.map { String(format: "%02x", $0) }.joined()
     }
 }
