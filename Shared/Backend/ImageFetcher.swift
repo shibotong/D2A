@@ -27,8 +27,9 @@ actor InFlightRequests {
     }
 }
 
-public final class ImageFetcher {
-    public static let fullFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/shredder.png")!, cache: "HeroImageFull")
+final class ImageFetcher {
+    static let fullFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/shredder.png")!, cache: "HeroImageFull")
+    static let vertFetcher = ImageFetcher(baseURL: <#T##URL#>, cache: <#T##String#>)
 
     private let baseURL: URL
     private let fileManager: FileManager
@@ -39,7 +40,7 @@ public final class ImageFetcher {
     private let cacheDirectory: URL
 
     // Configure with a base URL. Default can be your API root; override as needed.
-    public init(baseURL: URL = URL(string: "https://api.opendota.com")!,
+    public init(baseURL: URL,
                 cache: String,
                 fileManager: FileManager = .default) {
         self.baseURL = baseURL

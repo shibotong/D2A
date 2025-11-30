@@ -324,12 +324,10 @@
 		798C42972A356F4A00BDC470 /* sampleItemID.json in Resources */ = {isa = PBXBuildFile; fileRef = 798C42962A356F4A00BDC470 /* sampleItemID.json */; };
 		798C42992A356FAC00BDC470 /* sampleItem.json in Resources */ = {isa = PBXBuildFile; fileRef = 798C42982A356FAC00BDC470 /* sampleItem.json */; };
 		799948BE2932423800D79055 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BD2932423800D79055 /* LoadingView.swift */; };
-		799948C02932D50000D79055 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageCache.swift */; };
-		799948C12932D50000D79055 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageCache.swift */; };
-		799948C22932D50000D79055 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BF2932D50000D79055 /* ImageCache.swift */; };
 		799DD2362EDC310700EE3C8C /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799DD2352EDC310400EE3C8C /* ImageFetcher.swift */; };
 		799DD2372EDC310700EE3C8C /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799DD2352EDC310400EE3C8C /* ImageFetcher.swift */; };
 		799DD2382EDC310700EE3C8C /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799DD2352EDC310400EE3C8C /* ImageFetcher.swift */; };
+		799DD23D2EDC396C00EE3C8C /* ImageFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799DD2392EDC394900EE3C8C /* ImageFetcherTests.swift */; };
 		79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */; };
 		79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */; };
 		79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
@@ -651,8 +649,8 @@
 		798C42962A356F4A00BDC470 /* sampleItemID.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleItemID.json; sourceTree = "<group>"; };
 		798C42982A356FAC00BDC470 /* sampleItem.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleItem.json; sourceTree = "<group>"; };
 		799948BD2932423800D79055 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		799948BF2932D50000D79055 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		799DD2352EDC310400EE3C8C /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
+		799DD2392EDC394900EE3C8C /* ImageFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcherTests.swift; sourceTree = "<group>"; };
 		79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityStatsView.swift; sourceTree = "<group>"; };
 		79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityDescriptionView.swift; sourceTree = "<group>"; };
 		79A988F82931D400006AC847 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
@@ -855,6 +853,7 @@
 			children = (
 				328957A227F660D400BA9847 /* DecodingTestCase.swift */,
 				798C42922A3565BA00BDC470 /* LiveMatchKillEventTestCase.swift */,
+				799DD2392EDC394900EE3C8C /* ImageFetcherTests.swift */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -956,7 +955,6 @@
 				329849F326DCAEAE00A1032C /* HeroDatabase.swift */,
 				322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */,
 				32B36F4B26C39C5D002D427D /* Environment.swift */,
-				799948BF2932D50000D79055 /* ImageCache.swift */,
 				799DD2352EDC310400EE3C8C /* ImageFetcher.swift */,
 			);
 			path = Backend;
@@ -1708,6 +1706,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				799DD23D2EDC396C00EE3C8C /* ImageFetcherTests.swift in Sources */,
 				79E173922ED9729F000A04BE /* Logger.swift in Sources */,
 				79E1739F2ED9756B000A04BE /* Mappable.swift in Sources */,
 				798C42932A3565BA00BDC470 /* LiveMatchKillEventTestCase.swift in Sources */,
@@ -1798,7 +1797,6 @@
 				329849F426DCAEAE00A1032C /* HeroDatabase.swift in Sources */,
 				7985E7ED28E53A40007A43AF /* Role.swift in Sources */,
 				322B89C526CFAC1000DF67F9 /* SearchView.swift in Sources */,
-				799948C02932D50000D79055 /* ImageCache.swift in Sources */,
 				327B87782852263300BBE1F8 /* HeroListViewModel.swift in Sources */,
 				79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
@@ -1879,7 +1877,6 @@
 				79E173AC2ED97A7D000A04BE /* NSManagedObject.swift in Sources */,
 				32F70B1926F6295B006E9B05 /* Date.swift in Sources */,
 				3270271D285C08C200927426 /* HeroDatabase.swift in Sources */,
-				799948C12932D50000D79055 /* ImageCache.swift in Sources */,
 				79E173862ED970AB000A04BE /* D2AError.swift in Sources */,
 				32079DC028B843360056D19F /* String.swift in Sources */,
 				793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
@@ -1950,7 +1947,6 @@
 				79E173AB2ED97A7D000A04BE /* NSManagedObject.swift in Sources */,
 				32A26C52285947D4005E890F /* OpenDotaController.swift in Sources */,
 				32079DC128B843360056D19F /* String.swift in Sources */,
-				799948C22932D50000D79055 /* ImageCache.swift in Sources */,
 				79E173852ED970AB000A04BE /* D2AError.swift in Sources */,
 				32F70B1826F6294E006E9B05 /* MatchCodable.swift in Sources */,
 				793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
