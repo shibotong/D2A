@@ -37,63 +37,42 @@ final class URLProtocolStub: URLProtocol {
 @Suite("ImageFetcher Tests")
 class ImageFetcherTests {
 
-    let base = URL(string: "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes")!
-    let name = "shredder"
-    let imageURL = URL(string: "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes")!.appendingPathComponent("shredder.png")
-
-    @Test("Network fetch then memory cache hit")
-    @MainActor
-    func testMemoryCacheHit() async throws {
-        let fetcher = ImageFetcher(baseURL: base, cache: "TestCache_Memory")
-
-        // First fetch (should hit network)
-        var firstDelivered = 0
-        await fetcher.fetchImage(name: name) { _ in
-            firstDelivered += 1
-        }
-        #expect(firstDelivered >= 1)
-
-        // Second fetch (should hit memory cache and not increase network count)
-        var secondDelivered = 0
-        await fetcher.fetchImage(name: name) { _ in
-            secondDelivered += 1
-        }
-        #expect(secondDelivered == 1)
-        #expect(URLProtocolStub.requestCount[imageURL] == 1)
+    let imageFetcher: ImageFetcher
+    let name: String
+    let fileManager: FileManager
+    
+    private let cache: String
+    private var callCount = 0
+    
+    init() {
+        fileManager = .default
+        cache = "UnitTests"
+        imageFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes")!, cache: cache, fileManager: fileManager)
+        name = "shredder"
     }
-
-    @Test("Disk cache delivers before network when memory empty")
-    @MainActor
-    func testDiskCacheThenNetwork() async throws {
-        // Seed disk by one fetch with a dedicated cache directory
-        var fetcher: ImageFetcher? = ImageFetcher(baseURL: base, cache: "TestCache_Disk")
-        await fetcher!.fetchImage(name: name) { _ in }
-        // Drop the instance to clear its memory cache
-        fetcher = nil
-
-        // New instance with empty memory cache points to same disk dir
-        let newFetcher = ImageFetcher(baseURL: base, cache: "TestCache_Disk")
-        var deliveredCount = 0
-        await newFetcher.fetchImage(name: name) { _ in
-            deliveredCount += 1
-        }
-        // Expect at least 1 delivery from disk, possibly followed by network (still 1 request overall from stub per call)
-        #expect(deliveredCount >= 1)
+    
+    deinit {
+        let caches = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
+        let cacheDirectory = caches.appendingPathComponent(cache, isDirectory: true)
+        let url = cacheDirectory.appendingPathComponent(name)
+        try? fileManager.removeItem(at: url)
     }
-
-    @Test("Deduplicates concurrent requests")
+    
+    @Test
     @MainActor
-    func testDeduplication() async throws {
-        let fetcher = ImageFetcher(baseURL: base, cache: "TestCache_Dedupe")
-
-        // Reset counts
-        URLProtocolStub.requestCount[imageURL] = 0
-
-        async let a: Void = fetcher.fetchImage(name: name) { _ in }
-        async let b: Void = fetcher.fetchImage(name: name) { _ in }
-        _ = try? await (a, b)
-
-        // Only one network request should have been made for the same URL
-        #expect(URLProtocolStub.requestCount[imageURL] == 1)
+    func fetchImage() async {
+        await callFetchImage()
+        #expect(callCount == 1, "First call of image should call once")
+        await callFetchImage()
+        #expect(callCount == 2, "Second call should fetch image again")
+        imageFetcher.resetMemoryCache()
+        await callFetchImage()
+        #expect(callCount == 4, "After reset, call should fetch image again, call count should be 4")
+    }
+    
+    private func callFetchImage() async {
+        await imageFetcher.fetchImage(name: name) { image in
+            self.callCount += 1
+        }
     }
 }

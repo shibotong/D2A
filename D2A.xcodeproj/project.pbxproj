@@ -328,6 +328,9 @@
 		799DD2372EDC310700EE3C8C /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799DD2352EDC310400EE3C8C /* ImageFetcher.swift */; };
 		799DD2382EDC310700EE3C8C /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799DD2352EDC310400EE3C8C /* ImageFetcher.swift */; };
 		799DD23D2EDC396C00EE3C8C /* ImageFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799DD2392EDC394900EE3C8C /* ImageFetcherTests.swift */; };
+		799DD23F2EDC42A800EE3C8C /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799DD23E2EDC42A800EE3C8C /* ImageCache.swift */; };
+		799DD2402EDC42A800EE3C8C /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799DD23E2EDC42A800EE3C8C /* ImageCache.swift */; };
+		799DD2412EDC42A800EE3C8C /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799DD23E2EDC42A800EE3C8C /* ImageCache.swift */; };
 		79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */; };
 		79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */; };
 		79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
@@ -651,6 +654,7 @@
 		799948BD2932423800D79055 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		799DD2352EDC310400EE3C8C /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		799DD2392EDC394900EE3C8C /* ImageFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcherTests.swift; sourceTree = "<group>"; };
+		799DD23E2EDC42A800EE3C8C /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityStatsView.swift; sourceTree = "<group>"; };
 		79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityDescriptionView.swift; sourceTree = "<group>"; };
 		79A988F82931D400006AC847 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
@@ -955,6 +959,7 @@
 				329849F326DCAEAE00A1032C /* HeroDatabase.swift */,
 				322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */,
 				32B36F4B26C39C5D002D427D /* Environment.swift */,
+				799DD23E2EDC42A800EE3C8C /* ImageCache.swift */,
 				799DD2352EDC310400EE3C8C /* ImageFetcher.swift */,
 			);
 			path = Backend;
@@ -1739,6 +1744,7 @@
 				327B8760284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				7983DA6D2B63085000C42F87 /* D2AWidgetMatch.swift in Sources */,
 				321E3D01285422D00094FB10 /* AbilityViewModel.swift in Sources */,
+				799DD23F2EDC42A800EE3C8C /* ImageCache.swift in Sources */,
 				794838652A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				7985E7EF28E53E47007A43AF /* Talent.swift in Sources */,
 				79091DFC2A3B36310093EEE4 /* LiveMatchTeamIconView.swift in Sources */,
@@ -1887,6 +1893,7 @@
 				79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
 				32B526CD285C18440099B058 /* RankView.swift in Sources */,
 				79A9891A2931EB49006AC847 /* PlayerCodable.swift in Sources */,
+				799DD2412EDC42A800EE3C8C /* ImageCache.swift in Sources */,
 				79837B50294C181200458529 /* RecentMatch.swift in Sources */,
 				32F70B1C26F6295B006E9B05 /* SKProduct.swift in Sources */,
 				79E173822ED96F58000A04BE /* D2ANetwork.swift in Sources */,
@@ -1957,6 +1964,7 @@
 				79A989102931E8F3006AC847 /* Talent.swift in Sources */,
 				32B526C8285C0BDE0099B058 /* Provider.swift in Sources */,
 				79A9891B2931EB49006AC847 /* PlayerCodable.swift in Sources */,
+				799DD2402EDC42A800EE3C8C /* ImageCache.swift in Sources */,
 				79837B51294C181200458529 /* RecentMatch.swift in Sources */,
 				32F70B0326F62268006E9B05 /* RecentMatchCodable.swift in Sources */,
 				79E173812ED96F58000A04BE /* D2ANetwork.swift in Sources */,

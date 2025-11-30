@@ -28,9 +28,9 @@ actor InFlightRequests {
 }
 
 final class ImageFetcher {
-    static let fullFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/shredder.png")!, cache: "HeroImageFull")
-    static let vertFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.stratz.com/images/dota2/heroes/life_stealer_vert.png")!, cache: "HeroImageVert", postfix: "_vert")
-    static let iconFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.stratz.com/images/dota2/heroes/chen_icon.png")!, cache: "HeroImageIcon", postfix: "_icon")
+    static let fullFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes")!, cache: "HeroImageFull")
+    static let vertFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.stratz.com/images/dota2/heroes")!, cache: "HeroImageVert", postfix: "_vert")
+    static let iconFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.stratz.com/images/dota2/heroes")!, cache: "HeroImageIcon", postfix: "_icon")
 
     private let baseURL: URL
     private let fileManager: FileManager
@@ -132,6 +132,10 @@ final class ImageFetcher {
         } catch {
             // Best-effort cache; ignore errors
         }
+    }
+    
+    func resetMemoryCache() {
+        memoryCache = [:]
     }
 }
 
