@@ -7,6 +7,7 @@
 
 extension Hero: Mappable {
     func map(json: [String: Any]) {
+        print(json)
         guard let id = json[CodingKeys.id.rawValue] as? Int else {
             logger.error("Not able to find id when mapping hero")
             return

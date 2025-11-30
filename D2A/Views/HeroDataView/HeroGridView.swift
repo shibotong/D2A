@@ -9,13 +9,35 @@ import SwiftUI
 
 struct HeroGridView: View {
     
-    let heroes: [Hero] = []
+    let heroes: [Hero]
+    
+    private let columns = [GridItem(.adaptive(minimum: 130, maximum: 200), spacing: 8, alignment: .leading)]
     
     var body: some View {
-        Text("Hero Grid View")
+        VStack {
+            Text("Hero Grid View \(heroes.count)")
+            LazyVGrid(columns: columns) {
+                ForEach(heroes) { hero in
+                    HeroGridRowView(hero: hero)
+                }
+            }
+        }
+    }
+}
+
+struct HeroGridRowView: View {
+    
+    let hero: Hero
+    
+    var body: some View {
+        HeroImageView(heroID: Int(hero.id), type: .full)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .accessibilityIdentifier(hero.heroNameLocalized)
     }
 }
 
 #Preview {
-    HeroGridView()
+    ScrollView {
+        HeroGridView(heroes: SampleData.heroes)
+    }
 }
