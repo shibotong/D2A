@@ -29,12 +29,14 @@ actor InFlightRequests {
 
 final class ImageFetcher {
     static let fullFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes/shredder.png")!, cache: "HeroImageFull")
-    static let vertFetcher = ImageFetcher(baseURL: <#T##URL#>, cache: <#T##String#>)
+    static let vertFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.stratz.com/images/dota2/heroes/life_stealer_vert.png")!, cache: "HeroImageVert", postfix: "_vert")
+    static let iconFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.stratz.com/images/dota2/heroes/chen_icon.png")!, cache: "HeroImageIcon", postfix: "_icon")
 
     private let baseURL: URL
     private let fileManager: FileManager
     private let inFlight = InFlightRequests()
     private var memoryCache: [String: UIImage] = [:]
+    private let imagePostFix: String
 
     // Directory for disk cache
     private let cacheDirectory: URL
@@ -42,9 +44,11 @@ final class ImageFetcher {
     // Configure with a base URL. Default can be your API root; override as needed.
     public init(baseURL: URL,
                 cache: String,
+                postfix: String = "",
                 fileManager: FileManager = .default) {
         self.baseURL = baseURL
         self.fileManager = fileManager
+        self.imagePostFix = postfix
         // Create a subdirectory inside Caches for images
         let caches = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
         self.cacheDirectory = caches.appendingPathComponent(cache, isDirectory: true)
@@ -92,7 +96,7 @@ final class ImageFetcher {
         // 4) Create a new network fetch task and register it
         let task = Task<UIImage, Error> { [baseURL] in
             defer { Task { await self.inFlight.removeTask(for: key) } }
-            let url = baseURL.appendingPathComponent("\(name).png")
+            let url = baseURL.appendingPathComponent("\(name)\(imagePostFix).png")
             let (data, response) = try await URLSession.shared.data(from: url)
             guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
                 throw URLError(.badServerResponse)
