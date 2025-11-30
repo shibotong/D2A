@@ -398,6 +398,10 @@
 		79E173AC2ED97A7D000A04BE /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173A92ED97A79000A04BE /* NSManagedObject.swift */; };
 		79E173AE2ED97EDD000A04BE /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 79E173AD2ED97EDD000A04BE /* Logging */; };
 		79E173B02ED97EE2000A04BE /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 79E173AF2ED97EE2000A04BE /* Logging */; };
+		79E173B62EDC2742000A04BE /* HeroListViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173B52EDC2734000A04BE /* HeroListViewContainer.swift */; };
+		79E173B82EDC2772000A04BE /* HeroListViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173B72EDC276E000A04BE /* HeroListViewV2.swift */; };
+		79E173BA2EDC27BE000A04BE /* HeroGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173B92EDC27BB000A04BE /* HeroGridView.swift */; };
+		79E173BD2EDC281D000A04BE /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E173BC2EDC2818000A04BE /* SampleData.swift */; };
 		79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */; };
 		79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */; };
 /* End PBXBuildFile section */
@@ -677,6 +681,10 @@
 		79E1739B2ED97569000A04BE /* Mappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mappable.swift; sourceTree = "<group>"; };
 		79E173A02ED9757F000A04BE /* Hero+Mappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hero+Mappable.swift"; sourceTree = "<group>"; };
 		79E173A92ED97A79000A04BE /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
+		79E173B52EDC2734000A04BE /* HeroListViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListViewContainer.swift; sourceTree = "<group>"; };
+		79E173B72EDC276E000A04BE /* HeroListViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListViewV2.swift; sourceTree = "<group>"; };
+		79E173B92EDC27BB000A04BE /* HeroGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroGridView.swift; sourceTree = "<group>"; };
+		79E173BC2EDC2818000A04BE /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		79F5B5D128E3B89800FB67E5 /* Backend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Backend.xcdatamodel; sourceTree = "<group>"; };
 		79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -811,6 +819,9 @@
 			isa = PBXGroup;
 			children = (
 				796BF20329F5536000555C64 /* HeroListView.swift */,
+				79E173B72EDC276E000A04BE /* HeroListViewV2.swift */,
+				79E173B92EDC27BB000A04BE /* HeroGridView.swift */,
+				79E173B52EDC2734000A04BE /* HeroListViewContainer.swift */,
 				327B87772852263300BBE1F8 /* HeroListViewModel.swift */,
 				3261C906282F315100D47CDA /* HeroDetailView.swift */,
 				3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */,
@@ -884,6 +895,7 @@
 		32B36F0226C38821002D427D = {
 			isa = PBXGroup;
 			children = (
+				79E173BB2EDC27EC000A04BE /* Previews */,
 				798A1D1729C183B500E443A6 /* StratzAPI */,
 				79A989262931FA50006AC847 /* D2AProStore.storekit */,
 				32C606CB286479F7007AD14B /* ci_scripts */,
@@ -925,18 +937,9 @@
 				32B36F3D26C38894002D427D /* Views */,
 				32D1605B26F30B5F00657449 /* Subscription */,
 				32B36F1726C38822002D427D /* Info.plist */,
-				32B36F1426C38822002D427D /* Preview Content */,
 				32AEEEF826F9B1120088DEC8 /* LocalizableStrings.swift */,
 			);
 			path = D2A;
-			sourceTree = "<group>";
-		};
-		32B36F1426C38822002D427D /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				32B36F1526C38822002D427D /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		32B36F1D26C38834002D427D /* Backend */ = {
@@ -1294,6 +1297,15 @@
 				798A5CF92945B3C300EB07B0 /* RecentMatch.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		79E173BB2EDC27EC000A04BE /* Previews */ = {
+			isa = PBXGroup;
+			children = (
+				79E173BC2EDC2818000A04BE /* SampleData.swift */,
+				32B36F1526C38822002D427D /* Preview Assets.xcassets */,
+			);
+			path = Previews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1723,6 +1735,7 @@
 				32B36F2726C38852002D427D /* HeroCodable.swift in Sources */,
 				79E1737E2ED96E5A000A04BE /* OpenDotaProvider.swift in Sources */,
 				79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */,
+				79E173B82EDC2772000A04BE /* HeroListViewV2.swift in Sources */,
 				32B36F4A26C39242002D427D /* StringVariable.swift in Sources */,
 				7985E7EB28E53919007A43AF /* Hero.swift in Sources */,
 				798A5CF82945503100EB07B0 /* ProfileAvatar.swift in Sources */,
@@ -1761,6 +1774,7 @@
 				79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */,
 				79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */,
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
+				79E173BD2EDC281D000A04BE /* SampleData.swift in Sources */,
 				79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */,
 				3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */,
 				322B893E26CE66F800DF67F9 /* MainLoadingView.swift in Sources */,
@@ -1774,6 +1788,7 @@
 				325285A226CBE3C90030F15B /* MatchListRowViewModel.swift in Sources */,
 				32B36F3F26C388AD002D427D /* PlayerProfileView.swift in Sources */,
 				32B36F2A26C38852002D427D /* Item.swift in Sources */,
+				79E173B62EDC2742000A04BE /* HeroListViewContainer.swift in Sources */,
 				3261C90B2830721500D47CDA /* HeroDetailViewModel.swift in Sources */,
 				79ABE8FA2A35C3CF00EE9EF9 /* LiveMatchDraftView.swift in Sources */,
 				79266DA72A31B0FD002FEF0F /* LiveMatchView.swift in Sources */,
@@ -1830,6 +1845,7 @@
 				32D1606126F3753900657449 /* SKProduct.swift in Sources */,
 				79E173832ED96F58000A04BE /* D2ANetwork.swift in Sources */,
 				799948BE2932423800D79055 /* LoadingView.swift in Sources */,
+				79E173BA2EDC27BE000A04BE /* HeroGridView.swift in Sources */,
 				7965F636293ADE1900922F99 /* RegisteredPlayerView.swift in Sources */,
 				796FE19E29AB006C003379EB /* AbilityImageViewModel.swift in Sources */,
 				798C42912A35581900BDC470 /* LiveMatchKillEvent.swift in Sources */,
@@ -2256,7 +2272,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"D2A/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "D2A/Preview\\ Content Previews";
 				DEVELOPMENT_TEAM = MRB66268H7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/D2A/Info.plist";
@@ -2290,7 +2306,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"D2A/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "D2A/Preview\\ Content Previews";
 				DEVELOPMENT_TEAM = MRB66268H7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/D2A/Info.plist";
