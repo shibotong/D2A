@@ -26,27 +26,30 @@ actor InFlightRequests {
 }
 
 final class ImageFetcher {
-    static let fullFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes")!, cache: "HeroImageFull")
-    static let vertFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.stratz.com/images/dota2/heroes")!, cache: "HeroImageVert", postfix: "_vert")
-    static let iconFetcher = ImageFetcher(baseURL: URL(string: "https://cdn.stratz.com/images/dota2/heroes")!, cache: "HeroImageIcon", postfix: "_icon")
+    static let fullFetcher = ImageFetcher(baseURL: "https://cdn.steamstatic.com/apps/dota2/images/dota_react/heroes", cache: "HeroImageFull")
+    static let vertFetcher = ImageFetcher(baseURL: "https://cdn.stratz.com/images/dota2/heroes", cache: "HeroImageVert", postfix: "_vert")
+    static let iconFetcher = ImageFetcher(baseURL: "https://cdn.stratz.com/images/dota2/heroes", cache: "HeroImageIcon", postfix: "_icon")
 
-    private let baseURL: URL
+    private let baseURL: String
     private let fileManager: FileManager
     private let inFlight = InFlightRequests()
     private var memoryCache: [String: UIImage] = [:]
     private let imagePostFix: String
+    private let network: NetworkProviding
 
     // Directory for disk cache
     private let cacheDirectory: URL
 
     // Configure with a base URL. Default can be your API root; override as needed.
-    public init(baseURL: URL,
+    public init(baseURL: String,
                 cache: String,
                 postfix: String = "",
-                fileManager: FileManager = .default) {
+                fileManager: FileManager = .default,
+                network: NetworkProviding = D2ANetworkProvider.shared) {
         self.baseURL = baseURL
         self.fileManager = fileManager
         self.imagePostFix = postfix
+        self.network = network
         // Create a subdirectory inside Caches for images
         let caches = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
         self.cacheDirectory = caches.appendingPathComponent(cache, isDirectory: true)
@@ -94,11 +97,8 @@ final class ImageFetcher {
         // 4) Create a new network fetch task and register it
         let task = Task<UIImage, Error> { [baseURL] in
             defer { Task { await self.inFlight.removeTask(for: key) } }
-            let url = baseURL.appendingPathComponent("\(name)\(imagePostFix).png")
-            let (data, response) = try await URLSession.shared.data(from: url)
-            guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
-                throw URLError(.badServerResponse)
-            }
+            let url = "\(baseURL)/\(name)\(imagePostFix).png"
+            let data = try await network.requestData(urlString: url)
             guard let image = UIImage(data: data) else {
                 throw URLError(.cannotDecodeContentData)
             }
