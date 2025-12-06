@@ -14,8 +14,15 @@ protocol D2ANetworking {
 }
 
 struct D2ANetwork: D2ANetworking {
+    
+    private let provider: DataProviding
+    
+    init(provider: DataProviding = DataProvider()) {
+        self.provider = provider
+    }
+    
     func jsonObject(urlString: String) async throws -> [String : Any] {
-        let data = try await data(urlString: urlString)
+        let data = try await provider.data(urlString: urlString)
         guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
             throw URLError(.cannotDecodeRawData)
         }
@@ -23,7 +30,7 @@ struct D2ANetwork: D2ANetworking {
     }
     
     func jsonArray(urlString: String) async throws -> [[String : Any]] {
-        let data = try await data(urlString: urlString)
+        let data = try await provider.data(urlString: urlString)
         guard let jsonArray = try JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
             throw URLError(.cannotDecodeRawData)
         }
@@ -31,14 +38,20 @@ struct D2ANetwork: D2ANetworking {
     }
     
     func image(urlString: String) async throws -> UIImage {
-        let data = try await data(urlString: urlString)
+        let data = try await provider.data(urlString: urlString)
         guard let image = UIImage(data: data) else {
             throw URLError(.cannotDecodeRawData)
         }
         return image
     }
-    
-    private func data(urlString: String) async throws -> Data {
+}
+
+protocol DataProviding {
+    func data(urlString: String) async throws -> Data
+}
+
+struct DataProvider: DataProviding {
+    func data(urlString: String) async throws -> Data {
         guard let url = URL(string: urlString) else {
             throw URLError(.badURL)
         }
