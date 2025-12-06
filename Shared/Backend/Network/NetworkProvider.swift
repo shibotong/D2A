@@ -16,15 +16,17 @@ protocol NetworkProviding {
 struct NetworkProvider: NetworkProviding {
     
     private let provider: DataProviding
+    private let logger: D2ALogger
     
-    init(provider: DataProviding = DataProvider()) {
+    init(provider: DataProviding = DataProvider(),
+         logger: D2ALogger = .shared) {
         self.provider = provider
     }
     
     func jsonObject(urlString: String) async throws -> [String : Any] {
         let data = try await provider.data(urlString: urlString)
         guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-            logger.error("Cannot decode as json object from \(urlString)")
+            logger.error("Cannot decode as json object from \(urlString)", category: .network)
             throw URLError(.cannotDecodeRawData)
         }
         return jsonObject
@@ -33,7 +35,7 @@ struct NetworkProvider: NetworkProviding {
     func jsonArray(urlString: String) async throws -> [[String : Any]] {
         let data = try await provider.data(urlString: urlString)
         guard let jsonArray = try JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
-            logger.error("Cannot decode as json array from \(urlString)")
+            logger.error("Cannot decode as json array from \(urlString)", category: .network)
             throw URLError(.cannotDecodeRawData)
         }
         return jsonArray
@@ -42,7 +44,7 @@ struct NetworkProvider: NetworkProviding {
     func image(urlString: String) async throws -> UIImage {
         let data = try await provider.data(urlString: urlString)
         guard let image = UIImage(data: data) else {
-            logger.error("Cannot decode as image from \(urlString)")
+            logger.error("Cannot decode as image from \(urlString)", category: .network)
             throw URLError(.cannotDecodeRawData)
         }
         return image

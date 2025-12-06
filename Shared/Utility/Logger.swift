@@ -11,6 +11,7 @@ enum LoggingCategory: String, CaseIterable {
     case coredata = "CoreData"
     case debug = "Debug"
     case image = "Image"
+    case network = "Network"
     
     var loggingLevel: Logger.Level {
         set {
@@ -21,6 +22,8 @@ enum LoggingCategory: String, CaseIterable {
                 Logger.debug.logLevel = newValue
             case .image:
                 Logger.image.logLevel = newValue
+            case .network:
+                Logger.network.logLevel = newValue
             }
         }
         get {
@@ -36,6 +39,8 @@ enum LoggingCategory: String, CaseIterable {
             return .image
         case .debug:
             return .debug
+        case .network:
+            return .network
         }
     }
 }
@@ -44,6 +49,7 @@ extension Logger {
     static var image = createLogger(label: "🏙️")
     static var coredata = createLogger(label: "📁")
     static var debug = createLogger(label: "✏️")
+    static var network = createLogger(label: "🛜")
     
     static func createLogger(label: String) -> Logger {
         return Logger(label: label) { label in
