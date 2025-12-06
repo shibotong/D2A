@@ -7,8 +7,6 @@
 
 import Logging
 
-let logger = Logger(label: "com.shibodev.dotaarmory")
-
 enum LoggingCategory: String, CaseIterable {
     case coredata = "CoreData"
     case debug = "Debug"
@@ -73,7 +71,7 @@ class D2ALogger {
                file: String = #fileID,
                function: String = #function,
                line: UInt = #line) {
-        log(level: .trace, message: message(), logger: logger, file: file, function: function, line: line)
+        log(level: .trace, message: message(), logger: category, file: file, function: function, line: line)
     }
 
     /// Appropriate for messages that contain information normally of use only when
@@ -83,7 +81,7 @@ class D2ALogger {
                file: String = #fileID,
                function: String = #function,
                line: UInt = #line) {
-        log(level: .debug, message: message(), logger: logger, file: file, function: function, line: line)
+        log(level: .debug, message: message(), logger: category, file: file, function: function, line: line)
     }
 
     /// Appropriate for informational messages.
@@ -92,7 +90,7 @@ class D2ALogger {
               file: String = #fileID,
               function: String = #function,
               line: UInt = #line) {
-        log(level: .info, message: message(), logger: logger, file: file, function: function, line: line)
+        log(level: .info, message: message(), logger: category, file: file, function: function, line: line)
     }
 
     /// Appropriate for conditions that are not error conditions, but that may require
@@ -102,7 +100,7 @@ class D2ALogger {
                 file: String = #fileID,
                 function: String = #function,
                 line: UInt = #line) {
-        log(level: .notice, message: message(), logger: logger, file: file, function: function, line: line)
+        log(level: .notice, message: message(), logger: category, file: file, function: function, line: line)
     }
 
     /// Appropriate for messages that are not error conditions, but more severe than
@@ -112,7 +110,7 @@ class D2ALogger {
                  file: String = #fileID,
                  function: String = #function,
                  line: UInt = #line) {
-        log(level: .warning, message: message(), logger: logger, file: file, function: function, line: line)
+        log(level: .warning, message: message(), logger: category, file: file, function: function, line: line)
     }
 
     /// Appropriate for error conditions.
@@ -121,7 +119,7 @@ class D2ALogger {
                file: String = #fileID,
                function: String = #function,
                line: UInt = #line) {
-        log(level: .error, message: message(), logger: logger, file: file, function: function, line: line)
+        log(level: .error, message: message(), logger: category, file: file, function: function, line: line)
     }
 
     /// Appropriate for critical error conditions that usually require immediate
@@ -135,7 +133,7 @@ class D2ALogger {
                   file: String = #fileID,
                   function: String = #function,
                   line: UInt = #line) {
-        log(level: .critical, message: message(), logger: logger, file: file, function: function, line: line)
+        log(level: .critical, message: message(), logger: category, file: file, function: function, line: line)
     }
 }
 
