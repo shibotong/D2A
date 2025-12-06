@@ -24,6 +24,7 @@ struct NetworkProvider: NetworkProviding {
     func jsonObject(urlString: String) async throws -> [String : Any] {
         let data = try await provider.data(urlString: urlString)
         guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            logger.error("Cannot decode as json object from \(urlString)")
             throw URLError(.cannotDecodeRawData)
         }
         return jsonObject
@@ -32,6 +33,7 @@ struct NetworkProvider: NetworkProviding {
     func jsonArray(urlString: String) async throws -> [[String : Any]] {
         let data = try await provider.data(urlString: urlString)
         guard let jsonArray = try JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
+            logger.error("Cannot decode as json array from \(urlString)")
             throw URLError(.cannotDecodeRawData)
         }
         return jsonArray
@@ -40,6 +42,7 @@ struct NetworkProvider: NetworkProviding {
     func image(urlString: String) async throws -> UIImage {
         let data = try await provider.data(urlString: urlString)
         guard let image = UIImage(data: data) else {
+            logger.error("Cannot decode as image from \(urlString)")
             throw URLError(.cannotDecodeRawData)
         }
         return image
