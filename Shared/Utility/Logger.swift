@@ -65,3 +65,50 @@ class D2ALogger {
         log(level: .critical, message: message(), logger: logger)
     }
 }
+
+struct D2ALogHandler: LogHandler {
+    subscript(metadataKey key: String) -> Logging.Logger.Metadata.Value? {
+        get {
+            return self.metadata[key]
+        }
+        set(newValue) {
+            self.metadata[key] = newValue
+        }
+    }
+    
+    var metadata: Logging.Logger.Metadata = [:]
+    
+    var logLevel: Logging.Logger.Level = .debug
+    
+    private let label: String
+    
+    init(label: String) {
+        self.label = label
+    }
+    
+    func log(level: Logger.Level, message: Logger.Message, metadata: Logger.Metadata?, source: String, file: String, function: String, line: UInt) {
+        print("\(level.icon) [\(file):\(line)] \(message)")
+    }
+}
+
+extension Logger.Level {
+    var icon: String {
+        switch self {
+        case .trace:
+            return "📝"
+        case .debug:
+            return "💻"
+        case .info:
+            return "ℹ️"
+        case .notice:
+            return "👀"
+        case .warning:
+            return "⚠️"
+        case .error:
+            return "❌"
+        case .critical:
+            return "🤡"
+        }
+    }
+}
+
