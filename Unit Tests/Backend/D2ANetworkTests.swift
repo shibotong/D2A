@@ -24,12 +24,12 @@ class D2ANetworkTests {
         }
     }
     
-    let network: D2ANetworking
+    let network: NetworkProviding
     private var dataProvider: MockDataProvider
     
     init() {
         dataProvider = MockDataProvider()
-        network = D2ANetwork(provider: dataProvider)
+        network = NetworkProvider(provider: dataProvider)
     }
     
     @Test("Test JSON Object")

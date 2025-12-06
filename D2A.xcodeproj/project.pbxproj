@@ -297,9 +297,9 @@
 		7977FDA129C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
 		7977FDA229C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
 		7977FDA329C1770B0034D3EA /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 7977FDA029C1770B0034D3EA /* schema.graphqls */; };
-		797A57B02EE3C504001DC074 /* D2ANetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797A57AF2EE3C501001DC074 /* D2ANetwork.swift */; };
-		797A57B12EE3C504001DC074 /* D2ANetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797A57AF2EE3C501001DC074 /* D2ANetwork.swift */; };
-		797A57B22EE3C504001DC074 /* D2ANetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797A57AF2EE3C501001DC074 /* D2ANetwork.swift */; };
+		797A57B02EE3C504001DC074 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797A57AF2EE3C501001DC074 /* NetworkProvider.swift */; };
+		797A57B12EE3C504001DC074 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797A57AF2EE3C501001DC074 /* NetworkProvider.swift */; };
+		797A57B22EE3C504001DC074 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797A57AF2EE3C501001DC074 /* NetworkProvider.swift */; };
 		797A57B72EE3C725001DC074 /* D2ANetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797A57B62EE3C720001DC074 /* D2ANetworkTests.swift */; };
 		797A57BA2EE3C87E001DC074 /* UnitTestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797A57B92EE3C879001DC074 /* UnitTestError.swift */; };
 		797A57C12EE3E1D8001DC074 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797A57C02EE3E1D6001DC074 /* DataProvider.swift */; };
@@ -610,7 +610,7 @@
 		796FE19D29AB006C003379EB /* AbilityImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityImageViewModel.swift; sourceTree = "<group>"; };
 		797776D02B60C5E6000E6C3B /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		7977FDA029C1770B0034D3EA /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
-		797A57AF2EE3C501001DC074 /* D2ANetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ANetwork.swift; sourceTree = "<group>"; };
+		797A57AF2EE3C501001DC074 /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
 		797A57B62EE3C720001DC074 /* D2ANetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ANetworkTests.swift; sourceTree = "<group>"; };
 		797A57B92EE3C879001DC074 /* UnitTestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTestError.swift; sourceTree = "<group>"; };
 		797A57C02EE3E1D6001DC074 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
@@ -1210,7 +1210,7 @@
 			isa = PBXGroup;
 			children = (
 				797A57C02EE3E1D6001DC074 /* DataProvider.swift */,
-				797A57AF2EE3C501001DC074 /* D2ANetwork.swift */,
+				797A57AF2EE3C501001DC074 /* NetworkProvider.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1718,7 +1718,7 @@
 				79837B53294C189200458529 /* PlayerRowView.swift in Sources */,
 				79D5282228DD74930070841D /* Secret.swift in Sources */,
 				32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */,
-				797A57B22EE3C504001DC074 /* D2ANetwork.swift in Sources */,
+				797A57B22EE3C504001DC074 /* NetworkProvider.swift in Sources */,
 				79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */,
 				79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */,
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
@@ -1838,7 +1838,7 @@
 				32A26C51285947D3005E890F /* OpenDotaController.swift in Sources */,
 				79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
 				32B526CD285C18440099B058 /* RankView.swift in Sources */,
-				797A57B12EE3C504001DC074 /* D2ANetwork.swift in Sources */,
+				797A57B12EE3C504001DC074 /* NetworkProvider.swift in Sources */,
 				79A9891A2931EB49006AC847 /* PlayerCodable.swift in Sources */,
 				79837B50294C181200458529 /* RecentMatch.swift in Sources */,
 				32F70B1C26F6295B006E9B05 /* SKProduct.swift in Sources */,
@@ -1904,7 +1904,7 @@
 				79A988F72931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
 				79A989102931E8F3006AC847 /* Talent.swift in Sources */,
 				32B526C8285C0BDE0099B058 /* Provider.swift in Sources */,
-				797A57B02EE3C504001DC074 /* D2ANetwork.swift in Sources */,
+				797A57B02EE3C504001DC074 /* NetworkProvider.swift in Sources */,
 				79A9891B2931EB49006AC847 /* PlayerCodable.swift in Sources */,
 				79837B51294C181200458529 /* RecentMatch.swift in Sources */,
 				32F70B0326F62268006E9B05 /* RecentMatchCodable.swift in Sources */,

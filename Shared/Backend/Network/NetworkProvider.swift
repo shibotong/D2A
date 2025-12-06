@@ -1,5 +1,5 @@
 //
-//  D2ANetwork.swift
+//  NetworkProvider.swift
 //  D2A
 //
 //  Created by Shibo Tong on 6/12/2025.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol D2ANetworking {
+protocol NetworkProviding {
     func jsonObject(urlString: String) async throws -> [String: Any]
     func jsonArray(urlString: String) async throws -> [[String: Any]]
     func image(urlString: String) async throws -> UIImage
 }
 
-struct D2ANetwork: D2ANetworking {
+struct NetworkProvider: NetworkProviding {
     
     private let provider: DataProviding
     
