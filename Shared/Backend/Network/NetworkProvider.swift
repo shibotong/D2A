@@ -21,6 +21,7 @@ struct NetworkProvider: NetworkProviding {
     init(provider: DataProviding = DataProvider(),
          logger: D2ALogger = .shared) {
         self.provider = provider
+        self.logger = logger
     }
     
     func jsonObject(urlString: String) async throws -> [String : Any] {
