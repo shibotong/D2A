@@ -20,6 +20,9 @@ struct AboutUsView: View {
     
     var body: some View {
         List {
+            #if DEBUG
+            DebugsSettingView()
+            #endif
             Section(header: Text("Our App")) {
                 makeButton(image: "cart", text: "Unlock All Features") {
                     presentState.wrappedValue.dismiss()
