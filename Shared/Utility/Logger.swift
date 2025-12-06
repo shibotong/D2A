@@ -9,50 +9,119 @@ import Logging
 
 let logger = Logger(label: "com.shibodev.dotaarmory")
 
+enum LoggingCategory: String, CaseIterable {
+    case coredata = "CoreData"
+    case debug = "Debug"
+    case image = "Image"
+    
+    var loggingLevel: Logger.Level {
+        set {
+            switch self {
+            case .coredata:
+                Logger.coredata.logLevel = newValue
+            case .debug:
+                Logger.debug.logLevel = newValue
+            case .image:
+                Logger.image.logLevel = newValue
+            }
+        }
+        get {
+            logger.logLevel
+        }
+    }
+    
+    var logger: Logger {
+        switch self {
+        case .coredata:
+            return .coredata
+        case .image:
+            return .image
+        case .debug:
+            return .debug
+        }
+    }
+}
+
 extension Logger {
-    static let image = Logger(label: "🏙️")
-    static let coredata = Logger(label: "🔄")
+    static var image = createLogger(label: "🏙️")
+    static var coredata = createLogger(label: "📁")
+    static var debug = createLogger(label: "✏️")
+    
+    static func createLogger(label: String) -> Logger {
+        return Logger(label: label) { label in
+            return D2ALogHandler(label: label)
+        }
+    }
 }
 
 class D2ALogger {
     static let shared = D2ALogger()
     
-    func log(level: Logger.Level, message: @autoclosure () -> Logger.Message, logger: Logger) {
-        logger.log(level: level, message())
+    private func log(level: Logger.Level,
+                     message: @autoclosure () -> Logger.Message,
+                     logger: Logger,
+                     file: String = #fileID,
+                     function: String = #function,
+                     line: UInt = #line) {
+        logger.log(level: level, message(), file: file, function: function, line: line)
     }
     
     /// Appropriate for messages that contain information normally of use only when
     /// tracing the execution of a program.
-    func trace(_ message: @autoclosure () -> Logger.Message, logger: Logger) {
-        log(level: .trace, message: message(), logger: logger)
+    func trace(_ message: @autoclosure () -> Logger.Message,
+               category: Logger,
+               file: String = #fileID,
+               function: String = #function,
+               line: UInt = #line) {
+        log(level: .trace, message: message(), logger: logger, file: file, function: function, line: line)
     }
 
     /// Appropriate for messages that contain information normally of use only when
     /// debugging a program.
-    func debug(_ message: @autoclosure () -> Logger.Message, logger: Logger) {
-        log(level: .debug, message: message(), logger: logger)
+    func debug(_ message: @autoclosure () -> Logger.Message,
+               category: Logger,
+               file: String = #fileID,
+               function: String = #function,
+               line: UInt = #line) {
+        log(level: .debug, message: message(), logger: logger, file: file, function: function, line: line)
     }
 
     /// Appropriate for informational messages.
-    func info(_ message: @autoclosure () -> Logger.Message, logger: Logger) {
-        log(level: .info, message: message(), logger: logger)
+    func info(_ message: @autoclosure () -> Logger.Message,
+              category: Logger,
+              file: String = #fileID,
+              function: String = #function,
+              line: UInt = #line) {
+        log(level: .info, message: message(), logger: logger, file: file, function: function, line: line)
     }
 
     /// Appropriate for conditions that are not error conditions, but that may require
     /// special handling.
-    func notice(_ message: @autoclosure () -> Logger.Message, logger: Logger) {
-        log(level: .notice, message: message(), logger: logger)
+    func notice(_ message: @autoclosure () -> Logger.Message,
+                category: Logger,
+                file: String = #fileID,
+                function: String = #function,
+                line: UInt = #line) {
+        log(level: .notice, message: message(), logger: logger, file: file, function: function, line: line)
     }
 
     /// Appropriate for messages that are not error conditions, but more severe than
     /// `.notice`.
-    func warning(_ message: @autoclosure () -> Logger.Message, logger: Logger) {
-        log(level: .warning, message: message(), logger: logger)
+    func warning(_ message: @autoclosure () -> Logger.Message,
+                 category: Logger,
+                 file: String = #fileID,
+                 function: String = #function,
+                 line: UInt = #line) {
+        log(level: .warning, message: message(), logger: logger, file: file, function: function, line: line)
     }
 
     /// Appropriate for error conditions.
-    func error(_ message: @autoclosure () -> Logger.Message, logger: Logger) {
-        log(level: .error, message: message(), logger: logger)
+    func error(_ message: @autoclosure () -> Logger.Message,
+               category: Logger,
+               file: String = #fileID,
+               function: String = #function,
+               line: UInt = #line) {
+        log(level: .error, message: message(), logger: logger, file: file, function: function, line: line)
     }
 
     /// Appropriate for critical error conditions that usually require immediate
@@ -61,8 +130,12 @@ class D2ALogger {
     /// When a `critical` message is logged, the logging backend (`LogHandler`) is free to perform
     /// more heavy-weight operations to capture system state (such as capturing stack traces) to facilitate
     /// debugging.
-    func critical(_ message: @autoclosure () -> Logger.Message, logger: Logger) {
-        log(level: .critical, message: message(), logger: logger)
+    func critical(_ message: @autoclosure () -> Logger.Message,
+                  category: Logger,
+                  file: String = #fileID,
+                  function: String = #function,
+                  line: UInt = #line) {
+        log(level: .critical, message: message(), logger: logger, file: file, function: function, line: line)
     }
 }
 
@@ -87,7 +160,7 @@ struct D2ALogHandler: LogHandler {
     }
     
     func log(level: Logger.Level, message: Logger.Message, metadata: Logger.Metadata?, source: String, file: String, function: String, line: UInt) {
-        print("\(level.icon) [\(file):\(line)] \(message)")
+        print("\(level.icon) [\(label) \(file):\(line)] \(message)")
     }
 }
 
