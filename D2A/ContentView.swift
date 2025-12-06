@@ -62,12 +62,13 @@ struct NavigationHostView: View {
                         Image(systemName: "server.rack")
                         Text("Heroes")
                     }.tag(TabSelection.hero).navigationViewStyle(.stack)
-                    NavigationView {
-                        LiveMatchListView()
-                    }.tabItem {
-                        Image(systemName: "gamecontroller.fill")
-                        Text("Live")
-                    }.tag(TabSelection.live).navigationViewStyle(.stack)
+                    // Live Match is not working on stratz
+//                    NavigationView {
+//                        LiveMatchListView()
+//                    }.tabItem {
+//                        Image(systemName: "gamecontroller.fill")
+//                        Text("Live")
+//                    }.tag(TabSelection.live).navigationViewStyle(.stack)
                     NavigationView {
                         SearchView()
                     }
