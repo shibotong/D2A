@@ -8,8 +8,7 @@
 import UIKit
 
 protocol NetworkProviding {
-    func jsonObject(urlString: String) async throws -> [String: Any]
-    func jsonArray(urlString: String) async throws -> [[String: Any]]
+    func json<T>(urlString: String, as: T.Type) async throws -> T
     func image(urlString: String) async throws -> UIImage
 }
 
@@ -24,22 +23,13 @@ struct NetworkProvider: NetworkProviding {
         self.logger = logger
     }
     
-    func jsonObject(urlString: String) async throws -> [String : Any] {
+    func json<T>(urlString: String, as: T.Type) async throws -> T {
         let data = try await provider.data(urlString: urlString)
-        guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+        guard let json = try JSONSerialization.jsonObject(with: data) as? T else {
             logger.error("Cannot decode as json object from \(urlString)", category: .network)
             throw URLError(.cannotDecodeRawData)
         }
-        return jsonObject
-    }
-    
-    func jsonArray(urlString: String) async throws -> [[String : Any]] {
-        let data = try await provider.data(urlString: urlString)
-        guard let jsonArray = try JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
-            logger.error("Cannot decode as json array from \(urlString)", category: .network)
-            throw URLError(.cannotDecodeRawData)
-        }
-        return jsonArray
+        return json
     }
     
     func image(urlString: String) async throws -> UIImage {

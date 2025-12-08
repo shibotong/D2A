@@ -32,26 +32,17 @@ class D2ANetworkTests {
         network = NetworkProvider(provider: dataProvider)
     }
     
-    @Test("Test JSON Object")
-    func jsonObject() async throws {
+    @Test("Test JSON")
+    func json() async throws {
         let object: [String: Any] = ["userID": 1, "name": "Test User"]
         let data = try JSONSerialization.data(withJSONObject: object)
         dataProvider.data = data
-        let json = try await network.jsonObject(urlString: "http://test.url")
+        let json = try await network.json(urlString: "http://test.url", as: [String: Any].self)
         let test1 = try #require(json["userID"] as? Int)
         let test2 = try #require(json["name"] as? String)
         
         #expect(test1 == 1)
         #expect(test2 == "Test User")
-    }
-    
-    @Test("Test JSON Array")
-    func jsonArray() async throws {
-        let array: [[String: Any]] = [["userID": 1, "name": "Test User"], ["userID": 2, "name": "Test User2"]]
-        let data = try JSONSerialization.data(withJSONObject: array)
-        dataProvider.data = data
-        let json = try await network.jsonArray(urlString: "http://test.url")
-        #expect(json.count == 2)
     }
     
     @Test("Test image")
@@ -64,22 +55,12 @@ class D2ANetworkTests {
     }
     
     @Test
-    func wrongDecodingObject() async throws {
+    func wrongDecoding() async throws {
         let array: [[String: Any]] = [["userID": 1, "name": "Test User"], ["userID": 2, "name": "Test User2"]]
         let data = try JSONSerialization.data(withJSONObject: array)
         dataProvider.data = data
         await #expect(throws: URLError(.cannotDecodeRawData)) {
-            try await self.network.jsonObject(urlString: "http://test.url")
-        }
-    }
-    
-    @Test
-    func wrongDecodingArray() async throws {
-        let array: [String: Any] = ["userID": 1, "name": "Test User"]
-        let data = try JSONSerialization.data(withJSONObject: array)
-        dataProvider.data = data
-        await #expect(throws: URLError(.cannotDecodeRawData)) {
-            try await self.network.jsonArray(urlString: "http://test.url")
+            try await self.network.json(urlString: "http://test.url", as: [String: Any].self)
         }
     }
     
