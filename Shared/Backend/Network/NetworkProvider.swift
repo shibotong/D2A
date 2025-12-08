@@ -14,6 +14,8 @@ protocol NetworkProviding {
 
 struct NetworkProvider: NetworkProviding {
     
+    static let shared = NetworkProvider()
+    
     private let provider: DataProviding
     private let logger: D2ALogger
     
