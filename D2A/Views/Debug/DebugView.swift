@@ -17,8 +17,7 @@ struct DebugView: View {
     }
     
     var body: some View {
-        Section {
-            Text(viewModel.categoryName)
+        Section(viewModel.categoryName) {
             VStack {
                 HStack {
                     ForEach(Logger.Level.allCases, id: \.rawValue) { level in
