@@ -38,7 +38,6 @@ protocol OpenDotaFetching {
     func matches(id: Int) async throws -> [String: Any]
     func players(id: Int) async throws -> [String: Any]
     func playerWinLoss(id: Int) async throws -> (win: Int, loss: Int)
-    func playerRecentMatches(id: Int) async throws -> [[String: Any]]
     func playersMatches(id: Int, limit: Int?, offset: Int?, win: Bool?, patch: Int?,
                         mode: Int?, lobby: Int?, region: Int?, date: Double?, laneRole: Int?,
                         heroID: Int?, isRadiant: Bool?, includedAccountID: [Int]?,
@@ -87,12 +86,6 @@ struct OpenDotaFetcher: OpenDotaFetching {
         let win = data["win"] as? Int ?? 0
         let loss = data["loss"] as? Int ?? 0
         return (win, loss)
-    }
-    
-    /// Recent matches played (limited number of results)
-    func playerRecentMatches(id: Int) async throws -> [[String: Any]] {
-        let url = "\(baseURL)/players/\(id)/recentMatches"
-        return try await network.json(urlString: url, as: [[String: Any]].self)
     }
     
     /// Matches played (full history, and supports column selection)

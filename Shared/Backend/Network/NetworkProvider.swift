@@ -32,7 +32,7 @@ struct NetworkProvider: NetworkProviding {
     }
     
     func json<T>(urlString: String, as type: T.Type, query: [String: Any]?) async throws -> T {
-        let data = try await provider.data(urlString: urlString)
+        let data = try await provider.data(urlString: urlString, query: query)
         guard let json = try JSONSerialization.jsonObject(with: data) as? T else {
             logger.error("Cannot decode as json object from \(urlString)", category: .network)
             throw URLError(.cannotDecodeRawData)

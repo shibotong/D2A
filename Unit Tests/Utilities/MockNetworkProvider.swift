@@ -11,12 +11,14 @@ import UIKit
 class MockDataProvider: DataProviding {
     
     private var data: Data? = nil
+    var query: [String: Any]?
     var urlString: String?
     var dataCallCount = 0
     
-    func data(urlString: String) async throws -> Data {
+    func data(urlString: String, query: [String : Any]?) async throws -> Data {
         dataCallCount += 1
         self.urlString = urlString
+        self.query = query
         guard let data else {
             throw UnitTestError(.dataNotProvided)
         }
