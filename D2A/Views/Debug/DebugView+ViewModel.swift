@@ -26,9 +26,9 @@ extension DebugView {
         }
         
         func updateLogger() {
-            let level = Logger.Level.allCases[Int(levelSlider)]
+            let level = Logger.Level.allCases[Int(round(levelSlider))]
             category.loggingLevel = level
-            debugLogger.debug("Set log level \(level) to \(category)", category: .debug)
+            debugLogger.debug("Set log level \(level) to \(category.rawValue)", category: .debug)
         }
     }
 }

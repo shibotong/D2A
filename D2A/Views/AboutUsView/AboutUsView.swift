@@ -21,7 +21,10 @@ struct AboutUsView: View {
     var body: some View {
         List {
             #if DEBUG
-            DebugsSettingView()
+            NavigationLink(destination: DebugsSettingView()) {
+                makeDetailRow(image: "laptopcomputer", text: "Console Debugger", detail: "")
+            }
+            
             #endif
             Section(header: Text("Our App")) {
                 makeButton(image: "cart", text: "Unlock All Features") {
