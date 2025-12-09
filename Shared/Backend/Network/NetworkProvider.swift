@@ -8,12 +8,19 @@
 import UIKit
 
 protocol NetworkProviding {
-    func jsonObject(urlString: String) async throws -> [String: Any]
-    func jsonArray(urlString: String) async throws -> [[String: Any]]
+    func json<T>(urlString: String, as type: T.Type, query: [String: Any]?) async throws -> T
     func image(urlString: String) async throws -> UIImage
 }
 
+extension NetworkProviding {
+    func json<T>(urlString: String, as type: T.Type) async throws -> T {
+        return try await json(urlString: urlString, as: type, query: nil)
+    }
+}
+
 struct NetworkProvider: NetworkProviding {
+    
+    static let shared = NetworkProvider()
     
     private let provider: DataProviding
     private let logger: D2ALogger
@@ -24,22 +31,13 @@ struct NetworkProvider: NetworkProviding {
         self.logger = logger
     }
     
-    func jsonObject(urlString: String) async throws -> [String : Any] {
-        let data = try await provider.data(urlString: urlString)
-        guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+    func json<T>(urlString: String, as type: T.Type, query: [String: Any]?) async throws -> T {
+        let data = try await provider.data(urlString: urlString, query: query)
+        guard let json = try JSONSerialization.jsonObject(with: data) as? T else {
             logger.error("Cannot decode as json object from \(urlString)", category: .network)
             throw URLError(.cannotDecodeRawData)
         }
-        return jsonObject
-    }
-    
-    func jsonArray(urlString: String) async throws -> [[String : Any]] {
-        let data = try await provider.data(urlString: urlString)
-        guard let jsonArray = try JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
-            logger.error("Cannot decode as json array from \(urlString)", category: .network)
-            throw URLError(.cannotDecodeRawData)
-        }
-        return jsonArray
+        return json
     }
     
     func image(urlString: String) async throws -> UIImage {
