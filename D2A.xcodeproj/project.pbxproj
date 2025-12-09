@@ -312,7 +312,6 @@
 		797A57D82EE69116001DC074 /* OpenDotaFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797A57D72EE69112001DC074 /* OpenDotaFetcher.swift */; };
 		797A57D92EE69116001DC074 /* OpenDotaFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797A57D72EE69112001DC074 /* OpenDotaFetcher.swift */; };
 		797A57DA2EE69116001DC074 /* OpenDotaFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797A57D72EE69112001DC074 /* OpenDotaFetcher.swift */; };
-		797A57DD2EE695C2001DC074 /* OpenDotaFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797A57DC2EE695BB001DC074 /* OpenDotaFetcherTests.swift */; };
 		797A57DF2EE69602001DC074 /* MockNetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797A57DE2EE695FE001DC074 /* MockNetworkProvider.swift */; };
 		79800DA4294C2E1000662E2F /* NSNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79800DA3294C2E1000662E2F /* NSNumber.swift */; };
 		79800DA5294C2E1000662E2F /* NSNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79800DA3294C2E1000662E2F /* NSNumber.swift */; };
@@ -628,7 +627,6 @@
 		797A57CF2EE3FAFB001DC074 /* DebugsSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugsSettingView.swift; sourceTree = "<group>"; };
 		797A57D22EE3FBD1001DC074 /* DebugViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewTests.swift; sourceTree = "<group>"; };
 		797A57D72EE69112001DC074 /* OpenDotaFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaFetcher.swift; sourceTree = "<group>"; };
-		797A57DC2EE695BB001DC074 /* OpenDotaFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaFetcherTests.swift; sourceTree = "<group>"; };
 		797A57DE2EE695FE001DC074 /* MockNetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkProvider.swift; sourceTree = "<group>"; };
 		79800DA3294C2E1000662E2F /* NSNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNumber.swift; sourceTree = "<group>"; };
 		79837B52294C189200458529 /* PlayerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowView.swift; sourceTree = "<group>"; };
@@ -1200,20 +1198,10 @@
 			path = UIScreenshotTests;
 			sourceTree = "<group>";
 		};
-		797A57B42EE3C71B001DC074 /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CoreData;
-			sourceTree = "<group>";
-		};
 		797A57B52EE3C71B001DC074 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
-				797A57DC2EE695BB001DC074 /* OpenDotaFetcherTests.swift */,
-				797A57DB2EE695AF001DC074 /* OpenDota */,
 				797A57B62EE3C720001DC074 /* D2ANetworkTests.swift */,
-				797A57B42EE3C71B001DC074 /* CoreData */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -1267,13 +1255,6 @@
 				797A57D72EE69112001DC074 /* OpenDotaFetcher.swift */,
 				322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */,
 				797A57D52EE690FF001DC074 /* Models */,
-			);
-			path = OpenDota;
-			sourceTree = "<group>";
-		};
-		797A57DB2EE695AF001DC074 /* OpenDota */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = OpenDota;
 			sourceTree = "<group>";
@@ -1735,7 +1716,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				797A57D32EE3FBD4001DC074 /* DebugViewTests.swift in Sources */,
-				797A57DD2EE695C2001DC074 /* OpenDotaFetcherTests.swift in Sources */,
 				797A57B72EE3C725001DC074 /* D2ANetworkTests.swift in Sources */,
 				797A57DF2EE69602001DC074 /* MockNetworkProvider.swift in Sources */,
 				798C42932A3565BA00BDC470 /* LiveMatchKillEventTestCase.swift in Sources */,

@@ -35,6 +35,7 @@ enum OpenDotaConstantService: String {
 }
 
 protocol OpenDotaFetching {
+    func matches(id: Int) async throws -> [String: Any]
     func constants<T>(service: OpenDotaConstantService, as type: T.Type) async throws -> T
 }
 
@@ -46,6 +47,43 @@ struct OpenDotaFetcher: OpenDotaFetching {
     
     init(network: NetworkProviding = NetworkProvider.shared) {
         self.network = network
+    }
+    
+    /// Match data
+    func matches(id: Int) async throws -> [String: Any] {
+        let url = "\(baseURL)/matches/\(id)"
+        return try await network.json(urlString: url, as: [String: Any].self)
+    }
+    
+    /// Player data
+    func players(id: Int) async throws -> [String: Any] {
+        let url = "\(baseURL)/players/\(id)"
+        return try await network.json(urlString: url, as: [String: Any].self)
+    }
+    
+    /// Player win loss
+    func playerWinLoss(id: Int) async throws -> (win: Int, loss: Int) {
+        let url = "\(baseURL)/players/\(id)/wl"
+        let data = try await network.json(urlString: url, as: [String: Any].self)
+        let win = data["win"] as? Int ?? 0
+        let loss = data["loss"] as? Int ?? 0
+        return (win, loss)
+    }
+    
+    /// Recent matches played (limited number of results)
+    func playerRecentMatches(id: Int) async throws -> [[String: Any]] {
+        let url = "\(baseURL)/players/\(id)/recentMatches"
+        return try await network.json(urlString: url, as: [[String: Any]].self)
+    }
+    
+    /// Matches played (full history, and supports column selection)
+    func playersMatches(id: Int, limit: Int?, offset: Int?, win: Bool?, patch: Int?,
+                        mode: Int?, lobby: Int?, region: Int?, date: Int?, laneRole: Int?,
+                        heroID: Int?, isRadiant: Bool?, includedAccountID: [Int]?,
+                        excludedAccountID: [Int]?, withHeroID: [Int]?, againstHeroID: [Int]?,
+                        significant: Bool?, having: Int?, ascending: Bool = true, project: [String]?) async throws -> [[String: Any]] {
+        let url = "\(baseURL)/players/\(id)/matches"
+        return try await network.json(urlString: url, as: [[String: Any]].self)
     }
     
     func constants<T>(service: OpenDotaConstantService, as type: T.Type) async throws -> T {

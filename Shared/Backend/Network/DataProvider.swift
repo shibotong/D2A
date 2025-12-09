@@ -8,12 +8,26 @@
 import Foundation
 
 protocol DataProviding {
-    func data(urlString: String) async throws -> Data
+    func data(urlString: String, query: [String: Any]?) async throws -> Data
+}
+
+extension DataProviding {
+    func data(urlString: String) async throws -> Data {
+        try await data(urlString: urlString, query: nil)
+    }
 }
 
 struct DataProvider: DataProviding {
-    func data(urlString: String) async throws -> Data {
-        guard let url = URL(string: urlString) else {
+    func data(urlString: String, query: [String: Any]? = nil) async throws -> Data {
+        guard var components = URLComponents(string: urlString) else {
+            throw URLError(.badURL)
+        }
+        if let query = query {
+            components.queryItems = query.map { key, value in
+                URLQueryItem(name: key, value: "\(value)")
+            }
+        }
+        guard let url = components.url else {
             throw URLError(.badURL)
         }
         let (data, response) = try await URLSession.shared.data(from: url)
@@ -21,7 +35,6 @@ struct DataProvider: DataProviding {
               httpResponse.statusCode == 200 else {
             throw URLError(.badServerResponse)
         }
-        
         return data
     }
 }
