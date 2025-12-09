@@ -44,6 +44,7 @@ protocol OpenDotaFetching {
                         heroID: Int?, isRadiant: Bool?, includedAccountID: [Int]?,
                         excludedAccountID: [Int]?, withHeroID: [Int]?, againstHeroID: [Int]?,
                         significant: Bool?, having: Int?, ascending: Bool, project: [String]?) async throws -> [[String: Any]]
+    func search(text: String) async throws -> [[String: Any]]
     func constants<T>(service: OpenDotaConstantService, as type: T.Type) async throws -> T
 }
 
@@ -124,6 +125,12 @@ struct OpenDotaFetcher: OpenDotaFetching {
         setValueIfExist(dictionary: &query, key: "sort", value: sort)
         setValueIfExist(dictionary: &query, key: "project", value: project)
         return try await network.json(urlString: url, as: [[String: Any]].self, query: query)
+    }
+    
+    func search(text: String) async throws -> [[String: Any]] {
+        let query: [String: Any] = ["q": text]
+        let urlString = "\(baseURL)/search"
+        return try await network.json(urlString: urlString, as: [[String: Any]].self, query: query)
     }
     
     func constants<T>(service: OpenDotaConstantService, as type: T.Type) async throws -> T {
