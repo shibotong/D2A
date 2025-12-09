@@ -40,6 +40,7 @@ struct DebugView: View {
                 }
             }
         }
+        .navigationTitle("Console Debug")
     }
 }
 
