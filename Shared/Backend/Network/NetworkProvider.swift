@@ -8,8 +8,14 @@
 import UIKit
 
 protocol NetworkProviding {
-    func json<T>(urlString: String, as: T.Type) async throws -> T
+    func json<T>(urlString: String, as type: T.Type, query: [String: Any]?) async throws -> T
     func image(urlString: String) async throws -> UIImage
+}
+
+extension NetworkProviding {
+    func json<T>(urlString: String, as type: T.Type) async throws -> T {
+        return try await json(urlString: urlString, as: type, query: nil)
+    }
 }
 
 struct NetworkProvider: NetworkProviding {
@@ -25,7 +31,7 @@ struct NetworkProvider: NetworkProviding {
         self.logger = logger
     }
     
-    func json<T>(urlString: String, as: T.Type) async throws -> T {
+    func json<T>(urlString: String, as type: T.Type, query: [String: Any]?) async throws -> T {
         let data = try await provider.data(urlString: urlString)
         guard let json = try JSONSerialization.jsonObject(with: data) as? T else {
             logger.error("Cannot decode as json object from \(urlString)", category: .network)

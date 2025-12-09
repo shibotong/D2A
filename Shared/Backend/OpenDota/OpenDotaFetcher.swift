@@ -36,7 +36,25 @@ enum OpenDotaConstantService: String {
 
 protocol OpenDotaFetching {
     func matches(id: Int) async throws -> [String: Any]
+    func players(id: Int) async throws -> [String: Any]
+    func playerWinLoss(id: Int) async throws -> (win: Int, loss: Int)
+    func playerRecentMatches(id: Int) async throws -> [[String: Any]]
+    func playersMatches(id: Int, limit: Int?, offset: Int?, win: Bool?, patch: Int?,
+                        mode: Int?, lobby: Int?, region: Int?, date: Double?, laneRole: Int?,
+                        heroID: Int?, isRadiant: Bool?, includedAccountID: [Int]?,
+                        excludedAccountID: [Int]?, withHeroID: [Int]?, againstHeroID: [Int]?,
+                        significant: Bool?, having: Int?, ascending: Bool, project: [String]?) async throws -> [[String: Any]]
     func constants<T>(service: OpenDotaConstantService, as type: T.Type) async throws -> T
+}
+
+extension OpenDotaFetching {
+    func playersMatches(id: Int, limit: Int? = nil, offset: Int? = nil, win: Bool? = nil, patch: Int? = nil,
+                        mode: Int? = nil, lobby: Int? = nil, region: Int? = nil, date: Double? = nil, laneRole: Int? = nil,
+                        heroID: Int? = nil, isRadiant: Bool? = nil, includedAccountID: [Int]? = nil,
+                        excludedAccountID: [Int]? = nil, withHeroID: [Int]? = nil, againstHeroID: [Int]? = nil,
+                        significant: Bool? = nil, having: Int? = nil, ascending: Bool = true, project: [String]? = nil) async throws -> [[String: Any]] {
+        try await playersMatches(id: id, limit: limit, offset: offset, win: win, patch: patch, mode: mode, lobby: lobby, region: region, date: date, laneRole: laneRole, heroID: heroID, isRadiant: isRadiant, includedAccountID: includedAccountID, excludedAccountID: excludedAccountID, withHeroID: withHeroID, againstHeroID: againstHeroID, significant: significant, having: having, ascending: ascending, project: project)
+    }
 }
 
 struct OpenDotaFetcher: OpenDotaFetching {
@@ -78,16 +96,45 @@ struct OpenDotaFetcher: OpenDotaFetching {
     
     /// Matches played (full history, and supports column selection)
     func playersMatches(id: Int, limit: Int?, offset: Int?, win: Bool?, patch: Int?,
-                        mode: Int?, lobby: Int?, region: Int?, date: Int?, laneRole: Int?,
+                        mode: Int?, lobby: Int?, region: Int?, date: Double?, laneRole: Int?,
                         heroID: Int?, isRadiant: Bool?, includedAccountID: [Int]?,
                         excludedAccountID: [Int]?, withHeroID: [Int]?, againstHeroID: [Int]?,
-                        significant: Bool?, having: Int?, ascending: Bool = true, project: [String]?) async throws -> [[String: Any]] {
+                        significant: Bool?, having: Int?, ascending: Bool, project: [String]?) async throws -> [[String: Any]] {
         let url = "\(baseURL)/players/\(id)/matches"
-        return try await network.json(urlString: url, as: [[String: Any]].self)
+        
+        var query: [String: Any] = [:]
+        setValueIfExist(dictionary: &query, key: "limit", value: limit)
+        setValueIfExist(dictionary: &query, key: "offset", value: offset)
+        setValueIfExist(dictionary: &query, key: "win", value: win as? NSNumber)
+        setValueIfExist(dictionary: &query, key: "patch", value: patch)
+        setValueIfExist(dictionary: &query, key: "game_mode", value: mode)
+        setValueIfExist(dictionary: &query, key: "lobby_type", value: lobby)
+        setValueIfExist(dictionary: &query, key: "region", value: region)
+        setValueIfExist(dictionary: &query, key: "date", value: date)
+        setValueIfExist(dictionary: &query, key: "lane_role", value: laneRole)
+        setValueIfExist(dictionary: &query, key: "hero_id", value: heroID)
+        setValueIfExist(dictionary: &query, key: "is_radiant", value: isRadiant as? NSNumber)
+        setValueIfExist(dictionary: &query, key: "included_account_id", value: includedAccountID)
+        setValueIfExist(dictionary: &query, key: "excluded_account_id", value: excludedAccountID)
+        setValueIfExist(dictionary: &query, key: "with_hero_id", value: withHeroID)
+        setValueIfExist(dictionary: &query, key: "against_hero_id", value: againstHeroID)
+        setValueIfExist(dictionary: &query, key: "significant", value: significant as? NSNumber)
+        setValueIfExist(dictionary: &query, key: "having", value: having)
+        let sort = ascending ? "asc" : "desc"
+        setValueIfExist(dictionary: &query, key: "sort", value: sort)
+        setValueIfExist(dictionary: &query, key: "project", value: project)
+        return try await network.json(urlString: url, as: [[String: Any]].self, query: query)
     }
     
     func constants<T>(service: OpenDotaConstantService, as type: T.Type) async throws -> T {
         let url = "\(baseURL)/constants/\(service.rawValue)"
         return try await network.json(urlString: url, as: type)
+    }
+    
+    private func setValueIfExist(dictionary: inout [String: Any], key: String, value: Any?) {
+        guard let value else {
+            return
+        }
+        dictionary[key] = value
     }
 }
