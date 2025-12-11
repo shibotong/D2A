@@ -30,5 +30,4 @@ struct VersionManagerTests {
         #expect(manager.isNewInstalled == false)
         #expect(manager.isUpdated == false)
     }
-    
 }

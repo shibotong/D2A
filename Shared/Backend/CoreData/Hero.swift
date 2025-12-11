@@ -253,5 +253,3 @@ extension Hero {
         return base + bonus
     }
 }
-
-
