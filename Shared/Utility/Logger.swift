@@ -8,6 +8,7 @@
 import Logging
 
 enum LoggingCategory: String, CaseIterable {
+    case app = "Application"
     case coredata = "CoreData"
     case debug = "Debug"
     case image = "Image"
@@ -16,6 +17,8 @@ enum LoggingCategory: String, CaseIterable {
     var loggingLevel: Logger.Level {
         set {
             switch self {
+            case .app:
+                Logger.app.loggingLevel = newValue
             case .coredata:
                 Logger.coredata.logLevel = newValue
             case .debug:
@@ -33,6 +36,8 @@ enum LoggingCategory: String, CaseIterable {
     
     var logger: Logger {
         switch self {
+        case .app:
+            return .app
         case .coredata:
             return .coredata
         case .image:
@@ -46,6 +51,7 @@ enum LoggingCategory: String, CaseIterable {
 }
 
 extension Logger {
+    static var app = createLogger(label: "📱")
     static var image = createLogger(label: "🏙️")
     static var coredata = createLogger(label: "📁")
     static var debug = createLogger(label: "✏️")
@@ -165,6 +171,9 @@ struct D2ALogHandler: LogHandler {
     
     func log(level: Logger.Level, message: Logger.Message, metadata: Logger.Metadata?, source: String, file: String, function: String, line: UInt) {
         print("\(level.icon) [\(label) \(file):\(line)] \(message)")
+        if level == .critical {
+            assertionFailure()
+        }
     }
 }
 
