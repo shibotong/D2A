@@ -266,6 +266,11 @@
 		7912B6E32B5D022C00AE1947 /* AbilityTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7912B6E22B5D022C00AE1947 /* AbilityTitleView.swift */; };
 		791B2D1B2EE82C3A00F2BED6 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 796674202E697BD500D102FA /* StratzAPI */; };
 		791B2D1F2EE82DA700F2BED6 /* search.json in Resources */ = {isa = PBXBuildFile; fileRef = 791B2D1E2EE82DA200F2BED6 /* search.json */; };
+		791B2D952EEACD3A00F2BED6 /* Hero+Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791B2D942EEACD3700F2BED6 /* Hero+Mappable.swift */; };
+		791B2D972EEACD9F00F2BED6 /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791B2D962EEACD9C00F2BED6 /* Mappable.swift */; };
+		791B2DA12EEADE8600F2BED6 /* VersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791B2DA02EEADE8200F2BED6 /* VersionManager.swift */; };
+		791B2DA22EEADE8600F2BED6 /* VersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791B2DA02EEADE8200F2BED6 /* VersionManager.swift */; };
+		791B2DA32EEADE8600F2BED6 /* VersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791B2DA02EEADE8200F2BED6 /* VersionManager.swift */; };
 		79266DA42A31B078002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA32A31B078002FEF0F /* ApolloWebSocket */; };
 		79266DA72A31B0FD002FEF0F /* LiveMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79266DA62A31B0FD002FEF0F /* LiveMatchView.swift */; };
 		79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA82A31B21D002FEF0F /* ApolloWebSocket */; };
@@ -607,6 +612,9 @@
 		79091DFB2A3B36310093EEE4 /* LiveMatchTeamIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchTeamIconView.swift; sourceTree = "<group>"; };
 		7912B6E22B5D022C00AE1947 /* AbilityTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityTitleView.swift; sourceTree = "<group>"; };
 		791B2D1E2EE82DA200F2BED6 /* search.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = search.json; sourceTree = "<group>"; };
+		791B2D942EEACD3700F2BED6 /* Hero+Mappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hero+Mappable.swift"; sourceTree = "<group>"; };
+		791B2D962EEACD9C00F2BED6 /* Mappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mappable.swift; sourceTree = "<group>"; };
+		791B2DA02EEADE8200F2BED6 /* VersionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionManager.swift; sourceTree = "<group>"; };
 		79266DA62A31B0FD002FEF0F /* LiveMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchView.swift; sourceTree = "<group>"; };
 		7930699B2B5D323100A5CF5D /* DataLoadingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataLoadingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79368C0928E6D8ED009517D2 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
@@ -946,6 +954,7 @@
 		32B36F1D26C38834002D427D /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				791B2D932EEACC9200F2BED6 /* CoreData */,
 				79B1630028DD59FC009B2AE2 /* GraphQL */,
 				797A57BF2EE3E1D0001DC074 /* Network */,
 				797A57D62EE690FF001DC074 /* OpenDota */,
@@ -954,6 +963,7 @@
 				329849F326DCAEAE00A1032C /* HeroDatabase.swift */,
 				32B36F4B26C39C5D002D427D /* Environment.swift */,
 				799948BF2932D50000D79055 /* ImageCache.swift */,
+				791B2DA02EEADE8200F2BED6 /* VersionManager.swift */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -1165,6 +1175,16 @@
 			path = AbilityView;
 			sourceTree = "<group>";
 		};
+		791B2D932EEACC9200F2BED6 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				791B2D962EEACD9C00F2BED6 /* Mappable.swift */,
+				7985E7EA28E53919007A43AF /* Hero.swift */,
+				791B2D942EEACD3700F2BED6 /* Hero+Mappable.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		79266DA52A31B0D7002FEF0F /* LiveMatchView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1336,7 +1356,6 @@
 		79A989022931DF61006AC847 /* CoreDataModel */ = {
 			isa = PBXGroup;
 			children = (
-				7985E7EA28E53919007A43AF /* Hero.swift */,
 				79A988F82931D400006AC847 /* Match.swift */,
 				79A989032931E7F1006AC847 /* PermanentBuff.swift */,
 				79A988FC2931D6FF006AC847 /* Player.swift */,
@@ -1818,6 +1837,7 @@
 				32B36F3626C38860002D427D /* ReadData.swift in Sources */,
 				79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */,
 				3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */,
+				791B2D952EEACD3A00F2BED6 /* Hero+Mappable.swift in Sources */,
 				322B893E26CE66F800DF67F9 /* MainLoadingView.swift in Sources */,
 				32079DBD28B83F0F0056D19F /* AbilityView.swift in Sources */,
 				32AEEEF926F9B1120088DEC8 /* LocalizableStrings.swift in Sources */,
@@ -1839,6 +1859,7 @@
 				790266462A35454500CE54DF /* LiveMatchEventListView.swift in Sources */,
 				322B893626CD438700DF67F9 /* UserProfileCodable.swift in Sources */,
 				322B89BF26CE788900DF67F9 /* AnalysisViewModel.swift in Sources */,
+				791B2D972EEACD9F00F2BED6 /* Mappable.swift in Sources */,
 				3252859726CB81480030F15B /* DifferenceGraphViewModel.swift in Sources */,
 				79645CC32A39D1610004EF50 /* LiveMatchListView.swift in Sources */,
 				799DD24E2EDED34E00EE3C8C /* Logger.swift in Sources */,
@@ -1892,6 +1913,7 @@
 				79BD872E2A4C2F1400964814 /* LiveMatchListRowView.swift in Sources */,
 				32D3EB4F26ED7B9B00AA8D8B /* Ability.swift in Sources */,
 				323ADB06272B8D4900253124 /* Patch.swift in Sources */,
+				791B2DA32EEADE8600F2BED6 /* VersionManager.swift in Sources */,
 				794B723D2985D2C9000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				7912B6E32B5D022C00AE1947 /* AbilityTitleView.swift in Sources */,
 				798A5CFA2945B3C300EB07B0 /* RecentMatch.swift in Sources */,
@@ -1945,6 +1967,7 @@
 				79A9891E2931ECAE006AC847 /* PersistanceContainer.swift in Sources */,
 				7983DA6B2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
 				32F70AD526F60364006E9B05 /* HeroCodable.swift in Sources */,
+				791B2DA12EEADE8600F2BED6 /* VersionManager.swift in Sources */,
 				32F70AB526F5812B006E9B05 /* LobbyType.swift in Sources */,
 				79E01CA8291E351A0073BF68 /* MatchListRowView.swift in Sources */,
 				794B723E2985D410000059E4 /* RecentMatchWinLossView.swift in Sources */,
@@ -2012,6 +2035,7 @@
 				79A9891F2931ECAF006AC847 /* PersistanceContainer.swift in Sources */,
 				7983DA6C2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
 				32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */,
+				791B2DA22EEADE8600F2BED6 /* VersionManager.swift in Sources */,
 				32F70AFC26F61E52006E9B05 /* UserProfileCodable.swift in Sources */,
 				79E01CA9291E351B0073BF68 /* MatchListRowView.swift in Sources */,
 				794B723F2985D411000059E4 /* RecentMatchWinLossView.swift in Sources */,
