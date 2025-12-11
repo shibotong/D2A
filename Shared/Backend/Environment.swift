@@ -58,7 +58,6 @@ final class DotaEnvironment: ObservableObject {
     init(versionManager: VersionManager = .shared) {
         subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         tab = .home
-        let userDefaults = UserDefaults(suiteName: GROUP_NAME)
         let appVersion = versionManager.appVersion
         let lastVersion = versionManager.lastVersion
         if appVersion != lastVersion {

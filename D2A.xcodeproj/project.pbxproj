@@ -1233,9 +1233,9 @@
 		797A57B52EE3C71B001DC074 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
-				791B2DA42EEAE09700F2BED6 /* VersionManagerTests.swift */,
 				797555982EE82015005B99FF /* OpenDota */,
 				797A57B62EE3C720001DC074 /* D2ANetworkTests.swift */,
+				791B2DA42EEAE09700F2BED6 /* VersionManagerTests.swift */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
