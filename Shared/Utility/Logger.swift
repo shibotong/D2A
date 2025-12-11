@@ -18,7 +18,7 @@ enum LoggingCategory: String, CaseIterable {
         set {
             switch self {
             case .app:
-                Logger.app.loggingLevel = newValue
+                Logger.app.logLevel = newValue
             case .coredata:
                 Logger.coredata.logLevel = newValue
             case .debug:

@@ -30,7 +30,9 @@ struct VersionManager {
             return
         }
         self.appVersion = appVersion
-        userDefaults?.setValue(appVersion, forKey: "dotaArmory.appVersion")
+        if appVersion != lastVersion {
+            userDefaults?.setValue(appVersion, forKey: "dotaArmory.appVersion")
+        }
     }
     
     init(lastVersion: String?, appVersion: String) {
