@@ -146,8 +146,8 @@
 		327B87702850DA6500BBE1F8 /* sampleHero.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90C2830748600D47CDA /* sampleHero.json */; };
 		327B87712850DA6800BBE1F8 /* sampleAbility.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90E2830765300D47CDA /* sampleAbility.json */; };
 		327B87722850DA6900BBE1F8 /* sampleAbility.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90E2830765300D47CDA /* sampleAbility.json */; };
-		327B87732850DA7800BBE1F8 /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* Ability.swift */; };
-		327B87742850DA7900BBE1F8 /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* Ability.swift */; };
+		327B87732850DA7800BBE1F8 /* ODAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */; };
+		327B87742850DA7900BBE1F8 /* ODAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */; };
 		327B87752850DA9E00BBE1F8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2626C38852002D427D /* Item.swift */; };
 		327B87762850DA9F00BBE1F8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2626C38852002D427D /* Item.swift */; };
 		327B87782852263300BBE1F8 /* HeroListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B87772852263300BBE1F8 /* HeroListViewModel.swift */; };
@@ -197,7 +197,7 @@
 		32D1605D26F30B7A00657449 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D1605C26F30B7A00657449 /* StoreManager.swift */; };
 		32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1605E26F3122800657449 /* StoreKit.framework */; };
 		32D1606126F3753900657449 /* SKProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D1606026F3753900657449 /* SKProduct.swift */; };
-		32D3EB4F26ED7B9B00AA8D8B /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* Ability.swift */; };
+		32D3EB4F26ED7B9B00AA8D8B /* ODAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */; };
 		32DE14492845E277006E864E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DE14482845E277006E864E /* HomeView.swift */; };
 		32EC7F35286464C300A36AF6 /* WidgetOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EC7F34286464C300A36AF6 /* WidgetOverlayView.swift */; };
 		32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526D0285C1C480099B058 /* LatestMatchWidgetEntryView.swift */; };
@@ -349,6 +349,9 @@
 		79A989202931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79A989212931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79ABE8FA2A35C3CF00EE9EF9 /* LiveMatchDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */; };
+		79B8D8842F2872250030429D /* OpenDotaConstantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D8832F2872200030429D /* OpenDotaConstantService.swift */; };
+		79B8D8852F2872250030429D /* OpenDotaConstantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D8832F2872200030429D /* OpenDotaConstantService.swift */; };
+		79B8D8862F2872250030429D /* OpenDotaConstantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D8832F2872200030429D /* OpenDotaConstantService.swift */; };
 		79BD872E2A4C2F1400964814 /* LiveMatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872D2A4C2F1400964814 /* LiveMatchListRowView.swift */; };
 		79BD87302A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */; };
 		79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */; };
@@ -553,7 +556,7 @@
 		32D1606026F3753900657449 /* SKProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKProduct.swift; sourceTree = "<group>"; };
 		32D1606A26F4EE1500657449 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		32D1606C26F4EE1500657449 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		32D3EB4E26ED7B9B00AA8D8B /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
+		32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODAbility.swift; sourceTree = "<group>"; };
 		32DE14482845E277006E864E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		32EC7F34286464C300A36AF6 /* WidgetOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetOverlayView.swift; sourceTree = "<group>"; };
 		32F6A1AF26C499E3009C00E1 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
@@ -628,6 +631,7 @@
 		79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchDraftView.swift; sourceTree = "<group>"; };
 		79B1630228DD5A29009B2AE2 /* Ability.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Ability.graphql; sourceTree = "<group>"; };
 		79B1630328DD5A31009B2AE2 /* Hero.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hero.graphql; sourceTree = "<group>"; };
+		79B8D8832F2872200030429D /* OpenDotaConstantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantService.swift; sourceTree = "<group>"; };
 		79BD872D2A4C2F1400964814 /* LiveMatchListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchListRowView.swift; sourceTree = "<group>"; };
 		79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconViewModel.swift; sourceTree = "<group>"; };
 		79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconView.swift; sourceTree = "<group>"; };
@@ -903,10 +907,10 @@
 		32B36F1D26C38834002D427D /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				79B8D8822F2872190030429D /* OpenDota */,
 				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
 				79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */,
 				329849F326DCAEAE00A1032C /* HeroDatabase.swift */,
-				322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */,
 				32B36F4B26C39C5D002D427D /* Environment.swift */,
 				799948BF2932D50000D79055 /* ImageCache.swift */,
 			);
@@ -922,7 +926,7 @@
 				327772B026D9D71F000A0A97 /* LobbyType.swift */,
 				327772B226D9D735000A0A97 /* GameMode.swift */,
 				32B36F2626C38852002D427D /* Item.swift */,
-				32D3EB4E26ED7B9B00AA8D8B /* Ability.swift */,
+				32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */,
 				323ADB05272B8D4900253124 /* Patch.swift */,
 				328D88B4288EB4F700DFD204 /* SharingLink.swift */,
 			);
@@ -1214,6 +1218,15 @@
 				79D5281D28DD73CF0070841D /* secrets.json */,
 			);
 			path = GraphQL;
+			sourceTree = "<group>";
+		};
+		79B8D8822F2872190030429D /* OpenDota */ = {
+			isa = PBXGroup;
+			children = (
+				322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */,
+				79B8D8832F2872200030429D /* OpenDotaConstantService.swift */,
+			);
+			path = OpenDota;
 			sourceTree = "<group>";
 		};
 		79CF637A29C40B700072F4C0 /* UI Tests */ = {
@@ -1651,6 +1664,7 @@
 				79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */,
 				79A988FD2931D6FF006AC847 /* Player.swift in Sources */,
 				79837B53294C189200458529 /* PlayerRowView.swift in Sources */,
+				79B8D8852F2872250030429D /* OpenDotaConstantService.swift in Sources */,
 				79D5282228DD74930070841D /* Secret.swift in Sources */,
 				32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */,
 				79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */,
@@ -1726,7 +1740,7 @@
 				796FE19E29AB006C003379EB /* AbilityImageViewModel.swift in Sources */,
 				798C42912A35581900BDC470 /* LiveMatchKillEvent.swift in Sources */,
 				79BD872E2A4C2F1400964814 /* LiveMatchListRowView.swift in Sources */,
-				32D3EB4F26ED7B9B00AA8D8B /* Ability.swift in Sources */,
+				32D3EB4F26ED7B9B00AA8D8B /* ODAbility.swift in Sources */,
 				323ADB06272B8D4900253124 /* Patch.swift in Sources */,
 				794B723D2985D2C9000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				7912B6E32B5D022C00AE1947 /* AbilityTitleView.swift in Sources */,
@@ -1750,6 +1764,7 @@
 				32F70AAC26F58006006E9B05 /* RecentMatchCodable.swift in Sources */,
 				32F70B1B26F6295B006E9B05 /* Int.swift in Sources */,
 				79A989172931E8F3006AC847 /* Talent.swift in Sources */,
+				79B8D8842F2872250030429D /* OpenDotaConstantService.swift in Sources */,
 				32F70ADC26F60B30006E9B05 /* StringVariable.swift in Sources */,
 				32B526CB285C0CE40099B058 /* RecentMatchesWidgetEntryView.swift in Sources */,
 				79D5282328DD74930070841D /* Secret.swift in Sources */,
@@ -1763,7 +1778,7 @@
 				799948C12932D50000D79055 /* ImageCache.swift in Sources */,
 				32079DC028B843360056D19F /* String.swift in Sources */,
 				793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
-				327B87732850DA7800BBE1F8 /* Ability.swift in Sources */,
+				327B87732850DA7800BBE1F8 /* ODAbility.swift in Sources */,
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
 				32F70ADB26F6090A006E9B05 /* NetworkImage.swift in Sources */,
 				32A26C51285947D3005E890F /* OpenDotaController.swift in Sources */,
@@ -1813,11 +1828,12 @@
 				79A989112931E8F3006AC847 /* UserProfile.swift in Sources */,
 				32F70B2226F6295C006E9B05 /* CodingKey.swift in Sources */,
 				32F70B1126F622C5006E9B05 /* HeroCodable.swift in Sources */,
+				79B8D8862F2872250030429D /* OpenDotaConstantService.swift in Sources */,
 				32F70B0F26F622C0006E9B05 /* LobbyType.swift in Sources */,
 				79D5282428DD74930070841D /* Secret.swift in Sources */,
 				32F70B1026F622C2006E9B05 /* GameMode.swift in Sources */,
 				790FBB3229C18ABC00E27106 /* Network.swift in Sources */,
-				327B87742850DA7900BBE1F8 /* Ability.swift in Sources */,
+				327B87742850DA7900BBE1F8 /* ODAbility.swift in Sources */,
 				32F70B2026F6295C006E9B05 /* Int.swift in Sources */,
 				3270271E285C08C300927426 /* HeroDatabase.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,
@@ -2138,7 +2154,7 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/D2A/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = D2A;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2172,7 +2188,7 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/D2A/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = D2A;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2203,7 +2219,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MRB66268H7;
 				INFOPLIST_FILE = "$(SRCROOT)/D2AWidget/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2230,7 +2246,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MRB66268H7;
 				INFOPLIST_FILE = "$(SRCROOT)/D2AWidget/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
