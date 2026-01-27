@@ -12,11 +12,11 @@ enum PersistanceError: Error {
     case persistentHistoryChangeError
 }
 
-class PersistenceController {
-    static let shared = PersistenceController()
+class PersistanceController {
+    static let shared = PersistanceController()
 
-    static var preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
+    static var preview: PersistanceController = {
+        let result = PersistanceController(inMemory: true)
         let viewContext = result.container.viewContext
         let previewID = "preview"
         UserProfile.create(id: previewID, favourite: true, register: true, controller: result)

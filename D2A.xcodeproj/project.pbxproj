@@ -352,6 +352,9 @@
 		79B8D8842F2872250030429D /* OpenDotaConstantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D8832F2872200030429D /* OpenDotaConstantService.swift */; };
 		79B8D8852F2872250030429D /* OpenDotaConstantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D8832F2872200030429D /* OpenDotaConstantService.swift */; };
 		79B8D8862F2872250030429D /* OpenDotaConstantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D8832F2872200030429D /* OpenDotaConstantService.swift */; };
+		79B8D95C2F287D6F0030429D /* StaticDataSyncingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D95B2F287D5F0030429D /* StaticDataSyncingService.swift */; };
+		79B8D95D2F287D6F0030429D /* StaticDataSyncingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D95B2F287D5F0030429D /* StaticDataSyncingService.swift */; };
+		79B8D95E2F287D6F0030429D /* StaticDataSyncingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D95B2F287D5F0030429D /* StaticDataSyncingService.swift */; };
 		79BD872E2A4C2F1400964814 /* LiveMatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872D2A4C2F1400964814 /* LiveMatchListRowView.swift */; };
 		79BD87302A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */; };
 		79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */; };
@@ -632,6 +635,7 @@
 		79B1630228DD5A29009B2AE2 /* Ability.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Ability.graphql; sourceTree = "<group>"; };
 		79B1630328DD5A31009B2AE2 /* Hero.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hero.graphql; sourceTree = "<group>"; };
 		79B8D8832F2872200030429D /* OpenDotaConstantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantService.swift; sourceTree = "<group>"; };
+		79B8D95B2F287D5F0030429D /* StaticDataSyncingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticDataSyncingService.swift; sourceTree = "<group>"; };
 		79BD872D2A4C2F1400964814 /* LiveMatchListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchListRowView.swift; sourceTree = "<group>"; };
 		79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconViewModel.swift; sourceTree = "<group>"; };
 		79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconView.swift; sourceTree = "<group>"; };
@@ -907,6 +911,7 @@
 		32B36F1D26C38834002D427D /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				79B8D95B2F287D5F0030429D /* StaticDataSyncingService.swift */,
 				79B8D8822F2872190030429D /* OpenDota */,
 				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
 				79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */,
@@ -1631,6 +1636,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79B8D95C2F287D6F0030429D /* StaticDataSyncingService.swift in Sources */,
 				32B526D3285C1DBC0099B058 /* Extension.swift in Sources */,
 				32B36F2726C38852002D427D /* HeroCodable.swift in Sources */,
 				79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */,
@@ -1777,6 +1783,7 @@
 				3270271D285C08C200927426 /* HeroDatabase.swift in Sources */,
 				799948C12932D50000D79055 /* ImageCache.swift in Sources */,
 				32079DC028B843360056D19F /* String.swift in Sources */,
+				79B8D95E2F287D6F0030429D /* StaticDataSyncingService.swift in Sources */,
 				793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
 				327B87732850DA7800BBE1F8 /* ODAbility.swift in Sources */,
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
@@ -1841,6 +1848,7 @@
 				32079DC128B843360056D19F /* String.swift in Sources */,
 				799948C22932D50000D79055 /* ImageCache.swift in Sources */,
 				32F70B1826F6294E006E9B05 /* MatchCodable.swift in Sources */,
+				79B8D95D2F287D6F0030429D /* StaticDataSyncingService.swift in Sources */,
 				793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
 				32B526D5285C1DBC0099B058 /* Extension.swift in Sources */,
 				32F70B0226F621ED006E9B05 /* D2AWidget.swift in Sources */,
