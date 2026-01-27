@@ -121,13 +121,13 @@ extension Hero {
         return value
     }
     
-    private func calculateHPLevel(level: Double) -> Int {
+    func calculateHPLevel(level: Double) -> Int {
         let totalStr = calculateAttribute(level: level, attr: .str)
         let hp = Int(baseHealth + totalStr * Hero.strMaxHP)
         return hp
     }
     
-    private func calculateManaLevel(level: Double) -> Int {
+    func calculateManaLevel(level: Double) -> Int {
         let totalInt = calculateAttribute(level: level, attr: .int)
         let hp = Int(baseMana + totalInt * Hero.intMaxMP)
         return hp
@@ -147,13 +147,13 @@ extension Hero {
         return value
     }
     
-    private func calculateHPRegen(level: Double) -> Double {
+    func calculateHPRegen(level: Double) -> Double {
         let totalStr = calculateAttribute(level: level, attr: .str)
         let regen = baseHealthRegen + Double(totalStr) * Hero.strHPRegen
         return regen
     }
     
-    private func calculateMPRegen(level: Double) -> Double {
+    func calculateMPRegen(level: Double) -> Double {
         let totalInt = calculateAttribute(level: level, attr: .int)
         let regen = baseManaRegen + Double(totalInt) * Hero.intManaRegen
         return regen
