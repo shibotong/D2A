@@ -355,6 +355,12 @@
 		79B8D95C2F287D6F0030429D /* StaticDataSyncingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D95B2F287D5F0030429D /* StaticDataSyncingService.swift */; };
 		79B8D95D2F287D6F0030429D /* StaticDataSyncingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D95B2F287D5F0030429D /* StaticDataSyncingService.swift */; };
 		79B8D95E2F287D6F0030429D /* StaticDataSyncingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D95B2F287D5F0030429D /* StaticDataSyncingService.swift */; };
+		79B8D9622F2881E20030429D /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9612F2881DF0030429D /* Ability.swift */; };
+		79B8D9632F2881E20030429D /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9612F2881DF0030429D /* Ability.swift */; };
+		79B8D9642F2881E20030429D /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9612F2881DF0030429D /* Ability.swift */; };
+		79B8D9662F28833E0030429D /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9652F2883390030429D /* NSManagedObjectContext.swift */; };
+		79B8D9672F28833E0030429D /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9652F2883390030429D /* NSManagedObjectContext.swift */; };
+		79B8D9682F28833E0030429D /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9652F2883390030429D /* NSManagedObjectContext.swift */; };
 		79BD872E2A4C2F1400964814 /* LiveMatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872D2A4C2F1400964814 /* LiveMatchListRowView.swift */; };
 		79BD87302A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */; };
 		79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */; };
@@ -636,6 +642,8 @@
 		79B1630328DD5A31009B2AE2 /* Hero.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hero.graphql; sourceTree = "<group>"; };
 		79B8D8832F2872200030429D /* OpenDotaConstantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantService.swift; sourceTree = "<group>"; };
 		79B8D95B2F287D5F0030429D /* StaticDataSyncingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticDataSyncingService.swift; sourceTree = "<group>"; };
+		79B8D9612F2881DF0030429D /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
+		79B8D9652F2883390030429D /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
 		79BD872D2A4C2F1400964814 /* LiveMatchListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchListRowView.swift; sourceTree = "<group>"; };
 		79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconViewModel.swift; sourceTree = "<group>"; };
 		79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconView.swift; sourceTree = "<group>"; };
@@ -911,6 +919,7 @@
 		32B36F1D26C38834002D427D /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				79B8D9602F2881D10030429D /* CoreData */,
 				79B8D95B2F287D5F0030429D /* StaticDataSyncingService.swift */,
 				79B8D8822F2872190030429D /* OpenDota */,
 				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
@@ -947,6 +956,7 @@
 				322B88ED26CCBA1800DF67F9 /* CodingKey.swift */,
 				32D1606026F3753900657449 /* SKProduct.swift */,
 				32079DBE28B843360056D19F /* String.swift */,
+				79B8D9652F2883390030429D /* NSManagedObjectContext.swift */,
 				79800DA3294C2E1000662E2F /* NSNumber.swift */,
 			);
 			path = Extensions;
@@ -1232,6 +1242,14 @@
 				79B8D8832F2872200030429D /* OpenDotaConstantService.swift */,
 			);
 			path = OpenDota;
+			sourceTree = "<group>";
+		};
+		79B8D9602F2881D10030429D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				79B8D9612F2881DF0030429D /* Ability.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		79CF637A29C40B700072F4C0 /* UI Tests */ = {
@@ -1672,6 +1690,7 @@
 				79837B53294C189200458529 /* PlayerRowView.swift in Sources */,
 				79B8D8852F2872250030429D /* OpenDotaConstantService.swift in Sources */,
 				79D5282228DD74930070841D /* Secret.swift in Sources */,
+				79B8D9632F2881E20030429D /* Ability.swift in Sources */,
 				32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */,
 				79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */,
 				79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */,
@@ -1718,6 +1737,7 @@
 				79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */,
 				79837B55294C18FE00458529 /* DamageView.swift in Sources */,
 				79A989002931DCE1006AC847 /* UserProfile.swift in Sources */,
+				79B8D9662F28833E0030429D /* NSManagedObjectContext.swift in Sources */,
 				79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32B36F0F26C38821002D427D /* D2AApp.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
@@ -1796,6 +1816,7 @@
 				32F70B1C26F6295B006E9B05 /* SKProduct.swift in Sources */,
 				7983DA752B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
 				79A9891E2931ECAE006AC847 /* PersistanceContainer.swift in Sources */,
+				79B8D9642F2881E20030429D /* Ability.swift in Sources */,
 				7983DA6B2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
 				32F70AD526F60364006E9B05 /* HeroCodable.swift in Sources */,
 				32F70AB526F5812B006E9B05 /* LobbyType.swift in Sources */,
@@ -1808,6 +1829,7 @@
 				32F70ADE26F60B95006E9B05 /* UserProfileCodable.swift in Sources */,
 				797776D22B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
 				3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
+				79B8D9682F28833E0030429D /* NSManagedObjectContext.swift in Sources */,
 				79091DF52A3B2E2C0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32F70B3026F714FD006E9B05 /* Provider.swift in Sources */,
 				32F70AA226F57F7E006E9B05 /* D2AWidget.swift in Sources */,
@@ -1861,6 +1883,7 @@
 				32F70B0326F62268006E9B05 /* RecentMatchCodable.swift in Sources */,
 				7983DA762B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
 				79A9891F2931ECAF006AC847 /* PersistanceContainer.swift in Sources */,
+				79B8D9622F2881E20030429D /* Ability.swift in Sources */,
 				7983DA6C2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
 				32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */,
 				32F70AFC26F61E52006E9B05 /* UserProfileCodable.swift in Sources */,
@@ -1873,6 +1896,7 @@
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				797776D32B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
 				327C033E2716A92500DAEC42 /* KDAView.swift in Sources */,
+				79B8D9672F28833E0030429D /* NSManagedObjectContext.swift in Sources */,
 				79091DF72A3B2FBD0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */,
 				32EC7F3728646BAC00A36AF6 /* WidgetOverlayView.swift in Sources */,
