@@ -18,13 +18,10 @@ struct HeroDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $isPresented, content: {
                 NavigationView {
-                    AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, abilityName: vm.selectedAbility ?? ""))
+                    AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: vm.selectedAbility))
                         .environmentObject(heroDatabase)
                 }
             })
-            .onAppear {
-                vm.loadHero()
-            }
     }
     
     private var mainBody: some View {
@@ -88,27 +85,23 @@ struct HeroDetailView: View {
     }
     
     @ViewBuilder private func buildAbilities(hero: Hero) -> some View {
-        let skillFrame: CGFloat = 30
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(vm.heroAbility.abilities.filter { ability in
-                    let containHidden = ability.contains("hidden")
-                    let containEmpty = ability.contains("empty")
-                    return !containHidden && !containEmpty
-                }, id: \.self) { abilityName in
-                    let ability = vm.fetchAbility(name: abilityName)
-                    if ability.behavior?.transformString() != "Hidden" {
-                        let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                        Button {
-                            self.vm.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroID: vm.heroID, abilityName: abilityName)
-                        } label: {
-                            AbilityImage(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
-                        }
-                    }
-                }
-                .padding(10)
-            }
-        }
+        EmptyView()
+//        let skillFrame: CGFloat = 30
+//        ScrollView(.horizontal, showsIndicators: false) {
+//            HStack {
+//                ForEach(vm.abilities) { ability in
+//                    if ability.behavior?.transformString() != "Hidden" {
+//                        let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+//                        Button {
+//                            self.vm.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroID: vm.heroID, abilityName: abilityName)
+//                        } label: {
+//                            AbilityImage(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
+//                        }
+//                    }
+//                }
+//                .padding(10)
+//            }
+//        }
     }
     
     @ViewBuilder private func buildHeroDetails(hero: Hero) -> some View {
@@ -229,7 +222,7 @@ struct HeroDetailView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Attack")
                         .font(.system(size: 15))
-                    buildStatDetail(image: "icon_damage", value: "\(hero.calculatedAttackMin)-\(hero.calculatedAttackMax)")
+//                    buildStatDetail(image: "icon_damage", value: "\(hero.calculatedAttackMin)-\(hero.calculatedAttackMax)")
                     buildStatDetail(image: "icon_attack_time", value: "\(hero.attackRate)")
                     buildStatDetail(image: "icon_attack_range", value: "\(hero.attackRange)")
                     buildStatDetail(image: "icon_projectile_speed", value: "\(hero.projectileSpeed)")
@@ -238,7 +231,7 @@ struct HeroDetailView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Defense")
                         .font(.system(size: 15))
-                    buildStatDetail(image: "icon_armor", value: String(format: "%.1f", hero.calculateArmor))
+//                    buildStatDetail(image: "icon_armor", value: String(format: "%.1f", hero.calculateArmor))
                     buildStatDetail(image: "icon_magic_resist", value: "\(hero.baseMr)%")
                 }
                 Spacer()
