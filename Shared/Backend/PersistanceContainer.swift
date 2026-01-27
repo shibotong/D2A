@@ -13,13 +13,7 @@ enum PersistanceError: Error {
 }
 
 protocol PersistanceProviding {
-    func makeContext(author: String?) -> NSManagedObjectContext
-}
-
-extension PersistanceProviding {
-    func makeContext() -> NSManagedObjectContext {
-        return makeContext(author: nil)
-    }
+    var mainContext: NSManagedObjectContext { get }
 }
 
 class PersistanceController: PersistanceProviding {
@@ -59,6 +53,10 @@ class PersistanceController: PersistanceProviding {
         }
         return url.appendingPathComponent("token.data", isDirectory: false)
     }()
+    
+    var mainContext: NSManagedObjectContext {
+        return container.viewContext
+    }
 
     init(inMemory: Bool = uiTesting ? true : false) {
         container = NSPersistentContainer(name: "D2AModel")
