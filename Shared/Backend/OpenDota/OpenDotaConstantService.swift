@@ -7,4 +7,5 @@
 
 enum OpenDotaConstantService: String {
     case abilities
+    case abilityIDs = "ability_ids"
 }
