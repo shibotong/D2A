@@ -12,7 +12,17 @@ enum PersistanceError: Error {
     case persistentHistoryChangeError
 }
 
-class PersistanceController {
+protocol PersistanceProviding {
+    func makeContext(author: String?) -> NSManagedObjectContext
+}
+
+extension PersistanceProviding {
+    func makeContext() -> NSManagedObjectContext {
+        return makeContext(author: nil)
+    }
+}
+
+class PersistanceController: PersistanceProviding {
     static let shared = PersistanceController()
 
     static var preview: PersistanceController = {
@@ -97,7 +107,7 @@ class PersistanceController {
         })
     }
     
-    func makeContext(author: String? = nil) -> NSManagedObjectContext {
+    func makeContext(author: String?) -> NSManagedObjectContext {
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = container.viewContext
         privateContext.transactionAuthor = author
