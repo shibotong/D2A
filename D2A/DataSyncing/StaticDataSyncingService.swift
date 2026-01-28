@@ -29,6 +29,13 @@ class StaticDataSyncingService {
     func startSyncing() async {
         do {
             try await syncAbilities()
+            let context = self.context
+            try await context.perform {
+                try context.save()
+            }
+            try await context.parent?.perform {
+                try context.parent?.save()
+            }
         } catch {
             logger.error("Failed to sync data: \(error.localizedDescription)")
         }
@@ -36,6 +43,7 @@ class StaticDataSyncingService {
     
     private func syncAbilities() async throws {
         logger.trace("Start syncing abilities")
+        let abilitySavingContext = context.makeContext(author: "Ability Sync")
         async let abilityIDAsync = openDota.constants(service: .abilityIDs) as? [String: String]
         async let abilitiesAsync = openDota.constants(service: .abilities) as? [String: Any]
         let (abilityIDs, abilities) = try await (abilityIDAsync, abilitiesAsync)
@@ -57,14 +65,18 @@ class StaticDataSyncingService {
                 logger.error("Ability ID is not an integer: \(abilityIDString)")
                 continue
             }
-            let context = context.makeContext(author: "ability \(abilityID)")
+            let context = abilitySavingContext.makeContext(author: "ability \(abilityID)")
             do {
                 try await context.perform {
                     try Ability.save(id: abilityID, name: name, data: ability, in: context)
+                    try context.save()
                 }
             } catch {
                 continue
             }
+        }
+        try await abilitySavingContext.perform {
+            try abilitySavingContext.save()
         }
     }
 }
