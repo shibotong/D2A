@@ -63,12 +63,6 @@ struct NavigationHostView: View {
                         Text("Heroes")
                     }.tag(TabSelection.hero).navigationViewStyle(.stack)
                     NavigationView {
-                        LiveMatchListView()
-                    }.tabItem {
-                        Image(systemName: "gamecontroller.fill")
-                        Text("Live")
-                    }.tag(TabSelection.live).navigationViewStyle(.stack)
-                    NavigationView {
                         SearchView()
                     }
                     .tabItem {
