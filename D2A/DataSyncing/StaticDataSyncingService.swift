@@ -27,7 +27,11 @@ class StaticDataSyncingService {
     }
     
     func startSyncing() async {
-        
+        do {
+            try await syncAbilities()
+        } catch {
+            logger.error("Failed to sync data: \(error.localizedDescription)")
+        }
     }
     
     private func syncAbilities() async throws {

@@ -105,7 +105,7 @@ class PersistanceController: PersistanceProviding {
         })
     }
     
-    func makeContext(author: String?) -> NSManagedObjectContext {
+    func makeContext(author: String? = nil) -> NSManagedObjectContext {
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = container.viewContext
         privateContext.transactionAuthor = author
