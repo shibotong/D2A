@@ -10,7 +10,7 @@ import CoreData
 extension Ability {
     
     static func save(id: Int, name: String, data: [String: Any], in context: NSManagedObjectContext) throws {
-        var fetchRequest = Ability.fetchRequest()
+        let fetchRequest = Ability.fetchRequest()
         let predicate = NSPredicate(format: "abilityID = %d", id)
         fetchRequest.predicate = predicate
         let ability = try context.fetch(fetchRequest).first ?? Ability(context: context)
