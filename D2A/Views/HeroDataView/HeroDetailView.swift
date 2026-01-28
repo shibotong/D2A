@@ -84,24 +84,27 @@ struct HeroDetailView: View {
             }.padding(.leading))
     }
     
-    @ViewBuilder private func buildAbilities(hero: Hero) -> some View {
-        EmptyView()
-//        let skillFrame: CGFloat = 30
-//        ScrollView(.horizontal, showsIndicators: false) {
-//            HStack {
-//                ForEach(vm.abilities) { ability in
-//                    if ability.behavior?.transformString() != "Hidden" {
-//                        let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-//                        Button {
-//                            self.vm.selectedAbility = AbilityContainer(ability: vm.fetchAbility(name: abilityName), heroID: vm.heroID, abilityName: abilityName)
-//                        } label: {
-//                            AbilityImage(name: abilityName, urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)", sideLength: skillFrame, cornerRadius: 10)
-//                        }
-//                    }
-//                }
-//                .padding(10)
-//            }
-//        }
+    @ViewBuilder
+    private func buildAbilities(hero: Hero) -> some View {
+        let skillFrame: CGFloat = 30
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(vm.abilities) { ability in
+                    if ability.behavior?.transformString() != "Hidden" {
+                        let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+                        Button {
+                            vm.selectedAbility = ability//AbilityContainer(ability: ability, heroID: vm.heroID, abilityName: ability.name ?? "")
+                            isPresented = true
+                        } label: {
+                            AbilityImage(viewModel: .init(name: ability.name ?? "", urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
+                                .frame(width: skillFrame, height: skillFrame)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                        }
+                    }
+                }
+                .padding(10)
+            }
+        }
     }
     
     @ViewBuilder private func buildHeroDetails(hero: Hero) -> some View {
