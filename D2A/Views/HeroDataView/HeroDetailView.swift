@@ -93,7 +93,7 @@ struct HeroDetailView: View {
                     if ability.behavior?.transformString() != "Hidden" {
                         let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
                         Button {
-                            vm.selectedAbility = ability//AbilityContainer(ability: ability, heroID: vm.heroID, abilityName: ability.name ?? "")
+                            vm.selectedAbility = ability
                             isPresented = true
                         } label: {
                             AbilityImage(viewModel: .init(name: ability.name ?? "", urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
