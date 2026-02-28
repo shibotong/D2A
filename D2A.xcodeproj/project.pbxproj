@@ -146,8 +146,8 @@
 		327B87702850DA6500BBE1F8 /* sampleHero.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90C2830748600D47CDA /* sampleHero.json */; };
 		327B87712850DA6800BBE1F8 /* sampleAbility.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90E2830765300D47CDA /* sampleAbility.json */; };
 		327B87722850DA6900BBE1F8 /* sampleAbility.json in Resources */ = {isa = PBXBuildFile; fileRef = 3261C90E2830765300D47CDA /* sampleAbility.json */; };
-		327B87732850DA7800BBE1F8 /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* Ability.swift */; };
-		327B87742850DA7900BBE1F8 /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* Ability.swift */; };
+		327B87732850DA7800BBE1F8 /* ODAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */; };
+		327B87742850DA7900BBE1F8 /* ODAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */; };
 		327B87752850DA9E00BBE1F8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2626C38852002D427D /* Item.swift */; };
 		327B87762850DA9F00BBE1F8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B36F2626C38852002D427D /* Item.swift */; };
 		327B87782852263300BBE1F8 /* HeroListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B87772852263300BBE1F8 /* HeroListViewModel.swift */; };
@@ -197,7 +197,7 @@
 		32D1605D26F30B7A00657449 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D1605C26F30B7A00657449 /* StoreManager.swift */; };
 		32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1605E26F3122800657449 /* StoreKit.framework */; };
 		32D1606126F3753900657449 /* SKProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D1606026F3753900657449 /* SKProduct.swift */; };
-		32D3EB4F26ED7B9B00AA8D8B /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* Ability.swift */; };
+		32D3EB4F26ED7B9B00AA8D8B /* ODAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */; };
 		32DE14492845E277006E864E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DE14482845E277006E864E /* HomeView.swift */; };
 		32EC7F35286464C300A36AF6 /* WidgetOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EC7F34286464C300A36AF6 /* WidgetOverlayView.swift */; };
 		32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526D0285C1C480099B058 /* LatestMatchWidgetEntryView.swift */; };
@@ -349,6 +349,23 @@
 		79A989202931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79A989212931ECBB006AC847 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A988FC2931D6FF006AC847 /* Player.swift */; };
 		79ABE8FA2A35C3CF00EE9EF9 /* LiveMatchDraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */; };
+		79B8D8842F2872250030429D /* OpenDotaConstantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D8832F2872200030429D /* OpenDotaConstantService.swift */; };
+		79B8D8852F2872250030429D /* OpenDotaConstantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D8832F2872200030429D /* OpenDotaConstantService.swift */; };
+		79B8D8862F2872250030429D /* OpenDotaConstantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D8832F2872200030429D /* OpenDotaConstantService.swift */; };
+		79B8D95C2F287D6F0030429D /* StaticDataSyncingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D95B2F287D5F0030429D /* StaticDataSyncingService.swift */; };
+		79B8D9622F2881E20030429D /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9612F2881DF0030429D /* Ability.swift */; };
+		79B8D9632F2881E20030429D /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9612F2881DF0030429D /* Ability.swift */; };
+		79B8D9642F2881E20030429D /* Ability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9612F2881DF0030429D /* Ability.swift */; };
+		79B8D9662F28833E0030429D /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9652F2883390030429D /* NSManagedObjectContext.swift */; };
+		79B8D9672F28833E0030429D /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9652F2883390030429D /* NSManagedObjectContext.swift */; };
+		79B8D9682F28833E0030429D /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9652F2883390030429D /* NSManagedObjectContext.swift */; };
+		79B8D96A2F28849E0030429D /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9692F2884990030429D /* NSManagedObject.swift */; };
+		79B8D96B2F28849E0030429D /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9692F2884990030429D /* NSManagedObject.swift */; };
+		79B8D96C2F28849E0030429D /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9692F2884990030429D /* NSManagedObject.swift */; };
+		79B8D96F2F2889FA0030429D /* InMemoryLogging in Frameworks */ = {isa = PBXBuildFile; productRef = 79B8D96E2F2889FA0030429D /* InMemoryLogging */; };
+		79B8D9712F2889FA0030429D /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 79B8D9702F2889FA0030429D /* Logging */; };
+		79B8D9732F2893EE0030429D /* D2ALogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8D9722F2893EB0030429D /* D2ALogger.swift */; };
+		79B8DA422F29AA900030429D /* StaticDataSyncingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8DA412F29AA890030429D /* StaticDataSyncingTests.swift */; };
 		79BD872E2A4C2F1400964814 /* LiveMatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872D2A4C2F1400964814 /* LiveMatchListRowView.swift */; };
 		79BD87302A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */; };
 		79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */; };
@@ -553,7 +570,7 @@
 		32D1606026F3753900657449 /* SKProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKProduct.swift; sourceTree = "<group>"; };
 		32D1606A26F4EE1500657449 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		32D1606C26F4EE1500657449 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		32D3EB4E26ED7B9B00AA8D8B /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
+		32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODAbility.swift; sourceTree = "<group>"; };
 		32DE14482845E277006E864E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		32EC7F34286464C300A36AF6 /* WidgetOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetOverlayView.swift; sourceTree = "<group>"; };
 		32F6A1AF26C499E3009C00E1 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
@@ -628,6 +645,13 @@
 		79ABE8F92A35C3CF00EE9EF9 /* LiveMatchDraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchDraftView.swift; sourceTree = "<group>"; };
 		79B1630228DD5A29009B2AE2 /* Ability.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Ability.graphql; sourceTree = "<group>"; };
 		79B1630328DD5A31009B2AE2 /* Hero.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hero.graphql; sourceTree = "<group>"; };
+		79B8D8832F2872200030429D /* OpenDotaConstantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantService.swift; sourceTree = "<group>"; };
+		79B8D95B2F287D5F0030429D /* StaticDataSyncingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticDataSyncingService.swift; sourceTree = "<group>"; };
+		79B8D9612F2881DF0030429D /* Ability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ability.swift; sourceTree = "<group>"; };
+		79B8D9652F2883390030429D /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
+		79B8D9692F2884990030429D /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
+		79B8D9722F2893EB0030429D /* D2ALogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2ALogger.swift; sourceTree = "<group>"; };
+		79B8DA412F29AA890030429D /* StaticDataSyncingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticDataSyncingTests.swift; sourceTree = "<group>"; };
 		79BD872D2A4C2F1400964814 /* LiveMatchListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchListRowView.swift; sourceTree = "<group>"; };
 		79BD872F2A4C45E400964814 /* LiveMatchLeagueIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconViewModel.swift; sourceTree = "<group>"; };
 		79BD87312A4C45F300964814 /* LiveMatchLeagueIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchLeagueIconView.swift; sourceTree = "<group>"; };
@@ -659,8 +683,10 @@
 			files = (
 				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
 				79266DA42A31B078002FEF0F /* ApolloWebSocket in Frameworks */,
+				79B8D9712F2889FA0030429D /* Logging in Frameworks */,
 				790FBB2429C186AE00E27106 /* Apollo in Frameworks */,
 				790FBB2A29C1876D00E27106 /* StratzAPI in Frameworks */,
+				79B8D96F2F2889FA0030429D /* InMemoryLogging in Frameworks */,
 				796674212E697BD500D102FA /* StratzAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -800,6 +826,7 @@
 		3289579A27F6609B00BA9847 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				79B8DA412F29AA890030429D /* StaticDataSyncingTests.swift */,
 				328957A227F660D400BA9847 /* DecodingTestCase.swift */,
 				798C42922A3565BA00BDC470 /* LiveMatchKillEventTestCase.swift */,
 			);
@@ -879,6 +906,8 @@
 		32B36F0D26C38821002D427D /* D2A */ = {
 			isa = PBXGroup;
 			children = (
+				79B8DA442F29AB570030429D /* Utility */,
+				79B8DA432F29AAFA0030429D /* DataSyncing */,
 				32F70B3726F80AD3006E9B05 /* D2ARelease.entitlements */,
 				32F70B2726F62B09006E9B05 /* D2ADebug.entitlements */,
 				32B36F0E26C38821002D427D /* D2AApp.swift */,
@@ -903,10 +932,11 @@
 		32B36F1D26C38834002D427D /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				79B8D9602F2881D10030429D /* CoreData */,
+				79B8D8822F2872190030429D /* OpenDota */,
 				79F5B5D028E3B89800FB67E5 /* D2AModel.xcdatamodeld */,
 				79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */,
 				329849F326DCAEAE00A1032C /* HeroDatabase.swift */,
-				322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */,
 				32B36F4B26C39C5D002D427D /* Environment.swift */,
 				799948BF2932D50000D79055 /* ImageCache.swift */,
 			);
@@ -922,7 +952,7 @@
 				327772B026D9D71F000A0A97 /* LobbyType.swift */,
 				327772B226D9D735000A0A97 /* GameMode.swift */,
 				32B36F2626C38852002D427D /* Item.swift */,
-				32D3EB4E26ED7B9B00AA8D8B /* Ability.swift */,
+				32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */,
 				323ADB05272B8D4900253124 /* Patch.swift */,
 				328D88B4288EB4F700DFD204 /* SharingLink.swift */,
 			);
@@ -938,6 +968,8 @@
 				322B88ED26CCBA1800DF67F9 /* CodingKey.swift */,
 				32D1606026F3753900657449 /* SKProduct.swift */,
 				32079DBE28B843360056D19F /* String.swift */,
+				79B8D9652F2883390030429D /* NSManagedObjectContext.swift */,
+				79B8D9692F2884990030429D /* NSManagedObject.swift */,
 				79800DA3294C2E1000662E2F /* NSNumber.swift */,
 			);
 			path = Extensions;
@@ -1216,6 +1248,39 @@
 			path = GraphQL;
 			sourceTree = "<group>";
 		};
+		79B8D8822F2872190030429D /* OpenDota */ = {
+			isa = PBXGroup;
+			children = (
+				322B89BC26CE6B7900DF67F9 /* OpenDotaController.swift */,
+				79B8D8832F2872200030429D /* OpenDotaConstantService.swift */,
+			);
+			path = OpenDota;
+			sourceTree = "<group>";
+		};
+		79B8D9602F2881D10030429D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				79B8D9612F2881DF0030429D /* Ability.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		79B8DA432F29AAFA0030429D /* DataSyncing */ = {
+			isa = PBXGroup;
+			children = (
+				79B8D95B2F287D5F0030429D /* StaticDataSyncingService.swift */,
+			);
+			path = DataSyncing;
+			sourceTree = "<group>";
+		};
+		79B8DA442F29AB570030429D /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				79B8D9722F2893EB0030429D /* D2ALogger.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		79CF637A29C40B700072F4C0 /* UI Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1268,6 +1333,8 @@
 				790FBB2929C1876D00E27106 /* StratzAPI */,
 				79266DA32A31B078002FEF0F /* ApolloWebSocket */,
 				796674202E697BD500D102FA /* StratzAPI */,
+				79B8D96E2F2889FA0030429D /* InMemoryLogging */,
+				79B8D9702F2889FA0030429D /* Logging */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* D2A.app */;
@@ -1421,6 +1488,7 @@
 			packageReferences = (
 				790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				7966741F2E697BD500D102FA /* XCLocalSwiftPackageReference "StratzAPI" */,
+				79B8D96D2F2889FA0030429D /* XCRemoteSwiftPackageReference "swift-log" */,
 			);
 			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
 			projectDirPath = "";
@@ -1611,6 +1679,7 @@
 				798C42932A3565BA00BDC470 /* LiveMatchKillEventTestCase.swift in Sources */,
 				327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				328957A327F660D400BA9847 /* DecodingTestCase.swift in Sources */,
+				79B8DA422F29AA900030429D /* StaticDataSyncingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1618,6 +1687,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79B8D95C2F287D6F0030429D /* StaticDataSyncingService.swift in Sources */,
 				32B526D3285C1DBC0099B058 /* Extension.swift in Sources */,
 				32B36F2726C38852002D427D /* HeroCodable.swift in Sources */,
 				79F5B5D428E3B8D900FB67E5 /* PersistanceContainer.swift in Sources */,
@@ -1651,7 +1721,10 @@
 				79BD87322A4C45F300964814 /* LiveMatchLeagueIconView.swift in Sources */,
 				79A988FD2931D6FF006AC847 /* Player.swift in Sources */,
 				79837B53294C189200458529 /* PlayerRowView.swift in Sources */,
+				79B8D8852F2872250030429D /* OpenDotaConstantService.swift in Sources */,
 				79D5282228DD74930070841D /* Secret.swift in Sources */,
+				79B8D9632F2881E20030429D /* Ability.swift in Sources */,
+				79B8D96B2F28849E0030429D /* NSManagedObject.swift in Sources */,
 				32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */,
 				79DEA8452A36A6610009A414 /* LiveMatchPlayerView.swift in Sources */,
 				79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */,
@@ -1698,6 +1771,7 @@
 				79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */,
 				79837B55294C18FE00458529 /* DamageView.swift in Sources */,
 				79A989002931DCE1006AC847 /* UserProfile.swift in Sources */,
+				79B8D9662F28833E0030429D /* NSManagedObjectContext.swift in Sources */,
 				79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32B36F0F26C38821002D427D /* D2AApp.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
@@ -1716,6 +1790,7 @@
 				32897B0826C4EFF1008D3CC8 /* Int.swift in Sources */,
 				79800DA4294C2E1000662E2F /* NSNumber.swift in Sources */,
 				323BCBA3285584D90061F937 /* CalendarMatchListView.swift in Sources */,
+				79B8D9732F2893EE0030429D /* D2ALogger.swift in Sources */,
 				790102B829F4099D00E8A320 /* AttributeImage.swift in Sources */,
 				79DEA8432A36A3060009A414 /* PlayerRowViewModel.swift in Sources */,
 				3252859E26CB9FDC0030F15B /* Sidebar.swift in Sources */,
@@ -1726,7 +1801,7 @@
 				796FE19E29AB006C003379EB /* AbilityImageViewModel.swift in Sources */,
 				798C42912A35581900BDC470 /* LiveMatchKillEvent.swift in Sources */,
 				79BD872E2A4C2F1400964814 /* LiveMatchListRowView.swift in Sources */,
-				32D3EB4F26ED7B9B00AA8D8B /* Ability.swift in Sources */,
+				32D3EB4F26ED7B9B00AA8D8B /* ODAbility.swift in Sources */,
 				323ADB06272B8D4900253124 /* Patch.swift in Sources */,
 				794B723D2985D2C9000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				7912B6E32B5D022C00AE1947 /* AbilityTitleView.swift in Sources */,
@@ -1750,6 +1825,7 @@
 				32F70AAC26F58006006E9B05 /* RecentMatchCodable.swift in Sources */,
 				32F70B1B26F6295B006E9B05 /* Int.swift in Sources */,
 				79A989172931E8F3006AC847 /* Talent.swift in Sources */,
+				79B8D8842F2872250030429D /* OpenDotaConstantService.swift in Sources */,
 				32F70ADC26F60B30006E9B05 /* StringVariable.swift in Sources */,
 				32B526CB285C0CE40099B058 /* RecentMatchesWidgetEntryView.swift in Sources */,
 				79D5282328DD74930070841D /* Secret.swift in Sources */,
@@ -1762,8 +1838,9 @@
 				3270271D285C08C200927426 /* HeroDatabase.swift in Sources */,
 				799948C12932D50000D79055 /* ImageCache.swift in Sources */,
 				32079DC028B843360056D19F /* String.swift in Sources */,
+				79B8D96A2F28849E0030429D /* NSManagedObject.swift in Sources */,
 				793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
-				327B87732850DA7800BBE1F8 /* Ability.swift in Sources */,
+				327B87732850DA7800BBE1F8 /* ODAbility.swift in Sources */,
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
 				32F70ADB26F6090A006E9B05 /* NetworkImage.swift in Sources */,
 				32A26C51285947D3005E890F /* OpenDotaController.swift in Sources */,
@@ -1774,6 +1851,7 @@
 				32F70B1C26F6295B006E9B05 /* SKProduct.swift in Sources */,
 				7983DA752B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
 				79A9891E2931ECAE006AC847 /* PersistanceContainer.swift in Sources */,
+				79B8D9642F2881E20030429D /* Ability.swift in Sources */,
 				7983DA6B2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
 				32F70AD526F60364006E9B05 /* HeroCodable.swift in Sources */,
 				32F70AB526F5812B006E9B05 /* LobbyType.swift in Sources */,
@@ -1786,6 +1864,7 @@
 				32F70ADE26F60B95006E9B05 /* UserProfileCodable.swift in Sources */,
 				797776D22B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
 				3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
+				79B8D9682F28833E0030429D /* NSManagedObjectContext.swift in Sources */,
 				79091DF52A3B2E2C0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32F70B3026F714FD006E9B05 /* Provider.swift in Sources */,
 				32F70AA226F57F7E006E9B05 /* D2AWidget.swift in Sources */,
@@ -1813,11 +1892,12 @@
 				79A989112931E8F3006AC847 /* UserProfile.swift in Sources */,
 				32F70B2226F6295C006E9B05 /* CodingKey.swift in Sources */,
 				32F70B1126F622C5006E9B05 /* HeroCodable.swift in Sources */,
+				79B8D8862F2872250030429D /* OpenDotaConstantService.swift in Sources */,
 				32F70B0F26F622C0006E9B05 /* LobbyType.swift in Sources */,
 				79D5282428DD74930070841D /* Secret.swift in Sources */,
 				32F70B1026F622C2006E9B05 /* GameMode.swift in Sources */,
 				790FBB3229C18ABC00E27106 /* Network.swift in Sources */,
-				327B87742850DA7900BBE1F8 /* Ability.swift in Sources */,
+				327B87742850DA7900BBE1F8 /* ODAbility.swift in Sources */,
 				32F70B2026F6295C006E9B05 /* Int.swift in Sources */,
 				3270271E285C08C300927426 /* HeroDatabase.swift in Sources */,
 				32F70B1E26F6295C006E9B05 /* Date.swift in Sources */,
@@ -1825,6 +1905,7 @@
 				32079DC128B843360056D19F /* String.swift in Sources */,
 				799948C22932D50000D79055 /* ImageCache.swift in Sources */,
 				32F70B1826F6294E006E9B05 /* MatchCodable.swift in Sources */,
+				79B8D96C2F28849E0030429D /* NSManagedObject.swift in Sources */,
 				793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */,
 				32B526D5285C1DBC0099B058 /* Extension.swift in Sources */,
 				32F70B0226F621ED006E9B05 /* D2AWidget.swift in Sources */,
@@ -1837,6 +1918,7 @@
 				32F70B0326F62268006E9B05 /* RecentMatchCodable.swift in Sources */,
 				7983DA762B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
 				79A9891F2931ECAF006AC847 /* PersistanceContainer.swift in Sources */,
+				79B8D9622F2881E20030429D /* Ability.swift in Sources */,
 				7983DA6C2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
 				32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */,
 				32F70AFC26F61E52006E9B05 /* UserProfileCodable.swift in Sources */,
@@ -1849,6 +1931,7 @@
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				797776D32B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
 				327C033E2716A92500DAEC42 /* KDAView.swift in Sources */,
+				79B8D9672F28833E0030429D /* NSManagedObjectContext.swift in Sources */,
 				79091DF72A3B2FBD0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */,
 				32EC7F3728646BAC00A36AF6 /* WidgetOverlayView.swift in Sources */,
@@ -2203,7 +2286,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MRB66268H7;
 				INFOPLIST_FILE = "$(SRCROOT)/D2AWidget/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2230,7 +2313,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MRB66268H7;
 				INFOPLIST_FILE = "$(SRCROOT)/D2AWidget/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2529,6 +2612,14 @@
 				version = 1.2.1;
 			};
 		};
+		79B8D96D2F2889FA0030429D /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-log";
+			requirement = {
+				kind = exactVersion;
+				version = 1.9.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2572,6 +2663,16 @@
 		796674202E697BD500D102FA /* StratzAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = StratzAPI;
+		};
+		79B8D96E2F2889FA0030429D /* InMemoryLogging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79B8D96D2F2889FA0030429D /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = InMemoryLogging;
+		};
+		79B8D9702F2889FA0030429D /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79B8D96D2F2889FA0030429D /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
 		};
 		79D1043629E2991E00BC04B3 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;

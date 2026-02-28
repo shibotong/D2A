@@ -1,5 +1,5 @@
 //
-//  Ability.swift
+//  ODAbility.swift
 //  App
 //
 //  Created by Shibo Tong on 12/9/21.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Ability: Codable, Identifiable {
+struct ODAbility: Codable, Identifiable {
     var id = UUID()
     
     var img: String?
@@ -126,7 +126,7 @@ enum StringOrArray: Codable {
 
 struct AbilityContainer: Identifiable {
     var id = UUID()
-    var ability: Ability
+    var ability: ODAbility
     var heroID: Int
     var abilityName: String
 }

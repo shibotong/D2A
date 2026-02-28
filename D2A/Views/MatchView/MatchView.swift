@@ -121,7 +121,7 @@ struct MatchStatCardView: View {
 //        }
 //        .environmentObject(HeroDatabase.shared)
 //        .environmentObject(DotaEnvironment.shared)
-//        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+//        .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
 //        .environment(\.locale, .init(identifier: "zh-Hans"))
 //        
 //    }

@@ -62,7 +62,7 @@ struct LatestRecentMatchView: View {
 struct LatestRecentMatchView_Previews: PreviewProvider {
     static var previews: some View {
         LatestRecentMatchView(userid: "preview")
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .environment(\.managedObjectContext, PersistanceController.preview.container.viewContext)
             .previewLayout(.fixed(width: 300, height: 60))
     }
 }

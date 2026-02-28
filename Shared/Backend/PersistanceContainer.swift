@@ -12,11 +12,15 @@ enum PersistanceError: Error {
     case persistentHistoryChangeError
 }
 
-class PersistenceController {
-    static let shared = PersistenceController()
+protocol PersistanceProviding {
+    var mainContext: NSManagedObjectContext { get }
+}
 
-    static var preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
+class PersistanceController: PersistanceProviding {
+    static let shared = PersistanceController()
+
+    static var preview: PersistanceController = {
+        let result = PersistanceController(inMemory: true)
         let viewContext = result.container.viewContext
         let previewID = "preview"
         UserProfile.create(id: previewID, favourite: true, register: true, controller: result)
@@ -49,6 +53,10 @@ class PersistenceController {
         }
         return url.appendingPathComponent("token.data", isDirectory: false)
     }()
+    
+    var mainContext: NSManagedObjectContext {
+        return container.viewContext
+    }
 
     init(inMemory: Bool = uiTesting ? true : false) {
         container = NSPersistentContainer(name: "D2AModel")

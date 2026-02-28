@@ -13,7 +13,7 @@ import Apollo
 
 class HeroDetailViewModel: ObservableObject {
     @Published var hero: Hero?
-    @Published var selectedAbility: Ability?
+    @Published var selectedAbility: ODAbility?
     
     @Published var heroID: Int
     
@@ -22,7 +22,7 @@ class HeroDetailViewModel: ObservableObject {
     
     @Published var loadingHero: Bool
     
-    @Published var abilities: [Ability] = []
+    @Published var abilities: [ODAbility] = []
     
     private var database: HeroDatabase = HeroDatabase.shared
     

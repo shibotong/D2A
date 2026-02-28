@@ -10,7 +10,7 @@ import CoreData
 
 class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
     
-    private let persistenceController = PersistenceController.shared
+    private let persistenceController = PersistanceController.shared
     
     func provideProfileOptionsCollection(for intent: DynamicUserSelectionIntent, with completion: @escaping (INObjectCollection<Profile>?, Error?) -> Void) {
         let context = persistenceController.container.viewContext
