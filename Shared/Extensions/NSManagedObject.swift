@@ -12,3 +12,14 @@ func setIfNotEqual<T: Any, V: Equatable>(entity: T, path: ReferenceWritableKeyPa
         entity[keyPath: path] = value
     }
 }
+
+func setIfExist<T: Any, V: Equatable>(entity: T, path: ReferenceWritableKeyPath<T, V>, data: [String: Any], key: String, localization: V? = nil) {
+    if let localization {
+        setIfNotEqual(entity: entity, path: path, value: localization)
+        return
+    }
+    guard let value = data[key] as? V else {
+        return
+    }
+    setIfNotEqual(entity: entity, path: path, value: value)
+}
