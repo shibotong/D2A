@@ -92,6 +92,6 @@ iOSInjectionProject/
 Podfile.lock
 
 .DS_Store
-D2AUITests/testcase.json
-D2AUITests/TestCaseString.swift
+
 Shared/GraphQL/secrets.json
+apollo-ios-cli
