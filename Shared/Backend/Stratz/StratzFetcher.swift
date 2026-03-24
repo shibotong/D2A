@@ -10,14 +10,18 @@ import StratzAPI
 
 protocol StratzFetching {
     func heroes() async throws -> [SKHero]
+    func abilities() async throws -> [SKAbility]
 }
 
 struct StratzFetcher: StratzFetching {
 
     private let apollo: ApolloClient
+    private let languageCode: LanguageEnum
 
-    init(apollo: ApolloClient = Network.shared.apollo) {
+    init(apollo: ApolloClient = Network.shared.apollo,
+         languageCode: LanguageEnum = .english) {
         self.apollo = apollo
+        self.languageCode = languageCode
     }
 
     func heroes() async throws -> [SKHero] {
@@ -48,6 +52,36 @@ struct StratzFetcher: StratzFetching {
                         return SKHero(id: Int(heroID), roles: roles, displayName: stratzLanguage.displayName ?? "", lore: stratzLanguage.lore ?? "", hype: stratzLanguage.hype ?? "")
                     }
                     continuation.resume(returning: heroes)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+
+    func abilities() async throws -> [SKAbility] {
+        return try await withCheckedThrowingContinuation { continuation in
+            apollo.fetch(query: AbilityQuery(language: .init(languageCode))) { result in
+                switch result {
+                case .success(let graphQLResult):
+                    guard let stratzAbilities = graphQLResult.data?.constants?.abilities else {
+                        continuation.resume(throwing: APIError.networkError)
+                        return
+                    }
+                    let abilities: [SKAbility] = stratzAbilities.compactMap { ability in
+                        guard let ability, let stratzLanguage = ability.language else {
+                            return nil
+                        }
+                        return SKAbility(
+                            id: Int(ability.id ?? 0),
+                            displayName: stratzLanguage.displayName,
+                            lore: stratzLanguage.lore,
+                            description: stratzLanguage.description?.compactMap { $0 } ?? [],
+                            aghanimDescription: stratzLanguage.aghanimDescription,
+                            shardDescription: stratzLanguage.shardDescription
+                        )
+                    }
+                    continuation.resume(returning: abilities)
                 case .failure(let error):
                     continuation.resume(throwing: error)
                 }

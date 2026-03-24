@@ -21,4 +21,10 @@ struct StratzFetchingTests {
         let result = try await fetcher.heroes()
         #expect(result.count != 0)
     }
+    
+    @Test
+    func `abilities`() async throws {
+        let result = try await fetcher.abilities()
+        #expect(result.count != 0)
+    }
 }
