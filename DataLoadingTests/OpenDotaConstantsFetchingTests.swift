@@ -27,6 +27,12 @@ struct OpenDotaConstantsFetchingTests {
         let dict = try await fetcher.abilityIds()
         #expect(dict.count != 0)
     }
+    
+    @Test
+    func `aghs desc`() async throws {
+        let dict = try await fetcher.aghsDesc()
+        #expect(dict.count != 0)
+    }
 
     @Test
     func `heroes`() async throws {

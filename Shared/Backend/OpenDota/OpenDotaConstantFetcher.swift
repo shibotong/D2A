@@ -10,6 +10,7 @@ import Foundation
 protocol OpenDotaConstantFetching {
     func abilities() async throws -> [String: ODAbilityV2]
     func abilityIds() async throws -> [String: String]
+    func aghsDesc() async throws -> [ODAghsDesc]
     func heroes() async throws -> [String: ODHero]
 }
 
@@ -31,6 +32,10 @@ class OpenDotaConstantFetcher: OpenDotaConstantFetching {
     
     func abilityIds() async throws -> [String : String] {
         return try await loadData(path: "ability_ids")
+    }
+    
+    func aghsDesc() async throws -> [ODAghsDesc] {
+        return try await loadData(path: "aghs_desc")
     }
     
     func heroes() async throws -> [String: ODHero] {
