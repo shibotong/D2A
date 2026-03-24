@@ -131,9 +131,8 @@ struct DecodingService {
         }
     }
     
-    func decode<T: Decodable>(_ data: Data) throws -> T {
+    func decode<T: Decodable>(_ data: Data, decoder: JSONDecoder = JSONDecoder()) throws -> T {
         do {
-            let decoder = JSONDecoder()
             let match = try decoder.decode(T.self, from: data)
             return match
         } catch let DecodingError.dataCorrupted(context) {
