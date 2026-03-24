@@ -5063,6 +5063,7 @@ type UserQuery {
     """
     take: Int
   ): FeedResponseType
+  ipGeoLookup: IpGeoLookupType
 }
 
 type UserType {
@@ -5495,6 +5496,32 @@ type FeedType {
   date: Long
   value: Int!
   didWin: Boolean
+}
+
+type IpGeoLookupType {
+  query: String!
+  status: String!
+  continent: String
+  continentCode: String
+  country: String
+  countryCode: String
+  region: String
+  regionName: String
+  city: String
+  district: String
+  zip: String
+  lat: Float
+  lon: Float
+  timezone: String
+  offset: Int
+  currency: String
+  isp: String
+  org: String
+  as: String
+  asName: String
+  mobile: Boolean
+  proxy: Boolean
+  hosting: Boolean
 }
 
 type PageQuery {
