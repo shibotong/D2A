@@ -293,6 +293,12 @@
 		79518CE92F725D98005C9449 /* ODAbilityV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CE82F725D93005C9449 /* ODAbilityV2.swift */; };
 		79518CEA2F725D98005C9449 /* ODAbilityV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CE82F725D93005C9449 /* ODAbilityV2.swift */; };
 		79518CEB2F725D98005C9449 /* ODAbilityV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CE82F725D93005C9449 /* ODAbilityV2.swift */; };
+		79518CED2F72604C005C9449 /* ODAghsDesc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CEC2F726046005C9449 /* ODAghsDesc.swift */; };
+		79518CEE2F72604C005C9449 /* ODAghsDesc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CEC2F726046005C9449 /* ODAghsDesc.swift */; };
+		79518CEF2F72604C005C9449 /* ODAghsDesc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CEC2F726046005C9449 /* ODAghsDesc.swift */; };
+		79518CF12F72610F005C9449 /* ODHeroAbilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CF02F72610B005C9449 /* ODHeroAbilities.swift */; };
+		79518CF22F72610F005C9449 /* ODHeroAbilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CF02F72610B005C9449 /* ODHeroAbilities.swift */; };
+		79518CF32F72610F005C9449 /* ODHeroAbilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CF02F72610B005C9449 /* ODHeroAbilities.swift */; };
 		795860412A335D69006DDA21 /* LiveMatchMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795860402A335D69006DDA21 /* LiveMatchMapView.swift */; };
 		79645CC32A39D1610004EF50 /* LiveMatchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79645CC22A39D1610004EF50 /* LiveMatchListView.swift */; };
 		7965F636293ADE1900922F99 /* RegisteredPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */; };
@@ -618,6 +624,8 @@
 		79518CE02F7257B3005C9449 /* OpenDotaConstantsFetchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantsFetchingTests.swift; sourceTree = "<group>"; };
 		79518CE72F725C51005C9449 /* RemoteDataTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RemoteDataTestPlan.xctestplan; sourceTree = "<group>"; };
 		79518CE82F725D93005C9449 /* ODAbilityV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODAbilityV2.swift; sourceTree = "<group>"; };
+		79518CEC2F726046005C9449 /* ODAghsDesc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODAghsDesc.swift; sourceTree = "<group>"; };
+		79518CF02F72610B005C9449 /* ODHeroAbilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODHeroAbilities.swift; sourceTree = "<group>"; };
 		795860402A335D69006DDA21 /* LiveMatchMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchMapView.swift; sourceTree = "<group>"; };
 		79645CC22A39D1610004EF50 /* LiveMatchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchListView.swift; sourceTree = "<group>"; };
 		7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredPlayerView.swift; sourceTree = "<group>"; };
@@ -1204,6 +1212,8 @@
 		79518CD62F7254AF005C9449 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				79518CF02F72610B005C9449 /* ODHeroAbilities.swift */,
+				79518CEC2F726046005C9449 /* ODAghsDesc.swift */,
 				79518CE82F725D93005C9449 /* ODAbilityV2.swift */,
 				79518CD72F725506005C9449 /* ODHero.swift */,
 				32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */,
@@ -1778,6 +1788,7 @@
 				322B893826CD44FE00DF67F9 /* SteamProfile.swift in Sources */,
 				790266462A35454500CE54DF /* LiveMatchEventListView.swift in Sources */,
 				322B893626CD438700DF67F9 /* UserProfileCodable.swift in Sources */,
+				79518CEE2F72604C005C9449 /* ODAghsDesc.swift in Sources */,
 				322B89BF26CE788900DF67F9 /* AnalysisViewModel.swift in Sources */,
 				3252859726CB81480030F15B /* DifferenceGraphViewModel.swift in Sources */,
 				79645CC32A39D1610004EF50 /* LiveMatchListView.swift in Sources */,
@@ -1800,6 +1811,7 @@
 				79A989002931DCE1006AC847 /* UserProfile.swift in Sources */,
 				79B8D9662F28833E0030429D /* NSManagedObjectContext.swift in Sources */,
 				79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
+				79518CF22F72610F005C9449 /* ODHeroAbilities.swift in Sources */,
 				32B36F0F26C38821002D427D /* D2AApp.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
 				32DE14492845E277006E864E /* HomeView.swift in Sources */,
@@ -1843,6 +1855,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79518CED2F72604C005C9449 /* ODAghsDesc.swift in Sources */,
+				79518CF32F72610F005C9449 /* ODHeroAbilities.swift in Sources */,
 				79518CD82F725507005C9449 /* ODHero.swift in Sources */,
 				79518CE92F725D98005C9449 /* ODAbilityV2.swift in Sources */,
 				79518CDE2F725606005C9449 /* OpenDotaConstantFetcher.swift in Sources */,
@@ -1913,6 +1927,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79518CEF2F72604C005C9449 /* ODAghsDesc.swift in Sources */,
+				79518CF12F72610F005C9449 /* ODHeroAbilities.swift in Sources */,
 				79518CDA2F725507005C9449 /* ODHero.swift in Sources */,
 				79518CEB2F725D98005C9449 /* ODAbilityV2.swift in Sources */,
 				79518CDD2F725606005C9449 /* OpenDotaConstantFetcher.swift in Sources */,

@@ -9,6 +9,9 @@ import Foundation
 
 protocol OpenDotaConstantFetching {
     func abilities() async throws -> [String: ODAbilityV2]
+    func abilityIds() async throws -> [String: String]
+    func aghsDesc() async throws -> [ODAghsDesc]
+    func heroAbilities() async throws -> [ODHeroAbilities]
     func heroes() async throws -> [String: ODHero]
 }
 
@@ -25,20 +28,30 @@ class OpenDotaConstantFetcher: OpenDotaConstantFetching {
     private let baseURL = "https://api.opendota.com/api/constants"
     
     func abilities() async throws -> [String: ODAbilityV2] {
-        guard let url = URL(string: "\(baseURL)/abilities") else {
-            return [:]
-        }
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let abilityDictionary = try decoder.decode([String: ODAbilityV2].self, from: data)
-        return abilityDictionary
+        return try await loadData(path: "abilities")
+    }
+    
+    func abilityIds() async throws -> [String : String] {
+        return try await loadData(path: "ability_ids")
+    }
+    
+    func aghsDesc() async throws -> [ODAghsDesc] {
+        return try await loadData(path: "aghs_desc")
+    }
+    
+    func heroAbilities() async throws -> [ODHeroAbilities] {
+        return try await loadData(path: "hero_abilities")
     }
     
     func heroes() async throws -> [String: ODHero] {
-        guard let url = URL(string: "\(baseURL)/heroes") else {
-            return [:]
+        return try await loadData(path: "heroes")
+    }
+    
+    private func loadData<T: Decodable>(path: String) async throws -> T {
+        guard let url = URL(string: "\(baseURL)/\(path)") else {
+            throw APIError.urlError
         }
         let (data, _) = try await URLSession.shared.data(from: url)
-        let heroesDictionary = try decoder.decode([String: ODHero].self, from: data)
-        return heroesDictionary
+        return try decoder.decode(T.self, from: data)
     }
 }
