@@ -911,7 +911,6 @@
 		32B36F0226C38821002D427D = {
 			isa = PBXGroup;
 			children = (
-				79518CE72F725C51005C9449 /* RemoteDataTestPlan.xctestplan */,
 				798A1D1729C183B500E443A6 /* StratzAPI */,
 				79A989262931FA50006AC847 /* D2AProStore.storekit */,
 				32C606CB286479F7007AD14B /* ci_scripts */,
@@ -1274,6 +1273,7 @@
 			isa = PBXGroup;
 			children = (
 				79518D182F72B212005C9449 /* graphql */,
+				79518CE72F725C51005C9449 /* RemoteDataTestPlan.xctestplan */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
