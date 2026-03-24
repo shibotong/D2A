@@ -21,5 +21,4 @@ struct OpenDotaConstantsFetchingTests {
         let heroes = try await fetcher.heroes()
         #expect(heroes.count != 0)
     }
-
 }
