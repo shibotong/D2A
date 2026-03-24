@@ -312,6 +312,10 @@
 		79518D0D2F72AB97005C9449 /* SKAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518D0C2F72AB95005C9449 /* SKAbility.swift */; };
 		79518D0E2F72AB97005C9449 /* SKAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518D0C2F72AB95005C9449 /* SKAbility.swift */; };
 		79518D0F2F72AB97005C9449 /* SKAbility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518D0C2F72AB95005C9449 /* SKAbility.swift */; };
+		79518D1A2F72B462005C9449 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518D192F72B455005C9449 /* AppConfig.swift */; };
+		79518D1B2F72B462005C9449 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518D192F72B455005C9449 /* AppConfig.swift */; };
+		79518D1C2F72B462005C9449 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518D192F72B455005C9449 /* AppConfig.swift */; };
+		79518D1D2F72B462005C9449 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518D192F72B455005C9449 /* AppConfig.swift */; };
 		795860412A335D69006DDA21 /* LiveMatchMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795860402A335D69006DDA21 /* LiveMatchMapView.swift */; };
 		79645CC32A39D1610004EF50 /* LiveMatchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79645CC22A39D1610004EF50 /* LiveMatchListView.swift */; };
 		7965F636293ADE1900922F99 /* RegisteredPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */; };
@@ -645,6 +649,7 @@
 		79518D062F72A840005C9449 /* StratzFetchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratzFetchingTests.swift; sourceTree = "<group>"; };
 		79518D082F72A9C8005C9449 /* secrets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = secrets.json; sourceTree = "<group>"; };
 		79518D0C2F72AB95005C9449 /* SKAbility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKAbility.swift; sourceTree = "<group>"; };
+		79518D192F72B455005C9449 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		795860402A335D69006DDA21 /* LiveMatchMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchMapView.swift; sourceTree = "<group>"; };
 		79645CC22A39D1610004EF50 /* LiveMatchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchListView.swift; sourceTree = "<group>"; };
 		7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredPlayerView.swift; sourceTree = "<group>"; };
@@ -1044,6 +1049,7 @@
 		32B36F4826C39238002D427D /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				79518D192F72B455005C9449 /* AppConfig.swift */,
 				32B36F4926C39242002D427D /* StringVariable.swift */,
 				327B875F284D9FA100BBE1F8 /* DataHelper.swift */,
 			);
@@ -1772,6 +1778,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				798C42932A3565BA00BDC470 /* LiveMatchKillEventTestCase.swift in Sources */,
+				79518D1C2F72B462005C9449 /* AppConfig.swift in Sources */,
 				327B8763284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				328957A327F660D400BA9847 /* DecodingTestCase.swift in Sources */,
 				79B8DA422F29AA900030429D /* StaticDataSyncingTests.swift in Sources */,
@@ -1883,6 +1890,7 @@
 				79CB52462A31B38200C5D1C6 /* LiveMatchViewModel.swift in Sources */,
 				328D88B5288EB4F700DFD204 /* SharingLink.swift in Sources */,
 				795860412A335D69006DDA21 /* LiveMatchMapView.swift in Sources */,
+				79518D1D2F72B462005C9449 /* AppConfig.swift in Sources */,
 				321D58A026D234A90059526B /* AboutUsView.swift in Sources */,
 				32985DD3285569D0001869F2 /* RankView.swift in Sources */,
 				32B36F2926C38852002D427D /* MatchCodable.swift in Sources */,
@@ -1927,6 +1935,7 @@
 				32F70AB426F58125006E9B05 /* GameMode.swift in Sources */,
 				79A989062931E8EB006AC847 /* UserProfile.swift in Sources */,
 				32EC7F35286464C300A36AF6 /* WidgetOverlayView.swift in Sources */,
+				79518D1A2F72B462005C9449 /* AppConfig.swift in Sources */,
 				794838662A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				327B8761284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				3270271B285C088300927426 /* HeroImageView.swift in Sources */,
@@ -2002,6 +2011,7 @@
 				32F70B0426F6226D006E9B05 /* SteamProfile.swift in Sources */,
 				327B8762284D9FA100BBE1F8 /* DataHelper.swift in Sources */,
 				3270271C285C088300927426 /* HeroImageView.swift in Sources */,
+				79518D1B2F72B462005C9449 /* AppConfig.swift in Sources */,
 				794838672A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				32B526CE285C18450099B058 /* RankView.swift in Sources */,
 				32F70B0E26F622AE006E9B05 /* StringVariable.swift in Sources */,
@@ -2160,7 +2170,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/lib/swift,
@@ -2188,7 +2198,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6ZU3XJ94Y7;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/lib/swift,

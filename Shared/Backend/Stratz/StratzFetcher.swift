@@ -14,12 +14,14 @@ protocol StratzFetching {
 }
 
 struct StratzFetcher: StratzFetching {
+    
+    static let shared = StratzFetcher()
 
     private let apollo: ApolloClient
     private let languageCode: LanguageEnum
 
     init(apollo: ApolloClient = Network.shared.apollo,
-         languageCode: LanguageEnum = .english) {
+         languageCode: LanguageEnum = AppConfig.languageCode) {
         self.apollo = apollo
         self.languageCode = languageCode
     }
