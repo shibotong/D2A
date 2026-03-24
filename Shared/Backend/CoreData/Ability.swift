@@ -21,10 +21,10 @@ extension Ability {
         setStringOrArray(entity: ability, path: \.coolDown, data: data, key: "cd")
         setStringOrArray(entity: ability, path: \.damageType, data: data, key: "dmg_type")
         setStringOrArray(entity: ability, path: \.damageType, data: data, key: "dmg_type")
-        setIfExist(entity: ability, path: \.desc, data: data, key: "desc")
+        setIfExist(entity: ability, path: \.desc, data: data, key: "desc", localization: localization?.description.joined(separator: "\n"))
         setIfExist(entity: ability, path: \.dispellable, data: data, key: "dispellable")
-        setIfExist(entity: ability, path: \.dname, data: data, key: "dname")
-        setIfExist(entity: ability, path: \.lore, data: data, key: "lore")
+        setIfExist(entity: ability, path: \.dname, data: data, key: "dname", localization: localization?.displayName)
+        setIfExist(entity: ability, path: \.lore, data: data, key: "lore", localization: localization?.lore)
         setStringOrArray(entity: ability, path: \.manaCost, data: data, key: "mc")
         setStringOrArray(entity: ability, path: \.targetTeam, data: data, key: "target_team")
         setStringOrArray(entity: ability, path: \.targetType, data: data, key: "target_type")
@@ -37,7 +37,11 @@ extension Ability {
         setIfNotEqual(entity: entity, path: path, value: value)
     }
     
-    static func setIfExist<T: Equatable>(entity: Ability, path: ReferenceWritableKeyPath<Ability, T>, data: [String: Any], key: String) {
+    static func setIfExist<T: Equatable>(entity: Ability, path: ReferenceWritableKeyPath<Ability, T>, data: [String: Any], key: String, localization: T? = nil) {
+        if let localization {
+            setIfNotEqual(entity: entity, path: path, value: localization)
+            return
+        }
         guard let value = data[key] as? T else {
             return
         }
