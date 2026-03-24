@@ -45,9 +45,9 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "HeroRoleType": return StratzAPI.Objects.HeroRoleType
     case "HeroLanguageType": return StratzAPI.Objects.HeroLanguageType
     case "HeroTalentType": return StratzAPI.Objects.HeroTalentType
-    case "HeroStatType": return StratzAPI.Objects.HeroStatType
     case "DotaSubscription": return StratzAPI.Objects.DotaSubscription
     case "TeamType": return StratzAPI.Objects.TeamType
+    case "HeroStatType": return StratzAPI.Objects.HeroStatType
     case "AbilityType": return StratzAPI.Objects.AbilityType
     case "AbilityLanguageType": return StratzAPI.Objects.AbilityLanguageType
     case "AbilityAttributeType": return StratzAPI.Objects.AbilityAttributeType

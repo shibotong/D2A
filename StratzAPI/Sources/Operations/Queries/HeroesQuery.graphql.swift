@@ -35,12 +35,6 @@ public class HeroesQuery: GraphQLQuery {
               abilityId
               slot
             }
-            stats {
-              __typename
-              visionDaytimeRange
-              visionNighttimeRange
-              complexity
-            }
           }
         }
       }
@@ -97,7 +91,6 @@ public class HeroesQuery: GraphQLQuery {
           .field("roles", [Role?]?.self),
           .field("language", Language?.self),
           .field("talents", [Talent?]?.self),
-          .field("stats", Stats?.self),
         ] }
 
         public var id: StratzAPI.Short? { __data["id"] }
@@ -105,7 +98,6 @@ public class HeroesQuery: GraphQLQuery {
         public var roles: [Role?]? { __data["roles"] }
         public var language: Language? { __data["language"] }
         public var talents: [Talent?]? { __data["talents"] }
-        public var stats: Stats? { __data["stats"] }
 
         /// Constants.Hero.Ability
         ///
@@ -179,26 +171,6 @@ public class HeroesQuery: GraphQLQuery {
 
           public var abilityId: StratzAPI.Short? { __data["abilityId"] }
           public var slot: StratzAPI.Byte? { __data["slot"] }
-        }
-
-        /// Constants.Hero.Stats
-        ///
-        /// Parent Type: `HeroStatType`
-        public struct Stats: StratzAPI.SelectionSet {
-          public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
-
-          public static var __parentType: ApolloAPI.ParentType { StratzAPI.Objects.HeroStatType }
-          public static var __selections: [ApolloAPI.Selection] { [
-            .field("__typename", String.self),
-            .field("visionDaytimeRange", Double?.self),
-            .field("visionNighttimeRange", Double?.self),
-            .field("complexity", StratzAPI.Byte?.self),
-          ] }
-
-          public var visionDaytimeRange: Double? { __data["visionDaytimeRange"] }
-          public var visionNighttimeRange: Double? { __data["visionNighttimeRange"] }
-          public var complexity: StratzAPI.Byte? { __data["complexity"] }
         }
       }
     }
