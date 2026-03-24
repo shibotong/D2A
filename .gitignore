@@ -93,5 +93,5 @@ Podfile.lock
 
 .DS_Store
 
-Shared/GraphQL/secrets.json
+Resources/graphql/secrets.json
 apollo-ios-cli
