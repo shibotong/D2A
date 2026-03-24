@@ -21,10 +21,16 @@ struct OpenDotaConstantsFetchingTests {
         let dict = try await fetcher.abilities()
         #expect(dict.count != 0)
     }
+    
+    @Test
+    func `abilitiy ids`() async throws {
+        let dict = try await fetcher.abilityIds()
+        #expect(dict.count != 0)
+    }
 
     @Test
     func `heroes`() async throws {
-        let heroes = try await fetcher.heroes()
-        #expect(heroes.count != 0)
+        let dict = try await fetcher.heroes()
+        #expect(dict.count != 0)
     }
 }
