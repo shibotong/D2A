@@ -28,7 +28,7 @@ class OpenDotaConstantFetcher: OpenDotaConstantFetching {
             return [:]
         }
         let (data, _) = try await URLSession.shared.data(from: url)
-        let heroesDictionary: [String: ODHero] = try DecodingService().decode(data, decoder: decoder)
+        let heroesDictionary = try decoder.decode([String: ODHero].self, from: data)
         return heroesDictionary
     }
 }
