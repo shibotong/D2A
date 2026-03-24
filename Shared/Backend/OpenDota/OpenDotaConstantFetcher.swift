@@ -8,6 +8,7 @@
 import Foundation
 
 protocol OpenDotaConstantFetching {
+    func abilities() async throws -> [String: ODAbilityV2]
     func heroes() async throws -> [String: ODHero]
 }
 
@@ -22,6 +23,15 @@ class OpenDotaConstantFetcher: OpenDotaConstantFetching {
     }()
     
     private let baseURL = "https://api.opendota.com/api/constants"
+    
+    func abilities() async throws -> [String: ODAbilityV2] {
+        guard let url = URL(string: "\(baseURL)/abilities") else {
+            return [:]
+        }
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let abilityDictionary = try decoder.decode([String: ODAbilityV2].self, from: data)
+        return abilityDictionary
+    }
     
     func heroes() async throws -> [String: ODHero] {
         guard let url = URL(string: "\(baseURL)/heroes") else {

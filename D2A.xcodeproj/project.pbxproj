@@ -290,6 +290,9 @@
 		79518CDD2F725606005C9449 /* OpenDotaConstantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CDB2F7255FF005C9449 /* OpenDotaConstantFetcher.swift */; };
 		79518CDE2F725606005C9449 /* OpenDotaConstantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CDB2F7255FF005C9449 /* OpenDotaConstantFetcher.swift */; };
 		79518CE22F725A52005C9449 /* OpenDotaConstantsFetchingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CE02F7257B3005C9449 /* OpenDotaConstantsFetchingTests.swift */; };
+		79518CE92F725D98005C9449 /* ODAbilityV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CE82F725D93005C9449 /* ODAbilityV2.swift */; };
+		79518CEA2F725D98005C9449 /* ODAbilityV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CE82F725D93005C9449 /* ODAbilityV2.swift */; };
+		79518CEB2F725D98005C9449 /* ODAbilityV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79518CE82F725D93005C9449 /* ODAbilityV2.swift */; };
 		795860412A335D69006DDA21 /* LiveMatchMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795860402A335D69006DDA21 /* LiveMatchMapView.swift */; };
 		79645CC32A39D1610004EF50 /* LiveMatchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79645CC22A39D1610004EF50 /* LiveMatchListView.swift */; };
 		7965F636293ADE1900922F99 /* RegisteredPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */; };
@@ -614,6 +617,7 @@
 		79518CDB2F7255FF005C9449 /* OpenDotaConstantFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantFetcher.swift; sourceTree = "<group>"; };
 		79518CE02F7257B3005C9449 /* OpenDotaConstantsFetchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantsFetchingTests.swift; sourceTree = "<group>"; };
 		79518CE72F725C51005C9449 /* RemoteDataTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RemoteDataTestPlan.xctestplan; sourceTree = "<group>"; };
+		79518CE82F725D93005C9449 /* ODAbilityV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODAbilityV2.swift; sourceTree = "<group>"; };
 		795860402A335D69006DDA21 /* LiveMatchMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchMapView.swift; sourceTree = "<group>"; };
 		79645CC22A39D1610004EF50 /* LiveMatchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchListView.swift; sourceTree = "<group>"; };
 		7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredPlayerView.swift; sourceTree = "<group>"; };
@@ -1200,6 +1204,7 @@
 		79518CD62F7254AF005C9449 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				79518CE82F725D93005C9449 /* ODAbilityV2.swift */,
 				79518CD72F725506005C9449 /* ODHero.swift */,
 				32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */,
 			);
@@ -1728,6 +1733,7 @@
 				321E3D01285422D00094FB10 /* AbilityViewModel.swift in Sources */,
 				794838652A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				7985E7EF28E53E47007A43AF /* Talent.swift in Sources */,
+				79518CEA2F725D98005C9449 /* ODAbilityV2.swift in Sources */,
 				79091DFC2A3B36310093EEE4 /* LiveMatchTeamIconView.swift in Sources */,
 				797776D12B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
 				32B36F1126C38821002D427D /* ContentView.swift in Sources */,
@@ -1838,6 +1844,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79518CD82F725507005C9449 /* ODHero.swift in Sources */,
+				79518CE92F725D98005C9449 /* ODAbilityV2.swift in Sources */,
 				79518CDE2F725606005C9449 /* OpenDotaConstantFetcher.swift in Sources */,
 				79800DA5294C2E1000662E2F /* NSNumber.swift in Sources */,
 				32F70AB426F58125006E9B05 /* GameMode.swift in Sources */,
@@ -1907,6 +1914,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79518CDA2F725507005C9449 /* ODHero.swift in Sources */,
+				79518CEB2F725D98005C9449 /* ODAbilityV2.swift in Sources */,
 				79518CDD2F725606005C9449 /* OpenDotaConstantFetcher.swift in Sources */,
 				79800DA6294C2E1000662E2F /* NSNumber.swift in Sources */,
 				32F70B0426F6226D006E9B05 /* SteamProfile.swift in Sources */,
