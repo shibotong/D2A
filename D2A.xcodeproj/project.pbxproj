@@ -269,7 +269,6 @@
 		79266DA72A31B0FD002FEF0F /* LiveMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79266DA62A31B0FD002FEF0F /* LiveMatchView.swift */; };
 		79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA82A31B21D002FEF0F /* ApolloWebSocket */; };
 		79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DAA2A31B224002FEF0F /* ApolloWebSocket */; };
-		793069A42B5D324C00A5CF5D /* MetadataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3261C90828306FDE00D47CDA /* MetadataTestCase.swift */; };
 		79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79368C0928E6D8ED009517D2 /* RoleView.swift */; };
 		793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
 		793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
@@ -528,7 +527,6 @@
 		3252859D26CB9FDC0030F15B /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchListRowViewModel.swift; sourceTree = "<group>"; };
 		3261C906282F315100D47CDA /* HeroDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailView.swift; sourceTree = "<group>"; };
-		3261C90828306FDE00D47CDA /* MetadataTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataTestCase.swift; sourceTree = "<group>"; };
 		3261C90A2830721500D47CDA /* HeroDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewModel.swift; sourceTree = "<group>"; };
 		3261C90C2830748600D47CDA /* sampleHero.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleHero.json; sourceTree = "<group>"; };
 		3261C90E2830765300D47CDA /* sampleAbility.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleAbility.json; sourceTree = "<group>"; };
@@ -615,6 +613,7 @@
 		79518CD72F725506005C9449 /* ODHero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODHero.swift; sourceTree = "<group>"; };
 		79518CDB2F7255FF005C9449 /* OpenDotaConstantFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantFetcher.swift; sourceTree = "<group>"; };
 		79518CE02F7257B3005C9449 /* OpenDotaConstantsFetchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDotaConstantsFetchingTests.swift; sourceTree = "<group>"; };
+		79518CE72F725C51005C9449 /* RemoteDataTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RemoteDataTestPlan.xctestplan; sourceTree = "<group>"; };
 		795860402A335D69006DDA21 /* LiveMatchMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchMapView.swift; sourceTree = "<group>"; };
 		79645CC22A39D1610004EF50 /* LiveMatchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchListView.swift; sourceTree = "<group>"; };
 		7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredPlayerView.swift; sourceTree = "<group>"; };
@@ -882,6 +881,7 @@
 		32B36F0226C38821002D427D = {
 			isa = PBXGroup;
 			children = (
+				79518CE72F725C51005C9449 /* RemoteDataTestPlan.xctestplan */,
 				798A1D1729C183B500E443A6 /* StratzAPI */,
 				79A989262931FA50006AC847 /* D2AProStore.storekit */,
 				32C606CB286479F7007AD14B /* ci_scripts */,
@@ -1184,8 +1184,7 @@
 		7930699C2B5D323100A5CF5D /* DataLoadingTests */ = {
 			isa = PBXGroup;
 			children = (
-				79518CDF2F72579F005C9449 /* OpenDota */,
-				3261C90828306FDE00D47CDA /* MetadataTestCase.swift */,
+				79518CE02F7257B3005C9449 /* OpenDotaConstantsFetchingTests.swift */,
 			);
 			path = DataLoadingTests;
 			sourceTree = "<group>";
@@ -1205,14 +1204,6 @@
 				32D3EB4E26ED7B9B00AA8D8B /* ODAbility.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		79518CDF2F72579F005C9449 /* OpenDota */ = {
-			isa = PBXGroup;
-			children = (
-				79518CE02F7257B3005C9449 /* OpenDotaConstantsFetchingTests.swift */,
-			);
-			path = OpenDota;
 			sourceTree = "<group>";
 		};
 		7983DA6E2B63085C00C42F87 /* Model */ = {
@@ -1984,7 +1975,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				793069A42B5D324C00A5CF5D /* MetadataTestCase.swift in Sources */,
 				79518CE22F725A52005C9449 /* OpenDotaConstantsFetchingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
