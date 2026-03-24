@@ -12,6 +12,7 @@ import Logging
 class StaticDataSyncingService {
     
     private let openDota: OpenDotaFetching
+    private let stratz: StratzFetching
     
     /// Private context for saving static data
     private let context: NSManagedObjectContext
@@ -19,9 +20,11 @@ class StaticDataSyncingService {
     private let logger: Logger
     
     init(openDota: OpenDotaFetching = OpenDotaController.shared,
+         stratz: StratzFetching = StratzFetcher.shared,
          persistance: PersistanceProviding = PersistanceController.shared,
          logger: Logger = D2ALogger.syncing) {
         self.openDota = openDota
+        self.stratz = stratz
         self.context = persistance.mainContext.makeContext(author: "Static Data")
         self.logger = logger
     }
@@ -46,9 +49,15 @@ class StaticDataSyncingService {
         let abilitySavingContext = context.makeContext(author: "Ability Sync")
         async let abilityIDAsync = openDota.constants(service: .abilityIDs) as? [String: String]
         async let abilitiesAsync = openDota.constants(service: .abilities) as? [String: Any]
-        let (abilityIDs, abilities) = try await (abilityIDAsync, abilitiesAsync)
+        async let stratzAbilitiesAsync = stratz.abilities()
+        
+        let (abilityIDs, abilities, localizations) = try await (abilityIDAsync, abilitiesAsync, stratzAbilitiesAsync)
         guard let abilityIDs, let abilities else {
             throw URLError(.badServerResponse)
+        }
+        var localizationDict: [Int: SKAbility] = [:]
+        for ability in localizations {
+            localizationDict[ability.id] = ability
         }
         logger.trace("Finish fetching abilityIDs and abilities from OpenDota")
         for (abilityIDString, name) in abilityIDs {
@@ -65,10 +74,11 @@ class StaticDataSyncingService {
                 logger.error("Ability ID is not an integer: \(abilityIDString)")
                 continue
             }
+            let localization = localizationDict[abilityID]
             let context = abilitySavingContext.makeContext(author: "ability \(abilityID)")
             do {
                 try await context.perform {
-                    try Ability.save(id: abilityID, name: name, data: ability, in: context)
+                    try Ability.save(id: abilityID, name: name, data: ability, localization: localization, in: context)
                     try context.save()
                 }
             } catch {
