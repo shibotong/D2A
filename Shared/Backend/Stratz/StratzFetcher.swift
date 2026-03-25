@@ -82,7 +82,7 @@ struct StratzFetcher: StratzFetching {
                             name: name,
                             displayName: stratzLanguage.displayName,
                             lore: stratzLanguage.lore,
-                            description: stratzLanguage.description?.compactMap { $0 } ?? [],
+                            description: stratzLanguage.description?.compactMap { $0?.replacingOccurrences(of: "<br>", with: "\n") } ?? [],
                             attributes: stratzLanguage.attributes?.compactMap { $0 },
                             aghanimDescription: stratzLanguage.aghanimDescription,
                             shardDescription: stratzLanguage.shardDescription
