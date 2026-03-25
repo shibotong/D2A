@@ -33,9 +33,9 @@ class StaticDataSyncingService {
     
     func startSyncing() async {
         do {
-            try await syncAbilities()
+//            try await syncAbilities()
             try await syncAbilityTranslation()
-            try await syncHeroes()
+//            try await syncHeroes()
             let context = self.context
             try await context.perform {
                 try context.save()
@@ -96,6 +96,7 @@ class StaticDataSyncingService {
                 do {
                     try await context.perform {
                         try AbilityTranslation.save(localization: ability, language: .english, in: context)
+                        try context.save()
                     }
                 } catch {
                     continue
