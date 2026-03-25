@@ -10,6 +10,8 @@ import CoreData
 import Logging
 
 class StaticDataSyncingService {
+
+    static let shared = StaticDataSyncingService()
     
     private let openDota: OpenDotaFetching
     private let stratz: StratzFetching
@@ -32,6 +34,7 @@ class StaticDataSyncingService {
     func startSyncing() async {
         do {
             try await syncAbilities()
+            try await syncAbilityTranslation()
             try await syncHeroes()
             let context = self.context
             try await context.perform {
