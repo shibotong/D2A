@@ -95,15 +95,20 @@ class StaticDataSyncingService {
         let language = self.language
         try await contextSaving(author: "Ability localization") { savingContext in
             let stratzAbilities = try await stratz.abilities(language: language)
-            for ability in stratzAbilities {
-                let context = savingContext.makeContext(author: "ability localization \(ability.id)")
-                do {
-                    try await context.perform {
-                        try AbilityTranslation.save(localization: ability, language: language, in: context)
-                        try context.save()
+            await withTaskGroup { group in
+                for ability in stratzAbilities {
+                    group.addTask {
+                        let context = savingContext.makeContext(author: "ability localization \(ability.id)")
+                        do {
+                            try await context.perform {
+                                self.logger.warning("Start saving \(ability.id)")
+                                try AbilityTranslation.save(localization: ability, language: language, in: context)
+                                try context.save()
+                            }
+                        } catch {
+                            return
+                        }
                     }
-                } catch {
-                    continue
                 }
             }
         }

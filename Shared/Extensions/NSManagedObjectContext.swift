@@ -8,7 +8,7 @@
 import CoreData
 
 extension NSManagedObjectContext {
-    func makeContext(author: String? = nil) -> NSManagedObjectContext {
+    nonisolated func makeContext(author: String? = nil) -> NSManagedObjectContext {
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = self
         privateContext.transactionAuthor = author
