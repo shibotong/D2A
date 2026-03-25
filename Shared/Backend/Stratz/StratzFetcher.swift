@@ -74,11 +74,12 @@ struct StratzFetcher: StratzFetching {
                         return
                     }
                     let abilities: [SKAbility] = stratzAbilities.compactMap { ability in
-                        guard let ability, let stratzLanguage = ability.language else {
+                        guard let ability, let stratzLanguage = ability.language, let id = ability.id, let name = ability.name else {
                             return nil
                         }
                         return SKAbility(
-                            id: Int(ability.id ?? 0),
+                            id: Int(id),
+                            name: name,
                             displayName: stratzLanguage.displayName,
                             lore: stratzLanguage.lore,
                             description: stratzLanguage.description?.compactMap { $0 } ?? [],

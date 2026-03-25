@@ -7,6 +7,7 @@
 
 struct SKAbility {
     let id: Int
+    let name: String
     let displayName: String?
     let lore: String?
     let description: [String]

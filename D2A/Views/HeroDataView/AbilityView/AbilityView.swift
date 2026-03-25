@@ -45,15 +45,12 @@ struct AbilityView: View {
                                      bkbPierce: viewModel.bkbPierce, 
                                      dispellable: viewModel.dispellable,
                                      damageType: viewModel.damageType)
-                    if let openDota = viewModel.opentDotaAbility,
-                       let stratz = viewModel.stratzAbility {
-                        buildDescription(ability: openDota,
-                                         stratz: stratz,
-                                         proxy: proxy)
+                    if let openDota = viewModel.opentDotaAbility {
+                        buildDescription(proxy: proxy)
                     }
                     
                     Spacer().frame(height: 10)
-                    if let attributes = viewModel.stratzAbility?.localizedAttributes {
+                    if let attributes = viewModel.attributes {
                         HStack {
                             VStack(alignment: .leading, spacing: 5) {
                                 ForEach(attributes, id: \.self) { item in
@@ -64,7 +61,7 @@ struct AbilityView: View {
                         }
                     }
                     Spacer().frame(height: 10)
-                    if let lore = viewModel.stratzAbility?.language?.lore {
+                    if let lore = viewModel.lore {
                         Text(lore)
                             .font(.system(size: 10))
                             .padding(8)
@@ -82,23 +79,17 @@ struct AbilityView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    @ViewBuilder private func buildDescription(ability: ODAbility,
-                                               stratz: AbilityQuery.Data.Constants.Ability,
-                                               proxy: GeometryProxy) -> some View {
+    @ViewBuilder
+    private func buildDescription(proxy: GeometryProxy) -> some View {
         VStack {
-            let description = stratz.language?.description?.compactMap { $0 }.joined(separator: "\n") ?? ""
-            if dataBase.isScepterSkill(ability: ability, heroID: viewModel.heroID) {
-                AbilityDescriptionView(width: proxy.size.width, type: .scepter, description: description, player: viewModel.scepterVideo)
-            } else if dataBase.isShardSkill(ability: ability, heroID: viewModel.heroID) {
-                AbilityDescriptionView(width: proxy.size.width, type: .shard, description: description, player: viewModel.shardVideo)
-            } else {
+            if let description = viewModel.description {
                 AbilityDescriptionView(width: proxy.size.width, type: .non, description: description, player: viewModel.abilityVideo)
-                if let scepterDesc = stratz.language?.aghanimDescription {
-                    AbilityDescriptionView(width: proxy.size.width, type: .scepter, description: scepterDesc, player: viewModel.scepterVideo)
-                }
-                if let shardDesc = stratz.language?.shardDescription {
-                    AbilityDescriptionView(width: proxy.size.width, type: .shard, description: shardDesc, player: viewModel.shardVideo)
-                }
+            }
+            if let scepter = viewModel.scepter {
+                AbilityDescriptionView(width: proxy.size.width, type: .scepter, description: scepter, player: viewModel.scepterVideo)
+            }
+            if let shard = viewModel.shard {
+                AbilityDescriptionView(width: proxy.size.width, type: .shard, description: shard, player: viewModel.shardVideo)
             }
         }
     }
