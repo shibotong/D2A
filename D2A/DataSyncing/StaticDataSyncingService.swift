@@ -15,6 +15,7 @@ class StaticDataSyncingService {
     
     private let openDota: OpenDotaFetching
     private let stratz: StratzFetching
+    private let language: DataLanguageEnum
     
     /// Private context for saving static data
     private let context: NSManagedObjectContext
@@ -24,10 +25,12 @@ class StaticDataSyncingService {
     init(openDota: OpenDotaFetching = OpenDotaController.shared,
          stratz: StratzFetching = StratzFetcher.shared,
          persistance: PersistanceProviding = PersistanceController.shared,
+         language: DataLanguageEnum = AppConfig.languageCode,
          logger: Logger = D2ALogger.syncing) {
         self.openDota = openDota
         self.stratz = stratz
         self.context = persistance.mainContext.makeContext(author: "Static Data")
+        self.language = language
         self.logger = logger
     }
     
@@ -89,13 +92,14 @@ class StaticDataSyncingService {
     }
     
     private func syncAbilityTranslation() async throws {
+        let language = self.language
         try await contextSaving(author: "Ability localization") { savingContext in
-            let stratzAbilities = try await stratz.abilities()
+            let stratzAbilities = try await stratz.abilities(language: language)
             for ability in stratzAbilities {
                 let context = savingContext.makeContext(author: "ability localization \(ability.id)")
                 do {
                     try await context.perform {
-                        try AbilityTranslation.save(localization: ability, language: .english, in: context)
+                        try AbilityTranslation.save(localization: ability, language: language, in: context)
                         try context.save()
                     }
                 } catch {
