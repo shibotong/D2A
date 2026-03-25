@@ -34,10 +34,14 @@ class AbilityViewModel: ObservableObject {
     @Published var shardVideo: AVPlayer?
     @Published var abilityVideo: AVPlayer?
     
+    @Published var description: String?
+    @Published var scepter: String?
+    @Published var shard: String?
+    
     @Published var lore: String?
+    @Published var attributes: [StratzAttribute]?
     
     // Ability Data
-    @Published var stratzAbility: AbilityQuery.Data.Constants.Ability?
     @Published var opentDotaAbility: ODAbility?
     
     private var database = HeroDatabase.shared
@@ -47,9 +51,10 @@ class AbilityViewModel: ObservableObject {
     init(heroID: Int, ability: ODAbility?) {
         self.heroID = heroID
         self.opentDotaAbility = ability
+        let localisation = try? AbilityTranslation.fetch(name: ability?.name ?? "", language: AppConfig.languageCode, context: PersistanceController.shared.mainContext)
         setupBinding()
-        if let abilityName = ability?.name {
-            stratzAbility = database.fetchStratzAbility(name: abilityName)
+        if let localisation {
+            setLocalisation(localisation: localisation)
         }
         
         Task {
@@ -70,14 +75,16 @@ class AbilityViewModel: ObservableObject {
         database = HeroDatabase.preview
     }
     
+    private func setLocalisation(localisation: AbilityTranslation) {
+        displayName = localisation.displayName ?? ""
+        lore = localisation.lore
+        description = localisation.desc
+        scepter = localisation.aghanimDescription
+        shard = localisation.shardDescription
+        attributes = localisation.localizedAttributes
+    }
+    
     private func setupBinding() {
-        $stratzAbility
-            .sink(receiveValue: { [weak self] ability in
-                self?.displayName = ability?.language?.displayName ?? ""
-                self?.lore = ability?.language?.lore
-            })
-            .store(in: &cancellables)
-        
         $opentDotaAbility
             .sink { [weak self] ability in
                 // AbilityTitleView

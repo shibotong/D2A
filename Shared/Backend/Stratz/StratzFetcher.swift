@@ -10,18 +10,23 @@ import StratzAPI
 
 protocol StratzFetching {
     func heroes() async throws -> [SKHero]
-    func abilities() async throws -> [SKAbility]
+    func abilities(language: DataLanguageEnum) async throws -> [SKAbility]
+}
+
+extension StratzFetching {
+    func abilities() async throws -> [SKAbility] {
+        return try await abilities(language: AppConfig.languageCode)
+    }
 }
 
 struct StratzFetcher: StratzFetching {
+    
+    static let shared = StratzFetcher()
 
     private let apollo: ApolloClient
-    private let languageCode: LanguageEnum
 
-    init(apollo: ApolloClient = Network.shared.apollo,
-         languageCode: LanguageEnum = .english) {
+    init(apollo: ApolloClient = Network.shared.apollo) {
         self.apollo = apollo
-        self.languageCode = languageCode
     }
 
     func heroes() async throws -> [SKHero] {
@@ -59,9 +64,9 @@ struct StratzFetcher: StratzFetching {
         }
     }
 
-    func abilities() async throws -> [SKAbility] {
+    func abilities(language: DataLanguageEnum) async throws -> [SKAbility] {
         return try await withCheckedThrowingContinuation { continuation in
-            apollo.fetch(query: AbilityQuery(language: .init(languageCode))) { result in
+            apollo.fetch(query: AbilityQuery(language: .init(language.language))) { result in
                 switch result {
                 case .success(let graphQLResult):
                     guard let stratzAbilities = graphQLResult.data?.constants?.abilities else {
@@ -69,14 +74,16 @@ struct StratzFetcher: StratzFetching {
                         return
                     }
                     let abilities: [SKAbility] = stratzAbilities.compactMap { ability in
-                        guard let ability, let stratzLanguage = ability.language else {
+                        guard let ability, let stratzLanguage = ability.language, let id = ability.id, let name = ability.name else {
                             return nil
                         }
                         return SKAbility(
-                            id: Int(ability.id ?? 0),
+                            id: Int(id),
+                            name: name,
                             displayName: stratzLanguage.displayName,
                             lore: stratzLanguage.lore,
                             description: stratzLanguage.description?.compactMap { $0 } ?? [],
+                            attributes: stratzLanguage.attributes?.compactMap { $0 },
                             aghanimDescription: stratzLanguage.aghanimDescription,
                             shardDescription: stratzLanguage.shardDescription
                         )

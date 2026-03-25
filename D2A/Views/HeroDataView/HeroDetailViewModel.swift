@@ -115,7 +115,12 @@ class HeroDetailViewModel: ObservableObject {
     }
     
     func fetchTalentName(id: Short) -> String {
-        return database.getTalentDisplayName(id: id)
+        if let localisation = try? AbilityTranslation.fetch(id: Int(id), language: AppConfig.languageCode, context: PersistanceController.shared.mainContext),
+           let dname = localisation.displayName {
+            return dname
+        } else {
+            return database.getTalentDisplayName(id: id)
+        }
     }
     
     func getRelateHeroID(id: Int, isPrevious: Bool) -> Int? {

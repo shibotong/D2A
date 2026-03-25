@@ -252,4 +252,25 @@ extension Hero {
         }
         return base + bonus
     }
+    
+    static func save(id: Int, data: [String: Any], localization: SKHero?, in context: NSManagedObjectContext) throws {
+        let fetchRequest = Hero.fetchRequest()
+        let predicate = NSPredicate(format: "id == %d", Double(id))
+        fetchRequest.predicate = predicate
+        let hero = try context.fetch(fetchRequest).first ?? Hero(context: context)
+        setIfNotEqual(entity: hero, path: \.id, value: Double(id))
+        setIfExist(entity: hero, path: \.attackRange, data: data, key: "attack_range")
+        setIfExist(entity: hero, path: \.attackRate, data: data, key: "attack_rate")
+    }
+    
+    static func setIfExist<T: Equatable>(entity: Hero, path: ReferenceWritableKeyPath<Hero, T>, data: [String: Any], key: String, localization: T? = nil) {
+        if let localization {
+            setIfNotEqual(entity: entity, path: path, value: localization)
+            return
+        }
+        guard let value = data[key] as? T else {
+            return
+        }
+        setIfNotEqual(entity: entity, path: path, value: value)
+    }
 }

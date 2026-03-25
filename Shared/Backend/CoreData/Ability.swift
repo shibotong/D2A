@@ -36,13 +36,6 @@ extension Ability {
         }
         setIfNotEqual(entity: entity, path: path, value: value)
     }
-    
-    static func setIfExist<T: Equatable>(entity: Ability, path: ReferenceWritableKeyPath<Ability, T>, data: [String: Any], key: String) {
-        guard let value = data[key] as? T else {
-            return
-        }
-        setIfNotEqual(entity: entity, path: path, value: value)
-    }
         
     static func fetchStringOrArray(data: [String: Any], key: String) -> String? {
         if let result = data[key] as? String {

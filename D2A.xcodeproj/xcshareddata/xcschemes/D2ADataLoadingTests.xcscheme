@@ -13,7 +13,8 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:RemoteDataTestPlan.xctestplan">
+            reference = "container:RemoteDataTestPlan.xctestplan"
+            default = "YES">
          </TestPlanReference>
       </TestPlans>
       <Testables>
