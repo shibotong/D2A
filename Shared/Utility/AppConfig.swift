@@ -9,13 +9,13 @@ import StratzAPI
 import Foundation
 
 class AppConfig {
-    static let languageCode: StratzAPI.LanguageEnum = {
+    static let languageCode: DataLanguageEnum = {
         let currentLanguage: String = Locale.current.languageCode ?? "en"
         switch currentLanguage {
         case "en":
             return .english
         case "zh":
-            return .sChinese
+            return .schinese
         default:
             return .english
         }

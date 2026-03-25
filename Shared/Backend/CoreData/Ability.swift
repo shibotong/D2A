@@ -9,7 +9,7 @@ import CoreData
 
 extension Ability {
     
-    static func save(id: Int, name: String, data: [String: Any], localization: SKAbility?, in context: NSManagedObjectContext) throws {
+    static func save(id: Int, name: String, data: [String: Any], in context: NSManagedObjectContext) throws {
         let fetchRequest = Ability.fetchRequest()
         let predicate = NSPredicate(format: "abilityID = %d", id)
         fetchRequest.predicate = predicate

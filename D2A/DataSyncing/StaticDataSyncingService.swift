@@ -32,6 +32,7 @@ class StaticDataSyncingService {
     func startSyncing() async {
         do {
             try await syncAbilities()
+            try await syncHeroes()
             let context = self.context
             try await context.perform {
                 try context.save()
@@ -49,15 +50,10 @@ class StaticDataSyncingService {
         let abilitySavingContext = context.makeContext(author: "Ability Sync")
         async let abilityIDAsync = openDota.constants(service: .abilityIDs) as? [String: String]
         async let abilitiesAsync = openDota.constants(service: .abilities) as? [String: Any]
-        async let stratzAbilitiesAsync = stratz.abilities()
         
-        let (abilityIDs, abilities, localizations) = try await (abilityIDAsync, abilitiesAsync, stratzAbilitiesAsync)
+        let (abilityIDs, abilities) = try await (abilityIDAsync, abilitiesAsync)
         guard let abilityIDs, let abilities else {
             throw URLError(.badServerResponse)
-        }
-        var localizationDict: [Int: SKAbility] = [:]
-        for ability in localizations {
-            localizationDict[ability.id] = ability
         }
         logger.trace("Finish fetching abilityIDs and abilities from OpenDota")
         for (abilityIDString, name) in abilityIDs {
@@ -74,11 +70,10 @@ class StaticDataSyncingService {
                 logger.error("Ability ID is not an integer: \(abilityIDString)")
                 continue
             }
-            let localization = localizationDict[abilityID]
             let context = abilitySavingContext.makeContext(author: "ability \(abilityID)")
             do {
                 try await context.perform {
-                    try Ability.save(id: abilityID, name: name, data: ability, localization: localization, in: context)
+                    try Ability.save(id: abilityID, name: name, data: ability, in: context)
                     try context.save()
                 }
             } catch {
@@ -87,6 +82,71 @@ class StaticDataSyncingService {
         }
         try await abilitySavingContext.perform {
             try abilitySavingContext.save()
+        }
+    }
+    
+    private func syncAbilityTranslation() async throws {
+        try await contextSaving(author: "Ability localization") { savingContext in
+            let stratzAbilities = try await stratz.abilities()
+            for ability in stratzAbilities {
+                let context = savingContext.makeContext(author: "ability localization \(ability.id)")
+                do {
+                    try await context.perform {
+                        try AbilityTranslation.save(localization: ability, language: .english, in: context)
+                    }
+                } catch {
+                    continue
+                }
+            }
+        }
+    }
+    
+    private func syncHeroes() async throws {
+        logger.trace("Start syncing abilities")
+        let heroSavingContext = context.makeContext(author: "Hero Sync")
+        async let heroesAsync = openDota.constants(service: .heroes) as? [String: Any]
+        async let stratzHeroesAsync = stratz.heroes()
+        
+        let (heroes, localizations) = try await (heroesAsync, stratzHeroesAsync)
+        guard let heroes else {
+            throw URLError(.badServerResponse)
+        }
+        var localizationDict: [Int: SKHero] = [:]
+        for hero in localizations {
+            localizationDict[hero.id] = hero
+        }
+        logger.trace("Finish fetching heroes from OpenDota")
+        for (heroIDString, hero) in heroes {
+            logger.trace("processing hero: \(heroIDString)")
+            guard let heroID = Int(heroIDString) else {
+                logger.error("Hero ID is not an integer: \(heroIDString)")
+                continue
+            }
+            guard let hero = hero as? [String: Any] else {
+                logger.warning("hero is not valid")
+                continue
+            }
+            let localization = localizationDict[heroID]
+            let context = heroSavingContext.makeContext(author: "hero \(heroID)")
+            do {
+                try await context.perform {
+                    try Hero.save(id: heroID, data: hero, localization: localization, in: context)
+                    try context.save()
+                }
+            } catch {
+                continue
+            }
+        }
+        try await heroSavingContext.perform {
+            try heroSavingContext.save()
+        }
+    }
+    
+    private func contextSaving(author: String, closure: (NSManagedObjectContext) async throws -> ()) async throws {
+        let savingContext = context.makeContext(author: author)
+        try await closure(savingContext)
+        try await savingContext.perform {
+            try savingContext.save()
         }
     }
 }

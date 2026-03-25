@@ -10,6 +10,7 @@ struct SKAbility {
     let displayName: String?
     let lore: String?
     let description: [String]
+    let attributes: [String]?
     let aghanimDescription: String?
     let shardDescription: String?
 }
