@@ -22,6 +22,8 @@ class StaticDataSyncingService {
     
     private let logger: Logger
     
+    private let maxConcurrent = 5
+    
     init(openDota: OpenDotaFetching = OpenDotaController.shared,
          stratz: StratzFetching = StratzFetcher.shared,
          persistance: PersistanceProviding = PersistanceController.shared,
@@ -93,24 +95,13 @@ class StaticDataSyncingService {
     
     private func syncAbilityTranslation() async throws {
         let language = self.language
-        try await contextSaving(author: "Ability localization") { savingContext in
+        try await contextSaving(author: "Ability localization", fetchData: {
             let stratzAbilities = try await stratz.abilities(language: language)
-            await withTaskGroup { group in
-                for ability in stratzAbilities {
-                    group.addTask {
-                        let context = savingContext.makeContext(author: "ability localization \(ability.id)")
-                        do {
-                            try await context.perform {
-                                self.logger.warning("Start saving \(ability.id)")
-                                try AbilityTranslation.save(localization: ability, language: language, in: context)
-                                try context.save()
-                            }
-                        } catch {
-                            return
-                        }
-                    }
-                }
-            }
+            return stratzAbilities
+        }) { ability, context in
+            self.logger.warning("Start saving \(ability.id)")
+            try AbilityTranslation.save(localization: ability, language: language, in: context)
+            try context.save()
         }
     }
     
@@ -155,9 +146,40 @@ class StaticDataSyncingService {
         }
     }
     
-    private func contextSaving(author: String, closure: (NSManagedObjectContext) async throws -> ()) async throws {
+    private func contextSaving<T>(
+        author: String,
+        fetchData: () async throws -> [T],
+        saving: @escaping (T, NSManagedObjectContext) throws -> ()
+    ) async throws {
+        let maxConcurrent = self.maxConcurrent
         let savingContext = context.makeContext(author: author)
-        try await closure(savingContext)
+        let results = try await fetchData()
+        await withTaskGroup { group in
+            var iterator = results.makeIterator()
+            for _ in 0..<maxConcurrent {
+                if let item = iterator.next() {
+                    group.addTask {
+                        let context = savingContext.makeContext()
+                        await context.perform {
+                            try? saving(item, context)
+                            try? context.save()
+                        }
+                    }
+                }
+            }
+            
+            while let _ = await group.next() {
+                if let item = iterator.next() {
+                    group.addTask {
+                        let context = savingContext.makeContext()
+                        await context.perform {
+                            try? saving(item, context)
+                            try? context.save()
+                        }
+                    }
+                }
+            }
+        }
         try await savingContext.perform {
             try savingContext.save()
         }
