@@ -27,7 +27,6 @@ enum ScepterType: String {
 }
 
 struct AbilityView: View {
-    @EnvironmentObject var dataBase: HeroDatabase
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: AbilityViewModel
 
@@ -45,7 +44,7 @@ struct AbilityView: View {
                                      bkbPierce: viewModel.bkbPierce, 
                                      dispellable: viewModel.dispellable,
                                      damageType: viewModel.damageType)
-                    if let openDota = viewModel.opentDotaAbility {
+                    if let _ = viewModel.opentDotaAbility {
                         buildDescription(proxy: proxy)
                     }
                     
