@@ -38,9 +38,17 @@ class StaticDataSyncingService {
     
     func startSyncing() async {
         do {
-//            try await syncAbilities()
-            try await syncAbilityTranslation()
-//            try await syncHeroes()
+            await withTaskGroup { [weak self] group in
+                group.addTask { [weak self] in
+                    try? await self?.syncAbilities()
+                }
+                group.addTask { [weak self] in
+                    try? await self?.syncAbilityTranslation()
+                }
+//                group.addTask { [weak self] in
+//                    try? await self?.syncHeroes()
+//                }
+            }
             let context = self.context
             try await context.perform {
                 try context.save()
@@ -55,41 +63,34 @@ class StaticDataSyncingService {
     
     private func syncAbilities() async throws {
         logger.trace("Start syncing abilities")
-        let abilitySavingContext = context.makeContext(author: "Ability Sync")
-        async let abilityIDAsync = openDota.constants(service: .abilityIDs) as? [String: String]
-        async let abilitiesAsync = openDota.constants(service: .abilities) as? [String: Any]
-        
-        let (abilityIDs, abilities) = try await (abilityIDAsync, abilitiesAsync)
-        guard let abilityIDs, let abilities else {
-            throw URLError(.badServerResponse)
-        }
-        logger.trace("Finish fetching abilityIDs and abilities from OpenDota")
-        for (abilityIDString, name) in abilityIDs {
-            logger.trace("processing ability: \(abilityIDString) \(name)")
-            guard let ability = abilities[name] as? [String: Any] else {
-                logger.info("Not able to find abiilty from data: \(name)")
-                continue
+        try await contextSaving(author: "Ability") {
+            async let abilityIDAsync = openDota.constants(service: .abilityIDs) as? [String: String]
+            async let abilitiesAsync = openDota.constants(service: .abilities) as? [String: Any]
+            let (abilityIDs, abilities) = try await (abilityIDAsync, abilitiesAsync)
+            guard let abilityIDs, let abilities else {
+                throw URLError(.badServerResponse)
             }
-            var abilityIDString = abilityIDString
-            if abilityIDString == "3060,1617" {
-                abilityIDString = "1617"
-            }
-            guard let abilityID = Int(abilityIDString) else {
-                logger.error("Ability ID is not an integer: \(abilityIDString)")
-                continue
-            }
-            let context = abilitySavingContext.makeContext(author: "ability \(abilityID)")
-            do {
-                try await context.perform {
-                    try Ability.save(id: abilityID, name: name, data: ability, in: context)
-                    try context.save()
+            var results: [AbilitySaving] = []
+            for (abilityIDString, name) in abilityIDs {
+                guard let ability = abilities[name] as? [String: Any] else {
+                    logger.info("Not able to find abiilty from data: \(name)")
+                    continue
                 }
-            } catch {
-                continue
+                var abilityIDString = abilityIDString
+                if abilityIDString == "3060,1617" {
+                    abilityIDString = "1617"
+                }
+                guard let abilityID = Int(abilityIDString) else {
+                    logger.error("Ability ID is not an integer: \(abilityIDString)")
+                    continue
+                }
+                results.append(AbilitySaving(abilityID: abilityID, name: name, data: ability))
             }
-        }
-        try await abilitySavingContext.perform {
-            try abilitySavingContext.save()
+            return results
+        } saving: { ability, context in
+            self.logger.info("Saving ability \(ability.abilityID)")
+            try Ability.save(id: ability.abilityID, name: ability.name, data: ability.data, in: context)
+            try context.save()
         }
     }
     
@@ -99,7 +100,7 @@ class StaticDataSyncingService {
             let stratzAbilities = try await stratz.abilities(language: language)
             return stratzAbilities
         }) { ability, context in
-            self.logger.warning("Start saving \(ability.id)")
+            self.logger.info("Saving ability localization \(ability.id)")
             try AbilityTranslation.save(localization: ability, language: language, in: context)
             try context.save()
         }
@@ -183,5 +184,11 @@ class StaticDataSyncingService {
         try await savingContext.perform {
             try savingContext.save()
         }
+    }
+    
+    private struct AbilitySaving {
+        let abilityID: Int
+        let name: String
+        let data: [String: Any]
     }
 }
