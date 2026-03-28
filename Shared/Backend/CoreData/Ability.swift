@@ -9,11 +9,22 @@ import CoreData
 
 extension Ability {
     
-    static func save(id: Int, name: String, data: [String: Any], in context: NSManagedObjectContext) throws {
+    static func fetch(id: Int, context: NSManagedObjectContext) throws -> Ability? {
         let fetchRequest = Ability.fetchRequest()
         let predicate = NSPredicate(format: "abilityID = %d", id)
         fetchRequest.predicate = predicate
-        let ability = try context.fetch(fetchRequest).first ?? Ability(context: context)
+        return try context.fetch(fetchRequest).first
+    }
+    
+    static func fetch(name: String, context: NSManagedObjectContext) throws -> Ability? {
+        let fetchRequest = Ability.fetchRequest()
+        let predicate = NSPredicate(format: "name = %@", name)
+        fetchRequest.predicate = predicate
+        return try context.fetch(fetchRequest).first
+    }
+    
+    static func save(id: Int, name: String, data: [String: Any], in context: NSManagedObjectContext) throws {
+        let ability = try fetch(id: id, context: context) ?? Ability(context: context)
         setIfNotEqual(entity: ability, path: \.name, value: name)
         setIfNotEqual(entity: ability, path: \.abilityID, value: Int16(id))
         setStringOrArray(entity: ability, path: \.behavior, data: data, key: "behavior")

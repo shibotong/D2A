@@ -51,28 +51,19 @@ class AbilityViewModel: ObservableObject {
     init(heroID: Int, ability: ODAbility?) {
         self.heroID = heroID
         self.opentDotaAbility = ability
-        let localisation = try? AbilityTranslation.fetch(name: ability?.name ?? "", language: AppConfig.languageCode, context: PersistanceController.shared.mainContext)
-        setupBinding()
-        if let localisation {
+        let context = PersistanceController.shared.mainContext
+        if let localisation = try? AbilityTranslation.fetch(name: ability?.name ?? "", language: AppConfig.languageCode, context: context) {
             setLocalisation(localisation: localisation)
         }
         
+        if let name = ability?.name, let savedAbility = try? Ability.fetch(name: name, context: context) {
+            setAbiilty(savedAbility)
+        } else {
+            setupBinding()
+        }
         Task {
             await buildDetailView()
         }
-    }
-    
-    init(scepter: String, shard: String, ability: String) {
-        heroID = 0
-        guard let scepterURL = URL(string: scepter),
-              let shardURL = URL(string: shard),
-              let abilityURL = URL(string: ability) else {
-            return
-        }
-        scepterVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: scepterURL)))
-        shardVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: shardURL)))
-        abilityVideo = AVPlayer(playerItem: AVPlayerItem(asset: AVAsset(url: abilityURL)))
-        database = HeroDatabase.preview
     }
     
     private func setLocalisation(localisation: AbilityTranslation) {
@@ -82,6 +73,22 @@ class AbilityViewModel: ObservableObject {
         scepter = localisation.aghanimDescription
         shard = localisation.shardDescription
         attributes = localisation.localizedAttributes
+    }
+    
+    private func setAbiilty(_ ability: Ability) {
+        cd = ability.coolDown
+        mc = ability.manaCost
+        behavior = ability.behavior
+        targetTeam = ability.targetTeam
+        bkbPierce = ability.bkbPierce
+        dispellable = ability.dispellable
+        damageType = ability.damageType
+
+        guard let name = ability.name else {
+            return
+        }
+        let urlString = "\(IMAGE_PREFIX)/apps/dota2/images/dota_react/abilities/\(name).png"
+        abilityImageURL = urlString
     }
     
     private func setupBinding() {
