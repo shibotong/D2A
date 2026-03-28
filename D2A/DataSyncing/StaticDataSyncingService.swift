@@ -24,16 +24,20 @@ class StaticDataSyncingService {
     
     private let maxConcurrent = 5
     
+    private let syncingLogger: DataSyncingLogger?
+    
     init(openDota: OpenDotaFetching = OpenDotaController.shared,
          stratz: StratzFetching = StratzFetcher.shared,
          persistance: PersistanceProviding = PersistanceController.shared,
          language: DataLanguageEnum = AppConfig.languageCode,
-         logger: Logger = D2ALogger.syncing) {
+         logger: Logger = D2ALogger.syncing,
+         syncingLogger: DataSyncingLogger? = nil) {
         self.openDota = openDota
         self.stratz = stratz
         self.context = persistance.mainContext.makeContext(author: "Static Data")
         self.language = language
         self.logger = logger
+        self.syncingLogger = syncingLogger
     }
     
     func startSyncing() async {
@@ -63,6 +67,7 @@ class StaticDataSyncingService {
     
     private func syncAbilities() async throws {
         logger.trace("Start syncing abilities")
+        let syncingLogger = self.syncingLogger
         try await contextSaving(author: "Ability") {
             async let abilityIDAsync = openDota.constants(service: .abilityIDs) as? [String: String]
             async let abilitiesAsync = openDota.constants(service: .abilities) as? [String: Any]
@@ -89,7 +94,7 @@ class StaticDataSyncingService {
             return results
         } saving: { ability, context in
             self.logger.info("Saving ability \(ability.abilityID)")
-            try Ability.save(id: ability.abilityID, name: ability.name, data: ability.data, in: context)
+            try Ability.save(id: ability.abilityID, name: ability.name, data: ability.data, in: context, syncingLogger: syncingLogger)
             try context.save()
         }
     }
