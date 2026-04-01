@@ -140,7 +140,7 @@ class StaticDataSyncingService {
             let context = heroSavingContext.makeContext(author: "hero \(heroID)")
             do {
                 try await context.perform {
-                    try Hero.save(id: heroID, data: hero, localization: localization, in: context)
+                    try Hero.save(id: heroID, data: hero, in: context)
                     try context.save()
                 }
             } catch {
