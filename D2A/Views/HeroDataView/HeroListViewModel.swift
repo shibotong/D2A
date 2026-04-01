@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import CoreData
 
 enum HeroAttribute: String, CaseIterable {
     case whole, str, agi, int, all
@@ -28,9 +29,10 @@ enum HeroAttribute: String, CaseIterable {
 }
 
 class HeroListViewModel: ObservableObject {
-    let heroList: [HeroCodable]
+    let heroList: [any HeroProtocol]
     
-    @Published var searchResults: [HeroCodable]
+    @Published var searchResults: [any HeroProtocol]
+    @Published var heroes: [any HeroProtocol]
     
     @Published var searchString: String = ""
     @Published var gridView = true
@@ -38,8 +40,9 @@ class HeroListViewModel: ObservableObject {
     
     private var subscribers = Set<AnyCancellable>()
     
-    init() {
+    init(context: NSManagedObjectContext = PersistanceController.shared.mainContext) {
         heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
+        heroes = []
         searchString = ""
         searchResults = []
         selectedAttribute = .whole
@@ -52,9 +55,8 @@ class HeroListViewModel: ObservableObject {
                     return filterHeroes
                 } else {
                     let searchedHeroes = filterHeroes.filter({ hero in
-                        let originalName = hero.localizedName.lowercased().contains(searchString.lowercased())
-                        let localizedName = hero.heroNameLocalized.lowercased().contains(searchString.lowercased())
-                        return originalName || localizedName
+                        let localizedName = hero.displayName.lowercased().contains(searchString.lowercased())
+                        return localizedName
                     })
                     return searchedHeroes
                 }

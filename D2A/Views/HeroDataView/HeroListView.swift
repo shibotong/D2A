@@ -69,11 +69,11 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildHeroGrid(heroes: [HeroCodable], attribute: HeroAttribute) -> some View {
+    @ViewBuilder private func buildHeroGrid(heroes: [any HeroProtocol], attribute: HeroAttribute) -> some View {
         Section {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading), count: 1)) {
-                ForEach(heroes) { hero in
-                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
+                ForEach(heroes, id: \.id) { hero in
+                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.heroID))) {
                         buildHero(hero: hero)
                     }
                 }
@@ -88,7 +88,7 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildSection(heroes: [HeroCodable], attributes: HeroAttribute) -> some View {
+    @ViewBuilder private func buildSection(heroes: [any HeroProtocol], attributes: HeroAttribute) -> some View {
         if heroes.count == 0 {
             Text("No Results")
                 .bold()
@@ -113,10 +113,10 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildMainPart(heroes: [HeroCodable]) -> some View {
+    @ViewBuilder private func buildMainPart(heroes: [any HeroProtocol]) -> some View {
         if vm.gridView {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 130, maximum: 200), spacing: 10, alignment: .leading), count: 1)) {
-                ForEach(heroes) { hero in
+                ForEach(heroes, id: \.id) { hero in
                     NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
                         buildHero(hero: hero)
                             
@@ -124,7 +124,7 @@ struct HeroListView: View {
                 }
             }
         } else {
-            ForEach(heroes) { hero in
+            ForEach(heroes, id: \.id) { hero in
                 NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
                     buildHero(hero: hero)
                 }
@@ -132,25 +132,25 @@ struct HeroListView: View {
         }
     }
     
-    @ViewBuilder private func buildHero(hero: HeroCodable) -> some View {
+    @ViewBuilder private func buildHero(hero: any HeroProtocol) -> some View {
         if horizontalSize == .regular {
             HeroImageView(heroID: hero.id, type: .vert)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .opacity(vm.searchResults.contains(where: { $0.id == hero.id }) || vm.searchString.isEmpty ? 1 : 0.2)
-                .accessibilityIdentifier(hero.heroNameLocalized)
+                .accessibilityIdentifier(hero.displayName)
         } else {
             if vm.gridView {
                 ZStack {
                     HeroImageView(heroID: hero.id, type: .full)
                         .overlay(LinearGradient(colors: [.black.opacity(0), .black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .accessibilityIdentifier(hero.heroNameLocalized)
+                        .accessibilityIdentifier(hero.displayName)
                     HStack {
                         VStack {
                             Spacer()
                             HStack(spacing: 3) {
                                 AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr)).frame(width: 15, height: 15)
-                                Text(hero.heroNameLocalized)
+                                Text(hero.displayName)
                                     .font(.caption2)
                                     .fontWeight(.black)
                                     .foregroundColor(.white)
@@ -165,7 +165,7 @@ struct HeroListView: View {
                     HeroImageView(heroID: hero.id, type: .full)
                         .frame(width: 70)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
-                    Text(hero.heroNameLocalized)
+                    Text(hero.displayName)
                     Spacer()
                     Image("hero_\(hero.primaryAttr)")
                         .resizable()

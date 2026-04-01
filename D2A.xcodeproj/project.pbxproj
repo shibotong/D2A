@@ -278,6 +278,9 @@
 		792A54702F7D22ED00EC815A /* HeroTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A546F2F7D22E900EC815A /* HeroTranslation.swift */; };
 		792A54712F7D22ED00EC815A /* HeroTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A546F2F7D22E900EC815A /* HeroTranslation.swift */; };
 		792A54722F7D22ED00EC815A /* HeroTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A546F2F7D22E900EC815A /* HeroTranslation.swift */; };
+		792A54742F7D24CE00EC815A /* HeroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54732F7D24C800EC815A /* HeroData.swift */; };
+		792A54752F7D25BC00EC815A /* HeroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54732F7D24C800EC815A /* HeroData.swift */; };
+		792A54762F7D25BC00EC815A /* HeroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54732F7D24C800EC815A /* HeroData.swift */; };
 		79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79368C0928E6D8ED009517D2 /* RoleView.swift */; };
 		793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
 		793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
@@ -645,6 +648,7 @@
 		792A54672F7777F500EC815A /* DataSyncingLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSyncingLogger.swift; sourceTree = "<group>"; };
 		792A546D2F777B2100EC815A /* SyncingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncingTests.swift; sourceTree = "<group>"; };
 		792A546F2F7D22E900EC815A /* HeroTranslation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroTranslation.swift; sourceTree = "<group>"; };
+		792A54732F7D24C800EC815A /* HeroData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroData.swift; sourceTree = "<group>"; };
 		7930699B2B5D323100A5CF5D /* DataLoadingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataLoadingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79368C0928E6D8ED009517D2 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
 		7942FD012B706B49008CE4B0 /* UIScreenshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIScreenshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -861,6 +865,7 @@
 		323ADB39272B92AD00253124 /* HeroDataView */ = {
 			isa = PBXGroup;
 			children = (
+				792A54732F7D24C800EC815A /* HeroData.swift */,
 				796BF20329F5536000555C64 /* HeroListView.swift */,
 				327B87772852263300BBE1F8 /* HeroListViewModel.swift */,
 				3261C906282F315100D47CDA /* HeroDetailView.swift */,
@@ -1900,6 +1905,7 @@
 				79518D0F2F72AB97005C9449 /* SKAbility.swift in Sources */,
 				322B88EE26CCBA1800DF67F9 /* CodingKey.swift in Sources */,
 				32079DBF28B843360056D19F /* String.swift in Sources */,
+				792A54742F7D24CE00EC815A /* HeroData.swift in Sources */,
 				790266492A35478D00CE54DF /* LiveMatchEventRowView.swift in Sources */,
 				79D5280E28DD5D990070841D /* Network.swift in Sources */,
 				79F5B5D228E3B89800FB67E5 /* D2AModel.xcdatamodeld in Sources */,
@@ -2008,6 +2014,7 @@
 				32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */,
 				79518CFF2F726325005C9449 /* SKHero.swift in Sources */,
 				32B526C3285C0B380099B058 /* IntentHandler.swift in Sources */,
+				792A54752F7D25BC00EC815A /* HeroData.swift in Sources */,
 				32A26C5528594A28005E890F /* Environment.swift in Sources */,
 				32F70ADE26F60B95006E9B05 /* UserProfileCodable.swift in Sources */,
 				797776D22B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
@@ -2088,6 +2095,7 @@
 				32B526C4285C0B380099B058 /* IntentHandler.swift in Sources */,
 				79518D002F726325005C9449 /* SKHero.swift in Sources */,
 				32EC7F3828646BAE00A36AF6 /* RecentMatchesWidgetEntryView.swift in Sources */,
+				792A54762F7D25BC00EC815A /* HeroData.swift in Sources */,
 				32A26C5628594A28005E890F /* Environment.swift in Sources */,
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				797776D32B60C5E6000E6C3B /* ViewExtension.swift in Sources */,

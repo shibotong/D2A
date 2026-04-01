@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class HeroCodable: Identifiable, Decodable {
+class HeroCodable: Identifiable, Decodable, HeroProtocol {
+    
     var id: Int
     var name: String
     var localizedName: String
@@ -47,6 +48,14 @@ class HeroCodable: Identifiable, Decodable {
 
     var heroNameLocalized: String {
         return NSLocalizedString(localizedName, comment: "")
+    }
+    
+    var displayName: String {
+        return heroNameLocalized
+    }
+    
+    var heroID: Int {
+        return id
     }
     
     static let strMaxHP: Int32 = 20
