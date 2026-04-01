@@ -72,9 +72,8 @@ extension Hero {
     }
     
     /// Fetch `Hero` with `id` in CoreData
-    static func fetchHero(id: Double) -> Hero? {
-        let viewContext = PersistanceController.shared.container.viewContext
-        let fetchHero: NSFetchRequest<Hero> = Hero.fetchRequest()
+    static func fetchHero(id: Double, viewContext: NSManagedObjectContext = PersistanceController.shared.container.viewContext) -> Hero? {
+        let fetchHero = Hero.fetchRequest()
         fetchHero.predicate = NSPredicate(format: "id == %f", id)
         
         let results = try? viewContext.fetch(fetchHero)
@@ -254,10 +253,7 @@ extension Hero {
     }
     
     static func save(id: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger? = nil) throws {
-        let fetchRequest = Hero.fetchRequest()
-        let predicate = NSPredicate(format: "id == %d", Double(id))
-        fetchRequest.predicate = predicate
-        let hero = try context.fetch(fetchRequest).first ?? Hero(context: context)
+        let hero = fetchHero(id: Double(id), viewContext: context) ?? Hero(context: context)
         
         var closure: ((String) -> ())?
         if let logger {

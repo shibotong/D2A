@@ -59,7 +59,7 @@ struct HeroListView: View {
         } else {
             ScrollView(.vertical, showsIndicators: false) {
                 ForEach(HeroAttribute.allCases, id: \.self) { attribute in
-                    let heroes = vm.heroList.filter { hero in
+                    let heroes = vm.heroes.filter { hero in
                         return hero.primaryAttr == attribute.rawValue
                     }
                     buildHeroGrid(heroes: heroes, attribute: attribute)
