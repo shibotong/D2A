@@ -253,24 +253,44 @@ extension Hero {
         return base + bonus
     }
     
-    static func save(id: Int, data: [String: Any], localization: SKHero?, in context: NSManagedObjectContext) throws {
+    static func save(id: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger? = nil) throws {
         let fetchRequest = Hero.fetchRequest()
         let predicate = NSPredicate(format: "id == %d", Double(id))
         fetchRequest.predicate = predicate
         let hero = try context.fetch(fetchRequest).first ?? Hero(context: context)
+        
+        var closure: ((String) -> ())?
+        if let logger {
+            closure = { key in
+                Task {
+                    await logger.addError(type: .hero, error: .dataType, key: key)
+                }
+            }
+        }
+        
         setIfNotEqual(entity: hero, path: \.id, value: Double(id))
-        setIfExist(entity: hero, path: \.attackRange, data: data, key: "attack_range")
-        setIfExist(entity: hero, path: \.attackRate, data: data, key: "attack_rate")
-    }
-    
-    static func setIfExist<T: Equatable>(entity: Hero, path: ReferenceWritableKeyPath<Hero, T>, data: [String: Any], key: String, localization: T? = nil) {
-        if let localization {
-            setIfNotEqual(entity: entity, path: path, value: localization)
-            return
-        }
-        guard let value = data[key] as? T else {
-            return
-        }
-        setIfNotEqual(entity: entity, path: path, value: value)
+        setIfExist(entity: hero, path: \.name, data: data, key: "name", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.primaryAttr, data: data, key: "primary_attr", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.baseHealth, data: data, key: "base_health", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.baseHealthRegen, data: data, key: "base_health_regen", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.baseMana, data: data, key: "base_mana", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.baseManaRegen, data: data, key: "base_mana_regen", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.baseArmor, data: data, key: "base_armor", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.baseMr, data: data, key: "base_mr", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.baseAttackMin, data: data, key: "base_attack_min", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.baseAttackMax, data: data, key: "base_attack_max", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.baseStr, data: data, key: "base_str", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.baseAgi, data: data, key: "base_agi", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.baseInt, data: data, key: "base_int", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.gainStr, data: data, key: "str_gain", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.gainAgi, data: data, key: "agi_gain", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.gainInt, data: data, key: "int_gain", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.attackRange, data: data, key: "attack_range", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.projectileSpeed, data: data, key: "projectile_speed")
+        setIfExist(entity: hero, path: \.attackRate, data: data, key: "attack_rate", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.moveSpeed, data: data, key: "move_speed", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.turnRate, data: data, key: "turn_rate", defaultValue: 0.6, errorCompletion: closure)
+        setIfExist(entity: hero, path: \.visionDaytimeRange, data: data, key: "day_vision", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.visionNighttimeRange, data: data, key: "night_vision", errorCompletion: closure)
     }
 }
