@@ -275,6 +275,9 @@
 		792A546B2F77788400EC815A /* DataSyncingLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54672F7777F500EC815A /* DataSyncingLogger.swift */; };
 		792A546C2F77788400EC815A /* DataSyncingLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54672F7777F500EC815A /* DataSyncingLogger.swift */; };
 		792A546E2F777B2500EC815A /* SyncingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A546D2F777B2100EC815A /* SyncingTests.swift */; };
+		792A54702F7D22ED00EC815A /* HeroTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A546F2F7D22E900EC815A /* HeroTranslation.swift */; };
+		792A54712F7D22ED00EC815A /* HeroTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A546F2F7D22E900EC815A /* HeroTranslation.swift */; };
+		792A54722F7D22ED00EC815A /* HeroTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A546F2F7D22E900EC815A /* HeroTranslation.swift */; };
 		79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79368C0928E6D8ED009517D2 /* RoleView.swift */; };
 		793AE0B6293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
 		793AE0B7293ACCF2003C69EF /* PermanentBuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A989032931E7F1006AC847 /* PermanentBuff.swift */; };
@@ -641,6 +644,7 @@
 		79266DA62A31B0FD002FEF0F /* LiveMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchView.swift; sourceTree = "<group>"; };
 		792A54672F7777F500EC815A /* DataSyncingLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSyncingLogger.swift; sourceTree = "<group>"; };
 		792A546D2F777B2100EC815A /* SyncingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncingTests.swift; sourceTree = "<group>"; };
+		792A546F2F7D22E900EC815A /* HeroTranslation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroTranslation.swift; sourceTree = "<group>"; };
 		7930699B2B5D323100A5CF5D /* DataLoadingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataLoadingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79368C0928E6D8ED009517D2 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
 		7942FD012B706B49008CE4B0 /* UIScreenshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIScreenshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1375,6 +1379,7 @@
 		79B8D9602F2881D10030429D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				792A546F2F7D22E900EC815A /* HeroTranslation.swift */,
 				79B8D9612F2881DF0030429D /* Ability.swift */,
 				79518D1E2F7397FE005C9449 /* AbilityTranslation.swift */,
 			);
@@ -1904,6 +1909,7 @@
 				79B8D9662F28833E0030429D /* NSManagedObjectContext.swift in Sources */,
 				79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				79518CF22F72610F005C9449 /* ODHeroAbilities.swift in Sources */,
+				792A54722F7D22ED00EC815A /* HeroTranslation.swift in Sources */,
 				32B36F0F26C38821002D427D /* D2AApp.swift in Sources */,
 				322B89BD26CE6B7900DF67F9 /* OpenDotaController.swift in Sources */,
 				79518D262F73986F005C9449 /* DataLanguageEnum.swift in Sources */,
@@ -1985,6 +1991,7 @@
 				32F70B1D26F6295B006E9B05 /* CodingKey.swift in Sources */,
 				32F70ADB26F6090A006E9B05 /* NetworkImage.swift in Sources */,
 				32A26C51285947D3005E890F /* OpenDotaController.swift in Sources */,
+				792A54702F7D22ED00EC815A /* HeroTranslation.swift in Sources */,
 				79A988F62931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
 				32B526CD285C18440099B058 /* RankView.swift in Sources */,
 				79A9891A2931EB49006AC847 /* PlayerCodable.swift in Sources */,
@@ -2064,6 +2071,7 @@
 				32F70B0226F621ED006E9B05 /* D2AWidget.swift in Sources */,
 				32F70B1F26F6295C006E9B05 /* Color.swift in Sources */,
 				79A988F72931CDD9006AC847 /* D2AModel.xcdatamodeld in Sources */,
+				792A54712F7D22ED00EC815A /* HeroTranslation.swift in Sources */,
 				79A989102931E8F3006AC847 /* Talent.swift in Sources */,
 				32B526C8285C0BDE0099B058 /* Provider.swift in Sources */,
 				79A9891B2931EB49006AC847 /* PlayerCodable.swift in Sources */,

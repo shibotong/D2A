@@ -52,6 +52,9 @@ class StaticDataSyncingService {
                 group.addTask { [weak self] in
                     try? await self?.syncHeroes()
                 }
+                group.addTask { [weak self] in
+                    try? await self?.syncHeroTranslations()
+                }
             }
             let context = self.context
             try await context.perform {
@@ -112,7 +115,7 @@ class StaticDataSyncingService {
     }
     
     private func syncHeroes() async throws {
-        logger.trace("Start syncing abilities")
+        logger.trace("Start syncing heroes")
         let syncingLogger = self.syncingLogger
         try await contextSaving(author: "Hero") {
             guard let heroJSON = try await openDota.constants(service: .heroes) as? [String: Any] else {
@@ -135,6 +138,19 @@ class StaticDataSyncingService {
         } saving: { (hero: HeroSaving, context) in
             self.logger.info("Saving hero \(hero.heroID)")
             try Hero.save(id: hero.heroID, data: hero.data, in: context, logger: syncingLogger)
+        }
+    }
+    
+    private func syncHeroTranslations() async throws {
+        logger.trace("Start syncing hero translations")
+        let language = self.language
+        try await contextSaving(author: "Hero Translations") {
+            let stratzHeroes = try await stratz.heroes(language: language)
+            return stratzHeroes
+        } saving: { hero, context in
+            self.logger.info("Saving hero translation \(hero.id)")
+            try HeroTranslation.save(localization: hero, language: language, in: context)
+            try context.save()
         }
     }
     

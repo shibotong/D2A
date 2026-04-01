@@ -9,13 +9,17 @@ import Apollo
 import StratzAPI
 
 protocol StratzFetching {
-    func heroes() async throws -> [SKHero]
+    func heroes(language: DataLanguageEnum) async throws -> [SKHero]
     func abilities(language: DataLanguageEnum) async throws -> [SKAbility]
 }
 
 extension StratzFetching {
     func abilities() async throws -> [SKAbility] {
         return try await abilities(language: AppConfig.languageCode)
+    }
+    
+    func heroes() async throws -> [SKHero] {
+        return try await heroes(language: AppConfig.languageCode)
     }
 }
 
@@ -29,9 +33,9 @@ struct StratzFetcher: StratzFetching {
         self.apollo = apollo
     }
 
-    func heroes() async throws -> [SKHero] {
+    func heroes(language: DataLanguageEnum) async throws -> [SKHero] {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[SKHero], Error>) in
-            apollo.fetch(query: HeroesQuery(language: .init(languageCode))) { result in
+            apollo.fetch(query: HeroesQuery(language: .init(language.language))) { result in
                 switch result {
                 case .success(let graphQLResult):
                     guard let stratzHeroes = graphQLResult.data?.constants?.heroes else {
