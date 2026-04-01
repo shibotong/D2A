@@ -49,9 +49,9 @@ class StaticDataSyncingService {
                 group.addTask { [weak self] in
                     try? await self?.syncAbilityTranslation()
                 }
-//                group.addTask { [weak self] in
-//                    try? await self?.syncHeroes()
-//                }
+                group.addTask { [weak self] in
+                    try? await self?.syncHeroes()
+                }
             }
             let context = self.context
             try await context.perform {
@@ -113,42 +113,28 @@ class StaticDataSyncingService {
     
     private func syncHeroes() async throws {
         logger.trace("Start syncing abilities")
-        let heroSavingContext = context.makeContext(author: "Hero Sync")
-        async let heroesAsync = openDota.constants(service: .heroes) as? [String: Any]
-        async let stratzHeroesAsync = stratz.heroes()
-        
-        let (heroes, localizations) = try await (heroesAsync, stratzHeroesAsync)
-        guard let heroes else {
-            throw URLError(.badServerResponse)
-        }
-        var localizationDict: [Int: SKHero] = [:]
-        for hero in localizations {
-            localizationDict[hero.id] = hero
-        }
-        logger.trace("Finish fetching heroes from OpenDota")
-        for (heroIDString, hero) in heroes {
-            logger.trace("processing hero: \(heroIDString)")
-            guard let heroID = Int(heroIDString) else {
-                logger.error("Hero ID is not an integer: \(heroIDString)")
-                continue
+        let syncingLogger = self.syncingLogger
+        try await contextSaving(author: "Hero") {
+            guard let heroJSON = try await openDota.constants(service: .heroes) as? [String: Any] else {
+                return [HeroSaving]()
             }
-            guard let hero = hero as? [String: Any] else {
-                logger.warning("hero is not valid")
-                continue
-            }
-            let localization = localizationDict[heroID]
-            let context = heroSavingContext.makeContext(author: "hero \(heroID)")
-            do {
-                try await context.perform {
-                    try Hero.save(id: heroID, data: hero, in: context)
-                    try context.save()
+            var heroes: [HeroSaving] = []
+            for (heroIDString, hero) in heroJSON {
+                logger.trace("processing hero: \(heroIDString)")
+                guard let heroID = Int(heroIDString) else {
+                    logger.error("Hero ID is not an integer: \(heroIDString)")
+                    continue
                 }
-            } catch {
-                continue
+                guard let hero = hero as? [String: Any] else {
+                    logger.warning("hero is not valid")
+                    continue
+                }
+                heroes.append(HeroSaving(heroID: heroID, data: hero))
             }
-        }
-        try await heroSavingContext.perform {
-            try heroSavingContext.save()
+            return heroes
+        } saving: { (hero: HeroSaving, context) in
+            self.logger.info("Saving hero \(hero.heroID)")
+            try Hero.save(id: hero.heroID, data: hero.data, in: context, logger: syncingLogger)
         }
     }
     
@@ -196,4 +182,10 @@ class StaticDataSyncingService {
         let name: String
         let data: [String: Any]
     }
+    
+    private struct HeroSaving {
+        let heroID: Int
+        let data: [String: Any]
+    }
 }
+
