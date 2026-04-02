@@ -161,7 +161,7 @@ class PersistenceProvider: PersistenceProviding {
     }
     
     func saveHero(id: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws {
-        let hero = (try? fetchHero(id: Double(id), context: context)) ?? Hero(context: context)
+        let hero = try fetchHero(id: Double(id), context: context) ?? Hero(context: context)
         
         var closure: ((String) -> ())?
         if let logger {
