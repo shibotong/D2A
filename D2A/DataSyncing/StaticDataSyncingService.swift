@@ -22,7 +22,7 @@ class StaticDataSyncingService {
     
     private let logger: Logger
     
-    private let maxConcurrent = 5
+    private let maxConcurrent = 2
     
     private let syncingLogger: DataSyncingLogger?
     
@@ -45,20 +45,10 @@ class StaticDataSyncingService {
     
     func startSyncing() async {
         do {
-            await withTaskGroup { [weak self] group in
-                group.addTask { [weak self] in
-                    try? await self?.syncAbilities()
-                }
-                group.addTask { [weak self] in
-                    try? await self?.syncAbilityTranslation()
-                }
-                group.addTask { [weak self] in
-                    try? await self?.syncHeroes()
-                }
-                group.addTask { [weak self] in
-                    try? await self?.syncHeroTranslations()
-                }
-            }
+            try await syncAbilities()
+            try await syncAbilityTranslation()
+            try await syncHeroes()
+            try await syncHeroTranslations()
             let context = self.context
             try await context.perform {
                 try context.save()
