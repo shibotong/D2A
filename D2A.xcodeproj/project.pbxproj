@@ -879,6 +879,9 @@
 				32F70AA726F57F7E006E9B05 /* PBXTargetDependency */,
 				32F70AEE26F61836006E9B05 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				792A54A62F7E77A700EC815A /* Shared */,
+			);
 			name = D2A;
 			packageProductDependencies = (
 				790FBB2329C186AE00E27106 /* Apollo */,
@@ -904,6 +907,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				792A54A62F7E77A700EC815A /* Shared */,
+			);
 			name = D2AWidgetExtension;
 			packageProductDependencies = (
 				790FBB2B29C1877400E27106 /* StratzAPI */,
@@ -925,6 +931,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				792A54A62F7E77A700EC815A /* Shared */,
 			);
 			name = D2AWidgetIntentHandler;
 			packageProductDependencies = (
