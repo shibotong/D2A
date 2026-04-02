@@ -51,7 +51,7 @@ class AbilityViewModel: ObservableObject {
     init(heroID: Int, ability: ODAbility?) {
         self.heroID = heroID
         self.opentDotaAbility = ability
-        let context = PersistanceController.shared.mainContext
+        let context = PersistenceProvider.shared.mainContext
         if let localisation = try? AbilityTranslation.fetch(name: ability?.name ?? "", language: AppConfig.languageCode, context: context) {
             setLocalisation(localisation: localisation)
         }

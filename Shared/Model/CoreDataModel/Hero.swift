@@ -18,7 +18,7 @@ extension Hero {
     // MARK: - Static func
     /// Create `Hero` with `HeroModel` and `HeroQuery.Data.Constants.Hero` and save into Core Data
     static func createHero(_ queryHero: HeroQuery.Data.Constants.Hero, model: HeroCodable, abilities: [String] = []) throws -> Hero {
-        let viewContext = PersistanceController.shared.container.viewContext
+        let viewContext = PersistenceProvider.shared.container.viewContext
         
         guard let heroID = queryHero.id,
               let heroTalents = queryHero.talents,
@@ -26,7 +26,7 @@ extension Hero {
               let heroStats = queryHero.stats else {
             throw Hero.CoreDataError.decodingError
         }
-        let hero = (try? PersistanceController.shared.fetchHero(id: heroID, context: viewContext)) ?? Hero(context: viewContext)
+        let hero = (try? PersistenceProvider.shared.fetchHero(id: heroID, context: viewContext)) ?? Hero(context: viewContext)
         // data from Stratz
         hero.lastFetch = Date()
         hero.id = heroID

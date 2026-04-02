@@ -18,11 +18,11 @@ protocol PersistenceProviding {
     func saveHero(id: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws
 }
 
-class PersistanceController: PersistenceProviding {
-    static let shared = PersistanceController()
+class PersistenceProvider: PersistenceProviding {
+    static let shared = PersistenceProvider()
 
-    static var preview: PersistanceController = {
-        let result = PersistanceController(inMemory: true)
+    static var preview: PersistenceProvider = {
+        let result = PersistenceProvider(inMemory: true)
         let viewContext = result.container.viewContext
         let previewID = "preview"
         UserProfile.create(id: previewID, favourite: true, register: true, controller: result)

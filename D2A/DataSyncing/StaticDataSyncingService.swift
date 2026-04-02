@@ -30,7 +30,7 @@ class StaticDataSyncingService {
     
     init(openDota: OpenDotaFetching = OpenDotaController.shared,
          stratz: StratzFetching = StratzFetcher.shared,
-         persistence: PersistenceProviding = PersistanceController.shared,
+         persistence: PersistenceProviding = PersistenceProvider.shared,
          language: DataLanguageEnum = AppConfig.languageCode,
          logger: Logger = D2ALogger.syncing,
          syncingLogger: DataSyncingLogger? = nil) {

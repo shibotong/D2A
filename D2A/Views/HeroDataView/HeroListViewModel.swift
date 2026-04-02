@@ -43,7 +43,7 @@ class HeroListViewModel: ObservableObject {
     private let language: DataLanguageEnum
     private let logger: Logger
     
-    init(context: NSManagedObjectContext = PersistanceController.shared.mainContext,
+    init(context: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
          language: DataLanguageEnum = AppConfig.languageCode,
          logger: Logger = D2ALogger.ui) {
         self.context = context

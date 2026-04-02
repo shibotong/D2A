@@ -29,7 +29,7 @@ class HeroDetailViewModel: ObservableObject {
     private let context: NSManagedObjectContext
     
     init(heroID: Int,
-         persistence: PersistenceProviding = PersistanceController.shared) {
+         persistence: PersistenceProviding = PersistenceProvider.shared) {
         self.heroID = heroID
         loadingHero = false
         self.persistence = persistence
@@ -120,7 +120,7 @@ class HeroDetailViewModel: ObservableObject {
     }
     
     func fetchTalentName(id: Short) -> String {
-        if let localisation = try? AbilityTranslation.fetch(id: Int(id), language: AppConfig.languageCode, context: PersistanceController.shared.mainContext),
+        if let localisation = try? AbilityTranslation.fetch(id: Int(id), language: AppConfig.languageCode, context: PersistenceProvider.shared.mainContext),
            let dname = localisation.displayName {
             return dname
         } else {

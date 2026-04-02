@@ -15,7 +15,7 @@ struct Provider: IntentTimelineProvider {
     
     public typealias Entry = D2AWidgetUserEntry
     
-    private let persistenceController = PersistanceController.shared
+    private let persistenceController = PersistenceProvider.shared
     
     func placeholder(in context: Context) -> D2AWidgetUserEntry {
         D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
