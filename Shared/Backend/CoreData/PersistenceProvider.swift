@@ -14,11 +14,15 @@ enum PersistenceError: Error {
 
 protocol PersistenceProviding {
     var mainContext: NSManagedObjectContext { get }
+    func fetch(heroID: Int, context: NSManagedObjectContext) throws -> Hero?
+    func save(heroID: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws
+    
     @available(*, deprecated, renamed: "fetch")
     func fetchHero(id: Double, context: NSManagedObjectContext) throws -> Hero?
     
-    func fetch(heroID: Int, context: NSManagedObjectContext) throws -> Hero?
+    @available(*, deprecated, renamed: "save")
     func saveHero(id: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws
+    
     func fetchHeroLocalization(id: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation?
     func saveHeroLocalization(localization: SKHero, language: DataLanguageEnum, in context: NSManagedObjectContext) throws
 }
@@ -171,7 +175,11 @@ class PersistenceProvider: PersistenceProviding {
     }
     
     func saveHero(id: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws {
-        let hero = try fetch(heroID: id, context: context) ?? Hero(context: context)
+        try save(heroID: id, data: data, in: context, logger: logger)
+    }
+        
+    func save(heroID: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws {
+        let hero = try fetch(heroID: heroID, context: context) ?? Hero(context: context)
         
         var closure: ((String) -> ())?
         if let logger {
@@ -182,7 +190,7 @@ class PersistenceProvider: PersistenceProviding {
             }
         }
         
-        setIfNotEqual(entity: hero, path: \.id, value: Double(id))
+        setIfNotEqual(entity: hero, path: \.id, value: Double(heroID))
         setIfExist(entity: hero, path: \.name, data: data, key: "name", errorCompletion: closure)
         setIfExist(entity: hero, path: \.primaryAttr, data: data, key: "primary_attr", errorCompletion: closure)
         setIfExist(entity: hero, path: \.baseHealth, data: data, key: "base_health", errorCompletion: closure)
