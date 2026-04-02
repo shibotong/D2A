@@ -10,25 +10,6 @@ import Combine
 import CoreData
 import Logging
 
-enum HeroAttribute: String, CaseIterable {
-    case whole, str, agi, int, all
-    
-    var fullName: String {
-        switch self {
-        case .str:
-            return "STRENGTH"
-        case .agi:
-            return "AGILITY"
-        case .int:
-            return "INTELLIGENCE"
-        case .all:
-            return "UNIVERSAL"
-        default:
-            return ""
-        }
-    }
-}
-
 class HeroListViewModel: ObservableObject {
     
     @Published var searchResults: [any HeroProtocol]
