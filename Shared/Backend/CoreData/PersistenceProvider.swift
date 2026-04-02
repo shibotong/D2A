@@ -14,7 +14,10 @@ enum PersistenceError: Error {
 
 protocol PersistenceProviding {
     var mainContext: NSManagedObjectContext { get }
+    @available(*, deprecated, renamed: "fetch")
     func fetchHero(id: Double, context: NSManagedObjectContext) throws -> Hero?
+    
+    func fetch(heroID: Int, context: NSManagedObjectContext) throws -> Hero?
     func saveHero(id: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws
     func fetchHeroLocalization(id: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation?
     func saveHeroLocalization(localization: SKHero, language: DataLanguageEnum, in context: NSManagedObjectContext) throws
@@ -154,16 +157,21 @@ class PersistenceProvider: PersistenceProviding {
         }
     }
     
+    
     func fetchHero(id: Double, context: NSManagedObjectContext) throws -> Hero? {
+        return try fetch(heroID: Int(id), context: context)
+    }
+    
+    func fetch(heroID: Int, context: NSManagedObjectContext) throws -> Hero? {
         let fetchHero = Hero.fetchRequest()
-        fetchHero.predicate = NSPredicate(format: "id == %f", id)
+        fetchHero.predicate = NSPredicate(format: "id == %f", Double(heroID))
         
         let results = try context.fetch(fetchHero)
         return results.first
     }
     
     func saveHero(id: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws {
-        let hero = try fetchHero(id: Double(id), context: context) ?? Hero(context: context)
+        let hero = try fetch(heroID: id, context: context) ?? Hero(context: context)
         
         var closure: ((String) -> ())?
         if let logger {

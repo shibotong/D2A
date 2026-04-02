@@ -36,7 +36,7 @@ class HeroDetailViewModel: ObservableObject {
         self.context = persistence.mainContext
         $heroID
             .map { heroID in
-                let cachedHero = try? persistence.fetchHero(id: Double(heroID), context: self.context)
+                let cachedHero = try? persistence.fetch(heroID: heroID, context: self.context)
                 self.loadHero(hero: cachedHero, id: heroID)
                 return cachedHero
             }
