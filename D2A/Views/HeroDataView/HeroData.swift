@@ -7,8 +7,10 @@
 
 protocol HeroProtocol: Identifiable {
     var heroID: Int { get }
-    var displayName: String { get }
-    var primaryAttr: String { get }
+    var localizedName: String { get }
+    var primaryAttribute: String { get }
+    var heroAbilities: [String] { get }
+    var hero: Hero { get }
 }
 
 extension HeroProtocol {
@@ -25,11 +27,15 @@ struct HeroData: HeroProtocol {
         return Int(localization.heroID)
     }
     
-    var displayName: String {
+    var localizedName: String {
         return localization.displayName ?? ""
     }
     
-    var primaryAttr: String {
+    var primaryAttribute: String {
         return hero.primaryAttr ?? ""
+    }
+    
+    var heroAbilities: [String] {
+        hero.abilities ?? []
     }
 }

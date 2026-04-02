@@ -29,18 +29,18 @@ struct HeroDetailView: View {
             if let hero = vm.hero {
                 ScrollView {
                     buildTitle(hero: hero)
-                    buildAbilities(hero: hero)
+                    buildAbilities(hero: hero.hero)
                         .padding(.horizontal, 5)
                     Divider()
-                    buildHeroDetails(hero: hero)
-                }.navigationTitle(hero.heroNameLocalized)
+                    buildHeroDetails(hero: hero.hero)
+                }.navigationTitle(hero.localizedName)
             } else {
                 LoadingView()
             }
         }
     }
 
-    @ViewBuilder private func buildTitle(hero: Hero) -> some View {
+    @ViewBuilder private func buildTitle(hero: any HeroProtocol) -> some View {
         HeroImageView(heroID: Int(hero.id), type: .full)
             .overlay(
                 LinearGradient(colors: [Color(.black).opacity(0),
@@ -51,10 +51,10 @@ struct HeroDetailView: View {
                 VStack(alignment: .leading, spacing: 3) {
                     Spacer()
                     HStack {
-                        Image("hero_\(hero.primaryAttr ?? "")")
+                        Image("hero_\(hero.primaryAttribute)")
                             .resizable()
                             .frame(width: 25, height: 25)
-                        Text(LocalizedStringKey(hero.displayName ?? ""))
+                        Text(LocalizedStringKey(hero.localizedName))
                             .font(.system(size: 30))
                             .bold()
                             .foregroundColor(.white)
@@ -64,7 +64,7 @@ struct HeroDetailView: View {
                         Spacer()
                         HStack {
                             ForEach(1..<4) { complexity in
-                                if complexity <= hero.complexity {
+                                if complexity <= hero.hero.complexity {
                                     RoundedRectangle(cornerRadius: 3)
                                         .frame(width: 15, height: 15)
                                         .foregroundColor(.white)

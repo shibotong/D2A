@@ -45,12 +45,12 @@ class HeroListViewModel: ObservableObject {
             .combineLatest($selectedAttribute)
             .map { [weak self] searchString, attributes in
                 guard let self = self else { return [] }
-                let filterHeroes = attributes == .whole ? self.heroes : self.heroes.filter({ return $0.primaryAttr == attributes.rawValue })
+                let filterHeroes = attributes == .whole ? self.heroes : self.heroes.filter({ return $0.primaryAttribute == attributes.rawValue })
                 if searchString.isEmpty {
                     return filterHeroes
                 } else {
                     let searchedHeroes = filterHeroes.filter({ hero in
-                        let localizedName = hero.displayName.lowercased().contains(searchString.lowercased())
+                        let localizedName = hero.localizedName.lowercased().contains(searchString.lowercased())
                         return localizedName
                     })
                     return searchedHeroes
@@ -72,7 +72,7 @@ class HeroListViewModel: ObservableObject {
             }
             heroData.append(HeroData(hero: hero, localization: localization))
         }
-        self.heroes = heroData.sorted { $0.displayName < $1.displayName }
+        self.heroes = heroData.sorted { $0.localizedName < $1.localizedName }
     }
     
     private func fetchHeroes() -> [Hero] {

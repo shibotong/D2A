@@ -60,7 +60,7 @@ struct HeroListView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 ForEach(HeroAttribute.allCases, id: \.self) { attribute in
                     let heroes = vm.heroes.filter { hero in
-                        return hero.primaryAttr == attribute.rawValue
+                        return hero.primaryAttribute == attribute.rawValue
                     }
                     buildHeroGrid(heroes: heroes, attribute: attribute)
                 }
@@ -137,20 +137,20 @@ struct HeroListView: View {
             HeroImageView(heroID: hero.id, type: .vert)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .opacity(vm.searchResults.contains(where: { $0.id == hero.id }) || vm.searchString.isEmpty ? 1 : 0.2)
-                .accessibilityIdentifier(hero.displayName)
+                .accessibilityIdentifier(hero.localizedName)
         } else {
             if vm.gridView {
                 ZStack {
                     HeroImageView(heroID: hero.id, type: .full)
                         .overlay(LinearGradient(colors: [.black.opacity(0), .black.opacity(0), .black], startPoint: .top, endPoint: .bottom))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .accessibilityIdentifier(hero.displayName)
+                        .accessibilityIdentifier(hero.localizedName)
                     HStack {
                         VStack {
                             Spacer()
                             HStack(spacing: 3) {
-                                AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttr)).frame(width: 15, height: 15)
-                                Text(hero.displayName)
+                                AttributeImage(attribute: HeroAttribute(rawValue: hero.primaryAttribute)).frame(width: 15, height: 15)
+                                Text(hero.localizedName)
                                     .font(.caption2)
                                     .fontWeight(.black)
                                     .foregroundColor(.white)
@@ -165,9 +165,9 @@ struct HeroListView: View {
                     HeroImageView(heroID: hero.id, type: .full)
                         .frame(width: 70)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
-                    Text(hero.displayName)
+                    Text(hero.localizedName)
                     Spacer()
-                    Image("hero_\(hero.primaryAttr)")
+                    Image("hero_\(hero.primaryAttribute)")
                         .resizable()
                         .frame(width: 20, height: 20)
                 }
