@@ -100,12 +100,12 @@
 		79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA82A31B21D002FEF0F /* ApolloWebSocket */; };
 		79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DAA2A31B224002FEF0F /* ApolloWebSocket */; };
 		792A54682F7777FF00EC815A /* DataSyncingLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54672F7777F500EC815A /* DataSyncingLogger.swift */; };
-		792A546B2F77788400EC815A /* DataSyncingLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54672F7777F500EC815A /* DataSyncingLogger.swift */; };
-		792A546C2F77788400EC815A /* DataSyncingLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54672F7777F500EC815A /* DataSyncingLogger.swift */; };
 		792A546E2F777B2500EC815A /* SyncingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A546D2F777B2100EC815A /* SyncingTests.swift */; };
 		792A54742F7D24CE00EC815A /* HeroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54732F7D24C800EC815A /* HeroData.swift */; };
 		792A54752F7D25BC00EC815A /* HeroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54732F7D24C800EC815A /* HeroData.swift */; };
 		792A54762F7D25BC00EC815A /* HeroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54732F7D24C800EC815A /* HeroData.swift */; };
+		792A5EAC2F7E7CBA00EC815A /* DataSyncingLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54672F7777F500EC815A /* DataSyncingLogger.swift */; };
+		792A5EAD2F7E7CBA00EC815A /* DataSyncingLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54672F7777F500EC815A /* DataSyncingLogger.swift */; };
 		79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79368C0928E6D8ED009517D2 /* RoleView.swift */; };
 		7942FD0C2B706B57008CE4B0 /* ScreenShotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790102B929F40C4600E8A320 /* ScreenShotTests.swift */; };
 		7942FD0E2B706B85008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
@@ -1235,6 +1235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32EC7F35286464C300A36AF6 /* WidgetOverlayView.swift in Sources */,
+				792A5EAC2F7E7CBA00EC815A /* DataSyncingLogger.swift in Sources */,
 				794838662A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				3270271B285C088300927426 /* HeroImageView.swift in Sources */,
 				32B526CB285C0CE40099B058 /* RecentMatchesWidgetEntryView.swift in Sources */,
@@ -1255,7 +1256,6 @@
 				32F70B3026F714FD006E9B05 /* Provider.swift in Sources */,
 				32F70AA226F57F7E006E9B05 /* D2AWidget.swift in Sources */,
 				7983DA712B63086700C42F87 /* D2AWidgetUserEntry.swift in Sources */,
-				792A546B2F77788400EC815A /* DataSyncingLogger.swift in Sources */,
 				79E01CAA291E35320073BF68 /* MatchListRowViewModel.swift in Sources */,
 				79091DF62A3B2E2F0093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 			);
@@ -1266,6 +1266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3270271C285C088300927426 /* HeroImageView.swift in Sources */,
+				792A5EAD2F7E7CBA00EC815A /* DataSyncingLogger.swift in Sources */,
 				794838672A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				32B526CE285C18450099B058 /* RankView.swift in Sources */,
 				32B526D5285C1DBC0099B058 /* Extension.swift in Sources */,
@@ -1286,7 +1287,6 @@
 				32F70B0C26F62296006E9B05 /* NetworkImage.swift in Sources */,
 				32EC7F3728646BAC00A36AF6 /* WidgetOverlayView.swift in Sources */,
 				7983DA722B63086700C42F87 /* D2AWidgetUserEntry.swift in Sources */,
-				792A546C2F77788400EC815A /* DataSyncingLogger.swift in Sources */,
 				79E01CAB291E35320073BF68 /* MatchListRowViewModel.swift in Sources */,
 				79091DF82A3B2FC00093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 			);
