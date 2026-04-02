@@ -26,7 +26,7 @@ extension Hero {
               let heroStats = queryHero.stats else {
             throw Hero.CoreDataError.decodingError
         }
-        let hero = fetchHero(id: heroID) ?? Hero(context: viewContext)
+        let hero = (try? PersistenceProvider.shared.fetchHero(id: heroID, context: viewContext)) ?? Hero(context: viewContext)
         // data from Stratz
         hero.lastFetch = Date()
         hero.id = heroID
@@ -69,15 +69,6 @@ extension Hero {
         
         try viewContext.save()
         return hero
-    }
-    
-    /// Fetch `Hero` with `id` in CoreData
-    static func fetchHero(id: Double, viewContext: NSManagedObjectContext = PersistanceController.shared.container.viewContext) -> Hero? {
-        let fetchHero = Hero.fetchRequest()
-        fetchHero.predicate = NSPredicate(format: "id == %f", id)
-        
-        let results = try? viewContext.fetch(fetchHero)
-        return results?.first
     }
     
     // MARK: - Static let
@@ -253,7 +244,7 @@ extension Hero {
     }
     
     static func save(id: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger? = nil) throws {
-        let hero = fetchHero(id: Double(id), viewContext: context) ?? Hero(context: context)
+        let hero = (try? PersistenceProvider.shared.fetchHero(id: Double(id), context: context)) ?? Hero(context: context)
         
         var closure: ((String) -> ())?
         if let logger {

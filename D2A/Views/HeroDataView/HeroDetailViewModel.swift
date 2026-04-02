@@ -25,13 +25,19 @@ class HeroDetailViewModel: ObservableObject {
     @Published var abilities: [ODAbility] = []
     
     private var database: HeroDatabase = HeroDatabase.shared
+    private let persistenceProvider: PersistenceProviderProtocol
+    private let context: NSManagedObjectContext
     
-    init(heroID: Int) {
+    init(heroID: Int,
+         persistenceProvider: PersistenceProviderProtocol = PersistenceProvider.shared,
+         context: NSManagedObjectContext = PersistanceController.shared.mainContext) {
         self.heroID = heroID
         loadingHero = false
+        self.persistenceProvider = persistenceProvider
+        self.context = context
         $heroID
             .map { [weak self] heroID in
-                let cachedHero = Hero.fetchHero(id: Double(heroID))
+                let cachedHero = try? persistenceProvider.fetchHero(id: Double(heroID), context: context)
                 self?.loadHero(hero: cachedHero, id: heroID)
                 return cachedHero
             }
