@@ -120,7 +120,7 @@ class HeroDetailViewModel: ObservableObject {
     }
     
     func fetchTalentName(id: Short) -> String {
-        if let localisation = try? AbilityTranslation.fetch(id: Int(id), language: AppConfig.languageCode, context: PersistenceProvider.shared.mainContext),
+        if let localisation = try? persistence.fetch(abilityID: Int(id), language: AppConfig.languageCode, context: PersistenceProvider.shared.mainContext),
            let dname = localisation.displayName {
             return dname
         } else {

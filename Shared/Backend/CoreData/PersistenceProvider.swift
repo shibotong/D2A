@@ -21,6 +21,9 @@ protocol PersistenceProviding {
     func fetch(abilityID: Int, context: NSManagedObjectContext) throws -> Ability?
     func fetch(ability name: String, context: NSManagedObjectContext) throws -> Ability?
     func save(abilityID: Int, name: String, data: [String: Any], in context: NSManagedObjectContext, syncingLogger: DataSyncingLogger?) throws
+    func fetch(abilityID: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> AbilityTranslation?
+    func fetch(ability name: String, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> AbilityTranslation?
+    func save(ability: SKAbility, language: DataLanguageEnum, in context: NSManagedObjectContext) throws
     
     @available(*, deprecated, renamed: "fetch")
     func fetchHero(id: Double, context: NSManagedObjectContext) throws -> Hero?
@@ -311,5 +314,36 @@ class PersistenceProvider: PersistenceProviding {
         }
         
         return nil
+    }
+    
+    func fetch(abilityID: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> AbilityTranslation? {
+        let fetchRequest = AbilityTranslation.fetchRequest()
+        let predicate = NSPredicate(format: "abilityID = %d AND language = %@", abilityID, language.rawValue)
+        fetchRequest.predicate = predicate
+
+        let results = try context.fetch(fetchRequest)
+        return results.first
+    }
+    
+    func fetch(ability name: String, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> AbilityTranslation? {
+        let fetchRequest = AbilityTranslation.fetchRequest()
+        let predicate = NSPredicate(format: "name = %@ AND language = %@", name, language.rawValue)
+        fetchRequest.predicate = predicate
+
+        let results = try context.fetch(fetchRequest)
+        return results.first
+    }
+    
+    func save(ability: SKAbility, language: DataLanguageEnum, in context: NSManagedObjectContext) throws {
+        let translation = try fetch(abilityID: ability.id, language: language, context: context) ?? AbilityTranslation(context: context)
+        setIfNotEqual(entity: translation, path: \.language, value: language.rawValue)
+        setIfNotEqual(entity: translation, path: \.abilityID, value: Int16(ability.id))
+        setIfNotEqual(entity: translation, path: \.name, value: ability.name)
+        setIfNotEqual(entity: translation, path: \.aghanimDescription, value: ability.aghanimDescription)
+        setIfNotEqual(entity: translation, path: \.displayName, value: ability.displayName)
+        setIfNotEqual(entity: translation, path: \.desc, value: ability.description.joined(separator: "\n"))
+        setIfNotEqual(entity: translation, path: \.lore, value: ability.lore)
+        setIfNotEqual(entity: translation, path: \.shardDescription, value: ability.shardDescription)
+        setIfNotEqual(entity: translation, path: \.attributes, value: ability.attributes?.compactMap({ $0 }))
     }
 }

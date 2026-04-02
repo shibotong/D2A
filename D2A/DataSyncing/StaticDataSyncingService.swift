@@ -108,12 +108,13 @@ class StaticDataSyncingService {
     
     private func syncAbilityTranslation() async throws {
         let language = self.language
+        let persistence = self.persistence
         try await contextSaving(author: "Ability localization", fetchData: {
             let stratzAbilities = try await stratz.abilities(language: language)
             return stratzAbilities
         }) { ability, context in
             self.logger.info("Saving ability localization \(ability.id)")
-            try AbilityTranslation.save(localization: ability, language: language, in: context)
+            try persistence.save(ability: ability, language: language, in: context)
             try context.save()
         }
     }

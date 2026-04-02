@@ -56,7 +56,7 @@ class AbilityViewModel: ObservableObject {
         self.opentDotaAbility = ability
         self.persistenceProvider = persistenceProvider
         let context = persistenceProvider.mainContext
-        if let localisation = try? AbilityTranslation.fetch(name: ability?.name ?? "", language: AppConfig.languageCode, context: context) {
+        if let localisation = try? persistenceProvider.fetch(ability: ability?.name ?? "", language: AppConfig.languageCode, context: context) {
             setLocalisation(localisation: localisation)
         }
         
