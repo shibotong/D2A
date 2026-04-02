@@ -22,7 +22,7 @@ class StaticDataSyncingService {
     
     private let logger: Logger
     
-    private let maxConcurrent = 2
+    private let maxConcurrent = 4
     
     private let syncingLogger: DataSyncingLogger?
     
