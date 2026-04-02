@@ -12,7 +12,7 @@ import StratzAPI
 import Apollo
 
 class HeroDetailViewModel: ObservableObject {
-    @Published var hero: Hero?
+    @Published var hero: (any HeroProtocol)?
     @Published var selectedAbility: ODAbility?
     
     @Published var heroID: Int
@@ -20,24 +20,28 @@ class HeroDetailViewModel: ObservableObject {
     @Published var previousHeroID: Int?
     @Published var nextHeroID: Int?
     
-    @Published var loadingHero: Bool
-    
     @Published var abilities: [ODAbility] = []
     
     private var database: HeroDatabase = HeroDatabase.shared
     private let persistence: PersistenceProviding
     private let context: NSManagedObjectContext
     
+    init(hero: any HeroProtocol,
+         persistence: PersistenceProviding = PersistenceProvider.shared) {
+        self.hero = hero
+        heroID = hero.heroID
+        self.persistence = persistence
+        self.context = persistence.mainContext
+    }
+    
     init(heroID: Int,
          persistence: PersistenceProviding = PersistenceProvider.shared) {
         self.heroID = heroID
-        loadingHero = false
         self.persistence = persistence
         self.context = persistence.mainContext
         $heroID
             .map { heroID in
                 let cachedHero = try? persistence.fetch(heroID: heroID, context: self.context)
-                self.loadHero(hero: cachedHero, id: heroID)
                 return cachedHero
             }
             .assign(to: &$hero)
@@ -56,7 +60,7 @@ class HeroDetailViewModel: ObservableObject {
         
         $hero
             .map { [weak self] hero in
-                guard let abilityNames = hero?.abilities else {
+                guard let abilityNames = hero?.heroAbilities else {
                     return []
                 }
                 let abilities = abilityNames.filter { ability in
@@ -70,53 +74,6 @@ class HeroDetailViewModel: ObservableObject {
                 return abilities
             }
             .assign(to: &$abilities)
-    }
-    
-    /// Load hero
-    func loadHero(hero: Hero?, id: Int) {
-        if let lastFetch = hero?.lastFetch, lastFetch.startOfDay == Date().startOfDay {
-            // if hero exist and already fetched today, dont download hero
-            return
-        }
-        downloadHero(heroID: id)
-    }
-    
-    /// Download hero from API
-    func downloadHero(heroID: Int) {
-        loadingHero = true
-        Network.shared.apollo.fetch(query: HeroQuery(id: Double(heroID))) { [weak self] (result: Result<GraphQLResult<HeroQuery.Data>, Error>) in
-            guard let self = self else { return }
-            switch result {
-            case .success(let graphQLResult):
-                if let hero = graphQLResult.data?.constants?.hero {
-                    do {
-                        let model = try self.database.fetchHeroWithID(id: self.heroID)
-                        let abilities = self.database
-                            .fetchHeroAbility(name: model.name)
-                            .filter { ability in
-                            return !ability.contains("hidden") && !ability.contains("empty")
-                        }
-                        let newHero = try Hero.createHero(hero, model: model, abilities: abilities)
-                        DispatchQueue.main.async { [weak self] in
-                            self?.hero = newHero
-                        }
-                    } catch let error {
-                        print(error.localizedDescription)
-                    }
-                }
-                
-                if let errors = graphQLResult.errors {
-                    let message = errors
-                        .map { $0.localizedDescription }
-                        .joined(separator: "\n")
-                    print(message)
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-            
-            loadingHero = false
-        }
     }
     
     func fetchTalentName(id: Short) -> String {
