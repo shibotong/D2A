@@ -50,7 +50,7 @@ extension RecentMatch {
                 NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [PersistanceController.shared.container.viewContext])
                 return
             }
-            throw PersistanceError.insertError
+            throw PersistenceError.insertError
         }
     }
     
@@ -107,7 +107,7 @@ extension RecentMatch {
             })
             batchRequest.resultType = .statusOnly
             guard let insertResult = try context.execute(batchRequest) as? NSBatchInsertResult, let result = insertResult.result as? Bool else {
-                throw PersistanceError.insertError
+                throw PersistenceError.insertError
             }
             return result
         }

@@ -26,15 +26,18 @@ class StaticDataSyncingService {
     
     private let syncingLogger: DataSyncingLogger?
     
+    private let persistence: PersistenceProviding
+    
     init(openDota: OpenDotaFetching = OpenDotaController.shared,
          stratz: StratzFetching = StratzFetcher.shared,
-         persistance: PersistanceProviding = PersistanceController.shared,
+         persistence: PersistenceProviding = PersistanceController.shared,
          language: DataLanguageEnum = AppConfig.languageCode,
          logger: Logger = D2ALogger.syncing,
          syncingLogger: DataSyncingLogger? = nil) {
         self.openDota = openDota
         self.stratz = stratz
-        self.context = persistance.mainContext.makeContext(author: "Static Data")
+        self.context = persistence.mainContext.makeContext(author: "Static Data")
+        self.persistence = persistence
         self.language = language
         self.logger = logger
         self.syncingLogger = syncingLogger
@@ -117,6 +120,7 @@ class StaticDataSyncingService {
     private func syncHeroes() async throws {
         logger.trace("Start syncing heroes")
         let syncingLogger = self.syncingLogger
+        let persistenceProvider = persistence
         try await contextSaving(author: "Hero") {
             guard let heroJSON = try await openDota.constants(service: .heroes) as? [String: Any] else {
                 return [HeroSaving]()
@@ -137,7 +141,7 @@ class StaticDataSyncingService {
             return heroes
         } saving: { (hero: HeroSaving, context) in
             self.logger.info("Saving hero \(hero.heroID)")
-            try Hero.save(id: hero.heroID, data: hero.data, in: context, logger: syncingLogger)
+            try persistenceProvider.saveHero(id: hero.heroID, data: hero.data, in: context, logger: syncingLogger)
         }
     }
     

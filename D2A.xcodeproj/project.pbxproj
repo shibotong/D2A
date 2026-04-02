@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -737,10 +737,6 @@
 		79F5B5D328E3B8D900FB67E5 /* PersistanceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		792A54772F7E672D00EC815A /* Backend */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Backend; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
 		3289579627F6609B00BA9847 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -979,7 +975,6 @@
 		32B36F0D26C38821002D427D /* D2A */ = {
 			isa = PBXGroup;
 			children = (
-				792A54772F7E672D00EC815A /* Backend */,
 				79B8DA442F29AB570030429D /* Utility */,
 				79B8DA432F29AAFA0030429D /* DataSyncing */,
 				32F70B3726F80AD3006E9B05 /* D2ARelease.entitlements */,
@@ -1458,9 +1453,6 @@
 			dependencies = (
 				32F70AA726F57F7E006E9B05 /* PBXTargetDependency */,
 				32F70AEE26F61836006E9B05 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				792A54772F7E672D00EC815A /* Backend */,
 			);
 			name = D2A;
 			packageProductDependencies = (
