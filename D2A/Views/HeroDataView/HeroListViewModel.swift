@@ -42,11 +42,13 @@ class HeroListViewModel: ObservableObject {
     private let context: NSManagedObjectContext
     private let language: DataLanguageEnum
     private let logger: Logger
+    private let persistence: PersistenceProviding
     
-    init(context: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
+    init(persistence: PersistenceProviding = PersistenceProvider.shared,
          language: DataLanguageEnum = AppConfig.languageCode,
          logger: Logger = D2ALogger.ui) {
-        self.context = context
+        self.context = persistence.mainContext
+        self.persistence = persistence
         self.language = language
         self.logger = logger
         heroes = []
@@ -83,7 +85,7 @@ class HeroListViewModel: ObservableObject {
         var heroData: [HeroData] = []
         let heroes = fetchHeroes()
         for hero in heroes {
-            guard let localization = try? HeroTranslation.fetch(id: Int(hero.id), language: language, context: context) else {
+            guard let localization = try? persistence.fetchHeroLocalization(id: Int(hero.id), language: language, context: context) else {
                 logger.error("Failed to fetch localization for hero \(hero.id)")
                 continue
             }

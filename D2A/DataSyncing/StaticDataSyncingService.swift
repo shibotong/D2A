@@ -147,13 +147,14 @@ class StaticDataSyncingService {
     
     private func syncHeroTranslations() async throws {
         logger.trace("Start syncing hero translations")
+        let persistence = self.persistence
         let language = self.language
         try await contextSaving(author: "Hero Translations") {
             let stratzHeroes = try await stratz.heroes(language: language)
             return stratzHeroes
         } saving: { hero, context in
             self.logger.info("Saving hero translation \(hero.id)")
-            try HeroTranslation.save(localization: hero, language: language, in: context)
+            try persistence.saveHeroLocalization(localization: hero, language: language, in: context)
             try context.save()
         }
     }
