@@ -16,6 +16,8 @@ protocol PersistenceProviding {
     var mainContext: NSManagedObjectContext { get }
     func fetch(heroID: Int, context: NSManagedObjectContext) throws -> Hero?
     func save(heroID: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws
+    func fetch(heroID: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation?
+    func save(hero localization: SKHero, language: DataLanguageEnum, in context: NSManagedObjectContext) throws
     
     @available(*, deprecated, renamed: "fetch")
     func fetchHero(id: Double, context: NSManagedObjectContext) throws -> Hero?
@@ -23,11 +25,15 @@ protocol PersistenceProviding {
     @available(*, deprecated, renamed: "save")
     func saveHero(id: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws
     
+    @available(*, deprecated, renamed: "fetch")
     func fetchHeroLocalization(id: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation?
+    
+    @available(*, deprecated, renamed: "save")
     func saveHeroLocalization(localization: SKHero, language: DataLanguageEnum, in context: NSManagedObjectContext) throws
 }
 
 class PersistenceProvider: PersistenceProviding {
+    
     static let shared = PersistenceProvider()
 
     static var preview: PersistenceProvider = {
@@ -217,15 +223,23 @@ class PersistenceProvider: PersistenceProviding {
     }
     
     func fetchHeroLocalization(id: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation? {
+        return try fetch(heroID: id, language: language, context: context)
+    }
+    
+    func fetch(heroID: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation? {
         let fetchRequest = HeroTranslation.fetchRequest()
-        let predicate = NSPredicate(format: "heroID = %d AND language = %@", id, language.rawValue)
+        let predicate = NSPredicate(format: "heroID = %d AND language = %@", heroID, language.rawValue)
         fetchRequest.predicate = predicate
-
+        
         let results = try context.fetch(fetchRequest)
         return results.first
     }
     
     func saveHeroLocalization(localization: SKHero, language: DataLanguageEnum, in context: NSManagedObjectContext) throws {
+        try save(hero: localization, language: language, in: context)
+    }
+        
+    func save(hero localization: SKHero, language: DataLanguageEnum, in context: NSManagedObjectContext) throws {
         let translation = try fetchHeroLocalization(id: localization.id, language: language, context: context) ?? HeroTranslation(context: context)
         setIfNotEqual(entity: translation, path: \.language, value: language.rawValue)
         setIfNotEqual(entity: translation, path: \.heroID, value: Int16(localization.id))
