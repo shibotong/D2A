@@ -74,6 +74,7 @@ class StaticDataSyncingService {
     private func syncAbilities() async throws {
         logger.trace("Start syncing abilities")
         let syncingLogger = self.syncingLogger
+        let persistence = self.persistence
         try await contextSaving(author: "Ability") {
             async let abilityIDAsync = openDota.constants(service: .abilityIDs) as? [String: String]
             async let abilitiesAsync = openDota.constants(service: .abilities) as? [String: Any]
@@ -100,7 +101,7 @@ class StaticDataSyncingService {
             return results
         } saving: { ability, context in
             self.logger.info("Saving ability \(ability.abilityID)")
-            try Ability.save(id: ability.abilityID, name: ability.name, data: ability.data, in: context, syncingLogger: syncingLogger)
+            try persistence.save(abilityID: ability.abilityID, name: ability.name, data: ability.data, in: context, syncingLogger: syncingLogger)
             try context.save()
         }
     }

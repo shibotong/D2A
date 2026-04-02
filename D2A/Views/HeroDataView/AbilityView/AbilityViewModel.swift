@@ -47,16 +47,20 @@ class AbilityViewModel: ObservableObject {
     private var database = HeroDatabase.shared
     
     private var cancellables = Set<AnyCancellable>()
+    
+    private let persistenceProvider: PersistenceProviding
         
-    init(heroID: Int, ability: ODAbility?) {
+    init(heroID: Int, ability: ODAbility?,
+         persistenceProvider: PersistenceProviding = PersistenceProvider.shared) {
         self.heroID = heroID
         self.opentDotaAbility = ability
-        let context = PersistenceProvider.shared.mainContext
+        self.persistenceProvider = persistenceProvider
+        let context = persistenceProvider.mainContext
         if let localisation = try? AbilityTranslation.fetch(name: ability?.name ?? "", language: AppConfig.languageCode, context: context) {
             setLocalisation(localisation: localisation)
         }
         
-        if let name = ability?.name, let savedAbility = try? Ability.fetch(name: name, context: context) {
+        if let name = ability?.name, let savedAbility = try? persistenceProvider.fetch(ability: name, context: context) {
             setAbiilty(savedAbility)
         } else {
             setupBinding()

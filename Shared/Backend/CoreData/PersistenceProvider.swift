@@ -18,6 +18,9 @@ protocol PersistenceProviding {
     func save(heroID: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws
     func fetch(heroID: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation?
     func save(hero localization: SKHero, language: DataLanguageEnum, in context: NSManagedObjectContext) throws
+    func fetch(abilityID: Int, context: NSManagedObjectContext) throws -> Ability?
+    func fetch(ability name: String, context: NSManagedObjectContext) throws -> Ability?
+    func save(abilityID: Int, name: String, data: [String: Any], in context: NSManagedObjectContext, syncingLogger: DataSyncingLogger?) throws
     
     @available(*, deprecated, renamed: "fetch")
     func fetchHero(id: Double, context: NSManagedObjectContext) throws -> Hero?
@@ -167,6 +170,7 @@ class PersistenceProvider: PersistenceProviding {
         }
     }
     
+    // MARK: Hero
     
     func fetchHero(id: Double, context: NSManagedObjectContext) throws -> Hero? {
         return try fetch(heroID: Int(id), context: context)
@@ -246,5 +250,66 @@ class PersistenceProvider: PersistenceProviding {
         setIfNotEqual(entity: translation, path: \.displayName, value: localization.displayName)
         setIfNotEqual(entity: translation, path: \.lore, value: localization.lore)
         setIfNotEqual(entity: translation, path: \.hype, value: localization.hype)
+    }
+    
+    // MARK: Ability
+    
+    func fetch(abilityID: Int, context: NSManagedObjectContext) throws -> Ability? {
+        let fetchRequest = Ability.fetchRequest()
+        let predicate = NSPredicate(format: "abilityID = %d", abilityID)
+        fetchRequest.predicate = predicate
+        return try context.fetch(fetchRequest).first
+    }
+    
+    func fetch(ability name: String, context: NSManagedObjectContext) throws -> Ability? {
+        let fetchRequest = Ability.fetchRequest()
+        let predicate = NSPredicate(format: "name = %@", name)
+        fetchRequest.predicate = predicate
+        return try context.fetch(fetchRequest).first
+    }
+    
+    func save(abilityID: Int, name: String, data: [String: Any], in context: NSManagedObjectContext, syncingLogger: DataSyncingLogger? = nil) throws {
+        let ability = try fetch(abilityID: abilityID, context: context) ?? Ability(context: context)
+        setIfNotEqual(entity: ability, path: \.name, value: name)
+        setIfNotEqual(entity: ability, path: \.abilityID, value: Int16(abilityID))
+        setStringOrArray(entity: ability, path: \.behavior, data: data, key: "behavior", syncingLogger: syncingLogger)
+        setStringOrArray(entity: ability, path: \.bkbPierce, data: data, key: "behavior", syncingLogger: syncingLogger)
+        setStringOrArray(entity: ability, path: \.coolDown, data: data, key: "cd", syncingLogger: syncingLogger)
+        setStringOrArray(entity: ability, path: \.damageType, data: data, key: "dmg_type", syncingLogger: syncingLogger)
+        setStringOrArray(entity: ability, path: \.damageType, data: data, key: "dmg_type", syncingLogger: syncingLogger)
+        setIfExist(entity: ability, path: \.desc, data: data, key: "desc")
+        setIfExist(entity: ability, path: \.dispellable, data: data, key: "dispellable")
+        setIfExist(entity: ability, path: \.dname, data: data, key: "dname")
+        setIfExist(entity: ability, path: \.lore, data: data, key: "lore")
+        setStringOrArray(entity: ability, path: \.manaCost, data: data, key: "mc", syncingLogger: syncingLogger)
+        setStringOrArray(entity: ability, path: \.targetTeam, data: data, key: "target_team", syncingLogger: syncingLogger)
+        setStringOrArray(entity: ability, path: \.targetType, data: data, key: "target_type", syncingLogger: syncingLogger)
+    }
+    
+    private func setStringOrArray(entity: Ability, path: ReferenceWritableKeyPath<Ability, String?>, data: [String: Any], key: String, syncingLogger: DataSyncingLogger? = nil) {
+        guard let value = fetchStringOrArray(data: data, key: key, logger: syncingLogger) else {
+            return
+        }
+        setIfNotEqual(entity: entity, path: path, value: value)
+    }
+    
+    private func fetchStringOrArray(data: [String: Any], key: String, logger: DataSyncingLogger? = nil) -> String? {
+        guard let value = data[key] else {
+            return nil
+        }
+        
+        if let result = value as? String {
+            return result
+        }
+        
+        if let array = value as? [String] {
+            return array.joined(separator: " / ")
+        }
+        
+        Task {
+            await logger?.addError(type: .ability, error: .dataType, key: key)
+        }
+        
+        return nil
     }
 }
