@@ -115,7 +115,7 @@ struct HeroDetailView: View {
                 buildRoles(roles: roles)
                 Divider()
             }
-            buildStats(hero: hero)
+            HeroStatsView(hero: hero)
             Divider()
             if let talents = hero.talents?.allObjects as? [Talent] {
                 buildTalent(talent: talents)
@@ -210,56 +210,6 @@ struct HeroDetailView: View {
     @ViewBuilder private func buildRole(role: String, roles: [Role]) -> some View {
         let filterdRole = roles.first { $0.roleId == role.uppercased() }
         RoleView(title: role, level: filterdRole?.level ?? 0.0)
-    }
-    
-    @ViewBuilder private func buildStats(hero: Hero) -> some View {
-        VStack {
-            HStack {
-                Text("Stats")
-                    .font(.system(size: 15))
-                    .bold()
-                Spacer()
-            }.padding(.leading)
-            HStack(alignment: .top) {
-                Spacer()
-                VStack(alignment: .leading, spacing: 5) {
-                    Text("Attack")
-                        .font(.system(size: 15))
-//                    buildStatDetail(image: "icon_damage", value: "\(hero.calculatedAttackMin)-\(hero.calculatedAttackMax)")
-                    buildStatDetail(image: "icon_attack_time", value: "\(hero.attackRate)")
-                    buildStatDetail(image: "icon_attack_range", value: "\(hero.attackRange)")
-                    buildStatDetail(image: "icon_projectile_speed", value: "\(hero.projectileSpeed)")
-                }
-                Spacer()
-                VStack(alignment: .leading, spacing: 5) {
-                    Text("Defense")
-                        .font(.system(size: 15))
-//                    buildStatDetail(image: "icon_armor", value: String(format: "%.1f", hero.calculateArmor))
-                    buildStatDetail(image: "icon_magic_resist", value: "\(hero.baseMr)%")
-                }
-                Spacer()
-                VStack(alignment: .leading, spacing: 5) {
-                    Text("Mobility")
-                        .font(.system(size: 15))
-                    buildStatDetail(image: "icon_movement_speed", value: "\(hero.moveSpeed)")
-                    buildStatDetail(image: "icon_turn_rate", value: "\(hero.turnRate)")
-                    buildStatDetail(image: "icon_vision", value: "\(Int(hero.visionDaytimeRange))/\(Int(hero.visionNighttimeRange))")
-                }
-                Spacer()
-            }
-        }
-    }
-    
-    @ViewBuilder private func buildStatDetail(image: String, value: String) -> some View {
-        HStack {
-            Image(image)
-                .renderingMode(.template)
-                .resizable()
-                .frame(width: 15, height: 15)
-                .foregroundColor(Color(uiColor: UIColor.label))
-            Text(value)
-                .font(.system(size: 15))
-        }
     }
     
     @ViewBuilder private func buildAttributes(hero: Hero) -> some View {

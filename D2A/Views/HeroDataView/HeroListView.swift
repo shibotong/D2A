@@ -72,11 +72,7 @@ struct HeroListView: View {
     @ViewBuilder private func buildHeroGrid(heroes: [any HeroProtocol], attribute: HeroAttribute) -> some View {
         Section {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading), count: 1)) {
-                ForEach(heroes, id: \.id) { hero in
-                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.heroID))) {
-                        buildHero(hero: hero)
-                    }
-                }
+                navigationHero(heroes: heroes)
             }
         } header: {
             HStack {
@@ -116,19 +112,10 @@ struct HeroListView: View {
     @ViewBuilder private func buildMainPart(heroes: [any HeroProtocol]) -> some View {
         if vm.gridView {
             LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 130, maximum: 200), spacing: 10, alignment: .leading), count: 1)) {
-                ForEach(heroes, id: \.id) { hero in
-                    NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
-                        buildHero(hero: hero)
-                            
-                    }
-                }
+                navigationHero(heroes: heroes)
             }
         } else {
-            ForEach(heroes, id: \.id) { hero in
-                NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(heroID: hero.id))) {
-                    buildHero(hero: hero)
-                }
-            }
+            navigationHero(heroes: heroes)
         }
     }
     
@@ -171,6 +158,15 @@ struct HeroListView: View {
                         .resizable()
                         .frame(width: 20, height: 20)
                 }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func navigationHero(heroes: [any HeroProtocol]) -> some View {
+        ForEach(heroes, id: \.id) { hero in
+            NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(hero: hero))) {
+                buildHero(hero: hero)
             }
         }
     }
