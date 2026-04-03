@@ -9,38 +9,43 @@ import SwiftUI
 import CryptoKit
 
 struct HeroListView: View {
+    @EnvironmentObject var syncingService: StaticDataSyncingService
     @StateObject var vm = HeroListViewModel()
     @Environment(\.horizontalSizeClass) private var horizontalSize
     
     var body: some View {
-        buildBody()
-            .navigationTitle("Heroes")
-            .searchable(text: $vm.searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
-            .disableAutocorrection(true)
-            .toolbar {
-                if horizontalSize == .compact {
-                    Menu {
-                        Picker("picker", selection: $vm.gridView) {
-                            Label("Icons", systemImage: "square.grid.2x2").tag(true)
-                            Label("List", systemImage: "list.bullet").tag(false)
-                        }
-                        
-                        Picker("attributes", selection: $vm.selectedAttribute) {
-                            Text("All").tag(HeroAttribute.whole)
-                            Label("STRENGTH", image: "attribute_str").tag(HeroAttribute.str)
-                            Label("AGILITY", image: "attribute_agi").tag(HeroAttribute.agi)
-                            Label("INTELLIGENCE", image: "attribute_int").tag(HeroAttribute.int)
-                            Label("UNIVERSAL", image: "attribute_all").tag(HeroAttribute.all)
-                        }
-                    } label: {
-                        if vm.gridView {
-                            Image(systemName: "square.grid.2x2")
-                        } else {
-                            Image(systemName: "list.bullet")
+        if !syncingService.isCompleted && vm.heroes.isEmpty {
+            ProgressView()
+        } else {
+            buildBody()
+                .navigationTitle("Heroes")
+                .searchable(text: $vm.searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
+                .disableAutocorrection(true)
+                .toolbar {
+                    if horizontalSize == .compact {
+                        Menu {
+                            Picker("picker", selection: $vm.gridView) {
+                                Label("Icons", systemImage: "square.grid.2x2").tag(true)
+                                Label("List", systemImage: "list.bullet").tag(false)
+                            }
+                            
+                            Picker("attributes", selection: $vm.selectedAttribute) {
+                                Text("All").tag(HeroAttribute.whole)
+                                Label("STRENGTH", image: "attribute_str").tag(HeroAttribute.str)
+                                Label("AGILITY", image: "attribute_agi").tag(HeroAttribute.agi)
+                                Label("INTELLIGENCE", image: "attribute_int").tag(HeroAttribute.int)
+                                Label("UNIVERSAL", image: "attribute_all").tag(HeroAttribute.all)
+                            }
+                        } label: {
+                            if vm.gridView {
+                                Image(systemName: "square.grid.2x2")
+                            } else {
+                                Image(systemName: "list.bullet")
+                            }
                         }
                     }
                 }
-            }
+        }
     }
     
     @ViewBuilder private func buildBody() -> some View {

@@ -9,9 +9,11 @@ import Foundation
 import CoreData
 import Logging
 
-class StaticDataSyncingService {
+class StaticDataSyncingService: ObservableObject {
 
     static let shared = StaticDataSyncingService()
+    
+    @Published var isCompleted: Bool = true
     
     private let openDota: OpenDotaFetching
     private let stratz: StratzFetching
@@ -44,6 +46,7 @@ class StaticDataSyncingService {
     }
     
     func startSyncing() async {
+        isCompleted = false
         do {
             try await syncAbilities()
             try await syncAbilityTranslation()
@@ -59,6 +62,7 @@ class StaticDataSyncingService {
         } catch {
             logger.error("Failed to sync data: \(error.localizedDescription)")
         }
+        isCompleted = true
     }
     
     private func syncAbilities() async throws {

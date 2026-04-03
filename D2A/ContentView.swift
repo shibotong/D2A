@@ -12,6 +12,7 @@ struct ContentView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var data: HeroDatabase
     @EnvironmentObject var store: StoreManager
+    @EnvironmentObject var syncingService: StaticDataSyncingService
     var body: some View {
         Group {
             if data.status != .finish || env.loading == true {
@@ -32,18 +33,10 @@ struct ContentView: View {
             Alert(title: Text("Error"), message: Text(env.errorMessage), dismissButton: .cancel())
         })
         .task {
-            await StaticDataSyncingService.shared.startSyncing()
+            await syncingService.startSyncing()
         }
     }
 }
-
-// struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//            .environmentObject(DotaEnvironment.shared)
-//            .environmentObject(HeroDatabase.preview)
-//    }
-// }
 
 struct NavigationHostView: View {
     @EnvironmentObject var env: DotaEnvironment

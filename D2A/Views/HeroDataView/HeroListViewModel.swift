@@ -41,6 +41,11 @@ class HeroListViewModel: ObservableObject {
     }
     
     private func setupBinding() {
+        NotificationCenter.default.addObserver(forName: .NSManagedObjectContextDidSave, object: nil, queue: .main) {
+            [weak self] _ in
+            print("context did save")
+            self?.fetchData()
+        }
         $searchString
             .combineLatest($selectedAttribute)
             .map { [weak self] searchString, attributes in
@@ -66,7 +71,7 @@ class HeroListViewModel: ObservableObject {
         var heroData: [HeroData] = []
         let heroes = fetchHeroes()
         for hero in heroes {
-            guard let localization = try? persistence.fetchHeroLocalization(id: Int(hero.id), language: language, context: context) else {
+            guard let localization = try? persistence.fetch(heroID: Int(hero.id), language: language, context: context) else {
                 logger.error("Failed to fetch localization for hero \(hero.id)")
                 continue
             }
