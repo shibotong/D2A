@@ -29,12 +29,14 @@ class StaticDataSyncingService: ObservableObject {
     private let syncingLogger: DataSyncingLogger?
     
     private let persistence: PersistenceProviding
+    private let notification: D2ANotification
     
     init(openDota: OpenDotaFetching = OpenDotaController.shared,
          stratz: StratzFetching = StratzFetcher.shared,
          persistence: PersistenceProviding = PersistenceProvider.shared,
          language: DataLanguageEnum = AppConfig.languageCode,
          logger: Logger = D2ALogger.syncing,
+         notification: D2ANotification = .default,
          syncingLogger: DataSyncingLogger? = nil) {
         self.openDota = openDota
         self.stratz = stratz
@@ -42,6 +44,7 @@ class StaticDataSyncingService: ObservableObject {
         self.persistence = persistence
         self.language = language
         self.logger = logger
+        self.notification = notification
         self.syncingLogger = syncingLogger
     }
     
@@ -59,6 +62,7 @@ class StaticDataSyncingService: ObservableObject {
             try await context.parent?.perform {
                 try context.parent?.save()
             }
+            notification.syncingCompletion.send(true)
         } catch {
             logger.error("Failed to sync data: \(error.localizedDescription)")
         }

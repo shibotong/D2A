@@ -12,8 +12,8 @@ import Logging
 
 class HeroListViewModel: ObservableObject {
     
-    @Published var searchResults: [any HeroProtocol]
-    @Published var heroes: [any HeroProtocol]
+    @Published var searchResults: [HeroData]
+    @Published var heroes: [HeroData]
     
     @Published var searchString: String = ""
     @Published var gridView = true
@@ -24,14 +24,17 @@ class HeroListViewModel: ObservableObject {
     private let language: DataLanguageEnum
     private let logger: Logger
     private let persistence: PersistenceProviding
+    private let notification: D2ANotification
     
     init(persistence: PersistenceProviding = PersistenceProvider.shared,
          language: DataLanguageEnum = AppConfig.languageCode,
+         notification: D2ANotification = .default,
          logger: Logger = D2ALogger.ui) {
         self.context = persistence.mainContext
         self.persistence = persistence
         self.language = language
         self.logger = logger
+        self.notification = notification
         heroes = []
         searchString = ""
         searchResults = []
@@ -41,11 +44,12 @@ class HeroListViewModel: ObservableObject {
     }
     
     private func setupBinding() {
-        NotificationCenter.default.addObserver(forName: .NSManagedObjectContextDidSave, object: nil, queue: .main) {
-            [weak self] _ in
-            print("context did save")
-            self?.fetchData()
-        }
+        notification.syncingCompletion
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.fetchData()
+            }
+            .store(in: &subscribers)
         $searchString
             .combineLatest($selectedAttribute)
             .map { [weak self] searchString, attributes in
@@ -78,6 +82,7 @@ class HeroListViewModel: ObservableObject {
             heroData.append(HeroData(hero: hero, localization: localization))
         }
         self.heroes = heroData.sorted { $0.localizedName < $1.localizedName }
+        self.searchResults = self.heroes
     }
     
     private func fetchHeroes() -> [Hero] {
