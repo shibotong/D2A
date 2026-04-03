@@ -221,6 +221,7 @@ class PersistenceProvider: PersistenceProviding {
         setIfExist(entity: hero, path: \.visionDaytimeRange, data: data, key: "day_vision", errorCompletion: closure)
         setIfExist(entity: hero, path: \.visionNighttimeRange, data: data, key: "night_vision", errorCompletion: closure)
         setIfNotEqual(entity: hero, path: \.complexity, value: Int16(additional.complexity))
+        
     }
     
     func fetchHeroLocalization(id: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation? {

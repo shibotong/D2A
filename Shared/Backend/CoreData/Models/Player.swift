@@ -10,19 +10,9 @@ import CoreData
 
 @objc(PlayerTransformer)
 final class PlayerTransformer: NSSecureUnarchiveFromDataTransformer {
-
-    // The name of the transformer. This is what we will use to register the transformer `ValueTransformer.setValueTrandformer(_"forName:)`.
-    static let name = NSValueTransformerName(rawValue: String(describing: PlayerTransformer.self))
-
     // Our class `Test` should in the allowed class list. (This is what the unarchiver uses to check for the right class)
     override static var allowedTopLevelClasses: [AnyClass] {
         return [NSArray.self, NSNumber.self, Player.self, PermanentBuff.self]
-    }
-
-    /// Registers the transformer.
-    public static func register() {
-        let transformer = PlayerTransformer()
-        ValueTransformer.setValueTransformer(transformer, forName: name)
     }
 }
 

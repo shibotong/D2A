@@ -20,7 +20,8 @@ struct D2AApp: App {
     @AppStorage("selectedUser") var selectedUser: String?
     
     init() {
-        PlayerTransformer.register()
+        registerTransformers()
+        
     }
     
     var body: some Scene {
@@ -60,5 +61,9 @@ struct D2AApp: App {
                     }
                 }
         }
+    }
+    
+    private func registerTransformers() {
+        ValueTransformer.setValueTransformer(PlayerTransformer(), forName: .player)
     }
 }
