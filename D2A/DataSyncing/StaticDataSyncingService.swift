@@ -125,23 +125,19 @@ class StaticDataSyncingService: ObservableObject {
             guard let heroJSON = try await openDota.constants(service: .heroes) as? [String: Any] else {
                 return [HeroSaving]()
             }
+            let heroAdditionalDatas = try await stratz.heroAdditionalData()
             var heroes: [HeroSaving] = []
-            for (heroIDString, hero) in heroJSON {
-                logger.trace("processing hero: \(heroIDString)")
-                guard let heroID = Int(heroIDString) else {
-                    logger.error("Hero ID is not an integer: \(heroIDString)")
-                    continue
-                }
-                guard let hero = hero as? [String: Any] else {
+            for heroAdditionalData in heroAdditionalDatas {
+                guard let heroData = heroJSON["\(heroAdditionalData.heroID)"] as? [String: Any] else {
                     logger.warning("hero is not valid")
                     continue
                 }
-                heroes.append(HeroSaving(heroID: heroID, data: hero))
+                heroes.append(HeroSaving(heroID: heroAdditionalData.heroID, data: heroData, additonalData: heroAdditionalData))
             }
             return heroes
         } saving: { (hero: HeroSaving, context) in
             self.logger.info("Saving hero \(hero.heroID)")
-            try persistenceProvider.save(heroID: hero.heroID, data: hero.data, in: context, logger: syncingLogger)
+            try persistenceProvider.save(heroID: hero.heroID, data: hero.data, additional: hero.additonalData, in: context, logger: syncingLogger)
         }
     }
     
@@ -207,6 +203,7 @@ class StaticDataSyncingService: ObservableObject {
     private struct HeroSaving {
         let heroID: Int
         let data: [String: Any]
+        let additonalData: SKHeroAdditional
     }
 }
 

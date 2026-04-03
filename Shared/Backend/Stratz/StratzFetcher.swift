@@ -10,6 +10,7 @@ import StratzAPI
 
 protocol StratzFetching {
     func heroes(language: DataLanguageEnum) async throws -> [SKHero]
+    func heroAdditionalData() async throws -> [SKHeroAdditional]
     func abilities(language: DataLanguageEnum) async throws -> [SKAbility]
 }
 
@@ -61,6 +62,36 @@ struct StratzFetcher: StratzFetching {
                         return SKHero(id: Int(heroID), roles: roles, displayName: stratzLanguage.displayName ?? "", lore: stratzLanguage.lore ?? "", hype: stratzLanguage.hype ?? "")
                     }
                     continuation.resume(returning: heroes)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
+    func heroAdditionalData() async throws -> [SKHeroAdditional] {
+        return try await withCheckedThrowingContinuation { continuation in
+            apollo.fetch(query: HeroDataQuery()) { result in
+                switch result {
+                case .success(let graphQLResult):
+                    guard let data = graphQLResult.data?.constants?.heroes else {
+                        continuation.resume(throwing: APIError.networkError)
+                        return
+                    }
+                    let additionalData: [SKHeroAdditional] = data.compactMap { hero in
+                        guard let heroID = hero?.id, let complexity = hero?.stats?.complexity, let roles = hero?.roles else {
+                            return nil
+                        }
+                        let skRoles: [SKHeroAdditional.Role] = roles.compactMap { role in
+                            guard let roleID = role?.roleId, let level = role?.level else {
+                                return nil
+                            }
+                            return .init(level: Int(level), roleId: roleID.rawValue)
+                        }
+                        
+                        return SKHeroAdditional(heroID: Int(heroID), complexity: Int(complexity), roles: skRoles)
+                    }
+                    continuation.resume(returning: additionalData)
                 case .failure(let error):
                     continuation.resume(throwing: error)
                 }

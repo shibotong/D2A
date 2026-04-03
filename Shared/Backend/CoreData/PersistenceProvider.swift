@@ -15,7 +15,7 @@ enum PersistenceError: Error {
 protocol PersistenceProviding {
     var mainContext: NSManagedObjectContext { get }
     func fetch(heroID: Int, context: NSManagedObjectContext) throws -> Hero?
-    func save(heroID: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws
+    func save(heroID: Int, data: [String: Any], additional: SKHeroAdditional, in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws
     func fetch(heroID: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation?
     func save(hero localization: SKHero, language: DataLanguageEnum, in context: NSManagedObjectContext) throws
     func fetch(abilityID: Int, context: NSManagedObjectContext) throws -> Ability?
@@ -27,9 +27,6 @@ protocol PersistenceProviding {
     
     @available(*, deprecated, renamed: "fetch")
     func fetchHero(id: Double, context: NSManagedObjectContext) throws -> Hero?
-    
-    @available(*, deprecated, renamed: "save")
-    func saveHero(id: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws
     
     @available(*, deprecated, renamed: "fetch")
     func fetchHeroLocalization(id: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation?
@@ -186,12 +183,8 @@ class PersistenceProvider: PersistenceProviding {
         let results = try context.fetch(fetchHero)
         return results.first
     }
-    
-    func saveHero(id: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws {
-        try save(heroID: id, data: data, in: context, logger: logger)
-    }
         
-    func save(heroID: Int, data: [String: Any], in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws {
+    func save(heroID: Int, data: [String: Any], additional: SKHeroAdditional, in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws {
         let hero = try fetch(heroID: heroID, context: context) ?? Hero(context: context)
         
         var closure: ((String) -> ())?
@@ -227,6 +220,7 @@ class PersistenceProvider: PersistenceProviding {
         setIfExist(entity: hero, path: \.turnRate, data: data, key: "turn_rate", defaultValue: 0.6, errorCompletion: closure)
         setIfExist(entity: hero, path: \.visionDaytimeRange, data: data, key: "day_vision", errorCompletion: closure)
         setIfExist(entity: hero, path: \.visionNighttimeRange, data: data, key: "night_vision", errorCompletion: closure)
+        setIfNotEqual(entity: hero, path: \.complexity, value: Int16(additional.complexity))
     }
     
     func fetchHeroLocalization(id: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation? {
