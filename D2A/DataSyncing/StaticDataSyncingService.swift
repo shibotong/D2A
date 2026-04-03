@@ -141,7 +141,7 @@ class StaticDataSyncingService: ObservableObject {
             return heroes
         } saving: { (hero: HeroSaving, context) in
             self.logger.info("Saving hero \(hero.heroID)")
-            try persistenceProvider.saveHero(id: hero.heroID, data: hero.data, in: context, logger: syncingLogger)
+            try persistenceProvider.save(heroID: hero.heroID, data: hero.data, in: context, logger: syncingLogger)
         }
     }
     
@@ -154,7 +154,7 @@ class StaticDataSyncingService: ObservableObject {
             return stratzHeroes
         } saving: { hero, context in
             self.logger.info("Saving hero translation \(hero.id)")
-            try persistence.saveHeroLocalization(localization: hero, language: language, in: context)
+            try persistence.save(hero: hero, language: language, in: context)
             try context.save()
         }
     }
