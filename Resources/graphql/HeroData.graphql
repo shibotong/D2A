@@ -1,0 +1,14 @@
+query HeroData {
+  constants {
+    heroes {
+      id
+      roles {
+        roleId
+        level
+      }
+      stats {
+        complexity
+      }
+    }
+  }
+}
