@@ -142,21 +142,24 @@ class StaticDataSyncingService: ObservableObject {
         let persistenceProvider = persistence
         try await contextSaving(author: "Hero") {
             guard let heroJSON = try await openDota.constants(service: .heroes) as? [String: Any] else {
-                return [HeroSaving]()
+                return [HeroRecipe]()
+            }
+            guard let abilitiesJSON = try await openDota.constants(service: .heroAbilities) as? [String: Any] else {
+                return [HeroRecipe]()
             }
             let heroAdditionalDatas = try await stratz.heroAdditionalData()
-            var heroes: [HeroSaving] = []
+            var heroes: [HeroRecipe] = []
             for heroAdditionalData in heroAdditionalDatas {
-                guard let heroData = heroJSON["\(heroAdditionalData.heroID)"] as? [String: Any] else {
+                guard let heroData = heroJSON["\(heroAdditionalData.heroID)"] as? [String: Any], let abilities = abilitiesJSON[heroAdditionalData.name] as? [String: Any] else {
                     logger.warning("hero is not valid")
                     continue
                 }
-                heroes.append(HeroSaving(heroID: heroAdditionalData.heroID, data: heroData, additonalData: heroAdditionalData))
+                heroes.append(HeroRecipe(heroID: heroAdditionalData.heroID, data: heroData, abilities: abilities, additonalData: heroAdditionalData))
             }
             return heroes
-        } saving: { (hero: HeroSaving, context) in
+        } saving: { (hero: HeroRecipe, context) in
             self.logger.info("Saving hero \(hero.heroID)")
-            try persistenceProvider.save(heroID: hero.heroID, data: hero.data, additional: hero.additonalData, in: context, logger: syncingLogger)
+            try persistenceProvider.save(hero: hero, in: context, logger: syncingLogger)
         }
     }
     
@@ -217,12 +220,6 @@ class StaticDataSyncingService: ObservableObject {
         let abilityID: Int
         let name: String
         let data: [String: Any]
-    }
-    
-    private struct HeroSaving {
-        let heroID: Int
-        let data: [String: Any]
-        let additonalData: SKHeroAdditional
     }
 }
 

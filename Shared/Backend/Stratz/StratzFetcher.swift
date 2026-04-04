@@ -79,7 +79,7 @@ struct StratzFetcher: StratzFetching {
                         return
                     }
                     let additionalData: [SKHeroAdditional] = data.compactMap { hero in
-                        guard let heroID = hero?.id, let complexity = hero?.stats?.complexity, let roles = hero?.roles else {
+                        guard let heroID = hero?.id, let complexity = hero?.stats?.complexity, let roles = hero?.roles, let name = hero?.name else {
                             return nil
                         }
                         let skRoles: [SKHeroAdditional.Role] = roles.compactMap { role in
@@ -89,7 +89,7 @@ struct StratzFetcher: StratzFetching {
                             return .init(level: Int(level), roleId: roleID.rawValue)
                         }
                         
-                        return SKHeroAdditional(heroID: Int(heroID), complexity: Int(complexity), roles: skRoles)
+                        return SKHeroAdditional(heroID: Int(heroID), name: name, complexity: Int(complexity), roles: skRoles)
                     }
                     continuation.resume(returning: additionalData)
                 case .failure(let error):

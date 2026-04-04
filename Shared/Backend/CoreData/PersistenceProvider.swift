@@ -15,7 +15,7 @@ enum PersistenceError: Error {
 protocol PersistenceProviding {
     var mainContext: NSManagedObjectContext { get }
     func fetch(heroID: Int, context: NSManagedObjectContext) throws -> Hero?
-    func save(heroID: Int, data: [String: Any], additional: SKHeroAdditional, in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws
+    func save(hero receipe: HeroRecipe, in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws
     func fetch(heroID: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation?
     func save(hero localization: SKHero, language: DataLanguageEnum, in context: NSManagedObjectContext) throws
     func fetch(abilityID: Int, context: NSManagedObjectContext) throws -> Ability?
@@ -183,8 +183,12 @@ class PersistenceProvider: PersistenceProviding {
         let results = try context.fetch(fetchHero)
         return results.first
     }
+
+    func save(hero receipe: HeroRecipe, in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws {
+        try save(heroID: receipe.heroID, data: receipe.data, abilities: receipe.abilities, additional: receipe.additonalData, in: context, logger: logger)
+    }
         
-    func save(heroID: Int, data: [String: Any], additional: SKHeroAdditional, in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws {
+    private func save(heroID: Int, data: [String: Any], abilities: [String: Any], additional: SKHeroAdditional, in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws {
         let hero = try fetch(heroID: heroID, context: context) ?? Hero(context: context)
         
         var closure: ((String) -> ())?

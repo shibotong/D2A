@@ -7,6 +7,7 @@
 
 struct SKHeroAdditional {
     let heroID: Int
+    let name: String
     let complexity: Int
     let roles: [Role]
     

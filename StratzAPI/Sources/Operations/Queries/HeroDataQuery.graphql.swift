@@ -14,6 +14,7 @@ public class HeroDataQuery: GraphQLQuery {
           heroes {
             __typename
             id
+            name
             roles {
               __typename
               roleId
@@ -69,11 +70,13 @@ public class HeroDataQuery: GraphQLQuery {
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("id", StratzAPI.Short?.self),
+          .field("name", String?.self),
           .field("roles", [Role?]?.self),
           .field("stats", Stats?.self),
         ] }
 
         public var id: StratzAPI.Short? { __data["id"] }
+        public var name: String? { __data["name"] }
         public var roles: [Role?]? { __data["roles"] }
         public var stats: Stats? { __data["stats"] }
 

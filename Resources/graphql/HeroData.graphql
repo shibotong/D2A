@@ -2,6 +2,7 @@ query HeroData {
   constants {
     heroes {
       id
+      name
       roles {
         roleId
         level
