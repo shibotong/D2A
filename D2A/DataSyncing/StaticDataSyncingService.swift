@@ -69,6 +69,25 @@ class StaticDataSyncingService: ObservableObject {
         isCompleted = true
     }
     
+    func syncStaticData() async {
+        isCompleted = false
+        do {
+            try await syncAbilities()
+            try await syncHeroes()
+            let context = self.context
+            try await context.perform {
+                try context.save()
+            }
+            try await context.parent?.perform {
+                try context.parent?.save()
+            }
+            notification.syncingCompletion.send(true)
+        } catch {
+            logger.error("Failed to sync data: \(error.localizedDescription)")
+        }
+        isCompleted = true
+    }
+    
     private func syncAbilities() async throws {
         logger.trace("Start syncing abilities")
         let syncingLogger = self.syncingLogger
