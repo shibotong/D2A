@@ -221,7 +221,22 @@ class PersistenceProvider: PersistenceProviding {
         setIfExist(entity: hero, path: \.visionDaytimeRange, data: data, key: "day_vision", errorCompletion: closure)
         setIfExist(entity: hero, path: \.visionNighttimeRange, data: data, key: "night_vision", errorCompletion: closure)
         setIfNotEqual(entity: hero, path: \.complexity, value: Int16(additional.complexity))
-        
+        setIfNotEqual(entity: hero, path: \.roleCarry, value: Int16(findRole(role: .carry, roles: additional.roles)))
+        setIfNotEqual(entity: hero, path: \.roleSupport, value: Int16(findRole(role: .support, roles: additional.roles)))
+        setIfNotEqual(entity: hero, path: \.roleNuker, value: Int16(findRole(role: .nuker, roles: additional.roles)))
+        setIfNotEqual(entity: hero, path: \.roleDisabler, value: Int16(findRole(role: .disabler, roles: additional.roles)))
+        setIfNotEqual(entity: hero, path: \.roleJungler, value: Int16(findRole(role: .jungler, roles: additional.roles)))
+        setIfNotEqual(entity: hero, path: \.roleDurable, value: Int16(findRole(role: .durable, roles: additional.roles)))
+        setIfNotEqual(entity: hero, path: \.roleEscape, value: Int16(findRole(role: .escape, roles: additional.roles)))
+        setIfNotEqual(entity: hero, path: \.rolePusher, value: Int16(findRole(role: .pusher, roles: additional.roles)))
+        setIfNotEqual(entity: hero, path: \.roleInitiator, value: Int16(findRole(role: .initiator, roles: additional.roles)))
+    }
+    
+    private func findRole(role: RoleEnum, roles: [SKHeroAdditional.Role]) -> Int {
+        guard let role = roles.first(where: { $0.roleId.lowercased() == role.rawValue }) else {
+            return 0
+        }
+        return role.level
     }
     
     func fetchHeroLocalization(id: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation? {
