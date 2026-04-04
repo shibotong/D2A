@@ -224,6 +224,8 @@ class PersistenceProvider: PersistenceProviding {
         setIfExist(entity: hero, path: \.turnRate, data: data, key: "turn_rate", defaultValue: 0.6, errorCompletion: closure)
         setIfExist(entity: hero, path: \.visionDaytimeRange, data: data, key: "day_vision", errorCompletion: closure)
         setIfExist(entity: hero, path: \.visionNighttimeRange, data: data, key: "night_vision", errorCompletion: closure)
+        
+        // addtional data
         setIfNotEqual(entity: hero, path: \.complexity, value: Int16(additional.complexity))
         setIfNotEqual(entity: hero, path: \.roleCarry, value: Int16(findRole(role: .carry, roles: additional.roles)))
         setIfNotEqual(entity: hero, path: \.roleSupport, value: Int16(findRole(role: .support, roles: additional.roles)))
@@ -234,6 +236,9 @@ class PersistenceProvider: PersistenceProviding {
         setIfNotEqual(entity: hero, path: \.roleEscape, value: Int16(findRole(role: .escape, roles: additional.roles)))
         setIfNotEqual(entity: hero, path: \.rolePusher, value: Int16(findRole(role: .pusher, roles: additional.roles)))
         setIfNotEqual(entity: hero, path: \.roleInitiator, value: Int16(findRole(role: .initiator, roles: additional.roles)))
+        
+        // abilities
+        setIfExist(entity: hero, path: \.abilities, data: abilities, key: "abilities", errorCompletion: closure)
     }
     
     private func findRole(role: RoleEnum, roles: [SKHeroAdditional.Role]) -> Int {
