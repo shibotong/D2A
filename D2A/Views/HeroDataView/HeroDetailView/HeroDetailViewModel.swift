@@ -20,7 +20,7 @@ class HeroDetailViewModel: ObservableObject {
     @Published var previousHeroID: Int?
     @Published var nextHeroID: Int?
     
-    @Published var abilities: [ODAbility] = []
+    @Published var abilities: [any AbilityProtocol] = []
     
     private var database: HeroDatabase = HeroDatabase.shared
     private let persistence: PersistenceProviding

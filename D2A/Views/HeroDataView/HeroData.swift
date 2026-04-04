@@ -22,6 +22,7 @@ extension HeroProtocol {
 struct HeroData: HeroProtocol {
     let hero: Hero
     let localization: HeroTranslation
+    let abilities: [AbilityData]
     
     var heroID: Int {
         return Int(localization.heroID)
@@ -38,4 +39,18 @@ struct HeroData: HeroProtocol {
     var heroAbilities: [String] {
         hero.abilities ?? []
     }
+}
+
+protocol AbilityProtocol: Identifiable {
+    
+}
+
+struct AbilityData: AbilityProtocol {
+    
+    var id: Int {
+        Int(ability.abilityID)
+    }
+    
+    let ability: Ability
+    let localization: AbilityTranslation
 }
