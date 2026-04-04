@@ -10,9 +10,7 @@
 		3201BC3F26F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 3201BC4326F89ECD00A67505 /* DynamicUserSelection.intentdefinition */; };
 		3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 3201BC4326F89ECD00A67505 /* DynamicUserSelection.intentdefinition */; };
 		3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 3201BC4326F89ECD00A67505 /* DynamicUserSelection.intentdefinition */; };
-		32079DBD28B83F0F0056D19F /* AbilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32079DBC28B83F0F0056D19F /* AbilityView.swift */; };
 		321D58A026D234A90059526B /* AboutUsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321D589F26D234A90059526B /* AboutUsView.swift */; };
-		321E3D01285422D00094FB10 /* AbilityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321E3D00285422D00094FB10 /* AbilityViewModel.swift */; };
 		322B893E26CE66F800DF67F9 /* MainLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893D26CE66F800DF67F9 /* MainLoadingView.swift */; };
 		322B894026CE696C00DF67F9 /* DifferenceGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B893F26CE696C00DF67F9 /* DifferenceGraphView.swift */; };
 		322B89BF26CE788900DF67F9 /* AnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322B89BE26CE788900DF67F9 /* AnalysisViewModel.swift */; };
@@ -30,7 +28,6 @@
 		327772AF26D8BE63000A0A97 /* MatchListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327772AE26D8BE63000A0A97 /* MatchListRowView.swift */; };
 		327B875A284D96A600BBE1F8 /* UserProfileRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B8759284D96A600BBE1F8 /* UserProfileRowView.swift */; };
 		327B8764284DBD4600BBE1F8 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70ADA26F6090A006E9B05 /* NetworkImage.swift */; };
-		327B87782852263300BBE1F8 /* HeroListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327B87772852263300BBE1F8 /* HeroListViewModel.swift */; };
 		327C033C2716A8F400DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
 		327C033D2716A90400DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
 		327C033E2716A92500DAEC42 /* KDAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 327C033B2716A8F400DAEC42 /* KDAView.swift */; };
@@ -89,15 +86,10 @@
 		790FBB2C29C1877400E27106 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2B29C1877400E27106 /* StratzAPI */; };
 		790FBB2E29C1877A00E27106 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2D29C1877A00E27106 /* StratzAPI */; };
 		790FBB3429C18AC800E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB3329C18AC800E27106 /* Apollo */; };
-		7912B6E32B5D022C00AE1947 /* AbilityTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7912B6E22B5D022C00AE1947 /* AbilityTitleView.swift */; };
 		79266DA42A31B078002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA32A31B078002FEF0F /* ApolloWebSocket */; };
 		79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA82A31B21D002FEF0F /* ApolloWebSocket */; };
 		79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DAA2A31B224002FEF0F /* ApolloWebSocket */; };
 		792A546E2F777B2500EC815A /* SyncingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A546D2F777B2100EC815A /* SyncingTests.swift */; };
-		792A54742F7D24CE00EC815A /* HeroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54732F7D24C800EC815A /* HeroData.swift */; };
-		792A54752F7D25BC00EC815A /* HeroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54732F7D24C800EC815A /* HeroData.swift */; };
-		792A54762F7D25BC00EC815A /* HeroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A54732F7D24C800EC815A /* HeroData.swift */; };
-		79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79368C0928E6D8ED009517D2 /* RoleView.swift */; };
 		7942FD0C2B706B57008CE4B0 /* ScreenShotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790102B929F40C4600E8A320 /* ScreenShotTests.swift */; };
 		7942FD0E2B706B85008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
 		7942FD0F2B706B90008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
@@ -115,7 +107,6 @@
 		79518D0B2F72A9CD005C9449 /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79518D082F72A9C8005C9449 /* secrets.json */; };
 		7965F636293ADE1900922F99 /* RegisteredPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */; };
 		796674212E697BD500D102FA /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 796674202E697BD500D102FA /* StratzAPI */; };
-		796BF20429F5536000555C64 /* HeroListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796BF20329F5536000555C64 /* HeroListView.swift */; };
 		796FE19C29AAF659003379EB /* AbilityImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796FE19B29AAF659003379EB /* AbilityImage.swift */; };
 		796FE19E29AB006C003379EB /* AbilityImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796FE19D29AB006C003379EB /* AbilityImageViewModel.swift */; };
 		797776D12B60C5E6000E6C3B /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797776D02B60C5E6000E6C3B /* ViewExtension.swift */; };
@@ -137,8 +128,6 @@
 		798A5CF82945503100EB07B0 /* ProfileAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798A5CF72945503100EB07B0 /* ProfileAvatar.swift */; };
 		798C42932A3565BA00BDC470 /* LiveMatchKillEventTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798C42922A3565BA00BDC470 /* LiveMatchKillEventTestCase.swift */; };
 		799948BE2932423800D79055 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799948BD2932423800D79055 /* LoadingView.swift */; };
-		79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */; };
-		79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */; };
 		79B8D96F2F2889FA0030429D /* InMemoryLogging in Frameworks */ = {isa = PBXBuildFile; productRef = 79B8D96E2F2889FA0030429D /* InMemoryLogging */; };
 		79B8D9712F2889FA0030429D /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 79B8D9702F2889FA0030429D /* Logging */; };
 		79B8DA422F29AA900030429D /* StaticDataSyncingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8DA412F29AA890030429D /* StaticDataSyncingTests.swift */; };
@@ -230,9 +219,7 @@
 		3201BC3E26F81EEE00A67505 /* D2AWidgetExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2AWidgetExtensionDebug.entitlements; sourceTree = "<group>"; };
 		3201BC4226F89ECD00A67505 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/DynamicUserSelection.intentdefinition; sourceTree = "<group>"; };
 		3201BC4526F89ED100A67505 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DynamicUserSelection.strings; sourceTree = "<group>"; };
-		32079DBC28B83F0F0056D19F /* AbilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityView.swift; sourceTree = "<group>"; };
 		321D589F26D234A90059526B /* AboutUsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsView.swift; sourceTree = "<group>"; };
-		321E3D00285422D00094FB10 /* AbilityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityViewModel.swift; sourceTree = "<group>"; };
 		322B893D26CE66F800DF67F9 /* MainLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLoadingView.swift; sourceTree = "<group>"; };
 		322B893F26CE696C00DF67F9 /* DifferenceGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DifferenceGraphView.swift; sourceTree = "<group>"; };
 		322B89BE26CE788900DF67F9 /* AnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewModel.swift; sourceTree = "<group>"; };
@@ -248,7 +235,6 @@
 		325285A126CBE3C90030F15B /* MatchListRowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchListRowViewModel.swift; sourceTree = "<group>"; };
 		327772AE26D8BE63000A0A97 /* MatchListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchListRowView.swift; sourceTree = "<group>"; };
 		327B8759284D96A600BBE1F8 /* UserProfileRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileRowView.swift; sourceTree = "<group>"; };
-		327B87772852263300BBE1F8 /* HeroListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroListViewModel.swift; sourceTree = "<group>"; };
 		327C033B2716A8F400DAEC42 /* KDAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDAView.swift; sourceTree = "<group>"; };
 		327C03432717AE8500DAEC42 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3289579927F6609B00BA9847 /* Unit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Unit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -294,11 +280,8 @@
 		790102B929F40C4600E8A320 /* ScreenShotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotTests.swift; sourceTree = "<group>"; };
 		79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityAttributes.swift; sourceTree = "<group>"; };
 		79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityWidget.swift; sourceTree = "<group>"; };
-		7912B6E22B5D022C00AE1947 /* AbilityTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityTitleView.swift; sourceTree = "<group>"; };
 		792A546D2F777B2100EC815A /* SyncingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncingTests.swift; sourceTree = "<group>"; };
-		792A54732F7D24C800EC815A /* HeroData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroData.swift; sourceTree = "<group>"; };
 		7930699B2B5D323100A5CF5D /* DataLoadingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataLoadingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		79368C0928E6D8ED009517D2 /* RoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleView.swift; sourceTree = "<group>"; };
 		7942FD012B706B49008CE4B0 /* UIScreenshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIScreenshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
 		794838642A3D2C0800A447DA /* LiveMatchActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivity.swift; sourceTree = "<group>"; };
@@ -310,7 +293,6 @@
 		79518D062F72A840005C9449 /* StratzFetchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratzFetchingTests.swift; sourceTree = "<group>"; };
 		79518D082F72A9C8005C9449 /* secrets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = secrets.json; sourceTree = "<group>"; };
 		7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredPlayerView.swift; sourceTree = "<group>"; };
-		796BF20329F5536000555C64 /* HeroListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroListView.swift; sourceTree = "<group>"; };
 		796FE19B29AAF659003379EB /* AbilityImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityImage.swift; sourceTree = "<group>"; };
 		796FE19D29AB006C003379EB /* AbilityImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityImageViewModel.swift; sourceTree = "<group>"; };
 		797776D02B60C5E6000E6C3B /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
@@ -325,8 +307,6 @@
 		798A5CF72945503100EB07B0 /* ProfileAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAvatar.swift; sourceTree = "<group>"; };
 		798C42922A3565BA00BDC470 /* LiveMatchKillEventTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchKillEventTestCase.swift; sourceTree = "<group>"; };
 		799948BD2932423800D79055 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityStatsView.swift; sourceTree = "<group>"; };
-		79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilityDescriptionView.swift; sourceTree = "<group>"; };
 		79A989262931FA50006AC847 /* D2AProStore.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = D2AProStore.storekit; sourceTree = "<group>"; };
 		79B1630228DD5A29009B2AE2 /* Ability.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Ability.graphql; sourceTree = "<group>"; };
 		79B1630328DD5A31009B2AE2 /* Hero.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hero.graphql; sourceTree = "<group>"; };
@@ -353,13 +333,27 @@
 			);
 			target = 32F70AE526F61836006E9B05 /* D2AWidgetIntentHandler */;
 		};
+		7928D2612F808FD9006C0F3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				HeroData.swift,
+			);
+			target = 32F70A9C26F57F7E006E9B05 /* D2AWidgetExtension */;
+		};
+		7928D2622F808FD9006C0F3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				HeroData.swift,
+			);
+			target = 32F70AE526F61836006E9B05 /* D2AWidgetIntentHandler */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7928D21F2F7F73A5006C0F3F /* Utility */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utility; sourceTree = "<group>"; };
 		7928D2232F7F7405006C0F3F /* DataSyncing */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7928D2242F7F740B006C0F3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 7928D2252F7F740B006C0F3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = DataSyncing; sourceTree = "<group>"; };
+		7928D24E2F808FCB006C0F3F /* HeroDataView */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7928D2612F808FD9006C0F3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 7928D2622F808FD9006C0F3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = HeroDataView; sourceTree = "<group>"; };
 		792A54A62F7E77A700EC815A /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
-		792A5EB72F7E880A00EC815A /* HeroDetailView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = HeroDetailView; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -431,19 +425,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		323ADB39272B92AD00253124 /* HeroDataView */ = {
-			isa = PBXGroup;
-			children = (
-				792A5EB72F7E880A00EC815A /* HeroDetailView */,
-				792A54732F7D24C800EC815A /* HeroData.swift */,
-				796BF20329F5536000555C64 /* HeroListView.swift */,
-				327B87772852263300BBE1F8 /* HeroListViewModel.swift */,
-				79368C0928E6D8ED009517D2 /* RoleView.swift */,
-				7912B6E12B5D021700AE1947 /* AbilityView */,
-			);
-			path = HeroDataView;
-			sourceTree = "<group>";
-		};
 		3289579A27F6609B00BA9847 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -555,13 +536,13 @@
 			isa = PBXGroup;
 			children = (
 				32EC7F3C2864748200A36AF6 /* AboutUsView */,
-				323ADB39272B92AD00253124 /* HeroDataView */,
 				32EC7F3D286474C600A36AF6 /* HomeView */,
 				3294463C26E1BC3B006E0D06 /* MatchListView */,
 				3294463B26E1BC24006E0D06 /* MatchView */,
 				32EC7F3E286474EB00A36AF6 /* OtherViews */,
 				32EC7F3B2864747100A36AF6 /* SearchView */,
 				3294463D26E1BC60006E0D06 /* SideBarView */,
+				7928D24E2F808FCB006C0F3F /* HeroDataView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -694,18 +675,6 @@
 			path = LiveActivities;
 			sourceTree = "<group>";
 		};
-		7912B6E12B5D021700AE1947 /* AbilityView */ = {
-			isa = PBXGroup;
-			children = (
-				32079DBC28B83F0F0056D19F /* AbilityView.swift */,
-				321E3D00285422D00094FB10 /* AbilityViewModel.swift */,
-				7912B6E22B5D022C00AE1947 /* AbilityTitleView.swift */,
-				79A3A6222B5D15DD0023EEC6 /* AbilityStatsView.swift */,
-				79A3A6242B5D1C9F0023EEC6 /* AbilityDescriptionView.swift */,
-			);
-			path = AbilityView;
-			sourceTree = "<group>";
-		};
 		7930699C2B5D323100A5CF5D /* DataLoadingTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -805,8 +774,8 @@
 			fileSystemSynchronizedGroups = (
 				7928D21F2F7F73A5006C0F3F /* Utility */,
 				7928D2232F7F7405006C0F3F /* DataSyncing */,
+				7928D24E2F808FCB006C0F3F /* HeroDataView */,
 				792A54A62F7E77A700EC815A /* Shared */,
-				792A5EB72F7E880A00EC815A /* HeroDetailView */,
 			);
 			name = D2A;
 			packageProductDependencies = (
@@ -1078,10 +1047,8 @@
 				322B89C726CFD2DE00DF67F9 /* SearchViewModel.swift in Sources */,
 				3252859126C9E8040030F15B /* AnalysisView.swift in Sources */,
 				327C033C2716A8F400DAEC42 /* KDAView.swift in Sources */,
-				796BF20429F5536000555C64 /* HeroListView.swift in Sources */,
 				798A5CF629454AEE00EB07B0 /* FavouriteUserListView.swift in Sources */,
 				7983DA6D2B63085000C42F87 /* D2AWidgetMatch.swift in Sources */,
-				321E3D01285422D00094FB10 /* AbilityViewModel.swift in Sources */,
 				794838652A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */,
 				797776D12B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
 				32B36F1126C38821002D427D /* ContentView.swift in Sources */,
@@ -1091,11 +1058,8 @@
 				322B894026CE696C00DF67F9 /* DifferenceGraphView.swift in Sources */,
 				79837B53294C189200458529 /* PlayerRowView.swift in Sources */,
 				32897B1026C7B9F1008D3CC8 /* HeroImageView.swift in Sources */,
-				79368C0A28E6D8ED009517D2 /* RoleView.swift in Sources */,
-				79A3A6232B5D15DD0023EEC6 /* AbilityStatsView.swift in Sources */,
 				3294CF7C288EA87600FDFB8E /* ShareActivityView.swift in Sources */,
 				322B893E26CE66F800DF67F9 /* MainLoadingView.swift in Sources */,
-				32079DBD28B83F0F0056D19F /* AbilityView.swift in Sources */,
 				32AEEEF926F9B1120088DEC8 /* LocalizableStrings.swift in Sources */,
 				79091DF92A3B32140093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 				796FE19C29AAF659003379EB /* AbilityImage.swift in Sources */,
@@ -1107,9 +1071,6 @@
 				327772AF26D8BE63000A0A97 /* MatchListRowView.swift in Sources */,
 				32D1605D26F30B7A00657449 /* StoreManager.swift in Sources */,
 				322B89C526CFAC1000DF67F9 /* SearchView.swift in Sources */,
-				327B87782852263300BBE1F8 /* HeroListViewModel.swift in Sources */,
-				79A3A6252B5D1C9F0023EEC6 /* AbilityDescriptionView.swift in Sources */,
-				792A54742F7D24CE00EC815A /* HeroData.swift in Sources */,
 				79837B55294C18FE00458529 /* DamageView.swift in Sources */,
 				79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				32B36F0F26C38821002D427D /* D2AApp.swift in Sources */,
@@ -1129,7 +1090,6 @@
 				7965F636293ADE1900922F99 /* RegisteredPlayerView.swift in Sources */,
 				796FE19E29AB006C003379EB /* AbilityImageViewModel.swift in Sources */,
 				794B723D2985D2C9000059E4 /* RecentMatchWinLossView.swift in Sources */,
-				7912B6E32B5D022C00AE1947 /* AbilityTitleView.swift in Sources */,
 				32B526C5285C0B730099B058 /* IntentHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1152,7 +1112,6 @@
 				794B723E2985D410000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */,
 				32B526C3285C0B380099B058 /* IntentHandler.swift in Sources */,
-				792A54752F7D25BC00EC815A /* HeroData.swift in Sources */,
 				797776D22B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
 				3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				79091DF52A3B2E2C0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
@@ -1181,7 +1140,6 @@
 				794B723F2985D411000059E4 /* RecentMatchWinLossView.swift in Sources */,
 				32B526C4285C0B380099B058 /* IntentHandler.swift in Sources */,
 				32EC7F3828646BAE00A36AF6 /* RecentMatchesWidgetEntryView.swift in Sources */,
-				792A54762F7D25BC00EC815A /* HeroData.swift in Sources */,
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				797776D32B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
 				327C033E2716A92500DAEC42 /* KDAView.swift in Sources */,
