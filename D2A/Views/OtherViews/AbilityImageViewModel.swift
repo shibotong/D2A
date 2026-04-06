@@ -17,23 +17,14 @@ class AbilityImageViewModel: ObservableObject {
         return URL(string: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/\(name).png") ?? nil
     }
 
-    let urlString: String?
     private let imageProvider: ImageProviding
     
-    convenience init(name: String, imageProvider: ImageProviding = ImageProvider.shared) {
-        self.init(name: name, urlString: "", imageProvider: imageProvider)
-    }
-    
-    init(name: String?, urlString: String?,
-         imageProvider: ImageProviding = ImageProvider.shared) {
-        self.name = name ?? ""
-        self.urlString = urlString
+    init(name: String, imageProvider: ImageProviding = ImageProvider.shared) {
+        self.name = name
         self.imageProvider = imageProvider
-        if let name {
-            self.image = imageProvider.read(type: .ability, id: name)
-            Task {
-                await fetchImage()
-            }
+        image = imageProvider.read(type: .ability, id: name)
+        Task {
+            await fetchImage()
         }
     }
     

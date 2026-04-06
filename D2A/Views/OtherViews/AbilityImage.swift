@@ -12,12 +12,8 @@ struct AbilityImage: View {
     
     @ObservedObject var viewModel: AbilityImageViewModel
     
-    init(viewModel: AbilityImageViewModel) {
-        self.viewModel = viewModel
-    }
-    
-    init(name: String) {
-        viewModel = .init(name: name)
+    init(name: String, imageProvider: ImageProviding = ImageProvider.shared) {
+        viewModel = .init(name: name, imageProvider: imageProvider)
     }
     
     var body: some View {
@@ -36,5 +32,5 @@ struct AbilityImage: View {
 }
 
 #Preview {
-    AbilityImage(name: "alchemist_acid_spray")
+    AbilityImage(name: "antimage_blink", imageProvider: MockImageProvider())
 }
