@@ -13,14 +13,14 @@ import Apollo
 
 class HeroDetailViewModel: ObservableObject {
     @Published var hero: (any HeroProtocol)?
-    @Published var selectedAbility: ODAbility?
+    @Published var selectedAbility: AbilityData?
     
     @Published var heroID: Int
     
     @Published var previousHeroID: Int?
     @Published var nextHeroID: Int?
     
-    @Published var abilities: [any AbilityProtocol] = []
+    @Published var abilities: [AbilityData] = []
     
     private var database: HeroDatabase = HeroDatabase.shared
     private let persistence: PersistenceProviding
@@ -30,6 +30,7 @@ class HeroDetailViewModel: ObservableObject {
          persistence: PersistenceProviding = PersistenceProvider.shared) {
         self.hero = hero
         heroID = hero.heroID
+        abilities = hero.abilityData
         self.persistence = persistence
         self.context = persistence.mainContext
     }
@@ -57,23 +58,6 @@ class HeroDetailViewModel: ObservableObject {
                 return self?.getRelateHeroID(id: id, isPrevious: true)
             }
             .assign(to: &$previousHeroID)
-        
-        $hero
-            .map { [weak self] hero in
-                guard let abilityNames = hero?.heroAbilities else {
-                    return []
-                }
-                let abilities = abilityNames.filter { ability in
-                    let containHidden = ability.contains("hidden")
-                    let containEmpty = ability.contains("empty")
-                    return !containHidden && !containEmpty
-                }.compactMap { [weak self] abilityName in
-                    self?.database.fetchOpenDotaAbility(name: abilityName)
-                }
-                self?.selectedAbility = abilities.first
-                return abilities
-            }
-            .assign(to: &$abilities)
     }
     
     func fetchTalentName(id: Short) -> String {

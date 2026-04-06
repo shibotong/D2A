@@ -89,14 +89,13 @@ struct HeroDetailView: View {
         let skillFrame: CGFloat = 30
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(vm.abilities) { ability in
-                    if ability.behavior?.transformString() != "Hidden" {
-                        let parsedimgURL = ability.img!.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+                ForEach(vm.abilities, id: \.id) { ability in
+                    if let imageURL = ability.ability.imageURL, ability.behavior != "Hidden" {
                         Button {
                             vm.selectedAbility = ability
                             isPresented = true
                         } label: {
-                            AbilityImage(viewModel: .init(name: ability.name ?? "", urlString: "https://cdn.cloudflare.steamstatic.com\(parsedimgURL)"))
+                            AbilityImage(viewModel: .init(name: ability.name, urlString: imageURL.absoluteString))
                                 .frame(width: skillFrame, height: skillFrame)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                         }

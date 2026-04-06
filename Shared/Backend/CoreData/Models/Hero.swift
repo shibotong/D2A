@@ -31,6 +31,10 @@ extension Hero: HeroProtocol {
         return abilities ?? []
     }
     
+    var abilityData: [AbilityData] {
+        []
+    }
+    
     // MARK: - Error
     enum CoreDataError: Error {
         case decodingError

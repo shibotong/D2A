@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ODAbility: Codable, Identifiable, AbilityProtocol {
+struct ODAbility: Codable, Identifiable {
     var id = UUID()
     
     var img: String?

@@ -9,8 +9,8 @@ protocol HeroProtocol: Identifiable {
     var heroID: Int { get }
     var localizedName: String { get }
     var primaryAttribute: String { get }
-    var heroAbilities: [String] { get }
     var hero: Hero { get }
+    var abilityData: [AbilityData] { get }
 }
 
 extension HeroProtocol {
@@ -39,18 +39,87 @@ struct HeroData: HeroProtocol {
     var heroAbilities: [String] {
         hero.abilities ?? []
     }
+    
+    var abilityData: [AbilityData] {
+        abilities
+    }
 }
 
 protocol AbilityProtocol: Identifiable {
-    
+    var id: Int { get }
+    var name: String { get }
+    var description: String { get }
+    var displayName: String { get }
+    var attributes: [String] { get }
+    var lore: String { get }
+    var manaCost: String { get }
+    var coolDown: String { get }
+    var behavior: String { get }
+    var damageType: String { get }
+    var targetTeam: String { get }
+    var targetType: String { get }
+    var dispellable: String { get }
+    var bkbPierce: String { get }
 }
 
 struct AbilityData: AbilityProtocol {
-    
+
     var id: Int {
         Int(ability.abilityID)
     }
-    
+
+    var name: String {
+        ability.name ?? ""
+    }
+
+    var description: String {
+        localization.desc ?? ""
+    }
+
+    var displayName: String {
+        localization.displayName ?? ""
+    }
+
+    var attributes: [String] {
+            []
+    }
+
+    var lore: String {
+        localization.lore ?? ""
+    }
+
+    var manaCost: String {
+        ability.manaCost ?? ""
+    }
+
+    var coolDown: String {
+        ability.coolDown ?? ""
+    }
+
+    var behavior: String {
+        ability.behavior ?? ""
+    }
+
+    var damageType: String {
+        ability.damageType ?? ""
+    }
+
+    var targetTeam: String {
+        ability.targetTeam ?? ""
+    }
+
+    var targetType: String {
+        ability.targetType ?? ""
+    }
+
+    var dispellable: String {
+        ability.dispellable ?? ""
+    }
+
+    var bkbPierce: String {
+        ability.bkbPierce ?? ""
+    }
+
     let ability: Ability
     let localization: AbilityTranslation
 }
