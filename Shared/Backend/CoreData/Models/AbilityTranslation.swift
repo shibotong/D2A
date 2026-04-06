@@ -9,11 +9,17 @@ import CoreData
 import StratzAPI
 
 extension AbilityTranslation {
-    var localizedAttributes: [StratzAttribute]? {
+    
+    struct Attribute {
+        let name: String
+        let description: String
+    }
+    
+    var localizedAttributes: [Attribute]? {
         guard let localizedString = attributes else {
             return nil
         }
-        var localizedAttributes: [StratzAttribute] = []
+        var localizedAttributes: [Attribute] = []
         for item in localizedString {
             let splits = item.split(separator: colonLocalize)
             if splits.count == 2 {
@@ -27,9 +33,9 @@ extension AbilityTranslation {
                         return attribute == key
                     }).first ?? message
                 }
-                localizedAttributes.append(StratzAttribute(name: header, description: message))
+                localizedAttributes.append(Attribute(name: header, description: message))
             } else {
-                localizedAttributes.append(StratzAttribute(name: item, description: ""))
+                localizedAttributes.append(Attribute(name: item, description: ""))
             }
         }
         return localizedAttributes
