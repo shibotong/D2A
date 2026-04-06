@@ -17,14 +17,28 @@ enum ImageCacheType: String {
     case league
 }
 
-protocol ImageProviding {
-    func read(type: ImageCacheType, id: String, fileExtension: String) -> UIImage?
-    func save(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: String) throws
+enum FileExtension: String {
+    case jpg
+    case png
 }
 
-class ImageCache: ImageProviding {
+protocol ImageProviding {
+    func read(type: ImageCacheType, id: String, fileExtension: FileExtension) -> UIImage?
+    func save(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: FileExtension)
+}
+
+extension ImageProviding {
+    func read(type: ImageCacheType, id: String) -> UIImage? {
+        return read(type: type, id: id, fileExtension: .jpg)
+    }
     
-    static let shared = ImageCache()
+    func save(_ image: UIImage, type: ImageCacheType, id: String) {
+        save(image, type: type, id: id, fileExtension: .jpg)
+    }
+}
+
+class ImageProvider: ImageProviding {
+    static let shared = ImageProvider()
     
     private let fileManager: FileManager
     private let logger: Logger
@@ -38,17 +52,17 @@ class ImageCache: ImageProviding {
         self.logger = logger
     }
     
-    func read(type: ImageCacheType, id: String, fileExtension: String) -> UIImage? {
+    func read(type: ImageCacheType, id: String, fileExtension: FileExtension) -> UIImage? {
         guard let docDir = fileManager.containerURL(forSecurityApplicationGroupIdentifier: groupName) else {
             logger.error("Not able to find doc directory with group name: \(groupName)")
             return nil
         }
-        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
+        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension.rawValue)", isDirectory: false)
         let newImage = UIImage(contentsOfFile: imageURL.path)
         return newImage
     }
     
-    func save(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: String) {
+    func save(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: FileExtension) {
         guard let docDir = fileManager.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
             logger.error("Not able to find doc directory with group name: \(groupName)")
             return
@@ -62,10 +76,10 @@ class ImageCache: ImageProviding {
                 attributes: nil)
             let imageURL = imageFolder.appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
             var imageData: Data?
-            if fileExtension == "jpg" {
+            if fileExtension == .jpg {
                 imageData = image.jpegData(compressionQuality: 1.0)
             }
-            if fileExtension == "png" {
+            if fileExtension == .png {
                 imageData = image.pngData()
             }
             try imageData?.write(to: imageURL)
@@ -73,12 +87,15 @@ class ImageCache: ImageProviding {
             logger.error("Failed to save image \(id). error: \(error)")
         }
     }
-    
+}
+
+class ImageCache {
+  
     @available(*, deprecated, message: "Please use protocol instead of using static method")
     static func readImage(type: ImageCacheType,
                           id: String,
                           fileExtension: String = "jpg") -> UIImage? {
-        shared.read(type: type, id: id, fileExtension: fileExtension)
+        ImageProvider.shared.read(type: type, id: id, fileExtension: FileExtension(rawValue: fileExtension) ?? .jpg)
     }
     
     static func fetchImagePath(type: ImageCacheType, id: String, fileExtension: String = "jpg") -> String? {
@@ -91,7 +108,7 @@ class ImageCache: ImageProviding {
     
     @available(*, deprecated, message: "Please use protocol instead of using static method")
     static func saveImage(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: String = "jpg") {
-        shared.save(image, type: type, id: id, fileExtension: fileExtension)
+        ImageProvider.shared.save(image, type: type, id: id, fileExtension: FileExtension(rawValue: fileExtension) ?? .jpg)
     }
     
     static func docDir(type: ImageCacheType) -> URL? {
