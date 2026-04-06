@@ -42,7 +42,7 @@ class AbilityViewModel: ObservableObject {
     @Published var attributes: [StratzAttribute]?
     
     // Ability Data
-    @Published var opentDotaAbility: ODAbility?
+    @Published var opentDotaAbility: AbilityData?
     
     private var database = HeroDatabase.shared
     
@@ -50,7 +50,7 @@ class AbilityViewModel: ObservableObject {
     
     private let persistenceProvider: PersistenceProviding
         
-    init(heroID: Int, ability: ODAbility?,
+    init(heroID: Int, ability: AbilityData?,
          persistenceProvider: PersistenceProviding = PersistenceProvider.shared) {
         self.heroID = heroID
         self.opentDotaAbility = ability
@@ -62,8 +62,6 @@ class AbilityViewModel: ObservableObject {
         
         if let name = ability?.name, let savedAbility = try? persistenceProvider.fetch(ability: name, context: context) {
             setAbiilty(savedAbility)
-        } else {
-            setupBinding()
         }
         Task {
             await buildDetailView()
@@ -93,34 +91,6 @@ class AbilityViewModel: ObservableObject {
         }
         let urlString = "\(IMAGE_PREFIX)/apps/dota2/images/dota_react/abilities/\(name).png"
         abilityImageURL = urlString
-    }
-    
-    private func setupBinding() {
-        $opentDotaAbility
-            .sink { [weak self] ability in
-                // AbilityTitleView
-                self?.cd = ability?.coolDown?.transformString()
-                self?.mc = ability?.manaCost?.transformString()
-                
-                self?.abilityID = ability?.name ?? ""
-                guard let parsedImageURL = ability?
-                    .img?
-                    .replacingOccurrences(of: "_md", with: "")
-                    .replacingOccurrences(of: "images/abilities",
-                                          with: "images/dota_react/abilities") else {
-                    return
-                }
-                let urlString = "\(IMAGE_PREFIX)\(parsedImageURL)"
-                self?.abilityImageURL = urlString
-                
-                // AbilityStatsView
-                self?.behavior = ability?.behavior?.transformString()
-                self?.targetTeam = ability?.targetTeam?.transformString()
-                self?.bkbPierce = ability?.bkbPierce?.transformString()
-                self?.dispellable = ability?.dispellable?.transformString()
-                self?.damageType = ability?.damageType?.transformString()
-            }
-            .store(in: &cancellables)
     }
     
     func buildDetailView() async {
