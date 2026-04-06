@@ -39,45 +39,24 @@ class AbilityViewModel: ObservableObject {
     @Published var shard: String?
     
     @Published var lore: String?
-    @Published var attributes: [StratzAttribute]?
-    
-    // Ability Data
-    @Published var opentDotaAbility: AbilityData?
+    @Published var attributes: [AbilityTranslation.Attribute]?
     
     private var database = HeroDatabase.shared
     
     private var cancellables = Set<AnyCancellable>()
-    
-    private let persistenceProvider: PersistenceProviding
         
-    init(heroID: Int, ability: AbilityData?,
-         persistenceProvider: PersistenceProviding = PersistenceProvider.shared) {
+    init(heroID: Int, ability: any AbilityProtocol) {
         self.heroID = heroID
-        self.opentDotaAbility = ability
-        self.persistenceProvider = persistenceProvider
-        let context = persistenceProvider.mainContext
-        if let localisation = try? persistenceProvider.fetch(ability: ability?.name ?? "", language: AppConfig.languageCode, context: context) {
-            setLocalisation(localisation: localisation)
-        }
         
-        if let name = ability?.name, let savedAbility = try? persistenceProvider.fetch(ability: name, context: context) {
-            setAbiilty(savedAbility)
-        }
-        Task {
-            await buildDetailView()
-        }
-    }
-    
-    private func setLocalisation(localisation: AbilityTranslation) {
-        displayName = localisation.displayName ?? ""
-        lore = localisation.lore
-        description = localisation.desc
-        scepter = localisation.aghanimDescription
-        shard = localisation.shardDescription
-        attributes = localisation.localizedAttributes
-    }
-    
-    private func setAbiilty(_ ability: Ability) {
+        abilityID = ability.name
+        
+        displayName = ability.displayName
+        lore = ability.lore
+        description = ability.description
+        scepter = ability.scepter
+        shard = ability.shard
+        attributes = ability.attributes
+        
         cd = ability.coolDown
         mc = ability.manaCost
         behavior = ability.behavior
@@ -85,6 +64,14 @@ class AbilityViewModel: ObservableObject {
         bkbPierce = ability.bkbPierce
         dispellable = ability.dispellable
         damageType = ability.damageType
+        
+        Task {
+            await buildDetailView()
+        }
+    }
+    
+    private func setAbiilty(_ ability: Ability) {
+        
 
         guard let name = ability.name else {
             return
@@ -97,7 +84,7 @@ class AbilityViewModel: ObservableObject {
         var ability: AVAsset?
         var scepter: AVAsset?
         var shard: AVAsset?
-        guard let abilityName = opentDotaAbility?.name else { return }
+        guard let abilityName = abilityID else { return }
         if abilityVideo == nil {
             ability = getVideoURL(abilityName, type: .non)
         }

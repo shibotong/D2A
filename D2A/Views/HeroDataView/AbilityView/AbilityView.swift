@@ -44,10 +44,7 @@ struct AbilityView: View {
                                      bkbPierce: viewModel.bkbPierce, 
                                      dispellable: viewModel.dispellable,
                                      damageType: viewModel.damageType)
-                    if let _ = viewModel.opentDotaAbility {
-                        buildDescription(proxy: proxy)
-                    }
-                    
+                    buildDescription(proxy: proxy)
                     Spacer().frame(height: 10)
                     if let attributes = viewModel.attributes {
                         HStack {

@@ -49,7 +49,7 @@ protocol AbilityProtocol: Identifiable {
     var id: Int { get }
     var name: String { get }
     
-    var attributes: [String] { get }
+    
     var manaCost: String? { get }
     var coolDown: String? { get }
     var behavior: String? { get }
@@ -65,9 +65,13 @@ protocol AbilityProtocol: Identifiable {
     var description: String? { get }
     var scepter: String? { get }
     var shard: String? { get }
+    var attributes: [AbilityTranslation.Attribute]? { get }
 }
 
 struct AbilityData: AbilityProtocol {
+    
+    let ability: Ability
+    let localization: AbilityTranslation
 
     var id: Int {
         Int(ability.abilityID)
@@ -83,10 +87,6 @@ struct AbilityData: AbilityProtocol {
 
     var displayName: String {
         localization.displayName ?? ""
-    }
-
-    var attributes: [String] {
-        []
     }
 
     var lore: String? {
@@ -133,6 +133,7 @@ struct AbilityData: AbilityProtocol {
         localization.shardDescription
     }
 
-    let ability: Ability
-    let localization: AbilityTranslation
+    var attributes: [AbilityTranslation.Attribute]? {
+        return localization.localizedAttributes
+    }
 }

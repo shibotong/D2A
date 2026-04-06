@@ -9,7 +9,7 @@ import CoreData
 
 extension AbilityTranslation {
     
-    struct Attribute {
+    struct Attribute: Hashable {
         let name: String
         let description: String
     }
