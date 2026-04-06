@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Logging
 import UIKit
 
 enum ImageCacheType: String {
@@ -16,63 +17,79 @@ enum ImageCacheType: String {
     case league
 }
 
-class ImageCache: ObservableObject {
+enum FileExtension: String {
+    case jpg
+    case png
+}
+
+protocol ImageProviding {
+    func read(type: ImageCacheType, id: String, fileExtension: FileExtension) -> UIImage?
+    func save(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: FileExtension)
+    func load(urlString: String) async -> UIImage?
+}
+
+extension ImageProviding {
+    func read(type: ImageCacheType, id: String) -> UIImage? {
+        return read(type: type, id: id, fileExtension: .jpg)
+    }
     
-    static func readImage(type: ImageCacheType, 
-                          id: String,
-                          fileExtension: String = "jpg") -> UIImage? {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+    func save(_ image: UIImage, type: ImageCacheType, id: String) {
+        save(image, type: type, id: id, fileExtension: .jpg)
+    }
+}
+
+class ImageProvider: ImageProviding {
+    static let shared = ImageProvider()
+    
+    private let fileManager: FileManager
+    private let logger: Logger
+    private let groupName: String
+    
+    init(fileManager: FileManager = .default,
+         groupName: String = GROUP_NAME,
+         logger: Logger = D2ALogger.imageCache) {
+        self.fileManager = fileManager
+        self.groupName = groupName
+        self.logger = logger
+    }
+    
+    func read(type: ImageCacheType, id: String, fileExtension: FileExtension) -> UIImage? {
+        guard let docDir = fileManager.containerURL(forSecurityApplicationGroupIdentifier: groupName) else {
+            logger.error("Not able to find doc directory with group name: \(groupName)")
             return nil
         }
-        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
+        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension.rawValue)", isDirectory: false)
         let newImage = UIImage(contentsOfFile: imageURL.path)
         return newImage
     }
     
-    static func fetchImagePath(type: ImageCacheType, id: String, fileExtension: String = "jpg") -> String? {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
-            return nil
-        }
-        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
-        return imageURL.path
-    }
-    
-    static func saveImage(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: String = "jpg") {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
-            print("save image error")
+    func save(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: FileExtension) {
+        guard let docDir = fileManager.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+            logger.error("Not able to find doc directory with group name: \(groupName)")
             return
         }
         
         let imageFolder = docDir.appendingPathComponent(type.rawValue)
         do {
-            try FileManager.default
-                .createDirectory(
-                    at: imageFolder,
-                    withIntermediateDirectories: true,
-                    attributes: nil)
+            try fileManager.createDirectory(
+                at: imageFolder,
+                withIntermediateDirectories: true,
+                attributes: nil)
             let imageURL = imageFolder.appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
             var imageData: Data?
-            if fileExtension == "jpg" {
+            if fileExtension == .jpg {
                 imageData = image.jpegData(compressionQuality: 1.0)
             }
-            if fileExtension == "png" {
+            if fileExtension == .png {
                 imageData = image.pngData()
             }
             try imageData?.write(to: imageURL)
         } catch {
-            print(error)
-            // log any errors
+            logger.error("Failed to save image \(id). error: \(error)")
         }
     }
     
-    static func docDir(type: ImageCacheType) -> URL? {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
-            return nil
-        }
-        return docDir.appendingPathComponent(type.rawValue)
-    }
-    
-    static func loadImage(urlString: String) async -> UIImage? {
+    func load(urlString: String) async -> UIImage? {
         guard let url = URL(string: urlString),
               let (newImageData, _) = try? await URLSession.shared.data(from: url),
               let newImage = UIImage(data: newImageData) else {

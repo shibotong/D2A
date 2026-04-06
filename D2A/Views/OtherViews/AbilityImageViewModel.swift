@@ -18,24 +18,22 @@ class AbilityImageViewModel: ObservableObject {
     }
 
     let urlString: String?
+    private let imageProvider: ImageProviding
     
-    init(name: String?, urlString: String?) {
+    convenience init(name: String, imageProvider: ImageProviding = ImageProvider.shared) {
+        self.init(name: name, urlString: "", imageProvider: imageProvider)
+    }
+    
+    init(name: String?, urlString: String?,
+         imageProvider: ImageProviding = ImageProvider.shared) {
         self.name = name ?? ""
         self.urlString = urlString
+        self.imageProvider = imageProvider
         if let name {
-            self.image = ImageCache.readImage(type: .ability, id: name)
+            self.image = imageProvider.read(type: .ability, id: name)
             Task {
                 await fetchImage()
             }
-        }
-    }
-    
-    init(name: String) {
-        self.name = name
-        self.image = ImageCache.readImage(type: .ability, id: name)
-        self.urlString = ""
-        Task {
-            await fetchImage()
         }
     }
     
@@ -47,7 +45,7 @@ class AbilityImageViewModel: ObservableObject {
         guard let newImage = await loadImage() else {
             return
         }
-        ImageCache.saveImage(newImage, type: .ability, id: name)
+        imageProvider.save(newImage, type: .ability, id: name)
         self.image = newImage
     }
     
