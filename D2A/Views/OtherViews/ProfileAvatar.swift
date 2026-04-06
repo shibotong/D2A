@@ -17,19 +17,24 @@ struct ProfileAvatar: View {
     private let cornerRadius: CGFloat
     private let userID: String
     private let imageURL: String?
+    private let imageProvider: ImageProviding
     
-    init(profile: UserProfile, cornerRadius: CGFloat) {
+    init(profile: UserProfile, cornerRadius: CGFloat,
+         imageProvider: ImageProviding = ImageProvider.shared) {
         self.init(userID: profile.id?.description ?? "0",
                   imageURL: profile.avatarfull,
                   cornerRadius: cornerRadius,
-                  profile: profile)
+                  profile: profile,
+                  imageProvider: imageProvider)
     }
     
-    init(userID: String, imageURL: String?, cornerRadius: CGFloat, profile: UserProfile? = nil) {
+    init(userID: String, imageURL: String?, cornerRadius: CGFloat, profile: UserProfile? = nil,
+         imageProvider: ImageProviding = ImageProvider.shared) {
         self.userID = userID
         self.imageURL = imageURL
         self.cornerRadius = cornerRadius
         self.profile = profile
+        self.imageProvider = imageProvider
     }
     
     var body: some View {
@@ -52,19 +57,19 @@ struct ProfileAvatar: View {
             if let cacheImage {
                 await setImage(uiImage: cacheImage)
             }
-        
+            
             if profile == nil || cacheImage == nil || profile!.shouldUpdate {
                 guard let imageURL, let newImage = await loadImage(urlString: imageURL) else {
                     return
                 }
-                ImageCache.saveImage(newImage, type: .avatar, id: userID)
+                imageProvider.save(newImage, type: .avatar, id: userID)
                 await setImage(uiImage: newImage)
             }
         }
     }
     
     private func fetchImage(userID: String) -> UIImage? {
-        let cacheImage = ImageCache.readImage(type: .avatar, id: userID)
+        let cacheImage = imageProvider.read(type: .avatar, id: userID)
         return cacheImage
     }
     
