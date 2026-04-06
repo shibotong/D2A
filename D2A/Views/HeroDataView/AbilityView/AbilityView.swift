@@ -44,10 +44,7 @@ struct AbilityView: View {
                                      bkbPierce: viewModel.bkbPierce, 
                                      dispellable: viewModel.dispellable,
                                      damageType: viewModel.damageType)
-                    if let _ = viewModel.opentDotaAbility {
-                        buildDescription(proxy: proxy)
-                    }
-                    
+                    buildDescription(proxy: proxy)
                     Spacer().frame(height: 10)
                     if let attributes = viewModel.attributes {
                         HStack {
@@ -94,15 +91,3 @@ struct AbilityView: View {
     }
 }
 
-struct AbilityView_Previews: PreviewProvider {
-    static let ability = HeroDatabase.preview.fetchOpenDotaAbility(name: "antimage_name_break")
-    static var previews: some View {
-        Group {
-            NavigationView {
-                AbilityView(viewModel: AbilityViewModel(heroID: 1, ability: ability))
-                    .environmentObject(HeroDatabase.preview)
-            }
-            .previewDevice(.iPhone)
-        }
-    }
-}

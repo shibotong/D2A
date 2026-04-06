@@ -9,17 +9,18 @@ actor DataSyncingLogger {
     var errors: [SyncingError] = []
     
     struct SyncingError {
-        let type: ErrorDataType
+        let type: DataType
         let error: ErrorType
         let key: String
     }
     
-    func addError(type: ErrorDataType, error: ErrorType, key: String) {
+    func addError(type: DataType, error: ErrorType, key: String) {
         errors.append(SyncingError(type: type, error: error, key: key))
     }
     
-    enum ErrorDataType {
+    enum DataType {
         case ability
+        case hero
     }
     
     enum ErrorType {

@@ -49,5 +49,4 @@ struct AbilityTitleView: View {
                      mc: "10/20/30",
                      name: "acid Spray",
                      url: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_acid_spray.png")
-
 }

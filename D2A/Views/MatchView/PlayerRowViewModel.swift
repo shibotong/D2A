@@ -10,8 +10,6 @@ import StratzAPI
 
 class PlayerRowViewModel: ObservableObject {
     
-    typealias LiveMatchPlayer = LiveMatchSubscription.Data.MatchLive.Player
-    
     var accountID: String?
     
     var heroID: Int
@@ -86,42 +84,6 @@ class PlayerRowViewModel: ObservableObject {
         self.netWorth = player.netWorth ?? 0
         self.slot = player.slot
     }
-    
-    init(player: LiveMatchPlayer) {
-        let playerName = player.steamAccount?.proSteamAccount?.name ?? player.steamAccount?.name
-        if playerName != nil {
-            self.accountID = player.steamAccountId?.description
-        }
-        self.heroID = Int(player.heroId ?? 0)
-        self.level = player.level ?? 0
-        self.personaname = playerName
-        self.rank = player.steamAccount?.seasonRank ?? 0
-        self.kills = player.numKills ?? 0
-        self.deaths = player.numDeaths ?? 0
-        self.assists = player.numAssists ?? 0
-        
-        self.item0 = Int(player.itemId0 ?? 0)
-        self.item1 = Int(player.itemId1 ?? 0)
-        self.item2 = Int(player.itemId2 ?? 0)
-        self.item3 = Int(player.itemId3 ?? 0)
-        self.item4 = Int(player.itemId4 ?? 0)
-        self.item5 = Int(player.itemId5 ?? 0)
-        self.backpack0 = Int(player.backpackId0 ?? 0)
-        self.backpack1 = Int(player.backpackId1 ?? 0)
-        self.backpack2 = Int(player.backpackId2 ?? 0)
-        
-        self.hasScepter = {
-            return player.itemId0 == 108 || player.itemId1 == 108 || player.itemId2 == 108 || player.itemId3 == 108 || player.itemId4 == 108 || player.itemId5 == 108
-        }()
-        
-        self.hasShard = false
-        self.xpm = Int(player.experiencePerMinute ?? "0") ?? 0
-        self.gpm = Int(player.goldPerMinute ?? "0") ?? 0
-        self.heroDamage = player.heroDamage
-        self.netWorth = player.networth ?? 0
-        self.slot = player.playerSlot ?? 0
-    }
-    
     init(heroID: Int, abilities: [Int] = []) {
         self.personaname = "Longest Name Longest Name"
         self.heroID = heroID

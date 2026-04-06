@@ -7,54 +7,60 @@
 
 import Foundation
 import Combine
-
-enum HeroAttribute: String, CaseIterable {
-    case whole, str, agi, int, all
-    
-    var fullName: String {
-        switch self {
-        case .str:
-            return "STRENGTH"
-        case .agi:
-            return "AGILITY"
-        case .int:
-            return "INTELLIGENCE"
-        case .all:
-            return "UNIVERSAL"
-        default:
-            return ""
-        }
-    }
-}
+import CoreData
+import Logging
 
 class HeroListViewModel: ObservableObject {
-    let heroList: [HeroCodable]
     
-    @Published var searchResults: [HeroCodable]
+    @Published var searchResults: [HeroData]
+    @Published var heroes: [HeroData]
     
     @Published var searchString: String = ""
     @Published var gridView = true
     @Published var selectedAttribute: HeroAttribute = .whole
     
     private var subscribers = Set<AnyCancellable>()
+    private let context: NSManagedObjectContext
+    private let language: DataLanguageEnum
+    private let logger: Logger
+    private let persistence: PersistenceProviding
+    private let notification: D2ANotification
     
-    init() {
-        heroList = HeroDatabase.shared.fetchAllHeroes().sorted { $0.heroNameLocalized < $1.heroNameLocalized }
+    init(persistence: PersistenceProviding = PersistenceProvider.shared,
+         language: DataLanguageEnum = AppConfig.languageCode,
+         notification: D2ANotification = .default,
+         logger: Logger = D2ALogger.ui) {
+        self.context = persistence.mainContext
+        self.persistence = persistence
+        self.language = language
+        self.logger = logger
+        self.notification = notification
+        heroes = []
         searchString = ""
         searchResults = []
         selectedAttribute = .whole
+        fetchData()
+        setupBinding()
+    }
+    
+    private func setupBinding() {
+        notification.syncingCompletion
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.fetchData()
+            }
+            .store(in: &subscribers)
         $searchString
             .combineLatest($selectedAttribute)
             .map { [weak self] searchString, attributes in
                 guard let self = self else { return [] }
-                let filterHeroes = attributes == .whole ? self.heroList : self.heroList.filter({ return $0.primaryAttr == attributes.rawValue })
+                let filterHeroes = attributes == .whole ? self.heroes : self.heroes.filter({ return $0.primaryAttribute == attributes.rawValue })
                 if searchString.isEmpty {
                     return filterHeroes
                 } else {
                     let searchedHeroes = filterHeroes.filter({ hero in
-                        let originalName = hero.localizedName.lowercased().contains(searchString.lowercased())
-                        let localizedName = hero.heroNameLocalized.lowercased().contains(searchString.lowercased())
-                        return originalName || localizedName
+                        let localizedName = hero.localizedName.lowercased().contains(searchString.lowercased())
+                        return localizedName
                     })
                     return searchedHeroes
                 }
@@ -63,5 +69,43 @@ class HeroListViewModel: ObservableObject {
                 self?.searchResults = results
             }
             .store(in: &subscribers)
+    }
+    
+    private func fetchData() {
+        var heroData: [HeroData] = []
+        let heroes = fetchHeroes()
+        for hero in heroes {
+            guard let localization = try? persistence.fetch(heroID: Int(hero.id), language: language, context: context) else {
+                logger.error("Failed to fetch localization for hero \(hero.id)")
+                continue
+            }
+            
+            let abilities: [AbilityData] = hero.abilities?.compactMap { name in
+                guard let ability = try? persistence.fetch(ability: name, context: context) else {
+                    return nil
+                }
+                guard let localization = try? persistence.fetch(ability: name, language: language, context: context) else {
+                    return nil
+                }
+                return AbilityData(ability: ability, localization: localization)
+            } ?? []
+            
+            heroData.append(HeroData(hero: hero, localization: localization, abilities: abilities))
+        }
+        self.heroes = heroData.sorted { $0.localizedName < $1.localizedName }
+        self.searchResults = self.heroes
+    }
+    
+    private func fetchHeroes() -> [Hero] {
+        do {
+            let request = Hero.fetchRequest()
+            let sort = NSSortDescriptor(key: "id", ascending: true)
+            request.sortDescriptors = [sort]
+            let heroes = try context.fetch(request)
+            return heroes
+        } catch {
+            logger.error("Failed to fetch hero. error: \(error)")
+            return []
+        }
     }
 }

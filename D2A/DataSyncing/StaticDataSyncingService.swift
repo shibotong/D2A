@@ -9,9 +9,11 @@ import Foundation
 import CoreData
 import Logging
 
-class StaticDataSyncingService {
+class StaticDataSyncingService: ObservableObject {
 
     static let shared = StaticDataSyncingService()
+    
+    @Published var isCompleted: Bool = true
     
     private let openDota: OpenDotaFetching
     private let stratz: StratzFetching
@@ -22,37 +24,37 @@ class StaticDataSyncingService {
     
     private let logger: Logger
     
-    private let maxConcurrent = 5
+    private let maxConcurrent = 4
     
     private let syncingLogger: DataSyncingLogger?
     
+    private let persistence: PersistenceProviding
+    private let notification: D2ANotification
+    
     init(openDota: OpenDotaFetching = OpenDotaController.shared,
          stratz: StratzFetching = StratzFetcher.shared,
-         persistance: PersistanceProviding = PersistanceController.shared,
+         persistence: PersistenceProviding = PersistenceProvider.shared,
          language: DataLanguageEnum = AppConfig.languageCode,
          logger: Logger = D2ALogger.syncing,
+         notification: D2ANotification = .default,
          syncingLogger: DataSyncingLogger? = nil) {
         self.openDota = openDota
         self.stratz = stratz
-        self.context = persistance.mainContext.makeContext(author: "Static Data")
+        self.context = persistence.mainContext.makeContext(author: "Static Data")
+        self.persistence = persistence
         self.language = language
         self.logger = logger
+        self.notification = notification
         self.syncingLogger = syncingLogger
     }
     
     func startSyncing() async {
+        isCompleted = false
         do {
-            await withTaskGroup { [weak self] group in
-                group.addTask { [weak self] in
-                    try? await self?.syncAbilities()
-                }
-                group.addTask { [weak self] in
-                    try? await self?.syncAbilityTranslation()
-                }
-//                group.addTask { [weak self] in
-//                    try? await self?.syncHeroes()
-//                }
-            }
+            try await syncAbilities()
+            try await syncAbilityTranslation()
+            try await syncHeroes()
+            try await syncHeroTranslations()
             let context = self.context
             try await context.perform {
                 try context.save()
@@ -60,14 +62,36 @@ class StaticDataSyncingService {
             try await context.parent?.perform {
                 try context.parent?.save()
             }
+            notification.syncingCompletion.send(true)
         } catch {
             logger.error("Failed to sync data: \(error.localizedDescription)")
         }
+        isCompleted = true
+    }
+    
+    func syncStaticData() async {
+        isCompleted = false
+        do {
+            try await syncAbilities()
+            try await syncHeroes()
+            let context = self.context
+            try await context.perform {
+                try context.save()
+            }
+            try await context.parent?.perform {
+                try context.parent?.save()
+            }
+            notification.syncingCompletion.send(true)
+        } catch {
+            logger.error("Failed to sync data: \(error.localizedDescription)")
+        }
+        isCompleted = true
     }
     
     private func syncAbilities() async throws {
         logger.trace("Start syncing abilities")
         let syncingLogger = self.syncingLogger
+        let persistence = self.persistence
         try await contextSaving(author: "Ability") {
             async let abilityIDAsync = openDota.constants(service: .abilityIDs) as? [String: String]
             async let abilitiesAsync = openDota.constants(service: .abilities) as? [String: Any]
@@ -94,61 +118,62 @@ class StaticDataSyncingService {
             return results
         } saving: { ability, context in
             self.logger.info("Saving ability \(ability.abilityID)")
-            try Ability.save(id: ability.abilityID, name: ability.name, data: ability.data, in: context, syncingLogger: syncingLogger)
+            try persistence.save(abilityID: ability.abilityID, name: ability.name, data: ability.data, in: context, syncingLogger: syncingLogger)
             try context.save()
         }
     }
     
     private func syncAbilityTranslation() async throws {
         let language = self.language
+        let persistence = self.persistence
         try await contextSaving(author: "Ability localization", fetchData: {
             let stratzAbilities = try await stratz.abilities(language: language)
             return stratzAbilities
         }) { ability, context in
             self.logger.info("Saving ability localization \(ability.id)")
-            try AbilityTranslation.save(localization: ability, language: language, in: context)
+            try persistence.save(ability: ability, language: language, in: context)
             try context.save()
         }
     }
     
     private func syncHeroes() async throws {
-        logger.trace("Start syncing abilities")
-        let heroSavingContext = context.makeContext(author: "Hero Sync")
-        async let heroesAsync = openDota.constants(service: .heroes) as? [String: Any]
-        async let stratzHeroesAsync = stratz.heroes()
-        
-        let (heroes, localizations) = try await (heroesAsync, stratzHeroesAsync)
-        guard let heroes else {
-            throw URLError(.badServerResponse)
-        }
-        var localizationDict: [Int: SKHero] = [:]
-        for hero in localizations {
-            localizationDict[hero.id] = hero
-        }
-        logger.trace("Finish fetching heroes from OpenDota")
-        for (heroIDString, hero) in heroes {
-            logger.trace("processing hero: \(heroIDString)")
-            guard let heroID = Int(heroIDString) else {
-                logger.error("Hero ID is not an integer: \(heroIDString)")
-                continue
+        logger.trace("Start syncing heroes")
+        let syncingLogger = self.syncingLogger
+        let persistenceProvider = persistence
+        try await contextSaving(author: "Hero") {
+            guard let heroJSON = try await openDota.constants(service: .heroes) as? [String: Any] else {
+                return [HeroRecipe]()
             }
-            guard let hero = hero as? [String: Any] else {
-                logger.warning("hero is not valid")
-                continue
+            guard let abilitiesJSON = try await openDota.constants(service: .heroAbilities) as? [String: Any] else {
+                return [HeroRecipe]()
             }
-            let localization = localizationDict[heroID]
-            let context = heroSavingContext.makeContext(author: "hero \(heroID)")
-            do {
-                try await context.perform {
-                    try Hero.save(id: heroID, data: hero, localization: localization, in: context)
-                    try context.save()
+            let heroAdditionalDatas = try await stratz.heroAdditionalData()
+            var heroes: [HeroRecipe] = []
+            for heroAdditionalData in heroAdditionalDatas {
+                guard let heroData = heroJSON["\(heroAdditionalData.heroID)"] as? [String: Any], let abilities = abilitiesJSON[heroAdditionalData.name] as? [String: Any] else {
+                    logger.warning("hero is not valid")
+                    continue
                 }
-            } catch {
-                continue
+                heroes.append(HeroRecipe(heroID: heroAdditionalData.heroID, data: heroData, abilities: abilities, additonalData: heroAdditionalData))
             }
+            return heroes
+        } saving: { (hero: HeroRecipe, context) in
+            self.logger.info("Saving hero \(hero.heroID)")
+            try persistenceProvider.save(hero: hero, in: context, logger: syncingLogger)
         }
-        try await heroSavingContext.perform {
-            try heroSavingContext.save()
+    }
+    
+    private func syncHeroTranslations() async throws {
+        logger.trace("Start syncing hero translations")
+        let persistence = self.persistence
+        let language = self.language
+        try await contextSaving(author: "Hero Translations") {
+            let stratzHeroes = try await stratz.heroes(language: language)
+            return stratzHeroes
+        } saving: { hero, context in
+            self.logger.info("Saving hero translation \(hero.id)")
+            try persistence.save(hero: hero, language: language, in: context)
+            try context.save()
         }
     }
     
@@ -197,3 +222,4 @@ class StaticDataSyncingService {
         let data: [String: Any]
     }
 }
+

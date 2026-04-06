@@ -61,11 +61,27 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="primaryAttr" attributeType="String" defaultValueString="str"/>
         <attribute name="projectileSpeed" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="roleCarry" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="roleDisabler" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="roleDurable" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="roleEscape" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="roleInitiator" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="roleJungler" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="roleNuker" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rolePusher" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="roleSupport" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="turnRate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionDaytimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionNighttimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="roles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Role" inverseName="hero" inverseEntity="Role"/>
         <relationship name="talents" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Talent" inverseName="hero" inverseEntity="Talent"/>
+    </entity>
+    <entity name="HeroTranslation" representedClassName="HeroTranslation" syncable="YES" codeGenerationType="class">
+        <attribute name="displayName" optional="YES" attributeType="String"/>
+        <attribute name="heroID" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="hype" optional="YES" attributeType="String"/>
+        <attribute name="language" attributeType="String"/>
+        <attribute name="lore" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Match" representedClassName="Match" syncable="YES" codeGenerationType="class">
         <attribute name="direKill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

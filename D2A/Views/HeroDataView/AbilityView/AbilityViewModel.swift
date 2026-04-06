@@ -39,43 +39,24 @@ class AbilityViewModel: ObservableObject {
     @Published var shard: String?
     
     @Published var lore: String?
-    @Published var attributes: [StratzAttribute]?
-    
-    // Ability Data
-    @Published var opentDotaAbility: ODAbility?
+    @Published var attributes: [AbilityTranslation.Attribute]?
     
     private var database = HeroDatabase.shared
     
     private var cancellables = Set<AnyCancellable>()
         
-    init(heroID: Int, ability: ODAbility?) {
+    init(heroID: Int, ability: any AbilityProtocol) {
         self.heroID = heroID
-        self.opentDotaAbility = ability
-        let context = PersistanceController.shared.mainContext
-        if let localisation = try? AbilityTranslation.fetch(name: ability?.name ?? "", language: AppConfig.languageCode, context: context) {
-            setLocalisation(localisation: localisation)
-        }
         
-        if let name = ability?.name, let savedAbility = try? Ability.fetch(name: name, context: context) {
-            setAbiilty(savedAbility)
-        } else {
-            setupBinding()
-        }
-        Task {
-            await buildDetailView()
-        }
-    }
-    
-    private func setLocalisation(localisation: AbilityTranslation) {
-        displayName = localisation.displayName ?? ""
-        lore = localisation.lore
-        description = localisation.desc
-        scepter = localisation.aghanimDescription
-        shard = localisation.shardDescription
-        attributes = localisation.localizedAttributes
-    }
-    
-    private func setAbiilty(_ ability: Ability) {
+        abilityID = ability.name
+        
+        displayName = ability.displayName
+        lore = ability.lore
+        description = ability.description
+        scepter = ability.scepter
+        shard = ability.shard
+        attributes = ability.attributes
+        
         cd = ability.coolDown
         mc = ability.manaCost
         behavior = ability.behavior
@@ -83,6 +64,14 @@ class AbilityViewModel: ObservableObject {
         bkbPierce = ability.bkbPierce
         dispellable = ability.dispellable
         damageType = ability.damageType
+        
+        Task {
+            await buildDetailView()
+        }
+    }
+    
+    private func setAbiilty(_ ability: Ability) {
+        
 
         guard let name = ability.name else {
             return
@@ -91,39 +80,11 @@ class AbilityViewModel: ObservableObject {
         abilityImageURL = urlString
     }
     
-    private func setupBinding() {
-        $opentDotaAbility
-            .sink { [weak self] ability in
-                // AbilityTitleView
-                self?.cd = ability?.coolDown?.transformString()
-                self?.mc = ability?.manaCost?.transformString()
-                
-                self?.abilityID = ability?.name ?? ""
-                guard let parsedImageURL = ability?
-                    .img?
-                    .replacingOccurrences(of: "_md", with: "")
-                    .replacingOccurrences(of: "images/abilities",
-                                          with: "images/dota_react/abilities") else {
-                    return
-                }
-                let urlString = "\(IMAGE_PREFIX)\(parsedImageURL)"
-                self?.abilityImageURL = urlString
-                
-                // AbilityStatsView
-                self?.behavior = ability?.behavior?.transformString()
-                self?.targetTeam = ability?.targetTeam?.transformString()
-                self?.bkbPierce = ability?.bkbPierce?.transformString()
-                self?.dispellable = ability?.dispellable?.transformString()
-                self?.damageType = ability?.damageType?.transformString()
-            }
-            .store(in: &cancellables)
-    }
-    
     func buildDetailView() async {
         var ability: AVAsset?
         var scepter: AVAsset?
         var shard: AVAsset?
-        guard let abilityName = opentDotaAbility?.name else { return }
+        guard let abilityName = abilityID else { return }
         if abilityVideo == nil {
             ability = getVideoURL(abilityName, type: .non)
         }

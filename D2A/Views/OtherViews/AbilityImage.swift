@@ -12,6 +12,14 @@ struct AbilityImage: View {
     
     @ObservedObject var viewModel: AbilityImageViewModel
     
+    init(viewModel: AbilityImageViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    init(name: String) {
+        viewModel = .init(name: name)
+    }
+    
     var body: some View {
         ZStack {
             if let image = viewModel.image {
@@ -28,5 +36,5 @@ struct AbilityImage: View {
 }
 
 #Preview {
-    AbilityImage(viewModel: .init())
+    AbilityImage(name: "alchemist_acid_spray")
 }

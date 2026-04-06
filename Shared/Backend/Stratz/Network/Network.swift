@@ -24,19 +24,6 @@ class Network {
         let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                      endpointURL: url,
                                                      additionalHeaders: additionalHeaders)
-        
-        let webSocket = WebSocket(
-            url: URL(string: "wss://api.stratz.com/graphql?jwt=\(token)")!,
-            protocol: .graphql_ws
-        )
-        
-        let webSocketTransport = WebSocketTransport(websocket: webSocket)
-        
-        let splitTransport = SplitNetworkTransport(
-            uploadingNetworkTransport: transport,
-            webSocketNetworkTransport: webSocketTransport
-        )
-        
-        return ApolloClient(networkTransport: splitTransport, store: store)
+        return ApolloClient(networkTransport: transport, store: store)
     }()
 }

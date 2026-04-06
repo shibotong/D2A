@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class HeroCodable: Identifiable, Decodable {
+    
     var id: Int
     var name: String
     var localizedName: String

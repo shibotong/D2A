@@ -9,6 +9,7 @@ import Logging
 
 class D2ALogger {
     static var syncing = createLogger(label: "syncing")
+    static var ui = createLogger(label: "UI")
     
     static func createLogger(label: String, logLevel: Logger.Level = .debug) -> Logger {
         var logger = Logger(label: label)
