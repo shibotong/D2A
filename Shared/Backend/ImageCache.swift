@@ -25,6 +25,7 @@ enum FileExtension: String {
 protocol ImageProviding {
     func read(type: ImageCacheType, id: String, fileExtension: FileExtension) -> UIImage?
     func save(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: FileExtension)
+    func load(urlString: String) async -> UIImage?
 }
 
 extension ImageProviding {
@@ -87,38 +88,8 @@ class ImageProvider: ImageProviding {
             logger.error("Failed to save image \(id). error: \(error)")
         }
     }
-}
-
-class ImageCache {
-  
-    @available(*, deprecated, message: "Please use protocol instead of using static method")
-    static func readImage(type: ImageCacheType,
-                          id: String,
-                          fileExtension: String = "jpg") -> UIImage? {
-        ImageProvider.shared.read(type: type, id: id, fileExtension: FileExtension(rawValue: fileExtension) ?? .jpg)
-    }
     
-    static func fetchImagePath(type: ImageCacheType, id: String, fileExtension: String = "jpg") -> String? {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
-            return nil
-        }
-        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
-        return imageURL.path
-    }
-    
-    @available(*, deprecated, message: "Please use protocol instead of using static method")
-    static func saveImage(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: String = "jpg") {
-        ImageProvider.shared.save(image, type: type, id: id, fileExtension: FileExtension(rawValue: fileExtension) ?? .jpg)
-    }
-    
-    static func docDir(type: ImageCacheType) -> URL? {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
-            return nil
-        }
-        return docDir.appendingPathComponent(type.rawValue)
-    }
-    
-    static func loadImage(urlString: String) async -> UIImage? {
+    func load(urlString: String) async -> UIImage? {
         guard let url = URL(string: urlString),
               let (newImageData, _) = try? await URLSession.shared.data(from: url),
               let newImage = UIImage(data: newImageData) else {
