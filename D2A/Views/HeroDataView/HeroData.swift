@@ -48,18 +48,23 @@ struct HeroData: HeroProtocol {
 protocol AbilityProtocol: Identifiable {
     var id: Int { get }
     var name: String { get }
-    var description: String { get }
-    var displayName: String { get }
+    
     var attributes: [String] { get }
-    var lore: String { get }
-    var manaCost: String { get }
-    var coolDown: String { get }
-    var behavior: String { get }
-    var damageType: String { get }
-    var targetTeam: String { get }
-    var targetType: String { get }
-    var dispellable: String { get }
-    var bkbPierce: String { get }
+    var manaCost: String? { get }
+    var coolDown: String? { get }
+    var behavior: String? { get }
+    var damageType: String? { get }
+    var targetTeam: String? { get }
+    var targetType: String? { get }
+    var dispellable: String? { get }
+    var bkbPierce: String? { get }
+    
+    // Localized fields
+    var displayName: String { get }
+    var lore: String? { get }
+    var description: String? { get }
+    var scepter: String? { get }
+    var shard: String? { get }
 }
 
 struct AbilityData: AbilityProtocol {
@@ -72,8 +77,8 @@ struct AbilityData: AbilityProtocol {
         ability.name ?? ""
     }
 
-    var description: String {
-        localization.desc ?? ""
+    var description: String? {
+        localization.desc
     }
 
     var displayName: String {
@@ -81,43 +86,51 @@ struct AbilityData: AbilityProtocol {
     }
 
     var attributes: [String] {
-            []
+        []
     }
 
-    var lore: String {
-        localization.lore ?? ""
+    var lore: String? {
+        localization.lore
     }
 
-    var manaCost: String {
-        ability.manaCost ?? ""
+    var manaCost: String? {
+        ability.manaCost
     }
 
-    var coolDown: String {
-        ability.coolDown ?? ""
+    var coolDown: String? {
+        ability.coolDown
     }
 
-    var behavior: String {
-        ability.behavior ?? ""
+    var behavior: String? {
+        ability.behavior
     }
 
-    var damageType: String {
-        ability.damageType ?? ""
+    var damageType: String? {
+        ability.damageType
     }
 
-    var targetTeam: String {
-        ability.targetTeam ?? ""
+    var targetTeam: String? {
+        ability.targetTeam
     }
 
-    var targetType: String {
-        ability.targetType ?? ""
+    var targetType: String? {
+        ability.targetType
     }
 
-    var dispellable: String {
-        ability.dispellable ?? ""
+    var dispellable: String? {
+        ability.dispellable
     }
 
-    var bkbPierce: String {
-        ability.bkbPierce ?? ""
+    var bkbPierce: String? {
+        ability.bkbPierce
+    }
+    
+    var scepter: String? {
+        localization.aghanimDescription
+    }
+    
+    var shard: String? {
+        localization.shardDescription
     }
 
     let ability: Ability
