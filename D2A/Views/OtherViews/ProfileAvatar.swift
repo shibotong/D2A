@@ -19,13 +19,13 @@ struct ProfileAvatar: View {
     private let imageURL: String?
     
     init(profile: UserProfile, cornerRadius: CGFloat) {
-        self.profile = profile
-        userID = profile.id?.description ?? "0"
-        imageURL = profile.avatarfull
-        self.cornerRadius = cornerRadius
+        self.init(userID: profile.id?.description ?? "0",
+                  imageURL: profile.avatarfull,
+                  cornerRadius: cornerRadius,
+                  profile: profile)
     }
     
-    init(userID: String, imageURL: String, cornerRadius: CGFloat, profile: UserProfile? = nil) {
+    init(userID: String, imageURL: String?, cornerRadius: CGFloat, profile: UserProfile? = nil) {
         self.userID = userID
         self.imageURL = imageURL
         self.cornerRadius = cornerRadius
