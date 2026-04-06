@@ -6,7 +6,6 @@
 //
 
 import CoreData
-import StratzAPI
 
 extension AbilityTranslation {
     
