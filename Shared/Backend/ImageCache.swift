@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Logging
 import UIKit
 
 enum ImageCacheType: String {
@@ -16,12 +17,30 @@ enum ImageCacheType: String {
     case league
 }
 
-class ImageCache: ObservableObject {
+protocol ImageProviding {
+    func read(type: ImageCacheType, id: String, fileExtension: String) -> UIImage?
+    func save(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: String) throws
+}
+
+class ImageCache: ImageProviding {
     
-    static func readImage(type: ImageCacheType, 
-                          id: String,
-                          fileExtension: String = "jpg") -> UIImage? {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+    static let shared = ImageCache()
+    
+    private let fileManager: FileManager
+    private let logger: Logger
+    private let groupName: String
+    
+    init(fileManager: FileManager = .default,
+         groupName: String = GROUP_NAME,
+         logger: Logger = D2ALogger.imageCache) {
+        self.fileManager = fileManager
+        self.groupName = groupName
+        self.logger = logger
+    }
+    
+    func read(type: ImageCacheType, id: String, fileExtension: String) -> UIImage? {
+        guard let docDir = fileManager.containerURL(forSecurityApplicationGroupIdentifier: groupName) else {
+            logger.error("Not able to find doc directory with group name: \(groupName)")
             return nil
         }
         let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
@@ -29,27 +48,18 @@ class ImageCache: ObservableObject {
         return newImage
     }
     
-    static func fetchImagePath(type: ImageCacheType, id: String, fileExtension: String = "jpg") -> String? {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
-            return nil
-        }
-        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
-        return imageURL.path
-    }
-    
-    static func saveImage(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: String = "jpg") {
-        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
-            print("save image error")
+    func save(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: String) {
+        guard let docDir = fileManager.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+            logger.error("Not able to find doc directory with group name: \(groupName)")
             return
         }
         
         let imageFolder = docDir.appendingPathComponent(type.rawValue)
         do {
-            try FileManager.default
-                .createDirectory(
-                    at: imageFolder,
-                    withIntermediateDirectories: true,
-                    attributes: nil)
+            try fileManager.createDirectory(
+                at: imageFolder,
+                withIntermediateDirectories: true,
+                attributes: nil)
             let imageURL = imageFolder.appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
             var imageData: Data?
             if fileExtension == "jpg" {
@@ -60,9 +70,28 @@ class ImageCache: ObservableObject {
             }
             try imageData?.write(to: imageURL)
         } catch {
-            print(error)
-            // log any errors
+            logger.error("Failed to save image \(id). error: \(error)")
         }
+    }
+    
+    @available(*, deprecated, message: "Please use protocol instead of using static method")
+    static func readImage(type: ImageCacheType,
+                          id: String,
+                          fileExtension: String = "jpg") -> UIImage? {
+        shared.read(type: type, id: id, fileExtension: fileExtension)
+    }
+    
+    static func fetchImagePath(type: ImageCacheType, id: String, fileExtension: String = "jpg") -> String? {
+        guard let docDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
+            return nil
+        }
+        let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension)", isDirectory: false)
+        return imageURL.path
+    }
+    
+    @available(*, deprecated, message: "Please use protocol instead of using static method")
+    static func saveImage(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: String = "jpg") {
+        shared.save(image, type: type, id: id, fileExtension: fileExtension)
     }
     
     static func docDir(type: ImageCacheType) -> URL? {
