@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 import StratzAPI
 
-extension Hero: HeroProtocol {
+extension Hero {
     
     var hero: Hero {
         return self
