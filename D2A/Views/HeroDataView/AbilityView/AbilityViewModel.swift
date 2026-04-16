@@ -50,7 +50,7 @@ class AbilityViewModel: ObservableObject {
         
         abilityID = ability.name
         
-        displayName = ability.displayName
+        displayName = ability.displayName ?? ""
         lore = ability.lore
         description = ability.description
         scepter = ability.scepter

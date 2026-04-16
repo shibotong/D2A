@@ -55,7 +55,7 @@ protocol AbilityProtocol: Identifiable {
     var bkbPierce: String? { get }
     
     // Localized fields
-    var displayName: String { get }
+    var displayName: String? { get }
     var lore: String? { get }
     var description: String? { get }
     var scepter: String? { get }
@@ -80,8 +80,8 @@ struct AbilityData: AbilityProtocol {
         localization?.desc
     }
 
-    var displayName: String {
-        localization?.displayName ?? ability.dname ?? ""
+    var displayName: String? {
+        localization?.displayName ?? ability.dname
     }
 
     var lore: String? {
