@@ -37,7 +37,7 @@ struct AbilityView: View {
                     AbilityTitleView(displayName: viewModel.displayName,
                                      cd: viewModel.cd,
                                      mc: viewModel.mc,
-                                     name: viewModel.abilityID ?? "")
+                                     name: viewModel.name ?? "")
                     AbilityStatsView(behavior: viewModel.behavior,
                                      targetTeam: viewModel.targetTeam,
                                      bkbPierce: viewModel.bkbPierce, 

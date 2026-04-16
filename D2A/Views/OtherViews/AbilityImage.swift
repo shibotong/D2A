@@ -32,6 +32,8 @@ struct AbilityImage: View {
     }
 }
 
+#if DEBUG
 #Preview {
     AbilityImage(name: "antimage_blink", imageProvider: MockImageProvider())
 }
+#endif
