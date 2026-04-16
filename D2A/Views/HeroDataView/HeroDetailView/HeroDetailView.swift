@@ -88,12 +88,12 @@ struct HeroDetailView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(vm.abilities, id: \.id) { ability in
-                    if let imageURL = ability.ability.imageURL, ability.behavior != "Hidden" {
+                    if ability.behavior != "Hidden" {
                         Button {
                             vm.selectedAbility = ability
                             isPresented = true
                         } label: {
-                            AbilityImage(viewModel: .init(name: ability.name, urlString: imageURL.absoluteString))
+                            AbilityImage(name: ability.name)
                                 .frame(width: skillFrame, height: skillFrame)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
