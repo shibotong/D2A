@@ -38,7 +38,8 @@ struct HeroDetailView: View {
         }
     }
 
-    @ViewBuilder private func buildTitle(hero: any HeroProtocol) -> some View {
+    @ViewBuilder
+    private func buildTitle(hero: any HeroProtocol) -> some View {
         HeroImageView(heroID: Int(hero.id), type: .full)
             .overlay(
                 LinearGradient(colors: [Color(.black).opacity(0),
@@ -118,7 +119,8 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildTalent(talent: [Talent]) -> some View {
+    @ViewBuilder
+    private func buildTalent(talent: [Talent]) -> some View {
         VStack {
             HStack {
                 Text("Talents")
@@ -136,7 +138,8 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildLevelTalent(talent: [Talent], level: Int) -> some View {
+    @ViewBuilder
+    private func buildLevelTalent(talent: [Talent], level: Int) -> some View {
         GeometryReader { proxy in
             HStack(spacing: 5) {
                 if let leftSideTalent = talent.first(where: { $0.slot == level * 2 - 1 }) {
@@ -167,7 +170,8 @@ struct HeroDetailView: View {
         .padding(.horizontal)
     }
     
-    @ViewBuilder private func buildAttributes(hero: Hero) -> some View {
+    @ViewBuilder
+    private func buildAttributes(hero: Hero) -> some View {
         VStack {
             HStack {
                 Text("Attributes")
@@ -254,7 +258,8 @@ struct HeroDetailView: View {
         .padding(.horizontal)
     }
     
-    @ViewBuilder private func buildManaHealthBar(total: Int, color: Color) -> some View {
+    @ViewBuilder
+    private func buildManaHealthBar(total: Int, color: Color) -> some View {
         GeometryReader { proxy in
             let rectangles = Double(total) / 250.00
             let numberOfRect = total / 250
