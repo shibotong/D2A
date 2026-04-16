@@ -16,75 +16,82 @@ class AbilityViewModel: ObservableObject {
     let heroID: Int
     
     // AbilityTitleView
-    @Published var displayName: String = ""
-    @Published var cd: String?
-    @Published var mc: String?
-    @Published var abilityImageURL: String?
-    @Published var abilityID: String?
+    let displayName: String
+    let cd: String?
+    let mc: String?
+    let name: String?
     
     // AbilityStatsView
-    @Published var behavior: String?
-    @Published var targetTeam: String?
-    @Published var bkbPierce: String?
-    @Published var dispellable: String?
-    @Published var damageType: String?
+    let behavior: String?
+    let targetTeam: String?
+    let bkbPierce: String?
+    let dispellable: String?
+    let damageType: String?
     
     // AbilityDescriptionView
     @Published var scepterVideo: AVPlayer?
     @Published var shardVideo: AVPlayer?
     @Published var abilityVideo: AVPlayer?
     
-    @Published var description: String?
-    @Published var scepter: String?
-    @Published var shard: String?
+    let description: String?
+    let scepter: String?
+    let shard: String?
     
-    @Published var lore: String?
-    @Published var attributes: [AbilityTranslation.Attribute]?
+    let lore: String?
+    let attributes: [AbilityTranslation.Attribute]?
     
     private var database = HeroDatabase.shared
     
     private var cancellables = Set<AnyCancellable>()
         
-    init(heroID: Int, ability: any AbilityProtocol) {
+    convenience init(heroID: Int, ability: any AbilityProtocol) {
+        self.init(heroID: heroID, displayName: ability.displayName ?? "", cd: ability.coolDown,
+                  mc: ability.manaCost, name: ability.name, behavior: ability.behavior,
+                  targetTeam: ability.targetTeam, bkbPierce: ability.bkbPierce, dispellable: ability.dispellable,
+                  damageType: ability.damageType, description: ability.description, scepter: ability.scepter, shard: ability.shard,
+                  lore: ability.lore, attributes: ability.attributes)
+    }
+    
+    init(heroID: Int, displayName: String, cd: String?,
+         mc: String?, name: String?, behavior: String?,
+         targetTeam: String?, bkbPierce: String?, dispellable: String?,
+         damageType: String?, scepterVideo: AVPlayer? = nil,
+         shardVideo: AVPlayer? = nil, abilityVideo: AVPlayer? = nil,
+         description: String?, scepter: String?, shard: String?,
+         lore: String?, attributes: [AbilityTranslation.Attribute]?,
+         database: HeroDatabase = HeroDatabase.shared,
+         cancellables: Set<AnyCancellable> = Set<AnyCancellable>()) {
         self.heroID = heroID
-        
-        abilityID = ability.name
-        
-        displayName = ability.displayName ?? ""
-        lore = ability.lore
-        description = ability.description
-        scepter = ability.scepter
-        shard = ability.shard
-        attributes = ability.attributes
-        
-        cd = ability.coolDown
-        mc = ability.manaCost
-        behavior = ability.behavior
-        targetTeam = ability.targetTeam
-        bkbPierce = ability.bkbPierce
-        dispellable = ability.dispellable
-        damageType = ability.damageType
+        self.displayName = displayName
+        self.cd = cd
+        self.mc = mc
+        self.name = name
+        self.behavior = behavior
+        self.targetTeam = targetTeam
+        self.bkbPierce = bkbPierce
+        self.dispellable = dispellable
+        self.damageType = damageType
+        self.scepterVideo = scepterVideo
+        self.shardVideo = shardVideo
+        self.abilityVideo = abilityVideo
+        self.description = description
+        self.scepter = scepter
+        self.shard = shard
+        self.lore = lore
+        self.attributes = attributes
+        self.database = database
+        self.cancellables = cancellables
         
         Task {
             await buildDetailView()
         }
     }
     
-    private func setAbiilty(_ ability: Ability) {
-        
-
-        guard let name = ability.name else {
-            return
-        }
-        let urlString = "\(IMAGE_PREFIX)/apps/dota2/images/dota_react/abilities/\(name).png"
-        abilityImageURL = urlString
-    }
-    
     func buildDetailView() async {
         var ability: AVAsset?
         var scepter: AVAsset?
         var shard: AVAsset?
-        guard let abilityName = abilityID else { return }
+        guard let abilityName = name else { return }
         if abilityVideo == nil {
             ability = getVideoURL(abilityName, type: .non)
         }
