@@ -21,25 +21,37 @@ class HeroDetailViewModel: ObservableObject {
     @Published var nextHeroID: Int?
     
     @Published var abilities: [AbilityData] = []
+    @Published var talent1Left: String = ""
+    @Published var talent2Left: String = ""
+    @Published var talent3Left: String = ""
+    @Published var talent4Left: String = ""
+    @Published var talent1Right: String = ""
+    @Published var talent2Right: String = ""
+    @Published var talent3Right: String = ""
+    @Published var talent4Right: String = ""
     
     private var database: HeroDatabase = HeroDatabase.shared
     private let persistence: PersistenceProviding
     private let context: NSManagedObjectContext
+    private let language: DataLanguageEnum
     
     init(hero: any HeroProtocol,
+         language: DataLanguageEnum = AppConfig.languageCode,
          persistence: PersistenceProviding = PersistenceProvider.shared) {
         self.hero = hero
         heroID = hero.heroID
-        abilities = hero.abilityData
         self.persistence = persistence
         self.context = persistence.mainContext
+        self.language = language
     }
     
     init(heroID: Int,
+         language: DataLanguageEnum = AppConfig.languageCode,
          persistence: PersistenceProviding = PersistenceProvider.shared) {
         self.heroID = heroID
         self.persistence = persistence
         self.context = persistence.mainContext
+        self.language = language
         $heroID
             .map { heroID in
                 let cachedHero = try? persistence.fetch(heroID: heroID, context: self.context)
@@ -90,6 +102,32 @@ class HeroDetailViewModel: ObservableObject {
         let nextHero = heroList[index]
         let nextHeroID = nextHero.id
         return nextHeroID
+    }
+    
+    func fetchHeroAbilities() {
+        guard let hero else {
+            return
+        }
+        abilities = hero.hero.abilities?.compactMap { fetchAbility(name: $0) } ?? []
+        talent1Left = fetchAbility(name: hero.hero.talent1left)?.displayName ?? ""
+        talent2Left = fetchAbility(name: hero.hero.talent2left)?.displayName ?? ""
+        talent3Left = fetchAbility(name: hero.hero.talent3left)?.displayName ?? ""
+        talent4Left = fetchAbility(name: hero.hero.talent4left)?.displayName ?? ""
+        talent1Right = fetchAbility(name: hero.hero.talent1right)?.displayName ?? ""
+        talent2Right = fetchAbility(name: hero.hero.talent2right)?.displayName ?? ""
+        talent3Right = fetchAbility(name: hero.hero.talent3right)?.displayName ?? ""
+        talent4Right = fetchAbility(name: hero.hero.talent4right)?.displayName ?? ""
+    }
+    
+    private func fetchAbility(name: String?) -> AbilityData? {
+        guard let name else {
+            return nil
+        }
+        guard let ability = try? persistence.fetch(ability: name, context: context) else {
+            return nil
+        }
+        let localization = try? persistence.fetch(ability: name, language: language, context: context)
+        return AbilityData(ability: ability, localization: localization)
     }
     
 //    func getNextHeroID(id: Int) -> Int? {

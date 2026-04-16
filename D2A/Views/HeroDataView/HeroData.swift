@@ -10,7 +10,6 @@ protocol HeroProtocol: Identifiable {
     var localizedName: String { get }
     var primaryAttribute: String { get }
     var hero: Hero { get }
-    var abilityData: [AbilityData] { get }
 }
 
 extension HeroProtocol {
@@ -20,9 +19,9 @@ extension HeroProtocol {
 }
 
 struct HeroData: HeroProtocol {
+    
     let hero: Hero
     let localization: HeroTranslation
-    let abilities: [AbilityData]
     
     var heroID: Int {
         return Int(localization.heroID)
@@ -38,10 +37,6 @@ struct HeroData: HeroProtocol {
     
     var heroAbilities: [String] {
         hero.abilities ?? []
-    }
-    
-    var abilityData: [AbilityData] {
-        abilities
     }
 }
 
@@ -71,7 +66,7 @@ protocol AbilityProtocol: Identifiable {
 struct AbilityData: AbilityProtocol {
     
     let ability: Ability
-    let localization: AbilityTranslation
+    let localization: AbilityTranslation?
 
     var id: Int {
         Int(ability.abilityID)
@@ -82,15 +77,15 @@ struct AbilityData: AbilityProtocol {
     }
 
     var description: String? {
-        localization.desc
+        localization?.desc
     }
 
     var displayName: String {
-        localization.displayName ?? ""
+        localization?.displayName ?? ability.dname ?? ""
     }
 
     var lore: String? {
-        localization.lore
+        localization?.lore
     }
 
     var manaCost: String? {
@@ -126,14 +121,14 @@ struct AbilityData: AbilityProtocol {
     }
     
     var scepter: String? {
-        localization.aghanimDescription
+        localization?.aghanimDescription
     }
     
     var shard: String? {
-        localization.shardDescription
+        localization?.shardDescription
     }
 
     var attributes: [AbilityTranslation.Attribute]? {
-        return localization.localizedAttributes
+        return localization?.localizedAttributes
     }
 }

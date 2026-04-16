@@ -9,7 +9,39 @@ import Foundation
 import CoreData
 import StratzAPI
 
-extension Hero {
+extension Hero: HeroProtocol {
+    var talent1LeftName: String {
+        ""
+    }
+    
+    var talent2LeftName: String {
+        ""
+    }
+    
+    var talent3LeftName: String {
+        ""
+    }
+    
+    var talent4LeftName: String {
+        ""
+    }
+    
+    var talent1RightName: String {
+        ""
+    }
+    
+    var talent2RightName: String {
+        ""
+    }
+    
+    var talent3RightName: String {
+        ""
+    }
+    
+    var talent4RightName: String {
+        ""
+    }
+    
     
     var hero: Hero {
         return self

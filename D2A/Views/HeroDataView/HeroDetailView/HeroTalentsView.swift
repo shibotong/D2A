@@ -21,6 +21,17 @@ struct HeroTalentsView: View {
     let talent25Left: String
     let talent25Right: String
     
+    init(talent10Left: String, talent10Right: String, talent15Left: String, talent15Right: String, talent20Left: String, talent20Right: String, talent25Left: String, talent25Right: String) {
+        self.talent10Left = talent10Left
+        self.talent10Right = talent10Right
+        self.talent15Left = talent15Left
+        self.talent15Right = talent15Right
+        self.talent20Left = talent20Left
+        self.talent20Right = talent20Right
+        self.talent25Left = talent25Left
+        self.talent25Right = talent25Right
+    }
+    
     var body: some View {
         VStack {
             HStack {

@@ -20,6 +20,9 @@ struct HeroDetailView: View {
                 AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: ability))
                     .environmentObject(heroDatabase)
             })
+            .task {
+                vm.fetchHeroAbilities()
+            }
     }
     
     private var mainBody: some View {
@@ -30,7 +33,7 @@ struct HeroDetailView: View {
                     buildAbilities(hero: hero.hero)
                         .padding(.horizontal, 5)
                     Divider()
-                    buildHeroDetails(hero: hero.hero)
+                    buildHeroDetails(hero: hero)
                 }.navigationTitle(hero.localizedName)
             } else {
                 LoadingView()
@@ -105,17 +108,22 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildHeroDetails(hero: Hero) -> some View {
+    @ViewBuilder private func buildHeroDetails(hero: any HeroProtocol) -> some View {
         VStack {
-            buildAttributes(hero: hero)
+            buildAttributes(hero: hero.hero)
             Divider()
-            HeroRoleView(hero: hero)
+            HeroRoleView(hero: hero.hero)
             Divider()
-            HeroStatsView(hero: hero)
+            HeroStatsView(hero: hero.hero)
             Divider()
-            if let talents = hero.talents?.allObjects as? [Talent] {
-                buildTalent(talent: talents)
-            }
+            HeroTalentsView(talent10Left: vm.talent1Left,
+                            talent10Right: vm.talent1Right,
+                            talent15Left: vm.talent2Left,
+                            talent15Right: vm.talent2Right,
+                            talent20Left: vm.talent3Left,
+                            talent20Right: vm.talent3Right,
+                            talent25Left: vm.talent4Left,
+                            talent25Right: vm.talent4Right)
         }
     }
     

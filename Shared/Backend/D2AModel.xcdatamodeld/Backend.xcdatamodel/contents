@@ -70,6 +70,14 @@
         <attribute name="roleNuker" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="rolePusher" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="roleSupport" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="talent1left" optional="YES" attributeType="String"/>
+        <attribute name="talent1right" optional="YES" attributeType="String"/>
+        <attribute name="talent2left" optional="YES" attributeType="String"/>
+        <attribute name="talent2right" optional="YES" attributeType="String"/>
+        <attribute name="talent3left" optional="YES" attributeType="String"/>
+        <attribute name="talent3right" optional="YES" attributeType="String"/>
+        <attribute name="talent4left" optional="YES" attributeType="String"/>
+        <attribute name="talent4right" optional="YES" attributeType="String"/>
         <attribute name="turnRate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionDaytimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionNighttimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
