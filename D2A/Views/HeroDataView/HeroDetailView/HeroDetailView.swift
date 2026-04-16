@@ -20,6 +20,9 @@ struct HeroDetailView: View {
                 AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: ability))
                     .environmentObject(heroDatabase)
             })
+            .task {
+                vm.fetchHeroAbilities()
+            }
     }
     
     private var mainBody: some View {
@@ -30,7 +33,7 @@ struct HeroDetailView: View {
                     buildAbilities(hero: hero.hero)
                         .padding(.horizontal, 5)
                     Divider()
-                    buildHeroDetails(hero: hero.hero)
+                    buildHeroDetails(hero: hero)
                 }.navigationTitle(hero.localizedName)
             } else {
                 LoadingView()
@@ -38,7 +41,8 @@ struct HeroDetailView: View {
         }
     }
 
-    @ViewBuilder private func buildTitle(hero: any HeroProtocol) -> some View {
+    @ViewBuilder
+    private func buildTitle(hero: any HeroProtocol) -> some View {
         HeroImageView(heroID: Int(hero.id), type: .full)
             .overlay(
                 LinearGradient(colors: [Color(.black).opacity(0),
@@ -104,70 +108,27 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildHeroDetails(hero: Hero) -> some View {
+    @ViewBuilder private func buildHeroDetails(hero: any HeroProtocol) -> some View {
         VStack {
-            buildAttributes(hero: hero)
+            buildAttributes(hero: hero.hero)
             Divider()
-            HeroRoleView(hero: hero)
+            HeroRoleView(hero: hero.hero)
             Divider()
-            HeroStatsView(hero: hero)
+            HeroStatsView(hero: hero.hero)
             Divider()
-            if let talents = hero.talents?.allObjects as? [Talent] {
-                buildTalent(talent: talents)
-            }
+            HeroTalentsView(talent10Left: vm.talent1Left,
+                            talent10Right: vm.talent1Right,
+                            talent15Left: vm.talent2Left,
+                            talent15Right: vm.talent2Right,
+                            talent20Left: vm.talent3Left,
+                            talent20Right: vm.talent3Right,
+                            talent25Left: vm.talent4Left,
+                            talent25Right: vm.talent4Right)
         }
     }
     
-    @ViewBuilder private func buildTalent(talent: [Talent]) -> some View {
-        VStack {
-            HStack {
-                Text("Talents")
-                    .font(.system(size: 15))
-                    .bold()
-                Spacer()
-            }.padding(.leading)
-            buildLevelTalent(talent: talent, level: 4)
-            Divider()
-            buildLevelTalent(talent: talent, level: 3)
-            Divider()
-            buildLevelTalent(talent: talent, level: 2)
-            Divider()
-            buildLevelTalent(talent: talent, level: 1)
-        }
-    }
-    
-    @ViewBuilder private func buildLevelTalent(talent: [Talent], level: Int) -> some View {
-        GeometryReader { proxy in
-            HStack(spacing: 5) {
-                if let leftSideTalent = talent.first(where: { $0.slot == level * 2 - 1 }) {
-                    let abilityId = leftSideTalent.abilityId
-                    Text(vm.fetchTalentName(id: abilityId))
-                        .font(.system(size: 10))
-                        .frame(width: (proxy.size.width - 40) / 2)
-                } else {
-                    Text("No Talent")
-                }
-                Text("\(5 + 5 * level)")
-                    .font(.system(size: 10))
-                    .bold()
-                    .padding(5)
-                    .frame(width: 30, height: 30)
-                    .background(Circle().stroke().foregroundColor(.yellow))
-                if let rightSideTalent = talent.first(where: { $0.slot == level * 2 - 2 }) {
-                    let abilityId = rightSideTalent.abilityId
-                    Text(vm.fetchTalentName(id: abilityId))
-                        .font(.system(size: 10))
-                        .frame(width: (proxy.size.width - 30) / 2)
-                } else {
-                    Text("No Talent")
-                }
-            }
-        }
-        .frame(height: 30)
-        .padding(.horizontal)
-    }
-    
-    @ViewBuilder private func buildAttributes(hero: Hero) -> some View {
+    @ViewBuilder
+    private func buildAttributes(hero: Hero) -> some View {
         VStack {
             HStack {
                 Text("Attributes")
@@ -254,7 +215,8 @@ struct HeroDetailView: View {
         .padding(.horizontal)
     }
     
-    @ViewBuilder private func buildManaHealthBar(total: Int, color: Color) -> some View {
+    @ViewBuilder
+    private func buildManaHealthBar(total: Int, color: Color) -> some View {
         GeometryReader { proxy in
             let rectangles = Double(total) / 250.00
             let numberOfRect = total / 250

@@ -80,17 +80,7 @@ class HeroListViewModel: ObservableObject {
                 continue
             }
             
-            let abilities: [AbilityData] = hero.abilities?.compactMap { name in
-                guard let ability = try? persistence.fetch(ability: name, context: context) else {
-                    return nil
-                }
-                guard let localization = try? persistence.fetch(ability: name, language: language, context: context) else {
-                    return nil
-                }
-                return AbilityData(ability: ability, localization: localization)
-            } ?? []
-            
-            heroData.append(HeroData(hero: hero, localization: localization, abilities: abilities))
+            heroData.append(HeroData(hero: hero, localization: localization))
         }
         self.heroes = heroData.sorted { $0.localizedName < $1.localizedName }
         self.searchResults = self.heroes
