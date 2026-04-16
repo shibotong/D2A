@@ -17,7 +17,7 @@ struct AbilityImage: View {
     }
     
     var body: some View {
-        ZStack {
+        Group {
             if let image = viewModel.image {
                 Image(uiImage: image)
                     .resizable()
@@ -28,6 +28,7 @@ struct AbilityImage: View {
                     .foregroundColor(.label)
             }
         }
+        .aspectRatio(contentMode: .fit)
     }
 }
 
