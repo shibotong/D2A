@@ -31,13 +31,16 @@ class StaticDataSyncingService: ObservableObject {
     private let persistence: PersistenceProviding
     private let notification: D2ANotification
     
+    private let syncingTimer: SyncingTimer
+    
     init(openDota: OpenDotaFetching = OpenDotaController.shared,
          stratz: StratzFetching = StratzFetcher.shared,
          persistence: PersistenceProviding = PersistenceProvider.shared,
          language: DataLanguageEnum = AppConfig.languageCode,
          logger: Logger = D2ALogger.syncing,
          notification: D2ANotification = .default,
-         syncingLogger: DataSyncingLogger? = nil) {
+         syncingLogger: DataSyncingLogger? = nil,
+         syncingTimer: SyncingTimer = SyncingTimer()) {
         self.openDota = openDota
         self.stratz = stratz
         self.context = persistence.mainContext.makeContext(author: "Static Data")
@@ -46,15 +49,23 @@ class StaticDataSyncingService: ObservableObject {
         self.logger = logger
         self.notification = notification
         self.syncingLogger = syncingLogger
+        self.syncingTimer = syncingTimer
     }
     
     func startSyncing() async {
         isCompleted = false
         do {
-            try await syncAbilities()
-            try await syncAbilityTranslation()
-            try await syncHeroes()
-            try await syncHeroTranslations()
+            let shouldSyncConstants = syncingTimer.shouldSync(key: .constants)
+            let shouldSyncLocalization = syncingTimer.shouldSync(key: .localization(language))
+            logger.info("Should sync constants: \(shouldSyncConstants)")
+            if shouldSyncConstants {
+                try await syncAbilities()
+                try await syncHeroes()
+            }
+            if shouldSyncLocalization {
+                try await syncAbilityTranslation()
+                try await syncHeroTranslations()
+            }
             let context = self.context
             try await context.perform {
                 try context.save()
@@ -63,6 +74,12 @@ class StaticDataSyncingService: ObservableObject {
                 try context.parent?.save()
             }
             notification.syncingCompletion.send(true)
+            if shouldSyncConstants {
+                syncingTimer.finishSyncing(key: .constants)
+            }
+            if shouldSyncLocalization {
+                syncingTimer.finishSyncing(key: .localization(language))
+            }
         } catch {
             logger.error("Failed to sync data: \(error.localizedDescription)")
         }
@@ -102,7 +119,7 @@ class StaticDataSyncingService: ObservableObject {
             var results: [AbilitySaving] = []
             for (abilityIDString, name) in abilityIDs {
                 guard let ability = abilities[name] as? [String: Any] else {
-                    logger.info("Not able to find abiilty from data: \(name)")
+                    logger.trace("Not able to find abiilty from data: \(name)")
                     continue
                 }
                 var abilityIDString = abilityIDString
@@ -117,7 +134,7 @@ class StaticDataSyncingService: ObservableObject {
             }
             return results
         } saving: { ability, context in
-            self.logger.info("Saving ability \(ability.abilityID)")
+            self.logger.trace("Saving ability \(ability.abilityID)")
             try persistence.save(abilityID: ability.abilityID, name: ability.name, data: ability.data, in: context, syncingLogger: syncingLogger)
             try context.save()
         }
@@ -130,7 +147,7 @@ class StaticDataSyncingService: ObservableObject {
             let stratzAbilities = try await stratz.abilities(language: language)
             return stratzAbilities
         }) { ability, context in
-            self.logger.info("Saving ability localization \(ability.id)")
+            self.logger.trace("Saving ability localization \(ability.id)")
             try persistence.save(ability: ability, language: language, in: context)
             try context.save()
         }
@@ -158,7 +175,7 @@ class StaticDataSyncingService: ObservableObject {
             }
             return heroes
         } saving: { (hero: HeroRecipe, context) in
-            self.logger.info("Saving hero \(hero.heroID)")
+            self.logger.trace("Saving hero \(hero.heroID)")
             try persistenceProvider.save(hero: hero, in: context, logger: syncingLogger)
         }
     }
@@ -171,7 +188,7 @@ class StaticDataSyncingService: ObservableObject {
             let stratzHeroes = try await stratz.heroes(language: language)
             return stratzHeroes
         } saving: { hero, context in
-            self.logger.info("Saving hero translation \(hero.id)")
+            self.logger.trace("Saving hero translation \(hero.id)")
             try persistence.save(hero: hero, language: language, in: context)
             try context.save()
         }
