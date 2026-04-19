@@ -19,7 +19,7 @@ struct SyncingTests {
     
     @Test("syncing services")
     func syncingServices() async throws {
-        await service.startSyncing()
+        try await service.startSyncing()
         let errors = await logger.errors
         #expect(errors.count == 0)
     }

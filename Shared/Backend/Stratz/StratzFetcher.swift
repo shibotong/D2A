@@ -16,11 +16,11 @@ protocol StratzFetching {
 
 extension StratzFetching {
     func abilities() async throws -> [SKAbility] {
-        return try await abilities(language: AppConfig.languageCode)
+        return try await abilities(language: AppConfig.shared.languageCode)
     }
     
     func heroes() async throws -> [SKHero] {
-        return try await heroes(language: AppConfig.languageCode)
+        return try await heroes(language: AppConfig.shared.languageCode)
     }
 }
 

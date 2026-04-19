@@ -12,8 +12,9 @@ import Logging
 class StaticDataSyncingService: ObservableObject {
 
     static let shared = StaticDataSyncingService()
-    
-    @Published var isCompleted: Bool = true
+    @Published var isCompleted = false
+    @Published var currentSyncingService: String = ""
+    @Published var syncingProgress: Double = 0.0
     
     private let openDota: OpenDotaFetching
     private let stratz: StratzFetching
@@ -24,85 +25,68 @@ class StaticDataSyncingService: ObservableObject {
     
     private let logger: Logger
     
-    private let maxConcurrent = 4
+    private let maxConcurrent: Int
     
     private let syncingLogger: DataSyncingLogger?
     
     private let persistence: PersistenceProviding
     private let notification: D2ANotification
     
-    private let syncingTimer: SyncingTimer
+    private let syncingTimer: SyncingTimerProtocol
+    
+    private var syncingActor: SyncingProgress = SyncingProgress()
     
     init(openDota: OpenDotaFetching = OpenDotaController.shared,
          stratz: StratzFetching = StratzFetcher.shared,
          persistence: PersistenceProviding = PersistenceProvider.shared,
-         language: DataLanguageEnum = AppConfig.languageCode,
+         appConfig: AppConfigProtocol = AppConfig.shared,
          logger: Logger = D2ALogger.syncing,
          notification: D2ANotification = .default,
          syncingLogger: DataSyncingLogger? = nil,
-         syncingTimer: SyncingTimer = SyncingTimer()) {
+         syncingTimer: SyncingTimerProtocol = SyncingTimer()) {
         self.openDota = openDota
         self.stratz = stratz
         self.context = persistence.mainContext.makeContext(author: "Static Data")
         self.persistence = persistence
-        self.language = language
+        self.language = appConfig.languageCode
+        self.maxConcurrent = appConfig.processors
         self.logger = logger
         self.notification = notification
         self.syncingLogger = syncingLogger
         self.syncingTimer = syncingTimer
     }
     
-    func startSyncing() async {
-        isCompleted = false
-        do {
-            let shouldSyncConstants = syncingTimer.shouldSync(key: .constants)
-            let shouldSyncLocalization = syncingTimer.shouldSync(key: .localization(language))
-            logger.info("Should sync constants: \(shouldSyncConstants)")
-            if shouldSyncConstants {
-                try await syncAbilities()
-                try await syncHeroes()
-            }
-            if shouldSyncLocalization {
-                try await syncAbilityTranslation()
-                try await syncHeroTranslations()
-            }
-            let context = self.context
-            try await context.perform {
-                try context.save()
-            }
-            try await context.parent?.perform {
-                try context.parent?.save()
-            }
-            notification.syncingCompletion.send(true)
-            if shouldSyncConstants {
-                syncingTimer.finishSyncing(key: .constants)
-            }
-            if shouldSyncLocalization {
-                syncingTimer.finishSyncing(key: .localization(language))
-            }
-        } catch {
-            logger.error("Failed to sync data: \(error.localizedDescription)")
+    func startSyncing() async throws {
+        defer {
+            isCompleted = true
         }
-        isCompleted = true
-    }
-    
-    func syncStaticData() async {
         isCompleted = false
-        do {
+        let shouldSyncConstants = syncingTimer.shouldSync(key: .constants)
+        let shouldSyncLocalization = syncingTimer.shouldSync(key: .localization(language))
+        logger.info("Should sync constants: \(shouldSyncConstants)")
+        if shouldSyncConstants {
             try await syncAbilities()
             try await syncHeroes()
-            let context = self.context
-            try await context.perform {
-                try context.save()
-            }
-            try await context.parent?.perform {
-                try context.parent?.save()
-            }
-            notification.syncingCompletion.send(true)
-        } catch {
-            logger.error("Failed to sync data: \(error.localizedDescription)")
         }
-        isCompleted = true
+        if shouldSyncLocalization {
+            
+            try await syncAbilityTranslation()
+            try await syncHeroTranslations()
+        }
+        let context = self.context
+        try await context.perform {
+            try context.save()
+        }
+        try await context.parent?.perform {
+            try context.parent?.save()
+        }
+        notification.syncingCompletion.send(true)
+        if shouldSyncConstants {
+            syncingTimer.finishSyncing(key: .constants)
+        }
+        if shouldSyncLocalization {
+            syncingTimer.finishSyncing(key: .localization(language))
+        }
     }
     
     private func syncAbilities() async throws {
@@ -202,12 +186,14 @@ class StaticDataSyncingService: ObservableObject {
         let maxConcurrent = self.maxConcurrent
         let savingContext = context.makeContext(author: author)
         let results = try await fetchData()
-        await withTaskGroup { group in
+        await updateSyncingProgress(name: author, total: results.count)
+        await withTaskGroup { [weak self] group in
             var iterator = results.makeIterator()
             for _ in 0..<maxConcurrent {
                 if let item = iterator.next() {
                     group.addTask {
                         let context = savingContext.makeContext()
+                        await self?.updateSyncingProgress(updateCurrent: true)
                         await context.perform {
                             try? saving(item, context)
                             try? context.save()
@@ -220,6 +206,7 @@ class StaticDataSyncingService: ObservableObject {
                 if let item = iterator.next() {
                     group.addTask {
                         let context = savingContext.makeContext()
+                        await self?.updateSyncingProgress(updateCurrent: true)
                         await context.perform {
                             try? saving(item, context)
                             try? context.save()
@@ -237,6 +224,50 @@ class StaticDataSyncingService: ObservableObject {
         let abilityID: Int
         let name: String
         let data: [String: Any]
+    }
+    
+    @MainActor
+    private func updateSyncingProgress(name: String? = nil, total: Int? = nil, updateCurrent: Bool = false) async {
+        if let name {
+            await syncingActor.setService(name)
+        }
+        if let total {
+            await syncingActor.setTotal(total)
+        }
+        if updateCurrent {
+            await syncingActor.updateCurrent()
+        }
+        currentSyncingService = await syncingActor.service
+        syncingProgress = await syncingActor.fetchProgress()
+    }
+}
+
+actor SyncingProgress {
+    var service: String
+    var totalItems: Int
+    var currentItems: Int
+    
+    init(service: String = "", totalItems: Int = 0, currentItems: Int = 0) {
+        self.service = service
+        self.totalItems = totalItems
+        self.currentItems = currentItems
+    }
+    
+    func setService(_ name: String) {
+        service = name
+    }
+    
+    func setTotal(_ total: Int) {
+        totalItems = total
+        currentItems = 0
+    }
+    
+    func updateCurrent() {
+        currentItems = currentItems + 1
+    }
+    
+    func fetchProgress() -> Double {
+        return Double(currentItems) / Double(totalItems)
     }
 }
 

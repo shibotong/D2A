@@ -36,7 +36,7 @@ class HeroDetailViewModel: ObservableObject {
     private let language: DataLanguageEnum
     
     init(hero: any HeroProtocol,
-         language: DataLanguageEnum = AppConfig.languageCode,
+         language: DataLanguageEnum = AppConfig.shared.languageCode,
          persistence: PersistenceProviding = PersistenceProvider.shared) {
         self.hero = hero
         heroID = hero.heroID
@@ -46,7 +46,7 @@ class HeroDetailViewModel: ObservableObject {
     }
     
     init(heroID: Int,
-         language: DataLanguageEnum = AppConfig.languageCode,
+         language: DataLanguageEnum = AppConfig.shared.languageCode,
          persistence: PersistenceProviding = PersistenceProvider.shared) {
         self.heroID = heroID
         self.persistence = persistence
@@ -73,7 +73,7 @@ class HeroDetailViewModel: ObservableObject {
     }
     
     func fetchTalentName(id: Short) -> String {
-        if let localisation = try? persistence.fetch(abilityID: Int(id), language: AppConfig.languageCode, context: PersistenceProvider.shared.mainContext),
+        if let localisation = try? persistence.fetch(abilityID: Int(id), language: AppConfig.shared.languageCode, context: PersistenceProvider.shared.mainContext),
            let dname = localisation.displayName {
             return dname
         } else {
@@ -108,15 +108,15 @@ class HeroDetailViewModel: ObservableObject {
         guard let hero else {
             return
         }
-        abilities = hero.hero.abilities?.compactMap { fetchAbility(name: $0) } ?? []
-        talent1Left = fetchAbility(name: hero.hero.talent1left)?.displayName ?? ""
-        talent2Left = fetchAbility(name: hero.hero.talent2left)?.displayName ?? ""
-        talent3Left = fetchAbility(name: hero.hero.talent3left)?.displayName ?? ""
-        talent4Left = fetchAbility(name: hero.hero.talent4left)?.displayName ?? ""
-        talent1Right = fetchAbility(name: hero.hero.talent1right)?.displayName ?? ""
-        talent2Right = fetchAbility(name: hero.hero.talent2right)?.displayName ?? ""
-        talent3Right = fetchAbility(name: hero.hero.talent3right)?.displayName ?? ""
-        talent4Right = fetchAbility(name: hero.hero.talent4right)?.displayName ?? ""
+//        abilities = hero.hero.abilities?.compactMap { fetchAbility(name: $0) } ?? []
+//        talent1Left = fetchAbility(name: hero.hero.talent1left)?.displayName ?? ""
+//        talent2Left = fetchAbility(name: hero.hero.talent2left)?.displayName ?? ""
+//        talent3Left = fetchAbility(name: hero.hero.talent3left)?.displayName ?? ""
+//        talent4Left = fetchAbility(name: hero.hero.talent4left)?.displayName ?? ""
+//        talent1Right = fetchAbility(name: hero.hero.talent1right)?.displayName ?? ""
+//        talent2Right = fetchAbility(name: hero.hero.talent2right)?.displayName ?? ""
+//        talent3Right = fetchAbility(name: hero.hero.talent3right)?.displayName ?? ""
+//        talent4Right = fetchAbility(name: hero.hero.talent4right)?.displayName ?? ""
     }
     
     private func fetchAbility(name: String?) -> AbilityData? {

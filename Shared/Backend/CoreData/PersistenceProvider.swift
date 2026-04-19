@@ -10,6 +10,8 @@ import CoreData
 enum PersistenceError: Error {
     case insertError
     case persistentHistoryChangeError
+    case heroNotFound(Int)
+    case abilityNotFound(Int)
 }
 
 protocol PersistenceProviding {
@@ -203,6 +205,8 @@ class PersistenceProvider: PersistenceProviding {
         setIfNotEqual(entity: hero, path: \.id, value: Double(heroID))
         setIfExist(entity: hero, path: \.name, data: data, key: "name", errorCompletion: closure)
         setIfExist(entity: hero, path: \.primaryAttr, data: data, key: "primary_attr", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.attackType, data: data, key: "attack_type", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.displayName, data: data, key: "localized_name", errorCompletion: closure)
         setIfExist(entity: hero, path: \.baseHealth, data: data, key: "base_health", errorCompletion: closure)
         setIfExist(entity: hero, path: \.baseHealthRegen, data: data, key: "base_health_regen", errorCompletion: closure)
         setIfExist(entity: hero, path: \.baseMana, data: data, key: "base_mana", errorCompletion: closure)
@@ -237,28 +241,34 @@ class PersistenceProvider: PersistenceProviding {
         setIfNotEqual(entity: hero, path: \.rolePusher, value: Int16(findRole(role: .pusher, roles: additional.roles)))
         setIfNotEqual(entity: hero, path: \.roleInitiator, value: Int16(findRole(role: .initiator, roles: additional.roles)))
         
+        if let abilityNames = abilities["abilities"] as? [String], let abilities = try? fetch(abilities: abilityNames, context: context, ordered: true) {
+            hero.abilities = NSOrderedSet(array: abilities)
+        }
+        
         // abilities
-        setIfExist(entity: hero, path: \.abilities, data: abilities, key: "abilities", errorCompletion: closure)
         if let talents = abilities["talents"] as? [[String: Any]] {
             for (index, talent) in talents.enumerated() {
-                let ability = talent["name"] as? String
+                guard let abilityName = talent["name"] as? String else {
+                    continue
+                }
+                let ability = try fetch(ability: abilityName, context: context)
                 switch index {
                 case 0:
-                    setIfNotEqual(entity: hero, path: \.talent1right, value: ability ?? "")
+                    setIfNotEqual(entity: hero, path: \.talent1right, value: ability)
                 case 1:
-                    setIfNotEqual(entity: hero, path: \.talent1left, value: ability ?? "")
+                    setIfNotEqual(entity: hero, path: \.talent1left, value: ability)
                 case 2:
-                    setIfNotEqual(entity: hero, path: \.talent2right, value: ability ?? "")
+                    setIfNotEqual(entity: hero, path: \.talent2right, value: ability)
                 case 3:
-                    setIfNotEqual(entity: hero, path: \.talent2left, value: ability ?? "")
+                    setIfNotEqual(entity: hero, path: \.talent2left, value: ability)
                 case 4:
-                    setIfNotEqual(entity: hero, path: \.talent3right, value: ability ?? "")
+                    setIfNotEqual(entity: hero, path: \.talent3right, value: ability)
                 case 5:
-                    setIfNotEqual(entity: hero, path: \.talent3left, value: ability ?? "")
+                    setIfNotEqual(entity: hero, path: \.talent3left, value: ability)
                 case 6:
-                    setIfNotEqual(entity: hero, path: \.talent4right, value: ability ?? "")
+                    setIfNotEqual(entity: hero, path: \.talent4right, value: ability)
                 case 7:
-                    setIfNotEqual(entity: hero, path: \.talent4left, value: ability ?? "")
+                    setIfNotEqual(entity: hero, path: \.talent4left, value: ability)
                 default:
                     continue
                 }
@@ -291,7 +301,16 @@ class PersistenceProvider: PersistenceProviding {
     }
         
     func save(hero localization: SKHero, language: DataLanguageEnum, in context: NSManagedObjectContext) throws {
-        let translation = try fetchHeroLocalization(id: localization.id, language: language, context: context) ?? HeroTranslation(context: context)
+        guard let rootHero = try fetch(heroID: localization.id, context: context) else {
+            throw PersistenceError.heroNotFound(localization.id)
+        }
+        var translation: HeroTranslation
+        if let savedTranslation = try fetchHeroLocalization(id: localization.id, language: language, context: context) {
+            translation = savedTranslation
+        } else {
+            translation = HeroTranslation(context: context)
+            translation.hero = rootHero
+        }
         setIfNotEqual(entity: translation, path: \.language, value: language.rawValue)
         setIfNotEqual(entity: translation, path: \.heroID, value: Int16(localization.id))
         setIfNotEqual(entity: translation, path: \.displayName, value: localization.displayName)
@@ -313,6 +332,26 @@ class PersistenceProvider: PersistenceProviding {
         let predicate = NSPredicate(format: "name = %@", name)
         fetchRequest.predicate = predicate
         return try context.fetch(fetchRequest).first
+    }
+    
+    func fetch(abilities names: [String], context: NSManagedObjectContext, ordered: Bool = false) throws -> [Ability] {
+        let fetchRequest = Ability.fetchRequest()
+        let predicate = NSPredicate(format: "%K IN %@", #keyPath(Ability.name), names)
+        
+        fetchRequest.predicate = predicate
+        if ordered {
+            let results = try context.fetch(fetchRequest)
+            return results.sorted { left, right in
+                guard let leftString = left.name, let rightString = right.name else {
+                    return true
+                }
+                guard let leftOrder = names.firstIndex(where: { $0 == leftString }), let rightOrder = names.firstIndex(where: { $0 == rightString }) else {
+                    return true
+                }
+                return leftOrder <= rightOrder
+            }
+        }
+        return try context.fetch(fetchRequest)
     }
     
     func save(abilityID: Int, name: String, data: [String: Any], in context: NSManagedObjectContext, syncingLogger: DataSyncingLogger? = nil) throws {
@@ -379,7 +418,16 @@ class PersistenceProvider: PersistenceProviding {
     }
     
     func save(ability: SKAbility, language: DataLanguageEnum, in context: NSManagedObjectContext) throws {
-        let translation = try fetch(abilityID: ability.id, language: language, context: context) ?? AbilityTranslation(context: context)
+        guard let rootAbility = try fetch(abilityID: ability.id, context: context) else {
+            throw PersistenceError.abilityNotFound(ability.id)
+        }
+        var translation: AbilityTranslation
+        if let savedTranslation = try fetch(abilityID: ability.id, language: language, context: context) {
+            translation = savedTranslation
+        } else {
+            translation = AbilityTranslation(context: context)
+            translation.ability = rootAbility
+        }
         setIfNotEqual(entity: translation, path: \.language, value: language.rawValue)
         setIfNotEqual(entity: translation, path: \.abilityID, value: Int16(ability.id))
         setIfNotEqual(entity: translation, path: \.name, value: ability.name)

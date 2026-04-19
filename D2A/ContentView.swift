@@ -33,7 +33,7 @@ struct ContentView: View {
             Alert(title: Text("Error"), message: Text(env.errorMessage), dismissButton: .cancel())
         })
         .task {
-            await syncingService.startSyncing()
+            try? await syncingService.startSyncing()
         }
     }
 }

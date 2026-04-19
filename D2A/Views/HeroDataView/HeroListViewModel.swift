@@ -12,8 +12,8 @@ import Logging
 
 class HeroListViewModel: ObservableObject {
     
-    @Published var searchResults: [HeroData]
-    @Published var heroes: [HeroData]
+    @Published var searchResults: [any HeroProtocol]
+    @Published var heroes: [any HeroProtocol]
     
     @Published var searchString: String = ""
     @Published var gridView = true
@@ -27,7 +27,7 @@ class HeroListViewModel: ObservableObject {
     private let notification: D2ANotification
     
     init(persistence: PersistenceProviding = PersistenceProvider.shared,
-         language: DataLanguageEnum = AppConfig.languageCode,
+         language: DataLanguageEnum = AppConfig.shared.languageCode,
          notification: D2ANotification = .default,
          logger: Logger = D2ALogger.ui) {
         self.context = persistence.mainContext
@@ -72,17 +72,8 @@ class HeroListViewModel: ObservableObject {
     }
     
     private func fetchData() {
-        var heroData: [HeroData] = []
         let heroes = fetchHeroes()
-        for hero in heroes {
-            guard let localization = try? persistence.fetch(heroID: Int(hero.id), language: language, context: context) else {
-                logger.error("Failed to fetch localization for hero \(hero.id)")
-                continue
-            }
-            
-            heroData.append(HeroData(hero: hero, localization: localization))
-        }
-        self.heroes = heroData.sorted { $0.localizedName < $1.localizedName }
+        self.heroes = heroes.sorted { $0.localizedName < $1.localizedName }
         self.searchResults = self.heroes
     }
     

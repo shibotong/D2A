@@ -12,7 +12,6 @@ struct SKHero {
     let lore: String
     let hype: String
     
-    
     struct Role {
         let level: Int
         let roleId: String

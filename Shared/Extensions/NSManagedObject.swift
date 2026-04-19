@@ -15,14 +15,15 @@ func setIfNotEqual<T: Any, V: Equatable>(entity: T, path: ReferenceWritableKeyPa
 
 func setIfExist<T: Any, V: Equatable>(entity: T, path: ReferenceWritableKeyPath<T, V>, data: [String: Any], key: String, defaultValue: V? = nil, errorCompletion: ((String) -> ())? = nil) {
     guard let value = data[key] else {
-        if let defaultValue {
-            setIfNotEqual(entity: entity, path: path, value: defaultValue)
-        }
         return
     }
     
     guard let value = value as? V else {
-        errorCompletion?(key)
+        guard let value = value as? NSNull, let defaultValue else {
+            errorCompletion?(key)
+            return
+        }
+        setIfNotEqual(entity: entity, path: path, value: defaultValue)
         return
     }
     setIfNotEqual(entity: entity, path: path, value: value)

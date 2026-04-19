@@ -52,7 +52,20 @@ extension Hero: HeroProtocol {
     }
     
     var localizedName: String {
-        displayName ?? ""
+        guard let localization else {
+            return displayName ?? ""
+        }
+        return localization.displayName ?? ""
+    }
+    
+    private var localization: HeroTranslation? {
+        guard let localizations = localizations?.allObjects as? [HeroTranslation] else {
+            return nil
+        }
+        guard let targetLocalization = localizations.first(where: { $0.language == AppConfig.shared.languageCode.rawValue }) else {
+            return nil
+        }
+        return targetLocalization
     }
     
     var primaryAttribute: String {
@@ -60,7 +73,7 @@ extension Hero: HeroProtocol {
     }
     
     var heroAbilities: [String] {
-        return abilities ?? []
+        return []
     }
     
     var abilityData: [AbilityData] {
@@ -95,8 +108,8 @@ extension Hero: HeroProtocol {
         hero.roles = NSSet(array: try heroRoles.map({ return try Role.createRole($0) }))
         hero.talents = NSSet(array: try heroTalents.map({ return try Talent.createTalent($0) }))
         
-        // data from OpenDota
-        hero.abilities = abilities
+//        // data from OpenDota
+//        hero.abilities = abilities
         hero.primaryAttr = model.primaryAttr
         hero.attackType = model.attackType
         hero.img = model.img
