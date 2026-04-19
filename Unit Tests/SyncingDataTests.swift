@@ -23,7 +23,7 @@ struct SyncingDataTests {
         service = StaticDataSyncingService(
             openDota: openDotaFetcher,
             stratz: stratzFetcher,
-            language: .english,
+            appConfig: MockConfig(),
             syncingTimer: syncingTimer
         )
     }
@@ -138,6 +138,12 @@ struct MockSyncingTimer: SyncingTimerProtocol {
     func finishSyncing(key: SyncingTimerKey) {
         return
     }
+}
+
+struct MockConfig: AppConfigProtocol {
+    var languageCode: D2A.DataLanguageEnum = .english
+    
+    var processors: Int = ProcessInfo.processInfo.processorCount
 }
 
 
