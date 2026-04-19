@@ -52,7 +52,20 @@ extension Hero: HeroProtocol {
     }
     
     var localizedName: String {
-        displayName ?? ""
+        guard let localization else {
+            return displayName ?? ""
+        }
+        return localization.displayName ?? ""
+    }
+    
+    private var localization: HeroTranslation? {
+        guard let localizations = localizations?.allObjects as? [HeroTranslation] else {
+            return nil
+        }
+        guard let targetLocalization = localizations.first(where: { $0.language == AppConfig.languageCode.rawValue }) else {
+            return nil
+        }
+        return targetLocalization
     }
     
     var primaryAttribute: String {

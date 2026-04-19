@@ -15,7 +15,14 @@ struct HeroListView: View {
     
     var body: some View {
         if !syncingService.isCompleted && vm.heroes.isEmpty {
-            ProgressView()
+            VStack {
+                HStack {
+                    ProgressView()
+                    Text("Current syncing \(syncingService.currentSyncingService)")
+                }
+                ProgressView(value: syncingService.syncingProgress)
+                    .progressViewStyle(.linear)
+            }
         } else {
             buildBody()
                 .navigationTitle("Heroes")
