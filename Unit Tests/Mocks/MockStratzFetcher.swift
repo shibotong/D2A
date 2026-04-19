@@ -90,7 +90,31 @@ struct MockStratzFetcher: StratzFetching {
                     "MANA THIRST MAX ATTACK DAMAGE: "
                   ],
                   aghanimDescription: nil,
-                  shardDescription: nil)
+                  shardDescription: nil),
+            .init(id: 966,
+                  name: "special_bonus_unique_antimage_manavoid_aoe",
+                  displayName: "+200 Mana Void Radius"),
+            .init(id: 1495,
+                  name: "special_bonus_hp_regen_3",
+                  displayName: "+3 Health Regen"),
+            .init(id: 665,
+                  name: "special_bonus_unique_antimage_6",
+                  displayName: "+0.2 Mana Void Damage Multiplier"),
+            .init(id: 6800,
+                  name: "special_bonus_unique_antimage_5",
+                  displayName: "+9%/18% Persecutor Min/Max Movement Slow"),
+            .init(id: 735,
+                  name: "special_bonus_unique_antimage_8",
+                  displayName: "+0.8s Mana Void Stun"),
+            .init(id: 6606,
+                  name: "special_bonus_unique_antimage_3",
+                  displayName: "+200 Blink Cast Range"),
+            .init(id: 6353,
+                  name: "special_bonus_unique_antimage_2",
+                  displayName: "-50s Mana Void Cooldown"),
+            .init(id: 6012,
+                  name: "special_bonus_unique_antimage",
+                  displayName: "-{s:bonus_AbilityCooldown}s Blink Cooldown"),
         ]
     }
 }

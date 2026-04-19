@@ -27,15 +27,53 @@ struct MockOpenDotaFetcher: OpenDotaFetching {
     // MARK: abilities
     
     private let abilityIDs: [String: String] = [
+        "665": "special_bonus_unique_antimage_6",
+        "735": "special_bonus_unique_antimage_8",
+        "966": "special_bonus_unique_antimage_manavoid_aoe",
+        "1447": "antimage_persectur",
+        "1495": "special_bonus_hp_regen_3",
         "5003": "antimage_mana_break",
         "5004": "antimage_blink",
+        "5006": "antimage_mana_void",
+        "6012": "special_bonus_unique_antimage",
+        "6353": "special_bonus_unique_antimage_2",
+        "6606": "special_bonus_unique_antimage_3",
+        "6800": "special_bonus_unique_antimage_5",
         "7314": "antimage_counterspell",
-        "1447": "antimage_persectur",
-        "5006": "antimage_mana_void"
     ]
     
     private let abilities = """
 {
+  "special_bonus_unique_antimage": {
+    "dname": "-{s:bonus_AbilityCooldown}s Blink Cooldown"
+  },
+  "special_bonus_unique_antimage_2": {
+    "dname": "-{s:bonus_AbilityCooldown}s Mana Void Cooldown"
+  },
+  "special_bonus_unique_antimage_3": {
+    "dname": "+{s:bonus_AbilityCastRange} Blink Cast Range"
+  },
+  "special_bonus_unique_antimage_4": {
+    "dname": "+{s:bonus_magic_resistance}% Counterspell Magic Resistance"
+  },
+  "special_bonus_unique_antimage_5": {
+    "dname": "+{s:bonus_move_slow_min}%/{s:bonus_move_slow_max}% Persecutor Min/Max Movement Slow"
+  },
+  "special_bonus_unique_antimage_6": {
+    "dname": "+{s:bonus_mana_void_damage_per_mana} Mana Void Damage Multiplier"
+  },
+  "special_bonus_unique_antimage_7": {
+    "dname": "+{s:bonus_mana_per_hit_pct}% Max Mana Mana Burn"
+  },
+  "special_bonus_unique_antimage_8": {
+    "dname": "+{s:bonus_mana_void_ministun}s Mana Void Stun"
+  },
+  "special_bonus_unique_antimage_manavoid_aoe": {
+    "dname": "+{s:bonus_mana_void_aoe_radius} Mana Void Radius"
+  },
+  "special_bonus_hp_regen_3": {
+    "dname": "+3 Health Regen"
+  },
   "antimage_counterspell": {
     "dname": "Counterspell",
     "behavior": [
@@ -155,7 +193,7 @@ struct MockOpenDotaFetcher: OpenDotaFetching {
     ],
     "img": "/apps/dota2/images/dota_react/abilities/antimage_persectur.png"
   },
-"antimage_mana_break": {
+  "antimage_mana_break": {
     "dname": "Mana Break",
     "behavior": "Passive",
     "dmg_type": "Physical",
@@ -209,7 +247,7 @@ struct MockOpenDotaFetcher: OpenDotaFetching {
     "lore": "A modified technique of the Turstarkuri monks' peaceful ways is to turn magical energies on their owner.",
     "img": "/apps/dota2/images/dota_react/abilities/antimage_mana_break.png"
   },
-"antimage_blink": {
+  "antimage_blink": {
     "dname": "Blink",
     "behavior": "Point Target",
     "desc": "Short distance teleportation that allows Anti-Mage to move in and out of combat.",
@@ -270,7 +308,7 @@ struct MockOpenDotaFetcher: OpenDotaFetching {
     ],
     "img": "/apps/dota2/images/dota_react/abilities/antimage_blink.png"
   },
-"antimage_mana_void": {
+  "antimage_mana_void": {
     "dname": "Mana Void",
     "behavior": [
       "Unit Target",

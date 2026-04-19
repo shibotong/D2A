@@ -246,32 +246,34 @@ class PersistenceProvider: PersistenceProviding {
         }
         
         // abilities
-//        setIfExist(entity: hero, path: \.abilities, data: abilities, key: "abilities", errorCompletion: closure)
-//        if let talents = abilities["talents"] as? [[String: Any]] {
-//            for (index, talent) in talents.enumerated() {
-//                let ability = talent["name"] as? String
-//                switch index {
-//                case 0:
-//                    setIfNotEqual(entity: hero, path: \.talent1right, value: ability ?? "")
-//                case 1:
-//                    setIfNotEqual(entity: hero, path: \.talent1left, value: ability ?? "")
-//                case 2:
-//                    setIfNotEqual(entity: hero, path: \.talent2right, value: ability ?? "")
-//                case 3:
-//                    setIfNotEqual(entity: hero, path: \.talent2left, value: ability ?? "")
-//                case 4:
-//                    setIfNotEqual(entity: hero, path: \.talent3right, value: ability ?? "")
-//                case 5:
-//                    setIfNotEqual(entity: hero, path: \.talent3left, value: ability ?? "")
-//                case 6:
-//                    setIfNotEqual(entity: hero, path: \.talent4right, value: ability ?? "")
-//                case 7:
-//                    setIfNotEqual(entity: hero, path: \.talent4left, value: ability ?? "")
-//                default:
-//                    continue
-//                }
-//            }
-//        }
+        if let talents = abilities["talents"] as? [[String: Any]] {
+            for (index, talent) in talents.enumerated() {
+                guard let abilityName = talent["name"] as? String else {
+                    continue
+                }
+                let ability = try fetch(ability: abilityName, context: context)
+                switch index {
+                case 0:
+                    setIfNotEqual(entity: hero, path: \.talent1right, value: ability)
+                case 1:
+                    setIfNotEqual(entity: hero, path: \.talent1left, value: ability)
+                case 2:
+                    setIfNotEqual(entity: hero, path: \.talent2right, value: ability)
+                case 3:
+                    setIfNotEqual(entity: hero, path: \.talent2left, value: ability)
+                case 4:
+                    setIfNotEqual(entity: hero, path: \.talent3right, value: ability)
+                case 5:
+                    setIfNotEqual(entity: hero, path: \.talent3left, value: ability)
+                case 6:
+                    setIfNotEqual(entity: hero, path: \.talent4right, value: ability)
+                case 7:
+                    setIfNotEqual(entity: hero, path: \.talent4left, value: ability)
+                default:
+                    continue
+                }
+            }
+        }
     }
     
     private func findRole(role: RoleEnum, roles: [SKHeroAdditional.Role]) -> Int {
