@@ -27,7 +27,7 @@ class HeroListViewModel: ObservableObject {
     private let notification: D2ANotification
     
     init(persistence: PersistenceProviding = PersistenceProvider.shared,
-         language: DataLanguageEnum = AppConfig.languageCode,
+         language: DataLanguageEnum = AppConfig.shared.languageCode,
          notification: D2ANotification = .default,
          logger: Logger = D2ALogger.ui) {
         self.context = persistence.mainContext

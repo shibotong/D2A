@@ -62,7 +62,7 @@ extension Hero: HeroProtocol {
         guard let localizations = localizations?.allObjects as? [HeroTranslation] else {
             return nil
         }
-        guard let targetLocalization = localizations.first(where: { $0.language == AppConfig.languageCode.rawValue }) else {
+        guard let targetLocalization = localizations.first(where: { $0.language == AppConfig.shared.languageCode.rawValue }) else {
             return nil
         }
         return targetLocalization
