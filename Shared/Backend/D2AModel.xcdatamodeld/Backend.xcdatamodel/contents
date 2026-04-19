@@ -15,6 +15,8 @@
         <attribute name="name" attributeType="String" defaultValueString=""/>
         <attribute name="targetTeam" optional="YES" attributeType="String"/>
         <attribute name="targetType" optional="YES" attributeType="String"/>
+        <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="abilities" inverseEntity="Hero"/>
+        <relationship name="localizations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AbilityTranslation" inverseName="ability" inverseEntity="AbilityTranslation"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="abilityID"/>
@@ -31,9 +33,9 @@
         <attribute name="lore" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="shardDescription" optional="YES" attributeType="String"/>
+        <relationship name="ability" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="localizations" inverseEntity="Ability"/>
     </entity>
     <entity name="Hero" representedClassName="Hero" syncable="YES" codeGenerationType="class">
-        <attribute name="abilities" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
         <attribute name="attackRange" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="attackRate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="attackType" optional="YES" attributeType="String"/>
@@ -81,6 +83,8 @@
         <attribute name="turnRate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionDaytimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionNighttimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="abilities" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Ability" inverseName="hero" inverseEntity="Ability"/>
+        <relationship name="localizations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HeroTranslation" inverseName="hero" inverseEntity="HeroTranslation"/>
         <relationship name="roles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Role" inverseName="hero" inverseEntity="Role"/>
         <relationship name="talents" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Talent" inverseName="hero" inverseEntity="Talent"/>
     </entity>
@@ -90,6 +94,7 @@
         <attribute name="hype" optional="YES" attributeType="String"/>
         <attribute name="language" attributeType="String"/>
         <attribute name="lore" optional="YES" attributeType="String"/>
+        <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="localizations" inverseEntity="Hero"/>
     </entity>
     <entity name="Match" representedClassName="Match" syncable="YES" codeGenerationType="class">
         <attribute name="direKill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
