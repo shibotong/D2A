@@ -74,6 +74,11 @@ struct SyncingDataTests {
         #expect(hero.rolePusher == 0)
         #expect(hero.roleInitiator == 0)
         #expect(hero.complexity == 1)
+        
+        #expect(hero.localizations?.count == 1)
+        
+        let abilities = try #require(hero.abilities?.array as? [Ability])
+        #expect(abilities.map { $0.name } == ["antimage_mana_break", "antimage_blink", "antimage_counterspell", "antimage_persectur", "antimage_mana_void"])
     }
 }
 

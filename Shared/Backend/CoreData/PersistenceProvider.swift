@@ -241,33 +241,37 @@ class PersistenceProvider: PersistenceProviding {
         setIfNotEqual(entity: hero, path: \.rolePusher, value: Int16(findRole(role: .pusher, roles: additional.roles)))
         setIfNotEqual(entity: hero, path: \.roleInitiator, value: Int16(findRole(role: .initiator, roles: additional.roles)))
         
+        if let abilityNames = abilities["abilities"] as? [String], let abilities = try? fetch(abilities: abilityNames, context: context, ordered: true) {
+            hero.abilities = NSOrderedSet(array: abilities)
+        }
+        
         // abilities
 //        setIfExist(entity: hero, path: \.abilities, data: abilities, key: "abilities", errorCompletion: closure)
-        if let talents = abilities["talents"] as? [[String: Any]] {
-            for (index, talent) in talents.enumerated() {
-                let ability = talent["name"] as? String
-                switch index {
-                case 0:
-                    setIfNotEqual(entity: hero, path: \.talent1right, value: ability ?? "")
-                case 1:
-                    setIfNotEqual(entity: hero, path: \.talent1left, value: ability ?? "")
-                case 2:
-                    setIfNotEqual(entity: hero, path: \.talent2right, value: ability ?? "")
-                case 3:
-                    setIfNotEqual(entity: hero, path: \.talent2left, value: ability ?? "")
-                case 4:
-                    setIfNotEqual(entity: hero, path: \.talent3right, value: ability ?? "")
-                case 5:
-                    setIfNotEqual(entity: hero, path: \.talent3left, value: ability ?? "")
-                case 6:
-                    setIfNotEqual(entity: hero, path: \.talent4right, value: ability ?? "")
-                case 7:
-                    setIfNotEqual(entity: hero, path: \.talent4left, value: ability ?? "")
-                default:
-                    continue
-                }
-            }
-        }
+//        if let talents = abilities["talents"] as? [[String: Any]] {
+//            for (index, talent) in talents.enumerated() {
+//                let ability = talent["name"] as? String
+//                switch index {
+//                case 0:
+//                    setIfNotEqual(entity: hero, path: \.talent1right, value: ability ?? "")
+//                case 1:
+//                    setIfNotEqual(entity: hero, path: \.talent1left, value: ability ?? "")
+//                case 2:
+//                    setIfNotEqual(entity: hero, path: \.talent2right, value: ability ?? "")
+//                case 3:
+//                    setIfNotEqual(entity: hero, path: \.talent2left, value: ability ?? "")
+//                case 4:
+//                    setIfNotEqual(entity: hero, path: \.talent3right, value: ability ?? "")
+//                case 5:
+//                    setIfNotEqual(entity: hero, path: \.talent3left, value: ability ?? "")
+//                case 6:
+//                    setIfNotEqual(entity: hero, path: \.talent4right, value: ability ?? "")
+//                case 7:
+//                    setIfNotEqual(entity: hero, path: \.talent4left, value: ability ?? "")
+//                default:
+//                    continue
+//                }
+//            }
+//        }
     }
     
     private func findRole(role: RoleEnum, roles: [SKHeroAdditional.Role]) -> Int {
@@ -326,6 +330,26 @@ class PersistenceProvider: PersistenceProviding {
         let predicate = NSPredicate(format: "name = %@", name)
         fetchRequest.predicate = predicate
         return try context.fetch(fetchRequest).first
+    }
+    
+    func fetch(abilities names: [String], context: NSManagedObjectContext, ordered: Bool = false) throws -> [Ability] {
+        let fetchRequest = Ability.fetchRequest()
+        let predicate = NSPredicate(format: "%K IN %@", #keyPath(Ability.name), names)
+        
+        fetchRequest.predicate = predicate
+        if ordered {
+            let results = try context.fetch(fetchRequest)
+            return results.sorted { left, right in
+                guard let leftString = left.name, let rightString = right.name else {
+                    return true
+                }
+                guard let leftOrder = names.firstIndex(where: { $0 == leftString }), let rightOrder = names.firstIndex(where: { $0 == rightString }) else {
+                    return true
+                }
+                return leftOrder <= rightOrder
+            }
+        }
+        return try context.fetch(fetchRequest)
     }
     
     func save(abilityID: Int, name: String, data: [String: Any], in context: NSManagedObjectContext, syncingLogger: DataSyncingLogger? = nil) throws {

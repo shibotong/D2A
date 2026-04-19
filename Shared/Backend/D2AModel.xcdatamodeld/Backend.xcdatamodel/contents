@@ -16,7 +16,15 @@
         <attribute name="targetTeam" optional="YES" attributeType="String"/>
         <attribute name="targetType" optional="YES" attributeType="String"/>
         <relationship name="hero" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hero" inverseName="abilities" inverseEntity="Hero"/>
-        <relationship name="localizations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AbilityTranslation" inverseName="ability" inverseEntity="AbilityTranslation"/>
+        <relationship name="heroTalent1Left" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Hero" inverseName="talent1left" inverseEntity="Hero"/>
+        <relationship name="heroTalent1Right" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Hero" inverseName="talent1right" inverseEntity="Hero"/>
+        <relationship name="heroTalent2Left" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Hero" inverseName="talent2left" inverseEntity="Hero"/>
+        <relationship name="heroTalent2Right" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Hero" inverseName="talent2right" inverseEntity="Hero"/>
+        <relationship name="heroTalent3Left" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Hero" inverseName="talent3left" inverseEntity="Hero"/>
+        <relationship name="heroTalent3Right" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Hero" inverseName="talent3right" inverseEntity="Hero"/>
+        <relationship name="heroTalent4Left" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Hero" inverseName="talent4left" inverseEntity="Hero"/>
+        <relationship name="heroTalent4Right" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Hero" inverseName="talent4right" inverseEntity="Hero"/>
+        <relationship name="localizations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AbilityTranslation" inverseName="ability" inverseEntity="AbilityTranslation"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="abilityID"/>
@@ -72,20 +80,20 @@
         <attribute name="roleNuker" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="rolePusher" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="roleSupport" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="talent1left" optional="YES" attributeType="String"/>
-        <attribute name="talent1right" optional="YES" attributeType="String"/>
-        <attribute name="talent2left" optional="YES" attributeType="String"/>
-        <attribute name="talent2right" optional="YES" attributeType="String"/>
-        <attribute name="talent3left" optional="YES" attributeType="String"/>
-        <attribute name="talent3right" optional="YES" attributeType="String"/>
-        <attribute name="talent4left" optional="YES" attributeType="String"/>
-        <attribute name="talent4right" optional="YES" attributeType="String"/>
         <attribute name="turnRate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionDaytimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="visionNighttimeRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="abilities" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Ability" inverseName="hero" inverseEntity="Ability"/>
         <relationship name="localizations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HeroTranslation" inverseName="hero" inverseEntity="HeroTranslation"/>
         <relationship name="roles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Role" inverseName="hero" inverseEntity="Role"/>
+        <relationship name="talent1left" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="heroTalent1Left" inverseEntity="Ability"/>
+        <relationship name="talent1right" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="heroTalent1Right" inverseEntity="Ability"/>
+        <relationship name="talent2left" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="heroTalent2Left" inverseEntity="Ability"/>
+        <relationship name="talent2right" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="heroTalent2Right" inverseEntity="Ability"/>
+        <relationship name="talent3left" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="heroTalent3Left" inverseEntity="Ability"/>
+        <relationship name="talent3right" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="heroTalent3Right" inverseEntity="Ability"/>
+        <relationship name="talent4left" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="heroTalent4Left" inverseEntity="Ability"/>
+        <relationship name="talent4right" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="heroTalent4Right" inverseEntity="Ability"/>
         <relationship name="talents" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Talent" inverseName="hero" inverseEntity="Talent"/>
     </entity>
     <entity name="HeroTranslation" representedClassName="HeroTranslation" syncable="YES" codeGenerationType="class">
