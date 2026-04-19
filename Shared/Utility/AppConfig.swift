@@ -8,8 +8,16 @@
 import StratzAPI
 import Foundation
 
-class AppConfig {
-    static let languageCode: DataLanguageEnum = {
+protocol AppConfigProtocol {
+    var languageCode: DataLanguageEnum { get }
+    var processors: Int { get }
+}
+
+class AppConfig: AppConfigProtocol {
+    
+    static let shared = AppConfig()
+    
+    let languageCode: DataLanguageEnum = {
         let currentLanguage: String = Locale.current.languageCode ?? "en"
         switch currentLanguage {
         case "en":
@@ -20,4 +28,6 @@ class AppConfig {
             return .english
         }
     }()
+    
+    let processors: Int = ProcessInfo.processInfo.processorCount
 }
