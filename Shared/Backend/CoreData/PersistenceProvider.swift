@@ -379,7 +379,16 @@ class PersistenceProvider: PersistenceProviding {
     }
     
     func save(ability: SKAbility, language: DataLanguageEnum, in context: NSManagedObjectContext) throws {
-        let translation = try fetch(abilityID: ability.id, language: language, context: context) ?? AbilityTranslation(context: context)
+        guard let rootAbility = try fetch(abilityID: ability.id, context: context) else {
+            return
+        }
+        var translation: AbilityTranslation
+        if let savedTranslation = try fetch(abilityID: ability.id, language: language, context: context) {
+            translation = savedTranslation
+        } else {
+            translation = AbilityTranslation(context: context)
+            translation.ability = rootAbility
+        }
         setIfNotEqual(entity: translation, path: \.language, value: language.rawValue)
         setIfNotEqual(entity: translation, path: \.abilityID, value: Int16(ability.id))
         setIfNotEqual(entity: translation, path: \.name, value: ability.name)

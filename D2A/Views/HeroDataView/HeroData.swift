@@ -36,7 +36,7 @@ struct HeroData: HeroProtocol {
     }
     
     var heroAbilities: [String] {
-        hero.abilities ?? []
+        return []
     }
 }
 

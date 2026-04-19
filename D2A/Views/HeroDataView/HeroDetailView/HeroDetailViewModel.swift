@@ -108,7 +108,7 @@ class HeroDetailViewModel: ObservableObject {
         guard let hero else {
             return
         }
-        abilities = hero.hero.abilities?.compactMap { fetchAbility(name: $0) } ?? []
+//        abilities = hero.hero.abilities?.compactMap { fetchAbility(name: $0) } ?? []
         talent1Left = fetchAbility(name: hero.hero.talent1left)?.displayName ?? ""
         talent2Left = fetchAbility(name: hero.hero.talent2left)?.displayName ?? ""
         talent3Left = fetchAbility(name: hero.hero.talent3left)?.displayName ?? ""
