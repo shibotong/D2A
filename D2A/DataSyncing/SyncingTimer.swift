@@ -9,6 +9,7 @@ import Foundation
 
 protocol SyncingTimerProtocol {
     func shouldSync(key: SyncingTimerKey) -> Bool
+    func finishSyncing(key: SyncingTimerKey)
 }
 
 enum SyncingTimerKey {

@@ -31,7 +31,7 @@ class StaticDataSyncingService: ObservableObject {
     private let persistence: PersistenceProviding
     private let notification: D2ANotification
     
-    private let syncingTimer: SyncingTimer
+    private let syncingTimer: SyncingTimerProtocol
     
     init(openDota: OpenDotaFetching = OpenDotaController.shared,
          stratz: StratzFetching = StratzFetcher.shared,
@@ -40,7 +40,7 @@ class StaticDataSyncingService: ObservableObject {
          logger: Logger = D2ALogger.syncing,
          notification: D2ANotification = .default,
          syncingLogger: DataSyncingLogger? = nil,
-         syncingTimer: SyncingTimer = SyncingTimer()) {
+         syncingTimer: SyncingTimerProtocol = SyncingTimer()) {
         self.openDota = openDota
         self.stratz = stratz
         self.context = persistence.mainContext.makeContext(author: "Static Data")

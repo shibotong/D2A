@@ -10,6 +10,8 @@ import CoreData
 enum PersistenceError: Error {
     case insertError
     case persistentHistoryChangeError
+    case heroNotFound(Int)
+    case abilityNotFound(Int)
 }
 
 protocol PersistenceProviding {
@@ -203,6 +205,8 @@ class PersistenceProvider: PersistenceProviding {
         setIfNotEqual(entity: hero, path: \.id, value: Double(heroID))
         setIfExist(entity: hero, path: \.name, data: data, key: "name", errorCompletion: closure)
         setIfExist(entity: hero, path: \.primaryAttr, data: data, key: "primary_attr", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.attackType, data: data, key: "attack_type", errorCompletion: closure)
+        setIfExist(entity: hero, path: \.displayName, data: data, key: "localized_name", errorCompletion: closure)
         setIfExist(entity: hero, path: \.baseHealth, data: data, key: "base_health", errorCompletion: closure)
         setIfExist(entity: hero, path: \.baseHealthRegen, data: data, key: "base_health_regen", errorCompletion: closure)
         setIfExist(entity: hero, path: \.baseMana, data: data, key: "base_mana", errorCompletion: closure)
@@ -238,7 +242,7 @@ class PersistenceProvider: PersistenceProviding {
         setIfNotEqual(entity: hero, path: \.roleInitiator, value: Int16(findRole(role: .initiator, roles: additional.roles)))
         
         // abilities
-        setIfExist(entity: hero, path: \.abilities, data: abilities, key: "abilities", errorCompletion: closure)
+//        setIfExist(entity: hero, path: \.abilities, data: abilities, key: "abilities", errorCompletion: closure)
         if let talents = abilities["talents"] as? [[String: Any]] {
             for (index, talent) in talents.enumerated() {
                 let ability = talent["name"] as? String
@@ -291,7 +295,16 @@ class PersistenceProvider: PersistenceProviding {
     }
         
     func save(hero localization: SKHero, language: DataLanguageEnum, in context: NSManagedObjectContext) throws {
-        let translation = try fetchHeroLocalization(id: localization.id, language: language, context: context) ?? HeroTranslation(context: context)
+        guard let rootHero = try fetch(heroID: localization.id, context: context) else {
+            throw PersistenceError.heroNotFound(localization.id)
+        }
+        var translation: HeroTranslation
+        if let savedTranslation = try fetchHeroLocalization(id: localization.id, language: language, context: context) {
+            translation = savedTranslation
+        } else {
+            translation = HeroTranslation(context: context)
+            translation.hero = rootHero
+        }
         setIfNotEqual(entity: translation, path: \.language, value: language.rawValue)
         setIfNotEqual(entity: translation, path: \.heroID, value: Int16(localization.id))
         setIfNotEqual(entity: translation, path: \.displayName, value: localization.displayName)
@@ -380,7 +393,7 @@ class PersistenceProvider: PersistenceProviding {
     
     func save(ability: SKAbility, language: DataLanguageEnum, in context: NSManagedObjectContext) throws {
         guard let rootAbility = try fetch(abilityID: ability.id, context: context) else {
-            return
+            throw PersistenceError.abilityNotFound(ability.id)
         }
         var translation: AbilityTranslation
         if let savedTranslation = try fetch(abilityID: ability.id, language: language, context: context) {
