@@ -52,55 +52,32 @@ class StaticDataSyncingService: ObservableObject {
         self.syncingTimer = syncingTimer
     }
     
-    func startSyncing() async {
+    func startSyncing() async throws {
         isCompleted = false
-        do {
-            let shouldSyncConstants = syncingTimer.shouldSync(key: .constants)
-            let shouldSyncLocalization = syncingTimer.shouldSync(key: .localization(language))
-            logger.info("Should sync constants: \(shouldSyncConstants)")
-            if shouldSyncConstants {
-                try await syncAbilities()
-                try await syncHeroes()
-            }
-            if shouldSyncLocalization {
-                try await syncAbilityTranslation()
-                try await syncHeroTranslations()
-            }
-            let context = self.context
-            try await context.perform {
-                try context.save()
-            }
-            try await context.parent?.perform {
-                try context.parent?.save()
-            }
-            notification.syncingCompletion.send(true)
-            if shouldSyncConstants {
-                syncingTimer.finishSyncing(key: .constants)
-            }
-            if shouldSyncLocalization {
-                syncingTimer.finishSyncing(key: .localization(language))
-            }
-        } catch {
-            logger.error("Failed to sync data: \(error.localizedDescription)")
-        }
-        isCompleted = true
-    }
-    
-    func syncStaticData() async {
-        isCompleted = false
-        do {
+        let shouldSyncConstants = syncingTimer.shouldSync(key: .constants)
+        let shouldSyncLocalization = syncingTimer.shouldSync(key: .localization(language))
+        logger.info("Should sync constants: \(shouldSyncConstants)")
+        if shouldSyncConstants {
             try await syncAbilities()
             try await syncHeroes()
-            let context = self.context
-            try await context.perform {
-                try context.save()
-            }
-            try await context.parent?.perform {
-                try context.parent?.save()
-            }
-            notification.syncingCompletion.send(true)
-        } catch {
-            logger.error("Failed to sync data: \(error.localizedDescription)")
+        }
+        if shouldSyncLocalization {
+            try await syncAbilityTranslation()
+            try await syncHeroTranslations()
+        }
+        let context = self.context
+        try await context.perform {
+            try context.save()
+        }
+        try await context.parent?.perform {
+            try context.parent?.save()
+        }
+        notification.syncingCompletion.send(true)
+        if shouldSyncConstants {
+            syncingTimer.finishSyncing(key: .constants)
+        }
+        if shouldSyncLocalization {
+            syncingTimer.finishSyncing(key: .localization(language))
         }
         isCompleted = true
     }

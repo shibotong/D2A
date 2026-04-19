@@ -30,7 +30,7 @@ struct SyncingDataTests {
     
     @Test("Test syncing antimage")
     func testSyncing() async throws {
-        await service.startSyncing()
+        try await service.startSyncing()
         let context = persistance.mainContext
         let optionalHero = try persistance.fetch(heroID: 1, context: context)
         let hero = try #require(optionalHero)
