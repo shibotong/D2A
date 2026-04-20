@@ -25,7 +25,7 @@ struct HeroTitleView: View {
                 VStack(alignment: .leading, spacing: 3) {
                     Spacer()
                     HStack {
-                        Image("hero_\(primaryAttribute)")
+                        Image("attribute_\(primaryAttribute)")
                             .resizable()
                             .frame(width: 25, height: 25)
                         Text(displayName)
