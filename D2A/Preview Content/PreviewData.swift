@@ -16,6 +16,14 @@ class PreviewData {
         return context
     }()
     
+    static var heroes: [Hero] {
+        let context = Self.context
+        let fetchRequest = Hero.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "heroID", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        return try! context.fetch(fetchRequest)
+    }
+    
     static func addPreviewData(context: NSManagedObjectContext) {
         let persistenceService = DataPersistenceService.shared
         
