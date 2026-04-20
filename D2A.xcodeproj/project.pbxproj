@@ -312,6 +312,7 @@
 		7928D2242F7F740B006C0F3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				DataPersistenceService.swift,
 				DataSyncingLogger.swift,
 				HeroRecipe.swift,
 				SyncingTimer.swift,
@@ -321,6 +322,7 @@
 		7928D2252F7F740B006C0F3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				DataPersistenceService.swift,
 				DataSyncingLogger.swift,
 				HeroRecipe.swift,
 				SyncingTimer.swift,

@@ -29,7 +29,7 @@ class StaticDataSyncingService: ObservableObject {
     
     private let syncingLogger: DataSyncingLogger?
     
-    private let persistence: PersistenceProviding
+    private let persistence: DataPersistenceService
     private let notification: D2ANotification
     
     private let syncingTimer: SyncingTimerProtocol
@@ -38,7 +38,8 @@ class StaticDataSyncingService: ObservableObject {
     
     init(openDota: OpenDotaFetching = OpenDotaController.shared,
          stratz: StratzFetching = StratzFetcher.shared,
-         persistence: PersistenceProviding = PersistenceProvider.shared,
+         mainContext: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
+         persistenceService: DataPersistenceService = .shared,
          appConfig: AppConfigProtocol = AppConfig.shared,
          logger: Logger = D2ALogger.syncing,
          notification: D2ANotification = .default,
@@ -46,8 +47,8 @@ class StaticDataSyncingService: ObservableObject {
          syncingTimer: SyncingTimerProtocol = SyncingTimer()) {
         self.openDota = openDota
         self.stratz = stratz
-        self.context = persistence.mainContext.makeContext(author: "Static Data")
-        self.persistence = persistence
+        self.context = mainContext.makeContext(author: "Static Data")
+        self.persistence = persistenceService
         self.language = appConfig.languageCode
         self.maxConcurrent = appConfig.processors
         self.logger = logger
@@ -155,7 +156,7 @@ class StaticDataSyncingService: ObservableObject {
                     logger.warning("hero is not valid")
                     continue
                 }
-                heroes.append(HeroRecipe(heroID: heroAdditionalData.heroID, data: heroData, abilities: abilities, additonalData: heroAdditionalData))
+                heroes.append(HeroRecipe(heroID: heroAdditionalData.heroID, data: heroData, abilities: abilities, additionalData: heroAdditionalData))
             }
             return heroes
         } saving: { (hero: HeroRecipe, context) in

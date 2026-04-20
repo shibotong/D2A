@@ -9,5 +9,5 @@ struct HeroRecipe {
     let heroID: Int
     let data: [String: Any]
     let abilities: [String: Any]
-    let additonalData: SKHeroAdditional
+    let additionalData: SKHeroAdditional
 }
