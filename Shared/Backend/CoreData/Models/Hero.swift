@@ -96,7 +96,7 @@ extension Hero: HeroProtocol {
               let heroStats = queryHero.stats else {
             throw Hero.CoreDataError.decodingError
         }
-        let hero = (try? PersistenceProvider.shared.fetchHero(id: heroID, context: viewContext)) ?? Hero(context: viewContext)
+        let hero = (try? DataPersistenceService.shared.fetch(heroID: Int(heroID), context: viewContext)) ?? Hero(context: viewContext)
         // data from Stratz
         hero.lastFetch = Date()
         hero.id = heroID
