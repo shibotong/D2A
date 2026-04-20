@@ -12,7 +12,6 @@ enum HeroImageType: String {
 }
 
 struct HeroImageView: View {
-    @EnvironmentObject var heroData: HeroDatabase
     let heroID: Int
     let type: HeroImageType
     
@@ -30,4 +29,8 @@ struct HeroImageView: View {
     private func searchHeroImage() -> String {
         return "\(heroID.description)_\(type.rawValue)"
     }
+}
+
+#Preview {
+    HeroImageView(heroID: 1, type: .full)
 }
