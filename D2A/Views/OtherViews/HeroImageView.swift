@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-enum HeroImageType {
-    case icon, portrait, full, vert
+enum HeroImageType: String {
+    case icon, full, vert
 }
 
 struct HeroImageView: View {
@@ -17,63 +17,17 @@ struct HeroImageView: View {
     let type: HeroImageType
     
     var body: some View {
-        if type == .icon || type == .full || type == .vert {
-            if heroID == 0 && type == .icon {
-                Circle()
-                    .foregroundColor(Color.label.opacity(0.3))
-            } else {
-                Image(searchHeroImage())
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            }
+        if heroID == 0 && type == .icon {
+            Circle()
+                .foregroundColor(Color.label.opacity(0.3))
         } else {
-            AsyncImage(url: computeURL()) { phase in
-                if let image = phase.image {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)// Displays the loaded image.
-                } else if phase.error != nil {
-                    ProgressView()// Indicates an error.
-                } else {
-                    ProgressView() // Acts as a placeholder.
-                }
-            }
+            Image(searchHeroImage())
+                .resizable()
+                .aspectRatio(contentMode: .fit)
         }
     }
     
     private func searchHeroImage() -> String {
-        switch type {
-        case .icon:
-            let filename = "\(heroID.description)_icon"
-            return filename
-        case .portrait:
-            let filename = "\(heroID.description)_portrait"
-            return filename
-        case .full:
-            let filename = "\(heroID.description)_full"
-            return filename
-        case .vert:
-            let filename = "\(heroID.description)_vert"
-            return filename
-        }
-    }
-    
-    private func computeURL() -> URL? {
-        guard let hero = try? heroData.fetchHeroWithID(id: heroID) else {
-            return nil
-        }
-        switch type {
-        case .icon:
-            let url = URL(string: "https://api.opendota.com\(hero.icon)")
-            return url
-        case .portrait:
-            let name = hero.name.replacingOccurrences(of: "npc_dota_hero_", with: "")
-            let url = URL(string: "\(IMAGE_PREFIX)/apps/dota2/videos/dota_react/heroes/renders/\(name).png")
-            return url
-        case .full:
-            return nil
-        case .vert:
-            return nil
-        }
+        return "\(heroID.description)_\(type.rawValue)"
     }
 }
