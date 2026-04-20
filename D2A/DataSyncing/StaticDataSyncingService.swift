@@ -70,7 +70,6 @@ class StaticDataSyncingService: ObservableObject {
             try await syncHeroes()
         }
         if shouldSyncLocalization {
-            
             try await syncAbilityTranslation()
             try await syncHeroTranslations()
         }
@@ -101,23 +100,7 @@ class StaticDataSyncingService: ObservableObject {
             guard let abilityIDs, let abilities else {
                 throw URLError(.badServerResponse)
             }
-            var results: [AbilitySaving] = []
-            for (abilityIDString, name) in abilityIDs {
-                guard let ability = abilities[name] as? [String: Any] else {
-                    logger.trace("Not able to find abiilty from data: \(name)")
-                    continue
-                }
-                var abilityIDString = abilityIDString
-                if abilityIDString == "3060,1617" {
-                    abilityIDString = "1617"
-                }
-                guard let abilityID = Int(abilityIDString) else {
-                    logger.error("Ability ID is not an integer: \(abilityIDString)")
-                    continue
-                }
-                results.append(AbilitySaving(abilityID: abilityID, name: name, data: ability))
-            }
-            return results
+            return persistence.sortAbilities(abilityIDs: abilityIDs, abilities: abilities)
         } saving: { ability, context in
             self.logger.trace("Saving ability \(ability.abilityID)")
             try persistence.save(abilityID: ability.abilityID, name: ability.name, data: ability.data, in: context, syncingLogger: syncingLogger)
@@ -219,12 +202,6 @@ class StaticDataSyncingService: ObservableObject {
         try await savingContext.perform {
             try savingContext.save()
         }
-    }
-    
-    private struct AbilitySaving {
-        let abilityID: Int
-        let name: String
-        let data: [String: Any]
     }
     
     @MainActor

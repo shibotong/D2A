@@ -6,10 +6,37 @@
 //
 
 import CoreData
+import Logging
 
 class DataPersistenceService {
     
     static let shared = DataPersistenceService()
+    
+    private let logger: Logger
+    
+    init(logger: Logger = D2ALogger.syncing) {
+        self.logger = logger
+    }
+    
+    func sortAbilities(abilityIDs: [String: String], abilities: [String: Any]) -> [AbilityRecipe] {
+        var results: [AbilityRecipe] = []
+        for (abilityIDString, name) in abilityIDs {
+            guard let ability = abilities[name] as? [String: Any] else {
+                logger.trace("Not able to find abiilty from data: \(name)")
+                continue
+            }
+            var abilityIDString = abilityIDString
+            if abilityIDString == "3060,1617" {
+                abilityIDString = "1617"
+            }
+            guard let abilityID = Int(abilityIDString) else {
+                logger.error("Ability ID is not an integer: \(abilityIDString)")
+                continue
+            }
+            results.append(AbilityRecipe(abilityID: abilityID, name: name, data: ability))
+        }
+        return results
+    }
     
     func fetch(heroID: Int, context: NSManagedObjectContext) throws -> Hero? {
         let fetchHero = Hero.fetchRequest()
