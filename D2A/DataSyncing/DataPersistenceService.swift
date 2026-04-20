@@ -38,6 +38,18 @@ class DataPersistenceService {
         return results
     }
     
+    func sortHeroes(heroJSON: [String: Any], abilitiesJSON: [String: Any], heroAdditionalDatas: [SKHeroAdditional]) -> [HeroRecipe] {
+        var heroes: [HeroRecipe] = []
+        for heroAdditionalData in heroAdditionalDatas {
+            guard let heroData = heroJSON["\(heroAdditionalData.heroID)"] as? [String: Any], let abilities = abilitiesJSON[heroAdditionalData.name] as? [String: Any] else {
+                logger.warning("hero is not valid")
+                continue
+            }
+            heroes.append(HeroRecipe(heroID: heroAdditionalData.heroID, data: heroData, abilities: abilities, additionalData: heroAdditionalData))
+        }
+        return heroes
+    }
+    
     func fetch(heroID: Int, context: NSManagedObjectContext) throws -> Hero? {
         let fetchHero = Hero.fetchRequest()
         fetchHero.predicate = NSPredicate(format: "id == %f", Double(heroID))

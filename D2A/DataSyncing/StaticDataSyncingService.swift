@@ -133,15 +133,7 @@ class StaticDataSyncingService: ObservableObject {
                 return [HeroRecipe]()
             }
             let heroAdditionalDatas = try await stratz.heroAdditionalData()
-            var heroes: [HeroRecipe] = []
-            for heroAdditionalData in heroAdditionalDatas {
-                guard let heroData = heroJSON["\(heroAdditionalData.heroID)"] as? [String: Any], let abilities = abilitiesJSON[heroAdditionalData.name] as? [String: Any] else {
-                    logger.warning("hero is not valid")
-                    continue
-                }
-                heroes.append(HeroRecipe(heroID: heroAdditionalData.heroID, data: heroData, abilities: abilities, additionalData: heroAdditionalData))
-            }
-            return heroes
+            return persistence.sortHeroes(heroJSON: heroJSON, abilitiesJSON: abilitiesJSON, heroAdditionalDatas: heroAdditionalDatas)
         } saving: { (hero: HeroRecipe, context) in
             self.logger.trace("Saving hero \(hero.heroID)")
             try persistenceProvider.save(hero: hero, in: context, logger: syncingLogger)
