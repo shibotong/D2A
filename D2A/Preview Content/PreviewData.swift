@@ -10,14 +10,14 @@ import CoreData
 class PreviewData {
     static let environment: DotaEnvironment = DotaEnvironment(imageProvider: MockImageProvider())
     
-    static var context: NSManagedObjectContext = {
-        let context = PersistenceProvider.shared.mainContext
-        addPreviewData(context: context)
-        return context
+    static let persistanceProvider: PersistenceProvider = {
+        let provider = PersistenceProvider(inMemory: true)
+        addPreviewData(context: provider.mainContext)
+        return provider
     }()
     
     static var heroes: [Hero] {
-        let context = Self.context
+        let context = Self.persistanceProvider.mainContext
         let fetchRequest = Hero.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "heroID", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
