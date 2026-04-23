@@ -13,6 +13,10 @@ struct ContentView: View {
     @EnvironmentObject var data: HeroDatabase
     @EnvironmentObject var store: StoreManager
     @EnvironmentObject var syncingService: StaticDataSyncingService
+    
+    @FetchRequest(sortDescriptors: [])
+    private var heroes: FetchedResults<Hero>
+    
     var body: some View {
         Group {
             if data.status != .finish || env.loading == true {
@@ -21,7 +25,7 @@ struct ContentView: View {
                     data.loadData()
                 }
             } else {
-                NavigationHostView()
+                NavigationHostView(heroes: Array(heroes))
                     .sheet(isPresented: $env.subscriptionSheet, content: {
                         StoreView()
                             .environmentObject(env)
@@ -38,10 +42,18 @@ struct ContentView: View {
     }
 }
 
+#Preview {
+    ContentView()
+        .environment(\.managedObjectContext, PreviewData.persistanceProvider.mainContext)
+    
+}
+
 struct NavigationHostView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var data: HeroDatabase
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    let heroes: [Hero]
     
     var body: some View {
             if horizontalSizeClass == .compact {
@@ -53,7 +65,7 @@ struct NavigationHostView: View {
                         Text("Home")
                     }.tag(TabSelection.home).navigationViewStyle(.stack)
                     NavigationView {
-                        HeroListView()
+                        HeroListView(heroes: heroes)
                     }.tabItem {
                         Image(systemName: "server.rack")
                         Text("Heroes")
