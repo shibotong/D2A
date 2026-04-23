@@ -31,26 +31,28 @@ class HeroDetailViewModel: ObservableObject {
     @Published var talent4Right: String = ""
     
     private var database: HeroDatabase = HeroDatabase.shared
-    private let persistence: PersistenceProviding
+    private let persistence: DataPersistenceService
     private let context: NSManagedObjectContext
     private let language: DataLanguageEnum
     
     init(hero: any HeroProtocol,
          language: DataLanguageEnum = AppConfig.shared.languageCode,
-         persistence: PersistenceProviding = PersistenceProvider.shared) {
+         context: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
+         persistence: DataPersistenceService = .shared) {
         self.hero = hero
         heroID = hero.heroID
         self.persistence = persistence
-        self.context = persistence.mainContext
+        self.context = context
         self.language = language
     }
     
     init(heroID: Int,
          language: DataLanguageEnum = AppConfig.shared.languageCode,
-         persistence: PersistenceProviding = PersistenceProvider.shared) {
+         context: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
+         persistence: DataPersistenceService = .shared) {
         self.heroID = heroID
         self.persistence = persistence
-        self.context = persistence.mainContext
+        self.context = context
         self.language = language
         $heroID
             .map { heroID in

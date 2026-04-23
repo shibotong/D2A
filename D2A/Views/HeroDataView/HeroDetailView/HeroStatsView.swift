@@ -34,6 +34,21 @@ struct HeroStatsView: View {
                   visionNighttimeRange: Int(hero.visionNighttimeRange))
     }
     
+    init(heroes: [Hero]) {
+        print("heroes: \(heroes.count)")
+        self.init(attackMin: 100,
+                  attackMax: 200,
+                  attackRate: 3.1,
+                  attackRange: 1000,
+                  projectileSpeed: 1200,
+                  armor: 1.2,
+                  baseMr: 25,
+                  moveSpeed: 330,
+                  turnRate: 0.5,
+                  visionDaytimeRange: 1200,
+                  visionNighttimeRange: 1200)
+    }
+    
     init(attackMin: Int, attackMax: Int, attackRate: Double, attackRange: Int, projectileSpeed: Int, armor: Double, baseMr: Int, moveSpeed: Int, turnRate: Double, visionDaytimeRange: Int, visionNighttimeRange: Int) {
         self.attackMin = attackMin
         self.attackMax = attackMax

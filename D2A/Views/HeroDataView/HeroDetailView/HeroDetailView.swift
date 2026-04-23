@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HeroDetailView: View {
     @ObservedObject var vm: HeroDetailViewModel
-    @EnvironmentObject var heroDatabase: HeroDatabase
     @State var heroLevel = 1.00
     @State var isPresented = false
     
@@ -18,7 +17,6 @@ struct HeroDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             .sheet(item: $vm.selectedAbility, content: { ability in
                 AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: ability))
-                    .environmentObject(heroDatabase)
             })
             .task {
                 vm.fetchHeroAbilities()
@@ -238,8 +236,8 @@ struct HeroDetailView: View {
     }
 }
 
-// struct HeroDetailView_Preview: PreviewProvider {
-//    static var previews: some View {
-//        HeroDetailView(vm: HeroDetailViewModel(heroID: 1))
-//    }
-// }
+ struct HeroDetailView_Preview: PreviewProvider {
+    static var previews: some View {
+        HeroDetailView(vm: HeroDetailViewModel(hero: PreviewData.heroes.first!, language: .english))
+    }
+ }
