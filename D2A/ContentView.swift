@@ -44,7 +44,7 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .environment(\.managedObjectContext, PreviewData.persistanceProvider.mainContext)
+        .environment(\.managedObjectContext, PreviewData.persistenceProvider.mainContext)
     
 }
 

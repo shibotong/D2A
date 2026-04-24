@@ -90,3 +90,7 @@ struct AbilityView: View {
     }
 }
 
+#Preview {
+    AbilityView(viewModel: .init(heroID: 1, ability: PreviewData.PreviewAbility.blink))
+}
+

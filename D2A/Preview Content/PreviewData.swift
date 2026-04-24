@@ -10,7 +10,7 @@ import CoreData
 class PreviewData {
     static let environment: DotaEnvironment = DotaEnvironment(imageProvider: MockImageProvider())
     
-    static let persistanceProvider: PersistenceProvider = {
+    static let persistenceProvider: PersistenceProvider = {
         let provider = PersistenceProvider(inMemory: true)
         addPreviewData(context: provider.mainContext)
         return provider
@@ -19,7 +19,7 @@ class PreviewData {
     static let syncingService: StaticDataSyncingService = StaticDataSyncingService(syncingTimer: PreviewSyncingTimer())
     
     static var heroes: [Hero] {
-        let context = Self.persistanceProvider.mainContext
+        let context = Self.persistenceProvider.mainContext
         let fetchRequest = Hero.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "heroID", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
@@ -36,28 +36,36 @@ class PreviewData {
                 try persistenceService.save(abilityID: ability.abilityID, name: ability.name, data: ability.data, in: context)
             }
             
-            let heroJSON = PreviewConstantData.heroes
-            let heroAbilitiesJSON = PreviewConstantData.heroAbilities
-            let heroAdditionalData = PreviewConstantData.heroAdditionalData
-            
-            let heroes = persistenceService.sortHeroes(heroJSON: heroJSON, abilitiesJSON: heroAbilitiesJSON, heroAdditionalDatas: heroAdditionalData)
-            
-            for hero in heroes {
-                try persistenceService.save(hero: hero, in: context, logger: nil)
-            }
-            
-            let abilityTranslations = PreviewConstantData.abilityTranslation
-            for translation in abilityTranslations {
-                try persistenceService.save(ability: translation, language: .english, in: context)
-            }
-            
-            let heroTranslations = PreviewConstantData.heroTranslation
-            for translation in heroTranslations {
-                try persistenceService.save(hero: translation, language: .english, in: context)
-            }
-            try context.save()
+//            let heroJSON = PreviewConstantData.heroes
+//            let heroAbilitiesJSON = PreviewConstantData.heroAbilities
+//            let heroAdditionalData = PreviewConstantData.heroAdditionalData
+//            
+//            let heroes = persistenceService.sortHeroes(heroJSON: heroJSON, abilitiesJSON: heroAbilitiesJSON, heroAdditionalDatas: heroAdditionalData)
+//            
+//            for hero in heroes {
+//                try persistenceService.save(hero: hero, in: context, logger: nil)
+//            }
+//            
+//            let abilityTranslations = PreviewConstantData.abilityTranslation
+//            for translation in abilityTranslations {
+//                try persistenceService.save(ability: translation, language: .english, in: context)
+//            }
+//            
+//            let heroTranslations = PreviewConstantData.heroTranslation
+//            for translation in heroTranslations {
+//                try persistenceService.save(hero: translation, language: .english, in: context)
+//            }
+//            try context.save()
         } catch {
             print(error)
         }
+    }
+    
+    class PreviewAbility {
+        static let blink: Ability = {
+            let context = PreviewData.persistenceProvider.mainContext
+            let dataService = DataPersistenceService.shared
+            return try! dataService.fetch(ability: "antimage_blink", context: context)!
+        }()
     }
 }

@@ -22,17 +22,13 @@ struct HeroDetailView: View {
     
     private var mainBody: some View {
         ZStack {
-            if let hero = vm.hero {
-                ScrollView {
-                    buildTitle(hero: hero)
-                    buildAbilities(hero: hero.hero)
-                        .padding(.horizontal, 5)
-                    Divider()
-                    buildHeroDetails(hero: hero)
-                }.navigationTitle(hero.localizedName)
-            } else {
-                LoadingView()
-            }
+            ScrollView {
+                buildTitle(hero: vm.hero)
+                buildAbilities(hero: vm.hero.hero)
+                    .padding(.horizontal, 5)
+                Divider()
+                buildHeroDetails(hero: vm.hero)
+            }.navigationTitle(vm.hero.localizedName)
         }
     }
 
