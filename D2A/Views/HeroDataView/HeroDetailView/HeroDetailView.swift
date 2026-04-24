@@ -18,9 +18,6 @@ struct HeroDetailView: View {
             .sheet(item: $vm.selectedAbility, content: { ability in
                 AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: ability))
             })
-            .task {
-                vm.fetchHeroAbilities()
-            }
     }
     
     private var mainBody: some View {
@@ -95,7 +92,7 @@ struct HeroDetailView: View {
                             vm.selectedAbility = ability
                             isPresented = true
                         } label: {
-                            AbilityImage(name: ability.name)
+                            AbilityImage(name: ability.name ?? "")
                                 .frame(width: skillFrame, height: skillFrame)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                         }

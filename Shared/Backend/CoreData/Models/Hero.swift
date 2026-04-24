@@ -10,6 +10,11 @@ import CoreData
 import StratzAPI
 
 extension Hero: HeroProtocol {
+    
+    var heroAbilities: [Ability] {
+        return (abilities?.array as? [Ability]) ?? []
+    }
+    
     var talent1LeftName: String {
         ""
     }
@@ -72,11 +77,7 @@ extension Hero: HeroProtocol {
         primaryAttr ?? ""
     }
     
-    var heroAbilities: [String] {
-        return []
-    }
-    
-    var abilityData: [AbilityData] {
+    var abilityData: [Ability] {
         []
     }
     
