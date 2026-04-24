@@ -44,12 +44,12 @@ class AbilityViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
         
-    convenience init(heroID: Int, ability: any AbilityProtocol) {
-        self.init(heroID: heroID, displayName: ability.displayName ?? "", cd: ability.coolDown,
+    convenience init(heroID: Int, ability: Ability) {
+        self.init(heroID: heroID, displayName: ability.displayName, cd: ability.coolDown,
                   mc: ability.manaCost, name: ability.name, behavior: ability.behavior,
                   targetTeam: ability.targetTeam, bkbPierce: ability.bkbPierce, dispellable: ability.dispellable,
-                  damageType: ability.damageType, description: ability.description, scepter: ability.scepter, shard: ability.shard,
-                  lore: ability.lore, attributes: ability.attributes)
+                  damageType: ability.damageType, description: ability.desc, scepter: ability.scepter, shard: ability.shard,
+                  lore: ability.lore, attributes: ability.localizedAttributes)
     }
     
     init(heroID: Int, displayName: String, cd: String?,
