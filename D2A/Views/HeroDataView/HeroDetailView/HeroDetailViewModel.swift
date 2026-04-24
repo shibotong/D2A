@@ -12,15 +12,15 @@ import StratzAPI
 import Apollo
 
 class HeroDetailViewModel: ObservableObject {
-    @Published var hero: (any HeroProtocol)?
-    @Published var selectedAbility: AbilityData?
+    @Published var hero: any HeroProtocol
+    @Published var selectedAbility: Ability?
     
     @Published var heroID: Int
     
     @Published var previousHeroID: Int?
     @Published var nextHeroID: Int?
     
-    @Published var abilities: [AbilityData] = []
+    @Published var abilities: [Ability] = []
     @Published var talent1Left: String = ""
     @Published var talent2Left: String = ""
     @Published var talent3Left: String = ""
@@ -44,43 +44,15 @@ class HeroDetailViewModel: ObservableObject {
         self.persistence = persistence
         self.context = context
         self.language = language
+        abilities = hero.heroAbilities
     }
     
-    init(heroID: Int,
-         language: DataLanguageEnum = AppConfig.shared.languageCode,
-         context: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
-         persistence: DataPersistenceService = .shared) {
-        self.heroID = heroID
-        self.persistence = persistence
-        self.context = context
-        self.language = language
-        $heroID
-            .map { heroID in
-                let cachedHero = try? persistence.fetch(heroID: heroID, context: self.context)
-                return cachedHero
-            }
-            .assign(to: &$hero)
-        
-        $heroID
-            .map { [weak self] id in
-                return self?.getRelateHeroID(id: id, isPrevious: false)
-            }
-            .assign(to: &$nextHeroID)
-        
-        $heroID
-            .map { [weak self] id in
-                return self?.getRelateHeroID(id: id, isPrevious: true)
-            }
-            .assign(to: &$previousHeroID)
-    }
-    
-    func fetchTalentName(id: Short) -> String {
-        if let localisation = try? persistence.fetch(abilityID: Int(id), language: AppConfig.shared.languageCode, context: PersistenceProvider.shared.mainContext),
-           let dname = localisation.displayName {
-            return dname
-        } else {
-            return database.getTalentDisplayName(id: id)
-        }
+    convenience init(heroID: Int,
+                     language: DataLanguageEnum = AppConfig.shared.languageCode,
+                     context: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
+                     persistence: DataPersistenceService = .shared) {
+        let hero = (try? persistence.fetch(heroID: heroID, context: context)) ?? Hero(context: context)
+        self.init(hero: hero, language: language, context: context, persistence: persistence)
     }
     
     func getRelateHeroID(id: Int, isPrevious: Bool) -> Int? {
@@ -104,32 +76,6 @@ class HeroDetailViewModel: ObservableObject {
         let nextHero = heroList[index]
         let nextHeroID = nextHero.id
         return nextHeroID
-    }
-    
-    func fetchHeroAbilities() {
-        guard let hero else {
-            return
-        }
-//        abilities = hero.hero.abilities?.compactMap { fetchAbility(name: $0) } ?? []
-//        talent1Left = fetchAbility(name: hero.hero.talent1left)?.displayName ?? ""
-//        talent2Left = fetchAbility(name: hero.hero.talent2left)?.displayName ?? ""
-//        talent3Left = fetchAbility(name: hero.hero.talent3left)?.displayName ?? ""
-//        talent4Left = fetchAbility(name: hero.hero.talent4left)?.displayName ?? ""
-//        talent1Right = fetchAbility(name: hero.hero.talent1right)?.displayName ?? ""
-//        talent2Right = fetchAbility(name: hero.hero.talent2right)?.displayName ?? ""
-//        talent3Right = fetchAbility(name: hero.hero.talent3right)?.displayName ?? ""
-//        talent4Right = fetchAbility(name: hero.hero.talent4right)?.displayName ?? ""
-    }
-    
-    private func fetchAbility(name: String?) -> AbilityData? {
-        guard let name else {
-            return nil
-        }
-        guard let ability = try? persistence.fetch(ability: name, context: context) else {
-            return nil
-        }
-        let localization = try? persistence.fetch(ability: name, language: language, context: context)
-        return AbilityData(ability: ability, localization: localization)
     }
     
 //    func getNextHeroID(id: Int) -> Int? {
