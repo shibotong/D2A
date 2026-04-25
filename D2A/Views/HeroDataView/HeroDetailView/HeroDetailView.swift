@@ -8,27 +8,26 @@
 import SwiftUI
 
 struct HeroDetailView: View {
-    @ObservedObject var vm: HeroDetailViewModel
-    @State var heroLevel = 1.00
+    @ObservedObject var viewModel: HeroDetailViewModel
     @State var isPresented = false
     
     var body: some View {
         mainBody
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(item: $vm.selectedAbility, content: { ability in
-                AbilityView(heroName: vm.hero.heroName, ability: ability)
+            .sheet(item: $viewModel.selectedAbility, content: { ability in
+                AbilityView(heroName: viewModel.hero.heroName, ability: ability)
             })
     }
     
     private var mainBody: some View {
         ZStack {
             ScrollView {
-                buildTitle(hero: vm.hero)
-                buildAbilities(hero: vm.hero.hero)
+                buildTitle(hero: viewModel.hero)
+                buildAbilities(hero: viewModel.hero.hero)
                     .padding(.horizontal, 5)
                 Divider()
-                buildHeroDetails(hero: vm.hero)
-            }.navigationTitle(vm.hero.localizedName)
+                buildHeroDetails(hero: viewModel.hero)
+            }.navigationTitle(viewModel.hero.localizedName)
         }
     }
 
@@ -82,11 +81,10 @@ struct HeroDetailView: View {
         let skillFrame: CGFloat = 30
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(vm.abilities, id: \.id) { ability in
+                ForEach(viewModel.abilities, id: \.id) { ability in
                     if ability.behavior != "Hidden" {
                         Button {
-                            vm.selectedAbility = ability
-                            isPresented = true
+                            viewModel.selectedAbility = ability
                         } label: {
                             AbilityImage(name: ability.name ?? "")
                                 .frame(width: skillFrame, height: skillFrame)
@@ -107,14 +105,14 @@ struct HeroDetailView: View {
             Divider()
             HeroStatsView(hero: hero.hero)
             Divider()
-            HeroTalentsView(talent10Left: vm.talent1Left,
-                            talent10Right: vm.talent1Right,
-                            talent15Left: vm.talent2Left,
-                            talent15Right: vm.talent2Right,
-                            talent20Left: vm.talent3Left,
-                            talent20Right: vm.talent3Right,
-                            talent25Left: vm.talent4Left,
-                            talent25Right: vm.talent4Right)
+            HeroTalentsView(talent10Left: viewModel.talent1Left,
+                            talent10Right: viewModel.talent1Right,
+                            talent15Left: viewModel.talent2Left,
+                            talent15Right: viewModel.talent2Right,
+                            talent20Left: viewModel.talent3Left,
+                            talent20Right: viewModel.talent3Right,
+                            talent25Left: viewModel.talent4Left,
+                            talent25Right: viewModel.talent4Right)
         }
     }
     
@@ -231,6 +229,6 @@ struct HeroDetailView: View {
 
  struct HeroDetailView_Preview: PreviewProvider {
     static var previews: some View {
-        HeroDetailView(vm: HeroDetailViewModel(hero: PreviewData.PreviewHero.antimage, language: .english))
+        HeroDetailView(viewModel: HeroDetailViewModel(hero: PreviewData.PreviewHero.antimage, language: .english))
     }
  }
