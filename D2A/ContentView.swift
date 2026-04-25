@@ -66,6 +66,7 @@ struct NavigationHostView: View {
                     }.tag(TabSelection.home).navigationViewStyle(.stack)
                     NavigationView {
                         HeroListView(heroes: heroes)
+                            .navigationTitle("Heroes")
                     }.tabItem {
                         Image(systemName: "server.rack")
                         Text("Heroes")
