@@ -90,7 +90,23 @@ struct AbilityView: View {
     }
 }
 
-#Preview {
+#Preview("Blink") {
     AbilityView(viewModel: .init(heroID: 1, ability: PreviewData.PreviewAbility.blink))
+        .environmentObject(PreviewData.environment)
+}
+    
+#Preview("Counterspell") {
+    AbilityView(viewModel: .init(heroID: 1, ability: PreviewData.PreviewAbility.counterspell))
+        .environmentObject(PreviewData.environment)
+}
+
+#Preview("Mana Break") {
+    AbilityView(viewModel: .init(heroID: 1, ability: PreviewData.PreviewAbility.manaBreak))
+        .environmentObject(PreviewData.environment)
+}
+
+#Preview("Mana Void") {
+    AbilityView(viewModel: .init(heroID: 1, ability: PreviewData.PreviewAbility.manaVoid))
+        .environmentObject(PreviewData.environment)
 }
 

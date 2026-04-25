@@ -231,6 +231,6 @@ struct HeroDetailView: View {
 
  struct HeroDetailView_Preview: PreviewProvider {
     static var previews: some View {
-        HeroDetailView(vm: HeroDetailViewModel(hero: PreviewData.heroes.first!, language: .english))
+        HeroDetailView(vm: HeroDetailViewModel(hero: PreviewData.PreviewHero.antimage, language: .english))
     }
  }
