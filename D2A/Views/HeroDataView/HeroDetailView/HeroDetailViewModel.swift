@@ -26,6 +26,10 @@ class HeroDetailViewModel: ObservableObject {
     @Published var agility: Int
     @Published var intelligence: Int
     
+    @Published var attackMin: Int
+    @Published var attackMax: Int
+    @Published var armor: Double
+    
     init(hero: Hero, abilities: [Ability]) {
         self.hero = hero
         self.abilities = abilities
@@ -37,6 +41,9 @@ class HeroDetailViewModel: ObservableObject {
         strength = hero.calculateAttribute(level: 1, attr: .str)
         agility = hero.calculateAttribute(level: 1, attr: .agi)
         intelligence = hero.calculateAttribute(level: 1, attr: .int)
+        attackMin = hero.calculateAttackByLevel(level: 1, isMin: true)
+        attackMax = hero.calculateAttackByLevel(level: 1, isMin: false)
+        armor = hero.calculateArmorByLevel(level: 1)
     }
     
     convenience init(hero: any HeroProtocol) {

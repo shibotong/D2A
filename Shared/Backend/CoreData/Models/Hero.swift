@@ -250,7 +250,7 @@ extension Hero: HeroProtocol {
     ///    - level: Level of `Hero`
     ///    - isMin: if the number is min attack or max attack
     ///  - return: a `Int32` value indicate attack for current level
-    func calculateAttackByLevel(level: Double, isMin: Bool) -> Int32 {
+    func calculateAttackByLevel(level: Double, isMin: Bool) -> Int {
         let baseAttack = isMin ? baseAttackMin : baseAttackMax
         var bonusAttack: Int32 = 0
         switch primaryAttr {
@@ -263,7 +263,7 @@ extension Hero: HeroProtocol {
         default:
             bonusAttack = 0
         }
-        return baseAttack + bonusAttack
+        return Int(baseAttack + bonusAttack)
     }
     
     /// calculate hero armor based on Level
