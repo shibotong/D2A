@@ -11,14 +11,31 @@ struct HeroDetailView: View {
     @ObservedObject var viewModel: HeroDetailViewModel
     @State var isPresented = false
     
+    private let skillFrame: CGFloat = 30
+    
     var body: some View {
         ZStack {
             ScrollView {
-                titleView
-                buildAbilities(hero: viewModel.hero.hero)
+                HeroTitleView(heroID: viewModel.heroID, primaryAttribute: viewModel.primaryAttribute, displayName: viewModel.localizedName, heroComplexity: viewModel.complexity)
+                abilitiesView
                     .padding(.horizontal, 5)
                 Divider()
-                buildHeroDetails(hero: viewModel.hero)
+                VStack {
+                    buildAttributes(hero: viewModel.hero.hero)
+                    Divider()
+                    HeroRoleView(carry: viewModel.carryValue, disabler: viewModel.disablerValue, escape: viewModel.escapeValue, support: viewModel.supportValue, jungler: viewModel.junglerValue, pusher: viewModel.pusherValue, nuker: viewModel.nukerValue, durable: viewModel.durableValue, initiator: viewModel.initiatorValue)
+                    Divider()
+                    HeroStatsView(hero: viewModel.hero.hero)
+                    Divider()
+                    HeroTalentsView(talent10Left: viewModel.talent1Left,
+                                    talent10Right: viewModel.talent1Right,
+                                    talent15Left: viewModel.talent2Left,
+                                    talent15Right: viewModel.talent2Right,
+                                    talent20Left: viewModel.talent3Left,
+                                    talent20Right: viewModel.talent3Right,
+                                    talent25Left: viewModel.talent4Left,
+                                    talent25Right: viewModel.talent4Right)
+                }
             }.navigationTitle(viewModel.hero.localizedName)
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -26,54 +43,8 @@ struct HeroDetailView: View {
             AbilityView(heroName: viewModel.name, ability: ability)
         })
     }
-
-    private var titleView: some View {
-        HeroImageView(heroID: viewModel.heroID, type: .full)
-            .overlay(
-                LinearGradient(colors: [Color(.black).opacity(0),
-                                        Color(.black).opacity(1)],
-                               startPoint: .top,
-                               endPoint: .bottom))
-            .overlay(HStack {
-                VStack(alignment: .leading, spacing: 3) {
-                    Spacer()
-                    HStack {
-                        Image("hero_\(viewModel.primaryAttribute)")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                        Text(viewModel.localizedName)
-                            .font(.system(size: 30))
-                            .bold()
-                            .foregroundColor(.white)
-                        Text("\(viewModel.heroID)")
-                            .font(.caption2)
-                            .foregroundColor(.white.opacity(0.5))
-                        Spacer()
-                        HStack {
-                            ForEach(1..<4) { complexity in
-                                if complexity <= viewModel.complexity {
-                                    RoundedRectangle(cornerRadius: 3)
-                                        .frame(width: 15, height: 15)
-                                        .foregroundColor(.white)
-                                        .rotationEffect(.degrees(45))
-                                } else {
-                                    RoundedRectangle(cornerRadius: 3)
-                                        .stroke()
-                                        .frame(width: 15, height: 15)
-                                        .foregroundColor(.white)
-                                        .rotationEffect(.degrees(45))
-                                }
-                            }
-                        }
-                    }
-                }
-                Spacer()
-            }.padding(.leading))
-    }
     
-    @ViewBuilder
-    private func buildAbilities(hero: Hero) -> some View {
-        let skillFrame: CGFloat = 30
+    private var abilitiesView: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(viewModel.abilities, id: \.id) { ability in
@@ -89,25 +60,6 @@ struct HeroDetailView: View {
                 }
                 .padding(10)
             }
-        }
-    }
-    
-    @ViewBuilder private func buildHeroDetails(hero: any HeroProtocol) -> some View {
-        VStack {
-            buildAttributes(hero: hero.hero)
-            Divider()
-            HeroRoleView(hero: hero.hero)
-            Divider()
-            HeroStatsView(hero: hero.hero)
-            Divider()
-            HeroTalentsView(talent10Left: viewModel.talent1Left,
-                            talent10Right: viewModel.talent1Right,
-                            talent15Left: viewModel.talent2Left,
-                            talent15Right: viewModel.talent2Right,
-                            talent20Left: viewModel.talent3Left,
-                            talent20Right: viewModel.talent3Right,
-                            talent25Left: viewModel.talent4Left,
-                            talent25Right: viewModel.talent4Right)
         }
     }
     

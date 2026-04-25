@@ -19,6 +19,18 @@ class HeroDetailViewModel: ObservableObject {
     let localizedName: String
     let complexity: Int
     
+    let abilities: [Ability]
+    
+    let carryValue: Int
+    let disablerValue: Int
+    let escapeValue: Int
+    let supportValue: Int
+    let junglerValue: Int
+    let pusherValue: Int
+    let nukerValue: Int
+    let durableValue: Int
+    let initiatorValue: Int
+    
     @Published var selectedAbility: Ability?
     
     @Published var heroID: Int
@@ -26,7 +38,7 @@ class HeroDetailViewModel: ObservableObject {
     @Published var previousHeroID: Int?
     @Published var nextHeroID: Int?
     
-    @Published var abilities: [Ability] = []
+    
     @Published var talent1Left: String = ""
     @Published var talent2Left: String = ""
     @Published var talent3Left: String = ""
@@ -52,11 +64,20 @@ class HeroDetailViewModel: ObservableObject {
         self.persistence = persistence
         self.context = context
         self.language = language
-        abilities = hero.heroAbilities
+        self.abilities = hero.heroAbilities
         self.name = hero.heroName
         self.primaryAttribute = hero.primaryAttribute
         self.localizedName = hero.localizedName
         self.complexity = Int(hero.hero.complexity)
+        self.carryValue = Int(hero.hero.roleCarry)
+        self.disablerValue = Int(hero.hero.roleDisabler)
+        self.escapeValue = Int(hero.hero.roleEscape)
+        self.supportValue = Int(hero.hero.roleSupport)
+        self.junglerValue = Int(hero.hero.roleJungler)
+        self.pusherValue = Int(hero.hero.rolePusher)
+        self.nukerValue = Int(hero.hero.roleNuker)
+        self.durableValue = Int(hero.hero.roleDurable)
+        self.initiatorValue = Int(hero.hero.roleInitiator)
     }
     
     convenience init(heroID: Int,
