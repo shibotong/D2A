@@ -38,31 +38,31 @@ struct HeroRoleView: View {
                     .font(.system(size: 15))
                     .bold()
                 Spacer()
-            }.padding(.leading)
-            GeometryReader { proxy in
-                let horizontalSpacing: CGFloat = 32
-                let verticalSpacing: CGFloat = 8
-                let width = (proxy.size.width - horizontalSpacing * 4) / 3
-                HStack(spacing: horizontalSpacing) {
-                    VStack(alignment: .leading, spacing: verticalSpacing) {
-                        RoleView(title: "Carry", level: Double(carry))
-                        RoleView(title: "Disabler", level: Double(disabler))
-                        RoleView(title: "Escape", level: Double(escape))
-                    }.frame(width: width)
-                    VStack(alignment: .leading, spacing: verticalSpacing) {
-                        RoleView(title: "Support", level: Double(support))
-                        RoleView(title: "Jungler", level: Double(jungler))
-                        RoleView(title: "Pusher", level: Double(pusher))
-                    }.frame(width: width)
-                    VStack(alignment: .leading, spacing: verticalSpacing) {
-                        RoleView(title: "Nuker", level: Double(nuker))
-                        RoleView(title: "Durable", level: Double(durable))
-                        RoleView(title: "Initiator", level: Double(initiator))
-                    }.frame(width: width)
-                }
-                .padding(.horizontal, horizontalSpacing)
             }
-            .frame(height: 120)
+            rolesView
+        }
+    }
+    
+    private var rolesView: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                RoleView(title: "Carry", level: Double(carry))
+                RoleView(title: "Disabler", level: Double(disabler))
+                RoleView(title: "Escape", level: Double(escape))
+            }
+            .padding(.horizontal)
+            VStack(alignment: .leading) {
+                RoleView(title: "Support", level: Double(support))
+                RoleView(title: "Jungler", level: Double(jungler))
+                RoleView(title: "Pusher", level: Double(pusher))
+            }
+            .padding(.horizontal)
+            VStack(alignment: .leading) {
+                RoleView(title: "Nuker", level: Double(nuker))
+                RoleView(title: "Durable", level: Double(durable))
+                RoleView(title: "Initiator", level: Double(initiator))
+            }
+            .padding(.horizontal)
         }
     }
 }
