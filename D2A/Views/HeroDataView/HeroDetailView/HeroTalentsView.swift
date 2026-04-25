@@ -39,7 +39,7 @@ struct HeroTalentsView: View {
                     .font(.system(size: 15))
                     .bold()
                 Spacer()
-            }.padding(.leading)
+            }
             buildTalentLevel(level: 25, left: talent25Left, right: talent25Right)
             Divider()
             buildTalentLevel(level: 20, left: talent20Left, right: talent20Right)
@@ -70,7 +70,6 @@ struct HeroTalentsView: View {
             }
         }
         .frame(height: 30)
-        .padding(.horizontal)
     }
 }
 

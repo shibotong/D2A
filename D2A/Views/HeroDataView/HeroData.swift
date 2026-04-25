@@ -12,6 +12,14 @@ protocol HeroProtocol: Identifiable {
     var heroName: String { get }
     var hero: Hero { get }
     var heroAbilities: [Ability] { get }
+    var talent1LeftName: String { get }
+    var talent2LeftName: String { get }
+    var talent3LeftName: String { get }
+    var talent4LeftName: String { get }
+    var talent1RightName: String { get }
+    var talent2RightName: String { get }
+    var talent3RightName: String { get }
+    var talent4RightName: String { get }
 }
 
 extension HeroProtocol {

@@ -20,37 +20,36 @@ extension Hero: HeroProtocol {
     }
     
     var talent1LeftName: String {
-        ""
+        talent1left?.displayName ?? ""
     }
     
     var talent2LeftName: String {
-        ""
+        talent2left?.displayName ?? ""
     }
     
     var talent3LeftName: String {
-        ""
+        talent3left?.displayName ?? ""
     }
     
     var talent4LeftName: String {
-        ""
+        talent4left?.displayName ?? ""
     }
     
     var talent1RightName: String {
-        ""
+        talent1right?.displayName ?? ""
     }
     
     var talent2RightName: String {
-        ""
+        talent2right?.displayName ?? ""
     }
     
     var talent3RightName: String {
-        ""
+        talent3right?.displayName ?? ""
     }
     
     var talent4RightName: String {
-        ""
+        talent4right?.displayName ?? ""
     }
-    
     
     var hero: Hero {
         return self
@@ -179,8 +178,8 @@ extension Hero: HeroProtocol {
     ///  - return: a `Int` value indicate hp or mana for current level
     func calculateHPManaByLevel(level: Double, type: HeroHPMana) -> Int {
         let attr: HeroAttribute = type == .hp ? .str : .int
-        let base = type == .hp ? baseHealth : baseMana
-        let max = type == .hp ? Hero.strMaxHP : Hero.intMaxMP
+        let base = Int(type == .hp ? baseHealth : baseMana)
+        let max = type == .hp ? Int(Hero.strMaxHP) : Int(Hero.intMaxMP)
         let totalStat = calculateAttribute(level: level, attr: attr)
         let value = Int(base + totalStat * max)
         return value
@@ -188,13 +187,13 @@ extension Hero: HeroProtocol {
     
     func calculateHPLevel(level: Double) -> Int {
         let totalStr = calculateAttribute(level: level, attr: .str)
-        let hp = Int(baseHealth + totalStr * Hero.strMaxHP)
+        let hp = Int(baseHealth) + totalStr * Int(Hero.strMaxHP)
         return hp
     }
     
     func calculateManaLevel(level: Double) -> Int {
         let totalInt = calculateAttribute(level: level, attr: .int)
-        let hp = Int(baseMana + totalInt * Hero.intMaxMP)
+        let hp = Int(baseMana) + totalInt * Int(Hero.intMaxMP)
         return hp
     }
     
@@ -224,7 +223,7 @@ extension Hero: HeroProtocol {
         return regen
     }
     
-    func calculateAttribute(level: Double, attr: HeroAttribute) -> Int32 {
+    func calculateAttribute(level: Double, attr: HeroAttribute) -> Int {
         var base: Int32 = 0
         var gain = 0.0
         switch attr {
@@ -243,7 +242,7 @@ extension Hero: HeroProtocol {
         }
         var total = base + Int32((level - 1) * gain)
         total = levelBonusAttribute(base: total, level: level)
-        return Int32(total)
+        return Int(total)
     }
     
     /// calculate hero attack  based on Level
@@ -251,7 +250,7 @@ extension Hero: HeroProtocol {
     ///    - level: Level of `Hero`
     ///    - isMin: if the number is min attack or max attack
     ///  - return: a `Int32` value indicate attack for current level
-    func calculateAttackByLevel(level: Double, isMin: Bool) -> Int32 {
+    func calculateAttackByLevel(level: Double, isMin: Bool) -> Int {
         let baseAttack = isMin ? baseAttackMin : baseAttackMax
         var bonusAttack: Int32 = 0
         switch primaryAttr {
@@ -260,11 +259,11 @@ extension Hero: HeroProtocol {
                                        calculateAttribute(level: level, attr: .agi) +
                                        calculateAttribute(level: level, attr: .int)) * 0.7)
         case "str", "int", "agi":
-            bonusAttack = calculateAttribute(level: level, attr: HeroAttribute(rawValue: primaryAttr!)!)
+            bonusAttack = Int32(calculateAttribute(level: level, attr: HeroAttribute(rawValue: primaryAttr!)!))
         default:
             bonusAttack = 0
         }
-        return baseAttack + bonusAttack
+        return Int(baseAttack + bonusAttack)
     }
     
     /// calculate hero armor based on Level

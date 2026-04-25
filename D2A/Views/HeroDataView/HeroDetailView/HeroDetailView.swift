@@ -6,87 +6,97 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct HeroDetailView: View {
-    @ObservedObject var vm: HeroDetailViewModel
+    
+    let hero: Hero
+    let abilities: [Ability]
+    
+    @State var selectedAbility: Ability?
     @State var heroLevel = 1.00
-    @State var isPresented = false
+    
+    private let skillFrame: CGFloat = 30
+    
+    init(hero: Hero, abilities: [Ability]) {
+        self.hero = hero
+        self.abilities = abilities
+    }
+    
+    init(hero: any HeroProtocol) {
+        self.init(hero: hero.hero,
+                  abilities: hero.heroAbilities)
+    }
+    
+    init(heroID: Int,
+         context: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
+         persistence: DataPersistenceService = .shared) {
+        let hero = (try? persistence.fetch(heroID: heroID, context: context)) ?? Hero(context: context)
+        self.init(hero: hero)
+    }
     
     var body: some View {
-        mainBody
-            .navigationBarTitleDisplayMode(.inline)
-            .sheet(item: $vm.selectedAbility, content: { ability in
-                AbilityView(heroName: vm.hero.heroName, ability: ability)
-            })
-    }
-    
-    private var mainBody: some View {
         ZStack {
             ScrollView {
-                buildTitle(hero: vm.hero)
-                buildAbilities(hero: vm.hero.hero)
+                HeroTitleView(heroID: hero.heroID,
+                              primaryAttribute: hero.primaryAttribute,
+                              displayName: hero.localizedName,
+                              heroComplexity: Int(hero.complexity))
+                abilitiesView
                     .padding(.horizontal, 5)
                 Divider()
-                buildHeroDetails(hero: vm.hero)
-            }.navigationTitle(vm.hero.localizedName)
+                VStack {
+                    levelSlider
+                    Divider()
+                    HeroAttributesView(level: Int(heroLevel), hero: hero)
+                    Divider()
+                    HeroRoleView(carry: Int(hero.roleCarry),
+                                 disabler: Int(hero.roleDisabler),
+                                 escape: Int(hero.roleEscape),
+                                 support: Int(hero.roleSupport),
+                                 jungler: Int(hero.roleJungler),
+                                 pusher: Int(hero.rolePusher),
+                                 nuker: Int(hero.roleNuker),
+                                 durable: Int(hero.roleDurable),
+                                 initiator: Int(hero.roleInitiator))
+                    Divider()
+                    HeroStatsView(level: Int(heroLevel), hero: hero)
+                    Divider()
+                    HeroTalentsView(talent10Left: hero.talent1LeftName,
+                                    talent10Right: hero.talent1RightName,
+                                    talent15Left: hero.talent2LeftName,
+                                    talent15Right: hero.talent2RightName,
+                                    talent20Left: hero.talent3LeftName,
+                                    talent20Right: hero.talent3RightName,
+                                    talent25Left: hero.talent4LeftName,
+                                    talent25Right: hero.talent4RightName)
+                }
+                .padding(.horizontal)
+            }
+            .navigationTitle(hero.localizedName)
         }
-    }
-
-    @ViewBuilder
-    private func buildTitle(hero: any HeroProtocol) -> some View {
-        HeroImageView(heroID: Int(hero.id), type: .full)
-            .overlay(
-                LinearGradient(colors: [Color(.black).opacity(0),
-                                        Color(.black).opacity(1)],
-                               startPoint: .top,
-                               endPoint: .bottom))
-            .overlay(HStack {
-                VStack(alignment: .leading, spacing: 3) {
-                    Spacer()
-                    HStack {
-                        Image("hero_\(hero.primaryAttribute)")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                        Text(LocalizedStringKey(hero.localizedName))
-                            .font(.system(size: 30))
-                            .bold()
-                            .foregroundColor(.white)
-                        Text("\(Int(hero.id))")
-                            .font(.caption2)
-                            .foregroundColor(.white.opacity(0.5))
-                        Spacer()
-                        HStack {
-                            ForEach(1..<4) { complexity in
-                                if complexity <= hero.hero.complexity {
-                                    RoundedRectangle(cornerRadius: 3)
-                                        .frame(width: 15, height: 15)
-                                        .foregroundColor(.white)
-                                        .rotationEffect(.degrees(45))
-                                } else {
-                                    RoundedRectangle(cornerRadius: 3)
-                                        .stroke()
-                                        .frame(width: 15, height: 15)
-                                        .foregroundColor(.white)
-                                        .rotationEffect(.degrees(45))
-                                }
+        .navigationBarTitleDisplayMode(.inline)
+        .sheet(item: $selectedAbility, content: { ability in
+            NavigationView {
+                AbilityView(heroName: hero.heroName, ability: ability)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("Close", systemImage: "xmark") {
+                                selectedAbility = nil
                             }
                         }
                     }
-                }
-                Spacer()
-            }.padding(.leading))
+            }
+        })
     }
     
-    @ViewBuilder
-    private func buildAbilities(hero: Hero) -> some View {
-        let skillFrame: CGFloat = 30
+    private var abilitiesView: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(vm.abilities, id: \.id) { ability in
+                ForEach(abilities, id: \.id) { ability in
                     if ability.behavior != "Hidden" {
                         Button {
-                            vm.selectedAbility = ability
-                            isPresented = true
+                            selectedAbility = ability
                         } label: {
                             AbilityImage(name: ability.name ?? "")
                                 .frame(width: skillFrame, height: skillFrame)
@@ -99,138 +109,20 @@ struct HeroDetailView: View {
         }
     }
     
-    @ViewBuilder private func buildHeroDetails(hero: any HeroProtocol) -> some View {
-        VStack {
-            buildAttributes(hero: hero.hero)
-            Divider()
-            HeroRoleView(hero: hero.hero)
-            Divider()
-            HeroStatsView(hero: hero.hero)
-            Divider()
-            HeroTalentsView(talent10Left: vm.talent1Left,
-                            talent10Right: vm.talent1Right,
-                            talent15Left: vm.talent2Left,
-                            talent15Right: vm.talent2Right,
-                            talent20Left: vm.talent3Left,
-                            talent20Right: vm.talent3Right,
-                            talent25Left: vm.talent4Left,
-                            talent25Right: vm.talent4Right)
-        }
-    }
-    
-    @ViewBuilder
-    private func buildAttributes(hero: Hero) -> some View {
-        VStack {
-            HStack {
-                Text("Attributes")
-                    .font(.system(size: 15))
-                    .bold()
-                Spacer()
-            }.padding(.bottom)
-            VStack(spacing: 0) {
-                HStack {
-                    Text("Health")
-                        .font(.system(size: 15))
-                        .bold()
-                        .foregroundColor(.secondaryLabel)
-                    Spacer()
-                    Text("\(hero.calculateHPLevel(level: heroLevel))")
-                        .font(.system(size: 15))
-                        .bold()
-                    Text("+ \(hero.calculateHPRegen(level: heroLevel), specifier: "%.1f")")
-                        .font(.system(size: 13))
-                }
-                buildManaHealthBar(total: hero.calculateHPLevel(level: heroLevel), color: Color(UIColor.systemGreen))
-            }
-            VStack(spacing: 0) {
-                HStack {
-                    Text("Mana")
-                        .font(.system(size: 15))
-                        .bold()
-                        .foregroundColor(.secondaryLabel)
-                    Spacer()
-                    Text("\(hero.calculateManaLevel(level: heroLevel))")
-                        .font(.system(size: 15))
-                        .bold()
-                    Text("+ \(hero.calculateMPRegen(level: heroLevel), specifier: "%.1f")")
-                        .font(.system(size: 13))
-                }
-                
-                buildManaHealthBar(total: hero.calculateManaLevel(level: heroLevel), color: Color(UIColor.systemBlue))
-            }
-            
-            HStack {
-                Spacer()
-                HStack {
-                    Image("hero_str")
-                        .resizable()
-                        .frame(width: 15, height: 15)
-                    Text("\(hero.calculateAttribute(level: heroLevel, attr: .str))")
-                        .font(.system(size: 18))
-                        .bold()
-                    Text("+ \(hero.gainStr, specifier: "%.1f")")
-                        .font(.system(size: 13))
-                }
-                Spacer()
-                HStack {
-                    Image("hero_agi")
-                        .resizable()
-                        .frame(width: 15, height: 15)
-                    Text("\(hero.calculateAttribute(level: heroLevel, attr: .agi))")
-                        .font(.system(size: 18))
-                        .bold()
-                    Text("+ \(hero.gainAgi, specifier: "%.1f")")
-                        .font(.system(size: 13))
-                }
-                Spacer()
-                HStack {
-                    Image("hero_int")
-                        .resizable()
-                        .frame(width: 15, height: 15)
-                    Text("\(hero.calculateAttribute(level: heroLevel, attr: .int))")
-                        .font(.system(size: 18))
-                        .bold()
-                    Text("+ \(hero.gainInt, specifier: "%.1f")")
-                        .font(.system(size: 13))
-                }
-                Spacer()
-            }
-            Slider(value: $heroLevel, in: 1...30, step: 1) {
-                Text("Level \(Int(heroLevel))")
-            } minimumValueLabel: {
-                Text("\(Int(heroLevel))")
-            } maximumValueLabel: {
-                Text("30")
-            }
-        }
-        .padding(.horizontal)
-    }
-    
-    @ViewBuilder
-    private func buildManaHealthBar(total: Int, color: Color) -> some View {
-        GeometryReader { proxy in
-            let rectangles = Double(total) / 250.00
-            let numberOfRect = total / 250
-            let spacer = (total % 250 == 0) ? numberOfRect : numberOfRect + 1
-            let restWidth = proxy.size.width - CGFloat(spacer)
-            let rectWidth = restWidth / rectangles
-            
-            HStack(spacing: 1) {
-                ForEach(0..<numberOfRect, id: \.self) { _ in
-                    Rectangle()
-                        .frame(width: rectWidth)
-                }
-                Rectangle()
-            }
-            .frame(height: 10)
-            .foregroundColor(color)
-            .clipShape(Capsule())
+    private var levelSlider: some View {
+        Slider(value: $heroLevel, in: 1...30, step: 1) {
+            Text("Level \(Int(heroLevel))")
+        } minimumValueLabel: {
+            Text("\(Int(heroLevel))")
+        } maximumValueLabel: {
+            Text("30")
         }
     }
 }
 
  struct HeroDetailView_Preview: PreviewProvider {
     static var previews: some View {
-        HeroDetailView(vm: HeroDetailViewModel(hero: PreviewData.PreviewHero.antimage, language: .english))
+        HeroDetailView(hero: PreviewData.PreviewHero.antimage)
+            .environmentObject(PreviewData.environment)
     }
  }

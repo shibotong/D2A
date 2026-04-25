@@ -181,7 +181,7 @@ struct HeroListView: View {
     @ViewBuilder
     private func navigationHero(heroes: [any HeroProtocol]) -> some View {
         ForEach(heroes, id: \.id) { hero in
-            NavigationLink(destination: HeroDetailView(vm: HeroDetailViewModel(hero: hero))) {
+            NavigationLink(destination: HeroDetailView(hero: hero)) {
                 buildHero(hero: hero)
             }
         }
