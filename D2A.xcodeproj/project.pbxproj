@@ -312,8 +312,10 @@
 		7928D2242F7F740B006C0F3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				DataPersistenceService.swift,
 				DataSyncingLogger.swift,
-				HeroRecipe.swift,
+				Recipe/AbilityRecipe.swift,
+				Recipe/HeroRecipe.swift,
 				SyncingTimer.swift,
 			);
 			target = 32F70A9C26F57F7E006E9B05 /* D2AWidgetExtension */;
@@ -321,8 +323,10 @@
 		7928D2252F7F740B006C0F3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				DataPersistenceService.swift,
 				DataSyncingLogger.swift,
-				HeroRecipe.swift,
+				Recipe/AbilityRecipe.swift,
+				Recipe/HeroRecipe.swift,
 				SyncingTimer.swift,
 			);
 			target = 32F70AE526F61836006E9B05 /* D2AWidgetIntentHandler */;

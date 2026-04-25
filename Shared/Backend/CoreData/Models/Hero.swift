@@ -10,6 +10,11 @@ import CoreData
 import StratzAPI
 
 extension Hero: HeroProtocol {
+    
+    var heroAbilities: [Ability] {
+        return (abilities?.array as? [Ability]) ?? []
+    }
+    
     var talent1LeftName: String {
         ""
     }
@@ -72,11 +77,7 @@ extension Hero: HeroProtocol {
         primaryAttr ?? ""
     }
     
-    var heroAbilities: [String] {
-        return []
-    }
-    
-    var abilityData: [AbilityData] {
+    var abilityData: [Ability] {
         []
     }
     
@@ -96,7 +97,7 @@ extension Hero: HeroProtocol {
               let heroStats = queryHero.stats else {
             throw Hero.CoreDataError.decodingError
         }
-        let hero = (try? PersistenceProvider.shared.fetchHero(id: heroID, context: viewContext)) ?? Hero(context: viewContext)
+        let hero = (try? DataPersistenceService.shared.fetch(heroID: Int(heroID), context: viewContext)) ?? Hero(context: viewContext)
         // data from Stratz
         hero.lastFetch = Date()
         hero.id = heroID

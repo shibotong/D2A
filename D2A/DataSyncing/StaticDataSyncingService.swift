@@ -29,7 +29,7 @@ class StaticDataSyncingService: ObservableObject {
     
     private let syncingLogger: DataSyncingLogger?
     
-    private let persistence: PersistenceProviding
+    private let persistence: DataPersistenceService
     private let notification: D2ANotification
     
     private let syncingTimer: SyncingTimerProtocol
@@ -38,7 +38,8 @@ class StaticDataSyncingService: ObservableObject {
     
     init(openDota: OpenDotaFetching = OpenDotaController.shared,
          stratz: StratzFetching = StratzFetcher.shared,
-         persistence: PersistenceProviding = PersistenceProvider.shared,
+         mainContext: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
+         persistenceService: DataPersistenceService = .shared,
          appConfig: AppConfigProtocol = AppConfig.shared,
          logger: Logger = D2ALogger.syncing,
          notification: D2ANotification = .default,
@@ -46,8 +47,8 @@ class StaticDataSyncingService: ObservableObject {
          syncingTimer: SyncingTimerProtocol = SyncingTimer()) {
         self.openDota = openDota
         self.stratz = stratz
-        self.context = persistence.mainContext.makeContext(author: "Static Data")
-        self.persistence = persistence
+        self.context = mainContext.makeContext(author: "Static Data")
+        self.persistence = persistenceService
         self.language = appConfig.languageCode
         self.maxConcurrent = appConfig.processors
         self.logger = logger
@@ -69,7 +70,6 @@ class StaticDataSyncingService: ObservableObject {
             try await syncHeroes()
         }
         if shouldSyncLocalization {
-            
             try await syncAbilityTranslation()
             try await syncHeroTranslations()
         }
@@ -100,23 +100,7 @@ class StaticDataSyncingService: ObservableObject {
             guard let abilityIDs, let abilities else {
                 throw URLError(.badServerResponse)
             }
-            var results: [AbilitySaving] = []
-            for (abilityIDString, name) in abilityIDs {
-                guard let ability = abilities[name] as? [String: Any] else {
-                    logger.trace("Not able to find abiilty from data: \(name)")
-                    continue
-                }
-                var abilityIDString = abilityIDString
-                if abilityIDString == "3060,1617" {
-                    abilityIDString = "1617"
-                }
-                guard let abilityID = Int(abilityIDString) else {
-                    logger.error("Ability ID is not an integer: \(abilityIDString)")
-                    continue
-                }
-                results.append(AbilitySaving(abilityID: abilityID, name: name, data: ability))
-            }
-            return results
+            return persistence.sortAbilities(abilityIDs: abilityIDs, abilities: abilities)
         } saving: { ability, context in
             self.logger.trace("Saving ability \(ability.abilityID)")
             try persistence.save(abilityID: ability.abilityID, name: ability.name, data: ability.data, in: context, syncingLogger: syncingLogger)
@@ -149,15 +133,7 @@ class StaticDataSyncingService: ObservableObject {
                 return [HeroRecipe]()
             }
             let heroAdditionalDatas = try await stratz.heroAdditionalData()
-            var heroes: [HeroRecipe] = []
-            for heroAdditionalData in heroAdditionalDatas {
-                guard let heroData = heroJSON["\(heroAdditionalData.heroID)"] as? [String: Any], let abilities = abilitiesJSON[heroAdditionalData.name] as? [String: Any] else {
-                    logger.warning("hero is not valid")
-                    continue
-                }
-                heroes.append(HeroRecipe(heroID: heroAdditionalData.heroID, data: heroData, abilities: abilities, additonalData: heroAdditionalData))
-            }
-            return heroes
+            return persistence.sortHeroes(heroJSON: heroJSON, abilitiesJSON: abilitiesJSON, heroAdditionalDatas: heroAdditionalDatas)
         } saving: { (hero: HeroRecipe, context) in
             self.logger.trace("Saving hero \(hero.heroID)")
             try persistenceProvider.save(hero: hero, in: context, logger: syncingLogger)
@@ -218,12 +194,6 @@ class StaticDataSyncingService: ObservableObject {
         try await savingContext.perform {
             try savingContext.save()
         }
-    }
-    
-    private struct AbilitySaving {
-        let abilityID: Int
-        let name: String
-        let data: [String: Any]
     }
     
     @MainActor
