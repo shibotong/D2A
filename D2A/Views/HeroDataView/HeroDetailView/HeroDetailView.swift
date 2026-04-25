@@ -6,59 +6,83 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct HeroDetailView: View {
-    @ObservedObject var viewModel: HeroDetailViewModel
+    
+    let hero: Hero
+    let abilities: [Ability]
+    
+    @State var selectedAbility: Ability?
+    @State var heroLevel = 1.00
+    
     private let skillFrame: CGFloat = 30
+    
+    init(hero: Hero, abilities: [Ability]) {
+        self.hero = hero
+        self.abilities = abilities
+    }
+    
+    init(hero: any HeroProtocol) {
+        self.init(hero: hero.hero,
+                  abilities: hero.heroAbilities)
+    }
+    
+    init(heroID: Int,
+         context: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
+         persistence: DataPersistenceService = .shared) {
+        let hero = (try? persistence.fetch(heroID: heroID, context: context)) ?? Hero(context: context)
+        self.init(hero: hero)
+    }
     
     var body: some View {
         ZStack {
             ScrollView {
-                HeroTitleView(heroID: viewModel.hero.heroID,
-                              primaryAttribute: viewModel.hero.primaryAttribute,
-                              displayName: viewModel.hero.localizedName,
-                              heroComplexity: Int(viewModel.hero.complexity))
+                HeroTitleView(heroID: hero.heroID,
+                              primaryAttribute: hero.primaryAttribute,
+                              displayName: hero.localizedName,
+                              heroComplexity: Int(hero.complexity))
                 abilitiesView
                     .padding(.horizontal, 5)
                 Divider()
                 VStack {
                     levelSlider
                     Divider()
-                    HeroAttributesView(level: Int(viewModel.heroLevel), hero: viewModel.hero)
+                    HeroAttributesView(level: Int(heroLevel), hero: hero)
                     Divider()
-                    HeroRoleView(carry: Int(viewModel.hero.roleCarry),
-                                 disabler: Int(viewModel.hero.roleDisabler),
-                                 escape: Int(viewModel.hero.roleEscape),
-                                 support: Int(viewModel.hero.roleSupport),
-                                 jungler: Int(viewModel.hero.roleJungler),
-                                 pusher: Int(viewModel.hero.rolePusher),
-                                 nuker: Int(viewModel.hero.roleNuker),
-                                 durable: Int(viewModel.hero.roleDurable),
-                                 initiator: Int(viewModel.hero.roleInitiator))
+                    HeroRoleView(carry: Int(hero.roleCarry),
+                                 disabler: Int(hero.roleDisabler),
+                                 escape: Int(hero.roleEscape),
+                                 support: Int(hero.roleSupport),
+                                 jungler: Int(hero.roleJungler),
+                                 pusher: Int(hero.rolePusher),
+                                 nuker: Int(hero.roleNuker),
+                                 durable: Int(hero.roleDurable),
+                                 initiator: Int(hero.roleInitiator))
                     Divider()
-                    HeroStatsView(level: Int(viewModel.heroLevel), hero: viewModel.hero)
+                    HeroStatsView(level: Int(heroLevel), hero: hero)
                     Divider()
-                    HeroTalentsView(talent10Left: viewModel.hero.talent1LeftName,
-                                    talent10Right: viewModel.hero.talent1RightName,
-                                    talent15Left: viewModel.hero.talent2LeftName,
-                                    talent15Right: viewModel.hero.talent2RightName,
-                                    talent20Left: viewModel.hero.talent3LeftName,
-                                    talent20Right: viewModel.hero.talent3RightName,
-                                    talent25Left: viewModel.hero.talent4LeftName,
-                                    talent25Right: viewModel.hero.talent4RightName)
+                    HeroTalentsView(talent10Left: hero.talent1LeftName,
+                                    talent10Right: hero.talent1RightName,
+                                    talent15Left: hero.talent2LeftName,
+                                    talent15Right: hero.talent2RightName,
+                                    talent20Left: hero.talent3LeftName,
+                                    talent20Right: hero.talent3RightName,
+                                    talent25Left: hero.talent4LeftName,
+                                    talent25Right: hero.talent4RightName)
                 }
                 .padding(.horizontal)
             }
-            .navigationTitle(viewModel.hero.localizedName)
+            .navigationTitle(hero.localizedName)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(item: $viewModel.selectedAbility, content: { ability in
+        .sheet(item: $selectedAbility, content: { ability in
             NavigationView {
-                AbilityView(heroName: viewModel.hero.heroName, ability: ability)
+                AbilityView(heroName: hero.heroName, ability: ability)
                     .toolbar {
                         ToolbarItem(placement: .topBarTrailing) {
                             Button("Close", systemImage: "xmark") {
-                                viewModel.selectedAbility = nil
+                                selectedAbility = nil
                             }
                         }
                     }
@@ -69,10 +93,10 @@ struct HeroDetailView: View {
     private var abilitiesView: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(viewModel.abilities, id: \.id) { ability in
+                ForEach(abilities, id: \.id) { ability in
                     if ability.behavior != "Hidden" {
                         Button {
-                            viewModel.selectedAbility = ability
+                            selectedAbility = ability
                         } label: {
                             AbilityImage(name: ability.name ?? "")
                                 .frame(width: skillFrame, height: skillFrame)
@@ -86,10 +110,10 @@ struct HeroDetailView: View {
     }
     
     private var levelSlider: some View {
-        Slider(value: $viewModel.heroLevel, in: 1...30, step: 1) {
-            Text("Level \(Int(viewModel.heroLevel))")
+        Slider(value: $heroLevel, in: 1...30, step: 1) {
+            Text("Level \(Int(heroLevel))")
         } minimumValueLabel: {
-            Text("\(Int(viewModel.heroLevel))")
+            Text("\(Int(heroLevel))")
         } maximumValueLabel: {
             Text("30")
         }
@@ -98,7 +122,7 @@ struct HeroDetailView: View {
 
  struct HeroDetailView_Preview: PreviewProvider {
     static var previews: some View {
-        HeroDetailView(viewModel: HeroDetailViewModel(hero: PreviewData.PreviewHero.antimage))
+        HeroDetailView(hero: PreviewData.PreviewHero.antimage)
             .environmentObject(PreviewData.environment)
     }
  }

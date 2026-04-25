@@ -27,7 +27,7 @@ struct PlayerRowView: View {
     private var longPlayerView: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                NavigationLink(destination: HeroDetailView(viewModel: HeroDetailViewModel(heroID: viewModel.heroID))) {
+                NavigationLink(destination: HeroDetailView(heroID: viewModel.heroID)) {
                     heroIcon
                 }
                 if let playerID = viewModel.accountID {
