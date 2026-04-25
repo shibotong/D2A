@@ -12,28 +12,23 @@ struct HeroDetailView: View {
     @State var isPresented = false
     
     var body: some View {
-        mainBody
-            .navigationBarTitleDisplayMode(.inline)
-            .sheet(item: $viewModel.selectedAbility, content: { ability in
-                AbilityView(heroName: viewModel.hero.heroName, ability: ability)
-            })
-    }
-    
-    private var mainBody: some View {
         ZStack {
             ScrollView {
-                buildTitle(hero: viewModel.hero)
+                titleView
                 buildAbilities(hero: viewModel.hero.hero)
                     .padding(.horizontal, 5)
                 Divider()
                 buildHeroDetails(hero: viewModel.hero)
             }.navigationTitle(viewModel.hero.localizedName)
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .sheet(item: $viewModel.selectedAbility, content: { ability in
+            AbilityView(heroName: viewModel.name, ability: ability)
+        })
     }
 
-    @ViewBuilder
-    private func buildTitle(hero: any HeroProtocol) -> some View {
-        HeroImageView(heroID: Int(hero.id), type: .full)
+    private var titleView: some View {
+        HeroImageView(heroID: viewModel.heroID, type: .full)
             .overlay(
                 LinearGradient(colors: [Color(.black).opacity(0),
                                         Color(.black).opacity(1)],
@@ -43,20 +38,20 @@ struct HeroDetailView: View {
                 VStack(alignment: .leading, spacing: 3) {
                     Spacer()
                     HStack {
-                        Image("hero_\(hero.primaryAttribute)")
+                        Image("hero_\(viewModel.primaryAttribute)")
                             .resizable()
                             .frame(width: 25, height: 25)
-                        Text(LocalizedStringKey(hero.localizedName))
+                        Text(viewModel.localizedName)
                             .font(.system(size: 30))
                             .bold()
                             .foregroundColor(.white)
-                        Text("\(Int(hero.id))")
+                        Text("\(viewModel.heroID)")
                             .font(.caption2)
                             .foregroundColor(.white.opacity(0.5))
                         Spacer()
                         HStack {
                             ForEach(1..<4) { complexity in
-                                if complexity <= hero.hero.complexity {
+                                if complexity <= viewModel.complexity {
                                     RoundedRectangle(cornerRadius: 3)
                                         .frame(width: 15, height: 15)
                                         .foregroundColor(.white)
@@ -132,13 +127,13 @@ struct HeroDetailView: View {
                         .bold()
                         .foregroundColor(.secondaryLabel)
                     Spacer()
-                    Text("\(hero.calculateHPLevel(level: heroLevel))")
+                    Text("\(hero.calculateHPLevel(level: viewModel.heroLevel))")
                         .font(.system(size: 15))
                         .bold()
-                    Text("+ \(hero.calculateHPRegen(level: heroLevel), specifier: "%.1f")")
+                    Text("+ \(hero.calculateHPRegen(level: viewModel.heroLevel), specifier: "%.1f")")
                         .font(.system(size: 13))
                 }
-                buildManaHealthBar(total: hero.calculateHPLevel(level: heroLevel), color: Color(UIColor.systemGreen))
+                buildManaHealthBar(total: hero.calculateHPLevel(level: viewModel.heroLevel), color: Color(UIColor.systemGreen))
             }
             VStack(spacing: 0) {
                 HStack {
@@ -147,14 +142,14 @@ struct HeroDetailView: View {
                         .bold()
                         .foregroundColor(.secondaryLabel)
                     Spacer()
-                    Text("\(hero.calculateManaLevel(level: heroLevel))")
+                    Text("\(hero.calculateManaLevel(level: viewModel.heroLevel))")
                         .font(.system(size: 15))
                         .bold()
-                    Text("+ \(hero.calculateMPRegen(level: heroLevel), specifier: "%.1f")")
+                    Text("+ \(hero.calculateMPRegen(level: viewModel.heroLevel), specifier: "%.1f")")
                         .font(.system(size: 13))
                 }
                 
-                buildManaHealthBar(total: hero.calculateManaLevel(level: heroLevel), color: Color(UIColor.systemBlue))
+                buildManaHealthBar(total: hero.calculateManaLevel(level: viewModel.heroLevel), color: Color(UIColor.systemBlue))
             }
             
             HStack {
@@ -163,7 +158,7 @@ struct HeroDetailView: View {
                     Image("hero_str")
                         .resizable()
                         .frame(width: 15, height: 15)
-                    Text("\(hero.calculateAttribute(level: heroLevel, attr: .str))")
+                    Text("\(hero.calculateAttribute(level: viewModel.heroLevel, attr: .str))")
                         .font(.system(size: 18))
                         .bold()
                     Text("+ \(hero.gainStr, specifier: "%.1f")")
@@ -174,7 +169,7 @@ struct HeroDetailView: View {
                     Image("hero_agi")
                         .resizable()
                         .frame(width: 15, height: 15)
-                    Text("\(hero.calculateAttribute(level: heroLevel, attr: .agi))")
+                    Text("\(hero.calculateAttribute(level: viewModel.heroLevel, attr: .agi))")
                         .font(.system(size: 18))
                         .bold()
                     Text("+ \(hero.gainAgi, specifier: "%.1f")")
@@ -185,7 +180,7 @@ struct HeroDetailView: View {
                     Image("hero_int")
                         .resizable()
                         .frame(width: 15, height: 15)
-                    Text("\(hero.calculateAttribute(level: heroLevel, attr: .int))")
+                    Text("\(hero.calculateAttribute(level: viewModel.heroLevel, attr: .int))")
                         .font(.system(size: 18))
                         .bold()
                     Text("+ \(hero.gainInt, specifier: "%.1f")")
@@ -193,10 +188,10 @@ struct HeroDetailView: View {
                 }
                 Spacer()
             }
-            Slider(value: $heroLevel, in: 1...30, step: 1) {
-                Text("Level \(Int(heroLevel))")
+            Slider(value: $viewModel.heroLevel, in: 1...30, step: 1) {
+                Text("Level \(Int(viewModel.heroLevel))")
             } minimumValueLabel: {
-                Text("\(Int(heroLevel))")
+                Text("\(Int(viewModel.heroLevel))")
             } maximumValueLabel: {
                 Text("30")
             }

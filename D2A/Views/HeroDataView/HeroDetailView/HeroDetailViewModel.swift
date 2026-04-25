@@ -14,6 +14,11 @@ import Apollo
 class HeroDetailViewModel: ObservableObject {
     @Published var hero: any HeroProtocol
     
+    let name: String
+    let primaryAttribute: String
+    let localizedName: String
+    let complexity: Int
+    
     @Published var selectedAbility: Ability?
     
     @Published var heroID: Int
@@ -48,6 +53,10 @@ class HeroDetailViewModel: ObservableObject {
         self.context = context
         self.language = language
         abilities = hero.heroAbilities
+        self.name = hero.heroName
+        self.primaryAttribute = hero.primaryAttribute
+        self.localizedName = hero.localizedName
+        self.complexity = Int(hero.hero.complexity)
     }
     
     convenience init(heroID: Int,
