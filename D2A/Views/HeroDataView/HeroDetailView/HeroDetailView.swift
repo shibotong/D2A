@@ -16,7 +16,7 @@ struct HeroDetailView: View {
         mainBody
             .navigationBarTitleDisplayMode(.inline)
             .sheet(item: $vm.selectedAbility, content: { ability in
-                AbilityView(viewModel: AbilityViewModel(heroID: vm.heroID, ability: ability))
+                AbilityView(heroName: vm.hero.heroName, ability: ability)
             })
     }
     

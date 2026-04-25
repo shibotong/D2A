@@ -11,6 +11,10 @@ import StratzAPI
 
 extension Hero: HeroProtocol {
     
+    var heroName: String {
+        return name ?? ""
+    }
+    
     var heroAbilities: [Ability] {
         return (abilities?.array as? [Ability]) ?? []
     }
