@@ -6,20 +6,42 @@
 //
 
 import OpenDota
+import Foundation
 
-struct MockOpenDotaFetcher: OpenDotaFetching {
-    func constants(service: OpenDotaFetcher.ConstantService) async throws -> Any {
+public struct MockOpenDotaFetcher: OpenDotaFetching {
+    
+    public init() {
+        
+    }
+    
+    public func constants(service: OpenDotaFetcher.ConstantService) async throws -> Any {
         switch service {
         case .abilities:
-            return PreviewConstantData.abilities
+            guard let data = try readFile("abilities") else {
+                throw TestError.fileNotExist
+            }
+            return try! JSONSerialization.jsonObject(with: data) as! [String: Any]
         case .abilityIDs:
-            return PreviewConstantData.abilityIDs
+            guard let data = try readFile("ability_ids") else {
+                throw TestError.fileNotExist
+            }
+            return try! JSONSerialization.jsonObject(with: data) as! [String: String]
         case .heroes:
-            return PreviewConstantData.heroes
+            guard let data = try readFile("heroes") else {
+                throw TestError.fileNotExist
+            }
+            return try! JSONSerialization.jsonObject(with: data) as! [String: Any]
         case .heroAbilities:
-            return PreviewConstantData.heroAbilities
+            guard let data = try readFile("hero_abilities") else {
+                throw TestError.fileNotExist
+            }
+            return try! JSONSerialization.jsonObject(with: data) as! [String: Any]
         default:
             return "service not provided"
         }
     }
+}
+
+public enum TestError: Error {
+    case fileNotExist
 }

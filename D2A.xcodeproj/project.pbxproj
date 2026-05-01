@@ -135,6 +135,8 @@
 		79D3D3A92FA47D460069A605 /* OpenDota.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		79D3D3BA2FA47D840069A605 /* PreviewKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3B22FA47D840069A605 /* PreviewKit.framework */; };
 		79D3D3BB2FA47D840069A605 /* PreviewKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3B22FA47D840069A605 /* PreviewKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		79D3D3D02FA4803A0069A605 /* TestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3992FA47D2D0069A605 /* TestKit.framework */; platformFilter = ios; };
+		79D3D3D12FA4803A0069A605 /* TestKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3992FA47D2D0069A605 /* TestKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		79D5281E28DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
 		79D5281F28DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
 		79D5282028DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
@@ -209,6 +211,13 @@
 			remoteGlobalIDString = 79D3D3B12FA47D840069A605;
 			remoteInfo = PreviewKit;
 		};
+		79D3D3D22FA4803A0069A605 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32B36F0326C38821002D427D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 79D3D3982FA47D2D0069A605;
+			remoteInfo = TestKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -243,6 +252,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				79D3D3A92FA47D460069A605 /* OpenDota.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79D3D3D42FA4803A0069A605 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				79D3D3D12FA4803A0069A605 /* TestKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,35 +408,21 @@
 			);
 			target = 32F70AE526F61836006E9B05 /* D2AWidgetIntentHandler */;
 		};
-		79D3D3A62FA47D3C0069A605 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		79D3D3DE2FA483BC0069A605 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				MockOpenDotaFetcher.swift,
-			);
-			target = 3289579827F6609B00BA9847 /* Unit Tests */;
-		};
-		79D3D3A72FA47D3C0069A605 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				MockOpenDotaFetcher.swift,
+				data/abilities.json,
 			);
 			target = 79D3D3982FA47D2D0069A605 /* TestKit */;
-		};
-		79D3D3C32FA47DB40069A605 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				data/ability_ids.json,
-			);
-			target = 79D3D3B12FA47D840069A605 /* PreviewKit */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		79D3D3C42FA47DB40069A605 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+		79D3D3E02FA483D10069A605 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 79D3D3AE2FA47D840069A605 /* Sources */;
+			buildPhase = 79D3D3972FA47D2D0069A605 /* Resources */;
 			membershipExceptions = (
-				data/ability_ids.json,
+				data/abilities.json,
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -429,8 +435,7 @@
 		7928D64D2F839B8B006C0F3F /* Preview Content */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Preview Content"; sourceTree = "<group>"; };
 		792A54A62F7E77A700EC815A /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
 		79D3D3842FA47B0B0069A605 /* OpenDota */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = OpenDota; sourceTree = "<group>"; };
-		79D3D39A2FA47D2D0069A605 /* TestKit */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (79D3D3A62FA47D3C0069A605 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79D3D3A72FA47D3C0069A605 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = TestKit; sourceTree = "<group>"; };
-		79D3D3B32FA47D840069A605 /* PreviewKit */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (79D3D3C32FA47DB40069A605 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79D3D3C42FA47DB40069A605 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = PreviewKit; sourceTree = "<group>"; };
+		79D3D39A2FA47D2D0069A605 /* TestKit */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (79D3D3DE2FA483BC0069A605 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79D3D3E02FA483D10069A605 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = TestKit; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -438,6 +443,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79D3D3D02FA4803A0069A605 /* TestKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,7 +588,6 @@
 				7942FD022B706B49008CE4B0 /* UIScreenshotTests */,
 				79D3D3842FA47B0B0069A605 /* OpenDota */,
 				79D3D39A2FA47D2D0069A605 /* TestKit */,
-				79D3D3B32FA47D840069A605 /* PreviewKit */,
 				32B36F0C26C38821002D427D /* Products */,
 				78E76DAB4BB6331DA85B70C0 /* Frameworks */,
 			);
@@ -858,11 +863,13 @@
 				3289579527F6609B00BA9847 /* Sources */,
 				3289579627F6609B00BA9847 /* Frameworks */,
 				3289579727F6609B00BA9847 /* Resources */,
+				79D3D3D42FA4803A0069A605 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				3289579E27F6609B00BA9847 /* PBXTargetDependency */,
+				79D3D3D32FA4803A0069A605 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				7926DEC92F9488C200EF3F77 /* Unit Tests */,
@@ -1076,9 +1083,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				79D3D3B32FA47D840069A605 /* PreviewKit */,
 			);
 			name = PreviewKit;
 			packageProductDependencies = (
@@ -1470,6 +1474,12 @@
 			target = 79D3D3B12FA47D840069A605 /* PreviewKit */;
 			targetProxy = 79D3D3B82FA47D840069A605 /* PBXContainerItemProxy */;
 		};
+		79D3D3D32FA4803A0069A605 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = 79D3D3982FA47D2D0069A605 /* TestKit */;
+			targetProxy = 79D3D3D22FA4803A0069A605 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1507,6 +1517,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibotong.AppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1535,6 +1549,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibotong.AppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1692,6 +1710,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1726,6 +1745,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Osize";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1753,7 +1773,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1780,7 +1803,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1804,7 +1830,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.WidgetIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1828,7 +1857,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.WidgetIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

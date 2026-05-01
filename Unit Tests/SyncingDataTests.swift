@@ -7,19 +7,20 @@
 
 import Testing
 import CoreData
+import TestKit
 @testable import D2A
 
 @Suite(.serialized)
 struct SyncingDataTests {
     let service: StaticDataSyncingService
-    let persistance: PersistenceProvider
+    let persistance: DataPersistenceService
     let openDotaFetcher: MockOpenDotaFetcher
     
     init() {
         let syncingTimer = MockSyncingTimer()
         openDotaFetcher = MockOpenDotaFetcher()
         let stratzFetcher = MockStratzFetcher()
-        persistance = PersistenceProvider.shared
+        persistance = DataPersistenceService.shared
         service = StaticDataSyncingService(
             openDota: openDotaFetcher,
             stratz: stratzFetcher,
@@ -31,7 +32,7 @@ struct SyncingDataTests {
     @Test("Test syncing antimage")
     func testSyncing() async throws {
         try await service.startSyncing()
-        let context = persistance.mainContext
+        let context = PersistenceProvider.shared.mainContext
         let optionalHero = try persistance.fetch(heroID: 1, context: context)
         let hero = try #require(optionalHero)
         

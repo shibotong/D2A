@@ -1,0 +1,68 @@
+{
+  "npc_dota_hero_antimage": {
+    "abilities": [
+      "antimage_mana_break",
+      "antimage_blink",
+      "antimage_counterspell",
+      "generic_hidden",
+      "antimage_persectur",
+      "antimage_mana_void"
+    ],
+    "talents": [
+      {
+        "name": "special_bonus_hp_regen_3",
+        "level": 1
+      },
+      {
+        "name": "special_bonus_unique_antimage_manavoid_aoe",
+        "level": 1
+      },
+      {
+        "name": "special_bonus_unique_antimage_5",
+        "level": 2
+      },
+      {
+        "name": "special_bonus_unique_antimage_6",
+        "level": 2
+      },
+      {
+        "name": "special_bonus_unique_antimage_3",
+        "level": 3
+      },
+      {
+        "name": "special_bonus_unique_antimage_8",
+        "level": 3
+      },
+      {
+        "name": "special_bonus_unique_antimage",
+        "level": 4
+      },
+      {
+        "name": "special_bonus_unique_antimage_2",
+        "level": 4
+      }
+    ],
+    "facets": [
+      {
+        "id": 0,
+        "name": "antimage_magebanes_mirror",
+        "deprecated": "true",
+        "icon": "ricochet",
+        "color": "Purple",
+        "gradient_id": 1,
+        "title": "Magebane's Mirror",
+        "description": "Spells countered by Counterspell will immediately burn a percentage of its mana cost from the enemy and deal damage based on the burned mana cost."
+      },
+      {
+        "id": 1,
+        "name": "antimage_mana_thirst",
+        "deprecated": "true",
+        "icon": "mana",
+        "color": "Blue",
+        "gradient_id": 3,
+        "title": "Mana Thirst",
+        "description": "Anti-Mage gains damage when his enemies are at low mana."
+      }
+    ]
+  }
+}
