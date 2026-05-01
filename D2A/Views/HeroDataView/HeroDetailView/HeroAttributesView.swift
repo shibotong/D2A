@@ -90,7 +90,7 @@ struct HeroAttributesView: View {
             HStack {
                 Spacer()
                 HStack {
-                    Image("hero_str")
+                    Image("attribute_str")
                         .resizable()
                         .frame(width: 15, height: 15)
                     Text("\(strength)")
@@ -101,7 +101,7 @@ struct HeroAttributesView: View {
                 }
                 Spacer()
                 HStack {
-                    Image("hero_agi")
+                    Image("attribute_agi")
                         .resizable()
                         .frame(width: 15, height: 15)
                     Text("\(agility)")
@@ -112,7 +112,7 @@ struct HeroAttributesView: View {
                 }
                 Spacer()
                 HStack {
-                    Image("hero_int")
+                    Image("attribute_int")
                         .resizable()
                         .frame(width: 15, height: 15)
                     Text("\(intelligence)")
