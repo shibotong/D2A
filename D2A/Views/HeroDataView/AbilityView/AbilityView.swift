@@ -133,7 +133,18 @@ struct AbilityView: View {
         .padding(.horizontal)
         .navigationBarTitleDisplayMode(.inline)
         .task {
-            buildDetailView()
+            guard let abilityName = name else {
+                return
+            }
+            if abilityVideo == nil {
+                abilityVideo = await fetchVideo(abilityName, type: .non)
+            }
+            if scepterVideo == nil {
+                scepterVideo = await fetchVideo(abilityName, type: .scepter)
+            }
+            if shardVideo == nil {
+                shardVideo = await fetchVideo(abilityName, type: .shard)
+            }
         }
     }
     
@@ -152,45 +163,20 @@ struct AbilityView: View {
         }
     }
     
-    func buildDetailView() {
-        var ability: AVAsset?
-        var scepter: AVAsset?
-        var shard: AVAsset?
-        guard let abilityName = name else { return }
-        if abilityVideo == nil {
-            ability = getVideoURL(abilityName, type: .non)
+    private func fetchVideo(_ ability: String, type: ScepterType) async -> AVPlayer? {
+        guard let video = await fetchVideoAsset(ability, type: type) else {
+            return nil
         }
-        if scepterVideo == nil {
-            scepter = getVideoURL(abilityName, type: .scepter)
-        }
-        if shardVideo == nil {
-            shard = getVideoURL(abilityName, type: .shard)
-        }
-        setVideoURL(ability: ability, scepter: scepter, shard: shard)
+        let player = AVPlayer(playerItem: AVPlayerItem(asset: video))
+        player.isMuted = true
+        return player
     }
     
-    @MainActor
-    private func setVideoURL(ability: AVAsset?, scepter: AVAsset?, shard: AVAsset?) {
-        if let ability {
-            let player = AVPlayer(playerItem: AVPlayerItem(asset: ability))
-            player.isMuted = true
-            abilityVideo = player
-        }
-        if let scepter {
-            let player = AVPlayer(playerItem: AVPlayerItem(asset: scepter))
-            player.isMuted = true
-            scepterVideo = player
-        }
-        if let shard {
-            let player = AVPlayer(playerItem: AVPlayerItem(asset: shard))
-            player.isMuted = true
-            shardVideo = player
-        }
-    }
-    
-    private func getVideoURL(_ ability: String, type: ScepterType) -> AVAsset? {
+    @concurrent
+    private func fetchVideoAsset(_ ability: String, type: ScepterType) async -> AVAsset? {
+        let imagePrefix = await IMAGE_PREFIX
         let trimmedHeroName = heroName.replacingOccurrences(of: "npc_dota_hero_", with: "")
-        let baseURL = "\(IMAGE_PREFIX)/apps/dota2/videos/dota_react/abilities/\(trimmedHeroName)"
+        let baseURL = "\(imagePrefix)/apps/dota2/videos/dota_react/abilities/\(trimmedHeroName)"
         var path = ""
         switch type {
         case .scepter:
@@ -201,10 +187,10 @@ struct AbilityView: View {
             path = "\(baseURL)/\(ability).mp4"
         }
 
-        guard let video = CacheVideo.shared.getVideo(key: path, name: heroName) else {
+        guard let video = await CacheVideo.shared.getVideo(key: path, name: heroName) else {
             return nil
         }
-        return video.isPlayable ? video: nil
+        return video.isPlayable ? video : nil
     }
 }
 
