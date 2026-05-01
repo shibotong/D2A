@@ -9,6 +9,7 @@ import Foundation
 import OpenDota
 import StaticDataKit
 
+nonisolated
 public struct MockOpenDotaFetcher: OpenDotaFetching {
     
     public init() {
@@ -19,4 +20,17 @@ public struct MockOpenDotaFetcher: OpenDotaFetching {
         let data = try readFile(service.rawValue)
         return try JSONSerialization.jsonObject(with: data)
     }
+    
+    func readFile(_ name: String) throws -> Data {
+        guard let path = Bundle.main.path(forResource: name, ofType: "json") else {
+            throw TestKitError.fileNotFound
+        }
+        return try Data(contentsOf: URL(fileURLWithPath: path))
+    }
 }
+
+public enum TestKitError: Error {
+    case fileNotFound
+}
+
+
