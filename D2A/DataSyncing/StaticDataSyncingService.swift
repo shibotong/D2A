@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 import Logging
+import OpenDota
 
 class StaticDataSyncingService: ObservableObject {
 
@@ -36,7 +37,7 @@ class StaticDataSyncingService: ObservableObject {
     
     private var syncingActor: SyncingProgress = SyncingProgress()
     
-    init(openDota: OpenDotaFetching = OpenDotaController.shared,
+    init(openDota: OpenDotaFetching = OpenDotaFetcher.shared,
          stratz: StratzFetching = StratzFetcher.shared,
          mainContext: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
          persistenceService: DataPersistenceService = .shared,
