@@ -21,8 +21,6 @@ class PreviewData {
     static var heroes: [Hero] {
         let context = Self.persistenceProvider.mainContext
         let fetchRequest = Hero.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "heroID", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
         return (try? context.fetch(fetchRequest)) ?? []
     }
     
