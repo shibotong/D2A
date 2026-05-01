@@ -29,6 +29,11 @@
   "special_bonus_hp_regen_3": {
     "dname": "+3 Health Regen"
   },
+  "generic_hidden": {
+    "behavior": "Hidden",
+    "attrib": [],
+    "img": "/apps/dota2/images/dota_react/abilities/generic_hidden.png"
+  },
   "antimage_counterspell": {
     "dname": "Counterspell",
     "behavior": [

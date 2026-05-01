@@ -79,7 +79,7 @@ struct SyncingDataTests {
         #expect(hero.localizations?.count == 1)
         
         let abilities = try #require(hero.abilities?.array as? [Ability])
-        #expect(abilities.map { $0.name } == ["antimage_mana_break", "antimage_blink", "antimage_counterspell", "antimage_persectur", "antimage_mana_void"])
+        #expect(abilities.map { $0.name } == ["antimage_mana_break", "antimage_blink", "antimage_counterspell", "generic_hidden", "antimage_persectur", "antimage_mana_void"])
         
         let left1Talent = try #require(hero.talent1left)
         #expect(left1Talent.name == "special_bonus_unique_antimage_manavoid_aoe")
