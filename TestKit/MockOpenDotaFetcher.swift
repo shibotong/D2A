@@ -5,11 +5,10 @@
 //  Created by Shibo Tong on 19/4/2026.
 //
 
-@testable import D2A
-import Foundation
+import OpenDota
 
 struct MockOpenDotaFetcher: OpenDotaFetching {
-    func constants(service: D2A.OpenDotaConstantService) async throws -> Any {
+    func constants(service: OpenDotaFetcher.ConstantService) async throws -> Any {
         switch service {
         case .abilities:
             return PreviewConstantData.abilities

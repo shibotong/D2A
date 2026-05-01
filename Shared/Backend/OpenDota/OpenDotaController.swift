@@ -10,11 +10,7 @@ import WidgetKit
 
 let baseURL = "https://api.opendota.com"
 
-protocol OpenDotaFetching {
-    func constants(service: OpenDotaConstantService) async throws -> Any
-}
-
-class OpenDotaController: OpenDotaFetching {
+class OpenDotaController {
     
     static let shared = OpenDotaController()
     
@@ -109,14 +105,6 @@ class OpenDotaController: OpenDotaFetching {
             print("error: ", error)
             return []
         }
-    }
-    
-    func constants(service: OpenDotaConstantService) async throws -> Any {
-        guard let url = URL(string: "\(baseURL)/api/constants/\(service.rawValue)") else {
-            throw URLError(.badURL)
-        }
-        let (data, response) = try await URLSession.shared.data(from: url)
-        return try JSONSerialization.jsonObject(with: data)
     }
 }
 
