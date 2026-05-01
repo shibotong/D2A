@@ -42,12 +42,6 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
-        .environment(\.managedObjectContext, PreviewData.persistenceProvider.mainContext)
-    
-}
-
 struct NavigationHostView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var data: HeroDatabase
