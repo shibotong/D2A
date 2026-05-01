@@ -19,29 +19,21 @@ class HeroListViewModel: ObservableObject {
     @Published var gridView = true
     @Published var selectedAttribute: HeroAttribute = .whole
     
-    private var subscribers = Set<AnyCancellable>()
-
-    private let language: DataLanguageEnum
+    private var cancellable: AnyCancellable?
     private let logger: Logger
     
     init(heroes: [Hero],
-         language: DataLanguageEnum = AppConfig.shared.languageCode,
          notification: D2ANotification = .default,
          logger: Logger = D2ALogger.ui) {
         let sortedHeroes = heroes.sorted { $0.localizedName < $1.localizedName }
         self.heroes = sortedHeroes
         self.searchResults = sortedHeroes
-        self.language = language
         self.logger = logger
-
-        searchString = ""
-        searchResults = []
-        selectedAttribute = .whole
         setupBinding()
     }
     
     private func setupBinding() {
-        $searchString
+        cancellable = $searchString
             .combineLatest($selectedAttribute)
             .map { [weak self] searchString, attributes in
                 guard let self = self else { return [] }
@@ -59,6 +51,5 @@ class HeroListViewModel: ObservableObject {
             .sink { [weak self] results in
                 self?.searchResults = results
             }
-            .store(in: &subscribers)
     }
 }

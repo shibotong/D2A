@@ -19,17 +19,9 @@ struct HeroListView: View {
     
     var body: some View {
         if !syncingService.isCompleted && viewModel.heroes.isEmpty {
-            VStack {
-                HStack {
-                    ProgressView()
-                    Text("Current syncing \(syncingService.currentSyncingService)")
-                }
-                ProgressView(value: syncingService.syncingProgress)
-                    .progressViewStyle(.linear)
-            }
+            HeroSyncingView(service: syncingService.currentSyncingService, progress: syncingService.syncingProgress)
         } else {
             buildBody()
-                .navigationTitle("Heroes")
                 .searchable(text: $viewModel.searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
                 .disableAutocorrection(true)
                 .toolbar {
@@ -170,7 +162,7 @@ struct HeroListView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     Text(hero.localizedName)
                     Spacer()
-                    Image("hero_\(hero.primaryAttribute)")
+                    Image("attribute\(hero.primaryAttribute)")
                         .resizable()
                         .frame(width: 20, height: 20)
                 }
@@ -192,5 +184,6 @@ struct HeroListView: View {
     static var previews: some View {
         HeroListView(heroes: PreviewData.heroes)
             .environmentObject(PreviewData.syncingService)
+            .environmentObject(PreviewData.environment)
     }
  }

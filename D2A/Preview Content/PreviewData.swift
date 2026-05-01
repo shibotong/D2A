@@ -16,13 +16,11 @@ class PreviewData {
         return provider
     }()
     
-    static let syncingService: StaticDataSyncingService = StaticDataSyncingService(syncingTimer: PreviewSyncingTimer())
+    static let syncingService: StaticDataSyncingService = StaticDataSyncingService(mainContext: persistenceProvider.mainContext, syncingTimer: PreviewSyncingTimer())
     
     static var heroes: [Hero] {
         let context = Self.persistenceProvider.mainContext
         let fetchRequest = Hero.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "heroID", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
         return (try? context.fetch(fetchRequest)) ?? []
     }
     
