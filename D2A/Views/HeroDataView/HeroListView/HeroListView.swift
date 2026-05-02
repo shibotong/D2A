@@ -177,11 +177,9 @@ struct HeroListView: View {
 }
 
 #if DBEUG
-struct HeroListView_Previews: PreviewProvider {
-    static var previews: some View {
-        HeroListView(heroes: PreviewData.heroes)
-            .environmentObject(PreviewData.syncingService)
-            .environmentObject(PreviewData.environment)
-    }
+#Preview {
+    HeroListView(heroes: PreviewData.heroes)
+        .environmentObject(PreviewData.syncingService)
+        .environmentObject(PreviewData.environment)
 }
 #endif
