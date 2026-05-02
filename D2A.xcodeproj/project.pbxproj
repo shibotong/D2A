@@ -135,6 +135,9 @@
 		79D3D3A92FA47D460069A605 /* OpenDota.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		79D3D3D02FA4803A0069A605 /* TestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3992FA47D2D0069A605 /* TestKit.framework */; platformFilter = ios; };
 		79D3D3D12FA4803A0069A605 /* TestKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3992FA47D2D0069A605 /* TestKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		79D3DFBA2FA5B7CB0069A605 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 79D3DFB92FA5B7CB0069A605 /* Localizable.xcstrings */; };
+		79D3DFBB2FA5B7CB0069A605 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 79D3DFB92FA5B7CB0069A605 /* Localizable.xcstrings */; };
+		79D3DFBC2FA5B7CB0069A605 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 79D3DFB92FA5B7CB0069A605 /* Localizable.xcstrings */; };
 		79D5281E28DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
 		79D5281F28DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
 		79D5282028DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
@@ -356,6 +359,7 @@
 		79CF637B29C40B700072F4C0 /* D2AUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AUITests.swift; sourceTree = "<group>"; };
 		79D3D3832FA47B0A0069A605 /* OpenDota.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenDota.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D3D3992FA47D2D0069A605 /* TestKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TestKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		79D3DFB92FA5B7CB0069A605 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		79D5281D28DD73CF0070841D /* secrets.example.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = secrets.example.json; sourceTree = "<group>"; };
 		79DEA8422A36A3060009A414 /* PlayerRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRowViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -758,6 +762,7 @@
 			children = (
 				79518D182F72B212005C9449 /* graphql */,
 				79518CE72F725C51005C9449 /* RemoteDataTestPlan.xctestplan */,
+				79D3DFB92FA5B7CB0069A605 /* Localizable.xcstrings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1120,6 +1125,7 @@
 				327C03442717AE8500DAEC42 /* README.md in Resources */,
 				32C606CD28647A10007AD14B /* ci_post_clone.sh in Resources */,
 				7977FDA129C1770B0034D3EA /* schema.graphqls in Resources */,
+				79D3DFBB2FA5B7CB0069A605 /* Localizable.xcstrings in Resources */,
 				79518D0B2F72A9CD005C9449 /* secrets.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1129,6 +1135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79518D092F72A9CD005C9449 /* secrets.json in Resources */,
+				79D3DFBC2FA5B7CB0069A605 /* Localizable.xcstrings in Resources */,
 				79D5281F28DD73CF0070841D /* secrets.example.json in Resources */,
 				7977FDA229C1770B0034D3EA /* schema.graphqls in Resources */,
 				32F70AA426F57F7E006E9B05 /* Assets.xcassets in Resources */,
@@ -1141,6 +1148,7 @@
 			files = (
 				7977FDA329C1770B0034D3EA /* schema.graphqls in Resources */,
 				79518D0A2F72A9CD005C9449 /* secrets.json in Resources */,
+				79D3DFBA2FA5B7CB0069A605 /* Localizable.xcstrings in Resources */,
 				79D5282028DD73CF0070841D /* secrets.example.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1535,6 +1543,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1593,6 +1602,7 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
