@@ -9,12 +9,52 @@ import SwiftUI
 
 struct HeroTitleView: View {
     
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     let heroID: Int
     let primaryAttribute: String
     let displayName: String
     let heroComplexity: Int
     
     var body: some View {
+        if horizontalSizeClass == .compact {
+            iPhone
+        } else {
+            iPad
+        }
+    }
+    
+    private var iPad: some View {
+        HStack {
+            HeroImageView(heroID: heroID, type: .full)
+                .frame(width: 100)
+            Image("attribute_\(primaryAttribute)")
+                .resizable()
+                .frame(width: 25, height: 25)
+            Text(displayName)
+                .font(.system(size: 30))
+                .bold()
+            Text("\(heroID)")
+                .font(.caption2)
+                .opacity(0.5)
+            HStack {
+                ForEach(1..<4) { complexity in
+                    if complexity <= heroComplexity {
+                        RoundedRectangle(cornerRadius: 3)
+                            .frame(width: 15, height: 15)
+                            .rotationEffect(.degrees(45))
+                    } else {
+                        RoundedRectangle(cornerRadius: 3)
+                            .stroke()
+                            .frame(width: 15, height: 15)
+                            .rotationEffect(.degrees(45))
+                    }
+                }
+            }
+        }
+    }
+    
+    private var iPhone: some View {
         HeroImageView(heroID: heroID, type: .full)
             .overlay(
                 LinearGradient(colors: [Color(.black).opacity(0),
