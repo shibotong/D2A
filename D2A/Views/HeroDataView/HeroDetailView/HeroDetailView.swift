@@ -10,6 +10,8 @@ import CoreData
 
 struct HeroDetailView: View {
     
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     let hero: Hero
     let abilities: [Ability]
     
@@ -36,45 +38,41 @@ struct HeroDetailView: View {
     }
     
     var body: some View {
-        ZStack {
-            ScrollView {
-                HeroTitleView(heroID: hero.heroID,
-                              primaryAttribute: hero.primaryAttribute,
-                              displayName: hero.localizedName,
-                              heroComplexity: Int(hero.complexity))
-                abilitiesView
-                    .padding(.horizontal, 5)
-                Divider()
-                VStack {
-                    levelSlider
-                    Divider()
-                    HeroAttributesView(level: Int(heroLevel), hero: hero)
-                    Divider()
-                    HeroRoleView(carry: Int(hero.roleCarry),
-                                 disabler: Int(hero.roleDisabler),
-                                 escape: Int(hero.roleEscape),
-                                 support: Int(hero.roleSupport),
-                                 jungler: Int(hero.roleJungler),
-                                 pusher: Int(hero.rolePusher),
-                                 nuker: Int(hero.roleNuker),
-                                 durable: Int(hero.roleDurable),
-                                 initiator: Int(hero.roleInitiator))
-                    Divider()
-                    HeroStatsView(level: Int(heroLevel), hero: hero)
-                    Divider()
-                    HeroTalentsView(talent10Left: hero.talent1LeftName,
-                                    talent10Right: hero.talent1RightName,
-                                    talent15Left: hero.talent2LeftName,
-                                    talent15Right: hero.talent2RightName,
-                                    talent20Left: hero.talent3LeftName,
-                                    talent20Right: hero.talent3RightName,
-                                    talent25Left: hero.talent4LeftName,
-                                    talent25Right: hero.talent4RightName)
-                }
-                .padding(.horizontal)
-            }
-            .navigationTitle(hero.localizedName)
+        if horizontalSizeClass == .compact {
+            iPhone
+        } else {
+            iPad
         }
+    }
+    
+    private var iPad: some View {
+        Text("abc")
+        
+    }
+    
+    private var iPhone: some View {
+        ScrollView {
+            HeroTitleView(heroID: hero.heroID,
+                          primaryAttribute: hero.primaryAttribute,
+                          displayName: hero.localizedName,
+                          heroComplexity: Int(hero.complexity))
+            abilitiesView
+                .padding(.horizontal, 5)
+            Divider()
+            VStack {
+                levelSlider
+                Divider()
+                attributesView
+                Divider()
+                roleView
+                Divider()
+                statsView
+                Divider()
+                talentsView
+            }
+            .padding(.horizontal)
+        }
+        .navigationTitle(hero.localizedName)
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $selectedAbility, content: { ability in
             NavigationView {
@@ -117,6 +115,37 @@ struct HeroDetailView: View {
         } maximumValueLabel: {
             Text("30")
         }
+    }
+    
+    private var attributesView: some View {
+        HeroAttributesView(level: Int(heroLevel), hero: hero)
+    }
+    
+    private var roleView: some View {
+        HeroRoleView(carry: Int(hero.roleCarry),
+                     disabler: Int(hero.roleDisabler),
+                     escape: Int(hero.roleEscape),
+                     support: Int(hero.roleSupport),
+                     jungler: Int(hero.roleJungler),
+                     pusher: Int(hero.rolePusher),
+                     nuker: Int(hero.roleNuker),
+                     durable: Int(hero.roleDurable),
+                     initiator: Int(hero.roleInitiator))
+    }
+    
+    private var statsView: some View {
+        HeroStatsView(level: Int(heroLevel), hero: hero)
+    }
+    
+    private var talentsView: some View {
+        HeroTalentsView(talent10Left: hero.talent1LeftName,
+                        talent10Right: hero.talent1RightName,
+                        talent15Left: hero.talent2LeftName,
+                        talent15Right: hero.talent2RightName,
+                        talent20Left: hero.talent3LeftName,
+                        talent20Right: hero.talent3RightName,
+                        talent25Left: hero.talent4LeftName,
+                        talent25Right: hero.talent4RightName)
     }
 }
 
