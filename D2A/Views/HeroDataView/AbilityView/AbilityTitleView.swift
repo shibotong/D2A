@@ -44,6 +44,7 @@ struct AbilityTitleView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     AbilityTitleView(displayName: "Blink",
                      cd: "10/20/30",
@@ -51,3 +52,4 @@ struct AbilityTitleView: View {
                      name: "antimage_blink")
     .environmentObject(PreviewData.environment)
 }
+#endif
