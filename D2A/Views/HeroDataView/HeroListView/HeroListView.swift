@@ -18,37 +18,33 @@ struct HeroListView: View {
     }
     
     var body: some View {
-        if !syncingService.isCompleted && viewModel.heroes.isEmpty {
-            HeroSyncingView(service: syncingService.currentSyncingService, progress: syncingService.syncingProgress)
-        } else {
-            buildBody()
-                .searchable(text: $viewModel.searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
-                .disableAutocorrection(true)
-                .toolbar {
-                    if horizontalSize == .compact {
-                        Menu {
-                            Picker("picker", selection: $viewModel.gridView) {
-                                Label("Icons", systemImage: "square.grid.2x2").tag(true)
-                                Label("List", systemImage: "list.bullet").tag(false)
-                            }
-                            
-                            Picker("attributes", selection: $viewModel.selectedAttribute) {
-                                Text("All").tag(HeroAttribute.whole)
-                                Label("STRENGTH", image: "attribute_str").tag(HeroAttribute.str)
-                                Label("AGILITY", image: "attribute_agi").tag(HeroAttribute.agi)
-                                Label("INTELLIGENCE", image: "attribute_int").tag(HeroAttribute.int)
-                                Label("UNIVERSAL", image: "attribute_all").tag(HeroAttribute.all)
-                            }
-                        } label: {
-                            if viewModel.gridView {
-                                Image(systemName: "square.grid.2x2")
-                            } else {
-                                Image(systemName: "list.bullet")
-                            }
+        buildBody()
+            .searchable(text: $viewModel.searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
+            .disableAutocorrection(true)
+            .toolbar {
+                if horizontalSize == .compact {
+                    Menu {
+                        Picker("picker", selection: $viewModel.gridView) {
+                            Label("Icons", systemImage: "square.grid.2x2").tag(true)
+                            Label("List", systemImage: "list.bullet").tag(false)
+                        }
+                        
+                        Picker("attributes", selection: $viewModel.selectedAttribute) {
+                            Text("All").tag(HeroAttribute.whole)
+                            Label("STRENGTH", image: "attribute_str").tag(HeroAttribute.str)
+                            Label("AGILITY", image: "attribute_agi").tag(HeroAttribute.agi)
+                            Label("INTELLIGENCE", image: "attribute_int").tag(HeroAttribute.int)
+                            Label("UNIVERSAL", image: "attribute_all").tag(HeroAttribute.all)
+                        }
+                    } label: {
+                        if viewModel.gridView {
+                            Image(systemName: "square.grid.2x2")
+                        } else {
+                            Image(systemName: "list.bullet")
                         }
                     }
                 }
-        }
+            }
     }
     
     @ViewBuilder private func buildBody() -> some View {
