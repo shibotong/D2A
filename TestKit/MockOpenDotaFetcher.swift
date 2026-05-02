@@ -7,7 +7,6 @@
 
 import Foundation
 import OpenDota
-import StaticDataKit
 
 nonisolated
 public struct MockOpenDotaFetcher: OpenDotaFetching {
