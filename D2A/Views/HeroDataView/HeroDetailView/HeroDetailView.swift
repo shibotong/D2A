@@ -46,31 +46,41 @@ struct HeroDetailView: View {
     }
     
     private var iPad: some View {
-        Text("abc")
-        
+        VStack {
+            HStack {
+                titleView
+                Spacer()
+                abilityStack
+            }
+            .padding()
+            .background {
+                Color.secondarySystemBackground
+                    .ignoresSafeArea()
+            }
+            HStack {
+                ScrollView {
+                    constantStack
+                }
+                if let selectedAbility {
+                    Divider()
+                    AbilityView(heroName: hero.heroName, ability: selectedAbility)
+                }
+            }
+        }
+        .task {
+            selectedAbility = abilities.first
+        }
     }
     
     private var iPhone: some View {
         ScrollView {
-            HeroTitleView(heroID: hero.heroID,
-                          primaryAttribute: hero.primaryAttribute,
-                          displayName: hero.localizedName,
-                          heroComplexity: Int(hero.complexity))
-            abilitiesView
-                .padding(.horizontal, 5)
-            Divider()
-            VStack {
-                levelSlider
-                Divider()
-                attributesView
-                Divider()
-                roleView
-                Divider()
-                statsView
-                Divider()
-                talentsView
+            titleView
+            ScrollView(.horizontal, showsIndicators: false) {
+                abilityStack
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 5)
+            Divider()
+            constantStack
         }
         .navigationTitle(hero.localizedName)
         .navigationBarTitleDisplayMode(.inline)
@@ -88,22 +98,42 @@ struct HeroDetailView: View {
         })
     }
     
-    private var abilitiesView: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(abilities, id: \.id) { ability in
-                    if ability.behavior != "Hidden" {
-                        Button {
-                            selectedAbility = ability
-                        } label: {
-                            AbilityImage(name: ability.name ?? "")
-                                .frame(width: skillFrame, height: skillFrame)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                        }
+    private var titleView: some View {
+        HeroTitleView(heroID: hero.heroID,
+                      primaryAttribute: hero.primaryAttribute,
+                      displayName: hero.localizedName,
+                      heroComplexity: Int(hero.complexity))
+    }
+    
+    private var constantStack: some View {
+        VStack {
+            levelSlider
+            Divider()
+            attributesView
+            Divider()
+            roleView
+            Divider()
+            statsView
+            Divider()
+            talentsView
+        }
+        .padding(.horizontal)
+    }
+    
+    private var abilityStack: some View {
+        HStack {
+            ForEach(abilities, id: \.id) { ability in
+                if ability.behavior != "Hidden" {
+                    Button {
+                        selectedAbility = ability
+                    } label: {
+                        AbilityImage(name: ability.name ?? "")
+                            .frame(width: skillFrame, height: skillFrame)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
                 }
-                .padding(10)
             }
+            .padding(10)
         }
     }
     
@@ -151,7 +181,10 @@ struct HeroDetailView: View {
 
  struct HeroDetailView_Preview: PreviewProvider {
     static var previews: some View {
-        HeroDetailView(hero: PreviewData.PreviewHero.antimage)
-            .environmentObject(PreviewData.environment)
+        NavigationView {
+            EmptyView()
+            HeroDetailView(hero: PreviewData.PreviewHero.antimage)
+        }
+        .environmentObject(PreviewData.environment)
     }
  }
