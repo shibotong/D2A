@@ -194,6 +194,7 @@ struct AbilityView: View {
     }
 }
 
+#if DEBUG
 #Preview("Blink") {
     AbilityView(heroName: "npc_dota_hero_antimage", ability: PreviewData.PreviewAbility.blink)
         .environmentObject(PreviewData.environment)
@@ -213,4 +214,4 @@ struct AbilityView: View {
     AbilityView(heroName: "npc_dota_hero_antimage", ability: PreviewData.PreviewAbility.manaVoid)
         .environmentObject(PreviewData.environment)
 }
-
+#endif

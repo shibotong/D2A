@@ -176,10 +176,10 @@ struct HeroListView: View {
     }
 }
 
- struct HeroListView_Previews: PreviewProvider {
-    static var previews: some View {
-        HeroListView(heroes: PreviewData.heroes)
-            .environmentObject(PreviewData.syncingService)
-            .environmentObject(PreviewData.environment)
-    }
- }
+#if DBEUG
+#Preview {
+    HeroListView(heroes: PreviewData.heroes)
+        .environmentObject(PreviewData.syncingService)
+        .environmentObject(PreviewData.environment)
+}
+#endif

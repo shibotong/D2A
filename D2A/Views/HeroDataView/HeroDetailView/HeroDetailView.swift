@@ -179,7 +179,8 @@ struct HeroDetailView: View {
     }
 }
 
- struct HeroDetailView_Preview: PreviewProvider {
+#if DEBUG
+struct HeroDetailView_Preview: PreviewProvider {
     static var previews: some View {
         NavigationView {
             EmptyView()
@@ -187,4 +188,5 @@ struct HeroDetailView: View {
         }
         .environmentObject(PreviewData.environment)
     }
- }
+}
+#endif
