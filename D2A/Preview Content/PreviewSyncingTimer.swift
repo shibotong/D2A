@@ -6,6 +6,10 @@
 //
 
 class PreviewSyncingTimer: SyncingTimerProtocol {
+    func resetSyncing() {
+        return
+    }
+    
     func shouldSync(key: SyncingTimerKey) -> Bool {
         return false
     }

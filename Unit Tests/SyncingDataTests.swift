@@ -29,6 +29,27 @@ struct SyncingDataTests {
         )
     }
     
+    @Test("Syncing Period")
+    func syncingPerformance() async throws {
+        let syncingTimer = MockSyncingTimer()
+        let service = StaticDataSyncingService(syncingTimer: syncingTimer)
+        let v1Start = Date().timeIntervalSince1970
+        try await service.startSyncing()
+        let v1Finish = Date().timeIntervalSince1970
+        
+        let v1Timer = v1Finish - v1Start
+        print(v1Timer)
+        service.useV2 = true
+        let v2Start = Date().timeIntervalSince1970
+        try await service.startSyncing()
+        let v2Finish = Date().timeIntervalSince1970
+        
+        let v2Timer = v2Finish - v2Start
+        
+        print(v2Timer)
+        #expect(v2Timer < v1Timer)
+    }
+    
     @Test("Test syncing antimage")
     func testSyncing() async throws {
         try await service.startSyncing()

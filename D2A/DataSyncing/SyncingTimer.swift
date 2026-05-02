@@ -10,6 +10,7 @@ import Foundation
 protocol SyncingTimerProtocol {
     func shouldSync(key: SyncingTimerKey) -> Bool
     func finishSyncing(key: SyncingTimerKey)
+    func resetSyncing()
 }
 
 enum SyncingTimerKey {
@@ -31,6 +32,8 @@ class SyncingTimer: SyncingTimerProtocol {
     private let userDefaults: UserDefaults
     private let dateProvider: () -> Date
     
+    static let shared = SyncingTimer()
+    
     init(userDefaults: UserDefaults = .standard,
          dateProvider: @escaping () -> Date = { Date () }) {
         self.userDefaults = userDefaults
@@ -47,5 +50,12 @@ class SyncingTimer: SyncingTimerProtocol {
     func finishSyncing(key: SyncingTimerKey) {
         let date = dateProvider()
         userDefaults.set(date, forKey: key.key)
+    }
+    
+    func resetSyncing() {
+        userDefaults.set(nil, forKey: SyncingTimerKey.constants.key)
+        for language in DataLanguageEnum.allCases {
+            userDefaults.set(nil, forKey: SyncingTimerKey.localization(language).key)
+        }
     }
 }

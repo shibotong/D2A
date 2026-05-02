@@ -7,7 +7,7 @@
 
 import StratzAPI
 
-enum DataLanguageEnum: String {
+enum DataLanguageEnum: String, CaseIterable {
     case english
     case schinese
     
