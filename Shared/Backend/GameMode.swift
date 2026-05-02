@@ -7,9 +7,13 @@
 
 import Foundation
 
-struct GameMode: Codable {
-    var id: Int
-    var name: String
+struct GameMode {
+    let id: Int
+    
+    init(id: Int) {
+        self.id = id
+    }
+
     var modeName: String {
         switch id {
         case 0:
@@ -62,6 +66,8 @@ struct GameMode: Codable {
             return "Turbo"
         case 24:
             return "Mutation"
+        case 25:
+            return "Coaches Challenge"
         default:
             return "Unknown (\(id))"
         }

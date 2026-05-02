@@ -269,20 +269,6 @@ func loadItems() async -> [String: Item] {
     }
 }
 
-func loadGameModes() -> [String: GameMode] {
-    guard let data = loadFile(filename: "game_mode") else {
-        fatalError("no game mode file")
-    }
-    do {
-        let decoder = JSONDecoder()
-        let modes = try decoder.decode([String: GameMode].self, from: data)
-        return modes
-    } catch {
-        debugPrint(error)
-        return [:]
-    }
-}
-
 func loadRegion() -> [String: String]? {
     guard let data = loadFile(filename: "region") else {
         fatalError("no region file")

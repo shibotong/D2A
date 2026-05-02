@@ -22,7 +22,6 @@ class HeroDatabase: ObservableObject {
     
     @Published var status: LoadingStatus = .loading
     private var heroes = [String: HeroCodable]()
-    private var gameModes = [String: GameMode]()
     private var lobbyTypes = [String: LobbyType]()
     private var regions = [String: String]()
     private var items = [String: Item]()
@@ -63,7 +62,6 @@ class HeroDatabase: ObservableObject {
     
     func loadData() {
         status = .loading
-        gameModes = loadGameModes()
         regions = loadRegion()!
         lobbyTypes = loadLobby()!
         
@@ -125,10 +123,6 @@ class HeroDatabase: ObservableObject {
             throw HeroDataError.heroNotFound
         }
         return hero
-    }
-    
-    func fetchGameMode(id: Int) -> GameMode {
-        return gameModes["\(id)"]!
     }
     
     func fetchItem(id: Int) -> Item? {
