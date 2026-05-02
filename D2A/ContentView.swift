@@ -19,11 +19,8 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            if data.status != .finish || env.loading == true {
-                MainLoadingView(status: $data.status,
-                                envLoading: env.loading) {
-                    data.loadData()
-                }
+            if !syncingService.isCompleted && heroes.isEmpty {
+                HeroSyncingView(currentProcess: syncingService.currentProcess, totalProcess: syncingService.totalProcesses, progress: syncingService.syncingProgress)
             } else {
                 NavigationHostView(heroes: Array(heroes))
                     .sheet(isPresented: $env.subscriptionSheet, content: {

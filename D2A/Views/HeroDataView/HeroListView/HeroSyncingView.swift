@@ -9,14 +9,15 @@ import SwiftUI
 
 struct HeroSyncingView: View {
     
-    let service: String
+    let currentProcess: Int
+    let totalProcess: Int
     let progress: Double
     
     var body: some View {
         VStack {
             HStack {
                 ProgressView()
-                Text("Current syncing \(service)")
+                Text("Fetching constant data (\(currentProcess)/\(totalProcess))")
             }
             .font(.subheadline)
             .foregroundStyle(.secondary)
@@ -28,5 +29,5 @@ struct HeroSyncingView: View {
 }
 
 #Preview {
-    HeroSyncingView(service: "abilities", progress: 0.5)
+    HeroSyncingView(currentProcess: 1, totalProcess: 5, progress: 0.5)
 }

@@ -14,8 +14,12 @@ class StaticDataSyncingService: ObservableObject {
 
     static let shared = StaticDataSyncingService()
     @Published var isCompleted = false
-    @Published var currentSyncingService: String = ""
+    @Published var currentProcess = 0
     @Published var syncingProgress: Double = 0.0
+    
+    let totalProcesses = 4
+    
+    @Published var useV2 = true
     
     private let openDota: OpenDotaFetching
     private let stratz: StratzFetching
@@ -45,7 +49,7 @@ class StaticDataSyncingService: ObservableObject {
          logger: Logger = D2ALogger.syncing,
          notification: D2ANotification = .default,
          syncingLogger: DataSyncingLogger? = nil,
-         syncingTimer: SyncingTimerProtocol = SyncingTimer()) {
+         syncingTimer: SyncingTimerProtocol = SyncingTimer.shared) {
         self.openDota = openDota
         self.stratz = stratz
         self.context = mainContext.makeContext(author: "Static Data")
@@ -160,17 +164,29 @@ class StaticDataSyncingService: ObservableObject {
         fetchData: () async throws -> [T],
         saving: @escaping (T, NSManagedObjectContext) throws -> ()
     ) async throws {
+        if useV2 {
+            try await contextSavingV2(author: author, fetchData: fetchData, saving: saving)
+        } else {
+            try await contextSavingV1(author: author, fetchData: fetchData, saving: saving)
+        }
+    }
+    
+    private func contextSavingV1<T>(
+        author: String,
+        fetchData: () async throws -> [T],
+        saving: @escaping (T, NSManagedObjectContext) throws -> ()
+    ) async throws {
         let maxConcurrent = self.maxConcurrent
         let savingContext = context.makeContext(author: author)
         let results = try await fetchData()
-        await updateSyncingProgress(name: author, total: results.count)
+        updateSyncingProgress(name: author, total: results.count)
         await withTaskGroup { [weak self] group in
             var iterator = results.makeIterator()
             for _ in 0..<maxConcurrent {
                 if let item = iterator.next() {
                     group.addTask {
                         let context = savingContext.makeContext()
-                        await self?.updateSyncingProgress(updateCurrent: true)
+                        self?.updateSyncingProgress(updateCurrent: true)
                         await context.perform {
                             try? saving(item, context)
                             try? context.save()
@@ -183,7 +199,7 @@ class StaticDataSyncingService: ObservableObject {
                 if let item = iterator.next() {
                     group.addTask {
                         let context = savingContext.makeContext()
-                        await self?.updateSyncingProgress(updateCurrent: true)
+                        self?.updateSyncingProgress(updateCurrent: true)
                         await context.perform {
                             try? saving(item, context)
                             try? context.save()
@@ -197,35 +213,75 @@ class StaticDataSyncingService: ObservableObject {
         }
     }
     
-    @MainActor
-    private func updateSyncingProgress(name: String? = nil, total: Int? = nil, updateCurrent: Bool = false) async {
-        if let name {
-            await syncingActor.setService(name)
+    private func contextSavingV2<T>(
+        author: String,
+        fetchData: () async throws -> [T],
+        saving: @escaping (T, NSManagedObjectContext) throws -> ()
+    ) async throws {
+        let maxConcurrent = self.maxConcurrent
+        let savingContext = context.makeContext(author: author)
+        let results = try await fetchData()
+        updateSyncingProgress(name: author, total: results.count)
+        let resultsCount = results.count
+        var itemsForEachArray = resultsCount / maxConcurrent
+        if maxConcurrent * itemsForEachArray < resultsCount {
+            itemsForEachArray += 1
         }
-        if let total {
-            await syncingActor.setTotal(total)
+        await withTaskGroup { [weak self] group in
+            for batch in 0...(maxConcurrent - 1) {
+                group.addTask {
+                    for number in 0...(itemsForEachArray - 1) {
+                        let index = batch * itemsForEachArray + number
+                        guard index < resultsCount else {
+                            continue
+                        }
+                        let item = results[index]
+                        let context = savingContext.makeContext()
+                        self?.updateSyncingProgress(updateCurrent: true)
+                        await context.perform {
+                            try? saving(item, context)
+                            try? context.save()
+                        }
+                    }
+                }
+            }
         }
-        if updateCurrent {
-            await syncingActor.updateCurrent()
+        try await savingContext.perform {
+            try savingContext.save()
         }
-        currentSyncingService = await syncingActor.service
-        syncingProgress = await syncingActor.fetchProgress()
+    }
+    
+    nonisolated
+    private func updateSyncingProgress(name: String? = nil, total: Int? = nil, updateCurrent: Bool = false) {
+        Task { @MainActor in
+            if let name {
+                await syncingActor.setProcess()
+            }
+            if let total {
+                await syncingActor.setTotal(total)
+            }
+            if updateCurrent {
+                await syncingActor.updateCurrent()
+            }
+            currentProcess = await syncingActor.process
+            syncingProgress = await syncingActor.fetchProgress()
+        }
     }
 }
 
 actor SyncingProgress {
-    var service: String
+    var process: Int
     var totalItems: Int
     var currentItems: Int
     
-    init(service: String = "", totalItems: Int = 0, currentItems: Int = 0) {
-        self.service = service
+    init(process: Int = 0, totalItems: Int = 0, currentItems: Int = 0) {
+        self.process = process
         self.totalItems = totalItems
         self.currentItems = currentItems
     }
     
-    func setService(_ name: String) {
-        service = name
+    func setProcess() {
+        self.process += 1
     }
     
     func setTotal(_ total: Int) {
