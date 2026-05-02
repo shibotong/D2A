@@ -14,8 +14,10 @@ class StaticDataSyncingService: ObservableObject {
 
     static let shared = StaticDataSyncingService()
     @Published var isCompleted = false
-    @Published var currentSyncingService: String = ""
+    @Published var currentProcess = 0
     @Published var syncingProgress: Double = 0.0
+    
+    let totalProcesses = 4
     
     @Published var useV2 = true
     
@@ -253,7 +255,7 @@ class StaticDataSyncingService: ObservableObject {
     private func updateSyncingProgress(name: String? = nil, total: Int? = nil, updateCurrent: Bool = false) {
         Task { @MainActor in
             if let name {
-                await syncingActor.setService(name)
+                await syncingActor.setProcess()
             }
             if let total {
                 await syncingActor.setTotal(total)
@@ -261,25 +263,25 @@ class StaticDataSyncingService: ObservableObject {
             if updateCurrent {
                 await syncingActor.updateCurrent()
             }
-            currentSyncingService = await syncingActor.service
+            currentProcess = await syncingActor.process
             syncingProgress = await syncingActor.fetchProgress()
         }
     }
 }
 
 actor SyncingProgress {
-    var service: String
+    var process: Int
     var totalItems: Int
     var currentItems: Int
     
-    init(service: String = "", totalItems: Int = 0, currentItems: Int = 0) {
-        self.service = service
+    init(process: Int = 0, totalItems: Int = 0, currentItems: Int = 0) {
+        self.process = process
         self.totalItems = totalItems
         self.currentItems = currentItems
     }
     
-    func setService(_ name: String) {
-        service = name
+    func setProcess() {
+        self.process += 1
     }
     
     func setTotal(_ total: Int) {

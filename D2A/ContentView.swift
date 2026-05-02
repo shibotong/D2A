@@ -20,7 +20,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             if !syncingService.isCompleted && heroes.isEmpty {
-                HeroSyncingView(service: syncingService.currentSyncingService, progress: syncingService.syncingProgress)
+                HeroSyncingView(currentProcess: syncingService.currentProcess, totalProcess: syncingService.totalProcesses, progress: syncingService.syncingProgress)
             } else {
                 NavigationHostView(heroes: Array(heroes))
                     .sheet(isPresented: $env.subscriptionSheet, content: {
