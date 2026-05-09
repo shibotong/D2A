@@ -19,7 +19,7 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            if !syncingService.isCompleted && heroes.isEmpty {
+            if !syncingService.isCompleted && heroes.count < 100 {
                 HeroSyncingView(currentProcess: syncingService.currentProcess, totalProcess: syncingService.totalProcesses, progress: syncingService.syncingProgress)
             } else {
                 NavigationHostView(heroes: Array(heroes))
