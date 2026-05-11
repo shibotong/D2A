@@ -9,17 +9,18 @@
 
 struct AbilityTitleView: View {
     
+    @EnvironmentObject var environment: DotaEnvironment
+    
     let displayName: String
     let cd: String?
     let mc: String?
     
     let name: String?
-    let url: String?
     
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
-            if let name, let url {
-                AbilityImage(viewModel: AbilityImageViewModel(name: name, urlString: url))
+            if let name {
+                AbilityImage(name: name, imageProvider: environment.imageProvider)
                     .frame(width: 70, height: 70)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
             }
@@ -43,11 +44,12 @@ struct AbilityTitleView: View {
     }
 }
 
+#if DEBUG
 #Preview {
-    AbilityTitleView(displayName: "Acid Spray",
+    AbilityTitleView(displayName: "Blink",
                      cd: "10/20/30",
                      mc: "10/20/30",
-                     name: "acid Spray",
-                     url: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_acid_spray.png")
-
+                     name: "antimage_blink")
+    .environmentObject(PreviewData.environment)
 }
+#endif

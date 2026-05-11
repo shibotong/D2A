@@ -14,6 +14,9 @@ struct Sidebar: View {
                   predicate: NSPredicate(format: "favourite = %d", true))
     private var favouritePlayers: FetchedResults<UserProfile>
     
+    @FetchRequest(sortDescriptors: [])
+    private var heroes: FetchedResults<Hero>
+    
     var body: some View {
         List {
             NavigationLink(
@@ -22,14 +25,9 @@ struct Sidebar: View {
                 Label("Home", systemImage: "house")
             }
             NavigationLink(
-                destination: HeroListView()
+                destination: HeroListView(heroes: Array(heroes))
             ) {
                 Label("Heroes", systemImage: "server.rack")
-            }
-            NavigationLink(
-                destination: LiveMatchListView()
-            ) {
-                Label("Live", systemImage: "gamecontroller.fill")
             }
             NavigationLink(
                 destination: SearchView()

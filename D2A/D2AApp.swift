@@ -14,12 +14,14 @@ struct D2AApp: App {
     @StateObject var environment: DotaEnvironment = DotaEnvironment.shared
     @StateObject var heroDatabase: HeroDatabase = HeroDatabase.shared
     @StateObject var storeManager: StoreManager = StoreManager.shared
-    let persistenceController = PersistenceController.shared
+    @StateObject var syncingService: StaticDataSyncingService = StaticDataSyncingService.shared
+    let persistenceController = PersistenceProvider.shared
     @AppStorage("selectedMatch") var selectedMatch: String?
     @AppStorage("selectedUser") var selectedUser: String?
     
     init() {
-        PlayerTransformer.register()
+        registerTransformers()
+        
     }
     
     var body: some Scene {
@@ -28,6 +30,7 @@ struct D2AApp: App {
                 .environmentObject(environment)
                 .environmentObject(heroDatabase)
                 .environmentObject(storeManager)
+                .environmentObject(syncingService)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onOpenURL { url in
                     print(url.absoluteString)
@@ -58,5 +61,9 @@ struct D2AApp: App {
                     }
                 }
         }
+    }
+    
+    private func registerTransformers() {
+        ValueTransformer.setValueTransformer(PlayerTransformer(), forName: .player)
     }
 }

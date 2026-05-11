@@ -123,13 +123,13 @@ func loadProfile() -> UserProfileCodable? {
     }
 }
 
-func loadSampleAbilities() -> [String: Ability]? {
+func loadSampleAbilities() -> [String: ODAbility]? {
     guard let data = loadFile(filename: "sampleAbility") else {
         return nil
     }
     do {
         let decoder = JSONDecoder()
-        let jsonData = try decoder.decode([String: Ability].self, from: data)
+        let jsonData = try decoder.decode([String: ODAbility].self, from: data)
         return jsonData
     } catch {
         debugPrint(error)
@@ -199,14 +199,14 @@ func loadAbilityID() async -> [String: String] {
     }
 }
 
-func loadAbilities() async -> [String: Ability] {
+func loadAbilities() async -> [String: ODAbility] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/abilities.json"
     if let url = URL(string: urlString) {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             
             let decoder = JSONDecoder()
-            let jsonData = try decoder.decode([String: Ability].self, from: data)
+            let jsonData = try decoder.decode([String: ODAbility].self, from: data)
             return jsonData
         } catch {
             debugPrint("Load Abilities", error)
@@ -265,20 +265,6 @@ func loadItems() async -> [String: Item] {
             return [:]
         }
     } else {
-        return [:]
-    }
-}
-
-func loadGameModes() -> [String: GameMode] {
-    guard let data = loadFile(filename: "game_mode") else {
-        fatalError("no game mode file")
-    }
-    do {
-        let decoder = JSONDecoder()
-        let modes = try decoder.decode([String: GameMode].self, from: data)
-        return modes
-    } catch {
-        debugPrint(error)
         return [:]
     }
 }

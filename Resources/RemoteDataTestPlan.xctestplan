@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "F542A3ED-5D46-4893-BB25-262432B42471",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:D2A.xcodeproj",
+        "identifier" : "7930699A2B5D323100A5CF5D",
+        "name" : "DataLoadingTests"
+      }
+    }
+  ],
+  "version" : 1
+}

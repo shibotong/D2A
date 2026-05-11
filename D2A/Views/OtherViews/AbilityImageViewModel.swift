@@ -11,51 +11,41 @@ import UIKit
 class AbilityImageViewModel: ObservableObject {
     @Published var image: UIImage?
     
-    var name: String?
-    let urlString: String?
+    let name: String
     
-    init(name: String?, urlString: String?) {
+    private var url: URL? {
+        return URL(string: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/\(name).png") ?? nil
+    }
+
+    private let imageProvider: ImageProviding
+    
+    init(name: String, imageProvider: ImageProviding = ImageProvider.shared) {
         self.name = name
-        self.urlString = urlString
-        if let name {
-            self.image = ImageCache.readImage(type: .ability, id: name)
-            Task {
-                await fetchImage()
-            }
+        self.imageProvider = imageProvider
+        image = imageProvider.read(type: .ability, id: name)
+        Task {
+            await fetchImage()
         }
     }
     
-    init() {
-        name = "Acid Spray"
-        urlString = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/alchemist_acid_spray.png"
-        image = UIImage(named: "ability_slot")
-    }
-    
+    @MainActor
     private func fetchImage() async {
         if image != nil {
             return
         }
-        guard let name,
-              let newImage = await loadImage() else {
+        guard let newImage = await loadImage() else {
             return
         }
-        ImageCache.saveImage(newImage, type: .ability, id: name)
-        await setImage(newImage)
+        imageProvider.save(newImage, type: .ability, id: name)
+        self.image = newImage
     }
     
     private func loadImage() async -> UIImage? {
-        guard let urlString,
-              let url = URL(string: urlString),
+        guard let url,
               let (newImageData, _) = try? await URLSession.shared.data(from: url),
               let newImage = UIImage(data: newImageData) else {
             return nil
         }
         return newImage
     }
-    
-    @MainActor
-    private func setImage(_ image: UIImage) {
-        self.image = image
-    }
-    
 }

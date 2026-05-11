@@ -15,7 +15,12 @@ struct Provider: IntentTimelineProvider {
     
     public typealias Entry = D2AWidgetUserEntry
     
-    private let persistenceController = PersistenceController.shared
+    private let persistenceController = PersistenceProvider.shared
+    private let imageProvider: ImageProviding
+    
+    init(imageProvider: ImageProviding = ImageProvider.shared) {
+        self.imageProvider = imageProvider
+    }
     
     func placeholder(in context: Context) -> D2AWidgetUserEntry {
         D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
@@ -32,7 +37,7 @@ struct Provider: IntentTimelineProvider {
         
         // Use matches on device to load snapshot
         let matches = RecentMatch.fetch(userID: userID, count: 10)
-        let userAvatar = ImageCache.readImage(type: .avatar, id: userID)
+        let userAvatar = imageProvider.read(type: .avatar, id: userID)
         
         let user = D2AWidgetUser(profile, image: userAvatar, matches: matches)
         let entry = D2AWidgetUserEntry(date: Date(), user: user, subscription: true)
@@ -55,12 +60,12 @@ struct Provider: IntentTimelineProvider {
                 profile = await refreshUser(for: userID) ?? selectedProfile
             }
             
-            var image = ImageCache.readImage(type: .avatar, id: userID)
+            var image = imageProvider.read(type: .avatar, id: userID)
             
             if let urlString = profile.avatarfull, image == nil,
-               let newImage = await ImageCache.loadImage(urlString: urlString) {
+               let newImage = await imageProvider.load(urlString: urlString) {
                     image = newImage
-                    ImageCache.saveImage(newImage, type: .avatar, id: userID)
+                imageProvider.save(newImage, type: .avatar, id: userID)
             }
             
             let user = D2AWidgetUser(profile, image: image, matches: matches)

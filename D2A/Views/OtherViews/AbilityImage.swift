@@ -12,8 +12,12 @@ struct AbilityImage: View {
     
     @ObservedObject var viewModel: AbilityImageViewModel
     
+    init(name: String, imageProvider: ImageProviding = ImageProvider.shared) {
+        viewModel = .init(name: name, imageProvider: imageProvider)
+    }
+    
     var body: some View {
-        ZStack {
+        Group {
             if let image = viewModel.image {
                 Image(uiImage: image)
                     .resizable()
@@ -24,9 +28,12 @@ struct AbilityImage: View {
                     .foregroundColor(.label)
             }
         }
+        .aspectRatio(contentMode: .fit)
     }
 }
 
+#if DEBUG
 #Preview {
-    AbilityImage(viewModel: .init())
+    AbilityImage(name: "antimage_blink", imageProvider: MockImageProvider())
 }
+#endif

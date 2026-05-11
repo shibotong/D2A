@@ -34,7 +34,7 @@ class RecentMatchCodable: Decodable, Identifiable {
     }
     
     var gameMode: GameMode {
-        return HeroDatabase.shared.fetchGameMode(id: Int(mode))
+        return GameMode(id: Int(mode))
     }
     
     var gameLobby: LobbyType {

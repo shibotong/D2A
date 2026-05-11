@@ -13,6 +13,14 @@ struct ItemView: View {
     
     @Binding var id: Int?
     
+    private let imageProvider: ImageProviding
+    
+    init(image: UIImage? = nil, id: Binding<Int?>, imageProvider: ImageProviding = ImageProvider.shared) {
+        self.image = image
+        _id = id
+        self.imageProvider = imageProvider
+    }
+    
     func updateUI() {
         Task {
             await fetchImage()
@@ -48,7 +56,7 @@ struct ItemView: View {
             return
         }
         
-        if let cacheImage = ImageCache.readImage(type: .item, id: id.description) {
+        if let cacheImage = imageProvider.read(type: .item, id: id.description) {
             setImage(cacheImage)
             return
         }
@@ -57,7 +65,7 @@ struct ItemView: View {
             setImage(nil)
             return
         }
-        ImageCache.saveImage(newImage, type: .item, id: id.description)
+        imageProvider.save(newImage, type: .item, id: id.description)
         setImage(newImage)
     }
     

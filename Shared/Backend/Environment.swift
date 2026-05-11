@@ -54,14 +54,16 @@ final class DotaEnvironment: ObservableObject {
         #endif
         return refreshTime
     }
+    
+    let imageProvider: ImageProviding
 
-    init() {
+    init(imageProvider: ImageProviding = ImageProvider.shared) {
         subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         tab = .home
         let userDefaults = UserDefaults(suiteName: GROUP_NAME)
         let lastVersion = userDefaults?.string(forKey: "dotaArmory.appVersion")
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        
+        self.imageProvider = imageProvider
         if appVersion != lastVersion {
             versionUpdate(lastVersion: lastVersion, currentVersion: appVersion)
             userDefaults?.setValue(appVersion, forKey: "dotaArmory.appVersion")
@@ -96,7 +98,7 @@ final class DotaEnvironment: ObservableObject {
     }
     
     private func removeNotFavouriteRecentMatches() {
-        let moc = PersistenceController.shared.makeContext()
+        let moc = PersistenceProvider.shared.makeContext()
         let fetchRequest = UserProfile.fetchRequest()
         let notFavouritePredicate = NSPredicate(format: "favourite = %d", false)
         fetchRequest.predicate = notFavouritePredicate
@@ -105,7 +107,7 @@ final class DotaEnvironment: ObservableObject {
         }
         players.forEach { player in
             guard let playerID = player.id else { return }
-            PersistenceController.shared.deleteRecentMatchesForUserID(userID: playerID)
+            PersistenceProvider.shared.deleteRecentMatchesForUserID(userID: playerID)
         }
     }
     

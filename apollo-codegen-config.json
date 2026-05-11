@@ -2,10 +2,10 @@
   "schemaName": "StratzAPI",
   "input": {
     "operationSearchPaths": [
-      "**/Shared/GraphQL/*.graphql"
+      "**/Resources/graphql/*.graphql"
     ],
     "schemaSearchPaths": [
-      "**/Shared/GraphQL/*.graphqls"
+      "**/Resources/graphql/*.graphqls"
     ]
   },
   "output": {
@@ -35,6 +35,6 @@
     },
     "downloadTimeout": 60,
     "headers": [],
-    "outputPath": "./Shared/GraphQL/schema.graphqls"
+    "outputPath": "./Resources/graphql/schema.graphqls"
   }
 }

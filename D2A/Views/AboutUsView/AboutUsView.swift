@@ -20,6 +20,13 @@ struct AboutUsView: View {
     
     var body: some View {
         List {
+            #if DEBUG
+            NavigationLink {
+                DebugPanelView()
+            } label: {
+                makeDetailRow(image: "laptopcomputer", text: "DEBUG", detail: "")
+            }
+            #endif
             Section(header: Text("Our App")) {
                 makeButton(image: "cart", text: "Unlock All Features") {
                     presentState.wrappedValue.dismiss()

@@ -73,4 +73,9 @@ public struct StratzAttribute: Identifiable, Hashable {
     public var id: String {
         return name
     }
+    
+    public init(name: String, description: String) {
+        self.name = name
+        self.description = description
+    }
 }

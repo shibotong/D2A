@@ -12,15 +12,17 @@ struct ContentView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var data: HeroDatabase
     @EnvironmentObject var store: StoreManager
+    @EnvironmentObject var syncingService: StaticDataSyncingService
+    
+    @FetchRequest(sortDescriptors: [])
+    private var heroes: FetchedResults<Hero>
+    
     var body: some View {
         Group {
-            if data.status != .finish || env.loading == true {
-                MainLoadingView(status: $data.status,
-                                envLoading: env.loading) {
-                    data.loadData()
-                }
+            if !syncingService.isCompleted && heroes.count < 100 {
+                HeroSyncingView(currentProcess: syncingService.currentProcess, totalProcess: syncingService.totalProcesses, progress: syncingService.syncingProgress)
             } else {
-                NavigationHostView()
+                NavigationHostView(heroes: Array(heroes))
                     .sheet(isPresented: $env.subscriptionSheet, content: {
                         StoreView()
                             .environmentObject(env)
@@ -31,21 +33,18 @@ struct ContentView: View {
         .alert(isPresented: $env.error, content: {
             Alert(title: Text("Error"), message: Text(env.errorMessage), dismissButton: .cancel())
         })
+        .task {
+            try? await syncingService.startSyncing()
+        }
     }
 }
-
-// struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//            .environmentObject(DotaEnvironment.shared)
-//            .environmentObject(HeroDatabase.preview)
-//    }
-// }
 
 struct NavigationHostView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var data: HeroDatabase
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    let heroes: [Hero]
     
     var body: some View {
             if horizontalSizeClass == .compact {
@@ -57,17 +56,12 @@ struct NavigationHostView: View {
                         Text("Home")
                     }.tag(TabSelection.home).navigationViewStyle(.stack)
                     NavigationView {
-                        HeroListView()
+                        HeroListView(heroes: heroes)
+                            .navigationTitle("Heroes")
                     }.tabItem {
                         Image(systemName: "server.rack")
                         Text("Heroes")
                     }.tag(TabSelection.hero).navigationViewStyle(.stack)
-                    NavigationView {
-                        LiveMatchListView()
-                    }.tabItem {
-                        Image(systemName: "gamecontroller.fill")
-                        Text("Live")
-                    }.tag(TabSelection.live).navigationViewStyle(.stack)
                     NavigationView {
                         SearchView()
                     }
