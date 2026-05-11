@@ -1782,7 +1782,7 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/D2A.app/D2A";
 			};
 			name = Release;
-		};å
+		};
 		793069A12B5D323100A5CF5D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
