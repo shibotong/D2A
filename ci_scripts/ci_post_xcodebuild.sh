@@ -2,13 +2,12 @@
 
 set -e
 
-if [ $CI_WORKFLOW != 'Create Tag' ]
+if [ "${CI_WORKFLOW}" != 'Submit to App Store' ]
 then
-exit 1
+    exit 0
 fi
 
-if [[ -n $CI_APP_STORE_SIGNED_APP_PATH ]];
+if [[ -n $CI_APP_STORE_SIGNED_APP_PATH ]]
 then
-    echo $CI_APP_STORE_SIGNED_APP_PATH
     ./create_tag.sh
 fi
