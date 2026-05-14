@@ -59,8 +59,8 @@ struct AbilityView: View {
         self.init(heroName: heroName, displayName: ability.displayName, cd: ability.coolDown,
                   mc: ability.manaCost, name: ability.name, behavior: ability.behavior,
                   targetTeam: ability.targetTeam, bkbPierce: ability.bkbPierce, dispellable: ability.dispellable,
-                  damageType: ability.damageType, description: ability.desc, scepter: ability.scepter, shard: ability.shard,
-                  lore: ability.lore, attributes: ability.localizedAttributes)
+                  damageType: ability.damageType, description: ability.localizedDescription, scepter: ability.scepter, shard: ability.shard,
+                  lore: ability.localizedLore, attributes: ability.localizedAttributes)
     }
     
     init(heroName: String, displayName: String, cd: String?,

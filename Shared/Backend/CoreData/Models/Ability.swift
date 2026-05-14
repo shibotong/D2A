@@ -29,4 +29,12 @@ extension Ability {
     var localizedAttributes: [AbilityTranslation.Attribute] {
         return localization?.localizedAttributes ?? []
     }
+    
+    var localizedDescription: String? {
+        return localization?.desc
+    }
+    
+    var localizedLore: String? {
+        return localization?.lore
+    }
 }
