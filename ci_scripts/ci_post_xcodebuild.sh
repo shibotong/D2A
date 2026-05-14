@@ -2,7 +2,7 @@
 
 set -e
 
-if [ "${CI_WORKFLOW}" != 'Submit to App Store' ]
+if [ ${CI_WORKFLOW} != 'Submit to App Store' ]
 then
     exit 0
 fi
