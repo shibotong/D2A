@@ -9,5 +9,5 @@ fi
 
 if [[ -n $CI_APP_STORE_SIGNED_APP_PATH ]]
 then
-    ./create_tag.sh
+    ./create_release.sh
 fi
