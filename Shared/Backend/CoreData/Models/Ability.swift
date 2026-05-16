@@ -11,11 +11,7 @@ extension Ability {
     }
     
     var localization: AbilityTranslation? {
-        let language = AppConfig.shared.languageCode
-        guard let abilityLocalizations = localizations?.allObjects as? [AbilityTranslation] else {
-            return nil
-        }
-        return abilityLocalizations.first(where: { $0.language == language.rawValue })
+        return fetchLocalization()
     }
     
     var scepter: String? {
@@ -36,5 +32,12 @@ extension Ability {
     
     var localizedLore: String? {
         return localization?.lore
+    }
+    
+    func fetchLocalization(language: DataLanguageEnum = AppConfig.shared.languageCode) -> AbilityTranslation? {
+        guard let abilityLocalizations = localizations?.allObjects as? [AbilityTranslation] else {
+            return nil
+        }
+        return abilityLocalizations.first(where: { $0.language == language.rawValue })
     }
 }
