@@ -16,6 +16,10 @@ let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Do
 
 private let currentLanguage: String = Locale.current.languageCode ?? "en"
 
+var isRunningTests: Bool {
+    return isTesting || uiTesting
+}
+
 /// True if running tests
 let isTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
 
