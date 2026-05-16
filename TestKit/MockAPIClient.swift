@@ -57,4 +57,8 @@ public class MockURLProtocol: URLProtocol {
             client?.urlProtocol(self, didFailWithError: error)
         }
     }
+    
+    override func stopLoading() {
+        // TODO: Andd stop loading here
+    }
 }

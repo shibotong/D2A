@@ -7,17 +7,17 @@
 
 import Foundation
 
-class FileReader {
+public class FileReader {
     
-    static let shared = FileReader()
+    public static let shared = FileReader()
     
     let bundle: Bundle
     
-    init() {
+    public init() {
         self.bundle = Bundle(for: Self.self)
     }
     
-    func readFile(_ name: String) throws -> Data {
+    public func readFile(_ name: String) throws -> Data {
         guard let path = bundle.path(forResource: name, ofType: "json") else {
             throw TestKitError.fileNotFound
         }
