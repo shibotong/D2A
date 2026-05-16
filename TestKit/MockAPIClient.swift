@@ -10,6 +10,8 @@ import Foundation
 
 public struct MockNetworking: APIClientProtocol {
     
+    public init() {}
+    
     public var urlSession: URLSession {
         let configuration: URLSessionConfiguration = .ephemeral
         configuration.protocolClasses = [MockURLProtocol.self]
@@ -22,9 +24,10 @@ public struct MockNetworking: APIClientProtocol {
     }
 }
 
+nonisolated
 public class MockURLProtocol: URLProtocol {
-    public static var error: Error?
-    public static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data))?
+    nonisolated(unsafe) public static var error: Error?
+    nonisolated(unsafe) public static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data))?
     
     public override class func canInit(with request: URLRequest) -> Bool {
         return true
