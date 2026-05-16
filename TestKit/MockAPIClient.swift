@@ -19,7 +19,7 @@ public struct MockNetworking: APIClientProtocol {
     }
     
     public func request(_ request: URLRequest) async throws -> Data {
-        let (data, response) = try await urlSession.data(for: request)
+        let (data, _) = try await urlSession.data(for: request)
         return data
     }
 }
@@ -58,7 +58,7 @@ public class MockURLProtocol: URLProtocol {
         }
     }
     
-    override func stopLoading() {
+    public override func stopLoading() {
         // TODO: Andd stop loading here
     }
 }
