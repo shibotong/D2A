@@ -7,7 +7,7 @@ then
     exit 0
 fi
 
-if [[ -n $CI_APP_STORE_SIGNED_APP_PATH ]]
+if [[ -d $CI_APP_STORE_SIGNED_APP_PATH ]]
 then
     ./create_release.sh
 fi
