@@ -52,6 +52,11 @@ struct HeroListView: View {
             if viewModel.gridView {
                 ScrollView(.vertical, showsIndicators: false) {
                     buildSection(heroes: viewModel.searchResults, attributes: viewModel.selectedAttribute)
+                    if !syncingService.isCompleted {
+                        HeroSyncingView(currentProcess: syncingService.currentProcess,
+                                        totalProcess: syncingService.totalProcesses,
+                                        progress: syncingService.syncingProgress)
+                    }
                 }
                 .padding(.horizontal)
             } else {
