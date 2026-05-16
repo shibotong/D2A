@@ -14,6 +14,6 @@ set -e
 #    ./create_release.sh
 #fi
 echo "Git tags"
-TAGS=$(git tags)
+TAGS=$(git tag)
 echo $TAGS
 #./create_release.sh
