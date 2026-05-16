@@ -2,7 +2,9 @@
 
 set -e
 
-if [ ${CI_WORKFLOW} != 'Submit to App Store' ]
+echo "Running workflow: $CI_WORKFLOW"
+
+if [ "$CI_WORKFLOW" != 'Submit to App Store' ]
 then
     exit 0
 fi
