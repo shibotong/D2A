@@ -85,21 +85,21 @@ do {
 
 // create release
 print("Creating Release...")
-//do {
-//    let createReleaseBody = ["tag_name": version, "target_commitish": "main", "name": version, "body": note, "make_latest": "true"]
-//    let body = try JSONSerialization.data(withJSONObject: createReleaseBody)
-//    createReleases.httpBody = body
-//    let (_, response) = try await URLSession.shared.data(for: generateNotes)
-//    if let httpResponse = response as? HTTPURLResponse {
-//        if httpResponse.statusCode != 200 {
-//            throw ScriptError.createRelease
-//        } else {
-//            print("Create release success!")
-//        }
-//    } else {
-//        throw ScriptError.noHttpResponse
-//    }
-//} catch {
-//    print("Error: Create release \(error)")
-//    exit(1)
-//}
+do {
+    let createReleaseBody = ["tag_name": version, "target_commitish": "main", "name": version, "body": note, "make_latest": "true"]
+    let body = try JSONSerialization.data(withJSONObject: createReleaseBody)
+    createReleases.httpBody = body
+    let (_, response) = try await URLSession.shared.data(for: generateNotes)
+    if let httpResponse = response as? HTTPURLResponse {
+        if httpResponse.statusCode != 200 {
+            throw ScriptError.createRelease
+        } else {
+            print("Create release success!")
+        }
+    } else {
+        throw ScriptError.noHttpResponse
+    }
+} catch {
+    print("Error: Create release \(error)")
+    exit(1)
+}
