@@ -2,7 +2,15 @@
 
 set -e
 
-if [ ${CI_WORKFLOW} != 'Submit to App Store' ]
+echo "Running workflow: $CI_WORKFLOW"
+echo "Running action: $CI_XCODEBUILD_ACTION"
+
+if [ "$CI_WORKFLOW" != 'Submit to App Store' ]
+then
+    exit 0
+fi
+
+if [ "$CI_XCODEBUILD_ACTION" != 'archive' ]
 then
     exit 0
 fi
