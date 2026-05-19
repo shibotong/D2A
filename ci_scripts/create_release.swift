@@ -3,6 +3,8 @@ print("Running Create Release")
 
 import Foundation
 
+print(CommandLine.arguments)
+
 guard CommandLine.arguments.count == 5 else {
     print(
     """
