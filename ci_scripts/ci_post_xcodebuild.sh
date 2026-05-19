@@ -2,8 +2,8 @@
 
 set -e
 
-#echo "Running workflow: $CI_WORKFLOW"
-#
+echo "Running workflow: $CI_WORKFLOW"
+
 #if [ "$CI_WORKFLOW" != 'Submit to App Store' ]
 #then
 #    exit 0
@@ -13,7 +13,5 @@ set -e
 #then
 #    ./create_release.sh
 #fi
-echo "Git tags"
-TAGS=$(git tag)
-echo $TAGS
-#./create_release.sh
+
+./create_release.sh
