@@ -12,11 +12,11 @@ import Foundation
 
 struct OpenDotaFetcherTests {
     let fetcher: OpenDotaFetcher
-    let client: MockNetworking
+    let client: MockAPIClient
     let fileReader: FileReader
     
     init() {
-        self.client = MockNetworking()
+        self.client = MockAPIClient()
         self.fetcher = OpenDotaFetcher(client: client)
         fileReader = FileReader()
     }

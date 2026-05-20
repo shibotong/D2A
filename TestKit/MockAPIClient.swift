@@ -8,7 +8,7 @@
 import Networking
 import Foundation
 
-public struct MockNetworking: APIClientProtocol {
+public struct MockAPIClient: APIClientProtocol {
     
     public init() {}
     
@@ -16,11 +16,6 @@ public struct MockNetworking: APIClientProtocol {
         let configuration: URLSessionConfiguration = .ephemeral
         configuration.protocolClasses = [MockURLProtocol.self]
         return URLSession(configuration: configuration)
-    }
-    
-    public func request(_ request: URLRequest) async throws -> Data {
-        let (data, _) = try await urlSession.data(for: request)
-        return data
     }
 }
 
