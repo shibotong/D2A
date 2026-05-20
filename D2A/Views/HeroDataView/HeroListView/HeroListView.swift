@@ -163,7 +163,7 @@ struct HeroListView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     Text(hero.localizedName)
                     Spacer()
-                    Image("attribute_\(hero.primaryAttribute)")
+                    Image("attribute\(hero.primaryAttribute)")
                         .resizable()
                         .frame(width: 20, height: 20)
                 }
