@@ -347,7 +347,7 @@
 		790102B929F40C4600E8A320 /* ScreenShotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotTests.swift; sourceTree = "<group>"; };
 		79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityAttributes.swift; sourceTree = "<group>"; };
 		79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityWidget.swift; sourceTree = "<group>"; };
-		7930699B2B5D323100A5CF5D /* DataLoadingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataLoadingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7930699B2B5D323100A5CF5D /* Remote Data Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Remote Data Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7942FD012B706B49008CE4B0 /* UIScreenshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIScreenshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
 		794838642A3D2C0800A447DA /* LiveMatchActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivity.swift; sourceTree = "<group>"; };
@@ -429,7 +429,7 @@
 		7928D24E2F808FCB006C0F3F /* HeroDataView */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7928D2612F808FD9006C0F3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 7928D2622F808FD9006C0F3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = HeroDataView; sourceTree = "<group>"; };
 		7928D64D2F839B8B006C0F3F /* Preview Content */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Preview Content"; sourceTree = "<group>"; };
 		792A54A62F7E77A700EC815A /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
-		79520A202FBDE47F004D9DD6 /* DataLoadingTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DataLoadingTests; sourceTree = "<group>"; };
+		79520A202FBDE47F004D9DD6 /* Remote Data Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Remote Data Tests"; sourceTree = "<group>"; };
 		79D3D3842FA47B0B0069A605 /* OpenDota */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = OpenDota; sourceTree = "<group>"; };
 		79D3D39A2FA47D2D0069A605 /* TestKit */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TestKit; sourceTree = "<group>"; };
 		79D3DBE52FA590140069A605 /* Debug */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Debug; sourceTree = "<group>"; };
@@ -584,7 +584,7 @@
 				79518D172F72B201005C9449 /* Resources */,
 				7926DEC92F9488C200EF3F77 /* Unit Tests */,
 				79CF637A29C40B700072F4C0 /* UI Tests */,
-				79520A202FBDE47F004D9DD6 /* DataLoadingTests */,
+				79520A202FBDE47F004D9DD6 /* Remote Data Tests */,
 				7942FD022B706B49008CE4B0 /* UIScreenshotTests */,
 				79D3D3842FA47B0B0069A605 /* OpenDota */,
 				79D3D39A2FA47D2D0069A605 /* TestKit */,
@@ -602,7 +602,7 @@
 				32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */,
 				3289579927F6609B00BA9847 /* Unit Tests.xctest */,
 				79CF637929C40B6F0072F4C0 /* UI Tests.xctest */,
-				7930699B2B5D323100A5CF5D /* DataLoadingTests.xctest */,
+				7930699B2B5D323100A5CF5D /* Remote Data Tests.xctest */,
 				7942FD012B706B49008CE4B0 /* UIScreenshotTests.xctest */,
 				79D3D3832FA47B0A0069A605 /* OpenDota.framework */,
 				79D3D3992FA47D2D0069A605 /* TestKit.framework */,
@@ -954,9 +954,9 @@
 			productReference = 32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		7930699A2B5D323100A5CF5D /* DataLoadingTests */ = {
+		7930699A2B5D323100A5CF5D /* Remote Data Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 793069A32B5D323100A5CF5D /* Build configuration list for PBXNativeTarget "DataLoadingTests" */;
+			buildConfigurationList = 793069A32B5D323100A5CF5D /* Build configuration list for PBXNativeTarget "Remote Data Tests" */;
 			buildPhases = (
 				793069972B5D323100A5CF5D /* Sources */,
 				793069982B5D323100A5CF5D /* Frameworks */,
@@ -968,11 +968,11 @@
 				793069A02B5D323100A5CF5D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				79520A202FBDE47F004D9DD6 /* DataLoadingTests */,
+				79520A202FBDE47F004D9DD6 /* Remote Data Tests */,
 			);
-			name = DataLoadingTests;
+			name = "Remote Data Tests";
 			productName = D2ADataLoadingTests;
-			productReference = 7930699B2B5D323100A5CF5D /* DataLoadingTests.xctest */;
+			productReference = 7930699B2B5D323100A5CF5D /* Remote Data Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		7942FD002B706B49008CE4B0 /* UIScreenshotTests */ = {
@@ -1154,7 +1154,7 @@
 				32F70AE526F61836006E9B05 /* D2AWidgetIntentHandler */,
 				3289579827F6609B00BA9847 /* Unit Tests */,
 				79CF637829C40B6F0072F4C0 /* UI Tests */,
-				7930699A2B5D323100A5CF5D /* DataLoadingTests */,
+				7930699A2B5D323100A5CF5D /* Remote Data Tests */,
 				7942FD002B706B49008CE4B0 /* UIScreenshotTests */,
 				79D3D3822FA47B0A0069A605 /* OpenDota */,
 				79D3D3982FA47D2D0069A605 /* TestKit */,
@@ -2377,7 +2377,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		793069A32B5D323100A5CF5D /* Build configuration list for PBXNativeTarget "DataLoadingTests" */ = {
+		793069A32B5D323100A5CF5D /* Build configuration list for PBXNativeTarget "Remote Data Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				793069A12B5D323100A5CF5D /* Debug */,
