@@ -6,7 +6,7 @@
 //
 
 import Testing
-@testable import D2A
+@testable import Stratz
 
 struct StratzFetchingTests {
     
@@ -18,13 +18,13 @@ struct StratzFetchingTests {
 
     @Test
     func `heroes`() async throws {
-        let result = try await fetcher.heroes()
+        let result = try await fetcher.heroes(language: .english)
         #expect(result.count != 0)
     }
     
     @Test
     func `abilities`() async throws {
-        let result = try await fetcher.abilities()
+        let result = try await fetcher.abilities(language: .english)
         #expect(result.count != 0)
     }
 }
