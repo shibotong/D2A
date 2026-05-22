@@ -8,14 +8,14 @@
 import Networking
 import Foundation
 
-protocol OpenDotaConstantFetching {
+public protocol OpenDotaConstantFetching {
     func heroes() async throws -> [String: ODHero]
     func abilities() async throws -> [String: ODAbility]
 }
 
-class OpenDotaConstantFetcher: OpenDotaConstantFetching {
+public class OpenDotaConstantFetcher: OpenDotaConstantFetching {
     
-    static let shared = OpenDotaConstantFetcher()
+    public static let shared = OpenDotaConstantFetcher()
     
     private let apiClient: APIClientProtocol
     
@@ -27,16 +27,16 @@ class OpenDotaConstantFetcher: OpenDotaConstantFetching {
     
     private let baseURL = "https://api.opendota.com/api/constants"
     
-    init(apiClient: APIClientProtocol = APIClient.shared) {
+    public init(apiClient: APIClientProtocol = APIClient.shared) {
         self.apiClient = apiClient
     }
     
-    func heroes() async throws -> [String: ODHero] {
+    public func heroes() async throws -> [String: ODHero] {
         let url = try createURL("heroes")
         return try await apiClient.url(url, decoder: decoder, as: [String: ODHero].self)
     }
     
-    func abilities() async throws -> [String : ODAbility] {
+    public func abilities() async throws -> [String : ODAbility] {
         let url = try createURL("abilities")
         return try await apiClient.url(url, decoder: decoder, as: [String: ODAbility].self)
     }

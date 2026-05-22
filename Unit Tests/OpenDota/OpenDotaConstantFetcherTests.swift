@@ -33,4 +33,18 @@ struct OpenDotaConstantFetcherTests {
         let result = try await fetcher.heroes()
         #expect(result.count == 127)
     }
+    
+    @Test("Ability data testing")
+    func abilitiesData() async throws {
+        let data = try fileReader.readFile("abilities")
+        MockURLProtocol.requestHandler = { request in
+            let response = HTTPURLResponse(url: URL(string: "https://api.opendota.com")!,
+                                           statusCode: 200,
+                                           httpVersion: nil,
+                                           headerFields: ["Content-Type": "application/json"])!
+            return(response, data)
+        }
+        let result = try await fetcher.abilities()
+        #expect(result.count == 3084)
+    }
 }

@@ -77,7 +77,7 @@ extension ODAbility {
             self.key = try container.decode(String.self, forKey: .key)
             self.header = try container.decode(String.self, forKey: .header)
             self.value = try container.decode(StringOrArray.self, forKey: .value).arrayValue
-            self.generated = try container.decode(Bool.self, forKey: .generated)
+            self.generated = try container.decodeIfPresent(Bool.self, forKey: .generated) ?? false
         }
     }
 }
