@@ -108,7 +108,7 @@ public struct ODHero: Decodable, Sendable {
         self.moveSpeed = try container.decode(Int.self, forKey: .moveSpeed)
         self.turnRate = try container.decodeIfPresent(Double.self, forKey: .turnRate) ?? 0.6
         self.cmEnabled = try container.decode(Bool.self, forKey: .cmEnabled)
-        self.legs = try container.decode(Int.self, forKey: .legs)
+        self.legs = try container.decodeIfPresent(Int.self, forKey: .legs) ?? 0
         self.dayVision = try container.decode(Int.self, forKey: .dayVision)
         self.nightVision = try container.decode(Int.self, forKey: .nightVision)
         self.localizedName = try container.decode(String.self, forKey: .localizedName)
