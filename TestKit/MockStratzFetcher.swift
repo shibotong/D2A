@@ -8,6 +8,9 @@
 import Stratz
 
 public struct MockStratzFetcher: StratzFetching {
+    
+    public init() {}
+    
     public func heroes(language: StratzLanguage) async throws -> [SKHero] {
         return PreviewConstantData.heroTranslation
     }
