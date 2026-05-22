@@ -51,6 +51,8 @@
 		792E3D792FC06CBE004FBEC7 /* Stratz.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		792E3D902FC06CD0004FBEC7 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 792E3D8F2FC06CD0004FBEC7 /* StratzAPI */; };
 		792E3D922FC06CD8004FBEC7 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 792E3D912FC06CD8004FBEC7 /* Apollo */; };
+		792E3D932FC06D34004FBEC7 /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
+		792E3D942FC06D34004FBEC7 /* Stratz.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7942FD0C2B706B57008CE4B0 /* ScreenShotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790102B929F40C4600E8A320 /* ScreenShotTests.swift */; };
 		7942FD0E2B706B85008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
 		7942FD0F2B706B90008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
@@ -115,6 +117,13 @@
 			remoteInfo = AppWidgetIntentHandler;
 		};
 		792E3D762FC06CBE004FBEC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32B36F0326C38821002D427D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 792E3D6F2FC06CBE004FBEC7;
+			remoteInfo = Stratz;
+		};
+		792E3D952FC06D34004FBEC7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 32B36F0326C38821002D427D /* Project object */;
 			proxyType = 1;
@@ -211,6 +220,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				792E3D942FC06D34004FBEC7 /* Stratz.framework in Embed Frameworks */,
 				79D3D3A92FA47D460069A605 /* OpenDota.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -442,6 +452,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				792E3D932FC06D34004FBEC7 /* Stratz.framework in Frameworks */,
 				79D3D3A82FA47D460069A605 /* OpenDota.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -460,24 +471,24 @@
 			isa = PBXGroup;
 			children = (
 				79D3EC512FB1C2BB0069A605 /* ci_scripts */,
-				792A54A62F7E77A700EC815A /* Shared */,
 				798A1D1729C183B500E443A6 /* StratzAPI */,
 				79A989262931FA50006AC847 /* D2AProStore.storekit */,
 				327C03432717AE8500DAEC42 /* README.md */,
 				79C632962FC0652B001BDE18 /* D2A */,
 				32F70AA026F57F7E006E9B05 /* D2AWidget */,
 				32F70AE926F61836006E9B05 /* D2AWidgetIntentHandler */,
+				78E76DAB4BB6331DA85B70C0 /* Frameworks */,
+				79D3F7F52FB7F14C0069A605 /* Networking */,
+				79D3D3842FA47B0B0069A605 /* OpenDota */,
+				32B36F0C26C38821002D427D /* Products */,
+				79520A202FBDE47F004D9DD6 /* Remote Data Tests */,
 				79518D172F72B201005C9449 /* Resources */,
+				792A54A62F7E77A700EC815A /* Shared */,
+				792E3D712FC06CBE004FBEC7 /* Stratz */,
+				79D3D39A2FA47D2D0069A605 /* TestKit */,
 				7926DEC92F9488C200EF3F77 /* Unit Tests */,
 				79CF637A29C40B700072F4C0 /* UI Tests */,
-				79520A202FBDE47F004D9DD6 /* Remote Data Tests */,
 				7942FD022B706B49008CE4B0 /* UIScreenshotTests */,
-				79D3D3842FA47B0B0069A605 /* OpenDota */,
-				79D3D39A2FA47D2D0069A605 /* TestKit */,
-				79D3F7F52FB7F14C0069A605 /* Networking */,
-				792E3D712FC06CBE004FBEC7 /* Stratz */,
-				32B36F0C26C38821002D427D /* Products */,
-				78E76DAB4BB6331DA85B70C0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -871,6 +882,7 @@
 			);
 			dependencies = (
 				79D3D3AB2FA47D460069A605 /* PBXTargetDependency */,
+				792E3D962FC06D34004FBEC7 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				79D3D39A2FA47D2D0069A605 /* TestKit */,
@@ -1223,6 +1235,11 @@
 			isa = PBXTargetDependency;
 			target = 792E3D6F2FC06CBE004FBEC7 /* Stratz */;
 			targetProxy = 792E3D762FC06CBE004FBEC7 /* PBXContainerItemProxy */;
+		};
+		792E3D962FC06D34004FBEC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 792E3D6F2FC06CBE004FBEC7 /* Stratz */;
+			targetProxy = 792E3D952FC06D34004FBEC7 /* PBXContainerItemProxy */;
 		};
 		793069A02B5D323100A5CF5D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
