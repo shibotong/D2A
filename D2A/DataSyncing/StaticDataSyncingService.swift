@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 import Logging
 import OpenDota
+import Stratz
 
 class StaticDataSyncingService: ObservableObject {
 
@@ -117,7 +118,7 @@ class StaticDataSyncingService: ObservableObject {
         let language = self.language
         let persistence = self.persistence
         try await contextSaving(author: "Ability localization", fetchData: {
-            let stratzAbilities = try await stratz.abilities(language: language)
+            let stratzAbilities = try await stratz.abilities(language: language.language)
             return stratzAbilities
         }) { ability, context in
             self.logger.trace("Saving ability localization \(ability.id)")
@@ -150,7 +151,7 @@ class StaticDataSyncingService: ObservableObject {
         let persistence = self.persistence
         let language = self.language
         try await contextSaving(author: "Hero Translations") {
-            let stratzHeroes = try await stratz.heroes(language: language)
+            let stratzHeroes = try await stratz.heroes(language: language.language)
             return stratzHeroes
         } saving: { hero, context in
             self.logger.trace("Saving hero translation \(hero.id)")
