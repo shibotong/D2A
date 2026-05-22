@@ -6,13 +6,27 @@
 //
 
 internal import Apollo
-import StratzAPI
+internal import StratzAPI
 import Foundation
 
+public enum StratzLanguage {
+    case schinese
+    case english
+    
+    var language: LanguageEnum {
+        switch self {
+        case .schinese:
+            return .sChinese
+        case .english:
+            return .english
+        }
+    }
+}
+
 public protocol StratzFetching {
-    func heroes(language: LanguageEnum) async throws -> [SKHero]
+    func heroes(language: StratzLanguage) async throws -> [SKHero]
     func heroAdditionalData() async throws -> [SKHeroAdditional]
-    func abilities(language: LanguageEnum) async throws -> [SKAbility]
+    func abilities(language: StratzLanguage) async throws -> [SKAbility]
 }
 
 public struct StratzFetcher: StratzFetching {
@@ -23,9 +37,9 @@ public struct StratzFetcher: StratzFetching {
 
     public init() { }
 
-    public func heroes(language: LanguageEnum) async throws -> [SKHero] {
+    public func heroes(language: StratzLanguage) async throws -> [SKHero] {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[SKHero], Error>) in
-            apollo.fetch(query: HeroesQuery(language: .init(language))) { result in
+            apollo.fetch(query: HeroesQuery(language: .init(language.language))) { result in
                 switch result {
                 case .success(let graphQLResult):
                     guard let stratzHeroes = graphQLResult.data?.constants?.heroes else {
@@ -88,9 +102,9 @@ public struct StratzFetcher: StratzFetching {
         }
     }
 
-    public func abilities(language: LanguageEnum) async throws -> [SKAbility] {
+    public func abilities(language: StratzLanguage) async throws -> [SKAbility] {
         return try await withCheckedThrowingContinuation { continuation in
-            apollo.fetch(query: AbilityQuery(language: .init(language))) { result in
+            apollo.fetch(query: AbilityQuery(language: .init(language.language))) { result in
                 switch result {
                 case .success(let graphQLResult):
                     guard let stratzAbilities = graphQLResult.data?.constants?.abilities else {
