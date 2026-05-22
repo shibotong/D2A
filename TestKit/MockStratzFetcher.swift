@@ -6,10 +6,9 @@
 //
 
 import Stratz
-import StratzAPI
 
 public struct MockStratzFetcher: StratzFetching {
-    public func heroes(language: LanguageEnum) async throws -> [SKHero] {
+    public func heroes(language: StratzLanguage) async throws -> [SKHero] {
         return PreviewConstantData.heroTranslation
     }
     
@@ -17,7 +16,7 @@ public struct MockStratzFetcher: StratzFetching {
         return PreviewConstantData.heroAdditionalData
     }
     
-    public func abilities(language: LanguageEnum) async throws -> [SKAbility] {
+    public func abilities(language: StratzLanguage) async throws -> [SKAbility] {
         return PreviewConstantData.abilityTranslation
     }
 }
