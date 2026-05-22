@@ -7,6 +7,7 @@
 
 import CoreData
 import Logging
+import Stratz
 
 class DataPersistenceService {
     

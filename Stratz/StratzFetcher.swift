@@ -5,42 +5,31 @@
 //  Created by Shibo Tong on 24/3/2026.
 //
 
-import Apollo
+internal import Apollo
 import StratzAPI
+import Foundation
 
-protocol StratzFetching {
-    func heroes(language: DataLanguageEnum) async throws -> [SKHero]
+public protocol StratzFetching {
+    func heroes(language: LanguageEnum) async throws -> [SKHero]
     func heroAdditionalData() async throws -> [SKHeroAdditional]
-    func abilities(language: DataLanguageEnum) async throws -> [SKAbility]
+    func abilities(language: LanguageEnum) async throws -> [SKAbility]
 }
 
-extension StratzFetching {
-    func abilities() async throws -> [SKAbility] {
-        return try await abilities(language: AppConfig.shared.languageCode)
-    }
+public struct StratzFetcher: StratzFetching {
     
-    func heroes() async throws -> [SKHero] {
-        return try await heroes(language: AppConfig.shared.languageCode)
-    }
-}
+    public static let shared = StratzFetcher()
 
-struct StratzFetcher: StratzFetching {
-    
-    static let shared = StratzFetcher()
+    private let apollo: ApolloClient = StratzNetwork.shared.apollo
 
-    private let apollo: ApolloClient
+    public init() { }
 
-    init(apollo: ApolloClient = Network.shared.apollo) {
-        self.apollo = apollo
-    }
-
-    func heroes(language: DataLanguageEnum) async throws -> [SKHero] {
+    public func heroes(language: LanguageEnum) async throws -> [SKHero] {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[SKHero], Error>) in
-            apollo.fetch(query: HeroesQuery(language: .init(language.language))) { result in
+            apollo.fetch(query: HeroesQuery(language: .init(language))) { result in
                 switch result {
                 case .success(let graphQLResult):
                     guard let stratzHeroes = graphQLResult.data?.constants?.heroes else {
-                        continuation.resume(throwing: APIError.networkError)
+                        continuation.resume(throwing: StratzError.networkError)
                         return
                     }
                     let heroes: [SKHero] = stratzHeroes.compactMap { hero in
@@ -69,13 +58,13 @@ struct StratzFetcher: StratzFetching {
         }
     }
     
-    func heroAdditionalData() async throws -> [SKHeroAdditional] {
+    public func heroAdditionalData() async throws -> [SKHeroAdditional] {
         return try await withCheckedThrowingContinuation { continuation in
             apollo.fetch(query: HeroDataQuery()) { result in
                 switch result {
                 case .success(let graphQLResult):
                     guard let data = graphQLResult.data?.constants?.heroes else {
-                        continuation.resume(throwing: APIError.networkError)
+                        continuation.resume(throwing: StratzError.networkError)
                         return
                     }
                     let additionalData: [SKHeroAdditional] = data.compactMap { hero in
@@ -99,13 +88,13 @@ struct StratzFetcher: StratzFetching {
         }
     }
 
-    func abilities(language: DataLanguageEnum) async throws -> [SKAbility] {
+    public func abilities(language: LanguageEnum) async throws -> [SKAbility] {
         return try await withCheckedThrowingContinuation { continuation in
-            apollo.fetch(query: AbilityQuery(language: .init(language.language))) { result in
+            apollo.fetch(query: AbilityQuery(language: .init(language))) { result in
                 switch result {
                 case .success(let graphQLResult):
                     guard let stratzAbilities = graphQLResult.data?.constants?.abilities else {
-                        continuation.resume(throwing: APIError.networkError)
+                        continuation.resume(throwing: StratzError.networkError)
                         return
                     }
                     let abilities: [SKAbility] = stratzAbilities.compactMap { ability in

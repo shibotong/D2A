@@ -75,12 +75,9 @@
 		79091DF82A3B2FC00093EEE4 /* LiveMatchActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */; };
 		79091DF92A3B32140093EEE4 /* LiveMatchActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */; };
 		79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */; };
-		790FBB2429C186AE00E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2329C186AE00E27106 /* Apollo */; };
-		790FBB2A29C1876D00E27106 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2929C1876D00E27106 /* StratzAPI */; };
 		790FBB2C29C1877400E27106 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2B29C1877400E27106 /* StratzAPI */; };
 		790FBB2E29C1877A00E27106 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2D29C1877A00E27106 /* StratzAPI */; };
 		790FBB3429C18AC800E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB3329C18AC800E27106 /* Apollo */; };
-		79266DA42A31B078002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA32A31B078002FEF0F /* ApolloWebSocket */; };
 		79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA82A31B21D002FEF0F /* ApolloWebSocket */; };
 		79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DAA2A31B224002FEF0F /* ApolloWebSocket */; };
 		7928D4842F839148006C0F3F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 7928D4832F839148006C0F3F /* Logging */; };
@@ -99,7 +96,6 @@
 		79518D0A2F72A9CD005C9449 /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79518D082F72A9C8005C9449 /* secrets.json */; };
 		79518D0B2F72A9CD005C9449 /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79518D082F72A9C8005C9449 /* secrets.json */; };
 		7965F636293ADE1900922F99 /* RegisteredPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7965F635293ADE1900922F99 /* RegisteredPlayerView.swift */; };
-		796674212E697BD500D102FA /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 796674202E697BD500D102FA /* StratzAPI */; };
 		796FE19C29AAF659003379EB /* AbilityImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796FE19B29AAF659003379EB /* AbilityImage.swift */; };
 		796FE19E29AB006C003379EB /* AbilityImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796FE19D29AB006C003379EB /* AbilityImageViewModel.swift */; };
 		797776D12B60C5E6000E6C3B /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797776D02B60C5E6000E6C3B /* ViewExtension.swift */; };
@@ -123,6 +119,10 @@
 		79B8D96F2F2889FA0030429D /* InMemoryLogging in Frameworks */ = {isa = PBXBuildFile; productRef = 79B8D96E2F2889FA0030429D /* InMemoryLogging */; };
 		79B8D9712F2889FA0030429D /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 79B8D9702F2889FA0030429D /* Logging */; };
 		79BEC5BF29736E4900510748 /* LatestRecentMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BEC5BE29736E4900510748 /* LatestRecentMatchView.swift */; };
+		79C62BA22FC05E17001BDE18 /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79C62B9A2FC05E17001BDE18 /* Stratz.framework */; };
+		79C62BA32FC05E17001BDE18 /* Stratz.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79C62B9A2FC05E17001BDE18 /* Stratz.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		79C62BA82FC05E2C001BDE18 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79C62BA72FC05E2C001BDE18 /* StratzAPI */; };
+		79C62BAA2FC05E58001BDE18 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79C62BA92FC05E58001BDE18 /* Apollo */; };
 		79CF637C29C40B700072F4C0 /* D2AUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF637B29C40B700072F4C0 /* D2AUITests.swift */; };
 		79D1043729E2991E00BC04B3 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79D1043629E2991E00BC04B3 /* Apollo */; };
 		79D3D38B2FA47B0B0069A605 /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
@@ -180,6 +180,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 32B36F0A26C38821002D427D;
 			remoteInfo = D2A;
+		};
+		79C62BA02FC05E17001BDE18 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32B36F0326C38821002D427D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 79C62B992FC05E17001BDE18;
+			remoteInfo = Stratz;
 		};
 		79CF637F29C40B700072F4C0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -246,6 +253,7 @@
 			files = (
 				79D3F7FD2FB7F14C0069A605 /* Networking.framework in Embed Frameworks */,
 				79D3D38C2FA47B0B0069A605 /* OpenDota.framework in Embed Frameworks */,
+				79C62BA32FC05E17001BDE18 /* Stratz.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,6 +382,7 @@
 		79B1630228DD5A29009B2AE2 /* Ability.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Ability.graphql; sourceTree = "<group>"; };
 		79B1630328DD5A31009B2AE2 /* Hero.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hero.graphql; sourceTree = "<group>"; };
 		79BEC5BE29736E4900510748 /* LatestRecentMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestRecentMatchView.swift; sourceTree = "<group>"; };
+		79C62B9A2FC05E17001BDE18 /* Stratz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Stratz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79CF637929C40B6F0072F4C0 /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79CF637B29C40B700072F4C0 /* D2AUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AUITests.swift; sourceTree = "<group>"; };
 		79D3D3832FA47B0A0069A605 /* OpenDota.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenDota.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -430,6 +439,7 @@
 		7928D64D2F839B8B006C0F3F /* Preview Content */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Preview Content"; sourceTree = "<group>"; };
 		792A54A62F7E77A700EC815A /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
 		79520A202FBDE47F004D9DD6 /* Remote Data Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Remote Data Tests"; sourceTree = "<group>"; };
+		79C62B9B2FC05E17001BDE18 /* Stratz */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Stratz; sourceTree = "<group>"; };
 		79D3D3842FA47B0B0069A605 /* OpenDota */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = OpenDota; sourceTree = "<group>"; };
 		79D3D39A2FA47D2D0069A605 /* TestKit */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TestKit; sourceTree = "<group>"; };
 		79D3DBE52FA590140069A605 /* Debug */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Debug; sourceTree = "<group>"; };
@@ -450,15 +460,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79C62BA22FC05E17001BDE18 /* Stratz.framework in Frameworks */,
 				79D3D38B2FA47B0B0069A605 /* OpenDota.framework in Frameworks */,
 				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
-				79266DA42A31B078002FEF0F /* ApolloWebSocket in Frameworks */,
 				79B8D9712F2889FA0030429D /* Logging in Frameworks */,
-				790FBB2429C186AE00E27106 /* Apollo in Frameworks */,
 				79D3F7FC2FB7F14C0069A605 /* Networking.framework in Frameworks */,
-				790FBB2A29C1876D00E27106 /* StratzAPI in Frameworks */,
 				79B8D96F2F2889FA0030429D /* InMemoryLogging in Frameworks */,
-				796674212E697BD500D102FA /* StratzAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,6 +505,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79C62B972FC05E17001BDE18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79C62BA82FC05E2C001BDE18 /* StratzAPI in Frameworks */,
+				79C62BAA2FC05E58001BDE18 /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,6 +605,7 @@
 				79D3D3842FA47B0B0069A605 /* OpenDota */,
 				79D3D39A2FA47D2D0069A605 /* TestKit */,
 				79D3F7F52FB7F14C0069A605 /* Networking */,
+				79C62B9B2FC05E17001BDE18 /* Stratz */,
 				32B36F0C26C38821002D427D /* Products */,
 				78E76DAB4BB6331DA85B70C0 /* Frameworks */,
 			);
@@ -607,6 +624,7 @@
 				79D3D3832FA47B0A0069A605 /* OpenDota.framework */,
 				79D3D3992FA47D2D0069A605 /* TestKit.framework */,
 				79D3F7F42FB7F14C0069A605 /* Networking.framework */,
+				79C62B9A2FC05E17001BDE18 /* Stratz.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -816,6 +834,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		79C62B952FC05E17001BDE18 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		79D3D37E2FA47B0A0069A605 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -880,6 +905,7 @@
 				32F70AEE26F61836006E9B05 /* PBXTargetDependency */,
 				79D3D38A2FA47B0B0069A605 /* PBXTargetDependency */,
 				79D3F7FB2FB7F14C0069A605 /* PBXTargetDependency */,
+				79C62BA12FC05E17001BDE18 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				7928D21F2F7F73A5006C0F3F /* Utility */,
@@ -891,10 +917,6 @@
 			);
 			name = D2A;
 			packageProductDependencies = (
-				790FBB2329C186AE00E27106 /* Apollo */,
-				790FBB2929C1876D00E27106 /* StratzAPI */,
-				79266DA32A31B078002FEF0F /* ApolloWebSocket */,
-				796674202E697BD500D102FA /* StratzAPI */,
 				79B8D96E2F2889FA0030429D /* InMemoryLogging */,
 				79B8D9702F2889FA0030429D /* Logging */,
 			);
@@ -992,6 +1014,31 @@
 			productName = D2AUIScreenshotTests;
 			productReference = 7942FD012B706B49008CE4B0 /* UIScreenshotTests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		79C62B992FC05E17001BDE18 /* Stratz */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 79C62BA42FC05E17001BDE18 /* Build configuration list for PBXNativeTarget "Stratz" */;
+			buildPhases = (
+				79C62B952FC05E17001BDE18 /* Headers */,
+				79C62B962FC05E17001BDE18 /* Sources */,
+				79C62B972FC05E17001BDE18 /* Frameworks */,
+				79C62B982FC05E17001BDE18 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				79C62B9B2FC05E17001BDE18 /* Stratz */,
+			);
+			name = Stratz;
+			packageProductDependencies = (
+				79C62BA72FC05E2C001BDE18 /* StratzAPI */,
+				79C62BA92FC05E58001BDE18 /* Apollo */,
+			);
+			productName = Stratz;
+			productReference = 79C62B9A2FC05E17001BDE18 /* Stratz.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		79CF637829C40B6F0072F4C0 /* UI Tests */ = {
 			isa = PBXNativeTarget;
@@ -1115,6 +1162,9 @@
 						CreatedOnToolsVersion = 15.2;
 						TestTargetID = 32B36F0A26C38821002D427D;
 					};
+					79C62B992FC05E17001BDE18 = {
+						CreatedOnToolsVersion = 26.3;
+					};
 					79CF637829C40B6F0072F4C0 = {
 						CreatedOnToolsVersion = 14.2;
 						TestTargetID = 32B36F0A26C38821002D427D;
@@ -1159,6 +1209,7 @@
 				79D3D3822FA47B0A0069A605 /* OpenDota */,
 				79D3D3982FA47D2D0069A605 /* TestKit */,
 				79D3F7F32FB7F14C0069A605 /* Networking */,
+				79C62B992FC05E17001BDE18 /* Stratz */,
 			);
 		};
 /* End PBXProject section */
@@ -1211,6 +1262,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7942FCFF2B706B49008CE4B0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79C62B982FC05E17001BDE18 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1383,6 +1441,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		79C62B962FC05E17001BDE18 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		79CF637529C40B6F0072F4C0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1442,6 +1507,11 @@
 			isa = PBXTargetDependency;
 			target = 32B36F0A26C38821002D427D /* D2A */;
 			targetProxy = 7942FD072B706B49008CE4B0 /* PBXContainerItemProxy */;
+		};
+		79C62BA12FC05E17001BDE18 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 79C62B992FC05E17001BDE18 /* Stratz */;
+			targetProxy = 79C62BA02FC05E17001BDE18 /* PBXContainerItemProxy */;
 		};
 		79CF638029C40B700072F4C0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1958,6 +2028,111 @@
 			};
 			name = Release;
 		};
+		79C62BA52FC05E17001BDE18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MRB66268H7;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shibotong.Stratz;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		79C62BA62FC05E17001BDE18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MRB66268H7;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shibotong.Stratz;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
 		79CF638129C40B700072F4C0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2395,6 +2570,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		79C62BA42FC05E17001BDE18 /* Build configuration list for PBXNativeTarget "Stratz" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79C62BA52FC05E17001BDE18 /* Debug */,
+				79C62BA62FC05E17001BDE18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		79CF638329C40B700072F4C0 /* Build configuration list for PBXNativeTarget "UI Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2460,15 +2644,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		790FBB2329C186AE00E27106 /* Apollo */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = Apollo;
-		};
-		790FBB2929C1876D00E27106 /* StratzAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = StratzAPI;
-		};
 		790FBB2B29C1877400E27106 /* StratzAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = StratzAPI;
@@ -2481,11 +2656,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
-		};
-		79266DA32A31B078002FEF0F /* ApolloWebSocket */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloWebSocket;
 		};
 		79266DA82A31B21D002FEF0F /* ApolloWebSocket */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -2507,10 +2677,6 @@
 			package = 79B8D96D2F2889FA0030429D /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
 		};
-		796674202E697BD500D102FA /* StratzAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = StratzAPI;
-		};
 		79B8D96E2F2889FA0030429D /* InMemoryLogging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 79B8D96D2F2889FA0030429D /* XCRemoteSwiftPackageReference "swift-log" */;
@@ -2520,6 +2686,15 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 79B8D96D2F2889FA0030429D /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
+		};
+		79C62BA72FC05E2C001BDE18 /* StratzAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StratzAPI;
+		};
+		79C62BA92FC05E58001BDE18 /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
 		};
 		79D1043629E2991E00BC04B3 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
