@@ -40,16 +40,19 @@
 		79091DF82A3B2FC00093EEE4 /* LiveMatchActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */; };
 		79091DF92A3B32140093EEE4 /* LiveMatchActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */; };
 		79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */; };
-		790FBB2429C186AE00E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2329C186AE00E27106 /* Apollo */; };
-		790FBB2A29C1876D00E27106 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2929C1876D00E27106 /* StratzAPI */; };
 		790FBB2C29C1877400E27106 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2B29C1877400E27106 /* StratzAPI */; };
 		790FBB2E29C1877A00E27106 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2D29C1877A00E27106 /* StratzAPI */; };
 		790FBB3429C18AC800E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB3329C18AC800E27106 /* Apollo */; };
-		79266DA42A31B078002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA32A31B078002FEF0F /* ApolloWebSocket */; };
 		79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA82A31B21D002FEF0F /* ApolloWebSocket */; };
 		79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DAA2A31B224002FEF0F /* ApolloWebSocket */; };
 		7928D4842F839148006C0F3F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 7928D4832F839148006C0F3F /* Logging */; };
 		7928D4862F83914F006C0F3F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 7928D4852F83914F006C0F3F /* Logging */; };
+		792E3D782FC06CBE004FBEC7 /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
+		792E3D792FC06CBE004FBEC7 /* Stratz.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		792E3D902FC06CD0004FBEC7 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 792E3D8F2FC06CD0004FBEC7 /* StratzAPI */; };
+		792E3D922FC06CD8004FBEC7 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 792E3D912FC06CD8004FBEC7 /* Apollo */; };
+		792E3D932FC06D34004FBEC7 /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
+		792E3D942FC06D34004FBEC7 /* Stratz.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7942FD0C2B706B57008CE4B0 /* ScreenShotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790102B929F40C4600E8A320 /* ScreenShotTests.swift */; };
 		7942FD0E2B706B85008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
 		7942FD0F2B706B90008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
@@ -59,7 +62,6 @@
 		79518D092F72A9CD005C9449 /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79518D082F72A9C8005C9449 /* secrets.json */; };
 		79518D0A2F72A9CD005C9449 /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79518D082F72A9C8005C9449 /* secrets.json */; };
 		79518D0B2F72A9CD005C9449 /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 79518D082F72A9C8005C9449 /* secrets.json */; };
-		796674212E697BD500D102FA /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 796674202E697BD500D102FA /* StratzAPI */; };
 		797776D12B60C5E6000E6C3B /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797776D02B60C5E6000E6C3B /* ViewExtension.swift */; };
 		797776D22B60C5E6000E6C3B /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797776D02B60C5E6000E6C3B /* ViewExtension.swift */; };
 		797776D32B60C5E6000E6C3B /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797776D02B60C5E6000E6C3B /* ViewExtension.swift */; };
@@ -113,6 +115,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 32F70AE526F61836006E9B05;
 			remoteInfo = AppWidgetIntentHandler;
+		};
+		792E3D762FC06CBE004FBEC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32B36F0326C38821002D427D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 792E3D6F2FC06CBE004FBEC7;
+			remoteInfo = Stratz;
+		};
+		792E3D952FC06D34004FBEC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32B36F0326C38821002D427D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 792E3D6F2FC06CBE004FBEC7;
+			remoteInfo = Stratz;
 		};
 		7930699F2B5D323100A5CF5D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -193,6 +209,7 @@
 			files = (
 				79D3F7FD2FB7F14C0069A605 /* Networking.framework in Embed Frameworks */,
 				79D3D38C2FA47B0B0069A605 /* OpenDota.framework in Embed Frameworks */,
+				792E3D792FC06CBE004FBEC7 /* Stratz.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,6 +220,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				792E3D942FC06D34004FBEC7 /* Stratz.framework in Embed Frameworks */,
 				79D3D3A92FA47D460069A605 /* OpenDota.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -262,6 +280,7 @@
 		790102B929F40C4600E8A320 /* ScreenShotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotTests.swift; sourceTree = "<group>"; };
 		79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityAttributes.swift; sourceTree = "<group>"; };
 		79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityWidget.swift; sourceTree = "<group>"; };
+		792E3D702FC06CBE004FBEC7 /* Stratz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Stratz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7930699B2B5D323100A5CF5D /* Remote Data Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Remote Data Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7942FD012B706B49008CE4B0 /* UIScreenshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIScreenshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
@@ -335,6 +354,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7926DEC92F9488C200EF3F77 /* Unit Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Unit Tests"; sourceTree = "<group>"; };
 		792A54A62F7E77A700EC815A /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
+		792E3D712FC06CBE004FBEC7 /* Stratz */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Stratz; sourceTree = "<group>"; };
 		79520A202FBDE47F004D9DD6 /* Remote Data Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Remote Data Tests"; sourceTree = "<group>"; };
 		79C632962FC0652B001BDE18 /* D2A */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (79C632FC2FC0652B001BDE18 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79C632FD2FC0652B001BDE18 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79C632FE2FC0652B001BDE18 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = D2A; sourceTree = "<group>"; };
 		79D3D3842FA47B0B0069A605 /* OpenDota */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = OpenDota; sourceTree = "<group>"; };
@@ -356,15 +376,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				792E3D782FC06CBE004FBEC7 /* Stratz.framework in Frameworks */,
 				79D3D38B2FA47B0B0069A605 /* OpenDota.framework in Frameworks */,
 				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
-				79266DA42A31B078002FEF0F /* ApolloWebSocket in Frameworks */,
 				79B8D9712F2889FA0030429D /* Logging in Frameworks */,
-				790FBB2429C186AE00E27106 /* Apollo in Frameworks */,
 				79D3F7FC2FB7F14C0069A605 /* Networking.framework in Frameworks */,
-				790FBB2A29C1876D00E27106 /* StratzAPI in Frameworks */,
 				79B8D96F2F2889FA0030429D /* InMemoryLogging in Frameworks */,
-				796674212E697BD500D102FA /* StratzAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,6 +407,15 @@
 				79D1043729E2991E00BC04B3 /* Apollo in Frameworks */,
 				790FBB2E29C1877A00E27106 /* StratzAPI in Frameworks */,
 				7928D4862F83914F006C0F3F /* Logging in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		792E3D6D2FC06CBE004FBEC7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				792E3D902FC06CD0004FBEC7 /* StratzAPI in Frameworks */,
+				792E3D922FC06CD8004FBEC7 /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +452,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				792E3D932FC06D34004FBEC7 /* Stratz.framework in Frameworks */,
 				79D3D3A82FA47D460069A605 /* OpenDota.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -444,23 +471,24 @@
 			isa = PBXGroup;
 			children = (
 				79D3EC512FB1C2BB0069A605 /* ci_scripts */,
-				792A54A62F7E77A700EC815A /* Shared */,
 				798A1D1729C183B500E443A6 /* StratzAPI */,
 				79A989262931FA50006AC847 /* D2AProStore.storekit */,
 				327C03432717AE8500DAEC42 /* README.md */,
 				79C632962FC0652B001BDE18 /* D2A */,
 				32F70AA026F57F7E006E9B05 /* D2AWidget */,
 				32F70AE926F61836006E9B05 /* D2AWidgetIntentHandler */,
+				78E76DAB4BB6331DA85B70C0 /* Frameworks */,
+				79D3F7F52FB7F14C0069A605 /* Networking */,
+				79D3D3842FA47B0B0069A605 /* OpenDota */,
+				32B36F0C26C38821002D427D /* Products */,
+				79520A202FBDE47F004D9DD6 /* Remote Data Tests */,
 				79518D172F72B201005C9449 /* Resources */,
+				792A54A62F7E77A700EC815A /* Shared */,
+				792E3D712FC06CBE004FBEC7 /* Stratz */,
+				79D3D39A2FA47D2D0069A605 /* TestKit */,
 				7926DEC92F9488C200EF3F77 /* Unit Tests */,
 				79CF637A29C40B700072F4C0 /* UI Tests */,
-				79520A202FBDE47F004D9DD6 /* Remote Data Tests */,
 				7942FD022B706B49008CE4B0 /* UIScreenshotTests */,
-				79D3D3842FA47B0B0069A605 /* OpenDota */,
-				79D3D39A2FA47D2D0069A605 /* TestKit */,
-				79D3F7F52FB7F14C0069A605 /* Networking */,
-				32B36F0C26C38821002D427D /* Products */,
-				78E76DAB4BB6331DA85B70C0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -477,6 +505,7 @@
 				79D3D3832FA47B0A0069A605 /* OpenDota.framework */,
 				79D3D3992FA47D2D0069A605 /* TestKit.framework */,
 				79D3F7F42FB7F14C0069A605 /* Networking.framework */,
+				792E3D702FC06CBE004FBEC7 /* Stratz.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -594,6 +623,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		792E3D6B2FC06CBE004FBEC7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		79D3D37E2FA47B0A0069A605 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -658,6 +694,7 @@
 				32F70AEE26F61836006E9B05 /* PBXTargetDependency */,
 				79D3D38A2FA47B0B0069A605 /* PBXTargetDependency */,
 				79D3F7FB2FB7F14C0069A605 /* PBXTargetDependency */,
+				792E3D772FC06CBE004FBEC7 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				792A54A62F7E77A700EC815A /* Shared */,
@@ -665,10 +702,6 @@
 			);
 			name = D2A;
 			packageProductDependencies = (
-				790FBB2329C186AE00E27106 /* Apollo */,
-				790FBB2929C1876D00E27106 /* StratzAPI */,
-				79266DA32A31B078002FEF0F /* ApolloWebSocket */,
-				796674202E697BD500D102FA /* StratzAPI */,
 				79B8D96E2F2889FA0030429D /* InMemoryLogging */,
 				79B8D9702F2889FA0030429D /* Logging */,
 			);
@@ -727,6 +760,31 @@
 			productName = AppWidgetIntentHandler;
 			productReference = 32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */;
 			productType = "com.apple.product-type.app-extension";
+		};
+		792E3D6F2FC06CBE004FBEC7 /* Stratz */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 792E3D7A2FC06CBE004FBEC7 /* Build configuration list for PBXNativeTarget "Stratz" */;
+			buildPhases = (
+				792E3D6B2FC06CBE004FBEC7 /* Headers */,
+				792E3D6C2FC06CBE004FBEC7 /* Sources */,
+				792E3D6D2FC06CBE004FBEC7 /* Frameworks */,
+				792E3D6E2FC06CBE004FBEC7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				792E3D712FC06CBE004FBEC7 /* Stratz */,
+			);
+			name = Stratz;
+			packageProductDependencies = (
+				792E3D8F2FC06CD0004FBEC7 /* StratzAPI */,
+				792E3D912FC06CD8004FBEC7 /* Apollo */,
+			);
+			productName = Stratz;
+			productReference = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		7930699A2B5D323100A5CF5D /* Remote Data Tests */ = {
 			isa = PBXNativeTarget;
@@ -824,6 +882,7 @@
 			);
 			dependencies = (
 				79D3D3AB2FA47D460069A605 /* PBXTargetDependency */,
+				792E3D962FC06D34004FBEC7 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				79D3D39A2FA47D2D0069A605 /* TestKit */,
@@ -881,6 +940,9 @@
 					32F70AE526F61836006E9B05 = {
 						CreatedOnToolsVersion = 12.5.1;
 					};
+					792E3D6F2FC06CBE004FBEC7 = {
+						CreatedOnToolsVersion = 26.3;
+					};
 					7930699A2B5D323100A5CF5D = {
 						CreatedOnToolsVersion = 15.2;
 						TestTargetID = 32B36F0A26C38821002D427D;
@@ -933,6 +995,7 @@
 				79D3D3822FA47B0A0069A605 /* OpenDota */,
 				79D3D3982FA47D2D0069A605 /* TestKit */,
 				79D3F7F32FB7F14C0069A605 /* Networking */,
+				792E3D6F2FC06CBE004FBEC7 /* Stratz */,
 			);
 		};
 /* End PBXProject section */
@@ -974,6 +1037,13 @@
 				7977FDA329C1770B0034D3EA /* schema.graphqls in Resources */,
 				79518D0A2F72A9CD005C9449 /* secrets.json in Resources */,
 				79D5282028DD73CF0070841D /* secrets.example.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		792E3D6E2FC06CBE004FBEC7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1088,6 +1158,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		792E3D6C2FC06CBE004FBEC7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		793069972B5D323100A5CF5D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1153,6 +1230,16 @@
 			platformFilter = ios;
 			target = 32F70AE526F61836006E9B05 /* D2AWidgetIntentHandler */;
 			targetProxy = 32F70AED26F61836006E9B05 /* PBXContainerItemProxy */;
+		};
+		792E3D772FC06CBE004FBEC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 792E3D6F2FC06CBE004FBEC7 /* Stratz */;
+			targetProxy = 792E3D762FC06CBE004FBEC7 /* PBXContainerItemProxy */;
+		};
+		792E3D962FC06D34004FBEC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 792E3D6F2FC06CBE004FBEC7 /* Stratz */;
+			targetProxy = 792E3D952FC06D34004FBEC7 /* PBXContainerItemProxy */;
 		};
 		793069A02B5D323100A5CF5D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1583,6 +1670,111 @@
 			};
 			name = Release;
 		};
+		792E3D7B2FC06CBE004FBEC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MRB66268H7;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shibotong.Stratz;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		792E3D7C2FC06CBE004FBEC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MRB66268H7;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shibotong.Stratz;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
 		793069A12B5D323100A5CF5D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1962,7 +2154,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -1972,7 +2164,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -1993,7 +2185,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				XROS_DEPLOYMENT_TARGET = 26.2;
+				XROS_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Debug;
 		};
@@ -2016,7 +2208,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -2026,7 +2218,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -2046,7 +2238,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				XROS_DEPLOYMENT_TARGET = 26.2;
+				XROS_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Release;
 		};
@@ -2094,6 +2286,15 @@
 			buildConfigurations = (
 				32F70AF126F61836006E9B05 /* Debug */,
 				32F70AF226F61836006E9B05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		792E3D7A2FC06CBE004FBEC7 /* Build configuration list for PBXNativeTarget "Stratz" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				792E3D7B2FC06CBE004FBEC7 /* Debug */,
+				792E3D7C2FC06CBE004FBEC7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2181,15 +2382,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		790FBB2329C186AE00E27106 /* Apollo */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = Apollo;
-		};
-		790FBB2929C1876D00E27106 /* StratzAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = StratzAPI;
-		};
 		790FBB2B29C1877400E27106 /* StratzAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = StratzAPI;
@@ -2202,11 +2394,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
-		};
-		79266DA32A31B078002FEF0F /* ApolloWebSocket */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloWebSocket;
 		};
 		79266DA82A31B21D002FEF0F /* ApolloWebSocket */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -2228,9 +2415,14 @@
 			package = 79B8D96D2F2889FA0030429D /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
 		};
-		796674202E697BD500D102FA /* StratzAPI */ = {
+		792E3D8F2FC06CD0004FBEC7 /* StratzAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = StratzAPI;
+		};
+		792E3D912FC06CD8004FBEC7 /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
 		};
 		79B8D96E2F2889FA0030429D /* InMemoryLogging */ = {
 			isa = XCSwiftPackageProductDependency;

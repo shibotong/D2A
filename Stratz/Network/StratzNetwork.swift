@@ -1,16 +1,15 @@
 //
-//  Network.swift
+//  StratzNetwork.swift
 //  D2A
 //
-//  Created by Shibo Tong on 23/9/2022.
+//  Created by Shibo Tong on 22/5/2026.
 //
 
+internal import Apollo
 import Foundation
-import Apollo
-import ApolloWebSocket
 
-class Network {
-    static let shared = Network()
+class StratzNetwork {
+    static let shared = StratzNetwork()
     private(set) lazy var apollo: ApolloClient = {
         let token: String = {
             let token = try? Secrets.load().stratzToken

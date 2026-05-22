@@ -1,26 +1,32 @@
 //
-//  PreviewConstantData.swift
+//  MockStratzFetcher.swift
 //  D2A
 //
-//  Created by Shibo Tong on 20/4/2026.
+//  Created by Shibo Tong on 22/5/2026.
 //
 
-import Foundation
 import Stratz
+
+public struct MockStratzFetcher: StratzFetching {
+    
+    public init() {}
+    
+    public func heroes(language: StratzLanguage) async throws -> [SKHero] {
+        return PreviewConstantData.heroTranslation
+    }
+    
+    public func heroAdditionalData() async throws -> [SKHeroAdditional] {
+        return PreviewConstantData.heroAdditionalData
+    }
+    
+    public func abilities(language: StratzLanguage) async throws -> [SKAbility] {
+        return PreviewConstantData.abilityTranslation
+    }
+}
 
 struct PreviewConstantData {
     
-    static let abilityIDs: [String: String] = {
-        let data = try! readFile("ability_ids")
-        return try! JSONSerialization.jsonObject(with: data) as! [String: String]
-    }()
-    
-    static let abilities: [String: Any] = {
-        let data = try! readFile("abilities")
-        return try! JSONSerialization.jsonObject(with: data) as! [String: Any]
-    }()
-    
-    static let abilityTranslation: [SKAbility] = [
+    public static let abilityTranslation: [SKAbility] = [
         .init(id: 5003,
               name: "antimage_mana_break",
               displayName: "Mana Break",
@@ -108,27 +114,15 @@ struct PreviewConstantData {
               name: "special_bonus_unique_antimage",
               displayName: "-{s:bonus_AbilityCooldown}s Blink Cooldown"),
     ]
-    
-    // MARK: heroes
-    
-    static let heroes: [String: Any] = {
-        let data = try! readFile("heroes")
-        return try! JSONSerialization.jsonObject(with: data) as! [String: Any]
-    }()
-    
-    static let heroAbilities: [String: Any] = {
-        let data = try! readFile("hero_abilities")
-        return try! JSONSerialization.jsonObject(with: data) as! [String: Any]
-    }()
-    
-    static let heroAdditionalData = [SKHeroAdditional(heroID: 1,
+
+    public static let heroAdditionalData = [SKHeroAdditional(heroID: 1,
                                                       name: "npc_dota_hero_antimage", complexity: 1, roles: [
                                                         .init(level: 3, roleId: "CARRY"),
                                                         .init(level: 3, roleId: "ESCAPE"),
                                                         .init(level: 1, roleId: "NUKER")
                                                       ])]
     
-    static let heroTranslation: [SKHero] = {
+    public static let heroTranslation: [SKHero] = {
         let hero = SKHero(id: 1, roles: [
             .init(level: 3, roleId: "CARRY"),
             .init(level: 3, roleId: "ESCAPE"),
