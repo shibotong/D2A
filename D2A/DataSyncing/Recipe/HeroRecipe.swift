@@ -6,10 +6,11 @@
 //
 
 import Stratz
+import OpenDota
 
 struct HeroRecipe {
     let heroID: Int
-    let data: [String: Any]
-    let abilities: [String: Any]
+    let data: ODHero
+    let abilities: ODHeroAbility
     let additionalData: SKHeroAdditional
 }

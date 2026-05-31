@@ -34,7 +34,7 @@ public struct ODHero: Decodable, Sendable {
     public let baseAttackTime: Int
     public let attackPoint: Double
     public let moveSpeed: Int
-    public let turnRate: Double?
+    public let turnRate: Double
     public let cmEnabled: Bool
     public let legs: Int
     public let dayVision: Int

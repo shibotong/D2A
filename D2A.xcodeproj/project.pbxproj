@@ -92,6 +92,10 @@
 		79D5281E28DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
 		79D5281F28DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
 		79D5282028DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
+		79EB3BA02FCBF63F00FD9ECE /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
+		79EB3BA12FCBF63F00FD9ECE /* OpenDota.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		79EB3BA52FCBF64500FD9ECE /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
+		79EB3BA62FCBF64500FD9ECE /* OpenDota.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,6 +190,20 @@
 			remoteGlobalIDString = 79D3F7F32FB7F14C0069A605;
 			remoteInfo = Networking;
 		};
+		79EB3BA22FCBF63F00FD9ECE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32B36F0326C38821002D427D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 79D3D3822FA47B0A0069A605;
+			remoteInfo = OpenDota;
+		};
+		79EB3BA72FCBF64500FD9ECE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32B36F0326C38821002D427D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 79D3D3822FA47B0A0069A605;
+			remoteInfo = OpenDota;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -244,6 +262,28 @@
 			dstSubfolderSpec = 10;
 			files = (
 				79D3F8052FB7F1B10069A605 /* Networking.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79EB3BA42FCBF63F00FD9ECE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				79EB3BA12FCBF63F00FD9ECE /* OpenDota.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79EB3BA92FCBF64600FD9ECE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				79EB3BA62FCBF64500FD9ECE /* OpenDota.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -317,7 +357,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				DataSyncing/DataPersistenceService.swift,
-				DataSyncing/DataSyncingLogger.swift,
 				DataSyncing/Recipe/AbilityRecipe.swift,
 				DataSyncing/Recipe/HeroRecipe.swift,
 				DataSyncing/SyncingTimer.swift,
@@ -335,7 +374,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				DataSyncing/DataPersistenceService.swift,
-				DataSyncing/DataSyncingLogger.swift,
 				DataSyncing/Recipe/AbilityRecipe.swift,
 				DataSyncing/Recipe/HeroRecipe.swift,
 				DataSyncing/SyncingTimer.swift,
@@ -392,6 +430,7 @@
 				7928D4842F839148006C0F3F /* Logging in Frameworks */,
 				32F70A9F26F57F7E006E9B05 /* SwiftUI.framework in Frameworks */,
 				790FBB3429C18AC800E27106 /* Apollo in Frameworks */,
+				79EB3BA02FCBF63F00FD9ECE /* OpenDota.framework in Frameworks */,
 				79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */,
 				32F70A9E26F57F7E006E9B05 /* WidgetKit.framework in Frameworks */,
 				790FBB2C29C1877400E27106 /* StratzAPI in Frameworks */,
@@ -402,6 +441,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79EB3BA52FCBF64500FD9ECE /* OpenDota.framework in Frameworks */,
 				32F70AE826F61836006E9B05 /* Intents.framework in Frameworks */,
 				79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */,
 				79D1043729E2991E00BC04B3 /* Apollo in Frameworks */,
@@ -716,10 +756,12 @@
 				32F70A9926F57F7E006E9B05 /* Sources */,
 				32F70A9A26F57F7E006E9B05 /* Frameworks */,
 				32F70A9B26F57F7E006E9B05 /* Resources */,
+				79EB3BA42FCBF63F00FD9ECE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				79EB3BA32FCBF63F00FD9ECE /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				792A54A62F7E77A700EC815A /* Shared */,
@@ -742,10 +784,12 @@
 				32F70AE226F61836006E9B05 /* Sources */,
 				32F70AE326F61836006E9B05 /* Frameworks */,
 				32F70AE426F61836006E9B05 /* Resources */,
+				79EB3BA92FCBF64600FD9ECE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				79EB3BA82FCBF64500FD9ECE /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				792A54A62F7E77A700EC815A /* Shared */,
@@ -1281,6 +1325,16 @@
 			isa = PBXTargetDependency;
 			target = 79D3F7F32FB7F14C0069A605 /* Networking */;
 			targetProxy = 79D3F8062FB7F1B10069A605 /* PBXContainerItemProxy */;
+		};
+		79EB3BA32FCBF63F00FD9ECE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 79D3D3822FA47B0A0069A605 /* OpenDota */;
+			targetProxy = 79EB3BA22FCBF63F00FD9ECE /* PBXContainerItemProxy */;
+		};
+		79EB3BA82FCBF64500FD9ECE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 79D3D3822FA47B0A0069A605 /* OpenDota */;
+			targetProxy = 79EB3BA72FCBF64500FD9ECE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

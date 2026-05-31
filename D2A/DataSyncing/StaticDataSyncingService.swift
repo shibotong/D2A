@@ -20,9 +20,7 @@ class StaticDataSyncingService: ObservableObject {
     
     let totalProcesses = 4
     
-    @Published var useV2 = true
-    
-    private let openDota: OpenDotaFetching
+    private let openDota: OpenDotaConstantFetching
     private let stratz: StratzFetching
     private let language: DataLanguageEnum
     
@@ -33,8 +31,6 @@ class StaticDataSyncingService: ObservableObject {
     
     private let maxConcurrent: Int
     
-    private let syncingLogger: DataSyncingLogger?
-    
     private let persistence: DataPersistenceService
     private let notification: D2ANotification
     
@@ -42,14 +38,13 @@ class StaticDataSyncingService: ObservableObject {
     
     private var syncingActor: SyncingProgress = SyncingProgress()
     
-    init(openDota: OpenDotaFetching = OpenDotaFetcher.shared,
+    init(openDota: OpenDotaConstantFetching = OpenDotaConstantFetcher.shared,
          stratz: StratzFetching = StratzFetcher.shared,
          mainContext: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
          persistenceService: DataPersistenceService = .shared,
          appConfig: AppConfigProtocol = AppConfig.shared,
          logger: Logger = D2ALogger.syncing,
          notification: D2ANotification = .default,
-         syncingLogger: DataSyncingLogger? = nil,
          syncingTimer: SyncingTimerProtocol = SyncingTimer.shared) {
         self.openDota = openDota
         self.stratz = stratz
@@ -59,7 +54,6 @@ class StaticDataSyncingService: ObservableObject {
         self.maxConcurrent = appConfig.processors
         self.logger = logger
         self.notification = notification
-        self.syncingLogger = syncingLogger
         self.syncingTimer = syncingTimer
     }
     
@@ -97,19 +91,17 @@ class StaticDataSyncingService: ObservableObject {
     
     private func syncAbilities() async throws {
         logger.trace("Start syncing abilities")
-        let syncingLogger = self.syncingLogger
         let persistence = self.persistence
         try await contextSaving(author: "Ability") {
-            async let abilityIDAsync = openDota.constants(service: .abilityIDs) as? [String: String]
-            async let abilitiesAsync = openDota.constants(service: .abilities) as? [String: Any]
-            let (abilityIDs, abilities) = try await (abilityIDAsync, abilitiesAsync)
-            guard let abilityIDs, let abilities else {
-                throw URLError(.badServerResponse)
+            async let abilityIDAsync = openDota.abilityIDs()
+            async let abilitiesAsync = openDota.abilities()
+            guard let (abilityIDs, abilities) = try? await (abilityIDAsync, abilitiesAsync) else {
+                return [AbilityRecipe]()
             }
             return persistence.sortAbilities(abilityIDs: abilityIDs, abilities: abilities)
         } saving: { ability, context in
             self.logger.trace("Saving ability \(ability.abilityID)")
-            try persistence.save(abilityID: ability.abilityID, name: ability.name, data: ability.data, in: context, syncingLogger: syncingLogger)
+            try persistence.save(abilityID: ability.abilityID, name: ability.name, data: ability.data, in: context)
             try context.save()
         }
     }
@@ -118,7 +110,9 @@ class StaticDataSyncingService: ObservableObject {
         let language = self.language
         let persistence = self.persistence
         try await contextSaving(author: "Ability localization", fetchData: {
-            let stratzAbilities = try await stratz.abilities(language: language.language)
+            guard let stratzAbilities = try? await stratz.abilities(language: language.language) else {
+                return [SKAbility]()
+            }
             return stratzAbilities
         }) { ability, context in
             self.logger.trace("Saving ability localization \(ability.id)")
@@ -129,20 +123,18 @@ class StaticDataSyncingService: ObservableObject {
     
     private func syncHeroes() async throws {
         logger.trace("Start syncing heroes")
-        let syncingLogger = self.syncingLogger
         let persistenceProvider = persistence
         try await contextSaving(author: "Hero") {
-            guard let heroJSON = try await openDota.constants(service: .heroes) as? [String: Any] else {
+            async let heroesAsync = openDota.heroes()
+            async let abilitiesAsync = openDota.heroAbilities()
+            async let heroAdditionalDatasAsync = stratz.heroAdditionalData()
+            guard let (heroJSON, abilitiesJSON, heroAdditionalDatas) = try? await (heroesAsync, abilitiesAsync, heroAdditionalDatasAsync) else {
                 return [HeroRecipe]()
             }
-            guard let abilitiesJSON = try await openDota.constants(service: .heroAbilities) as? [String: Any] else {
-                return [HeroRecipe]()
-            }
-            let heroAdditionalDatas = try await stratz.heroAdditionalData()
             return persistence.sortHeroes(heroJSON: heroJSON, abilitiesJSON: abilitiesJSON, heroAdditionalDatas: heroAdditionalDatas)
         } saving: { (hero: HeroRecipe, context) in
             self.logger.trace("Saving hero \(hero.heroID)")
-            try persistenceProvider.save(hero: hero, in: context, logger: syncingLogger)
+            try persistenceProvider.save(hero: hero, in: context)
         }
     }
     
@@ -151,7 +143,9 @@ class StaticDataSyncingService: ObservableObject {
         let persistence = self.persistence
         let language = self.language
         try await contextSaving(author: "Hero Translations") {
-            let stratzHeroes = try await stratz.heroes(language: language.language)
+            guard let stratzHeroes = try? await stratz.heroes(language: language.language) else {
+                return [SKHero]()
+            }
             return stratzHeroes
         } saving: { hero, context in
             self.logger.trace("Saving hero translation \(hero.id)")
@@ -162,66 +156,12 @@ class StaticDataSyncingService: ObservableObject {
     
     private func contextSaving<T>(
         author: String,
-        fetchData: () async throws -> [T],
-        saving: @escaping (T, NSManagedObjectContext) throws -> ()
-    ) async throws {
-        if useV2 {
-            try await contextSavingV2(author: author, fetchData: fetchData, saving: saving)
-        } else {
-            try await contextSavingV1(author: author, fetchData: fetchData, saving: saving)
-        }
-    }
-    
-    private func contextSavingV1<T>(
-        author: String,
-        fetchData: () async throws -> [T],
+        fetchData: () async -> [T],
         saving: @escaping (T, NSManagedObjectContext) throws -> ()
     ) async throws {
         let maxConcurrent = self.maxConcurrent
         let savingContext = context.makeContext(author: author)
-        let results = try await fetchData()
-        updateSyncingProgress(name: author, total: results.count)
-        await withTaskGroup { [weak self] group in
-            var iterator = results.makeIterator()
-            for _ in 0..<maxConcurrent {
-                if let item = iterator.next() {
-                    group.addTask {
-                        let context = savingContext.makeContext()
-                        self?.updateSyncingProgress(updateCurrent: true)
-                        await context.perform {
-                            try? saving(item, context)
-                            try? context.save()
-                        }
-                    }
-                }
-            }
-            
-            while let _ = await group.next() {
-                if let item = iterator.next() {
-                    group.addTask {
-                        let context = savingContext.makeContext()
-                        self?.updateSyncingProgress(updateCurrent: true)
-                        await context.perform {
-                            try? saving(item, context)
-                            try? context.save()
-                        }
-                    }
-                }
-            }
-        }
-        try await savingContext.perform {
-            try savingContext.save()
-        }
-    }
-    
-    private func contextSavingV2<T>(
-        author: String,
-        fetchData: () async throws -> [T],
-        saving: @escaping (T, NSManagedObjectContext) throws -> ()
-    ) async throws {
-        let maxConcurrent = self.maxConcurrent
-        let savingContext = context.makeContext(author: author)
-        let results = try await fetchData()
+        let results = await fetchData()
         updateSyncingProgress(name: author, total: results.count)
         let resultsCount = results.count
         var itemsForEachArray = resultsCount / maxConcurrent
