@@ -25,13 +25,13 @@ struct AbilityDescriptionView: View {
                         .scaledToFit()
                         .frame(width: 18, height: 18)
                     Text(type.upgradeString)
-                        .font(.system(size: 15))
+                        .font(.subheadline)
                         .bold()
                     Spacer()
                 }
             }
             Text(description)
-                .font(.system(size: 13))
+                .font(.body)
             if let player {
                 HStack {
                     Spacer()
