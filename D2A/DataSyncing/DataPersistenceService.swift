@@ -233,29 +233,6 @@ class DataPersistenceService {
         setIfNotEqual(entity: ability, path: \.targetType, value: data.targetType?.joined(separator: " / "))
     }
     
-    private func setStringOrArray(entity: Ability, path: ReferenceWritableKeyPath<Ability, String?>, data: [String: Any], key: String) {
-        guard let value = fetchStringOrArray(data: data, key: key) else {
-            return
-        }
-        setIfNotEqual(entity: entity, path: path, value: value)
-    }
-    
-    private func fetchStringOrArray(data: [String: Any], key: String) -> String? {
-        guard let value = data[key] else {
-            return nil
-        }
-        
-        if let result = value as? String {
-            return result
-        }
-        
-        if let array = value as? [String] {
-            return array.joined(separator: " / ")
-        }
-        
-        return nil
-    }
-    
     func fetch(abilityID: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> AbilityTranslation? {
         let fetchRequest = AbilityTranslation.fetchRequest()
         let predicate = NSPredicate(format: "abilityID = %d AND language = %@", abilityID, language.rawValue)
