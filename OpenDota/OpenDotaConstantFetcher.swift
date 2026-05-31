@@ -9,8 +9,9 @@ import Networking
 import Foundation
 
 public protocol OpenDotaConstantFetching {
-    func heroes() async throws -> [String: ODHero]
     func abilities() async throws -> [String: ODAbility]
+    func abilityIDs() async throws -> [String: String]
+    func heroes() async throws -> [String: ODHero]
     func heroAbilities() async throws -> [String: ODHeroAbility]
 }
 
@@ -32,9 +33,14 @@ public class OpenDotaConstantFetcher: OpenDotaConstantFetching {
         self.apiClient = apiClient
     }
     
-    public func abilities() async throws -> [String : ODAbility] {
+    public func abilities() async throws -> [String: ODAbility] {
         let url = try createURL("abilities")
         return try await apiClient.url(url, decoder: decoder, as: [String: ODAbility].self)
+    }
+    
+    public func abilityIDs() async throws -> [String: String] {
+        let url = try createURL("ability_ids")
+        return try await apiClient.url(url, decoder: decoder, as: [String: String].self)
     }
     
     public func heroes() async throws -> [String: ODHero] {
