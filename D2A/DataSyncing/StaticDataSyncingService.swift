@@ -20,8 +20,6 @@ class StaticDataSyncingService: ObservableObject {
     
     let totalProcesses = 4
     
-    @Published var useV2 = true
-    
     private let openDota: OpenDotaConstantFetching
     private let stratz: StratzFetching
     private let language: DataLanguageEnum
@@ -157,60 +155,6 @@ class StaticDataSyncingService: ObservableObject {
     }
     
     private func contextSaving<T>(
-        author: String,
-        fetchData: () async -> [T],
-        saving: @escaping (T, NSManagedObjectContext) throws -> ()
-    ) async throws {
-        if useV2 {
-            try await contextSavingV2(author: author, fetchData: fetchData, saving: saving)
-        } else {
-            try await contextSavingV1(author: author, fetchData: fetchData, saving: saving)
-        }
-    }
-    
-    private func contextSavingV1<T>(
-        author: String,
-        fetchData: () async -> [T],
-        saving: @escaping (T, NSManagedObjectContext) throws -> ()
-    ) async throws {
-        let maxConcurrent = self.maxConcurrent
-        let savingContext = context.makeContext(author: author)
-        let results = await fetchData()
-        updateSyncingProgress(name: author, total: results.count)
-        await withTaskGroup { [weak self] group in
-            var iterator = results.makeIterator()
-            for _ in 0..<maxConcurrent {
-                if let item = iterator.next() {
-                    group.addTask {
-                        let context = savingContext.makeContext()
-                        self?.updateSyncingProgress(updateCurrent: true)
-                        await context.perform {
-                            try? saving(item, context)
-                            try? context.save()
-                        }
-                    }
-                }
-            }
-            
-            while let _ = await group.next() {
-                if let item = iterator.next() {
-                    group.addTask {
-                        let context = savingContext.makeContext()
-                        self?.updateSyncingProgress(updateCurrent: true)
-                        await context.perform {
-                            try? saving(item, context)
-                            try? context.save()
-                        }
-                    }
-                }
-            }
-        }
-        try await savingContext.perform {
-            try savingContext.save()
-        }
-    }
-    
-    private func contextSavingV2<T>(
         author: String,
         fetchData: () async -> [T],
         saving: @escaping (T, NSManagedObjectContext) throws -> ()
