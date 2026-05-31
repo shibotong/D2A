@@ -14,11 +14,10 @@ import TestKit
 struct SyncingDataTests {
     let service: StaticDataSyncingService
     let persistance: DataPersistenceService
-    let openDotaFetcher: MockOpenDotaFetcher
     
     init() {
         let syncingTimer = MockSyncingTimer()
-        openDotaFetcher = MockOpenDotaFetcher()
+        let openDotaFetcher = MockOpenDotaConstantFetcher()
         let stratzFetcher = MockStratzFetcher()
         persistance = DataPersistenceService.shared
         service = StaticDataSyncingService(
