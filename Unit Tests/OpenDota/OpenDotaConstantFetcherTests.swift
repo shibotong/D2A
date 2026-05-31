@@ -14,39 +14,50 @@ import Foundation
 struct OpenDotaConstantFetcherTests {
     
     let fetcher: OpenDotaConstantFetcher
-    let fileReader: FileReader
-    let baseURL = "https://api.opendota.com/api/constants"
     
     init() {
         fetcher = OpenDotaConstantFetcher(apiClient: MockAPIClient())
-        fileReader = .shared
-    }
-    
-    @Test("Hero data testing")
-    func heroesData() async throws {
-        let data = try fileReader.readFile("heroes")
+        let fileReader = FileReader.shared
         MockURLProtocol.requestHandler = { request in
-            let response = HTTPURLResponse(url: URL(string: "\(baseURL)/heroes")!,
-                                           statusCode: 200,
+            let headerFields = ["Content-Type": "application/json"]
+            let urlPath = request.url!.path
+            var statusCode = 200
+            let data: Data
+            switch urlPath {
+            case "/api/constants/heroes":
+                data = try! fileReader.readFile("heroes")
+            case "/api/constants/abilities":
+                data = try! fileReader.readFile("abilities")
+            case "/api/constants/hero_abilities":
+                data = try! fileReader.readFile("hero_abilities")
+            default:
+                statusCode = 401
+                data = "error".data(using: .utf8)!
+            }
+            let response = HTTPURLResponse(url: request.url!,
+                                           statusCode: statusCode,
                                            httpVersion: nil,
-                                           headerFields: ["Content-Type": "application/json"])!
+                                           headerFields: headerFields)!
             return(response, data)
         }
+        
+    }
+    
+    @Test("Test hero api")
+    func heroesData() async throws {
         let result = try await fetcher.heroes()
         #expect(result.count == 127)
     }
     
-    @Test("Ability data testing")
+    @Test("Test abilities api")
     func abilitiesData() async throws {
-        let data = try fileReader.readFile("abilities")
-        MockURLProtocol.requestHandler = { request in
-            let response = HTTPURLResponse(url: URL(string: "\(baseURL)/abilities")!,
-                                           statusCode: 200,
-                                           httpVersion: nil,
-                                           headerFields: ["Content-Type": "application/json"])!
-            return(response, data)
-        }
         let result = try await fetcher.abilities()
         #expect(result.count == 3084)
+    }
+    
+    @Test("Test hero_abilities api")
+    func heroAbilitiesData() async throws {
+        let result = try await fetcher.heroAbilities()
+        #expect(result.count == 127)
     }
 }
