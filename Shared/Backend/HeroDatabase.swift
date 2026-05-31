@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 import StratzAPI
+import OpenDota
 
 enum LoadingStatus {
     case loading, error, finish
@@ -81,14 +82,7 @@ class HeroDatabase: ObservableObject {
             self?.abilities = await abilities
             self?.heroAbilities = await heroAbilities
             self?.scepterData = await scepter
-            let status: LoadingStatus = self?.abilities.count == 0 ? .error : .finish
-            await self?.setStatus(status: status)
         }
-    }
-    
-    @MainActor
-    private func setStatus(status: LoadingStatus) {
-        openDotaLoadFinish = status
     }
     
     private func setupBinding() {
@@ -185,77 +179,6 @@ class HeroDatabase: ObservableObject {
     
     func fetchSearchedHeroes(text: String) -> [HeroCodable] {
         return []
-    }
-    
-    func getAbilityScepterDesc(ability: ODAbility, heroID: Int) -> String? {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
-            // Cannot find this hero
-            return nil
-        }
-        if ability.dname == hero.scepterSkillName {
-            return hero.scepterDesc
-        }
-        return nil
-    }
-    
-    func isScepterSkill(ability: ODAbility, heroID: Int) -> Bool {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
-            // Cannot find this hero
-            return false
-        }
-        return ability.dname == hero.scepterSkillName && hero.scepterNewSkill
-    }
-    
-    func isShardSkill(ability: ODAbility, heroID: Int) -> Bool {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
-            // Cannot find this hero
-            return false
-        }
-        return ability.dname == hero.shardSkillName && hero.shardNewSkill
-    }
-    
-    func hasScepter(ability: ODAbility, heroID: Int) -> Bool {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
-            // Cannot find this hero
-            return false
-        }
-        return ability.dname == hero.scepterSkillName
-    }
-    
-    func hasShard(ability: ODAbility, heroID: Int) -> Bool {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
-            // Cannot find this hero
-            return false
-        }
-        if ability.dname == hero.shardSkillName {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func getAbilityShardDesc(ability: ODAbility, heroID: Int) -> String? {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
-            // Cannot find this hero
-            return nil
-        }
-        if ability.dname == hero.shardSkillName {
-            print("\(hero.shardDesc)")
-            return hero.shardDesc
-        }
-        return nil
     }
     
     func getTalentDisplayName(id: Short) -> String {

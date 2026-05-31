@@ -317,7 +317,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				DataSyncing/DataPersistenceService.swift,
-				DataSyncing/DataSyncingLogger.swift,
 				DataSyncing/Recipe/AbilityRecipe.swift,
 				DataSyncing/Recipe/HeroRecipe.swift,
 				DataSyncing/SyncingTimer.swift,
@@ -335,7 +334,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				DataSyncing/DataPersistenceService.swift,
-				DataSyncing/DataSyncingLogger.swift,
 				DataSyncing/Recipe/AbilityRecipe.swift,
 				DataSyncing/Recipe/HeroRecipe.swift,
 				DataSyncing/SyncingTimer.swift,

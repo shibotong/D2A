@@ -22,7 +22,7 @@ class StaticDataSyncingService: ObservableObject {
     
     @Published var useV2 = true
     
-    private let openDota: OpenDotaFetching
+    private let openDota: OpenDotaConstantFetching
     private let stratz: StratzFetching
     private let language: DataLanguageEnum
     
@@ -33,8 +33,6 @@ class StaticDataSyncingService: ObservableObject {
     
     private let maxConcurrent: Int
     
-    private let syncingLogger: DataSyncingLogger?
-    
     private let persistence: DataPersistenceService
     private let notification: D2ANotification
     
@@ -42,14 +40,13 @@ class StaticDataSyncingService: ObservableObject {
     
     private var syncingActor: SyncingProgress = SyncingProgress()
     
-    init(openDota: OpenDotaFetching = OpenDotaFetcher.shared,
+    init(openDota: OpenDotaConstantFetching = OpenDotaConstantFetcher.shared,
          stratz: StratzFetching = StratzFetcher.shared,
          mainContext: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
          persistenceService: DataPersistenceService = .shared,
          appConfig: AppConfigProtocol = AppConfig.shared,
          logger: Logger = D2ALogger.syncing,
          notification: D2ANotification = .default,
-         syncingLogger: DataSyncingLogger? = nil,
          syncingTimer: SyncingTimerProtocol = SyncingTimer.shared) {
         self.openDota = openDota
         self.stratz = stratz
@@ -59,7 +56,6 @@ class StaticDataSyncingService: ObservableObject {
         self.maxConcurrent = appConfig.processors
         self.logger = logger
         self.notification = notification
-        self.syncingLogger = syncingLogger
         self.syncingTimer = syncingTimer
     }
     
@@ -97,19 +93,15 @@ class StaticDataSyncingService: ObservableObject {
     
     private func syncAbilities() async throws {
         logger.trace("Start syncing abilities")
-        let syncingLogger = self.syncingLogger
         let persistence = self.persistence
         try await contextSaving(author: "Ability") {
-            async let abilityIDAsync = openDota.constants(service: .abilityIDs) as? [String: String]
-            async let abilitiesAsync = openDota.constants(service: .abilities) as? [String: Any]
+            async let abilityIDAsync = openDota.abilityIDs()
+            async let abilitiesAsync = openDota.abilities()
             let (abilityIDs, abilities) = try await (abilityIDAsync, abilitiesAsync)
-            guard let abilityIDs, let abilities else {
-                throw URLError(.badServerResponse)
-            }
             return persistence.sortAbilities(abilityIDs: abilityIDs, abilities: abilities)
         } saving: { ability, context in
             self.logger.trace("Saving ability \(ability.abilityID)")
-            try persistence.save(abilityID: ability.abilityID, name: ability.name, data: ability.data, in: context, syncingLogger: syncingLogger)
+            try persistence.save(abilityID: ability.abilityID, name: ability.name, data: ability.data, in: context)
             try context.save()
         }
     }
@@ -129,20 +121,16 @@ class StaticDataSyncingService: ObservableObject {
     
     private func syncHeroes() async throws {
         logger.trace("Start syncing heroes")
-        let syncingLogger = self.syncingLogger
         let persistenceProvider = persistence
         try await contextSaving(author: "Hero") {
-            guard let heroJSON = try await openDota.constants(service: .heroes) as? [String: Any] else {
-                return [HeroRecipe]()
-            }
-            guard let abilitiesJSON = try await openDota.constants(service: .heroAbilities) as? [String: Any] else {
-                return [HeroRecipe]()
-            }
-            let heroAdditionalDatas = try await stratz.heroAdditionalData()
+            async let heroesAsync = openDota.heroes()
+            async let abilitiesAsync = openDota.heroAbilities()
+            async let heroAdditionalDatasAsync = stratz.heroAdditionalData()
+            let (heroJSON, abilitiesJSON, heroAdditionalDatas) = try await (heroesAsync, abilitiesAsync, heroAdditionalDatasAsync)
             return persistence.sortHeroes(heroJSON: heroJSON, abilitiesJSON: abilitiesJSON, heroAdditionalDatas: heroAdditionalDatas)
         } saving: { (hero: HeroRecipe, context) in
             self.logger.trace("Saving hero \(hero.heroID)")
-            try persistenceProvider.save(hero: hero, in: context, logger: syncingLogger)
+            try persistenceProvider.save(hero: hero, in: context)
         }
     }
     

@@ -7,17 +7,24 @@
 
 import Foundation
 import Stratz
+import OpenDota
 
 struct PreviewConstantData {
+    
+    private static let decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return decoder
+    }()
     
     static let abilityIDs: [String: String] = {
         let data = try! readFile("ability_ids")
         return try! JSONSerialization.jsonObject(with: data) as! [String: String]
     }()
     
-    static let abilities: [String: Any] = {
+    static let abilities: [String: ODAbility] = {
         let data = try! readFile("abilities")
-        return try! JSONSerialization.jsonObject(with: data) as! [String: Any]
+        return try! decoder.decode([String: ODAbility].self, from: data)
     }()
     
     static let abilityTranslation: [SKAbility] = [
@@ -111,14 +118,14 @@ struct PreviewConstantData {
     
     // MARK: heroes
     
-    static let heroes: [String: Any] = {
+    static let heroes: [String: ODHero] = {
         let data = try! readFile("heroes")
-        return try! JSONSerialization.jsonObject(with: data) as! [String: Any]
+        return try! decoder.decode([String: ODHero].self, from: data)
     }()
     
-    static let heroAbilities: [String: Any] = {
+    static let heroAbilities: [String: ODHeroAbility] = {
         let data = try! readFile("hero_abilities")
-        return try! JSONSerialization.jsonObject(with: data) as! [String: Any]
+        return try! decoder.decode([String: ODHeroAbility].self, from: data)
     }()
     
     static let heroAdditionalData = [SKHeroAdditional(heroID: 1,

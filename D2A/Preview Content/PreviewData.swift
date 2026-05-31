@@ -40,7 +40,7 @@ class PreviewData {
         let heroes = persistenceService.sortHeroes(heroJSON: heroJSON, abilitiesJSON: heroAbilitiesJSON, heroAdditionalDatas: heroAdditionalData)
         
         for hero in heroes {
-            try persistenceService.save(hero: hero, in: context, logger: nil)
+            try persistenceService.save(hero: hero, in: context)
         }
         
         let abilityTranslations = PreviewConstantData.abilityTranslation
