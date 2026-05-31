@@ -11,6 +11,7 @@ import Foundation
 public protocol OpenDotaConstantFetching {
     func heroes() async throws -> [String: ODHero]
     func abilities() async throws -> [String: ODAbility]
+    func heroAbilities() async throws -> [String: ODHeroAbility]
 }
 
 public class OpenDotaConstantFetcher: OpenDotaConstantFetching {
@@ -31,14 +32,19 @@ public class OpenDotaConstantFetcher: OpenDotaConstantFetching {
         self.apiClient = apiClient
     }
     
+    public func abilities() async throws -> [String : ODAbility] {
+        let url = try createURL("abilities")
+        return try await apiClient.url(url, decoder: decoder, as: [String: ODAbility].self)
+    }
+    
     public func heroes() async throws -> [String: ODHero] {
         let url = try createURL("heroes")
         return try await apiClient.url(url, decoder: decoder, as: [String: ODHero].self)
     }
     
-    public func abilities() async throws -> [String : ODAbility] {
-        let url = try createURL("abilities")
-        return try await apiClient.url(url, decoder: decoder, as: [String: ODAbility].self)
+    public func heroAbilities() async throws -> [String : ODHeroAbility] {
+        let url = try createURL("hero_abilities")
+        return try await apiClient.url(url, decoder: decoder, as: [String: ODHeroAbility].self)
     }
     
     private func createURL(_ path: String) throws -> URL {
