@@ -66,6 +66,6 @@ struct OpenDotaConstantFetcherTests {
     @Test("Test ability_ids api")
     func abilityIDsData() async throws {
         let result = try await fetcher.abilityIDs()
-        #expect(result.count == 127)
+        #expect(result.count == 3150)
     }
 }
