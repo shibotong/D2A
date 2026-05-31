@@ -97,7 +97,9 @@ class StaticDataSyncingService: ObservableObject {
         try await contextSaving(author: "Ability") {
             async let abilityIDAsync = openDota.abilityIDs()
             async let abilitiesAsync = openDota.abilities()
-            let (abilityIDs, abilities) = try await (abilityIDAsync, abilitiesAsync)
+            guard let (abilityIDs, abilities) = try? await (abilityIDAsync, abilitiesAsync) else {
+                return [AbilityRecipe]()
+            }
             return persistence.sortAbilities(abilityIDs: abilityIDs, abilities: abilities)
         } saving: { ability, context in
             self.logger.trace("Saving ability \(ability.abilityID)")
@@ -110,7 +112,9 @@ class StaticDataSyncingService: ObservableObject {
         let language = self.language
         let persistence = self.persistence
         try await contextSaving(author: "Ability localization", fetchData: {
-            let stratzAbilities = try await stratz.abilities(language: language.language)
+            guard let stratzAbilities = try? await stratz.abilities(language: language.language) else {
+                return [SKAbility]()
+            }
             return stratzAbilities
         }) { ability, context in
             self.logger.trace("Saving ability localization \(ability.id)")
@@ -126,7 +130,9 @@ class StaticDataSyncingService: ObservableObject {
             async let heroesAsync = openDota.heroes()
             async let abilitiesAsync = openDota.heroAbilities()
             async let heroAdditionalDatasAsync = stratz.heroAdditionalData()
-            let (heroJSON, abilitiesJSON, heroAdditionalDatas) = try await (heroesAsync, abilitiesAsync, heroAdditionalDatasAsync)
+            guard let (heroJSON, abilitiesJSON, heroAdditionalDatas) = try? await (heroesAsync, abilitiesAsync, heroAdditionalDatasAsync) else {
+                return [HeroRecipe]()
+            }
             return persistence.sortHeroes(heroJSON: heroJSON, abilitiesJSON: abilitiesJSON, heroAdditionalDatas: heroAdditionalDatas)
         } saving: { (hero: HeroRecipe, context) in
             self.logger.trace("Saving hero \(hero.heroID)")
@@ -139,7 +145,9 @@ class StaticDataSyncingService: ObservableObject {
         let persistence = self.persistence
         let language = self.language
         try await contextSaving(author: "Hero Translations") {
-            let stratzHeroes = try await stratz.heroes(language: language.language)
+            guard let stratzHeroes = try? await stratz.heroes(language: language.language) else {
+                return [SKHero]()
+            }
             return stratzHeroes
         } saving: { hero, context in
             self.logger.trace("Saving hero translation \(hero.id)")
@@ -150,7 +158,7 @@ class StaticDataSyncingService: ObservableObject {
     
     private func contextSaving<T>(
         author: String,
-        fetchData: () async throws -> [T],
+        fetchData: () async -> [T],
         saving: @escaping (T, NSManagedObjectContext) throws -> ()
     ) async throws {
         if useV2 {
@@ -162,12 +170,12 @@ class StaticDataSyncingService: ObservableObject {
     
     private func contextSavingV1<T>(
         author: String,
-        fetchData: () async throws -> [T],
+        fetchData: () async -> [T],
         saving: @escaping (T, NSManagedObjectContext) throws -> ()
     ) async throws {
         let maxConcurrent = self.maxConcurrent
         let savingContext = context.makeContext(author: author)
-        let results = try await fetchData()
+        let results = await fetchData()
         updateSyncingProgress(name: author, total: results.count)
         await withTaskGroup { [weak self] group in
             var iterator = results.makeIterator()
@@ -204,12 +212,12 @@ class StaticDataSyncingService: ObservableObject {
     
     private func contextSavingV2<T>(
         author: String,
-        fetchData: () async throws -> [T],
+        fetchData: () async -> [T],
         saving: @escaping (T, NSManagedObjectContext) throws -> ()
     ) async throws {
         let maxConcurrent = self.maxConcurrent
         let savingContext = context.makeContext(author: author)
-        let results = try await fetchData()
+        let results = await fetchData()
         updateSyncingProgress(name: author, total: results.count)
         let resultsCount = results.count
         var itemsForEachArray = resultsCount / maxConcurrent
