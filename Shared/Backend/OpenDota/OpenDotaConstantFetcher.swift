@@ -11,7 +11,6 @@ protocol OpenDotaConstantFetching {
     func abilities() async throws -> [String: ODAbilityV2]
     func abilityIds() async throws -> [String: String]
     func aghsDesc() async throws -> [ODAghsDesc]
-    func heroAbilities() async throws -> [ODHeroAbilities]
     func heroes() async throws -> [String: ODHero]
 }
 
@@ -37,10 +36,6 @@ class OpenDotaConstantFetcher: OpenDotaConstantFetching {
     
     func aghsDesc() async throws -> [ODAghsDesc] {
         return try await loadData(path: "aghs_desc")
-    }
-    
-    func heroAbilities() async throws -> [ODHeroAbilities] {
-        return try await loadData(path: "hero_abilities")
     }
     
     func heroes() async throws -> [String: ODHero] {
