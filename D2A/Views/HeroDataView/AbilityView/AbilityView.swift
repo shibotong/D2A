@@ -93,7 +93,7 @@ struct AbilityView: View {
     var body: some View {
         GeometryReader { proxy in
             ScrollView(.vertical, showsIndicators: false) {
-                VStack {
+                VStack(alignment: .leading, spacing: 20) {
                     AbilityTitleView(displayName: displayName,
                                      cd: cd,
                                      mc: mc,
@@ -104,22 +104,16 @@ struct AbilityView: View {
                                      dispellable: dispellable,
                                      damageType: damageType)
                     buildDescription(proxy: proxy)
-                    Spacer().frame(height: 10)
                     if let attributes {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 5) {
-                                ForEach(attributes, id: \.self) { item in
-                                    AbilityStatsTextView(title: item.name, message: item.description)
-                                }
+                        VStack(alignment: .leading, spacing: 5) {
+                            ForEach(attributes, id: \.self) { item in
+                                AbilityStatsTextView(title: item.name, message: item.description)
                             }
-                            Spacer()
                         }
                     }
-                    Spacer().frame(height: 10)
                     if let lore {
                         Text(lore)
-                            .font(.system(size: 10))
-                            .padding(8)
+                            .font(.caption)
                             .foregroundColor(Color(UIColor.tertiaryLabel))
                             .background(
                                 RoundedRectangle(cornerRadius: 5)
