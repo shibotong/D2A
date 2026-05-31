@@ -8,7 +8,7 @@
 import Testing
 @testable import OpenDota
 
-struct OpenDotaConstantsFetchingTests {
+struct RemoteOpenDotaConstantsTests {
     
     let fetcher: OpenDotaConstantFetcher
     
@@ -34,6 +34,13 @@ struct OpenDotaConstantsFetchingTests {
     func `hero abilities`() async throws {
         await #expect(throws: Never.self) {
             try await fetcher.heroAbilities()
+        }
+    }
+    
+    @Test
+    func `ability IDs`() async throws {
+        await #expect(throws: Never.self) {
+            try await fetcher.abilityIDs()
         }
     }
 }

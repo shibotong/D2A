@@ -30,6 +30,8 @@ struct OpenDotaConstantFetcherTests {
                 data = try! fileReader.readFile("abilities")
             case "/api/constants/hero_abilities":
                 data = try! fileReader.readFile("hero_abilities")
+            case "/api/constants/ability_ids":
+                data = try! fileReader.readFile("ability_ids")
             default:
                 statusCode = 401
                 data = "error".data(using: .utf8)!
@@ -59,5 +61,11 @@ struct OpenDotaConstantFetcherTests {
     func heroAbilitiesData() async throws {
         let result = try await fetcher.heroAbilities()
         #expect(result.count == 127)
+    }
+    
+    @Test("Test ability_ids api")
+    func abilityIDsData() async throws {
+        let result = try await fetcher.abilityIDs()
+        #expect(result.count == 3150)
     }
 }
