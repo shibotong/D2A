@@ -10,26 +10,28 @@ import CoreData
 
 class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
     
-    private let persistenceController = PersistenceProvider.shared
+    private let context: NSManagedObjectContext
     
-    func provideProfileOptionsCollection(for intent: DynamicUserSelectionIntent, with completion: @escaping (INObjectCollection<Profile>?, Error?) -> Void) {
-        let context = persistenceController.container.viewContext
+    init(viewContext: NSManagedObjectContext = PersistenceProvider.shared.mainContext) {
+        self.context = viewContext
+    }
+    
+    func provideProfileOptionsCollection(for intent: DynamicUserSelectionIntent) async throws -> INObjectCollection<Profile> {
         let fetchRequest: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
         
-        let results = try? context.fetch(fetchRequest)
+        let results = try context.fetch(fetchRequest)
 
-        let profiles: [Profile] = results?.filter({ !$0.register }).map { userProfile in
+        let profiles: [Profile] = results.filter({ !$0.register }).map { userProfile in
             return Profile(identifier: userProfile.id,
                            display: "\(userProfile.name ?? userProfile.personaname ?? "Unknown")",
                            subtitle: "\(userProfile.id?.description ?? "")",
                            image: nil)
-        } ?? []
+        }
         
-        guard let registerUserProfile = results?.first(where: { $0.register }) else {
+        guard let registerUserProfile = results.first(where: { $0.register }) else {
             let collection = INObjectCollection(items: profiles)
-            completion(collection, nil)
-            return
+            return collection
         }
         
         let registerProfile = Profile(identifier: registerUserProfile.id,
@@ -39,7 +41,7 @@ class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
         let registerSection = INObjectSection(title: "Registered", items: [registerProfile])
         let profileSection = INObjectSection(title: "Favorite Players", items: profiles)
         let collection = INObjectCollection(sections: [registerSection, profileSection])
-        completion(collection, nil)
+        return collection
     }
 
     override func handler(for intent: INIntent) -> Any {
