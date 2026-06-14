@@ -30,7 +30,8 @@ class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
         }
         
         guard let registerUserProfile = results.first(where: { $0.register }) else {
-            let collection = INObjectCollection(items: profiles)
+            let profileSection = INObjectSection(title: "Favorite Players", items: profiles)
+            let collection = INObjectCollection(sections: [profileSection])
             return collection
         }
         
@@ -39,6 +40,9 @@ class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
                                       subtitle: "\(registerUserProfile.id ?? "")",
                                       image: nil)
         let registerSection = INObjectSection(title: "Registered", items: [registerProfile])
+        if profiles.count == 0 {
+            return INObjectCollection(sections: [registerSection])
+        }
         let profileSection = INObjectSection(title: "Favorite Players", items: profiles)
         let collection = INObjectCollection(sections: [registerSection, profileSection])
         return collection
