@@ -101,8 +101,12 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "1"
+         BundleIdentifier = "com.shibodev.dotaarmory"
+         RemotePath = "/Users/shibotong/Library/Developer/CoreSimulator/Devices/CE816E2B-3E95-4420-AC45-C0AEC1E477C6/data/Containers/Bundle/Application/2C9C00F5-BE81-48CF-8BC6-E8B8B48DD73A/D2A.app">
+      </RemoteRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "32B36F0A26C38821002D427D"
@@ -110,7 +114,7 @@
             BlueprintName = "D2A"
             ReferencedContainer = "container:D2A.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
