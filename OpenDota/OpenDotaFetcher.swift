@@ -17,7 +17,7 @@ public class OpenDotaFetcher: OpenDotaFetching {
     
     private let apiClient: APIClientProtocol
     
-    private let baseURL = "https://api.opendota.com/api/"
+    private let baseURL = "https://api.opendota.com/api"
     
     public init(apiClient: APIClientProtocol = APIClient.shared) {
         self.apiClient = apiClient
