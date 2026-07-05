@@ -10,7 +10,6 @@ import TestKit
 import Foundation
 @testable import OpenDota
 
-@Suite(.serialized)
 struct OpenDotaConstantFetcherTests {
     
     let fetcher: OpenDotaConstantFetcher
