@@ -26,6 +26,7 @@ enum ScriptError: Error {
     case noLatestRelease
     case noHttpResponse
     case createRelease
+    case statusCode(Int)
 }
 
 func createRequest(_ url: URL, method: String) -> URLRequest {
@@ -91,10 +92,11 @@ do {
     createReleases.httpBody = body
     let (_, response) = try await URLSession.shared.data(for: createReleases)
     if let httpResponse = response as? HTTPURLResponse {
-        if httpResponse.statusCode != 200 {
-            throw ScriptError.createRelease
-        } else {
+        let statusCode = httpResponse.statusCode
+        if statusCode >= 200 && statusCode <= 299 {
             print("Create release success!")
+        } else {
+            throw ScriptError.statusCode(statusCode)
         }
     } else {
         throw ScriptError.noHttpResponse
