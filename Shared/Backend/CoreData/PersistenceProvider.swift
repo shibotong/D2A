@@ -130,7 +130,7 @@ class PersistenceProvider: PersistenceProviding {
     
     func deleteRecentMatchesForUserID(userID: String) {
         let viewContext = makeContext(author: userID)
-        weak var weakContext = viewContext
+        weak let weakContext = viewContext
         viewContext.perform { [weak self] in
             print("start removing recent matches for player \(userID)")
             let fetchRequest: NSFetchRequest<NSFetchRequestResult> = RecentMatch.fetchRequest()
