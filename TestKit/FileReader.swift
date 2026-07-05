@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class FileReader {
+public class FileReader: Sendable {
     
     public static let shared = FileReader()
     

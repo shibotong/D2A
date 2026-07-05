@@ -8,12 +8,13 @@
 import Foundation
 import OpenDota
 
-public struct MockOpenDotaConstantFetcher: OpenDotaConstantFetching {
+public struct MockOpenDotaFetcher: OpenDotaFetching {
     
     let fileReader: FileReader = .shared
-    let decoder: JSONDecoder = {
+    private let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .iso8601
         return decoder
     }()
     
@@ -37,5 +38,14 @@ public struct MockOpenDotaConstantFetcher: OpenDotaConstantFetching {
     public func heroAbilities() async throws -> [String : OpenDota.ODHeroAbility] {
         let data = try fileReader.readFile("hero_abilities")
         return try decoder.decode([String: ODHeroAbility].self, from: data)
+    }
+    
+    public func match(id: String) async throws -> [String : Any] {
+        return [:]
+    }
+    
+    public func profile(id: String) async throws -> OpenDota.ODUserProfile {
+        let data = try fileReader.readFile("player_yatoro")
+        return try decoder.decode(ODUserProfile.self, from: data)
     }
 }
