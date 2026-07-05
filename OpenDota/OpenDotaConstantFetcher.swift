@@ -21,12 +21,6 @@ public class OpenDotaConstantFetcher: OpenDotaConstantFetching {
     
     private let apiClient: APIClientProtocol
     
-    private let decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        return decoder
-    }()
-    
     private let baseURL = "https://api.opendota.com/api/constants"
     
     public init(apiClient: APIClientProtocol = APIClient.shared) {
@@ -35,22 +29,22 @@ public class OpenDotaConstantFetcher: OpenDotaConstantFetching {
     
     public func abilities() async throws -> [String: ODAbility] {
         let url = try createURL("abilities")
-        return try await apiClient.url(url, decoder: decoder, as: [String: ODAbility].self)
+        return try await apiClient.url(url, decoder: snakeDecoder, as: [String: ODAbility].self)
     }
     
     public func abilityIDs() async throws -> [String: String] {
         let url = try createURL("ability_ids")
-        return try await apiClient.url(url, decoder: decoder, as: [String: String].self)
+        return try await apiClient.url(url, decoder: snakeDecoder, as: [String: String].self)
     }
     
     public func heroes() async throws -> [String: ODHero] {
         let url = try createURL("heroes")
-        return try await apiClient.url(url, decoder: decoder, as: [String: ODHero].self)
+        return try await apiClient.url(url, decoder: snakeDecoder, as: [String: ODHero].self)
     }
     
     public func heroAbilities() async throws -> [String : ODHeroAbility] {
         let url = try createURL("hero_abilities")
-        return try await apiClient.url(url, decoder: decoder, as: [String: ODHeroAbility].self)
+        return try await apiClient.url(url, decoder: snakeDecoder, as: [String: ODHeroAbility].self)
     }
     
     private func createURL(_ path: String) throws -> URL {
