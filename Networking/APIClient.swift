@@ -23,8 +23,19 @@ extension APIClientProtocol {
     }
     
     public func request(_ request: URLRequest) async throws -> Data {
-        let (data, _) = try await urlSession.data(for: request)
-        return data
+        let (data, response) = try await urlSession.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            return data
+        }
+        
+        switch httpResponse.statusCode {
+        case 200:
+            return data
+        case 404:
+            throw URLError(URLError.Code(rawValue: 404), userInfo: ["error": "Not Found"])
+        default:
+            return data
+        }
     }
     
     public func request<T: Decodable & Sendable>(_ request: URLRequest, decoder: JSONDecoder, as type: T.Type) async throws -> T {
@@ -37,4 +48,8 @@ public class APIClient: APIClientProtocol {
     public static let shared = APIClient()
     
     public let urlSession: URLSession = .shared
+}
+
+extension URLError {
+    public static let notFound: URLError = URLError(URLError.Code(rawValue: 404), userInfo: ["error": "Not Found"])
 }

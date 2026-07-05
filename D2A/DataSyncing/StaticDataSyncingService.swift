@@ -20,7 +20,7 @@ class StaticDataSyncingService: ObservableObject {
     
     let totalProcesses = 4
     
-    private let openDota: OpenDotaConstantFetching
+    private let openDota: OpenDotaFetching
     private let stratz: StratzFetching
     private let language: DataLanguageEnum
     
@@ -38,7 +38,7 @@ class StaticDataSyncingService: ObservableObject {
     
     private var syncingActor: SyncingProgress = SyncingProgress()
     
-    init(openDota: OpenDotaConstantFetching = OpenDotaConstantFetcher.shared,
+    init(openDota: OpenDotaFetching = OpenDotaFetcher.shared,
          stratz: StratzFetching = StratzFetcher.shared,
          mainContext: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
          persistenceService: DataPersistenceService = .shared,
