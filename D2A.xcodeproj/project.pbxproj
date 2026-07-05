@@ -93,9 +93,7 @@
 		79D5281F28DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
 		79D5282028DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
 		79EB3BA02FCBF63F00FD9ECE /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
-		79EB3BA12FCBF63F00FD9ECE /* OpenDota.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		79EB3BA52FCBF64500FD9ECE /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
-		79EB3BA62FCBF64500FD9ECE /* OpenDota.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -262,28 +260,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				79D3F8052FB7F1B10069A605 /* Networking.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		79EB3BA42FCBF63F00FD9ECE /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				79EB3BA12FCBF63F00FD9ECE /* OpenDota.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		79EB3BA92FCBF64600FD9ECE /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				79EB3BA62FCBF64500FD9ECE /* OpenDota.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -756,7 +732,6 @@
 				32F70A9926F57F7E006E9B05 /* Sources */,
 				32F70A9A26F57F7E006E9B05 /* Frameworks */,
 				32F70A9B26F57F7E006E9B05 /* Resources */,
-				79EB3BA42FCBF63F00FD9ECE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -784,7 +759,6 @@
 				32F70AE226F61836006E9B05 /* Sources */,
 				32F70AE326F61836006E9B05 /* Frameworks */,
 				32F70AE426F61836006E9B05 /* Resources */,
-				79EB3BA92FCBF64600FD9ECE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
