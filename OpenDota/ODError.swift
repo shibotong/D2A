@@ -7,4 +7,5 @@
 
 public enum ODError: Error {
     case urlError
+    case dataIsNotJson
 }
