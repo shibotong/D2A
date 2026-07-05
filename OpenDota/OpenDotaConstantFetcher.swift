@@ -26,6 +26,13 @@ public class OpenDotaConstantFetcher: OpenDotaConstantFetching {
     
     private let baseURL = "https://api.opendota.com/api"
     
+    private let snakeDecoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }()
+    
     public init(apiClient: APIClientProtocol = APIClient.shared) {
         self.apiClient = apiClient
     }

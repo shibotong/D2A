@@ -6,6 +6,7 @@
 //
 
 import Testing
+import Foundation
 @testable import OpenDota
 
 struct RemoteOpenDotaConstantsTests {
@@ -41,6 +42,20 @@ struct RemoteOpenDotaConstantsTests {
     func `ability IDs`() async throws {
         await #expect(throws: Never.self) {
             try await fetcher.abilityIDs()
+        }
+    }
+    
+    @Test
+    func `Yatoro profile`() async {
+        await #expect(throws: Never.self) {
+            let _ = try await fetcher.profile(id: "321580662")
+        }
+    }
+    
+    @Test
+    func `Not Found Profiles`() async {
+        await #expect(throws: URLError.notFound) {
+            let _ = try await fetcher.profile(id: "123123131")
         }
     }
 }
