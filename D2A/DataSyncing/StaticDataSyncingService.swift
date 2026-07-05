@@ -195,7 +195,7 @@ class StaticDataSyncingService: ObservableObject {
     nonisolated
     private func updateSyncingProgress(name: String? = nil, total: Int? = nil, updateCurrent: Bool = false) {
         Task { @MainActor in
-            if let name {
+            if name != nil {
                 await syncingActor.setProcess()
             }
             if let total {

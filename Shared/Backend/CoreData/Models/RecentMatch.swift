@@ -23,7 +23,7 @@ extension RecentMatch {
     
     static func create(_ matches: [RecentMatchCodable]) async throws {
         let viewContext = PersistenceProvider.shared.makeContext(author: "RecentMatch")
-        weak var weakContext = viewContext
+        weak let weakContext = viewContext
         try await viewContext.perform {
             guard let strongContext = weakContext else {
                 return
