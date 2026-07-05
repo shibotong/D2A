@@ -13,6 +13,9 @@ public protocol OpenDotaConstantFetching {
     func abilityIDs() async throws -> [String: String]
     func heroes() async throws -> [String: ODHero]
     func heroAbilities() async throws -> [String: ODHeroAbility]
+    
+    func match(id: String) async throws -> [String: Any]
+    func profile(id: String) async throws -> ODUserProfile
 }
 
 public class OpenDotaConstantFetcher: OpenDotaConstantFetching {
@@ -21,30 +24,48 @@ public class OpenDotaConstantFetcher: OpenDotaConstantFetching {
     
     private let apiClient: APIClientProtocol
     
-    private let baseURL = "https://api.opendota.com/api/constants"
+    private let baseURL = "https://api.opendota.com/api"
     
     public init(apiClient: APIClientProtocol = APIClient.shared) {
         self.apiClient = apiClient
     }
     
+    // MARK: - Constants
+    
     public func abilities() async throws -> [String: ODAbility] {
-        let url = try createURL("abilities")
+        let url = try createURL("constants/abilities")
         return try await apiClient.url(url, decoder: snakeDecoder, as: [String: ODAbility].self)
     }
     
     public func abilityIDs() async throws -> [String: String] {
-        let url = try createURL("ability_ids")
+        let url = try createURL("constants/ability_ids")
         return try await apiClient.url(url, decoder: snakeDecoder, as: [String: String].self)
     }
     
     public func heroes() async throws -> [String: ODHero] {
-        let url = try createURL("heroes")
+        let url = try createURL("constants/heroes")
         return try await apiClient.url(url, decoder: snakeDecoder, as: [String: ODHero].self)
     }
     
     public func heroAbilities() async throws -> [String : ODHeroAbility] {
-        let url = try createURL("hero_abilities")
+        let url = try createURL("constants/hero_abilities")
         return try await apiClient.url(url, decoder: snakeDecoder, as: [String: ODHeroAbility].self)
+    }
+    
+    // MARK: - OpenDota
+    
+    public func match(id: String) async throws -> [String : Any] {
+        let url = try createURL("matches/\(id)")
+        let data = try await apiClient.url(url)
+        guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            throw ODError.dataIsNotJson
+        }
+        return json
+    }
+    
+    public func profile(id: String) async throws -> ODUserProfile {
+        let url = try createURL("players/\(id)")
+        return try await apiClient.url(url, decoder: snakeDecoder, as: ODUserProfile.self)
     }
     
     private func createURL(_ path: String) throws -> URL {
