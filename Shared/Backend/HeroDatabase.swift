@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 import StratzAPI
+import OpenDota
 
 enum LoadingStatus {
     case loading, error, finish
@@ -65,8 +66,6 @@ class HeroDatabase: ObservableObject {
         regions = loadRegion()!
         lobbyTypes = loadLobby()!
         
-        loadStratzAbilities()
-        
         Task { [weak self] in
             async let idTable = loadItemIDs()
             async let items = loadItems()
@@ -83,14 +82,7 @@ class HeroDatabase: ObservableObject {
             self?.abilities = await abilities
             self?.heroAbilities = await heroAbilities
             self?.scepterData = await scepter
-            let status: LoadingStatus = self?.abilities.count == 0 ? .error : .finish
-            await self?.setStatus(status: status)
         }
-    }
-    
-    @MainActor
-    private func setStatus(status: LoadingStatus) {
-        openDotaLoadFinish = status
     }
     
     private func setupBinding() {
@@ -189,114 +181,10 @@ class HeroDatabase: ObservableObject {
         return []
     }
     
-    func getAbilityScepterDesc(ability: ODAbility, heroID: Int) -> String? {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
-            // Cannot find this hero
-            return nil
-        }
-        if ability.dname == hero.scepterSkillName {
-            return hero.scepterDesc
-        }
-        return nil
-    }
-    
-    func isScepterSkill(ability: ODAbility, heroID: Int) -> Bool {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
-            // Cannot find this hero
-            return false
-        }
-        return ability.dname == hero.scepterSkillName && hero.scepterNewSkill
-    }
-    
-    func isShardSkill(ability: ODAbility, heroID: Int) -> Bool {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
-            // Cannot find this hero
-            return false
-        }
-        return ability.dname == hero.shardSkillName && hero.shardNewSkill
-    }
-    
-    func hasScepter(ability: ODAbility, heroID: Int) -> Bool {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
-            // Cannot find this hero
-            return false
-        }
-        return ability.dname == hero.scepterSkillName
-    }
-    
-    func hasShard(ability: ODAbility, heroID: Int) -> Bool {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
-            // Cannot find this hero
-            return false
-        }
-        if ability.dname == hero.shardSkillName {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func getAbilityShardDesc(ability: ODAbility, heroID: Int) -> String? {
-        guard let hero = scepterData.filter({ scepter in
-            scepter.id == heroID
-        }).first else {
-            // Cannot find this hero
-            return nil
-        }
-        if ability.dname == hero.shardSkillName {
-            print("\(hero.shardDesc)")
-            return hero.shardDesc
-        }
-        return nil
-    }
-    
     func getTalentDisplayName(id: Short) -> String {
         let talent = apolloAbilities.first { ability in
             return ability.id == id
         }
         return talent?.language?.displayName ?? "Fetch String Error"
-    }
-    
-    // MARK: - private functions
-    private func loadStratzAbilities() {
-        Network.shared.apollo.fetch(query: AbilityQuery(language: .init(languageCode))) { [weak self] result in
-            switch result {
-            case .success(let graphQLResult):
-                if let abilitiesConnection = graphQLResult.data?.constants?.abilities {
-                    let abilities = abilitiesConnection.compactMap({ $0 })
-                    self?.apolloAbilities = abilities
-                    DispatchQueue.main.async {
-                        self?.stratzLoadFinish = .finish
-                    }
-                }
-                
-                if let errors = graphQLResult.errors {
-                    let message = errors
-                        .map { $0.localizedDescription }
-                        .joined(separator: "\n")
-                    DispatchQueue.main.async {
-                        self?.stratzLoadFinish = .error
-                    }
-                    print(message)
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-                DotaEnvironment.shared.error = true
-                DotaEnvironment.shared.errorMessage = error.localizedDescription
-                DispatchQueue.main.async {
-                    self?.stratzLoadFinish = .error
-                }
-            }
-        }
     }
 }

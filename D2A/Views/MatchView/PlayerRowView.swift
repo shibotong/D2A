@@ -231,7 +231,7 @@ struct PlayerRowView: View {
         if let abilityName = HeroDatabase.shared.fetchAbilityName(id: abilityID) {
             if let ability = HeroDatabase.shared.fetchOpenDotaAbility(name: abilityName) {
                 if let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!" {
-                    let parsedimgURL = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+                    let _ = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
                     AbilityImage(name: abilityName)
                         .frame(width: 40, height: 40)
                 } else {

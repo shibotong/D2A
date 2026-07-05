@@ -27,10 +27,6 @@ struct DebugPanelView: View {
                 } label: {
                     Text("Resync Constant Data")
                 }
-                
-                Toggle(isOn: $syncingService.useV2) {
-                    Text("Use V2 Syncing")
-                }
             } header: {
                 Text("Constant Data")
             }

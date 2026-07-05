@@ -2,10 +2,11 @@
 //  ReadData.swift
 //  Dota Portfolio
 //
-//  Created by 佟诗博 on 4/7/21.
+//  Created by Shibo Tong on 4/7/21.
 //
 
 import Foundation
+import OpenDota
 
 private func loadFile(filename: String) -> Data? {
     if let path = Bundle.main.url(forResource: filename, withExtension: "json") {

@@ -5,18 +5,18 @@
 //  Created by Shibo Tong on 25/3/2026.
 //
 
-import StratzAPI
+import Stratz
 
 enum DataLanguageEnum: String, CaseIterable {
     case english
     case schinese
     
-    var language: LanguageEnum {
+    var language: StratzLanguage {
         switch self {
         case .english:
             return .english
         case .schinese:
-            return .sChinese
+            return .schinese
         }
     }
 }

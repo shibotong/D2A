@@ -5,8 +5,10 @@
 //  Created by Shibo Tong on 20/4/2026.
 //
 
+import OpenDota
+
 struct AbilityRecipe {
     let abilityID: Int
     let name: String
-    let data: [String: Any]
+    let data: ODAbility
 }

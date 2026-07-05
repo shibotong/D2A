@@ -7,6 +7,8 @@
 
 import CoreData
 import Logging
+import OpenDota
+import Stratz
 
 class DataPersistenceService {
     
@@ -18,10 +20,10 @@ class DataPersistenceService {
         self.logger = logger
     }
     
-    func sortAbilities(abilityIDs: [String: String], abilities: [String: Any]) -> [AbilityRecipe] {
+    func sortAbilities(abilityIDs: [String: String], abilities: [String: ODAbility]) -> [AbilityRecipe] {
         var results: [AbilityRecipe] = []
         for (abilityIDString, name) in abilityIDs {
-            guard let ability = abilities[name] as? [String: Any] else {
+            guard let ability = abilities[name] else {
                 logger.trace("Not able to find abiilty from data: \(name)")
                 continue
             }
@@ -38,10 +40,10 @@ class DataPersistenceService {
         return results
     }
     
-    func sortHeroes(heroJSON: [String: Any], abilitiesJSON: [String: Any], heroAdditionalDatas: [SKHeroAdditional]) -> [HeroRecipe] {
+    func sortHeroes(heroJSON: [String: ODHero], abilitiesJSON: [String: ODHeroAbility], heroAdditionalDatas: [SKHeroAdditional]) -> [HeroRecipe] {
         var heroes: [HeroRecipe] = []
         for heroAdditionalData in heroAdditionalDatas {
-            guard let heroData = heroJSON["\(heroAdditionalData.heroID)"] as? [String: Any], let abilities = abilitiesJSON[heroAdditionalData.name] as? [String: Any] else {
+            guard let heroData = heroJSON["\(heroAdditionalData.heroID)"], let abilities = abilitiesJSON[heroAdditionalData.name] else {
                 logger.warning("hero is not valid")
                 continue
             }
@@ -58,48 +60,39 @@ class DataPersistenceService {
         return results.first
     }
     
-    func save(hero receipe: HeroRecipe, in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws {
-        try save(heroID: receipe.heroID, data: receipe.data, abilities: receipe.abilities, additional: receipe.additionalData, in: context, logger: logger)
+    func save(hero receipe: HeroRecipe, in context: NSManagedObjectContext) throws {
+        try save(heroID: receipe.heroID, data: receipe.data, abilities: receipe.abilities, additional: receipe.additionalData, in: context)
     }
         
-    private func save(heroID: Int, data: [String: Any], abilities: [String: Any], additional: SKHeroAdditional, in context: NSManagedObjectContext, logger: DataSyncingLogger?) throws {
+    private func save(heroID: Int, data: ODHero, abilities: ODHeroAbility, additional: SKHeroAdditional, in context: NSManagedObjectContext) throws {
         let hero = try fetch(heroID: heroID, context: context) ?? Hero(context: context)
         
-        var closure: ((String) -> ())?
-        if let logger {
-            closure = { key in
-                Task {
-                    await logger.addError(type: .hero, error: .dataType, key: key)
-                }
-            }
-        }
-        
         setIfNotEqual(entity: hero, path: \.id, value: Double(heroID))
-        setIfExist(entity: hero, path: \.name, data: data, key: "name", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.primaryAttr, data: data, key: "primary_attr", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.attackType, data: data, key: "attack_type", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.displayName, data: data, key: "localized_name", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.baseHealth, data: data, key: "base_health", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.baseHealthRegen, data: data, key: "base_health_regen", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.baseMana, data: data, key: "base_mana", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.baseManaRegen, data: data, key: "base_mana_regen", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.baseArmor, data: data, key: "base_armor", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.baseMr, data: data, key: "base_mr", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.baseAttackMin, data: data, key: "base_attack_min", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.baseAttackMax, data: data, key: "base_attack_max", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.baseStr, data: data, key: "base_str", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.baseAgi, data: data, key: "base_agi", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.baseInt, data: data, key: "base_int", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.gainStr, data: data, key: "str_gain", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.gainAgi, data: data, key: "agi_gain", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.gainInt, data: data, key: "int_gain", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.attackRange, data: data, key: "attack_range", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.projectileSpeed, data: data, key: "projectile_speed")
-        setIfExist(entity: hero, path: \.attackRate, data: data, key: "attack_rate", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.moveSpeed, data: data, key: "move_speed", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.turnRate, data: data, key: "turn_rate", defaultValue: 0.6, errorCompletion: closure)
-        setIfExist(entity: hero, path: \.visionDaytimeRange, data: data, key: "day_vision", errorCompletion: closure)
-        setIfExist(entity: hero, path: \.visionNighttimeRange, data: data, key: "night_vision", errorCompletion: closure)
+        setIfNotEqual(entity: hero, path: \.name, value: data.name)
+        setIfNotEqual(entity: hero, path: \.primaryAttr, value: data.primaryAttr)
+        setIfNotEqual(entity: hero, path: \.attackType, value: data.attackType)
+        setIfNotEqual(entity: hero, path: \.displayName, value: data.localizedName)
+        setIfNotEqual(entity: hero, path: \.baseHealth, value: Int32(data.baseHealth))
+        setIfNotEqual(entity: hero, path: \.baseHealthRegen, value: data.baseHealthRegen)
+        setIfNotEqual(entity: hero, path: \.baseMana, value: Int32(data.baseMana))
+        setIfNotEqual(entity: hero, path: \.baseManaRegen, value: data.baseManaRegen)
+        setIfNotEqual(entity: hero, path: \.baseArmor, value: Double(data.baseArmor))
+        setIfNotEqual(entity: hero, path: \.baseMr, value: Int32(data.baseMr))
+        setIfNotEqual(entity: hero, path: \.baseAttackMin, value: Int32(data.baseAttackMin))
+        setIfNotEqual(entity: hero, path: \.baseAttackMax, value: Int32(data.baseAttackMax))
+        setIfNotEqual(entity: hero, path: \.baseStr, value: Int32(data.baseStr))
+        setIfNotEqual(entity: hero, path: \.baseAgi, value: Int32(data.baseAgi))
+        setIfNotEqual(entity: hero, path: \.baseInt, value: Int32(data.baseInt))
+        setIfNotEqual(entity: hero, path: \.gainStr, value: data.strGain)
+        setIfNotEqual(entity: hero, path: \.gainAgi, value: data.agiGain)
+        setIfNotEqual(entity: hero, path: \.gainInt, value: data.intGain)
+        setIfNotEqual(entity: hero, path: \.attackRange, value: Int32(data.attackRange))
+        setIfNotEqual(entity: hero, path: \.projectileSpeed, value: Int32(data.projectileSpeed))
+        setIfNotEqual(entity: hero, path: \.attackRate, value: data.attackRate)
+        setIfNotEqual(entity: hero, path: \.moveSpeed, value: Int32(data.moveSpeed))
+        setIfNotEqual(entity: hero, path: \.turnRate, value: data.turnRate)
+        setIfNotEqual(entity: hero, path: \.visionDaytimeRange, value: Double(data.dayVision))
+        setIfNotEqual(entity: hero, path: \.visionNighttimeRange, value: Double(data.nightVision))
         
         // addtional data
         setIfNotEqual(entity: hero, path: \.complexity, value: Int16(additional.complexity))
@@ -113,37 +106,34 @@ class DataPersistenceService {
         setIfNotEqual(entity: hero, path: \.rolePusher, value: Int16(findRole(role: .pusher, roles: additional.roles)))
         setIfNotEqual(entity: hero, path: \.roleInitiator, value: Int16(findRole(role: .initiator, roles: additional.roles)))
         
-        if let abilityNames = abilities["abilities"] as? [String], let abilities = try? fetch(abilities: abilityNames, context: context, ordered: true) {
+        if let abilities = try? fetch(abilities: abilities.abilities, context: context, ordered: true) {
             hero.abilities = NSOrderedSet(array: abilities)
         }
         
         // abilities
-        if let talents = abilities["talents"] as? [[String: Any]] {
-            for (index, talent) in talents.enumerated() {
-                guard let abilityName = talent["name"] as? String else {
-                    continue
-                }
-                let ability = try fetch(ability: abilityName, context: context)
-                switch index {
-                case 0:
-                    setIfNotEqual(entity: hero, path: \.talent1right, value: ability)
-                case 1:
-                    setIfNotEqual(entity: hero, path: \.talent1left, value: ability)
-                case 2:
-                    setIfNotEqual(entity: hero, path: \.talent2right, value: ability)
-                case 3:
-                    setIfNotEqual(entity: hero, path: \.talent2left, value: ability)
-                case 4:
-                    setIfNotEqual(entity: hero, path: \.talent3right, value: ability)
-                case 5:
-                    setIfNotEqual(entity: hero, path: \.talent3left, value: ability)
-                case 6:
-                    setIfNotEqual(entity: hero, path: \.talent4right, value: ability)
-                case 7:
-                    setIfNotEqual(entity: hero, path: \.talent4left, value: ability)
-                default:
-                    continue
-                }
+        let talents = abilities.talents
+        for (index, talent) in talents.enumerated() {
+            let abilityName = talent.name
+            let ability = try fetch(ability: abilityName, context: context)
+            switch index {
+            case 0:
+                setIfNotEqual(entity: hero, path: \.talent1right, value: ability)
+            case 1:
+                setIfNotEqual(entity: hero, path: \.talent1left, value: ability)
+            case 2:
+                setIfNotEqual(entity: hero, path: \.talent2right, value: ability)
+            case 3:
+                setIfNotEqual(entity: hero, path: \.talent2left, value: ability)
+            case 4:
+                setIfNotEqual(entity: hero, path: \.talent3right, value: ability)
+            case 5:
+                setIfNotEqual(entity: hero, path: \.talent3left, value: ability)
+            case 6:
+                setIfNotEqual(entity: hero, path: \.talent4right, value: ability)
+            case 7:
+                setIfNotEqual(entity: hero, path: \.talent4left, value: ability)
+            default:
+                continue
             }
         }
     }
@@ -226,49 +216,21 @@ class DataPersistenceService {
         return try context.fetch(fetchRequest)
     }
     
-    func save(abilityID: Int, name: String, data: [String: Any], in context: NSManagedObjectContext, syncingLogger: DataSyncingLogger? = nil) throws {
+    func save(abilityID: Int, name: String, data: ODAbility, in context: NSManagedObjectContext) throws {
         let ability = try fetch(abilityID: abilityID, context: context) ?? Ability(context: context)
         setIfNotEqual(entity: ability, path: \.name, value: name)
         setIfNotEqual(entity: ability, path: \.abilityID, value: Int16(abilityID))
-        setStringOrArray(entity: ability, path: \.behavior, data: data, key: "behavior", syncingLogger: syncingLogger)
-        setStringOrArray(entity: ability, path: \.bkbPierce, data: data, key: "behavior", syncingLogger: syncingLogger)
-        setStringOrArray(entity: ability, path: \.coolDown, data: data, key: "cd", syncingLogger: syncingLogger)
-        setStringOrArray(entity: ability, path: \.damageType, data: data, key: "dmg_type", syncingLogger: syncingLogger)
-        setStringOrArray(entity: ability, path: \.damageType, data: data, key: "dmg_type", syncingLogger: syncingLogger)
-        setIfExist(entity: ability, path: \.desc, data: data, key: "desc")
-        setIfExist(entity: ability, path: \.dispellable, data: data, key: "dispellable")
-        setIfExist(entity: ability, path: \.dname, data: data, key: "dname")
-        setIfExist(entity: ability, path: \.lore, data: data, key: "lore")
-        setStringOrArray(entity: ability, path: \.manaCost, data: data, key: "mc", syncingLogger: syncingLogger)
-        setStringOrArray(entity: ability, path: \.targetTeam, data: data, key: "target_team", syncingLogger: syncingLogger)
-        setStringOrArray(entity: ability, path: \.targetType, data: data, key: "target_type", syncingLogger: syncingLogger)
-    }
-    
-    private func setStringOrArray(entity: Ability, path: ReferenceWritableKeyPath<Ability, String?>, data: [String: Any], key: String, syncingLogger: DataSyncingLogger? = nil) {
-        guard let value = fetchStringOrArray(data: data, key: key, logger: syncingLogger) else {
-            return
-        }
-        setIfNotEqual(entity: entity, path: path, value: value)
-    }
-    
-    private func fetchStringOrArray(data: [String: Any], key: String, logger: DataSyncingLogger? = nil) -> String? {
-        guard let value = data[key] else {
-            return nil
-        }
-        
-        if let result = value as? String {
-            return result
-        }
-        
-        if let array = value as? [String] {
-            return array.joined(separator: " / ")
-        }
-        
-        Task {
-            await logger?.addError(type: .ability, error: .dataType, key: key)
-        }
-        
-        return nil
+        setIfNotEqual(entity: ability, path: \.behavior, value: data.behavior?.joined(separator: " / "))
+        setIfNotEqual(entity: ability, path: \.bkbPierce, value: data.bkbpierce?.joined(separator: " / "))
+        setIfNotEqual(entity: ability, path: \.coolDown, value: data.cd?.joined(separator: " / "))
+        setIfNotEqual(entity: ability, path: \.damageType, value: data.dmgType?.joined(separator: " / "))
+        setIfNotEqual(entity: ability, path: \.desc, value: data.desc)
+        setIfNotEqual(entity: ability, path: \.dispellable, value: data.dispellable)
+        setIfNotEqual(entity: ability, path: \.dname, value: data.dname)
+        setIfNotEqual(entity: ability, path: \.lore, value: data.lore)
+        setIfNotEqual(entity: ability, path: \.manaCost, value: data.mc?.joined(separator: " / "))
+        setIfNotEqual(entity: ability, path: \.targetTeam, value: data.targetTeam?.joined(separator: " / "))
+        setIfNotEqual(entity: ability, path: \.targetType, value: data.targetType?.joined(separator: " / "))
     }
     
     func fetch(abilityID: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> AbilityTranslation? {

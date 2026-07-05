@@ -61,7 +61,7 @@ class PersistenceProvider: PersistenceProviding {
         return container.viewContext
     }
 
-    init(inMemory: Bool = uiTesting ? true : false) {
+    init(inMemory: Bool = isRunningTests ? true : false) {
         container = NSPersistentContainer(name: "D2AModel")
         container.viewContext.automaticallyMergesChangesFromParent = true
         loadContainer(inMemory: inMemory)
@@ -130,7 +130,7 @@ class PersistenceProvider: PersistenceProviding {
     
     func deleteRecentMatchesForUserID(userID: String) {
         let viewContext = makeContext(author: userID)
-        weak var weakContext = viewContext
+        weak let weakContext = viewContext
         viewContext.perform { [weak self] in
             print("start removing recent matches for player \(userID)")
             let fetchRequest: NSFetchRequest<NSFetchRequestResult> = RecentMatch.fetchRequest()

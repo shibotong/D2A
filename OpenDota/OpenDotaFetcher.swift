@@ -1,28 +1,35 @@
 //
 //  OpenDotaFetcher.swift
-//  OpenDota
+//  D2A
 //
-//  Created by Shibo Tong on 1/5/2026.
+//  Created by Shibo Tong on 5/7/2026.
 //
 
+import Networking
 import Foundation
 
-nonisolated
 public protocol OpenDotaFetching {
-    func constants(service: OpenDotaFetcher.ConstantService) async throws -> Any
+    func match(id: String) async throws -> [String: Any]
 }
 
 public class OpenDotaFetcher: OpenDotaFetching {
-    nonisolated public static let shared = OpenDotaFetcher()
     
-    private let baseURL = "https://api.opendota.com"
+    private let apiClient: APIClientProtocol
     
-    public func constants(service: ConstantService) async throws -> Any {
-        guard let url = URL(string: "\(baseURL)/api/constants/\(service.rawValue)") else {
-            throw URLError(.badURL)
+    private let baseURL = "https://api.opendota.com/api/"
+    
+    public init(apiClient: APIClientProtocol = APIClient.shared) {
+        self.apiClient = apiClient
+    }
+    
+    public func match(id: String) async throws -> [String: Any] {
+        guard let url = URL(string: "\(baseURL)/matches/\(id)") else {
+            throw ODError.urlError
         }
-        let (data, _) = try await URLSession.shared.data(from: url)
-        return try JSONSerialization.jsonObject(with: data)
+        let data = try await apiClient.url(url)
+        guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            throw ODError.dataIsNotJson
+        }
+        return json
     }
 }
-
