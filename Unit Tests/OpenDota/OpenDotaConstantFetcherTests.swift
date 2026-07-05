@@ -10,12 +10,12 @@ import TestKit
 import Foundation
 @testable import OpenDota
 
-struct OpenDotaConstantFetcherTests {
+struct OpenDotaFetcherTests {
     
-    let fetcher: OpenDotaConstantFetcher
+    let fetcher: OpenDotaFetcher
     
     init() {
-        fetcher = OpenDotaConstantFetcher(apiClient: MockAPIClient())
+        fetcher = OpenDotaFetcher(apiClient: MockAPIClient())
         let fileReader = FileReader.shared
         MockURLProtocol.requestHandler = { request in
             let headerFields = ["Content-Type": "application/json"]

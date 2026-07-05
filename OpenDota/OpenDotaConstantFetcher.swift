@@ -8,7 +8,7 @@
 import Networking
 import Foundation
 
-public protocol OpenDotaConstantFetching {
+public protocol OpenDotaFetching {
     func abilities() async throws -> [String: ODAbility]
     func abilityIDs() async throws -> [String: String]
     func heroes() async throws -> [String: ODHero]
@@ -18,9 +18,9 @@ public protocol OpenDotaConstantFetching {
     func profile(id: String) async throws -> ODUserProfile
 }
 
-public class OpenDotaConstantFetcher: OpenDotaConstantFetching {
+public class OpenDotaFetcher: OpenDotaFetching {
     
-    public static let shared = OpenDotaConstantFetcher()
+    public static let shared = OpenDotaFetcher()
     
     private let apiClient: APIClientProtocol
     

@@ -1,5 +1,5 @@
 //
-//  OpenDotaConstantsFetchingTests.swift
+//  RemoteOpenDotaFetcherTests.swift
 //  Unit Tests
 //
 //  Created by Shibo Tong on 24/3/2026.
@@ -9,12 +9,12 @@ import Testing
 import Foundation
 @testable import OpenDota
 
-struct RemoteOpenDotaConstantsTests {
+struct RemoteOpenDotaFetcherTests {
     
-    let fetcher: OpenDotaConstantFetcher
+    let fetcher: OpenDotaFetcher
     
     init() {
-        fetcher = OpenDotaConstantFetcher()
+        fetcher = OpenDotaFetcher()
     }
 
     @Test
