@@ -19,7 +19,7 @@ func setIfExist<T: Any, V: Equatable>(entity: T, path: ReferenceWritableKeyPath<
     }
     
     guard let value = value as? V else {
-        guard let value = value as? NSNull, let defaultValue else {
+        guard value is NSNull, let defaultValue else {
             errorCompletion?(key)
             return
         }

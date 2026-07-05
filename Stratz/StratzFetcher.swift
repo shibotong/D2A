@@ -23,7 +23,7 @@ public enum StratzLanguage {
     }
 }
 
-public protocol StratzFetching {
+public protocol StratzFetching: Sendable {
     func heroes(language: StratzLanguage) async throws -> [SKHero]
     func heroAdditionalData() async throws -> [SKHeroAdditional]
     func abilities(language: StratzLanguage) async throws -> [SKAbility]

@@ -8,7 +8,7 @@
 import Networking
 import Foundation
 
-public protocol OpenDotaConstantFetching {
+public protocol OpenDotaConstantFetching: Sendable {
     func abilities() async throws -> [String: ODAbility]
     func abilityIDs() async throws -> [String: String]
     func heroes() async throws -> [String: ODHero]
