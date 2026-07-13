@@ -168,6 +168,10 @@ class StaticDataSyncingService: ObservableObject {
         if maxConcurrent * itemsForEachArray < resultsCount {
             itemsForEachArray += 1
         }
+        guard itemsForEachArray >= 1 else {
+            logger.error("Items for each array is 0")
+            return
+        }
         await withTaskGroup { [weak self] group in
             for batch in 0...(maxConcurrent - 1) {
                 group.addTask {
