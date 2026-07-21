@@ -7,7 +7,6 @@
 
 import Foundation
 
-nonisolated
 public struct ODAbility: Decodable, Sendable {
     public let img: String?
     public let dname: String?
@@ -59,7 +58,7 @@ public struct ODAbility: Decodable, Sendable {
 
 
 extension ODAbility {
-    public struct Attribute: Decodable {
+    public struct Attribute: Decodable, Sendable {
         public let key: String
         public let header: String
         public let value: [String]

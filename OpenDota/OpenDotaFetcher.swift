@@ -18,7 +18,7 @@ public protocol OpenDotaFetching: Sendable {
     func profile(id: String) async throws -> ODUserProfile
 }
 
-public class OpenDotaFetcher: OpenDotaFetching {
+public final class OpenDotaFetcher: OpenDotaFetching {
     
     public static let shared = OpenDotaFetcher()
     

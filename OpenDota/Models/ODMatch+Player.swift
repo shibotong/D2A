@@ -43,7 +43,7 @@ extension ODMatch {
         
         public struct PermanentBuff: Decodable, Sendable {
             public let permanentBuff: Int
-            public let stackCound: Int
+            public let stackCount: Int
         }
     }
 }
