@@ -14,11 +14,11 @@ public protocol OpenDotaFetching: Sendable {
     func heroes() async throws -> [String: ODHero]
     func heroAbilities() async throws -> [String: ODHeroAbility]
     
-    func match(id: String) async throws -> [String: Any]
+    func match(id: String) async throws -> ODMatch
     func profile(id: String) async throws -> ODUserProfile
 }
 
-public class OpenDotaFetcher: OpenDotaFetching {
+public final class OpenDotaFetcher: OpenDotaFetching {
     
     public static let shared = OpenDotaFetcher()
     
@@ -61,13 +61,9 @@ public class OpenDotaFetcher: OpenDotaFetching {
     
     // MARK: - OpenDota
     
-    public func match(id: String) async throws -> [String : Any] {
+    public func match(id: String) async throws -> ODMatch {
         let url = try createURL("matches/\(id)")
-        let data = try await apiClient.url(url)
-        guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-            throw ODError.dataIsNotJson
-        }
-        return json
+        return try await apiClient.url(url, decoder: snakeDecoder, as: ODMatch.self)
     }
     
     public func profile(id: String) async throws -> ODUserProfile {
