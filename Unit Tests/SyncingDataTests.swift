@@ -17,7 +17,7 @@ struct SyncingDataTests {
     
     init() {
         let syncingTimer = MockSyncingTimer()
-        let openDotaFetcher = MockOpenDotaConstantFetcher()
+        let openDotaFetcher = MockOpenDotaFetcher()
         let stratzFetcher = MockStratzFetcher()
         persistance = DataPersistenceService.shared
         service = StaticDataSyncingService(

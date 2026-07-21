@@ -1,19 +1,20 @@
 //
-//  OpenDotaConstantsFetchingTests.swift
+//  RemoteOpenDotaFetcherTests.swift
 //  Unit Tests
 //
 //  Created by Shibo Tong on 24/3/2026.
 //
 
 import Testing
+import Foundation
 @testable import OpenDota
 
-struct RemoteOpenDotaConstantsTests {
+struct RemoteOpenDotaFetcherTests {
     
-    let fetcher: OpenDotaConstantFetcher
+    let fetcher: OpenDotaFetcher
     
     init() {
-        fetcher = OpenDotaConstantFetcher()
+        fetcher = OpenDotaFetcher()
     }
 
     @Test
@@ -41,6 +42,20 @@ struct RemoteOpenDotaConstantsTests {
     func `ability IDs`() async throws {
         await #expect(throws: Never.self) {
             try await fetcher.abilityIDs()
+        }
+    }
+    
+    @Test
+    func `Yatoro profile`() async {
+        await #expect(throws: Never.self) {
+            let _ = try await fetcher.profile(id: "321580662")
+        }
+    }
+    
+    @Test
+    func `Not Found Profiles`() async {
+        await #expect(throws: URLError.notFound) {
+            let _ = try await fetcher.profile(id: "123123131")
         }
     }
 }
