@@ -44,7 +44,7 @@ extension APIClientProtocol {
     }
 }
 
-public class APIClient: APIClientProtocol {
+public final class APIClient: APIClientProtocol {
     public static let shared = APIClient()
     
     public let urlSession: URLSession = .shared
