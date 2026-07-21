@@ -33,6 +33,8 @@ struct OpenDotaFetcherTests {
                 data = try! fileReader.readFile("ability_ids")
             case "/api/players/321580662":
                 data = try! fileReader.readFile("player_yatoro")
+            case "/api/matches/8671593880":
+                data = try! fileReader.readFile("match_8671593880")
             default:
                 statusCode = 401
                 data = "error".data(using: .utf8)!
@@ -79,5 +81,12 @@ struct OpenDotaFetcherTests {
         #expect(user.computedMmr == nil)
         #expect(user.computedMmrTurbo == nil)
         #expect(profile.accountId == 321580662)
+    }
+    
+    @Test("Test match")
+    func match() async throws {
+        let match = try await fetcher.match(id: "8671593880")
+        #expect(match.gameMode == 22)
+        #expect(match.matchId == 8671593880)
     }
 }

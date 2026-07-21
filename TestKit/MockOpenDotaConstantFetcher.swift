@@ -40,8 +40,9 @@ public struct MockOpenDotaFetcher: OpenDotaFetching {
         return try decoder.decode([String: ODHeroAbility].self, from: data)
     }
     
-    public func match(id: String) async throws -> [String : Any] {
-        return [:]
+    public func match(id: String) async throws -> ODMatch {
+        let data = try fileReader.readFile("match_\(id)")
+        return try decoder.decode(ODMatch.self, from: data)
     }
     
     public func profile(id: String) async throws -> OpenDota.ODUserProfile {
