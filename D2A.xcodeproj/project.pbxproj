@@ -47,8 +47,6 @@
 		79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DAA2A31B224002FEF0F /* ApolloWebSocket */; };
 		7928D4842F839148006C0F3F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 7928D4832F839148006C0F3F /* Logging */; };
 		7928D4862F83914F006C0F3F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 7928D4852F83914F006C0F3F /* Logging */; };
-		792E3D782FC06CBE004FBEC7 /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
-		792E3D792FC06CBE004FBEC7 /* Stratz.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		792E3D902FC06CD0004FBEC7 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 792E3D8F2FC06CD0004FBEC7 /* StratzAPI */; };
 		792E3D922FC06CD8004FBEC7 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 792E3D912FC06CD8004FBEC7 /* Apollo */; };
 		792E3D932FC06D34004FBEC7 /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
@@ -93,6 +91,9 @@
 		79D5282028DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
 		79EAD3813010C99F00DA475D /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
 		79EAD3863010C9B100DA475D /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
+		79EAD38E3010CA1800DA475D /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79EAD38D3010CA1800DA475D /* StratzAPI */; };
+		79EAD38F3010CA2900DA475D /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
+		79EAD3903010CA2900DA475D /* Stratz.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		79EB3BA02FCBF63F00FD9ECE /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
 		79EB3BA52FCBF64500FD9ECE /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
 /* End PBXBuildFile section */
@@ -240,7 +241,7 @@
 			files = (
 				79D3F7FD2FB7F14C0069A605 /* Networking.framework in Embed Frameworks */,
 				79D3D38C2FA47B0B0069A605 /* OpenDota.framework in Embed Frameworks */,
-				792E3D792FC06CBE004FBEC7 /* Stratz.framework in Embed Frameworks */,
+				79EAD3903010CA2900DA475D /* Stratz.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,7 +395,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				792E3D782FC06CBE004FBEC7 /* Stratz.framework in Frameworks */,
+				79EAD38F3010CA2900DA475D /* Stratz.framework in Frameworks */,
+				79EAD38E3010CA1800DA475D /* StratzAPI in Frameworks */,
 				79D3D38B2FA47B0B0069A605 /* OpenDota.framework in Frameworks */,
 				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
 				79B8D9712F2889FA0030429D /* Logging in Frameworks */,
@@ -726,6 +728,7 @@
 			packageProductDependencies = (
 				79B8D96E2F2889FA0030429D /* InMemoryLogging */,
 				79B8D9702F2889FA0030429D /* Logging */,
+				79EAD38D3010CA1800DA475D /* StratzAPI */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* D2A.app */;
@@ -2497,6 +2500,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
+		};
+		79EAD38D3010CA1800DA475D /* StratzAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StratzAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
