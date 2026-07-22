@@ -91,6 +91,8 @@
 		79D5281E28DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
 		79D5281F28DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
 		79D5282028DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
+		79EAD3813010C99F00DA475D /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
+		79EAD3863010C9B100DA475D /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
 		79EB3BA02FCBF63F00FD9ECE /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
 		79EB3BA52FCBF64500FD9ECE /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
 /* End PBXBuildFile section */
@@ -186,6 +188,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 79D3F7F32FB7F14C0069A605;
 			remoteInfo = Networking;
+		};
+		79EAD3833010C99F00DA475D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32B36F0326C38821002D427D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 792E3D6F2FC06CBE004FBEC7;
+			remoteInfo = Stratz;
+		};
+		79EAD3883010C9B100DA475D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32B36F0326C38821002D427D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 792E3D6F2FC06CBE004FBEC7;
+			remoteInfo = Stratz;
 		};
 		79EB3BA22FCBF63F00FD9ECE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -395,6 +411,7 @@
 				32F70A9F26F57F7E006E9B05 /* SwiftUI.framework in Frameworks */,
 				790FBB3429C18AC800E27106 /* Apollo in Frameworks */,
 				79EB3BA02FCBF63F00FD9ECE /* OpenDota.framework in Frameworks */,
+				79EAD3863010C9B100DA475D /* Stratz.framework in Frameworks */,
 				79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */,
 				32F70A9E26F57F7E006E9B05 /* WidgetKit.framework in Frameworks */,
 				790FBB2C29C1877400E27106 /* StratzAPI in Frameworks */,
@@ -405,6 +422,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79EAD3813010C99F00DA475D /* Stratz.framework in Frameworks */,
 				79EB3BA52FCBF64500FD9ECE /* OpenDota.framework in Frameworks */,
 				32F70AE826F61836006E9B05 /* Intents.framework in Frameworks */,
 				79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */,
@@ -725,6 +743,7 @@
 			);
 			dependencies = (
 				79EB3BA32FCBF63F00FD9ECE /* PBXTargetDependency */,
+				79EAD3893010C9B100DA475D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				792A54A62F7E77A700EC815A /* Shared */,
@@ -752,6 +771,7 @@
 			);
 			dependencies = (
 				79EB3BA82FCBF64500FD9ECE /* PBXTargetDependency */,
+				79EAD3843010C99F00DA475D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				792A54A62F7E77A700EC815A /* Shared */,
@@ -1286,6 +1306,16 @@
 			isa = PBXTargetDependency;
 			target = 79D3F7F32FB7F14C0069A605 /* Networking */;
 			targetProxy = 79D3F8062FB7F1B10069A605 /* PBXContainerItemProxy */;
+		};
+		79EAD3843010C99F00DA475D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 792E3D6F2FC06CBE004FBEC7 /* Stratz */;
+			targetProxy = 79EAD3833010C99F00DA475D /* PBXContainerItemProxy */;
+		};
+		79EAD3893010C9B100DA475D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 792E3D6F2FC06CBE004FBEC7 /* Stratz */;
+			targetProxy = 79EAD3883010C9B100DA475D /* PBXContainerItemProxy */;
 		};
 		79EB3BA32FCBF63F00FD9ECE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
