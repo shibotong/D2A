@@ -110,6 +110,7 @@ class HeroDatabase: ObservableObject {
         self.cancellable = []
     }
 
+    @available(*, deprecated, message: "fetchHeroWithID from HeroDatabase has been deprecated")
     func fetchHeroWithID(id: Int) throws -> HeroCodable {
         guard let hero = heroes["\(id)"] else {
             throw HeroDataError.heroNotFound
@@ -142,6 +143,7 @@ class HeroDatabase: ObservableObject {
         return lobbyTypes["\(id)"] ?? LobbyType(id: id, name: "Unknown Lobby")
     }
     
+    @available(*, deprecated, message: "This function has been deprecated")
     func fetchAbilityName(id: Int) -> String? {
         guard let abilityName = abilityIDTable["\(id)"] else {
             return nil
@@ -149,20 +151,24 @@ class HeroDatabase: ObservableObject {
         return abilityName
     }
     
+    @available(*, deprecated, message: "This function has been deprecated")
     func fetchOpenDotaAbility(name: String) -> ODAbility? {
         return abilities[name]
     }
     
+    @available(*, deprecated, message: "This function has been deprecated")
     func fetchStratzAbility(name: String) -> AbilityQuery.Data.Constants.Ability? {
         let ability = apolloAbilities.first { $0.name == name }
         return ability
     }
     
+    @available(*, deprecated, message: "This function has been deprecated")
     func fetchHeroAbility(name: String) -> [String] {
         let abilities = heroAbilities[name]?.abilities
         return abilities ?? []
     }
     
+    @available(*, deprecated, message: "This function has been deprecated")
     func fetchAllHeroes() -> [HeroCodable] {
         var sortedHeroes = [HeroCodable]()
         for i in 1..<150 {
@@ -177,10 +183,12 @@ class HeroDatabase: ObservableObject {
         return sortedHeroes
     }
     
+    @available(*, deprecated, message: "This function has been deprecated")
     func fetchSearchedHeroes(text: String) -> [HeroCodable] {
         return []
     }
     
+    @available(*, deprecated, message: "This function has been deprecated")
     func getTalentDisplayName(id: Short) -> String {
         let talent = apolloAbilities.first { ability in
             return ability.id == id
