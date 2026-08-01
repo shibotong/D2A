@@ -231,6 +231,9 @@ class DataPersistenceService {
         setIfNotEqual(entity: ability, path: \.manaCost, value: data.mc?.joined(separator: " / "))
         setIfNotEqual(entity: ability, path: \.targetTeam, value: data.targetTeam?.joined(separator: " / "))
         setIfNotEqual(entity: ability, path: \.targetType, value: data.targetType?.joined(separator: " / "))
+        if let img = data.img {
+            setIfNotEqual(entity: ability, path: \.img, value: img)
+        }
     }
     
     func fetch(abilityID: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> AbilityTranslation? {
