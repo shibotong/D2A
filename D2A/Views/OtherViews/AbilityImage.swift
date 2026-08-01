@@ -10,7 +10,7 @@ import UIKit
 
 struct AbilityImage: View {
     
-    @ObservedObject var viewModel: AbilityImageViewModel
+    @ObservedObject var viewModel: ViewModel
     
     init(name: String, imageProvider: ImageProviding = ImageProvider.shared) {
         viewModel = .init(name: name, imageProvider: imageProvider)
@@ -26,6 +26,9 @@ struct AbilityImage: View {
                     .renderingMode(.template)
                     .resizable()
                     .foregroundColor(.label)
+                    .task {
+                        await viewModel.fetchImage()
+                    }
             }
         }
         .aspectRatio(contentMode: .fit)
