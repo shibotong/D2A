@@ -228,23 +228,18 @@ struct PlayerRowView: View {
     }
     
     @ViewBuilder private func buildAbility(abilityID: Int) -> some View {
-        if let abilityName = HeroDatabase.shared.fetchAbilityName(id: abilityID) {
-            if let ability = HeroDatabase.shared.fetchOpenDotaAbility(name: abilityName) {
-                if let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!" {
-                    let _ = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
-                    AbilityImage(name: abilityName)
-                        .frame(width: 40, height: 40)
-                } else {
-                    // no image
-                    if abilityID == 730 {
-                        buildAbilityWithString("Bonus Attributes")
-                    } else {
-                        buildAbilityWithString(heroData.getTalentDisplayName(id: Short(abilityID)))
-                    }
-                }
+        if let ability = viewModel.fetchAbility(abilityID: abilityID), let abilityName = ability.name {
+            if let img = ability.img, ability.desc != "Associated ability not drafted, have some gold!" {
+                let _ = img.replacingOccurrences(of: "_md", with: "").replacingOccurrences(of: "images/abilities", with: "images/dota_react/abilities")
+                AbilityImage(name: abilityName)
+                    .frame(width: 40, height: 40)
             } else {
-                // Cannot find abiilty with name
-                buildAbilityWithString(abilityName)
+                // no image
+                if abilityID == 730 {
+                    buildAbilityWithString("Bonus Attributes")
+                } else {
+                    buildAbilityWithString(ability.displayName)
+                }
             }
         } else {
             // Cannot find ability with ID

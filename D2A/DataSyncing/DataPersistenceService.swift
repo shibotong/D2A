@@ -182,11 +182,9 @@ class DataPersistenceService {
     
     // MARK: Ability
     
+    @available(*, deprecated, message: "use Ability static fetch function")
     func fetch(abilityID: Int, context: NSManagedObjectContext) throws -> Ability? {
-        let fetchRequest = Ability.fetchRequest()
-        let predicate = NSPredicate(format: "abilityID = %d", abilityID)
-        fetchRequest.predicate = predicate
-        return try context.fetch(fetchRequest).first
+        try Ability.fetch(abilityID: abilityID, context: context)
     }
     
     func fetch(ability name: String, context: NSManagedObjectContext) throws -> Ability? {

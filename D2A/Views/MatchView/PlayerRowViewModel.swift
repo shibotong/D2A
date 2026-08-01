@@ -7,6 +7,8 @@
 
 import Foundation
 import StratzAPI
+import CoreData
+import Logging
 
 class PlayerRowViewModel: ObservableObject {
     
@@ -52,7 +54,12 @@ class PlayerRowViewModel: ObservableObject {
         return kills * 10000 - deaths * 100 + assists
     }
     
-    init(player: Player) {
+    private let context: NSManagedObjectContext
+    private let logger: Logger?
+    
+    init(player: Player,
+         context: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
+         logger: Logger? = D2ALogger.ui) {
         self.heroID = player.heroID
         self.level = player.level
         self.personaname = player.personaname
@@ -83,8 +90,14 @@ class PlayerRowViewModel: ObservableObject {
         self.heroDamage = player.heroDamage
         self.netWorth = player.netWorth ?? 0
         self.slot = player.slot
+        
+        self.context = context
+        self.logger = logger
     }
-    init(heroID: Int, abilities: [Int] = []) {
+    
+    init(heroID: Int, abilities: [Int] = [],
+         context: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
+         logger: Logger? = D2ALogger.ui) {
         self.personaname = "Longest Name Longest Name"
         self.heroID = heroID
         self.level = 10
@@ -110,5 +123,16 @@ class PlayerRowViewModel: ObservableObject {
         self.slot = 0
         self.abilityUpgrade = abilities
         self.netWorth = 100
+        self.context = context
+        self.logger = logger
+    }
+    
+    func fetchAbility(abilityID: Int) -> Ability? {
+        do {
+            return try Ability.fetch(abilityID: abilityID, context: context)
+        } catch {
+            logger?.error("Error: \(error)")
+            return nil
+        }
     }
 }
