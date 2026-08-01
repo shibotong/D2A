@@ -8,6 +8,7 @@
 import Foundation
 import Logging
 import UIKit
+import Mocking
 
 enum ImageCacheType: String {
     case item
@@ -22,6 +23,7 @@ enum FileExtension: String {
     case png
 }
 
+@Mocked(compilationCondition: .debug)
 protocol ImageProviding {
     func read(type: ImageCacheType, id: String, fileExtension: FileExtension) -> UIImage?
     func save(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: FileExtension)
