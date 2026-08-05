@@ -39,6 +39,7 @@ struct AbilityImageViewModelTests {
     
     @Test("Test fetching image from remote")
     func testFetchImage() async {
+        imageProvider._read.implementation = .returns(nil)
         let image = UIImage()
         MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: request.url!,
