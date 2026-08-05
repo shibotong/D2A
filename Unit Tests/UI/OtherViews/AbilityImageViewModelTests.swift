@@ -7,6 +7,7 @@
 
 import Testing
 import TestKit
+import UIKit
 @testable import D2A
 
 struct AbilityImageViewModelTests {
@@ -20,11 +21,54 @@ struct AbilityImageViewModelTests {
     }
     
     @Test("No ability image when no cached image")
-    func testImageNotExist() async {
+    func testImageNotExist() {
         imageProvider._read.implementation = .returns(nil)
         let viewModel = createViewModel()
         #expect(viewModel.image == nil)
         #expect(imageProvider._read.callCount == 1)
+    }
+    
+    @Test("When image already cached before")
+    func testImageExist() {
+        let image = UIImage()
+        imageProvider._read.implementation = .returns(image)
+        let viewModel = createViewModel()
+        #expect(viewModel.image == image)
+        #expect(imageProvider._read.callCount == 1)
+    }
+    
+    @Test("Test fetching image from remote")
+    func testFetchImage() async {
+        let image = UIImage()
+        MockURLProtocol.requestHandler = { request in
+            let response = HTTPURLResponse(url: request.url!,
+                                           statusCode: 200,
+                                           httpVersion: nil,
+                                           headerFields: nil)!
+            return (response, image.pngData()!)
+        }
+        let viewModel = createViewModel()
+        await viewModel.fetchImage()
+        #expect(viewModel.image == image)
+    }
+    
+    @Test("Test fetching image from remote with error")
+    func testFetchImageError() async {
+        let image = UIImage()
+        MockURLProtocol.requestHandler = { request in
+            let response = HTTPURLResponse(url: request.url!,
+                                           statusCode: 404,
+                                           httpVersion: nil,
+                                           headerFields: nil)!
+            let data = "error".data(using: .utf8)!
+            return (response, data)
+        }
+        let viewModel = createViewModel()
+        await viewModel.fetchImage()
+        let error = await #expect(throws: D2AError.self) {
+            try await viewModel.fetchImage()
+        }
+        #expect(error?.category == .image)
     }
     
     private func createViewModel(name: String = "test-image") -> AbilityImage.ViewModel {

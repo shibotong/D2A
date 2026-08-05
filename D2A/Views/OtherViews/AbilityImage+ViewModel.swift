@@ -34,30 +34,23 @@ extension AbilityImage {
         @MainActor
         func fetchImage() async {
             logger?.info("Start fetching image \(name)")
-            guard let newImage = await loadImage() else {
-                return
+            do {
+                let newImage = try await loadImage()
+                imageProvider.save(newImage, type: .ability, id: name)
+                self.image = newImage
+            } catch {
+                logger?.error("\(error.localizedDescription)")
             }
-            imageProvider.save(newImage, type: .ability, id: name)
-            self.image = newImage
         }
         
-        private func loadImage() async -> UIImage? {
+        private func loadImage() async throws -> UIImage {
             let urlString = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/\(name).png"
-            do {
-                guard let url = URL(string: urlString) else {
-                    logger?.error("The url is not in correct format \(urlString)")
-                    return nil
-                }
-                let data = try await client.url(url)
-                guard let image = UIImage(data: data) else {
-                    logger?.error("Data fetched from url is not an image.")
-                    return nil
-                }
-                return image
-            } catch {
-                logger?.error("Failed to load image data: \(error)")
-                return nil
+            let url = URL(string: urlString)!
+            let data = try await client.url(url)
+            guard let image = UIImage(data: data) else {
+                throw D2AError(category: .image, message: "Data fetched from url is not an image. (\(urlString))")
             }
+            return image
         }
     }
 }
