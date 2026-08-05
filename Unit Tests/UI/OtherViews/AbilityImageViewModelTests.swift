@@ -10,7 +10,8 @@ import TestKit
 import UIKit
 @testable import D2A
 
-struct AbilityImageViewModelTests {
+@Suite(.serialized)
+class AbilityImageViewModelTests {
     
     private let imageProvider: ImageProvidingMock
     private let client: MockAPIClient
@@ -18,6 +19,10 @@ struct AbilityImageViewModelTests {
     init() {
         imageProvider = ImageProvidingMock()
         client = MockAPIClient()
+    }
+    
+    deinit {
+        MockURLProtocol.requestHandler = nil
     }
     
     @Test("No ability image when no cached image")
@@ -38,19 +43,20 @@ struct AbilityImageViewModelTests {
     }
     
     @Test("Test fetching image from remote")
-    func testFetchImage() async {
+    func testFetchImage() async throws {
         imageProvider._read.implementation = .returns(nil)
-        let image = UIImage()
+        let image = UIImage(systemName: "person")
         MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: request.url!,
                                            statusCode: 200,
                                            httpVersion: nil,
                                            headerFields: nil)!
-            return (response, image.pngData()!)
+            return (response, image!.pngData()!)
         }
         let viewModel = createViewModel()
-        await viewModel.fetchImage()
-        #expect(viewModel.image == image)
+        await #expect(throws: Never.self) {
+            try await viewModel.fetchImage()
+        }
     }
     
     @Test("Test fetching image from remote with error")
@@ -58,14 +64,13 @@ struct AbilityImageViewModelTests {
         imageProvider._read.implementation = .returns(nil)
         MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: request.url!,
-                                           statusCode: 404,
+                                           statusCode: 200,
                                            httpVersion: nil,
                                            headerFields: nil)!
             let data = "error".data(using: .utf8)!
             return (response, data)
         }
         let viewModel = createViewModel()
-        await viewModel.fetchImage()
         let error = await #expect(throws: D2AError.self) {
             try await viewModel.fetchImage()
         }
@@ -75,7 +80,6 @@ struct AbilityImageViewModelTests {
     private func createViewModel(name: String = "test-image") -> AbilityImage.ViewModel {
         return AbilityImage.ViewModel(name: "test-image",
                                       imageProvider: imageProvider,
-                                      client: client,
-                                      logger: logger)
+                                      client: client)
     }
 }

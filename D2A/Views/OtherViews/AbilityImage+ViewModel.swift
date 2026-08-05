@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import Networking
-import Logging
 
 extension AbilityImage {
     class ViewModel: ObservableObject {
@@ -18,29 +17,21 @@ extension AbilityImage {
         
         private let imageProvider: ImageProviding
         private let client: APIClientProtocol
-        private let logger: Logger?
         
         init(name: String,
              imageProvider: ImageProviding = ImageProvider.shared,
-             client: APIClientProtocol = APIClient.shared,
-             logger: Logger? = D2ALogger.ui) {
+             client: APIClientProtocol = APIClient.shared) {
             self.name = name
             self.imageProvider = imageProvider
             self.client = client
-            self.logger = logger
             image = imageProvider.read(type: .ability, id: name)
         }
         
         @MainActor
-        func fetchImage() async {
-            logger?.info("Start fetching image \(name)")
-            do {
-                let newImage = try await loadImage()
-                imageProvider.save(newImage, type: .ability, id: name)
-                self.image = newImage
-            } catch {
-                logger?.error("\(error.localizedDescription)")
-            }
+        func fetchImage() async throws {
+            let newImage = try await loadImage()
+            imageProvider.save(newImage, type: .ability, id: name)
+            self.image = newImage
         }
         
         private func loadImage() async throws -> UIImage {
