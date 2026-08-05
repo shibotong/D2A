@@ -9,21 +9,19 @@ import UIKit
 
 class MockImageProvider: ImageProviding {
     
+    var readImage: UIImage?
+    var saveImage: [String: UIImage] = [:]
+    var loadImage: UIImage?
+    
     func read(type: ImageCacheType, id: String, fileExtension: FileExtension) -> UIImage? {
-        switch type {
-        case .ability:
-            return UIImage(named: id)
-        default:
-            return nil
-        }
+        return readImage
     }
     
     func save(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: FileExtension) {
-        return
+        saveImage[id] = image
     }
     
     func load(urlString: String) async -> UIImage? {
-        return nil
+        return loadImage
     }
-    
 }
