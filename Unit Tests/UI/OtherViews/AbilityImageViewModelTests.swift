@@ -55,6 +55,7 @@ struct AbilityImageViewModelTests {
     
     @Test("Test fetching image from remote with error")
     func testFetchImageError() async {
+        imageProvider._read.implementation = .returns(nil)
         MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: request.url!,
                                            statusCode: 404,
