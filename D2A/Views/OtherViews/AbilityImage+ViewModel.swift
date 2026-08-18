@@ -36,8 +36,7 @@ extension AbilityImage {
         
         private func loadImage() async throws -> UIImage {
             let urlString = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/\(name).png"
-            let url = URL(string: urlString)!
-            let data = try await client.url(url)
+            let data = try await client.get(urlString)
             guard let image = UIImage(data: data) else {
                 throw D2AError(category: .image, message: "Data fetched from url is not an image. (\(urlString))")
             }
