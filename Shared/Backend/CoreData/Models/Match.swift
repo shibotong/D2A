@@ -111,7 +111,7 @@ extension Match {
         // Lobby data
         lobbyType = Int16(match.lobbyType)
         mode = Int16(match.mode)
-        region = Int16(match.region)
+        region = Int16(match.region ?? 0)
         skill = Int16(match.skill ?? 0)
         startTime = Date(timeIntervalSince1970: TimeInterval(match.startTime))
         players = match.players.map { Player(player: $0) }
