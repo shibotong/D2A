@@ -182,11 +182,9 @@ class DataPersistenceService {
     
     // MARK: Ability
     
+    @available(*, deprecated, message: "use Ability static fetch function")
     func fetch(abilityID: Int, context: NSManagedObjectContext) throws -> Ability? {
-        let fetchRequest = Ability.fetchRequest()
-        let predicate = NSPredicate(format: "abilityID = %d", abilityID)
-        fetchRequest.predicate = predicate
-        return try context.fetch(fetchRequest).first
+        try Ability.fetch(abilityID: abilityID, context: context)
     }
     
     func fetch(ability name: String, context: NSManagedObjectContext) throws -> Ability? {
@@ -231,6 +229,9 @@ class DataPersistenceService {
         setIfNotEqual(entity: ability, path: \.manaCost, value: data.mc?.joined(separator: " / "))
         setIfNotEqual(entity: ability, path: \.targetTeam, value: data.targetTeam?.joined(separator: " / "))
         setIfNotEqual(entity: ability, path: \.targetType, value: data.targetType?.joined(separator: " / "))
+        if let img = data.img {
+            setIfNotEqual(entity: ability, path: \.img, value: img)
+        }
     }
     
     func fetch(abilityID: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> AbilityTranslation? {

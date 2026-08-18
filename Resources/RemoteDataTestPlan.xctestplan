@@ -16,7 +16,7 @@
       "target" : {
         "containerPath" : "container:D2A.xcodeproj",
         "identifier" : "7930699A2B5D323100A5CF5D",
-        "name" : "DataLoadingTests"
+        "name" : "Remote Data Tests"
       }
     }
   ],

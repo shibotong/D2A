@@ -46,12 +46,48 @@
       }
     },
     {
+      "identity" : "swift-locking",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/fetch-rewards/swift-locking.git",
+      "state" : {
+        "revision" : "2e3a5fbf738cdaab9c21cea01a12b6c7b05afbc9",
+        "version" : "0.2.0"
+      }
+    },
+    {
       "identity" : "swift-log",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-log",
       "state" : {
         "revision" : "2778fd4e5a12a8aaa30a3ee8285f4ce54c5f3181",
         "version" : "1.9.1"
+      }
+    },
+    {
+      "identity" : "swift-mocking",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/fetch-rewards/swift-mocking.git",
+      "state" : {
+        "revision" : "232b99b4c72a2fae7264745925fcc1269b4de0d4",
+        "version" : "0.4.1"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-syntax.git",
+      "state" : {
+        "revision" : "cb53fa1bd3219b0b23ded7dfdd3b2baff266fd25",
+        "version" : "600.0.0"
+      }
+    },
+    {
+      "identity" : "swiftsyntaxsugar",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/fetch-rewards/SwiftSyntaxSugar.git",
+      "state" : {
+        "revision" : "0ba74009501ef51b21b4b6e7999507a40f6e54b9",
+        "version" : "0.1.1"
       }
     }
   ],

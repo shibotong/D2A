@@ -13,65 +13,46 @@ import Foundation
 struct OpenDotaFetcherTests {
     
     let fetcher: OpenDotaFetcher
+    let client: MockAPIClient
+    let fileReader: FileReader
     
     init() {
-        fetcher = OpenDotaFetcher(apiClient: MockAPIClient())
-        let fileReader = FileReader.shared
-        MockURLProtocol.requestHandler = { request in
-            let headerFields = ["Content-Type": "application/json"]
-            let urlPath = request.url!.path
-            var statusCode = 200
-            let data: Data
-            switch urlPath {
-            case "/api/constants/heroes":
-                data = try! fileReader.readFile("heroes")
-            case "/api/constants/abilities":
-                data = try! fileReader.readFile("abilities")
-            case "/api/constants/hero_abilities":
-                data = try! fileReader.readFile("hero_abilities")
-            case "/api/constants/ability_ids":
-                data = try! fileReader.readFile("ability_ids")
-            case "/api/players/321580662":
-                data = try! fileReader.readFile("player_yatoro")
-            default:
-                statusCode = 401
-                data = "error".data(using: .utf8)!
-            }
-            let response = HTTPURLResponse(url: request.url!,
-                                           statusCode: statusCode,
-                                           httpVersion: nil,
-                                           headerFields: headerFields)!
-            return(response, data)
-        }
-        
+        client = MockAPIClient()
+        fetcher = OpenDotaFetcher(apiClient: client)
+        fileReader = FileReader.shared
     }
     
     @Test("Test hero api")
     func heroesData() async throws {
+        client.getReturnValue = try fileReader.readFile("heroes")
         let result = try await fetcher.heroes()
         #expect(result.count == 127)
     }
     
     @Test("Test abilities api")
     func abilitiesData() async throws {
+        client.getReturnValue = try fileReader.readFile("abilities")
         let result = try await fetcher.abilities()
         #expect(result.count == 3084)
     }
     
     @Test("Test hero_abilities api")
     func heroAbilitiesData() async throws {
+        client.getReturnValue = try fileReader.readFile("hero_abilities")
         let result = try await fetcher.heroAbilities()
         #expect(result.count == 127)
     }
     
     @Test("Test ability_ids api")
     func abilityIDsData() async throws {
+        client.getReturnValue = try fileReader.readFile("ability_ids")
         let result = try await fetcher.abilityIDs()
         #expect(result.count == 3150)
     }
     
     @Test("Test yatoro user profile")
     func profile() async throws {
+        client.getReturnValue = try fileReader.readFile("player_yatoro")
         let user = try await fetcher.profile(id: "321580662")
         let profile = user.profile
         #expect(user.rankTier == 80)
@@ -79,5 +60,13 @@ struct OpenDotaFetcherTests {
         #expect(user.computedMmr == nil)
         #expect(user.computedMmrTurbo == nil)
         #expect(profile.accountId == 321580662)
+    }
+    
+    @Test("Test match")
+    func match() async throws {
+        client.getReturnValue = try fileReader.readFile("match_8671593880")
+        let match = try await fetcher.match(id: "8671593880")
+        #expect(match.gameMode == 22)
+        #expect(match.matchId == 8671593880)
     }
 }

@@ -21,7 +21,7 @@ struct MatchCodable: Decodable {
     var direTowers: Int
     var radiantTowers: Int
     var skill: Int?
-    var region: Int
+    var region: Int?
     
     var goldDiff: [Int]?
     var xpDiff: [Int]?

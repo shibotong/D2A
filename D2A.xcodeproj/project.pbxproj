@@ -43,19 +43,18 @@
 		790FBB2C29C1877400E27106 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2B29C1877400E27106 /* StratzAPI */; };
 		790FBB2E29C1877A00E27106 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB2D29C1877A00E27106 /* StratzAPI */; };
 		790FBB3429C18AC800E27106 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 790FBB3329C18AC800E27106 /* Apollo */; };
+		792213B0301D9B3400819E29 /* Mocking in Frameworks */ = {isa = PBXBuildFile; productRef = 792213AF301D9B3400819E29 /* Mocking */; };
+		792213B2301D9B7800819E29 /* Mocking in Frameworks */ = {isa = PBXBuildFile; productRef = 792213B1301D9B7800819E29 /* Mocking */; };
+		792213B4301D9B8000819E29 /* Mocking in Frameworks */ = {isa = PBXBuildFile; productRef = 792213B3301D9B8000819E29 /* Mocking */; };
 		79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DA82A31B21D002FEF0F /* ApolloWebSocket */; };
 		79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 79266DAA2A31B224002FEF0F /* ApolloWebSocket */; };
 		7928D4842F839148006C0F3F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 7928D4832F839148006C0F3F /* Logging */; };
 		7928D4862F83914F006C0F3F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 7928D4852F83914F006C0F3F /* Logging */; };
-		792E3D782FC06CBE004FBEC7 /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
-		792E3D792FC06CBE004FBEC7 /* Stratz.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		792E3D902FC06CD0004FBEC7 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 792E3D8F2FC06CD0004FBEC7 /* StratzAPI */; };
 		792E3D922FC06CD8004FBEC7 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 792E3D912FC06CD8004FBEC7 /* Apollo */; };
 		792E3D932FC06D34004FBEC7 /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
 		792E3D942FC06D34004FBEC7 /* Stratz.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7942FD0C2B706B57008CE4B0 /* ScreenShotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790102B929F40C4600E8A320 /* ScreenShotTests.swift */; };
-		7942FD0E2B706B85008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
-		7942FD0F2B706B90008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
 		794838652A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838642A3D2C0800A447DA /* LiveMatchActivity.swift */; };
 		794838662A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838642A3D2C0800A447DA /* LiveMatchActivity.swift */; };
 		794838672A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838642A3D2C0800A447DA /* LiveMatchActivity.swift */; };
@@ -77,7 +76,6 @@
 		7983DA762B63088600C42F87 /* D2AWidgetUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7983DA732B63088600C42F87 /* D2AWidgetUser.swift */; };
 		79B8D96F2F2889FA0030429D /* InMemoryLogging in Frameworks */ = {isa = PBXBuildFile; productRef = 79B8D96E2F2889FA0030429D /* InMemoryLogging */; };
 		79B8D9712F2889FA0030429D /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 79B8D9702F2889FA0030429D /* Logging */; };
-		79CF637C29C40B700072F4C0 /* D2AUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF637B29C40B700072F4C0 /* D2AUITests.swift */; };
 		79D1043729E2991E00BC04B3 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79D1043629E2991E00BC04B3 /* Apollo */; };
 		79D3D38B2FA47B0B0069A605 /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
 		79D3D38C2FA47B0B0069A605 /* OpenDota.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -91,6 +89,11 @@
 		79D5281E28DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
 		79D5281F28DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
 		79D5282028DD73CF0070841D /* secrets.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 79D5281D28DD73CF0070841D /* secrets.example.json */; };
+		79EAD3813010C99F00DA475D /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
+		79EAD3863010C9B100DA475D /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
+		79EAD38E3010CA1800DA475D /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79EAD38D3010CA1800DA475D /* StratzAPI */; };
+		79EAD38F3010CA2900DA475D /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
+		79EAD3903010CA2900DA475D /* Stratz.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		79EB3BA02FCBF63F00FD9ECE /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
 		79EB3BA52FCBF64500FD9ECE /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
 /* End PBXBuildFile section */
@@ -187,6 +190,20 @@
 			remoteGlobalIDString = 79D3F7F32FB7F14C0069A605;
 			remoteInfo = Networking;
 		};
+		79EAD3833010C99F00DA475D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32B36F0326C38821002D427D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 792E3D6F2FC06CBE004FBEC7;
+			remoteInfo = Stratz;
+		};
+		79EAD3883010C9B100DA475D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32B36F0326C38821002D427D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 792E3D6F2FC06CBE004FBEC7;
+			remoteInfo = Stratz;
+		};
 		79EB3BA22FCBF63F00FD9ECE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 32B36F0326C38821002D427D /* Project object */;
@@ -224,7 +241,7 @@
 			files = (
 				79D3F7FD2FB7F14C0069A605 /* Networking.framework in Embed Frameworks */,
 				79D3D38C2FA47B0B0069A605 /* OpenDota.framework in Embed Frameworks */,
-				792E3D792FC06CBE004FBEC7 /* Stratz.framework in Embed Frameworks */,
+				79EAD3903010CA2900DA475D /* Stratz.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,7 +304,6 @@
 		792E3D702FC06CBE004FBEC7 /* Stratz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Stratz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7930699B2B5D323100A5CF5D /* Remote Data Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Remote Data Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7942FD012B706B49008CE4B0 /* UIScreenshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIScreenshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
 		794838642A3D2C0800A447DA /* LiveMatchActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivity.swift; sourceTree = "<group>"; };
 		79518CE72F725C51005C9449 /* RemoteDataTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RemoteDataTestPlan.xctestplan; sourceTree = "<group>"; };
 		79518D042F729E45005C9449 /* Heroes.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Heroes.graphql; sourceTree = "<group>"; };
@@ -302,7 +318,6 @@
 		79B1630228DD5A29009B2AE2 /* Ability.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Ability.graphql; sourceTree = "<group>"; };
 		79B1630328DD5A31009B2AE2 /* Hero.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hero.graphql; sourceTree = "<group>"; };
 		79CF637929C40B6F0072F4C0 /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		79CF637B29C40B700072F4C0 /* D2AUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AUITests.swift; sourceTree = "<group>"; };
 		79D3D3832FA47B0A0069A605 /* OpenDota.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenDota.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D3D3992FA47D2D0069A605 /* TestKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TestKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D3F7F42FB7F14C0069A605 /* Networking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Networking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -351,6 +366,13 @@
 			);
 			target = 32F70AE526F61836006E9B05 /* D2AWidgetIntentHandler */;
 		};
+		79DA9DFE303479FB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"XCTestCase+Extension.swift",
+			);
+			target = 7942FD002B706B49008CE4B0 /* UIScreenshotTests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -363,6 +385,7 @@
 		79D3D39A2FA47D2D0069A605 /* TestKit */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TestKit; sourceTree = "<group>"; };
 		79D3EC512FB1C2BB0069A605 /* ci_scripts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ci_scripts; sourceTree = "<group>"; };
 		79D3F7F52FB7F14C0069A605 /* Networking */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Networking; sourceTree = "<group>"; };
+		79DA9DFA303479FA007C4B01 /* UI Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (79DA9DFE303479FB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "UI Tests"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,12 +401,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				792E3D782FC06CBE004FBEC7 /* Stratz.framework in Frameworks */,
+				79EAD38F3010CA2900DA475D /* Stratz.framework in Frameworks */,
+				79EAD38E3010CA1800DA475D /* StratzAPI in Frameworks */,
 				79D3D38B2FA47B0B0069A605 /* OpenDota.framework in Frameworks */,
 				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
 				79B8D9712F2889FA0030429D /* Logging in Frameworks */,
 				79D3F7FC2FB7F14C0069A605 /* Networking.framework in Frameworks */,
 				79B8D96F2F2889FA0030429D /* InMemoryLogging in Frameworks */,
+				792213B0301D9B3400819E29 /* Mocking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,7 +420,9 @@
 				32F70A9F26F57F7E006E9B05 /* SwiftUI.framework in Frameworks */,
 				790FBB3429C18AC800E27106 /* Apollo in Frameworks */,
 				79EB3BA02FCBF63F00FD9ECE /* OpenDota.framework in Frameworks */,
+				79EAD3863010C9B100DA475D /* Stratz.framework in Frameworks */,
 				79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */,
+				792213B2301D9B7800819E29 /* Mocking in Frameworks */,
 				32F70A9E26F57F7E006E9B05 /* WidgetKit.framework in Frameworks */,
 				790FBB2C29C1877400E27106 /* StratzAPI in Frameworks */,
 			);
@@ -405,12 +432,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79EAD3813010C99F00DA475D /* Stratz.framework in Frameworks */,
 				79EB3BA52FCBF64500FD9ECE /* OpenDota.framework in Frameworks */,
 				32F70AE826F61836006E9B05 /* Intents.framework in Frameworks */,
 				79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */,
 				79D1043729E2991E00BC04B3 /* Apollo in Frameworks */,
 				790FBB2E29C1877A00E27106 /* StratzAPI in Frameworks */,
 				7928D4862F83914F006C0F3F /* Logging in Frameworks */,
+				792213B4301D9B8000819E29 /* Mocking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,7 +520,7 @@
 				792E3D712FC06CBE004FBEC7 /* Stratz */,
 				79D3D39A2FA47D2D0069A605 /* TestKit */,
 				7926DEC92F9488C200EF3F77 /* Unit Tests */,
-				79CF637A29C40B700072F4C0 /* UI Tests */,
+				79DA9DFA303479FA007C4B01 /* UI Tests */,
 				7942FD022B706B49008CE4B0 /* UIScreenshotTests */,
 			);
 			sourceTree = "<group>";
@@ -615,15 +644,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		79CF637A29C40B700072F4C0 /* UI Tests */ = {
-			isa = PBXGroup;
-			children = (
-				79CF637B29C40B700072F4C0 /* D2AUITests.swift */,
-				7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */,
-			);
-			path = "UI Tests";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -708,6 +728,8 @@
 			packageProductDependencies = (
 				79B8D96E2F2889FA0030429D /* InMemoryLogging */,
 				79B8D9702F2889FA0030429D /* Logging */,
+				79EAD38D3010CA1800DA475D /* StratzAPI */,
+				792213AF301D9B3400819E29 /* Mocking */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* D2A.app */;
@@ -725,6 +747,7 @@
 			);
 			dependencies = (
 				79EB3BA32FCBF63F00FD9ECE /* PBXTargetDependency */,
+				79EAD3893010C9B100DA475D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				792A54A62F7E77A700EC815A /* Shared */,
@@ -735,6 +758,7 @@
 				790FBB3329C18AC800E27106 /* Apollo */,
 				79266DA82A31B21D002FEF0F /* ApolloWebSocket */,
 				7928D4832F839148006C0F3F /* Logging */,
+				792213B1301D9B7800819E29 /* Mocking */,
 			);
 			productName = AppWidgetExtension;
 			productReference = 32F70A9D26F57F7E006E9B05 /* D2AWidgetExtension.appex */;
@@ -752,6 +776,7 @@
 			);
 			dependencies = (
 				79EB3BA82FCBF64500FD9ECE /* PBXTargetDependency */,
+				79EAD3843010C99F00DA475D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				792A54A62F7E77A700EC815A /* Shared */,
@@ -762,6 +787,7 @@
 				79D1043629E2991E00BC04B3 /* Apollo */,
 				79266DAA2A31B224002FEF0F /* ApolloWebSocket */,
 				7928D4852F83914F006C0F3F /* Logging */,
+				792213B3301D9B8000819E29 /* Mocking */,
 			);
 			productName = AppWidgetIntentHandler;
 			productReference = 32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */;
@@ -843,6 +869,9 @@
 			);
 			dependencies = (
 				79CF638029C40B700072F4C0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				79DA9DFA303479FA007C4B01 /* UI Tests */,
 			);
 			name = "UI Tests";
 			productName = D2AUITests;
@@ -985,6 +1014,7 @@
 				790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				7966741F2E697BD500D102FA /* XCLocalSwiftPackageReference "StratzAPI" */,
 				79B8D96D2F2889FA0030429D /* XCRemoteSwiftPackageReference "swift-log" */,
+				792213AE301D9B3400819E29 /* XCRemoteSwiftPackageReference "swift-mocking" */,
 			);
 			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
 			projectDirPath = "";
@@ -1181,7 +1211,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7942FD0F2B706B90008CE4B0 /* XCTestCase+Extension.swift in Sources */,
 				7942FD0C2B706B57008CE4B0 /* ScreenShotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1190,8 +1219,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7942FD0E2B706B85008CE4B0 /* XCTestCase+Extension.swift in Sources */,
-				79CF637C29C40B700072F4C0 /* D2AUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1287,6 +1314,16 @@
 			target = 79D3F7F32FB7F14C0069A605 /* Networking */;
 			targetProxy = 79D3F8062FB7F1B10069A605 /* PBXContainerItemProxy */;
 		};
+		79EAD3843010C99F00DA475D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 792E3D6F2FC06CBE004FBEC7 /* Stratz */;
+			targetProxy = 79EAD3833010C99F00DA475D /* PBXContainerItemProxy */;
+		};
+		79EAD3893010C9B100DA475D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 792E3D6F2FC06CBE004FBEC7 /* Stratz */;
+			targetProxy = 79EAD3883010C9B100DA475D /* PBXContainerItemProxy */;
+		};
 		79EB3BA32FCBF63F00FD9ECE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 79D3D3822FA47B0A0069A605 /* OpenDota */;
@@ -1321,7 +1358,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/lib/swift,
@@ -1352,7 +1389,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/lib/swift,
@@ -1519,13 +1556,13 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/D2A/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = D2A;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"$(FRAMEWORK_SEARCH_PATHS)",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.0.4;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1534,6 +1571,9 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE = YES;
+				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1554,13 +1594,13 @@
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/D2A/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = D2A;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"$(FRAMEWORK_SEARCH_PATHS)",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.0.4;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory;
@@ -1570,6 +1610,9 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Osize";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE = YES;
+				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1593,7 +1636,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1624,7 +1667,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1646,13 +1689,13 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/D2AWidgetIntentHandler/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.WidgetIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1674,13 +1717,13 @@
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/D2AWidgetIntentHandler/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibodev.dotaarmory.WidgetIntentHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1713,7 +1756,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -1767,7 +1810,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -1811,7 +1854,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibotong.D2ADataLoadingTests;
@@ -1835,7 +1878,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibotong.D2ADataLoadingTests;
@@ -1900,7 +1943,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibotong.D2AUITests;
@@ -1922,7 +1965,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shibotong.D2AUITests;
@@ -1956,7 +1999,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -1979,12 +2022,13 @@
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_MODULE = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -2012,7 +2056,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -2034,12 +2078,13 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_MODULE = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -2067,7 +2112,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -2123,7 +2168,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -2178,7 +2223,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -2188,7 +2233,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -2200,16 +2245,17 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_MODULE = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				XROS_DEPLOYMENT_TARGET = 15.0;
+				XROS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Debug;
 		};
@@ -2233,7 +2279,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -2243,7 +2289,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -2254,16 +2300,17 @@
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_MODULE = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				XROS_DEPLOYMENT_TARGET = 15.0;
+				XROS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Release;
 		};
@@ -2396,6 +2443,14 @@
 				version = 1.2.1;
 			};
 		};
+		792213AE301D9B3400819E29 /* XCRemoteSwiftPackageReference "swift-mocking" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fetch-rewards/swift-mocking.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.1;
+			};
+		};
 		79B8D96D2F2889FA0030429D /* XCRemoteSwiftPackageReference "swift-log" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-log";
@@ -2419,6 +2474,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
+		};
+		792213AF301D9B3400819E29 /* Mocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 792213AE301D9B3400819E29 /* XCRemoteSwiftPackageReference "swift-mocking" */;
+			productName = Mocking;
+		};
+		792213B1301D9B7800819E29 /* Mocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 792213AE301D9B3400819E29 /* XCRemoteSwiftPackageReference "swift-mocking" */;
+			productName = Mocking;
+		};
+		792213B3301D9B8000819E29 /* Mocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 792213AE301D9B3400819E29 /* XCRemoteSwiftPackageReference "swift-mocking" */;
+			productName = Mocking;
 		};
 		79266DA82A31B21D002FEF0F /* ApolloWebSocket */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -2463,6 +2533,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
+		};
+		79EAD38D3010CA1800DA475D /* StratzAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StratzAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

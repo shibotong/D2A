@@ -7,13 +7,16 @@
 
 import SwiftUI
 import UIKit
+import Logging
 
 struct AbilityImage: View {
     
-    @ObservedObject var viewModel: AbilityImageViewModel
+    @ObservedObject var viewModel: ViewModel
+    private let logger: Logger?
     
-    init(name: String, imageProvider: ImageProviding = ImageProvider.shared) {
+    init(name: String, imageProvider: ImageProviding = ImageProvider.shared, logger: Logger? = D2ALogger.ui) {
         viewModel = .init(name: name, imageProvider: imageProvider)
+        self.logger = logger
     }
     
     var body: some View {
@@ -26,9 +29,20 @@ struct AbilityImage: View {
                     .renderingMode(.template)
                     .resizable()
                     .foregroundColor(.label)
+                    .task {
+                        await fetchImage()
+                    }
             }
         }
         .aspectRatio(contentMode: .fit)
+    }
+    
+    private func fetchImage() async {
+        do {
+            try await viewModel.fetchImage()
+        } catch {
+            logger?.error("\(error.localizedDescription)")
+        }
     }
 }
 
