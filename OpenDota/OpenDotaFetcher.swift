@@ -40,41 +40,38 @@ public final class OpenDotaFetcher: OpenDotaFetching {
     // MARK: - Constants
     
     public func abilities() async throws -> [String: ODAbility] {
-        let url = try createURL("constants/abilities")
-        return try await apiClient.url(url, decoder: snakeDecoder, as: [String: ODAbility].self)
+        let url = createURL("constants/abilities")
+        return try await apiClient.get(url, decoder: snakeDecoder, as: [String: ODAbility].self)
     }
     
     public func abilityIDs() async throws -> [String: String] {
-        let url = try createURL("constants/ability_ids")
-        return try await apiClient.url(url, decoder: snakeDecoder, as: [String: String].self)
+        let url = createURL("constants/ability_ids")
+        return try await apiClient.get(url, decoder: snakeDecoder, as: [String: String].self)
     }
     
     public func heroes() async throws -> [String: ODHero] {
-        let url = try createURL("constants/heroes")
-        return try await apiClient.url(url, decoder: snakeDecoder, as: [String: ODHero].self)
+        let url = createURL("constants/heroes")
+        return try await apiClient.get(url, decoder: snakeDecoder, as: [String: ODHero].self)
     }
     
     public func heroAbilities() async throws -> [String : ODHeroAbility] {
-        let url = try createURL("constants/hero_abilities")
-        return try await apiClient.url(url, decoder: snakeDecoder, as: [String: ODHeroAbility].self)
+        let url = createURL("constants/hero_abilities")
+        return try await apiClient.get(url, decoder: snakeDecoder, as: [String: ODHeroAbility].self)
     }
     
     // MARK: - OpenDota
     
     public func match(id: String) async throws -> ODMatch {
-        let url = try createURL("matches/\(id)")
-        return try await apiClient.url(url, decoder: snakeDecoder, as: ODMatch.self)
+        let url = createURL("matches/\(id)")
+        return try await apiClient.get(url, decoder: snakeDecoder, as: ODMatch.self)
     }
     
     public func profile(id: String) async throws -> ODUserProfile {
-        let url = try createURL("players/\(id)")
-        return try await apiClient.url(url, decoder: snakeDecoder, as: ODUserProfile.self)
+        let url = createURL("players/\(id)")
+        return try await apiClient.get(url, decoder: snakeDecoder, as: ODUserProfile.self)
     }
     
-    private func createURL(_ path: String) throws -> URL {
-        guard let url = URL(string: "\(baseURL)/\(path)") else {
-            throw ODError.urlError
-        }
-        return url
+    private func createURL(_ path: String) -> String {
+        return "\(baseURL)/\(path)"
     }
 }
