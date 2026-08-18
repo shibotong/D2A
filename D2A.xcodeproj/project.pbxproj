@@ -55,8 +55,6 @@
 		792E3D932FC06D34004FBEC7 /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
 		792E3D942FC06D34004FBEC7 /* Stratz.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7942FD0C2B706B57008CE4B0 /* ScreenShotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790102B929F40C4600E8A320 /* ScreenShotTests.swift */; };
-		7942FD0E2B706B85008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
-		7942FD0F2B706B90008CE4B0 /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */; };
 		794838652A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838642A3D2C0800A447DA /* LiveMatchActivity.swift */; };
 		794838662A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838642A3D2C0800A447DA /* LiveMatchActivity.swift */; };
 		794838672A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838642A3D2C0800A447DA /* LiveMatchActivity.swift */; };
@@ -78,7 +76,6 @@
 		7983DA762B63088600C42F87 /* D2AWidgetUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7983DA732B63088600C42F87 /* D2AWidgetUser.swift */; };
 		79B8D96F2F2889FA0030429D /* InMemoryLogging in Frameworks */ = {isa = PBXBuildFile; productRef = 79B8D96E2F2889FA0030429D /* InMemoryLogging */; };
 		79B8D9712F2889FA0030429D /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 79B8D9702F2889FA0030429D /* Logging */; };
-		79CF637C29C40B700072F4C0 /* D2AUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF637B29C40B700072F4C0 /* D2AUITests.swift */; };
 		79D1043729E2991E00BC04B3 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79D1043629E2991E00BC04B3 /* Apollo */; };
 		79D3D38B2FA47B0B0069A605 /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
 		79D3D38C2FA47B0B0069A605 /* OpenDota.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -307,7 +304,6 @@
 		792E3D702FC06CBE004FBEC7 /* Stratz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Stratz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7930699B2B5D323100A5CF5D /* Remote Data Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Remote Data Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7942FD012B706B49008CE4B0 /* UIScreenshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIScreenshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
 		794838642A3D2C0800A447DA /* LiveMatchActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivity.swift; sourceTree = "<group>"; };
 		79518CE72F725C51005C9449 /* RemoteDataTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RemoteDataTestPlan.xctestplan; sourceTree = "<group>"; };
 		79518D042F729E45005C9449 /* Heroes.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Heroes.graphql; sourceTree = "<group>"; };
@@ -322,7 +318,6 @@
 		79B1630228DD5A29009B2AE2 /* Ability.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Ability.graphql; sourceTree = "<group>"; };
 		79B1630328DD5A31009B2AE2 /* Hero.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hero.graphql; sourceTree = "<group>"; };
 		79CF637929C40B6F0072F4C0 /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		79CF637B29C40B700072F4C0 /* D2AUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AUITests.swift; sourceTree = "<group>"; };
 		79D3D3832FA47B0A0069A605 /* OpenDota.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenDota.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D3D3992FA47D2D0069A605 /* TestKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TestKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D3F7F42FB7F14C0069A605 /* Networking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Networking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -371,6 +366,13 @@
 			);
 			target = 32F70AE526F61836006E9B05 /* D2AWidgetIntentHandler */;
 		};
+		79DA9DFE303479FB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"XCTestCase+Extension.swift",
+			);
+			target = 7942FD002B706B49008CE4B0 /* UIScreenshotTests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -383,6 +385,7 @@
 		79D3D39A2FA47D2D0069A605 /* TestKit */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TestKit; sourceTree = "<group>"; };
 		79D3EC512FB1C2BB0069A605 /* ci_scripts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ci_scripts; sourceTree = "<group>"; };
 		79D3F7F52FB7F14C0069A605 /* Networking */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Networking; sourceTree = "<group>"; };
+		79DA9DFA303479FA007C4B01 /* UI Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (79DA9DFE303479FB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "UI Tests"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -517,7 +520,7 @@
 				792E3D712FC06CBE004FBEC7 /* Stratz */,
 				79D3D39A2FA47D2D0069A605 /* TestKit */,
 				7926DEC92F9488C200EF3F77 /* Unit Tests */,
-				79CF637A29C40B700072F4C0 /* UI Tests */,
+				79DA9DFA303479FA007C4B01 /* UI Tests */,
 				7942FD022B706B49008CE4B0 /* UIScreenshotTests */,
 			);
 			sourceTree = "<group>";
@@ -639,15 +642,6 @@
 				7983DA6F2B63086700C42F87 /* D2AWidgetUserEntry.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		79CF637A29C40B700072F4C0 /* UI Tests */ = {
-			isa = PBXGroup;
-			children = (
-				79CF637B29C40B700072F4C0 /* D2AUITests.swift */,
-				7942FD0D2B706B85008CE4B0 /* XCTestCase+Extension.swift */,
-			);
-			path = "UI Tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -875,6 +869,9 @@
 			);
 			dependencies = (
 				79CF638029C40B700072F4C0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				79DA9DFA303479FA007C4B01 /* UI Tests */,
 			);
 			name = "UI Tests";
 			productName = D2AUITests;
@@ -1214,7 +1211,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7942FD0F2B706B90008CE4B0 /* XCTestCase+Extension.swift in Sources */,
 				7942FD0C2B706B57008CE4B0 /* ScreenShotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1223,8 +1219,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7942FD0E2B706B85008CE4B0 /* XCTestCase+Extension.swift in Sources */,
-				79CF637C29C40B700072F4C0 /* D2AUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
