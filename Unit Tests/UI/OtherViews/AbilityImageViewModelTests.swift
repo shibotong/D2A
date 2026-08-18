@@ -10,7 +10,6 @@ import TestKit
 import UIKit
 @testable import D2A
 
-@Suite(.serialized)
 class AbilityImageViewModelTests {
     
     private let imageProvider: ImageProvidingMock
@@ -19,10 +18,6 @@ class AbilityImageViewModelTests {
     init() {
         imageProvider = ImageProvidingMock()
         client = MockAPIClient()
-    }
-    
-    deinit {
-        MockURLProtocol.requestHandler = nil
     }
     
     @Test("No ability image when no cached image")
@@ -46,13 +41,7 @@ class AbilityImageViewModelTests {
     func testFetchImage() async throws {
         imageProvider._read.implementation = .returns(nil)
         let image = UIImage(systemName: "person")
-        MockURLProtocol.requestHandler = { request in
-            let response = HTTPURLResponse(url: request.url!,
-                                           statusCode: 200,
-                                           httpVersion: nil,
-                                           headerFields: nil)!
-            return (response, image!.pngData()!)
-        }
+        client.getReturnValue = image!.pngData()!
         let viewModel = createViewModel()
         await #expect(throws: Never.self) {
             try await viewModel.fetchImage()
@@ -62,14 +51,7 @@ class AbilityImageViewModelTests {
     @Test("Test fetching image from remote with error")
     func testFetchImageError() async {
         imageProvider._read.implementation = .returns(nil)
-        MockURLProtocol.requestHandler = { request in
-            let response = HTTPURLResponse(url: request.url!,
-                                           statusCode: 200,
-                                           httpVersion: nil,
-                                           headerFields: nil)!
-            let data = "error".data(using: .utf8)!
-            return (response, data)
-        }
+        client.getReturnValue = "error".data(using: .utf8)!
         let viewModel = createViewModel()
         let error = await #expect(throws: D2AError.self) {
             try await viewModel.fetchImage()

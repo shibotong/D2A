@@ -8,47 +8,10 @@
 import Foundation
 
 public protocol APIClientProtocol: Sendable {
-    var urlSession: URLSession { get }
-    
     func get(_ urlString: String) async throws -> Data
 }
 
 extension APIClientProtocol {
-    @available(*, deprecated, renamed: "get", message: "this has been deprecated")
-    public func url(_ url: URL) async throws -> Data {
-        let request = URLRequest(url: url)
-        return try await self.request(request)
-    }
-    
-    @available(*, deprecated, renamed: "get", message: "this has been deprecated")
-    public func url<T: Decodable & Sendable>(_ url: URL, decoder: JSONDecoder, as type: T.Type) async throws -> T {
-        let data = try await self.url(url)
-        return try decoder.decode(T.self, from: data)
-    }
-    
-    @available(*, deprecated, renamed: "get", message: "this has been deprecated")
-    public func request(_ request: URLRequest) async throws -> Data {
-        let (data, response) = try await urlSession.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse else {
-            return data
-        }
-        
-        switch httpResponse.statusCode {
-        case 200:
-            return data
-        case 404:
-            throw URLError(URLError.Code(rawValue: 404), userInfo: ["error": "Not Found"])
-        default:
-            return data
-        }
-    }
-    
-    @available(*, deprecated, renamed: "get", message: "this has been deprecated")
-    public func request<T: Decodable & Sendable>(_ request: URLRequest, decoder: JSONDecoder, as type: T.Type) async throws -> T {
-        let data = try await self.request(request)
-        return try decoder.decode(T.self, from: data)
-    }
-    
     public func get<T: Decodable & Sendable>(_ urlString: String, decoder: JSONDecoder, as type: T.Type) async throws -> T {
         let data = try await get(urlString)
         return try decoder.decode(T.self, from: data)
