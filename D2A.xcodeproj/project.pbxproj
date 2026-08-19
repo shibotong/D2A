@@ -53,6 +53,7 @@
 		792E3D902FC06CD0004FBEC7 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 792E3D8F2FC06CD0004FBEC7 /* StratzAPI */; };
 		792E3D922FC06CD8004FBEC7 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 792E3D912FC06CD8004FBEC7 /* Apollo */; };
 		792E3D932FC06D34004FBEC7 /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
+		79F00AAA0000000000000002 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79F00AAA0000000000000001 /* Apollo */; };
 		792E3D942FC06D34004FBEC7 /* Stratz.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		794838652A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838642A3D2C0800A447DA /* LiveMatchActivity.swift */; };
 		794838662A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838642A3D2C0800A447DA /* LiveMatchActivity.swift */; };
@@ -420,6 +421,7 @@
 				79D3F7FC2FB7F14C0069A605 /* Networking.framework in Frameworks */,
 				79B8D96F2F2889FA0030429D /* InMemoryLogging in Frameworks */,
 				792213B0301D9B3400819E29 /* Mocking in Frameworks */,
+				79F00AAA0000000000000002 /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,6 +713,7 @@
 				79B8D9702F2889FA0030429D /* Logging */,
 				79EAD38D3010CA1800DA475D /* StratzAPI */,
 				792213AF301D9B3400819E29 /* Mocking */,
+				79F00AAA0000000000000001 /* Apollo */,
 			);
 			productName = App;
 			productReference = 32B36F0B26C38821002D427D /* D2A.app */;
@@ -2511,6 +2514,11 @@
 		79EAD38D3010CA1800DA475D /* StratzAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = StratzAPI;
+		};
+		79F00AAA0000000000000001 /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
