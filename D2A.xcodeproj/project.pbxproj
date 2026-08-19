@@ -79,6 +79,7 @@
 		79D3F7FC2FB7F14C0069A605 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3F7F42FB7F14C0069A605 /* Networking.framework */; };
 		79D3F7FD2FB7F14C0069A605 /* Networking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3F7F42FB7F14C0069A605 /* Networking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		79D3F8042FB7F1B10069A605 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3F7F42FB7F14C0069A605 /* Networking.framework */; };
+		79DAEC8C3035BC23007C4B01 /* Networkable in Frameworks */ = {isa = PBXBuildFile; productRef = 79DAEC8B3035BC23007C4B01 /* Networkable */; };
 		79EAD3813010C99F00DA475D /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
 		79EAD3863010C9B100DA475D /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
 		79EAD38E3010CA1800DA475D /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79EAD38D3010CA1800DA475D /* StratzAPI */; };
@@ -489,6 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79D3F8042FB7F1B10069A605 /* Networking.framework in Frameworks */,
+				79DAEC8C3035BC23007C4B01 /* Networkable in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -881,6 +883,7 @@
 			);
 			name = OpenDota;
 			packageProductDependencies = (
+				79DAEC8B3035BC23007C4B01 /* Networkable */,
 			);
 			productName = OpenDota;
 			productReference = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */;
@@ -999,6 +1002,7 @@
 				7966741F2E697BD500D102FA /* XCLocalSwiftPackageReference "StratzAPI" */,
 				79B8D96D2F2889FA0030429D /* XCRemoteSwiftPackageReference "swift-log" */,
 				792213AE301D9B3400819E29 /* XCRemoteSwiftPackageReference "swift-mocking" */,
+				79DAEC8A3035BC23007C4B01 /* XCRemoteSwiftPackageReference "Networkable" */,
 			);
 			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
 			projectDirPath = "";
@@ -2433,6 +2437,14 @@
 				version = 1.9.1;
 			};
 		};
+		79DAEC8A3035BC23007C4B01 /* XCRemoteSwiftPackageReference "Networkable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/shibotong/Networkable";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2507,6 +2519,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 790FBB2229C186AE00E27106 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
+		};
+		79DAEC8B3035BC23007C4B01 /* Networkable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79DAEC8A3035BC23007C4B01 /* XCRemoteSwiftPackageReference "Networkable" */;
+			productName = Networkable;
 		};
 		79EAD38D3010CA1800DA475D /* StratzAPI */ = {
 			isa = XCSwiftPackageProductDependency;

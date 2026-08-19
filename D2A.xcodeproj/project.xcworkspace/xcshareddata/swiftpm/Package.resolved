@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "networkable",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/shibotong/Networkable",
+      "state" : {
+        "branch" : "main",
+        "revision" : "ae54ff1e90307f56e270e72aa572d3974f5e3aa7"
+      }
+    },
+    {
       "identity" : "sqlite.swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stephencelis/SQLite.swift.git",
