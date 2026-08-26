@@ -257,13 +257,6 @@
 			);
 			target = 32B36F0A26C38821002D427D /* D2A */;
 		};
-		7937F34B303EECA7006E7160 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 32F70A9C26F57F7E006E9B05 /* D2AWidgetExtension */;
-		};
 		7937F34D303EECA7006E7160 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -360,13 +353,6 @@
 			);
 			target = 32F70A9C26F57F7E006E9B05 /* D2AWidgetExtension */;
 		};
-		79DAC63730347F37007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 32F70AE526F61836006E9B05 /* D2AWidgetIntentHandler */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -390,7 +376,7 @@
 		7926DEC92F9488C200EF3F77 /* Unit Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Unit Tests"; sourceTree = "<group>"; };
 		792A54A62F7E77A700EC815A /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
 		792E3D712FC06CBE004FBEC7 /* Stratz */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Stratz; sourceTree = "<group>"; };
-		7937F31F303EECA6006E7160 /* D2AWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7937F349303EECA7006E7160 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 7937F34B303EECA7006E7160 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 7937F34D303EECA7006E7160 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = D2AWidget; sourceTree = "<group>"; };
+		7937F31F303EECA6006E7160 /* D2AWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7937F349303EECA7006E7160 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 7937F34D303EECA7006E7160 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = D2AWidget; sourceTree = "<group>"; };
 		79520A202FBDE47F004D9DD6 /* Remote Data Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Remote Data Tests"; sourceTree = "<group>"; };
 		79C632962FC0652B001BDE18 /* D2A */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (79C632FC2FC0652B001BDE18 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79C632FD2FC0652B001BDE18 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79C632FE2FC0652B001BDE18 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = D2A; sourceTree = "<group>"; };
 		79D3D3842FA47B0B0069A605 /* OpenDota */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = OpenDota; sourceTree = "<group>"; };
@@ -400,7 +386,7 @@
 		79DA9DFA303479FA007C4B01 /* UI Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (79DA9DFE303479FB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "UI Tests"; sourceTree = "<group>"; };
 		79DAB6FF30347E90007C4B01 /* UIScreenshotTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = UIScreenshotTests; sourceTree = "<group>"; };
 		79DABE9230347EFA007C4B01 /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (79DABE9C30347EFB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79DABE9D30347EFB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 793709C7303EFBC6006E7160 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, 79DABE9E30347EFB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 793709C8303EFBC6006E7160 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
-		79DAC63130347F36007C4B01 /* D2AWidgetIntentHandler */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (79DAC63530347F37007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79DAC63630347F37007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79DAC63730347F37007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = D2AWidgetIntentHandler; sourceTree = "<group>"; };
+		79DAC63130347F36007C4B01 /* D2AWidgetIntentHandler */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (79DAC63530347F37007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79DAC63630347F37007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = D2AWidgetIntentHandler; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
