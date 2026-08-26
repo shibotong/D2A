@@ -11,9 +11,6 @@
 		3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 3201BC4326F89ECD00A67505 /* DynamicUserSelection.intentdefinition */; };
 		3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 3201BC4326F89ECD00A67505 /* DynamicUserSelection.intentdefinition */; };
 		327C03442717AE8500DAEC42 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 327C03432717AE8500DAEC42 /* README.md */; };
-		32B526C3285C0B380099B058 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AEA26F61836006E9B05 /* IntentHandler.swift */; };
-		32B526C4285C0B380099B058 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AEA26F61836006E9B05 /* IntentHandler.swift */; };
-		32B526C5285C0B730099B058 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AEA26F61836006E9B05 /* IntentHandler.swift */; };
 		32B526C8285C0BDE0099B058 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2F26F714FD006E9B05 /* Provider.swift */; };
 		32B526CB285C0CE40099B058 /* RecentMatchesWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526C9285C0CBF0099B058 /* RecentMatchesWidgetEntryView.swift */; };
 		32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526D0285C1C480099B058 /* LatestMatchWidgetEntryView.swift */; };
@@ -284,11 +281,7 @@
 		32F70AA526F57F7E006E9B05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = D2AWidgetIntentHandler.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		32F70AE726F61836006E9B05 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
-		32F70AEA26F61836006E9B05 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
-		32F70AEC26F61836006E9B05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		32F70B2926F62B77006E9B05 /* D2AWidgetIntentHandlerDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2AWidgetIntentHandlerDebug.entitlements; sourceTree = "<group>"; };
 		32F70B2F26F714FD006E9B05 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
-		32F70B3926F80AE4006E9B05 /* D2AWidgetIntentHandlerRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = D2AWidgetIntentHandlerRelease.entitlements; sourceTree = "<group>"; };
 		79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityAttributes.swift; sourceTree = "<group>"; };
 		79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityWidget.swift; sourceTree = "<group>"; };
 		792E3D702FC06CBE004FBEC7 /* Stratz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Stratz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -383,6 +376,27 @@
 			);
 			target = 32F70AE526F61836006E9B05 /* D2AWidgetIntentHandler */;
 		};
+		79DAC63530347F37007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				IntentHandler.swift,
+			);
+			target = 32B36F0A26C38821002D427D /* D2A */;
+		};
+		79DAC63630347F37007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				IntentHandler.swift,
+			);
+			target = 32F70A9C26F57F7E006E9B05 /* D2AWidgetExtension */;
+		};
+		79DAC63730347F37007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				IntentHandler.swift,
+			);
+			target = 32F70AE526F61836006E9B05 /* D2AWidgetIntentHandler */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -398,6 +412,7 @@
 		79DA9DFA303479FA007C4B01 /* UI Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (79DA9DFE303479FB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "UI Tests"; sourceTree = "<group>"; };
 		79DAB6FF30347E90007C4B01 /* UIScreenshotTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = UIScreenshotTests; sourceTree = "<group>"; };
 		79DABE9230347EFA007C4B01 /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (79DABE9C30347EFB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79DABE9D30347EFB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79DABE9E30347EFB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
+		79DAC63130347F36007C4B01 /* D2AWidgetIntentHandler */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (79DAC63530347F37007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79DAC63630347F37007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 79DAC63730347F37007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = D2AWidgetIntentHandler; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -522,7 +537,7 @@
 				327C03432717AE8500DAEC42 /* README.md */,
 				79C632962FC0652B001BDE18 /* D2A */,
 				32F70AA026F57F7E006E9B05 /* D2AWidget */,
-				32F70AE926F61836006E9B05 /* D2AWidgetIntentHandler */,
+				79DAC63130347F36007C4B01 /* D2AWidgetIntentHandler */,
 				78E76DAB4BB6331DA85B70C0 /* Frameworks */,
 				79D3F7F52FB7F14C0069A605 /* Networking */,
 				79D3D3842FA47B0B0069A605 /* OpenDota */,
@@ -583,17 +598,6 @@
 				797776D02B60C5E6000E6C3B /* ViewExtension.swift */,
 			);
 			path = resources;
-			sourceTree = "<group>";
-		};
-		32F70AE926F61836006E9B05 /* D2AWidgetIntentHandler */ = {
-			isa = PBXGroup;
-			children = (
-				32F70B3926F80AE4006E9B05 /* D2AWidgetIntentHandlerRelease.entitlements */,
-				32F70B2926F62B77006E9B05 /* D2AWidgetIntentHandlerDebug.entitlements */,
-				32F70AEA26F61836006E9B05 /* IntentHandler.swift */,
-				32F70AEC26F61836006E9B05 /* Info.plist */,
-			);
-			path = D2AWidgetIntentHandler;
 			sourceTree = "<group>";
 		};
 		78E76DAB4BB6331DA85B70C0 /* Frameworks */ = {
@@ -1123,7 +1127,6 @@
 				79091DF92A3B32140093EEE4 /* LiveMatchActivityAttributes.swift in Sources */,
 				79091DFA2A3B32170093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
 				3201BC3F26F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
-				32B526C5285C0B730099B058 /* IntentHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1138,7 +1141,6 @@
 				7983DA752B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
 				7983DA6B2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
 				32B526D1285C1C8B0099B058 /* LatestMatchWidgetEntryView.swift in Sources */,
-				32B526C3285C0B380099B058 /* IntentHandler.swift in Sources */,
 				797776D22B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
 				3201BC4026F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				79091DF52A3B2E2C0093EEE4 /* LiveMatchActivityWidget.swift in Sources */,
@@ -1160,7 +1162,6 @@
 				7983DA762B63088600C42F87 /* D2AWidgetUser.swift in Sources */,
 				7983DA6C2B63084F00C42F87 /* D2AWidgetMatch.swift in Sources */,
 				32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */,
-				32B526C4285C0B380099B058 /* IntentHandler.swift in Sources */,
 				32EC7F3828646BAE00A36AF6 /* RecentMatchesWidgetEntryView.swift in Sources */,
 				3201BC4126F89ECD00A67505 /* DynamicUserSelection.intentdefinition in Sources */,
 				797776D32B60C5E6000E6C3B /* ViewExtension.swift in Sources */,
