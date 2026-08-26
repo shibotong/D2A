@@ -304,6 +304,8 @@
 				DataSyncing/SyncingTimer.swift,
 				Views/HeroDataView/HeroData.swift,
 				Views/HomeView/RecentMatchWinLossView.swift,
+				Views/MatchListView/MatchListRowView.swift,
+				Views/MatchListView/MatchListRowViewModel.swift,
 				Views/MatchView/KDAView.swift,
 				Views/OtherViews/HeroImageView.swift,
 				Views/OtherViews/RankView.swift,
