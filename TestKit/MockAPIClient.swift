@@ -17,6 +17,6 @@ public final class MockAPIClient: APIClientProtocol, @unchecked Sendable {
     
     public func get(_ urlString: String) async throws -> (Data, URLResponse) {
         getCount += 1
-        return getHandler(urlString)
+        return try await getHandler(urlString)
     }
 }
