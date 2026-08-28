@@ -10,15 +10,13 @@ import Foundation
 
 public final class MockAPIClient: APIClientProtocol, @unchecked Sendable {
     
-    public var getReturnValue: Data!
-    public var getThrowError: Error?
+    public var getHandler: ((String) async throws -> (Data, URLResponse))!
+    public var getCount: Int = 0
     
     public init() {}
     
-    public func get(_ urlString: String) async throws -> Data {
-        if let getThrowError {
-            throw getThrowError
-        }
-        return getReturnValue
+    public func get(_ urlString: String) async throws -> (Data, URLResponse) {
+        getCount += 1
+        return try await getHandler(urlString)
     }
 }
