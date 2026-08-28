@@ -352,6 +352,7 @@
 		79DABE9C30347EFB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				D2AModel.xcdatamodeld,
 				graphql/schema.graphqls,
 				graphql/secrets.example.json,
 				graphql/secrets.json,
@@ -361,6 +362,7 @@
 		79DABE9D30347EFB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				D2AModel.xcdatamodeld,
 				graphql/schema.graphqls,
 				graphql/secrets.example.json,
 				graphql/secrets.json,
@@ -370,6 +372,7 @@
 		79DABE9E30347EFB007C4B01 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				D2AModel.xcdatamodeld,
 				graphql/schema.graphqls,
 				graphql/secrets.example.json,
 				graphql/secrets.json,

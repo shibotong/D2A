@@ -15,7 +15,7 @@ extension AbilityTranslation {
     }
     
     var localizedAttributes: [Attribute]? {
-        guard let localizedString = attributes else {
+        guard let localizedString = attributes as? [String] else {
             return nil
         }
         var localizedAttributes: [Attribute] = []
@@ -25,10 +25,9 @@ extension AbilityTranslation {
                 let header = String(splits.first ?? "")
                 var message = String(splits.last ?? "")
                 if let abilityName = name,
-                   let attributes,
                    message.first == "%" && message.last == "%" {
                     let key = extractAttributeKey(input: message, abilityName: abilityName)
-                    message = attributes.filter({ attribute in
+                    message = localizedString.filter({ attribute in
                         return attribute == key
                     }).first ?? message
                 }

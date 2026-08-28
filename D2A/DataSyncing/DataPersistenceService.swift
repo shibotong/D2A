@@ -271,6 +271,6 @@ class DataPersistenceService {
         setIfNotEqual(entity: translation, path: \.desc, value: ability.description.joined(separator: "\n"))
         setIfNotEqual(entity: translation, path: \.lore, value: ability.lore)
         setIfNotEqual(entity: translation, path: \.shardDescription, value: ability.shardDescription)
-        setIfNotEqual(entity: translation, path: \.attributes, value: ability.attributes?.compactMap({ $0 }))
+        setIfNotEqual(entity: translation, path: \.attributes, value: ability.attributes?.compactMap({ $0 }) as? NSArray)
     }
 }
