@@ -48,7 +48,7 @@ struct RemoteOpenDotaFetcherTests {
     @Test
     func `Yatoro profile`() async {
         await #expect(throws: Never.self) {
-            let _ = try await fetcher.profile(id: "321580662")
+            let _ = try await fetcher.players(accountId: "321580662")
         }
     }
     
