@@ -7,7 +7,12 @@
 
 import Foundation
 
-public struct ODSearchPlayer: Decodable {
+public struct ODSearchPlayer: Decodable, Identifiable {
+    
+    public var id: Int {
+        return accountId
+    }
+    
     public let accountId: Int
     public let avatarfull: String
     public let personaname: String

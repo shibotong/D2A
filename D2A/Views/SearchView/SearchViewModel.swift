@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import OpenDota
 
 class SearchViewModel: ObservableObject {
     @Published var searchText: String = ""
@@ -17,7 +18,7 @@ class SearchViewModel: ObservableObject {
     @Published var suggestLocalProfiles: [UserProfile] = []
     
     // search results
-    @Published var userProfiles: [UserProfileCodable] = []
+    @Published var userProfiles: [ODSearchPlayer] = []
     @Published var searchLocalProfiles: [UserProfile] = []
     @Published var searchedMatch: Match?
     @Published var filterHeroes: [HeroCodable] = []
@@ -29,7 +30,11 @@ class SearchViewModel: ObservableObject {
     }
     
     private var cancellableObject: Set<AnyCancellable> = []
-    init() {
+    
+    private let openDotaFetcher: OpenDotaFetching
+    
+    init(openDotaFetcher: OpenDotaFetching = OpenDotaFetcher.shared) {
+        self.openDotaFetcher = openDotaFetcher
         searchHistory = UserDefaults.standard.object(forKey: "dotaArmory.searchHistory") as? [String] ?? []
         
         $searchText
@@ -64,7 +69,6 @@ class SearchViewModel: ObservableObject {
             .store(in: &cancellableObject)
     }
     
-    @MainActor
     func search(searchText: String) async {
         isLoading = true
         // set suggestion to empty
@@ -75,7 +79,7 @@ class SearchViewModel: ObservableObject {
         filterHeroes = HeroDatabase.shared.fetchAllHeroes().filter { hero in
             return hero.heroNameLocalized.lowercased().contains(searchText.lowercased())
         }
-        async let searchedProfile = OpenDotaController.shared.searchUserByText(text: searchText)
+        async let searchedProfile = openDotaFetcher.searchPlayer(personaname: searchText)
         let searchCachedProfile = UserProfile.fetch(text: searchText)
         if Int(searchText) != nil {
             async let matchID = OpenDotaController.shared.loadMatchData(matchid: searchText)
@@ -90,19 +94,23 @@ class SearchViewModel: ObservableObject {
         }
 
         var cachedProfiles: [UserProfile] = searchCachedProfile
-        var notCachedProfiles: [UserProfileCodable] = []
+        var notCachedProfiles: [ODSearchPlayer] = []
         
-        for profile in await searchedProfile {
-            if let cachedProfile = UserProfile.fetch(id: profile.id.description) {
-                if cachedProfiles.contains(where: { profile in
-                    profile.id == cachedProfile.id
-                }) {
-                    continue
+        do {
+            for profile in try await searchedProfile {
+                if let cachedProfile = UserProfile.fetch(id: "\(profile.accountId)") {
+                    if cachedProfiles.contains(where: { profile in
+                        profile.id == cachedProfile.id
+                    }) {
+                        continue
+                    }
+                    cachedProfiles.append(cachedProfile)
+                } else {
+                    notCachedProfiles.append(profile)
                 }
-                cachedProfiles.append(cachedProfile)
-            } else {
-                notCachedProfiles.append(profile)
             }
+        } catch {
+            print("Failed to load search profile \(error)")
         }
         
         searchLocalProfiles = cachedProfiles

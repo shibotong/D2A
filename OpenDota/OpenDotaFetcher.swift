@@ -16,6 +16,9 @@ public protocol OpenDotaFetching: Sendable {
     
     func match(id: String) async throws -> ODMatch
     func profile(id: String) async throws -> ODUserProfile
+    
+    /// Search players by personaname.
+    func searchPlayer(personaname: String) async throws -> [ODSearchPlayer]
 }
 
 public final class OpenDotaFetcher: OpenDotaFetching {
