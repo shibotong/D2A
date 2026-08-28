@@ -41,7 +41,10 @@ class AbilityImageViewModelTests {
     func testFetchImage() async throws {
         imageProvider._read.implementation = .returns(nil)
         let image = UIImage(systemName: "person")
-        client.getReturnValue = image!.pngData()!
+        client.getHandler = { url in
+            let response = HTTPURLResponse(url: URL(string: url)!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return (image!.pngData()!, response)
+        }
         let viewModel = createViewModel()
         await #expect(throws: Never.self) {
             try await viewModel.fetchImage()
@@ -51,7 +54,10 @@ class AbilityImageViewModelTests {
     @Test("Test fetching image from remote with error")
     func testFetchImageError() async {
         imageProvider._read.implementation = .returns(nil)
-        client.getReturnValue = "error".data(using: .utf8)!
+        client.getHandler = { url in
+            let response = HTTPURLResponse(url: URL(string: url)!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return ("error".data(using: .utf8)!, response)
+        }
         let viewModel = createViewModel()
         let error = await #expect(throws: D2AError.self) {
             try await viewModel.fetchImage()
