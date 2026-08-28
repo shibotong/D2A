@@ -73,7 +73,7 @@ struct OpenDotaFetcherTests {
             let data = try fileReader.readFile("player_yatoro")
             return (data, response)
         }
-        let user = try await fetcher.profile(id: "321580662")
+        let user = try await fetcher.players(accountId: "321580662")
         let profile = user.profile
         #expect(user.rankTier == 80)
         #expect(user.leaderboardRank == 12)
@@ -92,5 +92,19 @@ struct OpenDotaFetcherTests {
         let match = try await fetcher.match(id: "8671593880")
         #expect(match.gameMode == 22)
         #expect(match.matchId == 8671593880)
+    }
+    
+    @Test("Searching function")
+    func search() async throws {
+        client.getHandler = { url in
+            let response = HTTPURLResponse(url: URL(string: url)!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            let data = try fileReader.readFile("search_result")
+            return (data, response)
+        }
+        let players = try await fetcher.search(personaname: "TEST_USER")
+        #expect(players.count == 1)
+        let player = try #require(players.first)
+        #expect(player.accountId == 1234567890)
+        #expect(player.personaname == "TEST_USER")
     }
 }
