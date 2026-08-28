@@ -91,6 +91,10 @@ public final class OpenDotaFetcher: OpenDotaFetching {
         return try await apiClient.get(url, decoder: snakeDecoder, as: ODUserProfile.self)
     }
     
+    public func searchPlayer(personaname: String) async throws  {
+        
+    }
+    
     private func createURL(_ path: String) -> String {
         return "\(baseURL)/\(path)"
     }
