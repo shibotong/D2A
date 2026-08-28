@@ -79,7 +79,7 @@ class SearchViewModel: ObservableObject {
         filterHeroes = HeroDatabase.shared.fetchAllHeroes().filter { hero in
             return hero.heroNameLocalized.lowercased().contains(searchText.lowercased())
         }
-        async let searchedProfile = openDotaFetcher.searchPlayer(personaname: searchText)
+        async let searchedProfile = openDotaFetcher.search(personaname: searchText)
         let searchCachedProfile = UserProfile.fetch(text: searchText)
         if Int(searchText) != nil {
             async let matchID = OpenDotaController.shared.loadMatchData(matchid: searchText)

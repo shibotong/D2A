@@ -15,10 +15,12 @@ public protocol OpenDotaFetching: Sendable {
     func heroAbilities() async throws -> [String: ODHeroAbility]
     
     func match(id: String) async throws -> ODMatch
-    func profile(id: String) async throws -> ODUserProfile
+    
+    /// Player data
+    func players(accountId: String) async throws -> ODUserProfile
     
     /// Search players by personaname.
-    func searchPlayer(personaname: String) async throws -> [ODSearchPlayer]
+    func search(personaname: String) async throws -> [ODSearchPlayer]
 }
 
 public final class OpenDotaFetcher: OpenDotaFetching {
@@ -84,11 +86,11 @@ public final class OpenDotaFetcher: OpenDotaFetching {
         return try await doNetworkCall("/matches/\(id)", decoder: snakeDecoder, as: ODMatch.self)
     }
     
-    public func profile(id: String) async throws -> ODUserProfile {
-        return try await doNetworkCall("/players/\(id)", decoder: snakeDecoder, as: ODUserProfile.self)
+    public func players(accountId: String) async throws -> ODUserProfile {
+        return try await doNetworkCall("/players/\(accountId)", decoder: snakeDecoder, as: ODUserProfile.self)
     }
     
-    public func searchPlayer(personaname: String) async throws -> [ODSearchPlayer] {
+    public func search(personaname: String) async throws -> [ODSearchPlayer] {
         return try await doNetworkCall("/search", decoder: snakeDecoder, query: ["q": personaname], as: [ODSearchPlayer].self)
     }
     
