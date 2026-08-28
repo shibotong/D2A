@@ -93,4 +93,18 @@ struct OpenDotaFetcherTests {
         #expect(match.gameMode == 22)
         #expect(match.matchId == 8671593880)
     }
+    
+    @Test("Searching function")
+    func search() async throws {
+        client.getHandler = { url in
+            let response = HTTPURLResponse(url: URL(string: url)!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            let data = try fileReader.readFile("search_result")
+            return (data, response)
+        }
+        let players = try await fetcher.searchPlayer(personaname: "TEST_USER")
+        #expect(players.count == 1)
+        let player = try #require(players.first)
+        #expect(player.accountId == 1234567890)
+        #expect(player.personaname == "TEST_USER")
+    }
 }

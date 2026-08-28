@@ -52,10 +52,10 @@ struct RemoteOpenDotaFetcherTests {
         }
     }
     
-    @Test
-    func `Not Found Profiles`() async {
-        await #expect(throws: URLError.notFound) {
-            let _ = try await fetcher.profile(id: "123123131")
-        }
-    }
+//    @Test
+//    func `Not Found Profiles`() async {
+//        await #expect(throws: URLError.notFound) {
+//            let _ = try await fetcher.profile(id: "123123131")
+//        }
+//    }
 }

@@ -11,6 +11,6 @@ public struct ODSearchPlayer: Decodable {
     public let accountId: Int
     public let avatarfull: String
     public let personaname: String
-    public let lastMatchTime: Date
+    public let lastMatchTime: Date?
     public let sml: Int
 }

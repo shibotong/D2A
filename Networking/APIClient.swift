@@ -11,6 +11,12 @@ public protocol APIClientProtocol: Sendable {
     func get(_ urlString: String, query: [String: String]) async throws -> (Data, URLResponse)
 }
 
+extension APIClientProtocol {
+    public func get(_ urlString: String) async throws -> (Data, URLResponse) {
+        return try await get(urlString, query: [:])
+    }
+}
+
 public final class APIClient: APIClientProtocol {
     
     public static let shared = APIClient()

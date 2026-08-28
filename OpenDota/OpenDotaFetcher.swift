@@ -97,9 +97,11 @@ public final class OpenDotaFetcher: OpenDotaFetching {
                 throw ODError.invalidHTTPResponse
             }
             switch httpResponse.statusCode {
-            case 400...599:
+            case 400...499:
                 let error = try decoder.decode(ODError.self, from: data)
                 throw error
+            case 500...599:
+                throw ODError.server
             default:
                 return try decoder.decode(T.self, from: data)
             }
