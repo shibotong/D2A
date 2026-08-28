@@ -60,48 +60,39 @@ public final class OpenDotaFetcher: OpenDotaFetching {
     // MARK: - Constants
     
     public func abilities() async throws -> [String: ODAbility] {
-        let url = createURL("constants/abilities")
-        return try await doNetworkCall(url, decoder: snakeDecoder, as: [String: ODAbility].self)
+        return try await doNetworkCall("/constants/abilities", decoder: snakeDecoder, as: [String: ODAbility].self)
     }
     
     public func abilityIDs() async throws -> [String: String] {
-        let url = createURL("constants/ability_ids")
-        return try await doNetworkCall(url, decoder: snakeDecoder, as: [String: String].self)
+        return try await doNetworkCall("/constants/ability_ids", decoder: snakeDecoder, as: [String: String].self)
     }
     
     public func heroes() async throws -> [String: ODHero] {
-        let url = createURL("constants/heroes")
-        return try await doNetworkCall(url, decoder: snakeDecoder, as: [String: ODHero].self)
+        return try await doNetworkCall("/constants/heroes", decoder: snakeDecoder, as: [String: ODHero].self)
     }
     
     public func heroAbilities() async throws -> [String : ODHeroAbility] {
-        let url = createURL("constants/hero_abilities")
-        return try await doNetworkCall(url, decoder: snakeDecoder, as: [String: ODHeroAbility].self)
+        return try await doNetworkCall("/constants/hero_abilities", decoder: snakeDecoder, as: [String: ODHeroAbility].self)
     }
     
     // MARK: - OpenDota
     
     public func match(id: String) async throws -> ODMatch {
-        let url = createURL("matches/\(id)")
-        return try await doNetworkCall(url, decoder: snakeDecoder, as: ODMatch.self)
+        return try await doNetworkCall("/matches/\(id)", decoder: snakeDecoder, as: ODMatch.self)
     }
     
     public func profile(id: String) async throws -> ODUserProfile {
-        let url = createURL("players/\(id)")
-        return try await doNetworkCall(url, decoder: snakeDecoder, as: ODUserProfile.self)
+        return try await doNetworkCall("/players/\(id)", decoder: snakeDecoder, as: ODUserProfile.self)
     }
     
-    public func searchPlayer(personaname: String) async throws  {
-        
+    public func searchPlayer(personaname: String) async throws -> [ODSearchPlayer] {
+        return try await doNetworkCall("/search", decoder: snakeDecoder, query: ["q": personaname], as: [ODSearchPlayer].self)
     }
     
-    private func createURL(_ path: String) -> String {
-        return "\(baseURL)/\(path)"
-    }
-    
-    private func doNetworkCall<T: Decodable>(_ path: String, decoder: JSONDecoder, as type: T.Type) async throws(ODError) -> T {
+    private func doNetworkCall<T: Decodable>(_ path: String, decoder: JSONDecoder, query: [String: String] = [:], as type: T.Type) async throws(ODError) -> T {
         do {
-            let (data, response) = try await apiClient.get(path)
+            let url = "\(baseURL)\(path)"
+            let (data, response) = try await apiClient.get(url, query: query)
             guard let httpResponse = response as? HTTPURLResponse else {
                 throw ODError.invalidHTTPResponse
             }
@@ -114,8 +105,8 @@ public final class OpenDotaFetcher: OpenDotaFetching {
             }
         } catch let error as ODError {
             throw error
-        } catch let error as DecodingError {
-            throw ODError(error: "The response structure doesn't match.")
+        } catch is DecodingError {
+            throw ODError(error: "The response structure doesn't match. path: \(path)")
         } catch let error as APIClientError {
             throw ODError(error: error.message)
         } catch {
