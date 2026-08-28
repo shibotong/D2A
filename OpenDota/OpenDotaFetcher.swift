@@ -112,6 +112,8 @@ public final class OpenDotaFetcher: OpenDotaFetching {
             throw error
         } catch let error as DecodingError {
             throw ODError(error: "The response structure doesn't match.")
+        } catch let error as APIClientError {
+            throw ODError(error: error.message)
         } catch {
             throw ODError.unknown
         }

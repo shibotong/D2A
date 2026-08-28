@@ -22,7 +22,7 @@ public final class APIClient: APIClientProtocol {
         return try await urlSession.data(for: request)
     }
     
-    private func createRequest(_ urlString: String, method: APIHTTPMethod) throws -> URLRequest {
+    private func createRequest(_ urlString: String, method: APIHTTPMethod) throws(APIClientError) -> URLRequest {
         guard let url = URL(string: urlString) else {
             throw APIClientError(message: "URL is not valid. \(urlString)")
         }
