@@ -17,18 +17,12 @@
 		32B526D3285C1DBC0099B058 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526D2285C1DBC0099B058 /* Extension.swift */; };
 		32B526D4285C1DBC0099B058 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526D2285C1DBC0099B058 /* Extension.swift */; };
 		32B526D5285C1DBC0099B058 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526D2285C1DBC0099B058 /* Extension.swift */; };
-		32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1605E26F3122800657449 /* StoreKit.framework */; };
 		32EC7F35286464C300A36AF6 /* WidgetOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EC7F34286464C300A36AF6 /* WidgetOverlayView.swift */; };
 		32EC7F3628646BA900A36AF6 /* LatestMatchWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526D0285C1C480099B058 /* LatestMatchWidgetEntryView.swift */; };
 		32EC7F3728646BAC00A36AF6 /* WidgetOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EC7F34286464C300A36AF6 /* WidgetOverlayView.swift */; };
 		32EC7F3828646BAE00A36AF6 /* RecentMatchesWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B526C9285C0CBF0099B058 /* RecentMatchesWidgetEntryView.swift */; };
-		32F70A9E26F57F7E006E9B05 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1606A26F4EE1500657449 /* WidgetKit.framework */; };
-		32F70A9F26F57F7E006E9B05 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D1606C26F4EE1500657449 /* SwiftUI.framework */; };
 		32F70AA226F57F7E006E9B05 /* D2AWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AA126F57F7E006E9B05 /* D2AWidget.swift */; };
 		32F70AA426F57F7E006E9B05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32F70AA326F57F7E006E9B05 /* Assets.xcassets */; };
-		32F70AA826F57F7E006E9B05 /* D2AWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 32F70A9D26F57F7E006E9B05 /* D2AWidgetExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		32F70AE826F61836006E9B05 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32F70AE726F61836006E9B05 /* Intents.framework */; };
-		32F70AEF26F61836006E9B05 /* D2AWidgetIntentHandler.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		32F70B0226F621ED006E9B05 /* D2AWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70AA126F57F7E006E9B05 /* D2AWidget.swift */; };
 		32F70B3026F714FD006E9B05 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F70B2F26F714FD006E9B05 /* Provider.swift */; };
 		79091DF52A3B2E2C0093EEE4 /* LiveMatchActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */; };
@@ -49,8 +43,6 @@
 		7928D4862F83914F006C0F3F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 7928D4852F83914F006C0F3F /* Logging */; };
 		792E3D902FC06CD0004FBEC7 /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 792E3D8F2FC06CD0004FBEC7 /* StratzAPI */; };
 		792E3D922FC06CD8004FBEC7 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 792E3D912FC06CD8004FBEC7 /* Apollo */; };
-		792E3D932FC06D34004FBEC7 /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
-		792E3D942FC06D34004FBEC7 /* Stratz.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		794838652A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838642A3D2C0800A447DA /* LiveMatchActivity.swift */; };
 		794838662A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838642A3D2C0800A447DA /* LiveMatchActivity.swift */; };
 		794838672A3D2C0800A447DA /* LiveMatchActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794838642A3D2C0800A447DA /* LiveMatchActivity.swift */; };
@@ -67,22 +59,7 @@
 		79B8D96F2F2889FA0030429D /* InMemoryLogging in Frameworks */ = {isa = PBXBuildFile; productRef = 79B8D96E2F2889FA0030429D /* InMemoryLogging */; };
 		79B8D9712F2889FA0030429D /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 79B8D9702F2889FA0030429D /* Logging */; };
 		79D1043729E2991E00BC04B3 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79D1043629E2991E00BC04B3 /* Apollo */; };
-		79D3D38B2FA47B0B0069A605 /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
-		79D3D38C2FA47B0B0069A605 /* OpenDota.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		79D3D3A82FA47D460069A605 /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
-		79D3D3A92FA47D460069A605 /* OpenDota.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		79D3D3D02FA4803A0069A605 /* TestKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3992FA47D2D0069A605 /* TestKit.framework */; platformFilter = ios; };
-		79D3D3D12FA4803A0069A605 /* TestKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3992FA47D2D0069A605 /* TestKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		79D3F7FC2FB7F14C0069A605 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3F7F42FB7F14C0069A605 /* Networking.framework */; };
-		79D3F7FD2FB7F14C0069A605 /* Networking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3F7F42FB7F14C0069A605 /* Networking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		79D3F8042FB7F1B10069A605 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3F7F42FB7F14C0069A605 /* Networking.framework */; };
-		79EAD3813010C99F00DA475D /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
-		79EAD3863010C9B100DA475D /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
 		79EAD38E3010CA1800DA475D /* StratzAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 79EAD38D3010CA1800DA475D /* StratzAPI */; };
-		79EAD38F3010CA2900DA475D /* Stratz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; };
-		79EAD3903010CA2900DA475D /* Stratz.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 792E3D702FC06CBE004FBEC7 /* Stratz.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		79EB3BA02FCBF63F00FD9ECE /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
-		79EB3BA52FCBF64500FD9ECE /* OpenDota.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D3D3832FA47B0A0069A605 /* OpenDota.framework */; };
 		79F00AAA0000000000000002 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 79F00AAA0000000000000001 /* Apollo */; };
 /* End PBXBuildFile section */
 
@@ -215,8 +192,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				32F70AA826F57F7E006E9B05 /* D2AWidgetExtension.appex in Embed Foundation Extensions */,
-				32F70AEF26F61836006E9B05 /* D2AWidgetIntentHandler.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,9 +202,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				79D3F7FD2FB7F14C0069A605 /* Networking.framework in Embed Frameworks */,
-				79D3D38C2FA47B0B0069A605 /* OpenDota.framework in Embed Frameworks */,
-				79EAD3903010CA2900DA475D /* Stratz.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,8 +212,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				792E3D942FC06D34004FBEC7 /* Stratz.framework in Embed Frameworks */,
-				79D3D3A92FA47D460069A605 /* OpenDota.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -252,7 +222,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				79D3D3D12FA4803A0069A605 /* TestKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,27 +235,23 @@
 		3201BC4526F89ED100A67505 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DynamicUserSelection.strings; sourceTree = "<group>"; };
 		3251C8F226F97D2400C826BD /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/DynamicUserSelection.strings"; sourceTree = "<group>"; };
 		327C03432717AE8500DAEC42 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		3289579927F6609B00BA9847 /* Unit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Unit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		32B36F0B26C38821002D427D /* D2A.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = D2A.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3289579927F6609B00BA9847 /* Unit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "Unit Tests.xctest"; path = "/Users/shibotong/Github/D2A/build/Debug-iphoneos/D2A.app/PlugIns/Unit Tests.xctest"; sourceTree = "<absolute>"; };
+		32B36F0B26C38821002D427D /* D2A.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = D2A.app; path = "/Users/shibotong/Github/D2A/build/Debug-iphoneos/D2A.app"; sourceTree = "<absolute>"; };
 		32B526C9285C0CBF0099B058 /* RecentMatchesWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMatchesWidgetEntryView.swift; sourceTree = "<group>"; };
 		32B526D0285C1C480099B058 /* LatestMatchWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestMatchWidgetEntryView.swift; sourceTree = "<group>"; };
 		32B526D2285C1DBC0099B058 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
-		32D1605E26F3122800657449 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		32D1606A26F4EE1500657449 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
-		32D1606C26F4EE1500657449 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		32EC7F34286464C300A36AF6 /* WidgetOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetOverlayView.swift; sourceTree = "<group>"; };
-		32F70A9D26F57F7E006E9B05 /* D2AWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = D2AWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		32F70A9D26F57F7E006E9B05 /* D2AWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; name = D2AWidgetExtension.appex; path = "/Users/shibotong/Github/D2A/build/Debug-iphoneos/D2AWidgetExtension.appex"; sourceTree = "<absolute>"; };
 		32F70AA126F57F7E006E9B05 /* D2AWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AWidget.swift; sourceTree = "<group>"; };
 		32F70AA326F57F7E006E9B05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		32F70AA526F57F7E006E9B05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = D2AWidgetIntentHandler.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		32F70AE726F61836006E9B05 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; name = D2AWidgetIntentHandler.appex; path = "/Users/shibotong/Github/D2A/build/Debug-iphoneos/D2AWidgetIntentHandler.appex"; sourceTree = "<absolute>"; };
 		32F70B2F26F714FD006E9B05 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		79091DF12A3B2D230093EEE4 /* LiveMatchActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityAttributes.swift; sourceTree = "<group>"; };
 		79091DF32A3B2D6A0093EEE4 /* LiveMatchActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivityWidget.swift; sourceTree = "<group>"; };
-		792E3D702FC06CBE004FBEC7 /* Stratz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Stratz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7930699B2B5D323100A5CF5D /* Remote Data Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Remote Data Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7942FD012B706B49008CE4B0 /* UIScreenshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIScreenshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		792E3D702FC06CBE004FBEC7 /* Stratz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Stratz.framework; path = /Users/shibotong/Github/D2A/build/Debug/Stratz.framework; sourceTree = "<absolute>"; };
+		7930699B2B5D323100A5CF5D /* Remote Data Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "Remote Data Tests.xctest"; path = "/Users/shibotong/Github/D2A/build/Debug-iphoneos/D2A.app/PlugIns/Remote Data Tests.xctest"; sourceTree = "<absolute>"; };
+		7942FD012B706B49008CE4B0 /* UIScreenshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = UIScreenshotTests.xctest; path = "/Users/shibotong/Github/D2A/build/Debug-iphoneos/UIScreenshotTests-Runner.app/PlugIns/UIScreenshotTests.xctest"; sourceTree = "<absolute>"; };
 		794838642A3D2C0800A447DA /* LiveMatchActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchActivity.swift; sourceTree = "<group>"; };
 		797776D02B60C5E6000E6C3B /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		7983DA6A2B63083E00C42F87 /* D2AWidgetMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AWidgetMatch.swift; sourceTree = "<group>"; };
@@ -294,10 +259,10 @@
 		7983DA732B63088600C42F87 /* D2AWidgetUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AWidgetUser.swift; sourceTree = "<group>"; };
 		798A1D1729C183B500E443A6 /* StratzAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = StratzAPI; sourceTree = "<group>"; };
 		79A989262931FA50006AC847 /* D2AProStore.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = D2AProStore.storekit; sourceTree = "<group>"; };
-		79CF637929C40B6F0072F4C0 /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		79D3D3832FA47B0A0069A605 /* OpenDota.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenDota.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		79D3D3992FA47D2D0069A605 /* TestKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TestKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		79D3F7F42FB7F14C0069A605 /* Networking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Networking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		79CF637929C40B6F0072F4C0 /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "UI Tests.xctest"; path = "/Users/shibotong/Github/D2A/build/Debug/UI Tests-Runner.app/Contents/PlugIns/UI Tests.xctest"; sourceTree = "<absolute>"; };
+		79D3D3832FA47B0A0069A605 /* OpenDota.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = OpenDota.framework; path = /Users/shibotong/Github/D2A/build/Debug/OpenDota.framework; sourceTree = "<absolute>"; };
+		79D3D3992FA47D2D0069A605 /* TestKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TestKit.framework; path = /Users/shibotong/Github/D2A/build/Debug/TestKit.framework; sourceTree = "<absolute>"; };
+		79D3F7F42FB7F14C0069A605 /* Networking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Networking.framework; path = /Users/shibotong/Github/D2A/build/Debug/Networking.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -423,7 +388,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79D3D3D02FA4803A0069A605 /* TestKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,12 +395,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79EAD38F3010CA2900DA475D /* Stratz.framework in Frameworks */,
 				79EAD38E3010CA1800DA475D /* StratzAPI in Frameworks */,
-				79D3D38B2FA47B0B0069A605 /* OpenDota.framework in Frameworks */,
-				32D1605F26F3122800657449 /* StoreKit.framework in Frameworks */,
 				79B8D9712F2889FA0030429D /* Logging in Frameworks */,
-				79D3F7FC2FB7F14C0069A605 /* Networking.framework in Frameworks */,
 				79B8D96F2F2889FA0030429D /* InMemoryLogging in Frameworks */,
 				792213B0301D9B3400819E29 /* Mocking in Frameworks */,
 				79F00AAA0000000000000002 /* Apollo in Frameworks */,
@@ -448,13 +408,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7928D4842F839148006C0F3F /* Logging in Frameworks */,
-				32F70A9F26F57F7E006E9B05 /* SwiftUI.framework in Frameworks */,
 				790FBB3429C18AC800E27106 /* Apollo in Frameworks */,
-				79EB3BA02FCBF63F00FD9ECE /* OpenDota.framework in Frameworks */,
-				79EAD3863010C9B100DA475D /* Stratz.framework in Frameworks */,
 				79266DA92A31B21D002FEF0F /* ApolloWebSocket in Frameworks */,
 				792213B2301D9B7800819E29 /* Mocking in Frameworks */,
-				32F70A9E26F57F7E006E9B05 /* WidgetKit.framework in Frameworks */,
 				790FBB2C29C1877400E27106 /* StratzAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -463,9 +419,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79EAD3813010C99F00DA475D /* Stratz.framework in Frameworks */,
-				79EB3BA52FCBF64500FD9ECE /* OpenDota.framework in Frameworks */,
-				32F70AE826F61836006E9B05 /* Intents.framework in Frameworks */,
 				79266DAB2A31B224002FEF0F /* ApolloWebSocket in Frameworks */,
 				79D1043729E2991E00BC04B3 /* Apollo in Frameworks */,
 				790FBB2E29C1877A00E27106 /* StratzAPI in Frameworks */,
@@ -508,7 +461,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79D3F8042FB7F1B10069A605 /* Networking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,8 +468,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				792E3D932FC06D34004FBEC7 /* Stratz.framework in Frameworks */,
-				79D3D3A82FA47D460069A605 /* OpenDota.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,10 +491,8 @@
 				79C632962FC0652B001BDE18 /* D2A */,
 				32F70AA026F57F7E006E9B05 /* D2AWidget */,
 				79DAC63130347F36007C4B01 /* D2AWidgetIntentHandler */,
-				78E76DAB4BB6331DA85B70C0 /* Frameworks */,
 				79D3F7F52FB7F14C0069A605 /* Networking */,
 				79D3D3842FA47B0B0069A605 /* OpenDota */,
-				32B36F0C26C38821002D427D /* Products */,
 				79520A202FBDE47F004D9DD6 /* Remote Data Tests */,
 				79DABE9230347EFA007C4B01 /* Resources */,
 				792A54A62F7E77A700EC815A /* Shared */,
@@ -554,24 +502,6 @@
 				79DA9DFA303479FA007C4B01 /* UI Tests */,
 				79DAB6FF30347E90007C4B01 /* UIScreenshotTests */,
 			);
-			sourceTree = "<group>";
-		};
-		32B36F0C26C38821002D427D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				32B36F0B26C38821002D427D /* D2A.app */,
-				32F70A9D26F57F7E006E9B05 /* D2AWidgetExtension.appex */,
-				32F70AE626F61836006E9B05 /* D2AWidgetIntentHandler.appex */,
-				3289579927F6609B00BA9847 /* Unit Tests.xctest */,
-				79CF637929C40B6F0072F4C0 /* UI Tests.xctest */,
-				7930699B2B5D323100A5CF5D /* Remote Data Tests.xctest */,
-				7942FD012B706B49008CE4B0 /* UIScreenshotTests.xctest */,
-				79D3D3832FA47B0A0069A605 /* OpenDota.framework */,
-				79D3D3992FA47D2D0069A605 /* TestKit.framework */,
-				79D3F7F42FB7F14C0069A605 /* Networking.framework */,
-				792E3D702FC06CBE004FBEC7 /* Stratz.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		32F70AA026F57F7E006E9B05 /* D2AWidget */ = {
@@ -601,17 +531,6 @@
 				797776D02B60C5E6000E6C3B /* ViewExtension.swift */,
 			);
 			path = resources;
-			sourceTree = "<group>";
-		};
-		78E76DAB4BB6331DA85B70C0 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				32D1605E26F3122800657449 /* StoreKit.framework */,
-				32D1606A26F4EE1500657449 /* WidgetKit.framework */,
-				32D1606C26F4EE1500657449 /* SwiftUI.framework */,
-				32F70AE726F61836006E9B05 /* Intents.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		79091DF02A3B2D020093EEE4 /* LiveActivities */ = {
@@ -1010,7 +929,7 @@
 				79B8D96D2F2889FA0030429D /* XCRemoteSwiftPackageReference "swift-log" */,
 				792213AE301D9B3400819E29 /* XCRemoteSwiftPackageReference "swift-mocking" */,
 			);
-			productRefGroup = 32B36F0C26C38821002D427D /* Products */;
+			productRefGroup = 32B36F0226C38821002D427D;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
