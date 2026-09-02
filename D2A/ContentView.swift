@@ -35,6 +35,7 @@ struct ContentView: View {
         })
         .task {
             try? await syncingService.startSyncing()
+            await store.requestProducts()
         }
     }
 }
