@@ -94,7 +94,15 @@ public final class OpenDotaFetcher: OpenDotaFetching {
         return try await doNetworkCall("/search", decoder: snakeDecoder, query: ["q": personaname], as: [ODSearchPlayer].self)
     }
     
-    private func doNetworkCall<T: Decodable>(_ path: String, decoder: JSONDecoder, query: [String: String] = [:], as type: T.Type) async throws(ODError) -> T {
+    public func playerMatches(accountId: String, days: Double? = nil) async throws -> [ODPlayerMatch] {
+        var query = ["significant": "0"]
+        if let days {
+            query["date"] = "\(days)"
+        }
+        return try await doNetworkCall("/players/\(accountId)/matches", decoder: snakeDecoder, query: query, as: [ODPlayerMatch].self)
+    }
+    
+    private func doNetworkCall<T: Decodable>(_ path: String, decoder: JSONDecoder, query: [String: String] = [:], as type: T.Type) async throws -> T {
         do {
             let url = "\(baseURL)\(path)"
             let (data, response) = try await apiClient.get(url, query: query)
@@ -110,14 +118,12 @@ public final class OpenDotaFetcher: OpenDotaFetching {
             default:
                 return try decoder.decode(T.self, from: data)
             }
-        } catch let error as ODError {
-            throw error
         } catch is DecodingError {
             throw ODError(error: "The response structure doesn't match. path: \(path)")
         } catch let error as APIClientError {
             throw ODError(error: error.message)
         } catch {
-            throw ODError.unknown
+            throw error
         }
 
     }
