@@ -32,8 +32,8 @@ struct D2AWidgetUser {
         let widgetMatches = matches.map { D2AWidgetMatch($0) }
         self.init(userID: userID, userName: userName,
                   image: image ?? UIImage(named: "profile")!, matches: widgetMatches,
-                  isPlus: profile.isPlus, rank: Int(profile.rank),
-                  leaderboard: Int(profile.leaderboard))
+                  isPlus: profile.isPlus, rank: Int(profile.rank ?? 0),
+                  leaderboard: Int(profile.leaderboard ?? 0))
     }
     
     init(userID: String, userName: String, image: UIImage, matches: [D2AWidgetMatch], isPlus: Bool, rank: Int?, leaderboard: Int?) {

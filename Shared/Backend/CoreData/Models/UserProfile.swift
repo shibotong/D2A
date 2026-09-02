@@ -40,7 +40,7 @@ extension UserProfile {
     static func create(_ profile: UserProfileCodable, favourite: Bool, register: Bool) throws {
         let viewContext = PersistenceProvider.shared.makeContext(author: "UserProfile")
         let newProfile = fetch(id: profile.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
-        newProfile.update(profile)
+        newProfile.map(profile)
         newProfile.favourite = favourite
         newProfile.register = register
         try viewContext.save()
@@ -50,10 +50,31 @@ extension UserProfile {
     static func create(_ profile: UserProfileCodable) throws -> UserProfile {
         let viewContext = PersistenceProvider.shared.makeContext(author: "UserProfile")
         let newProfile = fetch(id: profile.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
-        newProfile.update(profile)
+        newProfile.map(profile)
         try viewContext.save()
         try viewContext.parent?.save()
         return newProfile
+    }
+    
+    static func map(_ dto: UserProfileDTO, viewContext: NSManagedObjectContext) throws -> UserProfile {
+        let newProfile = fetch(id: dto.id.description, viewContext: viewContext) ?? UserProfile(context: viewContext)
+        newProfile.map(dto)
+        try viewContext.save()
+        return newProfile
+    }
+    
+    func map(_ dto: UserProfileDTO) {
+        setIfNotEqual(entity: self, path: \.id, value: dto.id.description)
+        setIfNotEqual(entity: self, path: \.avatarfull, value: dto.avatarfull)
+        
+        setIfNotEqual(entity: self, path: \.countryCode, value: dto.countryCode)
+        setIfNotEqual(entity: self, path: \.personaname, value: dto.personaname)
+        setIfNotEqual(entity: self, path: \.profileurl, value: dto.profileurl)
+        setIfNotEqual(entity: self, path: \.isPlus, value: dto.isPlus)
+        setIfNotEqual(entity: self, path: \.rank, value: dto.rank as? NSNumber)
+        setIfNotEqual(entity: self, path: \.leaderboard, value: dto.leaderboard as? NSNumber)
+        setIfNotEqual(entity: self, path: \.name, value: dto.name)
+        lastUpdate = Date()
     }
     
     /// Create a UserProfile object in CoreData for testing purpose
@@ -101,25 +122,6 @@ extension UserProfile {
         }
         let viewContext = PersistenceProvider.shared.container.viewContext
         viewContext.delete(user)
-    }
-    
-    func update(_ profile: UserProfileCodable) {
-        id = profile.id.description
-        avatarfull = profile.avatarfull
-        
-        countryCode = profile.countryCode
-        personaname = profile.personaname
-        profileurl = profile.profileurl
-        isPlus = profile.isPlus ?? false
-        if let rank = profile.rank {
-            self.rank = Int16(rank)
-        }
-        if let leaderboard = profile.leaderboard {
-            self.leaderboard = Int16(leaderboard)
-        }
-        
-        name = profile.name
-        lastUpdate = Date()
     }
     
     func update(favourite: Bool,
