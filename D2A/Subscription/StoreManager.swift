@@ -15,6 +15,7 @@ class StoreManager: ObservableObject {
     static let shared = StoreManager()
     
     @Published var product: Product?
+    @Published var isPurchasing: Bool = false
     
     private let storeFetcher: StoreFetching
     private let productIDs: [String]
@@ -50,6 +51,8 @@ class StoreManager: ObservableObject {
     func purchase() {
         purchaseTask?.cancel()
         purchaseTask = Task {
+            isPurchasing = true
+            defer { isPurchasing = false }
             guard let product else {
                 return
             }
