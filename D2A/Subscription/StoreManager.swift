@@ -8,39 +8,38 @@
 import Foundation
 import StoreKit
 import WidgetKit
-
-private let productIDs = ["D2APRO"]// ["D2APlusMonthly", "D2APlusQuarterly", "D2APlusAnnually"]
+import Logging
 
 public enum StoreError: Error {
     case failedVerification
 }
 
-class StoreManager: NSObject, ObservableObject {
+class StoreManager: ObservableObject {
     static let shared = StoreManager()
     
     @Published var products: [Product] = []
     
     var updateListenerTask: Task<Void, Error>?
     
-    override init() {
-        super.init()
+    private let storeFetcher: StoreFetching
+    private let productIDs: [String]
+    private let logger: Logger?
+    
+    init(storeFetcher: StoreFetching = StoreFetcher(),
+         productIDs: [String] = ["D2APRO"],
+         logger: Logger? = nil) {
+        self.storeFetcher = storeFetcher
+        self.productIDs = productIDs
+        self.logger = logger
         products = []
         updateListenerTask = listenForTransactions()
-        Task { [weak self] in
-            // initializing store
-            await self?.requestProducts()
-        }
     }
     
     func requestProducts() async {
         do {
-            // Request products from the App Store using the identifiers defined in the Products.plist file.
-            let storeProducts = try await Product.products(for: productIDs)
-            DispatchQueue.main.async { [weak self] in
-                self?.products = storeProducts
-            }
+            products = try await storeFetcher.fetchProducts(productIDs: productIDs)
         } catch {
-            print("Failed product request: \(error)")
+            logger?.error("Failed to load store products. \(error)")
         }
     }
     
