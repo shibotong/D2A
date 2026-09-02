@@ -94,6 +94,14 @@ public final class OpenDotaFetcher: OpenDotaFetching {
         return try await doNetworkCall("/search", decoder: snakeDecoder, query: ["q": personaname], as: [ODSearchPlayer].self)
     }
     
+    public func playerMatches(accountId: String, days: Double? = nil) async throws -> [ODPlayerMatch] {
+        var query = ["significant": "0"]
+        if let days {
+            query["date"] = "\(days)"
+        }
+        return try await doNetworkCall("/players/\(accountId)/matches", decoder: snakeDecoder, query: query, as: [ODPlayerMatch].self)
+    }
+    
     private func doNetworkCall<T: Decodable>(_ path: String, decoder: JSONDecoder, query: [String: String] = [:], as type: T.Type) async throws(ODError) -> T {
         do {
             let url = "\(baseURL)\(path)"
