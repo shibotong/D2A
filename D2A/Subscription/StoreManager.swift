@@ -47,32 +47,6 @@ class StoreManager: ObservableObject {
         await requestProducts()
     }
     
-    private func requestProducts() async {
-        do {
-            guard let product = try await storeFetcher.fetchProducts(productIDs: productIDs).first else {
-                logger?.warning("No product found for D2A Pro")
-                return
-            }
-            logger?.trace("Product fetched.")
-            self.product = product
-        } catch {
-            logger?.error("Failed to load store products. \(error)")
-        }
-    }
-    
-    func restorePurchase() {
-        Task {
-            // This call displays a system prompt that asks users to authenticate with their App Store credentials.
-            // Call this function only in response to an explicit user action, such as tapping a button.
-            try? await AppStore.sync()
-        }
-    }
-    
-    private func parsePurchaseInfo(info: Transaction) {
-        notification.purchaseCompletion.send(true)
-        widgetCenter.reloadAllTimelines()
-    }
-    
     func purchase() {
         purchaseTask?.cancel()
         purchaseTask = Task {
@@ -94,5 +68,31 @@ class StoreManager: ObservableObject {
                 logger?.warning("Failed to purchase D2APRO. \(error)")
             }
         }
+    }
+    
+    func restorePurchase() {
+        Task {
+            // This call displays a system prompt that asks users to authenticate with their App Store credentials.
+            // Call this function only in response to an explicit user action, such as tapping a button.
+            try? await AppStore.sync()
+        }
+    }
+    
+    private func requestProducts() async {
+        do {
+            guard let product = try await storeFetcher.fetchProducts(productIDs: productIDs).first else {
+                logger?.warning("No product found for D2A Pro")
+                return
+            }
+            logger?.trace("Product fetched.")
+            self.product = product
+        } catch {
+            logger?.error("Failed to load store products. \(error)")
+        }
+    }
+    
+    private func parsePurchaseInfo(info: Transaction) {
+        notification.purchaseCompletion.send(true)
+        widgetCenter.reloadAllTimelines()
     }
 }
