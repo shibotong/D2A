@@ -25,7 +25,7 @@ class StoreManager: ObservableObject {
     
     init(storeFetcher: StoreFetching = StoreFetcher(),
          productIDs: [String] = ["D2APRO"],
-         logger: Logger? = nil) {
+         logger: Logger? = D2ALogger.storeManager) {
         self.storeFetcher = storeFetcher
         self.productIDs = productIDs
         self.logger = logger
@@ -85,7 +85,7 @@ class StoreManager: ObservableObject {
                 parsePurchaseInfo(info: transaction)
                 await transaction.finish()
             } catch {
-                
+                logger?.warning("Failed to purchase D2APRO. \(error)")
             }
         }
     }

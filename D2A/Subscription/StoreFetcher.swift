@@ -6,6 +6,7 @@
 //
 
 import StoreKit
+import Logging
 
 protocol StoreFetching: Sendable {
     @concurrent
@@ -17,6 +18,13 @@ protocol StoreFetching: Sendable {
 }
 
 struct StoreFetcher: StoreFetching {
+    
+    private let logger: Logger?
+    
+    init(logger: Logger? = D2ALogger.storeManager) {
+        self.logger = logger
+    }
+    
     @concurrent
     func fetchProducts(productIDs: [String]) async throws -> [Product] {
         return try await Product.products(for: productIDs)
@@ -50,7 +58,7 @@ struct StoreFetcher: StoreFetching {
                 await transaction.finish()
             } catch {
                 // StoreKit has a receipt it can read but it failed verification. Don't deliver content to the user.
-                print("Transaction failed verification")
+                logger?.warning("Failed to verify transaction. \(error)")
             }
         }
     }
