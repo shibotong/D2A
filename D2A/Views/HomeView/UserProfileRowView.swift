@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct UserProfileRowView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     var profile: UserProfile
     
     var body: some View {
@@ -26,10 +25,10 @@ struct UserProfileRowView: View {
                     .lineLimit(1)
             }
             HStack(spacing: 0) {
-                Image("rank_\((profile.rank) / 10)")
+                Image("rank_\(Int(truncating: profile.rank ?? 0) / 10)")
                     .resizable()
                     .frame(width: 12, height: 12)
-                Text(DataHelper.transferRank(rank: Int(profile.rank)))
+                Text(DataHelper.transferRank(rank: Int(truncating: profile.rank ?? 0)))
                     .font(.system(size: 10))
                     .foregroundColor(.secondaryLabel)
             }

@@ -20,6 +20,6 @@ struct SteamProfile: Decodable {
     
     static let sample = loadProfile()!
     
-    static let anonymous = SteamProfile(rank: 0, profile: UserProfileCodable(id: 0, avatarfull: "", lastLogin: "", countryCode: "", personaname: "Anonymous", isPlus: false, profileurl: "", rank: 0, leaderboard: nil), leaderboard: nil)
+    static let anonymous = SteamProfile(rank: 0, profile: UserProfileCodable(id: 0, avatarfull: "", lastLoginString: "", countryCode: "", personaname: "Anonymous", isPlus: false, profileurl: "", rank: 0, leaderboard: nil), leaderboard: nil)
 }
       

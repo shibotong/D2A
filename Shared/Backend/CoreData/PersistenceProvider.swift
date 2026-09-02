@@ -116,11 +116,11 @@ class PersistenceProvider: PersistenceProviding {
         return privateContext
     }
     
-    func fetchFirstWidgetUser() -> UserProfile? {
+    func fetchFirstWidgetUser(context: NSManagedObjectContext) -> UserProfile? {
         let fetchRequest = UserProfile.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
         do {
-            let result = try container.viewContext.fetch(fetchRequest)
+            let result = try context.fetch(fetchRequest)
             return result.first(where: { $0.register }) ?? result.first
         } catch {
             print(error.localizedDescription)

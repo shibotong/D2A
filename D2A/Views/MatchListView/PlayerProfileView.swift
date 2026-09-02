@@ -211,7 +211,7 @@ struct PlayerProfileView: View {
                     .padding(size / 10)
                     .frame(width: size, height: size)
             }
-            RankView(rank: Int(profile.rank), leaderboard: Int(profile.leaderboard))
+            RankView(rank: Int(truncating: profile.rank ?? 0) , leaderboard: Int(truncating: profile.rank ?? 0))
                 .frame(width: size, height: size)
         }
     }

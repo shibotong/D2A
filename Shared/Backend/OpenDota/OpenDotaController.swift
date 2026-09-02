@@ -29,6 +29,7 @@ class OpenDotaController {
         }
     }
     
+    @available(*, deprecated, renamed: "OpenDotaFetcher", message: "is deprecated")
     func loadUserData(userid: String) async throws -> UserProfileCodable {
         let data = try await decodingService.loadData("/players/\(userid)")
         let userCodable = try decodingService.decodeUserProfile(data)

@@ -8,6 +8,8 @@
 import WidgetKit
 import SwiftUI
 import Intents
+import OpenDota
+import CoreData
 
 struct Provider: IntentTimelineProvider {
     // Intent configuration of the widget
@@ -17,9 +19,15 @@ struct Provider: IntentTimelineProvider {
     
     private let persistenceController = PersistenceProvider.shared
     private let imageProvider: ImageProviding
+    private let fetcher: GameDataFetcher
+    private let viewContext: NSManagedObjectContext
     
-    init(imageProvider: ImageProviding = ImageProvider.shared) {
+    init(imageProvider: ImageProviding = ImageProvider.shared,
+         fetcher: GameDataFetcher = OpenDotaFetcher.shared,
+         context: NSManagedObjectContext = PersistenceProvider.shared.mainContext) {
         self.imageProvider = imageProvider
+        self.fetcher = fetcher
+        self.viewContext = context
     }
     
     func placeholder(in context: Context) -> D2AWidgetUserEntry {
@@ -27,7 +35,7 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (D2AWidgetUserEntry) -> Void) {
-        let profile = persistenceController.fetchFirstWidgetUser()
+        let profile = fetchFirstWidgetUser()
         
         guard let profile, let userID = profile.id else {
             let entry = D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
@@ -55,20 +63,25 @@ struct Provider: IntentTimelineProvider {
         }
         Task {
             let matches = await loadNewMatches(for: userID)
-            var profile = selectedProfile
             if selectedProfile.shouldUpdate {
-                profile = await refreshUser(for: userID) ?? selectedProfile
+                do {
+                    let dto = try await fetcher.fetchUser(userID: userID)
+                    selectedProfile.map(dto)
+                    try viewContext.save()
+                } catch {
+                    
+                }
             }
             
             var image = imageProvider.read(type: .avatar, id: userID)
             
-            if let urlString = profile.avatarfull, image == nil,
+            if let urlString = selectedProfile.avatarfull, image == nil,
                let newImage = await imageProvider.load(urlString: urlString) {
                     image = newImage
                 imageProvider.save(newImage, type: .avatar, id: userID)
             }
             
-            let user = D2AWidgetUser(profile, image: image, matches: matches)
+            let user = D2AWidgetUser(selectedProfile, image: image, matches: matches)
             let entry = D2AWidgetUserEntry(date: Date(), user: user, subscription: status)
             let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
             let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
@@ -77,8 +90,8 @@ struct Provider: IntentTimelineProvider {
     }
     
     private func user(for configuration: DynamicUserSelectionIntent) -> UserProfile? {
-        guard let id = configuration.profile?.identifier, let profile = UserProfile.fetch(id: id) else {
-            return persistenceController.fetchFirstWidgetUser()
+        guard let id = configuration.profile?.identifier, let profile = UserProfile.fetch(id: id, viewContext: viewContext) else {
+            return fetchFirstWidgetUser()
         }
         
         return profile
@@ -90,13 +103,14 @@ struct Provider: IntentTimelineProvider {
         return newMatches
     }
     
-    private func refreshUser(for userID: String) async -> UserProfile? {
+    private func fetchFirstWidgetUser() -> UserProfile? {
+        let fetchRequest = UserProfile.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
         do {
-            let profileCodable = try await OpenDotaController.shared.loadUserData(userid: userID)
-            _ = try UserProfile.create(profileCodable)
-            let newProfile = UserProfile.fetch(id: userID)
-            return newProfile
+            let result = try viewContext.fetch(fetchRequest)
+            return result.first(where: { $0.register }) ?? result.first
         } catch {
+            print(error.localizedDescription)
             return nil
         }
     }

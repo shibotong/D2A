@@ -57,7 +57,7 @@ struct RegisteredPlayerView: View {
                     }
                     
                     Spacer()
-                    RankView(rank: Int(profile.rank), leaderboard: Int(profile.leaderboard))
+                    RankView(rank: Int(truncating: profile.rank ?? 0), leaderboard: Int(truncating: profile.leaderboard ?? 0))
                         .frame(width: 70, height: 70)
                         .padding(.trailing)
                     
