@@ -10,20 +10,18 @@ import StoreKit
 import WidgetKit
 import Logging
 
-public enum StoreError: Error {
-    case failedVerification
-}
 
 class StoreManager: ObservableObject {
     static let shared = StoreManager()
     
-    @Published var products: [Product] = []
-    
-    var updateListenerTask: Task<Void, Error>?
+    @Published var product: Product?
     
     private let storeFetcher: StoreFetching
     private let productIDs: [String]
     private let logger: Logger?
+    
+    private var purchaseTask: Task<Void, Never>?
+    var updateListenerTask: Task<Void, Never>?
     
     init(storeFetcher: StoreFetching = StoreFetcher(),
          productIDs: [String] = ["D2APRO"],
@@ -31,13 +29,24 @@ class StoreManager: ObservableObject {
         self.storeFetcher = storeFetcher
         self.productIDs = productIDs
         self.logger = logger
-        products = []
-        updateListenerTask = listenForTransactions()
+        
     }
     
-    func requestProducts() async {
+    func setupStore() async {
+        updateListenerTask = Task {
+            await storeFetcher.transactionListener { transaction in
+                parsePurchaseInfo(info: transaction)
+            }
+        }
+        await requestProducts()
+    }
+    
+    private func requestProducts() async {
         do {
-            products = try await storeFetcher.fetchProducts(productIDs: productIDs)
+            guard let product = try await storeFetcher.fetchProducts(productIDs: productIDs).first else {
+                return
+            }
+            self.product = product
         } catch {
             logger?.error("Failed to load store products. \(error)")
         }
@@ -51,7 +60,7 @@ class StoreManager: ObservableObject {
         }
     }
     
-    func parsePurchaseInfo(info: Transaction) {
+    private func parsePurchaseInfo(info: Transaction) {
         DispatchQueue.main.async {
             DotaEnvironment.shared.subscriptionStatus = true
             WidgetCenter.shared.reloadAllTimelines()
@@ -60,61 +69,24 @@ class StoreManager: ObservableObject {
         print("D2A Pro Purchased")
     }
     
-    func purchase() async throws -> Transaction? {
-        // Begin a purchase.
-        guard let product = products.first else {
-            return nil
-        }
-        let result = try await product.purchase()
-
-        switch result {
-        case .success(let verification):
-            let transaction = try checkVerified(verification)
-
-            // Deliver content to the user.
-            parsePurchaseInfo(info: transaction)
-
-            // Always finish a transaction.
-            await transaction.finish()
-
-            return transaction
-        case .userCancelled, .pending:
-            return nil
-        default:
-            return nil
-        }
-    }
-    
-    func listenForTransactions() -> Task<Void, Error> {
-        return Task.detached { [weak self] in
-            guard let self = self else { return }
-            // Iterate through any transactions which didn't come from a direct call to `purchase()`.
-            for await result in Transaction.updates {
-                do {
-                    let transaction = try self.checkVerified(result)
-
-                    // Deliver content to the user.
-                    self.parsePurchaseInfo(info: transaction)
-
-                    // Always finish a transaction.
-                    await transaction.finish()
-                } catch {
-                    // StoreKit has a receipt it can read but it failed verification. Don't deliver content to the user.
-                    print("Transaction failed verification")
-                }
+    func purchase() {
+        purchaseTask?.cancel()
+        purchaseTask = Task {
+            guard let product else {
+                return
             }
-        }
-    }
-    
-    func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
-        // Check if the transaction passes StoreKit verification.
-        switch result {
-        case .unverified:
-            // StoreKit has parsed the JWS but failed verification. Don't deliver content to the user.
-            throw StoreError.failedVerification
-        case .verified(let safe):
-            // If the transaction is verified, unwrap and return it.
-            return safe
+            do {
+                guard let transaction = try await storeFetcher.purchase(product: product) else {
+                    return
+                }
+                guard !Task.isCancelled else {
+                    return
+                }
+                parsePurchaseInfo(info: transaction)
+                await transaction.finish()
+            } catch {
+                
+            }
         }
     }
 }
