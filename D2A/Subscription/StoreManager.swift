@@ -20,18 +20,21 @@ class StoreManager: ObservableObject {
     private let productIDs: [String]
     private let logger: Logger?
     private let widgetCenter: WidgetCenter
+    private let notification: D2ANotification
     
     private var purchaseTask: Task<Void, Never>?
     var updateListenerTask: Task<Void, Never>?
     
     init(storeFetcher: StoreFetching = StoreFetcher(),
          productIDs: [String] = ["D2APRO"],
+         notification: D2ANotification = .default,
          widgetCenter: WidgetCenter = .shared,
          logger: Logger? = D2ALogger.storeManager) {
         self.storeFetcher = storeFetcher
         self.productIDs = productIDs
         self.logger = logger
         self.widgetCenter = widgetCenter
+        self.notification = notification
     }
     
     func setupStore() async {
@@ -66,7 +69,7 @@ class StoreManager: ObservableObject {
     }
     
     private func parsePurchaseInfo(info: Transaction) {
-        DotaEnvironment.shared.subscriptionStatus = true
+        notification.purchaseCompletion.send(true)
         widgetCenter.reloadAllTimelines()
     }
     

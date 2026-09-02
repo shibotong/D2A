@@ -11,4 +11,5 @@ class D2ANotification {
     static let `default` = D2ANotification()
     
     let syncingCompletion = PassthroughSubject<Bool, Never>()
+    let purchaseCompletion = PassthroughSubject<Bool, Never>()
 }
