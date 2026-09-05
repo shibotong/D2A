@@ -80,6 +80,33 @@ class StoreManager: ObservableObject {
         }
     }
     
+    func purchaseAsync() async {
+        isPurchasing = true
+        defer { isPurchasing = false }
+        guard let product else {
+            return
+        }
+        do {
+            let result = try await product.purchase()
+            try Task.checkCancellation()
+            
+            switch result {
+            case .success(let storeVerificationResult):
+                let transaction = try storeVerificationResult.verify()
+                parsePurchaseInfo(info: transaction)
+                await transaction.finish()
+            case .userCancelled:
+                return
+            case .pending:
+                return
+            }
+        } catch is CancellationError {
+            logger?.info("Purchase task is cancelled")
+        } catch {
+            logger?.warning("Failed to purchase D2APRO. \(error)")
+        }
+    }
+    
     func restorePurchase() {
         Task {
             // This call displays a system prompt that asks users to authenticate with their App Store credentials.
