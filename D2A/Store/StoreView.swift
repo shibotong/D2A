@@ -10,12 +10,13 @@ import Foundation
 import StoreKit
 
 struct StoreView: View {
-    @EnvironmentObject var env: DotaEnvironment
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var storeManager: StoreManager
+    
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                buildCloseButton()
+                closeButton
                 Spacer()
             }
             .padding()
@@ -43,7 +44,31 @@ struct StoreView: View {
         } message: { error in
             Text(error.localizedDescription)
         }
-
+    }
+    
+    private var closeButton: some View {
+        Button(action: {
+            dismiss()
+        }, label: {
+            Image(systemName: "xmark.circle.fill").foregroundColor(.primaryDota)
+        })
+    }
+    
+    private var purchaseButton: some View {
+        Button(action: {
+            Task {
+                await storeManager.purchase()
+            }
+        }, label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 15).foregroundColor(storeManager.isPurchased ? .secondaryDota : .primaryDota)
+                if storeManager.isPurchasing {
+                    ProgressView().progressViewStyle(.circular)
+                } else {
+                    Text(buildSubscribeString()).font(.system(size: 17)).bold().foregroundColor(.white)
+                }
+            }.frame(height: 60)
+        })
     }
     
     @ViewBuilder private func buildQuestion(question: LocalizedStringKey, answer: LocalizedStringKey) -> some View {
@@ -51,14 +76,6 @@ struct StoreView: View {
             Text(question).font(.system(size: 18)).bold().foregroundColor(Color(.secondaryLabel))
             Text(answer).font(.system(size: 12)).fixedSize(horizontal: false, vertical: true).foregroundColor(Color(.tertiaryLabel))
         }
-    }
-    
-    @ViewBuilder private func buildCloseButton() -> some View {
-        Button(action: {
-            env.subscriptionSheet = false
-        }, label: {
-            Image(systemName: "xmark.circle.fill").foregroundColor(.primaryDota)
-        })
     }
     
     @ViewBuilder private func buildFeature(_ text: LocalizedStringKey) -> some View {
@@ -71,7 +88,7 @@ struct StoreView: View {
     @ViewBuilder private func buildSubscribeButton() -> some View {
         VStack(spacing: 15) {
             purchaseButton
-                .disabled(env.subscriptionStatus || storeManager.isPurchasing || storeManager.product == nil)
+                .disabled(storeManager.isPurchased || storeManager.isPurchasing || storeManager.product == nil)
             VStack {
                 Button(action: {
                     storeManager.restorePurchase()
@@ -91,25 +108,8 @@ struct StoreView: View {
         }
     }
     
-    private var purchaseButton: some View {
-        Button(action: {
-            Task {
-                await storeManager.purchase()
-            }
-        }, label: {
-            ZStack {
-                RoundedRectangle(cornerRadius: 15).foregroundColor(env.subscriptionStatus ? .secondaryDota : .primaryDota)
-                if storeManager.isPurchasing {
-                    ProgressView().progressViewStyle(.circular)
-                } else {
-                    Text(buildSubscribeString()).font(.system(size: 17)).bold().foregroundColor(.white)
-                }
-            }.frame(height: 60)
-        })
-    }
-    
     private func buildSubscribeString() -> LocalizedStringKey {
-        if env.subscriptionStatus {
+        if storeManager.isPurchased {
             return "Unlocked"
         } else {
             if let selectedProduct = storeManager.product {
@@ -125,7 +125,6 @@ struct StoreView: View {
 struct SubscriptionView_Previews: PreviewProvider {
     static var previews: some View {
         StoreView()
-            .environmentObject(DotaEnvironment.shared)
             .environmentObject(StoreManager.preview)
     }
 }
