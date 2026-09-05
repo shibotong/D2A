@@ -14,6 +14,8 @@ import Logging
 class StoreManager: ObservableObject {
     static let shared = StoreManager()
     
+    private static let productIDs: [String] = ["D2APRO"]
+    
     @Published var product: StoreProduct?
     @Published var isPurchasing: Bool = false
     @Published var errorIsPresented: Bool = false
@@ -21,7 +23,6 @@ class StoreManager: ObservableObject {
     @Published var error: D2AError? = nil
     
     private let storeFetcher: StoreFetching
-    private let productIDs: [String]
     private let logger: Logger?
     private let widgetCenter: WidgetCenter
     private let notification: D2ANotification
@@ -29,21 +30,18 @@ class StoreManager: ObservableObject {
     private var purchaseTask: Task<Void, Never>?
     var updateListenerTask: Task<Void, Never>?
     
-    init(storeFetcher: StoreFetching = StoreFetcher(),
-         productIDs: [String] = ["D2APRO"],
+    init(product: StoreProduct? = nil,
+         storeFetcher: StoreFetching = StoreFetcher(),
          userDefaults: UserDefaults? = UserDefaults(suiteName: GROUP_NAME),
          notification: D2ANotification = .default,
          widgetCenter: WidgetCenter = .shared,
          logger: Logger? = D2ALogger.storeManager) {
+        self.product = product
         self.storeFetcher = storeFetcher
-        self.productIDs = productIDs
         self.logger = logger
         self.widgetCenter = widgetCenter
         self.notification = notification
         self.isPurchased = userDefaults?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
-        Task {
-            await setupStore()
-        }
     }
     
     func purchase() async {
@@ -80,6 +78,16 @@ class StoreManager: ObservableObject {
         }
     }
     
+    func setupStore() async {
+        logger?.debug("Start setup store manager")
+        updateListenerTask = Task {
+            await storeFetcher.transactionListener { storeVerificationResult in
+                await processPurchases(result: storeVerificationResult)
+            }
+        }
+        await requestProducts()
+    }
+    
     private func processPurchases(result: StoreVerificationResult) async {
         do {
             let transaction = try result.verify()
@@ -90,16 +98,6 @@ class StoreManager: ObservableObject {
         }
     }
     
-    private func setupStore() async {
-        logger?.debug("Start setup store manager")
-        updateListenerTask = Task {
-            await storeFetcher.transactionListener { storeVerificationResult in
-                await processPurchases(result: storeVerificationResult)
-            }
-        }
-        await requestProducts()
-    }
-    
     private func setError(_ error: D2AError) {
         self.error = error
         errorIsPresented = true
@@ -107,7 +105,7 @@ class StoreManager: ObservableObject {
     
     private func requestProducts() async {
         do {
-            guard let product = try await storeFetcher.fetchProducts(productIDs: productIDs).first else {
+            guard let product = try await storeFetcher.fetchProducts(productIDs: Self.productIDs).first else {
                 logger?.warning("No product found for D2A Pro")
                 return
             }

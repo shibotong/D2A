@@ -36,6 +36,9 @@ struct ContentView: View {
         .task {
             try? await syncingService.startSyncing()
         }
+        .task {
+            await store.setupStore()
+        }
     }
 }
 
