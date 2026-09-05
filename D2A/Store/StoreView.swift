@@ -65,7 +65,7 @@ struct StoreView: View {
         VStack(spacing: 15) {
             Button(action: {
                 Task {
-                 try await storeManager.purchase()
+                    await storeManager.purchase()
                 }
             }, label: {
                 ZStack {

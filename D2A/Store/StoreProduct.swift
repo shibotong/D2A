@@ -8,6 +8,7 @@
 import StoreKit
 
 protocol StoreProduct {
+    var displayPrice: String { get }
     func purchase() async throws -> StorePurchaseResult
 }
 

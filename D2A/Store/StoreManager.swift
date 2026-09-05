@@ -50,37 +50,7 @@ class StoreManager: ObservableObject {
         await requestProducts()
     }
     
-    func purchase() {
-        purchaseTask?.cancel()
-        purchaseTask = Task {
-            isPurchasing = true
-            defer { isPurchasing = false }
-            guard let product else {
-                return
-            }
-            do {
-                let result = try await product.purchase()
-                try Task.checkCancellation()
-                
-                switch result {
-                case .success(let storeVerificationResult):
-                    let transaction = try storeVerificationResult.verify()
-                    parsePurchaseInfo(info: transaction)
-                    await transaction.finish()
-                case .userCancelled:
-                    return
-                case .pending:
-                    return
-                }
-            } catch is CancellationError {
-                logger?.info("Purchase task is cancelled")
-            } catch {
-                logger?.warning("Failed to purchase D2APRO. \(error)")
-            }
-        }
-    }
-    
-    func purchaseAsync() async {
+    func purchase() async {
         isPurchasing = true
         defer { isPurchasing = false }
         guard let product else {
