@@ -14,7 +14,7 @@ import Logging
 class StoreManager: ObservableObject {
     static let shared = StoreManager()
     
-    @Published var product: Product?
+    @Published var product: StoreProduct?
     @Published var isPurchasing: Bool = false
     
     private let storeFetcher: StoreFetching
@@ -41,8 +41,10 @@ class StoreManager: ObservableObject {
     func setupStore() async {
         logger?.debug("Start setup store manager")
         updateListenerTask = Task {
-            await storeFetcher.transactionListener { transaction in
+            await storeFetcher.transactionListener { storeVerificationResult in
+                let transaction = try storeVerificationResult.verify()
                 parsePurchaseInfo(info: transaction)
+                await transaction.finish()
             }
         }
         await requestProducts()
@@ -57,16 +59,21 @@ class StoreManager: ObservableObject {
                 return
             }
             do {
-                guard let transaction = try await storeFetcher.purchase(product: product) else {
-                    logger?.notice("Pending transaction found. Needs to wait transaction from other source.")
+                let result = try await product.purchase()
+                try Task.checkCancellation()
+                
+                switch result {
+                case .success(let storeVerificationResult):
+                    let transaction = try storeVerificationResult.verify()
+                    parsePurchaseInfo(info: transaction)
+                    await transaction.finish()
+                case .userCancelled:
+                    return
+                case .pending:
                     return
                 }
-                guard !Task.isCancelled else {
-                    logger?.info("Purchase task is cancelled")
-                    return
-                }
-                parsePurchaseInfo(info: transaction)
-                await transaction.finish()
+            } catch is CancellationError {
+                logger?.info("Purchase task is cancelled")
             } catch {
                 logger?.warning("Failed to purchase D2APRO. \(error)")
             }
@@ -94,7 +101,7 @@ class StoreManager: ObservableObject {
         }
     }
     
-    private func parsePurchaseInfo(info: Transaction) {
+    private func parsePurchaseInfo(info: StoreTransaction) {
         notification.purchaseCompletion.send(true)
         widgetCenter.reloadAllTimelines()
     }
