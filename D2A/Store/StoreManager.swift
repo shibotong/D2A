@@ -18,7 +18,7 @@ class StoreManager: ObservableObject {
     @Published var isPurchasing: Bool = false
     @Published var errorIsPresented: Bool = false
     @Published var isPurchased: Bool
-    var error: D2AError?
+    @Published var error: D2AError? = nil
     
     private let storeFetcher: StoreFetching
     private let productIDs: [String]

@@ -6,7 +6,7 @@
 //
 
 enum StoreError {
-    static let failedVerification = D2AError(category: .store, message: "Verification failed")
-    static let userCancelled = D2AError(category: .store, message: "Cancelled transaction")
-    static let unknown = D2AError(category: .store, message: "Unknown error")
+    static let failedVerification = D2AError(category: .store, message: "VerificationFailed")
+    static let userCancelled = D2AError(category: .store, message: "TransactionCancelled")
+    static let unknown = D2AError(category: .store, message: "Unknown")
 }

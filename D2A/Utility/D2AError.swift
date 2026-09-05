@@ -17,6 +17,6 @@ struct D2AError: LocalizedError {
     let message: String
     
     var errorDescription: String? {
-        return "[\(category.rawValue)] \(message)"
+        return NSLocalizedString(message, comment: "error messages")
     }
 }

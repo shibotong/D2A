@@ -38,12 +38,11 @@ struct StoreView: View {
                 buildSubscribeButton()
             }.padding()
         }
-        .alert(isPresented: $storeManager.errorIsPresented,
-               error: storeManager.error) { error in
-            Text("OK")
-        } message: { error in
-            Text(error.localizedDescription)
-        }
+        .alert(isPresented: $storeManager.errorIsPresented, error: storeManager.error, actions: {
+            Button("OK") {
+
+            }
+        })
     }
     
     private var closeButton: some View {
