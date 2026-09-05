@@ -122,10 +122,18 @@ struct StoreView: View {
 }
 
 #if DEBUG
-struct SubscriptionView_Previews: PreviewProvider {
-    static var previews: some View {
-        StoreView()
-            .environmentObject(StoreManager.preview)
-    }
+#Preview("Success") {
+    StoreView()
+        .environmentObject(StoreManager.success)
+}
+
+#Preview("User Cancelled") {
+    StoreView()
+        .environmentObject(StoreManager.userCancelled)
+}
+
+#Preview("Pending") {
+    StoreView()
+        .environmentObject(StoreManager.pending)
 }
 #endif

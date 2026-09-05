@@ -6,8 +6,11 @@
 //
 
 struct PreviewStoreFetcher: StoreFetching {
+    
+    let products: [any StoreProduct]
+    
     func fetchProducts(productIDs: [String]) async throws -> [any StoreProduct] {
-        return [PreviewStoreProduct()]
+        return products
     }
     
     func transactionListener(handler: nonisolated(nonsending) (StoreVerificationResult) async throws -> Void) async {
