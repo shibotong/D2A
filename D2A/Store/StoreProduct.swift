@@ -7,7 +7,7 @@
 
 import StoreKit
 
-protocol StoreProduct {
+protocol StoreProduct: Sendable {
     var displayPrice: String { get }
     func purchase() async throws -> StorePurchaseResult
 }

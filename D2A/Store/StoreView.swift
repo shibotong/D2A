@@ -37,6 +37,13 @@ struct StoreView: View {
                 buildSubscribeButton()
             }.padding()
         }
+        .alert(isPresented: $storeManager.errorIsPresented,
+               error: storeManager.error) { error in
+            Text("OK")
+        } message: { error in
+            Text(error.localizedDescription)
+        }
+
     }
     
     @ViewBuilder private func buildQuestion(question: LocalizedStringKey, answer: LocalizedStringKey) -> some View {
@@ -119,7 +126,7 @@ struct SubscriptionView_Previews: PreviewProvider {
     static var previews: some View {
         StoreView()
             .environmentObject(DotaEnvironment.shared)
-            .environmentObject(StoreManager.shared)
+            .environmentObject(StoreManager.preview)
     }
 }
 #endif

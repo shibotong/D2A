@@ -13,7 +13,7 @@ enum StoreVerificationResult {
     
     init(result: VerificationResult<Transaction>) {
         switch result {
-        case .unverified(let signedType, let verificationError):
+        case .unverified:
             self = .unverified
         case .verified(let signedType):
             self = .verified(signedType)

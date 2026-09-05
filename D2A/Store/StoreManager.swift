@@ -16,6 +16,9 @@ class StoreManager: ObservableObject {
     
     @Published var product: StoreProduct?
     @Published var isPurchasing: Bool = false
+    @Published var errorIsPresented: Bool = false
+    @Published var isPurchased: Bool
+    var error: D2AError?
     
     private let storeFetcher: StoreFetching
     private let productIDs: [String]
@@ -28,6 +31,7 @@ class StoreManager: ObservableObject {
     
     init(storeFetcher: StoreFetching = StoreFetcher(),
          productIDs: [String] = ["D2APRO"],
+         userDefaults: UserDefaults? = UserDefaults(suiteName: GROUP_NAME),
          notification: D2ANotification = .default,
          widgetCenter: WidgetCenter = .shared,
          logger: Logger? = D2ALogger.storeManager) {
@@ -36,6 +40,10 @@ class StoreManager: ObservableObject {
         self.logger = logger
         self.widgetCenter = widgetCenter
         self.notification = notification
+        self.isPurchased = userDefaults?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
+        Task {
+            await setupStore()
+        }
     }
     
     func setupStore() async {
@@ -59,7 +67,6 @@ class StoreManager: ObservableObject {
         do {
             let result = try await product.purchase()
             try Task.checkCancellation()
-            
             switch result {
             case .success(let storeVerificationResult):
                 let transaction = try storeVerificationResult.verify()
@@ -99,6 +106,7 @@ class StoreManager: ObservableObject {
     }
     
     private func parsePurchaseInfo(info: StoreTransaction) {
+        isPurchased = true
         notification.purchaseCompletion.send(true)
         widgetCenter.reloadAllTimelines()
     }
