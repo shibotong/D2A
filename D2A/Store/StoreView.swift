@@ -64,7 +64,7 @@ struct StoreView: View {
     @ViewBuilder private func buildSubscribeButton() -> some View {
         VStack(spacing: 15) {
             purchaseButton
-                .disabled(env.subscriptionStatus)
+                .disabled(env.subscriptionStatus || storeManager.isPurchasing || storeManager.product == nil)
             VStack {
                 Button(action: {
                     storeManager.restorePurchase()
@@ -114,10 +114,12 @@ struct StoreView: View {
     }
 }
 
- struct SubscriptionView_Previews: PreviewProvider {
+#if DEBUG
+struct SubscriptionView_Previews: PreviewProvider {
     static var previews: some View {
         StoreView()
             .environmentObject(DotaEnvironment.shared)
             .environmentObject(StoreManager.shared)
     }
- }
+}
+#endif
