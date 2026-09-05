@@ -63,17 +63,8 @@ struct StoreView: View {
     
     @ViewBuilder private func buildSubscribeButton() -> some View {
         VStack(spacing: 15) {
-            Button(action: {
-                Task {
-                    await storeManager.purchase()
-                }
-            }, label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15).foregroundColor(env.subscriptionStatus ? .secondaryDota : .primaryDota)
-                    Text(buildSubscribeString()).font(.system(size: 17)).bold().foregroundColor(.white)
-                }.frame(height: 60)
-            })
-            .disabled(env.subscriptionStatus)
+            purchaseButton
+                .disabled(env.subscriptionStatus)
             VStack {
                 Button(action: {
                     storeManager.restorePurchase()
@@ -91,6 +82,23 @@ struct StoreView: View {
                 }
             }
         }
+    }
+    
+    private var purchaseButton: some View {
+        Button(action: {
+            Task {
+                await storeManager.purchase()
+            }
+        }, label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 15).foregroundColor(env.subscriptionStatus ? .secondaryDota : .primaryDota)
+                if storeManager.isPurchasing {
+                    ProgressView().progressViewStyle(.circular)
+                } else {
+                    Text(buildSubscribeString()).font(.system(size: 17)).bold().foregroundColor(.white)
+                }
+            }.frame(height: 60)
+        })
     }
     
     private func buildSubscribeString() -> LocalizedStringKey {
