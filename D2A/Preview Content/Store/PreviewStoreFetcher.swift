@@ -7,6 +7,10 @@
 
 struct PreviewStoreFetcher: StoreFetching {
     
+    init(products: [any StoreProduct] = [PreviewStoreProduct.success]) {
+        self.products = products
+    }
+    
     let products: [any StoreProduct]
     
     func fetchProducts(productIDs: [String]) async throws -> [any StoreProduct] {

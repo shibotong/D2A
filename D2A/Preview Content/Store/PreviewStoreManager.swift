@@ -7,17 +7,20 @@
 
 extension StoreManager {
     static let success = StoreManager(
-        storeFetcher: PreviewStoreFetcher(products: [PreviewStoreProduct.success]),
+        product: PreviewStoreProduct.success,
+        storeFetcher: PreviewStoreFetcher(),
         userDefaults: PreviewUserDefaults()
     )
     
     static let userCancelled = StoreManager(
-        storeFetcher: PreviewStoreFetcher(products: [PreviewStoreProduct.userCancelled]),
+        product: PreviewStoreProduct.success,
+        storeFetcher: PreviewStoreFetcher(),
         userDefaults: PreviewUserDefaults()
     )
     
     static let pending = StoreManager(
-        storeFetcher: PreviewStoreFetcher(products: [PreviewStoreProduct.pending]),
+        product: PreviewStoreProduct.success,
+        storeFetcher: PreviewStoreFetcher(),
         userDefaults: PreviewUserDefaults()
     )
 }
