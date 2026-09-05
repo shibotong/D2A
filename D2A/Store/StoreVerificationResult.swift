@@ -20,7 +20,7 @@ enum StoreVerificationResult {
         }
     }
     
-    func verify() throws -> StoreTransaction {
+    func verify() throws(D2AError) -> StoreTransaction {
         switch self {
         case .unverified:
             // StoreKit has parsed the JWS but failed verification. Don't deliver content to the user.

@@ -50,9 +50,7 @@ class StoreManager: ObservableObject {
         logger?.debug("Start setup store manager")
         updateListenerTask = Task {
             await storeFetcher.transactionListener { storeVerificationResult in
-                let transaction = try storeVerificationResult.verify()
-                parsePurchaseInfo(info: transaction)
-                await transaction.finish()
+                await processPurchases(result: storeVerificationResult)
             }
         }
         await requestProducts()
@@ -69,17 +67,17 @@ class StoreManager: ObservableObject {
             try Task.checkCancellation()
             switch result {
             case .success(let storeVerificationResult):
-                let transaction = try storeVerificationResult.verify()
-                parsePurchaseInfo(info: transaction)
-                await transaction.finish()
+                await processPurchases(result: storeVerificationResult)
             case .userCancelled:
-                return
+                setError(StoreError.userCancelled)
             case .pending:
                 return
             }
-        } catch is CancellationError {
-            logger?.info("Purchase task is cancelled")
+        } catch let error as D2AError {
+            setError(error)
+            logger?.warning("Failed to purchase D2APRO. \(error)")
         } catch {
+            setError(StoreError.unknown)
             logger?.warning("Failed to purchase D2APRO. \(error)")
         }
     }
@@ -90,6 +88,21 @@ class StoreManager: ObservableObject {
             // Call this function only in response to an explicit user action, such as tapping a button.
             try? await AppStore.sync()
         }
+    }
+    
+    private func processPurchases(result: StoreVerificationResult) async {
+        do {
+            let transaction = try result.verify()
+            parsePurchaseInfo(info: transaction)
+            await transaction.finish()
+        } catch {
+            setError(error)
+        }
+    }
+    
+    private func setError(_ error: D2AError) {
+        self.error = error
+        errorIsPresented = true
     }
     
     private func requestProducts() async {

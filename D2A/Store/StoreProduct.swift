@@ -23,7 +23,7 @@ extension Product: StoreProduct {
         case .pending:
             return .pending
         @unknown default:
-            fatalError()
+            throw StoreError.unknown
         }
     }
 }
