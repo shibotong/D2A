@@ -46,16 +46,6 @@ class StoreManager: ObservableObject {
         }
     }
     
-    func setupStore() async {
-        logger?.debug("Start setup store manager")
-        updateListenerTask = Task {
-            await storeFetcher.transactionListener { storeVerificationResult in
-                await processPurchases(result: storeVerificationResult)
-            }
-        }
-        await requestProducts()
-    }
-    
     func purchase() async {
         isPurchasing = true
         defer { isPurchasing = false }
@@ -98,6 +88,16 @@ class StoreManager: ObservableObject {
         } catch {
             setError(error)
         }
+    }
+    
+    private func setupStore() async {
+        logger?.debug("Start setup store manager")
+        updateListenerTask = Task {
+            await storeFetcher.transactionListener { storeVerificationResult in
+                await processPurchases(result: storeVerificationResult)
+            }
+        }
+        await requestProducts()
     }
     
     private func setError(_ error: D2AError) {
