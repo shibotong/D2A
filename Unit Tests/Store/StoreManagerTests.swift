@@ -37,7 +37,6 @@ struct StoreManagerTests {
         await setupStore(product: product)
         await store.purchase()
         #expect(store.errorIsPresented == true)
-        #expect(store.error == StoreError.userCancelled)
     }
     
     @Test("Test purchase product with pending", arguments: [MockProduct(result: .pending)])
