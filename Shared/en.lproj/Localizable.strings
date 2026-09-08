@@ -34,3 +34,4 @@
 "VerificationFailed" = "Verification Failed";
 "TransactionCancelled" = "Transaction Cancelled";
 "Unknown" = "Unknown Error Occurred";
+"RestoreFailed" = "Restore Purchase Failed";

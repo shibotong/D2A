@@ -21,7 +21,7 @@ class StoreManager: ObservableObject {
     @Published var isPurchasing: Bool = false
     @Published var errorIsPresented: Bool = false
     @Published var isPurchased: Bool
-    @Published var error: LocalizedError? = nil
+    @Published var error: D2AError? = nil
     @Published var isRestoringPurchase: Bool = false
     
     private let storeFetcher: StoreFetching
@@ -79,11 +79,9 @@ class StoreManager: ObservableObject {
         defer { isRestoringPurchase = false }
         do {
             try await storeFetcher.restorePurchase()
-        } catch let error as LocalizedError {
+        } catch {
             logger?.error("Failed to restore purchase")
             setError(error)
-        } catch {
-            setError(StoreError.unknown)
         }
     }
     
@@ -107,7 +105,7 @@ class StoreManager: ObservableObject {
         }
     }
     
-    private func setError(_ error: LocalizedError) {
+    private func setError(_ error: D2AError) {
         self.error = error
         errorIsPresented = true
     }

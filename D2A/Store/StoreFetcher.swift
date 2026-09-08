@@ -14,7 +14,7 @@ protocol StoreFetching: Sendable {
         
     func transactionListener(handler: (StoreVerificationResult) async throws -> Void) async
     
-    func restorePurchase() async throws
+    func restorePurchase() async throws(D2AError)
 }
 
 struct StoreFetcher: StoreFetching {
@@ -37,8 +37,13 @@ struct StoreFetcher: StoreFetching {
         }
     }
     
-    func restorePurchase() async throws {
-        try await AppStore.sync()
+    func restorePurchase() async throws(D2AError) {
+        do {
+            try await AppStore.sync()
+        } catch {
+            logger?.error("Failed to restore purchase \(error)")
+            throw StoreError.restorePurchaseFailed
+        }
     }
 }
 
