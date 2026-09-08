@@ -98,11 +98,11 @@ struct StoreView: View {
                 })
                 .disabled(storeManager.isRestoringPurchase)
                 HStack {
-                    Link(destination: URL(string: PRIVACY_POLICY)!, label: {
+                    Link(destination: URL(string: TERMS_OF_USE)!, label: {
                         Text("Terms of Use").font(.system(size: 15)).bold()
                     })
                     Text("and").font(.system(size: 15))
-                    Link(destination: URL(string: TERMS_OF_USE)!, label: {
+                    Link(destination: URL(string: PRIVACY_POLICY)!, label: {
                         Text("Privacy Policy").font(.system(size: 15)).bold()
                     })
                 }
