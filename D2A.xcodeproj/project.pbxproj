@@ -293,7 +293,6 @@
 		7983DA6F2B63086700C42F87 /* D2AWidgetUserEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AWidgetUserEntry.swift; sourceTree = "<group>"; };
 		7983DA732B63088600C42F87 /* D2AWidgetUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D2AWidgetUser.swift; sourceTree = "<group>"; };
 		798A1D1729C183B500E443A6 /* StratzAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = StratzAPI; sourceTree = "<group>"; };
-		79A989262931FA50006AC847 /* D2AProStore.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = D2AProStore.storekit; sourceTree = "<group>"; };
 		79CF637929C40B6F0072F4C0 /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D3D3832FA47B0A0069A605 /* OpenDota.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenDota.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D3D3992FA47D2D0069A605 /* TestKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TestKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -315,6 +314,7 @@
 				DataSyncing/Recipe/AbilityRecipe.swift,
 				DataSyncing/Recipe/HeroRecipe.swift,
 				DataSyncing/SyncingTimer.swift,
+				Utility/D2ANotification.swift,
 				Views/HeroDataView/HeroData.swift,
 				Views/HomeView/RecentMatchWinLossView.swift,
 				Views/MatchListView/MatchListRowView.swift,
@@ -332,6 +332,7 @@
 				DataSyncing/Recipe/AbilityRecipe.swift,
 				DataSyncing/Recipe/HeroRecipe.swift,
 				DataSyncing/SyncingTimer.swift,
+				Utility/D2ANotification.swift,
 				Views/HeroDataView/HeroData.swift,
 				Views/HomeView/RecentMatchWinLossView.swift,
 				Views/MatchListView/MatchListRowView.swift,
@@ -356,6 +357,7 @@
 				graphql/schema.graphqls,
 				graphql/secrets.example.json,
 				graphql/secrets.json,
+				StoreConfiguration.storekit,
 			);
 			target = 32B36F0A26C38821002D427D /* D2A */;
 		};
@@ -536,7 +538,6 @@
 			children = (
 				79D3EC512FB1C2BB0069A605 /* ci_scripts */,
 				798A1D1729C183B500E443A6 /* StratzAPI */,
-				79A989262931FA50006AC847 /* D2AProStore.storekit */,
 				327C03432717AE8500DAEC42 /* README.md */,
 				79C632962FC0652B001BDE18 /* D2A */,
 				32F70AA026F57F7E006E9B05 /* D2AWidget */,

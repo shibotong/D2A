@@ -27,3 +27,11 @@
 
 "FAVORITESADDTITLE" = "There are no players registered in your favorites.";
 "FAVORITESADDSUBTITLE" = "Please search and register a player";
+
+
+// MARK: Error Messages
+
+"VerificationFailed" = "Verification Failed";
+"TransactionCancelled" = "Transaction Cancelled";
+"Unknown" = "Unknown Error Occurred";
+"RestoreFailed" = "Restore Purchase Failed";

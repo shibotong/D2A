@@ -56,8 +56,12 @@ final class DotaEnvironment: ObservableObject {
     }
     
     let imageProvider: ImageProviding
+    
+    private let notification: D2ANotification
 
-    init(imageProvider: ImageProviding = ImageProvider.shared) {
+    init(imageProvider: ImageProviding = ImageProvider.shared,
+         notification: D2ANotification = .default) {
+        self.notification = notification
         subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
         tab = .home
         let userDefaults = UserDefaults(suiteName: GROUP_NAME)
@@ -68,6 +72,12 @@ final class DotaEnvironment: ObservableObject {
             versionUpdate(lastVersion: lastVersion, currentVersion: appVersion)
             userDefaults?.setValue(appVersion, forKey: "dotaArmory.appVersion")
         }
+    }
+    
+    private func setupBinding() {
+        notification.purchaseCompletion
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$subscriptionStatus)
     }
     
     static func isInWidget() -> Bool {

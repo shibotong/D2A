@@ -1,0 +1,35 @@
+{
+  "identifier" : "26262CE4",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "1589873320",
+      "localizations" : [
+        {
+          "description" : "Unlock all features in D2A",
+          "displayName" : "D2APRO",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "D2APRO",
+      "referenceName" : "D2A Pro",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1582344852",
+    "_developerTeamID" : "6ZU3XJ94Y7",
+    "_lastSynchronizedDate" : 691141212.45211506
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}

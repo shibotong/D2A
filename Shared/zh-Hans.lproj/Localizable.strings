@@ -383,3 +383,10 @@
 "Primal Beast" = "兽";
 "Muerta" = "琼英碧灵";
 "Ring Master" = "百戏大王";
+
+// MARK: Error Messages
+
+"VerificationFailed" = "验证失败";
+"TransactionCancelled" = "购买已被取消";
+"Unknown" = "发生了未知的错误";
+"RestoreFailed" = "恢复购买失败";
