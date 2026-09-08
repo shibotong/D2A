@@ -17,6 +17,7 @@ class StoreManager: ObservableObject {
     private static let productIDs: [String] = ["D2APRO"]
     
     @Published var product: StoreProduct?
+    @Published var isLoadingProduct: Bool = false
     @Published var isPurchasing: Bool = false
     @Published var errorIsPresented: Bool = false
     @Published var isPurchased: Bool
@@ -104,6 +105,8 @@ class StoreManager: ObservableObject {
     }
     
     private func requestProducts() async {
+        isLoadingProduct = true
+        defer { isLoadingProduct = false }
         do {
             guard let product = try await storeFetcher.fetchProducts(productIDs: Self.productIDs).first else {
                 logger?.warning("No product found for D2A Pro")
