@@ -13,6 +13,8 @@ protocol StoreFetching: Sendable {
     func fetchProducts(productIDs: [String]) async throws -> [StoreProduct]
         
     func transactionListener(handler: (StoreVerificationResult) async throws -> Void) async
+    
+    func restorePurchase() async throws
 }
 
 struct StoreFetcher: StoreFetching {
@@ -33,6 +35,10 @@ struct StoreFetcher: StoreFetching {
             let verificationResult = StoreVerificationResult(result: result)
             try? await handler(verificationResult)
         }
+    }
+    
+    func restorePurchase() async throws {
+        try await AppStore.sync()
     }
 }
 

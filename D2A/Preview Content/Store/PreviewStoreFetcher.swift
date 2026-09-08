@@ -20,4 +20,9 @@ struct PreviewStoreFetcher: StoreFetching {
     func transactionListener(handler: nonisolated(nonsending) (StoreVerificationResult) async throws -> Void) async {
         return
     }
+    
+    func restorePurchase() async throws {
+        return
+    }
+    
 }

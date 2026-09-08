@@ -21,7 +21,8 @@ class StoreManager: ObservableObject {
     @Published var isPurchasing: Bool = false
     @Published var errorIsPresented: Bool = false
     @Published var isPurchased: Bool
-    @Published var error: D2AError? = nil
+    @Published var error: LocalizedError? = nil
+    @Published var isRestoringPurchase: Bool = false
     
     private let storeFetcher: StoreFetching
     private let logger: Logger?
@@ -73,11 +74,16 @@ class StoreManager: ObservableObject {
         }
     }
     
-    func restorePurchase() {
-        Task {
-            // This call displays a system prompt that asks users to authenticate with their App Store credentials.
-            // Call this function only in response to an explicit user action, such as tapping a button.
-            try? await AppStore.sync()
+    func restorePurchase() async {
+        isRestoringPurchase = true
+        defer { isRestoringPurchase = false }
+        do {
+            try await storeFetcher.restorePurchase()
+        } catch let error as LocalizedError {
+            logger?.error("Failed to restore purchase")
+            setError(error)
+        } catch {
+            setError(StoreError.unknown)
         }
     }
     
@@ -101,7 +107,7 @@ class StoreManager: ObservableObject {
         }
     }
     
-    private func setError(_ error: D2AError) {
+    private func setError(_ error: LocalizedError) {
         self.error = error
         errorIsPresented = true
     }

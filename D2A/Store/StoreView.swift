@@ -90,10 +90,13 @@ struct StoreView: View {
                 .disabled(storeManager.isPurchased || storeManager.isPurchasing || storeManager.product == nil)
             VStack {
                 Button(action: {
-                    storeManager.restorePurchase()
+                    Task {
+                        await storeManager.restorePurchase()
+                    }
                 }, label: {
                     Text("Restore Purchase").font(.system(size: 15)).bold()
                 })
+                .disabled(storeManager.isRestoringPurchase)
                 HStack {
                     Link(destination: URL(string: PRIVACY_POLICY)!, label: {
                         Text("Terms of Use").font(.system(size: 15)).bold()
