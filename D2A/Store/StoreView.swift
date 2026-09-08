@@ -110,12 +110,14 @@ struct StoreView: View {
     private func buildSubscribeString() -> LocalizedStringKey {
         if storeManager.isPurchased {
             return "Unlocked"
+        }
+        if storeManager.isLoadingProduct {
+            return "Loading..."
+        }
+        if let selectedProduct = storeManager.product {
+            return "SubscriptionButtonDescription \(selectedProduct.displayPrice)"
         } else {
-            if let selectedProduct = storeManager.product {
-                return "SubscriptionButtonDescription \(selectedProduct.displayPrice)"
-            } else {
-                return "Loading..."
-            }
+            return "Failed to load product"
         }
     }
 }
@@ -134,5 +136,15 @@ struct StoreView: View {
 #Preview("Pending") {
     StoreView()
         .environmentObject(StoreManager.pending)
+}
+
+#Preview("Loading Product") {
+    StoreView()
+        .environmentObject(StoreManager(isLoadingProduct: true))
+}
+
+#Preview("Loading Product Failed") {
+    StoreView()
+        .environmentObject(StoreManager())
 }
 #endif

@@ -17,7 +17,7 @@ class StoreManager: ObservableObject {
     private static let productIDs: [String] = ["D2APRO"]
     
     @Published var product: StoreProduct?
-    @Published var isLoadingProduct: Bool = false
+    @Published var isLoadingProduct: Bool
     @Published var isPurchasing: Bool = false
     @Published var errorIsPresented: Bool = false
     @Published var isPurchased: Bool
@@ -32,12 +32,14 @@ class StoreManager: ObservableObject {
     var updateListenerTask: Task<Void, Never>?
     
     init(product: StoreProduct? = nil,
+         isLoadingProduct: Bool = false,
          storeFetcher: StoreFetching = StoreFetcher(),
          userDefaults: UserDefaults? = UserDefaults(suiteName: GROUP_NAME),
          notification: D2ANotification = .default,
          widgetCenter: WidgetCenter = .shared,
          logger: Logger? = D2ALogger.storeManager) {
         self.product = product
+        self.isLoadingProduct = isLoadingProduct
         self.storeFetcher = storeFetcher
         self.logger = logger
         self.widgetCenter = widgetCenter
