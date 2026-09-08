@@ -11,31 +11,44 @@ import Testing
 struct StoreManagerTests {
     
     private let store: StoreManager
+    private let fetcher: StoreFetchingMock
 
     init() {
-        store = StoreManager()
+        fetcher = StoreFetchingMock()
+        store = StoreManager(storeFetcher: fetcher)
     }
     
-    @Test("Don't purchase if no product is loaded")
-    func testDontPurchase() async {
-        let store = StoreManager()
-        await store.purchase()
-        #expect(store.isPurchased == false)
-        #expect(store.errorIsPresented == false)
-        #expect(store.error == nil)
+    @Test
+    func `Test no product found`() async {
+        fetcher._fetchProducts.implementation = .returns([])
+        await store.setupStore()
+        #expect(store.product == nil)
+    }
+    
+    @Test
+    func `Test failed to load product`() async {
+        fetcher._fetchProducts.implementation = .throws(StoreError.unknown)
+        await store.setupStore()
+        #expect(store.product == nil)
     }
     
     @Test("Test purchase product with user cancellation", arguments: [MockProduct(result: .userCancelled)])
     func purchaseUserCancel(product: MockProduct) async throws {
-        let store = StoreManager(product: product)
+        await setupStore(product: product)
         await store.purchase()
         #expect(store.errorIsPresented == true)
+        #expect(store.error == StoreError.userCancelled)
     }
     
     @Test("Test purchase product with pending", arguments: [MockProduct(result: .pending)])
     func purchasePending(product: MockProduct) async throws {
-        let store = StoreManager(product: product)
+        await setupStore(product: product)
         await store.purchase()
         #expect(store.errorIsPresented == false)
+    }
+    
+    private func setupStore(product: MockProduct) async {
+        fetcher._fetchProducts.implementation = .returns([product])
+        await store.setupStore()
     }
 }

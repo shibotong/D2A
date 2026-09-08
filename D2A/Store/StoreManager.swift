@@ -79,17 +79,20 @@ class StoreManager: ObservableObject {
         defer { isRestoringPurchase = false }
         do {
             try await storeFetcher.restorePurchase()
-        } catch {
+        } catch let error as D2AError {
             logger?.error("Failed to restore purchase")
             setError(error)
+        } catch {
+            logger?.error("\(error)")
+            setError(StoreError.unknown)
         }
     }
     
     func setupStore() async {
         logger?.debug("Start setup store manager")
         updateListenerTask = Task {
-            await storeFetcher.transactionListener { storeVerificationResult in
-                await processPurchases(result: storeVerificationResult)
+            await storeFetcher.transactionListener { [weak self] storeVerificationResult in
+                await self?.processPurchases(result: storeVerificationResult)
             }
         }
         await requestProducts()

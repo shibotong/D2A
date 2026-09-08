@@ -7,14 +7,16 @@
 
 import StoreKit
 import Logging
+import Mocking
 
+@Mocked(compilationCondition: .debug)
 protocol StoreFetching: Sendable {
     @concurrent
     func fetchProducts(productIDs: [String]) async throws -> [StoreProduct]
         
-    func transactionListener(handler: (StoreVerificationResult) async throws -> Void) async
+    func transactionListener(handler: @escaping (StoreVerificationResult) async throws -> Void) async
     
-    func restorePurchase() async throws(D2AError)
+    func restorePurchase() async throws
 }
 
 struct StoreFetcher: StoreFetching {
@@ -30,14 +32,14 @@ struct StoreFetcher: StoreFetching {
         return try await Product.products(for: productIDs)
     }
     
-    func transactionListener(handler: (StoreVerificationResult) async throws -> Void) async {
+    func transactionListener(handler: @escaping (StoreVerificationResult) async throws -> Void) async {
         for await result in Transaction.updates {
             let verificationResult = StoreVerificationResult(result: result)
             try? await handler(verificationResult)
         }
     }
     
-    func restorePurchase() async throws(D2AError) {
+    func restorePurchase() async throws {
         do {
             try await AppStore.sync()
         } catch {

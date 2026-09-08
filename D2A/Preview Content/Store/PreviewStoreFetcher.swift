@@ -21,8 +21,7 @@ struct PreviewStoreFetcher: StoreFetching {
         return
     }
     
-    func restorePurchase() async throws {
+    func restorePurchase() async throws(D2AError) {
         return
     }
-    
 }
