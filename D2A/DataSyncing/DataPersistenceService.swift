@@ -215,7 +215,7 @@ class DataPersistenceService {
     }
     
     func save(abilityID: Int, name: String, data: ODAbility, in context: NSManagedObjectContext) throws {
-        let ability = try fetch(abilityID: abilityID, context: context) ?? Ability(context: context)
+        let ability = try Ability.fetch(abilityID: abilityID, context: context) ?? Ability(context: context)
         setIfNotEqual(entity: ability, path: \.name, value: name)
         setIfNotEqual(entity: ability, path: \.abilityID, value: Int16(abilityID))
         setIfNotEqual(entity: ability, path: \.behavior, value: data.behavior?.joined(separator: " / "))
@@ -253,7 +253,7 @@ class DataPersistenceService {
     }
     
     func save(ability: SKAbility, language: DataLanguageEnum, in context: NSManagedObjectContext) throws {
-        guard let rootAbility = try fetch(abilityID: ability.id, context: context) else {
+        guard let rootAbility = try Ability.fetch(abilityID: ability.id, context: context) else {
             throw PersistenceError.abilityNotFound(ability.id)
         }
         var translation: AbilityTranslation
