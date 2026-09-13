@@ -85,7 +85,7 @@ struct MatchView: View {
                         .frame(width: 140)
                     MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(GameMode(id: Int(match.mode)).modeName))
                         .frame(width: 140)
-                    MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: LocalizedStringKey(data.fetchRegion(id: match.region.description)))
+                    MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: LocalizedStringKey(match.regionValue.name))
                         .colorInvert()
                         .frame(width: 140)
                 }.padding(.horizontal)

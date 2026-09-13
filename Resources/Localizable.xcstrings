@@ -306,17 +306,6 @@
         }
       }
     },
-    "ARGENTINA" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "阿根廷"
-          }
-        }
-      }
-    },
     "Attack" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -338,28 +327,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "属性"
-          }
-        }
-      }
-    },
-    "AUSTRALIA" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "澳大利亚"
-          }
-        }
-      }
-    },
-    "AUSTRIA" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "奥地利"
           }
         }
       }
@@ -485,17 +452,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "赏金猎人"
-          }
-        }
-      }
-    },
-    "BRAZIL" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "巴西"
           }
         }
       }
@@ -629,17 +585,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "陈"
-          }
-        }
-      }
-    },
-    "CHILE" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "智利"
           }
         }
       }
@@ -989,17 +934,6 @@
         }
       }
     },
-    "DUBAI" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "迪拜"
-          }
-        }
-      }
-    },
     "Durable" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1123,17 +1057,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "逃生"
-          }
-        }
-      }
-    },
-    "EUROPE" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "欧洲"
           }
         }
       }
@@ -1506,17 +1429,6 @@
         }
       }
     },
-    "INDIA" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "印度"
-          }
-        }
-      }
-    },
     "Initiator" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1582,17 +1494,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "杰奇洛"
-          }
-        }
-      }
-    },
-    "JAPAN" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "日本"
           }
         }
       }
@@ -2295,17 +2196,6 @@
         }
       }
     },
-    "PERU" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "秘鲁"
-          }
-        }
-      }
-    },
     "Phantom Assassin" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2518,72 +2408,6 @@
         }
       }
     },
-    "PW TELECOM GUANGDONG" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完美世界（电信）广东"
-          }
-        }
-      }
-    },
-    "PW TELECOM SHANGHAI" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完美世界（电信）上海"
-          }
-        }
-      }
-    },
-    "PW TELECOM WUHAN" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完美世界（电信）武汉"
-          }
-        }
-      }
-    },
-    "PW TELECOM ZHEJIANG" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完美世界（电信）浙江"
-          }
-        }
-      }
-    },
-    "PW UNICOM" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完美世界（联通）"
-          }
-        }
-      }
-    },
-    "PW UNICOM TIANJIN" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完美世界（联通）天津"
-          }
-        }
-      }
-    },
     "Queen of Pain" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2679,6 +2503,397 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "地区"
+          }
+        }
+      }
+    },
+    "REGION_ARGENTINA" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Argentina"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "阿根廷"
+          }
+        }
+      }
+    },
+    "REGION_AUSTRALIA" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Australia"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "澳大利亚"
+          }
+        }
+      }
+    },
+    "REGION_AUSTRIA" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Austria"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "奥地利"
+          }
+        }
+      }
+    },
+    "REGION_BRAZIL" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brazil"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "巴西"
+          }
+        }
+      }
+    },
+    "REGION_CHILE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chile"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "智利"
+          }
+        }
+      }
+    },
+    "REGION_DUBAI" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dubai"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "迪拜"
+          }
+        }
+      }
+    },
+    "REGION_EUROPE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Luxembourg"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卢森堡"
+          }
+        }
+      }
+    },
+    "REGION_INDIA" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "India"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "印度"
+          }
+        }
+      }
+    },
+    "REGION_JAPAN" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Japan"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "日本"
+          }
+        }
+      }
+    },
+    "REGION_PERU" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peru"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "秘鲁"
+          }
+        }
+      }
+    },
+    "REGION_PW_TELECOM_GUANGDONG" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "China TC Guangdong"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "完美世界（电信）广东"
+          }
+        }
+      }
+    },
+    "REGION_PW_TELECOM_SHANGHAI" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "China TC Shanghai"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "完美世界（电信）上海"
+          }
+        }
+      }
+    },
+    "REGION_PW_TELECOM_WUHAN" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "China TC Wuhan"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "完美世界（电信）武汉"
+          }
+        }
+      }
+    },
+    "REGION_PW_TELECOM_ZHEJIANG" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "China TC Zhejiang"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "完美世界（电信）浙江"
+          }
+        }
+      }
+    },
+    "REGION_PW_UNICOM" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "China UC"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "完美世界（联通）"
+          }
+        }
+      }
+    },
+    "REGION_PW_UNICOM_TIANJIN" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "China UC Tianjin"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "完美世界（联通）天津"
+          }
+        }
+      }
+    },
+    "REGION_SINGAPORE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Singapore"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "新加坡"
+          }
+        }
+      }
+    },
+    "REGION_SOUTHAFRICA" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "South Africa"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "南非"
+          }
+        }
+      }
+    },
+    "REGION_STOCKHOLM" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stockholm"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "斯德哥尔摩"
+          }
+        }
+      }
+    },
+    "REGION_TAIWAN" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taiwan"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "台湾"
+          }
+        }
+      }
+    },
+    "REGION_UNKNOWN %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown (%lld)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未知地区（%lld）"
+          }
+        }
+      }
+    },
+    "REGION_USEAST" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "US East"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "美国东部"
+          }
+        }
+      }
+    },
+    "REGION_USWEST" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "US West"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "美国西部"
           }
         }
       }
@@ -2990,17 +3205,6 @@
         }
       }
     },
-    "SINGAPORE" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "新加坡"
-          }
-        }
-      }
-    },
     "Single Draft" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3078,17 +3282,6 @@
         }
       }
     },
-    "SOUTHAFRICA" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "南非"
-          }
-        }
-      }
-    },
     "Spectre" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3129,17 +3322,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "属性"
-          }
-        }
-      }
-    },
-    "STOCKHOLM" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "斯德哥尔摩"
           }
         }
       }
@@ -3215,17 +3397,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "斯温"
-          }
-        }
-      }
-    },
-    "TAIWAN" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "台湾"
           }
         }
       }
@@ -3593,28 +3764,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "熊战士"
-          }
-        }
-      }
-    },
-    "US EAST" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "美国东部"
-          }
-        }
-      }
-    },
-    "US WEST" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "美国西部"
           }
         }
       }

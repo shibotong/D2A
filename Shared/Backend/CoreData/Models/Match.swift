@@ -11,6 +11,10 @@ import SwiftUI
 
 extension Match {
     
+    var regionValue: Region {
+        return Region(regionID: Int(region))
+    }
+    
     static func create(id: String,
                        lobbyType: Int16 = 1,
                        mode: Int16 = 1,
