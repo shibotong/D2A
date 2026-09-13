@@ -50,17 +50,6 @@
     "0:00" : {
 
     },
-    "1v1 mid" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "中路对抗"
-          }
-        }
-      }
-    },
     "30" : {
 
     },
@@ -71,17 +60,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "亚巴顿"
-          }
-        }
-      }
-    },
-    "Ability Draft" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "技能征召"
           }
         }
       }
@@ -159,39 +137,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "全部"
-          }
-        }
-      }
-    },
-    "All Draft" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "全阵营选择"
-          }
-        }
-      }
-    },
-    "All Pick" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "全阵营选择"
-          }
-        }
-      }
-    },
-    "All Random" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "全阵营随机"
           }
         }
       }
@@ -341,9 +286,6 @@
           }
         }
       }
-    },
-    "Balanced Draft" : {
-      "extractionState" : "manual"
     },
     "Bane" : {
       "extractionState" : "manual",
@@ -523,28 +465,6 @@
         }
       }
     },
-    "Captains Draft" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "队长模式"
-          }
-        }
-      }
-    },
-    "Captains Mode" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "队长模式"
-          }
-        }
-      }
-    },
     "Carry" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -614,9 +534,6 @@
     "Close" : {
 
     },
-    "Compendium Matchmaking" : {
-      "extractionState" : "manual"
-    },
     "Cooldown: %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -657,17 +574,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "水晶室女"
-          }
-        }
-      }
-    },
-    "Custom Mode" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自定义"
           }
         }
       }
@@ -758,17 +664,6 @@
         }
       }
     },
-    "Death Match" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "死亡比赛"
-          }
-        }
-      }
-    },
     "Death Prophet" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -835,17 +730,6 @@
         }
       }
     },
-    "Diretide" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "夜魇暗潮"
-          }
-        }
-      }
-    },
     "Disabler" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -897,17 +781,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "末日使者"
-          }
-        }
-      }
-    },
-    "Draft" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "阵容"
           }
         }
       }
@@ -1072,6 +945,17 @@
         }
       }
     },
+    "EUROPE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "欧洲"
+          }
+        }
+      }
+    },
     "Events" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1202,6 +1086,460 @@
         }
       }
     },
+    "GAMEMODE_1V1_MID" : {
+      "comment" : "1v1 Mid",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1v1 Solo Mid"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1V1中路Solo模式"
+          }
+        }
+      }
+    },
+    "GAMEMODE_ABILITY_DRAFT" : {
+      "comment" : "Ability Draft",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ability Draft"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "技能征召"
+          }
+        }
+      }
+    },
+    "GAMEMODE_ALL_DRAFT" : {
+      "comment" : "All Draft",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All Draft"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全英雄选择(BP)"
+          }
+        }
+      }
+    },
+    "GAMEMODE_ALL_PICK" : {
+      "comment" : "all pick",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All Pick"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全英雄选择"
+          }
+        }
+      }
+    },
+    "GAMEMODE_ALL_RANDOM" : {
+      "comment" : "All random",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All Random"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全英雄随机"
+          }
+        }
+      }
+    },
+    "GAMEMODE_BALANCED_DRAFT" : {
+      "comment" : "Balanced Draft",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balanced Draft"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "平衡征召"
+          }
+        }
+      }
+    },
+    "GAMEMODE_CAPTAINS_DRAFT" : {
+      "comment" : "Captains Draft",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Captains Draft"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "队长征召"
+          }
+        }
+      }
+    },
+    "GAMEMODE_CAPTAINS_MODE" : {
+      "comment" : "Captains mode",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Captains Mode"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "队长模式"
+          }
+        }
+      }
+    },
+    "GAMEMODE_COACHES_CHALLENGE" : {
+      "comment" : "Coaches Challenge",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coaches Challenge"
+          }
+        }
+      }
+    },
+    "GAMEMODE_COMPENDIUM_MATCHMAKING" : {
+      "comment" : "Compendium Matchmaking",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compendium"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "勇士令状"
+          }
+        }
+      }
+    },
+    "GAMEMODE_CUSTOM" : {
+      "comment" : "Custom Mode",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自定义游戏"
+          }
+        }
+      }
+    },
+    "GAMEMODE_DEATH_MATCH" : {
+      "comment" : "Death Match",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All Random Deathmatch"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全随机死亡竞赛"
+          }
+        }
+      }
+    },
+    "GAMEMODE_DIRETIDE" : {
+      "comment" : "Diretide",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diretide"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "夜魇暗潮"
+          }
+        }
+      }
+    },
+    "GAMEMODE_EVENT" : {
+      "comment" : "Event",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Event"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "活动"
+          }
+        }
+      }
+    },
+    "GAMEMODE_GREEVILING" : {
+      "comment" : "Greeviling",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Greeviling"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小贪魔节"
+          }
+        }
+      }
+    },
+    "GAMEMODE_INTRO" : {
+      "comment" : "Intro",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intro"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开局"
+          }
+        }
+      }
+    },
+    "GAMEMODE_LEAST_PLAYED" : {
+      "comment" : "Least Played",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Least Played"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "生疏模式"
+          }
+        }
+      }
+    },
+    "GAMEMODE_LIMITED_HEROES" : {
+      "comment" : "Limited Heroes",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limited Heroes"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "英雄限定"
+          }
+        }
+      }
+    },
+    "GAMEMODE_MID_ONLY" : {
+      "comment" : "Mid Only",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mid Only"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "单中模式"
+          }
+        }
+      }
+    },
+    "GAMEMODE_MUTATION" : {
+      "comment" : "Mutation",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mutation"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "突变"
+          }
+        }
+      }
+    },
+    "GAMEMODE_RANDOM_DRAFT" : {
+      "comment" : "Random draft",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Random Draft"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "随机征召"
+          }
+        }
+      }
+    },
+    "GAMEMODE_REVERSE_CAPTAINS_MODE" : {
+      "comment" : "Reverse captains mode",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reverse Captains Mode"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "反队长模式"
+          }
+        }
+      }
+    },
+    "GAMEMODE_SINGLE_DRAFT" : {
+      "comment" : "Single draft",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Single Draft"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "单一征召"
+          }
+        }
+      }
+    },
+    "GAMEMODE_TURBO" : {
+      "comment" : "Turbo",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turbo"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加速模式"
+          }
+        }
+      }
+    },
+    "GAMEMODE_TUTORIAL" : {
+      "comment" : "Tutorial",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutorial"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "教程"
+          }
+        }
+      }
+    },
+    "GAMEMODE_UNKNOWN" : {
+      "comment" : "Game mode unknown",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown Mode"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未知"
+          }
+        }
+      }
+    },
+    "GAMEMODE_UNKNOWN %lld" : {
+      "comment" : "Unknown Game Mode",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown (%lld)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未知 （%lld）"
+          }
+        }
+      }
+    },
     "Gold/XP difference is not available." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1215,17 +1553,6 @@
     },
     "GPM" : {
 
-    },
-    "Greeviling" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "夜魇暗潮"
-          }
-        }
-      }
     },
     "Grimstroke" : {
       "extractionState" : "manual",
@@ -1451,9 +1778,6 @@
         }
       }
     },
-    "Intro" : {
-      "extractionState" : "manual"
-    },
     "Invoker" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1592,9 +1916,6 @@
         }
       }
     },
-    "Least Played" : {
-      "extractionState" : "manual"
-    },
     "Legend %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1669,9 +1990,6 @@
           }
         }
       }
-    },
-    "Limited Heroes" : {
-      "extractionState" : "manual"
     },
     "Lina" : {
       "extractionState" : "manual",
@@ -1852,9 +2170,6 @@
         }
       }
     },
-    "Mid Only" : {
-      "extractionState" : "manual"
-    },
     "minimal" : {
 
     },
@@ -1968,9 +2283,6 @@
           }
         }
       }
-    },
-    "Mutation" : {
-      "extractionState" : "manual"
     },
     "Naga Siren" : {
       "extractionState" : "manual",
@@ -2437,17 +2749,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "天辉胜利"
-          }
-        }
-      }
-    },
-    "Random Draft" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "随机征召"
           }
         }
       }
@@ -2982,17 +3283,6 @@
         }
       }
     },
-    "Reverse Captains Mode" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "反向队长模式"
-          }
-        }
-      }
-    },
     "Riki" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3206,12 +3496,23 @@
       }
     },
     "Single Draft" : {
-      "extractionState" : "manual",
+     "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "单一征召"
+          }
+        }
+      }
+    },
+    "SINGAPORE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新加坡"
           }
         }
       }
@@ -3572,17 +3873,6 @@
         }
       }
     },
-    "Turbo" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "加速模式"
-          }
-        }
-      }
-    },
     "Tusk" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3590,17 +3880,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "巨牙海民"
-          }
-        }
-      }
-    },
-    "Tutorial" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "教程"
           }
         }
       }
@@ -3676,9 +3955,6 @@
           }
         }
       }
-    },
-    "Unknown Mode" : {
-      "extractionState" : "manual"
     },
     "Unlimit Following Users" : {
       "extractionState" : "manual",
