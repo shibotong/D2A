@@ -934,17 +934,6 @@
         }
       }
     },
-    "Event" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "活动比赛"
-          }
-        }
-      }
-    },
     "EUROPE" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -952,6 +941,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "欧洲"
+          }
+        }
+      }
+    },
+    "Event" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "活动比赛"
           }
         }
       }
@@ -2819,7 +2819,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "阿根廷"
           }
         }
@@ -2836,7 +2836,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "澳大利亚"
           }
         }
@@ -2853,7 +2853,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "奥地利"
           }
         }
@@ -2870,7 +2870,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "巴西"
           }
         }
@@ -2887,7 +2887,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "智利"
           }
         }
@@ -2904,7 +2904,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "迪拜"
           }
         }
@@ -2938,7 +2938,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "印度"
           }
         }
@@ -2955,7 +2955,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "日本"
           }
         }
@@ -2972,7 +2972,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "秘鲁"
           }
         }
@@ -2989,7 +2989,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "完美世界（电信）广东"
           }
         }
@@ -3006,7 +3006,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "完美世界（电信）上海"
           }
         }
@@ -3023,7 +3023,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "完美世界（电信）武汉"
           }
         }
@@ -3040,7 +3040,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "完美世界（电信）浙江"
           }
         }
@@ -3057,7 +3057,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "完美世界（联通）"
           }
         }
@@ -3074,7 +3074,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "完美世界（联通）天津"
           }
         }
@@ -3091,7 +3091,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "新加坡"
           }
         }
@@ -3108,7 +3108,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "南非"
           }
         }
@@ -3125,7 +3125,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "斯德哥尔摩"
           }
         }
@@ -3142,7 +3142,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "台湾"
           }
         }
@@ -3176,7 +3176,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "美国东部"
           }
         }
@@ -3193,7 +3193,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "美国西部"
           }
         }
@@ -3495,17 +3495,6 @@
         }
       }
     },
-    "Single Draft" : {
-     "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "单一征召"
-          }
-        }
-      }
-    },
     "SINGAPORE" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3513,6 +3502,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "新加坡"
+          }
+        }
+      }
+    },
+    "Single Draft" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "单一征召"
           }
         }
       }
