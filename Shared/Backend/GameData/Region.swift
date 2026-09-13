@@ -17,51 +17,51 @@ struct Region {
     var name: String {
         switch regionID {
         case 1:
-            return String(localized: .regionUswest)
+            return String(localized: .Region.uswest)
         case 2:
-            return String(localized: .regionUseast)
+            return String(localized: .Region.useast)
         case 3:
-            return String(localized: .regionEurope)
+            return String(localized: .Region.europe)
         case 5:
-            return String(localized: .regionSingapore)
+            return String(localized: .Region.singapore)
         case 6:
-            return String(localized: .regionDubai)
+            return String(localized: .Region.dubai)
         case 7:
-            return String(localized: .regionAustralia)
+            return String(localized: .Region.australia)
         case 8:
-            return String(localized: .regionStockholm)
+            return String(localized: .Region.stockholm)
         case 9:
-            return String(localized: .regionAustria)
+            return String(localized: .Region.austria)
         case 10:
-            return String(localized: .regionBrazil)
+            return String(localized: .Region.brazil)
         case 11:
-            return String(localized: .regionSouthafrica)
+            return String(localized: .Region.southafrica)
         case 12:
-            return String(localized: .regionPwTelecomShanghai)
+            return String(localized: .Region.pwTelecomShanghai)
         case 13:
-            return String(localized: .regionPwUnicom)
+            return String(localized: .Region.pwUnicom)
         case 14:
-            return String(localized: .regionChile)
+            return String(localized: .Region.chile)
         case 15:
-            return String(localized: .regionPeru)
+            return String(localized: .Region.peru)
         case 16:
-            return String(localized: .regionIndia)
+            return String(localized: .Region.india)
         case 17:
-            return String(localized: .regionPwTelecomGuangdong)
+            return String(localized: .Region.pwTelecomGuangdong)
         case 18:
-            return String(localized: .regionPwTelecomZhejiang)
+            return String(localized: .Region.pwTelecomZhejiang)
         case 19:
-            return String(localized: .regionJapan)
+            return String(localized: .Region.japan)
         case 20:
-            return String(localized: .regionPwTelecomWuhan)
+            return String(localized: .Region.pwTelecomWuhan)
         case 25:
-            return String(localized: .regionPwUnicomTianjin)
+            return String(localized: .Region.pwUnicomTianjin)
         case 37:
-            return String(localized: .regionTaiwan)
+            return String(localized: .Region.taiwan)
         case 38:
-            return String(localized: .regionArgentina)
+            return String(localized: .Region.argentina)
         default:
-            return String(localized: .regionUnknown(regionID))
+            return String(localized: .Region.unknown)
         }
     }
 }
