@@ -9,8 +9,11 @@ import Logging
 import Foundation
 
 enum LoggingCategory: String, CaseIterable {
-    case syncing
+    case image
+    case setting
     case store
+    case syncing
+    case ui
 }
 
 class D2ALogger {
@@ -22,10 +25,24 @@ class D2ALogger {
     static var imageCache = createLogger(label: "imageCache")
     static var storeManager = createLogger(label: "storeManager")
     
+    private static let logSettingsKey = "d2a.log.settings"
+    
+    static func createLogger(label: String, logLevel: Logger.Level = .debug) -> Logger {
+        var logger = Logger(label: label)
+        logger.logLevel = logLevel
+        return logger
+    }
+    
+    var loggingLevels: [String: String] {
+        var logSettings: [String: String] = [:]
+        for logger in loggers {
+            logSettings[logger.label] = logger.logLevel.rawValue
+        }
+        return logSettings
+    }
+    
     private var loggers: [Logger]
     private let userDefaults: UserDefaults
-    
-    private static let logSettingsKey = "d2a.log.settings"
     
     init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
@@ -43,27 +60,41 @@ class D2ALogger {
     
     func updateLogLevel(category: LoggingCategory, level: Logger.Level) {
         guard let index = loggers.firstIndex(where: { $0.label == category.rawValue }) else {
-            assertionFailure("Logger \(category.rawValue) doesn't exit")
+            critical("Logger \(category.rawValue) doesn't exist", category: .setting)
             return
         }
         loggers[index].logLevel = level
+        notice("Update logger \(category) to level \(level)", category: .setting)
         saveLogSettings()
-    }
-    
-
-    
-    static func createLogger(label: String, logLevel: Logger.Level = .debug) -> Logger {
-        var logger = Logger(label: label)
-        logger.logLevel = logLevel
-        return logger
     }
     
     func trace(_ message: Logger.Message, category: LoggingCategory, file: String = #file, line: UInt = #line) {
         log(level: .trace, message: message, category: category, file: file, line: line)
     }
     
+    func debug(_ message: Logger.Message, category: LoggingCategory, file: String = #file, line: UInt = #line) {
+        log(level: .debug, message: message, category: category, file: file, line: line)
+    }
+    
+    func info(_ message: Logger.Message, category: LoggingCategory, file: String = #file, line: UInt = #line) {
+        log(level: .info, message: message, category: category, file: file, line: line)
+    }
+    
+    func notice(_ message: Logger.Message, category: LoggingCategory, file: String = #file, line: UInt = #line) {
+        log(level: .notice, message: message, category: category, file: file, line: line)
+    }
+    
+    func warning(_ message: Logger.Message, category: LoggingCategory, file: String = #file, line: UInt = #line) {
+        log(level: .warning, message: message, category: category, file: file, line: line)
+    }
+    
     func error(_ message: Logger.Message, category: LoggingCategory, file: String = #file, line: UInt = #line) {
         log(level: .error, message: message, category: category, file: file, line: line)
+    }
+    
+    func critical(_ message: Logger.Message, category: LoggingCategory, file: String = #file, line: UInt = #line) {
+        log(level: .critical, message: message, category: category, file: file, line: line)
+        assertionFailure(message.description)
     }
     
     private func log(level: Logger.Level, message: Logger.Message, category: LoggingCategory, file: String, line: UInt) {
@@ -72,11 +103,8 @@ class D2ALogger {
     }
     
     private func saveLogSettings() {
-        var logSettings: [String: String] = [:]
-        for logger in loggers {
-            logSettings[logger.label] = logger.logLevel.rawValue
-        }
-        userDefaults.set(logSettings, forKey: Self.logSettingsKey)
+        userDefaults.set(loggingLevels, forKey: Self.logSettingsKey)
+        info("Save log levels \(loggingLevels)", category: .setting)
     }
     
     private func logger(of category: LoggingCategory) -> Logger {
@@ -111,7 +139,7 @@ struct D2ALogHandler: LogHandler {
     
     func log(level: Logger.Level, message: Logger.Message, metadata: Logger.Metadata?, source: String, file: String, function: String, line: UInt) {
         #if DEBUG
-        print("\(level.icon)\(label)\(level.icon) \(message) [\(file), line \(line)]")
+        print("\(level.icon) [\(label)] \(message) [\(file), line \(line)]")
         #endif
     }
 }
