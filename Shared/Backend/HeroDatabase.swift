@@ -132,13 +132,6 @@ class HeroDatabase: ObservableObject {
         }
     }
     
-    func fetchRegion(id: String) -> String {
-        guard let region = regions[id] else {
-            return "Unknown"
-        }
-        return region
-    }
-    
     func fetchLobby(id: Int) -> LobbyType {
         return lobbyTypes["\(id)"] ?? LobbyType(id: id, name: "Unknown Lobby")
     }

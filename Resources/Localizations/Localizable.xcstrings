@@ -251,17 +251,6 @@
         }
       }
     },
-    "ARGENTINA" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "阿根廷"
-          }
-        }
-      }
-    },
     "Attack" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -283,28 +272,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "属性"
-          }
-        }
-      }
-    },
-    "AUSTRALIA" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "澳大利亚"
-          }
-        }
-      }
-    },
-    "AUSTRIA" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "奥地利"
           }
         }
       }
@@ -431,17 +398,6 @@
         }
       }
     },
-    "BRAZIL" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "巴西"
-          }
-        }
-      }
-    },
     "Brewmaster" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -549,17 +505,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "陈"
-          }
-        }
-      }
-    },
-    "CHILE" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "智利"
           }
         }
       }
@@ -862,17 +807,6 @@
         }
       }
     },
-    "DUBAI" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "迪拜"
-          }
-        }
-      }
-    },
     "Durable" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1007,6 +941,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "欧洲"
+          }
+        }
+      }
+    },
+    "Event" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "活动比赛"
           }
         }
       }
@@ -1811,17 +1756,6 @@
         }
       }
     },
-    "INDIA" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "印度"
-          }
-        }
-      }
-    },
     "Initiator" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1884,17 +1818,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "杰奇洛"
-          }
-        }
-      }
-    },
-    "JAPAN" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "日本"
           }
         }
       }
@@ -2585,17 +2508,6 @@
         }
       }
     },
-    "PERU" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "秘鲁"
-          }
-        }
-      }
-    },
     "Phantom Assassin" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2808,72 +2720,6 @@
         }
       }
     },
-    "PW TELECOM GUANGDONG" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完美世界（电信）广东"
-          }
-        }
-      }
-    },
-    "PW TELECOM SHANGHAI" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完美世界（电信）上海"
-          }
-        }
-      }
-    },
-    "PW TELECOM WUHAN" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完美世界（电信）武汉"
-          }
-        }
-      }
-    },
-    "PW TELECOM ZHEJIANG" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完美世界（电信）浙江"
-          }
-        }
-      }
-    },
-    "PW UNICOM" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完美世界（联通）"
-          }
-        }
-      }
-    },
-    "PW UNICOM TIANJIN" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完美世界（联通）天津"
-          }
-        }
-      }
-    },
     "Queen of Pain" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2962,6 +2808,7 @@
         }
       }
     },
+
     "Register Player" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3269,6 +3116,17 @@
         }
       }
     },
+    "Single Draft" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "单一征召"
+          }
+        }
+      }
+    },
     "Skywrath Mage" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3335,17 +3193,6 @@
         }
       }
     },
-    "SOUTHAFRICA" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "南非"
-          }
-        }
-      }
-    },
     "Spectre" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3386,17 +3233,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "属性"
-          }
-        }
-      }
-    },
-    "STOCKHOLM" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "斯德哥尔摩"
           }
         }
       }
@@ -3472,17 +3308,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "斯温"
-          }
-        }
-      }
-    },
-    "TAIWAN" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "台湾"
           }
         }
       }
@@ -3825,28 +3650,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "熊战士"
-          }
-        }
-      }
-    },
-    "US EAST" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "美国东部"
-          }
-        }
-      }
-    },
-    "US WEST" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "美国西部"
           }
         }
       }
