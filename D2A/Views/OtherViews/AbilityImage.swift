@@ -12,9 +12,9 @@ import Logging
 struct AbilityImage: View {
     
     @ObservedObject var viewModel: ViewModel
-    private let logger: Logger?
+    private let logger: D2ALogger
     
-    init(name: String, imageProvider: ImageProviding = ImageProvider.shared, logger: Logger? = D2ALogger.ui) {
+    init(name: String, imageProvider: ImageProviding = ImageProvider.shared, logger: D2ALogger = .shared) {
         viewModel = .init(name: name, imageProvider: imageProvider)
         self.logger = logger
     }
@@ -41,7 +41,7 @@ struct AbilityImage: View {
         do {
             try await viewModel.fetchImage()
         } catch {
-            logger?.error("\(error.localizedDescription)")
+            logger.error("\(error.localizedDescription)", category: .ui)
         }
     }
 }

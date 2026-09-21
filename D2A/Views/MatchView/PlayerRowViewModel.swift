@@ -55,11 +55,11 @@ class PlayerRowViewModel: ObservableObject {
     }
     
     private let context: NSManagedObjectContext
-    private let logger: Logger?
+    private let logger: D2ALogger
     
     init(player: Player,
          context: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
-         logger: Logger? = D2ALogger.ui) {
+         logger: D2ALogger = .shared) {
         self.heroID = player.heroID
         self.level = player.level
         self.personaname = player.personaname
@@ -97,7 +97,7 @@ class PlayerRowViewModel: ObservableObject {
     
     init(heroID: Int, abilities: [Int] = [],
          context: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
-         logger: Logger? = D2ALogger.ui) {
+         logger: D2ALogger = .shared) {
         self.personaname = "Longest Name Longest Name"
         self.heroID = heroID
         self.level = 10
@@ -131,7 +131,7 @@ class PlayerRowViewModel: ObservableObject {
         do {
             return try Ability.fetch(abilityID: abilityID, context: context)
         } catch {
-            logger?.error("Error: \(error)")
+            logger.error("Error: \(error)", category: .ui)
             return nil
         }
     }

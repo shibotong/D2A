@@ -25,7 +25,7 @@ class StoreManager: ObservableObject {
     @Published var isRestoringPurchase: Bool = false
     
     private let storeFetcher: StoreFetching
-    private let logger: Logger?
+    private let logger: D2ALogger
     private let widgetCenter: WidgetCenter
     private let notification: D2ANotification
     
@@ -38,7 +38,7 @@ class StoreManager: ObservableObject {
          userDefaults: UserDefaults? = UserDefaults(suiteName: GROUP_NAME),
          notification: D2ANotification = .default,
          widgetCenter: WidgetCenter = .shared,
-         logger: Logger? = D2ALogger.storeManager) {
+         logger: D2ALogger = .shared) {
         self.product = product
         self.isLoadingProduct = isLoadingProduct
         self.storeFetcher = storeFetcher
@@ -67,10 +67,10 @@ class StoreManager: ObservableObject {
             }
         } catch let error as D2AError {
             setError(error)
-            logger?.warning("Failed to purchase D2APRO. \(error)")
+            logger.warning("Failed to purchase D2APRO. \(error)", category: .store)
         } catch {
             setError(StoreError.unknown)
-            logger?.warning("Failed to purchase D2APRO. \(error)")
+            logger.warning("Failed to purchase D2APRO. \(error)", category: .store)
         }
     }
     
@@ -80,16 +80,16 @@ class StoreManager: ObservableObject {
         do {
             try await storeFetcher.restorePurchase()
         } catch let error as D2AError {
-            logger?.error("Failed to restore purchase")
+            logger.error("Failed to restore purchase", category: .store)
             setError(error)
         } catch {
-            logger?.error("\(error)")
+            logger.error("\(error)", category: .store)
             setError(StoreError.unknown)
         }
     }
     
     func setupStore() async {
-        logger?.debug("Start setup store manager")
+        logger.debug("Start setup store manager", category: .store)
         updateListenerTask = Task {
             await storeFetcher.transactionListener { [weak self] storeVerificationResult in
                 await self?.processPurchases(result: storeVerificationResult)
@@ -118,13 +118,13 @@ class StoreManager: ObservableObject {
         defer { isLoadingProduct = false }
         do {
             guard let product = try await storeFetcher.fetchProducts(productIDs: Self.productIDs).first else {
-                logger?.warning("No product found for D2A Pro")
+                logger.warning("No product found for D2A Pro", category: .store)
                 return
             }
-            logger?.trace("Product fetched.")
+            logger.trace("Product fetched.", category: .store)
             self.product = product
         } catch {
-            logger?.error("Failed to load store products. \(error)")
+            logger.error("Failed to load store products. \(error)", category: .store)
         }
     }
     

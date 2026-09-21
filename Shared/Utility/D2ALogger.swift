@@ -20,18 +20,7 @@ class D2ALogger {
     
     static let shared = D2ALogger()
     
-    static var syncing = createLogger(label: "syncing")
-    static var ui = createLogger(label: "UI")
-    static var imageCache = createLogger(label: "imageCache")
-    static var storeManager = createLogger(label: "storeManager")
-    
     private static let logSettingsKey = "d2a.settings.log"
-    
-    static func createLogger(label: String, logLevel: Logger.Level = .debug) -> Logger {
-        var logger = Logger(label: label)
-        logger.logLevel = logLevel
-        return logger
-    }
     
     var loggingLevels: [String: String] {
         var logSettings: [String: String] = [:]
