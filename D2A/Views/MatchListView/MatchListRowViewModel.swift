@@ -20,7 +20,7 @@ class MatchListRowViewModel: ObservableObject {
     
     let partySize: Int?
     
-    let gameLobby: String
+    let gameLobby: LobbyType
     let startTime: Date?
     
     let matchID: String
@@ -33,7 +33,7 @@ class MatchListRowViewModel: ObservableObject {
                   assists: match.assists,
                   partySize: match.partySize,
                   gameMode: match.gameMode.modeName,
-                  lobbyName: match.gameLobby.lobbyName,
+                  lobby: match.gameLobby,
                   startTime: Date.init(timeIntervalSince1970: TimeInterval(match.startTime)),
                   matchID: match.id.description)
     }
@@ -46,7 +46,7 @@ class MatchListRowViewModel: ObservableObject {
                   assists: Int(match.assists),
                   partySize: Int(match.partySize),
                   gameMode: match.gameMode.modeName,
-                  lobbyName: match.gameLobby.lobbyName,
+                  lobby: match.gameLobby,
                   startTime: match.startTime ?? Date(),
                   matchID: match.id ?? "")
     }
@@ -59,7 +59,7 @@ class MatchListRowViewModel: ObservableObject {
                   assists: match.assists,
                   partySize: match.partySize,
                   gameMode: match.gameMode.modeName,
-                  lobbyName: match.lobby.lobbyName,
+                  lobby: match.lobby,
                   startTime: match.startTime ?? Date(),
                   matchID: match.id)
     }
@@ -71,7 +71,7 @@ class MatchListRowViewModel: ObservableObject {
          assists: Int,
          partySize: Int?,
          gameMode: String,
-         lobbyName: String,
+         lobby: LobbyType,
          startTime: Date = Date(),
          matchID: String = "0") {
         self.isWin = isWin
@@ -84,7 +84,7 @@ class MatchListRowViewModel: ObservableObject {
         self.partySize = partySize
         
         self.gameMode = gameMode
-        self.gameLobby = lobbyName
+        self.gameLobby = lobby
         self.startTime = startTime
         self.matchID = matchID
     }

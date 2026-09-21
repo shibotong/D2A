@@ -133,7 +133,7 @@ class HeroDatabase: ObservableObject {
     }
     
     func fetchLobby(id: Int) -> LobbyType {
-        return lobbyTypes["\(id)"] ?? LobbyType(id: id, name: "Unknown Lobby")
+        return lobbyTypes["\(id)"] ?? LobbyType(id: id)
     }
     
     @available(*, deprecated, message: "This function has been deprecated")
