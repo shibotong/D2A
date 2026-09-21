@@ -1,0 +1,269 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "BATTLE_CUP" : {
+      "comment" : "Battle Cup",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Battle Cup"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "勇士联赛"
+          }
+        }
+      }
+    },
+    "COOP_BOTS" : {
+      "comment" : "Coop Bots",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Co-Op Bots"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合作对抗机器人"
+          }
+        }
+      }
+    },
+    "Event" : {
+      "comment" : "Event",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Event"
+          }
+        }
+      }
+    },
+    "FEATURED" : {
+      "comment" : "Featured",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Featured"
+          }
+        }
+      }
+    },
+    "GAUNTLET" : {
+      "comment" : "Gauntlet",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gauntlet"
+          }
+        }
+      }
+    },
+    "LOCAL_BOTS" : {
+      "comment" : "Local bots",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local Bots"
+          }
+        }
+      }
+    },
+    "MID1V1" : {
+      "comment" : "1v1 mid",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1v1 Mid"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中路对单"
+          }
+        }
+      }
+    },
+    "NEW_PLAYER" : {
+      "comment" : "New Player",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Player"
+          }
+        }
+      }
+    },
+    "NORMAL" : {
+      "comment" : "Normal",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Normal"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "普通"
+          }
+        }
+      }
+    },
+    "PRACTICE" : {
+      "comment" : "Practice",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Practice"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "练习赛"
+          }
+        }
+      }
+    },
+    "RANKED" : {
+      "comment" : "Ranked",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ranked"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "天体比赛"
+          }
+        }
+      }
+    },
+    "RANKED_SOLO_MM" : {
+      "comment" : "Ranked solo match making",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ranked"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "天体比赛"
+          }
+        }
+      }
+    },
+    "RANKED_TEAM_MM" : {
+      "comment" : "Ranked team match making",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ranked"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "天体比赛"
+          }
+        }
+      }
+    },
+    "SPECTATOR" : {
+      "comment" : "Spectator",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spectator"
+          }
+        }
+      }
+    },
+    "TOURNAMENT" : {
+      "comment" : "Tournament",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tournament"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "锦标赛"
+          }
+        }
+      }
+    },
+    "Tutorial" : {
+      "comment" : "Tutorial",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutorial"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "教程"
+          }
+        }
+      }
+    },
+    "UNKNOWN" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.3"
+}

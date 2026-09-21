@@ -68,8 +68,8 @@ struct MatchListRowView: View {
     }
     
     private var gameLobbyText: some View {
-        Text(LocalizedStringKey(viewModel.gameLobby))
-            .foregroundColor(viewModel.gameLobby == "Ranked" ? Color(.systemYellow) : Color(.secondaryLabel))
+        Text(viewModel.gameLobby.localized)
+            .foregroundColor(viewModel.gameLobby.isRanked ? Color(.systemYellow) : Color(.secondaryLabel))
     }
     
     private var heroImage: some View {
@@ -153,7 +153,7 @@ struct MatchListRowView_Previews: PreviewProvider {
                     assists: 10,
                     partySize: 3,
                     gameMode: "All Pick",
-                    lobbyName: "Ranked"))
+                    lobby: LobbyType(id: 4)))
                 .previewDevice(.iPad)
                 .previewLayout(.fixed(width: 800, height: 70))
                 .environment(\.managedObjectContext, PersistenceProvider.preview.container.viewContext)
@@ -167,7 +167,7 @@ struct MatchListRowView_Previews: PreviewProvider {
                     assists: 10,
                     partySize: 3,
                     gameMode: "Ranked",
-                    lobbyName: "Ranked"))
+                    lobby: LobbyType(id: 4)))
                 .previewDevice(.iPhone)
                 .previewLayout(.fixed(width: 375, height: 70))
                 .environment(\.managedObjectContext, PersistenceProvider.preview.container.viewContext)

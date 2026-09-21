@@ -357,6 +357,7 @@
 				graphql/schema.graphqls,
 				graphql/secrets.example.json,
 				graphql/secrets.json,
+				Localizations/Lobby.xcstrings,
 				Localizations/Localizable.xcstrings,
 				Localizations/Region.xcstrings,
 				StoreConfiguration.storekit,
@@ -370,6 +371,7 @@
 				graphql/schema.graphqls,
 				graphql/secrets.example.json,
 				graphql/secrets.json,
+				Localizations/Lobby.xcstrings,
 				Localizations/Localizable.xcstrings,
 				Localizations/Region.xcstrings,
 			);
@@ -382,6 +384,7 @@
 				graphql/schema.graphqls,
 				graphql/secrets.example.json,
 				graphql/secrets.json,
+				Localizations/Lobby.xcstrings,
 				Localizations/Localizable.xcstrings,
 				Localizations/Region.xcstrings,
 			);
