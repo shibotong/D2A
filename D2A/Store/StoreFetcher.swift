@@ -21,9 +21,9 @@ protocol StoreFetching: Sendable {
 
 struct StoreFetcher: StoreFetching {
     
-    private let logger: Logger?
+    private let logger: D2ALogger
     
-    init(logger: Logger? = D2ALogger.storeManager) {
+    init(logger: D2ALogger = .shared) {
         self.logger = logger
     }
     
@@ -43,7 +43,7 @@ struct StoreFetcher: StoreFetching {
         do {
             try await AppStore.sync()
         } catch {
-            logger?.error("Failed to restore purchase \(error)")
+            logger.error("Failed to restore purchase \(error)", category: .store)
             throw StoreError.restorePurchaseFailed
         }
     }

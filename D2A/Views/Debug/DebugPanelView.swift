@@ -30,6 +30,8 @@ struct DebugPanelView: View {
             } header: {
                 Text("Constant Data")
             }
+            
+            NavigationLink("Logging", destination: LoggerView())
         }
     }
 }

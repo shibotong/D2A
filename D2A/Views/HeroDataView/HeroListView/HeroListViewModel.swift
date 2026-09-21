@@ -8,7 +8,6 @@
 import Foundation
 import Combine
 import CoreData
-import Logging
 
 class HeroListViewModel: ObservableObject {
     
@@ -20,11 +19,11 @@ class HeroListViewModel: ObservableObject {
     @Published var selectedAttribute: HeroAttribute = .whole
     
     private var cancellable: AnyCancellable?
-    private let logger: Logger
+    private let logger: D2ALogger
     
     init(heroes: [Hero],
          notification: D2ANotification = .default,
-         logger: Logger = D2ALogger.ui) {
+         logger: D2ALogger = .shared) {
         let sortedHeroes = heroes.sorted { $0.localizedName < $1.localizedName }
         self.heroes = sortedHeroes
         self.searchResults = sortedHeroes

@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreData
-import Logging
 import OpenDota
 import Stratz
 
@@ -27,7 +26,7 @@ class StaticDataSyncingService: ObservableObject {
     /// Private context for saving static data
     private let context: NSManagedObjectContext
     
-    private let logger: Logger
+    private let logger: D2ALogger
     
     private let maxConcurrent: Int
     
@@ -43,7 +42,7 @@ class StaticDataSyncingService: ObservableObject {
          mainContext: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
          persistenceService: DataPersistenceService = .shared,
          appConfig: AppConfigProtocol = AppConfig.shared,
-         logger: Logger = D2ALogger.syncing,
+         logger: D2ALogger = .shared,
          notification: D2ANotification = .default,
          syncingTimer: SyncingTimerProtocol = SyncingTimer.shared) {
         self.openDota = openDota
@@ -64,7 +63,7 @@ class StaticDataSyncingService: ObservableObject {
         isCompleted = false
         let shouldSyncConstants = syncingTimer.shouldSync(key: .constants)
         let shouldSyncLocalization = syncingTimer.shouldSync(key: .localization(language))
-        logger.info("Should sync constants: \(shouldSyncConstants)")
+        logger.info("Should sync constants: \(shouldSyncConstants)", category: .sync)
         if shouldSyncConstants {
             try await syncAbilities()
             try await syncHeroes()
@@ -90,7 +89,7 @@ class StaticDataSyncingService: ObservableObject {
     }
     
     private func syncAbilities() async throws {
-        logger.trace("Start syncing abilities")
+        logger.trace("Start syncing abilities", category: .sync)
         let persistence = self.persistence
         try await contextSaving(author: "Ability") {
             async let abilityIDAsync = openDota.abilityIDs()
@@ -100,7 +99,7 @@ class StaticDataSyncingService: ObservableObject {
             }
             return persistence.sortAbilities(abilityIDs: abilityIDs, abilities: abilities)
         } saving: { ability, context in
-            self.logger.trace("Saving ability \(ability.abilityID)")
+            self.logger.trace("Saving ability \(ability.abilityID)", category: .sync)
             try persistence.save(abilityID: ability.abilityID, name: ability.name, data: ability.data, in: context)
             try context.save()
         }
@@ -115,14 +114,14 @@ class StaticDataSyncingService: ObservableObject {
             }
             return stratzAbilities
         }) { ability, context in
-            self.logger.trace("Saving ability localization \(ability.id)")
+            self.logger.trace("Saving ability localization \(ability.id)", category: .sync)
             try persistence.save(ability: ability, language: language, in: context)
             try context.save()
         }
     }
     
     private func syncHeroes() async throws {
-        logger.trace("Start syncing heroes")
+        logger.trace("Start syncing heroes", category: .sync)
         let persistenceProvider = persistence
         try await contextSaving(author: "Hero") {
             async let heroesAsync = openDota.heroes()
@@ -133,13 +132,13 @@ class StaticDataSyncingService: ObservableObject {
             }
             return persistence.sortHeroes(heroJSON: heroJSON, abilitiesJSON: abilitiesJSON, heroAdditionalDatas: heroAdditionalDatas)
         } saving: { (hero: HeroRecipe, context) in
-            self.logger.trace("Saving hero \(hero.heroID)")
+            self.logger.trace("Saving hero \(hero.heroID)", category: .sync)
             try persistenceProvider.save(hero: hero, in: context)
         }
     }
     
     private func syncHeroTranslations() async throws {
-        logger.trace("Start syncing hero translations")
+        logger.trace("Start syncing hero translations", category: .sync)
         let persistence = self.persistence
         let language = self.language
         try await contextSaving(author: "Hero Translations") {
@@ -148,7 +147,7 @@ class StaticDataSyncingService: ObservableObject {
             }
             return stratzHeroes
         } saving: { hero, context in
-            self.logger.trace("Saving hero translation \(hero.id)")
+            self.logger.trace("Saving hero translation \(hero.id)", category: .sync)
             try persistence.save(hero: hero, language: language, in: context)
             try context.save()
         }
@@ -169,7 +168,7 @@ class StaticDataSyncingService: ObservableObject {
             itemsForEachArray += 1
         }
         guard itemsForEachArray >= 1 else {
-            logger.error("Items for each array is 0")
+            logger.error("Items for each array is 0", category: .sync)
             return
         }
         await withTaskGroup { [weak self] group in
