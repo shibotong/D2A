@@ -2,6 +2,7 @@
   "sourceLanguage" : "en",
   "strings" : {
     "ARGENTINA" : {
+      "comment" : "Argentina",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -19,6 +20,7 @@
       }
     },
     "AUSTRALIA" : {
+      "comment" : "Australia",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -36,6 +38,7 @@
       }
     },
     "AUSTRIA" : {
+      "comment" : "Austria",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -53,6 +56,7 @@
       }
     },
     "BRAZIL" : {
+      "comment" : "Brazil",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -70,6 +74,7 @@
       }
     },
     "CHILE" : {
+      "comment" : "Chile",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -87,6 +92,7 @@
       }
     },
     "DUBAI" : {
+      "comment" : "Dubai",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -104,6 +110,7 @@
       }
     },
     "EUROPE" : {
+      "comment" : "Europ",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -121,6 +128,7 @@
       }
     },
     "INDIA" : {
+      "comment" : "India",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -138,6 +146,7 @@
       }
     },
     "JAPAN" : {
+      "comment" : "Japan",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -155,6 +164,7 @@
       }
     },
     "PERU" : {
+      "comment" : "Peru",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -172,6 +182,7 @@
       }
     },
     "PW_TELECOM_GUANGDONG" : {
+      "comment" : "Perfect world Telecom Guangdong",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -189,6 +200,7 @@
       }
     },
     "PW_TELECOM_SHANGHAI" : {
+      "comment" : "Perfect world Telecom Shanghai",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -206,6 +218,7 @@
       }
     },
     "PW_TELECOM_WUHAN" : {
+      "comment" : "Perfect world Telecom Wuhan",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -223,6 +236,7 @@
       }
     },
     "PW_TELECOM_ZHEJIANG" : {
+      "comment" : "Perfect world Telecom Zhejiang",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -240,6 +254,7 @@
       }
     },
     "PW_UNICOM" : {
+      "comment" : "Perfect world Unicom",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -257,6 +272,7 @@
       }
     },
     "PW_UNICOM_TIANJIN" : {
+      "comment" : "Perfect world Unicom Tianjin",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -274,6 +290,7 @@
       }
     },
     "SINGAPORE" : {
+      "comment" : "Singapore",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -291,6 +308,7 @@
       }
     },
     "SOUTHAFRICA" : {
+      "comment" : "South Africa",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -308,6 +326,7 @@
       }
     },
     "STOCKHOLM" : {
+      "comment" : "Stockholm",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -325,6 +344,7 @@
       }
     },
     "TAIWAN" : {
+      "comment" : "Taiwan",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -347,13 +367,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unknown"
+            "value" : "-"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "未知地区"
+            "value" : "-"
           }
         }
       }
