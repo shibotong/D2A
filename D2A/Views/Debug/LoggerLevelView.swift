@@ -15,6 +15,7 @@ struct LoggerLevelView: View {
     var body: some View {
         HStack {
             Text(viewModel.category.rawValue)
+                .frame(width: 60)
             Spacer()
             if horizontalSize == .regular {
                 levelPicker
@@ -58,5 +59,5 @@ class LoggingLevel: ObservableObject {
 }
 
 #Preview {
-    LoggerLevelView(viewModel: LoggingLevel(level: .warning, category: .syncing, logger: .shared))
+    LoggerLevelView(viewModel: LoggingLevel(level: .warning, category: .sync, logger: .shared))
 }

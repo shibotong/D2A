@@ -12,7 +12,7 @@ enum LoggingCategory: String, CaseIterable {
     case image
     case setting
     case store
-    case syncing
+    case sync
     case ui
 }
 
@@ -25,7 +25,7 @@ class D2ALogger {
     static var imageCache = createLogger(label: "imageCache")
     static var storeManager = createLogger(label: "storeManager")
     
-    private static let logSettingsKey = "d2a.log.settings"
+    private static let logSettingsKey = "d2a.settings.log"
     
     static func createLogger(label: String, logLevel: Logger.Level = .debug) -> Logger {
         var logger = Logger(label: label)
@@ -46,7 +46,7 @@ class D2ALogger {
     
     init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
-        let logLevels = userDefaults.object(forKey: "logSettingsKey") as? [String: String] ?? [:]
+        let logLevels = userDefaults.object(forKey: Self.logSettingsKey) as? [String: String] ?? [:]
         
         loggers = LoggingCategory.allCases.map { Logger(label: $0.rawValue, factory: { label in
             guard let logLevel = logLevels[label] else {
