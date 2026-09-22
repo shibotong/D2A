@@ -181,7 +181,7 @@
         }
       }
     },
-    "PW_TELECOM_GUANGDONG" : {
+    "PW_TEL_GUANGDONG" : {
       "comment" : "Perfect world Telecom Guangdong",
       "extractionState" : "manual",
       "localizations" : {
@@ -199,7 +199,7 @@
         }
       }
     },
-    "PW_TELECOM_SHANGHAI" : {
+    "PW_TEL_SHANGHAI" : {
       "comment" : "Perfect world Telecom Shanghai",
       "extractionState" : "manual",
       "localizations" : {
@@ -217,7 +217,7 @@
         }
       }
     },
-    "PW_TELECOM_WUHAN" : {
+    "PW_TEL_WUHAN" : {
       "comment" : "Perfect world Telecom Wuhan",
       "extractionState" : "manual",
       "localizations" : {
@@ -235,7 +235,7 @@
         }
       }
     },
-    "PW_TELECOM_ZHEJIANG" : {
+    "PW_TEL_ZHEJIANG" : {
       "comment" : "Perfect world Telecom Zhejiang",
       "extractionState" : "manual",
       "localizations" : {
@@ -249,6 +249,24 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "完美世界（电信）浙江"
+          }
+        }
+      }
+    },
+    "PW_UNI_TIANJIN" : {
+      "comment" : "Perfect world Unicom Tianjin",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "China UC Tianjin"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完美世界（联通）天津"
           }
         }
       }
@@ -267,24 +285,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "完美世界（联通）"
-          }
-        }
-      }
-    },
-    "PW_UNICOM_TIANJIN" : {
-      "comment" : "Perfect world Unicom Tianjin",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "China UC Tianjin"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完美世界（联通）天津"
           }
         }
       }
