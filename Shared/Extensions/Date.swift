@@ -23,7 +23,7 @@ extension Date {
         return (date?.addingTimeInterval(-1))!
     }
     
-    var toTime: LocalizedStringKey {
+    var toTime: String {
         let timeInterval = Int(timeIntervalSince1970)
         return timeInterval.toTime
     }
