@@ -7,71 +7,95 @@
 
 import Foundation
 
-struct GameMode {
-    let id: Int
-    
-    init(id: Int) {
-        self.id = id
-    }
-    
-    var modeName: String {
-        switch id {
+enum GameMode: String {
+    case UNKNOWN
+    case ALL_PICK
+    case CAPTAINS_MODE
+    case RANDOM_DRAFT
+    case SINGLE_DRAFT
+    case ALL_RANDOM
+    case INTRO
+    case DIRETIDE
+    case REVERSE_CAPTAINS_MODE
+    case GREEVILING
+    case TUTORIAL
+    case MID_ONLY
+    case LEAST_PLAYED
+    case LIMITED_HEROES
+    case COMPENDIUM_MATCHMAKING
+    case CUSTOM
+    case CAPTAINS_DRAFT
+    case BALANCED_DRAFT
+    case ABILITY_DRAFT
+    case EVENT
+    case DEATH_MATCH
+    case MID_1V1
+    case ALL_DRAFT
+    case TURBO
+    case MUTATION
+    case COACHES_CHALLENGE
+    case UNDEFINED
+
+    static func from(modeId: Int) -> GameMode {
+        switch modeId {
         case 0:
-            return NSLocalizedString("GAMEMODE_UNKNOWN", comment: "unknown")
+            return .UNKNOWN
         case 1:
-            return NSLocalizedString("GAMEMODE_ALL_PICK", comment: "all pick")
+            return .ALL_PICK
         case 2:
-            return NSLocalizedString("GAMEMODE_CAPTAINS_MODE", comment: "Captains mode")
+            return .CAPTAINS_MODE
         case 3:
-            return NSLocalizedString("GAMEMODE_RANDOM_DRAFT", comment: "Random draft")
+            return .RANDOM_DRAFT
         case 4:
-            return NSLocalizedString("GAMEMODE_SINGLE_DRAFT", comment: "Single draft")
+            return .SINGLE_DRAFT
         case 5:
-            return NSLocalizedString("GAMEMODE_ALL_RANDOM", comment: "All random")
+            return .ALL_RANDOM
         case 6:
-            return NSLocalizedString("GAMEMODE_INTRO", comment: "Intro")
+            return .INTRO
         case 7:
-            return NSLocalizedString("GAMEMODE_DIRETIDE", comment: "Diretide")
+            return .DIRETIDE
         case 8:
-            return NSLocalizedString("GAMEMODE_REVERSE_CAPTAINS_MODE", comment: "Reverse captains mode")
+            return .REVERSE_CAPTAINS_MODE
         case 9:
-            return NSLocalizedString("GAMEMODE_GREEVILING", comment: "Greeviling")
+            return .GREEVILING
         case 10:
-            return NSLocalizedString("GAMEMODE_TUTORIAL", comment: "Tutorial")
+            return .TUTORIAL
         case 11:
-            return NSLocalizedString("GAMEMODE_MID_ONLY", comment: "Mid Only")
+            return .MID_ONLY
         case 12:
-            return NSLocalizedString("GAMEMODE_LEAST_PLAYED", comment: "Least Played")
+            return .LEAST_PLAYED
         case 13:
-            return NSLocalizedString("GAMEMODE_LIMITED_HEROES", comment: "Limited Heroes")
+            return .LIMITED_HEROES
         case 14:
-            return NSLocalizedString("GAMEMODE_COMPENDIUM_MATCHMAKING", comment: "Compendium Matchmaking")
+            return .COMPENDIUM_MATCHMAKING
         case 15:
-            return NSLocalizedString("GAMEMODE_CUSTOM", comment: "Custom Mode")
+            return .CUSTOM
         case 16:
-            return NSLocalizedString("GAMEMODE_CAPTAINS_DRAFT", comment: "Captains Draft")
+            return .CAPTAINS_DRAFT
         case 17:
-            return NSLocalizedString("GAMEMODE_BALANCED_DRAFT", comment: "Balanced Draft")
+            return .BALANCED_DRAFT
         case 18:
-            return NSLocalizedString("GAMEMODE_ABILITY_DRAFT", comment: "Ability Draft")
+            return .ABILITY_DRAFT
         case 19:
-            return NSLocalizedString("GAMEMODE_EVENT", comment: "Event")
+            return .EVENT
         case 20:
-            return NSLocalizedString("GAMEMODE_DEATH_MATCH", comment: "Death Match")
+            return .DEATH_MATCH
         case 21:
-            return NSLocalizedString("GAMEMODE_1V1_MID", comment: "1v1 Mid")
+            return .MID_1V1
         case 22:
-            return NSLocalizedString("GAMEMODE_ALL_DRAFT", comment: "All Draft")
+            return .ALL_DRAFT
         case 23:
-            return NSLocalizedString("GAMEMODE_TURBO", comment: "Turbo")
+            return .TURBO
         case 24:
-            return NSLocalizedString("GAMEMODE_MUTATION", comment: "Mutation")
+            return .MUTATION
         case 25:
-            return NSLocalizedString("GAMEMODE_COACHES_CHALLENGE", comment: "Coaches Challenge")
+            return .COACHES_CHALLENGE
         default:
-            let stringFormat = NSLocalizedString("GAMEMODE_UNKNOWN %lld", comment: "Unknown Game Mode")
-            return String(format: stringFormat, id)
+            return .UNDEFINED
         }
     }
     
+    var localized: String {
+        return NSLocalizedString(rawValue, tableName: "GameMode", comment: "")
+    }
 }
