@@ -12,7 +12,7 @@ import SwiftUI
 extension Match {
     
     var regionValue: Region {
-        return Region(regionID: Int(region))
+        return Region.from(regionId: Int(region))
     }
     
     static func create(id: String,
@@ -91,7 +91,7 @@ extension Match {
         return Int(duration).toDuration
     }
     
-    var startTimeString: LocalizedStringKey {
+    var startTimeString: String {
         return startTime?.toTime ?? ""
     }
     
