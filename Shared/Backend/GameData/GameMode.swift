@@ -98,9 +98,4 @@ enum GameMode: String {
     var localized: String {
         return NSLocalizedString(rawValue, tableName: "GameMode", comment: "")
     }
-    
-    var modeName: String {
-        return localized
-    }
-    
 }
