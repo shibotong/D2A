@@ -83,7 +83,7 @@ struct MatchView: View {
                     MatchStatCardView(icon: "clock", title: "Duration", label: "\(match.durationString)")
                         .colorInvert()
                         .frame(width: 140)
-                    MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(GameMode(id: Int(match.mode)).modeName))
+                    MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(GameMode.from(modeId: Int(match.mode)).modeName))
                         .frame(width: 140)
                     MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: LocalizedStringKey(match.regionValue.name))
                         .colorInvert()
