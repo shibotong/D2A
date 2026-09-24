@@ -23,7 +23,6 @@ class HeroDatabase: ObservableObject {
     
     @Published var status: LoadingStatus = .loading
     private var heroes = [String: HeroCodable]()
-    private var lobbyTypes = [String: LobbyType]()
     private var regions = [String: String]()
     private var items = [String: Item]()
     private var itemIDTable = [String: String]()
@@ -64,7 +63,6 @@ class HeroDatabase: ObservableObject {
     func loadData() {
         status = .loading
         regions = loadRegion()!
-        lobbyTypes = loadLobby()!
         
         Task { [weak self] in
             async let idTable = loadItemIDs()
@@ -130,10 +128,6 @@ class HeroDatabase: ObservableObject {
             }
             return item
         }
-    }
-    
-    func fetchLobby(id: Int) -> LobbyType {
-        return lobbyTypes["\(id)"] ?? LobbyType(id: id)
     }
     
     @available(*, deprecated, message: "This function has been deprecated")

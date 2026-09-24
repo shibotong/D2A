@@ -38,20 +38,6 @@ func loadRecentMatches() -> [RecentMatchCodable]? {
 
 }
 
-func loadLobby() -> [String: LobbyType]? {
-    guard let data = loadFile(filename: "lobby_type") else {
-        return nil
-    }
-    do {
-        let decoder = JSONDecoder()
-        let jsonData = try decoder.decode([String: LobbyType].self, from: data)
-        return jsonData
-    } catch {
-        debugPrint(error)
-        return nil
-    }
-}
-
 func loadScepter() async -> [HeroScepter] {
     let urlString = "https://raw.githubusercontent.com/odota/dotaconstants/master/build/aghs_desc.json"
     if let url = URL(string: urlString) {

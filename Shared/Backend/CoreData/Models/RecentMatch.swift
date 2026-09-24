@@ -188,7 +188,7 @@ extension RecentMatch {
     }
     
     var gameLobby: LobbyType {
-        return HeroDatabase.shared.fetchLobby(id: Int(lobbyType))
+        return LobbyType.from(id: Int(lobbyType))
     }
     
     var matchDuration: String {

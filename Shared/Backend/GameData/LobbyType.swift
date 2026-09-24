@@ -7,73 +7,59 @@
 
 import Foundation
 
-struct LobbyType: Codable {
-    let id: Int
-    var lobbyName: String {
+enum LobbyType: String {
+    case NORMAL
+    case PRACTICE
+    case TOURNAMENT
+    case TUTORIAL
+    case COOP_BOTS
+    case RANKED_TEAM_MM
+    case RANKED_SOLO_MM
+    case RANKED
+    case MID_1V1
+    case BATTLE_CUP
+    case LOCAL_BOTS
+    case SPECTATOR
+    case EVENT
+    case GAUNTLET
+    case NEW_PLAYER
+    case FEATURED
+    case UNKNOWN
+    
+    static func from(id: Int) -> LobbyType {
         switch id {
         case 0:
-            return "Normal"
+            return .NORMAL
         case 1:
-            return "Practice"
+            return .PRACTICE
         case 2:
-            return "Tournament"
+            return .TOURNAMENT
         case 3:
-            return "Tutorial"
+            return .TUTORIAL
         case 4:
-            return "Bots"
-        case 5, 6, 7:
-            return "Ranked"
+            return .COOP_BOTS
+        case 5:
+            return .RANKED_TEAM_MM
+        case 6:
+            return .RANKED_SOLO_MM
+        case 7:
+            return .RANKED
         case 8:
-            return "1v1 mid"
+            return .MID_1V1
         case 9:
-            return "Battle Cup"
+            return .BATTLE_CUP
         case 12:
-            return "Event"
+            return .EVENT
         default:
-            return "Unknown (\(id))"
+            return .UNKNOWN
         }
     }
     
     var isRanked: Bool {
-        return id == 5 || id == 6 || id == 7
+        return self == .RANKED_SOLO_MM || self == .RANKED_TEAM_MM || self == .RANKED
     }
     
     var localized: String {
-        switch id {
-        case 0:
-            return String(localized: .Lobby.normal)
-        case 1:
-            return String(localized: .Lobby.practice)
-        case 2:
-            return String(localized: .Lobby.tournament)
-        case 3:
-            return String(localized: .Lobby.tutorial)
-        case 4:
-            return String(localized: .Lobby.coopBots)
-        case 5:
-            return String(localized: .Lobby.rankedTeamMm)
-        case 6:
-            return String(localized: .Lobby.rankedSoloMm)
-        case 7:
-            return String(localized: .Lobby.ranked)
-        case 8:
-            return String(localized: .Lobby.mid1V1)
-        case 9:
-            return String(localized: .Lobby.battleCup)
-        case 10:
-            return String(localized: .Lobby.localBots)
-        case 11:
-            return String(localized: .Lobby.spectator)
-        case 12:
-            return String(localized: .Lobby.event)
-        case 13:
-            return String(localized: .Lobby.gauntlet)
-        case 14:
-            return String(localized: .Lobby.newPlayer)
-        case 15:
-            return String(localized: .Lobby.featured)
-        default:
-            return String(localized: .Lobby.unknown)
-        }
+        return NSLocalizedString(rawValue, tableName: "Lobby", comment: "")
     }
 }

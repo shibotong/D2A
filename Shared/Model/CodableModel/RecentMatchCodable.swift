@@ -38,7 +38,7 @@ class RecentMatchCodable: Decodable, Identifiable {
     }
     
     var gameLobby: LobbyType {
-        return HeroDatabase.shared.fetchLobby(id: Int(lobbyType))
+        return LobbyType.from(id: lobbyType)
     }
     
     enum CodingKeys: String, CodingKey {
