@@ -37,7 +37,7 @@
         }
       }
     },
-    "Event" : {
+    "EVENT" : {
       "comment" : "Event",
       "extractionState" : "manual",
       "localizations" : {
@@ -128,7 +128,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "普通"
+            "value" : "普通比赛"
           }
         }
       }
@@ -164,7 +164,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "天体比赛"
+            "value" : "天梯比赛"
           }
         }
       }
@@ -182,7 +182,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "天体比赛"
+            "value" : "天梯比赛（个人）"
           }
         }
       }
@@ -200,7 +200,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "天体比赛"
+            "value" : "天梯比赛（组队）"
           }
         }
       }

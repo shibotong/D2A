@@ -44,7 +44,7 @@ struct D2AWidgetMatch: Identifiable {
          assists: Int = 0,
          partySize: Int = 0,
          startTime: Date? = nil,
-         lobby: LobbyType = .init(id: 1),
+         lobby: LobbyType = LobbyType.from(id: 1),
          gameMode: GameMode = GameMode.from(modeId: 1)) {
         id = matchID
         self.heroID = heroID

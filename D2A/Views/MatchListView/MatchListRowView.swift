@@ -153,7 +153,7 @@ struct MatchListRowView_Previews: PreviewProvider {
                     assists: 10,
                     partySize: 3,
                     gameMode: "All Pick",
-                    lobby: LobbyType(id: 4)))
+                    lobby: LobbyType.from(id: 4)))
                 .previewDevice(.iPad)
                 .previewLayout(.fixed(width: 800, height: 70))
                 .environment(\.managedObjectContext, PersistenceProvider.preview.container.viewContext)
@@ -167,7 +167,7 @@ struct MatchListRowView_Previews: PreviewProvider {
                     assists: 10,
                     partySize: 3,
                     gameMode: "Ranked",
-                    lobby: LobbyType(id: 4)))
+                    lobby: LobbyType.from(id: 4)))
                 .previewDevice(.iPhone)
                 .previewLayout(.fixed(width: 375, height: 70))
                 .environment(\.managedObjectContext, PersistenceProvider.preview.container.viewContext)
