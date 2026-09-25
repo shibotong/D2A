@@ -22,7 +22,7 @@ struct ContentView: View {
             if !syncingService.isCompleted && heroes.count < 100 {
                 HeroSyncingView(currentProcess: syncingService.currentProcess, totalProcess: syncingService.totalProcesses, progress: syncingService.syncingProgress)
             } else {
-                NavigationHostView(heroes: Array(heroes))
+                NavigationHostView()
                     .sheet(isPresented: $env.subscriptionSheet, content: {
                         StoreView()
                             .environmentObject(env)
@@ -46,8 +46,6 @@ struct NavigationHostView: View {
     @EnvironmentObject var env: DotaEnvironment
     @EnvironmentObject var data: HeroDatabase
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
-    let heroes: [Hero]
     
     var body: some View {
         if horizontalSizeClass == .compact {
