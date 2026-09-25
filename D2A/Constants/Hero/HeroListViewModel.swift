@@ -20,14 +20,22 @@ class HeroListViewModel: ObservableObject {
     
     private var cancellable: AnyCancellable?
     private let logger: D2ALogger
+    private let context: NSManagedObjectContext
     
-    init(heroes: [Hero],
+    init(context: NSManagedObjectContext = PersistenceProvider.shared.mainContext,
          notification: D2ANotification = .default,
          logger: D2ALogger = .shared) {
-        let sortedHeroes = heroes.sorted { $0.localizedName < $1.localizedName }
-        self.heroes = sortedHeroes
-        self.searchResults = sortedHeroes
+        self.context = context
         self.logger = logger
+        let fetchRequest = Hero.fetchRequest()
+        var heroes: [any HeroProtocol] = []
+        do {
+            heroes = try context.fetch(fetchRequest).sorted { $0.localizedName < $1.localizedName }
+        } catch {
+            logger.error("Failed to fetch hero data \(error)", category: .sync)
+        }
+        self.heroes = heroes
+        self.searchResults = heroes
         setupBinding()
     }
     

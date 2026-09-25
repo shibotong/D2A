@@ -10,12 +10,8 @@ import CryptoKit
 
 struct HeroListView: View {
     @EnvironmentObject var syncingService: StaticDataSyncingService
-    @ObservedObject var viewModel: HeroListViewModel
+    @StateObject var viewModel: HeroListViewModel = HeroListViewModel()
     @Environment(\.horizontalSizeClass) private var horizontalSize
-    
-    init(heroes: [Hero]) {
-        viewModel = .init(heroes: heroes)
-    }
     
     var body: some View {
         buildBody()
@@ -80,7 +76,7 @@ struct HeroListView: View {
     
     @ViewBuilder private func buildHeroGrid(heroes: [any HeroProtocol], attribute: HeroAttribute) -> some View {
         Section {
-            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading), count: 1)) {
+            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 80, maximum: 120), spacing: 5, alignment: .leading), count: 1)) {
                 navigationHero(heroes: heroes)
             }
         } header: {
@@ -183,7 +179,7 @@ struct HeroListView: View {
 
 #if DBEUG
 #Preview {
-    HeroListView(heroes: PreviewData.heroes)
+    HeroListView()
         .environmentObject(PreviewData.syncingService)
         .environmentObject(PreviewData.environment)
 }

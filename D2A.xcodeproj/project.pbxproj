@@ -310,12 +310,12 @@
 		79C632FD2FC0652B001BDE18 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Constants/Hero/HeroProtocol.swift,
 				DataSyncing/DataPersistenceService.swift,
 				DataSyncing/Recipe/AbilityRecipe.swift,
 				DataSyncing/Recipe/HeroRecipe.swift,
 				DataSyncing/SyncingTimer.swift,
 				Utility/D2ANotification.swift,
-				Views/HeroDataView/HeroData.swift,
 				Views/HomeView/RecentMatchWinLossView.swift,
 				Views/MatchListView/MatchListRowView.swift,
 				Views/MatchListView/MatchListRowViewModel.swift,
@@ -328,12 +328,12 @@
 		79C632FE2FC0652B001BDE18 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Constants/Hero/HeroProtocol.swift,
 				DataSyncing/DataPersistenceService.swift,
 				DataSyncing/Recipe/AbilityRecipe.swift,
 				DataSyncing/Recipe/HeroRecipe.swift,
 				DataSyncing/SyncingTimer.swift,
 				Utility/D2ANotification.swift,
-				Views/HeroDataView/HeroData.swift,
 				Views/HomeView/RecentMatchWinLossView.swift,
 				Views/MatchListView/MatchListRowView.swift,
 				Views/MatchListView/MatchListRowViewModel.swift,

@@ -105,7 +105,7 @@ struct AbilityView: View {
                                      damageType: damageType)
                     buildDescription(proxy: proxy)
                     if let attributes {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 300, maximum: 400))], alignment: .leading, spacing: 16) {
+                        VStack(alignment: .leading) {
                             ForEach(attributes, id: \.self) { item in
                                 AbilityStatsTextView(title: item.name, message: item.description, isHorizontal: false)
                             }
