@@ -53,11 +53,12 @@ struct NavigationHostView: View {
     private let primaryTabs: [TabSelection] = [.home, .hero, .search]
     
     var body: some View {
-        if #available(iOS 18.0, *) {
-            modernTabs
-                .tabViewStyle(.sidebarAdaptable)
-                .defaultAdaptableTabBarPlacement(.sidebar)
-        } else if horizontalSizeClass == .compact {
+//        if #available(iOS 18.0, *) {
+//            modernTabs
+//                .tabViewStyle(.sidebarAdaptable)
+//                .defaultAdaptableTabBarPlacement(.sidebar)
+//        } else
+        if horizontalSizeClass == .compact {
             legacyTabs
         } else {
             NavigationSplitView {
@@ -223,7 +224,6 @@ struct SidebarRowView: View {
             ProgressView()
         }
     }
-    
 }
 
 struct NavigationHostView_Previews: PreviewProvider {
