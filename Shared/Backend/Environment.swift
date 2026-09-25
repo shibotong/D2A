@@ -9,8 +9,12 @@ import Foundation
 import SwiftUI
 import UIKit
 
-enum TabSelection {
-    case home, hero, search, setting, live
+enum TabSelection: Hashable {
+    case home
+    case hero
+    case search
+    case setting
+    case user(String)
 }
 
 final class DotaEnvironment: ObservableObject {
