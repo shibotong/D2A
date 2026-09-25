@@ -10,6 +10,14 @@ import CoreData
 
 extension UserProfile {
     
+    var userId: String {
+        guard let id else {
+            assertionFailure("User ID is nil")
+            return ""
+        }
+        return id
+    }
+    
     /// If the profile should update. (Last update time is not today)
     var shouldUpdate: Bool {
         guard let lastUpdate else {
