@@ -10,12 +10,8 @@ import CryptoKit
 
 struct HeroListView: View {
     @EnvironmentObject var syncingService: StaticDataSyncingService
-    @ObservedObject var viewModel: HeroListViewModel
+    @StateObject var viewModel: HeroListViewModel = HeroListViewModel()
     @Environment(\.horizontalSizeClass) private var horizontalSize
-    
-    init(heroes: [Hero]) {
-        viewModel = .init(heroes: heroes)
-    }
     
     var body: some View {
         buildBody()
@@ -183,7 +179,7 @@ struct HeroListView: View {
 
 #if DBEUG
 #Preview {
-    HeroListView(heroes: PreviewData.heroes)
+    HeroListView()
         .environmentObject(PreviewData.syncingService)
         .environmentObject(PreviewData.environment)
 }
