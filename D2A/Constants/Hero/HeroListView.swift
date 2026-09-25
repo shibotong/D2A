@@ -76,7 +76,7 @@ struct HeroListView: View {
     
     @ViewBuilder private func buildHeroGrid(heroes: [any HeroProtocol], attribute: HeroAttribute) -> some View {
         Section {
-            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 50, maximum: 50), spacing: 5, alignment: .leading), count: 1)) {
+            LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 80, maximum: 120), spacing: 5, alignment: .leading), count: 1)) {
                 navigationHero(heroes: heroes)
             }
         } header: {
