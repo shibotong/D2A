@@ -184,7 +184,7 @@ extension RecentMatch {
     }
     
     var gameMode: GameMode {
-        return GameMode(id: Int(mode))
+        return GameMode.from(modeId: Int(mode))
     }
     
     var gameLobby: LobbyType {

@@ -32,7 +32,7 @@ class MatchListRowViewModel: ObservableObject {
                   deaths: match.deaths,
                   assists: match.assists,
                   partySize: match.partySize,
-                  gameMode: match.gameMode.modeName,
+                  gameMode: match.gameMode.localized,
                   lobby: match.gameLobby,
                   startTime: Date.init(timeIntervalSince1970: TimeInterval(match.startTime)),
                   matchID: match.id.description)
@@ -45,7 +45,7 @@ class MatchListRowViewModel: ObservableObject {
                   deaths: Int(match.deaths),
                   assists: Int(match.assists),
                   partySize: Int(match.partySize),
-                  gameMode: match.gameMode.modeName,
+                  gameMode: match.gameMode.localized,
                   lobby: match.gameLobby,
                   startTime: match.startTime ?? Date(),
                   matchID: match.id ?? "")
@@ -58,7 +58,7 @@ class MatchListRowViewModel: ObservableObject {
                   deaths: match.deaths,
                   assists: match.assists,
                   partySize: match.partySize,
-                  gameMode: match.gameMode.modeName,
+                  gameMode: match.gameMode.localized,
                   lobby: match.lobby,
                   startTime: match.startTime ?? Date(),
                   matchID: match.id)
