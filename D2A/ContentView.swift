@@ -64,7 +64,9 @@ struct NavigationHostView: View {
             NavigationSplitView {
                 sidebar
             } detail: {
-                destination(for: .home)
+                NavigationStack {
+                    destination(for: .home)
+                }
             }
         }
     }
