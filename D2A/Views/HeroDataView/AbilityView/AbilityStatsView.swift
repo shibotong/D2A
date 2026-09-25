@@ -88,7 +88,6 @@ struct AbilityStatsTextView: View {
     private var texts: some View {
         Group {
             Text(LocalizedStringKey(title))
-                .font(.title3)
                 .foregroundColor(.secondaryLabel)
                 .lineLimit(1)
             Text(LocalizedStringKey(message))
