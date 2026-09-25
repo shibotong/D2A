@@ -77,7 +77,7 @@ struct HeroDetailView: View {
                     statsView
                     talentsView
                 }
-                .frame(height: 200)
+                .frame(height: 240)
             }
         }
         .padding(.horizontal)
