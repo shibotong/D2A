@@ -79,8 +79,9 @@ struct NavigationHostView: View {
                 }.tag(TabSelection.setting).navigationViewStyle(.stack)
             }
         } else {
-            NavigationView {
+            NavigationSplitView {
                 Sidebar()
+            } detail: {
                 HomeView()
             }
         }
