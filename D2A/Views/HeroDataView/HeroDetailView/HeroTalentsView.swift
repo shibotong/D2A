@@ -33,13 +33,8 @@ struct HeroTalentsView: View {
     }
     
     var body: some View {
-        VStack {
-            HStack {
-                Text("Talents")
-                    .font(.system(size: 15))
-                    .bold()
-                Spacer()
-            }
+        VStack(spacing: 4) {
+            HeroDetailTitleView(title: "Talents")
             buildTalentLevel(level: 25, left: talent25Left, right: talent25Right)
             Divider()
             buildTalentLevel(level: 20, left: talent20Left, right: talent20Right)

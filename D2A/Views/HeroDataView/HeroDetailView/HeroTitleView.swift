@@ -37,6 +37,7 @@ struct HeroTitleView: View {
             Text("\(heroID)")
                 .font(.caption2)
                 .opacity(0.5)
+            Spacer()
             HStack {
                 ForEach(1..<4) { complexity in
                     if complexity <= heroComplexity {
@@ -52,6 +53,7 @@ struct HeroTitleView: View {
                 }
             }
         }
+        .padding()
     }
     
     private var iPhone: some View {

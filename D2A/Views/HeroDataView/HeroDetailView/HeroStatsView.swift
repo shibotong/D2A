@@ -51,12 +51,8 @@ struct HeroStatsView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("Stats")
-                    .font(.system(size: 15))
-                    .bold()
-                Spacer()
-            }
+            HeroDetailTitleView(title: "Stats")
+            Spacer()
             HStack(alignment: .top) {
                 Spacer()
                 VStack(alignment: .leading, spacing: 5) {
@@ -84,6 +80,7 @@ struct HeroStatsView: View {
                 }
                 Spacer()
             }
+            Spacer()
         }
     }
     

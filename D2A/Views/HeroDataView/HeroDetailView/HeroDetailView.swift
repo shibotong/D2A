@@ -9,16 +9,14 @@ import SwiftUI
 import CoreData
 
 struct HeroDetailView: View {
-    
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
+        
     let hero: Hero
     let abilities: [Ability]
     
     @State var selectedAbility: Ability?
     @State var heroLevel = 1.00
     
-    private let skillFrame: CGFloat = 30
+    private let skillFrame: CGFloat = 40
     
     init(hero: Hero, abilities: [Ability]) {
         self.hero = hero
@@ -38,47 +36,11 @@ struct HeroDetailView: View {
     }
     
     var body: some View {
-        if horizontalSizeClass == .compact {
-            iPhone
-        } else {
-            iPad
-        }
-    }
-    
-    private var iPad: some View {
-        VStack {
-            HStack {
-                titleView
-                Spacer()
-                abilityStack
-            }
-            .padding()
-            .background {
-                Color.secondarySystemBackground
-                    .ignoresSafeArea()
-            }
-            HStack {
-                ScrollView {
-                    constantStack
-                }
-                if let selectedAbility {
-                    Divider()
-                    AbilityView(heroName: hero.heroName, ability: selectedAbility)
-                }
-            }
-        }
-        .task {
-            selectedAbility = abilities.first
-        }
-    }
-    
-    private var iPhone: some View {
         ScrollView {
             titleView
             ScrollView(.horizontal, showsIndicators: false) {
                 abilityStack
             }
-            .padding(.horizontal, 5)
             Divider()
             constantStack
         }
@@ -108,20 +70,21 @@ struct HeroDetailView: View {
     private var constantStack: some View {
         VStack {
             levelSlider
-            Divider()
-            attributesView
-            Divider()
-            roleView
-            Divider()
-            statsView
-            Divider()
-            talentsView
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 375, maximum: 700), alignment: .top)]) {
+                Group {
+                    attributesView
+                    roleView
+                    statsView
+                    talentsView
+                }
+                .frame(height: 240)
+            }
         }
         .padding(.horizontal)
     }
     
     private var abilityStack: some View {
-        HStack {
+        HStack(spacing: 12) {
             ForEach(abilities, id: \.id) { ability in
                 if ability.behavior != "Hidden" {
                     Button {
@@ -133,8 +96,9 @@ struct HeroDetailView: View {
                     }
                 }
             }
-            .padding(10)
         }
+        .padding(.vertical, 8)
+        .padding(.horizontal, 12)
     }
     
     private var levelSlider: some View {
@@ -182,11 +146,9 @@ struct HeroDetailView: View {
 #if DEBUG
 struct HeroDetailView_Preview: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            EmptyView()
-            HeroDetailView(hero: PreviewData.PreviewHero.antimage)
-        }
-        .environmentObject(PreviewData.environment)
+        HeroDetailView(hero: PreviewData.PreviewHero.antimage)
+            .environmentObject(PreviewData.environment)
+            .environment(\.horizontalSizeClass, .regular)
     }
 }
 #endif
