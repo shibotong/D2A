@@ -33,12 +33,7 @@ struct HeroRoleView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("Roles")
-                    .font(.system(size: 15))
-                    .bold()
-                Spacer()
-            }
+            HeroDetailTitleView(title: "Roles")
             rolesView
         }
     }

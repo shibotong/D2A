@@ -18,7 +18,7 @@ struct HeroDetailView: View {
     @State var selectedAbility: Ability?
     @State var heroLevel = 1.00
     
-    private let skillFrame: CGFloat = 30
+    private let skillFrame: CGFloat = 40
     
     init(hero: Hero, abilities: [Ability]) {
         self.hero = hero
@@ -78,7 +78,6 @@ struct HeroDetailView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 abilityStack
             }
-            .padding(.horizontal, 5)
             Divider()
             constantStack
         }
@@ -121,7 +120,7 @@ struct HeroDetailView: View {
     }
     
     private var abilityStack: some View {
-        HStack {
+        HStack(spacing: 12) {
             ForEach(abilities, id: \.id) { ability in
                 if ability.behavior != "Hidden" {
                     Button {
@@ -133,8 +132,9 @@ struct HeroDetailView: View {
                     }
                 }
             }
-            .padding(10)
         }
+        .padding(.vertical, 8)
+        .padding(.horizontal, 12)
     }
     
     private var levelSlider: some View {
@@ -182,11 +182,9 @@ struct HeroDetailView: View {
 #if DEBUG
 struct HeroDetailView_Preview: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            EmptyView()
-            HeroDetailView(hero: PreviewData.PreviewHero.antimage)
-        }
-        .environmentObject(PreviewData.environment)
+        HeroDetailView(hero: PreviewData.PreviewHero.antimage)
+            .environmentObject(PreviewData.environment)
+            .environment(\.horizontalSizeClass, .compact)
     }
 }
 #endif
