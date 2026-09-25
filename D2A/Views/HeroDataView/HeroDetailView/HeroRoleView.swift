@@ -34,7 +34,9 @@ struct HeroRoleView: View {
     var body: some View {
         VStack {
             HeroDetailTitleView(title: "Roles")
+            Spacer()
             rolesView
+            Spacer()
         }
     }
     
@@ -42,19 +44,25 @@ struct HeroRoleView: View {
         HStack {
             VStack(alignment: .leading) {
                 RoleView(title: "Carry", level: Double(carry))
+                Spacer()
                 RoleView(title: "Disabler", level: Double(disabler))
+                Spacer()
                 RoleView(title: "Escape", level: Double(escape))
             }
             .padding(.horizontal)
             VStack(alignment: .leading) {
                 RoleView(title: "Support", level: Double(support))
+                Spacer()
                 RoleView(title: "Jungler", level: Double(jungler))
+                Spacer()
                 RoleView(title: "Pusher", level: Double(pusher))
             }
             .padding(.horizontal)
             VStack(alignment: .leading) {
                 RoleView(title: "Nuker", level: Double(nuker))
+                Spacer()
                 RoleView(title: "Durable", level: Double(durable))
+                Spacer()
                 RoleView(title: "Initiator", level: Double(initiator))
             }
             .padding(.horizontal)

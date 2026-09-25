@@ -50,30 +50,26 @@ struct HeroAttributesView: View {
     var body: some View {
         VStack {
             HeroDetailTitleView(title: "Attributes")
-            VStack(spacing: 0) {
+            VStack {
                 HStack {
                     Text("Health")
-                        .font(.system(size: 15))
                         .bold()
                         .foregroundColor(.secondaryLabel)
                     Spacer()
                     Text("\(hp)")
-                        .font(.system(size: 15))
                         .bold()
                     Text("+ \(hpRegen, specifier: "%.1f")")
                         .font(.system(size: 13))
                 }
                 buildManaHealthBar(total: hp, color: Color(UIColor.systemGreen))
             }
-            VStack(spacing: 0) {
+            VStack {
                 HStack {
                     Text("Mana")
-                        .font(.system(size: 15))
                         .bold()
                         .foregroundColor(.secondaryLabel)
                     Spacer()
                     Text("\(mana)")
-                        .font(.system(size: 15))
                         .bold()
                     Text("+ \(manaRegen, specifier: "%.1f")")
                         .font(.system(size: 13))
@@ -118,6 +114,7 @@ struct HeroAttributesView: View {
                 }
                 Spacer()
             }
+            .padding(.bottom)
         }
     }
     

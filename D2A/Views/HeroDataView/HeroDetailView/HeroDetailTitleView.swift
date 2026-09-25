@@ -14,7 +14,7 @@ struct HeroDetailTitleView: View {
     var body: some View {
         HStack {
             Text(title)
-                .font(.system(size: 15))
+                .font(.title2)
                 .bold()
             Spacer()
         }.padding(.bottom)

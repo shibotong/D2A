@@ -19,6 +19,7 @@ struct HeroDetailView: View {
     @State var heroLevel = 1.00
     
     private let skillFrame: CGFloat = 40
+    private let statsHeight: CGFloat = 200
     
     init(hero: Hero, abilities: [Ability]) {
         self.hero = hero
@@ -107,14 +108,14 @@ struct HeroDetailView: View {
     private var constantStack: some View {
         VStack {
             levelSlider
-            Divider()
             attributesView
-            Divider()
+                .frame(height: statsHeight)
             roleView
-            Divider()
+                .frame(height: statsHeight)
             statsView
-            Divider()
+                .frame(height: statsHeight)
             talentsView
+                .frame(height: statsHeight)
         }
         .padding(.horizontal)
     }
