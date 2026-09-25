@@ -67,6 +67,7 @@ struct HeroRoleView: View {
             }
             .padding(.horizontal)
         }
+        .padding(.vertical)
     }
 }
 

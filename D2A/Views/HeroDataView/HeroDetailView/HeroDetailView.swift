@@ -9,9 +9,7 @@ import SwiftUI
 import CoreData
 
 struct HeroDetailView: View {
-    
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
+        
     let hero: Hero
     let abilities: [Ability]
     
@@ -19,7 +17,6 @@ struct HeroDetailView: View {
     @State var heroLevel = 1.00
     
     private let skillFrame: CGFloat = 40
-    private let statsHeight: CGFloat = 200
     
     init(hero: Hero, abilities: [Ability]) {
         self.hero = hero
@@ -39,41 +36,6 @@ struct HeroDetailView: View {
     }
     
     var body: some View {
-        if horizontalSizeClass == .compact {
-            iPhone
-        } else {
-            iPad
-        }
-    }
-    
-    private var iPad: some View {
-        VStack {
-            HStack {
-                titleView
-                Spacer()
-                abilityStack
-            }
-            .padding()
-            .background {
-                Color.secondarySystemBackground
-                    .ignoresSafeArea()
-            }
-            HStack {
-                ScrollView {
-                    constantStack
-                }
-                if let selectedAbility {
-                    Divider()
-                    AbilityView(heroName: hero.heroName, ability: selectedAbility)
-                }
-            }
-        }
-        .task {
-            selectedAbility = abilities.first
-        }
-    }
-    
-    private var iPhone: some View {
         ScrollView {
             titleView
             ScrollView(.horizontal, showsIndicators: false) {
@@ -108,14 +70,15 @@ struct HeroDetailView: View {
     private var constantStack: some View {
         VStack {
             levelSlider
-            attributesView
-                .frame(height: statsHeight)
-            roleView
-                .frame(height: statsHeight)
-            statsView
-                .frame(height: statsHeight)
-            talentsView
-                .frame(height: statsHeight)
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 375, maximum: 700), alignment: .top)]) {
+                Group {
+                    attributesView
+                    roleView
+                    statsView
+                    talentsView
+                }
+                .frame(height: 200)
+            }
         }
         .padding(.horizontal)
     }
@@ -185,7 +148,7 @@ struct HeroDetailView_Preview: PreviewProvider {
     static var previews: some View {
         HeroDetailView(hero: PreviewData.PreviewHero.antimage)
             .environmentObject(PreviewData.environment)
-            .environment(\.horizontalSizeClass, .compact)
+            .environment(\.horizontalSizeClass, .regular)
     }
 }
 #endif
