@@ -31,7 +31,7 @@ extension AbilityTranslation {
                         return attribute == key
                     }).first ?? message
                 }
-                localizedAttributes.append(Attribute(name: header, description: message))
+                localizedAttributes.append(Attribute(name: header, description: message.trimmingCharacters(in: .whitespaces)))
             } else {
                 localizedAttributes.append(Attribute(name: item, description: ""))
             }

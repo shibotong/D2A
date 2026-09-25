@@ -107,7 +107,7 @@ struct AbilityView: View {
                     if let attributes {
                         VStack(alignment: .leading, spacing: 5) {
                             ForEach(attributes, id: \.self) { item in
-                                AbilityStatsTextView(title: item.name, message: item.description)
+                                AbilityStatsTextView(title: item.name, message: item.description, isHorizontal: false)
                             }
                         }
                     }
