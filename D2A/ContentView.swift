@@ -134,6 +134,7 @@ struct NavigationHostView: View {
                 Label("About", systemImage: "info.circle")
             }
         }
+        .navigationTitle("D2A")
         .listStyle(.sidebar)
     }
     
