@@ -35,6 +35,7 @@ struct HeroTalentsView: View {
     var body: some View {
         VStack(spacing: 4) {
             HeroDetailTitleView(title: "Talents")
+            Spacer()
             buildTalentLevel(level: 25, left: talent25Left, right: talent25Right)
             Divider()
             buildTalentLevel(level: 20, left: talent20Left, right: talent20Right)
@@ -42,6 +43,7 @@ struct HeroTalentsView: View {
             buildTalentLevel(level: 15, left: talent15Left, right: talent15Right)
             Divider()
             buildTalentLevel(level: 10, left: talent10Left, right: talent10Right)
+            Spacer()
         }
     }
     
