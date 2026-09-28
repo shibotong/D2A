@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct MatchView: View {
     @EnvironmentObject var env: DotaEnvironment
