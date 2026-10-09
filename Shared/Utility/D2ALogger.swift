@@ -14,6 +14,7 @@ enum LoggingCategory: String, CaseIterable {
     case store
     case sync
     case ui
+    case user
 }
 
 class D2ALogger {

@@ -12,6 +12,9 @@ struct PlayerProfileView: View {
     @EnvironmentObject var env: DotaEnvironment
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.managedObjectContext) var viewContext
+    
+    @ObservedObject var viewModel: ViewModel
+    
     @State private var isSharePresented: Bool = false
     
     @FetchRequest private var profile: FetchedResults<UserProfile>
@@ -73,7 +76,7 @@ struct PlayerProfileView: View {
     }
 
     var body: some View {
-        if let profile = profile.first {
+        if let profile = viewModel.profile {
             buildProfileView(profile: profile)
                 .listStyle(PlainListStyle())
                 .navigationTitle("\(profile.personaname ?? "")")
@@ -82,17 +85,12 @@ struct PlayerProfileView: View {
                     ToolbarItemGroup(placement: .navigationBarTrailing) {
                         favoriteButton
                             .accessibilityIdentifier("favourite")
-//                        Button {
-//                            self.isSharePresented = true
-//                        } label: {
-//                            Image(systemName: "square.and.arrow.up")
-//                        }
                     }
                 })
                 .task {
-                    await loadMatches()
+                    await viewModel.loadMatches()
                     if let profileLastUpdate = profile.lastUpdate, !profileLastUpdate.isToday {
-                        await refreshUser()
+                        await viewModel.refreshUser()
                     }
                 }
         } else {
@@ -101,7 +99,7 @@ struct PlayerProfileView: View {
             } else {
                 ProgressView()
                     .task {
-                        await refreshUser()
+                        await viewModel.refreshUser()
                     }
             }
         }
@@ -221,7 +219,7 @@ struct PlayerProfileView: View {
             Button {
                 refreshID = UUID()
                 Task {
-                    await loadMatches()
+                    await viewModel.loadMatches()
                 }
             } label: {
                 HStack {
@@ -243,38 +241,9 @@ struct PlayerProfileView: View {
             } else {
                 steamLink
                     .task {
-                        await refreshUser()
+                        await viewModel.refreshUser()
                     }
             }
         }
-    }
-    
-    private func refreshUser() async {
-        guard let profileCodable = try? await OpenDotaController.shared.loadUserData(userid: userid) else {
-            print("cancelled search")
-            return
-        }
-        _ = try? UserProfile.create(profileCodable)
-    }
-    
-    private func loadMatches() async {
-        guard let userID = profile.first?.id else {
-            return
-        }
-        await setLoading(true)
-        if let firstMatch = matches.first {
-            await OpenDotaController.shared.loadRecentMatch(
-                userid: userID,
-                days: firstMatch.startTime?.timeIntervalSinceNow
-            )
-        } else {
-            await OpenDotaController.shared.loadRecentMatch(userid: userID)
-        }
-        await setLoading(false)
-    }
-    
-    @MainActor
-    private func setLoading(_ state: Bool) async {
-        matchLoading = state
     }
 }
