@@ -17,6 +17,8 @@ extension PlayerProfileView {
     class ViewModel: ObservableObject {
         
         @Published var profile: UserProfile?
+        @Published var matches: [RecentMatch]
+
         @Published var errorAlert = false
         @Published var matchLoading = false
         
@@ -35,11 +37,13 @@ extension PlayerProfileView {
         
         init(profile: UserProfile?,
              userID: String,
+             matches: [RecentMatch],
              fetcher: GameDataFetcher,
              context: NSManagedObjectContext,
              logger: D2ALogger = .shared) {
             self.profile = profile
             self.userID = userID
+            self.matches = matches
             self.fetcher = fetcher
             self.context = context
             self.logger = logger
@@ -60,18 +64,15 @@ extension PlayerProfileView {
         }
         
         func loadMatches() async {
-            guard let userID = profile.first?.id else {
-                return
-            }
-            await matchLoading = true
+            matchLoading = true
             defer { matchLoading = false }
-            if let firstMatch = matches.first {
-                await OpenDotaController.shared.loadRecentMatch(
-                    userid: userID,
-                    days: firstMatch.startTime?.timeIntervalSinceNow
+            do {
+                let matches = try await fetcher.fetchPlayerMatches(
+                    userID: userID,
+                    days: matches.first?.startTime?.timeIntervalSinceNow
                 )
-            } else {
-                await OpenDotaController.shared.loadRecentMatch(userid: userID)
+            } catch {
+                
             }
         }
     }
