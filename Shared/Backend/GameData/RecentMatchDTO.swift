@@ -22,7 +22,7 @@ protocol RecentMatchDTO {
     var deaths: Int { get }
     var assists: Int { get }
     var averageRank: Int? { get }
-    var leaverStatus: Int { get }
+    var leaverStatus: Int? { get }
     var partySize: Int? { get }
     var heroVariant: Int? { get }
 }
