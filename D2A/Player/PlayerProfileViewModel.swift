@@ -68,7 +68,7 @@ extension PlayerProfileView {
             do {
                 let matches = try await fetcher.fetchPlayerMatches(
                     userID: userID,
-                    days: matches.first?.startTime?.timeIntervalSinceNow
+                    lastGameDate: matches.first?.startTime
                 )
                 if matches.count <= insertThreshold {
                     let context = contextProvider.mainContext
