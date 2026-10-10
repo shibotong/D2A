@@ -39,7 +39,7 @@ class MatchListRowViewModel: ObservableObject {
     }
     
     convenience init(match: RecentMatch) {
-        self.init(isWin: match.playerWin,
+        self.init(isWin: match.playerWin ?? false,
                   heroID: Int(match.heroID),
                   kills: Int(match.kills),
                   deaths: Int(match.deaths),

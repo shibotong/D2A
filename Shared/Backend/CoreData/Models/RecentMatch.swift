@@ -112,7 +112,7 @@ extension RecentMatch {
         
         match.duration = duration
         match.mode = mode
-        match.radiantWin = radiantWin
+        match.radiantWin = radiantWin as NSNumber
         match.slot = slot
         match.heroID = heroID
         match.kills = kills
@@ -199,7 +199,7 @@ extension RecentMatch {
         
         duration = Int32(match.duration)
         mode = Int16(match.mode)
-        radiantWin = match.radiantWin
+        radiantWin = match.radiantWin as NSNumber
         slot = Int16(match.slot)
         heroID = Int16(match.heroID)
         kills = Int16(match.kills)
@@ -216,7 +216,7 @@ extension RecentMatch {
         setIfNotEqual(entity: self, path: \.playerId, value: userID)
         setIfNotEqual(entity: self, path: \.duration, value: Int32(dto.duration))
         setIfNotEqual(entity: self, path: \.mode, value: Int16(dto.gameMode))
-        setIfNotEqual(entity: self, path: \.radiantWin, value: dto.radiantWin)
+        setIfNotEqual(entity: self, path: \.radiantWin, value: dto.radiantWin as NSNumber?)
         setIfNotEqual(entity: self, path: \.slot, value: Int16(dto.playerSlot))
         setIfNotEqual(entity: self, path: \.heroID, value: Int16(dto.heroId))
         setIfNotEqual(entity: self, path: \.kills, value: Int16(dto.kills))
@@ -231,11 +231,14 @@ extension RecentMatch {
         setIfNotEqual(entity: self, path: \.heroVariant, value: dto.heroVariant as NSNumber?)
     }
     
-    var playerWin: Bool {
+    var playerWin: Bool? {
+        guard let radiantWin else {
+            return nil
+        }
         if slot <= 127 {
-            return radiantWin
+            return radiantWin.boolValue
         } else {
-            return !radiantWin
+            return !radiantWin.boolValue
         }
     }
     

@@ -131,7 +131,7 @@
         <attribute name="mode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="partySize" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="playerId" attributeType="String" defaultValueString=""/>
-        <attribute name="radiantWin" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="radiantWin" optional="YES" attributeType="Boolean" usesScalarValueType="NO"/>
         <attribute name="skill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="slot" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startTime" attributeType="Date" defaultDateTimeInterval="-31644000" usesScalarValueType="NO"/>

@@ -11,7 +11,7 @@ import OpenDota
 protocol RecentMatchDTO {
     var matchId: Int { get }
     var playerSlot: Int { get }
-    var radiantWin: Bool { get }
+    var radiantWin: Bool? { get }
     var duration: Int { get }
     var gameMode: Int { get }
     var lobbyType: Int { get }

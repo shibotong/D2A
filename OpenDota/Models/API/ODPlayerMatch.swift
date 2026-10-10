@@ -10,7 +10,7 @@ import Foundation
 public struct ODPlayerMatch: Decodable {
     public let matchId: Int
     public let playerSlot: Int
-    public let radiantWin: Bool
+    public let radiantWin: Bool?
     public let duration: Int
     public let gameMode: Int
     public let lobbyType: Int

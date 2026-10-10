@@ -77,9 +77,10 @@ extension PlayerProfileView {
                     return
                 } else {
                     try RecentMatch.batchInsertMatches(matches, to: userID, mainContext: contextProvider.mainContext, backgroundContext: contextProvider.backgroundContext(name: "RecentMatch"))
+                    loadUserMatches()
                 }
             } catch {
-                
+                logger.error("Failed to fetch latest matches \(error)", category: .coreData)
             }
         }
         
