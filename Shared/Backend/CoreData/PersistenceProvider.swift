@@ -14,11 +14,18 @@ enum PersistenceError: Error {
     case abilityNotFound(Int)
 }
 
-protocol PersistenceProviding {
+protocol CoreDataContextProviding {
     var mainContext: NSManagedObjectContext { get }
+    func backgroundContext(name: String?) -> NSManagedObjectContext
 }
 
-class PersistenceProvider: PersistenceProviding {
+extension CoreDataContextProviding {
+    func backgroundContext() -> NSManagedObjectContext {
+        return backgroundContext(name: nil)
+    }
+}
+
+class PersistenceProvider: CoreDataContextProviding {
     
     static let shared = PersistenceProvider()
 
@@ -108,10 +115,15 @@ class PersistenceProvider: PersistenceProviding {
         })
     }
     
+    @available(*, deprecated, renamed: "backgroundContext", message: "Use protocol function instead")
     func makeContext(author: String? = nil) -> NSManagedObjectContext {
+        return backgroundContext(name: author)
+    }
+    
+    func backgroundContext(name: String?) -> NSManagedObjectContext {
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = container.viewContext
-        privateContext.transactionAuthor = author
+        privateContext.transactionAuthor = name
         privateContext.automaticallyMergesChangesFromParent = true
         return privateContext
     }

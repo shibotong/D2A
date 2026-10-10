@@ -10,6 +10,42 @@ import CoreData
 
 extension RecentMatch {
     
+    static func insertMatches(_ dtos: [any RecentMatchDTO], to userID: String, context: NSManagedObjectContext) throws -> [RecentMatch] {
+        let matches = dtos.map { dto in
+            let match = RecentMatch(context: context)
+            match.map(dto, for: userID)
+            return match
+        }
+        try context.save()
+        return matches
+    }
+    
+    static func batchInsertMatches(_ dtos: [any RecentMatchDTO], to userID: String, mainContext: NSManagedObjectContext, backgroundContext: NSManagedObjectContext) throws {
+        var insertItems = 0
+        let totalItems = dtos.count
+        let request = NSBatchInsertRequest(entityName: "RecentMatch", managedObjectHandler: { object in
+            if insertItems < totalItems {
+                let match = dtos[insertItems]
+                guard let recentMatch = object as? RecentMatch else {
+                    return false
+                }
+                recentMatch.map(match, for: userID)
+                insertItems += 1
+                return false
+            } else {
+                return true
+            }
+        })
+        request.resultType = .objectIDs
+        if let result = try backgroundContext.execute(request) as? NSBatchInsertResult,
+           let objs = result.result as? [NSManagedObjectID] {
+            let changes: [AnyHashable: Any] = [NSInsertedObjectIDsKey: objs]
+            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [mainContext])
+            return
+        }
+        throw PersistenceError.insertError
+    }
+    
     static func create(_ match: RecentMatchCodable, discardable: Bool = false) throws -> RecentMatch {
         let viewContext = PersistenceProvider.shared.makeContext(author: "RecentMatch")
         let newRecentMatch = fetch(match.id.description, userID: match.playerId?.description ?? "") ?? RecentMatch(context: viewContext)
@@ -84,8 +120,8 @@ extension RecentMatch {
         match.assists = assists
         match.lobbyType = lobbyType
         match.startTime = startTime
-        match.partySize = partySize
-        match.skill = skill
+        match.partySize = partySize as NSNumber
+        match.skill = skill as NSNumber
         
         try? viewContext.save()
         return match
@@ -171,8 +207,28 @@ extension RecentMatch {
         assists = Int16(match.assists)
         lobbyType = Int16(match.lobbyType)
         startTime = Date(timeIntervalSince1970: TimeInterval(match.startTime))
-        partySize = Int16(match.partySize ?? 0)
-        skill = Int16(match.skill ?? 0)
+        partySize = Int16(exactly: match.partySize ?? 0) as NSNumber?
+        skill = Int16(exactly: match.skill ?? 0) as NSNumber?
+    }
+    
+    func map(_ dto: any RecentMatchDTO, for userID: String) {
+        setIfNotEqual(entity: self, path: \.id, value: dto.matchId.description)
+        setIfNotEqual(entity: self, path: \.playerId, value: userID)
+        setIfNotEqual(entity: self, path: \.duration, value: Int32(dto.duration))
+        setIfNotEqual(entity: self, path: \.mode, value: Int16(dto.gameMode))
+        setIfNotEqual(entity: self, path: \.radiantWin, value: dto.radiantWin)
+        setIfNotEqual(entity: self, path: \.slot, value: Int16(dto.playerSlot))
+        setIfNotEqual(entity: self, path: \.heroID, value: Int16(dto.heroId))
+        setIfNotEqual(entity: self, path: \.kills, value: Int16(dto.kills))
+        setIfNotEqual(entity: self, path: \.deaths, value: Int16(dto.deaths))
+        setIfNotEqual(entity: self, path: \.assists, value: Int16(dto.assists))
+        setIfNotEqual(entity: self, path: \.lobbyType, value: Int16(dto.lobbyType))
+        setIfNotEqual(entity: self, path: \.startTime, value: dto.startTime)
+        
+        
+        // optional values
+        setIfNotEqual(entity: self, path: \.partySize, value: dto.partySize as NSNumber?)
+        setIfNotEqual(entity: self, path: \.heroVariant, value: dto.heroVariant as NSNumber?)
     }
     
     var playerWin: Bool {

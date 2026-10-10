@@ -17,12 +17,6 @@ struct PlayerProfileView: View {
     
     @State private var isSharePresented: Bool = false
     
-    @FetchRequest private var profile: FetchedResults<UserProfile>
-    @FetchRequest private var matches: FetchedResults<RecentMatch>
-    
-    @State private var error: Bool = false
-    @State private var matchLoading = false
-    
     @State private var refreshID = UUID()
     
     private var steamLink: some View {
@@ -39,22 +33,13 @@ struct PlayerProfileView: View {
         .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.primaryDota))
     }
     
-    private var userid: String
-    
     init(userid: String) {
-        _profile = FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "id = %@", userid))
-        let request = NSFetchRequest<RecentMatch>(entityName: "RecentMatch")
-        request.fetchLimit = 10
-        request.fetchBatchSize = 1
-        request.predicate = NSPredicate(format: "playerId = %@", userid)
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \RecentMatch.startTime, ascending: false)]
-        _matches = FetchRequest(fetchRequest: request)
-        self.userid = userid
+        viewModel = ViewModel(userID: userid)
     }
     
     var favoriteButton: some View {
         ZStack {
-            if let profile = profile.first {
+            if let profile = viewModel.profile {
                 if profile.register {
                     Image(systemName: "person.text.rectangle")
                         .foregroundColor(.primaryDota)
@@ -94,7 +79,7 @@ struct PlayerProfileView: View {
                     }
                 }
         } else {
-            if error {
+            if viewModel.errorAlert {
                 Text("Error Occured")
             } else {
                 ProgressView()
@@ -124,11 +109,11 @@ struct PlayerProfileView: View {
                 }
             }
             .padding(.horizontal)
-            if matchLoading {
+            if viewModel.matchLoading {
                 ProgressView()
             }
             VStack(spacing: 2) {
-                ForEach(matches[0..<(matches.count > 10 ? 10 : matches.count)], id: \.id) { match in
+                ForEach(viewModel.matches[0..<(viewModel.matches.count > 10 ? 10 : viewModel.matches.count)], id: \.id) { match in
                     if let matchID = match.id {
                         NavigationLink(
                             destination: MatchView(matchid: matchID)

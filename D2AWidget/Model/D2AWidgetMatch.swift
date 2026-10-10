@@ -30,7 +30,7 @@ struct D2AWidgetMatch: Identifiable {
                   kills: Int(match.kills),
                   deaths: Int(match.deaths),
                   assists: Int(match.assists),
-                  partySize: Int(match.partySize),
+                  partySize: Int(match.partySize ?? 0),
                   startTime: match.startTime,
                   lobby: match.gameLobby,
                   gameMode: match.gameMode)
