@@ -12,6 +12,7 @@ struct PlayerProfileView: View {
     @EnvironmentObject var env: DotaEnvironment
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.dismiss) var dismiss
     
     @ObservedObject var viewModel: ViewModel
     
@@ -61,32 +62,37 @@ struct PlayerProfileView: View {
     }
 
     var body: some View {
-        if let profile = viewModel.profile {
-            buildProfileView(profile: profile)
-                .listStyle(PlainListStyle())
-                .navigationTitle("\(profile.personaname ?? "")")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar(content: {
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        favoriteButton
-                            .accessibilityIdentifier("favourite")
+        Group {
+            if let profile = viewModel.profile {
+                buildProfileView(profile: profile)
+                    .listStyle(PlainListStyle())
+                    .navigationTitle("\(profile.personaname ?? "")")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar(content: {
+                        ToolbarItemGroup(placement: .navigationBarTrailing) {
+                            favoriteButton
+                                .accessibilityIdentifier("favourite")
+                        }
+                    })
+                    .task {
+                        await viewModel.loadMatches()
+                        if let profileLastUpdate = profile.lastUpdate, !profileLastUpdate.isToday {
+                            await viewModel.refreshUser()
+                        }
                     }
-                })
-                .task {
-                    await viewModel.loadMatches()
-                    if let profileLastUpdate = profile.lastUpdate, !profileLastUpdate.isToday {
-                        await viewModel.refreshUser()
-                    }
-                }
-        } else {
-            if viewModel.errorAlert {
-                Text("Error Occured")
             } else {
                 ProgressView()
                     .task {
                         await viewModel.refreshUser()
                     }
             }
+        }
+        .alert(error: $viewModel.error) {
+            Button("OK", role: .destructive, action: {
+                if viewModel.profile == nil {
+                    dismiss()
+                }
+            })
         }
     }
 

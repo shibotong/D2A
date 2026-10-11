@@ -9,9 +9,18 @@ import Foundation
 import CoreData
 import OpenDota
 
-enum ProfileError: Error {
-    case userFetchError
-    case userSaveError
+enum PlayerProfileViewError: LocalizedError {
+    case fetchUserProfileError
+    case fetchUserMatchesError
+    
+    var errorDescription: String {
+        switch self {
+        case .fetchUserProfileError:
+            return NSLocalizedString("Failed to fetch user.", comment: "Failed to fetch user profile")
+        case .fetchUserMatchesError:
+            return NSLocalizedString("Failed to fetch matches.", comment: "Failed to fetch user matches")
+        }
+    }
 }
 
 extension PlayerProfileView {
@@ -20,7 +29,7 @@ extension PlayerProfileView {
         @Published var profile: UserProfile?
         @Published var matches: [RecentMatch]
 
-        @Published var errorAlert = false
+        @Published var error: PlayerProfileViewError?
         @Published var matchLoading = false
         
         private let fetcher: GameDataFetcher
@@ -58,7 +67,7 @@ extension PlayerProfileView {
                 try context.save()
             } catch {
                 logger.error("Failed to refresh user profile \(userID). \(error)", category: .user)
-                errorAlert = true
+                self.error = PlayerProfileViewError.fetchUserProfileError
             }
         }
         
@@ -81,6 +90,7 @@ extension PlayerProfileView {
                 }
             } catch {
                 logger.error("Failed to fetch latest matches \(error)", category: .coreData)
+                self.error = PlayerProfileViewError.fetchUserMatchesError
             }
         }
         
