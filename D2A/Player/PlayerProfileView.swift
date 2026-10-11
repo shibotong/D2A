@@ -1,6 +1,6 @@
 //
-//  MatchListView.swift
-//  App
+//  PlayerProfileView.swift
+//  D2A
 //
 //  Created by Shibo Tong on 11/8/21.
 //
