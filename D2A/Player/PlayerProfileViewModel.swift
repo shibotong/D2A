@@ -21,6 +21,24 @@ enum PlayerProfileViewError: LocalizedError {
             return NSLocalizedString("Failed to fetch matches.", comment: "Failed to fetch user matches")
         }
     }
+
+    /// A localized message describing the reason for the failure.
+    var failureReason: String? {
+        switch self {
+        case .fetchUserProfileError:
+            return NSLocalizedString("Failed to fetch user. Failure reason", comment: "Failed to fetch user profile")
+        case .fetchUserMatchesError:
+            return NSLocalizedString("Failed to fetch matches.", comment: "Failed to fetch user matches")
+        }
+    }
+
+    /// A localized message describing how one might recover from the failure.
+    var recoverySuggestion: String? {
+        "Recovery Suggestion"
+    }
+
+    /// A localized message providing "help" text if the user requests help.
+    var helpAnchor: String? { "help anchor" }
 }
 
 extension PlayerProfileView {

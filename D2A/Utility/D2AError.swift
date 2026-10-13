@@ -12,6 +12,9 @@ struct D2AError: LocalizedError {
         case image
         case store
         case network
+        #if DEBUG
+        case mock
+        #endif
     }
     
     let category: Category

@@ -34,6 +34,10 @@ struct PlayerProfileView: View {
         .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.primaryDota))
     }
     
+    init(viewModel: ViewModel) {
+        self.viewModel = viewModel
+    }
+    
     init(userid: String) {
         viewModel = ViewModel(userID: userid)
     }
@@ -87,12 +91,14 @@ struct PlayerProfileView: View {
                     }
             }
         }
-        .alert(error: $viewModel.error) {
-            Button("OK", role: .destructive, action: {
+        .alert(error: $viewModel.error) { _ in
+            Button("OK") {
                 if viewModel.profile == nil {
                     dismiss()
                 }
-            })
+            }
+        } message: { error in
+            Text(error.recoverySuggestion ?? "Try again later")
         }
     }
 
@@ -238,3 +244,21 @@ struct PlayerProfileView: View {
         }
     }
 }
+
+#if DEBUG
+
+private struct MockErrorGameDataFetcher: GameDataFetcher {
+    func fetchUser(userID: String) async throws -> any UserProfileDTO {
+        throw D2AError(category: .mock, message: "Mock Error")
+    }
+    
+    func fetchPlayerMatches(userID: String, lastGameDate: Date?) async throws -> [any RecentMatchDTO] {
+        throw D2AError(category: .mock, message: "Mock Error")
+    }
+}
+
+#Preview {
+    PlayerProfileView(viewModel: .init(userID: "153041957", fetcher: MockErrorGameDataFetcher()))
+        .environmentObject(PreviewData.environment)
+}
+#endif
