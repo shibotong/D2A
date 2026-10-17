@@ -78,17 +78,25 @@ struct PlayerProfileView: View {
                                 .accessibilityIdentifier("favourite")
                         }
                     })
-                    .task {
-                        await viewModel.loadMatches()
-                        if let profileLastUpdate = profile.lastUpdate, !profileLastUpdate.isToday {
-                            await viewModel.refreshUser()
-                        }
-                    }
             } else {
                 ProgressView()
-                    .task {
-                        await viewModel.refreshUser()
-                    }
+            }
+        }
+        .task {
+            do {
+                try viewModel.loadUserData()
+                if viewModel.profile == nil {
+                    await viewModel.refreshUser()
+                }
+                guard let profile = viewModel.profile else {
+                    return
+                }
+                await viewModel.loadMatches()
+                if let profileLastUpdate = profile.lastUpdate, !profileLastUpdate.isToday {
+                    await viewModel.refreshUser()
+                }
+            } catch {
+                
             }
         }
         .alert(error: $viewModel.error) { _ in
