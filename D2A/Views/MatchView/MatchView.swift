@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct MatchView: View {
     @EnvironmentObject var env: DotaEnvironment
@@ -83,9 +84,9 @@ struct MatchView: View {
                     MatchStatCardView(icon: "clock", title: "Duration", label: "\(match.durationString)")
                         .colorInvert()
                         .frame(width: 140)
-                    MatchStatCardView(icon: "rosette", title: "Game Mode", label: LocalizedStringKey(GameMode(id: Int(match.mode)).modeName))
+                    MatchStatCardView(icon: "rosette", title: "Game Mode", label: GameMode.from(modeId: Int(match.mode)).localized)
                         .frame(width: 140)
-                    MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: LocalizedStringKey(data.fetchRegion(id: match.region.description)))
+                    MatchStatCardView(icon: "mappin.and.ellipse", title: "Region", label: match.regionValue.localized)
                         .colorInvert()
                         .frame(width: 140)
                 }.padding(.horizontal)
@@ -96,8 +97,8 @@ struct MatchView: View {
 
 struct MatchStatCardView: View {
     var icon: String
-    var title: LocalizedStringKey
-    var label: LocalizedStringKey
+    var title: String
+    var label: String
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15.0).foregroundColor(Color(.secondarySystemBackground))

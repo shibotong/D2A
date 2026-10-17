@@ -6,7 +6,6 @@
 //
 
 import CoreData
-import Logging
 import OpenDota
 import Stratz
 
@@ -14,9 +13,9 @@ class DataPersistenceService {
     
     static let shared = DataPersistenceService()
     
-    private let logger: Logger
+    private let logger: D2ALogger
     
-    init(logger: Logger = D2ALogger.syncing) {
+    init(logger: D2ALogger = .shared) {
         self.logger = logger
     }
     
@@ -24,7 +23,7 @@ class DataPersistenceService {
         var results: [AbilityRecipe] = []
         for (abilityIDString, name) in abilityIDs {
             guard let ability = abilities[name] else {
-                logger.trace("Not able to find abiilty from data: \(name)")
+                logger.trace("Not able to find abiilty from data: \(name)", category: .sync)
                 continue
             }
             var abilityIDString = abilityIDString
@@ -32,7 +31,7 @@ class DataPersistenceService {
                 abilityIDString = "1617"
             }
             guard let abilityID = Int(abilityIDString) else {
-                logger.error("Ability ID is not an integer: \(abilityIDString)")
+                logger.error("Ability ID is not an integer: \(abilityIDString)", category: .sync)
                 continue
             }
             results.append(AbilityRecipe(abilityID: abilityID, name: name, data: ability))
@@ -44,7 +43,7 @@ class DataPersistenceService {
         var heroes: [HeroRecipe] = []
         for heroAdditionalData in heroAdditionalDatas {
             guard let heroData = heroJSON["\(heroAdditionalData.heroID)"], let abilities = abilitiesJSON[heroAdditionalData.name] else {
-                logger.warning("hero is not valid")
+                logger.warning("hero is not valid", category: .sync)
                 continue
             }
             heroes.append(HeroRecipe(heroID: heroAdditionalData.heroID, data: heroData, abilities: abilities, additionalData: heroAdditionalData))
@@ -215,7 +214,7 @@ class DataPersistenceService {
     }
     
     func save(abilityID: Int, name: String, data: ODAbility, in context: NSManagedObjectContext) throws {
-        let ability = try fetch(abilityID: abilityID, context: context) ?? Ability(context: context)
+        let ability = try Ability.fetch(abilityID: abilityID, context: context) ?? Ability(context: context)
         setIfNotEqual(entity: ability, path: \.name, value: name)
         setIfNotEqual(entity: ability, path: \.abilityID, value: Int16(abilityID))
         setIfNotEqual(entity: ability, path: \.behavior, value: data.behavior?.joined(separator: " / "))
@@ -253,7 +252,7 @@ class DataPersistenceService {
     }
     
     func save(ability: SKAbility, language: DataLanguageEnum, in context: NSManagedObjectContext) throws {
-        guard let rootAbility = try fetch(abilityID: ability.id, context: context) else {
+        guard let rootAbility = try Ability.fetch(abilityID: ability.id, context: context) else {
             throw PersistenceError.abilityNotFound(ability.id)
         }
         var translation: AbilityTranslation
@@ -271,6 +270,6 @@ class DataPersistenceService {
         setIfNotEqual(entity: translation, path: \.desc, value: ability.description.joined(separator: "\n"))
         setIfNotEqual(entity: translation, path: \.lore, value: ability.lore)
         setIfNotEqual(entity: translation, path: \.shardDescription, value: ability.shardDescription)
-        setIfNotEqual(entity: translation, path: \.attributes, value: ability.attributes?.compactMap({ $0 }))
+        setIfNotEqual(entity: translation, path: \.attributes, value: ability.attributes?.compactMap({ $0 }) as? NSArray)
     }
 }

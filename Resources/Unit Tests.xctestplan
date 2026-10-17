@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "40BB1A2A-139F-466C-8006-DA0B92811773",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:D2A.xcodeproj",
+        "identifier" : "3289579827F6609B00BA9847",
+        "name" : "Unit Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

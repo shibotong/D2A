@@ -5,6 +5,7 @@
 //  Created by Shibo Tong on 21/8/21.
 //
 
+import OpenDota
 import Foundation
 import UIKit
 
@@ -25,9 +26,9 @@ class ProfileViewModel: ObservableObject {
         avatarfull = profile.avatarfull ?? ""
     }
     
-    init(profile: UserProfileCodable) {
+    init(profile: ODSearchPlayer) {
         personaname = profile.personaname
-        userID = profile.id.description
+        userID = profile.accountId.description
         avatarfull = profile.avatarfull
     }
 }

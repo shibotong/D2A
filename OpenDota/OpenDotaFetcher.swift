@@ -15,7 +15,12 @@ public protocol OpenDotaFetching: Sendable {
     func heroAbilities() async throws -> [String: ODHeroAbility]
     
     func match(id: String) async throws -> ODMatch
-    func profile(id: String) async throws -> ODUserProfile
+    
+    /// Player data
+    func players(accountId: String) async throws -> ODUserProfile
+    
+    /// Search players by personaname.
+    func search(personaname: String) async throws -> [ODSearchPlayer]
 }
 
 public final class OpenDotaFetcher: OpenDotaFetching {
@@ -53,6 +58,13 @@ public final class OpenDotaFetcher: OpenDotaFetching {
         return decoder
     }()
     
+    private let secondsSinceDecoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .secondsSince1970
+        return decoder
+    }()
+    
     public init(apiClient: APIClientProtocol = APIClient.shared) {
         self.apiClient = apiClient
     }
@@ -60,38 +72,96 @@ public final class OpenDotaFetcher: OpenDotaFetching {
     // MARK: - Constants
     
     public func abilities() async throws -> [String: ODAbility] {
-        let url = createURL("constants/abilities")
-        return try await apiClient.get(url, decoder: snakeDecoder, as: [String: ODAbility].self)
+        return try await doNetworkCall("/constants/abilities", decoder: snakeDecoder, as: [String: ODAbility].self)
     }
     
     public func abilityIDs() async throws -> [String: String] {
-        let url = createURL("constants/ability_ids")
-        return try await apiClient.get(url, decoder: snakeDecoder, as: [String: String].self)
+        return try await doNetworkCall("/constants/ability_ids", decoder: snakeDecoder, as: [String: String].self)
     }
     
     public func heroes() async throws -> [String: ODHero] {
-        let url = createURL("constants/heroes")
-        return try await apiClient.get(url, decoder: snakeDecoder, as: [String: ODHero].self)
+        return try await doNetworkCall("/constants/heroes", decoder: snakeDecoder, as: [String: ODHero].self)
     }
     
     public func heroAbilities() async throws -> [String : ODHeroAbility] {
-        let url = createURL("constants/hero_abilities")
-        return try await apiClient.get(url, decoder: snakeDecoder, as: [String: ODHeroAbility].self)
+        return try await doNetworkCall("/constants/hero_abilities", decoder: snakeDecoder, as: [String: ODHeroAbility].self)
     }
     
     // MARK: - OpenDota
     
     public func match(id: String) async throws -> ODMatch {
-        let url = createURL("matches/\(id)")
-        return try await apiClient.get(url, decoder: snakeDecoder, as: ODMatch.self)
+        return try await doNetworkCall("/matches/\(id)", decoder: snakeDecoder, as: ODMatch.self)
     }
     
-    public func profile(id: String) async throws -> ODUserProfile {
-        let url = createURL("players/\(id)")
-        return try await apiClient.get(url, decoder: snakeDecoder, as: ODUserProfile.self)
+    public func players(accountId: String) async throws -> ODUserProfile {
+        return try await doNetworkCall("/players/\(accountId)", decoder: snakeDecoder, as: ODUserProfile.self)
     }
     
-    private func createURL(_ path: String) -> String {
-        return "\(baseURL)/\(path)"
+    public func search(personaname: String) async throws -> [ODSearchPlayer] {
+        return try await doNetworkCall("/search", decoder: snakeDecoder, query: ["q": personaname], as: [ODSearchPlayer].self)
+    }
+    
+    public func playerMatches(accountId: String, days: Double? = nil) async throws -> [ODPlayerMatch] {
+        var query = ["significant": "0"]
+        if let days {
+            query["date"] = "\(days)"
+        }
+        let matches = try await doNetworkCall("/players/\(accountId)/matches", decoder: secondsSinceDecoder, query: query, as: [ODPlayerMatch.Optional].self)
+        let falseMatches = matches.filter { match in
+            return match.playerSlot == nil
+            || match.startTime == nil
+            || match.gameMode == nil
+            || match.lobbyType == nil
+            || match.heroId == nil
+            || match.kills == nil
+            || match.deaths == nil
+            || match.assists == nil
+        }
+        for falseMatch in falseMatches {
+            let matchId = falseMatch.matchId
+            let match = try await match(id: matchId.description)
+            guard let player = match.players.first(where: { $0.accountId?.description == accountId }) else {
+                throw ODError(error: "Not able to find player in match \(matchId). player: \(accountId)")
+            }
+            falseMatch.playerSlot = player.playerSlot
+            falseMatch.radiantWin = match.radiantWin
+            falseMatch.duration = match.duration
+            falseMatch.gameMode = match.gameMode
+            falseMatch.lobbyType = match.lobbyType
+            falseMatch.heroId = player.heroId
+            falseMatch.startTime = Date(timeIntervalSince1970: TimeInterval(match.startTime))
+            falseMatch.kills = player.kills
+            falseMatch.deaths = player.deaths
+            falseMatch.assists = player.assists
+        }
+        
+        let playerMatches = try matches.map { try $0.match() }
+        return playerMatches
+    }
+    
+    private func doNetworkCall<T: Decodable>(_ path: String, decoder: JSONDecoder, query: [String: String] = [:], as type: T.Type) async throws -> T {
+        do {
+            let url = "\(baseURL)\(path)"
+            let (data, response) = try await apiClient.get(url, query: query)
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw ODError.invalidHTTPResponse
+            }
+            switch httpResponse.statusCode {
+            case 400...499:
+                let error = try decoder.decode(ODError.self, from: data)
+                throw error
+            case 500...599:
+                throw ODError.server
+            default:
+                return try decoder.decode(T.self, from: data)
+            }
+        } catch let error as DecodingError {
+            throw ODError(error: "The response structure doesn't match. path: \(path). \(error)")
+        } catch let error as APIClientError {
+            throw ODError(error: error.message)
+        } catch {
+            throw error
+        }
+
     }
 }

@@ -11,6 +11,10 @@ import SwiftUI
 
 extension Match {
     
+    var regionValue: Region {
+        return Region.from(regionId: Int(region))
+    }
+    
     static func create(id: String,
                        lobbyType: Int16 = 1,
                        mode: Int16 = 1,
@@ -87,7 +91,7 @@ extension Match {
         return Int(duration).toDuration
     }
     
-    var startTimeString: LocalizedStringKey {
+    var startTimeString: String {
         return startTime?.toTime ?? ""
     }
     

@@ -18,7 +18,7 @@ class AppConfig: AppConfigProtocol {
     static let shared = AppConfig()
     
     let languageCode: DataLanguageEnum = {
-        let currentLanguage: String = Locale.current.languageCode ?? "en"
+        let currentLanguage: String = Locale.current.language.languageCode?.identifier ?? "en"
         switch currentLanguage {
         case "en":
             return .english

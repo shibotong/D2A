@@ -20,7 +20,7 @@ extension Int {
         return "\(sign)\(minutes):\(String(format: "%02d", remainingSeconds))"
     }
     
-    var toTime: LocalizedStringKey {
+    var toTime: String {
         let date = TimeInterval(self)
         let today = Date().timeIntervalSince1970
         let oneHour = 3600.0
@@ -30,17 +30,17 @@ extension Int {
         let diff = today - date
         if diff < oneHour {
             // within one hour return minues
-            return "MINUTESCALCULATE \(getNumberOfUnit(diff, 60.0))"
+            return String(localized: "MINUTESCALCULATE \(getNumberOfUnit(diff, 60.0))")
         } else if diff < oneDay {
             // within one day return hours
-            return "HOURSCALCULATE \(getNumberOfUnit(diff, oneHour))"
+            return String(localized: "HOURSCALCULATE \(getNumberOfUnit(diff, oneHour))")
         } else if diff < oneMonth {
             // within one month return days
-            return "DAYSCALCULATE \(getNumberOfUnit(diff, oneDay))"
+            return String(localized: "DAYSCALCULATE \(getNumberOfUnit(diff, oneDay))")
         } else if diff < oneYear {
-            return "MONTHSCALCULATE \(getNumberOfUnit(diff, oneMonth))"
+            return String(localized: "MONTHSCALCULATE \(getNumberOfUnit(diff, oneMonth))")
         } else {
-            return "YEARSCALCULATE \(getNumberOfUnit(diff, oneYear))"
+            return String(localized: "YEARSCALCULATE \(getNumberOfUnit(diff, oneYear))")
         }
     }
     

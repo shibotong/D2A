@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Logging
 import UIKit
 import Mocking
 
@@ -44,12 +43,12 @@ class ImageProvider: ImageProviding {
     static let shared = ImageProvider()
     
     private let fileManager: FileManager
-    private let logger: Logger
+    private let logger: D2ALogger
     private let groupName: String
     
     init(fileManager: FileManager = .default,
          groupName: String = GROUP_NAME,
-         logger: Logger = D2ALogger.imageCache) {
+         logger: D2ALogger = .shared) {
         self.fileManager = fileManager
         self.groupName = groupName
         self.logger = logger
@@ -57,7 +56,7 @@ class ImageProvider: ImageProviding {
     
     func read(type: ImageCacheType, id: String, fileExtension: FileExtension) -> UIImage? {
         guard let docDir = fileManager.containerURL(forSecurityApplicationGroupIdentifier: groupName) else {
-            logger.error("Not able to find doc directory with group name: \(groupName)")
+            logger.error("Not able to find doc directory with group name: \(groupName)", category: .image)
             return nil
         }
         let imageURL = docDir.appendingPathComponent(type.rawValue).appendingPathComponent("\(id).\(fileExtension.rawValue)", isDirectory: false)
@@ -67,7 +66,7 @@ class ImageProvider: ImageProviding {
     
     func save(_ image: UIImage, type: ImageCacheType, id: String, fileExtension: FileExtension) {
         guard let docDir = fileManager.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME) else {
-            logger.error("Not able to find doc directory with group name: \(groupName)")
+            logger.error("Not able to find doc directory with group name: \(groupName)", category: .image)
             return
         }
         
@@ -87,7 +86,7 @@ class ImageProvider: ImageProviding {
             }
             try imageData?.write(to: imageURL)
         } catch {
-            logger.error("Failed to save image \(id). error: \(error)")
+            logger.error("Failed to save image \(id). error: \(error)", category: .image)
         }
     }
     

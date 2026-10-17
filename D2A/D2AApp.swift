@@ -21,7 +21,6 @@ struct D2AApp: App {
     
     init() {
         registerTransformers()
-        
     }
     
     var body: some Scene {

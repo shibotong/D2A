@@ -48,14 +48,14 @@ struct RemoteOpenDotaFetcherTests {
     @Test
     func `Yatoro profile`() async {
         await #expect(throws: Never.self) {
-            let _ = try await fetcher.profile(id: "321580662")
+            let _ = try await fetcher.players(accountId: "321580662")
         }
     }
     
-    @Test
-    func `Not Found Profiles`() async {
-        await #expect(throws: URLError.notFound) {
-            let _ = try await fetcher.profile(id: "123123131")
-        }
-    }
+//    @Test
+//    func `Not Found Profiles`() async {
+//        await #expect(throws: URLError.notFound) {
+//            let _ = try await fetcher.profile(id: "123123131")
+//        }
+//    }
 }

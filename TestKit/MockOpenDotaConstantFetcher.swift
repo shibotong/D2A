@@ -45,8 +45,13 @@ public struct MockOpenDotaFetcher: OpenDotaFetching {
         return try decoder.decode(ODMatch.self, from: data)
     }
     
-    public func profile(id: String) async throws -> OpenDota.ODUserProfile {
+    public func players(accountId: String) async throws -> OpenDota.ODUserProfile {
         let data = try fileReader.readFile("player_yatoro")
         return try decoder.decode(ODUserProfile.self, from: data)
+    }
+    
+    public func search(personaname: String) async throws -> [OpenDota.ODSearchPlayer] {
+        let data = try fileReader.readFile("search_result")
+        return try decoder.decode([ODSearchPlayer].self, from: data)
     }
 }

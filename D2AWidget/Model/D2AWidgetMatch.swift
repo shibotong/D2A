@@ -26,11 +26,11 @@ struct D2AWidgetMatch: Identifiable {
     init(_ match: RecentMatch) {
         self.init(matchID: match.id ?? "0",
                   heroID: Int(match.heroID),
-                  win: match.playerWin,
+                  win: match.playerWin ?? false,
                   kills: Int(match.kills),
                   deaths: Int(match.deaths),
                   assists: Int(match.assists),
-                  partySize: Int(match.partySize),
+                  partySize: Int(truncating: match.partySize ?? 0),
                   startTime: match.startTime,
                   lobby: match.gameLobby,
                   gameMode: match.gameMode)
@@ -44,8 +44,8 @@ struct D2AWidgetMatch: Identifiable {
          assists: Int = 0,
          partySize: Int = 0,
          startTime: Date? = nil,
-         lobby: LobbyType = .init(id: 1, name: "lobby"),
-         gameMode: GameMode = .init(id: 1)) {
+         lobby: LobbyType = LobbyType.from(id: 1),
+         gameMode: GameMode = GameMode.from(modeId: 1)) {
         id = matchID
         self.heroID = heroID
         self.win = win

@@ -20,7 +20,7 @@ class MatchListRowViewModel: ObservableObject {
     
     let partySize: Int?
     
-    let gameLobby: String
+    let gameLobby: LobbyType
     let startTime: Date?
     
     let matchID: String
@@ -32,21 +32,21 @@ class MatchListRowViewModel: ObservableObject {
                   deaths: match.deaths,
                   assists: match.assists,
                   partySize: match.partySize,
-                  gameMode: match.gameMode.modeName,
-                  lobbyName: match.gameLobby.lobbyName,
+                  gameMode: match.gameMode.localized,
+                  lobby: match.gameLobby,
                   startTime: Date.init(timeIntervalSince1970: TimeInterval(match.startTime)),
                   matchID: match.id.description)
     }
     
     convenience init(match: RecentMatch) {
-        self.init(isWin: match.playerWin,
+        self.init(isWin: match.playerWin ?? false,
                   heroID: Int(match.heroID),
                   kills: Int(match.kills),
                   deaths: Int(match.deaths),
                   assists: Int(match.assists),
-                  partySize: Int(match.partySize),
-                  gameMode: match.gameMode.modeName,
-                  lobbyName: match.gameLobby.lobbyName,
+                  partySize: Int(truncating: match.partySize ?? 0),
+                  gameMode: match.gameMode.localized,
+                  lobby: match.gameLobby,
                   startTime: match.startTime ?? Date(),
                   matchID: match.id ?? "")
     }
@@ -58,8 +58,8 @@ class MatchListRowViewModel: ObservableObject {
                   deaths: match.deaths,
                   assists: match.assists,
                   partySize: match.partySize,
-                  gameMode: match.gameMode.modeName,
-                  lobbyName: match.lobby.lobbyName,
+                  gameMode: match.gameMode.localized,
+                  lobby: match.lobby,
                   startTime: match.startTime ?? Date(),
                   matchID: match.id)
     }
@@ -71,7 +71,7 @@ class MatchListRowViewModel: ObservableObject {
          assists: Int,
          partySize: Int?,
          gameMode: String,
-         lobbyName: String,
+         lobby: LobbyType,
          startTime: Date = Date(),
          matchID: String = "0") {
         self.isWin = isWin
@@ -84,7 +84,7 @@ class MatchListRowViewModel: ObservableObject {
         self.partySize = partySize
         
         self.gameMode = gameMode
-        self.gameLobby = lobbyName
+        self.gameLobby = lobby
         self.startTime = startTime
         self.matchID = matchID
     }

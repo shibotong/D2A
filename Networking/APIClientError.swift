@@ -5,6 +5,6 @@
 //  Created by Shibo Tong on 18/8/2026.
 //
 
-struct APIClientError: Error {
-    let message: String
+public struct APIClientError: Error {
+    public let message: String
 }
