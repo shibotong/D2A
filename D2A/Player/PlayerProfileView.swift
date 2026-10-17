@@ -1,6 +1,6 @@
 //
-//  MatchListView.swift
-//  App
+//  PlayerProfileView.swift
+//  D2A
 //
 //  Created by Shibo Tong on 11/8/21.
 //
@@ -12,13 +12,11 @@ struct PlayerProfileView: View {
     @EnvironmentObject var env: DotaEnvironment
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.dismiss) var dismiss
+    
+    @ObservedObject var viewModel: ViewModel
+    
     @State private var isSharePresented: Bool = false
-    
-    @FetchRequest private var profile: FetchedResults<UserProfile>
-    @FetchRequest private var matches: FetchedResults<RecentMatch>
-    
-    @State private var error: Bool = false
-    @State private var matchLoading = false
     
     @State private var refreshID = UUID()
     
@@ -36,22 +34,17 @@ struct PlayerProfileView: View {
         .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.primaryDota))
     }
     
-    private var userid: String
+    init(viewModel: ViewModel) {
+        self.viewModel = viewModel
+    }
     
     init(userid: String) {
-        _profile = FetchRequest(sortDescriptors: [], predicate: NSPredicate(format: "id = %@", userid))
-        let request = NSFetchRequest<RecentMatch>(entityName: "RecentMatch")
-        request.fetchLimit = 10
-        request.fetchBatchSize = 1
-        request.predicate = NSPredicate(format: "playerId = %@", userid)
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \RecentMatch.startTime, ascending: false)]
-        _matches = FetchRequest(fetchRequest: request)
-        self.userid = userid
+        viewModel = ViewModel(userID: userid)
     }
     
     var favoriteButton: some View {
         ZStack {
-            if let profile = profile.first {
+            if let profile = viewModel.profile {
                 if profile.register {
                     Image(systemName: "person.text.rectangle")
                         .foregroundColor(.primaryDota)
@@ -73,37 +66,39 @@ struct PlayerProfileView: View {
     }
 
     var body: some View {
-        if let profile = profile.first {
-            buildProfileView(profile: profile)
-                .listStyle(PlainListStyle())
-                .navigationTitle("\(profile.personaname ?? "")")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar(content: {
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        favoriteButton
-                            .accessibilityIdentifier("favourite")
-//                        Button {
-//                            self.isSharePresented = true
-//                        } label: {
-//                            Image(systemName: "square.and.arrow.up")
-//                        }
+        Group {
+            if let profile = viewModel.profile {
+                buildProfileView(profile: profile)
+                    .listStyle(PlainListStyle())
+                    .navigationTitle("\(profile.personaname ?? "")")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar(content: {
+                        ToolbarItemGroup(placement: .navigationBarTrailing) {
+                            favoriteButton
+                                .accessibilityIdentifier("favourite")
+                        }
+                    })
+                    .task {
+                        await viewModel.loadMatches()
+                        if let profileLastUpdate = profile.lastUpdate, !profileLastUpdate.isToday {
+                            await viewModel.refreshUser()
+                        }
                     }
-                })
-                .task {
-                    await loadMatches()
-                    if let profileLastUpdate = profile.lastUpdate, !profileLastUpdate.isToday {
-                        await refreshUser()
-                    }
-                }
-        } else {
-            if error {
-                Text("Error Occured")
             } else {
                 ProgressView()
                     .task {
-                        await refreshUser()
+                        await viewModel.refreshUser()
                     }
             }
+        }
+        .alert(error: $viewModel.error) { _ in
+            Button("OK") {
+                if viewModel.profile == nil {
+                    dismiss()
+                }
+            }
+        } message: { error in
+            Text(error.recoverySuggestion ?? "Try again later")
         }
     }
 
@@ -126,11 +121,11 @@ struct PlayerProfileView: View {
                 }
             }
             .padding(.horizontal)
-            if matchLoading {
+            if viewModel.matchLoading {
                 ProgressView()
             }
             VStack(spacing: 2) {
-                ForEach(matches[0..<(matches.count > 10 ? 10 : matches.count)], id: \.id) { match in
+                ForEach(viewModel.matches[0..<(viewModel.matches.count > 10 ? 10 : viewModel.matches.count)], id: \.id) { match in
                     if let matchID = match.id {
                         NavigationLink(
                             destination: MatchView(matchid: matchID)
@@ -221,7 +216,7 @@ struct PlayerProfileView: View {
             Button {
                 refreshID = UUID()
                 Task {
-                    await loadMatches()
+                    await viewModel.loadMatches()
                 }
             } label: {
                 HStack {
@@ -243,38 +238,27 @@ struct PlayerProfileView: View {
             } else {
                 steamLink
                     .task {
-                        await refreshUser()
+                        await viewModel.refreshUser()
                     }
             }
         }
     }
-    
-    private func refreshUser() async {
-        guard let profileCodable = try? await OpenDotaController.shared.loadUserData(userid: userid) else {
-            print("cancelled search")
-            return
-        }
-        _ = try? UserProfile.create(profileCodable)
+}
+
+#if DEBUG
+
+private struct MockErrorGameDataFetcher: GameDataFetcher {
+    func fetchUser(userID: String) async throws -> any UserProfileDTO {
+        throw D2AError(category: .mock, message: "Mock Error")
     }
     
-    private func loadMatches() async {
-        guard let userID = profile.first?.id else {
-            return
-        }
-        await setLoading(true)
-        if let firstMatch = matches.first {
-            await OpenDotaController.shared.loadRecentMatch(
-                userid: userID,
-                days: firstMatch.startTime?.timeIntervalSinceNow
-            )
-        } else {
-            await OpenDotaController.shared.loadRecentMatch(userid: userID)
-        }
-        await setLoading(false)
-    }
-    
-    @MainActor
-    private func setLoading(_ state: Bool) async {
-        matchLoading = state
+    func fetchPlayerMatches(userID: String, lastGameDate: Date?) async throws -> [any RecentMatchDTO] {
+        throw D2AError(category: .mock, message: "Mock Error")
     }
 }
+
+#Preview {
+    PlayerProfileView(viewModel: .init(userID: "153041957", fetcher: MockErrorGameDataFetcher()))
+        .environmentObject(PreviewData.environment)
+}
+#endif

@@ -9,11 +9,13 @@ import Logging
 import Foundation
 
 enum LoggingCategory: String, CaseIterable {
+    case coreData = "Core Data"
     case image
     case setting
     case store
     case sync
     case ui
+    case user
 }
 
 class D2ALogger {

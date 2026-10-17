@@ -930,9 +930,6 @@
     "Error" : {
       "comment" : "Cannot get build number\nCannot get version number"
     },
-    "Error Occured" : {
-
-    },
     "Escape" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -987,6 +984,12 @@
           }
         }
       }
+    },
+    "Failed to fetch matches." : {
+      "comment" : "Failed to fetch user matches"
+    },
+    "Failed to fetch user." : {
+      "comment" : "Failed to fetch user profile"
     },
     "Failed to load product" : {
 
@@ -2132,6 +2135,9 @@
           }
         }
       }
+    },
+    "Please submit an issue in Github" : {
+
     },
     "Point Target" : {
       "extractionState" : "manual",

@@ -11,6 +11,10 @@ struct D2AError: LocalizedError {
     enum Category: String {
         case image
         case store
+        case network
+        #if DEBUG
+        case mock
+        #endif
     }
     
     let category: Category

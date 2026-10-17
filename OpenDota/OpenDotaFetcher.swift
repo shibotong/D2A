@@ -106,7 +106,37 @@ public final class OpenDotaFetcher: OpenDotaFetching {
         if let days {
             query["date"] = "\(days)"
         }
-        return try await doNetworkCall("/players/\(accountId)/matches", decoder: secondsSinceDecoder, query: query, as: [ODPlayerMatch].self)
+        let matches = try await doNetworkCall("/players/\(accountId)/matches", decoder: secondsSinceDecoder, query: query, as: [ODPlayerMatch.Optional].self)
+        let falseMatches = matches.filter { match in
+            return match.playerSlot == nil
+            || match.startTime == nil
+            || match.gameMode == nil
+            || match.lobbyType == nil
+            || match.heroId == nil
+            || match.kills == nil
+            || match.deaths == nil
+            || match.assists == nil
+        }
+        for falseMatch in falseMatches {
+            let matchId = falseMatch.matchId
+            let match = try await match(id: matchId.description)
+            guard let player = match.players.first(where: { $0.accountId?.description == accountId }) else {
+                throw ODError(error: "Not able to find player in match \(matchId). player: \(accountId)")
+            }
+            falseMatch.playerSlot = player.playerSlot
+            falseMatch.radiantWin = match.radiantWin
+            falseMatch.duration = match.duration
+            falseMatch.gameMode = match.gameMode
+            falseMatch.lobbyType = match.lobbyType
+            falseMatch.heroId = player.heroId
+            falseMatch.startTime = Date(timeIntervalSince1970: TimeInterval(match.startTime))
+            falseMatch.kills = player.kills
+            falseMatch.deaths = player.deaths
+            falseMatch.assists = player.assists
+        }
+        
+        let playerMatches = try matches.map { try $0.match() }
+        return playerMatches
     }
     
     private func doNetworkCall<T: Decodable>(_ path: String, decoder: JSONDecoder, query: [String: String] = [:], as type: T.Type) async throws -> T {
