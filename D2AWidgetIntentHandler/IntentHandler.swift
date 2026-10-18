@@ -23,7 +23,6 @@ class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
         super.init()
     }
     
-    @MainActor
     func provideProfileOptionsCollection(for intent: DynamicUserSelectionIntent) async throws -> INObjectCollection<Profile> {
         
         let context = contextProvider.mainContext
