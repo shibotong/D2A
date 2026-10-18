@@ -52,13 +52,15 @@ final class DotaEnvironment: ObservableObject {
     let imageProvider: ImageProviding
     
     private let notification: D2ANotification
+    private let userDefaults: UserDefaults?
 
     init(imageProvider: ImageProviding = ImageProvider.shared,
+         userDefaults: UserDefaults? = .shared,
          notification: D2ANotification = .default) {
         self.notification = notification
-        subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: .purchaseKey) as? Bool ?? false
+        subscriptionStatus = userDefaults?.object(forKey: .purchaseKey) as? Bool ?? false
+        self.userDefaults = userDefaults
         tab = .home
-        let userDefaults = UserDefaults(suiteName: GROUP_NAME)
         let lastVersion = userDefaults?.string(forKey: "dotaArmory.appVersion")
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         self.imageProvider = imageProvider

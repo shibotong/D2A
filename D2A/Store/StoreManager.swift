@@ -10,7 +10,6 @@ import StoreKit
 import WidgetKit
 import Logging
 
-
 class StoreManager: ObservableObject {
     static let shared = StoreManager()
     
@@ -35,7 +34,7 @@ class StoreManager: ObservableObject {
     init(product: StoreProduct? = nil,
          isLoadingProduct: Bool = false,
          storeFetcher: StoreFetching = StoreFetcher(),
-         userDefaults: UserDefaults? = UserDefaults(suiteName: GROUP_NAME),
+         userDefaults: UserDefaults? = .shared,
          notification: D2ANotification = .default,
          widgetCenter: WidgetCenter = .shared,
          logger: D2ALogger = .shared) {
