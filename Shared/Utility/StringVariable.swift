@@ -9,22 +9,23 @@ import Foundation
 import SwiftUI
 import StratzAPI
 
-let GROUP_NAME = "group.D2A"
+nonisolated let GROUP_NAME = "group.D2A"
 let IMAGE_PREFIX = "https://cdn.cloudflare.steamstatic.com"
 let PRIVACY_POLICY = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/privacy-policy.md"
 let TERMS_OF_USE = "https://github.com/shibotong/Dota2Armory/blob/main/Shared/Documents/terms-of-use.md"
 
 private let currentLanguage: String = Locale.current.language.languageCode?.identifier ?? "en"
 
+nonisolated
 var isRunningTests: Bool {
     return isTesting || uiTesting
 }
 
 /// True if running tests
-let isTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+nonisolated let isTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
 
 /// True is running UITest
-let uiTesting = ProcessInfo.processInfo.arguments.contains("uitest")
+nonisolated let uiTesting = ProcessInfo.processInfo.arguments.contains("uitest")
 
 let languageCode: StratzAPI.LanguageEnum = {
     switch currentLanguage {

@@ -20,14 +20,19 @@ struct Provider: IntentTimelineProvider {
     private let persistenceController = PersistenceProvider.shared
     private let imageProvider: ImageProviding
     private let fetcher: GameDataFetcher
-    private let viewContext: NSManagedObjectContext
+    private let contextProvider: CoreDataContextProviding
+    
+    @MainActor
+    private var viewContext: NSManagedObjectContext {
+        return contextProvider.mainContext
+    }
     
     init(imageProvider: ImageProviding = ImageProvider.shared,
          fetcher: GameDataFetcher = OpenDotaFetcher.shared,
-         context: NSManagedObjectContext = PersistenceProvider.shared.mainContext) {
+         contextProvider: CoreDataContextProviding = PersistenceProvider.shared) {
         self.imageProvider = imageProvider
         self.fetcher = fetcher
-        self.viewContext = context
+        self.contextProvider = contextProvider
     }
     
     func placeholder(in context: Context) -> D2AWidgetUserEntry {
