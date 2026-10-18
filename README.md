@@ -1,47 +1,59 @@
-# D2A - Dota 2 Armory
+# D2A — Dota 2 Armory
 
-A comprehensive Dota 2 statistics and information application built with SwiftUI.
-
-## Overview
-
-D2A (Dota 2 Armory) is a feature-rich application designed to provide players with detailed statistics, match information, and hero data from the popular game Dota 2. The app leverages data from OpenDotaAPI and STRATZ to deliver an enhanced gaming experience.
+D2A is a SwiftUI app for exploring Dota 2 players, matches, heroes, abilities, and game statistics on iPhone and iPad.
 
 ## Features
 
-- **Player Statistics**: Follow Dota 2 players and track their match history
-- **Match Analysis**: Detailed match information with item builds and performance metrics
-- **Hero Database**: Comprehensive hero information including abilities, attributes, and lore
-- **Cross-Platform Support**: Available for iOS and iPadOS devices
-- **Widgets**: Quick access to your favorite data with home screen widgets
+- Follow players and review their recent match history
+- Search for players and matches by ID
+- Inspect match details, player performance, item builds, and analysis
+- Browse hero attributes, roles, lore, abilities, and talents
+- Keep selected data available locally with Core Data
+- See recent match information in Home Screen widgets
+- Use the app in English or Simplified Chinese
 
-## System Requirements
+## Requirements
 
-- iOS 15.0+
-- iPadOS 15.0+
-- Xcode 13 or later
+- iOS or iPadOS 16.0 or later
+- A current Xcode release capable of building the project
 
-## Current Development Status
+## Getting Started
 
-- **Completed**: Core application functionality, hero data, match tracking
-- **In Progress**: WatchOS app, MacOS app, and TvOS app development
-- **Future Plans**: Enhanced localization support
+1. Clone the repository.
+2. Open `D2A.xcodeproj` in Xcode.
+3. Allow Xcode to resolve the Swift Package Manager dependencies.
+4. Add a valid STRATZ API token to the `stratzToken` field in `Resources/graphql/secrets.json` if you need STRATZ-backed data.
+5. Select the `D2A` scheme and an iOS simulator or connected device.
+6. Build and run the app.
 
-## Technology Stack
+Network-backed screens require an internet connection. OpenDota-backed features use its public REST API; STRATZ-backed features authenticate with the token configured above. Do not commit personal API tokens.
 
-- Built entirely with SwiftUI
-- Core Data for local data persistence
-- GraphQL API integration with STRATZ
-- REST API integration with OpenDota
+## Project Structure
 
-## Credits
+- `D2A/` — main SwiftUI application
+- `D2AWidget/` — Home Screen widget extension
+- `D2AWidgetIntentHandler/` — widget intent extension
+- `StratzAPI/` — generated GraphQL schema and operations used by the STRATZ integration
+- `Resources/Localizations/` — String Catalogs for app and game-data localization
+- `Unit Tests/`, `Remote Data Tests/`, and UI test targets — automated test suites
 
-- API data provided by [OpenDotaAPI](https://www.opendota.com) and [STRATZ](https://stratz.com/dashboard)
-- All hero images sourced from [Dota2](https://www.dota2.com)
+## Technology
+
+- Swift and SwiftUI
+- Core Data for local persistence
+- WidgetKit for Home Screen widgets
+- StoreKit for in-app purchases
+- Apollo GraphQL for STRATZ data
+- REST APIs for OpenDota data
+- Swift Package Manager for dependencies
+
+## Data Sources and Credits
+
+- API data is provided by [OpenDota](https://www.opendota.com) and [STRATZ](https://stratz.com/dashboard).
+- Dota 2 content and imagery belong to [Valve](https://www.dota2.com).
+
+D2A is an independent project and is not affiliated with or endorsed by Valve, OpenDota, or STRATZ.
 
 ## Contributing
 
-We welcome contributions to improve D2A! Please submit issues or pull requests on our GitHub repository.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+Contributions are welcome. Open an issue to discuss a bug or proposed change, or submit a pull request with the relevant tests and documentation updates.
