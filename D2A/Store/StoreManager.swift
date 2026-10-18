@@ -10,7 +10,6 @@ import StoreKit
 import WidgetKit
 import Logging
 
-
 class StoreManager: ObservableObject {
     static let shared = StoreManager()
     
