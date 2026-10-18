@@ -52,6 +52,7 @@ extension PlayerProfileView {
         private let contextProvider: CoreDataContextProviding
         private let logger: D2ALogger
         private let insertThreshold: Int
+        private let refreshHandler: UserMatchRefreshHandler
         
         init(profile: UserProfile? = nil,
              userID: String,
@@ -59,6 +60,7 @@ extension PlayerProfileView {
              fetcher: GameDataFetcher = OpenDotaFetcher.shared,
              contextProvider: CoreDataContextProviding = PersistenceProvider.shared,
              insertThreshold: Int = 20,
+             refreshHandler: UserMatchRefreshHandler = .shared,
              logger: D2ALogger = .shared) {
             self.profile = profile
             self.userID = userID
@@ -66,6 +68,7 @@ extension PlayerProfileView {
             self.fetcher = fetcher
             self.contextProvider = contextProvider
             self.insertThreshold = insertThreshold
+            self.refreshHandler = refreshHandler
             self.logger = logger
             loadUser()
             loadUserMatches()
@@ -87,6 +90,9 @@ extension PlayerProfileView {
         }
         
         func loadMatches() async {
+            guard await refreshHandler.canRefresh(userid: userID) else {
+                return
+            }
             matchLoading = true
             defer { matchLoading = false }
             do {

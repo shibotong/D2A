@@ -18,6 +18,7 @@ enum LoggingCategory: String, CaseIterable {
     case user
 }
 
+nonisolated
 class D2ALogger {
     
     static let shared = D2ALogger()
