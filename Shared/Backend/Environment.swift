@@ -28,7 +28,7 @@ final class DotaEnvironment: ObservableObject {
     
     @Published var subscriptionStatus: Bool {
         didSet {
-            UserDefaults(suiteName: GROUP_NAME)!.set(subscriptionStatus, forKey: StoreManager.purchaseKey)
+            UserDefaults(suiteName: GROUP_NAME)!.set(subscriptionStatus, forKey: .purchaseKey)
         }
     }
     
@@ -56,7 +56,7 @@ final class DotaEnvironment: ObservableObject {
     init(imageProvider: ImageProviding = ImageProvider.shared,
          notification: D2ANotification = .default) {
         self.notification = notification
-        subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: StoreManager.purchaseKey) as? Bool ?? false
+        subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: .purchaseKey) as? Bool ?? false
         tab = .home
         let userDefaults = UserDefaults(suiteName: GROUP_NAME)
         let lastVersion = userDefaults?.string(forKey: "dotaArmory.appVersion")

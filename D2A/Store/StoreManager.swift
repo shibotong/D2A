@@ -14,8 +14,6 @@ import Logging
 class StoreManager: ObservableObject {
     static let shared = StoreManager()
     
-    static let purchaseKey = "dotaArmory.subscription"
-    
     private static let productIDs: [String] = ["D2APRO"]
     
     @Published var product: StoreProduct?
@@ -47,7 +45,7 @@ class StoreManager: ObservableObject {
         self.logger = logger
         self.widgetCenter = widgetCenter
         self.notification = notification
-        self.isPurchased = userDefaults?.object(forKey: Self.purchaseKey) as? Bool ?? false
+        self.isPurchased = userDefaults?.object(forKey: .purchaseKey) as? Bool ?? false
     }
     
     func purchase() async {
