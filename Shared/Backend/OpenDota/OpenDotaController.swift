@@ -16,6 +16,12 @@ class OpenDotaController {
     
     let decodingService = DecodingService()
     
+    private let refreshHandler: UserMatchRefreshHandler
+    
+    init(refreshHandler: UserMatchRefreshHandler = .shared) {
+        self.refreshHandler = refreshHandler
+    }
+    
     func getRecentMatches(userid: String) async -> [RecentMatchCodable] {
         let url = URL(string: "\(baseURL)/api/players/\(userid)/recentMatches")
         do {
@@ -49,7 +55,7 @@ class OpenDotaController {
     }
     
     func loadRecentMatch(userid: String) async {
-        guard DotaEnvironment.shared.canRefresh(userid: userid) else {
+        guard await refreshHandler.canRefresh(userid: userid) else {
             return
         }
         let latestMatches = RecentMatch.fetch(userID: userid, count: 1)
