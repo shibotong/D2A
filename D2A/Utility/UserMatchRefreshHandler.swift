@@ -13,6 +13,7 @@ actor UserMatchRefreshHandler {
     
     private var refreshHandler: [String: TimeInterval] = [:]
     private let refreshDistance: TimeInterval
+    private let logger: D2ALogger
     private let currentTime: @Sendable () -> TimeInterval
     
     private static var defaultRefreshDistance: TimeInterval {
@@ -25,10 +26,12 @@ actor UserMatchRefreshHandler {
 
     init(
         refreshDistance: TimeInterval = defaultRefreshDistance,
-        currentTime: @escaping @Sendable () -> TimeInterval = { Date().timeIntervalSince1970 }
+        currentTime: @escaping @Sendable () -> TimeInterval = { Date().timeIntervalSince1970 },
+        logger: D2ALogger = .shared
     ) {
         self.refreshDistance = refreshDistance
         self.currentTime = currentTime
+        self.logger = logger
     }
     
     /// Check if user can refresh this player (Debug mode 1s Release mode 60s)
@@ -47,7 +50,7 @@ actor UserMatchRefreshHandler {
             refreshHandler[userid] = currentTime
             return true
         } else {
-            print("last refresh \(distance)s before, cannot refresh")
+            logger.debug("last refresh \(distance)s before, cannot refresh", category: .user)
             return false
         }
     }
