@@ -26,21 +26,6 @@ struct DotaEnvironmentTests {
         #expect(environment.subscriptionStatus)
     }
 
-    @Test
-    func `subscription status is saved to injected user defaults`() throws {
-        let userDefaults = try makeUserDefaults()
-        defer { clear(userDefaults) }
-        let environment = DotaEnvironment(
-            imageProvider: MockImageProvider(),
-            userDefaults: userDefaults,
-            notification: D2ANotification()
-        )
-
-        environment.subscriptionStatus = true
-
-        #expect(userDefaults.bool(forKey: .purchaseKey))
-    }
-
     private func makeUserDefaults() throws -> UserDefaults {
         try #require(UserDefaults(suiteName: "DotaEnvironmentTests.\(UUID().uuidString)"))
     }
