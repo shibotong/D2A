@@ -8,17 +8,27 @@
 import Intents
 import CoreData
 
+nonisolated
 class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
     
-    private let context: NSManagedObjectContext
+    private let contextProvider: CoreDataContextProviding
     
-    init(viewContext: NSManagedObjectContext = PersistenceProvider.shared.mainContext) {
-        self.context = viewContext
+    override init() {
+        contextProvider = PersistenceProvider.shared
+        super.init()
+    }
+
+    init(contextProvider: CoreDataContextProviding) {
+        self.contextProvider = contextProvider
+        super.init()
     }
     
     func provideProfileOptionsCollection(for intent: DynamicUserSelectionIntent) async throws -> INObjectCollection<Profile> {
+        
+        let context = contextProvider.mainContext
+        
         let fetchRequest: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
+        fetchRequest.predicate = NSPredicate(format: "favourite = YES OR register = YES")
         
         let results = try context.fetch(fetchRequest)
 

@@ -26,11 +26,7 @@ final class DotaEnvironment: ObservableObject {
     
     @Published var subscriptionSheet = false
     
-    @Published var subscriptionStatus: Bool {
-        didSet {
-            UserDefaults(suiteName: GROUP_NAME)!.set(subscriptionStatus, forKey: "dotaArmory.subscription")
-        }
-    }
+    @Published var subscriptionStatus: Bool
     
     // migration loading
     @Published var loading = false
@@ -52,13 +48,15 @@ final class DotaEnvironment: ObservableObject {
     let imageProvider: ImageProviding
     
     private let notification: D2ANotification
+    private let userDefaults: UserDefaults?
 
     init(imageProvider: ImageProviding = ImageProvider.shared,
+         userDefaults: UserDefaults? = .shared,
          notification: D2ANotification = .default) {
         self.notification = notification
-        subscriptionStatus = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
+        subscriptionStatus = userDefaults?.bool(forKey: .purchaseKey) ?? false
+        self.userDefaults = userDefaults
         tab = .home
-        let userDefaults = UserDefaults(suiteName: GROUP_NAME)
         let lastVersion = userDefaults?.string(forKey: "dotaArmory.appVersion")
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         self.imageProvider = imageProvider
@@ -66,6 +64,7 @@ final class DotaEnvironment: ObservableObject {
             versionUpdate(lastVersion: lastVersion, currentVersion: appVersion)
             userDefaults?.setValue(appVersion, forKey: "dotaArmory.appVersion")
         }
+        setupBinding()
     }
     
     private func setupBinding() {

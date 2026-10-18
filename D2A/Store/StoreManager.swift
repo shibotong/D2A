@@ -10,7 +10,6 @@ import StoreKit
 import WidgetKit
 import Logging
 
-
 class StoreManager: ObservableObject {
     static let shared = StoreManager()
     
@@ -28,6 +27,7 @@ class StoreManager: ObservableObject {
     private let logger: D2ALogger
     private let widgetCenter: WidgetCenter
     private let notification: D2ANotification
+    private let userDefaults: UserDefaults?
     
     private var purchaseTask: Task<Void, Never>?
     var updateListenerTask: Task<Void, Never>?
@@ -35,7 +35,7 @@ class StoreManager: ObservableObject {
     init(product: StoreProduct? = nil,
          isLoadingProduct: Bool = false,
          storeFetcher: StoreFetching = StoreFetcher(),
-         userDefaults: UserDefaults? = UserDefaults(suiteName: GROUP_NAME),
+         userDefaults: UserDefaults? = .shared,
          notification: D2ANotification = .default,
          widgetCenter: WidgetCenter = .shared,
          logger: D2ALogger = .shared) {
@@ -45,7 +45,8 @@ class StoreManager: ObservableObject {
         self.logger = logger
         self.widgetCenter = widgetCenter
         self.notification = notification
-        self.isPurchased = userDefaults?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
+        self.isPurchased = userDefaults?.object(forKey: .purchaseKey) as? Bool ?? false
+        self.userDefaults = userDefaults
     }
     
     func purchase() async {
@@ -130,6 +131,7 @@ class StoreManager: ObservableObject {
     
     private func parsePurchaseInfo(info: StoreTransaction) {
         isPurchased = true
+        userDefaults?.set(true, forKey: .purchaseKey)
         notification.purchaseCompletion.send(true)
         widgetCenter.reloadAllTimelines()
     }
