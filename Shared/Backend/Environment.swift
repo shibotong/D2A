@@ -26,11 +26,7 @@ final class DotaEnvironment: ObservableObject {
     
     @Published var subscriptionSheet = false
     
-    @Published var subscriptionStatus: Bool {
-        didSet {
-            userDefaults?.set(subscriptionStatus, forKey: .purchaseKey)
-        }
-    }
+    @Published var subscriptionStatus: Bool
     
     // migration loading
     @Published var loading = false
@@ -58,7 +54,7 @@ final class DotaEnvironment: ObservableObject {
          userDefaults: UserDefaults? = .shared,
          notification: D2ANotification = .default) {
         self.notification = notification
-        subscriptionStatus = userDefaults?.object(forKey: .purchaseKey) as? Bool ?? false
+        subscriptionStatus = userDefaults?.bool(forKey: .purchaseKey) ?? false
         self.userDefaults = userDefaults
         tab = .home
         let lastVersion = userDefaults?.string(forKey: "dotaArmory.appVersion")

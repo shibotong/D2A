@@ -27,6 +27,7 @@ class StoreManager: ObservableObject {
     private let logger: D2ALogger
     private let widgetCenter: WidgetCenter
     private let notification: D2ANotification
+    private let userDefaults: UserDefaults?
     
     private var purchaseTask: Task<Void, Never>?
     var updateListenerTask: Task<Void, Never>?
@@ -45,6 +46,7 @@ class StoreManager: ObservableObject {
         self.widgetCenter = widgetCenter
         self.notification = notification
         self.isPurchased = userDefaults?.object(forKey: .purchaseKey) as? Bool ?? false
+        self.userDefaults = userDefaults
     }
     
     func purchase() async {
@@ -129,6 +131,7 @@ class StoreManager: ObservableObject {
     
     private func parsePurchaseInfo(info: StoreTransaction) {
         isPurchased = true
+        userDefaults?.set(true, forKey: .purchaseKey)
         notification.purchaseCompletion.send(true)
         widgetCenter.reloadAllTimelines()
     }
