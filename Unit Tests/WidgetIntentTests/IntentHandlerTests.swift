@@ -61,7 +61,7 @@ class IntentHandlerTests {
     
     @Test
     func testHasRegisterOnly() async throws {
-        createProfile(personaname: "register", isFavorite: true, isRegister: true)
+        createProfile(personaname: "register", isRegister: true)
         let collection = try await handler.provideProfileOptionsCollection(for: intent)
         #expect(collection.sections.count == 1)
         

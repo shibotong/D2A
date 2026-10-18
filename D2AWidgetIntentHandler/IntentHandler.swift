@@ -18,7 +18,7 @@ class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
     
     func provideProfileOptionsCollection(for intent: DynamicUserSelectionIntent) async throws -> INObjectCollection<Profile> {
         let fetchRequest: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "favourite = %d", true)
+        fetchRequest.predicate = NSPredicate(format: "favourite = YES OR register = YES")
         
         let results = try context.fetch(fetchRequest)
 

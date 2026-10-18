@@ -66,6 +66,7 @@ final class DotaEnvironment: ObservableObject {
             versionUpdate(lastVersion: lastVersion, currentVersion: appVersion)
             userDefaults?.setValue(appVersion, forKey: "dotaArmory.appVersion")
         }
+        setupBinding()
     }
     
     private func setupBinding() {
