@@ -48,9 +48,10 @@ actor UserMatchRefreshHandler {
         let distance = currentTime - lastRefresh
         if distance > refreshDistance {
             refreshHandler[userid] = currentTime
+            logger.trace("User \(userid) can refresh this time.", category: .user)
             return true
         } else {
-            logger.debug("last refresh \(distance)s before, cannot refresh", category: .user)
+            logger.debug("User \(userid) last refresh \(distance)s before, cannot refresh", category: .user)
             return false
         }
     }
