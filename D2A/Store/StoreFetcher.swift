@@ -9,7 +9,6 @@ import StoreKit
 import Logging
 import Mocking
 
-@Mocked(compilationCondition: .debug)
 protocol StoreFetching: Sendable {
     @concurrent
     func fetchProducts(productIDs: [String]) async throws -> [StoreProduct]

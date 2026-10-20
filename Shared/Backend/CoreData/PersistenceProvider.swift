@@ -15,20 +15,27 @@ enum PersistenceError: Error {
 }
 
 protocol CoreDataContextProviding {
+    @MainActor
     var mainContext: NSManagedObjectContext { get }
+    
+    nonisolated
     func backgroundContext(name: String?) -> NSManagedObjectContext
 }
 
 extension CoreDataContextProviding {
+    
+    nonisolated
     func backgroundContext() -> NSManagedObjectContext {
         return backgroundContext(name: nil)
     }
 }
 
-class PersistenceProvider: CoreDataContextProviding {
+nonisolated
+final class PersistenceProvider: CoreDataContextProviding, Sendable {
     
     static let shared = PersistenceProvider()
 
+    @MainActor
     static var preview: PersistenceProvider = {
         let result = PersistenceProvider(inMemory: true)
         let viewContext = result.container.viewContext
@@ -43,27 +50,8 @@ class PersistenceProvider: CoreDataContextProviding {
     }()
 
     let container: NSPersistentContainer
-    private var notificationToken: NSObjectProtocol?
     
-    /// A peristent history token used for fetching transactions from the store.
-    private var lastToken: NSPersistentHistoryToken?
-    
-    /// URL of tokenFile
-    private lazy var tokenFileURL: URL = {
-        let url = NSPersistentContainer.defaultDirectoryURL()
-            .appendingPathComponent("D2AToken", isDirectory: true)
-        do {
-            try FileManager.default
-                .createDirectory(
-                    at: url,
-                    withIntermediateDirectories: true,
-                    attributes: nil)
-        } catch {
-            // log any errors
-        }
-        return url.appendingPathComponent("token.data", isDirectory: false)
-    }()
-    
+    @MainActor
     var mainContext: NSManagedObjectContext {
         return container.viewContext
     }
@@ -72,18 +60,6 @@ class PersistenceProvider: CoreDataContextProviding {
         container = NSPersistentContainer(name: "D2AModel")
         container.viewContext.automaticallyMergesChangesFromParent = true
         loadContainer(inMemory: inMemory)
-    }
-    
-    private func removeContainer() {
-        let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GROUP_NAME)!
-        let storeURL = containerURL.appendingPathComponent("D2AModel.sqlite")
-        do {
-            try FileManager.default.removeItem(at: storeURL)
-            loadContainer()
-        } catch {
-            DotaEnvironment.shared.error = true
-            DotaEnvironment.shared.errorMessage = "There are some problems with the App. Please delete and reinstall."
-        }
     }
     
     private func loadContainer(inMemory: Bool = false) {

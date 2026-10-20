@@ -20,14 +20,22 @@ struct Provider: IntentTimelineProvider {
     private let persistenceController = PersistenceProvider.shared
     private let imageProvider: ImageProviding
     private let fetcher: GameDataFetcher
-    private let viewContext: NSManagedObjectContext
+    private let contextProvider: CoreDataContextProviding
+    private let userDefaults: UserDefaults?
+    
+    @MainActor
+    private var viewContext: NSManagedObjectContext {
+        return contextProvider.mainContext
+    }
     
     init(imageProvider: ImageProviding = ImageProvider.shared,
          fetcher: GameDataFetcher = OpenDotaFetcher.shared,
-         context: NSManagedObjectContext = PersistenceProvider.shared.mainContext) {
+         contextProvider: CoreDataContextProviding = PersistenceProvider.shared,
+         userDefaults: UserDefaults? = .shared) {
         self.imageProvider = imageProvider
         self.fetcher = fetcher
-        self.viewContext = context
+        self.contextProvider = contextProvider
+        self.userDefaults = userDefaults
     }
     
     func placeholder(in context: Context) -> D2AWidgetUserEntry {
@@ -54,7 +62,7 @@ struct Provider: IntentTimelineProvider {
 
     func getTimeline(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (Timeline<D2AWidgetUserEntry>) -> Void) {
         let currentDate = Date()
-        let status = UserDefaults(suiteName: GROUP_NAME)?.object(forKey: "dotaArmory.subscription") as? Bool ?? false
+        let status = userDefaults?.object(forKey: .purchaseKey) as? Bool ?? false
         guard status, let selectedProfile = user(for: configuration), let userID = selectedProfile.id else {
             let entry = D2AWidgetUserEntry(date: Date(), user: nil, subscription: status)
             let timeline = Timeline(entries: [entry], policy: .never)
