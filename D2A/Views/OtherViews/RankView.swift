@@ -12,6 +12,15 @@ struct RankView: View {
     var rank: Int?
     var leaderboard: Int?
     
+    init(profile: UserProfile) {
+        self.init(rank: profile.rank?.intValue, leaderboard: profile.leaderboard?.intValue)
+    }
+    
+    init(rank: Int?, leaderboard: Int?) {
+        self.rank = rank
+        self.leaderboard = leaderboard
+    }
+    
     var body: some View {
         ZStack {
             buildBadge(rank: rank ?? 0, leaderboard: leaderboard)
