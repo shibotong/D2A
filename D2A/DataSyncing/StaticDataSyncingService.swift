@@ -62,7 +62,7 @@ class StaticDataSyncingService: ObservableObject {
         }
         isCompleted = false
         let shouldSyncConstants = syncingTimer.shouldSync(key: .constants)
-        let shouldSyncLocalization = syncingTimer.shouldSync(key: .localization(language))
+        let shouldSyncLocalization = (syncingTimer.shouldSync(key: .localization(language)) && hasLocalization(for: language))
         logger.info("Should sync constants: \(shouldSyncConstants)", category: .sync)
         if shouldSyncConstants {
             try await syncAbilities()
@@ -85,6 +85,14 @@ class StaticDataSyncingService: ObservableObject {
         if shouldSyncLocalization {
             syncingTimer.finishSyncing(key: .localization(language))
         }
+    }
+    
+    private func hasLocalization(for localization: DataLanguageEnum) -> Bool {
+        let request = AbilityTranslation.fetchRequest()
+        let predicate = NSPredicate(format: "language = %@", language.rawValue)
+        request.predicate = predicate
+        let count = (try? context.count(for: request)) ?? 0
+        return count != 0
     }
     
     private func syncAbilities() async throws {
