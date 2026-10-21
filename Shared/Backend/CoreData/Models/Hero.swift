@@ -60,10 +60,7 @@ extension Hero: HeroProtocol {
     }
     
     var localizedName: String {
-        guard let localization else {
-            return displayName ?? ""
-        }
-        return localization.displayName ?? ""
+        NSLocalizedString(displayName ?? "", tableName: "Hero", comment: "")
     }
     
     private var localization: HeroTranslation? {
