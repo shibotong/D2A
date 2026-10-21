@@ -47,7 +47,7 @@ class StaticDataSyncingService: ObservableObject {
          syncingTimer: SyncingTimerProtocol = SyncingTimer.shared) {
         self.openDota = openDota
         self.stratz = stratz
-        self.context = mainContext.makeContext(author: "Static Data")
+        self.context = mainContext
         self.persistence = persistenceService
         self.language = appConfig.languageCode
         self.maxConcurrent = appConfig.processors
@@ -62,22 +62,17 @@ class StaticDataSyncingService: ObservableObject {
         }
         isCompleted = false
         let shouldSyncConstants = syncingTimer.shouldSync(key: .constants)
-        let shouldSyncLocalization = (syncingTimer.shouldSync(key: .localization(language)) && hasLocalization(for: language))
+        let shouldSyncLocalization = syncingTimer.shouldSync(key: .localization(language))
+        let hasLocalization = hasLocalization(for: language)
         logger.info("Should sync constants: \(shouldSyncConstants)", category: .sync)
         if shouldSyncConstants {
             try await syncAbilities()
             try await syncHeroes()
         }
-        if shouldSyncLocalization {
+        if shouldSyncLocalization || !hasLocalization {
             try await syncAbilityTranslation()
         }
-        let context = self.context
-        try await context.perform {
-            try context.save()
-        }
-        try await context.parent?.perform {
-            try context.parent?.save()
-        }
+        try context.save()
         notification.syncingCompletion.send(true)
         if shouldSyncConstants {
             syncingTimer.finishSyncing(key: .constants)
