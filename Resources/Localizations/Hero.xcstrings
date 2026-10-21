@@ -6,7 +6,7 @@
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "亚巴顿"
           }
         }
@@ -496,6 +496,17 @@
         }
       }
     },
+    "Kez" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "凯"
+          }
+        }
+      }
+    },
     "Kunkka" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -503,6 +514,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "昆卡"
+          }
+        }
+      }
+    },
+    "Largo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "朗戈"
           }
         }
       }
