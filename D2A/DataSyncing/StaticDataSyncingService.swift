@@ -70,7 +70,6 @@ class StaticDataSyncingService: ObservableObject {
         }
         if shouldSyncLocalization {
             try await syncAbilityTranslation()
-            try await syncHeroTranslations()
         }
         let context = self.context
         try await context.perform {
@@ -134,22 +133,6 @@ class StaticDataSyncingService: ObservableObject {
         } saving: { (hero: HeroRecipe, context) in
             self.logger.trace("Saving hero \(hero.heroID)", category: .sync)
             try persistenceProvider.save(hero: hero, in: context)
-        }
-    }
-    
-    private func syncHeroTranslations() async throws {
-        logger.trace("Start syncing hero translations", category: .sync)
-        let persistence = self.persistence
-        let language = self.language
-        try await contextSaving(author: "Hero Translations") {
-            guard let stratzHeroes = try? await stratz.heroes(language: language.language) else {
-                return [SKHero]()
-            }
-            return stratzHeroes
-        } saving: { hero, context in
-            self.logger.trace("Saving hero translation \(hero.id)", category: .sync)
-            try persistence.save(hero: hero, language: language, in: context)
-            try context.save()
         }
     }
     

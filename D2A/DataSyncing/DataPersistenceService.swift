@@ -144,41 +144,6 @@ class DataPersistenceService {
         return role.level
     }
     
-    func fetchHeroLocalization(id: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation? {
-        return try fetch(heroID: id, language: language, context: context)
-    }
-    
-    func fetch(heroID: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> HeroTranslation? {
-        let fetchRequest = HeroTranslation.fetchRequest()
-        let predicate = NSPredicate(format: "heroID = %d AND language = %@", heroID, language.rawValue)
-        fetchRequest.predicate = predicate
-        
-        let results = try context.fetch(fetchRequest)
-        return results.first
-    }
-    
-    func saveHeroLocalization(localization: SKHero, language: DataLanguageEnum, in context: NSManagedObjectContext) throws {
-        try save(hero: localization, language: language, in: context)
-    }
-        
-    func save(hero localization: SKHero, language: DataLanguageEnum, in context: NSManagedObjectContext) throws {
-        guard let rootHero = try fetch(heroID: localization.id, context: context) else {
-            throw PersistenceError.heroNotFound(localization.id)
-        }
-        var translation: HeroTranslation
-        if let savedTranslation = try fetchHeroLocalization(id: localization.id, language: language, context: context) {
-            translation = savedTranslation
-        } else {
-            translation = HeroTranslation(context: context)
-            translation.hero = rootHero
-        }
-        setIfNotEqual(entity: translation, path: \.language, value: language.rawValue)
-        setIfNotEqual(entity: translation, path: \.heroID, value: Int16(localization.id))
-        setIfNotEqual(entity: translation, path: \.displayName, value: localization.displayName)
-        setIfNotEqual(entity: translation, path: \.lore, value: localization.lore)
-        setIfNotEqual(entity: translation, path: \.hype, value: localization.hype)
-    }
-    
     // MARK: Ability
     
     @available(*, deprecated, message: "use Ability static fetch function")
