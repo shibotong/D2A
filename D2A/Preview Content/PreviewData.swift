@@ -47,11 +47,6 @@ class PreviewData {
         for translation in abilityTranslations {
             try persistenceService.save(ability: translation, language: .english, in: context)
         }
-        
-        let heroTranslations = PreviewConstantData.heroTranslation
-        for translation in heroTranslations {
-            try persistenceService.save(hero: translation, language: .english, in: context)
-        }
         try context.save()
     }
     
