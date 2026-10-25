@@ -70,8 +70,6 @@ extension PlayerProfileView {
             self.insertThreshold = insertThreshold
             self.refreshHandler = refreshHandler
             self.logger = logger
-            loadUser()
-            loadUserMatches()
         }
         
         func refreshUser() async {
@@ -115,7 +113,7 @@ extension PlayerProfileView {
             }
         }
         
-        private func loadUser() {
+        func loadUser() {
             guard profile == nil else {
                 logger.debug("Profile already exist for \(userID)", category: .user)
                 return
@@ -136,7 +134,7 @@ extension PlayerProfileView {
             }
         }
         
-        private func loadUserMatches() {
+        func loadUserMatches() {
             let context = contextProvider.mainContext
             let request = RecentMatch.fetchRequest()
             request.fetchLimit = 10

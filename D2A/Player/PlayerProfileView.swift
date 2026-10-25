@@ -79,6 +79,8 @@ struct PlayerProfileView: View {
                         }
                     })
                     .task {
+                        viewModel.loadUser()
+                        viewModel.loadUserMatches()
                         await viewModel.loadMatches()
                         if let profileLastUpdate = profile.lastUpdate, !profileLastUpdate.isToday {
                             await viewModel.refreshUser()
