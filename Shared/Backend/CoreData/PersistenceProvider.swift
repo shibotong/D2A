@@ -70,6 +70,14 @@ final class PersistenceProvider: CoreDataContextProviding, Sendable {
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         } else {
+            do {
+                try RecentMatchStoreMigration.prepareStore(at: storeURL,
+                                                          destinationModel: container.managedObjectModel)
+            } catch {
+                fatalError("Unable to prepare persistent store for migration: \(error)")
+            }
+            description.shouldMigrateStoreAutomatically = true
+            description.shouldInferMappingModelAutomatically = true
             container.persistentStoreDescriptions = [description]
         }
         
