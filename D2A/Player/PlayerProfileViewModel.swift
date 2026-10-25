@@ -70,34 +70,11 @@ extension PlayerProfileView {
             self.insertThreshold = insertThreshold
             self.refreshHandler = refreshHandler
             self.logger = logger
+            loadUser()
+            loadUserMatches()
         }
         
-        func refreshData() async {
-            do {
-                let mainContext = contextProvider.mainContext
-                profile = try UserProfile.fetch(userID: userID, viewContext: mainContext)
-                loadUserMatches()
-                await refreshUser()
-                await loadMatches()
-            } catch {
-                logger.error("An error occured when fetching user profile \(error)", category: .coreData)
-            }
-        }
-        
-        private func refreshUser() async {
-            let shouldRefreshProfile: Bool
-            if let profile {
-                shouldRefreshProfile = profile.shouldUpdate
-                logger.debug("User ID \(userID) last fetch time \(shouldRefreshProfile). Needs to refresh: \(shouldRefreshProfile)", category: .user)
-            } else {
-                logger.debug("User ID \(userID) doesn't exist. Should fetch user profile", category: .user)
-                shouldRefreshProfile = true
-            }
-            
-            guard shouldRefreshProfile else {
-                return
-            }
-            
+        func refreshUser() async {
             do {
                 let userProfileDTO = try await fetcher.fetchUser(userID: userID)
                 let context = contextProvider.mainContext
@@ -113,10 +90,6 @@ extension PlayerProfileView {
         }
         
         func loadMatches() async {
-            guard !matchLoading else {
-                return
-            }
-            
             guard await refreshHandler.canRefresh(userid: userID) else {
                 return
             }
@@ -139,6 +112,27 @@ extension PlayerProfileView {
             } catch {
                 logger.error("Failed to fetch latest matches \(error)", category: .coreData)
                 self.error = PlayerProfileViewError.fetchUserMatchesError
+            }
+        }
+        
+        private func loadUser() {
+            guard profile == nil else {
+                logger.debug("Profile already exist for \(userID)", category: .user)
+                return
+            }
+            let context = contextProvider.mainContext
+            let request = UserProfile.fetchRequest()
+            request.predicate = NSPredicate(format: "id = %@", userID)
+            request.fetchLimit = 1
+            do {
+                guard let user = try context.fetch(request).first else {
+                    logger.debug("Profile doesn't exist for \(userID)", category: .user)
+                    return
+                }
+                self.profile = user
+            } catch {
+                logger.error("Failed to fetch user profile \(userID). \(error)", category: .coreData)
+                return
             }
         }
         
