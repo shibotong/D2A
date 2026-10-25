@@ -107,6 +107,14 @@ extension UserProfile {
         return results?.first
     }
     
+    static func fetch(userID: String, viewContext: NSManagedObjectContext) throws -> UserProfile? {
+        let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
+        fetchResult.predicate = NSPredicate(format: "id == %@", userID)
+        
+        let results = try viewContext.fetch(fetchResult)
+        return results.first
+    }
+    
     /// Search user saved in CoreData and marked as favourite
     static func fetch(text: String, favourite: Bool? = nil) -> [UserProfile] {
         let viewContext = PersistenceProvider.shared.container.viewContext

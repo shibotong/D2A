@@ -78,18 +78,12 @@ struct PlayerProfileView: View {
                                 .accessibilityIdentifier("favourite")
                         }
                     })
-                    .task {
-                        await viewModel.loadMatches()
-                        if let profileLastUpdate = profile.lastUpdate, !profileLastUpdate.isToday {
-                            await viewModel.refreshUser()
-                        }
-                    }
             } else {
                 ProgressView()
-                    .task {
-                        await viewModel.refreshUser()
-                    }
             }
+        }
+        .task {
+            await viewModel.refreshData()
         }
         .alert(error: $viewModel.error) { _ in
             Button("OK") {
