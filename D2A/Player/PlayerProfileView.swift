@@ -229,11 +229,6 @@ struct PlayerProfileView: View {
                 Link(destination: url) {
                     steamLink
                 }
-            } else {
-                steamLink
-                    .task {
-                        await viewModel.refreshUser()
-                    }
             }
         }
     }
