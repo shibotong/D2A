@@ -27,7 +27,7 @@
         <relationship name="localizations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AbilityTranslation" inverseName="ability" inverseEntity="AbilityTranslation"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
-                <constraint value="abilityID"/>
+                <constraint value="abilityId"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
@@ -94,6 +94,11 @@
         <relationship name="talent4left" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="heroTalent4Left" inverseEntity="Ability"/>
         <relationship name="talent4right" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ability" inverseName="heroTalent4Right" inverseEntity="Ability"/>
         <relationship name="talents" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Talent" inverseName="hero" inverseEntity="Talent"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="heroId"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="Match" representedClassName="Match" syncable="YES" codeGenerationType="class">
         <attribute name="direKill" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

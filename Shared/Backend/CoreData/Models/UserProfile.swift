@@ -10,14 +10,6 @@ import CoreData
 
 extension UserProfile {
     
-    var userId: String {
-        guard let id else {
-            assertionFailure("User ID is nil")
-            return ""
-        }
-        return id
-    }
-    
     /// If the profile should update. (Last update time is not today)
     var shouldUpdate: Bool {
         guard let lastUpdate else {
@@ -72,7 +64,7 @@ extension UserProfile {
     }
     
     func map(_ dto: UserProfileDTO) {
-        setIfNotEqual(entity: self, path: \.id, value: dto.id.description)
+        setIfNotEqual(entity: self, path: \.userId, value: dto.id.description)
         setIfNotEqual(entity: self, path: \.avatarfull, value: dto.avatarfull)
         
         setIfNotEqual(entity: self, path: \.countryCode, value: dto.countryCode)
@@ -89,7 +81,7 @@ extension UserProfile {
     static func create(id: String, favourite: Bool = false, register: Bool = false, controller: PersistenceProvider = PersistenceProvider.shared) {
         let viewContext = controller.makeContext(author: "UserProfile")
         let newProfile = UserProfile(context: viewContext)
-        newProfile.id = id
+        newProfile.userId = id
         newProfile.name = "test name"
         newProfile.personaname = "test persona"
         newProfile.favourite = favourite
