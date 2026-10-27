@@ -181,7 +181,7 @@ class DataPersistenceService {
     func save(abilityID: Int, name: String, data: ODAbility, in context: NSManagedObjectContext) throws {
         let ability = try Ability.fetch(abilityID: abilityID, context: context) ?? Ability(context: context)
         setIfNotEqual(entity: ability, path: \.name, value: name)
-        setIfNotEqual(entity: ability, path: \.abilityID, value: Int16(abilityID))
+        setIfNotEqual(entity: ability, path: \.abilityId, value: Int16(abilityID))
         setIfNotEqual(entity: ability, path: \.behavior, value: data.behavior?.joined(separator: " / "))
         setIfNotEqual(entity: ability, path: \.bkbPierce, value: data.bkbpierce?.joined(separator: " / "))
         setIfNotEqual(entity: ability, path: \.coolDown, value: data.cd?.joined(separator: " / "))
@@ -200,7 +200,7 @@ class DataPersistenceService {
     
     func fetch(abilityID: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> AbilityTranslation? {
         let fetchRequest = AbilityTranslation.fetchRequest()
-        let predicate = NSPredicate(format: "abilityID = %d AND language = %@", abilityID, language.rawValue)
+        let predicate = NSPredicate(format: "abilityId = %d AND language = %@", abilityID, language.rawValue)
         fetchRequest.predicate = predicate
 
         let results = try context.fetch(fetchRequest)
@@ -228,7 +228,7 @@ class DataPersistenceService {
             translation.ability = rootAbility
         }
         setIfNotEqual(entity: translation, path: \.language, value: language.rawValue)
-        setIfNotEqual(entity: translation, path: \.abilityID, value: Int16(ability.id))
+        setIfNotEqual(entity: translation, path: \.abilityId, value: Int16(ability.id))
         setIfNotEqual(entity: translation, path: \.name, value: ability.name)
         setIfNotEqual(entity: translation, path: \.aghanimDescription, value: ability.aghanimDescription)
         setIfNotEqual(entity: translation, path: \.displayName, value: ability.displayName)

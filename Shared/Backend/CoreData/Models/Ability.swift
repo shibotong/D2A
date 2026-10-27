@@ -11,7 +11,7 @@ extension Ability {
     
     static func fetch(abilityID: Int, context: NSManagedObjectContext) throws -> Ability? {
         let fetchRequest = fetchRequest()
-        let predicate = NSPredicate(format: "abilityID = %d", abilityID)
+        let predicate = NSPredicate(format: "abilityId = %d", abilityID)
         fetchRequest.predicate = predicate
         return try context.fetch(fetchRequest).first
     }
