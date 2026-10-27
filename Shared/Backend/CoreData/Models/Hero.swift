@@ -55,8 +55,12 @@ extension Hero: HeroProtocol {
         return self
     }
     
+    public var id: Int {
+        heroID
+    }
+
     var heroID: Int {
-        Int(id)
+        Int(heroId)
     }
     
     var localizedName: String {
@@ -90,7 +94,7 @@ extension Hero: HeroProtocol {
         let hero = (try? DataPersistenceService.shared.fetch(heroID: Int(heroID), context: viewContext)) ?? Hero(context: viewContext)
         // data from Stratz
         hero.lastFetch = Date()
-        hero.id = heroID
+        hero.heroId = Double(heroID)
         hero.displayName = queryHero.displayName
         hero.name = queryHero.name
         hero.complexity = Int16(heroStats.complexity ?? 0)

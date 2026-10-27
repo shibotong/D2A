@@ -53,7 +53,7 @@ class DataPersistenceService {
     
     func fetch(heroID: Int, context: NSManagedObjectContext) throws -> Hero? {
         let fetchHero = Hero.fetchRequest()
-        fetchHero.predicate = NSPredicate(format: "id == %f", Double(heroID))
+        fetchHero.predicate = NSPredicate(format: "heroId == %f", Double(heroID))
         
         let results = try context.fetch(fetchHero)
         return results.first
@@ -66,7 +66,7 @@ class DataPersistenceService {
     private func save(heroID: Int, data: ODHero, abilities: ODHeroAbility, additional: SKHeroAdditional, in context: NSManagedObjectContext) throws {
         let hero = try fetch(heroID: heroID, context: context) ?? Hero(context: context)
         
-        setIfNotEqual(entity: hero, path: \.id, value: Double(heroID))
+        setIfNotEqual(entity: hero, path: \.heroId, value: Double(heroID))
         setIfNotEqual(entity: hero, path: \.name, value: data.name)
         setIfNotEqual(entity: hero, path: \.primaryAttr, value: data.primaryAttr)
         setIfNotEqual(entity: hero, path: \.attackType, value: data.attackType)
