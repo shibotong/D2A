@@ -2,7 +2,8 @@ import Foundation
 import CoreData
 
 /// Manually copies a version 2 store into the version 3 schema.
-struct StoreMigrationV3: StoreMigrating {
+class StoreMigrationV3: StoreMigrating {
+    
     let destinationVersion: Int = 3
 
     private let renamedAttributes = [
@@ -14,16 +15,33 @@ struct StoreMigrationV3: StoreMigrating {
         "UserProfile": ["userId": "id"]
     ]
     
+    private lazy var sourceModel: NSManagedObjectModel = {
+        return try! StoreMigrationManager.model(version: sourceVersion, bundle: bundle)
+    }()
+    
+    private lazy var destinationModel: NSManagedObjectModel = {
+        return try! StoreMigrationManager.model(version: destinationVersion, bundle: bundle)
+    }()
+    
+    private let bundle: Bundle
+    
+    init(bundle: Bundle = .main) {
+        self.bundle = bundle
+    }
+    
+    func needMigration(metadata: [String: Any]) -> Bool {
+        return sourceModel.isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata)
+    }
+    
     /// Copies legacy stores into a separate store, leaving the source untouched until saving succeeds.
     func migrate(
-        from sourceURL: URL, to destinationURL: URL,
-        sourceModel: NSManagedObjectModel, destinationModel: NSManagedObjectModel
+        from sourceURL: URL, to destinationURL: URL
     ) throws {
         // Legacy keys must be accessed through KVC, not the generated version 3 subclasses.
         let sourceModel = try plainModel(sourceModel)
         let destinationModel = try plainModel(destinationModel)
         let sourceCoordinator = NSPersistentStoreCoordinator(managedObjectModel: sourceModel)
-        let destinationCoordinator =  NSPersistentStoreCoordinator(managedObjectModel: destinationModel)
+        let destinationCoordinator =  NSPersistentStoreCoordinator(managedObjectModel: destinationModel)
         let sourceStore = try sourceCoordinator.addPersistentStore(
             ofType: NSSQLiteStoreType, configurationName: nil, at: sourceURL,
             options: [NSReadOnlyPersistentStoreOption: true]
