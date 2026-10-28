@@ -118,7 +118,7 @@ struct PlayerProfileView: View {
                     .font(.system(size: 20))
                     .bold()
                 Spacer()
-                NavigationLink(destination: CalendarMatchListView(vm: CalendarMatchListViewModel(userid: profile.id!))) {
+                NavigationLink(destination: CalendarMatchListView(vm: CalendarMatchListViewModel(userid: profile.userId!))) {
                     Text("All")
                 }
             }
@@ -127,8 +127,8 @@ struct PlayerProfileView: View {
                 ProgressView()
             }
             VStack(spacing: 2) {
-                ForEach(viewModel.matches[0..<(viewModel.matches.count > 10 ? 10 : viewModel.matches.count)], id: \.id) { match in
-                    if let matchID = match.id {
+                ForEach(viewModel.matches[0..<(viewModel.matches.count > 10 ? 10 : viewModel.matches.count)], id: \.matchId) { match in
+                    if let matchID = match.matchId {
                         NavigationLink(
                             destination: MatchView(matchid: matchID)
                         ) {
@@ -162,7 +162,7 @@ struct PlayerProfileView: View {
                             .font(.subheadline)
                             .lineLimit(1)
                     }
-                    Text("id: \(profile.id ?? "")")
+                    Text("id: \(profile.userId ?? "")")
                         .font(.caption)
                         .foregroundColor(.secondaryLabel)
                     buildRank(profile: profile, size: 60)
@@ -187,7 +187,7 @@ struct PlayerProfileView: View {
                                 .font(.subheadline)
                                 .lineLimit(1)
                         }
-                        Text("id: \(profile.id ?? "")")
+                        Text("id: \(profile.userId ?? "")")
                             .font(.caption)
                             .foregroundColor(.secondaryLabel)
                     }

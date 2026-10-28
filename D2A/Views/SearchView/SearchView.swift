@@ -75,7 +75,7 @@ struct SearchView: View {
     
     private var searchedList: some View {
         List {
-            if let match = vm.searchedMatch, let matchID = match.id {
+            if let match = vm.searchedMatch, let matchID = match.matchId {
                 Section {
                     NavigationLink(destination: MatchView(matchid: matchID)) {
                         HStack {
@@ -93,7 +93,7 @@ struct SearchView: View {
                         }
                     }
                 } header: {
-                    Text("Match: \(match.id ?? "")")
+                    Text("Match: \(match.matchId ?? "")")
                 }
             }
             
@@ -115,9 +115,9 @@ struct SearchView: View {
             if !vm.userProfiles.isEmpty || !vm.searchLocalProfiles.isEmpty {
                 Section {
                     ForEach(vm.searchLocalProfiles) { profile in
-                        NavigationLink(destination: PlayerProfileView(userid: profile.id ?? "")) {
+                        NavigationLink(destination: PlayerProfileView(userid: profile.userId ?? "")) {
                             ProfileView(viewModel: ProfileViewModel(profile: profile))
-                        }.accessibilityIdentifier(profile.id ?? "")
+                        }.accessibilityIdentifier(profile.userId ?? "")
                     }
                     ForEach(vm.userProfiles) { profile in
                         NavigationLink(destination: PlayerProfileView(userid: profile.accountId.description)) {

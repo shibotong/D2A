@@ -93,7 +93,7 @@ extension UserProfile {
     
     static func fetch(id: String, viewContext: NSManagedObjectContext = PersistenceProvider.shared.container.viewContext) -> UserProfile? {
         let fetchResult: NSFetchRequest<UserProfile> = UserProfile.fetchRequest()
-        fetchResult.predicate = NSPredicate(format: "id == %@", id)
+        fetchResult.predicate = NSPredicate(format: "userId == %@", id)
         
         let results = try? viewContext.fetch(fetchResult)
         return results?.first

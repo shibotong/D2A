@@ -28,7 +28,7 @@ extension Match {
                        controller: PersistenceProvider = PersistenceProvider.shared) {
         let viewContext = controller.makeContext(author: "Match")
         let matchCoreData = fetch(id: id) ?? Match(context: viewContext)
-        matchCoreData.id = id
+        matchCoreData.matchId = id
         matchCoreData.lobbyType = lobbyType
         matchCoreData.mode = mode
         matchCoreData.region = region
@@ -59,7 +59,7 @@ extension Match {
         matchCoreData.update(match)
         try viewContext.save()
         try viewContext.parent?.save()
-        print("save match successfully \(matchCoreData.id ?? "nil")")
+        print("save match successfully \(matchCoreData.matchId ?? "nil")")
         return matchCoreData
     }
     
@@ -67,7 +67,7 @@ extension Match {
     static func fetch(id: String) -> Match? {
         let viewContext = PersistenceProvider.shared.container.viewContext
         let fetchMatch: NSFetchRequest<Match> = Match.fetchRequest()
-        let predicate = NSPredicate(format: "id == %@", id)
+        let predicate = NSPredicate(format: "matchId == %@", id)
         fetchMatch.predicate = predicate
         
         let results = try? viewContext.fetch(fetchMatch)
@@ -104,7 +104,7 @@ extension Match {
     }
     
     func update(_ match: MatchCodable) {
-        id = match.id.description
+        matchId = match.id.description
         
         // Match data
         direKill = Int16(match.direKill ?? 0)

@@ -22,7 +22,7 @@ struct ProfileAvatar: View {
     
     init(profile: UserProfile, cornerRadius: CGFloat,
          imageProvider: ImageProviding = ImageProvider.shared) {
-        self.init(userID: profile.id?.description ?? "0",
+        self.init(userID: profile.userId?.description ?? "0",
                   imageURL: profile.avatarfull,
                   cornerRadius: cornerRadius,
                   profile: profile,

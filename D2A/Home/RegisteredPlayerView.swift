@@ -45,13 +45,13 @@ struct RegisteredPlayerView: View {
     
     @ViewBuilder private func buildProfile(profile: UserProfile) -> some View {
         VStack(spacing: 10) {
-            NavigationLink(destination: PlayerProfileView(userid: profile.id ?? "")) {
+            NavigationLink(destination: PlayerProfileView(userid: profile.userId ?? "")) {
                 HStack {
                     ProfileAvatar(profile: profile, cornerRadius: 25)
                         .frame(width: 70, height: 70)
                     VStack(alignment: .leading, spacing: 0) {
                         Text(profile.personaname ?? "").font(.system(size: 20)).bold().lineLimit(1).foregroundColor(.label)
-                        Text(profile.id ?? "")
+                        Text(profile.userId ?? "")
                             .font(.system(size: 13))
                             .foregroundColor(Color.secondaryLabel)
                     }
@@ -64,7 +64,7 @@ struct RegisteredPlayerView: View {
                 }
             }
             .padding(.horizontal, 15)
-            if let userid = profile.id {
+            if let userid = profile.userId {
                 LatestRecentMatchView(userid: userid)
             }
         }

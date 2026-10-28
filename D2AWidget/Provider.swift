@@ -45,7 +45,7 @@ struct Provider: IntentTimelineProvider {
     func getSnapshot(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (D2AWidgetUserEntry) -> Void) {
         let profile = fetchFirstWidgetUser()
         
-        guard let profile, let userID = profile.id else {
+        guard let profile, let userID = profile.userId else {
             let entry = D2AWidgetUserEntry(date: Date(), user: D2AWidgetUser.preview, subscription: true)
             completion(entry)
             return
@@ -63,7 +63,7 @@ struct Provider: IntentTimelineProvider {
     func getTimeline(for configuration: DynamicUserSelectionIntent, in context: Context, completion: @escaping (Timeline<D2AWidgetUserEntry>) -> Void) {
         let currentDate = Date()
         let status = userDefaults?.object(forKey: .purchaseKey) as? Bool ?? false
-        guard status, let selectedProfile = user(for: configuration), let userID = selectedProfile.id else {
+        guard status, let selectedProfile = user(for: configuration), let userID = selectedProfile.userId else {
             let entry = D2AWidgetUserEntry(date: Date(), user: nil, subscription: status)
             let timeline = Timeline(entries: [entry], policy: .never)
             completion(timeline)

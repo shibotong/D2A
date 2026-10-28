@@ -40,23 +40,23 @@ class IntentHandlerTests {
         #expect(registeredSection.items.count == 1)
         #expect(registeredSection.title == "Registered")
         let registeredProfile = try #require(registeredSection.items.first)
-        #expect(registeredProfile.identifier == register.id)
+        #expect(registeredProfile.identifier == register.userId)
         #expect(registeredProfile.displayString == register.personaname)
-        #expect(registeredProfile.subtitleString == register.id)
+        #expect(registeredProfile.subtitleString == register.userId)
         
         let favoriteSection = try #require(collection.sections.last)
         #expect(favoriteSection.title == "Favorite Players")
         #expect(favoriteSection.items.count == 2)
         
         let favoriteProfile1 = try #require(favoriteSection.items.first)
-        #expect(favoriteProfile1.identifier == favoriteUser1.id)
+        #expect(favoriteProfile1.identifier == favoriteUser1.userId)
         #expect(favoriteProfile1.displayString == favoriteUser1.personaname)
-        #expect(favoriteProfile1.subtitleString == favoriteUser1.id)
+        #expect(favoriteProfile1.subtitleString == favoriteUser1.userId)
         
         let favoriteProfile2 = try #require(favoriteSection.items.last)
-        #expect(favoriteProfile2.identifier == favoriteUser2.id)
+        #expect(favoriteProfile2.identifier == favoriteUser2.userId)
         #expect(favoriteProfile2.displayString == favoriteUser2.personaname)
-        #expect(favoriteProfile2.subtitleString == favoriteUser2.id)
+        #expect(favoriteProfile2.subtitleString == favoriteUser2.userId)
     }
     
     @Test
@@ -87,7 +87,7 @@ class IntentHandlerTests {
                        isFavorite: Bool = false,
                        isRegister: Bool = false) -> UserProfile {
         let userProfile = UserProfile(context: context)
-        userProfile.id = id
+        userProfile.userId = id
         userProfile.favourite = isFavorite
         userProfile.register = isRegister
         userProfile.personaname = personaname

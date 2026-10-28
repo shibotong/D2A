@@ -40,7 +40,7 @@ class MatchListRowViewModel: ObservableObject {
     
     convenience init(match: RecentMatch) {
         self.init(isWin: match.playerWin ?? false,
-                  heroID: Int(match.heroID),
+                  heroID: Int(match.heroId),
                   kills: Int(match.kills),
                   deaths: Int(match.deaths),
                   assists: Int(match.assists),
@@ -48,7 +48,7 @@ class MatchListRowViewModel: ObservableObject {
                   gameMode: match.gameMode.localized,
                   lobby: match.gameLobby,
                   startTime: match.startTime ?? Date(),
-                  matchID: match.id ?? "")
+                  matchID: match.matchId ?? "")
     }
     
     convenience init(match: D2AWidgetMatch) {

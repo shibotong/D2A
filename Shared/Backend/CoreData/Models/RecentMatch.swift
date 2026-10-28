@@ -108,13 +108,13 @@ extension RecentMatch {
         let viewContext = controller.makeContext(author: "RecentMatch")
         let match = RecentMatch(context: viewContext)
         match.playerId = userID
-        match.id = matchID
+        match.matchId = matchID
         
         match.duration = duration
         match.mode = mode
         match.radiantWin = radiantWin as NSNumber
         match.slot = slot
-        match.heroID = heroID
+        match.heroId = heroID
         match.kills = kills
         match.deaths = deaths
         match.assists = assists
@@ -152,7 +152,7 @@ extension RecentMatch {
     static func fetch(_ matchID: String, userID: String) -> RecentMatch? {
         let viewContext = PersistenceProvider.shared.container.viewContext
         let fetchResult: NSFetchRequest<RecentMatch> = RecentMatch.fetchRequest()
-        fetchResult.predicate = NSPredicate(format: "id = %@ AND playerId = %@", matchID, userID)
+        fetchResult.predicate = NSPredicate(format: "matchId = %@ AND playerId = %@", matchID, userID)
         
         let results = try? viewContext.fetch(fetchResult)
         return results?.first
@@ -194,14 +194,14 @@ extension RecentMatch {
     }
     
     func update(_ match: RecentMatchCodable) {
-        id = match.id.description
+        matchId = match.id.description
         playerId = match.playerId?.description ?? ""
         
         duration = Int32(match.duration)
         mode = Int16(match.mode)
         radiantWin = match.radiantWin as NSNumber
         slot = Int16(match.slot)
-        heroID = Int16(match.heroID)
+        heroId = Int16(match.heroID)
         kills = Int16(match.kills)
         deaths = Int16(match.deaths)
         assists = Int16(match.assists)
@@ -212,13 +212,13 @@ extension RecentMatch {
     }
     
     func map(_ dto: any RecentMatchDTO, for userID: String) {
-        setIfNotEqual(entity: self, path: \.id, value: dto.matchId.description)
+        setIfNotEqual(entity: self, path: \.matchId, value: dto.matchId.description)
         setIfNotEqual(entity: self, path: \.playerId, value: userID)
         setIfNotEqual(entity: self, path: \.duration, value: Int32(dto.duration))
         setIfNotEqual(entity: self, path: \.mode, value: Int16(dto.gameMode))
         setIfNotEqual(entity: self, path: \.radiantWin, value: dto.radiantWin as NSNumber?)
         setIfNotEqual(entity: self, path: \.slot, value: Int16(dto.playerSlot))
-        setIfNotEqual(entity: self, path: \.heroID, value: Int16(dto.heroId))
+        setIfNotEqual(entity: self, path: \.heroId, value: Int16(dto.heroId))
         setIfNotEqual(entity: self, path: \.kills, value: Int16(dto.kills))
         setIfNotEqual(entity: self, path: \.deaths, value: Int16(dto.deaths))
         setIfNotEqual(entity: self, path: \.assists, value: Int16(dto.assists))

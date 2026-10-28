@@ -100,7 +100,7 @@ class SearchViewModel: ObservableObject {
             for profile in try await searchedProfile {
                 if let cachedProfile = UserProfile.fetch(id: "\(profile.accountId)") {
                     if cachedProfiles.contains(where: { profile in
-                        profile.id == cachedProfile.id
+                        profile.userId == cachedProfile.userId
                     }) {
                         continue
                     }

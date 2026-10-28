@@ -31,11 +31,11 @@ struct CalendarMatchListView: View {
                 ScrollView {
                     VStack(spacing: 1) {
                         ForEach(vm.matches) { match in
-                            NavigationLink(destination: MatchView(matchid: match.id!.description)) {
+                            NavigationLink(destination: MatchView(matchid: match.matchId!.description)) {
                                 MatchListRowView(viewModel: MatchListRowViewModel(match: match))
                                     .background(Color.systemBackground)
                             }
-                            .accessibilityIdentifier(match.id!.description)
+                            .accessibilityIdentifier(match.matchId!.description)
                         }
                     }
                 }

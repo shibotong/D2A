@@ -38,7 +38,7 @@ struct PlayerProfileViewModelTests {
     @Test
     func `fetch existing user and existing matches on init`() async throws {
         let user = UserProfile.make(context: mainContext)
-            .with(path: \.id, value: userID)
+            .with(path: \.userId, value: userID)
         let olderMatch = makeMatch(id: "1", startTime: Date(timeIntervalSince1970: 100))
         let newerMatch = makeMatch(id: "2", startTime: Date(timeIntervalSince1970: 200))
         try mainContext.save()
@@ -47,7 +47,7 @@ struct PlayerProfileViewModelTests {
 
         let fetchedUser = try #require(viewModel.profile)
         #expect(fetchedUser.userId == user.userId)
-        #expect(viewModel.matches.map(\.id) == [newerMatch.id, olderMatch.id])
+        #expect(viewModel.matches.map(\.matchId) == [newerMatch.matchId, olderMatch.matchId])
     }
 
     @Test
@@ -59,7 +59,7 @@ struct PlayerProfileViewModelTests {
 
         let profile = try #require(viewModel.profile)
         #expect(fetcher.fetchUserCount == 1)
-        #expect(profile.id == "42")
+        #expect(profile.userId == "42")
         #expect(profile.personaname == "Yatoro")
         #expect(!mainContext.hasChanges)
         #expect(viewModel.error == nil)
@@ -98,7 +98,7 @@ struct PlayerProfileViewModelTests {
 
         #expect(fetcher.fetchPlayerMatchesCount == 1)
         #expect(requestedLastGameDate == latestDate)
-        #expect(viewModel.matches.map(\.id) == ["2", existingMatch.id])
+        #expect(viewModel.matches.map(\.matchId) == ["2", existingMatch.matchId])
         #expect(viewModel.matchLoading == false)
         #expect(viewModel.error == nil)
     }
@@ -113,7 +113,7 @@ struct PlayerProfileViewModelTests {
         await viewModel.loadMatches()
 
         #expect(contextProvider.backgroundContextCount == 1)
-        #expect(viewModel.matches.map(\.id) == ["2", "1"])
+        #expect(viewModel.matches.map(\.matchId) == ["2", "1"])
         #expect(viewModel.matchLoading == false)
         #expect(viewModel.error == nil)
     }
@@ -144,7 +144,7 @@ struct PlayerProfileViewModelTests {
 
     private func makeMatch(id: String, startTime: Date) -> RecentMatch {
         let match = RecentMatch(context: mainContext)
-        match.id = id
+        match.matchId = id
         match.playerId = userID
         match.startTime = startTime
         return match

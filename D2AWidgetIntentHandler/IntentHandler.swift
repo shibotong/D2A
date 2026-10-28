@@ -33,9 +33,9 @@ class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
         let results = try context.fetch(fetchRequest)
 
         let profiles: [Profile] = results.filter({ !$0.register }).map { userProfile in
-            return Profile(identifier: userProfile.id,
+            return Profile(identifier: userProfile.userId,
                            display: "\(userProfile.name ?? userProfile.personaname ?? "Unknown")",
-                           subtitle: "\(userProfile.id?.description ?? "")",
+                           subtitle: "\(userProfile.userId?.description ?? "")",
                            image: nil)
         }
         
@@ -45,9 +45,9 @@ class IntentHandler: INExtension, DynamicUserSelectionIntentHandling {
             return collection
         }
         
-        let registerProfile = Profile(identifier: registerUserProfile.id,
+        let registerProfile = Profile(identifier: registerUserProfile.userId,
                                       display: "\(registerUserProfile.name ?? registerUserProfile.personaname ?? "")",
-                                      subtitle: "\(registerUserProfile.id ?? "")",
+                                      subtitle: "\(registerUserProfile.userId ?? "")",
                                       image: nil)
         let registerSection = INObjectSection(title: "Registered", items: [registerProfile])
         if profiles.count == 0 {

@@ -122,8 +122,10 @@ struct NavigationHostView: View {
             if !favouritePlayers.isEmpty {
                 Section {
                     ForEach(favouritePlayers, id: \.self) { player in
-                        NavigationLink(destination: destination(for: .user(player.userId))) {
-                            SidebarRowView(userid: player.userId)
+                        if let userID = player.userId {
+                            NavigationLink(destination: destination(for: .user(userID))) {
+                                SidebarRowView(userid: userID)
+                            }
                         }
                     }
                 } header: {
@@ -187,10 +189,12 @@ struct NavigationHostView: View {
             if horizontalSizeClass == .regular && !favouritePlayers.isEmpty {
                 TabSection {
                     ForEach(favouritePlayers, id: \.self) { player in
-                        Tab(value: TabSelection.user(player.userId)) {
-                            destination(for: .user(player.userId))
-                        } label: {
-                            SidebarRowView(userid: player.userId)
+                        if let userID = player.userId {
+                            Tab(value: TabSelection.user(userID)) {
+                                destination(for: .user(userID))
+                            } label: {
+                                SidebarRowView(userid: userID)
+                            }
                         }
                         
                     }
@@ -207,7 +211,7 @@ struct SidebarRowView: View {
     @FetchRequest var profile: FetchedResults<UserProfile>
     
     init(userid: String) {
-        _profile = FetchRequest<UserProfile>(sortDescriptors: [], predicate: NSPredicate(format: "id == %@", userid))
+        _profile = FetchRequest<UserProfile>(sortDescriptors: [], predicate: NSPredicate(format: "userId == %@", userid))
     }
     
     var body: some View {

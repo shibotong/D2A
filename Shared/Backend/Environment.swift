@@ -88,7 +88,7 @@ final class DotaEnvironment: ObservableObject {
             return
         }
         players.forEach { player in
-            guard let playerID = player.id else { return }
+            guard let playerID = player.userId else { return }
             PersistenceProvider.shared.deleteRecentMatchesForUserID(userID: playerID)
         }
     }

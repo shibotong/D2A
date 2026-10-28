@@ -25,7 +25,7 @@ struct D2AWidgetUser {
                                           leaderboard: nil)
     
     init?(_ profile: UserProfile, image: UIImage?, matches: [RecentMatch]) {
-        guard let userID = profile.id,
+        guard let userID = profile.userId,
               let userName = profile.personaname else {
                   return nil
               }

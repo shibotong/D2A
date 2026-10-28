@@ -120,7 +120,7 @@ extension PlayerProfileView {
             }
             let context = contextProvider.mainContext
             let request = UserProfile.fetchRequest()
-            request.predicate = NSPredicate(format: "id = %@", userID)
+            request.predicate = NSPredicate(format: "userId = %@", userID)
             request.fetchLimit = 1
             do {
                 guard let user = try context.fetch(request).first else {

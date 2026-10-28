@@ -16,7 +16,7 @@ struct MatchView: View {
     private var matchid: String
     
     init(matchid: String) {
-        _match = FetchRequest<Match>(sortDescriptors: [], predicate: NSPredicate(format: "id = %@", matchid))
+        _match = FetchRequest<Match>(sortDescriptors: [], predicate: NSPredicate(format: "matchId = %@", matchid))
         self.matchid = matchid
     }
     
@@ -44,7 +44,7 @@ struct MatchView: View {
                 }
             }
             .listStyle(.plain)
-            .navigationTitle("ID: \(match.id ?? "")")
+            .navigationTitle("ID: \(match.matchId ?? "")")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 Button {
