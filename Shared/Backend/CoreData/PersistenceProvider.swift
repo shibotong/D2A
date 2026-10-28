@@ -70,6 +70,13 @@ final class PersistenceProvider: CoreDataContextProviding, Sendable {
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         } else {
+            do {
+                try StoreMigrationManager().migrateIfNeeded(at: storeURL)
+            } catch {
+                fatalError("Core Data migration failed; the existing store was retained: \(error)")
+            }
+            description.shouldMigrateStoreAutomatically = false
+            description.shouldInferMappingModelAutomatically = false
             container.persistentStoreDescriptions = [description]
         }
         
