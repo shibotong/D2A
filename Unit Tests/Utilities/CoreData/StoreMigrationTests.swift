@@ -4,6 +4,51 @@ import Testing
 
 struct StoreMigrationTests {
     @Test
+    func missingStoreDoesNotLoadModels() throws {
+        let url = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString).appendingPathComponent("missing.sqlite")
+        let manager = StoreMigrationManager(storeURL: url, modelLoader: { _ in
+            throw MigrationError.missingModel("unexpected model load")
+        })
+        try manager.migrateIfNeeded()
+        #expect(!FileManager.default.fileExists(atPath: url.path))
+    }
+
+    @Test
+    func modelLoadingFailureIsThrown() {
+        let migration = StoreMigrationV3(modelLoader: { _ in
+            throw MigrationError.missingModel("fixture")
+        })
+        #expect(throws: MigrationError.missingModel("fixture")) {
+            _ = try migration.sourceModel
+        }
+        #expect(throws: MigrationError.missingModel("fixture")) {
+            _ = try migration.destinationModel
+        }
+    }
+
+    @Test
+    func plansMigrationWithoutOpeningStore() throws {
+        let bundle = Bundle(for: PersistenceProvider.self)
+        let source = try StoreMigrationManager.model(version: 2, bundle: bundle)
+        let destination = try StoreMigrationManager.model(version: 3, bundle: bundle)
+        let manager = StoreMigrationManager(
+            storeURL: URL(fileURLWithPath: "/unused.sqlite"),
+            modelLoader: { $0 == 2 ? source : destination }
+        )
+        let steps = try manager.migrationSteps(for: [
+            NSStoreModelVersionHashesKey: source.entityVersionHashesByName
+        ])
+        #expect(steps.map(\.sourceVersion) == [2])
+        #expect(try manager.migrationSteps(for: [
+            NSStoreModelVersionHashesKey: destination.entityVersionHashesByName
+        ]).isEmpty)
+        #expect(throws: MigrationError.unsupportedStoreVersion) {
+            try manager.migrationSteps(for: [:])
+        }
+    }
+
+    @Test
     func rejectsVersion1WithoutChangingStore() throws {
         let bundle = Bundle(for: PersistenceProvider.self)
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
@@ -16,8 +61,8 @@ struct StoreMigrationTests {
         let store = try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url)
         try coordinator.remove(store)
 
-        #expect(throws: MigrationError.self) {
-            try StoreMigrationManager().migrateIfNeeded(at: url, bundle: bundle)
+        #expect(throws: MigrationError.unsupportedStoreVersion) {
+            try StoreMigrationManager(storeURL: url, bundle: bundle).migrateIfNeeded()
         }
         let metadata = try NSPersistentStoreCoordinator.metadataForPersistentStore(ofType: NSSQLiteStoreType, at: url)
         #expect(source.isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata))
@@ -25,10 +70,9 @@ struct StoreMigrationTests {
 
     @Test
     func preservesRenamedValuesRelationshipsAndDeduplicates() throws {
-        let migration = StoreMigrationManager()
         let bundle = Bundle(for: PersistenceProvider.self)
-        let source = try migration.model(version: 2, bundle: bundle)
-        let destination = try migration.model(version: 3, bundle: bundle)
+        let source = try StoreMigrationManager.model(version: 2, bundle: bundle)
+        let destination = try StoreMigrationManager.model(version: 3, bundle: bundle)
         // Use generic managed objects so fixtures can still write version 2 attribute names.
         for entity in source.entities { entity.managedObjectClassName = "NSManagedObject" }
         for entity in destination.entities { entity.managedObjectClassName = "NSManagedObject" }
@@ -70,7 +114,8 @@ struct StoreMigrationTests {
         }
         try coordinator.remove(store)
 
-        let invalidDestination = try migration.model(version: 3, bundle: bundle)
+        let migration = StoreMigrationManager(storeURL: url, bundle: bundle)
+        let invalidDestination = try StoreMigrationManager.model(version: 3, bundle: bundle)
         let required = NSAttributeDescription()
         required.name = "requiredMigrationTestValue"
         required.attributeType = .stringAttributeType
@@ -78,14 +123,21 @@ struct StoreMigrationTests {
         let invalidHero = try #require(invalidDestination.entitiesByName["Hero"])
         invalidHero.properties.append(required)
         #expect(throws: (any Error).self) {
-            try migration.migrate(at: url, from: source, to: invalidDestination)
+            try StoreMigrationManager(
+                storeURL: url,
+                bundle: bundle,
+                modelLoader: { $0 == 2 ? source : invalidDestination }
+            ).migrateIfNeeded()
         }
         let metadata = try NSPersistentStoreCoordinator.metadataForPersistentStore(ofType: NSSQLiteStoreType, at: url)
         #expect(source.isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata))
 
-        try migration.migrateIfNeeded(at: url, bundle: bundle)
+        #expect(try FileManager.default.contentsOfDirectory(atPath: directory.path).allSatisfy {
+            !$0.hasPrefix("Migration-")
+        })
+        try migration.migrateIfNeeded()
         // Reopening an already migrated store must be a no-op.
-        try migration.migrateIfNeeded(at: url, bundle: bundle)
+        try migration.migrateIfNeeded()
         let migrated = NSPersistentStoreCoordinator(managedObjectModel: destination)
         let migratedStore = try migrated.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url)
         defer { try? migrated.remove(migratedStore) }

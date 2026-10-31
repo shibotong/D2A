@@ -5,13 +5,12 @@ protocol StoreMigrating {
     
     var sourceVersion: Int { get }
     
-    var destinationModel: NSManagedObjectModel { get }
+    var destinationModel: NSManagedObjectModel { get throws }
     
-    var sourceModel: NSManagedObjectModel { get }
+    var sourceModel: NSManagedObjectModel { get throws }
 
     func migrate(from sourceURL: URL, to destinationURL: URL) throws -> NSManagedObjectModel
     
-    func needMigration(metadata: [String: Any]) -> Bool
 }
 
 extension StoreMigrating {
@@ -21,7 +20,7 @@ extension StoreMigrating {
     }
 }
 
-enum MigrationError: Error {
+enum MigrationError: Error, Equatable {
     case missingModel(String)
     case unsupportedStoreVersion
     case invalidModelCopy
@@ -40,22 +39,55 @@ class StoreMigrationManager {
     }
     
     private let migrations: [any StoreMigrating]
-    private let currentModel: Int = 3
+    private let currentModelVersion: Int
     private let fileManager: FileManager
     private let storeURL: URL
-    private let bundle: Bundle
+    private let modelLoader: (Int) throws -> NSManagedObjectModel
     private let logger: D2ALogger
     
-    init(storeURL: URL, migrationSteps: [any StoreMigrating] = [
-        StoreMigrationV3()
-    ], fileManager: FileManager = .default, bundle: Bundle = .main, logger: D2ALogger = .shared) {
+    init(
+        storeURL: URL,
+        migrationSteps: [any StoreMigrating]? = nil,
+        fileManager: FileManager = .default,
+        bundle: Bundle = .main,
+        logger: D2ALogger = .shared,
+        currentModelVersion: Int = 3,
+        modelLoader: ((Int) throws -> NSManagedObjectModel)? = nil
+    ) {
+        let loader = modelLoader ?? { try Self.model(version: $0, bundle: bundle) }
         self.storeURL = storeURL
-        self.migrations = migrationSteps
+        self.migrations = migrationSteps ?? [StoreMigrationV3(modelLoader: loader, logger: logger)]
         self.fileManager = fileManager
-        self.bundle = bundle
+        self.modelLoader = loader
+        self.currentModelVersion = currentModelVersion
         self.logger = logger
     }
-    
+
+    /// Resolves the entire path before modifying a store. This can be tested with metadata alone.
+    func migrationSteps(for metadata: [String: Any]) throws -> [any StoreMigrating] {
+        let currentModel = try modelLoader(currentModelVersion)
+        if currentModel.isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata) {
+            return []
+        }
+
+        let sorted = migrations.sorted { $0.sourceVersion < $1.sourceVersion }
+        var candidateMetadata = metadata
+        var result: [any StoreMigrating] = []
+        for step in sorted {
+            let source = try step.sourceModel
+            guard source.isConfiguration(withName: nil, compatibleWithStoreMetadata: candidateMetadata) else {
+                continue
+            }
+            let destination = try step.destinationModel
+            result.append(step)
+            candidateMetadata = [NSStoreModelVersionHashesKey: destination.entityVersionHashesByName]
+            if currentModel.isConfiguration(withName: nil, compatibleWithStoreMetadata: candidateMetadata) {
+                return result
+            }
+        }
+        throw MigrationError.unsupportedStoreVersion
+    }
+
     func migrateIfNeeded() throws {
         logger.debug("Start CoreData migrating...", category: .coreData)
         guard fileManager.fileExists(atPath: storeURL.path) else {
@@ -67,20 +99,9 @@ class StoreMigrationManager {
             ofType: NSSQLiteStoreType, at: storeURL, options: [NSReadOnlyPersistentStoreOption: true]
         )
         
-        logger.notice("Metadata is not compatible with current store version (version \(currentModel)). Needs migration...", category: .coreData)
-        var migrationSteps: [any StoreMigrating] = []
-        
-        for migration in migrations {
-            if migration.needMigration(metadata: metadata) {
-                logger.notice("Metadata is not compatible with model version \(migration.destinationVersion), needs migration...", category: .coreData)
-                migrationSteps.insert(migration, at: 0)
-            } else {
-                logger.notice("Metadata is compatible with model version \(migration.destinationVersion). Stop checking...", category: .coreData)
-                break
-            }
+        for step in try migrationSteps(for: metadata) {
+            try migrateStore(step: step)
         }
-        
-        try migrationSteps.forEach { try migrateStore(step: $0) }
     }
     
     private func migrateStore(step: any StoreMigrating) throws {

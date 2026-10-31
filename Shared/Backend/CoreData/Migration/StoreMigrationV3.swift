@@ -7,28 +7,27 @@ class StoreMigrationV3: StoreMigrating {
     
     let sourceVersion: Int = 2
     
-    lazy var sourceModel: NSManagedObjectModel = {
-        return try! StoreMigrationManager.model(version: sourceVersion, bundle: bundle)
-    }()
-    
-    lazy var destinationModel: NSManagedObjectModel = {
-        return try! StoreMigrationManager.model(version: destinationVersion, bundle: bundle)
-    }()
-    
-    private let bundle: Bundle
+    var sourceModel: NSManagedObjectModel {
+        get throws { try modelLoader(sourceVersion) }
+    }
+
+    var destinationModel: NSManagedObjectModel {
+        get throws { try modelLoader(destinationVersion) }
+    }
+
+    private let modelLoader: (Int) throws -> NSManagedObjectModel
     private let logger: D2ALogger
-    
+
     init(bundle: Bundle = .main, logger: D2ALogger = .shared) {
-        self.bundle = bundle
+        self.modelLoader = { try StoreMigrationManager.model(version: $0, bundle: bundle) }
         self.logger = logger
     }
-    
-    /// The store needs migration from this version
-    func needMigration(metadata: [String: Any]) -> Bool {
-        logger.debug("Checking store is compatible with model version \(destinationVersion)...", category: .coreData)
-        return !destinationModel.isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata)
+
+    init(modelLoader: @escaping (Int) throws -> NSManagedObjectModel, logger: D2ALogger = .shared) {
+        self.modelLoader = modelLoader
+        self.logger = logger
     }
-    
+
     /// Copies legacy stores into a separate store, leaving the source untouched until saving succeeds.
     func migrate(
         from sourceURL: URL, to destinationURL: URL
