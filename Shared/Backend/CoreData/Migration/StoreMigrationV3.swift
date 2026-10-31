@@ -4,7 +4,7 @@ import CoreData
 /// Manually copies a version 2 store into the version 3 schema.
 class StoreMigrationV3: StoreMigrating {
     
-    let destinationVersion: Int = 3
+    let sourceVersion: Int = 2
 
     private let renamedAttributes = [
         "Ability": ["abilityId": "abilityID"],
@@ -15,28 +15,33 @@ class StoreMigrationV3: StoreMigrating {
         "UserProfile": ["userId": "id"]
     ]
     
-    private lazy var sourceModel: NSManagedObjectModel = {
+    lazy var sourceModel: NSManagedObjectModel = {
         return try! StoreMigrationManager.model(version: sourceVersion, bundle: bundle)
     }()
     
-    private lazy var destinationModel: NSManagedObjectModel = {
+    lazy var destinationModel: NSManagedObjectModel = {
         return try! StoreMigrationManager.model(version: destinationVersion, bundle: bundle)
     }()
     
     private let bundle: Bundle
+    private let logger: D2ALogger
     
-    init(bundle: Bundle = .main) {
+    init(bundle: Bundle = .main, logger: D2ALogger = .shared) {
         self.bundle = bundle
+        self.logger = logger
     }
     
+    /// The store needs migration from this version
     func needMigration(metadata: [String: Any]) -> Bool {
-        return sourceModel.isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata)
+        logger.debug("Checking store is compatible with model version \(destinationVersion)...", category: .coreData)
+        return destinationModel.isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata)
     }
     
     /// Copies legacy stores into a separate store, leaving the source untouched until saving succeeds.
     func migrate(
         from sourceURL: URL, to destinationURL: URL
-    ) throws {
+    ) throws -> NSManagedObjectModel {
+        logger.info("Migrating store from model version \(sourceVersion), to \(destinationVersion)", category: .coreData)
         // Legacy keys must be accessed through KVC, not the generated version 3 subclasses.
         let sourceModel = try plainModel(sourceModel)
         let destinationModel = try plainModel(destinationModel)
@@ -169,6 +174,7 @@ class StoreMigrationV3: StoreMigrating {
         }
         try destinationCoordinator.remove(destinationStore)
         try sourceCoordinator.remove(sourceStore)
+        logger.info("Finish migrating store from model version \(sourceVersion), to \(destinationVersion)", category: .coreData)
     }
 
     private func plainModel(_ model: NSManagedObjectModel) throws -> NSManagedObjectModel {
