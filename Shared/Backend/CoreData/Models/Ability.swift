@@ -50,4 +50,23 @@ extension Ability {
         }
         return abilityLocalizations.first(where: { $0.language == language.rawValue })
     }
+    
+    func map(dto: any AbilityDTO) {
+        setIfNotEqual(entity: self, path: \.name, value: dto.name)
+        setIfNotEqual(entity: self, path: \.abilityID, value: Int16(dto.abilityID))
+        setIfNotEqual(entity: self, path: \.behavior, value: dto.behavior?.joined(separator: " / "))
+        setIfNotEqual(entity: self, path: \.bkbPierce, value: dto.bkbpierce?.joined(separator: " / "))
+        setIfNotEqual(entity: self, path: \.coolDown, value: dto.cd?.joined(separator: " / "))
+        setIfNotEqual(entity: self, path: \.damageType, value: dto.dmgType?.joined(separator: " / "))
+        setIfNotEqual(entity: self, path: \.desc, value: dto.desc)
+        setIfNotEqual(entity: self, path: \.dispellable, value: dto.dispellable)
+        setIfNotEqual(entity: self, path: \.dname, value: dto.dname)
+        setIfNotEqual(entity: self, path: \.lore, value: dto.lore)
+        setIfNotEqual(entity: self, path: \.manaCost, value: dto.mc?.joined(separator: " / "))
+        setIfNotEqual(entity: self, path: \.targetTeam, value: dto.targetTeam?.joined(separator: " / "))
+        setIfNotEqual(entity: self, path: \.targetType, value: dto.targetType?.joined(separator: " / "))
+        if let img = dto.img {
+            setIfNotEqual(entity: self, path: \.img, value: img)
+        }
+    }
 }
