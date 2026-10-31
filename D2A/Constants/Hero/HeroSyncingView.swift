@@ -15,12 +15,10 @@ struct HeroSyncingView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                ProgressView()
-                Text("Fetching constant data (\(currentProcess)/\(totalProcess))")
-            }
-            .font(.subheadline)
-            .foregroundStyle(.secondary)
+            ProgressView()
+            Text("Loading Hero Data (\(currentProcess)/\(totalProcess))")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
             ProgressView(value: progress)
                 .progressViewStyle(.linear)
                 .frame(width: 200)
