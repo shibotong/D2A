@@ -29,5 +29,7 @@ class AppConfig: AppConfigProtocol {
         }
     }()
     
-    let processors: Int = ProcessInfo.processInfo.processorCount
+    var processors: Int {
+        max(1, ProcessInfo.processInfo.activeProcessorCount)
+    }
 }

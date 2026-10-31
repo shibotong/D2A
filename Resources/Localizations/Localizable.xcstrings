@@ -643,16 +643,6 @@
         }
       }
     },
-    "Fetching constant data (%lld/%lld)" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Fetching constant data (%1$lld/%2$lld)"
-          }
-        }
-      }
-    },
     "Follow" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1024,6 +1014,16 @@
     },
     "LOADING" : {
 
+    },
+    "Loading Hero Data (%lld/%lld)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Loading Hero Data (%1$lld/%2$lld)"
+          }
+        }
+      }
     },
     "Loading..." : {
       "extractionState" : "manual",
