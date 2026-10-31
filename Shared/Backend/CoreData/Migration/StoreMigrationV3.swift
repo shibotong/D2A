@@ -26,7 +26,7 @@ class StoreMigrationV3: StoreMigrating {
     /// The store needs migration from this version
     func needMigration(metadata: [String: Any]) -> Bool {
         logger.debug("Checking store is compatible with model version \(destinationVersion)...", category: .coreData)
-        return destinationModel.isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata)
+        return !destinationModel.isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata)
     }
     
     /// Copies legacy stores into a separate store, leaving the source untouched until saving succeeds.

@@ -84,7 +84,7 @@ class StoreMigrationManager {
     }
     
     private func migrateStore(step: any StoreMigrating) throws {
-        let temporaryDirectory = try copyStore()
+        let temporaryDirectory = try createMigrationDirectory()
         defer {
             logger.debug("Removing temporary create store for migration...", category: .coreData)
             try? fileManager.removeItem(at: temporaryDirectory)
@@ -101,7 +101,7 @@ class StoreMigrationManager {
         )
     }
     
-    private func copyStore() throws -> URL {
+    private func createMigrationDirectory() throws -> URL {
         logger.debug("Copying current store for migration...", category: .coreData)
         let temporaryDirectory = storeURL.deletingLastPathComponent()
             .appendingPathComponent("Migration-" + UUID().uuidString, isDirectory: true)
