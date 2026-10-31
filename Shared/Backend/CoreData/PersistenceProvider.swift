@@ -14,6 +14,7 @@ enum PersistenceError: Error {
     case abilityNotFound(Int)
 }
 
+@MainActor
 protocol CoreDataContextProviding {
     @MainActor
     var mainContext: NSManagedObjectContext { get }
@@ -30,8 +31,9 @@ extension CoreDataContextProviding {
     }
 }
 
-nonisolated
-final class PersistenceProvider: CoreDataContextProviding, Sendable {
+final class PersistenceProvider: ObservableObject, CoreDataContextProviding, Sendable {
+    
+    @Published var isMigrating: Bool = false
     
     static let shared = PersistenceProvider()
 
@@ -71,7 +73,7 @@ final class PersistenceProvider: CoreDataContextProviding, Sendable {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         } else {
             do {
-                try StoreMigrationManager().migrateIfNeeded(at: storeURL)
+                try StoreMigrationManager(storeURL: storeURL).migrateIfNeeded()
             } catch {
                 fatalError("Core Data migration failed; the existing store was retained: \(error)")
             }
@@ -103,6 +105,7 @@ final class PersistenceProvider: CoreDataContextProviding, Sendable {
         return backgroundContext(name: author)
     }
     
+    nonisolated
     func backgroundContext(name: String?) -> NSManagedObjectContext {
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = container.viewContext

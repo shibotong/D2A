@@ -175,6 +175,7 @@ class StoreMigrationV3: StoreMigrating {
         try destinationCoordinator.remove(destinationStore)
         try sourceCoordinator.remove(sourceStore)
         logger.info("Finish migrating store from model version \(sourceVersion), to \(destinationVersion)", category: .coreData)
+        return destinationModel
     }
 
     private func plainModel(_ model: NSManagedObjectModel) throws -> NSManagedObjectModel {
