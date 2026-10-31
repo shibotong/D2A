@@ -1,5 +1,6 @@
 import CoreData
 
+nonisolated
 protocol StoreMigrating {
     
     var sourceVersion: Int { get }
@@ -14,6 +15,7 @@ protocol StoreMigrating {
 }
 
 extension StoreMigrating {
+    nonisolated
     var destinationVersion: Int {
         return sourceVersion + 1
     }
@@ -25,6 +27,7 @@ enum MigrationError: Error {
     case invalidModelCopy
 }
 
+nonisolated
 class StoreMigrationManager {
     
     static func model(version: Int, bundle: Bundle) throws -> NSManagedObjectModel {
@@ -36,19 +39,18 @@ class StoreMigrationManager {
         return model
     }
     
-    let migrations: [any StoreMigrating] = [
-        StoreMigrationV3()
-    ]
-    
+    private let migrations: [any StoreMigrating]
     private let currentModel: Int = 3
-    
     private let fileManager: FileManager
     private let storeURL: URL
     private let bundle: Bundle
     private let logger: D2ALogger
     
-    init(storeURL: URL, fileManager: FileManager = .default, bundle: Bundle = .main, logger: D2ALogger = .shared) {
+    init(storeURL: URL, migrationSteps: [any StoreMigrating] = [
+        StoreMigrationV3()
+    ], fileManager: FileManager = .default, bundle: Bundle = .main, logger: D2ALogger = .shared) {
         self.storeURL = storeURL
+        self.migrations = migrationSteps
         self.fileManager = fileManager
         self.bundle = bundle
         self.logger = logger
@@ -60,8 +62,6 @@ class StoreMigrationManager {
             logger.notice("CoreData store doesn't exist at \(storeURL.path). Create a new file...", category: .coreData)
             return
         }
-        
-        let destinationModel = try Self.model(version: currentModel, bundle: bundle)
         
         let metadata = try NSPersistentStoreCoordinator.metadataForPersistentStore(
             ofType: NSSQLiteStoreType, at: storeURL, options: [NSReadOnlyPersistentStoreOption: true]

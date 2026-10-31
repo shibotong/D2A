@@ -14,7 +14,6 @@ enum PersistenceError: Error {
     case abilityNotFound(Int)
 }
 
-@MainActor
 protocol CoreDataContextProviding {
     @MainActor
     var mainContext: NSManagedObjectContext { get }
@@ -31,9 +30,8 @@ extension CoreDataContextProviding {
     }
 }
 
-final class PersistenceProvider: ObservableObject, CoreDataContextProviding, Sendable {
-    
-    @Published var isMigrating: Bool = false
+nonisolated
+final class PersistenceProvider: CoreDataContextProviding, Sendable {
     
     static let shared = PersistenceProvider()
 

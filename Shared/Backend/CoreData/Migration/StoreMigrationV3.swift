@@ -2,6 +2,7 @@ import Foundation
 import CoreData
 
 /// Manually copies a version 2 store into the version 3 schema.
+nonisolated
 class StoreMigrationV3: StoreMigrating {
     
     let sourceVersion: Int = 2
