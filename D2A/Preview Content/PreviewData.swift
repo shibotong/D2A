@@ -63,7 +63,7 @@ class PreviewData {
         static private func fetch(name: String) -> Ability {
             let context = PreviewData.persistenceProvider.mainContext
             let dataService = DataPersistenceService.shared
-            return try! dataService.fetch(ability: name, context: context)!
+            return try! Ability.fetch(name: name, context: context)!
         }
     }
     
