@@ -6,15 +6,6 @@ nonisolated
 class StoreMigrationV3: StoreMigrating {
     
     let sourceVersion: Int = 2
-
-    private let renamedAttributes = [
-        "Ability": ["abilityId": "abilityID"],
-        "AbilityTranslation": ["abilityId": "abilityID"],
-        "Hero": ["heroId": "id"],
-        "Match": ["matchId": "id"],
-        "RecentMatch": ["heroId": "heroID", "matchId": "id"],
-        "UserProfile": ["userId": "id"]
-    ]
     
     lazy var sourceModel: NSManagedObjectModel = {
         return try! StoreMigrationManager.model(version: sourceVersion, bundle: bundle)
@@ -42,6 +33,16 @@ class StoreMigrationV3: StoreMigrating {
     func migrate(
         from sourceURL: URL, to destinationURL: URL
     ) throws -> NSManagedObjectModel {
+        
+        let renamedAttributes = [
+            "Ability": ["abilityId": "abilityID"],
+            "AbilityTranslation": ["abilityId": "abilityID"],
+            "Hero": ["heroId": "id"],
+            "Match": ["matchId": "id"],
+            "RecentMatch": ["heroId": "heroID", "matchId": "id"],
+            "UserProfile": ["userId": "id"]
+        ]
+        
         logger.info("Migrating store from model version \(sourceVersion), to \(destinationVersion)", category: .coreData)
         // Legacy keys must be accessed through KVC, not the generated version 3 subclasses.
         let sourceModel = try plainModel(sourceModel)
