@@ -9,9 +9,18 @@ import CoreData
 
 extension Ability {
     
+    nonisolated
     static func fetch(abilityID: Int, context: NSManagedObjectContext) throws -> Ability? {
-        let fetchRequest = fetchRequest()
+        let fetchRequest = NSFetchRequest<Ability>(entityName: "Ability")
         let predicate = NSPredicate(format: "abilityID = %d", abilityID)
+        fetchRequest.predicate = predicate
+        return try context.fetch(fetchRequest).first
+    }
+    
+    nonisolated
+    static func fetch(name: String, context: NSManagedObjectContext) throws -> Ability? {
+        let fetchRequest = NSFetchRequest<Ability>(entityName: "Ability")
+        let predicate = NSPredicate(format: "name = %@", name)
         fetchRequest.predicate = predicate
         return try context.fetch(fetchRequest).first
     }
@@ -51,7 +60,7 @@ extension Ability {
         return abilityLocalizations.first(where: { $0.language == language.rawValue })
     }
     
-    func map(dto: any AbilityDTO) {
+    nonisolated func map(dto: any AbilityDTO) {
         setIfNotEqual(entity: self, path: \.name, value: dto.name)
         setIfNotEqual(entity: self, path: \.abilityID, value: Int16(dto.abilityID))
         setIfNotEqual(entity: self, path: \.behavior, value: dto.behavior?.joined(separator: " / "))

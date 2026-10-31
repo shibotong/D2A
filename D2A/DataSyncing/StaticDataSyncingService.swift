@@ -103,9 +103,10 @@ class StaticDataSyncingService: ObservableObject {
             async let abilitiesAsync = openDota.abilities()
             let (abilityIDs, abilities) = try await (abilityIDAsync, abilitiesAsync)
             return persistence.sortAbilities(abilityIDs: abilityIDs, abilities: abilities)
-        } saving: { ability, context in
-            self.logger.trace("Saving ability \(ability.abilityID)", category: .sync)
-            try persistence.save(abilityID: ability.abilityID, name: ability.name, data: ability.data, in: context)
+        } saving: { abilityDTO, context in
+            self.logger.trace("Saving ability \(abilityDTO.abilityID)", category: .sync)
+            let ability = try Ability.fetch(abilityID: abilityDTO.abilityID, context: context) ?? Ability(context: context)
+            ability.map(dto: abilityDTO)
         }
     }
     

@@ -5,6 +5,7 @@
 //  Created by Shibo Tong on 31/10/2026.
 //
 
+nonisolated
 protocol AbilityDTO: Sendable {
     var abilityID: Int { get }
     var name: String { get }

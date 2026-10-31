@@ -146,11 +146,7 @@ class DataPersistenceService {
     
     // MARK: Ability
     
-    @available(*, deprecated, message: "use Ability static fetch function")
-    func fetch(abilityID: Int, context: NSManagedObjectContext) throws -> Ability? {
-        try Ability.fetch(abilityID: abilityID, context: context)
-    }
-    
+    @available(*, deprecated, renamed: "Ability.fetch", message: "Use static func")
     func fetch(ability name: String, context: NSManagedObjectContext) throws -> Ability? {
         let fetchRequest = Ability.fetchRequest()
         let predicate = NSPredicate(format: "name = %@", name)
@@ -176,26 +172,6 @@ class DataPersistenceService {
             }
         }
         return try context.fetch(fetchRequest)
-    }
-    
-    func save(abilityID: Int, name: String, data: ODAbility, in context: NSManagedObjectContext) throws {
-        let ability = try Ability.fetch(abilityID: abilityID, context: context) ?? Ability(context: context)
-        setIfNotEqual(entity: ability, path: \.name, value: name)
-        setIfNotEqual(entity: ability, path: \.abilityID, value: Int16(abilityID))
-        setIfNotEqual(entity: ability, path: \.behavior, value: data.behavior?.joined(separator: " / "))
-        setIfNotEqual(entity: ability, path: \.bkbPierce, value: data.bkbpierce?.joined(separator: " / "))
-        setIfNotEqual(entity: ability, path: \.coolDown, value: data.cd?.joined(separator: " / "))
-        setIfNotEqual(entity: ability, path: \.damageType, value: data.dmgType?.joined(separator: " / "))
-        setIfNotEqual(entity: ability, path: \.desc, value: data.desc)
-        setIfNotEqual(entity: ability, path: \.dispellable, value: data.dispellable)
-        setIfNotEqual(entity: ability, path: \.dname, value: data.dname)
-        setIfNotEqual(entity: ability, path: \.lore, value: data.lore)
-        setIfNotEqual(entity: ability, path: \.manaCost, value: data.mc?.joined(separator: " / "))
-        setIfNotEqual(entity: ability, path: \.targetTeam, value: data.targetTeam?.joined(separator: " / "))
-        setIfNotEqual(entity: ability, path: \.targetType, value: data.targetType?.joined(separator: " / "))
-        if let img = data.img {
-            setIfNotEqual(entity: ability, path: \.img, value: img)
-        }
     }
     
     func fetch(abilityID: Int, language: DataLanguageEnum, context: NSManagedObjectContext) throws -> AbilityTranslation? {

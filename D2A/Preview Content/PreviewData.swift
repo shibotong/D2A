@@ -29,8 +29,9 @@ class PreviewData {
         let abilityIDs = PreviewConstantData.abilityIDs
         let abilityJSON = PreviewConstantData.abilities
         let abilities = persistenceService.sortAbilities(abilityIDs: abilityIDs, abilities: abilityJSON)
-        for ability in abilities {
-            try persistenceService.save(abilityID: ability.abilityID, name: ability.name, data: ability.data, in: context)
+        for abilityDTO in abilities {
+            let ability = try Ability.fetch(abilityID: abilityDTO.abilityID, context: context)
+            ability?.map(dto: abilityDTO)
         }
         
         let heroJSON = PreviewConstantData.heroes
