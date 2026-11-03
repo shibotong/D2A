@@ -194,7 +194,8 @@ class DataPersistenceService {
     
     func save(ability: SKAbility, language: DataLanguageEnum, in context: NSManagedObjectContext) throws {
         guard let rootAbility = try Ability.fetch(abilityID: ability.id, context: context) else {
-            throw PersistenceError.abilityNotFound(ability.id)
+            logger.warning("Ability \(ability.id) doesn't exist", category: .sync)
+            return
         }
         var translation: AbilityTranslation
         if let savedTranslation = try fetch(abilityID: ability.id, language: language, context: context) {
