@@ -19,7 +19,7 @@ enum LoggingCategory: String, CaseIterable {
 }
 
 nonisolated
-class D2ALogger {
+final class D2ALogger: Sendable {
     
     static let shared = D2ALogger()
     
@@ -50,6 +50,7 @@ class D2ALogger {
         saveLogSettings()
     }
     
+    @MainActor
     func updateLogLevel(category: LoggingCategory, level: Logger.Level) {
         guard let index = loggers.firstIndex(where: { $0.label == category.rawValue }) else {
             critical("Logger \(category.rawValue) doesn't exist", category: .setting)
