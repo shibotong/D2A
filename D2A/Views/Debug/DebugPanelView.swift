@@ -21,7 +21,11 @@ struct DebugPanelView: View {
                 Button {
                     viewModel.deleteConstantData()
                     Task {
-                        try await syncingService.startSyncing()
+                        do {
+                            try await syncingService.startSyncing()
+                        } catch {
+                            print(error)
+                        }
                     }
                     environment.selectedTab = .hero
                 } label: {

@@ -16,7 +16,7 @@ class PreviewData {
         return provider
     }()
     
-    static let syncingService: StaticDataSyncingService = StaticDataSyncingService(contextProvider: persistenceProvider, syncingTimer: PreviewSyncingTimer())
+    static let syncingService: StaticDataSyncingService = StaticDataSyncingService(isCompleted: true, contextProvider: persistenceProvider, syncingTimer: PreviewSyncingTimer())
     
     static var heroes: [Hero] {
         let context = Self.persistenceProvider.mainContext

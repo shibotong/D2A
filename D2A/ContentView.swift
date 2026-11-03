@@ -18,27 +18,21 @@ struct ContentView: View {
     private var heroes: FetchedResults<Hero>
     
     var body: some View {
-        Group {
-            if !syncingService.isCompleted && heroes.count < 100 {
-                HeroSyncingView(currentProcess: syncingService.currentProcess, totalProcess: syncingService.totalProcesses, progress: syncingService.syncingProgress)
-            } else {
-                NavigationHostView()
-                    .sheet(isPresented: $env.subscriptionSheet, content: {
-                        StoreView()
-                            .environmentObject(env)
-                            .environmentObject(store)
-                    })
+        NavigationHostView()
+            .sheet(isPresented: $env.subscriptionSheet, content: {
+                StoreView()
+                    .environmentObject(env)
+                    .environmentObject(store)
+            })
+            .alert(isPresented: $env.error, content: {
+                Alert(title: Text("Error"), message: Text(env.errorMessage), dismissButton: .cancel())
+            })
+            .task {
+                try? await syncingService.startSyncing()
             }
-        }
-        .alert(isPresented: $env.error, content: {
-            Alert(title: Text("Error"), message: Text(env.errorMessage), dismissButton: .cancel())
-        })
-        .task {
-            try? await syncingService.startSyncing()
-        }
-        .task {
-            await store.setupStore()
-        }
+            .task {
+                await store.setupStore()
+            }
     }
 }
 

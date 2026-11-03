@@ -10,37 +10,48 @@ import CryptoKit
 
 struct HeroListView: View {
     @EnvironmentObject var syncingService: StaticDataSyncingService
-    @StateObject var viewModel: HeroListViewModel = HeroListViewModel()
+    @StateObject var viewModel: HeroListViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSize
     
+    init(viewModel: HeroListViewModel = HeroListViewModel()) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     var body: some View {
-        buildBody()
-            .searchable(text: $viewModel.searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
-            .disableAutocorrection(true)
-            .toolbar {
-                if horizontalSize == .compact {
-                    Menu {
-                        Picker("picker", selection: $viewModel.gridView) {
-                            Label("Icons", systemImage: "square.grid.2x2").tag(true)
-                            Label("List", systemImage: "list.bullet").tag(false)
-                        }
-                        
-                        Picker("attributes", selection: $viewModel.selectedAttribute) {
-                            Text("All").tag(HeroAttribute.whole)
-                            Label("STRENGTH", image: "attribute_str").tag(HeroAttribute.str)
-                            Label("AGILITY", image: "attribute_agi").tag(HeroAttribute.agi)
-                            Label("INTELLIGENCE", image: "attribute_int").tag(HeroAttribute.int)
-                            Label("UNIVERSAL", image: "attribute_all").tag(HeroAttribute.all)
-                        }
-                    } label: {
-                        if viewModel.gridView {
-                            Image(systemName: "square.grid.2x2")
-                        } else {
-                            Image(systemName: "list.bullet")
+        if viewModel.heroes.count < 1 && !syncingService.isCompleted {
+            HeroSyncingView(currentProcess: syncingService.currentProcess, totalProcess: syncingService.totalProcesses, progress: syncingService.syncingProgress)
+        } else {
+            buildBody()
+                .searchable(text: $viewModel.searchString.animation(.linear), placement: .automatic, prompt: "Search Heroes")
+                .disableAutocorrection(true)
+                .toolbar {
+                    if !syncingService.isCompleted {
+                        ProgressView()
+                    }
+                    if horizontalSize == .compact {
+                        Menu {
+                            Picker("picker", selection: $viewModel.gridView) {
+                                Label("Icons", systemImage: "square.grid.2x2").tag(true)
+                                Label("List", systemImage: "list.bullet").tag(false)
+                            }
+                            
+                            Picker("attributes", selection: $viewModel.selectedAttribute) {
+                                Text("All").tag(HeroAttribute.whole)
+                                Label("STRENGTH", image: "attribute_str").tag(HeroAttribute.str)
+                                Label("AGILITY", image: "attribute_agi").tag(HeroAttribute.agi)
+                                Label("INTELLIGENCE", image: "attribute_int").tag(HeroAttribute.int)
+                                Label("UNIVERSAL", image: "attribute_all").tag(HeroAttribute.all)
+                            }
+                        } label: {
+                            if viewModel.gridView {
+                                Image(systemName: "square.grid.2x2")
+                            } else {
+                                Image(systemName: "list.bullet")
+                            }
                         }
                     }
                 }
-            }
+        }
     }
     
     @ViewBuilder private func buildBody() -> some View {
@@ -48,11 +59,6 @@ struct HeroListView: View {
             if viewModel.gridView {
                 ScrollView(.vertical, showsIndicators: false) {
                     buildSection(heroes: viewModel.searchResults, attributes: viewModel.selectedAttribute)
-                    if !syncingService.isCompleted {
-                        HeroSyncingView(currentProcess: syncingService.currentProcess,
-                                        totalProcess: syncingService.totalProcesses,
-                                        progress: syncingService.syncingProgress)
-                    }
                 }
                 .padding(.horizontal)
             } else {
@@ -177,10 +183,20 @@ struct HeroListView: View {
     }
 }
 
-#if DBEUG
+//#if DBEUG
 #Preview {
-    HeroListView()
-        .environmentObject(PreviewData.syncingService)
-        .environmentObject(PreviewData.environment)
+    NavigationStack {
+        HeroListView(viewModel: HeroListViewModel(context: PreviewData.persistenceProvider.mainContext))
+    }
+    .environmentObject(PreviewData.syncingService)
+    .environmentObject(PreviewData.environment)
 }
-#endif
+
+#Preview {
+    NavigationStack {
+        HeroListView(viewModel: HeroListViewModel(context: PreviewData.persistenceProvider.mainContext))
+    }
+    .environmentObject(StaticDataSyncingService(isCompleted: false, contextProvider: PreviewData.persistenceProvider, syncingTimer: PreviewSyncingTimer()))
+    .environmentObject(PreviewData.environment)
+}
+//#endif

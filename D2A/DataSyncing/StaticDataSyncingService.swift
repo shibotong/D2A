@@ -13,7 +13,7 @@ import Stratz
 class StaticDataSyncingService: ObservableObject {
 
     static let shared = StaticDataSyncingService()
-    @Published var isCompleted = false
+    @Published var isCompleted: Bool
     @Published var currentProcess = 0
     @Published var syncingProgress: Double = 0.0
     
@@ -35,7 +35,8 @@ class StaticDataSyncingService: ObservableObject {
     
     private var syncingActor: SyncingProgress = SyncingProgress()
     
-    init(openDota: OpenDotaFetching = OpenDotaFetcher.shared,
+    init(isCompleted: Bool = true,
+         openDota: OpenDotaFetching = OpenDotaFetcher.shared,
          stratz: StratzFetching = StratzFetcher.shared,
          contextProvider: CoreDataContextProviding = PersistenceProvider.shared,
          persistenceService: DataPersistenceService = .shared,
@@ -43,6 +44,7 @@ class StaticDataSyncingService: ObservableObject {
          logger: D2ALogger = .shared,
          notification: D2ANotification = .default,
          syncingTimer: SyncingTimerProtocol = SyncingTimer.shared) {
+        self.isCompleted = isCompleted
         self.openDota = openDota
         self.stratz = stratz
         self.contextProvider = contextProvider

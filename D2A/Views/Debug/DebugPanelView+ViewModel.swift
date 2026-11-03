@@ -24,7 +24,6 @@ extension DebugPanelView {
         func deleteConstantData() {
             batchDeleteEntity(name: "Hero")
             batchDeleteEntity(name: "Ability")
-            batchDeleteEntity(name: "HeroTranslation")
             batchDeleteEntity(name: "AbilityTranslation")
             timer.resetSyncing()
         }
