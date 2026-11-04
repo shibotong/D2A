@@ -79,10 +79,7 @@ struct PlayerProfileView: View {
                         }
                     })
                     .task {
-                        await viewModel.loadMatches()
-                        if let profileLastUpdate = profile.lastUpdate, !profileLastUpdate.isToday {
-                            await viewModel.refreshUser()
-                        }
+                        await viewModel.refreshData()
                     }
             } else {
                 ProgressView()
