@@ -70,8 +70,15 @@ extension PlayerProfileView {
             self.insertThreshold = insertThreshold
             self.refreshHandler = refreshHandler
             self.logger = logger
+        }
+        
+        func refreshData() async {
             loadUser()
             loadUserMatches()
+            await loadMatches()
+            if let profile, let profileLastUpdate = profile.lastUpdate, !profileLastUpdate.isToday {
+                await refreshUser()
+            }
         }
         
         func refreshUser() async {
@@ -116,10 +123,6 @@ extension PlayerProfileView {
         }
         
         private func loadUser() {
-            guard profile == nil else {
-                logger.debug("Profile already exist for \(userID)", category: .user)
-                return
-            }
             let context = contextProvider.mainContext
             let request = UserProfile.fetchRequest()
             request.predicate = NSPredicate(format: "id = %@", userID)
