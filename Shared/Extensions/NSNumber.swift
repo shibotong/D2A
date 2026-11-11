@@ -13,3 +13,9 @@ extension NSNumber: Comparable {
         return lhsInt < rhsInt
     }
 }
+
+extension NSNumber {
+    var intValue: Int {
+        return Int(truncating: self)
+    }
+}
